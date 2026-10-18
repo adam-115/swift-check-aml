@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Plan des parsers PEP Luxembourg</title>
+<style>
+  @page { size: A4; margin: 16mm 14mm 16mm 14mm; }
+  :root { --ink: #0f172a; --muted: #475569; --line: #cbd5e1; --soft: #f1f5f9; --accent: #047857; --warn: #b45309; }
+  * { box-sizing: border-box; }
+  body { font-family: "Segoe UI", Arial, sans-serif; color: var(--ink); font-size: 10pt; line-height: 1.45; margin: 0; background: #fff; }
+  h1 { font-size: 20pt; margin: 0 0 2mm; }
+  h2 { font-size: 13pt; margin: 7mm 0 2mm; padding-bottom: 1mm; border-bottom: 2px solid var(--accent); }
+  h3 { font-size: 11pt; margin: 5mm 0 2mm; }
+  p { margin: 1.5mm 0; }
+  .subtitle { color: var(--muted); margin-bottom: 4mm; }
+  .meta { display: flex; gap: 6mm; color: var(--muted); font-size: 9pt; margin-bottom: 5mm; }
+  .summary { display: grid; grid-template-columns: repeat(4, 1fr); gap: 3mm; margin: 4mm 0 2mm; }
+  .card { border: 1px solid var(--line); border-radius: 2mm; padding: 3mm; background: var(--soft); }
+  .card b { display: block; font-size: 16pt; color: var(--accent); }
+  .card span { font-size: 8.5pt; color: var(--muted); }
+  table { width: 100%; border-collapse: collapse; margin: 2mm 0 3mm; font-size: 9pt; page-break-inside: auto; }
+  tr { page-break-inside: avoid; }
+  th { background: var(--ink); color: #fff; text-align: left; padding: 1.6mm 2mm; font-weight: 600; }
+  td { border-bottom: 1px solid var(--line); padding: 1.6mm 2mm; vertical-align: top; }
+  tr:nth-child(even) td { background: #f8fafc; }
+  code { font-family: Consolas, monospace; font-size: 8.5pt; background: var(--soft); padding: 0 1mm; border-radius: 1mm; }
+  .tag { display: inline-block; padding: 0.3mm 1.6mm; border-radius: 1mm; font-size: 8pt; font-weight: 600; }
+  .low { background: #d1fae5; color: #065f46; }
+  .mid { background: #fef3c7; color: #92400e; }
+  .ok { color: var(--accent); font-weight: 600; }
+  .note { border-left: 3px solid var(--warn); background: #fffbeb; padding: 2mm 3mm; margin: 3mm 0; font-size: 9pt; }
+  ol li, ul li { margin: 1mm 0; }
+  .footer { margin-top: 8mm; color: var(--muted); font-size: 8pt; border-top: 1px solid var(--line); padding-top: 2mm; }
+</style>
+</head>
+<body>
+
+<h1>Plan des parsers PEP – Luxembourg</h1>
+<p class="subtitle">Ce qui est couvert, ce qu'il reste à implémenter et dans quel ordre, pour atteindre la couverture de la liste officielle des fonctions PEP du Luxembourg (JO C/2023/724).</p>
+<div class="meta"><span>SwiftCheck AML</span><span>18 octobre 2026</span><span>Référence : écran « Couverture PEP »</span></div>
+
+<div class="summary">
+  <div class="card"><b>6</b><span>parsers en place</span></div>
+  <div class="card"><b>13</b><span>parsers à implémenter</span></div>
+  <div class="card"><b>4</b><span>sujets à étudier avant tout parser</span></div>
+  <div class="card"><b>7 / 9</b><span>catégories officielles couvertes après les lots 1 et 2</span></div>
+</div>
+
+<h2>1. Déjà en place</h2>
+<table>
+  <tr><th style="width:28%">Parser</th><th>Couvre</th></tr>
+  <tr><td><code>lu_pep_government</code></td><td>LU-a – membres du gouvernement en fonction</td></tr>
+  <tr><td><code>lu_pep_chamber</code>, <code>lu_pep_chamber_former</code></td><td>LU-b – députés en fonction et anciens députés</td></tr>
+  <tr><td><code>lu_pep_municipal</code></td><td>LU-AMLR et LU-MUN – bourgmestres et échevins</td></tr>
+  <tr><td><code>lu_pep_europarl</code></td><td>LU-EU – eurodéputés élus au Luxembourg, en fonction</td></tr>
+  <tr><td><code>lu_pep_legilux</code></td><td>LU-b, d, e, i <b>en partie</b> : titulaires nommés, renouvelés ou démissionnaires depuis 2017 (Conseil d'État, hautes juridictions, Cour des comptes, BCL, CSSF, CAA). Résultat réel : 1 623 actes lus, 83 personnes.</td></tr>
+</table>
+
+<h2>2. Reste à implémenter</h2>
+
+<h3>Priorité 1 – Terminer les catégories de classe 1 (LU-a, LU-b, LU-EU)</h3>
+<table>
+  <tr><th>#</th><th style="width:22%">Parser</th><th style="width:27%">Source</th><th>Type</th><th>Fonctions</th><th>Effort</th></tr>
+  <tr><td>1</td><td><code>lu_pep_government_former</code></td><td>gouvernement.lu – page « anciens membres du gouvernement »</td><td>T5 page web</td><td>LU-a anciens membres du gouvernement</td><td><span class="tag low">Faible</span> même site que <code>lu_pep_government</code></td></tr>
+  <tr><td>2</td><td><code>lu_pep_council_of_state</code></td><td>conseil-etat.public.lu (composition)</td><td>T5</td><td>LU-b les 21 membres en fonction, y compris ceux nommés avant 2017</td><td><span class="tag low">Faible</span></td></tr>
+  <tr><td>3</td><td><code>lu_pep_grand_duke</code></td><td>monarchie.lu</td><td>T5</td><td>LU-a Grand-Duc</td><td><span class="tag low">Très faible</span> 1 personne</td></tr>
+  <tr><td>4</td><td><code>lu_pep_eu_commission</code></td><td>Site du collège des commissaires</td><td>T5</td><td>LU-EU commissaire luxembourgeois</td><td><span class="tag low">Très faible</span></td></tr>
+  <tr><td>5</td><td><code>lu_pep_europarl_former</code></td><td>API open data du Parlement européen (législatures précédentes)</td><td>T2 API</td><td>LU-EU anciens eurodéputés</td><td><span class="tag mid">Moyen</span></td></tr>
+</table>
+
+<h3>Priorité 2 – Compléter les institutions couvertes en partie par Legilux</h3>
+<p>Ces sites donnent la <b>composition actuelle complète</b>, y compris les titulaires nommés avant 2017. Legilux apporte l'historique.</p>
+<table>
+  <tr><th>#</th><th style="width:26%">Parser</th><th style="width:26%">Source</th><th>Type</th><th>Fonctions</th></tr>
+  <tr><td>6</td><td><code>lu_pep_judiciary</code></td><td>justice.public.lu</td><td>T5</td><td>LU-d Cour constitutionnelle, Cour de cassation, présidence de la Cour supérieure de justice, Parquet général</td></tr>
+  <tr><td>7</td><td><code>lu_pep_administrative_courts</code></td><td>ja.public.lu</td><td>T5</td><td>LU-d Cour administrative</td></tr>
+  <tr><td>8</td><td><code>lu_pep_court_of_auditors</code></td><td>cour-des-comptes.public.lu</td><td>T5</td><td>LU-e membres de la Cour des comptes</td></tr>
+  <tr><td>9</td><td><code>lu_pep_central_bank</code></td><td>bcl.lu (direction et conseil)</td><td>T5</td><td>LU-e direction de la BCL</td></tr>
+  <tr><td>10</td><td><code>lu_pep_cssf</code>, <code>lu_pep_caa</code>, <code>lu_pep_ilr</code></td><td>cssf.lu, caa.lu, ilr.lu (pages de direction)</td><td>T5</td><td>LU-i direction de la CSSF, du CAA et de l'ILR</td></tr>
+</table>
+<div class="note">Le n° 10 regroupe trois sites. Selon la règle « un parser par source », ce sont <b>trois parsers</b> distincts, d'où le total de 13.</div>
+
+<h3>Priorité 3 – Catégorie LU-f, absente de Legilux</h3>
+<table>
+  <tr><th>#</th><th style="width:22%">Parser</th><th style="width:34%">Source</th><th>Type</th><th>Fonctions</th></tr>
+  <tr><td>11</td><td><code>lu_pep_diplomats</code></td><td>mae.gouvernement.lu – missions diplomatiques et consulaires</td><td>T5</td><td>Ambassadeurs et chargés d'affaires (environ 40)</td></tr>
+  <tr><td>12</td><td><code>lu_pep_army</code></td><td>armee.lu (état-major)</td><td>T5</td><td>Chef d'état-major, adjoint, chefs de division (environ 10)</td></tr>
+</table>
+
+<h2>3. À étudier avant d'écrire un parser</h2>
+<table>
+  <tr><th style="width:24%">Catégorie</th><th style="width:36%">Problème</th><th>Piste</th></tr>
+  <tr><td><b>LU-g</b> entreprises publiques</td><td>Catégorie la plus volumineuse (plusieurs centaines de dirigeants), sans liste officielle</td><td>Liste des participations de l'État, puis pages de gouvernance de chaque société, ou publications au RESA</td></tr>
+  <tr><td><b>LU-c</b> dirigeants des partis</td><td>Pas de liste officielle trouvée</td><td>Un site par parti (environ 7 partis représentés) : autant de petites sources</td></tr>
+  <tr><td><b>LU-h</b> organisations internationales au Luxembourg</td><td>Environ 15 personnes, sites variés</td><td>Cour AELE, Eurocontrol, Office statistique de l'AELE</td></tr>
+  <tr><td><b>LU-RCA</b> famille et proches</td><td>Aucune source ouverte</td><td>Pas un parser : relève de la résolution d'entités et des relations FtM (<code>Family</code>, <code>Associate</code>)</td></tr>
+</table>
+
+<h2>4. Ordre proposé</h2>
+<ol>
+  <li><b>Lot 1</b> – parsers 1 à 4. Ils sont rapides, et LU-a, LU-b et LU-EU passent en « Couverte ».</li>
+  <li><b>Lot 2</b> – parsers 6 à 10, soit 7 parsers en comptant CSSF, CAA et ILR séparément. Les catégories d, e et i deviennent complètes pour les titulaires en fonction.</li>
+  <li><b>Lot 3</b> – parsers 5, 11 et 12, puis l'étude des entreprises publiques (LU-g).</li>
+</ol>
+<p class="ok">À la fin des lots 1 et 2, 7 catégories officielles sur 9 seraient couvertes. Il resterait LU-c (partis) et LU-g (entreprises publiques), qui dépendent des études ci-dessus.</p>
+
+<h2>5. Règles applicables à chaque nouveau parser</h2>
+<ul>
+  <li>Un parser = une source = un module Maven dans <code>swiftcheck-aml-plugins/pep/luxembourg/</code> = un dataset Yente.</li>
+  <li>Pas d'adresse de téléchargement dans le code : elle se configure dans l'écran « Parsers ». L'API commune (<code>swiftcheck-aml-api</code>) n'est jamais modifiée.</li>
+  <li>Analyse de la source, puis proposition validée, puis code. Tests sur un extrait réel de la source, et README dans le dossier du parser.</li>
+  <li>Le parser, sa source PEP et les fonctions couvertes sont déclarés dans les données de départ Liquibase, pour la page « Couverture PEP ».</li>
+</ul>
+
+<div class="footer">SwiftCheck AML – Plan des parsers PEP Luxembourg – document de travail interne.</div>
+</body>
+</html>

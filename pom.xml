@@ -36,6 +36,7 @@
         <module>swiftcheck-aml-plugins/pep/luxembourg/swiftcheck-aml-lu-pep-government</module>
         <module>swiftcheck-aml-plugins/pep/luxembourg/swiftcheck-aml-lu-pep-europarl</module>
         <module>swiftcheck-aml-plugins/pep/luxembourg/swiftcheck-aml-lu-pep-municipal</module>
+        <module>swiftcheck-aml-plugins/pep/luxembourg/swiftcheck-aml-lu-pep-legilux</module>
     </modules>
 
     <dependencyManagement>

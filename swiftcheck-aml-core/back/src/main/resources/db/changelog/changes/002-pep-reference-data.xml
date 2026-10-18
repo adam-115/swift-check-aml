@@ -125,7 +125,7 @@
             ('LU', 'gouvernement.lu – anciens membres du gouvernement', 'https://gouvernement.lu/fr/gouvernement/anciens-membres-gouvernement.html', 'WEB_PAGE', NULL, 'OPEN', 'CANDIDATE', NULL),
             ('LU', 'Collèges des bourgmestre et échevins', 'https://data.public.lu/fr/datasets/r/067d11cc-29a8-4f0c-bf35-f9d4ac1818ec', 'OPEN_DATA_FILE', NULL, 'OPEN', 'CANDIDATE', 'Ministère des Affaires intérieures, CSV mis à jour à chaque changement'),
             ('LU', 'Parlement européen – liste des députés', 'https://www.europarl.europa.eu/meps/en/full-list/xml', 'OPEN_DATA_FILE', NULL, 'OPEN', 'CANDIDATE', 'XML de tous les eurodéputés, filtré sur le Luxembourg'),
-            ('LU', 'Legilux – Journal officiel (SPARQL)', 'https://data.legilux.public.lu/sparqlendpoint', 'SPARQL', NULL, 'OPEN', 'CANDIDATE', 'Arrêtés de nomination et de démission : à filtrer sur les fonctions de haut niveau'),
+            ('LU', 'Legilux – Journal officiel (SPARQL)', 'https://data.legilux.public.lu/sparqlendpoint', 'SPARQL', NULL, 'OPEN', 'CANDIDATE', 'Publications administratives de nomination et de démission ; texte exploitable depuis 2017. Ne publie plus les ambassadeurs depuis 2016, ni les officiers de l''armée'),
             ('LU', 'Conseil d''État – composition', 'https://conseil-etat.public.lu', 'WEB_PAGE', NULL, 'OPEN', 'CANDIDATE', 'Membres en fonction'),
             ('LU', 'Maison grand-ducale', 'https://www.monarchie.lu', 'WEB_PAGE', NULL, 'OPEN', 'CANDIDATE', NULL),
             ('LU', 'Justice – juridictions judiciaires', 'https://justice.public.lu', 'WEB_PAGE', NULL, 'OPEN', 'CANDIDATE', 'Cour supérieure de justice, Cour de cassation, Parquet général'),
@@ -154,15 +154,15 @@
                 UNION ALL SELECT 'Collèges des bourgmestre et échevins', 'LU-MUN', 'Échevin', 'COMPLETE', TRUE
                 UNION ALL SELECT 'Collèges des bourgmestre et échevins', 'LU-AMLR', 'Bourgmestre ou échevin de la Ville de Luxembourg', 'COMPLETE', TRUE
                 UNION ALL SELECT 'Parlement européen – liste des députés', 'LU-EU', 'Député au Parlement européen élu au Luxembourg', 'COMPLETE', FALSE
-                UNION ALL SELECT 'Legilux – Journal officiel (SPARQL)', 'LU-a', 'Membre du gouvernement', 'PARTIAL', TRUE
                 UNION ALL SELECT 'Legilux – Journal officiel (SPARQL)', 'LU-b', 'Membre du Conseil d''État', 'PARTIAL', TRUE
+                UNION ALL SELECT 'Legilux – Journal officiel (SPARQL)', 'LU-d', 'Membre de la Cour constitutionnelle', 'PARTIAL', TRUE
                 UNION ALL SELECT 'Legilux – Journal officiel (SPARQL)', 'LU-d', 'Membre de la Cour de cassation', 'PARTIAL', TRUE
                 UNION ALL SELECT 'Legilux – Journal officiel (SPARQL)', 'LU-d', 'Président ou vice-président de la Cour supérieure de justice', 'PARTIAL', TRUE
                 UNION ALL SELECT 'Legilux – Journal officiel (SPARQL)', 'LU-d', 'Procureur général d''État ou adjoint', 'PARTIAL', TRUE
                 UNION ALL SELECT 'Legilux – Journal officiel (SPARQL)', 'LU-d', 'Membre de la Cour administrative', 'PARTIAL', TRUE
                 UNION ALL SELECT 'Legilux – Journal officiel (SPARQL)', 'LU-e', 'Membre de la Cour des comptes', 'PARTIAL', TRUE
                 UNION ALL SELECT 'Legilux – Journal officiel (SPARQL)', 'LU-e', 'Directeur général ou directeur de la BCL', 'PARTIAL', TRUE
-                UNION ALL SELECT 'Legilux – Journal officiel (SPARQL)', 'LU-f', 'Officier supérieur de l''Armée', 'PARTIAL', TRUE
+                UNION ALL SELECT 'Legilux – Journal officiel (SPARQL)', 'LU-i', 'Membre de la direction d''une autorité de régulation', 'PARTIAL', TRUE
                 UNION ALL SELECT 'Conseil d''État – composition', 'LU-b', 'Membre du Conseil d''État', 'COMPLETE', FALSE
                 UNION ALL SELECT 'Maison grand-ducale', 'LU-a', 'Grand-Duc', 'COMPLETE', FALSE
                 UNION ALL SELECT 'Justice – juridictions judiciaires', 'LU-d', 'Membre de la Cour constitutionnelle', 'COMPLETE', FALSE

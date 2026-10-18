@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><akomaNtoso xmlns="http://docs.oasis-open.org/legaldocml/ns/akn/3.0/CSD13" xmlns:scl="http://www.scl.lu">
+<act contains="originalVersion" name="" scl:page-proof="single">
+<meta>
+<identification source="#casemates">
+<FRBRWork>
+<FRBRthis value=""/>
+<FRBRuri value=""/>
+<FRBRdate date="2999-01-01" name=""/>
+<FRBRauthor as="#author" href="#mdda"/>
+<FRBRcountry value=""/>
+</FRBRWork>
+<FRBRExpression>
+<FRBRthis value=""/>
+<FRBRuri value=""/>
+<FRBRdate date="2999-01-01" name=""/>
+<FRBRauthor as="#editor" href="#somebody"/>
+<FRBRlanguage language=""/>
+</FRBRExpression>
+<FRBRManifestation>
+<FRBRthis value=""/>
+<FRBRuri value=""/>
+<FRBRdate date="2999-01-01" name=""/>
+<FRBRauthor as="#editor" href="#somebody"/>
+</FRBRManifestation>
+<scl:JOLUXWork>
+<scl:JOLUXComplexWork>
+<scl:jolux scl:name="uriThis"/>
+</scl:JOLUXComplexWork>
+<scl:JOLUXLegalResource><scl:jolux scl:name="typeDocument">http://data.legilux.public.lu/resource/authority/resource-type/PA</scl:jolux><scl:jolux scl:name="dateDocument">2024-07-31</scl:jolux><scl:jolux scl:name="publicationDate"/><scl:jolux scl:name="responsibilityOf">http://data.legilux.public.lu/resource/authority/legal-institution/ME</scl:jolux><scl:jolux scl:name="urgentEvent">false</scl:jolux><scl:jolux scl:name="subjectLevel1">http://data.legilux.public.lu/resource/authority/legal-subject/703</scl:jolux><scl:jolux scl:name="subjectLevel2">http://data.legilux.public.lu/resource/authority/legal-subject/408</scl:jolux><scl:jolux scl:name="subjectLevel2">http://data.legilux.public.lu/resource/authority/legal-subject/417</scl:jolux><scl:jolux scl:name="dateEntryInForce">2024-12-01</scl:jolux><scl:jolux scl:name="dateNoLongerInForce">2029-12-31</scl:jolux></scl:JOLUXLegalResource>
+</scl:JOLUXWork>
+<scl:JOLUXExpression>
+<scl:jolux scl:name="title">Cour des comptes - Nomination.</scl:jolux>
+<scl:jolux scl:name="language">http://publications.europa.eu/resource/authority/language/FRA</scl:jolux>
+</scl:JOLUXExpression>
+<scl:JOLUXManifestation>
+<scl:jolux scl:name="uriThis"/>
+</scl:JOLUXManifestation>
+</identification>
+</meta>
+<preface>
+<longTitle>
+<p>Cour des comptes - Nomination.</p>
+</longTitle>
+</preface>
+<body>
+<alinea>
+<content>
+<p>Par arrêté grand-ducal du 31 juillet 2024, Monsieur Patrick Weymerskirch, conseiller politique, est nommé conseiller à la Cour des comptes à compter du 1<sup>er</sup> décembre 2024 jusqu’au 31 décembre 2029.</p>
+</content>
+</alinea>
+</body>
+</act>
+</akomaNtoso>

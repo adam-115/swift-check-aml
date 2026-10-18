@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?><akomaNtoso xmlns="http://docs.oasis-open.org/legaldocml/ns/akn/3.0/CSD13" xmlns:scl="http://www.scl.lu">
+<act contains="originalVersion" name="" scl:page-proof="single">
+<meta>
+<identification source="#casemates">
+<FRBRWork>
+<FRBRthis value=""/>
+<FRBRuri value=""/>
+<FRBRdate date="2999-01-01" name=""/>
+<FRBRauthor as="#author" href="#mdda"/>
+<FRBRcountry value=""/>
+</FRBRWork>
+<FRBRExpression>
+<FRBRthis value=""/>
+<FRBRuri value=""/>
+<FRBRdate date="2999-01-01" name=""/>
+<FRBRauthor as="#editor" href="#somebody"/>
+<FRBRlanguage language=""/>
+</FRBRExpression>
+<FRBRManifestation>
+<FRBRthis value=""/>
+<FRBRuri value=""/>
+<FRBRdate date="2999-01-01" name=""/>
+<FRBRauthor as="#editor" href="#somebody"/>
+</FRBRManifestation>
+<scl:JOLUXWork>
+<scl:JOLUXComplexWork>
+<scl:jolux scl:name="uriThis"/>
+</scl:JOLUXComplexWork>
+<scl:JOLUXLegalResource><scl:jolux scl:name="baseAct">true</scl:jolux><scl:jolux scl:name="typeDocument">http://data.legilux.public.lu/resource/authority/resource-type/PA</scl:jolux><scl:jolux scl:name="dateDocument">2026-09-07</scl:jolux><scl:jolux scl:name="publicationDate"/><scl:jolux scl:name="responsibilityOf">http://data.legilux.public.lu/resource/authority/legal-institution/MJ</scl:jolux><scl:jolux scl:name="urgentEvent">false</scl:jolux><scl:jolux scl:name="subjectLevel1">http://data.legilux.public.lu/resource/authority/legal-subject/988</scl:jolux><scl:jolux scl:name="subjectLevel2">http://data.legilux.public.lu/resource/authority/legal-subject/408</scl:jolux><scl:jolux xmlns:xopusAttr="http://www.xopus.com/xmlns/id/attr" xmlns:akoma="http://docs.oasis-open.org/legaldocml/ns/akn/3.0/CSD13" xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns="http://www.w3.org/1999/xhtml" scl:name="dateEntryInForce"/></scl:JOLUXLegalResource>
+</scl:JOLUXWork>
+<scl:JOLUXExpression>
+<scl:jolux scl:name="title">Magistrature - Nomination.</scl:jolux>
+<scl:jolux scl:name="language">http://publications.europa.eu/resource/authority/language/FRA</scl:jolux>
+</scl:JOLUXExpression>
+<scl:JOLUXManifestation>
+<scl:jolux scl:name="uriThis"/>
+</scl:JOLUXManifestation>
+</identification>
+</meta>
+<preface>
+<longTitle>
+<p>Magistrature - Nomination.</p>
+</longTitle>
+</preface>
+<body>
+<alinea>
+<content>
+<p>Par arrêté grand-ducal du 7 septembre 2026, Madame Béatrice HORPER, vice-président au Tribunal d’arrondissement de Luxembourg et Madame Carole ERR, vice-président au Tribunal d’arrondissement de Luxembourg, sont nommées en tant que remplaçants au Tribunal disciplinaire des magistrats pour la durée de l’affaire concernée.</p>
+</content>
+</alinea>
+</body>
+</act>
+</akomaNtoso>

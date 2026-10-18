@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Extrait fictif au format de la liste UE, couvrant les cas particuliers du parser. -->
+<export xmlns="http://eu.europa.ec/fpi/fsd/export">
+  <sanctionEntity logicalId="13" euReferenceNumber="EU.27.28" unitedNationId="QDi.001" designationDetails="">
+    <remark>Remarque générale</remark>
+    <regulation programme="TAQA" entryIntoForceDate="2002-05-28" publicationDate="2002-05-29" numberTitle="881/2002 (OJ L139)">
+      <publicationUrl>http://eur-lex.europa.eu/exemple</publicationUrl>
+    </regulation>
+    <subjectType code="person" classificationCode="P"/>
+    <nameAlias wholeName="Ivan  PETROV" firstName="Ivan" lastName="PETROV" gender="M" function="Minister" title="General" strong="true"/>
+    <nameAlias wholeName="Иван Петров" strong="true">
+      <remark>Écriture cyrillique</remark>
+    </nameAlias>
+    <nameAlias wholeName="Vania" strong="false"/>
+    <citizenship countryIso2Code="RU"/>
+    <citizenship countryIso2Code="00"/>
+    <birthdate birthdate="1965-03-15" city="Moscow" countryIso2Code="RU" countryDescription="RUSSIAN FEDERATION" calendarType="GREGORIAN"/>
+    <birthdate year="1343" calendarType="ISLAMIC" countryIso2Code="00" countryDescription="UNKNOWN"/>
+    <birthdate yearRangeFrom="1960" yearRangeTo="1962" calendarType="GREGORIAN"/>
+    <identification identificationTypeCode="passport" number="AB123456"/>
+  </sanctionEntity>
+  <sanctionEntity logicalId="99" euReferenceNumber="EU.1.2">
+    <regulation programme="IRN" entryIntoForceDate="2012-01-23" publicationDate="2012-01-24"/>
+    <subjectType code="enterprise" classificationCode="E"/>
+    <nameAlias wholeName="Shipping Co" strong="true"/>
+    <address street="1 Main St" city="Tehran" countryIso2Code="IR" countryDescription="IRAN">
+      <contactInfo key="EMAIL" value="a@x.ir; b@x.ir"/>
+      <contactInfo key="WEB" value="http://x.ir"/>
+    </address>
+    <identification identificationTypeCode="imo" number="9187629"/>
+    <identification identificationTypeCode="regnumber" number="REG-1"/>
+  </sanctionEntity>
+</export>

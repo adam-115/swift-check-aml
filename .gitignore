@@ -1,47 +1,48 @@
-# Compiled class file
+# ---------------------------------------------------------------- Build Java (Maven)
+target/
 *.class
+*.lst
 
-# Log file
-*.log
-
-# BlueJ files
-*.ctxt
-
-# Mobile Tools for Java (J2ME)
-.mtj.tmp/
-
-# Package Files #
+# Paquets produits par le build (les JAR des plugins se reconstruisent avec mvn package)
 *.jar
 *.war
 *.nar
 *.ear
+
+# ---------------------------------------------------------------- Front Angular
+swiftcheck-aml-core/front/node/
+swiftcheck-aml-core/front/node_modules/
+swiftcheck-aml-core/front/.angular/
+swiftcheck-aml-core/front/dist/
+
+# ---------------------------------------------------------------- Données et journaux locaux
+*.log
+hs_err_pid*
+replay_pid*
+# Données indexées par Yente et fichiers téléchargés par les parsers (reproduits à chaque exécution)
+yente/data/
+data/archive/
+data/work/
+# Gros fichier source téléchargé (OFAC)
+**/OFAC/sdn_enhanced.xml
+
+# ---------------------------------------------------------------- Déploiement : contient des secrets
+# (.env, export du realm Keycloak, JAR déployés) – à ne jamais versionner
+swift-check-docker/
+.env
+
+# ---------------------------------------------------------------- Archives
 *.zip
 *.tar.gz
 *.rar
 
-# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
-hs_err_pid*
-replay_pid*
-/target
-src/main/resources/OFAC/sdn_enhanced.xml
-/swiftcheck-aml-plugins/swiftcheck-aml-uksl/target
-/swiftcheck-aml-plugins/swiftcheck-aml-dfat/target
-/swiftcheck-aml-plugins/swiftcheck-aml-eu/target
-/swiftcheck-aml-plugins/swiftcheck-aml-ofac/target
-/swiftcheck-aml-plugins/swiftcheck-aml-dg-tresor/target
-/swiftcheck-aml-plugins/swiftcheck-aml-seco/target
-/swiftcheck-aml-plugins/swiftcheck-aml-onu/target
-swiftcheck-aml-plugins/swiftcheck-aml-ofac/src/main/resources/OFAC/sdn_enhanced.xml
-/swiftcheck-aml-core/front/node/node_modules
-/swiftcheck-aml-core/target
-/swiftcheck-aml-core/back/target
-*.lst
-/swiftcheck-aml-api/target
-/swiftcheck-aml-plugins/swiftcheck-aml-afdb/target
-*.lst
-*.lst
-/swiftcheck-aml-plugins/swiftcheck-aml-acpr/target
-/swiftcheck-aml-plugins/swiftcheck-aml-acpr/target
-/swiftcheck-aml-plugins/swiftcheck-aml-acpr/target
-/swiftcheck-aml-plugins
-/swift-check-docker
+# ---------------------------------------------------------------- Outils et IDE
+.idea/
+*.iml
+.vscode/
+.agents/
+.kilo/
+*.ctxt
+.mtj.tmp/
+.DS_Store
+Thumbs.db
