@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <title>Analyse Stratégique - SwiftCheck AML</title>
+  <style>
+    body { 
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; 
+      max-width: 900px; 
+      margin: 40px auto; 
+      padding: 0 20px;
+      color: #1e293b; 
+      line-height: 1.7; 
+      background-color: #f8fafc;
+    }
+    .page {
+      background: white;
+      padding: 50px;
+      border-radius: 12px;
+      box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+    }
+    h1 { 
+      color: #0f172a; 
+      font-size: 2.25rem;
+      border-bottom: 3px solid #e2e8f0; 
+      padding-bottom: 15px;
+      margin-bottom: 30px;
+    }
+    h2 { 
+      color: #2563eb; 
+      font-size: 1.5rem;
+      margin-top: 40px; 
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .alert { 
+      background: #eff6ff; 
+      border-left: 5px solid #3b82f6; 
+      padding: 20px; 
+      margin: 30px 0; 
+      border-radius: 0 8px 8px 0;
+    }
+    .alert strong { color: #1d4ed8; }
+    ul { padding-left: 20px; }
+    li { margin-bottom: 12px; }
+    p { margin-bottom: 16px; }
+    button { 
+      padding: 12px 24px; 
+      background: #2563eb; 
+      color: white; 
+      border: none; 
+      border-radius: 6px; 
+      cursor: pointer; 
+      display: inline-flex; 
+      align-items: center;
+      gap: 8px;
+      font-size: 16px; 
+      font-weight: 600;
+      box-shadow: 0 2px 4px rgba(37, 99, 235, 0.2);
+      transition: background 0.2s;
+    }
+    button:hover { background: #1d4ed8; }
+    .header-actions {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+    @media print { 
+      body { background: white; margin: 0; padding: 0; }
+      .page { box-shadow: none; padding: 0; }
+      .header-actions { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="header-actions">
+    <div style="font-weight: 600; color: #64748b;">Confidentiel - Stratégie Produit</div>
+    <button onclick="window.print()">
+      <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path></svg>
+      Télécharger en PDF
+    </button>
+  </div>
+
+  <div class="page">
+    <h1>Analyse Stratégique : Vers la plateforme AML/Sanctions de référence</h1>
+    
+    <p>Merci pour ta confiance ! Notre architecture technique (Spring Boot, Angular, Plugins dynamiques PF4J, Intégration en temps réel de Yente/FollowTheMoney) est déjà extrêmement solide et moderne. Nous avons la "colonne vertébrale" d'un excellent produit.</p>
+    <p>Pour passer d'un "très bon outil" à la <strong>meilleure solution du marché</strong> capable de concurrencer les géants comme <em>LexisNexis, Refinitiv (World-Check) ou ComplyAdvantage</em>, voici les axes stratégiques et les fonctionnalités clés qu'il nous manque.</p>
+
+    <h2>1. Moteur d'Alertes et Workflow de Conformité (Case Management)</h2>
+    <p>Actuellement, nous fournissons un résultat immédiat (Clean ou Correspondance). Mais dans le monde réel, un <em>Compliance Officer</em> doit analyser ces correspondances.</p>
+    <ul>
+      <li><strong>Gestion des Faux Positifs (Whitelisting)</strong> : Si une recherche trouve une correspondance à 0.85 mais qu'après enquête c'est un homonyme, l'analyste doit pouvoir marquer ce résultat comme "Faux Positif". Le système doit s'en souvenir pour ne plus jamais lever d'alerte sur cette même personne.</li>
+      <li><strong>Principe des 4 Yeux (Maker-Checker)</strong> : Un analyste de niveau 1 qualifie l'alerte, un superviseur de niveau 2 la valide.</li>
+      <li><strong>Statuts d'investigation</strong> : Une alerte peut être "Nouveau", "En cours d'investigation", "Escaladé", "Clôturé (Faux Positif)", "Clôturé (Vrai Positif)".</li>
+    </ul>
+
+    <h2>2. Surveillance Continue (Ongoing Monitoring)</h2>
+    <p>C'est la fonctionnalité "Killer App" exigée par tous les régulateurs (ACPR, FCA, etc.).</p>
+    <ul>
+      <li><strong>Le problème</strong> : Un client vérifié hier était "CLEAN". Aujourd'hui, l'OFAC le rajoute sur liste noire. Comment le savoir ?</li>
+      <li><strong>La solution</strong> : L'outil doit avoir une table `Client` ou `Portefeuille`. Chaque nuit, lorsqu'un nouveau Parser télécharge une mise à jour d'une liste, le système relance automatiquement <em>tous</em> les clients en base de données contre Yente de manière asynchrone, et génère des alertes silencieuses sur le Dashboard si le statut d'un client change.</li>
+    </ul>
+
+    <h2>3. Filtrage en Masse (Batch Screening)</h2>
+    <p>Pour une banque ou une fintech qui veut "onboarder" son historique client.</p>
+    <ul>
+      <li><strong>Upload CSV/Excel</strong> : Une interface permettant de glisser-déposer un fichier de 50 000 clients.</li>
+      <li><strong>Traitement Asynchrone</strong> : Le backend découpe le fichier et interroge Yente en parallèle, puis génère un rapport global consolidé.</li>
+    </ul>
+
+    <h2>4. Analyse des Bénéficiaires Effectifs (UBO)</h2>
+    <p>Pour le filtrage des entreprises (KYB - Know Your Business).</p>
+    <ul>
+      <li><strong>Filtrage en cascade</strong> : Si l'utilisateur recherche une entreprise (ex: "Société Générale"), le système devrait pouvoir (via des APIs externes ou des données enrichies) trouver les dirigeants de cette entreprise et les passer <em>aussi</em> au crible de Yente automatiquement dans la même recherche.</li>
+    </ul>
+
+    <h2>5. Tableaux de Bord (Dashboards) & Analytique Avancée</h2>
+    <p>Le management veut des chiffres.</p>
+    <ul>
+      <li><strong>Fraîcheur des données (SLA)</strong> : Un graphique montrant de quand date la dernière mise à jour de chaque Parser.</li>
+      <li><strong>Statistiques des alertes</strong> : Taux de faux positifs, temps moyen de résolution d'une alerte, alertes par liste (OFAC vs UE).</li>
+    </ul>
+
+    <h2>6. Audit Trail Immuable (Piste d'audit)</h2>
+    <p>Nous avons l'historique des recherches, ce qui est très bien. Mais il faut aller plus loin :</p>
+    <ul>
+      <li>Tracer <strong>TOUT</strong> ce qu'il se passe (qui a désactivé le Parser OFAC ? à quelle heure ? depuis quelle adresse IP ? qui a changé la configuration de Yente ?).</li>
+      <li>Ces logs doivent être exportables et infalsifiables en cas de contrôle d'un régulateur.</li>
+    </ul>
+
+    <div class="alert">
+      <strong>💡 Plan d'action proposé (Roadmap)</strong><br><br>
+      Si nous voulons attaquer ces chantiers, je conseille l'ordre de priorité suivant :<br><br>
+      <strong>1. Batch Screening (Vérification de masse par fichier CSV)</strong> (Très facile à faire pour nous, fort impact commercial).<br>
+      <strong>2. Case Management (Workflow de Faux Positifs)</strong> (Le plus demandé par les analystes au quotidien).<br>
+      <strong>3. Ongoing Monitoring (Surveillance de nuit automatique)</strong> (Indispensable pour la conformité continue).
+    </div>
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,665 @@
+import os
+import subprocess
+
+html_content = """<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Analyse Budgétaire Complète : Infrastructure, Évolutions & Maintenance - SwiftCheck AML</title>
+<style>
+  @page {
+    size: A4 portrait;
+    margin: 12mm 15mm 12mm 15mm;
+  }
+  
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, Helvetica, Arial, sans-serif;
+    color: #1e293b;
+    background-color: #ffffff;
+    font-size: 12px;
+    line-height: 1.45;
+  }
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid #2563eb;
+    padding-bottom: 8px;
+    margin-bottom: 12px;
+  }
+
+  .brand-title {
+    font-size: 20px;
+    font-weight: 800;
+    color: #0f172a;
+    letter-spacing: -0.5px;
+  }
+
+  .brand-subtitle {
+    font-size: 10px;
+    color: #2563eb;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+  }
+
+  .doc-meta {
+    text-align: right;
+    font-size: 10px;
+    color: #64748b;
+  }
+
+  .doc-meta strong {
+    color: #0f172a;
+  }
+
+  .badge-tag {
+    display: inline-block;
+    background-color: #eff6ff;
+    color: #2563eb;
+    border: 1px solid #bfdbfe;
+    padding: 2px 7px;
+    border-radius: 4px;
+    font-size: 9.5px;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+
+  h1 {
+    font-size: 16px;
+    color: #0f172a;
+    font-weight: 800;
+    margin-bottom: 6px;
+  }
+
+  h2 {
+    font-size: 13px;
+    color: #0f172a;
+    font-weight: 700;
+    border-left: 3.5px solid #2563eb;
+    padding-left: 7px;
+    margin-top: 14px;
+    margin-bottom: 8px;
+  }
+
+  p {
+    color: #334155;
+    margin-bottom: 6px;
+    font-size: 11.5px;
+  }
+
+  .hero-box {
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+    color: #ffffff;
+    border-radius: 6px;
+    padding: 10px 14px;
+    margin-bottom: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .hero-text h3 {
+    font-size: 13px;
+    color: #38bdf8;
+    margin-bottom: 2px;
+  }
+
+  .hero-text p {
+    color: #cbd5e1;
+    font-size: 11px;
+    margin-bottom: 0;
+  }
+
+  .hero-prices {
+    display: flex;
+    gap: 10px;
+  }
+
+  .price-pill {
+    text-align: right;
+    background: rgba(37, 99, 235, 0.25);
+    border: 1px solid #38bdf8;
+    padding: 6px 10px;
+    border-radius: 5px;
+  }
+
+  .price-pill .amount {
+    font-size: 15px;
+    font-weight: 800;
+    color: #38bdf8;
+  }
+
+  .price-pill .label {
+    font-size: 9px;
+    color: #e2e8f0;
+  }
+
+  .grid-3 {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    margin-bottom: 10px;
+  }
+
+  .card {
+    background-color: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 5px;
+    padding: 8px 10px;
+  }
+
+  .card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 4px;
+    padding-bottom: 3px;
+    border-bottom: 1px solid #e2e8f0;
+  }
+
+  .card-title {
+    font-size: 11.5px;
+    font-weight: 700;
+    color: #0f172a;
+  }
+
+  .card-price {
+    font-size: 11px;
+    font-weight: 700;
+    color: #2563eb;
+  }
+
+  .card-specs {
+    font-size: 9.5px;
+    color: #1e40af;
+    font-weight: 600;
+    margin-bottom: 4px;
+    font-family: Consolas, monospace;
+    background: #dbeafe;
+    padding: 2px 5px;
+    border-radius: 3px;
+  }
+
+  .card ul {
+    list-style-type: none;
+    font-size: 10.5px;
+    color: #475569;
+  }
+
+  .card ul li {
+    margin-bottom: 3px;
+    padding-left: 10px;
+    position: relative;
+  }
+
+  .card ul li::before {
+    content: "•";
+    color: #2563eb;
+    position: absolute;
+    left: 0;
+    font-weight: bold;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 6px;
+    margin-bottom: 10px;
+    font-size: 11px;
+  }
+
+  th {
+    background-color: #0f172a;
+    color: #ffffff;
+    text-align: left;
+    padding: 5px 8px;
+    font-weight: 700;
+    font-size: 10.5px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  th:last-child, td:last-child, th:nth-child(4), td:nth-child(4) {
+    text-align: right;
+  }
+
+  td {
+    padding: 5px 8px;
+    border-bottom: 1px solid #e2e8f0;
+    color: #334155;
+  }
+
+  tr:nth-child(even) {
+    background-color: #f8fafc;
+  }
+
+  tr.total-row {
+    background-color: #eff6ff;
+    font-weight: 700;
+  }
+
+  tr.total-row td {
+    color: #1d4ed8;
+    border-top: 2px solid #2563eb;
+    border-bottom: 2px solid #2563eb;
+    font-size: 11.5px;
+  }
+
+  .callout-box {
+    background-color: #f0fdf4;
+    border: 1px solid #bbf7d0;
+    border-left: 3.5px solid #16a34a;
+    padding: 8px 12px;
+    border-radius: 4px;
+    margin-bottom: 10px;
+    font-size: 11px;
+    color: #166534;
+  }
+
+  .callout-title {
+    font-weight: 700;
+    margin-bottom: 2px;
+    color: #14532d;
+  }
+
+  .roadmap-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+    margin-bottom: 10px;
+  }
+
+  .roadmap-item {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 5px;
+    padding: 8px 10px;
+  }
+
+  .roadmap-title {
+    font-size: 11px;
+    font-weight: 700;
+    color: #0f172a;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 3px;
+  }
+
+  .roadmap-cost {
+    color: #2563eb;
+    font-weight: 700;
+  }
+
+  .roadmap-desc {
+    font-size: 10px;
+    color: #64748b;
+    line-height: 1.35;
+  }
+
+  .page-break {
+    page-break-before: always;
+  }
+
+  .footer {
+    margin-top: 14px;
+    border-top: 1px solid #e2e8f0;
+    padding-top: 6px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 9.5px;
+    color: #94a3b8;
+  }
+</style>
+</head>
+<body>
+
+  <!-- ==================== PAGE 1 ==================== -->
+  <div class="header">
+    <div class="brand">
+      <div class="brand-title">SwiftCheck AML</div>
+      <div class="brand-subtitle">Plateforme RegTech & Conformité LCB-FT</div>
+    </div>
+    <div class="doc-meta">
+      <div><strong>Document :</strong> Plan Budgétaire Global (Infra 12 Go + R&D + MCO)</div>
+      <div><strong>Fournisseur Cloud :</strong> OVHcloud (France / Europe)</div>
+      <div><strong>Date :</strong> Septembre 2026 • <strong>Version :</strong> 2.0 (High Memory)</div>
+    </div>
+  </div>
+
+  <span class="badge-tag">INFRASTRUCTURE 12 GO RAM & PLAN FINANCIER GLOBAL</span>
+  <h1>Analyse Budgétaire : Infrastructure Cloud, Roadmap R&D & Maintenance</h1>
+  <p>Ce document présente la synthèse financière exhaustive pour l'exploitation et l'évolution de la solution <strong>SwiftCheck AML</strong> : coûts d'hébergement haute performance (serveurs 12 Go RAM), nom de domaine, budget de développement des nouvelles fonctionnalités et maintenance opérationnelle (MCO).</p>
+
+  <!-- HERO SUMMARY -->
+  <div class="hero-box">
+    <div class="hero-text">
+      <h3>Infrastructure 3 Serveurs (12 Go RAM) + Nom de Domaine + S3 + Snapshots</h3>
+      <p>Dimensionnement haute capacité pour un traitement en mémoire sans compromis et sécurisation totale.</p>
+    </div>
+    <div class="hero-prices">
+      <div class="price-pill">
+        <div class="amount">~98,80 € HT</div>
+        <div class="label">Hébergement / Mois</div>
+      </div>
+      <div class="price-pill">
+        <div class="amount">18 900 € HT</div>
+        <div class="label">Total R&D Roadmap</div>
+      </div>
+      <div class="price-pill">
+        <div class="amount">1 500 € HT</div>
+        <div class="label">MCO / Mois</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 1 : INFRASTRUCTURE -->
+  <h2>1. Infrastructure Cloud OVHcloud : 3 Serveurs 12 Go RAM & Services Associés</h2>
+  <div class="grid-3">
+    <!-- Server 1 -->
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title">Serveur 1 : Yente Engine</div>
+        <div class="card-price">29,00 € / m</div>
+      </div>
+      <div class="card-specs">VPS Elite (8 vCPU / 12 Go RAM / 160 Go NVMe)</div>
+      <ul>
+        <li><strong>Rôle :</strong> Moteur de screening FollowTheMoney.</li>
+        <li><strong>RAM 12 Go :</strong> Permet d'indexer en mémoire vive +150 000 entités mondiales et leurs synonymes phonétiques.</li>
+        <li><strong>Temps de réponse :</strong> Ultra-rapide (&lt; 30 ms).</li>
+      </ul>
+    </div>
+
+    <!-- Server 2 -->
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title">Serveur 2 : Keycloak IAM</div>
+        <div class="card-price">29,00 € / m</div>
+      </div>
+      <div class="card-specs">VPS Elite (8 vCPU / 12 Go RAM / 160 Go NVMe)</div>
+      <ul>
+        <li><strong>Rôle :</strong> Gestion des identités, OAuth2/OIDC & MFA.</li>
+        <li><strong>RAM 12 Go :</strong> Capacité de cache Java/Quarkus massive pour des dizaines de milliers de sessions simultanées.</li>
+        <li><strong>Base dédiée :</strong> PostgreSQL dédié Keycloak.</li>
+      </ul>
+    </div>
+
+    <!-- Server 3 -->
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title">Serveur 3 : App Core & UI</div>
+        <div class="card-price">29,00 € / m</div>
+      </div>
+      <div class="card-specs">VPS Elite (8 vCPU / 12 Go RAM / 160 Go NVMe)</div>
+      <ul>
+        <li><strong>Rôle :</strong> Spring Boot, PF4J, JasperReports & Angular.</li>
+        <li><strong>RAM 12 Go :</strong> Exécution concurrente des crawlers StAX sans risque de blocage ou OutOfMemory (OOM).</li>
+        <li><strong>Port Public :</strong> 80/443 (HTTPS) sous Nginx.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- TABLEAU INFRASTRUCTURE -->
+  <table>
+    <thead>
+      <tr>
+        <th>Composant Infrastructure</th>
+        <th>Spécifications Techniques</th>
+        <th>Rôle & Utilité</th>
+        <th>Mensuel (HT)</th>
+        <th>Annuel (HT)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Serveur 1 : Moteur Yente</strong></td>
+        <td>OVH VPS Elite (8 vCPU / 12 Go RAM / NVMe)</td>
+        <td>Screening FTM en RAM haute vitesse</td>
+        <td>29,00 €</td>
+        <td>348,00 €</td>
+      </tr>
+      <tr>
+        <td><strong>Serveur 2 : Keycloak IAM</strong></td>
+        <td>OVH VPS Elite (8 vCPU / 12 Go RAM / NVMe)</td>
+        <td>Authentification JWT, rôles, MFA & sessions</td>
+        <td>29,00 €</td>
+        <td>348,00 €</td>
+      </tr>
+      <tr>
+        <td><strong>Serveur 3 : Application Core</strong></td>
+        <td>OVH VPS Elite (8 vCPU / 12 Go RAM / NVMe)</td>
+        <td>Spring Boot, Plugins PF4J, UI Angular & DB</td>
+        <td>29,00 €</td>
+        <td>348,00 €</td>
+      </tr>
+      <tr>
+        <td><strong>Nom de Domaine & DNS Anycast</strong></td>
+        <td>Domaine Pro (.com / .fr / .io) + DNSSEC + SSL</td>
+        <td>Accès sécurisé HTTPS officiel</td>
+        <td>2,50 €</td>
+        <td>30,00 €</td>
+      </tr>
+      <tr>
+        <td><strong>Stockage S3 (Object Storage)</strong></td>
+        <td>100 Go OVH Object Storage S3 API</td>
+        <td>Sauvegardes quotidiennes chiffrées GPG</td>
+        <td>0,80 €</td>
+        <td>9,60 €</td>
+      </tr>
+      <tr>
+        <td><strong>Option Snapshots d'OS (x3 VPS)</strong></td>
+        <td>1 Snapshot instantané par serveur</td>
+        <td>Rollback en 2 min avant manipulation risquée</td>
+        <td>7,50 €</td>
+        <td>90,00 €</td>
+      </tr>
+      <tr class="total-row">
+        <td colspan="3"><strong>TOTAL HÉBERGEMENT & CLOUD (12 GO RAM)</strong></td>
+        <td><strong>97,80 € HT</strong></td>
+        <td><strong>1 173,60 € HT</strong></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="footer">
+    <div>Document budgétaire <strong>SwiftCheck AML</strong> • Confidentiel</div>
+    <div>Page 1 / 2</div>
+  </div>
+
+  <!-- ==================== PAGE 2 ==================== -->
+  <div class="page-break"></div>
+
+  <div class="header">
+    <div class="brand">
+      <div class="brand-title">SwiftCheck AML</div>
+      <div class="brand-subtitle">Analyse R&D, Nouvelles Fonctionnalités & Maintenance</div>
+    </div>
+    <div class="doc-meta">
+      <div><strong>Taux Journalier Moyen (TJM) retenu :</strong> 500 € HT / Jour</div>
+      <div><strong>Page :</strong> 2 / 2</div>
+    </div>
+  </div>
+
+  <!-- SECTION 2 : R&D ET NOUVELLES FONCTIONNALITÉS -->
+  <h2>2. Budget de Développement des Nouvelles Fonctionnalités (Roadmap)</h2>
+  <p>Estimation basée sur une équipe Senior (Tech Lead Java/Spring Boot + Ingénieur Angular/DevOps) avec méthodologie Agile/Scrum :</p>
+
+  <div class="roadmap-grid">
+    <div class="roadmap-item">
+      <div class="roadmap-title">
+        <span>1. Case Management & Principe des 4 Yeux</span>
+        <span class="roadmap-cost">6 000 € HT (12 J/H)</span>
+      </div>
+      <div class="roadmap-desc">
+        • Workflow d'investigation : statuts <em>Nouveau</em>, <em>En cours</em>, <em>Escaladé</em>, <em>Clôturé</em>.<br>
+        • Principe Maker-Checker (validation par un superviseur niveau 2).<br>
+        • Module de <strong>Whitelisting des Faux Positifs</strong> (mémorisation des homonymes écartés).
+      </div>
+    </div>
+
+    <div class="roadmap-item">
+      <div class="roadmap-title">
+        <span>2. Surveillance Continue (Ongoing Monitoring)</span>
+        <span class="roadmap-cost">5 000 € HT (10 J/H)</span>
+      </div>
+      <div class="roadmap-desc">
+        • Re-screening automatique périodique de l'ensemble du portefeuille clients.<br>
+        • Détection automatique des changements de statut lors de la publication de nouvelles sanctions.<br>
+        • Génération d'alertes <em>Delta</em> par notification et e-mail.
+      </div>
+    </div>
+
+    <div class="roadmap-item">
+      <div class="roadmap-title">
+        <span>3. Connecteurs PEP Riches & Médias Défavorables</span>
+        <span class="roadmap-cost">4 500 € HT (9 J/H)</span>
+      </div>
+      <div class="roadmap-desc">
+        • Intégration de flux complémentaires de Personnes Politiquement Exposées (PEP).<br>
+        • Module Adverse Media (recherche d'actualités judiciaires et d'articles négatifs).<br>
+        • Normalisation FollowTheMoney et création de plugins PF4J dédiés.
+      </div>
+    </div>
+
+    <div class="roadmap-item">
+      <div class="roadmap-title">
+        <span>4. Connecteurs API Webhooks & SI Bancaires</span>
+        <span class="roadmap-cost">3 400 € HT (7 J/H)</span>
+      </div>
+      <div class="roadmap-desc">
+        • Webhooks en temps réel pour notifier les Core Banking et ERP des alertes levées.<br>
+        • API REST sécurisée avec clés d'API (API Keys) et limitation de débit (Rate Limiting).<br>
+        • Documentation Swagger / OpenAPI et SDKs d'intégration.
+      </div>
+    </div>
+  </div>
+
+  <div class="callout-box">
+    <div class="callout-title">📊 Total Investissement R&D Nouvelles Fonctionnalités : 18 900 € HT (38 Jours / Homme)</div>
+    Ce budget permet de doter <strong>SwiftCheck AML</strong> d'une suite fonctionnelle complète rivalisant directement avec les leaders mondiaux du secteur (World-Check, LexisNexis, ComplyAdvantage).
+  </div>
+
+  <!-- SECTION 3 : MAINTENANCE & MCO -->
+  <h2>3. Budget de Maintenance & Maintien en Condition Opérationnelle (MCO)</h2>
+  <p>La conformité LCB-FT exige une maintenance rigoureuse et une réactivité immédiate face aux changements des organismes internationaux :</p>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Prestation MCO & Support</th>
+        <th>Description Opérationnelle</th>
+        <th>Charge Estimée</th>
+        <th>Coût Mensuel (HT)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Veille & Maintien des Parsers</strong></td>
+        <td>Adaptation immédiate du code lors des modifications de schémas des autorités (OFAC, UE, ONU, etc.)</td>
+        <td>1,5 J/H / mois</td>
+        <td>750,00 €</td>
+      </tr>
+      <tr>
+        <td><strong>Supervision & Mises à Jour Sécurité</strong></td>
+        <td>Mises à niveau de sécurité (Spring Boot, Angular, Keycloak, Yente, patchs OS Linux, certificats SSL)</td>
+        <td>1,0 J/H / mois</td>
+        <td>500,00 €</td>
+      </tr>
+      <tr>
+        <td><strong>Gestion des Sauvegardes S3 & Tests de Restauration</strong></td>
+        <td>Audit bimensuel des sauvegardes S3 et exercices de restauration (Disaster Recovery Plan)</td>
+        <td>0,5 J/H / mois</td>
+        <td>250,00 €</td>
+      </tr>
+      <tr class="total-row">
+        <td colspan="3"><strong>FORFAIT MAINTENANCE & MCO MENSUEL</strong></td>
+        <td><strong>1 500,00 € HT / mois</strong><br><span style="font-size: 10px; font-weight: normal; color: #475569;">(soit 18 000,00 € HT / an)</span></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- SECTION 4 : SYNTHÈSE TCO -->
+  <h2>4. Synthèse du Coût Total de Possession (TCO sur 1 An)</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Poste Budgétaire</th>
+        <th>Nature des Frais</th>
+        <th>Montant Annuel (HT)</th>
+        <th>Répartition</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>1. Hébergement Cloud OVH (3x 12 Go RAM + S3 + Snapshots + NDD)</strong></td>
+        <td>Frais d'infrastructure récurrents</td>
+        <td>1 173,60 €</td>
+        <td>3,1 %</td>
+      </tr>
+      <tr>
+        <td><strong>2. Développement des 4 Nouvelles Fonctionnalités Clés</strong></td>
+        <td>Investissement R&D initial (One-off)</td>
+        <td>18 900,00 €</td>
+        <td>49,6 %</td>
+      </tr>
+      <tr>
+        <td><strong>3. Maintenance, Support & Maintien en Condition Opérationnelle (MCO)</strong></td>
+        <td>Prestations récurrentes de maintenance</td>
+        <td>18 000,00 €</td>
+        <td>47,3 %</td>
+      </tr>
+      <tr class="total-row">
+        <td colspan="2"><strong>BUDGET TOTAL GLOBAL SUR 1 AN (INFRA + DÉVELOPPEMENT + MCO)</strong></td>
+        <td><strong>38 073,60 € HT</strong></td>
+        <td><strong>100 %</strong></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="footer">
+    <div>Document budgétaire <strong>SwiftCheck AML</strong> • Confidentiel</div>
+    <div>Page 2 / 2</div>
+  </div>
+
+</body>
+</html>
+"""
+
+html_path = r"d:\swiftcheck-aml\swiftcheck-aml\Analyse_Budgetaire_Complete_SwiftCheck_AML.html"
+pdf_path = r"d:\swiftcheck-aml\swiftcheck-aml\Analyse_Budgetaire_Complete_SwiftCheck_AML.pdf"
+
+with open(html_path, "w", encoding="utf-8") as f:
+    f.write(html_content)
+
+print(f"HTML generated at: {html_path}")
+
+browser_paths = [
+    r'C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe',
+    r'C:\Program Files\Microsoft\Edge\Application\msedge.exe',
+    r'C:\Program Files\Google\Chrome\Application\chrome.exe'
+]
+
+browser_exec = next((p for p in browser_paths if os.path.exists(p)), None)
+
+if browser_exec:
+    cmd = [
+        browser_exec,
+        "--headless",
+        "--disable-gpu",
+        "--no-pdf-header-footer",
+        f"--print-to-pdf={pdf_path}",
+        html_path
+    ]
+    res = subprocess.run(cmd, capture_output=True, text=True)
+    if os.path.exists(pdf_path) and os.path.getsize(pdf_path) > 0:
+        print(f"PDF successfully generated at: {pdf_path} (Size: {os.path.getsize(pdf_path)} bytes)")
+    else:
+        print(f"PDF generation failed: {res.stderr}")

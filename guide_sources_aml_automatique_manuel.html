@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Guide Officiel AML - Sources Automatiques vs Manuelles</title>
+  <style>
+    :root {
+      --primary: #2563eb;
+      --primary-dark: #1d4ed8;
+      --success: #059669;
+      --success-bg: #ecfdf5;
+      --success-border: #a7f3d0;
+      --warning: #d97706;
+      --warning-bg: #fffbeb;
+      --warning-border: #fde68a;
+      --slate-50: #f8fafc;
+      --slate-100: #f1f5f9;
+      --slate-200: #e2e8f0;
+      --slate-300: #cbd5e1;
+      --slate-600: #475569;
+      --slate-700: #334155;
+      --slate-800: #1e293b;
+      --slate-900: #0f172a;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; }
+    body { background-color: #f8fafc; color: var(--slate-800); line-height: 1.5; padding: 32px 20px; }
+    .container { max-width: 1280px; margin: 0 auto; }
+    
+    /* Header */
+    .header {
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #1e3a8a 100%);
+      color: white;
+      padding: 32px 36px;
+      border-radius: 20px;
+      box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.2);
+      margin-bottom: 28px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+    }
+    .header h1 { font-size: 26px; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 8px; display: flex; items-center: center; gap: 10px; }
+    .header p { color: #94a3b8; font-size: 14px; max-width: 750px; }
+    .header .actions { display: flex; gap: 12px; }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 18px;
+      border-radius: 12px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.2s;
+      border: none;
+    }
+    .btn-print { background: white; color: var(--slate-900); }
+    .btn-print:hover { background: #f1f5f9; transform: translateY(-1px); }
+    
+    /* Stats Bar */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+    .stat-card {
+      background: white;
+      padding: 18px 22px;
+      border-radius: 16px;
+      border: 1px solid var(--slate-200);
+      box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+    }
+    .stat-card .label { font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: var(--slate-600); margin-bottom: 4px; }
+    .stat-card .value { font-size: 24px; font-weight: 800; }
+    .stat-card.auto .value { color: var(--success); }
+    .stat-card.manual .value { color: var(--warning); }
+    .stat-card.total .value { color: var(--primary); }
+    
+    /* Notice box */
+    .notice-box {
+      background: #eff6ff;
+      border: 1px solid #bfdbfe;
+      border-left: 5px solid var(--primary);
+      padding: 16px 20px;
+      border-radius: 12px;
+      margin-bottom: 24px;
+      font-size: 13.5px;
+      color: #1e3a8a;
+    }
+    .notice-box strong { font-weight: 700; }
+
+    /* Filter tabs */
+    .tabs {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 20px;
+      border-bottom: 1px solid var(--slate-200);
+      padding-bottom: 12px;
+    }
+    .tab-btn {
+      padding: 8px 16px;
+      border-radius: 10px;
+      font-size: 13px;
+      font-weight: 600;
+      border: 1px solid transparent;
+      background: white;
+      color: var(--slate-600);
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .tab-btn:hover { background: var(--slate-100); }
+    .tab-btn.active { background: var(--slate-900); color: white; }
+    
+    /* Table styling */
+    .card-table {
+      background: white;
+      border-radius: 18px;
+      border: 1px solid var(--slate-200);
+      box-shadow: 0 4px 6px -1px rgba(0,0,0,0.04);
+      overflow: hidden;
+      margin-bottom: 32px;
+    }
+    table { width: 100%; border-collapse: collapse; text-align: left; font-size: 13px; }
+    thead { background: var(--slate-50); border-bottom: 1px solid var(--slate-200); }
+    th { padding: 14px 18px; font-weight: 700; color: var(--slate-600); font-size: 11.5px; text-transform: uppercase; letter-spacing: 0.05em; }
+    td { padding: 16px 18px; border-bottom: 1px solid var(--slate-200); vertical-align: top; }
+    tr:last-child td { border-bottom: none; }
+    tr:hover { background: #fbfcfe; }
+    
+    /* Badges */
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 4px 10px;
+      border-radius: 9999px;
+      font-size: 11px;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+    .badge-auto { background: var(--success-bg); color: var(--success); border: 1px solid var(--success-border); }
+    .badge-manual { background: var(--warning-bg); color: #b45309; border: 1px solid var(--warning-border); }
+    .badge-type { background: var(--slate-100); color: var(--slate-700); border: 1px solid var(--slate-200); font-family: monospace; }
+    
+    /* Code snippet badge */
+    .code-path {
+      display: block;
+      background: #f1f5f9;
+      color: #334155;
+      padding: 4px 8px;
+      border-radius: 6px;
+      font-family: 'Consolas', 'Courier New', monospace;
+      font-size: 11px;
+      word-break: break-all;
+      margin-top: 4px;
+      border: 1px solid #e2e8f0;
+    }
+    .url-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 600;
+      word-break: break-all;
+      font-size: 12px;
+    }
+    .url-link:hover { text-decoration: underline; color: var(--primary-dark); }
+    
+    .source-meta { font-weight: 700; font-size: 14px; color: var(--slate-900); display: block; margin-bottom: 2px; }
+    .source-sub { font-size: 11.5px; color: var(--slate-600); }
+    
+    .note-text { font-size: 12px; color: #475569; margin-top: 6px; line-height: 1.4; }
+    
+    /* Print media optimization */
+    @media print {
+      body { background: white; padding: 0; color: black; font-size: 11px; }
+      .header { background: #1e293b !important; color: white !important; padding: 16px; border-radius: 0; }
+      .header .btn-print, .tabs { display: none; }
+      .card-table { border: 1px solid #ccc; box-shadow: none; border-radius: 0; }
+      th, td { padding: 8px 10px; font-size: 11px; }
+      .code-path { border: none; background: #eee; }
+      tr { page-break-inside: avoid; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- Header -->
+  <div class="header">
+    <div>
+      <h1>
+        <svg width="28" height="28" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+        Répertoire Officiel des 25 Sources AML (Anti-Blanchiment)
+      </h1>
+      <p>Cartographie complète des flux institutionnels officiels 100% gratuits (sans intermédiaire ni abonnement payant). Guide de synchronisation automatique et manuel.</p>
+    </div>
+    <div class="actions">
+      <button onclick="window.print()" class="btn btn-print">
+        <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/></svg>
+        Imprimer / Exporter en PDF
+      </button>
+    </div>
+  </div>
+
+  <!-- Stats Grid -->
+  <div class="stats-grid">
+    <div class="stat-card total">
+      <div class="label">Total Parsers Configurés</div>
+      <div class="value">25</div>
+    </div>
+    <div class="stat-card auto">
+      <div class="label">Téléchargement Automatique</div>
+      <div class="value">12 sources (48%)</div>
+    </div>
+    <div class="stat-card manual">
+      <div class="label">Téléchargement Manuel Requis</div>
+      <div class="value">13 sources (52%)</div>
+    </div>
+  </div>
+
+  <!-- Notice Box -->
+  <div class="notice-box">
+    <strong>💡 Politique 100% Directe et Gratuite :</strong> Tous les liens répertoriés ci-dessous sont les <strong>points d'accès directs des gouvernements et des institutions officielles</strong> (Trésor Américain, Commission Européenne, ONU, Direction Générale du Trésor France, etc.). Aucun service tiers payant n'est requis.
+    <br>
+    <strong>🔒 Pourquoi 13 sources nécessitent un téléchargement manuel ?</strong> Ces institutions (FBI, Interpol, DEA, AMF, ACPR, etc.) ont déployé des pare-feux anti-robots (Cloudflare Challenge, Akamai WAF) ou exigent une navigation humaine sur leur portail web pour obtenir l'export de données. Vos 25 fichiers locaux actuels sont déjà présents et utilisables dans <code>D:\test-parser\source liste\</code>.
+  </div>
+
+  <!-- Filter tabs -->
+  <div class="tabs">
+    <button class="tab-btn active" onclick="filterTable('all', this)">Tous les Parsers (25)</button>
+    <button class="tab-btn" onclick="filterTable('auto', this)">✅ Téléchargeables Automatiquement (12)</button>
+    <button class="tab-btn" onclick="filterTable('manual', this)">⚠️ Téléchargement Manuel Requis (13)</button>
+  </div>
+
+  <!-- Table -->
+  <div class="card-table">
+    <table id="parsersTable">
+      <thead>
+        <tr>
+          <th style="width: 45px;">ID</th>
+          <th style="width: 220px;">Source & Institution</th>
+          <th style="width: 90px;">Format</th>
+          <th style="width: 140px;">Mode</th>
+          <th style="width: 380px;">Lien Officiel Direct</th>
+          <th>Cible Locale & Procédure</th>
+        </tr>
+      </thead>
+      <tbody>
+
+        <!-- 1. EU -->
+        <tr data-mode="auto">
+          <td><strong>1</strong></td>
+          <td>
+            <span class="source-meta">Union Européenne</span>
+            <span class="source-sub">EU Consolidated Sanctions (FSDF)</span>
+          </td>
+          <td><span class="badge badge-type">XML</span></td>
+          <td><span class="badge badge-auto">✅ Automatique</span></td>
+          <td>
+            <a class="url-link" href="https://webgate.ec.europa.eu/fsd/fsf/public/files/xmlFullSanctionsList_1_1/content?token=dG9rZW4tMjAxNw" target="_blank">
+              webgate.ec.europa.eu/.../xmlFullSanctionsList
+            </a>
+          </td>
+          <td>
+            <div class="source-sub">Taille : <strong>~25.7 Mo</strong> | Téléchargement direct 100% fonctionnel</div>
+            <code class="code-path">D:\test-parser\source liste\eu\eu_consolidated.xml</code>
+          </td>
+        </tr>
+
+        <!-- 2. ONU -->
+        <tr data-mode="auto">
+          <td><strong>2</strong></td>
+          <td>
+            <span class="source-meta">Nations Unies (ONU)</span>
+            <span class="source-sub">Conseil de Sécurité (UNSC Sanctions)</span>
+          </td>
+          <td><span class="badge badge-type">XML</span></td>
+          <td><span class="badge badge-auto">✅ Automatique</span></td>
+          <td>
+            <a class="url-link" href="https://scsanctions.un.org/resources/xml/en/consolidated.xml" target="_blank">
+              scsanctions.un.org/resources/xml/en/consolidated.xml
+            </a>
+          </td>
+          <td>
+            <div class="source-sub">Taille : <strong>~2.2 Mo</strong> | Téléchargement direct 100% fonctionnel</div>
+            <code class="code-path">D:\test-parser\source liste\onu\consolidated.xml</code>
+          </td>
+        </tr>
+
+        <!-- 3. OFAC -->
+        <tr data-mode="auto">
+          <td><strong>3</strong></td>
+          <td>
+            <span class="source-meta">OFAC (États-Unis)</span>
+            <span class="source-sub">US Treasury Specially Designated Nationals</span>
+          </td>
+          <td><span class="badge badge-type">XML / ZIP</span></td>
+          <td><span class="badge badge-auto">✅ Automatique</span></td>
+          <td>
+            <a class="url-link" href="https://sanctionslistservice.ofac.treas.gov/api/PublicationPreview/exports/SDN.XML" target="_blank">
+              sanctionslistservice.ofac.treas.gov/.../SDN.XML
+            </a>
+            <div class="note-text">Miroir ZIP officiel : <code>treasury.gov/ofac/downloads/sdn_xml.zip</code></div>
+          </td>
+          <td>
+            <div class="source-sub">Taille : <strong>~109.4 Mo</strong> | Téléchargement direct 100% fonctionnel</div>
+            <code class="code-path">D:\test-parser\source liste\ofac\SDN.XML</code>
+          </td>
+        </tr>
+
+        <!-- 4. DG-TRESOR -->
+        <tr data-mode="auto">
+          <td><strong>4</strong></td>
+          <td>
+            <span class="source-meta">DG-Trésor (France)</span>
+            <span class="source-sub">Registre National des Gels d'Avoirs</span>
+          </td>
+          <td><span class="badge badge-type">JSON &rarr; XML</span></td>
+          <td><span class="badge badge-auto">✅ Automatique</span></td>
+          <td>
+            <a class="url-link" href="https://gels-avoirs.dgtresor.gouv.fr/ApiPublic/api/v1/publication/derniere-publication-fichier-json" target="_blank">
+              gels-avoirs.dgtresor.gouv.fr/ApiPublic/...
+            </a>
+          </td>
+          <td>
+            <div class="source-sub">Taille : <strong>~18.6 Mo</strong> | Téléchargé et converti automatiquement en XML</div>
+            <code class="code-path">D:\test-parser\source liste\dg-tresor\dgtresor_sanctions.xml</code>
+          </td>
+        </tr>
+
+        <!-- 5. SECO -->
+        <tr data-mode="auto">
+          <td><strong>5</strong></td>
+          <td>
+            <span class="source-meta">SECO (Suisse)</span>
+            <span class="source-sub">Secrétariat d'État à l'Économie Confédération Suisse</span>
+          </td>
+          <td><span class="badge badge-type">XML</span></td>
+          <td><span class="badge badge-auto">✅ Automatique</span></td>
+          <td>
+            <a class="url-link" href="https://www.sesam.search.admin.ch/sesam-search-web/pages/downloadXmlGesamtliste.xhtml?lang=fr&action=downloadXmlGesamtlisteAction" target="_blank">
+              sesam.search.admin.ch/.../downloadXmlGesamtliste.xhtml
+            </a>
+          </td>
+          <td>
+            <div class="source-sub">Taille : <strong>~42.3 Mo</strong> | Téléchargement direct 100% fonctionnel</div>
+            <code class="code-path">D:\test-parser\source liste\seco\seco_sanctions.xml</code>
+          </td>
+        </tr>
+
+        <!-- 6. UKSL -->
+        <tr data-mode="auto">
+          <td><strong>6</strong></td>
+          <td>
+            <span class="source-meta">UKSL (Royaume-Uni)</span>
+            <span class="source-sub">Foreign & Commonwealth Development Office (FCDO)</span>
+          </td>
+          <td><span class="badge badge-type">XML</span></td>
+          <td><span class="badge badge-auto">✅ Automatique</span></td>
+          <td>
+            <a class="url-link" href="https://sanctionslist.fcdo.gov.uk/docs/UK-Sanctions-List.xml" target="_blank">
+              sanctionslist.fcdo.gov.uk/docs/UK-Sanctions-List.xml
+            </a>
+          </td>
+          <td>
+            <div class="source-sub">Taille : <strong>~21.7 Mo</strong> | Téléchargement direct 100% fonctionnel</div>
+            <code class="code-path">D:\test-parser\source liste\uksl\UK-Sanctions-List.xml</code>
+          </td>
+        </tr>
+
+        <!-- 7. DFAT -->
+        <tr data-mode="auto">
+          <td><strong>7</strong></td>
+          <td>
+            <span class="source-meta">DFAT (Australie)</span>
+            <span class="source-sub">Dept. of Foreign Affairs & Trade Consolidated List</span>
+          </td>
+          <td><span class="badge badge-type">XLS / XLSX</span></td>
+          <td><span class="badge badge-auto">✅ Automatique</span></td>
+          <td>
+            <a class="url-link" href="https://www.dfat.gov.au/sites/default/files/regulation8_consolidated.xls" target="_blank">
+              dfat.gov.au/.../regulation8_consolidated.xls
+            </a>
+            <div class="note-text">Portail : <a href="https://www.dfat.gov.au/international-relations/security/sanctions/consolidated-list" target="_blank">dfat.gov.au/.../consolidated-list</a></div>
+          </td>
+          <td>
+            <div class="source-sub">Taille : <strong>~1.4 Mo</strong> | Fichier Excel officiel du gouvernement australien</div>
+            <code class="code-path">D:\test-parser\source liste\dfat\regulation8_consolidated.xls</code>
+          </td>
+        </tr>
+
+        <!-- 8. WIKIDATA PEP -->
+        <tr data-mode="auto">
+          <td><strong>8</strong></td>
+          <td>
+            <span class="source-meta">Wikidata PEP (Monde)</span>
+            <span class="source-sub">Fondation Wikimedia (SPARQL Endpoint officiel)</span>
+          </td>
+          <td><span class="badge badge-type">JSON</span></td>
+          <td><span class="badge badge-auto">✅ Automatique</span></td>
+          <td>
+            <a class="url-link" href="https://query.wikidata.org/sparql?query=SELECT+DISTINCT+%3Fperson+WHERE+%7B...%7D&format=json" target="_blank">
+              query.wikidata.org/sparql?...
+            </a>
+          </td>
+          <td>
+            <div class="source-sub">Taille : <strong>~1.69 Mo</strong> | Requête SPARQL officielle en direct</div>
+            <code class="code-path">D:\test-parser\source liste\wikidata-pep\wikidata_pep_sparql.json</code>
+          </td>
+        </tr>
+
+        <!-- 9. DATAGOUV PEP -->
+        <tr data-mode="auto">
+          <td><strong>9</strong></td>
+          <td>
+            <span class="source-meta">DataGouv / HATVP (France)</span>
+            <span class="source-sub">Déclarations d'intérêts et d'activités des élus (PPE)</span>
+          </td>
+          <td><span class="badge badge-type">CSV</span></td>
+          <td><span class="badge badge-auto">✅ Automatique</span></td>
+          <td>
+            <a class="url-link" href="https://www.hatvp.fr/livraison/opendata/liste.csv" target="_blank">
+              hatvp.fr/livraison/opendata/liste.csv
+            </a>
+          </td>
+          <td>
+            <div class="source-sub">Taille : <strong>~3.4 Mo</strong> | Open Data officiel HATVP 100% fonctionnel</div>
+            <code class="code-path">D:\test-parser\source liste\datagouv-pep\datagouv_pep.csv</code>
+          </td>
+        </tr>
+
+        <!-- 10. EUROPOLE -->
+        <tr data-mode="manual">
+          <td><strong>10</strong></td>
+          <td>
+            <span class="source-meta">Europol (Europe)</span>
+            <span class="source-sub">Europe's Most Wanted Fugitives (ENFAST)</span>
+          </td>
+          <td><span class="badge badge-type">JSON</span></td>
+          <td><span class="badge badge-manual">⚠️ Manuel</span></td>
+          <td>
+            <a class="url-link" href="https://eumostwanted.eu/" target="_blank">
+              https://eumostwanted.eu/
+            </a>
+          </td>
+          <td>
+            <div class="note-text">
+              <strong>Motif :</strong> Pas de flux open-data public; site interactif protégé. Fichier local existant de <strong>96 Ko</strong>.
+              <br><strong>Procédure :</strong> Télécharger la liste ou maintenir le JSON local existant.
+            </div>
+            <code class="code-path">D:\test-parser\source liste\europole\europol_wanted.json</code>
+          </td>
+        </tr>
+
+        <!-- 11. INTERPOL -->
+        <tr data-mode="manual">
+          <td><strong>11</strong></td>
+          <td>
+            <span class="source-meta">INTERPOL (International)</span>
+            <span class="source-sub">Red Notices (Notices Rouges Internationales)</span>
+          </td>
+          <td><span class="badge badge-type">JSON</span></td>
+          <td><span class="badge badge-manual">⚠️ Manuel</span></td>
+          <td>
+            <a class="url-link" href="https://www.interpol.int/How-we-work/Notices/Red-Notices/View-Red-Notices" target="_blank">
+              interpol.int/.../View-Red-Notices
+            </a>
+            <div class="note-text">Endpoint API protégé : <code>https://ws-public.interpol.int/notices/v1/red</code></div>
+          </td>
+          <td>
+            <div class="note-text">
+              <strong>Motif :</strong> Akamai WAF bloque avec <code>403 Forbidden</code> tout client non interactif.
+              <br><strong>Procédure :</strong> Ouvrir la page de recherche Interpol et exporter, ou conserver le fichier local actuel de <strong>1.54 Mo</strong>.
+            </div>
+            <code class="code-path">D:\test-parser\source liste\interpol\interpol.json</code>
+          </td>
+        </tr>
+
+        <!-- 12. WORLD BANK -->
+        <tr data-mode="manual">
+          <td><strong>12</strong></td>
+          <td>
+            <span class="source-meta">Banque Mondiale (World Bank)</span>
+            <span class="source-sub">Debarred & Ineligible Firms and Individuals</span>
+          </td>
+          <td><span class="badge badge-type">JSON / CSV</span></td>
+          <td><span class="badge badge-manual">⚠️ Manuel</span></td>
+          <td>
+            <a class="url-link" href="https://www.worldbank.org/en/projects-operations/procurement/debarred-firms" target="_blank">
+              worldbank.org/.../debarred-firms
+            </a>
+          </td>
+          <td>
+            <div class="note-text">
+              <strong>Motif :</strong> Le lien actuel pointe vers la page HTML avec tableau dynamique.
+              <br><strong>Procédure :</strong> Aller sur la page officielle, cliquer sur <em>"Export to Excel"</em> ou <em>"CSV"</em>, et enregistrer le fichier. Le fichier local actuel contient <strong>2.24 Mo</strong> de données.
+            </div>
+            <code class="code-path">D:\test-parser\source liste\worldbank\world_bank.json</code>
+          </td>
+        </tr>
+
+        <!-- 13. CANADA -->
+        <tr data-mode="auto">
+          <td><strong>13</strong></td>
+          <td>
+            <span class="source-meta">Canada</span>
+            <span class="source-sub">Affaires Mondiales Canada (Sanctions Autonomes)</span>
+          </td>
+          <td><span class="badge badge-type">XML</span></td>
+          <td><span class="badge badge-auto">✅ Automatique</span></td>
+          <td>
+            <a class="url-link" href="https://www.international.gc.ca/world-monde/assets/office_docs/international_relations/institutions/sema-lmes.xml" target="_blank">
+              international.gc.ca/.../sema-lmes.xml
+            </a>
+          </td>
+          <td>
+            <div class="source-sub">Taille : <strong>~2.88 Mo</strong> | Flux XML officiel gouvernemental direct</div>
+            <code class="code-path">D:\test-parser\source liste\canada\canada_sanctions.xml</code>
+          </td>
+        </tr>
+
+        <!-- 14. DEA -->
+        <tr data-mode="manual">
+          <td><strong>14</strong></td>
+          <td>
+            <span class="source-meta">DEA (États-Unis)</span>
+            <span class="source-sub">Drug Enforcement Administration - Fugitives</span>
+          </td>
+          <td><span class="badge badge-type">JSON</span></td>
+          <td><span class="badge badge-manual">⚠️ Manuel</span></td>
+          <td>
+            <a class="url-link" href="https://www.dea.gov/fugitives" target="_blank">
+              https://www.dea.gov/fugitives
+            </a>
+          </td>
+          <td>
+            <div class="note-text">
+              <strong>Motif :</strong> Akamai GHost bloque avec <code>403 Forbidden</code> les scripts Java.
+              <br><strong>Procédure :</strong> Consulter le portail DEA. Fichier local actuel de <strong>707 Ko</strong> intact.
+            </div>
+            <code class="code-path">D:\test-parser\source liste\dea\dea_fugitives.json</code>
+          </td>
+        </tr>
+
+        <!-- 15. AMF FRANCE -->
+        <tr data-mode="manual">
+          <td><strong>15</strong></td>
+          <td>
+            <span class="source-meta">AMF (France)</span>
+            <span class="source-sub">Autorité des Marchés Financiers - Listes Noires</span>
+          </td>
+          <td><span class="badge badge-type">CSV</span></td>
+          <td><span class="badge badge-manual">⚠️ Manuel</span></td>
+          <td>
+            <a class="url-link" href="https://www.amf-france.org/fr/espace-epargnants/proteger-son-epargne/listes-noires-et-mises-en-garde" target="_blank">
+              amf-france.org/.../listes-noires-et-mises-en-garde
+            </a>
+          </td>
+          <td>
+            <div class="note-text">
+              <strong>Motif :</strong> L'URL en base est la page Web HTML.
+              <br><strong>Procédure :</strong> Sur le portail de l'AMF, cliquer sur le bouton bleu <em>"Télécharger la liste complète (format CSV)"</em> et écraser le fichier ci-dessous (fichier actuel : <strong>191 Ko</strong>).
+            </div>
+            <code class="code-path">D:\test-parser\source liste\amf\amf_blacklist.csv</code>
+          </td>
+        </tr>
+
+        <!-- 16. ACPR -->
+        <tr data-mode="manual">
+          <td><strong>16</strong></td>
+          <td>
+            <span class="source-meta">ACPR (France)</span>
+            <span class="source-sub">Banque de France - Autorité de Contrôle Prudentiel</span>
+          </td>
+          <td><span class="badge badge-type">JSON / CSV</span></td>
+          <td><span class="badge badge-manual">⚠️ Manuel</span></td>
+          <td>
+            <a class="url-link" href="https://acpr.banque-france.fr/mises-en-garde-et-listes-noires" target="_blank">
+              acpr.banque-france.fr/.../mises-en-garde-et-listes-noires
+            </a>
+            <div class="note-text">Portail des acteurs autorisés : <a href="https://www.regafi.fr/" target="_blank">regafi.fr</a></div>
+          </td>
+          <td>
+            <div class="note-text">
+              <strong>Motif :</strong> L'URL en base était la racine du site web.
+              <br><strong>Procédure :</strong> Télécharger les listes noires de faux établissements bancaires depuis l'ACPR. Fichier local actuel de <strong>10 Ko</strong>.
+            </div>
+            <code class="code-path">D:\test-parser\source liste\acpr\acpr_sanctions.json</code>
+          </td>
+        </tr>
+
+        <!-- 17. FCA UK -->
+        <tr data-mode="manual">
+          <td><strong>17</strong></td>
+          <td>
+            <span class="source-meta">FCA (Royaume-Uni)</span>
+            <span class="source-sub">Financial Conduct Authority - Warning List</span>
+          </td>
+          <td><span class="badge badge-type">JSON / CSV</span></td>
+          <td><span class="badge badge-manual">⚠️ Manuel</span></td>
+          <td>
+            <a class="url-link" href="https://www.fca.org.uk/consumers/warning-list-unauthorised-firms" target="_blank">
+              fca.org.uk/.../warning-list-unauthorised-firms
+            </a>
+          </td>
+          <td>
+            <div class="note-text">
+              <strong>Motif :</strong> Cloudflare bloque l'accès script direct avec <code>HTTP 403</code>.
+              <br><strong>Procédure :</strong> Exporter la liste des sociétés non autorisées via le portail FCA. Fichier local actuel de <strong>11.2 Mo</strong>.
+            </div>
+            <code class="code-path">D:\test-parser\source liste\fca\fca_warnings.json</code>
+          </td>
+        </tr>
+
+        <!-- 18. SEC USA -->
+        <tr data-mode="manual">
+          <td><strong>18</strong></td>
+          <td>
+            <span class="source-meta">SEC (États-Unis)</span>
+            <span class="source-sub">PAUSE List (Public Alerts: Unregistered Soliciting Entities)</span>
+          </td>
+          <td><span class="badge badge-type">JSON / CSV</span></td>
+          <td><span class="badge badge-manual">⚠️ Manuel</span></td>
+          <td>
+            <a class="url-link" href="https://www.sec.gov/enforce/public-alerts/unregistered-soliciting-entities" target="_blank">
+              sec.gov/.../unregistered-soliciting-entities
+            </a>
+          </td>
+          <td>
+            <div class="note-text">
+              <strong>Motif :</strong> La SEC applique des restrictions strictes de requêtes automatisées.
+              <br><strong>Procédure :</strong> Exporter le tableau de vigilance depuis le site SEC.gov. Fichier local actuel de <strong>2.29 Mo</strong>.
+            </div>
+            <code class="code-path">D:\test-parser\source liste\sec\sec_pause.json</code>
+          </td>
+        </tr>
+
+        <!-- 19. US BIS -->
+        <tr data-mode="auto">
+          <td><strong>19</strong></td>
+          <td>
+            <span class="source-meta">US BIS (États-Unis)</span>
+            <span class="source-sub">Bureau of Industry & Security - Denied Persons List</span>
+          </td>
+          <td><span class="badge badge-type">CSV / TXT</span></td>
+          <td><span class="badge badge-auto">✅ Automatique</span></td>
+          <td>
+            <a class="url-link" href="https://www.bis.doc.gov/dpl/dpl.txt" target="_blank">
+              bis.doc.gov/dpl/dpl.txt
+            </a>
+            <div class="note-text">Source consolidée Trade.gov : <a href="https://data.trade.gov/downloadable_files/csl-consolidated.csv" target="_blank">data.trade.gov/.../csl-consolidated.csv</a></div>
+          </td>
+          <td>
+            <div class="source-sub">Fichier brut directement téléchargeable sur le site du gouvernement américain</div>
+            <code class="code-path">D:\test-parser\source liste\us-bis\us_bis.csv</code>
+          </td>
+        </tr>
+
+        <!-- 20. COH -->
+        <tr data-mode="manual">
+          <td><strong>20</strong></td>
+          <td>
+            <span class="source-meta">Companies House (Royaume-Uni)</span>
+            <span class="source-sub">Disqualified Directors Register (Dirigeants déchus)</span>
+          </td>
+          <td><span class="badge badge-type">CSV</span></td>
+          <td><span class="badge badge-manual">⚠️ Manuel</span></td>
+          <td>
+            <a class="url-link" href="https://www.gov.uk/search-the-register-of-disqualified-company-directors" target="_blank">
+              gov.uk/.../disqualified-company-directors
+            </a>
+          </td>
+          <td>
+            <div class="note-text">
+              <strong>Motif :</strong> Nécessite une clé API Companies House pour un flux machine complet.
+              <br><strong>Procédure :</strong> Exporter le snapshot officiel annuel ou API. Fichier local actuel de <strong>4.16 Mo</strong> intact.
+            </div>
+            <code class="code-path">D:\test-parser\source liste\coh\coh.csv</code>
+          </td>
+        </tr>
+
+        <!-- 21. BODACC -->
+        <tr data-mode="auto">
+          <td><strong>21</strong></td>
+          <td>
+            <span class="source-meta">BODACC (France)</span>
+            <span class="source-sub">Faillites, Rétablissements & Interdictions de Gérer</span>
+          </td>
+          <td><span class="badge badge-type">JSON</span></td>
+          <td><span class="badge badge-auto">✅ Automatique</span></td>
+          <td>
+            <a class="url-link" href="https://bodacc-datadila.opendatasoft.com/api/explore/v2.1/catalog/datasets/annonces-commerciales/exports/json" target="_blank">
+              bodacc-datadila.opendatasoft.com/.../exports/json
+            </a>
+          </td>
+          <td>
+            <div class="source-sub">Taille : <strong>~79 Ko</strong> | API officielle Open Data DILA 100% opérationnelle</div>
+            <code class="code-path">D:\test-parser\source liste\bodacc\bodacc.json</code>
+          </td>
+        </tr>
+
+        <!-- 22. AFD -->
+        <tr data-mode="manual">
+          <td><strong>22</strong></td>
+          <td>
+            <span class="source-meta">Banque Africaine de Dével. (BAD/AFD)</span>
+            <span class="source-sub">Sanctions & Debarment Procedures</span>
+          </td>
+          <td><span class="badge badge-type">JSON</span></td>
+          <td><span class="badge badge-manual">⚠️ Manuel</span></td>
+          <td>
+            <a class="url-link" href="https://www.afdb.org/en/projects-operations/debarment-and-sanctions-procedures" target="_blank">
+              afdb.org/.../debarment-and-sanctions-procedures
+            </a>
+          </td>
+          <td>
+            <div class="note-text">
+              <strong>Motif :</strong> Page institutionnelle avec pare-feu Akamai.
+              <br><strong>Procédure :</strong> Consulter les publications de la BAD. Fichier local actuel de <strong>262 Ko</strong>.
+            </div>
+            <code class="code-path">D:\test-parser\source liste\afd\afd.json</code>
+          </td>
+        </tr>
+
+        <!-- 23. FATF / GAFI -->
+        <tr data-mode="manual">
+          <td><strong>23</strong></td>
+          <td>
+            <span class="source-meta">GAFI / FATF (Monde)</span>
+            <span class="source-sub">High-Risk Jurisdictions (Listes Noires et Grises)</span>
+          </td>
+          <td><span class="badge badge-type">JSON</span></td>
+          <td><span class="badge badge-manual">⚠️ Manuel</span></td>
+          <td>
+            <a class="url-link" href="https://www.fatf-gafi.org/en/topics/high-risk-and-other-monitored-jurisdictions.html" target="_blank">
+              fatf-gafi.org/.../high-risk-and-other-monitored-jurisdictions
+            </a>
+          </td>
+          <td>
+            <div class="note-text">
+              <strong>Motif :</strong> Le GAFI publie ses listes sous forme de communiqués pléniers (3 fois par an).
+              <br><strong>Procédure :</strong> Mettre à jour manuellement lors des 3 réunions annuelles du GAFI. Fichier local de <strong>17 Ko</strong> intact.
+            </div>
+            <code class="code-path">D:\test-parser\source liste\fatf\gafi.json</code>
+          </td>
+        </tr>
+
+        <!-- 24. BID INTERAMERICAN -->
+        <tr data-mode="auto">
+          <td><strong>24</strong></td>
+          <td>
+            <span class="source-meta">Banque Interaméricaine (BID/IDB)</span>
+            <span class="source-sub">Sanctioned Firms and Individuals</span>
+          </td>
+          <td><span class="badge badge-type">CSV</span></td>
+          <td><span class="badge badge-auto">✅ Automatique</span></td>
+          <td>
+            <a class="url-link" href="https://data.iadb.org/files/download/f5022f04-a3f1-4604-a099-5d562e3a0aa5" target="_blank">
+              data.iadb.org/files/download/f5022f04-a3f1-4604-a099-5d562e3a0aa5
+            </a>
+            <div class="note-text">Portail : <a href="https://www.iadb.org/en/about-us/integrity/sanctioned-firms-and-individuals" target="_blank">iadb.org/.../sanctioned-firms-and-individuals</a></div>
+          </td>
+          <td>
+            <div class="source-sub">Taille : <strong>~155 Ko</strong> | Téléchargement CSV direct officiel 100% fonctionnel</div>
+            <code class="code-path">D:\test-parser\source liste\bid\idb_debarred.csv</code>
+          </td>
+        </tr>
+
+        <!-- 25. FBI -->
+        <tr data-mode="manual">
+          <td><strong>25</strong></td>
+          <td>
+            <span class="source-meta">FBI (États-Unis)</span>
+            <span class="source-sub">Federal Bureau of Investigation - Most Wanted</span>
+          </td>
+          <td><span class="badge badge-type">JSON</span></td>
+          <td><span class="badge badge-manual">⚠️ Manuel</span></td>
+          <td>
+            <a class="url-link" href="https://api.fbi.gov/wanted/v1/list" target="_blank">
+              https://api.fbi.gov/wanted/v1/list
+            </a>
+            <div class="note-text">Portail : <a href="https://www.fbi.gov/wanted" target="_blank">fbi.gov/wanted</a></div>
+          </td>
+          <td>
+            <div class="note-text">
+              <strong>Motif :</strong> L'API publique du FBI est protégée par un WAF Cloudflare qui exige un navigateur (renvoie <code>403</code> aux requêtes Java).
+              <br><strong>Procédure en 1 clic :</strong> Ouvrir le lien direct <code>https://api.fbi.gov/wanted/v1/list</code> dans votre navigateur (Chrome/Edge), faire <em>Ctrl + S</em> et enregistrer sous le chemin ci-dessous. Fichier local actuel de <strong>5.1 Mo</strong>.
+            </div>
+            <code class="code-path">D:\test-parser\source liste\fbi\fbi_wanted.json</code>
+          </td>
+        </tr>
+
+      </tbody>
+    </table>
+  </div>
+
+</div>
+
+<script>
+  function filterTable(mode, btn) {
+    // Update active tab button
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+
+    // Filter table rows
+    const rows = document.querySelectorAll('#parsersTable tbody tr');
+    rows.forEach(row => {
+      const rowMode = row.getAttribute('data-mode');
+      if (mode === 'all') {
+        row.style.display = '';
+      } else if (mode === rowMode) {
+        row.style.display = '';
+      } else {
+        row.style.display = 'none';
+      }
+    });
+  }
+</script>
+
+</body>
+</html>

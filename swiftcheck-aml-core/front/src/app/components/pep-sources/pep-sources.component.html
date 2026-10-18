@@ -1,0 +1,171 @@
+<div class="max-w-7xl mx-auto space-y-6">
+  <div class="bg-white rounded-2xl shadow-xs border border-slate-200 overflow-hidden">
+
+    <div class="bg-slate-900 px-4 sm:px-8 py-5 sm:py-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+      <div>
+        <h2 class="text-xl sm:text-2xl font-bold text-white tracking-tight">Sources PEP</h2>
+        <p class="mt-1 text-xs sm:text-sm text-slate-300">
+          Où récupérer les titulaires de chaque fonction — {{ sources.length }} source{{ sources.length > 1 ? 's' : '' }},
+          {{ implementedCount }} lue{{ implementedCount > 1 ? 's' : '' }} par un parser
+        </p>
+      </div>
+      <div class="flex flex-wrap items-center gap-3">
+        <select [(ngModel)]="countryIso" (ngModelChange)="load()" aria-label="Pays"
+                class="rounded-xl border-0 bg-white/10 px-3 py-2 text-sm font-semibold text-white focus:ring-2 focus:ring-emerald-500">
+          <option *ngFor="let c of countries" [value]="c.iso" class="text-slate-900">{{ c.name }} ({{ c.iso }})</option>
+        </select>
+        <button *ngIf="keycloak.isAdmin()" type="button" (click)="openForm()"
+                class="inline-flex items-center rounded-xl bg-emerald-600 px-3.5 py-2 text-sm font-semibold text-white hover:bg-emerald-500">
+          + Nouvelle source
+        </button>
+      </div>
+    </div>
+
+    <div class="p-4 sm:p-6 bg-slate-50 min-h-[400px]">
+      <div *ngIf="errorMessage" class="bg-rose-50 border border-rose-200 text-rose-800 p-3 rounded-xl text-sm mb-4">{{ errorMessage }}</div>
+      <div *ngIf="isLoading" class="text-center py-16 text-slate-500 text-sm">Chargement…</div>
+
+      <div *ngIf="!isLoading && sources.length === 0" class="text-center py-16 bg-white rounded-xl border border-dashed border-slate-300 text-sm text-slate-500">
+        Aucune source identifiée pour ce pays.
+      </div>
+
+      <div *ngIf="!isLoading && sources.length > 0" class="bg-white rounded-xl border border-slate-200 overflow-x-auto">
+        <table class="min-w-full divide-y divide-slate-200 text-sm">
+          <thead class="bg-slate-50">
+            <tr class="text-left text-xs font-semibold text-slate-500 uppercase tracking-wider">
+              <th class="px-4 py-3">Source</th>
+              <th class="px-3 py-3">Type</th>
+              <th class="px-3 py-3">Fonctions couvertes</th>
+              <th class="px-3 py-3">Parser</th>
+              <th class="px-4 py-3 text-right"></th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-100">
+            <tr *ngFor="let s of sources" class="align-top" [class.opacity-60]="s.status === 'REJECTED'">
+              <td class="px-4 py-3 max-w-xs">
+                <p class="font-medium text-slate-900">{{ s.name }}</p>
+                <a *ngIf="s.url" [href]="s.url" target="_blank" rel="noopener" class="block font-mono text-xs text-emerald-700 hover:underline truncate" [title]="s.url">{{ s.url }}</a>
+                <p *ngIf="s.notes" class="text-xs text-slate-500 mt-0.5">{{ s.notes }}</p>
+              </td>
+              <td class="px-3 py-3 text-xs text-slate-600">
+                <p>{{ kindLabel(s.parserKind) }}</p>
+                <p class="text-slate-500">Accès {{ accessLabels[s.access] | lowercase }}<span *ngIf="s.licence"> · {{ s.licence }}</span></p>
+              </td>
+              <td class="px-3 py-3 text-xs text-slate-700">
+                <div *ngFor="let f of s.functions">
+                  <span class="font-mono text-slate-500">{{ f.categoryCode }}</span> {{ f.label }}
+                  <span class="text-slate-500">({{ f.completeness === 'COMPLETE' ? 'complète' : 'partielle' }}{{ f.includesFormer ? ', avec les anciens' : '' }})</span>
+                </div>
+              </td>
+              <td class="px-3 py-3 text-xs">
+                <span *ngIf="s.status === 'REJECTED'" class="rounded-lg px-2 py-0.5 font-semibold ring-1 ring-inset bg-slate-100 text-slate-600 ring-slate-500/20">Écartée</span>
+                <ng-container *ngIf="s.status !== 'REJECTED'">
+                  <div *ngFor="let p of s.parsers" class="font-mono text-emerald-700">{{ p.datasetName }}<span *ngIf="!p.enabled" class="text-rose-600"> (désactivé)</span></div>
+                  <span *ngIf="!s.parsers?.length" class="rounded-lg px-2 py-0.5 font-semibold ring-1 ring-inset bg-amber-50 text-amber-700 ring-amber-600/20">À implémenter</span>
+                </ng-container>
+              </td>
+              <td class="px-4 py-3 text-right whitespace-nowrap">
+                <ng-container *ngIf="keycloak.isAdmin()">
+                  <button type="button" (click)="openForm(s)" class="text-xs font-semibold text-slate-700 hover:text-emerald-700">Modifier</button>
+                  <button type="button" (click)="remove(s)" class="ml-3 text-xs font-semibold text-rose-600 hover:text-rose-800">Supprimer</button>
+                </ng-container>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Formulaire d'une source (panneau latéral) -->
+<div *ngIf="draft as d" class="fixed inset-0 z-50 flex justify-end">
+  <div class="absolute inset-0 bg-slate-950/50" (click)="closeForm()"></div>
+  <form (ngSubmit)="save()" class="relative w-full max-w-2xl h-full bg-slate-50 shadow-2xl flex flex-col">
+    <div class="px-6 py-4 bg-white border-b border-slate-200 flex items-center justify-between">
+      <h3 class="text-lg font-bold text-slate-900">{{ d.id ? 'Modifier la source' : 'Nouvelle source' }}</h3>
+      <button type="button" (click)="closeForm()" class="text-slate-400 hover:text-slate-700" title="Fermer">✕</button>
+    </div>
+
+    <div class="flex-1 overflow-y-auto p-6 space-y-5">
+      <div *ngIf="formError" class="bg-rose-50 border border-rose-200 text-rose-800 p-3 rounded-xl text-sm font-medium">{{ formError }}</div>
+
+      <section class="bg-white p-5 rounded-xl border border-slate-200 space-y-4">
+        <div>
+          <label for="src-name" class="block text-xs font-semibold text-slate-700 mb-1">Nom *</label>
+          <input id="src-name" name="name" [(ngModel)]="d.name" placeholder="ex. Conseil d'État – composition" class="w-full rounded-lg border border-slate-300 p-2.5 text-sm">
+        </div>
+        <div>
+          <label for="src-url" class="block text-xs font-semibold text-slate-700 mb-1">Adresse</label>
+          <input id="src-url" name="url" [(ngModel)]="d.url" placeholder="https://..." class="w-full rounded-lg border border-slate-300 p-2.5 text-sm font-mono">
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label for="src-kind" class="block text-xs font-semibold text-slate-700 mb-1">Type de source</label>
+            <select id="src-kind" name="parserKind" [(ngModel)]="d.parserKind" class="w-full rounded-lg border border-slate-300 p-2.5 text-sm bg-white">
+              <option [ngValue]="undefined">— Non précisé —</option>
+              <option *ngFor="let k of parserKinds" [ngValue]="k.value">{{ k.label }}</option>
+            </select>
+          </div>
+          <div>
+            <label for="src-access" class="block text-xs font-semibold text-slate-700 mb-1">Accès</label>
+            <select id="src-access" name="access" [(ngModel)]="d.access" class="w-full rounded-lg border border-slate-300 p-2.5 text-sm bg-white">
+              <option *ngFor="let a of accesses" [ngValue]="a">{{ accessLabels[a] }}</option>
+            </select>
+          </div>
+          <div>
+            <label for="src-licence" class="block text-xs font-semibold text-slate-700 mb-1">Licence</label>
+            <input id="src-licence" name="licence" [(ngModel)]="d.licence" placeholder="ex. CC0" class="w-full rounded-lg border border-slate-300 p-2.5 text-sm">
+          </div>
+          <div>
+            <p class="block text-xs font-semibold text-slate-700 mb-1">Décision</p>
+            <label class="inline-flex items-center gap-2 text-sm mr-4">
+              <input type="radio" name="status" [checked]="d.status === 'CANDIDATE'" (change)="setStatus('CANDIDATE')"> À exploiter
+            </label>
+            <label class="inline-flex items-center gap-2 text-sm">
+              <input type="radio" name="status" [checked]="d.status === 'REJECTED'" (change)="setStatus('REJECTED')"> Écartée
+            </label>
+          </div>
+        </div>
+        <div>
+          <label for="src-notes" class="block text-xs font-semibold text-slate-700 mb-1">Remarques</label>
+          <textarea id="src-notes" name="notes" [(ngModel)]="d.notes" rows="2" placeholder="Format, mise à jour, raison si écartée…" class="w-full rounded-lg border border-slate-300 p-2.5 text-sm"></textarea>
+        </div>
+      </section>
+
+      <section class="bg-white p-5 rounded-xl border border-slate-200 space-y-3">
+        <h4 class="text-xs font-bold text-slate-900 uppercase tracking-wider">Fonctions couvertes ({{ links.size }})</h4>
+        <p class="text-xs text-slate-500">
+          Complète : tous les titulaires en fonction. Partielle : une partie seulement (ex. nominations récentes).
+          « Anciens » : la source donne aussi les titulaires passés.
+        </p>
+        <div *ngFor="let group of functionGroups" class="border-t border-slate-100 pt-2">
+          <p class="text-xs font-semibold text-slate-700 mb-1"><span class="font-mono text-slate-500">{{ group.code }}</span> {{ group.label }}</p>
+          <div *ngFor="let f of group.functions" class="flex flex-wrap items-center gap-3 py-0.5 text-sm">
+            <label class="flex items-center gap-2 flex-1 min-w-[14rem] cursor-pointer">
+              <input type="checkbox" [checked]="links.has(f.id)" (change)="toggleFunction(f.id)" class="h-4 w-4 rounded border-slate-300 text-emerald-600">
+              {{ f.label }}
+            </label>
+            <ng-container *ngIf="links.get(f.id) as link">
+              <select [ngModel]="link.completeness" (ngModelChange)="setCompleteness(f.id, $event)" [ngModelOptions]="{ standalone: true }"
+                      [attr.aria-label]="'Complétude pour ' + f.label" class="rounded-md border border-slate-300 px-2 py-1 text-xs bg-white">
+                <option value="COMPLETE">Complète</option>
+                <option value="PARTIAL">Partielle</option>
+              </select>
+              <label class="flex items-center gap-1 text-xs text-slate-600">
+                <input type="checkbox" [checked]="link.includesFormer" (change)="setIncludesFormer(f.id, $any($event.target).checked)" class="h-3.5 w-3.5 rounded border-slate-300"> anciens
+              </label>
+            </ng-container>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <div class="px-6 py-4 bg-white border-t border-slate-200 flex justify-end gap-3">
+      <button type="button" (click)="closeForm()" class="rounded-lg border border-slate-300 px-4 py-2 text-sm font-semibold text-slate-700">Annuler</button>
+      <button type="submit" [disabled]="isSaving" class="rounded-lg bg-emerald-600 px-4 py-2 text-sm font-semibold text-white hover:bg-emerald-500 disabled:opacity-50">
+        {{ isSaving ? 'Enregistrement…' : 'Enregistrer' }}
+      </button>
+    </div>
+  </form>
+</div>

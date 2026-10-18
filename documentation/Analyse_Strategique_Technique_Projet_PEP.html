@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Analyse Stratégique & Technique - Collecte des Données PEP en Europe - SwiftCheck AML</title>
+<style>
+  @page {
+    size: A4 portrait;
+    margin: 10mm 12mm 10mm 12mm;
+  }
+
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, 'Helvetica Neue', Arial, sans-serif;
+    color: #1e293b;
+    background-color: #ffffff;
+    font-size: 11px;
+    line-height: 1.45;
+  }
+
+  .page {
+    page-break-after: always;
+    position: relative;
+    padding-bottom: 15px;
+  }
+
+  .page:last-child {
+    page-break-after: avoid;
+  }
+
+  /* HEADER */
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid #2563eb;
+    padding-bottom: 8px;
+    margin-bottom: 12px;
+  }
+
+  .brand-title {
+    font-size: 18px;
+    font-weight: 800;
+    color: #0f172a;
+    letter-spacing: -0.5px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .brand-badge {
+    background: linear-gradient(135deg, #2563eb, #1d4ed8);
+    color: #ffffff;
+    font-size: 9px;
+    font-weight: 700;
+    padding: 2px 7px;
+    border-radius: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .brand-subtitle {
+    font-size: 10px;
+    color: #64748b;
+    font-weight: 600;
+  }
+
+  .doc-meta {
+    text-align: right;
+    font-size: 9.5px;
+    color: #64748b;
+  }
+
+  .doc-meta strong {
+    color: #0f172a;
+  }
+
+  /* FOOTER */
+  .footer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid #e2e8f0;
+    padding-top: 5px;
+    font-size: 8.5px;
+    color: #94a3b8;
+  }
+
+  /* TYPOGRAPHY */
+  h1 {
+    font-size: 17px;
+    font-weight: 800;
+    color: #0f172a;
+    margin-bottom: 10px;
+    letter-spacing: -0.3px;
+  }
+
+  h2 {
+    font-size: 12.5px;
+    font-weight: 700;
+    color: #1e3a8a;
+    margin: 10px 0 6px 0;
+    padding-bottom: 3px;
+    border-bottom: 1.5px solid #dbeafe;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  h3 {
+    font-size: 11.5px;
+    font-weight: 700;
+    color: #0f172a;
+    margin: 8px 0 4px 0;
+  }
+
+  p {
+    margin-bottom: 7px;
+    text-align: justify;
+  }
+
+  /* CARDS & CONTAINERS */
+  .card {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+    padding: 9px 12px;
+    margin-bottom: 10px;
+  }
+
+  .card-highlight {
+    background: #f0fdf4;
+    border-left: 4px solid #16a34a;
+  }
+
+  .card-warning {
+    background: #fffbeb;
+    border-left: 4px solid #f59e0b;
+  }
+
+  .card-info {
+    background: #eff6ff;
+    border-left: 4px solid #3b82f6;
+  }
+
+  .card-danger {
+    background: #fef2f2;
+    border-left: 4px solid #ef4444;
+  }
+
+  /* GRID SYSTEMS */
+  .grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 10px;
+  }
+
+  .grid-3 {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 8px;
+    margin-bottom: 10px;
+  }
+
+  .grid-4 {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 8px;
+    margin-bottom: 10px;
+  }
+
+  .stat-card {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+    padding: 8px 10px;
+    text-align: center;
+  }
+
+  .stat-val {
+    font-size: 16px;
+    font-weight: 800;
+    color: #2563eb;
+  }
+
+  .stat-label {
+    font-size: 9px;
+    font-weight: 600;
+    color: #64748b;
+    text-transform: uppercase;
+  }
+
+  /* TABLES */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 10px;
+    font-size: 10px;
+  }
+
+  th, td {
+    padding: 5px 7px;
+    text-align: left;
+    border-bottom: 1px solid #e2e8f0;
+    vertical-align: middle;
+  }
+
+  th {
+    background-color: #f1f5f9;
+    color: #334155;
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 8.5px;
+    letter-spacing: 0.5px;
+  }
+
+  tr:nth-child(even) td {
+    background-color: #f8fafc;
+  }
+
+  /* BADGES */
+  .badge {
+    display: inline-block;
+    padding: 1px 6px;
+    border-radius: 4px;
+    font-size: 8.5px;
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+
+  .badge-success { background: #dcfce7; color: #15803d; }
+  .badge-warning { background: #fef3c7; color: #b45309; }
+  .badge-danger  { background: #fee2e2; color: #b91c1c; }
+  .badge-info    { background: #dbeafe; color: #1d4ed8; }
+  .badge-purple  { background: #f3e8ff; color: #7e22ce; }
+
+  ul {
+    margin-left: 16px;
+    margin-bottom: 8px;
+  }
+
+  li {
+    margin-bottom: 3px;
+  }
+
+  .callout-title {
+    font-weight: 700;
+    font-size: 11px;
+    margin-bottom: 3px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+</style>
+</head>
+<body>
+
+<!-- ================= PAGE 1 ================= -->
+<div class="page">
+  <div class="header">
+    <div class="brand">
+      <div class="brand-title">
+        SwiftCheck AML <span class="brand-badge">Audit & Stratégie</span>
+      </div>
+      <div class="brand-subtitle">Architecture LCB-FT • Renseignement Réglementaire • Conformité Bancaire</div>
+    </div>
+    <div class="doc-meta">
+      <strong>Rapport d'Analyse Critique</strong><br>
+      Spécification PEP Europe (28 Pays + CH)<br>
+      Date : Octobre 2026 | Réf : SC-STRAT-PEP-2026-V1
+    </div>
+  </div>
+
+  <h1>Avis d'Expert & Analyse Stratégique : Projet Collecte PEP Europe</h1>
+
+  <div class="card card-info">
+    <div class="callout-title">
+      <span>🎯</span> Synthèse Exécutive & Verdict Global
+    </div>
+    <p>
+      Le projet <strong>SwiftCheck AML</strong> s'attaque au point névralgique du marché mondial de la conformité : 
+      la fragilité des bases PEP (Personnes Politiquement Exposées). Face à un leader open source comme <strong>OpenSanctions</strong> 
+      (dépendant de Wikidata pour les postes non électifs et bridé par une licence CC BY-NC 4.0 payante) et face aux géants historiques 
+      (World-Check, Dow Jones) qui opèrent en « boîtes noires » propriétaires très coûteuses, SwiftCheck pose un positionnement révolutionnaire : 
+      <strong>« La base PEP européenne fondée sur les sources officielles, cryptographiquement prouvable (SHA-256), conforme pays par pays et souveraine (on-premise). »</strong>
+    </p>
+    <p style="margin-bottom: 0;">
+      <strong>Verdict :</strong> L'approche méthodologique consistant à partir de la <em>fonction officielle</em> (Position au sens de la directive UE 2015/849 et du règlement AMLR 2024/1624) plutôt que des personnes est la seule garantissant la rigueur exigée par les superviseurs bancaires (ACPR, CSSF, BaFin, FINMA). Le projet présente un potentiel commercial et technique exceptionnel, sous réserve de verrouiller impérativement le socle Core avant d'industrialiser les 160 parsers.
+    </p>
+  </div>
+
+  <div class="grid-4">
+    <div class="stat-card">
+      <div class="stat-val">28 + 1</div>
+      <div class="stat-label">Périmètre (UE + Suisse)</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-val">&ge; 85 %</div>
+      <div class="stat-label">Cible Couverture Officielle</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-val">SHA-256</div>
+      <div class="stat-label">Preuve Cryptographique</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-val">100 %</div>
+      <div class="stat-label">Données Souveraines</div>
+    </div>
+  </div>
+
+  <h2>1. Positionnement Concurrentiel & Matrice Différenciatrice</h2>
+  <p>
+    Pour s'imposer sur le marché européen, SwiftCheck exploite méthodiquement les faiblesses structurelles des offres existantes :
+  </p>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Critère Clé</th>
+        <th>OpenSanctions</th>
+        <th>Fournisseurs Commerciaux (World-Check, etc.)</th>
+        <th>SwiftCheck AML (Cible)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Sources Primaires</strong></td>
+        <td>Parlements + Wikidata (non officiel)</td>
+        <td>Analystes, presse, scraping opaque</td>
+        <td><span class="badge badge-success">100% Sources Officielles</span> (Lois, JO, Registres)</td>
+      </tr>
+      <tr>
+        <td><strong>Fonctions Nommées</strong><br>(Juges, DG, Armée, Ambassadeurs)</td>
+        <td><span class="badge badge-danger">Faible</span> (quelques dizaines par pays via Wikidata)</td>
+        <td>Bonne couverture, mais fraîcheur variable</td>
+        <td><span class="badge badge-success">Excellente</span> via Journaux Officiels (BOE, JORF, Legilux...)</td>
+      </tr>
+      <tr>
+        <td><strong>Prouvabilité & Audit</strong></td>
+        <td>Lien hypertexte simple</td>
+        <td>Non publiée / Boîte noire</td>
+        <td><span class="badge badge-info">Empreinte SHA-256</span> + archive brute de chaque exécution</td>
+      </tr>
+      <tr>
+        <td><strong>Règles Temporelles</strong></td>
+        <td>Durées globales forfaitaires (5, 20 ans)</td>
+        <td>Forfaitaires ou opaques</td>
+        <td><span class="badge badge-purple">Paramétrage légal par pays</span> (12m LU/PT, 18m CH, 2 ans ES)</td>
+      </tr>
+      <tr>
+        <td><strong>Modèle de Licence</strong></td>
+        <td>CC BY-NC 4.0 (redevance commerciale obligatoire)</td>
+        <td>Abonnement récurrent très onéreux</td>
+        <td><span class="badge badge-success">Données propres</span> libres de droits tiers</td>
+      </tr>
+      <tr>
+        <td><strong>Déploiement</strong></td>
+        <td>Cloud ou export NDJSON</td>
+        <td>Cloud propriétaire (risque de fuite des requêtes)</td>
+        <td><span class="badge badge-success">On-Premise / Cloud Souverain</span> (Zero Data Leak)</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>2. Adéquation de l'Architecture Technique</h2>
+  <div class="grid-2">
+    <div class="card">
+      <h3 style="color: #2563eb;">Ingestion Core & Orchestration</h3>
+      <p>
+        L'architecture Java/Spring Boot (<code>IngestionService</code>) implémente un pipeline d'ingestion transactionnel remarquable :
+      </p>
+      <ul>
+        <li><strong>Découplage PF4J :</strong> Les plugins de parsers sont complètement isolés du moteur central. Une anomalie dans un parser n'impacte jamais le runtime global.</li>
+        <li><strong>Quality Gate intégré :</strong> Contrôle strict empêchant toute régression de données (alerte et blocage immédiat si chute &gt; 20% des entités ou rejets anormaux).</li>
+        <li><strong>Diffing & Versioning :</strong> Calcul automatique des ajouts, modifications et suppressions pour synchroniser Yente sans interruption.</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h3 style="color: #2563eb;">Standard FollowTheMoney & Yente</h3>
+      <p>
+        L'adoption du standard <em>FollowTheMoney</em> (entités <code>Person</code>, <code>Position</code>, <code>Occupancy</code>) constitue un choix stratégique majeur :
+      </p>
+      <ul>
+        <li><strong>Interopérabilité native :</strong> Compatibilité directe avec Yente pour la recherche floue, la translittération et le scoring phonétique.</li>
+        <li><strong>Modélisation formelle :</strong> Séparation nette entre l'identité physique de l'individu, le rôle institutionnel et le mandat temporaire.</li>
+        <li><strong>Performance locale :</strong> Indexation Elasticsearch/PostgreSQL ultra-rapide chez le client sans appel d'API vers l'extérieur.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="footer">
+    <span>SwiftCheck AML — Analyse Stratégique PEP Europe</span>
+    <span>Document Confidentiel — Usage Interne</span>
+    <span>Page 1 / 3</span>
+  </div>
+</div>
+
+<!-- ================= PAGE 2 ================= -->
+<div class="page">
+  <div class="header">
+    <div class="brand">
+      <div class="brand-title">
+        SwiftCheck AML <span class="brand-badge">Audit & Stratégie</span>
+      </div>
+      <div class="brand-subtitle">Architecture LCB-FT • Renseignement Réglementaire • Conformité Bancaire</div>
+    </div>
+    <div class="doc-meta">
+      <strong>Rapport d'Analyse Critique</strong><br>
+      Typologie des Parsers & Exigences Core<br>
+      Réf : SC-STRAT-PEP-2026-V1
+    </div>
+  </div>
+
+  <h2>3. Analyse Critique de la Typologie des Parsers (T1 à T7)</h2>
+  <p>
+    La classification en 7 modèles types standardise la production des plugins. Cependant, leur complexité de maintenance est très inégale :
+  </p>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Source Typique</th>
+        <th>Complexité Dev</th>
+        <th>Vulnérabilité / Maintenance</th>
+        <th>Recommandation Opérationnelle</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>T1 – Fichier Ouvert</strong></td>
+        <td>CSV, XML, JSON (data.public.lu, Bundestag)</td>
+        <td><span class="badge badge-success">Faible (1-2j)</span></td>
+        <td><span class="badge badge-success">Très Faible</span> (schéma stable)</td>
+        <td>Prioriser en masse ; coût de maintien quasi nul.</td>
+      </tr>
+      <tr>
+        <td><strong>T2 – API Rest / OData</strong></td>
+        <td>Parlement Européen, Sejm, Tweede Kamer</td>
+        <td><span class="badge badge-info">Moyenne (2-3j)</span></td>
+        <td><span class="badge badge-success">Faible</span> (versionnée)</td>
+        <td>Gérer la pagination et les quotas d'appels API.</td>
+      </tr>
+      <tr>
+        <td><strong>T3 – Requête SPARQL</strong></td>
+        <td>Legilux (LU), Sénat Italien, RDF</td>
+        <td><span class="badge badge-info">Moyenne (2-3j)</span></td>
+        <td><span class="badge badge-warning">Moyenne</span> (timeout endpoints)</td>
+        <td>Versionner les requêtes SPARQL et monitorer les temps de réponse.</td>
+      </tr>
+      <tr>
+        <td><strong>T4 – Journal Officiel</strong></td>
+        <td>BOE (ES), JORF (FR), Diavgeia (GR)</td>
+        <td><span class="badge badge-danger">Élevée (5-10j)</span></td>
+        <td><span class="badge badge-danger">Élevée</span> (format textuel/NLP)</td>
+        <td>Cœur de valeur ! Extraire les nominations avec regex ciblées.</td>
+      </tr>
+      <tr>
+        <td><strong>T5 – Scraping HTML</strong></td>
+        <td>Sites des gouvernements, Cours suprêmes</td>
+        <td><span class="badge badge-warning">Moyenne (1-3j)</span></td>
+        <td><span class="badge badge-danger">Très Élevée</span> (redesign de sites)</td>
+        <td>Surveillance hebdomadaire obligatoire ; fail-fast si sélecteur absent.</td>
+      </tr>
+      <tr>
+        <td><strong>T6 – Extraction PDF</strong></td>
+        <td>Cadastre BE, Partis DE/AT, Rapports d'État</td>
+        <td><span class="badge badge-danger">Élevée (3-5j)</span></td>
+        <td><span class="badge badge-danger">Élevée</span> (mise en page changeante)</td>
+        <td>Embarquer la bibliothèque PDF dans le plugin ; parser tabulaire strict.</td>
+      </tr>
+      <tr>
+        <td><strong>T7 – Registres & Listes</strong></td>
+        <td>Finanstilsynet (DK), Sukobinteresa (HR)</td>
+        <td><span class="badge badge-success">Faible (1-2j)</span></td>
+        <td><span class="badge badge-success">Faible</span> (source régalienne)</td>
+        <td><strong>Gisement d'or :</strong> intégrer immédiatement (valeur maximale).</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>4. Les 5 Exigences Fondamentales du Core (C1 à C5)</h2>
+  <div class="card card-warning">
+    <div class="callout-title">
+      <span>⚠️</span> Règle d'Or : Aucun passage à l'échelle sans la Vague 0
+    </div>
+    <p style="margin-bottom: 0;">
+      Développer 160 plugins sans les fondations <strong>C1 à C5</strong> conduirait à une impasse opérationnelle. 
+      Ces exigences doivent être intégrées dans le Core Spring Boot dès la Vague 0.
+    </p>
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <h3>C1 – Gestion du Cycle de Vie des Mandats (Rétention)</h3>
+      <p>
+        Les sites officiels présentent quasi-exclusivement les personnes <em>en exercice</em>. Quand un ministre ou juge quitte ses fonctions, il disparaît de la source du jour au lendemain.
+      </p>
+      <ul>
+        <li><strong>Risque LCB-FT :</strong> La loi impose de maintenir le statut PEP pendant 12 à 24 mois. Une mise à jour naïve retirerait le PEP immédiatement !</li>
+        <li><strong>Solution Core :</strong> Détection automatique de la disparition dans le diff $\rightarrow$ conservation de l'entité avec mandat <code>status = ended</code> et <code>endDate</code> pendant la durée légale propre au pays.</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h3>C2 – Page de Couverture Dynamique</h3>
+      <p>
+        Pour piloter l'avancement et convaincre les directions de conformité des banques clientes :
+      </p>
+      <ul>
+        <li>Matrice exhaustive affichant pour chaque pays : fonctions obligatoires selon le JO C/2023/724, parsers actifs, volume de fiches, fraîcheur et statut de validation.</li>
+        <li>Affichage transparent des catégories non encore couvertes pour prouver l'honnêteté et la rigueur d'audit.</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h3>C3 – Rapprochement d'Entités (Entity Resolution)</h3>
+      <p>
+        Une même personne physique peut cumuler des mandats ou changer d'échelon (député devenant ministre, maire devenant sénateur).
+      </p>
+      <ul>
+        <li><strong>Règle de prudence :</strong> Interdiction formelle de fusionner sur le seul nom de famille. Fusion automatique uniquement sur clé <code>(Nom + Prénom + Date de Naissance)</code>.</li>
+        <li>En l'absence de date de naissance, conserver deux fiches distinctes plutôt que de risquer une fusion abusive (homonymie catastrophique en audit).</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h3>C4 & C5 – Observabilité & Conformité Juridique</h3>
+      <p>
+        <strong>C4 (Surveillance 24/7) :</strong> Alertes proactives dès qu'un scraper échoue ou qu'un portail open data ne répond pas après 2 cycles prévus.
+      </p>
+      <p>
+        <strong>C5 (Traçabilité Licences) :</strong> Chaque fiche doit embarquer la mention d'attribution légale (ex. CC BY 4.0, Open Government Licence) pour garantir une utilisation commerciale sans litige.
+      </p>
+    </div>
+  </div>
+
+  <div class="footer">
+    <span>SwiftCheck AML — Analyse Stratégique PEP Europe</span>
+    <span>Document Confidentiel — Usage Interne</span>
+    <span>Page 2 / 3</span>
+  </div>
+</div>
+
+<!-- ================= PAGE 3 ================= -->
+<div class="page">
+  <div class="header">
+    <div class="brand">
+      <div class="brand-title">
+        SwiftCheck AML <span class="brand-badge">Audit & Stratégie</span>
+      </div>
+      <div class="brand-subtitle">Architecture LCB-FT • Renseignement Réglementaire • Conformité Bancaire</div>
+    </div>
+    <div class="doc-meta">
+      <strong>Rapport d'Analyse Critique</strong><br>
+      Arbitrages Stratégiques & Feuille de Route<br>
+      Réf : SC-STRAT-PEP-2026-V1
+    </div>
+  </div>
+
+  <h2>5. Arbitrages Décisifs sur les Questions Ouvertes</h2>
+
+  <div class="card card-highlight">
+    <div class="callout-title">
+      <span>⚖️</span> Arbitrage 1 : Faut-il inclure tous les élus locaux ?
+    </div>
+    <p>
+      En France et en Espagne, l'ensemble des maires et conseillers municipaux représente plus de <strong>500 000 personnes</strong>. Les intégrer dans la base principale est une <strong>erreur stratégique majeure</strong> :
+    </p>
+    <ul>
+      <li><strong>Explosion des faux positifs :</strong> Le conseiller municipal d'un village de 150 habitants génère des alertes inutiles quotidiennes pour les équipes de conformité des banques.</li>
+      <li><strong>Alignement réglementaire AMLR 2024/1624 :</strong> Le règlement européen harmonise précisément le statut PEP local aux collectivités de <strong>&ge; 50 000 habitants</strong>.</li>
+      <li><strong>Décision recommandée :</strong> Filtrer strictement la base centrale sur les communes &ge; 50 000 hab. et les chefs-lieux. Proposer les élus des petites communes sous forme d'un <em>dataset d'extension optionnel</em> pour les banques de détail qui l'exigeraient explicitement.</li>
+    </ul>
+  </div>
+
+  <div class="card card-info">
+    <div class="callout-title">
+      <span>⏱️</span> Arbitrage 2 : Durée de rétention par défaut (Loi vs 5 ans OpenSanctions)
+    </div>
+    <p>
+      OpenSanctions applique une durée forfaitaire de 5 ans pour les fonctions non nationales. SwiftCheck doit se distinguer par la <strong>précision juridique</strong> :
+    </p>
+    <ul>
+      <li><strong>Par défaut :</strong> Appliquer la durée légale minimale exacte du pays (12 mois selon la directive UE, 18 mois en Suisse sous la LBA, 2 ans en Espagne). C'est l'argument suprême face au régulateur et au RGPD.</li>
+      <li><strong>Paramètre client :</strong> Laisser un interrupteur de configuration dans Yente permettant à une banque de porter la durée à 5 ans si sa politique interne de gestion des risques le requiert.</li>
+    </ul>
+  </div>
+
+  <div class="card card-danger">
+    <div class="callout-title">
+      <span>🛡️</span> Arbitrage 3 : Sources non officielles (AbgeordnetenWatch, Meine Abgeordneten)
+    </div>
+    <p style="margin-bottom: 0;">
+      <strong>Décision :</strong> Les sources associatives ou citoyennes ne doivent <strong>jamais</strong> être publiées directement dans la base officielle SwiftCheck. Elles doivent servir exclusivement d'<strong>outil de benchmark et d'audit interne</strong> pour vérifier qu'aucun parlementaire ou ministre n'a échappé aux parsers officiels. La promesse commerciale « 100% officiel » ne tolère aucune exception.
+    </p>
+  </div>
+
+  <h2>6. Feuille de Route Opérationnelle & Gains Immédiats</h2>
+  <p>
+    Pour maximiser l'impact commercial dès les premiers mois, nous recommandons la trajectoire en 4 vagues :
+  </p>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Vague</th>
+        <th>Échéance</th>
+        <th>Périmètre & Livrables</th>
+        <th>Impact Marché / Valeur Ajoutée</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Vague 0<br>Socle Core</strong></td>
+        <td>Mois 1 - 2</td>
+        <td>
+          • Rétention automatique des départs (C1)<br>
+          • Page de couverture dynamique (C2)<br>
+          • Template unifié pour parsers T1 à T7
+        </td>
+        <td><span class="badge badge-info">Fondations Indestructibles</span><br>Évite la dette technique et sécurise l'audit.</td>
+      </tr>
+      <tr>
+        <td><strong>Vague 1<br>Listes d'Or & Parlements</strong></td>
+        <td>Mois 2 - 5</td>
+        <td>
+          • <strong>Pépites :</strong> Danemark (Finanstilsynet), Croatie, Slovaquie, Bulgarie<br>
+          • 28 Parlements (APIs T2 / Fichiers T1)<br>
+          • Parlement européen & Eurodéputés
+        </td>
+        <td><span class="badge badge-success">Victoire Immédiate</span><br>Couverture égale ou supérieure à OpenSanctions sur les parlements et fonctionnaires.</td>
+      </tr>
+      <tr>
+        <td><strong>Vague 2<br>Journaux Officiels</strong></td>
+        <td>Mois 5 - 10</td>
+        <td>
+          • BOE (Espagne), Legilux (Luxembourg), JORF (France), Diavgeia (Grèce)<br>
+          • Extraction des postes nommés (Juges, Ambassadeurs, DG)
+        </td>
+        <td><span class="badge badge-success">Différenciation Radicale</span><br>SwiftCheck surclasse définitivement OpenSanctions sur les fonctions nommées.</td>
+      </tr>
+      <tr>
+        <td><strong>Vague 3<br>Haute Administration</strong></td>
+        <td>Mois 8 - 14</td>
+        <td>
+          • Cours constitutionnelles, Banques centrales, Régulateurs<br>
+          • Registres de partis (DE, AT), Cadastre mandats (BE)
+        </td>
+        <td><span class="badge badge-purple">Exhaustivité &ge; 70%</span><br>Couverture institutionnelle complète dans chaque pays.</td>
+      </tr>
+      <tr>
+        <td><strong>Vague 4<br>Secteur Public & Proches</strong></td>
+        <td>Mois 12 - 18</td>
+        <td>
+          • Entreprises publiques (Beteiligungsberichte)<br>
+          • RCA (Famille et proches documentés)<br>
+          • Rapprochement multi-sources avancé (C3)
+        </td>
+        <td><span class="badge badge-purple">Leadership Européen (&ge; 85%)</span><br>Alternative souveraine crédible face à World-Check.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="card card-highlight" style="margin-top: 10px;">
+    <div class="callout-title">
+      <span>💡</span> Conclusion & Recommandation d'Exécution
+    </div>
+    <p style="margin-bottom: 0;">
+      Le plan de vol est parfaitement calibré. Le Luxembourg sert actuellement d'excellent laboratoire de validation. 
+      La priorité absolue pour les prochaines semaines est de <strong>finaliser la rétention temporelle (C1) dans l'IngestionService</strong> 
+      et d'intégrer le <strong>Danemark (T7)</strong> et l'<strong>API de la Tweede Kamer (T2)</strong> pour prouver la reproductibilité 
+      du modèle à l'international.
+    </p>
+  </div>
+
+  <div class="footer">
+    <span>SwiftCheck AML — Analyse Stratégique PEP Europe</span>
+    <span>Document Confidentiel — Usage Interne</span>
+    <span>Page 3 / 3</span>
+  </div>
+</div>
+
+</body>
+</html>

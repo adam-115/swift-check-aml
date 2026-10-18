@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Référentiel PEP : pays couverts, puis catégories et fonctions du Luxembourg.
+
+    Les catégories a à i reprennent la liste officielle des fonctions PEP publiée par le Luxembourg au Journal
+    officiel de l'UE (C/2023/724, en application de l'article 20 bis de la directive (UE) 2015/849).
+    S'y ajoutent les lignes que les fournisseurs du marché couvrent aussi :
+      - AMLR       : fonctions ajoutées par le règlement (UE) 2024/1624, applicable en juillet 2027 ;
+      - RISK_BASED : fonctions reprises selon l'approche par les risques (élus des autres communes) ;
+      - EU         : Luxembourgeois qui exercent une fonction européenne ;
+      - RCA        : membres de la famille et proches associés.
+    Pour ajouter un pays : un nouveau fichier numéroté avec ses catégories et ses fonctions.
+-->
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <!-- 27 États membres + Suisse. Rétention par défaut : 12 mois (minimum de la directive, art. 22) -->
+    <changeSet id="002-countries" author="swiftcheck">
+        <sql>
+            INSERT INTO country (iso, name, eu_member, legal_basis, retention_months) VALUES
+            ('AT', 'Autriche', TRUE, 'Finanzmarkt-Geldwäschegesetz (FM-GwG)', 12),
+            ('BE', 'Belgique', TRUE, 'Loi du 18 septembre 2017 relative à la prévention du blanchiment', 12),
+            ('BG', 'Bulgarie', TRUE, 'Transposition de la directive (UE) 2015/849', 12),
+            ('CY', 'Chypre', TRUE, 'Transposition de la directive (UE) 2015/849', 12),
+            ('CZ', 'Tchéquie', TRUE, 'Transposition de la directive (UE) 2015/849', 12),
+            ('DE', 'Allemagne', TRUE, 'Geldwäschegesetz (GwG)', 12),
+            ('DK', 'Danemark', TRUE, 'Hvidvaskloven', 12),
+            ('EE', 'Estonie', TRUE, 'Transposition de la directive (UE) 2015/849', 12),
+            ('ES', 'Espagne', TRUE, 'Ley 10/2010 de prevención del blanqueo de capitales', 24),
+            ('FI', 'Finlande', TRUE, 'Transposition de la directive (UE) 2015/849', 12),
+            ('FR', 'France', TRUE, 'Code monétaire et financier', 12),
+            ('GR', 'Grèce', TRUE, 'Transposition de la directive (UE) 2015/849', 12),
+            ('HR', 'Croatie', TRUE, 'Transposition de la directive (UE) 2015/849', 12),
+            ('HU', 'Hongrie', TRUE, 'Transposition de la directive (UE) 2015/849', 12),
+            ('IE', 'Irlande', TRUE, 'Transposition de la directive (UE) 2015/849', 12),
+            ('IT', 'Italie', TRUE, 'Transposition de la directive (UE) 2015/849', 12),
+            ('LT', 'Lituanie', TRUE, 'Transposition de la directive (UE) 2015/849', 12),
+            ('LU', 'Luxembourg', TRUE, 'Loi modifiée du 12 novembre 2004 relative à la lutte contre le blanchiment', 12),
+            ('LV', 'Lettonie', TRUE, 'Transposition de la directive (UE) 2015/849', 12),
+            ('MT', 'Malte', TRUE, 'Transposition de la directive (UE) 2015/849', 12),
+            ('NL', 'Pays-Bas', TRUE, 'Wet ter voorkoming van witwassen en financieren van terrorisme (Wwft)', 12),
+            ('PL', 'Pologne', TRUE, 'Transposition de la directive (UE) 2015/849', 12),
+            ('PT', 'Portugal', TRUE, 'Lei n.º 83/2017', 12),
+            ('RO', 'Roumanie', TRUE, 'Transposition de la directive (UE) 2015/849', 12),
+            ('SE', 'Suède', TRUE, 'Transposition de la directive (UE) 2015/849', 12),
+            ('SI', 'Slovénie', TRUE, 'Transposition de la directive (UE) 2015/849', 12),
+            ('SK', 'Slovaquie', TRUE, 'Transposition de la directive (UE) 2015/849', 12),
+            ('CH', 'Suisse', FALSE, 'Loi sur le blanchiment d''argent (LBA)', 18);
+
+            -- Liste officielle des fonctions PEP déclarée par le Luxembourg (publiée au JO de l'UE)
+            UPDATE country SET official_list_reference = 'JO C/2023/724',
+                               official_list_url = 'https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=OJ:C_202300724'
+            WHERE iso = 'LU';
+        </sql>
+    </changeSet>
+
+    <changeSet id="002-lu-categories" author="swiftcheck">
+        <sql>
+            INSERT INTO pep_category (country_iso, code, label, kind, risk_class, sort_order, legal_reference) VALUES
+            ('LU', 'LU-a', 'Chef de l''État, Premier ministre, ministres et secrétaires d''État', 'OFFICIAL', 1, 1, 'Directive (UE) 2015/849, art. 3, point 9 a)'),
+            ('LU', 'LU-b', 'Parlementaires et Conseil d''État', 'OFFICIAL', 1, 2, 'Directive (UE) 2015/849, art. 3, point 9 b)'),
+            ('LU', 'LU-c', 'Membres des organes dirigeants des partis politiques', 'OFFICIAL', 2, 3, 'Directive (UE) 2015/849, art. 3, point 9 c)'),
+            ('LU', 'LU-d', 'Membres des hautes juridictions', 'OFFICIAL', 2, 4, 'Directive (UE) 2015/849, art. 3, point 9 d)'),
+            ('LU', 'LU-e', 'Cour des comptes et Banque centrale', 'OFFICIAL', 2, 5, 'Directive (UE) 2015/849, art. 3, point 9 e)'),
+            ('LU', 'LU-f', 'Ambassadeurs, chargés d''affaires et officiers supérieurs', 'OFFICIAL', 2, 6, 'Directive (UE) 2015/849, art. 3, point 9 f)'),
+            ('LU', 'LU-g', 'Dirigeants des entreprises publiques', 'OFFICIAL', 3, 7, 'Directive (UE) 2015/849, art. 3, point 9 g)'),
+            ('LU', 'LU-h', 'Dirigeants des organisations internationales ayant leur siège au Luxembourg', 'OFFICIAL', 3, 8, 'Directive (UE) 2015/849, art. 3, point 9 h)'),
+            ('LU', 'LU-i', 'Dirigeants des autorités de régulation', 'OFFICIAL', 3, 9, 'Fonction ajoutée par le Luxembourg dans sa liste (JO C/2023/724)'),
+            ('LU', 'LU-AMLR', 'Dirigeants des communes de 50 000 habitants ou plus (AMLR, juillet 2027)', 'AMLR', 3, 10, 'Règlement (UE) 2024/1624 (AMLR), définition des personnes politiquement exposées'),
+            ('LU', 'LU-MUN', 'Bourgmestres et échevins des autres communes', 'RISK_BASED', 4, 11, 'Hors liste officielle : approche par les risques'),
+            ('LU', 'LU-EU', 'Luxembourgeois exerçant une fonction européenne', 'EU', 1, 12, 'Liste des fonctions PEP des institutions de l''UE (Commission européenne)'),
+            ('LU', 'LU-RCA', 'Membres de la famille et proches associés', 'RCA', 2, 13, 'Directive (UE) 2015/849, art. 3, points 10 et 11');
+        </sql>
+    </changeSet>
+
+    <!-- expected_holders : ordre de grandeur relevé dans l'analyse des sources ; vide si inconnu -->
+    <changeSet id="002-lu-functions" author="swiftcheck">
+        <sql>
+            INSERT INTO pep_function (category_id, label, institution, expected_holders)
+            SELECT c.id, f.label, f.institution, f.expected_holders
+            FROM pep_category c JOIN (
+                SELECT 'LU-a' AS code, 'Grand-Duc' AS label, 'Maison grand-ducale' AS institution, 1 AS expected_holders
+                UNION ALL SELECT 'LU-a', 'Membre du gouvernement', 'Gouvernement', 15
+                UNION ALL SELECT 'LU-a', 'Ancien membre du gouvernement', 'Gouvernement', NULL
+                UNION ALL SELECT 'LU-b', 'Député', 'Chambre des Députés', 60
+                UNION ALL SELECT 'LU-b', 'Ancien député', 'Chambre des Députés', NULL
+                UNION ALL SELECT 'LU-b', 'Membre du Conseil d''État', 'Conseil d''État', 21
+                UNION ALL SELECT 'LU-c', 'Membre d''un organe dirigeant de parti politique', 'Partis politiques', NULL
+                UNION ALL SELECT 'LU-d', 'Membre de la Cour constitutionnelle', 'Cour constitutionnelle', NULL
+                UNION ALL SELECT 'LU-d', 'Président ou vice-président de la Cour supérieure de justice', 'Cour supérieure de justice', NULL
+                UNION ALL SELECT 'LU-d', 'Membre de la Cour de cassation', 'Cour de cassation', NULL
+                UNION ALL SELECT 'LU-d', 'Procureur général d''État ou adjoint', 'Parquet général', NULL
+                UNION ALL SELECT 'LU-d', 'Membre de la Cour administrative', 'Cour administrative', NULL
+                UNION ALL SELECT 'LU-e', 'Membre de la Cour des comptes', 'Cour des comptes', NULL
+                UNION ALL SELECT 'LU-e', 'Directeur général ou directeur de la BCL', 'Banque centrale du Luxembourg', NULL
+                UNION ALL SELECT 'LU-f', 'Ambassadeur ou chargé d''affaires', 'Ministère des Affaires étrangères', 40
+                UNION ALL SELECT 'LU-f', 'Officier supérieur de l''Armée', 'Armée luxembourgeoise', 10
+                UNION ALL SELECT 'LU-g', 'Administrateur, directeur ou commissaire du gouvernement d''une entreprise publique', 'Participations de l''État', NULL
+                UNION ALL SELECT 'LU-h', 'Dirigeant d''une organisation internationale', 'Cour AELE, Eurocontrol, Office statistique de l''AELE', 15
+                UNION ALL SELECT 'LU-i', 'Membre de la direction d''une autorité de régulation', 'CSSF, CAA, ILR', 12
+                UNION ALL SELECT 'LU-AMLR', 'Bourgmestre ou échevin de la Ville de Luxembourg', 'Ville de Luxembourg', 7
+                UNION ALL SELECT 'LU-MUN', 'Bourgmestre', 'Communes', 100
+                UNION ALL SELECT 'LU-MUN', 'Échevin', 'Communes', 280
+                UNION ALL SELECT 'LU-EU', 'Député au Parlement européen élu au Luxembourg', 'Parlement européen', 6
+                UNION ALL SELECT 'LU-EU', 'Membre luxembourgeois de la Commission européenne', 'Commission européenne', 1
+                UNION ALL SELECT 'LU-RCA', 'Membre de la famille d''une PEP', NULL, NULL
+                UNION ALL SELECT 'LU-RCA', 'Proche associé d''une PEP', NULL, NULL
+            ) f ON f.code = c.code;
+        </sql>
+    </changeSet>
+
+    <!--
+        Sources du Luxembourg relevées dans l'analyse « Couverture PEP Luxembourg ». Celles lues par un parser
+        sont reliées dans 003-seed-data.xml (parser.source_id) ; les autres sont les pistes pour les prochains parsers.
+    -->
+    <changeSet id="002-lu-sources" author="swiftcheck">
+        <sql>
+            INSERT INTO pep_source (country_iso, name, url, parser_kind, licence, access, status, notes) VALUES
+            ('LU', 'Chambre des Députés – députés en fonction', 'https://data.public.lu/fr/datasets/r/a5b6e7f9-b488-41a6-9bd1-be913a5c35b5', 'OPEN_DATA_FILE', NULL, 'OPEN', 'CANDIDATE', 'CSV sur data.public.lu'),
+            ('LU', 'Chambre des Députés – anciens députés', 'https://data.public.lu/fr/datasets/r/8fdbd601-6931-47b5-a027-aacd3b1e47f4', 'OPEN_DATA_FILE', NULL, 'OPEN', 'CANDIDATE', 'CSV sur data.public.lu, depuis 1999'),
+            ('LU', 'gouvernement.lu – membres du gouvernement', 'https://gouvernement.lu/fr/gouvernement.html', 'WEB_PAGE', NULL, 'OPEN', 'CANDIDATE', 'Pas d''open data : page officielle'),
+            ('LU', 'gouvernement.lu – anciens membres du gouvernement', 'https://gouvernement.lu/fr/gouvernement/anciens-membres-gouvernement.html', 'WEB_PAGE', NULL, 'OPEN', 'CANDIDATE', NULL),
+            ('LU', 'Collèges des bourgmestre et échevins', 'https://data.public.lu/fr/datasets/r/067d11cc-29a8-4f0c-bf35-f9d4ac1818ec', 'OPEN_DATA_FILE', NULL, 'OPEN', 'CANDIDATE', 'Ministère des Affaires intérieures, CSV mis à jour à chaque changement'),
+            ('LU', 'Parlement européen – liste des députés', 'https://www.europarl.europa.eu/meps/en/full-list/xml', 'OPEN_DATA_FILE', NULL, 'OPEN', 'CANDIDATE', 'XML de tous les eurodéputés, filtré sur le Luxembourg'),
+            ('LU', 'Legilux – Journal officiel (SPARQL)', 'https://data.legilux.public.lu/sparqlendpoint', 'SPARQL', NULL, 'OPEN', 'CANDIDATE', 'Arrêtés de nomination et de démission : à filtrer sur les fonctions de haut niveau'),
+            ('LU', 'Conseil d''État – composition', 'https://conseil-etat.public.lu', 'WEB_PAGE', NULL, 'OPEN', 'CANDIDATE', 'Membres en fonction'),
+            ('LU', 'Maison grand-ducale', 'https://www.monarchie.lu', 'WEB_PAGE', NULL, 'OPEN', 'CANDIDATE', NULL),
+            ('LU', 'Justice – juridictions judiciaires', 'https://justice.public.lu', 'WEB_PAGE', NULL, 'OPEN', 'CANDIDATE', 'Cour supérieure de justice, Cour de cassation, Parquet général'),
+            ('LU', 'Juridictions administratives', 'https://ja.public.lu', 'WEB_PAGE', NULL, 'OPEN', 'CANDIDATE', NULL),
+            ('LU', 'Cour des comptes', 'https://cour-des-comptes.public.lu', 'WEB_PAGE', NULL, 'OPEN', 'CANDIDATE', NULL),
+            ('LU', 'Banque centrale du Luxembourg – direction', 'https://www.bcl.lu', 'WEB_PAGE', NULL, 'OPEN', 'CANDIDATE', NULL),
+            ('LU', 'Missions diplomatiques du Luxembourg', 'https://mae.gouvernement.lu/en/missions-diplomatiques/luxembourg-diplomatic-and-consular-missions.html', 'WEB_PAGE', NULL, 'OPEN', 'CANDIDATE', 'Ambassadeurs et chargés d''affaires'),
+            ('LU', 'Armée luxembourgeoise', 'https://www.armee.lu', 'WEB_PAGE', NULL, 'OPEN', 'CANDIDATE', 'Chef d''état-major, adjoint, chefs de division'),
+            ('LU', 'Autorités de régulation (CSSF, CAA, ILR)', 'https://www.cssf.lu', 'WEB_PAGE', NULL, 'OPEN', 'CANDIDATE', 'Pages de direction de chaque autorité'),
+            ('LU', 'Sites des partis politiques', NULL, 'WEB_PAGE', NULL, 'OPEN', 'CANDIDATE', 'Pas de liste officielle des dirigeants trouvée : un site par parti'),
+            ('LU', 'Commission européenne – collège des commissaires', 'https://commission.europa.eu/about/organisation/college-commissioners_fr', 'WEB_PAGE', NULL, 'OPEN', 'CANDIDATE', NULL);
+        </sql>
+    </changeSet>
+
+    <!-- Fonctions couvertes par chaque source : COMPLETE = tous les titulaires, PARTIAL = une partie seulement -->
+    <changeSet id="002-lu-function-sources" author="swiftcheck">
+        <sql>
+            INSERT INTO pep_function_source (function_id, source_id, completeness, includes_former)
+            SELECT f.id, s.id, l.completeness, l.includes_former
+            FROM (
+                SELECT 'Chambre des Députés – députés en fonction' AS source, 'LU-b' AS category, 'Député' AS label, 'COMPLETE' AS completeness, FALSE AS includes_former
+                UNION ALL SELECT 'Chambre des Députés – anciens députés', 'LU-b', 'Ancien député', 'COMPLETE', TRUE
+                UNION ALL SELECT 'gouvernement.lu – membres du gouvernement', 'LU-a', 'Membre du gouvernement', 'COMPLETE', FALSE
+                UNION ALL SELECT 'gouvernement.lu – anciens membres du gouvernement', 'LU-a', 'Ancien membre du gouvernement', 'COMPLETE', TRUE
+                UNION ALL SELECT 'Collèges des bourgmestre et échevins', 'LU-MUN', 'Bourgmestre', 'COMPLETE', TRUE
+                UNION ALL SELECT 'Collèges des bourgmestre et échevins', 'LU-MUN', 'Échevin', 'COMPLETE', TRUE
+                UNION ALL SELECT 'Collèges des bourgmestre et échevins', 'LU-AMLR', 'Bourgmestre ou échevin de la Ville de Luxembourg', 'COMPLETE', TRUE
+                UNION ALL SELECT 'Parlement européen – liste des députés', 'LU-EU', 'Député au Parlement européen élu au Luxembourg', 'COMPLETE', FALSE
+                UNION ALL SELECT 'Legilux – Journal officiel (SPARQL)', 'LU-a', 'Membre du gouvernement', 'PARTIAL', TRUE
+                UNION ALL SELECT 'Legilux – Journal officiel (SPARQL)', 'LU-b', 'Membre du Conseil d''État', 'PARTIAL', TRUE
+                UNION ALL SELECT 'Legilux – Journal officiel (SPARQL)', 'LU-d', 'Membre de la Cour de cassation', 'PARTIAL', TRUE
+                UNION ALL SELECT 'Legilux – Journal officiel (SPARQL)', 'LU-d', 'Président ou vice-président de la Cour supérieure de justice', 'PARTIAL', TRUE
+                UNION ALL SELECT 'Legilux – Journal officiel (SPARQL)', 'LU-d', 'Procureur général d''État ou adjoint', 'PARTIAL', TRUE
+                UNION ALL SELECT 'Legilux – Journal officiel (SPARQL)', 'LU-d', 'Membre de la Cour administrative', 'PARTIAL', TRUE
+                UNION ALL SELECT 'Legilux – Journal officiel (SPARQL)', 'LU-e', 'Membre de la Cour des comptes', 'PARTIAL', TRUE
+                UNION ALL SELECT 'Legilux – Journal officiel (SPARQL)', 'LU-e', 'Directeur général ou directeur de la BCL', 'PARTIAL', TRUE
+                UNION ALL SELECT 'Legilux – Journal officiel (SPARQL)', 'LU-f', 'Officier supérieur de l''Armée', 'PARTIAL', TRUE
+                UNION ALL SELECT 'Conseil d''État – composition', 'LU-b', 'Membre du Conseil d''État', 'COMPLETE', FALSE
+                UNION ALL SELECT 'Maison grand-ducale', 'LU-a', 'Grand-Duc', 'COMPLETE', FALSE
+                UNION ALL SELECT 'Justice – juridictions judiciaires', 'LU-d', 'Membre de la Cour constitutionnelle', 'COMPLETE', FALSE
+                UNION ALL SELECT 'Justice – juridictions judiciaires', 'LU-d', 'Membre de la Cour de cassation', 'COMPLETE', FALSE
+                UNION ALL SELECT 'Justice – juridictions judiciaires', 'LU-d', 'Président ou vice-président de la Cour supérieure de justice', 'COMPLETE', FALSE
+                UNION ALL SELECT 'Justice – juridictions judiciaires', 'LU-d', 'Procureur général d''État ou adjoint', 'COMPLETE', FALSE
+                UNION ALL SELECT 'Juridictions administratives', 'LU-d', 'Membre de la Cour administrative', 'COMPLETE', FALSE
+                UNION ALL SELECT 'Cour des comptes', 'LU-e', 'Membre de la Cour des comptes', 'COMPLETE', FALSE
+                UNION ALL SELECT 'Banque centrale du Luxembourg – direction', 'LU-e', 'Directeur général ou directeur de la BCL', 'COMPLETE', FALSE
+                UNION ALL SELECT 'Missions diplomatiques du Luxembourg', 'LU-f', 'Ambassadeur ou chargé d''affaires', 'COMPLETE', FALSE
+                UNION ALL SELECT 'Armée luxembourgeoise', 'LU-f', 'Officier supérieur de l''Armée', 'COMPLETE', FALSE
+                UNION ALL SELECT 'Autorités de régulation (CSSF, CAA, ILR)', 'LU-i', 'Membre de la direction d''une autorité de régulation', 'COMPLETE', FALSE
+                UNION ALL SELECT 'Sites des partis politiques', 'LU-c', 'Membre d''un organe dirigeant de parti politique', 'PARTIAL', FALSE
+                UNION ALL SELECT 'Commission européenne – collège des commissaires', 'LU-EU', 'Membre luxembourgeois de la Commission européenne', 'COMPLETE', FALSE
+            ) l
+            JOIN pep_source s ON s.name = l.source AND s.country_iso = 'LU'
+            JOIN pep_category c ON c.code = l.category
+            JOIN pep_function f ON f.category_id = c.id AND f.label = l.label;
+        </sql>
+    </changeSet>
+
+</databaseChangeLog>

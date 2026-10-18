@@ -1,0 +1,10 @@
+﻿@tailwind base;
+@tailwind components;
+@tailwind utilities;
+/* You can add global styles to this file, and also import other style files */
+
+/* Barre de progression indéterminée (test de parser en cours) */
+@keyframes progress {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(300%); }
+}

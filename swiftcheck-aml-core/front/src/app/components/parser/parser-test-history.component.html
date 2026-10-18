@@ -1,0 +1,134 @@
+<div class="fixed inset-0 z-50 flex justify-end" role="dialog" aria-modal="true" aria-labelledby="test-history-title">
+  <div class="absolute inset-0 bg-slate-900/40 backdrop-blur-[2px]" (click)="close()"></div>
+
+  <aside class="relative h-full w-full max-w-2xl bg-slate-50 shadow-2xl flex flex-col">
+
+    <!-- En-tête -->
+    <header class="bg-slate-900 text-white px-5 sm:px-6 pt-5 pb-4">
+      <div class="flex items-start gap-3">
+        <div class="flex-1 min-w-0">
+          <p class="text-[11px] font-bold uppercase tracking-wider text-sky-300">Historique des tests</p>
+          <h2 id="test-history-title" class="text-xl font-bold tracking-tight truncate">{{ parser.name }}</h2>
+          <p class="text-xs text-slate-400 mt-0.5">
+            <span class="font-mono">{{ parser.datasetName }}</span> · plugin <span class="font-mono">{{ parser.pluginId }}</span>
+          </p>
+        </div>
+        <button type="button" (click)="close()" class="rounded-lg p-1.5 text-slate-400 hover:text-white hover:bg-white/10" title="Fermer (Échap)">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" d="M6 6l12 12M18 6L6 18"/></svg>
+        </button>
+      </div>
+
+      <!-- Synthèse + tendance -->
+      <div class="mt-4 grid grid-cols-3 gap-3">
+        <div class="rounded-xl bg-white/5 ring-1 ring-white/10 px-3 py-2.5">
+          <div class="text-[11px] text-slate-400">Tests</div>
+          <div class="text-xl font-bold font-mono">{{ total }}</div>
+        </div>
+        <div class="rounded-xl bg-white/5 ring-1 ring-white/10 px-3 py-2.5">
+          <div class="text-[11px] text-slate-400">Réussis (affichés)</div>
+          <div class="text-xl font-bold font-mono">{{ passedCount }}<span class="text-sm text-slate-500"> / {{ tests.length }}</span></div>
+        </div>
+        <div class="rounded-xl bg-white/5 ring-1 ring-white/10 px-3 py-2.5">
+          <div class="text-[11px] text-slate-400 mb-1">Retrouvés · tendance</div>
+          <div class="flex items-end justify-end gap-[3px] h-7" *ngIf="trend.length; else noTrend" aria-label="Pourcentage retrouvé des derniers tests">
+            <div *ngFor="let t of trend" class="w-2.5 rounded-sm"
+                 [ngClass]="t.status === 'PASSED' ? 'bg-emerald-400' : t.status === 'RUNNING' ? 'bg-sky-400' : 'bg-rose-400'"
+                 [style.height.%]="t.foundPercent < 5 ? 8 : t.foundPercent"
+                 [title]="(t.startedAt | date:'dd/MM HH:mm') + ' — ' + t.foundPercent + ' %'"></div>
+          </div>
+          <ng-template #noTrend><div class="h-7 text-xs text-slate-500 flex items-center">—</div></ng-template>
+        </div>
+      </div>
+
+      <button type="button" (click)="runTest.emit()" [disabled]="running || !parser.enabled"
+              class="mt-4 w-full inline-flex items-center justify-center gap-2 rounded-xl bg-sky-500 px-4 py-2.5 text-sm font-semibold text-white hover:bg-sky-400 disabled:opacity-50">
+        <svg *ngIf="!running" class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+        <span *ngIf="running" class="h-4 w-4 rounded-full border-2 border-white/40 border-t-white animate-spin"></span>
+        {{ running ? 'Test en cours…' : 'Lancer un nouveau test' }}
+      </button>
+    </header>
+
+    <!-- Liste -->
+    <div class="flex-1 overflow-y-auto px-4 sm:px-6 py-5">
+      <div *ngIf="errorMessage" class="rounded-xl border border-rose-200 bg-rose-50 p-3 text-sm text-rose-800 mb-4">{{ errorMessage }}</div>
+
+      <div *ngIf="isLoading && tests.length === 0" class="space-y-3 animate-pulse">
+        <div class="h-40 rounded-2xl bg-slate-200/70"></div>
+        <div class="h-40 rounded-2xl bg-slate-200/70"></div>
+      </div>
+
+      <div *ngIf="!isLoading && tests.length === 0 && !errorMessage" class="text-center py-16 px-6">
+        <div class="mx-auto h-14 w-14 rounded-2xl bg-sky-100 text-sky-600 grid place-items-center">
+          <svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+        </div>
+        <p class="mt-3 font-semibold text-slate-900">Ce parser n'a jamais été testé</p>
+        <p class="text-sm text-slate-500 mt-1">Un test vérifie que chaque élément du fichier source est indexé et retrouvé dans Yente.</p>
+      </div>
+
+      <!-- Frise des tests -->
+      <ol class="relative space-y-4 before:absolute before:left-[11px] before:top-2 before:bottom-2 before:w-px before:bg-slate-200">
+        <li *ngFor="let t of tests; let i = index" class="relative pl-9">
+          <span class="absolute left-0 top-4 h-[23px] w-[23px] rounded-full ring-4 ring-slate-50 grid place-items-center"
+                [ngClass]="t.status === 'PASSED' ? 'bg-emerald-500' : t.status === 'RUNNING' ? 'bg-sky-500' : 'bg-rose-500'">
+            <svg *ngIf="t.status === 'PASSED'" class="w-3.5 h-3.5 text-white" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+            <svg *ngIf="t.status === 'FAILED'" class="w-3.5 h-3.5 text-white" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" d="M6 6l12 12M18 6L6 18"/></svg>
+            <span *ngIf="t.status === 'RUNNING'" class="h-2 w-2 rounded-full bg-white animate-ping"></span>
+          </span>
+
+          <article class="rounded-2xl bg-white border border-slate-200 shadow-xs hover:shadow-md hover:border-slate-300 transition">
+            <!-- Ligne 1 : statut, date, durée -->
+            <div class="px-4 pt-3.5 flex flex-wrap items-center gap-x-3 gap-y-1">
+              <app-status-badge [status]="t.status"></app-status-badge>
+              <span class="text-sm font-semibold text-slate-900 first-letter:uppercase">{{ t.startedAt | date:'EEEE d MMMM yyyy' }}</span>
+              <span class="text-sm text-slate-500">{{ t.startedAt | date:'HH:mm' }}</span>
+              <span class="ml-auto text-xs text-slate-500 inline-flex items-center gap-1" title="Durée du test">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+                {{ duration(t.startedAt, t.finishedAt) }}
+              </span>
+            </div>
+
+            <!-- Ligne 2 : résultat -->
+            <div class="px-4 pt-3">
+              <app-test-result-bar *ngIf="t.sourceCount > 0" [test]="t" [legend]="true"></app-test-result-bar>
+              <p *ngIf="t.sourceCount === 0" class="text-sm text-rose-700">{{ t.message }}</p>
+            </div>
+
+            <!-- Ligne 3 : fichier source testé -->
+            <div *ngFor="let f of t.sourceFiles | slice:0:1" class="mx-4 mt-3 rounded-xl bg-slate-50 ring-1 ring-slate-200/70 p-3">
+              <div class="flex items-center gap-2.5">
+                <svg class="w-4 h-4 shrink-0 text-slate-400" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M7 3h7l5 5v13a1 1 0 01-1 1H7a1 1 0 01-1-1V4a1 1 0 011-1z"/><path d="M14 3v5h5"/></svg>
+                <span class="font-medium text-sm text-slate-900 truncate" [title]="f.origin">{{ fileName(f.origin) }}</span>
+                <span class="text-xs text-slate-400 truncate hidden sm:inline">{{ host(f.origin) }}</span>
+                <span *ngIf="newSource(i)" class="ml-auto shrink-0 text-[11px] font-semibold text-violet-700 bg-violet-50 ring-1 ring-violet-200 rounded-md px-1.5 py-0.5"
+                      title="Fichier différent de celui du test précédent">Nouvelle source</span>
+              </div>
+              <div class="mt-2 grid grid-cols-3 gap-2 text-xs">
+                <div><div class="text-slate-400">Téléchargé</div><div class="text-slate-800 font-medium">{{ f.fetchedAt | date:'dd/MM/yyyy HH:mm' }}</div></div>
+                <div><div class="text-slate-400">Taille</div><div class="text-slate-800 font-medium">{{ fileSize(f.sizeBytes) }}</div></div>
+                <div><div class="text-slate-400">SHA-256</div>
+                  <button type="button" (click)="copy(f.sha256)" [title]="'Copier : ' + f.sha256" class="font-mono text-slate-700 hover:text-emerald-700">{{ f.sha256 | slice:0:10 }}…</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Pied : publication et lien -->
+            <div class="px-4 py-3 mt-3 border-t border-slate-100 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs">
+              <a *ngIf="t.executionId" [routerLink]="['/executions', t.executionId]" (click)="close()" class="text-slate-600 hover:text-emerald-700">
+                Publication n° {{ t.executionId }}<ng-container *ngIf="t.publishedAt"> du {{ t.publishedAt | date:'dd/MM HH:mm' }}</ng-container>
+                <ng-container *ngIf="t.publishedEntityCount != null"> · {{ t.publishedEntityCount | number }} entités</ng-container>
+              </a>
+              <a [routerLink]="['/tests', t.id]" (click)="close()" class="ml-auto font-semibold text-sky-700 hover:underline">Détail du test →</a>
+            </div>
+          </article>
+        </li>
+      </ol>
+
+      <div *ngIf="page < totalPages - 1" class="mt-5 text-center">
+        <button type="button" (click)="more()" [disabled]="isLoading"
+                class="rounded-xl border border-slate-300 bg-white px-4 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-50 disabled:opacity-50">
+          {{ isLoading ? 'Chargement…' : 'Tests plus anciens' }}
+        </button>
+      </div>
+    </div>
+  </aside>
+</div>

@@ -1,0 +1,30 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "BodaccDisqualifiedParserService",
+            "request": "launch",
+            "mainClass": "com.swiftcheck.aml.BodaccDisqualifiedParserService",
+            "projectName": "swiftcheck-aml-bodacc"
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot - CrawlerApplication",
+            "request": "launch",
+            "mainClass": "com.swiftcheck.aml.CrawlerApplication",
+            "projectName": "swiftcheck-aml-back",
+            "cwd": "${workspaceFolder}/swiftcheck-aml-core/back",
+            "vmArgs": "-Dpf4j.mode=deployment"
+        },
+        {
+            "type": "java",
+            "name": "Current File",
+            "request": "launch",
+            "mainClass": "${file}",
+            "projectName": "swiftcheck-aml-back",
+            "cwd": "${workspaceFolder}/swiftcheck-aml-core/back",
+            "vmArgs": "-Dpf4j.mode=deployment"
+        }
+    ]
+}

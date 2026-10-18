@@ -1,0 +1,142 @@
+<div class="max-w-7xl mx-auto space-y-6">
+  <div class="bg-white rounded-2xl shadow-xs border border-slate-200 overflow-hidden">
+
+    <div class="bg-slate-900 px-4 sm:px-8 py-5 sm:py-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+      <div>
+        <h2 class="text-xl sm:text-2xl font-bold text-white tracking-tight">Couverture PEP</h2>
+        <p class="mt-1 text-xs sm:text-sm text-slate-300">
+          Pour chaque fonction de la liste officielle : le parser qui la couvre, les personnes publiées
+          et les sources où récupérer celles qui manquent (✓ lue par un parser, ○ à implémenter)
+        </p>
+      </div>
+      <div class="flex items-center gap-3">
+        <label for="country" class="text-sm text-slate-300">Pays</label>
+        <select id="country" [(ngModel)]="countryIso" (ngModelChange)="load()"
+                class="rounded-xl border-0 bg-white/10 px-3 py-2 text-sm font-semibold text-white focus:ring-2 focus:ring-emerald-500">
+          <option *ngFor="let c of countries" [value]="c.iso" class="text-slate-900">{{ c.name }} ({{ c.iso }})</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="p-4 sm:p-6 bg-slate-50 min-h-[400px] space-y-6">
+      <div *ngIf="errorMessage" class="bg-rose-50 border border-rose-200 text-rose-800 p-3 rounded-xl text-sm">{{ errorMessage }}</div>
+      <div *ngIf="isLoading" class="text-center py-16 text-slate-500 text-sm">Chargement…</div>
+
+      <ng-container *ngIf="!isLoading && coverage as c">
+        <!-- Synthèse -->
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <div class="bg-white rounded-xl border border-slate-200 p-4">
+            <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Catégories officielles couvertes</p>
+            <p class="mt-1 text-2xl font-bold text-slate-900">{{ c.coveredOfficialCategories }} / {{ c.officialCategories }}</p>
+            <div class="mt-2 h-2 rounded-full bg-slate-100 overflow-hidden">
+              <div class="h-full bg-emerald-500" [style.width.%]="officialPercent"></div>
+            </div>
+          </div>
+          <div class="bg-white rounded-xl border border-slate-200 p-4">
+            <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Fonctions couvertes</p>
+            <p class="mt-1 text-2xl font-bold text-slate-900">{{ functionCounts.covered }} / {{ functionCounts.total }}</p>
+            <p class="text-xs text-slate-500 mt-1">toutes catégories, y compris AMLR, UE et proches</p>
+          </div>
+          <div class="bg-white rounded-xl border border-slate-200 p-4">
+            <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Personnes publiées</p>
+            <p class="mt-1 text-2xl font-bold text-slate-900">{{ c.personCount | number:'1.0-0' }}</p>
+            <p class="text-xs text-slate-500 mt-1">
+              Rétention après la fin des fonctions : {{ c.country.retentionMonths }} mois
+              <span *ngIf="c.country.legalBasis" [title]="c.country.legalBasis">ⓘ</span>
+            </p>
+          </div>
+        </div>
+
+        <!-- Liste officielle sur laquelle repose la couverture -->
+        <div class="bg-white rounded-xl border border-slate-200 px-4 py-3 text-sm text-slate-700 flex flex-wrap items-center gap-x-2 gap-y-1">
+          <span class="font-semibold">Liste officielle des fonctions PEP :</span>
+          <ng-container *ngIf="c.country.officialListReference; else noList">
+            <a *ngIf="c.country.officialListUrl; else listText" [href]="c.country.officialListUrl" target="_blank" rel="noopener"
+               class="text-emerald-700 hover:underline">{{ c.country.officialListReference }}</a>
+            <ng-template #listText>{{ c.country.officialListReference }}</ng-template>
+            <span *ngIf="c.country.officialListDate" class="text-slate-500">du {{ c.country.officialListDate | date:'dd/MM/yyyy' }}</span>
+          </ng-container>
+          <ng-template #noList><span class="text-slate-400 italic">non renseignée</span></ng-template>
+          <span *ngIf="c.country.legalBasis" class="text-slate-500">· {{ c.country.legalBasis }}</span>
+        </div>
+
+        <div *ngIf="c.categories.length === 0" class="text-center py-16 bg-white rounded-xl border border-dashed border-slate-300 text-sm text-slate-500">
+          Aucune catégorie PEP n'est encore définie pour ce pays dans le référentiel.
+        </div>
+
+        <!-- Une carte par catégorie -->
+        <div *ngFor="let category of c.categories" class="bg-white rounded-xl border border-slate-200 overflow-hidden">
+          <div class="px-4 py-3 border-b border-slate-200 flex flex-wrap items-center gap-3">
+            <span class="font-mono text-xs font-bold text-slate-500">{{ category.code }}</span>
+            <div class="flex-1 min-w-[12rem]">
+              <h3 class="text-sm font-bold text-slate-900">{{ category.label }}</h3>
+              <p *ngIf="category.legalReference" class="text-xs text-slate-500">{{ category.legalReference }}</p>
+            </div>
+            <span class="rounded-md px-2 py-0.5 text-[11px] font-semibold" [ngClass]="kinds[category.kind].css">{{ kinds[category.kind].label }}</span>
+            <span class="text-[11px] font-semibold text-slate-500" title="1 = risque le plus élevé, 4 = le plus faible">Classe {{ category.riskClass }}</span>
+            <span class="rounded-lg px-2.5 py-1 text-xs font-semibold ring-1 ring-inset" [ngClass]="statuses[category.status].css">
+              {{ statuses[category.status].label }}
+            </span>
+          </div>
+
+          <div class="overflow-x-auto">
+            <table class="min-w-full divide-y divide-slate-100 text-sm">
+              <thead class="bg-slate-50">
+                <tr class="text-left text-xs font-semibold text-slate-500 uppercase tracking-wider">
+                  <th class="px-4 py-2 w-1/3">Fonction</th>
+                  <th class="px-4 py-2">Titulaires attendus</th>
+                  <th class="px-4 py-2">Parser(s)</th>
+                  <th class="px-4 py-2">Sources identifiées</th>
+                  <th class="px-4 py-2 text-right">État</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-slate-100">
+                <tr *ngFor="let f of category.functions" class="align-top">
+                  <td class="px-4 py-2.5">
+                    <p class="font-medium text-slate-900">{{ f.label }}</p>
+                    <p *ngIf="f.institution" class="text-xs text-slate-500">{{ f.institution }}</p>
+                  </td>
+                  <td class="px-4 py-2.5 text-slate-600">{{ f.expectedHolders ?? '—' }}</td>
+                  <td class="px-4 py-2.5">
+                    <span *ngIf="f.parsers.length === 0" class="text-xs text-slate-400 italic">Aucun parser</span>
+                    <div *ngFor="let p of f.parsers" class="flex flex-wrap items-center gap-2 mb-1">
+                      <a routerLink="/parsers" class="font-mono text-xs text-emerald-700 hover:underline" [title]="p.name">{{ p.datasetName }}</a>
+                      <app-status-badge [status]="p.lastStatus"></app-status-badge>
+                      <span *ngIf="!p.enabled" class="text-xs text-rose-600">désactivé</span>
+                      <span *ngIf="p.lastPublishedAt" class="text-xs text-slate-600">
+                        {{ p.personCount }} personne{{ p.personCount > 1 ? 's' : '' }}
+                        <span *ngIf="p.retainedCount" class="text-slate-500" title="Entités disparues de la source, encore publiées (rétention)">
+                          + {{ p.retainedCount }} gardée{{ p.retainedCount > 1 ? 's' : '' }}
+                        </span>
+                      </span>
+                    </div>
+                  </td>
+                  <td class="px-4 py-2.5 text-xs">
+                    <span *ngIf="f.sources.length === 0" class="text-slate-400 italic">Aucune source identifiée</span>
+                    <div *ngFor="let s of f.sources" class="mb-1" [class.opacity-60]="s.status === 'REJECTED'">
+                      <span [title]="s.implemented ? 'Lue par un parser' : (s.status === 'REJECTED' ? 'Source écartée' : 'Pas encore de parser')"
+                            [ngClass]="s.implemented ? 'text-emerald-600' : (s.status === 'REJECTED' ? 'text-slate-400' : 'text-amber-600')">
+                        {{ s.implemented ? '✓' : (s.status === 'REJECTED' ? '✕' : '○') }}
+                      </span>
+                      <a *ngIf="s.url; else sourceName" [href]="s.url" target="_blank" rel="noopener" class="text-slate-700 hover:text-emerald-700 hover:underline">{{ s.name }}</a>
+                      <ng-template #sourceName><span class="text-slate-700">{{ s.name }}</span></ng-template>
+                      <span class="text-slate-500">({{ s.completeness === 'COMPLETE' ? 'complète' : 'partielle' }}{{ s.includesFormer ? ', anciens' : '' }})</span>
+                    </div>
+                  </td>
+                  <td class="px-4 py-2.5 text-right">
+                    <span class="rounded-lg px-2 py-0.5 text-xs font-semibold ring-1 ring-inset" [ngClass]="statuses[f.status].css">
+                      {{ statuses[f.status].label }}
+                    </span>
+                  </td>
+                </tr>
+                <tr *ngIf="category.functions.length === 0">
+                  <td colspan="5" class="px-4 py-3 text-xs text-slate-400 italic">Aucune fonction définie dans cette catégorie.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+</div>

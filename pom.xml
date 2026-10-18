@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>3.3.2</version>
+        <relativePath />
+    </parent>
+
+    <groupId>com.swiftcheck.aml</groupId>
+    <artifactId>swiftcheck-aml</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <packaging>pom</packaging>
+    <name>SwiftCheck AML Parent</name>
+    <description>Spring Boot PF4J Modular project for SwiftCheck AML</description>
+
+    <properties>
+        <java.version>17</java.version>
+        <pf4j.version>3.10.0</pf4j.version>
+        <pf4j-spring.version>0.9.0</pf4j-spring.version>
+        <followthemoney.version>4.10.1</followthemoney.version>
+        <lombok.version>1.18.48</lombok.version>
+    </properties>
+
+    <modules>
+        <module>swiftcheck-aml-api</module>
+        <module>swiftcheck-aml-core</module>
+        <!-- Plugins de listes : un JAR PF4J par source (voir swiftcheck-aml-plugins/README.md) -->
+        <module>swiftcheck-aml-plugins/swiftcheck-aml-eu</module>
+        <!-- PEP Luxembourg : un plugin par source de données -->
+        <module>swiftcheck-aml-plugins/pep/luxembourg/swiftcheck-aml-lu-pep-chamber</module>
+        <module>swiftcheck-aml-plugins/pep/luxembourg/swiftcheck-aml-lu-pep-chamber-former</module>
+        <module>swiftcheck-aml-plugins/pep/luxembourg/swiftcheck-aml-lu-pep-government</module>
+        <module>swiftcheck-aml-plugins/pep/luxembourg/swiftcheck-aml-lu-pep-europarl</module>
+        <module>swiftcheck-aml-plugins/pep/luxembourg/swiftcheck-aml-lu-pep-municipal</module>
+    </modules>
+
+    <dependencyManagement>
+        <dependencies>
+            <!-- Spring Boot Web -->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-web</artifactId>
+                <version>3.3.2</version>
+            </dependency>
+            <!-- PF4J -->
+            <dependency>
+                <groupId>org.pf4j</groupId>
+                <artifactId>pf4j</artifactId>
+                <version>${pf4j.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.pf4j</groupId>
+                <artifactId>pf4j-spring</artifactId>
+                <version>${pf4j-spring.version}</version>
+            </dependency>
+            <!-- FollowTheMoney (FtM) library -->
+            <dependency>
+                <groupId>tech.followthemoney</groupId>
+                <artifactId>followthemoney</artifactId>
+                <version>${followthemoney.version}</version>
+            </dependency>
+            <!-- Apache POI for Excel files -->
+            <dependency>
+                <groupId>org.apache.poi</groupId>
+                <artifactId>poi-ooxml</artifactId>
+                <version>5.2.3</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>3.13.0</version>
+                    <configuration>
+                        <release>17</release>
+                        <annotationProcessorPaths>
+                            <path>
+                                <groupId>org.projectlombok</groupId>
+                                <artifactId>lombok</artifactId>
+                                <version>${lombok.version}</version>
+                            </path>
+                            <path>
+                                <groupId>org.pf4j</groupId>
+                                <artifactId>pf4j</artifactId>
+                                <version>${pf4j.version}</version>
+                            </path>
+                        </annotationProcessorPaths>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+</project>

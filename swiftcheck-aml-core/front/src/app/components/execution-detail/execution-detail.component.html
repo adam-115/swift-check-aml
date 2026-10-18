@@ -1,0 +1,149 @@
+<div class="max-w-7xl mx-auto space-y-5">
+
+  <div *ngIf="errorMessage" class="bg-rose-50 border border-rose-200 text-rose-800 p-3 rounded-xl text-sm">{{ errorMessage }}</div>
+
+  <ng-container *ngIf="execution as e">
+    <!-- En-tête -->
+    <div class="bg-white rounded-2xl border border-slate-200 shadow-xs p-4 sm:p-6 flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
+      <div class="space-y-1">
+        <div class="flex items-center gap-3 flex-wrap">
+          <h1 class="text-xl sm:text-2xl font-bold text-slate-900">Exécution n° {{ e.id }}</h1>
+          <app-status-badge [status]="e.status"></app-status-badge>
+        </div>
+        <p class="text-sm text-slate-600">
+          <span class="font-semibold text-slate-900">{{ e.parserName }}</span>
+          <span class="font-mono text-xs text-slate-500 ml-1">({{ e.datasetName }})</span>
+          · {{ e.triggerType === 'SCHEDULED' ? 'lancement planifié' : 'lancement manuel' }}
+        </p>
+        <p class="text-xs text-slate-500">
+          Du {{ e.startedAt | date:'dd/MM/yyyy HH:mm:ss' }} au {{ e.finishedAt | date:'dd/MM/yyyy HH:mm:ss' }}
+        </p>
+      </div>
+      <div class="flex gap-2">
+        <a [routerLink]="['/parsers', e.parserId, 'executions']" class="rounded-xl border border-slate-300 bg-white px-3.5 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-50">← Historique du parser</a>
+      </div>
+    </div>
+
+    <!-- Compteurs -->
+    <div class="grid grid-cols-2 sm:grid-cols-5 gap-3">
+      <div class="bg-white rounded-xl border border-slate-200 p-4">
+        <div class="text-xs font-semibold text-slate-500 uppercase">Entités</div>
+        <div class="text-2xl font-bold text-slate-900">{{ e.entityCount | number }}</div>
+      </div>
+      <div class="bg-white rounded-xl border border-slate-200 p-4">
+        <div class="text-xs font-semibold text-slate-500 uppercase">Ajoutées</div>
+        <div class="text-2xl font-bold text-emerald-700">+{{ e.addedCount | number }}</div>
+      </div>
+      <div class="bg-white rounded-xl border border-slate-200 p-4">
+        <div class="text-xs font-semibold text-slate-500 uppercase">Retirées</div>
+        <div class="text-2xl font-bold text-rose-700">−{{ e.removedCount | number }}</div>
+      </div>
+      <div class="bg-white rounded-xl border border-slate-200 p-4">
+        <div class="text-xs font-semibold text-slate-500 uppercase">Modifiées</div>
+        <div class="text-2xl font-bold text-amber-700">~{{ e.changedCount | number }}</div>
+      </div>
+      <div class="bg-white rounded-xl border border-slate-200 p-4">
+        <div class="text-xs font-semibold text-slate-500 uppercase">Valeurs rejetées</div>
+        <div class="text-2xl font-bold" [class.text-rose-700]="e.rejectedCount > 0" [class.text-slate-900]="e.rejectedCount === 0">{{ e.rejectedCount | number }}</div>
+      </div>
+    </div>
+
+    <!-- Message -->
+    <div *ngIf="e.message" class="rounded-xl border p-4 text-sm"
+         [ngClass]="{
+           'bg-emerald-50 border-emerald-200 text-emerald-900': e.status === 'SUCCESS',
+           'bg-amber-50 border-amber-200 text-amber-900': e.status === 'BLOCKED',
+           'bg-rose-50 border-rose-200 text-rose-900': e.status === 'FAILED',
+           'bg-slate-50 border-slate-200 text-slate-700': e.status === 'UNCHANGED' || e.status === 'RUNNING'
+         }">
+      <div class="font-semibold mb-1">{{ e.status === 'BLOCKED' ? 'Raison du blocage (la version précédente reste publiée)' : e.status === 'FAILED' ? 'Erreur' : 'Bilan' }}</div>
+      <div class="whitespace-pre-line break-words">{{ e.message }}</div>
+    </div>
+
+    <!-- Fichiers sources -->
+    <div class="bg-white rounded-2xl border border-slate-200 shadow-xs overflow-hidden">
+      <div class="px-4 sm:px-6 py-4 border-b border-slate-200">
+        <h2 class="text-base font-bold text-slate-900">Fichiers sources signés</h2>
+        <p class="text-xs text-slate-500">Empreinte SHA-256 et copie archivée : preuve des données utilisées par cette exécution.</p>
+      </div>
+      <div class="overflow-x-auto">
+        <table class="min-w-full divide-y divide-slate-100">
+          <thead>
+            <tr class="text-left text-xs font-semibold text-slate-500 uppercase tracking-wider">
+              <th class="px-4 sm:px-6 py-2">Origine</th><th class="px-3 py-2">SHA-256</th><th class="px-3 py-2 text-right">Taille</th><th class="px-3 py-2">Archive</th><th class="px-4 py-2">Récupéré le</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-100 text-sm">
+            <tr *ngFor="let f of files" class="align-top">
+              <td class="px-4 sm:px-6 py-2.5 font-mono text-xs text-slate-700 max-w-[320px] break-all">{{ f.origin }}</td>
+              <td class="px-3 py-2.5 font-mono text-xs text-slate-900">
+                <button type="button" (click)="copy(f.sha256)" [title]="'Copier : ' + f.sha256" class="hover:text-emerald-700">{{ f.sha256 | slice:0:16 }}…</button>
+              </td>
+              <td class="px-3 py-2.5 text-right whitespace-nowrap">{{ size(f.sizeBytes) }}</td>
+              <td class="px-3 py-2.5 font-mono text-xs text-slate-500 max-w-[320px] break-all">{{ f.archivePath }}</td>
+              <td class="px-4 py-2.5 whitespace-nowrap text-slate-600">{{ f.fetchedAt | date:'dd/MM/yyyy HH:mm:ss' }}</td>
+            </tr>
+            <tr *ngIf="files.length === 0">
+              <td colspan="5" class="px-6 py-6 text-center text-slate-500">Aucun fichier (échec avant la récupération de la source).</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Changements -->
+    <div class="bg-white rounded-2xl border border-slate-200 shadow-xs overflow-hidden">
+      <div class="px-4 sm:px-6 py-4 border-b border-slate-200 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+        <div>
+          <h2 class="text-base font-bold text-slate-900">Changements publiés</h2>
+          <p class="text-xs text-slate-500">Comparaison avec la version précédente, entité par entité.</p>
+        </div>
+        <div class="inline-flex rounded-lg border border-slate-300 overflow-hidden text-sm">
+          <button *ngFor="let f of filters" type="button" (click)="setFilter(f.type)"
+                  class="px-3 py-1.5 font-semibold border-r last:border-r-0 border-slate-300"
+                  [ngClass]="filter === f.type ? 'bg-slate-900 text-white' : 'bg-white text-slate-700 hover:bg-slate-50'">
+            {{ f.label }}
+          </button>
+        </div>
+      </div>
+
+      <div *ngIf="firstPublication" class="px-6 py-6 text-sm text-slate-600">
+        Première publication de cette liste : les {{ e.addedCount | number }} entités sont comptées comme ajoutées, sans détail ligne par ligne.
+      </div>
+
+      <div *ngIf="!firstPublication" class="overflow-x-auto">
+        <table class="min-w-full divide-y divide-slate-100">
+          <thead>
+            <tr class="text-left text-xs font-semibold text-slate-500 uppercase tracking-wider">
+              <th class="px-4 sm:px-6 py-2">Changement</th><th class="px-3 py-2">Nom</th><th class="px-3 py-2">Type</th><th class="px-3 py-2">Identifiant</th><th class="px-4 py-2">Propriétés modifiées</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-100 text-sm">
+            <tr *ngFor="let c of changes">
+              <td class="px-4 sm:px-6 py-2.5">
+                <span class="inline-flex rounded-lg px-2 py-0.5 text-xs font-semibold"
+                      [ngClass]="{
+                        'bg-emerald-50 text-emerald-700': c.changeType === 'ADDED',
+                        'bg-rose-50 text-rose-700': c.changeType === 'REMOVED',
+                        'bg-amber-50 text-amber-700': c.changeType === 'MODIFIED'
+                      }">{{ changeLabel(c.changeType) }}</span>
+              </td>
+              <td class="px-3 py-2.5 text-slate-900">{{ c.caption || '—' }}</td>
+              <td class="px-3 py-2.5 text-slate-600">{{ c.entitySchema }}</td>
+              <td class="px-3 py-2.5 font-mono text-xs text-slate-600">{{ c.entityId }}</td>
+              <td class="px-4 py-2.5 text-xs text-slate-600">{{ c.changedProperties || '' }}</td>
+            </tr>
+            <tr *ngIf="changes.length === 0">
+              <td colspan="5" class="px-6 py-6 text-center text-slate-500">Aucun changement de ce type.</td>
+            </tr>
+          </tbody>
+        </table>
+        <div *ngIf="changesTotalPages > 1" class="flex items-center justify-between px-4 py-3 border-t border-slate-200 text-sm">
+          <button type="button" (click)="changePage(changesPage - 1)" [disabled]="changesPage === 0" class="px-3 py-1.5 rounded-lg border border-slate-300 disabled:opacity-40">Précédent</button>
+          <span class="text-slate-600">Page {{ changesPage + 1 }} / {{ changesTotalPages }} — {{ changesTotal | number }} changements</span>
+          <button type="button" (click)="changePage(changesPage + 1)" [disabled]="changesPage >= changesTotalPages - 1" class="px-3 py-1.5 rounded-lg border border-slate-300 disabled:opacity-40">Suivant</button>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+</div>

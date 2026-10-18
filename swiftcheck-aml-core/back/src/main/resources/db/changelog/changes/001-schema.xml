@@ -1,0 +1,466 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Schéma de SwiftCheck AML (version 3 : base repartie à zéro, application pas encore déployée).
+
+    Trois groupes de tables :
+      1. Référentiel PEP   : country, pep_category, pep_function (la liste officielle des fonctions, par pays),
+                             pep_source, pep_function_source (où récupérer les titulaires de chaque fonction) ;
+      2. Configuration     : list_provider, parser, parser_coverage (quel parser couvre quelles fonctions) ;
+      3. Exploitation      : parser_execution, source_file, dataset_change, retained_entity, parser_alert,
+                             resolution_judgement, parser_test, parser_test_failure, aml_search_history.
+    Les personnes ne sont pas stockées en base : elles sont dans les fichiers FtM archivés et dans Yente.
+
+    Règle : ce fichier ne se modifie plus une fois exécuté sur une base déployée. Toute évolution se fait
+    dans un NOUVEAU fichier numéroté (004-..., 005-...) ajouté à db.changelog-master.xml.
+-->
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="001-schema" author="swiftcheck">
+
+        <!-- ============================================================ 1. Référentiel PEP -->
+
+        <!-- Pays couverts : UE + Suisse. retention_months = durée minimale de vigilance après la fin des fonctions -->
+        <createTable tableName="country">
+            <column name="iso" type="CHAR(2)">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="eu_member" type="BOOLEAN" defaultValueBoolean="true">
+                <constraints nullable="false"/>
+            </column>
+            <column name="legal_basis" type="VARCHAR(500)"/>
+            <column name="retention_months" type="INT" defaultValueNumeric="12">
+                <constraints nullable="false"/>
+            </column>
+            <!-- Liste officielle des fonctions PEP déclarée par le pays à la Commission (art. 20 bis de la directive) -->
+            <column name="official_list_reference" type="VARCHAR(255)"/>
+            <column name="official_list_date" type="DATE"/>
+            <column name="official_list_url" type="VARCHAR(1024)"/>
+        </createTable>
+
+        <!-- Une catégorie de la liste officielle des fonctions PEP d'un pays (ex. LU-b « Parlementaires ») -->
+        <createTable tableName="pep_category">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="country_iso" type="CHAR(2)">
+                <constraints nullable="false" foreignKeyName="fk_pep_category_country" references="country(iso)"/>
+            </column>
+            <column name="code" type="VARCHAR(20)">
+                <constraints nullable="false" unique="true" uniqueConstraintName="uk_pep_category_code"/>
+            </column>
+            <column name="label" type="VARCHAR(500)">
+                <constraints nullable="false"/>
+            </column>
+            <!-- OFFICIAL, AMLR, RISK_BASED, EU ou RCA (voir PepCategoryKind) -->
+            <column name="kind" type="VARCHAR(20)">
+                <constraints nullable="false"/>
+            </column>
+            <!-- 1 = risque le plus élevé, 4 = le plus faible -->
+            <column name="risk_class" type="INT" defaultValueNumeric="2">
+                <constraints nullable="false"/>
+            </column>
+            <column name="sort_order" type="INT" defaultValueNumeric="0">
+                <constraints nullable="false"/>
+            </column>
+            <!-- Texte qui définit la catégorie, ex. « Directive (UE) 2015/849, art. 3, point 9 b) » -->
+            <column name="legal_reference" type="VARCHAR(500)"/>
+        </createTable>
+
+        <!-- Une fonction précise d'une catégorie (ex. « Député », Chambre des Députés, 60 titulaires) -->
+        <createTable tableName="pep_function">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="category_id" type="BIGINT">
+                <constraints nullable="false" foreignKeyName="fk_pep_function_category" references="pep_category(id)"/>
+            </column>
+            <column name="label" type="VARCHAR(500)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="institution" type="VARCHAR(255)"/>
+            <!-- Nombre approximatif de titulaires en fonction ; vide si inconnu -->
+            <column name="expected_holders" type="INT"/>
+        </createTable>
+
+        <!--
+            Sources où l'on peut récupérer les titulaires des fonctions PEP (open data, API, journal officiel,
+            page web, registre de déclarations...). Une source identifiée sans parser est une piste de travail ;
+            elle est « implémentée » dès qu'un parser la lit (parser.source_id).
+        -->
+        <createTable tableName="pep_source">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="country_iso" type="CHAR(2)">
+                <constraints nullable="false" foreignKeyName="fk_pep_source_country" references="country(iso)"/>
+            </column>
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="url" type="VARCHAR(2048)"/>
+            <!-- T1 à T7 : OPEN_DATA_FILE, API, SPARQL, OFFICIAL_GAZETTE, WEB_PAGE, PDF_DOCUMENT, DECLARATION_REGISTER -->
+            <column name="parser_kind" type="VARCHAR(30)"/>
+            <column name="licence" type="VARCHAR(255)"/>
+            <!-- OPEN, RESTRICTED (inscription, accès limité) ou PAID -->
+            <column name="access" type="VARCHAR(20)">
+                <constraints nullable="false"/>
+            </column>
+            <!-- CANDIDATE (à exploiter) ou REJECTED (écartée, raison dans notes) -->
+            <column name="status" type="VARCHAR(20)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="notes" type="TEXT"/>
+        </createTable>
+
+        <!-- Quelles fonctions une source permet de couvrir, et à quel point -->
+        <createTable tableName="pep_function_source">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="function_id" type="BIGINT">
+                <constraints nullable="false" foreignKeyName="fk_pep_function_source_function" references="pep_function(id)"/>
+            </column>
+            <column name="source_id" type="BIGINT">
+                <constraints nullable="false" foreignKeyName="fk_pep_function_source_source" references="pep_source(id)"/>
+            </column>
+            <!-- COMPLETE : tous les titulaires ; PARTIAL : une partie seulement (ex. nominations récentes) -->
+            <column name="completeness" type="VARCHAR(20)">
+                <constraints nullable="false"/>
+            </column>
+            <!-- La source donne aussi les anciens titulaires (utile pour la vigilance après la fin des fonctions) -->
+            <column name="includes_former" type="BOOLEAN" defaultValueBoolean="false">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <addUniqueConstraint tableName="pep_function_source" columnNames="function_id, source_id"
+                             constraintName="uk_pep_function_source"/>
+
+        <!-- ============================================================ 2. Configuration -->
+
+        <!-- Organismes qui publient les listes : UE, Chambre des Députés, communes... -->
+        <createTable tableName="list_provider">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="code" type="VARCHAR(50)">
+                <constraints nullable="false" unique="true" uniqueConstraintName="uk_list_provider_code"/>
+            </column>
+            <column name="name" type="VARCHAR(255)"/>
+            <column name="description" type="VARCHAR(1000)"/>
+            <!-- Vide pour une organisation internationale (UE, ONU) -->
+            <column name="country_iso" type="CHAR(2)">
+                <constraints foreignKeyName="fk_list_provider_country" references="country(iso)"/>
+            </column>
+            <column name="list_type" type="VARCHAR(20)"/>
+            <column name="website_url" type="VARCHAR(1024)"/>
+            <column name="logo" type="MEDIUMBLOB"/>
+            <column name="enabled" type="BOOLEAN" defaultValueBoolean="true">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_at" type="DATETIME(6)"/>
+        </createTable>
+
+        <!-- Configuration d'un parser : un plugin PF4J + une source de données = un dataset Yente -->
+        <createTable tableName="parser">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="list_provider_id" type="BIGINT">
+                <constraints foreignKeyName="fk_parser_list_provider" references="list_provider(id)"/>
+            </column>
+            <column name="name" type="VARCHAR(255)"/>
+            <column name="description" type="VARCHAR(1000)"/>
+            <column name="dataset_name" type="VARCHAR(100)">
+                <constraints nullable="false" unique="true" uniqueConstraintName="uk_parser_dataset_name"/>
+            </column>
+            <!-- Source PEP lue par ce parser (vide pour une liste de sanctions) : un parser = une source -->
+            <column name="source_id" type="BIGINT">
+                <constraints foreignKeyName="fk_parser_pep_source" references="pep_source(id)"/>
+            </column>
+            <column name="plugin_id" type="VARCHAR(255)"/>
+            <column name="plugin_url" type="VARCHAR(1024)"/>
+            <!-- HTTP_FILE, LOCAL_FILE ou PLUGIN_MANAGED : qui récupère les données -->
+            <column name="data_source_type" type="VARCHAR(30)"/>
+            <!-- OPEN_DATA_FILE, API, SPARQL, OFFICIAL_GAZETTE, WEB_PAGE, PDF_DOCUMENT, DECLARATION_REGISTER -->
+            <column name="parser_kind" type="VARCHAR(30)"/>
+            <column name="source_location" type="VARCHAR(2048)"/>
+            <column name="parameters" type="TEXT"/>
+            <column name="refresh_hours" type="INT" defaultValueNumeric="0">
+                <constraints nullable="false"/>
+            </column>
+            <!-- Mois pendant lesquels une entité disparue de la source reste publiée ; 0 = aucune rétention -->
+            <column name="retention_months" type="INT" defaultValueNumeric="0">
+                <constraints nullable="false"/>
+            </column>
+            <column name="licence" type="VARCHAR(255)"/>
+            <column name="attribution" type="VARCHAR(1000)"/>
+            <column name="enabled" type="BOOLEAN" defaultValueBoolean="true">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_at" type="DATETIME(6)"/>
+            <column name="updated_at" type="DATETIME(6)"/>
+        </createTable>
+
+        <!-- Quelles fonctions PEP un parser couvre (lien N-N) : base de la page « Couverture PEP » -->
+        <createTable tableName="parser_coverage">
+            <column name="parser_id" type="BIGINT">
+                <constraints nullable="false" foreignKeyName="fk_parser_coverage_parser" references="parser(id)"/>
+            </column>
+            <column name="function_id" type="BIGINT">
+                <constraints nullable="false" foreignKeyName="fk_parser_coverage_function" references="pep_function(id)"/>
+            </column>
+        </createTable>
+        <addPrimaryKey tableName="parser_coverage" columnNames="parser_id, function_id" constraintName="pk_parser_coverage"/>
+
+        <!-- Configuration globale : une seule ligne (voir ApplicationConfigEntity) -->
+        <createTable tableName="application_config">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="yente_url" type="VARCHAR(500)"/>
+            <column name="yente_update_token" type="VARCHAR(255)"/>
+            <column name="yente_data_folder" type="VARCHAR(1024)"/>
+            <column name="yente_container_data_path" type="VARCHAR(255)"/>
+            <column name="yente_manifest_path" type="VARCHAR(1024)"/>
+            <column name="archive_folder" type="VARCHAR(1024)"/>
+            <column name="work_folder" type="VARCHAR(1024)"/>
+        </createTable>
+
+        <!-- ============================================================ 3. Exploitation -->
+
+        <!-- Historique des exécutions -->
+        <createTable tableName="parser_execution">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="parser_id" type="BIGINT">
+                <constraints nullable="false" foreignKeyName="fk_parser_execution_parser" references="parser(id)"/>
+            </column>
+            <column name="trigger_type" type="VARCHAR(20)"/>
+            <column name="status" type="VARCHAR(20)"/>
+            <column name="started_at" type="DATETIME(6)"/>
+            <column name="finished_at" type="DATETIME(6)"/>
+            <column name="input_sha256" type="CHAR(64)"/>
+            <!-- Entités produites par le plugin (sans les entités gardées par la rétention) -->
+            <column name="entity_count" type="INT" defaultValueNumeric="0"><constraints nullable="false"/></column>
+            <!-- Personnes (schéma Person) produites par le plugin -->
+            <column name="person_count" type="INT" defaultValueNumeric="0"><constraints nullable="false"/></column>
+            <!-- Entités disparues de la source mais encore publiées (rétention) -->
+            <column name="retained_count" type="INT" defaultValueNumeric="0"><constraints nullable="false"/></column>
+            <column name="rejected_count" type="INT" defaultValueNumeric="0"><constraints nullable="false"/></column>
+            <column name="added_count" type="INT" defaultValueNumeric="0"><constraints nullable="false"/></column>
+            <column name="removed_count" type="INT" defaultValueNumeric="0"><constraints nullable="false"/></column>
+            <column name="changed_count" type="INT" defaultValueNumeric="0"><constraints nullable="false"/></column>
+            <column name="message" type="LONGTEXT"/>
+        </createTable>
+        <createIndex tableName="parser_execution" indexName="ix_parser_execution_parser_started">
+            <column name="parser_id"/>
+            <column name="started_at"/>
+        </createIndex>
+
+        <!-- Fichiers sources signés (SHA-256) et archivés : preuve des données utilisées -->
+        <createTable tableName="source_file">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="execution_id" type="BIGINT">
+                <constraints nullable="false" foreignKeyName="fk_source_file_execution" references="parser_execution(id)"/>
+            </column>
+            <column name="origin" type="VARCHAR(2048)"/>
+            <column name="sha256" type="CHAR(64)"/>
+            <column name="size_bytes" type="BIGINT" defaultValueNumeric="0"><constraints nullable="false"/></column>
+            <column name="archive_path" type="VARCHAR(1024)"/>
+            <column name="fetched_at" type="DATETIME(6)"/>
+        </createTable>
+
+        <!-- Détail des changements publiés : entités ajoutées, retirées, modifiées -->
+        <createTable tableName="dataset_change">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="execution_id" type="BIGINT">
+                <constraints nullable="false" foreignKeyName="fk_dataset_change_execution" references="parser_execution(id)"/>
+            </column>
+            <column name="entity_id" type="VARCHAR(255)"/>
+            <column name="entity_schema" type="VARCHAR(50)"/>
+            <column name="caption" type="VARCHAR(1024)"/>
+            <column name="change_type" type="VARCHAR(20)"/>
+            <column name="changed_properties" type="TEXT"/>
+        </createTable>
+        <createIndex tableName="dataset_change" indexName="ix_dataset_change_execution_type">
+            <column name="execution_id"/>
+            <column name="change_type"/>
+        </createIndex>
+
+        <!-- Rétention : entités disparues de la source, encore publiées pendant parser.retention_months -->
+        <createTable tableName="retained_entity">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="parser_id" type="BIGINT">
+                <constraints nullable="false" foreignKeyName="fk_retained_entity_parser" references="parser(id)"/>
+            </column>
+            <column name="entity_id" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="entity_schema" type="VARCHAR(50)"/>
+            <column name="caption" type="VARCHAR(1024)"/>
+            <!-- Ligne FtM complète, telle qu'elle était publiée avant sa disparition de la source -->
+            <column name="json" type="LONGTEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="removed_at" type="DATETIME(6)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <addUniqueConstraint tableName="retained_entity" columnNames="parser_id, entity_id"
+                             constraintName="uk_retained_entity_parser_entity"/>
+
+        <!-- Alertes : exécution en échec ou bloquée, parser qui n'a pas tourné à temps -->
+        <createTable tableName="parser_alert">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="parser_id" type="BIGINT">
+                <constraints nullable="false" foreignKeyName="fk_parser_alert_parser" references="parser(id)"/>
+            </column>
+            <!-- FAILED, BLOCKED ou STALE -->
+            <column name="type" type="VARCHAR(20)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="raised_at" type="DATETIME(6)">
+                <constraints nullable="false"/>
+            </column>
+            <!-- Vide tant que l'alerte est ouverte -->
+            <column name="resolved_at" type="DATETIME(6)"/>
+            <column name="message" type="LONGTEXT"/>
+        </createTable>
+        <createIndex tableName="parser_alert" indexName="ix_parser_alert_parser_resolved">
+            <column name="parser_id"/>
+            <column name="resolved_at"/>
+        </createIndex>
+
+        <!-- Rapprochements entre deux entités de datasets différents : décision humaine qui survit aux exécutions -->
+        <createTable tableName="resolution_judgement">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="left_entity_id" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="right_entity_id" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <!-- POSITIVE (même personne), NEGATIVE (personnes différentes) ou UNSURE -->
+            <column name="judgement" type="VARCHAR(20)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="decided_by" type="VARCHAR(255)"/>
+            <column name="created_at" type="DATETIME(6)"/>
+        </createTable>
+        <addUniqueConstraint tableName="resolution_judgement" columnNames="left_entity_id, right_entity_id"
+                             constraintName="uk_resolution_judgement_pair"/>
+
+        <!-- Tests de parser : chaque élément du fichier source est cherché dans Yente -->
+        <createTable tableName="parser_test">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="parser_id" type="BIGINT">
+                <constraints nullable="false" foreignKeyName="fk_parser_test_parser" references="parser(id)"/>
+            </column>
+            <column name="execution_id" type="BIGINT"/>
+            <column name="status" type="VARCHAR(20)"/>
+            <column name="started_at" type="DATETIME(6)"/>
+            <column name="finished_at" type="DATETIME(6)"/>
+            <column name="source_count" type="INT" defaultValueNumeric="0"><constraints nullable="false"/></column>
+            <column name="found_count" type="INT" defaultValueNumeric="0"><constraints nullable="false"/></column>
+            <column name="not_converted_count" type="INT" defaultValueNumeric="0"><constraints nullable="false"/></column>
+            <column name="not_indexed_count" type="INT" defaultValueNumeric="0"><constraints nullable="false"/></column>
+            <column name="not_matched_count" type="INT" defaultValueNumeric="0"><constraints nullable="false"/></column>
+            <column name="error_count" type="INT" defaultValueNumeric="0"><constraints nullable="false"/></column>
+            <column name="message" type="LONGTEXT"/>
+        </createTable>
+        <createIndex tableName="parser_test" indexName="ix_parser_test_parser_started">
+            <column name="parser_id"/>
+            <column name="started_at"/>
+        </createIndex>
+
+        <createTable tableName="parser_test_failure">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="test_id" type="BIGINT">
+                <constraints nullable="false" foreignKeyName="fk_parser_test_failure_test" references="parser_test(id)"/>
+            </column>
+            <column name="entity_id" type="VARCHAR(255)"/>
+            <column name="entity_schema" type="VARCHAR(50)"/>
+            <column name="name" type="VARCHAR(1024)"/>
+            <column name="source_ref" type="VARCHAR(512)"/>
+            <column name="reason" type="VARCHAR(20)"/>
+            <column name="detail" type="TEXT"/>
+        </createTable>
+        <createIndex tableName="parser_test_failure" indexName="ix_parser_test_failure_test_reason">
+            <column name="test_id"/>
+            <column name="reason"/>
+        </createIndex>
+
+        <!-- Historique des recherches AML -->
+        <createTable tableName="aml_search_history">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="search_date" type="DATETIME">
+                <constraints nullable="false"/>
+            </column>
+            <column name="schema_name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="dataset" type="VARCHAR(255)"/>
+            <column name="searched_properties" type="TEXT"/>
+            <column name="matches_count" type="INT"/>
+            <column name="results_json" type="LONGTEXT"/>
+        </createTable>
+
+        <!-- ============================================================ Utilisateurs (Keycloak) -->
+
+        <createTable tableName="app_user">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="keycloak_id" type="VARCHAR(255)">
+                <constraints unique="true" uniqueConstraintName="uk_app_user_keycloak_id"/>
+            </column>
+            <column name="username" type="VARCHAR(255)">
+                <constraints nullable="false" unique="true" uniqueConstraintName="uk_app_user_username"/>
+            </column>
+            <column name="email" type="VARCHAR(255)"/>
+            <column name="first_name" type="VARCHAR(255)"/>
+            <column name="last_name" type="VARCHAR(255)"/>
+            <column name="enabled" type="BOOLEAN" defaultValueBoolean="true">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_date" type="DATETIME"/>
+            <column name="last_login_date" type="DATETIME"/>
+        </createTable>
+
+        <!-- Rôles des utilisateurs (ElementCollection de UserEntity) -->
+        <createTable tableName="app_user_roles">
+            <column name="user_id" type="BIGINT">
+                <constraints nullable="false" foreignKeyName="fk_user_roles_user" references="app_user(id)"/>
+            </column>
+            <column name="role" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <addPrimaryKey tableName="app_user_roles" columnNames="user_id, role" constraintName="pk_app_user_roles"/>
+    </changeSet>
+
+</databaseChangeLog>

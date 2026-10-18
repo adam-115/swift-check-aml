@@ -1,0 +1,351 @@
+<div class="flex flex-col min-h-[calc(100vh-2rem)] bg-slate-50 space-y-6">
+  <!-- Header -->
+  <div class="bg-gradient-to-br from-slate-900 via-slate-800 to-emerald-900 text-white p-5 sm:p-10 lg:p-12 rounded-2xl sm:rounded-3xl shadow-xl relative overflow-hidden">
+    <div class="absolute top-0 right-0 -mr-20 -mt-20 w-64 h-64 rounded-full bg-white opacity-5 blur-3xl"></div>
+    <div class="absolute bottom-0 left-10 w-40 h-40 rounded-full bg-emerald-500 opacity-20 blur-3xl"></div>
+    
+    <div class="relative z-10 max-w-5xl">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-300 text-xs sm:text-sm font-medium mb-4 sm:mb-6 border border-emerald-500/30">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+        Centre de connaissances
+      </div>
+      <h1 class="text-2xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight mb-3 sm:mb-6 text-white drop-shadow-xs">
+        Wiki AML &amp; Conformité
+      </h1>
+      <p class="text-xs sm:text-base lg:text-lg text-slate-300 max-w-2xl leading-relaxed">
+        Le guide complet pour comprendre la Lutte Contre le Blanchiment de Capitaux (LCB-FT), les réglementations internationales, et la couverture exhaustive de l'application Swift Check.
+      </p>
+    </div>
+  </div>
+
+  <!-- Mobile Quick Navigation Bar (Horizontal Scrollable Chips for Mobile) -->
+  <div class="lg:hidden bg-white p-3 rounded-2xl border border-slate-200 shadow-xs">
+    <p class="text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-2">Sommaire Rapide</p>
+    <div class="flex items-center gap-2 overflow-x-auto pb-1 text-xs touch-pan-x scrollbar-none">
+      <a href="#intro" class="whitespace-nowrap px-3 py-1.5 rounded-lg bg-slate-100 text-slate-700 font-semibold hover:bg-emerald-50 hover:text-emerald-700">Pourquoi l'AML ?</a>
+      <a href="#lois" class="whitespace-nowrap px-3 py-1.5 rounded-lg bg-slate-100 text-slate-700 font-semibold hover:bg-emerald-50 hover:text-emerald-700">Réglementations</a>
+      <a href="#couverture" class="whitespace-nowrap px-3 py-1.5 rounded-lg bg-slate-100 text-slate-700 font-semibold hover:bg-emerald-50 hover:text-emerald-700">Couverture</a>
+      <a href="#list-sanctions" class="whitespace-nowrap px-3 py-1.5 rounded-lg bg-slate-100 text-slate-700 font-semibold hover:bg-emerald-50 hover:text-emerald-700">Sanctions</a>
+      <a href="#list-pep" class="whitespace-nowrap px-3 py-1.5 rounded-lg bg-slate-100 text-slate-700 font-semibold hover:bg-emerald-50 hover:text-emerald-700">PEP</a>
+    </div>
+  </div>
+
+  <!-- Main Grid -->
+  <div class="flex-1 max-w-[1400px] w-full mx-auto grid grid-cols-1 lg:grid-cols-4 gap-6 sm:gap-8 pb-12">
+    
+    <!-- Sticky ToC (Left Sidebar) -->
+    <div class="lg:col-span-1 hidden lg:block">
+      <div class="sticky top-6 bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
+        <h3 class="text-xs font-black text-slate-400 uppercase tracking-widest mb-6">Sommaire</h3>
+        <nav class="space-y-4">
+          <a href="#intro" class="flex items-center gap-3 text-slate-700 hover:text-emerald-600 font-semibold transition-colors group">
+            <div class="w-1.5 h-1.5 rounded-full bg-slate-300 group-hover:bg-emerald-500 transition-colors"></div>
+            Pourquoi l'AML ?
+          </a>
+          <a href="#lois" class="flex items-center gap-3 text-slate-700 hover:text-emerald-600 font-semibold transition-colors group">
+            <div class="w-1.5 h-1.5 rounded-full bg-slate-300 group-hover:bg-emerald-500 transition-colors"></div>
+            Textes de Lois & Réglementations
+          </a>
+          <a href="#couverture" class="flex items-center gap-3 text-slate-700 hover:text-emerald-600 font-semibold transition-colors group">
+            <div class="w-1.5 h-1.5 rounded-full bg-slate-300 group-hover:bg-emerald-500 transition-colors"></div>
+            Couverture de l'Application
+          </a>
+          
+          <div class="pl-5 border-l-2 border-slate-100 space-y-3 mt-2">
+            <a href="#list-sanctions" class="block text-sm text-slate-500 hover:text-emerald-600 font-medium transition-colors">Sanctions Internationales</a>
+            <a href="#list-pep" class="block text-sm text-slate-500 hover:text-emerald-600 font-medium transition-colors">Politiquement Exposées (PEP)</a>
+            <a href="#list-gel" class="block text-sm text-slate-500 hover:text-emerald-600 font-medium transition-colors">Gel des Avoirs</a>
+            <a href="#list-watch" class="block text-sm text-slate-500 hover:text-emerald-600 font-medium transition-colors">Listes de Surveillance</a>
+          </div>
+        </nav>
+      </div>
+    </div>
+
+    <!-- Content Area -->
+    <div class="lg:col-span-3 space-y-12">
+      
+      <!-- Section 1: Intro -->
+      <section id="intro" class="bg-white rounded-3xl p-8 sm:p-10 shadow-sm border border-slate-200 scroll-mt-6 relative overflow-hidden">
+        <div class="absolute top-0 right-0 p-8 opacity-10">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-32 w-32 text-emerald-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" /></svg>
+        </div>
+        
+        <h2 class="text-2xl sm:text-3xl font-bold text-slate-900 mb-6 flex items-center gap-3">
+          <span class="bg-emerald-100 text-emerald-700 p-2 rounded-xl">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
+          </span>
+          Pourquoi utiliser l'AML ?
+        </h2>
+        
+        <div class="prose prose-slate max-w-none text-slate-600 leading-relaxed">
+          <p class="text-lg">
+            L'<strong>AML</strong> (<em>Anti-Money Laundering</em>) et la lutte contre le Financement du Terrorisme (FT) sont des obligations légales et morales absolues pour protéger l'intégrité du système financier mondial.
+          </p>
+          <p>
+            Les institutions financières, les fintechs, et de nombreuses autres entreprises assujetties (immobilier, jeux d'argent, crypto) utilisent l'AML pour de multiples raisons vitales :
+          </p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
+          <div class="bg-slate-50 p-6 rounded-2xl border border-slate-100">
+            <div class="text-red-500 mb-3"><svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg></div>
+            <h4 class="font-bold text-slate-900 text-lg mb-2">Éviter les lourdes sanctions</h4>
+            <p class="text-slate-600 text-sm">Les régulateurs internationaux imposent des amendes se chiffrant souvent en milliards de dollars, allant jusqu'à la perte de licence bancaire et des poursuites pénales pour les dirigeants en cas de non-conformité.</p>
+          </div>
+          
+          <div class="bg-slate-50 p-6 rounded-2xl border border-slate-100">
+            <div class="text-blue-500 mb-3"><svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" /></svg></div>
+            <h4 class="font-bold text-slate-900 text-lg mb-2">Prévenir les crimes financiers</h4>
+            <p class="text-slate-600 text-sm">Bloquer activement l'utilisation de vos services pour blanchir de l'argent issu de trafics (drogue, armes, traite humaine) ou financer des cellules terroristes.</p>
+          </div>
+          
+          <div class="bg-slate-50 p-6 rounded-2xl border border-slate-100">
+            <div class="text-indigo-500 mb-3"><svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" /></svg></div>
+            <h4 class="font-bold text-slate-900 text-lg mb-2">Protéger la réputation</h4>
+            <p class="text-slate-600 text-sm">Être mêlé, même involontairement, à un scandale financier détruit la confiance des clients, des investisseurs et des partenaires commerciaux.</p>
+          </div>
+          
+          <div class="bg-slate-50 p-6 rounded-2xl border border-slate-100">
+            <div class="text-amber-500 mb-3"><svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg></div>
+            <h4 class="font-bold text-slate-900 text-lg mb-2">Exigences KYC / KYB</h4>
+            <p class="text-slate-600 text-sm">Répondre à l'obligation légale de "Know Your Customer" et "Know Your Business" (connaître l'identité réelle de ses clients et des bénéficiaires effectifs - UBO).</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 2: Lois -->
+      <section id="lois" class="bg-white rounded-3xl p-8 sm:p-10 shadow-sm border border-slate-200 scroll-mt-6">
+        <h2 class="text-2xl sm:text-3xl font-bold text-slate-900 mb-8 flex items-center gap-3">
+          <span class="bg-blue-100 text-blue-700 p-2 rounded-xl">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 14v3m4-3v3m4-3v3M3 21h18M3 10h18M3 7l9-4 9 4M4 10h16v11H4V10z" /></svg>
+          </span>
+          Textes de Lois et Réglementations
+        </h2>
+        
+        <div class="space-y-6">
+          <div class="flex gap-4 p-5 rounded-2xl hover:bg-slate-50 transition-colors border-l-4 border-emerald-500 bg-white shadow-sm border-t border-r border-b border-slate-100">
+            <div class="flex-shrink-0 mt-1">
+              <div class="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center font-bold text-slate-700">1</div>
+            </div>
+            <div>
+              <h4 class="text-lg font-bold text-slate-900">Le GAFI (Groupe d'Action Financière)</h4>
+              <p class="text-slate-600 mt-2 text-sm leading-relaxed">
+                Le GAFI est l'organisme intergouvernemental mondial. Il a élaboré les <strong>40 Recommandations</strong> qui constituent la norme internationale de référence en matière de LCB/FT (lutte contre le blanchiment de capitaux et le financement du terrorisme).
+              </p>
+            </div>
+          </div>
+          
+          <div class="flex gap-4 p-5 rounded-2xl hover:bg-slate-50 transition-colors border-l-4 border-blue-500 bg-white shadow-sm border-t border-r border-b border-slate-100">
+            <div class="flex-shrink-0 mt-1">
+              <div class="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center font-bold text-slate-700">2</div>
+            </div>
+            <div>
+              <h4 class="text-lg font-bold text-slate-900">Directives Européennes (AMLD)</h4>
+              <p class="text-slate-600 mt-2 text-sm leading-relaxed">
+                L'Union Européenne transpose les recommandations du GAFI via des directives. 
+                Les <strong>4ème, 5ème et 6ème directives AML (AMLD5 / AMLD6)</strong> renforcent la transparence, élargissent la définition des infractions préalables, intègrent les cryptomonnaies, et augmentent drastiquement les sanctions pénales pour les entreprises non conformes.
+              </p>
+            </div>
+          </div>
+          
+          <div class="flex gap-4 p-5 rounded-2xl hover:bg-slate-50 transition-colors border-l-4 border-indigo-500 bg-white shadow-sm border-t border-r border-b border-slate-100">
+            <div class="flex-shrink-0 mt-1">
+              <div class="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center font-bold text-slate-700">3</div>
+            </div>
+            <div>
+              <h4 class="text-lg font-bold text-slate-900">OFAC (États-Unis) & Extra-territorialité</h4>
+              <p class="text-slate-600 mt-2 text-sm leading-relaxed">
+                L'<strong>Office of Foreign Assets Control (OFAC)</strong> impose des sanctions américaines qui interdisent les transactions avec certains pays, entités ou individus. 
+                Grâce au principe d'extraterritorialité (si vous utilisez le Dollar USD ou une infrastructure américaine), ces lois s'appliquent très souvent aux entreprises européennes et mondiales.
+              </p>
+            </div>
+          </div>
+          
+          <div class="flex gap-4 p-5 rounded-2xl hover:bg-slate-50 transition-colors border-l-4 border-orange-500 bg-white shadow-sm border-t border-r border-b border-slate-100">
+            <div class="flex-shrink-0 mt-1">
+              <div class="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center font-bold text-slate-700">4</div>
+            </div>
+            <div>
+              <h4 class="text-lg font-bold text-slate-900">Code Monétaire et Financier (Livre V, Titre VI) & Sapin II (France)</h4>
+              <p class="text-slate-600 mt-2 text-sm leading-relaxed">
+                En France, le CMF impose les obligations de vigilance (identification, vérification) et de déclaration de soupçon à l'entité gouvernementale <strong>Tracfin</strong>. La loi <strong>Sapin II</strong> ajoute un volet stricte contre la corruption (évaluation des tiers, alertes, etc).
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 3: Couverture / Listes -->
+      <section id="couverture" class="bg-white rounded-3xl p-8 sm:p-10 shadow-sm border border-slate-200 scroll-mt-6">
+        <h2 class="text-2xl sm:text-3xl font-bold text-slate-900 mb-4 flex items-center gap-3">
+          <span class="bg-indigo-100 text-indigo-700 p-2 rounded-xl">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" /></svg>
+          </span>
+          Couverture de l'Application (Listes)
+        </h2>
+        <p class="text-slate-600 mb-10 text-lg">
+          Swift Check agrège, normalise et permet d'interroger instantanément de multiples listes internationales pour assurer une couverture à 360° du risque.
+        </p>
+
+        <div class="space-y-8">
+          
+          <!-- Sanctions -->
+          <div id="list-sanctions" class="group bg-slate-50 p-6 sm:p-8 rounded-3xl border border-slate-100 hover:shadow-md transition-shadow scroll-mt-6 relative overflow-hidden">
+            <div class="absolute right-0 top-0 w-32 h-32 bg-red-500/5 rounded-bl-full -mr-10 -mt-10 transition-transform group-hover:scale-110"></div>
+            
+            <div class="flex flex-col sm:flex-row gap-6 relative z-10">
+              <div class="flex-shrink-0">
+                <div class="w-16 h-16 rounded-2xl bg-red-100 text-red-600 flex items-center justify-center shadow-inner">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636" /></svg>
+                </div>
+              </div>
+              <div class="flex-1">
+                <h3 class="text-xl font-bold text-slate-900 mb-2">Sanctions Internationales</h3>
+                <div class="flex gap-2 mb-4">
+                  <span class="px-2.5 py-1 rounded-full bg-slate-200 text-xs font-bold text-slate-600">OFAC</span>
+                  <span class="px-2.5 py-1 rounded-full bg-slate-200 text-xs font-bold text-slate-600">ONU</span>
+                  <span class="px-2.5 py-1 rounded-full bg-slate-200 text-xs font-bold text-slate-600">UE</span>
+                  <span class="px-2.5 py-1 rounded-full bg-slate-200 text-xs font-bold text-slate-600">DG Trésor</span>
+                </div>
+                
+                <div class="space-y-4">
+                  <div>
+                    <h5 class="text-xs font-black text-slate-400 uppercase tracking-widest mb-1">Description</h5>
+                    <p class="text-slate-700 text-sm leading-relaxed">Listes officielles d'individus, d'entreprises, de navires ou d'avions avec lesquels il est formellement interdit de faire des affaires ou de procéder à une transaction financière. Émises par les gouvernements ou instances mondiales.</p>
+                  </div>
+                  <div>
+                    <h5 class="text-xs font-black text-slate-400 uppercase tracking-widest mb-1">Pourquoi vérifier ?</h5>
+                    <p class="text-slate-700 text-sm leading-relaxed">Pour éviter des amendes exorbitantes et des poursuites pénales. Transiger avec une entité sanctionnée est un délit grave et immédiat (Responsabilité stricte).</p>
+                  </div>
+                  <div class="bg-white p-3 rounded-xl border border-slate-100 flex items-start gap-3">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-emerald-500 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                    <div>
+                      <h5 class="text-sm font-bold text-slate-800">Quand vérifier ?</h5>
+                      <p class="text-slate-600 text-sm">À l'entrée en relation (Onboarding), avant chaque transaction importante, et <strong>quotidiennement (monitoring continu)</strong> car ces listes évoluent tous les jours.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- PEP -->
+          <div id="list-pep" class="group bg-slate-50 p-6 sm:p-8 rounded-3xl border border-slate-100 hover:shadow-md transition-shadow scroll-mt-6 relative overflow-hidden">
+            <div class="absolute right-0 top-0 w-32 h-32 bg-amber-500/5 rounded-bl-full -mr-10 -mt-10 transition-transform group-hover:scale-110"></div>
+            
+            <div class="flex flex-col sm:flex-row gap-6 relative z-10">
+              <div class="flex-shrink-0">
+                <div class="w-16 h-16 rounded-2xl bg-amber-100 text-amber-600 flex items-center justify-center shadow-inner">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" /></svg>
+                </div>
+              </div>
+              <div class="flex-1">
+                <h3 class="text-xl font-bold text-slate-900 mb-2">Personnes Politiquement Exposées (PEP)</h3>
+                <div class="flex gap-2 mb-4 flex-wrap">
+                  <span class="px-2.5 py-1 rounded-full bg-slate-200 text-xs font-bold text-slate-600">Chefs d'État</span>
+                  <span class="px-2.5 py-1 rounded-full bg-slate-200 text-xs font-bold text-slate-600">Ministres</span>
+                  <span class="px-2.5 py-1 rounded-full bg-slate-200 text-xs font-bold text-slate-600">Magistrats</span>
+                  <span class="px-2.5 py-1 rounded-full bg-slate-200 text-xs font-bold text-slate-600">RCA (Proches & Famille)</span>
+                </div>
+                
+                <div class="space-y-4">
+                  <div>
+                    <h5 class="text-xs font-black text-slate-400 uppercase tracking-widest mb-1">Description</h5>
+                    <p class="text-slate-700 text-sm leading-relaxed">Individus occupant (ou ayant occupé récemment) des fonctions publiques importantes. Cette catégorie inclut également les membres directs de leur famille et leurs proches associés (connus sous l'acronyme RCA - <i>Relatives and Close Associates</i>).</p>
+                  </div>
+                  <div>
+                    <h5 class="text-xs font-black text-slate-400 uppercase tracking-widest mb-1">Pourquoi vérifier ?</h5>
+                    <p class="text-slate-700 text-sm leading-relaxed">Les PEP présentent un risque beaucoup plus élevé d'être impliqués dans des affaires de <strong>corruption, trafic d'influence ou détournement de fonds publics</strong>. Il n'est pas interdit de faire affaire avec un PEP, mais la loi exige de mettre en place une <i>Vigilance Renforcée</i> (EDD) et souvent l'approbation de la haute direction.</p>
+                  </div>
+                  <div class="bg-white p-3 rounded-xl border border-slate-100 flex items-start gap-3">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-emerald-500 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                    <div>
+                      <h5 class="text-sm font-bold text-slate-800">Quand vérifier ?</h5>
+                      <p class="text-slate-600 text-sm">À l'entrée en relation (Onboarding KYC) et lors du rafraîchissement périodique du profil client (généralement annuel pour les risques élevés).</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Gel des Avoirs -->
+          <div id="list-gel" class="group bg-slate-50 p-6 sm:p-8 rounded-3xl border border-slate-100 hover:shadow-md transition-shadow scroll-mt-6 relative overflow-hidden">
+            <div class="absolute right-0 top-0 w-32 h-32 bg-blue-500/5 rounded-bl-full -mr-10 -mt-10 transition-transform group-hover:scale-110"></div>
+            
+            <div class="flex flex-col sm:flex-row gap-6 relative z-10">
+              <div class="flex-shrink-0">
+                <div class="w-16 h-16 rounded-2xl bg-blue-100 text-blue-600 flex items-center justify-center shadow-inner">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" /></svg>
+                </div>
+              </div>
+              <div class="flex-1">
+                <h3 class="text-xl font-bold text-slate-900 mb-2">Listes de Gel des Avoirs</h3>
+                
+                <div class="space-y-4 mt-4">
+                  <div>
+                    <h5 class="text-xs font-black text-slate-400 uppercase tracking-widest mb-1">Description</h5>
+                    <p class="text-slate-700 text-sm leading-relaxed">Ces listes (souvent gérées par le ministère des Finances du pays, comme la DG Trésor en France) recensent les personnes ou entités dont les fonds et ressources économiques doivent être gelés immédiatement sans préavis.</p>
+                  </div>
+                  <div>
+                    <h5 class="text-xs font-black text-slate-400 uppercase tracking-widest mb-1">Pourquoi vérifier ?</h5>
+                    <p class="text-slate-700 text-sm leading-relaxed">Obligation de résultat immédiate et absolue. Transférer des fonds à une entité figurant sur le Registre National des Gels (RNG) est sévèrement puni, l'objectif principal étant de couper les vivres au terrorisme.</p>
+                  </div>
+                  <div class="bg-white p-3 rounded-xl border border-slate-100 flex items-start gap-3">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-emerald-500 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                    <div>
+                      <h5 class="text-sm font-bold text-slate-800">Quand vérifier ?</h5>
+                      <p class="text-slate-600 text-sm">À chaque transaction (filtrage des paiements entrants et sortants), obligatoirement <strong>en temps réel</strong> avant l'exécution du flux.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Watchlists -->
+          <div id="list-watch" class="group bg-slate-50 p-6 sm:p-8 rounded-3xl border border-slate-100 hover:shadow-md transition-shadow scroll-mt-6 relative overflow-hidden">
+            <div class="absolute right-0 top-0 w-32 h-32 bg-purple-500/5 rounded-bl-full -mr-10 -mt-10 transition-transform group-hover:scale-110"></div>
+            
+            <div class="flex flex-col sm:flex-row gap-6 relative z-10">
+              <div class="flex-shrink-0">
+                <div class="w-16 h-16 rounded-2xl bg-purple-100 text-purple-600 flex items-center justify-center shadow-inner">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" /></svg>
+                </div>
+              </div>
+              <div class="flex-1">
+                <h3 class="text-xl font-bold text-slate-900 mb-2">Watchlists & Presse Négative (Adverse Media)</h3>
+                <div class="flex gap-2 mb-4 flex-wrap">
+                  <span class="px-2.5 py-1 rounded-full bg-slate-200 text-xs font-bold text-slate-600">Interpol (Notices Rouges)</span>
+                  <span class="px-2.5 py-1 rounded-full bg-slate-200 text-xs font-bold text-slate-600">Europol</span>
+                  <span class="px-2.5 py-1 rounded-full bg-slate-200 text-xs font-bold text-slate-600">FBI Most Wanted</span>
+                  <span class="px-2.5 py-1 rounded-full bg-slate-200 text-xs font-bold text-slate-600">Presse Locale</span>
+                </div>
+                
+                <div class="space-y-4">
+                  <div>
+                    <h5 class="text-xs font-black text-slate-400 uppercase tracking-widest mb-1">Description</h5>
+                    <p class="text-slate-700 text-sm leading-relaxed">Listes d'individus recherchés par les forces de l'ordre, personnes radiées (bannis des marchés financiers par l'AMF par ex.) ou personnes citées dans la presse pour des affaires criminelles graves, sans pour autant figurer sur une liste de sanctions (car non condamnées ou en fuite).</p>
+                  </div>
+                  <div>
+                    <h5 class="text-xs font-black text-slate-400 uppercase tracking-widest mb-1">Pourquoi vérifier ?</h5>
+                    <p class="text-slate-700 text-sm leading-relaxed">Sert de <i>signal d'alerte précoce</i>. Permet de capter un risque de réputation massif avant même qu'une condamnation officielle ne tombe, et d'éviter les fraudes internes.</p>
+                  </div>
+                  <div class="bg-white p-3 rounded-xl border border-slate-100 flex items-start gap-3">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-emerald-500 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                    <div>
+                      <h5 class="text-sm font-bold text-slate-800">Quand vérifier ?</h5>
+                      <p class="text-slate-600 text-sm">À l'onboarding pour évaluer le niveau de risque initial, puis périodiquement en fonction du profil de risque du client.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+        </div>
+      </section>
+
+    </div>
+  </div>
+</div>

@@ -1,0 +1,70 @@
+<div class="max-w-7xl mx-auto space-y-6">
+  <div class="bg-white rounded-2xl shadow-xs border border-slate-200 overflow-hidden">
+
+    <!-- En-tête -->
+    <div class="bg-slate-900 px-4 sm:px-8 py-5 sm:py-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+      <div>
+        <h2 class="text-xl sm:text-2xl font-bold text-white tracking-tight">Historique des exécutions</h2>
+        <p class="mt-1 text-xs sm:text-sm text-slate-300">
+          <ng-container *ngIf="parserId; else all">Parser <span class="font-bold text-white">{{ parserName }}</span></ng-container>
+          <ng-template #all>Tous les parsers</ng-template>
+          — {{ totalElements }} exécution{{ totalElements > 1 ? 's' : '' }}
+        </p>
+      </div>
+      <a routerLink="/parsers" class="inline-flex items-center justify-center rounded-xl bg-white/10 px-3.5 py-2 text-sm font-semibold text-white hover:bg-white/20">
+        ← Retour aux parsers
+      </a>
+    </div>
+
+    <div class="p-4 sm:p-6 bg-slate-50 min-h-[400px]">
+      <div *ngIf="errorMessage" class="bg-rose-50 border border-rose-200 text-rose-800 p-3 rounded-xl text-sm mb-4">{{ errorMessage }}</div>
+      <div *ngIf="isLoading" class="text-center py-16 text-slate-500 text-sm">Chargement…</div>
+
+      <div *ngIf="!isLoading && executions.length === 0" class="text-center py-16 bg-white rounded-xl border border-dashed border-slate-300 text-sm text-slate-500">
+        Aucune exécution pour l'instant. Lancez un parser depuis l'écran « Parsers ».
+      </div>
+
+      <div *ngIf="!isLoading && executions.length > 0" class="bg-white rounded-xl border border-slate-200 overflow-x-auto">
+        <table class="min-w-full divide-y divide-slate-200">
+          <thead class="bg-slate-50">
+            <tr class="text-left text-xs font-semibold text-slate-500 uppercase tracking-wider">
+              <th class="px-4 py-3">Début</th>
+              <th *ngIf="!parserId" class="px-3 py-3">Parser</th>
+              <th class="px-3 py-3">Lancement</th>
+              <th class="px-3 py-3">Statut</th>
+              <th class="px-3 py-3 text-right">Entités</th>
+              <th class="px-3 py-3 text-right">Changements</th>
+              <th class="px-3 py-3 text-right">Durée</th>
+              <th class="px-4 py-3">Message</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-100">
+            <tr *ngFor="let e of executions" (click)="open(e)" class="cursor-pointer hover:bg-emerald-50/40 text-sm align-top">
+              <td class="px-4 py-3 whitespace-nowrap text-slate-900">{{ e.startedAt | date:'dd/MM/yyyy HH:mm:ss' }}</td>
+              <td *ngIf="!parserId" class="px-3 py-3">
+                <div class="font-medium text-slate-900">{{ e.parserName }}</div>
+                <div class="font-mono text-xs text-slate-500">{{ e.datasetName }}</div>
+              </td>
+              <td class="px-3 py-3 text-xs text-slate-600">{{ e.triggerType === 'SCHEDULED' ? 'Planifié' : 'Manuel' }}</td>
+              <td class="px-3 py-3"><app-status-badge [status]="e.status"></app-status-badge></td>
+              <td class="px-3 py-3 text-right font-mono">{{ e.entityCount | number }}</td>
+              <td class="px-3 py-3 text-right font-mono whitespace-nowrap">
+                <span class="text-emerald-700">+{{ e.addedCount }}</span>
+                <span class="text-rose-700 ml-1.5">−{{ e.removedCount }}</span>
+                <span class="text-amber-700 ml-1.5">~{{ e.changedCount }}</span>
+              </td>
+              <td class="px-3 py-3 text-right text-slate-600 whitespace-nowrap">{{ duration(e) }}</td>
+              <td class="px-4 py-3 text-xs text-slate-600 max-w-[380px]"><div class="line-clamp-2" [title]="e.message || ''">{{ e.message }}</div></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div *ngIf="totalPages > 1" class="flex items-center justify-between mt-4 text-sm">
+        <button type="button" (click)="changePage(page - 1)" [disabled]="page === 0" class="px-3 py-1.5 rounded-lg border border-slate-300 bg-white disabled:opacity-40">Précédent</button>
+        <span class="text-slate-600">Page {{ page + 1 }} / {{ totalPages }}</span>
+        <button type="button" (click)="changePage(page + 1)" [disabled]="page >= totalPages - 1" class="px-3 py-1.5 rounded-lg border border-slate-300 bg-white disabled:opacity-40">Suivant</button>
+      </div>
+    </div>
+  </div>
+</div>

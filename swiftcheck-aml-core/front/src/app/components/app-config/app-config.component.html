@@ -1,0 +1,37 @@
+<div class="w-full max-w-3xl mx-auto space-y-6 py-2 sm:py-4">
+
+  <div class="bg-white p-4 sm:p-6 rounded-2xl border border-slate-200/80 shadow-xs">
+    <h1 class="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight">Configuration</h1>
+    <p class="text-slate-500 text-sm">Connexion à Yente et dossiers utilisés par l'ingestion des listes. Chemins sur le serveur où tourne SwiftCheck.</p>
+  </div>
+
+  <form [formGroup]="form" (ngSubmit)="save()" class="space-y-5">
+    <div *ngIf="successMessage" class="bg-emerald-50 border border-emerald-200 text-emerald-800 p-3.5 rounded-xl text-sm font-medium">{{ successMessage }}</div>
+    <div *ngIf="errorMessage" class="bg-rose-50 border border-rose-200 text-rose-800 p-3.5 rounded-xl text-sm font-medium">{{ errorMessage }}</div>
+
+    <!-- Une carte par groupe de champs -->
+    <ng-container *ngFor="let group of groups">
+      <section class="bg-white rounded-2xl shadow-xs border border-slate-200 overflow-hidden">
+        <div class="bg-slate-900 px-5 sm:px-6 py-3.5">
+          <h2 class="text-base font-bold text-white">{{ group.title }}</h2>
+        </div>
+        <div class="p-4 sm:p-6 space-y-5">
+          <div *ngFor="let field of group.fields" class="space-y-1.5">
+            <label [for]="field.name" class="block text-xs font-semibold text-slate-800">{{ field.label }}{{ field.required ? ' *' : '' }}</label>
+            <input type="text" [id]="field.name" [formControlName]="field.name" [placeholder]="field.placeholder"
+                   class="w-full px-3.5 py-2.5 border border-slate-300 rounded-xl text-slate-900 focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none text-sm font-mono">
+            <p class="text-xs text-slate-500">{{ field.help }}</p>
+            <p *ngIf="invalid(field.name)" class="text-rose-600 text-xs">Champ obligatoire.</p>
+          </div>
+        </div>
+      </section>
+    </ng-container>
+
+    <div class="flex justify-end">
+      <button type="submit" [disabled]="isSaving"
+              class="rounded-xl bg-emerald-600 px-5 py-2.5 text-sm font-semibold text-white hover:bg-emerald-500 disabled:opacity-50">
+        {{ isSaving ? 'Enregistrement…' : 'Enregistrer' }}
+      </button>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,416 @@
+<div class="w-full max-w-7xl mx-auto space-y-5 sm:space-y-6">
+
+  <!-- En-tête -->
+  <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between bg-white p-4 sm:p-6 rounded-2xl border border-slate-200/80 shadow-xs gap-4">
+    <div class="flex items-center gap-3">
+      <div class="p-2.5 bg-emerald-500/10 text-emerald-600 rounded-xl">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+        </svg>
+      </div>
+      <div>
+        <h1 class="text-2xl font-bold text-slate-900 tracking-tight flex items-center gap-2.5">
+          Parsers
+          <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200">
+            {{ totalElements }} configuré{{ totalElements > 1 ? 's' : '' }}
+          </span>
+        </h1>
+        <p class="text-slate-500 text-sm">Chaque parser associe une source officielle à un plugin qui la convertit au format FtM pour Yente.</p>
+      </div>
+    </div>
+    <div class="flex flex-wrap items-center gap-3">
+      <button type="button" (click)="reindexYente()" [disabled]="isReindexing"
+              title="Yente relit le manifest et réindexe les listes (après une publication, avant un test)"
+              class="inline-flex items-center gap-2 rounded-xl border border-sky-300 bg-sky-50 px-3.5 py-2.5 text-sm font-semibold text-sky-800 shadow-xs hover:bg-sky-100 disabled:opacity-50">
+        <svg class="w-4 h-4" [class.animate-spin]="isReindexing" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" /></svg>
+        {{ isReindexing ? 'Réindexation…' : 'Réindexer Yente' }}
+      </button>
+      <a routerLink="/executions" title="Historique de toutes les exécutions"
+         class="inline-flex items-center gap-2 rounded-xl border border-slate-300 bg-white px-3.5 py-2.5 text-sm font-semibold text-slate-700 shadow-xs hover:bg-slate-50">
+        Exécutions
+      </a>
+      <button type="button" (click)="openForm()"
+              class="inline-flex items-center gap-2 rounded-xl bg-emerald-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-emerald-500">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" /></svg>
+        Nouveau parser
+      </button>
+    </div>
+  </div>
+
+  <!-- Résultat de la demande de réindexation -->
+  <div *ngIf="reindexMessage" class="bg-sky-50 border border-sky-200 text-sky-900 p-3.5 rounded-xl text-sm flex items-start gap-3">
+    <span class="flex-1">{{ reindexMessage }}</span>
+    <button type="button" (click)="reindexMessage = ''" class="text-sky-500 hover:text-sky-700" title="Fermer">✕</button>
+  </div>
+
+  <!-- Erreur -->
+  <div *ngIf="errorMessage" class="bg-rose-50 border border-rose-200 text-rose-800 p-3.5 rounded-xl text-sm font-medium">
+    {{ errorMessage }}
+  </div>
+
+  <!-- Résultat de la dernière exécution lancée depuis cet écran -->
+  <div *ngIf="lastRun" class="bg-white border border-slate-200 rounded-2xl p-4 sm:p-5 shadow-xs flex flex-col sm:flex-row sm:items-center gap-3">
+    <app-status-badge [status]="lastRun.status"></app-status-badge>
+    <div class="flex-1 text-sm text-slate-700">
+      <span class="font-semibold text-slate-900">{{ lastRun.parserName }}</span> — {{ lastRun.message }}
+    </div>
+    <a [routerLink]="['/executions', lastRun.id]" class="text-sm font-semibold text-emerald-700 hover:underline whitespace-nowrap">
+      Voir le détail →
+    </a>
+    <button type="button" (click)="lastRun = undefined" class="text-slate-400 hover:text-slate-600" title="Fermer">✕</button>
+  </div>
+
+  <!-- Résultat du dernier test lancé depuis cet écran -->
+  <div *ngIf="lastTest" class="bg-white border border-slate-200 rounded-2xl p-4 sm:p-5 shadow-xs flex flex-col sm:flex-row sm:items-center gap-3">
+    <app-status-badge [status]="lastTest.status"></app-status-badge>
+    <div class="flex-1 text-sm text-slate-700">
+      <span class="font-semibold text-slate-900">Test {{ lastTest.parserName }}</span> — {{ lastTest.message }}
+    </div>
+    <a [routerLink]="['/tests', lastTest.id]" class="text-sm font-semibold text-emerald-700 hover:underline whitespace-nowrap">
+      Voir le détail →
+    </a>
+    <button type="button" (click)="lastTest = undefined" class="text-slate-400 hover:text-slate-600" title="Fermer">✕</button>
+  </div>
+
+  <!-- Liste des parsers -->
+  <div class="bg-white rounded-2xl border border-slate-200 shadow-xs overflow-hidden">
+    <div class="overflow-x-auto">
+      <table class="min-w-full divide-y divide-slate-200">
+        <thead class="bg-slate-50">
+          <tr class="text-left text-xs font-semibold text-slate-500 uppercase tracking-wider">
+            <th class="px-4 py-3">Parser</th>
+            <th class="px-3 py-3">Plugin</th>
+            <th class="px-3 py-3">Source et fréquence</th>
+            <th class="px-3 py-3">Dernière exécution</th>
+            <th class="px-3 py-3">Dernier test</th>
+            <th class="px-4 py-3 text-right">Actions</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-slate-100">
+          <tr *ngFor="let p of parsers" [class.opacity-50]="!p.enabled" class="align-top hover:bg-slate-50/60">
+            <td class="px-4 py-4">
+              <div class="font-semibold text-slate-900 text-sm">{{ p.name }}</div>
+              <div class="font-mono text-xs text-slate-500">{{ p.datasetName }}</div>
+              <div *ngIf="p.listProvider?.name" class="text-xs text-slate-600 mt-1">{{ p.listProvider?.name }}</div>
+              <span *ngIf="!p.enabled" class="mt-1 inline-block text-[11px] font-semibold text-slate-500 bg-slate-100 px-2 py-0.5 rounded">Désactivé</span>
+            </td>
+            <td class="px-3 py-4">
+              <span class="font-mono text-xs bg-slate-100 text-slate-700 px-2 py-1 rounded whitespace-nowrap">{{ p.pluginId }}</span>
+              <div *ngIf="p.pluginUrl" class="font-mono text-[11px] text-slate-500 mt-1 max-w-[170px] truncate" [title]="p.pluginUrl">{{ jarName(p.pluginUrl) }}</div>
+            </td>
+            <td class="px-3 py-4 text-xs text-slate-600 max-w-[240px]">
+              <div class="font-medium text-slate-800">{{ sourceLabel(p.dataSourceType) }}</div>
+              <div class="font-mono truncate" [title]="p.sourceLocation || ''">{{ p.sourceLocation }}</div>
+              <div class="mt-1 inline-flex items-center gap-1 text-slate-500">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+                {{ p.refreshHours ? 'toutes les ' + p.refreshHours + ' h' : 'à la demande' }}
+              </div>
+              <div *ngIf="p.retentionMonths" class="mt-0.5 text-slate-500" title="Une personne qui disparaît de la source reste publiée ce nombre de mois">
+                rétention {{ p.retentionMonths }} mois
+              </div>
+            </td>
+            <td class="px-3 py-4 text-sm">
+              <app-status-badge [status]="running.has(p.id!) ? 'RUNNING' : p.lastStatus"></app-status-badge>
+              <div *ngIf="p.lastRunAt" class="text-xs text-slate-500 mt-1 whitespace-nowrap">{{ p.lastRunAt | date:'dd/MM/yyyy HH:mm' }}</div>
+              <div *ngIf="p.lastPersonCount" class="text-xs text-slate-600 mt-0.5 whitespace-nowrap">
+                {{ p.lastPersonCount }} personne{{ p.lastPersonCount > 1 ? 's' : '' }}<span *ngIf="p.lastRetainedCount"> + {{ p.lastRetainedCount }} gardée{{ p.lastRetainedCount > 1 ? 's' : '' }}</span>
+              </div>
+              <div *ngIf="p.lastMessage && p.lastStatus !== 'SUCCESS'" class="text-xs text-slate-500 mt-1 max-w-[200px] line-clamp-2" [title]="p.lastMessage">{{ p.lastMessage }}</div>
+            </td>
+            <td class="px-3 py-4 text-sm">
+              <!-- Dernier test : clic = historique des tests -->
+              <button *ngIf="testing.has(p.id!) || p.lastTestStatus; else neverTested" type="button" (click)="openTestHistory(p)"
+                      class="group text-left rounded-lg -m-1.5 p-1.5 hover:bg-sky-50" title="Historique des tests">
+                <app-status-badge [status]="testing.has(p.id!) ? 'RUNNING' : p.lastTestStatus"></app-status-badge>
+                <div *ngIf="!testing.has(p.id!)" class="mt-1.5 flex items-center gap-2">
+                  <div class="h-1.5 w-16 overflow-hidden rounded-full bg-slate-100">
+                    <div class="h-full rounded-full" [class.bg-emerald-500]="p.lastTestStatus === 'PASSED'" [class.bg-rose-400]="p.lastTestStatus !== 'PASSED'"
+                         [style.width.%]="p.lastTestFoundPercent ?? 0"></div>
+                  </div>
+                  <span class="text-xs font-semibold text-slate-700 tabular-nums whitespace-nowrap">{{ p.lastTestFoundPercent | number:'1.0-1' }} %</span>
+                </div>
+                <div class="text-xs text-slate-500 mt-1 whitespace-nowrap group-hover:text-sky-700">{{ testing.has(p.id!) ? 'Interrogation de Yente…' : (p.lastTestAt | date:'dd/MM/yyyy HH:mm') }}</div>
+              </button>
+              <ng-template #neverTested><span class="text-xs text-slate-400 italic">Jamais testé</span></ng-template>
+            </td>
+            <td class="px-4 py-4">
+              <div class="flex flex-col items-end gap-2">
+                <!-- Actions principales : exécution et test -->
+                <div class="flex items-center gap-1.5 whitespace-nowrap">
+                  <button type="button" (click)="run(p, false)" [disabled]="!p.enabled || running.has(p.id!)"
+                          class="rounded-lg bg-emerald-600 px-2.5 py-1.5 text-xs font-semibold text-white hover:bg-emerald-500 disabled:opacity-40"
+                          title="Récupérer la source et publier si elle a changé">
+                    {{ running.has(p.id!) ? 'En cours…' : 'Lancer' }}
+                  </button>
+                  <button type="button" (click)="run(p, true)" [disabled]="!p.enabled || running.has(p.id!)"
+                          class="rounded-lg border border-amber-300 bg-amber-50 px-2.5 py-1.5 text-xs font-semibold text-amber-800 hover:bg-amber-100 disabled:opacity-40"
+                          title="Reconvertir et republier même si la source n'a pas changé (après une mise à jour du plugin)">
+                    Forcer
+                  </button>
+                  <!-- Tester | historique des tests -->
+                  <div class="inline-flex rounded-lg border border-sky-300 bg-sky-50 overflow-hidden" role="group" aria-label="Tests">
+                    <button type="button" (click)="openTestDialog(p)" [disabled]="!p.enabled || running.has(p.id!)"
+                            class="inline-flex items-center gap-1.5 px-2.5 py-1.5 text-xs font-semibold text-sky-800 hover:bg-sky-100 disabled:opacity-40"
+                            title="Chercher dans Yente chaque élément du fichier source de la dernière publication">
+                      <span *ngIf="testing.has(p.id!)" class="h-3 w-3 rounded-full border-2 border-sky-300 border-t-sky-700 animate-spin"></span>
+                      {{ testing.has(p.id!) ? 'Test…' : 'Tester' }}
+                    </button>
+                    <button type="button" (click)="openTestHistory(p)" class="border-l border-sky-300 px-2 text-sky-800 hover:bg-sky-100"
+                            title="Historique des tests" aria-label="Historique des tests"><svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M3 12a9 9 0 103-6.7L3 8m0-5v5h5m4-1v5l3 3"/></svg></button>
+                  </div>
+                </div>
+                <!-- Actions secondaires -->
+                <div class="flex items-center gap-3 text-xs font-semibold whitespace-nowrap">
+                  <a [routerLink]="['/parsers', p.id, 'executions']" class="text-slate-600 hover:text-slate-900 hover:underline" title="Historique des exécutions">Exécutions</a>
+                  <span class="text-slate-300" aria-hidden="true">·</span>
+                  <button type="button" (click)="openForm(p)" class="text-slate-600 hover:text-slate-900 hover:underline">Modifier</button>
+                  <ng-container *ngIf="p.enabled">
+                    <span class="text-slate-300" aria-hidden="true">·</span>
+                    <button type="button" (click)="disable(p)" class="text-rose-600 hover:text-rose-800 hover:underline">Désactiver</button>
+                  </ng-container>
+                </div>
+              </div>
+            </td>
+          </tr>
+          <tr *ngIf="parsers.length === 0">
+            <td colspan="6" class="px-4 py-12 text-center text-sm text-slate-500">Aucun parser configuré.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div *ngIf="totalPages > 1" class="flex items-center justify-between px-4 py-3 border-t border-slate-200 text-sm">
+      <button type="button" (click)="changePage(page - 1)" [disabled]="page === 0" class="px-3 py-1.5 rounded-lg border border-slate-300 disabled:opacity-40">Précédent</button>
+      <span class="text-slate-600">Page {{ page + 1 }} / {{ totalPages }}</span>
+      <button type="button" (click)="changePage(page + 1)" [disabled]="page >= totalPages - 1" class="px-3 py-1.5 rounded-lg border border-slate-300 disabled:opacity-40">Suivant</button>
+    </div>
+  </div>
+
+  <!-- Plugins PF4J -->
+  <div class="bg-white rounded-2xl border border-slate-200 shadow-xs overflow-hidden">
+    <div class="px-4 sm:px-6 py-4 border-b border-slate-200 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+      <div>
+        <h2 class="text-base font-bold text-slate-900">Plugins chargés</h2>
+        <p class="text-xs text-slate-500">Un JAR par liste. Pour une nouvelle version, déposez le JAR sous un nouveau nom puis chargez-le : l'ancienne version est remplacée.</p>
+      </div>
+      <div class="flex gap-2 w-full sm:w-auto">
+        <input type="text" [(ngModel)]="jarPath" placeholder="Chemin du JAR sur le serveur, ex. D:/plugins/swiftcheck-aml-eu-1.0.1.jar"
+               class="flex-1 sm:w-96 rounded-lg border border-slate-300 px-3 py-2 text-sm font-mono">
+        <button type="button" (click)="loadJar()" [disabled]="!jarPath.trim()"
+                class="rounded-lg bg-slate-900 px-3.5 py-2 text-sm font-semibold text-white hover:bg-slate-700 disabled:opacity-40">Charger</button>
+      </div>
+    </div>
+    <div *ngIf="pluginMessage" class="mx-4 sm:mx-6 mt-3 bg-emerald-50 border border-emerald-200 text-emerald-800 p-2.5 rounded-lg text-sm">{{ pluginMessage }}</div>
+    <div *ngIf="pluginError" class="mx-4 sm:mx-6 mt-3 bg-rose-50 border border-rose-200 text-rose-800 p-2.5 rounded-lg text-sm">{{ pluginError }}</div>
+    <table class="min-w-full divide-y divide-slate-100 mt-2">
+      <thead>
+        <tr class="text-left text-xs font-semibold text-slate-500 uppercase tracking-wider">
+          <th class="px-4 sm:px-6 py-2">Plugin-Id</th><th class="px-3 py-2">Version</th><th class="px-3 py-2">État</th><th class="px-3 py-2">Fichier</th><th class="px-4 py-2"></th>
+        </tr>
+      </thead>
+      <tbody class="divide-y divide-slate-100">
+        <tr *ngFor="let plugin of plugins" class="text-sm">
+          <td class="px-4 sm:px-6 py-2.5 font-mono font-semibold text-slate-900">{{ plugin.pluginId }}</td>
+          <td class="px-3 py-2.5 text-slate-700">{{ plugin.version }}</td>
+          <td class="px-3 py-2.5"><span class="text-xs font-semibold" [class.text-emerald-700]="plugin.state === 'STARTED'" [class.text-slate-500]="plugin.state !== 'STARTED'">{{ plugin.state }}</span></td>
+          <td class="px-3 py-2.5 font-mono text-xs text-slate-500 max-w-[360px] truncate" [title]="plugin.path">{{ plugin.path }}</td>
+          <td class="px-4 py-2.5 text-right whitespace-nowrap">
+            <button type="button" (click)="reloadPlugin(plugin)" class="text-xs font-semibold text-slate-700 hover:underline mr-3">Recharger</button>
+            <button type="button" (click)="unloadPlugin(plugin)" class="text-xs font-semibold text-rose-700 hover:underline">Décharger</button>
+          </td>
+        </tr>
+        <tr *ngIf="plugins.length === 0">
+          <td colspan="5" class="px-6 py-6 text-center text-sm text-slate-500">Aucun plugin chargé : déposez les JAR dans le dossier des plugins (pf4j.plugins.dir).</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- Formulaire : panneau latéral -->
+<div *ngIf="isFormOpen" class="fixed inset-0 z-50 flex justify-end">
+  <div class="absolute inset-0 bg-slate-900/40" (click)="closeForm()"></div>
+  <form [formGroup]="form" (ngSubmit)="save()" class="relative w-full max-w-xl h-full bg-slate-50 shadow-xl flex flex-col">
+    <div class="bg-slate-900 px-6 py-5 flex items-center justify-between">
+      <h2 class="text-lg font-bold text-white">{{ form.value.id ? 'Modifier le parser' : 'Nouveau parser' }}</h2>
+      <button type="button" (click)="closeForm()" class="text-slate-300 hover:text-white">✕</button>
+    </div>
+
+    <div class="flex-1 overflow-y-auto p-6 space-y-5">
+      <div *ngIf="formError" class="bg-rose-50 border border-rose-200 text-rose-800 p-3 rounded-xl text-sm font-medium">{{ formError }}</div>
+
+      <!-- 1. Identité -->
+      <section class="bg-white p-5 rounded-xl border border-slate-200 space-y-4">
+        <h3 class="text-xs font-bold text-slate-900 uppercase tracking-wider">1. Identité</h3>
+        <div>
+          <label class="block text-xs font-semibold text-slate-700 mb-1">Nom *</label>
+          <input formControlName="name" placeholder="ex. Sanctions financières UE" class="w-full rounded-lg border border-slate-300 p-2.5 text-sm">
+          <p *ngIf="invalid('name')" class="text-rose-600 text-xs mt-1">Nom obligatoire.</p>
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-slate-700 mb-1">Fournisseur</label>
+          <select formControlName="listProviderId" class="w-full rounded-lg border border-slate-300 p-2.5 text-sm bg-white">
+            <option [ngValue]="null">— Aucun —</option>
+            <option *ngFor="let provider of providers" [ngValue]="provider.id">{{ provider.name }} ({{ provider.code }})</option>
+          </select>
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-slate-700 mb-1">Nom du dataset dans Yente *</label>
+          <input formControlName="datasetName" placeholder="ex. eu_sanctions" class="w-full rounded-lg border border-slate-300 p-2.5 text-sm font-mono">
+          <p *ngIf="invalid('datasetName')" class="text-rose-600 text-xs mt-1">Obligatoire : minuscules, chiffres et _ uniquement.</p>
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-slate-700 mb-1">Description</label>
+          <textarea formControlName="description" rows="2" class="w-full rounded-lg border border-slate-300 p-2.5 text-sm"></textarea>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-semibold text-slate-700 mb-1">Licence de la source</label>
+            <input formControlName="licence" placeholder="ex. CC BY 4.0" class="w-full rounded-lg border border-slate-300 p-2.5 text-sm">
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-700 mb-1">Mention à citer</label>
+            <input formControlName="attribution" placeholder="ex. © Union européenne" class="w-full rounded-lg border border-slate-300 p-2.5 text-sm">
+          </div>
+        </div>
+      </section>
+
+      <!-- 2. Plugin et source -->
+      <section class="bg-white p-5 rounded-xl border border-slate-200 space-y-4">
+        <h3 class="text-xs font-bold text-slate-900 uppercase tracking-wider">2. Plugin et source</h3>
+        <div>
+          <label class="block text-xs font-semibold text-slate-700 mb-1">Chemin du plugin JAR sur le serveur</label>
+          <div class="flex rounded-lg border border-slate-300 overflow-hidden focus-within:ring-2 focus-within:ring-emerald-500/30">
+            <input formControlName="pluginUrl" placeholder="/opt/docker-stacks/application/plugins/swiftcheck-aml-eu-0.0.1.jar"
+                   class="flex-1 min-w-0 p-2.5 text-sm font-mono outline-none">
+            <button type="button" (click)="verifyPlugin()" [disabled]="isVerifying"
+                    class="shrink-0 inline-flex items-center gap-1.5 px-4 text-sm font-semibold text-emerald-700 bg-emerald-50 border-l border-slate-300 hover:bg-emerald-100 disabled:opacity-50">
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/>
+              </svg>
+              {{ isVerifying ? 'Vérification…' : 'Vérifier' }}
+            </button>
+          </div>
+          <p *ngIf="!pluginCheck && !pluginCheckError" class="text-xs text-slate-500 mt-1">
+            « Vérifier » charge le JAR avec PF4J et remplit le Plugin-Id. S'il n'est pas chargé au lancement, le core le charge depuis ce chemin.
+          </p>
+          <div *ngIf="pluginCheck" class="mt-2 bg-emerald-50 border border-emerald-200 text-emerald-800 p-2.5 rounded-lg text-xs">
+            Plugin <span class="font-mono font-semibold">{{ pluginCheck.pluginId }}</span> {{ pluginCheck.version }} chargé par PF4J —
+            parser <span class="font-mono">{{ pluginCheck.parserClass }}</span>
+          </div>
+          <div *ngIf="pluginCheckError" class="mt-2 bg-rose-50 border border-rose-200 text-rose-800 p-2.5 rounded-lg text-xs">{{ pluginCheckError }}</div>
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-slate-700 mb-1">Plugin (Plugin-Id du JAR) *</label>
+          <input formControlName="pluginId" list="loaded-plugins" placeholder="ex. eu-parser" class="w-full rounded-lg border border-slate-300 p-2.5 text-sm font-mono">
+          <datalist id="loaded-plugins">
+            <option *ngFor="let plugin of plugins" [value]="plugin.pluginId">{{ plugin.version }}</option>
+          </datalist>
+          <p *ngIf="invalid('pluginId')" class="text-rose-600 text-xs mt-1">Plugin obligatoire.</p>
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-slate-700 mb-1">Type de source *</label>
+          <select formControlName="dataSourceType" class="w-full rounded-lg border border-slate-300 p-2.5 text-sm bg-white">
+            <option *ngFor="let type of sourceTypes" [value]="type.value">{{ type.label }}</option>
+          </select>
+          <p class="text-xs text-slate-500 mt-1">{{ selectedSourceType?.help }}</p>
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-slate-700 mb-1">Nature de la source</label>
+          <select formControlName="parserKind" class="w-full rounded-lg border border-slate-300 p-2.5 text-sm bg-white">
+            <option [ngValue]="null">— Non précisée —</option>
+            <option *ngFor="let kind of parserKinds" [ngValue]="kind.value">{{ kind.label }}</option>
+          </select>
+          <p class="text-xs text-slate-500 mt-1">Pour information : dit comment la source est publiée, donc à quoi s'attendre en maintenance.</p>
+        </div>
+        <div *ngIf="locationRequired">
+          <label class="block text-xs font-semibold text-slate-700 mb-1">
+            {{ form.value.dataSourceType === 'HTTP_FILE' ? 'URL du fichier *' : 'Chemin du fichier sur le serveur *' }}
+          </label>
+          <input formControlName="sourceLocation" class="w-full rounded-lg border border-slate-300 p-2.5 text-sm font-mono"
+                 [placeholder]="form.value.dataSourceType === 'HTTP_FILE' ? 'https://...' : 'D:/sources/liste.xml'">
+          <p class="text-xs text-slate-500 mt-1">Modifiable à tout moment : pris en compte à l'exécution suivante, sans recompiler.</p>
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-slate-700 mb-1">Paramètres du plugin (JSON, facultatif)</label>
+          <textarea formControlName="parameters" rows="3" placeholder='ex. {"query": "SELECT ..."}' class="w-full rounded-lg border border-slate-300 p-2.5 text-sm font-mono"></textarea>
+          <p *ngIf="invalid('parameters')" class="text-rose-600 text-xs mt-1">Un objet JSON est attendu, ex. {{ '{' }}"nom": "valeur"{{ '}' }}.</p>
+        </div>
+      </section>
+
+      <!-- 3. Planification -->
+      <section class="bg-white p-5 rounded-xl border border-slate-200 space-y-4">
+        <h3 class="text-xs font-bold text-slate-900 uppercase tracking-wider">3. Planification</h3>
+        <div>
+          <label class="block text-xs font-semibold text-slate-700 mb-1">Fréquence de mise à jour (heures) *</label>
+          <input type="number" min="0" formControlName="refreshHours" class="w-40 rounded-lg border border-slate-300 p-2.5 text-sm">
+          <p class="text-xs text-slate-500 mt-1">0 = uniquement à la demande (bouton « Lancer »).</p>
+        </div>
+        <label class="flex items-center gap-2 text-sm text-slate-700">
+          <input type="checkbox" formControlName="enabled" class="h-4 w-4 rounded border-slate-300 text-emerald-600">
+          Actif (un parser désactivé n'est plus exécuté et son dataset est retiré de Yente)
+        </label>
+      </section>
+
+      <!-- 4. Couverture PEP -->
+      <section class="bg-white p-5 rounded-xl border border-slate-200 space-y-4">
+        <h3 class="text-xs font-bold text-slate-900 uppercase tracking-wider">4. Rétention et couverture PEP</h3>
+        <div>
+          <label class="block text-xs font-semibold text-slate-700 mb-1">Source PEP lue par ce parser</label>
+          <select formControlName="sourceId" (change)="onSourceChange()" class="w-full rounded-lg border border-slate-300 p-2.5 text-sm bg-white">
+            <option [ngValue]="null">— Aucune (liste de sanctions) —</option>
+            <option *ngFor="let s of sourceChoices" [ngValue]="s.id">{{ s.countryIso }} · {{ s.name }}</option>
+          </select>
+          <p class="text-xs text-slate-500 mt-1">
+            Un parser lit une seule source. La choisir coche les fonctions qu'elle couvre (écran « Sources PEP »).
+          </p>
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-slate-700 mb-1">Rétention (mois) *</label>
+          <input type="number" min="0" formControlName="retentionMonths" class="w-40 rounded-lg border border-slate-300 p-2.5 text-sm">
+          <p *ngIf="invalid('retentionMonths')" class="text-rose-600 text-xs mt-1">Nombre de mois positif ou nul.</p>
+          <p class="text-xs text-slate-500 mt-1">
+            Une personne qui disparaît de la source reste publiée pendant ce nombre de mois.
+            0 pour les sanctions ; au moins 12 pour les PEP (vigilance après la fin des fonctions).
+          </p>
+        </div>
+        <div>
+          <p class="block text-xs font-semibold text-slate-700 mb-1">
+            Fonctions couvertes
+            <span class="font-normal text-slate-500">
+              ({{ coveredFunctionIds.size }} cochée{{ coveredFunctionIds.size > 1 ? 's' : '' }}{{ providerCountry ? ', pays du fournisseur : ' + providerCountry : '' }})
+            </span>
+          </p>
+          <p class="text-xs text-slate-500 mb-2">Utilisé par la page « Couverture PEP ». Laissez vide pour une liste de sanctions.</p>
+          <div *ngIf="functionGroups.length === 0" class="text-xs text-slate-400 italic">Aucune fonction dans le référentiel pour ce pays.</div>
+          <div class="max-h-72 overflow-y-auto rounded-lg border border-slate-200 divide-y divide-slate-100">
+            <div *ngFor="let group of functionGroups" class="p-3">
+              <p class="text-xs font-semibold text-slate-700 mb-1.5"><span class="font-mono text-slate-500">{{ group.code }}</span> {{ group.label }}</p>
+              <label *ngFor="let f of group.functions" class="flex items-start gap-2 py-0.5 text-sm text-slate-700 cursor-pointer">
+                <input type="checkbox" [checked]="coveredFunctionIds.has(f.id)" (change)="toggleFunction(f.id)"
+                       class="mt-0.5 h-4 w-4 rounded border-slate-300 text-emerald-600">
+                <span>{{ f.label }} <span *ngIf="f.institution" class="text-xs text-slate-500">— {{ f.institution }}</span></span>
+              </label>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <div class="px-6 py-4 bg-white border-t border-slate-200 flex justify-end gap-3">
+      <button type="button" (click)="closeForm()" class="rounded-lg border border-slate-300 px-4 py-2 text-sm font-semibold text-slate-700">Annuler</button>
+      <button type="submit" [disabled]="isSaving" class="rounded-lg bg-emerald-600 px-4 py-2 text-sm font-semibold text-white hover:bg-emerald-500 disabled:opacity-50">
+        {{ isSaving ? 'Enregistrement…' : 'Enregistrer' }}
+      </button>
+    </div>
+  </form>
+</div>
+
+<!-- Historique des tests d'un parser (panneau latéral) -->
+<app-parser-test-history *ngIf="historyParser" [parser]="historyParser" [refreshKey]="historyRefresh"
+                         [running]="testing.has(historyParser.id!)" [escapeEnabled]="!testDialogParser"
+                         (closed)="historyParser = undefined" (runTest)="openTestDialog(historyParser)"></app-parser-test-history>
+
+<!-- Fenêtre de test : confirmation, progression, résultat (au-dessus de l'historique) -->
+<app-test-run-dialog *ngIf="testDialogParser as tp" [parser]="tp"
+                     [runningSince]="testing.get(tp.id!)" [result]="testResults.get(tp.id!)" [error]="testErrors.get(tp.id!) ?? ''"
+                     (confirmed)="runTest(tp)" (closed)="closeTestDialog()"></app-test-run-dialog>

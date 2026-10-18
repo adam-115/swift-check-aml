@@ -1,0 +1,714 @@
+<div class="max-w-7xl mx-auto space-y-5">
+
+  <!-- En-tête de la page (Totalement responsive) -->
+  <div
+    class="bg-white p-4 sm:p-5 rounded-2xl border border-slate-200/80 shadow-xs flex flex-col md:flex-row md:items-center md:justify-between gap-3.5">
+    <div class="flex items-center gap-3">
+      <div
+        class="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-blue-600 text-white flex items-center justify-center shadow-md shadow-blue-500/20 shrink-0">
+        <i class="fas fa-shield-alt text-lg sm:text-xl"></i>
+      </div>
+      <div>
+        <h1 class="text-xl sm:text-2xl font-bold text-slate-800 tracking-tight flex items-center gap-2">
+          Filtrage &amp; Vérification AML
+        </h1>
+        <p class="text-slate-500 text-xs mt-0.5 line-clamp-2 sm:line-clamp-none">
+          Criblage en temps réel contre les listes de sanctions, PEP et personnes recherchées.
+        </p>
+      </div>
+    </div>
+    <div class="flex items-center gap-2 self-start md:self-center shrink-0">
+      <span
+        class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200 shadow-xs">
+        <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+        Moteur Yente connecté ({{ providers.length }} bases)
+      </span>
+    </div>
+  </div>
+
+  <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-6">
+
+    <!-- Colonne Gauche : Formulaire de filtrage (lg:col-span-5) -->
+    <div class="lg:col-span-5 space-y-5">
+
+      <div class="bg-white rounded-2xl shadow-xs border border-slate-200 overflow-hidden">
+
+        <!-- Titre de la carte de recherche -->
+        <div class="px-4 sm:px-5 py-3.5 border-b border-slate-100 bg-slate-50/70 flex items-center justify-between">
+          <h2 class="text-xs sm:text-sm font-bold text-slate-800 uppercase tracking-wider flex items-center gap-2">
+            <i class="fas fa-sliders-h text-blue-600"></i> Paramètres de vérification
+          </h2>
+          <button type="button" (click)="resetForm()"
+            class="text-xs text-slate-400 hover:text-slate-600 transition-colors flex items-center gap-1 p-1 -mr-1">
+            <i class="fas fa-undo-alt text-[10px]"></i> Réinitialiser
+          </button>
+        </div>
+
+        <div class="p-4 sm:p-5 space-y-4 sm:space-y-5">
+
+          <!-- ======================================================== -->
+          <!-- SECTION 1 : FOURNISSEURS DE LISTES                       -->
+          <!-- ======================================================== -->
+          <div class="bg-slate-50/90 rounded-xl p-3 sm:p-3.5 border border-slate-200/80">
+
+            <div class="flex items-center justify-between mb-2.5">
+              <label class="text-xs font-bold uppercase tracking-wider text-slate-700 flex items-center gap-1.5">
+                <i class="fas fa-database text-blue-600"></i> Périmètre des listes
+              </label>
+
+              <!-- Compteur compact -->
+              <span class="text-[11px] font-semibold px-2 py-0.5 rounded-full"
+                [ngClass]="selectionMode === 'all' ? 'bg-blue-100 text-blue-700' : 'bg-purple-100 text-purple-700'">
+                {{ selectionMode === 'all' ? 'Toutes (' + providers.length + ')' : selectedProviders.length + ' / ' +
+                providers.length }}
+              </span>
+            </div>
+
+            <!-- Segmented Switch : "Tous" vs "Personnalisé" -->
+            <div class="grid grid-cols-2 p-1 bg-slate-200/70 rounded-xl gap-1 mb-3">
+              <button type="button" (click)="setSelectionMode('all')"
+                class="py-2 px-1 text-xs font-semibold rounded-lg transition-all flex items-center justify-center gap-1.5 text-center"
+                [ngClass]="selectionMode === 'all' 
+                  ? 'bg-white text-blue-700 shadow-xs' 
+                  : 'text-slate-600 hover:text-slate-900'">
+                <i class="fas fa-bolt text-amber-500 text-[11px] shrink-0"></i>
+                <span class="truncate">Toutes (Consolidé)</span>
+              </button>
+              <button type="button" (click)="setSelectionMode('custom')"
+                class="py-2 px-1 text-xs font-semibold rounded-lg transition-all flex items-center justify-center gap-1.5 text-center"
+                [ngClass]="selectionMode === 'custom' 
+                  ? 'bg-white text-blue-700 shadow-xs' 
+                  : 'text-slate-600 hover:text-slate-900'">
+                <i class="fas fa-filter text-blue-500 text-[11px] shrink-0"></i>
+                <span class="truncate">Sélection ciblée</span>
+              </button>
+            </div>
+
+            <!-- VUE A : Mode Consolidé -->
+            <div *ngIf="selectionMode === 'all'"
+              class="p-3 bg-white rounded-xl border border-blue-200/80 shadow-xs flex items-center justify-between gap-2">
+              <div class="flex items-center gap-2.5 min-w-0">
+                <div class="w-8 h-8 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center shrink-0">
+                  <i class="fas fa-globe-americas"></i>
+                </div>
+                <div class="min-w-0">
+                  <p class="text-xs font-bold text-slate-800 truncate">Couverture mondiale complète</p>
+                  <p class="text-[11px] text-slate-500 truncate">25 bases Yente (OFAC, UE, ONU, PEP...)</p>
+                </div>
+              </div>
+              <button type="button" (click)="setSelectionMode('custom')"
+                class="text-[11px] font-semibold text-blue-600 hover:text-blue-800 bg-blue-50 hover:bg-blue-100 px-2.5 py-1.5 rounded-lg transition-colors shrink-0">
+                Filtrer
+              </button>
+            </div>
+
+            <!-- VUE B : Mode Personnalisé -->
+            <div *ngIf="selectionMode === 'custom'" class="space-y-2.5 pt-1">
+
+              <!-- Barre de recherche rapide -->
+              <div class="relative">
+                <i class="fas fa-search absolute left-3 top-2.5 text-slate-400 text-xs"></i>
+                <input type="text" [(ngModel)]="providerSearchTerm" placeholder="Rechercher (OFAC, Interpol, ACPR...)"
+                  class="w-full pl-8 pr-7 py-2 text-xs bg-white rounded-lg border border-slate-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all">
+                <button *ngIf="providerSearchTerm" type="button" (click)="providerSearchTerm = ''"
+                  class="absolute right-2.5 top-2 text-slate-400 hover:text-slate-600 text-xs p-1">
+                  <i class="fas fa-times"></i>
+                </button>
+              </div>
+
+              <!-- Filtres par catégorie (Horizontal Touch Scrollable) -->
+              <div
+                class="flex items-center gap-1.5 overflow-x-auto pb-1.5 text-[11px] -mx-1 px-1 scrollbar-none touch-pan-x">
+                <button *ngFor="let cat of categories" type="button" (click)="selectCategory(cat.id)"
+                  class="whitespace-nowrap px-2.5 py-1 rounded-full font-medium transition-all flex items-center gap-1 shrink-0"
+                  [ngClass]="selectedCategory === cat.id 
+                    ? 'bg-slate-800 text-white shadow-xs' 
+                    : 'bg-white text-slate-600 hover:bg-slate-100 border border-slate-200'">
+                  <i [class]="cat.icon + ' text-[10px]'"></i>
+                  {{ cat.label }}
+                  <span class="text-[9px] opacity-75 font-mono">({{ getCategoryCount(cat.id) }})</span>
+                </button>
+              </div>
+
+              <!-- Raccourcis d'actions rapides -->
+              <div class="flex items-center justify-between px-1 text-[11px] text-slate-500">
+                <div class="flex items-center gap-2">
+                  <button type="button" (click)="selectAllCustom()"
+                    class="text-blue-600 hover:underline font-medium">Tout cocher</button>
+                  <span>·</span>
+                  <button type="button" (click)="clearAllCustom()" class="text-slate-500 hover:text-slate-700">Tout
+                    décocher</button>
+                </div>
+                <span class="text-slate-400 font-mono">{{ filteredProviders.length }} affichés</span>
+              </div>
+
+              <!-- Liste scrollable des fournisseurs -->
+              <div
+                class="max-h-48 overflow-y-auto space-y-1 p-1 bg-white rounded-xl border border-slate-200 scrollbar-thin">
+                <div *ngFor="let p of filteredProviders" (click)="toggleProvider(p.id)"
+                  class="flex items-center justify-between p-2 rounded-lg hover:bg-slate-50 cursor-pointer select-none transition-colors border text-xs gap-2"
+                  [ngClass]="isProviderSelected(p.id) ? 'border-blue-300 bg-blue-50/50' : 'border-transparent'">
+
+                  <div class="flex items-center gap-2 min-w-0">
+                    <div class="w-4 h-4 rounded border flex items-center justify-center shrink-0 transition-colors"
+                      [ngClass]="isProviderSelected(p.id) ? 'bg-blue-600 border-blue-600 text-white' : 'border-slate-300 bg-white'">
+                      <svg *ngIf="isProviderSelected(p.id)" class="w-2.5 h-2.5" fill="none" stroke="currentColor"
+                        viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7" />
+                      </svg>
+                    </div>
+                    <span class="font-medium text-slate-800 truncate" [title]="p.name">{{ p.name }}</span>
+                  </div>
+
+                  <div class="flex items-center gap-1 shrink-0">
+                    <span *ngIf="p.countryBadge"
+                      class="px-1.5 py-0.5 rounded text-[10px] font-bold bg-slate-100 text-slate-600 border border-slate-200 font-mono">
+                      {{ p.countryBadge }}
+                    </span>
+                    <span class="px-1.5 py-0.5 rounded text-[9px] font-semibold" [ngClass]="{
+                            'bg-red-50 text-red-700 border border-red-200': p.category === 'SANCTIONS',
+                            'bg-emerald-50 text-emerald-700 border border-emerald-200': p.category === 'PEP',
+                            'bg-purple-50 text-purple-700 border border-purple-200': p.category === 'WANTED',
+                            'bg-blue-50 text-blue-700 border border-blue-200': p.category === 'REGULATORS',
+                            'bg-slate-50 text-slate-600 border border-slate-200': p.category !== 'SANCTIONS' && p.category !== 'PEP' && p.category !== 'WANTED' && p.category !== 'REGULATORS'
+                          }">
+                      {{ p.categoryLabel }}
+                    </span>
+                  </div>
+                </div>
+
+                <div *ngIf="filteredProviders.length === 0" class="p-4 text-center text-xs text-slate-400 italic">
+                  Aucun fournisseur ne correspond à votre recherche.
+                </div>
+              </div>
+
+              <!-- Puces des fournisseurs sélectionnés amovibles -->
+              <div *ngIf="selectedProviders.length > 0" class="pt-1">
+                <div class="flex items-center justify-between text-[11px] font-medium text-slate-600 mb-1">
+                  <span>Listes actives ({{ selectedProviders.length }}) :</span>
+                  <button type="button" (click)="setSelectionMode('all')" class="text-blue-600 hover:underline">
+                    Revenir à "Toutes"
+                  </button>
+                </div>
+                <div class="flex flex-wrap gap-1 max-h-16 overflow-y-auto">
+                  <span *ngFor="let id of selectedProviders | slice:0:8"
+                    class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-medium bg-blue-50 text-blue-700 border border-blue-200">
+                    {{ getProviderName(id) }}
+                    <button type="button" (click)="removeSelectedProvider(id); $event.stopPropagation()"
+                      class="hover:text-blue-900 rounded-full w-3.5 h-3.5 flex items-center justify-center">
+                      <i class="fas fa-times text-[8px]"></i>
+                    </button>
+                  </span>
+                  <span *ngIf="selectedProviders.length > 8"
+                    class="text-[10px] text-slate-500 font-semibold self-center px-1">
+                    +{{ selectedProviders.length - 8 }} autres
+                  </span>
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+
+          <!-- ======================================================== -->
+          <!-- SECTION 2 : TYPE D'ENTITÉ (RESPONSIVE TOUCH SELECTOR)    -->
+          <!-- ======================================================== -->
+          <div>
+            <label class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-2">
+              Type d'entité
+            </label>
+            <!-- 3 colonnes sur mobile, 5 colonnes sur desktop pour éviter tout chevauchement -->
+            <div class="grid grid-cols-3 sm:grid-cols-5 p-1 bg-slate-100 rounded-xl gap-1">
+              <button *ngFor="let s of schemas" type="button" (click)="selectedSchema = s.id; onSchemaChange()"
+                class="py-2.5 px-1.5 rounded-lg text-xs font-medium transition-all flex flex-col items-center justify-center gap-1 text-center"
+                [ngClass]="selectedSchema === s.id 
+                  ? 'bg-white text-blue-600 shadow-xs font-bold' 
+                  : 'text-slate-600 hover:text-slate-900 hover:bg-slate-200/50'" [title]="s.desc">
+                <i [class]="s.icon + ' text-sm'"></i>
+                <span class="text-[11px] truncate max-w-full">{{ s.name }}</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- ======================================================== -->
+          <!-- SECTION 3 : CHAMPS DE SAISIE DU FORMULAIRE               -->
+          <!-- ======================================================== -->
+          <div class="space-y-3.5 pt-1">
+
+            <!-- Toute entité (Thing) -->
+            <ng-container *ngIf="selectedSchema === 'Thing'">
+              <div>
+                <label class="block text-xs font-semibold text-slate-700 mb-1">
+                  Nom ou Mots-clés <span class="text-rose-500">*</span>
+                </label>
+                <div class="relative">
+                  <i class="fas fa-globe absolute left-3 top-3.5 text-slate-400 text-xs"></i>
+                  <input type="text" [(ngModel)]="formData.name" (keydown.enter)="verifyClient()"
+                    placeholder="Nom de l'entité, personne, alias..."
+                    class="w-full pl-9 pr-3 py-2.5 text-sm bg-slate-50 border border-slate-300 rounded-xl focus:bg-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all">
+                </div>
+              </div>
+              <div>
+                <label class="block text-xs font-semibold text-slate-700 mb-1">Code Pays (Optionnel)</label>
+                <div class="relative">
+                  <i class="fas fa-flag absolute left-3 top-3.5 text-slate-400 text-xs"></i>
+                  <input type="text" [(ngModel)]="formData.country" (keydown.enter)="verifyClient()"
+                    placeholder="Ex: FR, US, RU, CN..."
+                    class="w-full pl-9 pr-3 py-2.5 text-sm bg-slate-50 border border-slate-300 rounded-xl focus:bg-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all">
+                </div>
+              </div>
+            </ng-container>
+
+            <!-- Personne (Person) -->
+            <ng-container *ngIf="selectedSchema === 'Person'">
+              <div>
+                <label class="block text-xs font-semibold text-slate-700 mb-1">
+                  Nom Complet <span class="text-rose-500">*</span>
+                </label>
+                <div class="relative">
+                  <i class="fas fa-user absolute left-3 top-3.5 text-slate-400 text-xs"></i>
+                  <input type="text" [(ngModel)]="formData.name" (keydown.enter)="verifyClient()"
+                    placeholder="Ex: Vladimir Putin, Carlos Ghosn..."
+                    class="w-full pl-9 pr-3 py-2.5 text-sm bg-slate-50 border border-slate-300 rounded-xl focus:bg-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all">
+                </div>
+              </div>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div>
+                  <label class="block text-xs font-semibold text-slate-700 mb-1">Date de naissance</label>
+                  <div class="relative">
+                    <i class="fas fa-calendar-alt absolute left-3 top-3.5 text-slate-400 text-xs"></i>
+                    <input type="text" [(ngModel)]="formData.birthDate" (keydown.enter)="verifyClient()"
+                      placeholder="YYYY-MM-DD"
+                      class="w-full pl-9 pr-3 py-2.5 text-sm bg-slate-50 border border-slate-300 rounded-xl focus:bg-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all">
+                  </div>
+                </div>
+                <div>
+                  <label class="block text-xs font-semibold text-slate-700 mb-1">Nationalité</label>
+                  <div class="relative">
+                    <i class="fas fa-passport absolute left-3 top-3.5 text-slate-400 text-xs"></i>
+                    <input type="text" [(ngModel)]="formData.nationality" (keydown.enter)="verifyClient()"
+                      placeholder="Ex: RU, FR, US..."
+                      class="w-full pl-9 pr-3 py-2.5 text-sm bg-slate-50 border border-slate-300 rounded-xl focus:bg-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all">
+                  </div>
+                </div>
+              </div>
+            </ng-container>
+
+            <!-- Société / Entité (Organization) -->
+            <ng-container *ngIf="selectedSchema === 'Organization'">
+              <div>
+                <label class="block text-xs font-semibold text-slate-700 mb-1">
+                  Nom de la société / entité <span class="text-rose-500">*</span>
+                </label>
+                <div class="relative">
+                  <i class="fas fa-building absolute left-3 top-3.5 text-slate-400 text-xs"></i>
+                  <input type="text" [(ngModel)]="formData.name" (keydown.enter)="verifyClient()"
+                    placeholder="Ex: Wagner Group, Acme Corp..."
+                    class="w-full pl-9 pr-3 py-2.5 text-sm bg-slate-50 border border-slate-300 rounded-xl focus:bg-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all">
+                </div>
+              </div>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div>
+                  <label class="block text-xs font-semibold text-slate-700 mb-1">Pays du siège</label>
+                  <div class="relative">
+                    <i class="fas fa-map-marker-alt absolute left-3 top-3.5 text-slate-400 text-xs"></i>
+                    <input type="text" [(ngModel)]="formData.country" (keydown.enter)="verifyClient()"
+                      placeholder="Ex: RU, CN, IR..."
+                      class="w-full pl-9 pr-3 py-2.5 text-sm bg-slate-50 border border-slate-300 rounded-xl focus:bg-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all">
+                  </div>
+                </div>
+                <div>
+                  <label class="block text-xs font-semibold text-slate-700 mb-1">N° d'enregistrement</label>
+                  <div class="relative">
+                    <i class="fas fa-hashtag absolute left-3 top-3.5 text-slate-400 text-xs"></i>
+                    <input type="text" [(ngModel)]="formData.registrationNumber" (keydown.enter)="verifyClient()"
+                      placeholder="SIREN, LEI..."
+                      class="w-full pl-9 pr-3 py-2.5 text-sm bg-slate-50 border border-slate-300 rounded-xl focus:bg-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all">
+                  </div>
+                </div>
+              </div>
+            </ng-container>
+
+            <!-- Navire (Vessel) -->
+            <ng-container *ngIf="selectedSchema === 'Vessel'">
+              <div>
+                <label class="block text-xs font-semibold text-slate-700 mb-1">
+                  Nom du navire <span class="text-rose-500">*</span>
+                </label>
+                <div class="relative">
+                  <i class="fas fa-ship absolute left-3 top-3.5 text-slate-400 text-xs"></i>
+                  <input type="text" [(ngModel)]="formData.name" (keydown.enter)="verifyClient()"
+                    placeholder="Nom officiel du bateau..."
+                    class="w-full pl-9 pr-3 py-2.5 text-sm bg-slate-50 border border-slate-300 rounded-xl focus:bg-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all">
+                </div>
+              </div>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div>
+                  <label class="block text-xs font-semibold text-slate-700 mb-1">Pavillon (Flag)</label>
+                  <input type="text" [(ngModel)]="formData.flag" (keydown.enter)="verifyClient()"
+                    placeholder="Ex: PA, LR"
+                    class="w-full px-3 py-2.5 text-sm bg-slate-50 border border-slate-300 rounded-xl focus:bg-white focus:ring-2 focus:ring-blue-500">
+                </div>
+                <div>
+                  <label class="block text-xs font-semibold text-slate-700 mb-1">Numéro IMO</label>
+                  <input type="text" [(ngModel)]="formData.imoNumber" (keydown.enter)="verifyClient()"
+                    placeholder="Ex: 9123456"
+                    class="w-full px-3 py-2.5 text-sm bg-slate-50 border border-slate-300 rounded-xl focus:bg-white focus:ring-2 focus:ring-blue-500">
+                </div>
+              </div>
+            </ng-container>
+
+            <!-- Avion (Airplane) -->
+            <ng-container *ngIf="selectedSchema === 'Airplane'">
+              <div>
+                <label class="block text-xs font-semibold text-slate-700 mb-1">
+                  Immatriculation / Nom <span class="text-rose-500">*</span>
+                </label>
+                <div class="relative">
+                  <i class="fas fa-plane absolute left-3 top-3.5 text-slate-400 text-xs"></i>
+                  <input type="text" [(ngModel)]="formData.name" (keydown.enter)="verifyClient()"
+                    placeholder="Ex: RA-73000, N12345..."
+                    class="w-full pl-9 pr-3 py-2.5 text-sm bg-slate-50 border border-slate-300 rounded-xl focus:bg-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all">
+                </div>
+              </div>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div>
+                  <label class="block text-xs font-semibold text-slate-700 mb-1">Modèle</label>
+                  <input type="text" [(ngModel)]="formData.model" (keydown.enter)="verifyClient()"
+                    placeholder="Ex: Boeing 737"
+                    class="w-full px-3 py-2.5 text-sm bg-slate-50 border border-slate-300 rounded-xl focus:bg-white focus:ring-2 focus:ring-blue-500">
+                </div>
+                <div>
+                  <label class="block text-xs font-semibold text-slate-700 mb-1">Numéro de série</label>
+                  <input type="text" [(ngModel)]="formData.serialNumber" (keydown.enter)="verifyClient()"
+                    placeholder="Serial Number"
+                    class="w-full px-3 py-2.5 text-sm bg-slate-50 border border-slate-300 rounded-xl focus:bg-white focus:ring-2 focus:ring-blue-500">
+                </div>
+              </div>
+            </ng-container>
+
+          </div>
+
+          <!-- Suggestions rapides en 1 clic -->
+          <div class="pt-1">
+            <p class="text-[11px] font-semibold text-slate-400 mb-1.5 flex items-center gap-1">
+              <i class="fas fa-lightbulb text-amber-500"></i> Exemples de test rapide :
+            </p>
+            <div class="flex flex-wrap gap-1.5">
+              <button *ngFor="let ex of quickExamples" type="button" (click)="applyQuickExample(ex)"
+                class="px-2.5 py-1.5 rounded-lg text-xs bg-slate-100 hover:bg-blue-50 text-slate-700 hover:text-blue-700 border border-slate-200/80 transition-colors flex items-center gap-1.5 active:scale-95"
+                [title]="ex.label">
+                <span class="font-medium">{{ ex.name }}</span>
+                <span class="text-[9px] text-slate-400 font-normal">({{ ex.label }})</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Bouton de lancement du filtrage -->
+          <button type="button" (click)="verifyClient()" [disabled]="loading"
+            class="w-full py-3.5 px-4 rounded-xl text-white font-bold text-sm transition-all duration-200 shadow-md flex items-center justify-center gap-2 cursor-pointer"
+            [ngClass]="loading 
+              ? 'bg-blue-400 cursor-not-allowed' 
+              : 'bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 shadow-blue-500/25 active:scale-[0.99]'">
+            <ng-container *ngIf="!loading">
+              <i class="fas fa-shield-alt text-base"></i>
+              <span>Lancer le filtrage AML</span>
+              <kbd class="hidden sm:inline-block ml-1 px-1.5 py-0.5 text-[10px] bg-white/20 rounded font-mono">↵
+                Entrée</kbd>
+            </ng-container>
+            <ng-container *ngIf="loading">
+              <div class="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
+              <span>Filtrage en cours sur les bases...</span>
+            </ng-container>
+          </button>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- Colonne Droite : Résultats du filtrage (lg:col-span-7) -->
+    <div class="lg:col-span-7 flex flex-col space-y-4">
+
+      <!-- Barre d'actions & stats des résultats (Si résultats présents) -->
+      <div *ngIf="results !== null && !loading"
+        class="bg-white rounded-2xl p-4 shadow-xs border border-slate-200 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3.5">
+
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-xl flex items-center justify-center font-black text-lg shrink-0"
+            [ngClass]="results.length === 0 ? 'bg-emerald-100 text-emerald-700' : 'bg-rose-100 text-rose-700'">
+            <i [class]="results.length === 0 ? 'fas fa-check' : 'fas fa-exclamation-triangle'"></i>
+          </div>
+          <div class="min-w-0">
+            <h3 class="text-sm font-bold text-slate-900 truncate">
+              {{ results.length === 0 ? 'Conforme · Aucun match' : results.length + ' correspondance(s) détectée(s)' }}
+            </h3>
+            <p class="text-xs text-slate-500 truncate">
+              Périmètre : <span class="font-medium text-slate-700">{{ selectionMode === 'all' ? 'Toutes les bases (' +
+                providers.length + ')' : selectedProviders.length + ' listes' }}</span>
+              <span *ngIf="executionDurationMs" class="ml-1 text-slate-400 font-mono">({{ executionDurationMs }}
+                ms)</span>
+            </p>
+          </div>
+        </div>
+
+        <button *ngIf="results.length > 0" (click)="downloadReport()"
+          class="w-full sm:w-auto flex items-center justify-center gap-2 bg-slate-900 hover:bg-slate-800 text-white px-4 py-2.5 rounded-xl text-xs font-bold transition-all shadow-xs shrink-0 cursor-pointer active:scale-95">
+          <i class="fas fa-file-pdf text-rose-400"></i>
+          Exporter Rapport (PDF)
+        </button>
+
+      </div>
+
+      <!-- État 1 : Initial (Aucune recherche lancée) -->
+      <div *ngIf="results === null && !loading"
+        class="flex-1 min-h-[360px] sm:min-h-[420px] flex flex-col items-center justify-center p-6 sm:p-8 bg-white rounded-2xl shadow-xs border border-slate-200 border-dashed text-center">
+        <div
+          class="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-blue-50 text-blue-600 flex items-center justify-center text-xl sm:text-2xl mb-3 shadow-inner">
+          <i class="fas fa-search-dollar opacity-80"></i>
+        </div>
+        <h3 class="text-base font-bold text-slate-800">Prêt pour le filtrage AML</h3>
+        <p class="text-xs text-slate-500 mt-1 max-w-sm">
+          Renseignez l'entité à rechercher à gauche puis cliquez sur <strong class="text-slate-700">Lancer le
+            filtrage</strong> pour sonder les 25 bases Yente en direct.
+        </p>
+
+        <!-- Cartes d'aide / suggestions -->
+        <div class="mt-5 grid grid-cols-1 sm:grid-cols-2 gap-2.5 max-w-md w-full text-left">
+          <div *ngFor="let ex of quickExamples" (click)="applyQuickExample(ex)"
+            class="p-3 rounded-xl bg-slate-50 hover:bg-blue-50/70 border border-slate-200 hover:border-blue-300 transition-all cursor-pointer group active:scale-98">
+            <div class="flex items-center justify-between mb-1">
+              <span class="text-xs font-bold text-slate-800 group-hover:text-blue-700">{{ ex.name }}</span>
+              <i
+                class="fas fa-arrow-right text-[10px] text-slate-300 group-hover:text-blue-600 transition-transform group-hover:translate-x-0.5"></i>
+            </div>
+            <span class="text-[10px] text-slate-500">{{ ex.label }}</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- État 2 : Chargement / Analyse en cours -->
+      <div *ngIf="loading"
+        class="flex-1 min-h-[360px] sm:min-h-[420px] flex flex-col items-center justify-center p-6 sm:p-8 bg-white rounded-2xl shadow-xs border border-slate-200 text-center">
+        <div class="relative w-16 h-16 sm:w-20 sm:h-20 mb-4">
+          <div class="w-16 h-16 sm:w-20 sm:h-20 border-4 border-blue-100 rounded-full"></div>
+          <div
+            class="w-16 h-16 sm:w-20 sm:h-20 border-4 border-blue-600 border-t-transparent rounded-full animate-spin absolute top-0 left-0">
+          </div>
+          <div class="absolute inset-0 flex items-center justify-center text-blue-600">
+            <i class="fas fa-shield-alt text-lg sm:text-xl animate-pulse"></i>
+          </div>
+        </div>
+        <h4 class="text-base font-bold text-slate-800">Analyse de conformité en cours</h4>
+        <p class="text-xs text-slate-500 mt-1 max-w-xs">Criblage des correspondances phonétiques et fuzzy matching dans
+          Yente...</p>
+      </div>
+
+      <!-- État 3 : CLEAN (Aucun risque détecté) -->
+      <div *ngIf="results !== null && !loading && results.length === 0"
+        class="bg-white rounded-2xl shadow-xs border border-emerald-200 overflow-hidden">
+
+        <div class="bg-gradient-to-r from-emerald-600 to-teal-600 p-6 sm:p-8 text-center text-white">
+          <div
+            class="inline-flex items-center justify-center w-14 h-14 sm:w-16 sm:h-16 bg-white/20 rounded-2xl mb-3 backdrop-blur-xs">
+            <i class="fas fa-check-circle text-2xl sm:text-3xl"></i>
+          </div>
+          <h2 class="text-xl sm:text-2xl font-extrabold tracking-tight">AUCUN RISQUE DÉTECTÉ (CLEAN)</h2>
+          <p class="mt-1 text-emerald-100 text-xs sm:text-sm max-w-md mx-auto">
+            Aucune correspondance sur les listes de sanctions, personnes recherchées ou alertes réglementaires.
+          </p>
+        </div>
+
+        <div class="p-4 sm:p-6 space-y-4">
+          <div
+            class="p-3.5 bg-emerald-50/60 rounded-xl border border-emerald-200/80 text-xs text-emerald-900 flex items-start gap-3">
+            <i class="fas fa-info-circle text-emerald-600 text-sm mt-0.5 shrink-0"></i>
+            <div>
+              <p class="font-semibold">Vérification conforme</p>
+              <p class="text-slate-600 mt-0.5 leading-relaxed">
+                L'entité <strong class="text-slate-900">{{ formData.name }}</strong> a été contrôlée sur
+                <strong>{{ selectionMode === 'all' ? 'l\'ensemble des ' + providers.length + ' bases Yente' :
+                  selectedProviders.length + ' listes ciblées' }}</strong>.
+                Le niveau de risque AML est considéré comme <strong>MINIMAL</strong>.
+              </p>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-3 text-center text-xs">
+            <div class="p-3 bg-slate-50 rounded-xl border border-slate-200">
+              <span class="text-slate-400 block text-[10px] uppercase font-bold">Cible</span>
+              <span class="font-bold text-slate-800 truncate block mt-0.5">{{ formData.name }}</span>
+            </div>
+            <div class="p-3 bg-slate-50 rounded-xl border border-slate-200">
+              <span class="text-slate-400 block text-[10px] uppercase font-bold">Type</span>
+              <span class="font-bold text-slate-800 block mt-0.5">{{ selectedSchema }}</span>
+            </div>
+            <div class="p-3 bg-slate-50 rounded-xl border border-slate-200">
+              <span class="text-slate-400 block text-[10px] uppercase font-bold">Statut</span>
+              <span class="font-bold text-emerald-700 block mt-0.5">Vérifié Conforme</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- État 4 : MATCHES (Correspondances trouvées) -->
+      <div *ngIf="results !== null && !loading && results.length > 0" class="space-y-3.5">
+
+        <div *ngFor="let match of results"
+          class="bg-white rounded-2xl shadow-xs border border-slate-200 p-4 sm:p-5 hover:border-red-300 hover:shadow-md transition-all relative overflow-hidden group">
+
+          <!-- Bande latérale indicateur de sévérité -->
+          <div class="absolute top-0 left-0 w-1.5 h-full" [ngClass]="getScoreColor(match.score)"></div>
+
+          <div class="pl-1.5">
+
+            <div class="flex flex-col sm:flex-row sm:items-start justify-between gap-3">
+
+              <!-- Identité de l'entité trouvée -->
+              <div class="space-y-1.5 min-w-0">
+                <div class="flex items-center flex-wrap gap-1.5">
+                  <h4 class="text-base font-bold text-slate-900 tracking-tight break-words">{{ match.caption || match.id
+                    }}</h4>
+                  <span class="bg-slate-100 text-slate-600 text-[10px] font-mono font-semibold px-2 py-0.5 rounded">
+                    {{ match.schema }}
+                  </span>
+
+                  <!-- Statuts réglementaires -->
+                  <span
+                    *ngIf="match.pepStatus === 'ACTIVE_PEP' || (!match.pepStatus && (match.properties?.topics?.includes('role.pep') || match.datasets?.includes('wikidata_pep') || match.datasets?.includes('datagouv_pep')))"
+                    class="bg-emerald-100 text-emerald-800 text-[10px] font-bold px-2 py-0.5 rounded-full border border-emerald-300 inline-flex items-center gap-1">
+                    <i class="fas fa-user-tie"></i> PEP Actif
+                  </span>
+
+                  <span *ngIf="match.pepStatus === 'SANCTION'"
+                    class="bg-rose-100 text-rose-800 text-[10px] font-bold px-2 py-0.5 rounded-full border border-rose-300 inline-flex items-center gap-1">
+                    <i class="fas fa-ban"></i> Sanction
+                  </span>
+
+                  <span
+                    *ngIf="match.pepStatus === 'WANTED_CRIMINAL' || match.properties?.topics?.includes('wanted') || match.datasets?.includes('interpol_notices') || match.datasets?.includes('fbi_wanted')"
+                    class="bg-purple-100 text-purple-900 text-[10px] font-bold px-2 py-0.5 rounded-full border border-purple-300 inline-flex items-center gap-1">
+                    <i class="fas fa-bullhorn"></i> Recherché
+                  </span>
+                </div>
+
+                <!-- Datasets Yente sources avec badges -->
+                <div *ngIf="match.datasets && match.datasets.length" class="flex items-center flex-wrap gap-1 pt-0.5">
+                  <span class="text-[11px] text-slate-400 mr-1">Sources :</span>
+                  <span *ngFor="let d of match.datasets"
+                    class="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-mono font-semibold bg-slate-100 text-slate-700 border border-slate-200">
+                    <i class="fas fa-database text-[8px] text-blue-500"></i>
+                    {{ d }}
+                  </span>
+                </div>
+
+                <p class="text-[11px] text-slate-400 font-mono truncate">ID: {{ match.id }}</p>
+              </div>
+
+              <!-- Score & Bouton Détails (Adapté pour mobile & desktop) -->
+              <div
+                class="flex sm:flex-col items-center sm:items-end justify-between sm:justify-start gap-2 shrink-0 pt-2 sm:pt-0 border-t sm:border-t-0 border-slate-100">
+                <div class="px-3 py-1.5 rounded-xl border text-center font-bold"
+                  [ngClass]="getScoreBadgeClass(match.score)">
+                  <span class="text-[9px] uppercase tracking-wider block font-semibold">Score</span>
+                  <span class="text-base sm:text-lg font-black leading-none">{{ (match.score * 100).toFixed(0)
+                    }}%</span>
+                </div>
+
+                <button type="button" (click)="viewMatchDetails(match)"
+                  class="text-xs text-blue-600 hover:text-blue-800 font-bold inline-flex items-center gap-1 hover:underline p-1 cursor-pointer">
+                  Détails <i class="fas fa-chevron-right text-[9px]"></i>
+                </button>
+              </div>
+
+            </div>
+
+            <!-- Propriétés clés (Aperçu) -->
+            <div *ngIf="match.properties" class="mt-3.5 pt-3 border-t border-slate-100">
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
+                <ng-container *ngFor="let prop of match.properties | keyvalue | slice:0:4">
+                  <div class="flex items-start gap-1">
+                    <span class="text-slate-400 font-medium w-1/3 truncate text-[11px]">{{ prop.key }}:</span>
+                    <span class="text-slate-800 font-semibold w-2/3 truncate text-[11px]" [title]="prop.value">{{
+                      prop.value }}</span>
+                  </div>
+                </ng-container>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- ======================================================== -->
+      <!-- SECTION MEDIA / PRESSE NÉGATIVE (ADVERSE MEDIA)          -->
+      <!-- ======================================================== -->
+
+      <!-- Chargement Media -->
+      <div *ngIf="mediaLoading"
+        class="mt-6 bg-white rounded-2xl shadow-xs border border-slate-200 p-5 flex items-center gap-4">
+        <div class="w-8 h-8 border-2 border-indigo-200 border-t-indigo-600 rounded-full animate-spin shrink-0"></div>
+        <div>
+          <h4 class="text-sm font-bold text-slate-800">Vérification Adverse Media en cours...</h4>
+          <p class="text-xs text-slate-500">Recherche sur les moteurs mondiaux (Google, Bing, DuckDuckGo) via SearxNG
+          </p>
+        </div>
+      </div>
+
+      <!-- Résultats Media -->
+      <div *ngIf="mediaResults !== null && !mediaLoading" class="mt-6">
+        <h3 class="text-sm sm:text-base font-bold text-slate-800 mb-3 flex items-center gap-2">
+          <i class="fas fa-newspaper text-indigo-600"></i> Résultats Adverse Media
+          <span class="text-xs font-normal text-slate-500 ml-1">({{ mediaResults.length }} articles)</span>
+        </h3>
+
+        <div *ngIf="mediaResults.length === 0"
+          class="bg-white rounded-xl p-5 border border-slate-200 text-center text-sm text-slate-500">
+          Aucun résultat probant ou suspect trouvé dans la presse.
+        </div>
+
+        <div *ngIf="mediaResults.length > 0" class="space-y-3">
+          <div *ngFor="let article of mediaResults | slice:0:10"
+            class="bg-white rounded-xl p-4 shadow-xs border transition-all"
+            [ngClass]="article.riskScore >= 50 ? 'border-red-300 bg-red-50/20' : 'border-slate-200 hover:border-indigo-300'">
+
+            <div class="flex flex-col sm:flex-row justify-between items-start gap-3">
+              <div class="flex-1 min-w-0">
+                <a [href]="article.url" target="_blank"
+                  class="text-sm font-bold text-blue-700 hover:underline block mb-1 break-words">
+                  {{ article.title }}
+                </a>
+                <p class="text-xs text-slate-600 mb-2 line-clamp-3 sm:line-clamp-none">{{ article.content }}</p>
+                <div class="flex items-center flex-wrap gap-2 text-[10px] text-slate-400 font-mono">
+                  <span class="flex items-center gap-1"><i class="fas fa-search"></i> {{ article.engine }}</span>
+                  <span *ngIf="article.publishedDate" class="flex items-center gap-1"><i class="fas fa-calendar"></i> {{
+                    article.publishedDate }}</span>
+                </div>
+              </div>
+
+              <!-- Risk Score Badge -->
+              <div
+                class="shrink-0 flex items-center sm:flex-col justify-center px-2.5 py-1 sm:p-2 rounded-lg gap-1.5 self-start"
+                [ngClass]="{
+                     'bg-red-100 text-red-800 border border-red-200': article.riskScore >= 50,
+                     'bg-orange-100 text-orange-800 border border-orange-200': article.riskScore >= 25 && article.riskScore < 50,
+                     'bg-emerald-100 text-emerald-800 border border-emerald-200': article.riskScore < 25
+                   }">
+                <span class="text-[9px] font-bold uppercase tracking-wider">Risque</span>
+                <span class="text-xs sm:text-sm font-black">{{ article.riskScore }}%</span>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

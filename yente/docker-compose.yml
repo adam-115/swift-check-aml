@@ -1,0 +1,65 @@
+services:
+  # Base de données d'indexation pour Yente (ElasticSearch 9)
+  index:
+    image: docker.elastic.co/elasticsearch/elasticsearch:9.4.2
+    container_name: yente-elasticsearch
+    environment:
+      - discovery.type=single-node
+      - xpack.security.enabled=false
+      # 3 Go initial / 4 Go max : rapide, stable et parfaitement dimensionné
+      - "ES_JAVA_OPTS=-Xms3g -Xmx4g"
+      # 25% de la mémoire tampon dédiée à l'ingestion massive des fichiers NDJSON
+      - indices.memory.index_buffer_size=25%
+      # Files d'attente élargies pour absorber les rafales de requêtes de screening
+      - thread_pool.search.queue_size=2000
+      - thread_pool.write.queue_size=1000
+    deploy:
+      resources:
+        limits:
+          memory: 6g
+          cpus: '4.0'
+    volumes:
+      - es-data:/usr/share/elasticsearch/data
+    ports:
+      - "9200:9200"
+    healthcheck:
+      test: ["CMD-SHELL", "curl -s http://localhost:9200/_cluster/health | grep -q '\"status\":\"green\"\\|\"status\":\"yellow\"'"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 60s
+    restart: unless-stopped
+
+  # Service de l'API de sanctions Yente (FastAPI + FollowTheMoney)
+  yente:
+    image: ghcr.io/opensanctions/yente:latest
+    container_name: yente-sanctions-api
+    command: ["uvicorn", "--host", "0.0.0.0", "--port", "8000", "--workers", "8", "--proxy-headers", "yente.asgi:app"]
+    environment:
+      - YENTE_MANIFEST=/manifest.yml
+      - YENTE_INDEX_URL=http://index:9200
+      - YENTE_UPDATE_TOKEN=adam
+      - YENTE_MAX_BATCH=500
+      - YENTE_STREAM_LOAD=true
+      - YENTE_MATCH_CANDIDATES=100
+      - YENTE_MAX_MATCH_CANDIDATES=300
+      - YENTE_AUTO_REINDEX=false
+      # Relit manifest.yml chaque minute (sans réindexer) : un dataset ajouté par le core est vu sans redémarrer Yente
+      - YENTE_CRONTAB=* * * * *
+    deploy:
+      resources:
+        limits:
+          memory: 8g
+          cpus: '8.0'
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./manifest.yml:/manifest.yml:ro
+      - ./data:/data:ro
+    depends_on:
+      index:
+        condition: service_healthy
+    restart: unless-stopped
+
+volumes:
+  es-data:
