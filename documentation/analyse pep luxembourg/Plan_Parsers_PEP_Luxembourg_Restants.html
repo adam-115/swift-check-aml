@@ -1,0 +1,366 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Plan des Parsers PEP Luxembourg - État des Lieux et Reste à Faire</title>
+<style>
+  @page { 
+    size: A4 portrait; 
+    margin: 11mm 12mm 11mm 12mm; 
+  }
+  :root { 
+    --ink: #0f172a; 
+    --muted: #475569; 
+    --line: #cbd5e1; 
+    --soft: #f8fafc; 
+    --accent: #047857; 
+    --accent-light: #d1fae5;
+    --warn: #b45309; 
+    --warn-light: #fef3c7;
+    --primary: #1e40af;
+    --primary-light: #dbeafe;
+  }
+  * { box-sizing: border-box; }
+  body { 
+    font-family: "Segoe UI", -apple-system, BlinkMacSystemFont, Roboto, Arial, sans-serif; 
+    color: var(--ink); 
+    font-size: 8.8pt; 
+    line-height: 1.38; 
+    margin: 0; 
+    background: #fff; 
+  }
+  .header {
+    border-bottom: 2px solid var(--accent);
+    padding-bottom: 2mm;
+    margin-bottom: 3mm;
+  }
+  h1 { font-size: 16pt; margin: 0 0 1mm; color: var(--ink); }
+  .subtitle { color: var(--muted); margin: 0 0 1.5mm; font-size: 9.5pt; }
+  .meta { display: flex; gap: 6mm; color: var(--muted); font-size: 8pt; }
+  
+  h2 { 
+    font-size: 11pt; 
+    margin: 3.5mm 0 1.5mm; 
+    padding-bottom: 0.8mm; 
+    border-bottom: 1.5px solid var(--accent); 
+    color: var(--ink);
+  }
+  h3 { font-size: 9.2pt; margin: 2.5mm 0 1.2mm; color: var(--primary); }
+  p { margin: 0.8mm 0 1.5mm; }
+
+  .summary { 
+    display: grid; 
+    grid-template-columns: repeat(4, 1fr); 
+    gap: 2.5mm; 
+    margin: 2mm 0 3mm; 
+  }
+  .card { 
+    border: 1px solid var(--line); 
+    border-radius: 1.5mm; 
+    padding: 2mm 2.5mm; 
+    background: var(--soft); 
+  }
+  .card b { display: block; font-size: 13.5pt; color: var(--accent); margin-bottom: 0.3mm; }
+  .card span { font-size: 7.5pt; color: var(--muted); line-height: 1.2; display: block; }
+  
+  table { 
+    width: 100%; 
+    border-collapse: collapse; 
+    margin: 1.5mm 0 2.5mm; 
+    font-size: 8.2pt; 
+    page-break-inside: auto; 
+  }
+  tr { page-break-inside: avoid; }
+  th { 
+    background: var(--ink); 
+    color: #fff; 
+    text-align: left; 
+    padding: 1.2mm 1.8mm; 
+    font-weight: 600; 
+    font-size: 8.2pt;
+  }
+  td { 
+    border-bottom: 1px solid var(--line); 
+    padding: 1.2mm 1.8mm; 
+    vertical-align: top; 
+  }
+  tr:nth-child(even) td { background: #f8fafc; }
+  code { 
+    font-family: Consolas, monospace; 
+    font-size: 7.8pt; 
+    background: #e2e8f0; 
+    padding: 0.2mm 1mm; 
+    border-radius: 0.8mm; 
+  }
+  
+  .tag { 
+    display: inline-block; 
+    padding: 0.2mm 1.4mm; 
+    border-radius: 0.8mm; 
+    font-size: 7.2pt; 
+    font-weight: 600; 
+    white-space: nowrap;
+  }
+  .done { background: var(--accent-light); color: var(--accent); }
+  .low { background: #d1fae5; color: #065f46; }
+  .mid { background: #fef3c7; color: #92400e; }
+  .high { background: #fee2e2; color: #991b1b; }
+  .info { background: var(--primary-light); color: var(--primary); }
+  
+  .note { 
+    border-left: 3px solid var(--warn); 
+    background: #fffbeb; 
+    padding: 1.8mm 2.5mm; 
+    margin: 2mm 0; 
+    font-size: 8pt; 
+  }
+  .footer { 
+    margin-top: 4mm; 
+    color: var(--muted); 
+    font-size: 7.5pt; 
+    border-top: 1px solid var(--line); 
+    padding-top: 1.5mm; 
+    display: flex; 
+    justify-content: space-between; 
+  }
+  .page-break { page-break-before: always; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>Plan des Parsers PEP – Luxembourg</h1>
+  <div class="subtitle">Analyse d'écart & Feuille de route par rapport à la spécification officielle (JO C/2023/724)</div>
+  <div class="meta">
+    <span><strong>Projet :</strong> SwiftCheck AML</span>
+    <span><strong>Date :</strong> 19 octobre 2026</span>
+    <span><strong>Référence légale :</strong> Directive (UE) 2015/849 • Liste JO C/2023/724</span>
+  </div>
+</div>
+
+<div class="summary">
+  <div class="card"><b>7</b><span>Parsers opérationnels<br>(dont <i>lu_pep_gov_former</i>)</span></div>
+  <div class="card"><b>12</b><span>Parsers restants<br>à implémenter</span></div>
+  <div class="card"><b>7 / 9</b><span>Catégories officielles<br>couvertes après Lot 1 & 2</span></div>
+  <div class="card"><b>Classe 1</b><span>LU-a, LU-b, LU-EU<br>finalisables en priorité</span></div>
+</div>
+
+<h2>1. État des Lieux – Parsers Déjà en Place (7 parsers)</h2>
+<table>
+  <tr>
+    <th style="width:23%">Parser</th>
+    <th style="width:13%">Type</th>
+    <th style="width:18%">Catégorie</th>
+    <th>Périmètre couvert & Statut</th>
+  </tr>
+  <tr>
+    <td><code>lu_pep_government</code></td>
+    <td><span class="tag info">T5 Web</span></td>
+    <td><strong>LU-a</strong></td>
+    <td>Premier ministre, ministres et secrétaires d'État en fonction sur <i>gouvernement.lu</i>.</td>
+  </tr>
+  <tr>
+    <td><code>lu_pep_government_former</code></td>
+    <td><span class="tag info">T5 Web</span></td>
+    <td><strong>LU-a</strong></td>
+    <td><span class="tag done">DÉPLOYÉ</span> Anciens membres du gouvernement (34 ministres sur 5 ans, 170 entités FollowTheMoney).</td>
+  </tr>
+  <tr>
+    <td><code>lu_pep_chamber</code></td>
+    <td><span class="tag info">T1 Open Data</span></td>
+    <td><strong>LU-b</strong></td>
+    <td>Les 60 députés en fonction à la Chambre des Députés (flux CSV open data).</td>
+  </tr>
+  <tr>
+    <td><code>lu_pep_chamber_former</code></td>
+    <td><span class="tag info">T1 Open Data</span></td>
+    <td><strong>LU-b</strong></td>
+    <td>Anciens députés depuis 1999 (flux CSV open data, fenêtre 5 ans).</td>
+  </tr>
+  <tr>
+    <td><code>lu_pep_municipal</code></td>
+    <td><span class="tag info">T1 Open Data</span></td>
+    <td><strong>LU-AMLR</strong> / <strong>LU-MUN</strong></td>
+    <td>Bourgmestres et échevins de toutes les communes (élections communales 2023).</td>
+  </tr>
+  <tr>
+    <td><code>lu_pep_europarl</code></td>
+    <td><span class="tag info">T2 XML/API</span></td>
+    <td><strong>LU-EU</strong></td>
+    <td>Eurodéputés élus au Luxembourg en fonction (XML officiel du Parlement européen).</td>
+  </tr>
+  <tr>
+    <td><code>lu_pep_legilux</code></td>
+    <td><span class="tag info">T3/T4 SPARQL</span></td>
+    <td><strong>LU-b, d, e, i</strong></td>
+    <td>Nominations et démissions au Journal officiel depuis 2017 (Conseil d'État, magistrature, BCL, régulateurs).</td>
+  </tr>
+</table>
+
+<h2>2. Parsers Restants à Implémenter (12 parsers)</h2>
+
+<h3>Priorité 1 – Terminer les catégories de Classe 1 (LU-a, LU-b, LU-EU)</h3>
+<p>Permet d'afficher immédiatement les catégories souveraines nationales au statut <strong>« Couverte »</strong>.</p>
+<table>
+  <tr>
+    <th style="width:23%">Parser</th>
+    <th style="width:27%">Source</th>
+    <th style="width:11%">Type</th>
+    <th>Fonction & Périmètre légal</th>
+    <th style="width:13%">Effort</th>
+  </tr>
+  <tr>
+    <td><code>lu_pep_council_of_state</code></td>
+    <td><code>conseil-etat.public.lu</code></td>
+    <td>T5 Web</td>
+    <td><strong>LU-b</strong> — Les 21 conseillers d'État en fonction (y compris nommés avant 2017)</td>
+    <td><span class="tag low">Faible</span></td>
+  </tr>
+  <tr>
+    <td><code>lu_pep_grand_duke</code></td>
+    <td><code>monarchie.lu</code></td>
+    <td>T5 Web</td>
+    <td><strong>LU-a</strong> — Chef de l'État (Grand-Duc)</td>
+    <td><span class="tag low">Très faible (1)</span></td>
+  </tr>
+  <tr>
+    <td><code>lu_pep_eu_commission</code></td>
+    <td><code>commission.europa.eu</code></td>
+    <td>T5 Web</td>
+    <td><strong>LU-EU</strong> — Commissaire européen luxembourgeois en fonction</td>
+    <td><span class="tag low">Très faible (1)</span></td>
+  </tr>
+  <tr>
+    <td><code>lu_pep_europarl_former</code></td>
+    <td>API Open Data Parlement UE</td>
+    <td>T2 API</td>
+    <td><strong>LU-EU</strong> — Anciens députés européens luxembourgeois</td>
+    <td><span class="tag mid">Moyen</span></td>
+  </tr>
+</table>
+
+<div class="page-break"></div>
+
+<h3>Priorité 2 – Compléter les institutions actuelles (couvertes partiellement par Legilux)</h3>
+<p>Legilux apporte l'historique depuis 2017 ; ces parsers garantissent la <strong>composition actuelle exhaustive</strong>.</p>
+<table>
+  <tr>
+    <th style="width:23%">Parser</th>
+    <th style="width:27%">Source</th>
+    <th style="width:11%">Type</th>
+    <th>Fonction & Périmètre légal</th>
+  </tr>
+  <tr>
+    <td><code>lu_pep_judiciary</code></td>
+    <td><code>justice.public.lu</code></td>
+    <td>T5 Web</td>
+    <td><strong>LU-d</strong> — Cour constitutionnelle, Cassation, Cour supérieure, Parquet général</td>
+  </tr>
+  <tr>
+    <td><code>lu_pep_administrative_courts</code></td>
+    <td><code>ja.public.lu</code></td>
+    <td>T5 Web</td>
+    <td><strong>LU-d</strong> — Cour administrative et Tribunal administratif</td>
+  </tr>
+  <tr>
+    <td><code>lu_pep_court_of_auditors</code></td>
+    <td><code>cour-des-comptes.public.lu</code></td>
+    <td>T5 Web</td>
+    <td><strong>LU-e</strong> — Membres de la Cour des comptes en fonction</td>
+  </tr>
+  <tr>
+    <td><code>lu_pep_central_bank</code></td>
+    <td><code>bcl.lu</code></td>
+    <td>T5 Web</td>
+    <td><strong>LU-e</strong> — Direction et Conseil de la Banque centrale du Luxembourg</td>
+  </tr>
+  <tr>
+    <td><code>lu_pep_cssf</code></td>
+    <td><code>cssf.lu</code></td>
+    <td>T5 Web</td>
+    <td><strong>LU-i</strong> — Direction de la Commission de Surveillance du Secteur Financier</td>
+  </tr>
+  <tr>
+    <td><code>lu_pep_caa</code></td>
+    <td><code>caa.lu</code></td>
+    <td>T5 Web</td>
+    <td><strong>LU-i</strong> — Direction du Commissariat aux Assurances</td>
+  </tr>
+  <tr>
+    <td><code>lu_pep_ilr</code></td>
+    <td><code>ilr.lu</code></td>
+    <td>T5 Web</td>
+    <td><strong>LU-i</strong> — Direction de l'Institut Luxembourgeois de Régulation</td>
+  </tr>
+</table>
+
+<h3>Priorité 3 – Catégorie LU-f (Absente de Legilux)</h3>
+<p>Le Luxembourg ne publie plus les ambassadeurs au Journal officiel depuis 2016, ni les officiers supérieurs.</p>
+<table>
+  <tr>
+    <th style="width:23%">Parser</th>
+    <th style="width:27%">Source</th>
+    <th style="width:11%">Type</th>
+    <th>Fonction & Périmètre légal</th>
+  </tr>
+  <tr>
+    <td><code>lu_pep_diplomats</code></td>
+    <td><code>mae.gouvernement.lu</code></td>
+    <td>T5 Web</td>
+    <td><strong>LU-f</strong> — Ambassadeurs et chargés d'affaires (~40 titulaires)</td>
+  </tr>
+  <tr>
+    <td><code>lu_pep_army</code></td>
+    <td><code>armee.lu</code></td>
+    <td>T5 Web</td>
+    <td><strong>LU-f</strong> — État-major et chefs de division de l'Armée (~10 titulaires)</td>
+  </tr>
+</table>
+
+<h2>3. Catégories Complexes Nécessitant une Étude Préalable</h2>
+<table>
+  <tr>
+    <th style="width:20%">Catégorie</th>
+    <th style="width:34%">Problématique constatée</th>
+    <th>Piste de collecte préconisée</th>
+  </tr>
+  <tr>
+    <td><strong>LU-g</strong> Entreprises publiques</td>
+    <td>Plusieurs centaines de dirigeants ; pas de registre nominatif public unique.</td>
+    <td>Rapport sur les participations de l'État (Trésorerie) + extraction des pages gouvernance ou publications RESA.</td>
+  </tr>
+  <tr>
+    <td><strong>LU-c</strong> Partis politiques</td>
+    <td>Absence de registre national officiel des instances dirigeantes des partis.</td>
+    <td>Collecte directe sur les sites des ~7 partis politiques représentés à la Chambre.</td>
+  </tr>
+  <tr>
+    <td><strong>LU-h</strong> Organisations int.</td>
+    <td>~15 personnes ayant le statut PEP au Luxembourg (Cour AELE, Eurocontrol...).</td>
+    <td>Pages institutionnelles officielles de chaque organisation établie à Luxembourg.</td>
+  </tr>
+  <tr>
+    <td><strong>LU-RCA</strong> Famille & Proches</td>
+    <td>Aucune source ouverte nominative légale.</td>
+    <td>Non traitable par parser autonome. Déduit par liens FollowTheMoney (<i>Family</i>, <i>Associate</i>) et enrichissement.</td>
+  </tr>
+</table>
+
+<h2>4. Feuille de Route et Séquencement Recommandé</h2>
+<ul>
+  <li><strong>Lot 1 (Immédiat) :</strong> Développer <code>lu_pep_council_of_state</code>, <code>lu_pep_grand_duke</code> et <code>lu_pep_eu_commission</code>. Les 3 catégories majeures <strong>LU-a</strong>, <strong>LU-b</strong> et <strong>LU-EU</strong> passent au statut <strong>« Couverte »</strong>.</li>
+  <li><strong>Lot 2 (Compléments institutionnels) :</strong> Développer les parsers Justice (<code>lu_pep_judiciary</code>), BCL, Cour des comptes et les 3 régulateurs (CSSF, CAA, ILR). Les catégories <strong>LU-d</strong>, <strong>LU-e</strong> et <strong>LU-i</strong> deviennent exhaustives.</li>
+  <li><strong>Lot 3 (Diplomatie et Défense) :</strong> Implémenter <code>lu_pep_diplomats</code> et <code>lu_pep_army</code> (couvrant la catégorie <strong>LU-f</strong>), puis les anciens eurodéputés.</li>
+</ul>
+
+<div class="note">
+  <strong>Règle d'architecture SwiftCheck :</strong> 1 source = 1 parser = 1 module Maven = 1 JAR = 1 dataset Yente autonome, sans modification de <code>swiftcheck-aml-api</code>, avec méthode <code>readSourceRecords()</code> obligatoire pour la conformité aux tests d'intégrité Yente.
+</div>
+
+<div class="footer">
+  <span>SwiftCheck AML • Système de détection PEP & Sanctions LCB-FT</span>
+  <span>Document d'architecture & Spécification technique • Page 2 / 2</span>
+</div>
+
+</body>
+</html>

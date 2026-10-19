@@ -34,9 +34,11 @@
         <module>swiftcheck-aml-plugins/pep/luxembourg/swiftcheck-aml-lu-pep-chamber</module>
         <module>swiftcheck-aml-plugins/pep/luxembourg/swiftcheck-aml-lu-pep-chamber-former</module>
         <module>swiftcheck-aml-plugins/pep/luxembourg/swiftcheck-aml-lu-pep-government</module>
+        <module>swiftcheck-aml-plugins/pep/luxembourg/swiftcheck-aml-lu-pep-government-former</module>
         <module>swiftcheck-aml-plugins/pep/luxembourg/swiftcheck-aml-lu-pep-europarl</module>
         <module>swiftcheck-aml-plugins/pep/luxembourg/swiftcheck-aml-lu-pep-municipal</module>
         <module>swiftcheck-aml-plugins/pep/luxembourg/swiftcheck-aml-lu-pep-legilux</module>
+        <module>swiftcheck-aml-plugins/pep/luxembourg/swiftcheck-aml-lu-pep-council-of-state</module>
     </modules>
 
     <dependencyManagement>
