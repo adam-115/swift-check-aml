@@ -40,6 +40,8 @@
         <module>swiftcheck-aml-plugins/pep/luxembourg/swiftcheck-aml-lu-pep-legilux</module>
         <module>swiftcheck-aml-plugins/pep/luxembourg/swiftcheck-aml-lu-pep-council-of-state</module>
         <module>swiftcheck-aml-plugins/pep/luxembourg/swiftcheck-aml-lu-pep-eu-commission</module>
+        <module>swiftcheck-aml-plugins/pep/luxembourg/swiftcheck-aml-lu-pep-europarl-former</module>
+        <module>swiftcheck-aml-plugins/pep/luxembourg/swiftcheck-aml-lu-pep-grand-duke</module>
     </modules>
 
     <dependencyManagement>

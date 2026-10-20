@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Ajout du parser lu_pep_europarl_former (Anciens députés européens élus au Luxembourg)
+    et rattachement à la fonction PEP LU-EU (Député au Parlement européen élu au Luxembourg, id = 16).
+-->
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="007-parser-europarl-former" author="swiftcheck">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">
+                SELECT COUNT(*) FROM parser WHERE dataset_name = 'lu_pep_europarl_former'
+            </sqlCheck>
+        </preConditions>
+        <sql>
+            INSERT INTO parser (
+                list_provider_id,
+                name,
+                description,
+                dataset_name,
+                source_id,
+                plugin_id,
+                plugin_url,
+                data_source_type,
+                parser_kind,
+                source_location,
+                parameters,
+                refresh_hours,
+                retention_months,
+                licence,
+                attribution,
+                enabled,
+                created_at
+            ) SELECT
+                p.id,
+                'Anciens députés européens élus au Luxembourg',
+                'API open data du Parlement européen – anciens eurodéputés luxembourgeois (législatures précédentes)',
+                'lu_pep_europarl_former',
+                NULL,
+                'lu-pep-europarl-former',
+                'D:/test parser 2/plugins/swiftcheck-aml-lu-pep-europarl-former-0.0.1-SNAPSHOT.jar',
+                'HTTP_FILE',
+                'OPEN_DATA_FILE',
+                'https://data.europarl.europa.eu/api/v2/meps?country-of-representation=LU&amp;parliamentary-term=9&amp;limit=100&amp;format=application/ld+json',
+                '{"yearsAfterEnd": "5", "sourceUrl": "https://data.europarl.europa.eu/api/v2/meps?country-of-representation=LU&amp;parliamentary-term=9&amp;limit=100&amp;format=application/ld+json"}',
+                24,
+                12,
+                NULL,
+                'Parlement européen, data.europarl.europa.eu',
+                TRUE,
+                NOW()
+            FROM list_provider p
+            WHERE p.code = 'EU-PARL';
+
+            INSERT INTO parser_coverage (parser_id, function_id)
+            SELECT p.id, f.id FROM parser p
+            JOIN pep_category cat ON cat.code = 'LU-EU'
+            JOIN pep_function f ON f.category_id = cat.id AND (f.label LIKE '%europarl%' OR f.label LIKE '%Parlement%' OR f.id = 16)
+            WHERE p.dataset_name = 'lu_pep_europarl_former';
+        </sql>
+    </changeSet>
+
+</databaseChangeLog>

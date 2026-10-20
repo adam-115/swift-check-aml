@@ -11,5 +11,7 @@
     <include file="db/changelog/changes/004-seed-government-former.xml" />
     <include file="db/changelog/changes/005-seed-council-of-state.xml" />
     <include file="db/changelog/changes/006-seed-eu-commission.xml" />
+    <include file="db/changelog/changes/007-seed-europarl-former.xml" />
+    <include file="db/changelog/changes/008-seed-grand-duke.xml" />
 
 </databaseChangeLog>
