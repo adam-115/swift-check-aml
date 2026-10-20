@@ -39,6 +39,11 @@ class HttpDownloaderTest {
             IOException error = assertThrows(IOException.class,
                     () -> new HttpDownloader().download(base + "/liste.csv", dir.resolve("liste.csv")));
             assertTrue(error.getMessage().startsWith("Le serveur renvoie une page HTML"), error.getMessage());
+
+            // Si htmlExpected est vrai (parser WEB_PAGE), une URL sans extension .html est acceptée
+            Path targetWithoutExt = dir.resolve("target.download");
+            new HttpDownloader().download(base + "/college-commissioners_fr", targetWithoutExt, true);
+            assertEquals("<html><body>Luc FRIEDEN</body></html>", Files.readString(targetWithoutExt));
         } finally {
             server.stop(0);
         }

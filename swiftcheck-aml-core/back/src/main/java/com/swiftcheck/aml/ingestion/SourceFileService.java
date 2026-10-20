@@ -21,6 +21,7 @@ import org.springframework.stereotype.Service;
 import com.swiftcheck.aml.entities.ApplicationConfigEntity;
 import com.swiftcheck.aml.entities.DataSourceType;
 import com.swiftcheck.aml.entities.Parser;
+import com.swiftcheck.aml.entities.ParserKind;
 import com.swiftcheck.aml.entities.SourceFile;
 import com.swiftcheck.aml.repositories.SourceFileRepository;
 
@@ -66,7 +67,8 @@ public class SourceFileService {
         Path temporary = workDir.resolve("source.download");
 
         if (parser.getDataSourceType() == DataSourceType.HTTP_FILE) {
-            downloader.download(location, temporary);
+            boolean htmlExpected = parser.getParserKind() == ParserKind.WEB_PAGE;
+            downloader.download(location, temporary, htmlExpected);
         } else if (parser.getDataSourceType() == DataSourceType.LOCAL_FILE) {
             Path local = Path.of(location);
             if (!Files.isRegularFile(local)) {

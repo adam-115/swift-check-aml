@@ -76,6 +76,16 @@ public class HttpDownloader {
      * @throws IOException si le fichier n'a pas pu être téléchargé après toutes les tentatives
      */
     public void download(String url, Path target) throws IOException, InterruptedException {
+        download(url, target, false);
+    }
+
+    /**
+     * @param url          adresse du fichier
+     * @param target       fichier local à créer (remplacé s'il existe)
+     * @param htmlExpected vrai si la source est déclarée comme une page web (ParserKind.WEB_PAGE)
+     * @throws IOException si le fichier n'a pas pu être téléchargé après toutes les tentatives
+     */
+    public void download(String url, Path target, boolean htmlExpected) throws IOException, InterruptedException {
         HttpRequest request = HttpRequest.newBuilder(URI.create(url))
                 .timeout(Duration.ofMinutes(10))
                 .header("User-Agent", BROWSER_USER_AGENT)
@@ -92,9 +102,9 @@ public class HttpDownloader {
                 if (status == 200) {
                     // Une page HTML à la place du fichier (page d'erreur ou de connexion) : inutile de réessayer
                     // ni de donner cette page au plugin. Sauf si la source est elle-même une page web
-                    // (ex. gouvernement.lu/fr/gouvernement.html) : le HTML est alors le fichier attendu.
+                    // (ex. gouvernement.lu/fr/gouvernement.html ou parser WEB_PAGE) : le HTML est alors le fichier attendu.
                     String type = response.headers().firstValue("Content-Type").orElse("");
-                    if (type.toLowerCase().startsWith("text/html") && !isHtmlPage(url)) {
+                    if (type.toLowerCase().startsWith("text/html") && !htmlExpected && !isHtmlPage(url)) {
                         throw new IOException("Le serveur renvoie une page HTML au lieu du fichier : " + response.uri());
                     }
                     return;

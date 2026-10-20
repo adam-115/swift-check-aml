@@ -10,5 +10,6 @@
     <include file="db/changelog/changes/003-seed-data.xml" />
     <include file="db/changelog/changes/004-seed-government-former.xml" />
     <include file="db/changelog/changes/005-seed-council-of-state.xml" />
+    <include file="db/changelog/changes/006-seed-eu-commission.xml" />
 
 </databaseChangeLog>
