@@ -39,9 +39,9 @@ class LuPepEuroparlFormerParserTest {
         assertTrue(Files.exists(term9File), "Le fichier test europarl_term9.json doit exister");
 
         Path outputFile = tempDir.resolve("output_term9.ndjson");
-        // yearsAfterEnd = 10 pour retenir la 9e législature (2019-2024)
+        // yearsAfterEnd = 10 pour retenir la 9e législature (2019-2024), et IDs des députés en fonction actuels
         ParserContext ctx = new ParserContext("lu_pep_europarl_former", term9File, null, outputFile,
-                Map.of("yearsAfterEnd", "10"));
+                Map.of("yearsAfterEnd", "10", "currentMepIds", "202073,840,193292"));
 
         LuPepEuroparlFormerParser parser = new LuPepEuroparlFormerParser();
         ParserResult result = parser.parse(ctx);

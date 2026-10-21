@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Ajout du provider LU-POL-PARTIES et du parser lu_pep_political_parties
+    (Dirigeants des partis politiques représentés à la Chambre : CSV, DP, LSAP, ADR, déi gréng, Piraten, déi Lénk)
+    et rattachement à la fonction PEP LU-c (Membre d'un organe dirigeant de parti politique = 8).
+-->
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="019-provider-political-parties" author="swiftcheck">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">
+                SELECT COUNT(*) FROM list_provider WHERE code = 'LU-POL-PARTIES'
+            </sqlCheck>
+        </preConditions>
+        <sql>
+            INSERT INTO list_provider (
+                code,
+                name,
+                description,
+                country_iso,
+                list_type,
+                website_url,
+                enabled,
+                created_at
+            ) VALUES (
+                'LU-POL-PARTIES',
+                'Partis politiques du Luxembourg',
+                'Organes dirigeants des partis politiques représentés à la Chambre des Députés (LU-c)',
+                'LU',
+                'PEP',
+                'https://chd.lu',
+                TRUE,
+                NOW()
+            );
+        </sql>
+    </changeSet>
+
+    <changeSet id="019-parser-political-parties" author="swiftcheck">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">
+                SELECT COUNT(*) FROM parser WHERE dataset_name = 'lu_pep_political_parties'
+            </sqlCheck>
+        </preConditions>
+        <sql>
+            INSERT INTO parser (
+                list_provider_id,
+                source_id,
+                name,
+                description,
+                dataset_name,
+                plugin_id,
+                plugin_url,
+                data_source_type,
+                parser_kind,
+                source_location,
+                parameters,
+                refresh_hours,
+                retention_months,
+                licence,
+                attribution,
+                enabled,
+                created_at
+            ) SELECT
+                p.id,
+                17,
+                'PEP Luxembourg – Dirigeants des partis politiques',
+                'Membres des organes dirigeants des 7 partis politiques représentés à la Chambre des Députés (catégorie LU-c)',
+                'lu_pep_political_parties',
+                'lu-pep-political-parties',
+                'D:/test parser 2/plugins/swiftcheck-aml-lu-pep-political-parties-0.0.1-SNAPSHOT.jar',
+                'HTTP_FILE',
+                'WEB_PAGE',
+                'https://chd.lu',
+                '{"sourceUrl": "https://chd.lu"}',
+                168,
+                60,
+                'Données publiques officielles',
+                'Sites officiels des partis représentés à la Chambre des Députés (csv.lu, dp.lu, lsap.lu, adr.lu, greng.lu, piraten.lu, dei-lenk.lu)',
+                TRUE,
+                NOW()
+            FROM list_provider p
+            WHERE p.code = 'LU-POL-PARTIES';
+
+            INSERT INTO parser_coverage (parser_id, function_id)
+            SELECT p.id, 8 FROM parser p
+            WHERE p.dataset_name = 'lu_pep_political_parties';
+        </sql>
+    </changeSet>
+
+</databaseChangeLog>

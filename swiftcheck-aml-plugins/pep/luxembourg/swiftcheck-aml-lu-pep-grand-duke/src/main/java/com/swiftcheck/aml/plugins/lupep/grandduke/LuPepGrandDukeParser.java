@@ -106,59 +106,6 @@ public class LuPepGrandDukeParser implements Iparser {
             Map.entry("décembre", "12")
     );
 
-    /**
-     * Profils de référence des souverains contemporains de la dynastie Nassau-Weilbourg / Luxembourg.
-     */
-    record KnownMonarch(
-            String slug,
-            String fullName,
-            String firstName,
-            String lastName,
-            String birthDate,
-            String birthPlace,
-            LocalDate startDate,
-            LocalDate endDate,
-            String status,
-            List<String> aliases) {
-    }
-
-    private static final Map<String, KnownMonarch> KNOWN_MONARCHS = Map.of(
-            "guillaume", new KnownMonarch(
-                    "guillaume",
-                    "Guillaume de Luxembourg",
-                    "Guillaume",
-                    "de Luxembourg",
-                    "1981-11-11",
-                    "Luxembourg",
-                    LocalDate.of(2025, 10, 3),
-                    null,
-                    "current",
-                    List.of(
-                            "S.A.R. le Grand-Duc Guillaume",
-                            "Grand-Duc Guillaume",
-                            "Guillaume Jean Joseph Marie de Nassau",
-                            "Son Altesse Royale le Grand-Duc Guillaume de Luxembourg, Duc de Nassau et Prince de Bourbon-Parme"
-                    )
-            ),
-            "henri", new KnownMonarch(
-                    "henri",
-                    "Henri de Luxembourg",
-                    "Henri",
-                    "de Luxembourg",
-                    "1955-04-16",
-                    "Betzdorf",
-                    LocalDate.of(2000, 10, 7),
-                    LocalDate.of(2025, 10, 3),
-                    "ended",
-                    List.of(
-                            "S.A.R. le Grand-Duc Henri",
-                            "Grand-Duc Henri",
-                            "Henri Albert Gabriel Félix Marie Guillaume de Nassau",
-                            "Son Altesse Royale le Grand-Duc Henri de Luxembourg"
-                    )
-            )
-    );
-
     @Override
     public ParserResult parse(ParserContext ctx) throws Exception {
         String idPrefix = ctx.datasetName() != null ? ctx.datasetName().replace('_', '-') : DEFAULT_ID_PREFIX;
@@ -241,7 +188,7 @@ public class LuPepGrandDukeParser implements Iparser {
 
         // 1. Détection du sujet principal de la page
         String h1 = extractFirstMatch(html, H1_PATTERN);
-        String lowerHtml = html.toLowerCase(Locale.ROOT);
+        String lowerHtml = html != null ? html.toLowerCase(Locale.ROOT) : "";
 
         boolean isHenriPage = (h1 != null && h1.toLowerCase(Locale.ROOT).contains("henri"))
                 || (sourceUrl != null && sourceUrl.contains("henri"))
@@ -253,72 +200,107 @@ public class LuPepGrandDukeParser implements Iparser {
         String imageUrl = extractFirstMatch(html, OG_IMAGE_PATTERN);
 
         if (isHenriPage) {
-            // Fiche dédiée au Grand-Duc Henri
-            KnownMonarch henriRef = KNOWN_MONARCHS.get("henri");
+            String firstName = "Henri";
+            String lastName = "de Luxembourg";
+            String fullName = firstName + " " + lastName;
+            LocalDate startDate = detectDate(html, "(?i)Le\\s+(\\d{1,2})\\s+([a-zA-Zûéèê]+)\\s+(\\d{4}),?\\s+il\\s+est\\s+devenu\\s+le\\s+Chef\\s+de\\s+l'État", LocalDate.of(2000, 10, 7));
+            LocalDate endDate = detectDate(html, "(?i)abdication.*?le\\s+(\\d{1,2})\\s+([a-zA-Zûéèê]+)\\s+(\\d{4})", LocalDate.of(2025, 10, 3));
+            List<String> aliases = List.of(
+                    "S.A.R. le Grand-Duc " + firstName,
+                    "Grand-Duc " + firstName,
+                    "Henri Albert Gabriel Félix Marie Guillaume de Nassau",
+                    "Son Altesse Royale le Grand-Duc Henri de Luxembourg"
+            );
             MonarchData henri = new MonarchData(
                     "henri",
-                    henriRef.fullName(),
-                    henriRef.firstName(),
-                    henriRef.lastName(),
-                    birthDate != null ? birthDate : henriRef.birthDate(),
-                    birthPlace != null ? birthPlace : henriRef.birthPlace(),
-                    henriRef.startDate(),
-                    henriRef.endDate(),
+                    fullName,
+                    firstName,
+                    lastName,
+                    birthDate != null ? birthDate : "1955-04-16",
+                    birthPlace != null ? birthPlace : "Betzdorf",
+                    startDate,
+                    endDate,
                     "ended",
                     sourceUrl,
                     imageUrl,
-                    henriRef.aliases()
+                    aliases
             );
             if (isEligible(henri.endDate(), oldestEndDate)) {
                 result.put(henri.slug(), henri);
             }
         } else {
-            // Page officielle du Grand-Duc régnant (Guillaume)
-            KnownMonarch guillaumeRef = KNOWN_MONARCHS.get("guillaume");
-
-            // Détection dynamique de la prestation de serment dans le texte : "Le 3 octobre 2025, il prête serment..."
-            LocalDate startDate = detectOathDate(html, guillaumeRef.startDate());
-
+            // Page officielle du Grand-Duc régnant
+            String firstName = "Guillaume";
+            String lastName = "de Luxembourg";
+            String fullName = firstName + " " + lastName;
+            LocalDate startDate = detectDate(html, "(?i)Le\\s+(\\d{1,2})\\s+([a-zA-Zûéèê]+)\\s+(\\d{4}),?\\s+il\\s+pr[êe]te\\s+serment", LocalDate.of(2025, 10, 3));
+            List<String> aliases = List.of(
+                    "S.A.R. le Grand-Duc " + firstName,
+                    "Grand-Duc " + firstName,
+                    "Guillaume Jean Joseph Marie de Nassau",
+                    "Son Altesse Royale le Grand-Duc Guillaume de Luxembourg, Duc de Nassau et Prince de Bourbon-Parme"
+            );
             MonarchData guillaume = new MonarchData(
                     "guillaume",
-                    guillaumeRef.fullName(),
-                    guillaumeRef.firstName(),
-                    guillaumeRef.lastName(),
-                    birthDate != null ? birthDate : guillaumeRef.birthDate(),
-                    birthPlace != null ? birthPlace : guillaumeRef.birthPlace(),
+                    fullName,
+                    firstName,
+                    lastName,
+                    birthDate != null ? birthDate : "1981-11-11",
+                    birthPlace != null ? birthPlace : "Luxembourg",
                     startDate,
                     null,
                     "current",
                     sourceUrl,
                     imageUrl,
-                    guillaumeRef.aliases()
+                    aliases
             );
             result.put(guillaume.slug(), guillaume);
 
-            // 2. Si includeFormer est activé, inclure également le Grand-Duc précédent (Henri) selon la rétention PEP
+            // 2. Si includeFormer est activé, inclure également le souverain précédent selon la rétention PEP
             if (includeFormer) {
-                KnownMonarch henriRef = KNOWN_MONARCHS.get("henri");
-                if (isEligible(henriRef.endDate(), oldestEndDate)) {
-                    MonarchData henri = new MonarchData(
+                LocalDate formerEnd = startDate != null ? startDate : LocalDate.of(2025, 10, 3);
+                if (isEligible(formerEnd, oldestEndDate)) {
+                    MonarchData former = new MonarchData(
                             "henri",
-                            henriRef.fullName(),
-                            henriRef.firstName(),
-                            henriRef.lastName(),
-                            henriRef.birthDate(),
-                            henriRef.birthPlace(),
-                            henriRef.startDate(),
-                            henriRef.endDate(),
+                            "Henri de Luxembourg",
+                            "Henri",
+                            "de Luxembourg",
+                            "1955-04-16",
+                            "Betzdorf",
+                            LocalDate.of(2000, 10, 7),
+                            formerEnd,
                             "ended",
                             "https://monarchie.lu/fr/la-monarchie/les-anciens-souverains/le-grand-duc-henri",
                             null,
-                            henriRef.aliases()
+                            List.of(
+                                    "S.A.R. le Grand-Duc Henri",
+                                    "Grand-Duc Henri",
+                                    "Henri Albert Gabriel Félix Marie Guillaume de Nassau",
+                                    "Son Altesse Royale le Grand-Duc Henri de Luxembourg"
+                            )
                     );
-                    result.put(henri.slug(), henri);
+                    result.put(former.slug(), former);
                 }
             }
         }
 
         return new ArrayList<>(result.values());
+    }
+
+    private static LocalDate detectDate(String text, String regex, LocalDate fallback) {
+        if (text == null) return fallback;
+        Pattern p = Pattern.compile(regex);
+        Matcher m = p.matcher(text);
+        if (m.find()) {
+            int day = Integer.parseInt(m.group(1));
+            String monthStr = m.group(2).toLowerCase(Locale.ROOT);
+            int year = Integer.parseInt(m.group(3));
+            String monthNum = MONTHS_FR.get(monthStr);
+            if (monthNum != null) {
+                return LocalDate.of(year, Integer.parseInt(monthNum), day);
+            }
+        }
+        return fallback;
     }
 
     private static void convertMonarch(

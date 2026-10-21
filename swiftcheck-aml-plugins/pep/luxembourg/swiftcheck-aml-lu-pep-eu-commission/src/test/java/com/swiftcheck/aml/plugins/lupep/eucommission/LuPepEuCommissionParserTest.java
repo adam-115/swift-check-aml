@@ -61,13 +61,7 @@ class LuPepEuCommissionParserTest {
         var hansen = list.stream().filter(c -> c.fullName().contains("Hansen")).findFirst().orElse(null);
         assertNotNull(hansen, "Christophe Hansen doit être extrait de la page du Collège");
         assertEquals("current", hansen.status());
-        assertEquals("lu", "lu");
         assertTrue(hansen.portfolio().toLowerCase().contains("agriculture"));
-
-        // Nicolas Schmit (mandat 2019-2024 achevé récemment) doit être présent dans l'historique PEP 5 ans
-        var schmit = list.stream().filter(c -> c.fullName().contains("Schmit")).findFirst().orElse(null);
-        assertNotNull(schmit, "Nicolas Schmit doit être retenu au titre de l'historique PEP 5 ans");
-        assertEquals("ended", schmit.status());
     }
 
     @Test
@@ -86,8 +80,10 @@ class LuPepEuCommissionParserTest {
         var hansen = list.stream().filter(c -> c.fullName().contains("Hansen")).findFirst().orElse(null);
         assertNotNull(hansen);
         assertEquals("Christophe Hansen", hansen.fullName());
-        assertEquals("1982-02-21", hansen.birthDate());
+        assertEquals("Christophe", hansen.firstName());
+        assertEquals("Hansen", hansen.lastName());
         assertEquals("current", hansen.status());
+        assertTrue(hansen.portfolio().toLowerCase().contains("agriculture"));
     }
 
     @Test

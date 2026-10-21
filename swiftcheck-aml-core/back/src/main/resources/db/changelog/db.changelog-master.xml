@@ -13,5 +13,17 @@
     <include file="db/changelog/changes/006-seed-eu-commission.xml" />
     <include file="db/changelog/changes/007-seed-europarl-former.xml" />
     <include file="db/changelog/changes/008-seed-grand-duke.xml" />
+    <include file="db/changelog/changes/009-seed-judiciary.xml" />
+    <include file="db/changelog/changes/010-seed-administrative-courts.xml" />
+    <include file="db/changelog/changes/011-seed-court-of-auditors.xml" />
+    <include file="db/changelog/changes/012-seed-central-bank.xml" />
+    <include file="db/changelog/changes/013-seed-ilr.xml" />
+    <include file="db/changelog/changes/014-seed-caa.xml" />
+    <include file="db/changelog/changes/015-seed-cssf.xml" />
+    <include file="db/changelog/changes/016-seed-army.xml" />
+    <include file="db/changelog/changes/017-seed-diplomats.xml" />
+    <include file="db/changelog/changes/018-seed-international-orgs.xml" />
+    <include file="db/changelog/changes/019-seed-political-parties.xml" />
+    <include file="db/changelog/changes/020-seed-state-enterprises.xml" />
 
 </databaseChangeLog>

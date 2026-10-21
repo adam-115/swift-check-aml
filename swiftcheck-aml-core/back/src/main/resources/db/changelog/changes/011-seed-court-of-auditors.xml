@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Ajout du provider LU-CDC et du parser lu_pep_court_of_auditors (Cour des comptes, cour-des-comptes.public.lu)
+    et rattachement à la fonction PEP LU-e (Membres de la Cour des comptes = 14).
+-->
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="011-provider-court-of-auditors" author="swiftcheck">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">
+                SELECT COUNT(*) FROM list_provider WHERE code = 'LU-CDC'
+            </sqlCheck>
+        </preConditions>
+        <sql>
+            INSERT INTO list_provider (
+                code,
+                name,
+                description,
+                country_iso,
+                list_type,
+                website_url,
+                enabled,
+                created_at
+            ) VALUES (
+                'LU-CDC',
+                'Cour des comptes du Luxembourg',
+                'Portail officiel de la Cour des comptes luxembourgeoise (cour-des-comptes.public.lu)',
+                'LU',
+                'PEP',
+                'https://cour-des-comptes.public.lu',
+                TRUE,
+                NOW()
+            );
+        </sql>
+    </changeSet>
+
+    <changeSet id="011-parser-court-of-auditors" author="swiftcheck">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">
+                SELECT COUNT(*) FROM parser WHERE dataset_name = 'lu_pep_court_of_auditors'
+            </sqlCheck>
+        </preConditions>
+        <sql>
+            INSERT INTO parser (
+                list_provider_id,
+                source_id,
+                name,
+                description,
+                dataset_name,
+                plugin_id,
+                plugin_url,
+                data_source_type,
+                parser_kind,
+                source_location,
+                parameters,
+                refresh_hours,
+                retention_months,
+                licence,
+                attribution,
+                enabled,
+                created_at
+            ) SELECT
+                p.id,
+                12,
+                'PEP Luxembourg – Cour des comptes',
+                'Membres du collège de la Cour des comptes du Luxembourg (catégorie LU-e)',
+                'lu_pep_court_of_auditors',
+                'lu-pep-court-of-auditors',
+                'D:/test parser 2/plugins/swiftcheck-aml-lu-pep-court-of-auditors-0.0.1-SNAPSHOT.jar',
+                'HTTP_FILE',
+                'WEB_PAGE',
+                'https://cour-des-comptes.public.lu/fr/cour/college.html',
+                '{"sourceUrl": "https://cour-des-comptes.public.lu/fr/cour/college.html", "yearsAfterEnd": "5"}',
+                168,
+                60,
+                'Données publiques officielles',
+                'Cour des comptes (cour-des-comptes.public.lu)',
+                TRUE,
+                NOW()
+            FROM list_provider p
+            WHERE p.code = 'LU-CDC';
+
+            INSERT INTO parser_coverage (parser_id, function_id)
+            SELECT p.id, 14 FROM parser p
+            WHERE p.dataset_name = 'lu_pep_court_of_auditors';
+        </sql>
+    </changeSet>
+
+</databaseChangeLog>

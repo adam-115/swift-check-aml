@@ -80,37 +80,7 @@ public class LuPepEuCommissionParser implements Iparser {
     private static final Pattern META_TITLE_PATTERN = Pattern.compile(
             "(?i)<meta[^>]+property=[\"']og:title[\"'][^>]+content=[\"']([^\"']+)[\"']");
 
-    /**
-     * Données historiques de référence des commissaires luxembourgeois de l'histoire moderne de l'Union européenne.
-     */
-    record HistoricalCommissioner(
-            String fullName,
-            String firstName,
-            String lastName,
-            String birthDate,
-            String portfolio,
-            LocalDate startDate,
-            LocalDate endDate,
-            boolean isPresident) {
-    }
 
-    private static final List<HistoricalCommissioner> KNOWN_COMMISSIONERS = List.of(
-            new HistoricalCommissioner(
-                    "Christophe Hansen", "Christophe", "Hansen", "1982-02-21",
-                    "Agriculture et alimentation", LocalDate.of(2024, 12, 1), null, false),
-            new HistoricalCommissioner(
-                    "Nicolas Schmit", "Nicolas", "Schmit", "1953-12-10",
-                    "Emploi et droits sociaux", LocalDate.of(2019, 12, 1), LocalDate.of(2024, 11, 30), false),
-            new HistoricalCommissioner(
-                    "Jean-Claude Juncker", "Jean-Claude", "Juncker", "1954-12-09",
-                    "Président de la Commission européenne", LocalDate.of(2014, 11, 1), LocalDate.of(2019, 11, 30), true),
-            new HistoricalCommissioner(
-                    "Viviane Reding", "Viviane", "Reding", "1951-04-27",
-                    "Justice, droits fondamentaux et citoyenneté / Société de l'information", LocalDate.of(1999, 9, 16), LocalDate.of(2014, 6, 30), false),
-            new HistoricalCommissioner(
-                    "Jacques Santer", "Jacques", "Santer", "1937-05-18",
-                    "Président de la Commission européenne", LocalDate.of(1995, 1, 23), LocalDate.of(1999, 3, 15), true)
-    );
 
     @Override
     public ParserResult parse(ParserContext ctx) throws Exception {
@@ -186,45 +156,26 @@ public class LuPepEuCommissionParser implements Iparser {
                 String name = stripHtml(m.group(2)).trim();
                 String desc = stripHtml(m.group(3)).trim();
 
-                HistoricalCommissioner known = findKnownCommissioner(name);
-                if (known != null) {
-                    // C'est un commissaire luxembourgeois confirmé
+                boolean isLux = link.toLowerCase(Locale.ROOT).contains("hansen")
+                        || desc.toLowerCase(Locale.ROOT).contains("luxembourg")
+                        || name.toLowerCase(Locale.ROOT).contains("hansen");
+
+                if (isLux) {
                     String fullLink = link.startsWith("http") ? link : "https://commission.europa.eu" + link;
+                    String[] nameParts = splitFirstLastName(name);
+                    boolean isPres = desc.toLowerCase(Locale.ROOT).contains("président") || desc.toLowerCase(Locale.ROOT).contains("president");
                     CommissionerData data = new CommissionerData(
                             slug(name),
                             name,
-                            known.firstName(),
-                            known.lastName(),
-                            known.birthDate(),
-                            desc.isBlank() ? known.portfolio() : desc,
-                            known.startDate(),
+                            nameParts[0],
+                            nameParts[1],
+                            null,
+                            desc,
+                            LocalDate.of(2024, 12, 1),
                             null, // Actif dans le collège affiché
                             "current",
                             fullLink,
-                            known.isPresident()
-                    );
-                    result.put(data.slug(), data);
-                }
-            }
-        }
-
-        // 2. Compléter avec l'historique des anciens commissaires selon oldestEndDate
-        for (HistoricalCommissioner hk : KNOWN_COMMISSIONERS) {
-            if (!result.containsKey(slug(hk.fullName()))) {
-                if (isEligible(hk.endDate(), oldestEndDate)) {
-                    String status = hk.endDate() == null ? "current" : "ended";
-                    CommissionerData data = new CommissionerData(
-                            slug(hk.fullName()),
-                            hk.fullName(),
-                            hk.firstName(),
-                            hk.lastName(),
-                            hk.birthDate(),
-                            hk.portfolio(),
-                            hk.startDate(),
-                            hk.endDate(),
-                            status,
-                            sourceUrl,
-                            hk.isPresident()
+                            isPres
                     );
                     result.put(data.slug(), data);
                 }
@@ -234,14 +185,33 @@ public class LuPepEuCommissionParser implements Iparser {
         return new ArrayList<>(result.values());
     }
 
+    private static String[] splitFirstLastName(String fullName) {
+        if (fullName == null || fullName.isBlank()) {
+            return new String[] { "", "" };
+        }
+        String[] parts = fullName.trim().split("\\s+");
+        if (parts.length == 1) {
+            return new String[] { "", parts[0] };
+        }
+        StringBuilder first = new StringBuilder();
+        for (int i = 0; i < parts.length - 1; i++) {
+            if (i > 0) first.append(' ');
+            first.append(parts[i]);
+        }
+        return new String[] { first.toString(), parts[parts.length - 1] };
+    }
+
     private static boolean isIndividualPage(String html) {
-        String lower = html.toLowerCase(Locale.ROOT);
+        String lower = html != null ? html.toLowerCase(Locale.ROOT) : "";
         return lower.contains("commissaire luxembourgeois")
                 || (lower.contains("christophe hansen") && lower.contains("biographie"));
     }
 
     private static CommissionerData parseIndividualPage(String html, String pageUrl) {
         String title = extractFirstMatch(html, META_TITLE_PATTERN);
+        if (title == null || title.isBlank()) {
+            title = extractFirstMatch(html, Pattern.compile("(?i)<h1[^>]*>\\s*<span[^>]*>([^<]+)</span>\\s*</h1>"));
+        }
         if (title == null || title.isBlank()) {
             title = "Christophe Hansen";
         }
@@ -255,19 +225,16 @@ public class LuPepEuCommissionParser implements Iparser {
             }
         }
 
-        HistoricalCommissioner known = findKnownCommissioner(title);
-        String firstName = known != null ? known.firstName() : "Christophe";
-        String lastName = known != null ? known.lastName() : "Hansen";
-        String birthDate = known != null ? known.birthDate() : "1982-02-21";
-        LocalDate startDate = known != null ? known.startDate() : LocalDate.of(2024, 12, 1);
-        boolean isPres = known != null && known.isPresident();
+        String[] nameParts = splitFirstLastName(title);
+        LocalDate startDate = LocalDate.of(2024, 12, 1);
+        boolean isPres = desc != null && desc.toLowerCase(Locale.ROOT).contains("président");
 
         return new CommissionerData(
                 slug(title),
                 title,
-                firstName,
-                lastName,
-                birthDate,
+                nameParts[0],
+                nameParts[1],
+                null,
                 portfolio,
                 startDate,
                 null,
@@ -275,17 +242,6 @@ public class LuPepEuCommissionParser implements Iparser {
                 pageUrl,
                 isPres
         );
-    }
-
-    private static HistoricalCommissioner findKnownCommissioner(String name) {
-        String clean = Normalizer.normalize(name, Normalizer.Form.NFD).replaceAll("\\p{M}", "").toLowerCase(Locale.ROOT);
-        for (HistoricalCommissioner c : KNOWN_COMMISSIONERS) {
-            String norm = Normalizer.normalize(c.fullName(), Normalizer.Form.NFD).replaceAll("\\p{M}", "").toLowerCase(Locale.ROOT);
-            if (clean.contains(norm) || norm.contains(clean)) {
-                return c;
-            }
-        }
-        return null;
     }
 
     private static boolean isEligible(LocalDate endDate, LocalDate oldestEndDate) {

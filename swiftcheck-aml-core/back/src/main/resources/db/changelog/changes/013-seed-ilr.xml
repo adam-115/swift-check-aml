@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Ajout du provider LU-ILR et du parser lu_pep_ilr (Institut Luxembourgeois de Régulation, ilr.lu)
+    et rattachement à la fonction PEP LU-i (Direction d'une autorité de régulation = 22).
+-->
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="013-provider-ilr" author="swiftcheck">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">
+                SELECT COUNT(*) FROM list_provider WHERE code = 'LU-ILR'
+            </sqlCheck>
+        </preConditions>
+        <sql>
+            INSERT INTO list_provider (
+                code,
+                name,
+                description,
+                country_iso,
+                list_type,
+                website_url,
+                enabled,
+                created_at
+            ) VALUES (
+                'LU-ILR',
+                'Institut Luxembourgeois de Régulation',
+                'Portail officiel de l\'Institut Luxembourgeois de Régulation (ilr.lu)',
+                'LU',
+                'PEP',
+                'https://www.ilr.lu',
+                TRUE,
+                NOW()
+            );
+        </sql>
+    </changeSet>
+
+    <changeSet id="013-parser-ilr" author="swiftcheck">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">
+                SELECT COUNT(*) FROM parser WHERE dataset_name = 'lu_pep_ilr'
+            </sqlCheck>
+        </preConditions>
+        <sql>
+            INSERT INTO parser (
+                list_provider_id,
+                source_id,
+                name,
+                description,
+                dataset_name,
+                plugin_id,
+                plugin_url,
+                data_source_type,
+                parser_kind,
+                source_location,
+                parameters,
+                refresh_hours,
+                retention_months,
+                licence,
+                attribution,
+                enabled,
+                created_at
+            ) SELECT
+                p.id,
+                16,
+                'PEP Luxembourg – Institut Luxembourgeois de Régulation',
+                'Direction de l\'Institut Luxembourgeois de Régulation (catégorie LU-i)',
+                'lu_pep_ilr',
+                'lu-pep-ilr',
+                'D:/test parser 2/plugins/swiftcheck-aml-lu-pep-ilr-0.0.1-SNAPSHOT.jar',
+                'HTTP_FILE',
+                'WEB_PAGE',
+                'https://www.ilr.lu/a-propos/equipe/',
+                '{"sourceUrl": "https://www.ilr.lu/a-propos/equipe/", "yearsAfterEnd": "5"}',
+                168,
+                60,
+                'Données publiques officielles',
+                'Institut Luxembourgeois de Régulation (ilr.lu)',
+                TRUE,
+                NOW()
+            FROM list_provider p
+            WHERE p.code = 'LU-ILR';
+
+            INSERT INTO parser_coverage (parser_id, function_id)
+            SELECT p.id, 22 FROM parser p
+            WHERE p.dataset_name = 'lu_pep_ilr';
+        </sql>
+    </changeSet>
+
+</databaseChangeLog>

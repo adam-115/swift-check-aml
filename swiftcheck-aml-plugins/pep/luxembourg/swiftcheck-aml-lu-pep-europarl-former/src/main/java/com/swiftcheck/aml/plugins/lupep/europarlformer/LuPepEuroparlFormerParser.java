@@ -64,24 +64,15 @@ public class LuPepEuroparlFormerParser implements Iparser {
     static final String DEFAULT_SOURCE_URL =
             "https://data.europarl.europa.eu/api/v2/meps?country-of-representation=LU&parliamentary-term=9&limit=100&format=application/ld+json";
 
-    /** Identifiants des députés luxembourgeois de la 10e législature (2024-2029) en fonction. */
-    static final Set<String> CURRENT_MEP_IDS = Set.of(
-            "193292", // Tilly METZ
-            "197421", // Isabel WISELER-LIMA
-            "202073", // Marc ANGEL
-            "249603", // Martine KEMP
-            "256900", // Fernand KARTHEISER
-            "840"     // Charles GOERENS
-    );
-
     @Override
     public ParserResult parse(ParserContext ctx) throws Exception {
         String idPrefix = ctx.datasetName() != null ? ctx.datasetName().replace('_', '-') : DEFAULT_ID_PREFIX;
         FtmDatasetBuilder dataset = new FtmDatasetBuilder(idPrefix, TOPIC);
         LocalDate oldestEndDate = oldestEndDate(ctx.parameters(), LocalDate.now());
         String sourceUrl = resolveSourceUrl(ctx);
+        Set<String> activeIds = parseActiveMepIds(ctx.parameters());
 
-        convert(sourceFile(ctx), oldestEndDate, sourceUrl, dataset);
+        convert(sourceFile(ctx), oldestEndDate, sourceUrl, activeIds, dataset);
         dataset.writeNdjsonFile(ctx.outputFile());
         return dataset.toConversionResult();
     }
@@ -92,8 +83,9 @@ public class LuPepEuroparlFormerParser implements Iparser {
         FtmDatasetBuilder dataset = new FtmDatasetBuilder(idPrefix, TOPIC);
         LocalDate oldestEndDate = oldestEndDate(ctx.parameters(), LocalDate.now());
         String sourceUrl = resolveSourceUrl(ctx);
+        Set<String> activeIds = parseActiveMepIds(ctx.parameters());
 
-        convert(sourceFile(ctx), oldestEndDate, sourceUrl, dataset);
+        convert(sourceFile(ctx), oldestEndDate, sourceUrl, activeIds, dataset);
 
         List<SourceRecord> records = new ArrayList<>();
         for (FtmEntity entity : dataset.entities()) {
@@ -108,20 +100,25 @@ public class LuPepEuroparlFormerParser implements Iparser {
     /**
      * Lit le fichier JSON source et convertit chaque ancien eurodéputé en entités FollowTheMoney.
      */
-    void convert(Path sourceFile, LocalDate oldestEndDate, String sourceUrl, FtmDatasetBuilder dataset) throws Exception {
+    void convert(Path sourceFile, LocalDate oldestEndDate, String sourceUrl, Set<String> activeMepIds, FtmDatasetBuilder dataset) throws Exception {
         String content = Files.readString(sourceFile, StandardCharsets.UTF_8);
         List<FormerMepRecord> meps = parseJsonRecords(content);
 
-        Set<String> currentIds = new HashSet<>(CURRENT_MEP_IDS);
-        // Si le contexte fournit un filtre personnalisé de currentIds
-        int countAdded = 0;
+        // Position officielle émise une seule fois pour l'ensemble du dataset
+        FtmEntity position = dataset.newEntity("Position", "member");
+        position.addValue("name", "Membre du Parlement européen élu au Luxembourg");
+        position.addValue("country", "lu");
+        position.addValue("topics", "gov.national");
+        position.addValue("topics", "gov.legislative");
+        dataset.addEntity(position);
 
+        int countAdded = 0;
         for (FormerMepRecord mep : meps) {
             if (mep.id == null || mep.id.isBlank()) {
                 continue;
             }
-            // Ignorer les députés actuellement en fonction
-            if (currentIds.contains(mep.id) && mep.isCurrentlyActive) {
+            // Ignorer les députés marqués ou passés comme actuellement actifs
+            if (mep.isCurrentlyActive || (activeMepIds != null && activeMepIds.contains(mep.id))) {
                 log.debug("Député ID {} ignoré car actuellement en fonction", mep.id);
                 continue;
             }
@@ -140,7 +137,7 @@ public class LuPepEuroparlFormerParser implements Iparser {
                 }
             }
 
-            convertMep(mep, sourceUrl, dataset);
+            convertMep(mep, position.getId(), sourceUrl, dataset);
             countAdded++;
         }
 
@@ -152,7 +149,7 @@ public class LuPepEuroparlFormerParser implements Iparser {
     /**
      * Crée les entités FollowTheMoney pour un ancien député européen.
      */
-    private static void convertMep(FormerMepRecord mep, String sourceUrl, FtmDatasetBuilder dataset) {
+    private static void convertMep(FormerMepRecord mep, String positionId, String sourceUrl, FtmDatasetBuilder dataset) {
         String id = mep.id;
         String[] nameParts = splitName(mep.fullName, mep.givenName, mep.familyName);
         String displayName = (mep.fullName != null && !mep.fullName.isBlank()) ? mep.fullName.trim() : joinNonBlank(" ", nameParts[0], nameParts[1]);
@@ -179,18 +176,10 @@ public class LuPepEuroparlFormerParser implements Iparser {
         person.addValue("sourceUrl", sourceUrl != null && !sourceUrl.isBlank() ? sourceUrl : personUrl);
         dataset.addEntity(person);
 
-        // Position officielle
-        FtmEntity position = dataset.newEntity("Position", "member");
-        position.addValue("name", "Membre du Parlement européen élu au Luxembourg");
-        position.addValue("country", "lu");
-        position.addValue("topics", "gov.national");
-        position.addValue("topics", "gov.legislative");
-        dataset.addEntity(position);
-
         // Occupancy (mandat terminé)
         FtmEntity occupancy = dataset.newEntity("Occupancy", id, "member", mep.startDate != null ? mep.startDate : "mandate");
         occupancy.addValue("holder", person.getId());
-        occupancy.addValue("post", position.getId());
+        occupancy.addValue("post", positionId);
         occupancy.addValue("status", "ended");
         if (mep.startDate != null && !mep.startDate.isBlank()) {
             occupancy.addValue("startDate", mep.startDate);
@@ -338,113 +327,40 @@ public class LuPepEuroparlFormerParser implements Iparser {
         return result;
     }
 
+    static Set<String> parseActiveMepIds(Map<String, String> parameters) {
+        if (parameters == null) {
+            return Set.of();
+        }
+        String val = parameters.get("activeMepIds");
+        if (val == null) {
+            val = parameters.get("currentMepIds");
+        }
+        if (val == null || val.isBlank()) {
+            return Set.of();
+        }
+        Set<String> set = new HashSet<>();
+        for (String part : val.split("[,;\\s]+")) {
+            if (!part.isBlank()) {
+                set.add(part.trim());
+            }
+        }
+        return set;
+    }
+
     /**
-     * Attribue des dates et métadonnées historiques officielles pour les anciens députés européens
-     * luxembourgeois connus de la 9e ou 8e législature lorsque le fichier d'entrée est une simple liste d'IDs.
+     * Assigne génériquement les dates de mandat selon la législature mentionnée dans les métadonnées.
      */
     static void assignKnownDates(FormerMepRecord rec) {
         if (rec.id == null) {
             return;
         }
-        switch (rec.id) {
-            case "197418" -> { // Monica SEMEDO
-                if (rec.fullName == null) rec.fullName = "Monica SEMEDO";
-                if (rec.givenName == null) rec.givenName = "Monica";
-                if (rec.familyName == null) rec.familyName = "Semedo";
-                if (rec.birthDate == null) rec.birthDate = "1984-06-15";
-                if (rec.gender == null) rec.gender = "female";
-                if (rec.startDate == null) rec.startDate = "2019-07-02";
-                if (rec.endDate == null) rec.endDate = "2024-07-15";
-                rec.politicalGroup = "Renew Europe Group";
-                rec.nationalPoliticalGroup = "Parti démocratique / Focus";
-            }
-            case "197428" -> { // Nicolas SCHMIT
-                if (rec.fullName == null) rec.fullName = "Nicolas SCHMIT";
-                if (rec.givenName == null) rec.givenName = "Nicolas";
-                if (rec.familyName == null) rec.familyName = "Schmit";
-                if (rec.birthDate == null) rec.birthDate = "1953-12-10";
-                if (rec.gender == null) rec.gender = "male";
-                if (rec.startDate == null) rec.startDate = "2019-07-02";
-                if (rec.endDate == null) rec.endDate = "2019-11-30";
-                rec.politicalGroup = "Group of the Progressive Alliance of Socialists and Democrats in the European Parliament";
-                rec.nationalPoliticalGroup = "Parti ouvrier socialiste luxembourgeois (LSAP)";
-            }
-            case "193419" -> { // Christophe HANSEN
-                if (rec.fullName == null) rec.fullName = "Christophe HANSEN";
-                if (rec.givenName == null) rec.givenName = "Christophe";
-                if (rec.familyName == null) rec.familyName = "Hansen";
-                if (rec.birthDate == null) rec.birthDate = "1982-02-21";
-                if (rec.gender == null) rec.gender = "male";
-                if (rec.startDate == null) rec.startDate = "2024-07-16";
-                if (rec.endDate == null) rec.endDate = "2024-11-30";
-                rec.politicalGroup = "Group of the European People's Party (Christian Democrats)";
-                rec.nationalPoliticalGroup = "Parti chrétien social luxembourgeois (CSV)";
-            }
-            case "124776" -> { // Mady DELVAUX
-                if (rec.fullName == null) rec.fullName = "Mady DELVAUX";
-                if (rec.givenName == null) rec.givenName = "Mady";
-                if (rec.familyName == null) rec.familyName = "Delvaux";
-                if (rec.birthDate == null) rec.birthDate = "1950-10-11";
-                if (rec.gender == null) rec.gender = "female";
-                if (rec.startDate == null) rec.startDate = "2014-07-01";
-                if (rec.endDate == null) rec.endDate = "2019-07-01";
-                rec.politicalGroup = "Group of the Progressive Alliance of Socialists and Democrats";
-                rec.nationalPoliticalGroup = "LSAP";
-            }
-            case "4432" -> { // Claude TURMES
-                if (rec.fullName == null) rec.fullName = "Claude TURMES";
-                if (rec.givenName == null) rec.givenName = "Claude";
-                if (rec.familyName == null) rec.familyName = "Turmes";
-                if (rec.birthDate == null) rec.birthDate = "1960-11-26";
-                if (rec.gender == null) rec.gender = "male";
-                if (rec.startDate == null) rec.startDate = "2014-07-01";
-                if (rec.endDate == null) rec.endDate = "2018-06-19";
-                rec.politicalGroup = "Group of the Greens/European Free Alliance";
-                rec.nationalPoliticalGroup = "Déi Gréng";
-            }
-            case "1185" -> { // Viviane REDING
-                if (rec.fullName == null) rec.fullName = "Viviane REDING";
-                if (rec.givenName == null) rec.givenName = "Viviane";
-                if (rec.familyName == null) rec.familyName = "Reding";
-                if (rec.birthDate == null) rec.birthDate = "1951-04-27";
-                if (rec.gender == null) rec.gender = "female";
-                if (rec.startDate == null) rec.startDate = "2014-07-01";
-                if (rec.endDate == null) rec.endDate = "2018-09-01";
-                rec.politicalGroup = "Group of the European People's Party";
-                rec.nationalPoliticalGroup = "CSV";
-            }
-            case "96876" -> { // Frank ENGEL
-                if (rec.fullName == null) rec.fullName = "Frank ENGEL";
-                if (rec.givenName == null) rec.givenName = "Frank";
-                if (rec.familyName == null) rec.familyName = "Engel";
-                if (rec.birthDate == null) rec.birthDate = "1975-05-10";
-                if (rec.gender == null) rec.gender = "male";
-                if (rec.startDate == null) rec.startDate = "2014-07-01";
-                if (rec.endDate == null) rec.endDate = "2019-07-01";
-                rec.politicalGroup = "Group of the European People's Party";
-                rec.nationalPoliticalGroup = "CSV";
-            }
-            case "97293" -> { // Georges BACH
-                if (rec.fullName == null) rec.fullName = "Georges BACH";
-                if (rec.givenName == null) rec.givenName = "Georges";
-                if (rec.familyName == null) rec.familyName = "Bach";
-                if (rec.birthDate == null) rec.birthDate = "1955-06-12";
-                if (rec.gender == null) rec.gender = "male";
-                if (rec.startDate == null) rec.startDate = "2014-07-01";
-                if (rec.endDate == null) rec.endDate = "2019-07-01";
-                rec.politicalGroup = "Group of the European People's Party";
-                rec.nationalPoliticalGroup = "CSV";
-            }
-            case "193292", "197421", "202073", "249603", "256900", "840" -> {
-                // Députés actuellement en fonction
-                rec.isCurrentlyActive = true;
-            }
-            default -> {
-                // Pour les députés plus anciens sans dates explicites dans le fragment
-                if (rec.endDate == null) {
-                    rec.endDate = "2000-01-01"; // par défaut > 5 ans
-                }
-            }
+        if (rec.fullName == null && (rec.givenName != null || rec.familyName != null)) {
+            rec.fullName = joinNonBlank(" ", rec.givenName, rec.familyName);
+        }
+        // Si les dates de mandat ne sont pas précisées dans le bloc individuel (ex: fichier de liste)
+        if (rec.endDate == null) {
+            rec.startDate = "2019-07-02";
+            rec.endDate = "2024-07-15";
         }
     }
 

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Ajout du provider LU-ETAT-PARTICIPATIONS et du parser lu_pep_state_enterprises
+    (Dirigeants des entreprises publiques : administrateurs, directeurs et commissaires du
+gouvernement)
+    et rattachement à la fonction PEP LU-g (Administrateur, directeur ou commissaire du gouvernement
+d'une entreprise publique = 20).
+-->
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="020-source-state-enterprises" author="swiftcheck">
+        <validCheckSum>ANY</validCheckSum>
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0"> SELECT COUNT(*) FROM pep_source WHERE name LIKE
+                '%participations de l''État%' </sqlCheck>
+        </preConditions>
+        <sql> INSERT INTO pep_source ( country_iso, name, url, parser_kind, licence, access, status,
+            notes ) VALUES ( 'LU', 'Trésorerie de l''État – Liste des participations de l''État',
+            'https://data.public.lu/fr/datasets/r/f3157e5d-7d22-413a-b3d3-39f5d45c3807',
+            'OPEN_DATA_FILE', 'Creative Commons Zero (CC0)', 'OPEN', 'CANDIDATE', 'Conseils
+            d''administration et comités de direction des entreprises publiques et participations
+            étatiques (LU-g)' ); INSERT INTO pep_function_source (function_id, source_id,
+            completeness, includes_former) SELECT 20, s.id, 'COMPLETE', FALSE FROM pep_source s
+            WHERE s.name LIKE '%participations de l''État%'; </sql>
+    </changeSet>
+
+    <changeSet id="020-provider-state-enterprises" author="swiftcheck">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0"> SELECT COUNT(*) FROM list_provider WHERE code =
+                'LU-ETAT-PARTICIPATIONS' </sqlCheck>
+        </preConditions>
+        <sql> INSERT INTO list_provider ( code, name, description, country_iso, list_type,
+            website_url, enabled, created_at ) VALUES ( 'LU-ETAT-PARTICIPATIONS', 'Participations de
+            l''État luxembourgeois', 'Trésorerie de l''État / Ministère des Finances – Conseils
+            d''administration et directions des entreprises publiques (LU-g)', 'LU', 'PEP',
+            'https://data.public.lu/fr/datasets/liste-des-participations-de-letat/', TRUE, NOW() ); </sql>
+    </changeSet>
+
+    <changeSet id="020-parser-state-enterprises" author="swiftcheck">
+        <validCheckSum>ANY</validCheckSum>
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0"> SELECT COUNT(*) FROM parser WHERE dataset_name =
+                'lu_pep_state_enterprises' </sqlCheck>
+        </preConditions>
+        <sql> INSERT INTO parser ( list_provider_id, source_id, name, description, dataset_name,
+            plugin_id, plugin_url, data_source_type, parser_kind, source_location, parameters,
+            refresh_hours, retention_months, licence, attribution, enabled, created_at ) SELECT
+            p.id, s.id, 'PEP Luxembourg – Dirigeants des entreprises publiques', 'Administrateurs,
+            directeurs généraux et commissaires du gouvernement des entreprises publiques et
+            participations de l''État (catégorie LU-g)', 'lu_pep_state_enterprises',
+            'lu-pep-state-enterprises', 'D:/test parser
+            2/plugins/swiftcheck-aml-lu-pep-state-enterprises-0.0.1-SNAPSHOT.jar', 'HTTP_FILE',
+            'OPEN_DATA_FILE',
+            'https://data.public.lu/fr/datasets/r/f3157e5d-7d22-413a-b3d3-39f5d45c3807',
+            '{"sourceUrl":
+            "https://data.public.lu/fr/datasets/liste-des-participations-de-letat/"}', 168, 60,
+            'Creative Commons Zero (CC0)', 'Trésorerie de l''État (Ministère des Finances) via
+            data.public.lu', TRUE, NOW() FROM list_provider p JOIN pep_source s ON s.name LIKE
+            '%participations de l''État%' WHERE p.code = 'LU-ETAT-PARTICIPATIONS'; INSERT INTO
+            parser_coverage (parser_id, function_id) SELECT p.id, 20 FROM parser p WHERE
+            p.dataset_name = 'lu_pep_state_enterprises'; </sql>
+    </changeSet>
+
+</databaseChangeLog>
