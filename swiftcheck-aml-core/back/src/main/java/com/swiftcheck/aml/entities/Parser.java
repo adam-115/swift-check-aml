@@ -99,32 +99,43 @@ public class Parser {
      */
     private int refreshHours;
 
-    /** Type de source (T1 à T7) : fichier open data, API, SPARQL, journal officiel, page web, PDF, registre. */
+    /**
+     * Type de source (T1 à T7) : fichier open data, API, SPARQL, journal officiel,
+     * page web, PDF, registre.
+     */
     @Enumerated(EnumType.STRING)
     private ParserKind parserKind;
 
     /**
-     * Mois pendant lesquels une entité disparue de la source reste publiée (voir {@link RetainedEntity}).
-     * 0 pour les sanctions : une radiation s'applique tout de suite. Au moins 12 pour les PEP.
+     * Mois pendant lesquels une entité disparue de la source reste publiée (voir
+     * {@link RetainedEntity}).
+     * 0 pour les sanctions : une radiation s'applique tout de suite. Au moins 12
+     * pour les PEP.
      */
     private int retentionMonths;
 
     /** Licence de la source, ex. « CC BY 4.0 ». */
     private String licence;
 
-    /** Mention à citer quand les données sont réutilisées, ex. « © Union européenne ». */
+    /**
+     * Mention à citer quand les données sont réutilisées, ex. « © Union européenne
+     * ».
+     */
     @Column(length = 1000)
     private String attribution;
 
-    /** Source PEP lue par ce parser (vide pour une liste de sanctions). Un parser lit une seule source. */
+    /**
+     * Source PEP lue par ce parser (vide pour une liste de sanctions). Un parser
+     * lit une seule source.
+     */
     @ManyToOne
     private PepSource source;
 
-    /** Fonctions PEP couvertes par ce parser : base de la page « Couverture PEP ». */
+    /**
+     * Fonctions PEP couvertes par ce parser : base de la page « Couverture PEP ».
+     */
     @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "parser_coverage",
-            joinColumns = @JoinColumn(name = "parser_id"),
-            inverseJoinColumns = @JoinColumn(name = "function_id"))
+    @JoinTable(name = "parser_coverage", joinColumns = @JoinColumn(name = "parser_id"), inverseJoinColumns = @JoinColumn(name = "function_id"))
     private Set<PepFunction> coveredFunctions = new HashSet<>();
 
     /**

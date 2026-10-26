@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    lu_pep_cssf : l'ancienne page https://www.cssf.lu/fr/gouvernance/ renvoie 404 et la nouvelle page de gouvernance
+    (https://www.cssf.lu/fr/gouvernance-cssf/) ne donne plus les fonctions de la Direction. La source devient le PDF
+    officiel « Liste des membres de la Direction », lu par le plugin avec PDFBox.
+-->
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="021-update-cssf-source" author="swiftcheck">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="1">
+                SELECT COUNT(*) FROM parser WHERE dataset_name = 'lu_pep_cssf'
+            </sqlCheck>
+        </preConditions>
+        <sql>
+            UPDATE parser
+               SET source_location = 'https://www.cssf.lu/wp-content/uploads/LM_DIRECTION.pdf',
+                   parameters = '{"sourceUrl": "https://www.cssf.lu/wp-content/uploads/LM_DIRECTION.pdf", "yearsAfterEnd": "5"}',
+                   parser_kind = 'PDF_DOCUMENT'
+             WHERE dataset_name = 'lu_pep_cssf';
+        </sql>
+    </changeSet>
+
+</databaseChangeLog>

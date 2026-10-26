@@ -145,6 +145,100 @@ class LuPepEuCommissionParserTest {
         }
     }
 
+    private static final String SCHMIT_URL = "https://commissioners.ec.europa.eu/nicolas-schmit_fr";
+
+    /** Parser dont les fiches d'archive sont lues dans les ressources de test (sans réseau). */
+    private LuPepEuCommissionParser offlineParser() {
+        return new LuPepEuCommissionParser(url -> {
+            if (!SCHMIT_URL.equals(url)) {
+                throw new java.io.IOException("HTTP 404 pour " + url);
+            }
+            return readFile(resource("/eu_commission/nicolas_schmit_archive.html"));
+        });
+    }
+
+    private Path resource(String name) {
+        try {
+            return Path.of(getClass().getResource(name).toURI());
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Test
+    @DisplayName("Fiche d'archive : nom, portefeuille, mandat et dates de la biographie")
+    void testParseArchivePage() {
+        var schmit = LuPepEuCommissionParser.parseArchivePage(
+                readFile(resource("/eu_commission/nicolas_schmit_archive.html")), SCHMIT_URL);
+
+        assertNotNull(schmit);
+        assertEquals("Nicolas Schmit", schmit.fullName());
+        assertEquals("nicolas-schmit", schmit.slug());
+        assertEquals("Emploi et droits sociaux", schmit.portfolio());
+        assertEquals("2019-12", schmit.startDate());
+        assertEquals("2024", schmit.endDate());
+        assertEquals("ended", schmit.status());
+        assertFalse(schmit.isPresident());
+        assertEquals(SCHMIT_URL, schmit.pageUrl());
+    }
+
+    @Test
+    @DisplayName("formerCommissionerPages : commissaire en fonction + ancien commissaire (2 Person, 1 Position, 2 Occupancy)")
+    void testFormerCommissionerPages() throws Exception {
+        Path outputFile = tempDir.resolve("eu.ndjson");
+        Path rawDir = tempDir.resolve("raw");
+        ParserContext ctx = new ParserContext("lu_pep_eu_commission", collegeHtml, rawDir, outputFile,
+                Map.of("yearsAfterEnd", "5", LuPepEuCommissionParser.PARAM_FORMER_PAGES, " " + SCHMIT_URL + "\n"));
+
+        ParserResult result = offlineParser().parse(ctx);
+
+        assertEquals(5, result.entityCount());
+        String ndjson = Files.readString(outputFile);
+        assertTrue(ndjson.contains("Nicolas Schmit"));
+        assertTrue(ndjson.contains("\"2019-12\""));
+        assertTrue(ndjson.contains("\"ended\""));
+        assertTrue(Files.exists(rawDir.resolve("former-nicolas-schmit.html")), "La fiche brute doit être gardée");
+    }
+
+    @Test
+    @DisplayName("Rétention : un ancien commissaire sorti depuis plus de N ans n'est pas publié")
+    void testFormerCommissionerOutOfRetention() throws Exception {
+        // Mandat terminé en 2024 : hors rétention si l'on ne garde que les fins postérieures au 1er janvier 2025
+        List<LuPepEuCommissionParser.CommissionerData> former =
+                offlineParser().formerCommissioners(List.of(SCHMIT_URL), LocalDate.of(2025, 1, 1), null);
+        assertTrue(former.isEmpty());
+
+        former = offlineParser().formerCommissioners(List.of(SCHMIT_URL), LocalDate.of(2024, 12, 31), null);
+        assertEquals(1, former.size());
+    }
+
+    @Test
+    @DisplayName("Une fiche d'archive inaccessible fait échouer l'exécution au lieu de retirer un PEP")
+    void testUnreachableFormerPageFails() {
+        assertThrows(java.io.IOException.class, () -> offlineParser().formerCommissioners(
+                List.of("https://commissioners.ec.europa.eu/inconnu_fr"), LocalDate.now().minusYears(5), null));
+    }
+
+    @Test
+    @DisplayName("formerCommissionerPages : lignes, virgules ou tableau JSON")
+    void testFormerPagesFormats() {
+        String a = "https://commissioners.ec.europa.eu/a_fr";
+        String b = "https://commissioners.ec.europa.eu/b_fr";
+        String key = LuPepEuCommissionParser.PARAM_FORMER_PAGES;
+        assertEquals(List.of(a, b), LuPepEuCommissionParser.formerPages(Map.of(key, a + "\n" + b)));
+        assertEquals(List.of(a, b), LuPepEuCommissionParser.formerPages(Map.of(key, a + ", " + b)));
+        assertEquals(List.of(a, b), LuPepEuCommissionParser.formerPages(Map.of(key, "[\"" + a + "\",\"" + b + "\"]")));
+        assertEquals(List.of(), LuPepEuCommissionParser.formerPages(Map.of()));
+    }
+
+    @Test
+    @DisplayName("Dates partielles : dernier jour couvert")
+    void testLastDayOf() {
+        assertEquals(LocalDate.of(2024, 12, 31), LuPepEuCommissionParser.lastDayOf("2024"));
+        assertEquals(LocalDate.of(2024, 11, 30), LuPepEuCommissionParser.lastDayOf("2024-11"));
+        assertEquals(LocalDate.of(2024, 11, 15), LuPepEuCommissionParser.lastDayOf("2024-11-15"));
+    }
+
     private static String readFile(Path file) {
         try {
             return Files.readString(file);

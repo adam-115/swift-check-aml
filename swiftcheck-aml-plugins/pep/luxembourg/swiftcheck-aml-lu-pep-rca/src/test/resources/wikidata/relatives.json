@@ -1,0 +1,2264 @@
+{
+  "head" : {
+    "vars" : [ "pep", "relationship", "relative", "relativeLabel", "relativeBirth", "birthPrecision", "relativeGender" ]
+  },
+  "results" : {
+    "bindings" : [ {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q57661"
+      },
+      "relative" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q24852087"
+      },
+      "relationship" : {
+        "type" : "literal",
+        "value" : "spouse"
+      },
+      "relativeGender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581072"
+      },
+      "relativeLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Christiane Frising"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q42864364"
+      },
+      "relative" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q50368558"
+      },
+      "relationship" : {
+        "type" : "literal",
+        "value" : "child"
+      },
+      "relativeGender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "relativeLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Pierre Weimerskirch"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q58200"
+      },
+      "relative" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q125088826"
+      },
+      "relationship" : {
+        "type" : "literal",
+        "value" : "spouse"
+      },
+      "relativeGender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581072"
+      },
+      "relativeLabel" : {
+        "xml:lang" : "lb",
+        "type" : "literal",
+        "value" : "Sylvie Huber"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q534798"
+      },
+      "relative" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q130515686"
+      },
+      "relationship" : {
+        "type" : "literal",
+        "value" : "mother"
+      },
+      "relativeGender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581072"
+      },
+      "relativeLabel" : {
+        "xml:lang" : "lb",
+        "type" : "literal",
+        "value" : "Léonie Bodry-Fohrman"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q13105242"
+      },
+      "relative" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q134460353"
+      },
+      "relationship" : {
+        "type" : "literal",
+        "value" : "spouse"
+      },
+      "relativeGender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "relativeLabel" : {
+        "xml:lang" : "lb",
+        "type" : "literal",
+        "value" : "Henry Welschbillig"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1384206"
+      },
+      "relative" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q139884381"
+      },
+      "relationship" : {
+        "type" : "literal",
+        "value" : "spouse"
+      },
+      "relativeGender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581072"
+      },
+      "relativeLabel" : {
+        "xml:lang" : "lb",
+        "type" : "literal",
+        "value" : "Mariette Hames"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q13103272"
+      },
+      "relative" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q140128605"
+      },
+      "relationship" : {
+        "type" : "literal",
+        "value" : "child"
+      },
+      "relativeGender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581072"
+      },
+      "relativeLabel" : {
+        "xml:lang" : "lb",
+        "type" : "literal",
+        "value" : "Mylène Regenwetter"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q13103272"
+      },
+      "relative" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q140128664"
+      },
+      "relationship" : {
+        "type" : "literal",
+        "value" : "spouse"
+      },
+      "relativeGender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581072"
+      },
+      "relativeLabel" : {
+        "xml:lang" : "lb",
+        "type" : "literal",
+        "value" : "Carine Hirtz"
+      }
+    }, {
+      "relative" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q16004"
+      },
+      "relativeBirth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1955-04-16T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q161319"
+      },
+      "relationship" : {
+        "type" : "literal",
+        "value" : "father"
+      },
+      "relativeGender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "relativeLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Henri de Luxembourg"
+      }
+    }, {
+      "relative" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q16004"
+      },
+      "relativeBirth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1955-04-16T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2188802"
+      },
+      "relationship" : {
+        "type" : "literal",
+        "value" : "sibling"
+      },
+      "relativeGender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "relativeLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Henri de Luxembourg"
+      }
+    }, {
+      "relative" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q16004"
+      },
+      "relativeBirth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1955-04-16T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q230644"
+      },
+      "relationship" : {
+        "type" : "literal",
+        "value" : "spouse"
+      },
+      "relativeGender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "relativeLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Henri de Luxembourg"
+      }
+    }, {
+      "relative" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q39659"
+      },
+      "relativeBirth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1937-05-18T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q7147587"
+      },
+      "relationship" : {
+        "type" : "literal",
+        "value" : "father"
+      },
+      "relativeGender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "relativeLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Jacques Santer"
+      }
+    }, {
+      "relative" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q144205"
+      },
+      "relativeBirth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1937-06-25T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q16439160"
+      },
+      "relationship" : {
+        "type" : "literal",
+        "value" : "father"
+      },
+      "relativeGender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "relativeLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Ben Fayot"
+      }
+    }, {
+      "relative" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q161319"
+      },
+      "relativeBirth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1981-11-11T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q16004"
+      },
+      "relationship" : {
+        "type" : "literal",
+        "value" : "child"
+      },
+      "relativeGender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "relativeLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Guillaume V, Grand Duc de Luxembourg"
+      }
+    }, {
+      "relative" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q161319"
+      },
+      "relativeBirth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1981-11-11T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q230644"
+      },
+      "relationship" : {
+        "type" : "literal",
+        "value" : "child"
+      },
+      "relativeGender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "relativeLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Guillaume V, Grand Duc de Luxembourg"
+      }
+    }, {
+      "relative" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q230644"
+      },
+      "relativeBirth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1956-03-22T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q161319"
+      },
+      "relationship" : {
+        "type" : "literal",
+        "value" : "mother"
+      },
+      "relativeGender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581072"
+      },
+      "relativeLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "María Teresa Mestre"
+      }
+    }, {
+      "relative" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q230644"
+      },
+      "relativeBirth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1956-03-22T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q16004"
+      },
+      "relationship" : {
+        "type" : "literal",
+        "value" : "spouse"
+      },
+      "relativeGender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581072"
+      },
+      "relativeLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "María Teresa Mestre"
+      }
+    }, {
+      "relative" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q235154"
+      },
+      "relativeBirth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1984-02-18T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q161319"
+      },
+      "relationship" : {
+        "type" : "literal",
+        "value" : "spouse"
+      },
+      "relativeGender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581072"
+      },
+      "relativeLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Stéphanie de Lannoy"
+      }
+    }, {
+      "relative" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q316797"
+      },
+      "relativeBirth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1984-06-03T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q16004"
+      },
+      "relationship" : {
+        "type" : "literal",
+        "value" : "child"
+      },
+      "relativeGender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "relativeLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Félix de Luxembourg"
+      }
+    }, {
+      "relative" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q316797"
+      },
+      "relativeBirth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1984-06-03T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q230644"
+      },
+      "relationship" : {
+        "type" : "literal",
+        "value" : "child"
+      },
+      "relativeGender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "relativeLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Félix de Luxembourg"
+      }
+    }, {
+      "relative" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q316797"
+      },
+      "relativeBirth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1984-06-03T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q161319"
+      },
+      "relationship" : {
+        "type" : "literal",
+        "value" : "sibling"
+      },
+      "relativeGender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "relativeLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Félix de Luxembourg"
+      }
+    }, {
+      "relative" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q475386"
+      },
+      "relativeBirth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1946-12-06T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q16439580"
+      },
+      "relationship" : {
+        "type" : "literal",
+        "value" : "sibling"
+      },
+      "relativeGender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "relativeLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Serge Kollwelter"
+      }
+    }, {
+      "relative" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q618634"
+      },
+      "relativeBirth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1986-08-03T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q16004"
+      },
+      "relationship" : {
+        "type" : "literal",
+        "value" : "child"
+      },
+      "relativeGender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "relativeLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Louis de Luxembourg"
+      }
+    }, {
+      "relative" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q618634"
+      },
+      "relativeBirth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1986-08-03T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q230644"
+      },
+      "relationship" : {
+        "type" : "literal",
+        "value" : "child"
+      },
+      "relativeGender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "relativeLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Louis de Luxembourg"
+      }
+    }, {
+      "relative" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q618634"
+      },
+      "relativeBirth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1986-08-03T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q161319"
+      },
+      "relationship" : {
+        "type" : "literal",
+        "value" : "sibling"
+      },
+      "relativeGender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "relativeLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Louis de Luxembourg"
+      }
+    }, {
+      "relative" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q619598"
+      },
+      "relativeBirth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1991-02-16T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q16004"
+      },
+      "relationship" : {
+        "type" : "literal",
+        "value" : "child"
+      },
+      "relativeGender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581072"
+      },
+      "relativeLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Alexandra de Luxembourg"
+      }
+    }, {
+      "relative" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q619598"
+      },
+      "relativeBirth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1991-02-16T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q230644"
+      },
+      "relationship" : {
+        "type" : "literal",
+        "value" : "child"
+      },
+      "relativeGender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581072"
+      },
+      "relativeLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Alexandra de Luxembourg"
+      }
+    }, {
+      "relative" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q619598"
+      },
+      "relativeBirth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1991-02-16T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q161319"
+      },
+      "relationship" : {
+        "type" : "literal",
+        "value" : "sibling"
+      },
+      "relativeGender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581072"
+      },
+      "relativeLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Alexandra de Luxembourg"
+      }
+    }, {
+      "relative" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q619855"
+      },
+      "relativeBirth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1992-04-16T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q16004"
+      },
+      "relationship" : {
+        "type" : "literal",
+        "value" : "child"
+      },
+      "relativeGender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "relativeLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Sébastien de Luxembourg"
+      }
+    }, {
+      "relative" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q619855"
+      },
+      "relativeBirth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1992-04-17T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q16004"
+      },
+      "relationship" : {
+        "type" : "literal",
+        "value" : "child"
+      },
+      "relativeGender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "relativeLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Sébastien de Luxembourg"
+      }
+    }, {
+      "relative" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q619855"
+      },
+      "relativeBirth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1992-04-16T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q230644"
+      },
+      "relationship" : {
+        "type" : "literal",
+        "value" : "child"
+      },
+      "relativeGender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "relativeLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Sébastien de Luxembourg"
+      }
+    }, {
+      "relative" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q619855"
+      },
+      "relativeBirth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1992-04-17T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q230644"
+      },
+      "relationship" : {
+        "type" : "literal",
+        "value" : "child"
+      },
+      "relativeGender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "relativeLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Sébastien de Luxembourg"
+      }
+    }, {
+      "relative" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q619855"
+      },
+      "relativeBirth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1992-04-16T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q161319"
+      },
+      "relationship" : {
+        "type" : "literal",
+        "value" : "sibling"
+      },
+      "relativeGender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "relativeLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Sébastien de Luxembourg"
+      }
+    }, {
+      "relative" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q619855"
+      },
+      "relativeBirth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1992-04-17T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q161319"
+      },
+      "relationship" : {
+        "type" : "literal",
+        "value" : "sibling"
+      },
+      "relativeGender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "relativeLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Sébastien de Luxembourg"
+      }
+    }, {
+      "relative" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q646338"
+      },
+      "relativeBirth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1963-05-01T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q16004"
+      },
+      "relationship" : {
+        "type" : "literal",
+        "value" : "sibling"
+      },
+      "relativeGender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "relativeLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Guillaume de Nassau"
+      }
+    }, {
+      "relative" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q646338"
+      },
+      "relativeBirth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1963-05-01T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2188802"
+      },
+      "relationship" : {
+        "type" : "literal",
+        "value" : "sibling"
+      },
+      "relativeGender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "relativeLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Guillaume de Nassau"
+      }
+    }, {
+      "relative" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1653603"
+      },
+      "relativeBirth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1957-05-15T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q16004"
+      },
+      "relationship" : {
+        "type" : "literal",
+        "value" : "sibling"
+      },
+      "relativeGender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581072"
+      },
+      "relativeLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Margaretha de Luxembourg"
+      }
+    }, {
+      "relative" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1653603"
+      },
+      "relativeBirth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1957-05-15T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2188802"
+      },
+      "relationship" : {
+        "type" : "literal",
+        "value" : "sibling"
+      },
+      "relativeGender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581072"
+      },
+      "relativeLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Margaretha de Luxembourg"
+      }
+    }, {
+      "relative" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1657677"
+      },
+      "relativeBirth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1954-02-17T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q16004"
+      },
+      "relationship" : {
+        "type" : "literal",
+        "value" : "sibling"
+      },
+      "relativeGender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581072"
+      },
+      "relativeLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Marie-Astrid de Luxembourg"
+      }
+    }, {
+      "relative" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1657677"
+      },
+      "relativeBirth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1954-02-17T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2188802"
+      },
+      "relationship" : {
+        "type" : "literal",
+        "value" : "sibling"
+      },
+      "relativeGender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581072"
+      },
+      "relativeLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Marie-Astrid de Luxembourg"
+      }
+    }, {
+      "relative" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1685833"
+      },
+      "relativeBirth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1930-09-09T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6755887"
+      },
+      "relationship" : {
+        "type" : "literal",
+        "value" : "father"
+      },
+      "relativeGender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "relativeLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Jean Spautz"
+      }
+    }, {
+      "relative" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2188802"
+      },
+      "relativeBirth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1957-05-15T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q16004"
+      },
+      "relationship" : {
+        "type" : "literal",
+        "value" : "sibling"
+      },
+      "relativeGender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "relativeLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Jean de Nassau"
+      }
+    }, {
+      "relative" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2741931"
+      },
+      "relativeBirth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1948-04-19T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q17350584"
+      },
+      "relationship" : {
+        "type" : "literal",
+        "value" : "father"
+      },
+      "relativeGender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "relativeLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Michel Foret"
+      }
+    }, {
+      "relative" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2978289"
+      },
+      "relativeBirth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1960-01-30T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q64034615"
+      },
+      "relationship" : {
+        "type" : "literal",
+        "value" : "spouse"
+      },
+      "relativeGender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "relativeLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Claude Wiseler"
+      }
+    }, {
+      "relative" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3866853"
+      },
+      "relativeBirth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1949-04-09T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q106476317"
+      },
+      "relationship" : {
+        "type" : "literal",
+        "value" : "father"
+      },
+      "relativeGender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "relativeLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Marcel Oberweis"
+      }
+    }, {
+      "relative" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q13102265"
+      },
+      "relativeBirth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1967-11-03T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q468021"
+      },
+      "relationship" : {
+        "type" : "literal",
+        "value" : "child"
+      },
+      "relativeGender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581072"
+      },
+      "relativeLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Danielle Hennicot"
+      }
+    }, {
+      "relative" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q13103063"
+      },
+      "relativeBirth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1952-04-15T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q451696"
+      },
+      "relationship" : {
+        "type" : "literal",
+        "value" : "spouse"
+      },
+      "relativeGender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "relativeLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Hubert Wurth"
+      }
+    }, {
+      "relative" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q13103305"
+      },
+      "relativeBirth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1958-01-18T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q13103001"
+      },
+      "relationship" : {
+        "type" : "literal",
+        "value" : "sibling"
+      },
+      "relativeGender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "relativeLabel" : {
+        "xml:lang" : "lb",
+        "type" : "literal",
+        "value" : "Jo Kox"
+      }
+    }, {
+      "relative" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q13103765"
+      },
+      "relativeBirth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1933-06-22T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q20558102"
+      },
+      "relationship" : {
+        "type" : "literal",
+        "value" : "father"
+      },
+      "relativeGender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "relativeLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Lex Roth"
+      }
+    }, {
+      "relative" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q13104542"
+      },
+      "relativeBirth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1971-02-16T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q13103272"
+      },
+      "relationship" : {
+        "type" : "literal",
+        "value" : "child"
+      },
+      "relativeGender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581072"
+      },
+      "relativeLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Peggy Regenwetter"
+      }
+    }, {
+      "relative" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q16231428"
+      },
+      "relativeBirth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1986-09-08T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2188802"
+      },
+      "relationship" : {
+        "type" : "literal",
+        "value" : "child"
+      },
+      "relativeGender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581072"
+      },
+      "relativeLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Marie-Gabrielle de Nassau"
+      }
+    }, {
+      "relative" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q16440284"
+      },
+      "relativeBirth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1984-03-02T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q42864364"
+      },
+      "relationship" : {
+        "type" : "literal",
+        "value" : "child"
+      },
+      "relativeGender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "relativeLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Michel Weimerskirch"
+      }
+    }, {
+      "relative" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q26727169"
+      },
+      "relativeBirth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1988-07-22T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2188802"
+      },
+      "relationship" : {
+        "type" : "literal",
+        "value" : "child"
+      },
+      "relativeGender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "relativeLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Constantin de Nassau"
+      }
+    }, {
+      "relative" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q26785721"
+      },
+      "relativeBirth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1992-08-15T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2188802"
+      },
+      "relationship" : {
+        "type" : "literal",
+        "value" : "child"
+      },
+      "relativeGender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "relativeLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Carl-Johann de Nassau"
+      }
+    }, {
+      "relative" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q26815141"
+      },
+      "relativeBirth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1990-11-17T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2188802"
+      },
+      "relationship" : {
+        "type" : "literal",
+        "value" : "child"
+      },
+      "relativeGender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "relativeLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Wenceslas de Nassau"
+      }
+    }, {
+      "relative" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q30069025"
+      },
+      "relativeBirth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1979-09-21T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q561213"
+      },
+      "relationship" : {
+        "type" : "literal",
+        "value" : "spouse"
+      },
+      "relativeGender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "relativeLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Gauthier Destenay"
+      }
+    }, {
+      "relative" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q33109705"
+      },
+      "relativeBirth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1958-05-31T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2188802"
+      },
+      "relationship" : {
+        "type" : "literal",
+        "value" : "spouse"
+      },
+      "relativeGender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581072"
+      },
+      "relativeLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Hélène Vestur"
+      }
+    }, {
+      "relative" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q55719684"
+      },
+      "relativeBirth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1948-04-23T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q204094"
+      },
+      "relationship" : {
+        "type" : "literal",
+        "value" : "spouse"
+      },
+      "relativeGender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581072"
+      },
+      "relativeLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Sylvie Bintz"
+      }
+    }, {
+      "relative" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q55719690"
+      },
+      "relativeBirth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1978-02-09T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q204094"
+      },
+      "relationship" : {
+        "type" : "literal",
+        "value" : "child"
+      },
+      "relativeGender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581072"
+      },
+      "relativeLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Anja Di Bartolomeo"
+      }
+    }, {
+      "relative" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q56678359"
+      },
+      "relativeBirth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1926-01-01T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "9"
+      },
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q230644"
+      },
+      "relationship" : {
+        "type" : "literal",
+        "value" : "father"
+      },
+      "relativeGender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "relativeLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "José Antonio Mestre"
+      }
+    }, {
+      "relative" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q64034615"
+      },
+      "relativeBirth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1961-12-29T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2978289"
+      },
+      "relationship" : {
+        "type" : "literal",
+        "value" : "spouse"
+      },
+      "relativeGender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581072"
+      },
+      "relativeLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Isabel Wiseler-Santos Lima"
+      }
+    }, {
+      "relative" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q65320486"
+      },
+      "relativeBirth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1954-08-09T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q59497129"
+      },
+      "relationship" : {
+        "type" : "literal",
+        "value" : "father"
+      },
+      "relativeGender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "relativeLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "André Hartmann"
+      }
+    }, {
+      "relative" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q76323743"
+      },
+      "relativeBirth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1962-01-01T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "9"
+      },
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2188802"
+      },
+      "relationship" : {
+        "type" : "literal",
+        "value" : "spouse"
+      },
+      "relativeGender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581072"
+      },
+      "relativeLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Diane de Guerre"
+      }
+    }, {
+      "relative" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q93839274"
+      },
+      "relativeBirth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2020-05-10T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q161319"
+      },
+      "relationship" : {
+        "type" : "literal",
+        "value" : "child"
+      },
+      "relativeGender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "relativeLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Charles de Luxembourg"
+      }
+    }, {
+      "relative" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q106476317"
+      },
+      "relativeBirth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1983-02-20T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3866853"
+      },
+      "relationship" : {
+        "type" : "literal",
+        "value" : "child"
+      },
+      "relativeGender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581072"
+      },
+      "relativeLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Nathalie Oberweis"
+      }
+    }, {
+      "relative" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q110463413"
+      },
+      "relativeBirth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1956-06-19T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q51919412"
+      },
+      "relationship" : {
+        "type" : "literal",
+        "value" : "sibling"
+      },
+      "relativeGender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "relativeLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Jean-Claude Bintz"
+      }
+    }, {
+      "relative" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q110600993"
+      },
+      "relativeBirth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1968-05-14T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q51919412"
+      },
+      "relationship" : {
+        "type" : "literal",
+        "value" : "sibling"
+      },
+      "relativeGender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581072"
+      },
+      "relativeLabel" : {
+        "xml:lang" : "lb",
+        "type" : "literal",
+        "value" : "Brigitte Bintz"
+      }
+    }, {
+      "relative" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q117312939"
+      },
+      "relativeBirth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2023-03-27T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q161319"
+      },
+      "relationship" : {
+        "type" : "literal",
+        "value" : "child"
+      },
+      "relativeGender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "relativeLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "François de Luxembourg"
+      }
+    }, {
+      "relative" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q118629484"
+      },
+      "relativeBirth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1992-01-01T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "9"
+      },
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q16439160"
+      },
+      "relationship" : {
+        "type" : "literal",
+        "value" : "spouse"
+      },
+      "relativeGender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581072"
+      },
+      "relativeLabel" : {
+        "xml:lang" : "lb",
+        "type" : "literal",
+        "value" : "Kelsey Toedter"
+      }
+    }, {
+      "relative" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q119718477"
+      },
+      "relativeBirth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1982-07-06T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q13105242"
+      },
+      "relationship" : {
+        "type" : "literal",
+        "value" : "spouse"
+      },
+      "relativeGender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581072"
+      },
+      "relativeLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Barbara Agostino"
+      }
+    }, {
+      "relative" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q122889754"
+      },
+      "relativeBirth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1960-06-30T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q7651954"
+      },
+      "relationship" : {
+        "type" : "literal",
+        "value" : "father"
+      },
+      "relativeGender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "relativeLabel" : {
+        "xml:lang" : "lb",
+        "type" : "literal",
+        "value" : "Pascal Clement"
+      }
+    }, {
+      "relative" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q123002867"
+      },
+      "relativeBirth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1996-09-29T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q15275462"
+      },
+      "relationship" : {
+        "type" : "literal",
+        "value" : "child"
+      },
+      "relativeGender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581072"
+      },
+      "relativeLabel" : {
+        "xml:lang" : "lb",
+        "type" : "literal",
+        "value" : "Liz Braz"
+      }
+    }, {
+      "relative" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q139881882"
+      },
+      "relativeBirth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1986-11-25T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1384206"
+      },
+      "relationship" : {
+        "type" : "literal",
+        "value" : "spouse"
+      },
+      "relativeGender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581072"
+      },
+      "relativeLabel" : {
+        "xml:lang" : "lb",
+        "type" : "literal",
+        "value" : "Nadine Braconnier"
+      }
+    } ]
+  }
+}

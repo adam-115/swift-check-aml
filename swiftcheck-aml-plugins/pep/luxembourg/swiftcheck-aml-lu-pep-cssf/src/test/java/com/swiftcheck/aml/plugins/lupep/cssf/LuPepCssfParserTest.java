@@ -20,6 +20,62 @@ class LuPepCssfParserTest {
 
     private final LuPepCssfParser parser = new LuPepCssfParser();
 
+    /** PDF officiel « Liste des membres de la Direction » (cssf.lu, version du 1er septembre 2026). */
+    private static final Path PDF = Path.of("src/test/resources/LM_DIRECTION.pdf");
+
+    @Test
+    void testExtractOfficialsFromPdf() throws Exception {
+        assertThat(LuPepCssfParser.isPdfFile(PDF)).isTrue();
+        assertThat(LuPepCssfParser.isPdfFile(Path.of("src/test/resources/gouvernance.html"))).isFalse();
+
+        List<LuPepCssfParser.CssfOfficialRecord> list = LuPepCssfParser.extractFromPdf(PDF);
+
+        assertThat(list).extracting(m -> m.fullName + " | " + m.roleDescription).containsExactlyInAnyOrder(
+                "Claude Marx | Directeur général",
+                "Jean-Pierre Faber | Directeur",
+                "Marco Zwick | Directeur",
+                "Claude Wampach | Directeur",
+                "Pascale Toussing | Directeur");
+
+        LuPepCssfParser.CssfOfficialRecord faber = list.stream()
+                .filter(m -> m.fullName.contains("Faber")).findFirst().orElseThrow();
+        assertThat(faber.firstName).isEqualTo("Jean-Pierre");
+        assertThat(faber.lastName).isEqualTo("Faber");
+    }
+
+    @Test
+    void testParseFromPdf(@TempDir Path tempDir) throws Exception {
+        Path outputFile = tempDir.resolve("result.ndjson");
+        Path rawDir = tempDir.resolve("raw");
+        Files.createDirectories(rawDir);
+
+        ParserContext ctx = new ParserContext("lu_pep_cssf", PDF, rawDir, outputFile,
+                Map.of("sourceLocation", LuPepCssfParser.DEFAULT_SOURCE_URL, "yearsAfterEnd", "5"));
+
+        ParserResult res = parser.parse(ctx);
+        assertThat(res.entityCount()).isEqualTo(1 + 5 + 5); // 1 Position + 5 Persons + 5 Occupancies
+        assertThat(Files.readString(outputFile))
+                .contains("Claude Marx")
+                .contains("Directeur général")
+                .contains(LuPepCssfParser.DEFAULT_SOURCE_URL);
+    }
+
+    @Test
+    void testCapitalizeName() {
+        assertThat(LuPepCssfParser.capitalizeName("MARX")).isEqualTo("Marx");
+        assertThat(LuPepCssfParser.capitalizeName("WEBER-MÜLLER")).isEqualTo("Weber-Müller");
+        assertThat(LuPepCssfParser.capitalizeName("DE LA FONTAINE")).isEqualTo("De La Fontaine");
+    }
+
+    @Test
+    void testParseDirectionTextLineLayouts() {
+        // Nom et fonction sur la même ligne, ou sur deux lignes
+        String text = "Direction/Executive Board/Vorstand\nClaude MARX\nDirecteur général\nJean-Pierre FABER Directeur\n";
+        assertThat(LuPepCssfParser.parseDirectionText(text))
+                .extracting(m -> m.fullName + " | " + m.roleDescription)
+                .containsExactly("Claude Marx | Directeur général", "Jean-Pierre Faber | Directeur");
+    }
+
     @Test
     void testExtractOfficialsFromHtml() throws Exception {
         Path htmlPath = Path.of("src/test/resources/gouvernance.html");

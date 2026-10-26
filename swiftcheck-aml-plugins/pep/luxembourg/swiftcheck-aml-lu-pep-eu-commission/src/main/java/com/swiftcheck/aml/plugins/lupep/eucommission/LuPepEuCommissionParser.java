@@ -3,10 +3,15 @@ package com.swiftcheck.aml.plugins.lupep.eucommission;
 import static com.swiftcheck.aml.sdk.TextUtils.joinNonBlank;
 
 import java.io.IOException;
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.text.Normalizer;
+import java.time.Duration;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -80,7 +85,50 @@ public class LuPepEuCommissionParser implements Iparser {
     private static final Pattern META_TITLE_PATTERN = Pattern.compile(
             "(?i)<meta[^>]+property=[\"']og:title[\"'][^>]+content=[\"']([^\"']+)[\"']");
 
+    /**
+     * Paramètre : fiches d'archive des anciens commissaires luxembourgeois (une URL par ligne, ou séparées par des
+     * espaces ou des virgules), ex. {@code https://commissioners.ec.europa.eu/nicolas-schmit_fr}. La page du
+     * collège ne liste que les commissaires en fonction : sans ces fiches, un ancien commissaire encore dans la
+     * période de rétention disparaîtrait.
+     */
+    static final String PARAM_FORMER_PAGES = "formerCommissionerPages";
 
+    /** Rôle et mandat d'une fiche d'archive : « COMMISSAIRE (2019-2024) », « PRÉSIDENT (2014-2019) ». */
+    private static final Pattern ARCHIVE_ROLE = Pattern.compile(
+            "(?i)^((?:VICE-)?PR[ÉE]SIDENTE?|COMMISSAIRE)[^(]*\\((\\d{4})\\s*[-–]\\s*(\\d{4})\\)$");
+
+    /** Période de la biographie : « Décembre 2019 - 2024 », « Novembre 2014 - octobre 2019 », « 2009 - 2013 ». */
+    private static final Pattern ARCHIVE_PERIOD = Pattern.compile(
+            "(?i)^(?:(\\p{L}+)\\s+)?(\\d{4})\\s*[-–]\\s*(?:(\\p{L}+)\\s+)?(\\d{4})$");
+
+    private static final List<String> FRENCH_MONTHS = List.of("janvier", "février", "mars", "avril", "mai", "juin",
+            "juillet", "août", "septembre", "octobre", "novembre", "décembre");
+
+    private final PageFetcher fetcher;
+
+    public LuPepEuCommissionParser() {
+        HttpClient http = HttpClient.newBuilder()
+                .connectTimeout(Duration.ofSeconds(10))
+                .followRedirects(HttpClient.Redirect.NORMAL)
+                .build();
+        this.fetcher = url -> {
+            HttpRequest request = HttpRequest.newBuilder(URI.create(url))
+                    .timeout(Duration.ofSeconds(30))
+                    .header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) SwiftCheck-AML/1.0")
+                    .GET()
+                    .build();
+            HttpResponse<String> response = http.send(request, HttpResponse.BodyHandlers.ofString(StandardCharsets.UTF_8));
+            if (response.statusCode() != 200) {
+                throw new IOException("HTTP " + response.statusCode() + " pour " + url);
+            }
+            return response.body();
+        };
+    }
+
+    /** Pour les tests : pages lues sans réseau. */
+    LuPepEuCommissionParser(PageFetcher fetcher) {
+        this.fetcher = fetcher;
+    }
 
     @Override
     public ParserResult parse(ParserContext ctx) throws Exception {
@@ -92,7 +140,7 @@ public class LuPepEuCommissionParser implements Iparser {
         log.info("Analyse de la Commission européenne (rétention : {} ans, URL dynamique : {})",
                 parseYearsAfterEnd(ctx.parameters()), sourceUrl);
 
-        convert(sourceFile(ctx), oldestEndDate, sourceUrl, dataset);
+        convert(sourceFile(ctx), oldestEndDate, sourceUrl, formerPages(ctx.parameters()), ctx.rawDir(), dataset);
         dataset.writeNdjsonFile(ctx.outputFile());
         return dataset.toConversionResult();
     }
@@ -104,7 +152,7 @@ public class LuPepEuCommissionParser implements Iparser {
         LocalDate oldestEndDate = oldestEndDate(ctx.parameters(), LocalDate.now());
         String sourceUrl = resolveSourceUrl(ctx);
 
-        convert(sourceFile(ctx), oldestEndDate, sourceUrl, dataset);
+        convert(sourceFile(ctx), oldestEndDate, sourceUrl, formerPages(ctx.parameters()), ctx.rawDir(), dataset);
 
         List<SourceRecord> records = new ArrayList<>();
         for (FtmEntity entity : dataset.entities()) {
@@ -120,8 +168,18 @@ public class LuPepEuCommissionParser implements Iparser {
      * Lit le fichier HTML (page du collège ou page individuelle) et convertit les commissaires retenus.
      */
     void convert(Path html, LocalDate oldestEndDate, String sourceUrl, FtmDatasetBuilder dataset) throws Exception {
+        convert(html, oldestEndDate, sourceUrl, List.of(), null, dataset);
+    }
+
+    /**
+     * Commissaires en fonction (page du collège) et anciens commissaires (fiches d'archive {@code formerPages}),
+     * dans la limite de la rétention.
+     */
+    void convert(Path html, LocalDate oldestEndDate, String sourceUrl, List<String> formerPages, Path rawDir,
+                 FtmDatasetBuilder dataset) throws Exception {
         String content = Files.readString(html, StandardCharsets.UTF_8);
-        List<CommissionerData> commissioners = extractCommissioners(content, sourceUrl, oldestEndDate);
+        List<CommissionerData> commissioners = new ArrayList<>(extractCommissioners(content, sourceUrl, oldestEndDate));
+        commissioners.addAll(formerCommissioners(formerPages, oldestEndDate, rawDir));
 
         if (commissioners.isEmpty()) {
             throw new IllegalStateException("Aucun commissaire européen luxembourgeois trouvé dans " + html);
@@ -171,7 +229,7 @@ public class LuPepEuCommissionParser implements Iparser {
                             nameParts[1],
                             null,
                             desc,
-                            LocalDate.of(2024, 12, 1),
+                            "2024-12-01",
                             null, // Actif dans le collège affiché
                             "current",
                             fullLink,
@@ -226,7 +284,7 @@ public class LuPepEuCommissionParser implements Iparser {
         }
 
         String[] nameParts = splitFirstLastName(title);
-        LocalDate startDate = LocalDate.of(2024, 12, 1);
+        String startDate = "2024-12-01";
         boolean isPres = desc != null && desc.toLowerCase(Locale.ROOT).contains("président");
 
         return new CommissionerData(
@@ -244,14 +302,134 @@ public class LuPepEuCommissionParser implements Iparser {
         );
     }
 
-    private static boolean isEligible(LocalDate endDate, LocalDate oldestEndDate) {
-        if (endDate == null) {
+    /**
+     * URLs du paramètre {@value #PARAM_FORMER_PAGES}, séparées par des retours à la ligne, espaces ou virgules.
+     * Un tableau JSON ({@code ["url1", "url2"]}, transmis tel quel par le core) est aussi accepté.
+     */
+    static List<String> formerPages(Map<String, String> parameters) {
+        String value = parameters == null ? null : parameters.get(PARAM_FORMER_PAGES);
+        if (value == null || value.isBlank()) {
+            return List.of();
+        }
+        return java.util.Arrays.stream(value.split("[\\s,;\\[\\]\"]+")).filter(s -> !s.isBlank()).distinct().toList();
+    }
+
+    /**
+     * Télécharge et lit chaque fiche d'archive. Une fiche illisible fait échouer l'exécution : publier sans elle
+     * retirerait un PEP de la liste.
+     */
+    List<CommissionerData> formerCommissioners(List<String> pages, LocalDate oldestEndDate, Path rawDir)
+            throws IOException, InterruptedException {
+        List<CommissionerData> result = new ArrayList<>();
+        for (String url : pages) {
+            String html = fetcher.fetch(url);
+            CommissionerData former = parseArchivePage(html, url);
+            if (former == null) {
+                throw new IllegalStateException("Fiche d'ancien commissaire illisible (nom ou mandat introuvable) : " + url);
+            }
+            if (rawDir != null) {
+                Files.createDirectories(rawDir);
+                Files.writeString(rawDir.resolve("former-" + former.slug() + ".html"), html, StandardCharsets.UTF_8);
+            }
+            if (isEligible(former.endDate(), oldestEndDate)) {
+                result.add(former);
+            } else {
+                log.info("Ancien commissaire {} hors rétention (fin {}) : non publié", former.fullName(), former.endDate());
+            }
+        }
+        return result;
+    }
+
+    /**
+     * Lit une fiche d'archive (commissioners.ec.europa.eu) : nom ({@code og:title}), portefeuille (meta description),
+     * rôle et mandat (« COMMISSAIRE (2019-2024) »), et dates précises de la biographie (« Décembre 2019 - 2024 »,
+     * première période suivie de « Commissaire » ou « Président »). Null si le nom ou le mandat manque.
+     */
+    static CommissionerData parseArchivePage(String html, String pageUrl) {
+        String name = extractFirstMatch(html, META_TITLE_PATTERN);
+        if (name == null || name.isBlank()) {
+            return null;
+        }
+        name = decodeEntities(name).trim();
+        String portfolio = extractFirstMatch(html, META_DESC_PATTERN);
+
+        List<String> lines = textLines(html);
+        Matcher role = null;
+        for (String line : lines) {
+            Matcher m = ARCHIVE_ROLE.matcher(line);
+            if (m.matches()) {
+                role = m;
+                break;
+            }
+        }
+        if (role == null) {
+            return null;
+        }
+        boolean isPresident = role.group(1).toUpperCase(Locale.ROOT).matches("PR[ÉE]SIDENTE?");
+        String start = role.group(2);
+        String end = role.group(3);
+
+        // Dates plus précises dans la biographie : la période dont la ligne suivante décrit le mandat
+        for (int i = 0; i + 1 < lines.size(); i++) {
+            Matcher p = ARCHIVE_PERIOD.matcher(lines.get(i));
+            String next = lines.get(i + 1).toLowerCase(Locale.ROOT);
+            if (p.matches() && (next.startsWith("commissaire") || next.contains("président de la commission")
+                    || next.startsWith("vice-président"))) {
+                start = partialDate(p.group(2), p.group(1));
+                end = partialDate(p.group(4), p.group(3));
+                break;
+            }
+        }
+
+        String[] parts = splitFirstLastName(name);
+        return new CommissionerData(slug(name), name, parts[0], parts[1], null,
+                portfolio == null ? null : decodeEntities(portfolio).trim(), start, end, "ended", pageUrl, isPresident);
+    }
+
+    /** « 2019 » + « Décembre » → « 2019-12 » ; sans mois reconnu → « 2019 ». */
+    private static String partialDate(String year, String month) {
+        int idx = month == null ? -1 : FRENCH_MONTHS.indexOf(month.toLowerCase(Locale.ROOT));
+        return idx < 0 ? year : String.format("%s-%02d", year, idx + 1);
+    }
+
+    /** Texte de la page, une ligne par bloc, sans scripts ni styles. */
+    private static List<String> textLines(String html) {
+        String text = html.replaceAll("(?is)<(script|style)[^>]*>.*?</\\1>", " ").replaceAll("<[^>]+>", "\n");
+        return java.util.Arrays.stream(decodeEntities(text).split("\\R"))
+                .map(s -> s.replace(' ', ' ').replaceAll("\\s+", " ").trim())
+                .filter(s -> !s.isEmpty())
+                .toList();
+    }
+
+    private static String decodeEntities(String s) {
+        return s.replace("&nbsp;", " ").replace("&#039;", "'").replace("&#39;", "'").replace("&rsquo;", "’")
+                .replace("&quot;", "\"").replace("&amp;", "&");
+    }
+
+    /**
+     * Vrai si le mandat est en cours ou terminé depuis moins que la durée de rétention. Une date de fin partielle
+     * compte jusqu'au dernier jour de sa période ({@code 2024} → 31/12/2024, {@code 2024-11} → 30/11/2024).
+     */
+    static boolean isEligible(String endDate, LocalDate oldestEndDate) {
+        if (endDate == null || endDate.isBlank()) {
             return true; // En fonction
         }
         if (oldestEndDate == null) {
             return true; // Rétention infinie
         }
-        return !endDate.isBefore(oldestEndDate);
+        return !lastDayOf(endDate).isBefore(oldestEndDate);
+    }
+
+    /** Dernier jour couvert par une date FtM complète ou partielle. */
+    static LocalDate lastDayOf(String ftmDate) {
+        String[] p = ftmDate.trim().split("-");
+        int year = Integer.parseInt(p[0]);
+        if (p.length == 1) {
+            return LocalDate.of(year, 12, 31);
+        }
+        LocalDate firstOfMonth = LocalDate.of(year, Integer.parseInt(p[1]), 1);
+        return p.length == 2 ? firstOfMonth.withDayOfMonth(firstOfMonth.lengthOfMonth())
+                : firstOfMonth.withDayOfMonth(Integer.parseInt(p[2]));
     }
 
     private void convertCommissioner(CommissionerData c, String sourceUrl, FtmDatasetBuilder dataset) {
@@ -284,10 +462,10 @@ public class LuPepEuCommissionParser implements Iparser {
         occupancy.addValue("holder", person.getId());
         occupancy.addValue("post", position.getId());
         if (c.startDate() != null) {
-            occupancy.addValue("startDate", c.startDate().toString());
+            occupancy.addValue("startDate", c.startDate());
         }
         if (c.endDate() != null) {
-            occupancy.addValue("endDate", c.endDate().toString());
+            occupancy.addValue("endDate", c.endDate());
         }
         occupancy.addValue("status", c.status());
         if (c.portfolio() != null && !c.portfolio().isBlank()) {
@@ -373,7 +551,8 @@ public class LuPepEuCommissionParser implements Iparser {
     }
 
     /**
-     * Données d'un commissaire extrait.
+     * Données d'un commissaire extrait. Les dates sont au format FtM, éventuellement partielles
+     * ({@code 2019-12-01}, {@code 2019-12} ou {@code 2024}) : une fiche d'archive ne donne que le mois et l'année.
      */
     record CommissionerData(
             String slug,
@@ -382,10 +561,16 @@ public class LuPepEuCommissionParser implements Iparser {
             String lastName,
             String birthDate,
             String portfolio,
-            LocalDate startDate,
-            LocalDate endDate,
+            String startDate,
+            String endDate,
             String status,
             String pageUrl,
             boolean isPresident) {
+    }
+
+    /** Téléchargement d'une page (remplaçable dans les tests). */
+    @FunctionalInterface
+    interface PageFetcher {
+        String fetch(String url) throws IOException, InterruptedException;
     }
 }

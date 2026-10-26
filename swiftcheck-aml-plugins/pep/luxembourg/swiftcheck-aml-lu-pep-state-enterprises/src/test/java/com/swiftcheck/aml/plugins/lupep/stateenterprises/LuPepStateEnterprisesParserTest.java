@@ -111,6 +111,9 @@ class LuPepStateEnterprisesParserTest {
         for (FtmEntity occ : occs) {
             assertThat(occ.getValues("post")).contains(positions.get(0).getId());
             assertThat(occ.getValues("holder")).isNotEmpty();
+            // « role » n'existe pas dans le schéma FtM Occupancy : le contrôle qualité du core le rejette
+            assertThat(occ.getValues("role")).as("Occupancy ne doit pas avoir la propriété 'role'").isEmpty();
+            assertThat(occ.getValues("description")).isNotEmpty();
         }
     }
 

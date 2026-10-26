@@ -162,7 +162,8 @@ public class LuPepInternationalOrgsParser implements Iparser {
             FtmEntity occupancy = dataset.newEntity("Occupancy", occKey);
             occupancy.addValue("holder", dataset.buildEntityId("Person", personSlug));
             occupancy.addValue("post", position.getId());
-            occupancy.addValue("role", leader.role + " (" + leader.organization + ")");
+            // FtM : Occupancy n'a pas de propriété « role » (rejetée par le contrôle qualité) ; la fonction va dans description
+            occupancy.addValue("description", leader.role + " (" + leader.organization + ")");
             occupancy.addValue("status", "current");
             if (leader.startDate != null) {
                 occupancy.addValue("startDate", leader.startDate.format(DATE_FMT));

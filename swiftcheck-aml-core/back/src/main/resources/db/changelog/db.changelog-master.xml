@@ -25,5 +25,8 @@
     <include file="db/changelog/changes/018-seed-international-orgs.xml" />
     <include file="db/changelog/changes/019-seed-political-parties.xml" />
     <include file="db/changelog/changes/020-seed-state-enterprises.xml" />
+    <include file="db/changelog/changes/021-update-cssf-source.xml" />
+    <include file="db/changelog/changes/022-eu-commission-former-commissioners.xml" />
+    <include file="db/changelog/changes/023-seed-rca.xml" />
 
 </databaseChangeLog>

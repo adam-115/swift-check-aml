@@ -1,0 +1,5509 @@
+{
+  "head" : {
+    "vars" : [ "pep", "pepLabel", "positions" ]
+  },
+  "results" : {
+    "bindings" : [ {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q104184313"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Thierry Schuman"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "bourgmestre | conseiller d'État"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q105103298"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Simone Massard-Stitz"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "échevin | bourgmestre"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q104619111"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Charles Moris"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "bourgmestre"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q104619151"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Charles-Théodore Bernard"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "bourgmestre"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q104619189"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Jean-Paul Guillaume"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "bourgmestre"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q104621316"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Nicolas Jüttel"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "bourgmestre"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q104621354"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Jean-Baptiste Nicolas Marchand"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "bourgmestre"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q104621392"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Emmanuel François"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "bourgmestre"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q104818028"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Nico Simon"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "bourgmestre"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q104818144"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "John Elsen"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "bourgmestre"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q104818304"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Armand Olinger"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "bourgmestre"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q104818496"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Paul Engel"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "bourgmestre"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q104831213"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Charles Metzler"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "bourgmestre"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q104831259"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Nicolas Metzler"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "bourgmestre"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q104831335"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Peter Metzler"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "bourgmestre"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q104831403"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Jean-Nicolas Arend"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "bourgmestre"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q104831485"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Johann Müller"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "bourgmestre"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q104831610"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Edmond Kerschen"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "bourgmestre"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q104831619"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Nic Arend"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "bourgmestre"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q104831634"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Eugène Dondlinger"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "bourgmestre"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q104831638"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Henri Franck"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "bourgmestre"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q105016862"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Fernand Heyart"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "bourgmestre"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q105016990"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Marc Gergen"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "bourgmestre"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q105094625"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Jean-Marie Wirth"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "bourgmestre"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q105103138"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Michel Altmann"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "bourgmestre"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q105103164"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Jean Weicker"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "bourgmestre"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q105103181"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Nicolas Mousel"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "bourgmestre"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q105103190"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Mathias Mousel"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "bourgmestre"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q105103198"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Emile Fischer"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "bourgmestre"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q105103204"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Jacques Mousel"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "bourgmestre"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q105103215"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Jean Mousel"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "bourgmestre"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q105103231"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Nicolas Birkel"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "bourgmestre"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q105103228"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Pierre Hentzen"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "bourgmestre"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q105103240"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Emile Hentzen"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "bourgmestre"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q105103245"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Joseph Reichling"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "bourgmestre"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q105103252"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Pierre Birkel"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "bourgmestre"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q105103257"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Josy Gardulal"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "bourgmestre"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q105103260"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Henri Majerus"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "bourgmestre"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q105103267"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Pierre Schmitt"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "bourgmestre"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q105103276"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Alphonse Massard"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "bourgmestre"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q105103283"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Charles Unsen"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "bourgmestre"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q105103291"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "John Breuskin"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "bourgmestre"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q105117822"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Nikolaus Klensch"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "bourgmestre"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q105118002"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Johann Metzler"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "bourgmestre"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q105118184"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Jean-Pierre Steffen"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "bourgmestre"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q105118251"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Franz Walter"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "bourgmestre"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q105118327"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Arthur Daubenfeld"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "bourgmestre"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q105320326"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Nico Pundel"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "bourgmestre"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q110158745"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Dan Biancalana"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "député | bourgmestre"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q110243319"
+      },
+      "pepLabel" : {
+        "xml:lang" : "lb",
+        "type" : "literal",
+        "value" : "Jessie Thill"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "député"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q110837815"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Carlo Weber"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "député"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q112146024"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Claude Thill"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "bourgmestre"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q116329037"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Stéphanie Weydert"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "bourgmestre"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q116329359"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Monique Smit-Thijs"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "bourgmestre"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q116329665"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Fernand Marchetti"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "bourgmestre"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q117212896"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Bob Bintz"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "bourgmestre"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q123003793"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Luc Emering"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "échevin | député"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q123010128"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Ben Polidori"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "député"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q123011805"
+      },
+      "pepLabel" : {
+        "xml:lang" : "lb",
+        "type" : "literal",
+        "value" : "Charles Weiler"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "député | bourgmestre"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q124512571"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Louis Pinto"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "bourgmestre"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q123459991"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Stéphanie Obertin"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "ministre de la Digitalisation | ministre de l'Enseignement supérieur et de la Recherche | Minister Delegate for Digitalisation"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q124788795"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Marco Koeune"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "bourgmestre"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q124820202"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Jean-Paul Zeimes"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "bourgmestre"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q127382535"
+      },
+      "pepLabel" : {
+        "xml:lang" : "lb",
+        "type" : "literal",
+        "value" : "Dan Hardy"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "député"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q130295448"
+      },
+      "pepLabel" : {
+        "xml:lang" : "lb",
+        "type" : "literal",
+        "value" : "Sonia Fischer-Fantini"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "bourgmestre"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q130468119"
+      },
+      "pepLabel" : {
+        "xml:lang" : "lb",
+        "type" : "literal",
+        "value" : "Alex Penning"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "conseiller d'État"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q107875"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Klaus-Dieter Fritsche"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "secrétaire d'État"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q118496"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Gaston Reinesch"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "gouverneur de la banque centrale du Luxembourg"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q12155944"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Martine Hansen"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "député | ministre de l’Agriculture, de la Viticulture et du Développement rural"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q13101525"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "André Bauler"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "député"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q13101707"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Ben Scheuer"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "député"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q13102005"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Camille Weiler"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "député | bourgmestre"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q13102261"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Dan Kersch"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "député | vice-Premier ministre du Luxembourg | ministre des Sports | ministre du Travail"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q13102331"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Diane Adehm"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "député"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q13102568"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Fernand Etgen"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "député | président de la Chambre des députés"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q13102837"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Gilles Roth"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "député | bourgmestre | ministre des Finances"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q13102905"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Guy Arendt"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "député"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q13103196"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Jean-Paul Schaaf"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "député | bourgmestre"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q13103272"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Jean Regenwetter"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "député"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q13103816"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Lucien Clement"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "député"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q13101438"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Albert Huberty"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "bourgmestre"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q13102779"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Georges Engel"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "bourgmestre | député | ministre des Sports | ministre du Travail"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q13103347"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Jos Scheuer"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "bourgmestre"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q13103716"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Laurent Zeimet"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "bourgmestre"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q13103872"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Léon Gloden"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "bourgmestre | député"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q13102086"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Charles Lampers"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "conseiller d'État"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q13102089"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Charles Ruppert"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "conseiller d'État"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q68702808"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Léon Flammang"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "député | Member vun der Assemblée consultative vun 1945"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q57661"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Jean-Claude Juncker"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "député"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q69522972"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Semiray Ahmedova"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "député"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q58200"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Jean Asselborn"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "président de la Chambre des députés | ministre des Affaires étrangères et européennes | Minister of Immigration and Asylum"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q70336395"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "André Schmit"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "bourgmestre"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q70336575"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Camille Pletschette"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "bourgmestre"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q70336753"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Marc Schmitz"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "bourgmestre"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q70365919"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Jos Lutgen"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "bourgmestre"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q592101"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Luc Frieden"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "Premier ministre du Luxembourg"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q451696"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Lydie Polfer"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "député | vice-Premier ministre du Luxembourg"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q468021"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Erna Hennicot-Schoepges"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "député"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q470807"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Jean-Marie Halsdorf"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "député | bourgmestre"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q534798"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Alex Bodry"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "député | conseiller d'État"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q561213"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Xavier Bettel"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "député | vice-Premier ministre du Luxembourg | Premier ministre du Luxembourg | ministre des Cultes | ministre des Communications et des Médias | ministre d'État | ministre de la Digitalisation | Minister for Administrative Reform"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q639734"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Fernand Kartheiser"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "député"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2158240"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Robert Mehlen"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "député"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2572168"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Théo Stendebach"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "député"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2977816"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Claude Meisch"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "député | ministre de l'Éducation nationale, de l'Enfance et de la Jeunesse | ministre de l'Enseignement supérieur et de la Recherche"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3083923"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "François Bausch"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "député | vice-Premier ministre du Luxembourg | ministre de la Défense | ministre de la Mobilité et des Travaux publics"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3131230"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Henri Grethen"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "député"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q230644"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "María Teresa Mestre"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "consort du Luxembourg"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3246650"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Marc Fischbach"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "député"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2188802"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Jean de Nassau"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "conseiller d'État"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3866853"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Marcel Oberweis"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "député"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4724923"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Ali Kaes"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "député | bourgmestre"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4705680"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Alain Meyer"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "conseiller d'État"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6169914"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Jean-Pierre Klein"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "député | bourgmestre"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6707666"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Lydia Mutsch"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "député"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6755887"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Marc Spautz"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "député"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q7050323"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Norbert Haupert"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "député"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6286864"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Joseph Schaack"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "conseiller d'État"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6756217"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Marcel Sauber"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "conseiller d'État"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q20574083"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Alain Kinsch"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "conseiller d'État"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q23010250"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Michel Malherbe"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "bourgmestre"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q25584361"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Guillaume Jeitz"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "député"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q25583419"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Dan Theisen"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "conseiller d'État"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q25583521"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Héloïse Bock"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "conseiller d'État"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q25583615"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Marc Colas"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "conseiller d'État"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q25583825"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Isabelle Schlesser"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "conseiller d'État"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q29346234"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Fred Keup"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "député"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q30085948"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Georges Fohl"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "bourgmestre"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q31734710"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Paul Galles"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "député"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q31735506"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Pierre Even"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "député | bourgmestre"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q31735530"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Henri Rinnen"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "bourgmestre"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q42864364"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Paul Weimerskirch"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "bourgmestre"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q47456186"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Frank Colabianchi"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "député | bourgmestre"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q50827272"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Guy Pettinger"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "bourgmestre"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q51919412"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Simone Asselborn-Bintz"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "échevin | député"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q52558879"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Véronique Stoffel"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "conseiller d'État"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q57399136"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "François Benoy"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "député"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q59392374"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Stéphanie Empain"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "député"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q59497129"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Carole Hartmann"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "député"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q59498855"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Djuna Bernard"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "député"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q59518104"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Marc Hansen"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "député"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q60175871"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Vincent Reding"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "bourgmestre"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q59458810"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Martine Lamesch"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "conseiller d'État"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q62032092"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "François Sauber"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "bourgmestre"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q62129097"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Yves Wagener"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "conseiller d'État"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q64034615"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Isabel Wiseler-Santos Lima"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "échevin"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q64590433"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Jean Antoine Philippart"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "bourgmestre"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q64590444"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Jean Nieles"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "bourgmestre"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q64686759"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Gaby Frantzen-Heger"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "bourgmestre"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q64686878"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Camille Hoffmann"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "bourgmestre"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q64784894"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Marcel Blau"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "bourgmestre"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q64784932"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Jean Pierre Meintz"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "bourgmestre"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q64811232"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Edith Jeitz"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "bourgmestre"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q64811341"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "André Poorters"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "bourgmestre"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q64811388"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Marcel Bausch"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "bourgmestre"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q66122078"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Josy Konz"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "bourgmestre"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q66202590"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Henri Schroell"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "bourgmestre"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q66438020"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Fränk Daems"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "bourgmestre"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q66438343"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Danièle Wagner"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "bourgmestre"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q67585153"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Emil Bohnenberger"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "député"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q67586048"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "André Brucher"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "député"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q67587550"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Charles-Antoine d'Olimart"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "député"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q67588061"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Hubert Dasselborn"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "député"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q67652562"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Jacques Diederich"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "député"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q67656248"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Joseph Eyschen"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "député"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q67734647"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Michel Fallis"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "député"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q67735092"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Marcel Feller"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "député"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q132540000"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Carole Weigel"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "bourgmestre"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q204094"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Mars Di Bartolomeo"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "député"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1495571"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Gaston Gibéryen"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "échevin"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1337164"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Emile Calmes"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "député | bourgmestre"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1383541"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Roy Reding"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "député"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1384206"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Michel Wolter"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "député | bourgmestre"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1406496"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Fernand Diederich"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "député | bourgmestre"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1316224"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Marc Schaefer"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "bourgmestre | conseiller d'État"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1677875"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Jacques-Yves Henckes"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "député"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1685440"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Jean Colombera"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "député"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1920283"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Nancy Arendt"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "député"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q13104180"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Monique Hermes"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "échevin | bourgmestre"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q13105385"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Viviane Loschetter"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "échevin"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q13104841"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Robert Weber"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "député"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q13105042"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Simone Beissel"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "député"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q13105458"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Yves Cruchten"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "député"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q13104349"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Nicolas Hout"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "bourgmestre"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q13104363"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Nicolas Welsch"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "bourgmestre"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q13104924"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Sammy Wagner"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "bourgmestre"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q13105242"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Tilly Metz"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "bourgmestre"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q13105251"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Toni Rodesch"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "bourgmestre"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q13104099"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Max Hahn"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "ministre de la Famille et de l'Intégration | ministre à la Grande Région | député"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q13104060"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Martine Deprez"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "ministre de la Santé | conseiller d'État"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q13104327"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Nico Edon"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "conseiller d'État"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q13104358"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Nicolas Schmit"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "conseiller d'État"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q13104401"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Numa Wagner"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "conseiller d'État"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q15621632"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Maggy Nagel"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "échevin"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q15275462"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Félix Braz"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "député"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q15127317"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Efthýmios Christodoúlou"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "ministre de l'Économie"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q15629005"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Corinne Cahen"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "député | ministre de la Famille et de l'Intégration | ministre à la Grande Région"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q16439318"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Gusty Graas"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "échevin | député"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q16439415"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Françoise Hetto"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "échevin"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q16439723"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Josée Lorsché"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "échevin | député"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q16440237"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Roberto Traversini"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "échevin"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q16764511"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Dagmar Reuter-Angelsberg"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "échevin | député"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q16438871"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Gilles Baum"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "député"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q16438991"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Tess Burton"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "député"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q16439020"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Francine Closener"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "député"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q16439108"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Agnès Durdu"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "député | bourgmestre | conseiller d'État"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q16439120"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Emile Eicher"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "député | bourgmestre"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q16439121"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Félix Eischen"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "député"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q16439254"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Robert Garcia"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "député"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q16439327"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Fernand Greisen"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "député"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q16439392"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Cécile Hemmen"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "député"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q16439580"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "René Kollwelter"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "député"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q16439645"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Claude Lamberty"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "député"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q16439698"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Marc Lies"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "député"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q16439708"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Nico Loes"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "député"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q16439769"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Charles Margue"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "député"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q16440028"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Jean-Paul Rippinger"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "député"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q16440141"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Marco Schroell"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "député"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q16440313"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Raymond Weydert"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "député | bourgmestre"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q16440329"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Serge Wilmes"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "député | ministre de la Fonction publique"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q16438835"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Fränk Arndt"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "bourgmestre"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q16438947"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Claude Bicheler"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "bourgmestre"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q16438970"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Claude Bosseler"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "bourgmestre"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q16438986"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Marianne Brosius-Kolber"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "bourgmestre"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q16439326"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Henri Greisch"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "bourgmestre"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q16439363"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Pascale Hansen"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "bourgmestre"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q16439495"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Tom Jungen"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "bourgmestre"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q16439821"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Edy Mertens"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "bourgmestre"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q16440131"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Roland Schreiner"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "bourgmestre"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q16763106"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Jean-Pierre Dichter"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "député | bourgmestre"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q16763603"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Jean Geisbusch"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "député"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q16763623"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Marc Goergen"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "député"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q16763922"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Françoise Kuffer"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "député"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q17350584"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Gilles Foret"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "échevin"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q16736021"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Ady Hahn"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "bourgmestre"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q16439719"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Lydie Lorang"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "conseiller d'État"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q16440090"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Christophe Schiltz"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "conseiller d'État | président du Conseil d'État"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q16440172"
+      },
+      "pepLabel" : {
+        "xml:lang" : "lb",
+        "type" : "literal",
+        "value" : "Jean-Pierre Sinner"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "conseiller d'État"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q16440347"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Georges Wivenes"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "conseiller d'État"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q16763991"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Émile Lefort"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "conseiller d'État"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q20558102"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Romi Roth"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "député"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q20558504"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Claude Halsdorf"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "député"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q20559028"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Jo Meyers"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "député"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q20559280"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Roger Klein"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "député | bourgmestre"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q20558737"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Jean Schiltz"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "bourgmestre"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q20559010"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Henri Mausen"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "bourgmestre"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q20559126"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Jeannot Nies"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "conseiller d'État"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q20559404"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Marc Thewes"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "conseiller d'État | président du Conseil d'État"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q72290357"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "David Viaggi"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "bourgmestre"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q72378390"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "René Schummer"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "bourgmestre"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q74811717"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Serge Hoffmann"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "bourgmestre"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q74812443"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Jérôme Laurent"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "bourgmestre"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q74813097"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Aloyse Kuhn"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "bourgmestre"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q76971905"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Eric Thill"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "ministre de la Culture | Delegéierte Minister fir Tourismus | bourgmestre"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q78612033"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Carlo Kütten"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "bourgmestre"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q78612357"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Joseph Johanns"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "bourgmestre"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q79028157"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Jean Wirion"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "bourgmestre"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q79028360"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Pia Flammang-Risch"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "bourgmestre"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q79393008"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Manon Bei-Roller"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "bourgmestre"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q83499466"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Pierre-Marc Knaff"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "échevin | député"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q83047697"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Claude Tonino"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "bourgmestre"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q84769638"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Romain Adam"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "échevin | bourgmestre"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q84146802"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Gaby Leytem-Wantz"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "bourgmestre"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q84146968"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Gaston Greiveldinger"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "bourgmestre"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q84607955"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Jacquot Heinen"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "bourgmestre"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q84607962"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Romain Wester"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "bourgmestre"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q84769574"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Jean Ewen"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "bourgmestre"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q84957419"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Francine Colling-Kahn"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "bourgmestre"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q84957486"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Romain Reitz"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "bourgmestre"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q92279890"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Christine Schweich"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "bourgmestre"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q92751486"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Nicolas Linckels"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "bourgmestre"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q93431226"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Michel Gloden"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "bourgmestre"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q94253465"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Jean-Baptiste Kayl"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "bourgmestre"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q94253470"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Nicolas Bornong"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "bourgmestre"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q94253478"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Jean Schmit"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "bourgmestre"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q94253481"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Jean Wester"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "bourgmestre"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q94256296"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Henri Hosch"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "bourgmestre"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q94440705"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "André Kirschten"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "bourgmestre"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q94575854"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Jean-Luc Schleich"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "bourgmestre"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q94575899"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Andrée Henx-Greischer"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "bourgmestre"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q94576629"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Marie-Anne Mousel-Schmit"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "bourgmestre"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q94576683"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Joseph Heisbourg"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "bourgmestre"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q95146474"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Fernand Mergen"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "bourgmestre"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q92437804"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Yuriko Backes"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "Ministre de l'Égalité des genres et de la Diversité | ministre des Finances | ministre de la Défense | ministre de la Mobilité et des Travaux publics"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q96053362"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Claude Gleis"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "bourgmestre"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q96053708"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "François Dahm"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "bourgmestre"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q96053760"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Louis Leider"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "bourgmestre"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q96053798"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Jean-Pierre Leider"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "bourgmestre"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q96054009"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Nicolas Lux"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "bourgmestre"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q96054145"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Martin Conrad"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "bourgmestre"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q96054232"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Laurent Thilges"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "bourgmestre"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q96054276"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Sébastien Conzémius"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "bourgmestre"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q96250808"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Marcel Thommes"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "bourgmestre"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q98097337"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Charles Pauly"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "échevin"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q98413478"
+      },
+      "pepLabel" : {
+        "xml:lang" : "lb",
+        "type" : "literal",
+        "value" : "Patrick Goldschmidt"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "échevin"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q98056008"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Thierry Lagoda"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "bourgmestre"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q98222619"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Jean Klein"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "bourgmestre"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q98222633"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Jean Conrad"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "bourgmestre"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q98222671"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Gaspar Arensdorff"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "bourgmestre"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q98222784"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Jean Jaas"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "bourgmestre"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q98222925"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Nicolas Grund"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "bourgmestre"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q98223005"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Hubert Olinger"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "bourgmestre"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q98223161"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Nicolas Frisch"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "bourgmestre"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q99753762"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Steve Thull"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "chef d'état-major de l'Armée"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q104366243"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Jean Thill"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "bourgmestre"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q104366702"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Mathias Heinen"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "bourgmestre"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q136482158"
+      },
+      "pepLabel" : {
+        "xml:lang" : "lb",
+        "type" : "literal",
+        "value" : "Franz Erpelding"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "député"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q136525877"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Auguste Collart"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "député"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q136696467"
+      },
+      "pepLabel" : {
+        "xml:lang" : "lb",
+        "type" : "literal",
+        "value" : "Jean-Pierre Heuardt (Schrondweiler)"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "député | bourgmestre"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q136698398"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Michel Lemaire"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "député"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q137127034"
+      },
+      "pepLabel" : {
+        "xml:lang" : "lb",
+        "type" : "literal",
+        "value" : "René Moes"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "échevin"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q136445179"
+      },
+      "pepLabel" : {
+        "xml:lang" : "lb",
+        "type" : "literal",
+        "value" : "Claude Marson"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "bourgmestre"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q137050013"
+      },
+      "pepLabel" : {
+        "xml:lang" : "lb",
+        "type" : "literal",
+        "value" : "Augustin Lampach"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "député"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q137127014"
+      },
+      "pepLabel" : {
+        "xml:lang" : "lb",
+        "type" : "literal",
+        "value" : "Jean-Baptiste Krack"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "bourgmestre"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q137325227"
+      },
+      "pepLabel" : {
+        "xml:lang" : "lb",
+        "type" : "literal",
+        "value" : "Jean-Jacques Knepper"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "bourgmestre"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q137325231"
+      },
+      "pepLabel" : {
+        "xml:lang" : "lb",
+        "type" : "literal",
+        "value" : "Paul Goedert"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "bourgmestre"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q137375508"
+      },
+      "pepLabel" : {
+        "xml:lang" : "lb",
+        "type" : "literal",
+        "value" : "Henri Becker"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "bourgmestre"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q137375513"
+      },
+      "pepLabel" : {
+        "xml:lang" : "lb",
+        "type" : "literal",
+        "value" : "Nicolas Reiser"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "bourgmestre"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q137456378"
+      },
+      "pepLabel" : {
+        "xml:lang" : "lb",
+        "type" : "literal",
+        "value" : "Mathias Braun"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "bourgmestre"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q137618322"
+      },
+      "pepLabel" : {
+        "xml:lang" : "lb",
+        "type" : "literal",
+        "value" : "Albert Lentz"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "bourgmestre"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q137618958"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Martin Weiss"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "bourgmestre"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q137619122"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Guillaume Stolz"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "bourgmestre"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q137620088"
+      },
+      "pepLabel" : {
+        "xml:lang" : "lb",
+        "type" : "literal",
+        "value" : "Michel Kieffer"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "bourgmestre"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q93635"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Amel Ćosić"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "échevin"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q138665519"
+      },
+      "pepLabel" : {
+        "xml:lang" : "lb",
+        "type" : "literal",
+        "value" : "Dominique Peckels"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "député | bourgmestre"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q138784332"
+      },
+      "pepLabel" : {
+        "xml:lang" : "lb",
+        "type" : "literal",
+        "value" : "Arnould Schaack"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "député"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q138784416"
+      },
+      "pepLabel" : {
+        "xml:lang" : "lb",
+        "type" : "literal",
+        "value" : "Joseph-Antoine Schanus"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "député"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q728060"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Laurent Mosar"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "député"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q978868"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Lucien Lux"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "député | bourgmestre | conseiller d'État"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q138464895"
+      },
+      "pepLabel" : {
+        "xml:lang" : "lb",
+        "type" : "literal",
+        "value" : "Lynn Frank"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "conseiller d'État"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q137292968"
+      },
+      "pepLabel" : {
+        "xml:lang" : "lb",
+        "type" : "literal",
+        "value" : "Jean Lutgen"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "Member vun der Assemblée consultative vun 1945"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q161319"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Guillaume V, Grand Duc de Luxembourg"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "Monarch vu Lëtzebuerg | grand-duc héritier de Luxembourg | conseiller d'État"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q7076803"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Octavie Modert"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "député"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q7192358"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Pierre Mellina"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "bourgmestre"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q7651954"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Sven Clement"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "député"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q7189143"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Pierre Mores"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "conseiller d'État"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q13104002"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Marc Hansen"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "député | ministre aux Relations avec le Parlement | ministre de la Fonction publique | Minister Delegate for Digitalisation | Minister Delegate for Administrative Reform"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q13103001"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Henri Kox"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "ministre de la Sécurité intérieure | ministre du Logement"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q13104925"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Sam Tanson"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "ministre de la Justice | ministre de la Culture"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q16004"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Henri de Luxembourg"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "Monarch vu Lëtzebuerg"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q16438964"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Taina Bofferding"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "ministre de l’Égalité entre les femmes et les hommes | ministre de l'Intérieur"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q13680517"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Claude Haagen"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "député | ministre de l’Agriculture, de la Viticulture et du Développement rural | ministre de la Sécurité sociale"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q15275863"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Carole Dieschbourg"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "ministre de l’Environnement, du Climat et du Développement durable"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q16439160"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Franz Fayot"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "ministre de l'Économie | ministre de la Coopération et de l’Action humanitaire"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q15614932"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Pierre Gramegna"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "ministre des Finances"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q16439061"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Lex Delles"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "ministre des Classes moyennes | ministre du Tourisme"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q111876982"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Elisabeth Margue"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "député | ministre de la Justice"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q111805735"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Joëlle Welfring"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "ministre de l’Environnement, du Climat et du Développement durable | député"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1097204"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Claude Turmes"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "ministre de l’Environnement, du Climat et du Développement durable | ministre de l'Énergie et de l'Aménagement du territoire"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q235866"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Viviane Reding"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "député"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2978289"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Claude Wiseler"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "député"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3247154"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Romain Schneider"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "ministre de l’Agriculture, de la Viticulture et du Développement rural | ministre de la Sécurité sociale"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q42446631"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Georges Mischo"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "député | ministre des Sports | ministre du Travail"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q72378810"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Diane Feipel"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "bourgmestre"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q79447196"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Deidre Du Bois"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "conseiller d'État"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q7147587"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Patrick Santer"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "conseiller d'État"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q56460787"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Christophe Hansen"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "député"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q57543643"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Jeff Engelen"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "député"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q59498801"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Carlo Back"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "député"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q59465834"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Paulette Lenert"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "vice-Premier ministre du Luxembourg | ministre de la Protection des consommateurs | ministre de la Santé | Minister Delegate of Social Security"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q66438302"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "René Michels"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "bourgmestre"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q69522486"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Chantal Gary"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "député"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q106476317"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Nathalie Oberweis"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "député"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q106507896"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Myriam Cecchetti"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "député"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q124649032"
+      },
+      "pepLabel" : {
+        "xml:lang" : "lb",
+        "type" : "literal",
+        "value" : "Luc Feller"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "échevin"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q138048208"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Mireille Welter"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "échevin"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q138464897"
+      },
+      "pepLabel" : {
+        "xml:lang" : "lb",
+        "type" : "literal",
+        "value" : "Georges Kohn"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "conseiller d'État"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q141733364"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Claude Daman"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "bourgmestre"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q13102284"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "David Wagner"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "député"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q72378660"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Nicolas Schroeder"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "député"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q91651508"
+      },
+      "pepLabel" : {
+        "xml:lang" : "lb",
+        "type" : "literal",
+        "value" : "Alexandra Schoos"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "député"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q123529389"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Nathalie Morgenthaler"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "député"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q138772221"
+      },
+      "pepLabel" : {
+        "xml:lang" : "lb",
+        "type" : "literal",
+        "value" : "Michel Auguste Witry"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "député"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q138786393"
+      },
+      "pepLabel" : {
+        "xml:lang" : "lb",
+        "type" : "literal",
+        "value" : "Jean-Pierre Schmit"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "député"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q138786418"
+      },
+      "pepLabel" : {
+        "xml:lang" : "lb",
+        "type" : "literal",
+        "value" : "Nicolas Schmit"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "député"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q138793125"
+      },
+      "pepLabel" : {
+        "xml:lang" : "lb",
+        "type" : "literal",
+        "value" : "Jean Steichen"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "député"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q138795768"
+      },
+      "pepLabel" : {
+        "xml:lang" : "lb",
+        "type" : "literal",
+        "value" : "Edouard Thieles"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "député"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q138795774"
+      },
+      "pepLabel" : {
+        "xml:lang" : "lb",
+        "type" : "literal",
+        "value" : "Joseph Thieles"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "député"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q138795781"
+      },
+      "pepLabel" : {
+        "xml:lang" : "lb",
+        "type" : "literal",
+        "value" : "Michel Thieles"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "député"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q138795797"
+      },
+      "pepLabel" : {
+        "xml:lang" : "lb",
+        "type" : "literal",
+        "value" : "Marthe Thyes-Walch"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "député"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q139039944"
+      },
+      "pepLabel" : {
+        "xml:lang" : "lb",
+        "type" : "literal",
+        "value" : "Alfred Velter"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "député"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q139040011"
+      },
+      "pepLabel" : {
+        "xml:lang" : "lb",
+        "type" : "literal",
+        "value" : "Guillaume Velter"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "député"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q139040251"
+      },
+      "pepLabel" : {
+        "xml:lang" : "lb",
+        "type" : "literal",
+        "value" : "Mathias Wawer"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "député | bourgmestre"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q139040513"
+      },
+      "pepLabel" : {
+        "xml:lang" : "lb",
+        "type" : "literal",
+        "value" : "Charles Wolff"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "député"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q139040531"
+      },
+      "pepLabel" : {
+        "xml:lang" : "lb",
+        "type" : "literal",
+        "value" : "Victor-Charles-Janus Wolff"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "député"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q138873670"
+      },
+      "pepLabel" : {
+        "xml:lang" : "lb",
+        "type" : "literal",
+        "value" : "Annie Nickels-Theis"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "bourgmestre"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q140149435"
+      },
+      "pepLabel" : {
+        "xml:lang" : "lb",
+        "type" : "literal",
+        "value" : "Ben Streff"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "député"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q141048625"
+      },
+      "pepLabel" : {
+        "xml:lang" : "lb",
+        "type" : "literal",
+        "value" : "Ana Correia da Veiga"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "député"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1788392"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Lydia Nsekera"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "ministre des Sports"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q141753872"
+      },
+      "pepLabel" : {
+        "type" : "literal",
+        "value" : "Q141753872"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "conseiller d'État"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q141756105"
+      },
+      "pepLabel" : {
+        "xml:lang" : "lb",
+        "type" : "literal",
+        "value" : "Maximilien Lehnen"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "conseiller d'État"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q16763597"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Gary Diderich"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "député"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q16439833"
+      },
+      "pepLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Marc Meyers"
+      },
+      "positions" : {
+        "type" : "literal",
+        "value" : "conseiller d'État"
+      }
+    } ]
+  }
+}

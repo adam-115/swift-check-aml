@@ -1,6 +1,7 @@
 package com.swiftcheck.aml.plugins.lupep.cssf;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -16,6 +17,8 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.apache.pdfbox.pdmodel.PDDocument;
+import org.apache.pdfbox.text.PDFTextStripper;
 import org.pf4j.Extension;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,8 +36,11 @@ import com.swiftcheck.aml.sdk.FtmEntity;
  * <p>Ce plugin couvre la catégorie officielle <b>LU-i</b> (Dirigeants des autorités de régulation,
  * JO C/2023/724), fonction <b>Direction de la CSSF</b> (Directeur général et Directeurs).
  *
- * <p>L'extraction est <b>100 % dynamique</b> sans liste ni nom en dur dans le code :
- * analyse de la section « La Direction » de la page officielle de gouvernance de la CSSF.
+ * <p>L'extraction est <b>100 % dynamique</b> sans liste ni nom en dur dans le code. Source officielle : le PDF
+ * « Liste des membres de la Direction » ({@value #DEFAULT_SOURCE_URL}), publié depuis la page
+ * {@value #GOVERNANCE_PAGE_URL}. Cette page ne donne plus les fonctions (seulement une légende de photo) :
+ * le PDF est la seule source qui associe chaque nom à sa fonction (Directeur général, Directeur).
+ * Une page HTML qui listerait encore « Nom / Fonction » reste lue comme avant.
  *
  * <p>L'URL source est résolue dynamiquement depuis le {@link ParserContext} (paramètres {@code sourceUrl},
  * {@code url} ou {@code sourceLocation}), avec repli par défaut sur {@value #DEFAULT_SOURCE_URL}.
@@ -47,8 +53,19 @@ public class LuPepCssfParser implements Iparser {
     /** Préfixe par défaut des identifiants FollowTheMoney. */
     static final String DEFAULT_ID_PREFIX = "lu-pep-cssf";
 
-    /** URL source officielle par défaut : page de gouvernance / direction de la CSSF. */
-    public static final String DEFAULT_SOURCE_URL = "https://www.cssf.lu/fr/gouvernance/";
+    /** URL source officielle par défaut : PDF « Liste des membres de la Direction » de la CSSF. */
+    public static final String DEFAULT_SOURCE_URL = "https://www.cssf.lu/wp-content/uploads/LM_DIRECTION.pdf";
+
+    /** Page de gouvernance de la CSSF, qui publie le PDF (l'ancienne adresse /fr/gouvernance/ renvoie 404). */
+    public static final String GOVERNANCE_PAGE_URL = "https://www.cssf.lu/fr/gouvernance-cssf/";
+
+    /**
+     * Membre de la Direction dans le texte du PDF : « Prénom NOM » (nom en majuscules) suivi de sa fonction,
+     * sur la même ligne ou la suivante. Ex. « Claude MARX Directeur général », « Jean-Pierre FABER Directeur ».
+     */
+    private static final Pattern PDF_MEMBER = Pattern.compile(
+            "(\\p{Lu}\\p{Ll}+(?:[- ]\\p{Lu}\\p{Ll}+)*)[ \\t]+(\\p{Lu}{2,}(?:[-' ]\\p{Lu}{2,})*)\\s+"
+                    + "(Direct(?:eur|rice)(?:[ \\t]+g[ée]n[ée]ral(?:e)?)?)(?![\\p{L}])");
 
     /** Catégorie de risque PEP. */
     static final String TOPIC = "role.pep";
@@ -93,14 +110,15 @@ public class LuPepCssfParser implements Iparser {
     }
 
     /**
-     * Lit le fichier HTML source et génère les entités FollowTheMoney dynamiquement.
+     * Lit le fichier source (PDF de la Direction, ou page HTML) et génère les entités FollowTheMoney dynamiquement.
      */
-    void convert(Path htmlFile, String sourceUrl, LocalDate oldestEndDate, FtmDatasetBuilder dataset) throws Exception {
-        String html = Files.readString(htmlFile, StandardCharsets.UTF_8);
-        List<CssfOfficialRecord> list = extractOfficials(html, sourceUrl);
+    void convert(Path sourceFile, String sourceUrl, LocalDate oldestEndDate, FtmDatasetBuilder dataset) throws Exception {
+        List<CssfOfficialRecord> list = isPdfFile(sourceFile)
+                ? extractFromPdf(sourceFile)
+                : extractOfficials(Files.readString(sourceFile, StandardCharsets.UTF_8), sourceUrl);
 
         if (list.isEmpty()) {
-            throw new IllegalStateException("Aucun dirigeant extrait de la CSSF depuis " + htmlFile);
+            throw new IllegalStateException("Aucun dirigeant extrait de la CSSF depuis " + sourceFile);
         }
 
         // 1. Déclarer la Position officielle une seule fois
@@ -140,6 +158,63 @@ public class LuPepCssfParser implements Iparser {
             }
             dataset.addEntity(occupancy);
         }
+    }
+
+    /** Vrai si le fichier commence par la signature PDF « %PDF ». */
+    static boolean isPdfFile(Path file) {
+        if (file == null || !Files.isRegularFile(file)) {
+            return false;
+        }
+        byte[] header = new byte[4];
+        try (InputStream in = Files.newInputStream(file)) {
+            return in.read(header) == 4 && header[0] == '%' && header[1] == 'P' && header[2] == 'D' && header[3] == 'F';
+        } catch (IOException e) {
+            return false;
+        }
+    }
+
+    /**
+     * Extrait les membres de la Direction du PDF « Liste des membres de la Direction ». Le texte est lu dans l'ordre
+     * de la page ({@code setSortByPosition}) pour garder chaque nom à côté de sa fonction.
+     */
+    static List<CssfOfficialRecord> extractFromPdf(Path pdfFile) throws IOException {
+        try (PDDocument doc = PDDocument.load(pdfFile.toFile())) {
+            PDFTextStripper stripper = new PDFTextStripper();
+            stripper.setSortByPosition(true);
+            return parseDirectionText(stripper.getText(doc));
+        }
+    }
+
+    /**
+     * Repère les couples « Prénom NOM » + fonction dans le texte du PDF. Le nom est remis en casse usuelle
+     * (« Claude MARX » → « Claude Marx ») pour garder les mêmes identifiants qu'avec la page HTML.
+     */
+    static List<CssfOfficialRecord> parseDirectionText(String text) {
+        List<CssfOfficialRecord> result = new ArrayList<>();
+        if (text == null || text.isBlank()) {
+            return result;
+        }
+        Matcher m = PDF_MEMBER.matcher(text.replace(' ', ' '));
+        while (m.find()) {
+            String fullName = m.group(1) + " " + capitalizeName(m.group(2));
+            String role = m.group(3).replaceAll("\\s+", " ");
+            role = Character.toUpperCase(role.charAt(0)) + role.substring(1).toLowerCase(Locale.ROOT);
+            if (isValidPersonName(fullName)) {
+                addOfficial(fullName, role, result);
+            }
+        }
+        return result;
+    }
+
+    /** « FABER » → « Faber », « DE LA FONTAINE » → « De La Fontaine », « MÜLLER-WEISS » → « Müller-Weiss ». */
+    static String capitalizeName(String upper) {
+        StringBuilder sb = new StringBuilder(upper.length());
+        boolean startOfWord = true;
+        for (char c : upper.toLowerCase(Locale.ROOT).toCharArray()) {
+            sb.append(startOfWord ? Character.toUpperCase(c) : c);
+            startOfWord = c == ' ' || c == '-' || c == '\'';
+        }
+        return sb.toString();
     }
 
     /**

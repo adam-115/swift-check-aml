@@ -166,7 +166,8 @@ public class LuPepStateEnterprisesParser implements Iparser {
             FtmEntity occupancy = dataset.newEntity("Occupancy", occKey);
             occupancy.addValue("holder", dataset.buildEntityId("Person", personSlug));
             occupancy.addValue("post", position.getId());
-            occupancy.addValue("role", leader.role + " (" + leader.companyName + ")");
+            // FtM : Occupancy n'a pas de propriété « role » (rejetée par le contrôle qualité) ; la fonction va dans description
+            occupancy.addValue("description", leader.role + " (" + leader.companyName + ")");
             occupancy.addValue("status", "current");
             dataset.addEntity(occupancy);
         }

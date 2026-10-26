@@ -92,6 +92,11 @@ class LuPepPoliticalPartiesParserTest {
         // 2 Occupancies
         List<FtmEntity> occs = entities.stream().filter(e -> "Occupancy".equals(e.getSchema())).toList();
         assertThat(occs).hasSize(2);
+        for (FtmEntity occ : occs) {
+            // « role » n'existe pas dans le schéma FtM Occupancy : le contrôle qualité du core le rejette
+            assertThat(occ.getValues("role")).as("Occupancy ne doit pas avoir la propriété 'role'").isEmpty();
+            assertThat(occ.getValues("description")).isNotEmpty();
+        }
     }
 
     @Test
