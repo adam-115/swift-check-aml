@@ -91,7 +91,10 @@
             <td class="px-4 py-4">
               <div class="font-semibold text-slate-900 text-sm">{{ p.name }}</div>
               <div class="font-mono text-xs text-slate-500">{{ p.datasetName }}</div>
-              <div *ngIf="p.listProvider?.name" class="text-xs text-slate-600 mt-1">{{ p.listProvider?.name }}</div>
+              <div class="text-xs text-slate-600 mt-1">
+                <span class="font-semibold">{{ listTypeLabel(p.listType) }}</span><span *ngIf="p.countryIso"> · {{ p.countryIso }}</span>
+                <span *ngIf="p.coverage?.length"> · {{ p.coverage?.length }} fonction{{ (p.coverage?.length ?? 0) > 1 ? 's' : '' }}</span>
+              </div>
               <span *ngIf="!p.enabled" class="mt-1 inline-block text-[11px] font-semibold text-slate-500 bg-slate-100 px-2 py-0.5 rounded">Désactivé</span>
             </td>
             <td class="px-3 py-4">
@@ -246,12 +249,17 @@
           <input formControlName="name" placeholder="ex. Sanctions financières UE" class="w-full rounded-lg border border-slate-300 p-2.5 text-sm">
           <p *ngIf="invalid('name')" class="text-rose-600 text-xs mt-1">Nom obligatoire.</p>
         </div>
-        <div>
-          <label class="block text-xs font-semibold text-slate-700 mb-1">Fournisseur</label>
-          <select formControlName="listProviderId" class="w-full rounded-lg border border-slate-300 p-2.5 text-sm bg-white">
-            <option [ngValue]="null">— Aucun —</option>
-            <option *ngFor="let provider of providers" [ngValue]="provider.id">{{ provider.name }} ({{ provider.code }})</option>
-          </select>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-semibold text-slate-700 mb-1">Type de liste *</label>
+            <select formControlName="listType" class="w-full rounded-lg border border-slate-300 p-2.5 text-sm bg-white">
+              <option *ngFor="let type of listTypes" [ngValue]="type.value">{{ type.label }}</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-700 mb-1">Site de l'organisme</label>
+            <input formControlName="websiteUrl" placeholder="ex. https://www.chd.lu" class="w-full rounded-lg border border-slate-300 p-2.5 text-sm font-mono">
+          </div>
         </div>
         <div>
           <label class="block text-xs font-semibold text-slate-700 mb-1">Nom du dataset dans Yente *</label>
@@ -271,6 +279,10 @@
             <label class="block text-xs font-semibold text-slate-700 mb-1">Mention à citer</label>
             <input formControlName="attribution" placeholder="ex. © Union européenne" class="w-full rounded-lg border border-slate-300 p-2.5 text-sm">
           </div>
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-slate-700 mb-1">Remarques sur la source</label>
+          <textarea formControlName="notes" rows="2" placeholder="Limites, choix d'extraction, pistes…" class="w-full rounded-lg border border-slate-300 p-2.5 text-sm"></textarea>
         </div>
       </section>
 
@@ -355,16 +367,6 @@
       <section class="bg-white p-5 rounded-xl border border-slate-200 space-y-4">
         <h3 class="text-xs font-bold text-slate-900 uppercase tracking-wider">4. Rétention et couverture PEP</h3>
         <div>
-          <label class="block text-xs font-semibold text-slate-700 mb-1">Source PEP lue par ce parser</label>
-          <select formControlName="sourceId" (change)="onSourceChange()" class="w-full rounded-lg border border-slate-300 p-2.5 text-sm bg-white">
-            <option [ngValue]="null">— Aucune (liste de sanctions) —</option>
-            <option *ngFor="let s of sourceChoices" [ngValue]="s.id">{{ s.countryIso }} · {{ s.name }}</option>
-          </select>
-          <p class="text-xs text-slate-500 mt-1">
-            Un parser lit une seule source. La choisir coche les fonctions qu'elle couvre (écran « Sources PEP »).
-          </p>
-        </div>
-        <div>
           <label class="block text-xs font-semibold text-slate-700 mb-1">Rétention (mois) *</label>
           <input type="number" min="0" formControlName="retentionMonths" class="w-40 rounded-lg border border-slate-300 p-2.5 text-sm">
           <p *ngIf="invalid('retentionMonths')" class="text-rose-600 text-xs mt-1">Nombre de mois positif ou nul.</p>
@@ -373,26 +375,51 @@
             0 pour les sanctions ; au moins 12 pour les PEP (vigilance après la fin des fonctions).
           </p>
         </div>
-        <div>
-          <p class="block text-xs font-semibold text-slate-700 mb-1">
-            Fonctions couvertes
-            <span class="font-normal text-slate-500">
-              ({{ coveredFunctionIds.size }} cochée{{ coveredFunctionIds.size > 1 ? 's' : '' }}{{ providerCountry ? ', pays du fournisseur : ' + providerCountry : '' }})
-            </span>
+        <div *ngIf="form.value.listType === 'PEP'; else noCoverage">
+          <div class="flex flex-wrap items-center justify-between gap-2 mb-1">
+            <p class="text-xs font-semibold text-slate-700">
+              Fonctions couvertes
+              <span class="font-normal text-slate-500">({{ coverage.size }} cochée{{ coverage.size > 1 ? 's' : '' }})</span>
+            </p>
+            <select [(ngModel)]="functionCountry" (ngModelChange)="refreshFunctionGroups()" [ngModelOptions]="{ standalone: true }" aria-label="Pays des fonctions"
+                    class="rounded-lg border border-slate-300 px-2 py-1 text-xs bg-white">
+              <option value="">Tous les pays</option>
+              <option *ngFor="let iso of functionCountries" [value]="iso">{{ iso }}</option>
+            </select>
+          </div>
+          <p class="text-xs text-slate-500 mb-2">
+            Utilisé par la page « Couverture PEP ». Pour chaque fonction cochée : la source donne-t-elle tous les
+            titulaires (complète) ou une partie (partielle), et les anciens titulaires ?
           </p>
-          <p class="text-xs text-slate-500 mb-2">Utilisé par la page « Couverture PEP ». Laissez vide pour une liste de sanctions.</p>
           <div *ngIf="functionGroups.length === 0" class="text-xs text-slate-400 italic">Aucune fonction dans le référentiel pour ce pays.</div>
-          <div class="max-h-72 overflow-y-auto rounded-lg border border-slate-200 divide-y divide-slate-100">
-            <div *ngFor="let group of functionGroups" class="p-3">
+          <div class="max-h-80 overflow-y-auto rounded-lg border border-slate-200 divide-y divide-slate-100">
+            <div *ngFor="let group of functionGroups; trackBy: trackGroup" class="p-3">
               <p class="text-xs font-semibold text-slate-700 mb-1.5"><span class="font-mono text-slate-500">{{ group.code }}</span> {{ group.label }}</p>
-              <label *ngFor="let f of group.functions" class="flex items-start gap-2 py-0.5 text-sm text-slate-700 cursor-pointer">
-                <input type="checkbox" [checked]="coveredFunctionIds.has(f.id)" (change)="toggleFunction(f.id)"
-                       class="mt-0.5 h-4 w-4 rounded border-slate-300 text-emerald-600">
-                <span>{{ f.label }} <span *ngIf="f.institution" class="text-xs text-slate-500">— {{ f.institution }}</span></span>
-              </label>
+              <div *ngFor="let f of group.functions; trackBy: trackFunction" class="py-1">
+                <label class="flex items-start gap-2 text-sm text-slate-700 cursor-pointer">
+                  <input type="checkbox" [checked]="coverage.has(f.id)" (change)="toggleFunction(f.id)"
+                         class="mt-0.5 h-4 w-4 rounded border-slate-300 text-emerald-600">
+                  <span>{{ f.label }} <span *ngIf="f.institution" class="text-xs text-slate-500">— {{ f.institution }}</span></span>
+                </label>
+                <div *ngIf="coverage.get(f.id) as link" class="ml-6 mt-1 flex flex-wrap items-center gap-3 text-xs text-slate-600">
+                  <select [ngModel]="link.completeness" (ngModelChange)="link.completeness = $event" [ngModelOptions]="{ standalone: true }"
+                          aria-label="Complétude" class="rounded border border-slate-300 px-1.5 py-0.5 bg-white">
+                    <option value="COMPLETE">Complète</option>
+                    <option value="PARTIAL">Partielle</option>
+                  </select>
+                  <label class="flex items-center gap-1.5 cursor-pointer">
+                    <input type="checkbox" [checked]="link.includesFormer" (change)="link.includesFormer = !link.includesFormer"
+                           class="h-3.5 w-3.5 rounded border-slate-300 text-emerald-600">
+                    avec les anciens titulaires
+                  </label>
+                </div>
+              </div>
             </div>
           </div>
         </div>
+        <ng-template #noCoverage>
+          <p class="text-xs text-slate-500 italic">Une liste {{ listTypeLabel(form.value.listType).toLowerCase() }} ne couvre aucune fonction PEP.</p>
+        </ng-template>
       </section>
     </div>
 

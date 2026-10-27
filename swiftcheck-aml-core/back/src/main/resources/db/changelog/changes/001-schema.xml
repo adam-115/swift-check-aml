@@ -1,17 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-    Schéma de SwiftCheck AML (version 3 : base repartie à zéro, application pas encore déployée).
+    Schéma de SwiftCheck AML (version 4 : base repartie à zéro, application pas encore déployée).
+
+    Arbre du référentiel : country → pep_category → pep_function ↔ parser (liaison pep_function_parser).
+    Un parser de sanctions (list_type AML) n'est rattaché à aucune fonction.
 
     Trois groupes de tables :
-      1. Référentiel PEP   : country, pep_category, pep_function (la liste officielle des fonctions, par pays),
-                             pep_source, pep_function_source (où récupérer les titulaires de chaque fonction) ;
-      2. Configuration     : list_provider, parser, parser_coverage (quel parser couvre quelles fonctions) ;
+      1. Référentiel PEP   : country, pep_category, pep_function (la liste officielle des fonctions, par pays) ;
+      2. Configuration     : parser, pep_function_parser (quelles fonctions un parser couvre, et à quel point),
+                             application_config ;
       3. Exploitation      : parser_execution, source_file, dataset_change, retained_entity, parser_alert,
                              resolution_judgement, parser_test, parser_test_failure, aml_search_history.
     Les personnes ne sont pas stockées en base : elles sont dans les fichiers FtM archivés et dans Yente.
 
     Règle : ce fichier ne se modifie plus une fois exécuté sur une base déployée. Toute évolution se fait
-    dans un NOUVEAU fichier numéroté (004-..., 005-...) ajouté à db.changelog-master.xml.
+    dans un NOUVEAU fichier numéroté (005-..., 006-...) ajouté à db.changelog-master.xml.
 -->
 <databaseChangeLog
         xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
@@ -89,101 +92,24 @@
             <column name="expected_holders" type="INT"/>
         </createTable>
 
-        <!--
-            Sources où l'on peut récupérer les titulaires des fonctions PEP (open data, API, journal officiel,
-            page web, registre de déclarations...). Une source identifiée sans parser est une piste de travail ;
-            elle est « implémentée » dès qu'un parser la lit (parser.source_id).
-        -->
-        <createTable tableName="pep_source">
-            <column name="id" type="BIGINT" autoIncrement="true">
-                <constraints primaryKey="true" nullable="false"/>
-            </column>
-            <column name="country_iso" type="CHAR(2)">
-                <constraints nullable="false" foreignKeyName="fk_pep_source_country" references="country(iso)"/>
-            </column>
-            <column name="name" type="VARCHAR(255)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="url" type="VARCHAR(2048)"/>
-            <!-- T1 à T7 : OPEN_DATA_FILE, API, SPARQL, OFFICIAL_GAZETTE, WEB_PAGE, PDF_DOCUMENT, DECLARATION_REGISTER -->
-            <column name="parser_kind" type="VARCHAR(30)"/>
-            <column name="licence" type="VARCHAR(255)"/>
-            <!-- OPEN, RESTRICTED (inscription, accès limité) ou PAID -->
-            <column name="access" type="VARCHAR(20)">
-                <constraints nullable="false"/>
-            </column>
-            <!-- CANDIDATE (à exploiter) ou REJECTED (écartée, raison dans notes) -->
-            <column name="status" type="VARCHAR(20)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="notes" type="TEXT"/>
-        </createTable>
-
-        <!-- Quelles fonctions une source permet de couvrir, et à quel point -->
-        <createTable tableName="pep_function_source">
-            <column name="id" type="BIGINT" autoIncrement="true">
-                <constraints primaryKey="true" nullable="false"/>
-            </column>
-            <column name="function_id" type="BIGINT">
-                <constraints nullable="false" foreignKeyName="fk_pep_function_source_function" references="pep_function(id)"/>
-            </column>
-            <column name="source_id" type="BIGINT">
-                <constraints nullable="false" foreignKeyName="fk_pep_function_source_source" references="pep_source(id)"/>
-            </column>
-            <!-- COMPLETE : tous les titulaires ; PARTIAL : une partie seulement (ex. nominations récentes) -->
-            <column name="completeness" type="VARCHAR(20)">
-                <constraints nullable="false"/>
-            </column>
-            <!-- La source donne aussi les anciens titulaires (utile pour la vigilance après la fin des fonctions) -->
-            <column name="includes_former" type="BOOLEAN" defaultValueBoolean="false">
-                <constraints nullable="false"/>
-            </column>
-        </createTable>
-        <addUniqueConstraint tableName="pep_function_source" columnNames="function_id, source_id"
-                             constraintName="uk_pep_function_source"/>
-
         <!-- ============================================================ 2. Configuration -->
-
-        <!-- Organismes qui publient les listes : UE, Chambre des Députés, communes... -->
-        <createTable tableName="list_provider">
-            <column name="id" type="BIGINT" autoIncrement="true">
-                <constraints primaryKey="true" nullable="false"/>
-            </column>
-            <column name="code" type="VARCHAR(50)">
-                <constraints nullable="false" unique="true" uniqueConstraintName="uk_list_provider_code"/>
-            </column>
-            <column name="name" type="VARCHAR(255)"/>
-            <column name="description" type="VARCHAR(1000)"/>
-            <!-- Vide pour une organisation internationale (UE, ONU) -->
-            <column name="country_iso" type="CHAR(2)">
-                <constraints foreignKeyName="fk_list_provider_country" references="country(iso)"/>
-            </column>
-            <column name="list_type" type="VARCHAR(20)"/>
-            <column name="website_url" type="VARCHAR(1024)"/>
-            <column name="logo" type="MEDIUMBLOB"/>
-            <column name="enabled" type="BOOLEAN" defaultValueBoolean="true">
-                <constraints nullable="false"/>
-            </column>
-            <column name="created_at" type="DATETIME(6)"/>
-        </createTable>
 
         <!-- Configuration d'un parser : un plugin PF4J + une source de données = un dataset Yente -->
         <createTable tableName="parser">
             <column name="id" type="BIGINT" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="list_provider_id" type="BIGINT">
-                <constraints foreignKeyName="fk_parser_list_provider" references="list_provider(id)"/>
-            </column>
             <column name="name" type="VARCHAR(255)"/>
             <column name="description" type="VARCHAR(1000)"/>
             <column name="dataset_name" type="VARCHAR(100)">
                 <constraints nullable="false" unique="true" uniqueConstraintName="uk_parser_dataset_name"/>
             </column>
-            <!-- Source PEP lue par ce parser (vide pour une liste de sanctions) : un parser = une source -->
-            <column name="source_id" type="BIGINT">
-                <constraints foreignKeyName="fk_parser_pep_source" references="pep_source(id)"/>
+            <!-- PEP, AML (sanctions), MEDIA ou CRIMINAL (voir ListType) -->
+            <column name="list_type" type="VARCHAR(20)">
+                <constraints nullable="false"/>
             </column>
+            <!-- Site de l'organisme qui publie la liste (ex. https://www.chd.lu) -->
+            <column name="website_url" type="VARCHAR(1024)"/>
             <column name="plugin_id" type="VARCHAR(255)"/>
             <column name="plugin_url" type="VARCHAR(1024)"/>
             <!-- HTTP_FILE, LOCAL_FILE ou PLUGIN_MANAGED : qui récupère les données -->
@@ -201,6 +127,8 @@
             </column>
             <column name="licence" type="VARCHAR(255)"/>
             <column name="attribution" type="VARCHAR(1000)"/>
+            <!-- Remarques sur la source : limites, choix d'extraction, pistes -->
+            <column name="notes" type="TEXT"/>
             <column name="enabled" type="BOOLEAN" defaultValueBoolean="true">
                 <constraints nullable="false"/>
             </column>
@@ -208,16 +136,28 @@
             <column name="updated_at" type="DATETIME(6)"/>
         </createTable>
 
-        <!-- Quelles fonctions PEP un parser couvre (lien N-N) : base de la page « Couverture PEP » -->
-        <createTable tableName="parser_coverage">
-            <column name="parser_id" type="BIGINT">
-                <constraints nullable="false" foreignKeyName="fk_parser_coverage_parser" references="parser(id)"/>
-            </column>
+        <!--
+            Quelles fonctions PEP un parser couvre (lien N-N : lu_pep_legilux couvre 9 fonctions), et à quel point.
+            Base de la page « Couverture PEP ».
+        -->
+        <createTable tableName="pep_function_parser">
             <column name="function_id" type="BIGINT">
-                <constraints nullable="false" foreignKeyName="fk_parser_coverage_function" references="pep_function(id)"/>
+                <constraints nullable="false" foreignKeyName="fk_pep_function_parser_function" references="pep_function(id)"/>
+            </column>
+            <column name="parser_id" type="BIGINT">
+                <constraints nullable="false" foreignKeyName="fk_pep_function_parser_parser" references="parser(id)"/>
+            </column>
+            <!-- COMPLETE : tous les titulaires ; PARTIAL : une partie seulement (ex. nominations récentes) -->
+            <column name="completeness" type="VARCHAR(20)" defaultValue="COMPLETE">
+                <constraints nullable="false"/>
+            </column>
+            <!-- Le parser donne aussi les anciens titulaires (vigilance après la fin des fonctions) -->
+            <column name="includes_former" type="BOOLEAN" defaultValueBoolean="false">
+                <constraints nullable="false"/>
             </column>
         </createTable>
-        <addPrimaryKey tableName="parser_coverage" columnNames="parser_id, function_id" constraintName="pk_parser_coverage"/>
+        <addPrimaryKey tableName="pep_function_parser" columnNames="function_id, parser_id"
+                       constraintName="pk_pep_function_parser"/>
 
         <!-- Configuration globale : une seule ligne (voir ApplicationConfigEntity) -->
         <createTable tableName="application_config">

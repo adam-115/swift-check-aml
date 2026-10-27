@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Plan des parsers PEP – France</title>
+<style>
+  @page { size: A4 portrait; margin: 14mm 13mm 14mm 13mm; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; color: #1e293b; font-size: 10.5px; line-height: 1.45; }
+  h1 { font-size: 22px; color: #0f172a; margin-bottom: 4px; }
+  h2 { font-size: 14px; color: #0f172a; margin: 18px 0 6px; padding-bottom: 3px; border-bottom: 2px solid #2563eb; break-after: avoid; }
+  h3 { font-size: 11.5px; color: #1e3a8a; margin: 12px 0 5px; break-after: avoid; }
+  p { margin: 4px 0; }
+  .subtitle { color: #475569; font-size: 11.5px; margin-bottom: 8px; }
+  .meta { display: flex; gap: 18px; color: #64748b; font-size: 9.5px; border-bottom: 1px solid #e2e8f0; padding-bottom: 8px; margin-bottom: 12px; }
+  .kpis { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin: 10px 0 6px; }
+  .kpi { border: 1px solid #e2e8f0; border-radius: 8px; padding: 8px 10px; background: #f8fafc; }
+  .kpi b { display: block; font-size: 20px; color: #1d4ed8; line-height: 1.1; }
+  .kpi span { color: #475569; font-size: 9.5px; }
+  table { width: 100%; border-collapse: collapse; margin: 5px 0 8px; font-size: 9.5px; }
+  th { background: #1e3a8a; color: #fff; text-align: left; padding: 4px 5px; font-weight: 600; }
+  td { border-bottom: 1px solid #e2e8f0; padding: 4px 5px; vertical-align: top; }
+  tr { break-inside: avoid; }
+  tr:nth-child(even) td { background: #f8fafc; }
+  code { font-family: Consolas, 'Courier New', monospace; font-size: 9px; background: #eef2ff; color: #1e3a8a; padding: 0 2px; border-radius: 3px; }
+  .cat { font-weight: 700; color: #1d4ed8; white-space: nowrap; }
+  .tag { display: inline-block; border-radius: 4px; padding: 0 4px; font-size: 8.5px; font-weight: 600; white-space: nowrap; }
+  .easy { background: #dcfce7; color: #166534; }
+  .mid { background: #fef9c3; color: #854d0e; }
+  .hard { background: #fee2e2; color: #991b1b; }
+  .note { border-left: 3px solid #2563eb; background: #eff6ff; padding: 6px 9px; margin: 6px 0; border-radius: 0 6px 6px 0; }
+  .warn { border-left-color: #d97706; background: #fffbeb; }
+  ul, ol { margin: 4px 0 4px 18px; }
+  li { margin: 2px 0; }
+  .small { font-size: 9px; color: #64748b; }
+  .footer { margin-top: 14px; border-top: 1px solid #e2e8f0; padding-top: 6px; color: #94a3b8; font-size: 8.5px; }
+  .page-break { break-before: page; }
+</style>
+</head>
+<body>
+
+<h1>Plan des parsers PEP – France</h1>
+<p class="subtitle">Fonctions PEP officielles de la France, où trouver leurs titulaires, ce qu'il faut implémenter et dans quel ordre,
+pour couvrir la liste notifiée par la France (JO C/2023/724) et préparer le règlement AMLR (juillet 2027).</p>
+<div class="meta"><span>SwiftCheck AML</span><span>27 octobre 2026</span><span>Référence : écran « Couverture PEP »</span>
+<span>Suite de « Couverture des PEP en France – analyse des sources » (17 octobre 2026)</span></div>
+
+<div class="kpis">
+  <div class="kpi"><b>0</b><span>parser France en place dans le projet actuel</span></div>
+  <div class="kpi"><b>17</b><span>parsers à implémenter (3 lots)</span></div>
+  <div class="kpi"><b>3</b><span>sujets à étudier avant tout parser</span></div>
+  <div class="kpi"><b>6 / 8</b><span>catégories officielles couvertes après les lots 1 à 3 (+ UE)</span></div>
+</div>
+
+<div class="note">
+<b>En bref.</b> La France est beaucoup plus ouverte que le Luxembourg : cinq sources officielles en open data, sous Licence ouverte
+Etalab 2.0 (réutilisation commerciale permise en citant la source), couvrent les élus, le Gouvernement et les nominations :
+Assemblée nationale, Sénat, HATVP, Répertoire national des élus et Journal officiel. Les points durs sont les dirigeants des partis
+(catégorie c), les entreprises publiques (catégorie g, la plus volumineuse) et la famille, car la HATVP masque le nom du conjoint.
+</div>
+
+<h2>1. Cadre légal</h2>
+<ul>
+  <li><b>Liste nationale</b> : liste notifiée par la France à la Commission, publiée au JO C/2023/724 du 10 novembre 2023 (section FR).
+    Elle reprend l'article R. 561-18 du Code monétaire et financier : 17 fonctions nationales et 21 organisations internationales situées en France.</li>
+  <li><b>Liste de l'Union</b> : décision C(2022) 3105 (JO C/2023/611), pour les Français qui occupent une fonction dans une institution de l'UE.</li>
+  <li><b>Durée</b> : une personne reste PEP tant qu'elle occupe la fonction et pendant <b>un an</b> après l'avoir quittée (R. 561-18).
+    Le core doit donc garder chaque titulaire 12 mois après sa disparition de la source.</li>
+  <li><b>Famille</b> (R. 561-18, II) : conjoint ou concubin notoire, partenaire de PACS, enfants et leurs conjoints, ascendants au premier degré.
+    <b>Les frères et sœurs n'en font pas partie</b>, à la différence de <code>lu_pep_rca</code>, qui suit le règlement (UE) 2024/1624.</li>
+  <li><b>Proches associés</b> (R. 561-18, III) : bénéficiaires effectifs d'une personne morale ou d'un trust avec la PEP, bénéficiaire effectif unique d'une structure créée
+    au profit de la PEP, et personnes connues pour avoir des liens d'affaires étroits avec elle.</li>
+  <li><b>Hors liste aujourd'hui</b> : <b>les élus locaux ne sont pas PEP en France</b>, contrairement au Luxembourg. À partir du <b>10 juillet 2027</b>, le règlement AMLR ajoutera
+    les dirigeants des collectivités d'au moins 50 000 habitants (catégorie <span class="cat">FR-AMLR</span> ci-dessous). Les autorités de régulation (AMF, ACPR…) ne figurent pas
+    non plus dans la liste française.</li>
+</ul>
+
+<h2>2. Fonctions PEP de la France et où trouver leurs titulaires</h2>
+<p class="small">Volumes : nombre de personnes en fonction. Les valeurs avec « ≈ » sont des ordres de grandeur à confirmer pendant l'analyse de chaque source.</p>
+<table>
+  <tr><th style="width:8%">Cat.</th><th style="width:30%">Fonction (base légale)</th><th style="width:9%">Volume</th><th>Source officielle des titulaires</th><th style="width:10%">Format</th></tr>
+  <tr><td class="cat">FR-a</td><td>Président de la République</td><td>1</td><td>elysee.fr ; Journal officiel</td><td>HTML</td></tr>
+  <tr><td class="cat">FR-a</td><td>Premier ministre et membres du Gouvernement</td><td>≈ 35</td><td>info.gouv.fr « Composition du Gouvernement » (gouvernement du 26 février 2026) ; HATVP (124 déclarations « gouvernement », y compris les anciens ministres)</td><td>HTML, CSV/XML</td></tr>
+  <tr><td class="cat">FR-b</td><td>Président de l'Assemblée nationale, députés</td><td>577</td><td>data.assemblee-nationale.fr : « Députés en exercice » et historique des législatures (acteurs, mandats, organes)</td><td>CSV, JSON, XML</td></tr>
+  <tr><td class="cat">FR-b</td><td>Président du Sénat, sénateurs</td><td>348</td><td>data.senat.fr : <code>ODSEN_GENERAL.csv/json</code> (sénateurs actuels et anciens), historique des groupes, commissions</td><td>CSV, JSON</td></tr>
+  <tr><td class="cat">FR-c</td><td>Présidents et membres des organes exécutifs des partis soumis à la loi n° 88-27 du 11 mars 1988</td><td>≈ 569 partis</td><td><b>Aucune liste officielle des dirigeants.</b> La CNCCFP publie les comptes de 569 partis (exercice 2024, avis du 18 décembre 2025) ; data.gouv « Comptes des partis » ne contient pas de personnes</td><td>—</td></tr>
+  <tr><td class="cat">FR-d</td><td>Président et membres du Conseil constitutionnel ; son secrétaire général (décret n° 59-1293)</td><td>10</td><td>conseil-constitutionnel.fr/le-conseil-constitutionnel/les-membres ; Journal officiel</td><td>HTML</td></tr>
+  <tr><td class="cat">FR-d</td><td>Membres du Conseil d'État (art. L. 121-2 CJA), sauf conseillers en service extraordinaire sans fonction juridictionnelle</td><td>≈ 300</td><td>Journal officiel (décrets de nomination) ; aucun annuaire nominatif trouvé sur conseil-etat.fr</td><td>XML</td></tr>
+  <tr><td class="cat">FR-d</td><td>Membres de la Cour de cassation (art. R. 421-1 COJ, 1° à 4° et 6° à 9°) et membres en service extraordinaire</td><td>≈ 400</td><td>courdecassation.fr (organisation, présidents de chambre) ; Journal officiel pour la liste complète</td><td>HTML, XML</td></tr>
+  <tr><td class="cat">FR-e</td><td>Magistrats de la Cour des comptes (art. L. 112-1 CJF)</td><td>≈ 300</td><td>Journal officiel ; ccomptes.fr (organisation des chambres, à analyser : site non joignable pendant l'analyse)</td><td>XML, HTML</td></tr>
+  <tr><td class="cat">FR-e</td><td>Membres du Conseil général de la Banque de France (art. L. 142-7 CMF)</td><td>≈ 11</td><td>banque-france.fr, page « Les organes de gouvernance » ; Journal officiel</td><td>HTML</td></tr>
+  <tr><td class="cat">FR-f</td><td>Ambassadeurs et chargés d'affaires (décret n° 79-433, art. 1er et 13)</td><td>≈ 160</td><td>Journal officiel : vérifié, ex. « Décret du 26 octobre 2026 portant nomination d'un ambassadeur… auprès de la République des Fidji » ; diplomatie.gouv.fr (annuaire, ambassadeurs thématiques)</td><td>XML, HTML</td></tr>
+  <tr><td class="cat">FR-f</td><td>Chef d'état-major des armées (art. R*3121-1 C. défense) et chefs d'état-major de l'armée de terre, de la marine et de l'armée de l'air et de l'espace (art. R*3121-25)</td><td>4</td><td>defense.gouv.fr ; Journal officiel</td><td>HTML</td></tr>
+  <tr><td class="cat">FR-g</td><td>Directeur général, DG délégué, membre du directoire, administrateur, membre du conseil de surveillance des entités du III, 1° à 3°, de l'art. 11 de la loi n° 2013-907 (établissements et sociétés publics)</td><td>plusieurs milliers</td><td>Pas de liste nominative. Périmètre : rapport « L'État actionnaire » de l'APE (≈ 86 sociétés) et répertoire RECME de l'Insee (1 888 sociétés contrôlées au 31/12/2022). Noms : décrets de nomination au Journal officiel, pages de gouvernance des sociétés. Leurs déclarations HATVP ne sont pas publiées</td><td>PDF, XLS, XML</td></tr>
+  <tr><td class="cat">FR-g</td><td>Mêmes fonctions dans les sociétés contrôlées par des collectivités (chiffre d'affaires &gt; 50 M€, ou art. L. 1525-1 CGCT)</td><td>inconnu</td><td>Aucune liste trouvée</td><td>—</td></tr>
+  <tr><td class="cat">FR-h</td><td>Dirigeants des 21 organisations internationales de la liste : Unesco, OIF, OFAJ, OMSA, BIPM, OIML, CIHEAM, Institut international du froid, Commission centrale pour la navigation du Rhin, OEPP, CICR (délégation régionale), OACI Europe, BEAC, BCEAO, PAM, CGIAR, IPGRI, FMI…</td><td>≈ 70 fonctions</td><td>Site de chaque organisation (plusieurs n'ont « aucune » fonction listée ou « pas de fonction identifiée »)</td><td>HTML</td></tr>
+  <tr><td class="cat">FR-EU</td><td>Eurodéputés élus en France ; commissaire français ; juges, avocats généraux, Cour des comptes européenne, BCE, SEAE</td><td>81 + ≈ 10</td><td>API open data du Parlement européen (vérifiée, filtre pays FR) ; RNE (fichier « représentants au Parlement européen ») ; sites des institutions</td><td>JSON</td></tr>
+  <tr><td class="cat">FR-RCA</td><td>Membres de la famille (II) et proches associés (III)</td><td>—</td><td>Wikidata (famille) ; HATVP, déclarations d'intérêts (organismes dirigés, participations) ; voir section 4</td><td>JSON, XML</td></tr>
+  <tr><td class="cat">FR-AMLR</td><td>À partir du 10/07/2027 : maires, présidents d'intercommunalité, de département et de région des collectivités d'au moins 50 000 habitants</td><td>≈ 500</td><td>Répertoire national des élus, ministère de l'Intérieur, data.gouv.fr : 12 fichiers CSV, mis à jour le 11/08/2026, Licence ouverte v2, avec date de naissance ; populations légales Insee pour le seuil</td><td>CSV</td></tr>
+</table>
+
+<h3>Mesures faites pendant l'analyse (27 octobre 2026)</h3>
+<table>
+  <tr><th style="width:22%">Source</th><th>Constat</th></tr>
+  <tr><td>HATVP <code>liste.csv</code></td><td>13 065 déclarations : départements 3 079, intercommunalités 2 821, députés 2 570, communes 1 550, sénateurs 1 132, régions 1 026, collectivités à statut particulier 387, eurodéputés 330, gouvernement 124, autres 44 (dont 41 membres de la HATVP), présidents 2.
+    Aucune déclaration de dirigeant d'entreprise publique.</td></tr>
+  <tr><td>HATVP <code>declarations.xml</code> (79,5 Mo)</td><td>5 909 déclarations d'intérêts déposées de 2022 à 2025.
+    <b>Nom du conjoint : 4 397 champs, tous masqués</b> (« [Données non publiées] ») ; 3 649 employeurs du conjoint publiés.
+    48 632 participations financières dans 21 564 sociétés distinctes (souvent quelques actions cotées, ex. 10 actions Sanofi) ; 41 765 lignes dans les rubriques « participations aux organes dirigeants ».</td></tr>
+  <tr><td>JORF (DILA)</td><td>Un fichier par jour (<code>JORF_AAAAMMJJ-HHMMSS.tar.gz</code>) et une archive complète. Le fichier du 27/10/2026 contient 566 textes, dont 68 mesures de nomination, avec nom, prénom, fonction et date.</td></tr>
+  <tr><td>Parlement européen</td><td>L'API <code>meps/show-current</code> filtrée sur la France répond en JSON-LD, comme pour <code>lu_pep_europarl</code>.</td></tr>
+</table>
+
+<h2 class="page-break">3. Déjà en place</h2>
+<p>Aucun parser France dans le projet actuel (<code>swiftcheck-aml-plugins/pep/</code> ne contient que <code>luxembourg/</code>).
+L'ancien serveur charge encore trois plugins écrits avec l'ancien contrat (<code>com.swiftcheck.aml.config.Iparser</code>) : <code>hatvp-pep-parser</code>,
+<code>datagouv-pep-parser</code> et <code>wikidata-pep-parser</code>. Ils ne se chargent plus avec le nouveau core, mais leur logique de lecture peut être reprise.</p>
+
+<h2>4. Reste à implémenter</h2>
+<h3>Priorité 1 – Catégories de classe 1 : FR-a, FR-b, FR-EU (sources ouvertes, effort faible)</h3>
+<table>
+  <tr><th>#</th><th>Parser</th><th>Source</th><th>Type</th><th>Fonctions</th><th>Effort</th></tr>
+  <tr><td>1</td><td><code>fr_pep_president</code></td><td>elysee.fr</td><td>T5 page web</td><td>FR-a Président de la République</td><td><span class="tag easy">Très faible</span> 1 personne</td></tr>
+  <tr><td>2</td><td><code>fr_pep_government</code></td><td>info.gouv.fr – composition du Gouvernement</td><td>T5 page web</td><td>FR-a Premier ministre, ministres, ministres délégués, secrétaires d'État</td><td><span class="tag easy">Faible</span></td></tr>
+  <tr><td>3</td><td><code>fr_pep_national_assembly</code></td><td>data.assemblee-nationale.fr</td><td>T1 open data</td><td>FR-b députés en fonction et sortis depuis moins d'un an, présidence</td><td><span class="tag easy">Faible</span></td></tr>
+  <tr><td>4</td><td><code>fr_pep_senate</code></td><td>data.senat.fr (<code>ODSEN_GENERAL</code>)</td><td>T1 open data</td><td>FR-b sénateurs en fonction et anciens, présidence</td><td><span class="tag easy">Faible</span></td></tr>
+  <tr><td>5</td><td><code>fr_pep_europarl</code></td><td>API open data du Parlement européen</td><td>T2 API</td><td>FR-EU eurodéputés élus en France, actuels et anciens</td><td><span class="tag easy">Très faible</span> code de <code>lu_pep_europarl</code></td></tr>
+  <tr><td>6</td><td><code>fr_pep_eu_commission</code></td><td>Site du collège des commissaires</td><td>T5 page web</td><td>FR-EU commissaire français</td><td><span class="tag easy">Très faible</span> code de <code>lu_pep_eu_commission</code></td></tr>
+  <tr><td>7</td><td><code>fr_pep_hatvp</code></td><td>HATVP <code>liste.csv</code> et <code>declarations.xml</code></td><td>T1 open data</td><td>FR-a anciens ministres, FR-b, FR-EU (contrôle croisé), exécutifs locaux pour FR-AMLR</td><td><span class="tag mid">Moyen</span> reprise de <code>hatvp-pep-parser</code></td></tr>
+</table>
+
+<h3>Priorité 2 – Hautes juridictions, Cour des comptes, Banque de France : FR-d, FR-e</h3>
+<p>Les sites donnent la composition actuelle quand elle est publiée ; le Journal officiel donne la liste complète et l'historique, comme Legilux au Luxembourg.</p>
+<table>
+  <tr><th>#</th><th>Parser</th><th>Source</th><th>Type</th><th>Fonctions</th><th>Effort</th></tr>
+  <tr><td>8</td><td><code>fr_pep_constitutional_council</code></td><td>conseil-constitutionnel.fr (les membres)</td><td>T5 page web</td><td>FR-d président, membres, secrétaire général</td><td><span class="tag easy">Très faible</span></td></tr>
+  <tr><td>9</td><td><code>fr_pep_banque_de_france</code></td><td>banque-france.fr (organes de gouvernance)</td><td>T5 page web</td><td>FR-e Conseil général de la Banque de France</td><td><span class="tag easy">Très faible</span></td></tr>
+  <tr><td>10</td><td><code>fr_pep_court_of_cassation</code></td><td>courdecassation.fr (organisation)</td><td>T5 page web</td><td>FR-d premier président, présidents de chambre, procureur général, premiers avocats généraux</td><td><span class="tag easy">Faible</span></td></tr>
+  <tr><td>11</td><td><code>fr_pep_jorf</code></td><td>DILA, open data JORF (fichiers quotidiens et archive depuis 1990)</td><td>T1 XML</td><td>FR-d Conseil d'État, Cour de cassation ; FR-e Cour des comptes ; FR-f ambassadeurs, chefs d'état-major ; FR-g dirigeants nommés par décret</td><td><span class="tag hard">Élevé</span> sur le modèle de <code>lu_pep_legilux</code></td></tr>
+</table>
+
+<h3>Priorité 3 – FR-f, FR-h, famille et proches, préparation AMLR</h3>
+<table>
+  <tr><th>#</th><th>Parser</th><th>Source</th><th>Type</th><th>Fonctions</th><th>Effort</th></tr>
+  <tr><td>12</td><td><code>fr_pep_diplomats</code></td><td>diplomatie.gouv.fr (annuaire des ambassades)</td><td>T5 page web</td><td>FR-f ambassadeurs en poste, y compris ceux nommés avant l'archive JORF chargée (≈ 160)</td><td><span class="tag mid">Moyen</span></td></tr>
+  <tr><td>13</td><td><code>fr_pep_army</code></td><td>defense.gouv.fr</td><td>T5 page web</td><td>FR-f CEMA, CEMAT, CEMM, CEMAAE</td><td><span class="tag easy">Très faible</span> 4 personnes</td></tr>
+  <tr><td>14</td><td><code>fr_pep_international_orgs</code></td><td>Sites des 21 organisations de la liste</td><td>T5 pages web</td><td>FR-h directeurs, adjoints, membres des conseils listés</td><td><span class="tag mid">Moyen</span> sites variés</td></tr>
+  <tr><td>15</td><td><code>fr_pep_rca</code></td><td>Wikidata (SPARQL)</td><td>T3 SPARQL</td><td>FR-RCA membres de la famille au sens du II de R. 561-18 (sans la fratrie)</td><td><span class="tag easy">Faible</span> code de <code>lu_pep_rca</code>, paramètres Q142</td></tr>
+  <tr><td>16</td><td><code>fr_pep_associated_entities</code></td><td>HATVP <code>declarations.xml</code></td><td>T1 open data</td><td>FR-RCA organismes dirigés par la PEP et participations significatives (non cotées ou au-delà d'un seuil)</td><td><span class="tag mid">Moyen</span> même modèle que <code>lu_pep_associated_entities</code></td></tr>
+  <tr><td>17</td><td><code>fr_pep_local_executives</code></td><td>Répertoire national des élus (data.gouv.fr) et populations légales Insee</td><td>T1 open data</td><td>FR-AMLR exécutifs des collectivités ≥ 50 000 habitants (obligatoires au 10/07/2027)</td><td><span class="tag easy">Faible</span></td></tr>
+</table>
+
+<h2>5. À étudier avant d'écrire un parser</h2>
+<table>
+  <tr><th style="width:20%">Catégorie</th><th>Problème</th><th>Piste</th></tr>
+  <tr><td><span class="cat">FR-c</span> dirigeants des partis</td><td>569 partis déposent des comptes, mais aucune source ne donne leurs dirigeants</td><td>Limiter d'abord aux partis représentés au Parlement (une dizaine) : page « équipe dirigeante » de chaque parti, une petite source par parti, comme au Luxembourg</td></tr>
+  <tr><td><span class="cat">FR-g</span> entreprises publiques</td><td>Catégorie la plus volumineuse (plusieurs milliers d'administrateurs), sans liste nominative ; les déclarations HATVP des dirigeants ne sont pas publiées</td><td>1) Périmètre : rapport de l'APE et RECME de l'Insee. 2) Dirigeants nommés par décret : <code>fr_pep_jorf</code>. 3) Administrateurs : pages de gouvernance des sociétés de l'APE, puis registre national des entreprises (INPI) si sa licence le permet</td></tr>
+  <tr><td><span class="cat">FR-d / FR-e</span> composition complète</td><td>Pas d'annuaire nominatif trouvé pour le Conseil d'État ni pour la Cour des comptes ; le JORF ne donne que les entrées et les sorties</td><td>Charger l'archive JORF depuis 1990 et reconstituer les carrières (nomination, promotion, départ) ; valider le résultat sur un échantillon de la composition publiée par chaque juridiction</td></tr>
+</table>
+<div class="note warn">
+<b>Famille : pas de source officielle nominative.</b> La HATVP publie l'employeur et l'activité du conjoint, mais pas son nom (0 nom publié sur 4 397).
+La famille repose donc sur Wikidata (<code>fr_pep_rca</code>), complétée par la résolution d'entités ; les proches associés reposent sur les organismes et participations déclarés à la HATVP.
+</div>
+
+<h2>6. Ordre proposé</h2>
+<ol>
+  <li><b>Lot 1 – parsers 1 à 7.</b> Rapides, sur des sources ouvertes : FR-a, FR-b et FR-EU passent en « Couverte ».</li>
+  <li><b>Lot 2 – parsers 8 à 11.</b> FR-d et FR-e deviennent couvertes pour les titulaires en fonction ; <code>fr_pep_jorf</code> apporte aussi l'historique et une première couverture de FR-f et FR-g.</li>
+  <li><b>Lot 3 – parsers 12 à 17</b>, puis les études FR-c et FR-g. <code>fr_pep_local_executives</code> doit être en production avant le 10 juillet 2027.</li>
+</ol>
+<p>À la fin des lots 1 à 3, 6 catégories officielles sur 8 seraient couvertes (a, b, d, e, f, h), ainsi que les fonctions de l'Union.
+Il resterait FR-c (partis) et FR-g (entreprises publiques), qui dépendent des études ci-dessus.</p>
+
+<h2>7. Règles applicables à chaque nouveau parser</h2>
+<ul>
+  <li>Un parser = une source = un module Maven dans <code>swiftcheck-aml-plugins/pep/france/</code> = un dataset Yente.</li>
+  <li>Pas d'adresse de téléchargement dans le code : elle se configure dans l'écran « Parsers ». L'API commune (<code>swiftcheck-aml-api</code>) n'est jamais modifiée.</li>
+  <li>Analyse de la source, puis proposition validée, puis code. Tests sur un extrait réel de la source, et README dans le dossier du parser.</li>
+  <li>Le parser et les fonctions couvertes (pays FR, catégories FR-a à FR-h, FR-EU, FR-RCA, FR-AMLR) sont déclarés dans les données de départ Liquibase, pour la page « Couverture PEP ».
+    Le référentiel ne contient aujourd'hui que le pays France : ses catégories et fonctions sont à ajouter.</li>
+  <li>Licence ouverte Etalab 2.0 : citer la source et la date du fichier dans l'attribution du parser.</li>
+  <li>Date de naissance : la garder quand la source la donne (RNE, Assemblée, Sénat), c'est la clé qui rapproche une même personne entre les sources.</li>
+</ul>
+
+<h2>Sources</h2>
+<ul class="small">
+  <li>Fonctions publiques importantes, JO C/2023/724 du 10/11/2023, section FR et section « Institutions et organes de l'Union » : eur-lex.europa.eu (ELI http://data.europa.eu/eli/C/2023/724/oj)</li>
+  <li>Code monétaire et financier, art. R. 561-18 (Légifrance) ; position AMF DOC-2019-17 sur les personnes politiquement exposées</li>
+  <li>HATVP open data : hatvp.fr/livraison/opendata/liste.csv et hatvp.fr/livraison/merge/declarations.xml</li>
+  <li>Répertoire national des élus : data.gouv.fr/datasets/repertoire-national-des-elus-1</li>
+  <li>Assemblée nationale : data.assemblee-nationale.fr/acteurs/deputes-en-exercice ; Sénat : data.senat.fr/les-senateurs</li>
+  <li>JORF open data : echanges.dila.gouv.fr/OPENDATA/JORF ; API Légifrance (portail PISTE, inscription gratuite)</li>
+  <li>Parlement européen : data.europarl.europa.eu/api/v2/meps/show-current</li>
+  <li>CNCCFP, avis relatif à la publication générale des comptes des partis, exercice 2024 ; data.gouv.fr « Comptes des partis et groupements politiques »</li>
+  <li>Agence des participations de l'État, rapport « L'État actionnaire » ; Insee, répertoire RECME</li>
+  <li>info.gouv.fr/composition-du-gouvernement ; conseil-constitutionnel.fr ; courdecassation.fr ; banque-france.fr ; defense.gouv.fr ; diplomatie.gouv.fr</li>
+</ul>
+
+<div class="footer">SwiftCheck AML – Plan des parsers PEP France – document de travail interne.</div>
+</body>
+</html>

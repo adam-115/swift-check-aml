@@ -90,7 +90,7 @@ export class AmlVerificationComponent implements OnInit {
 
         parsers.forEach(p => {
           if (p.datasetName) {
-            const countryVal = p.listProvider?.country || (p as any).country;
+            const countryVal = p.countryIso;
             const item = this.classifyProvider(p.datasetName, p.name || p.datasetName, countryVal);
             uniqueDatasets.set(p.datasetName, item);
           }

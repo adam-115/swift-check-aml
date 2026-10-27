@@ -1,5 +1,7 @@
 package com.swiftcheck.aml.security;
 
+import com.swiftcheck.aml.controllers.SpaForwardController;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -47,11 +49,11 @@ public class SecurityConfig {
                     "/error",
                     "/actuator/**"
                 ).permitAll()
+                // Routes Angular : la page vide de l'application (index.html), pour que le rafraîchissement
+                // du navigateur fonctionne ; les données passent par /api/**, protégé ci-dessous
+                .requestMatchers(HttpMethod.GET, SpaForwardController.SPA_ROUTES).permitAll()
                 // Configuration système réservée à l'administrateur
                 .requestMatchers("/api/config/**").hasRole("ADMIN")
-                .requestMatchers(HttpMethod.POST, "/api/providers/**").hasRole("ADMIN")
-                .requestMatchers(HttpMethod.PUT, "/api/providers/**").hasRole("ADMIN")
-                .requestMatchers(HttpMethod.DELETE, "/api/providers/**").hasRole("ADMIN")
                 // Référentiel PEP (pays, catégories, fonctions) : lecture pour tous, modification par l'administrateur
                 .requestMatchers(HttpMethod.POST, "/api/pep/**").hasRole("ADMIN")
                 .requestMatchers(HttpMethod.PUT, "/api/pep/**").hasRole("ADMIN")

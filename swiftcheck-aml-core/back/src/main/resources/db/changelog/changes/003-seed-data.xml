@@ -1,13 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-    Données de départ : utilisateurs, configuration par défaut, fournisseurs, parsers et leur
-couverture PEP.
-
-    Les chemins sont relatifs au dossier depuis lequel le core est lancé ; adaptez-les ensuite depuis
-l'écran
-    « Configuration » (dossier data et manifest de Yente). Le chemin du JAR de chaque plugin
-(plugin_url) est
-    laissé vide : il se renseigne dans l'écran « Parsers » avec le bouton « Vérifier ».
+    Données de départ : utilisateurs et configuration de l'application.
+    Les parsers et leurs fonctions couvertes sont dans 004-parsers.xml.
 -->
 <databaseChangeLog
     xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
@@ -15,129 +9,22 @@ l'écran
     xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
 
     <changeSet id="003-users" author="swiftcheck">
-        <sql> INSERT INTO app_user (id, username, email, first_name, last_name, enabled,
-            created_date) VALUES (1, 'admin', 'admin@swiftcheck.com', 'Admin', 'SwiftCheck', TRUE,
-            NOW()), (2, 'tester', 'tester@swiftcheck.com', 'Auditeur', 'Tester', TRUE, NOW());
-            INSERT INTO app_user_roles (user_id, role) VALUES (1, 'ADMIN'), (2, 'TESTER'); </sql>
+        <sql>
+            INSERT INTO app_user (id, username, email, first_name, last_name, enabled, created_date) VALUES
+            (1, 'admin', 'admin@swiftcheck.com', 'Admin', 'SwiftCheck', TRUE, NOW()),
+            (2, 'tester', 'tester@swiftcheck.com', 'Auditeur', 'Tester', TRUE, NOW());
+            INSERT INTO app_user_roles (user_id, role) VALUES (1, 'ADMIN'), (2, 'TESTER');
+        </sql>
     </changeSet>
 
+    <!-- yente_update_token = YENTE_UPDATE_TOKEN du docker-compose de Yente ; /data = montage du dossier data -->
     <changeSet id="003-application-config" author="swiftcheck">
-        <!-- yente_update_token = YENTE_UPDATE_TOKEN du docker-compose de Yente ; /data = montage du
-        dossier data -->
-        <sql> INSERT INTO application_config (yente_url, yente_update_token, yente_data_folder,
-            yente_container_data_path, yente_manifest_path, archive_folder, work_folder) VALUES
-            ('http://localhost:8000', 'adam', './yente/data', '/data', './yente/manifest.yml',
-            './data/archive', './data/work'); </sql>
-    </changeSet>
-
-    <changeSet id="003-list-providers" author="swiftcheck">
-        <sql> INSERT INTO list_provider (code, name, description, country_iso, list_type,
-            website_url, enabled, created_at) VALUES ('EU', 'Union européenne', 'Liste consolidée
-            des personnes, groupes et entités faisant l''objet de sanctions financières de l''UE',
-            NULL, 'AML',
-            'https://data.europa.eu/data/datasets/consolidated-list-of-persons-groups-and-entities-subject-to-eu-financial-sanctions',
-            TRUE, NOW()), ('EU-PARL', 'Parlement européen', 'Liste officielle des députés au
-            Parlement européen', NULL, 'PEP', 'https://www.europarl.europa.eu/meps/fr/full-list',
-            TRUE, NOW()), ('LU-GOV', 'Gouvernement du Luxembourg', 'Composition du gouvernement en
-            fonction', 'LU', 'PEP', 'https://gouvernement.lu/fr/gouvernement.html', TRUE, NOW()),
-            ('LU-CHD', 'Chambre des Députés du Luxembourg', 'Députés en fonction et anciens députés
-            (open data)', 'LU', 'PEP', 'https://www.chd.lu/fr/deputies', TRUE, NOW()),
-            ('LU-COMMUNES', 'Ministère des Affaires intérieures', 'Collèges des bourgmestre et
-            échevins des communes', 'LU', 'PEP',
-            'https://data.public.lu/fr/datasets/college-des-bourgmestre-et-echevins-depuis-les-elections-communales-2023/',
-            TRUE, NOW()), ('LU-SCL', 'Service central de législation (Legilux)', 'Journal officiel
-            du Grand-Duché de Luxembourg', 'LU', 'PEP', 'https://legilux.public.lu', TRUE, NOW()); </sql>
-    </changeSet>
-
-    <!--
-        Un parser = une source = un dataset Yente. retention_months : 0 pour les sanctions (une radiation
-    s'applique
-        tout de suite), 12 pour les PEP du Luxembourg (vigilance d'au moins 12 mois après la fin des
-    fonctions).
-    -->
-    <changeSet id="003-parsers" author="swiftcheck">
-        <sql> INSERT INTO parser (list_provider_id, name, description, dataset_name, plugin_id,
-            data_source_type, parser_kind, source_location, parameters, refresh_hours,
-            retention_months, licence, attribution, enabled, created_at) SELECT p.id, s.name,
-            s.description, s.dataset_name, s.plugin_id, 'HTTP_FILE', s.parser_kind,
-            s.source_location, s.parameters, s.refresh_hours, s.retention_months, s.licence,
-            s.attribution, TRUE, NOW() FROM list_provider p JOIN ( SELECT 'EU' AS provider,
-            'Sanctions financières UE' AS name, 'Liste consolidée des sanctions financières de
-            l''Union européenne' AS description, 'eu_sanctions' AS dataset_name, 'eu-parser' AS
-            plugin_id, 'OPEN_DATA_FILE' AS parser_kind,
-            'https://webgate.ec.europa.eu/fsd/fsf/public/files/xmlFullSanctionsList_1_1/content?token=dG9rZW4tMjAxNw'
-            AS source_location, NULL AS parameters, 1 AS refresh_hours, 0 AS retention_months,
-            'Réutilisation autorisée (décision 2011/833/UE)' AS licence, '© Union européenne' AS
-            attribution UNION ALL SELECT 'LU-GOV', 'Membres du gouvernement (Luxembourg)', 'Premier
-            ministre, ministres et secrétaires d''État en fonction', 'lu_pep_government',
-            'lu-pep-government', 'WEB_PAGE', 'https://gouvernement.lu/fr/gouvernement.html', NULL,
-            24, 12, NULL, 'Gouvernement du Grand-Duché de Luxembourg, gouvernement.lu' UNION ALL
-            SELECT 'LU-CHD', 'Députés en fonction (Luxembourg)', 'Députés de la Chambre des Députés
-            en fonction', 'lu_pep_chamber', 'lu-pep-chamber', 'OPEN_DATA_FILE',
-            'https://data.public.lu/fr/datasets/r/a5b6e7f9-b488-41a6-9bd1-be913a5c35b5', NULL, 24,
-            12, NULL, 'Chambre des Députés du Grand-Duché de Luxembourg, data.public.lu' UNION ALL
-            SELECT 'LU-CHD', 'Anciens députés (Luxembourg)', 'Anciens députés de la Chambre des
-            Députés', 'lu_pep_chamber_former', 'lu-pep-chamber-former', 'OPEN_DATA_FILE',
-            'https://data.public.lu/fr/datasets/r/8fdbd601-6931-47b5-a027-aacd3b1e47f4',
-            '{"yearsAfterEnd": "5"}', 24, 12, NULL, 'Chambre des Députés du Grand-Duché de
-            Luxembourg, data.public.lu' UNION ALL SELECT 'LU-COMMUNES', 'Bourgmestres et échevins
-            (Luxembourg)', 'Collèges des bourgmestre et échevins depuis les élections communales
-            2023', 'lu_pep_municipal', 'lu-pep-municipal', 'OPEN_DATA_FILE',
-            'https://data.public.lu/fr/datasets/r/067d11cc-29a8-4f0c-bf35-f9d4ac1818ec',
-            '{"yearsAfterEnd": "5"}', 24, 12, NULL, 'Ministère des Affaires intérieures,
-            data.public.lu' UNION ALL SELECT 'EU-PARL', 'Eurodéputés élus au Luxembourg', 'Députés
-            au Parlement européen élus au Luxembourg', 'lu_pep_europarl', 'lu-pep-europarl',
-            'OPEN_DATA_FILE', 'https://www.europarl.europa.eu/meps/en/full-list/xml', NULL, 24, 12,
-            NULL, '© Union européenne, Parlement européen' ) s ON s.provider = p.code; </sql>
-    </changeSet>
-
-    <!-- Fonctions couvertes par chaque parser : c'est ce que la page « Couverture PEP » affiche -->
-    <changeSet id="003-parser-coverage" author="swiftcheck">
-        <sql> INSERT INTO parser_coverage (parser_id, function_id) SELECT p.id, f.id FROM parser p
-            JOIN ( SELECT 'lu_pep_government' AS dataset_name, 'LU-a' AS category, 'Membre du
-            gouvernement' AS label UNION ALL SELECT 'lu_pep_chamber', 'LU-b', 'Député' UNION ALL
-            SELECT 'lu_pep_chamber_former', 'LU-b', 'Ancien député' UNION ALL SELECT
-            'lu_pep_municipal', 'LU-AMLR', 'Bourgmestre ou échevin de la Ville de Luxembourg' UNION
-            ALL SELECT 'lu_pep_municipal', 'LU-MUN', 'Bourgmestre' UNION ALL SELECT
-            'lu_pep_municipal', 'LU-MUN', 'Échevin' UNION ALL SELECT 'lu_pep_europarl', 'LU-EU',
-            'Député au Parlement européen élu au Luxembourg' ) c ON c.dataset_name = p.dataset_name
-            JOIN pep_category cat ON cat.code = c.category JOIN pep_function f ON f.category_id =
-            cat.id AND f.label = c.label; </sql>
-    </changeSet>
-
-    <!-- Source PEP lue par chaque parser : ces sources passent de « piste » à « implémentée » -->
-    <changeSet id="003-parser-sources" author="swiftcheck">
-        <sql> UPDATE parser p JOIN ( SELECT 'lu_pep_chamber' AS dataset_name, 'Chambre des Députés –
-            députés en fonction' AS source UNION ALL SELECT 'lu_pep_chamber_former', 'Chambre des
-            Députés – anciens députés' UNION ALL SELECT 'lu_pep_government', 'gouvernement.lu –
-            membres du gouvernement' UNION ALL SELECT 'lu_pep_municipal', 'Collèges des bourgmestre
-            et échevins' UNION ALL SELECT 'lu_pep_europarl', 'Parlement européen – liste des
-            députés' ) l ON l.dataset_name = p.dataset_name JOIN pep_source s ON s.name = l.source
-            SET p.source_id = s.id; </sql>
-    </changeSet>
-
-    <!--
-        lu_pep_legilux : hautes fonctions nommées par arrêté grand-ducal (Conseil d'État, hautes
-    juridictions,
-        Cour des comptes, BCL, direction de la CSSF et du CAA). Source PLUGIN_MANAGED : le plugin interroge
-    lui-même
-        le point SPARQL donné dans les paramètres ; pas d'emplacement de source. Mise à jour hebdomadaire.
-    -->
-    <changeSet id="003-parser-legilux" author="swiftcheck">
-        <sql> INSERT INTO parser (list_provider_id, source_id, name, description, dataset_name,
-            plugin_id, data_source_type, parser_kind, source_location, parameters, refresh_hours,
-            retention_months, licence, attribution, enabled, created_at) SELECT p.id, s.id, 'Hautes
-            fonctions nommées au Journal officiel (Luxembourg)', 'Nominations et démissions publiées
-            sur Legilux depuis 2017 : Conseil d''État, hautes juridictions, Cour des comptes, BCL,
-            CSSF, Commissariat aux assurances', 'lu_pep_legilux', 'lu-pep-legilux',
-            'PLUGIN_MANAGED', 'SPARQL', NULL, '{"endpoint":
-            "https://data.legilux.public.lu/sparqlendpoint", "since": "2017-01-01", "yearsAfterEnd":
-            "5"}', 168, 12, NULL, 'Journal officiel du Grand-Duché de Luxembourg,
-            legilux.public.lu', TRUE, NOW() FROM list_provider p JOIN pep_source s ON s.name =
-            'Legilux – Journal officiel (SPARQL)' WHERE p.code = 'LU-SCL'; INSERT INTO
-            parser_coverage (parser_id, function_id) SELECT p.id, f.id FROM parser p JOIN
-            pep_function_source l ON l.source_id = p.source_id JOIN pep_function f ON f.id =
-            l.function_id WHERE p.dataset_name = 'lu_pep_legilux'; </sql>
+        <sql>
+            INSERT INTO application_config (yente_url, yente_update_token, yente_data_folder,
+                yente_container_data_path, yente_manifest_path, archive_folder, work_folder) VALUES
+            ('http://localhost:8000', 'adam', 'D:\\test parser 2\\yent\\data', '/data',
+             'D:\\test parser 2\\yent\\manifest.yml', 'D:\\test parser 2\\archive', 'D:\\test parser 2\\work');
+        </sql>
     </changeSet>
 
 </databaseChangeLog>

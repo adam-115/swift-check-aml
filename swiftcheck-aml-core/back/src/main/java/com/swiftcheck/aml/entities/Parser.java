@@ -1,9 +1,14 @@
 package com.swiftcheck.aml.entities;
 
 import java.time.Instant;
-import java.util.HashSet;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -12,10 +17,8 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -43,10 +46,6 @@ public class Parser {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    /** Organisme qui publie la liste. */
-    @ManyToOne
-    private ListProvider listProvider;
-
     private String name;
 
     private String description;
@@ -58,6 +57,15 @@ public class Parser {
      */
     @Column(unique = true, nullable = false)
     private String datasetName;
+
+    /** PEP, AML (sanctions), MEDIA ou CRIMINAL. Un parser de sanctions ne couvre aucune fonction PEP. */
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private ListType listType = ListType.PEP;
+
+    /** Site de l'organisme qui publie la liste, ex. {@code https://www.chd.lu}. */
+    @Column(length = 1024)
+    private String websiteUrl;
 
     /**
      * Identifiant du plugin PF4J (champ {@code Plugin-Id} du MANIFEST du JAR), ex.
@@ -124,19 +132,17 @@ public class Parser {
     @Column(length = 1000)
     private String attribution;
 
-    /**
-     * Source PEP lue par ce parser (vide pour une liste de sanctions). Un parser
-     * lit une seule source.
-     */
-    @ManyToOne
-    private PepSource source;
+    /** Remarques sur la source : limites, choix d'extraction, pistes. */
+    @Column(columnDefinition = "TEXT")
+    private String notes;
 
     /**
-     * Fonctions PEP couvertes par ce parser : base de la page « Couverture PEP ».
+     * Fonctions PEP couvertes par ce parser, avec leur complétude : base de la page « Couverture PEP ».
+     * Vide pour une liste de sanctions. Modifiée par {@link #replaceCoverage}.
      */
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "parser_coverage", joinColumns = @JoinColumn(name = "parser_id"), inverseJoinColumns = @JoinColumn(name = "function_id"))
-    private Set<PepFunction> coveredFunctions = new HashSet<>();
+    @Setter(AccessLevel.NONE)
+    @OneToMany(mappedBy = "parser", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    private List<PepFunctionParser> coverage = new ArrayList<>();
 
     /**
      * Un parser désactivé n'est plus exécuté et son dataset est retiré de Yente.
@@ -146,4 +152,33 @@ public class Parser {
     private Instant createdAt = Instant.now();
 
     private Instant updatedAt;
+
+    /** Fonctions couvertes, sans leur complétude. */
+    public Set<PepFunction> getCoveredFunctions() {
+        Set<PepFunction> functions = new LinkedHashSet<>();
+        coverage.forEach(link -> functions.add(link.getFunction()));
+        return functions;
+    }
+
+    /**
+     * Remplace les fonctions couvertes. Les liens existants sont modifiés sur place plutôt que supprimés puis
+     * recréés : Hibernate insère avant de supprimer, ce qui violerait la clé (fonction, parser).
+     */
+    public void replaceCoverage(List<PepFunctionParser> wanted) {
+        Map<Long, PepFunctionParser> byFunction = new LinkedHashMap<>();
+        for (PepFunctionParser link : wanted) {
+            byFunction.putIfAbsent(link.getFunction().getId(), link);
+        }
+        coverage.removeIf(link -> !byFunction.containsKey(link.getFunction().getId()));
+        for (PepFunctionParser link : coverage) {
+            PepFunctionParser change = byFunction.remove(link.getFunction().getId());
+            link.setCompleteness(change.getCompleteness());
+            link.setIncludesFormer(change.isIncludesFormer());
+        }
+        for (PepFunctionParser added : byFunction.values()) {
+            added.setParser(this);
+            added.setId(new PepFunctionParser.Key(added.getFunction().getId(), id == 0 ? null : id));
+            coverage.add(added);
+        }
+    }
 }

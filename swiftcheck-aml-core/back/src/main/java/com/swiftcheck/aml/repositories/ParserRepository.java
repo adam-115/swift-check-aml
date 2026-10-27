@@ -14,7 +14,4 @@ public interface ParserRepository extends JpaRepository<Parser, Long> {
     List<Parser> findByEnabledTrue();
 
     boolean existsByDatasetNameAndIdNot(String datasetName, long id);
-
-    /** Parsers qui lisent une source PEP. */
-    List<Parser> findBySourceId(long sourceId);
 }

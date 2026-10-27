@@ -24,22 +24,8 @@ export interface ApplicationConfigDTO {
     workFolder?: string;
 }
 
-/** Nature des listes publiées par un fournisseur. */
+/** Nature d'une liste : PEP, sanctions (AML), médias, criminelle. */
 export type ListType = 'AML' | 'PEP' | 'MEDIA' | 'CRIMINAL';
-
-/** Organisme qui publie les listes (UE, ONU, OFAC...). */
-export interface ListProviderDTO {
-    id?: number;
-    code?: string;
-    name?: string;
-    description?: string;
-    country?: string;
-    listType?: ListType;
-    websiteUrl?: string;
-    logo?: string;              // image en Base64
-    enabled?: boolean;
-    createdAt?: string;
-}
 
 /** D'où viennent les données d'un parser. */
 export type DataSourceType = 'HTTP_FILE' | 'LOCAL_FILE' | 'PLUGIN_MANAGED';
@@ -105,49 +91,10 @@ export interface FunctionCoverage {
     institution?: string;
     expectedHolders?: number;
     status: CoverageStatus;
-    parsers: CoveringParser[];
-    sources: SourceRef[];               // où récupérer les titulaires
+    parsers: CoveringParser[];          // avec la complétude déclarée pour cette fonction
 }
 
-/** Source identifiée pour une fonction ; implemented = un parser la lit déjà. */
-export interface SourceRef {
-    id: number;
-    name: string;
-    url?: string;
-    parserKind?: ParserKind;
-    access: SourceAccess;
-    status: PepSourceStatus;
-    completeness: Completeness;
-    includesFormer: boolean;
-    implemented: boolean;
-}
-
-export type SourceAccess = 'OPEN' | 'RESTRICTED' | 'PAID';
-export type PepSourceStatus = 'CANDIDATE' | 'REJECTED';
 export type Completeness = 'COMPLETE' | 'PARTIAL';
-
-/** Source PEP (GET /api/pep/sources) : où récupérer les titulaires des fonctions. */
-export interface PepSourceDTO {
-    id?: number;
-    countryIso: string;
-    name: string;
-    url?: string;
-    parserKind?: ParserKind;
-    licence?: string;
-    access: SourceAccess;
-    status: PepSourceStatus;
-    notes?: string;
-    functions: PepSourceFunctionLink[];
-    parsers?: { id: number; datasetName: string; enabled: boolean }[];   // lecture seule
-}
-
-export interface PepSourceFunctionLink {
-    functionId: number;
-    categoryCode?: string;
-    label?: string;
-    completeness: Completeness;
-    includesFormer: boolean;
-}
 
 /** Parser qui couvre une fonction ; personCount est le total du parser. */
 export interface CoveringParser {
@@ -155,6 +102,8 @@ export interface CoveringParser {
     name: string;
     datasetName: string;
     enabled: boolean;
+    completeness: Completeness;         // pour cette fonction
+    includesFormer: boolean;            // donne aussi les anciens titulaires
     lastStatus?: ExecutionStatus;
     lastPublishedAt?: string;
     personCount: number;
@@ -191,13 +140,21 @@ export interface ParserAlertDTO {
 /** Résultat d'une exécution. */
 export type ExecutionStatus = 'RUNNING' | 'SUCCESS' | 'UNCHANGED' | 'BLOCKED' | 'FAILED';
 
+/** Une fonction PEP couverte par un parser. */
+export interface ParserCoverageItem {
+    functionId: number;
+    completeness: Completeness;
+    includesFormer: boolean;
+}
+
 /** Configuration d'un parser ; les champs last* résument la dernière exécution (lecture seule). */
 export interface ParserDTO {
     id?: number;
-    listProvider?: ListProviderDTO;     // en écriture, seul listProvider.id est utilisé
     name?: string;
     description?: string;
     datasetName?: string;
+    listType?: ListType;                // PEP, AML (sanctions)...
+    websiteUrl?: string;                // site de l'organisme qui publie la liste
     pluginId?: string;
     pluginUrl?: string;                 // chemin du JAR du plugin sur le serveur
     dataSourceType?: DataSourceType;
@@ -208,9 +165,9 @@ export interface ParserDTO {
     retentionMonths?: number;           // 0 = aucune rétention (sanctions)
     licence?: string;
     attribution?: string;
-    sourceId?: number;                  // source PEP lue par le parser
-    sourceName?: string;                // lecture seule
-    coveredFunctionIds?: number[];      // fonctions PEP couvertes
+    notes?: string;                     // remarques sur la source
+    coverage?: ParserCoverageItem[];    // fonctions PEP couvertes (vide pour les sanctions)
+    countryIso?: string;                // pays des fonctions couvertes (lecture seule)
     enabled?: boolean;
     createdAt?: string;
     updatedAt?: string;

@@ -5,6 +5,13 @@ import java.time.LocalDate;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.OrderBy;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -42,4 +49,10 @@ public class Country {
 
     @Column(length = 1024)
     private String officialListUrl;
+
+    /** Catégories de la liste officielle des fonctions PEP du pays, dans l'ordre de la liste. */
+    @JsonIgnore
+    @OneToMany(mappedBy = "country")
+    @OrderBy("sortOrder")
+    private List<PepCategory> categories = new ArrayList<>();
 }

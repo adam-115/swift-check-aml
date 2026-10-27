@@ -5,14 +5,12 @@ import { ExecutionDetailComponent } from './components/execution-detail/executio
 import { ParserTestsComponent } from './components/parser-tests/parser-tests.component';
 import { ParserTestDetailComponent } from './components/parser-test-detail/parser-test-detail.component';
 import { AppConfigComponent } from './components/app-config/app-config.component';
-import { ListProviderComponent } from './components/list-provider/list-provider.component';
 import { AmlVerificationComponent } from './components/aml-verification/aml-verification.component';
 import { WikiComponent } from './components/wiki/wiki.component';
 import { AmlSearchHistoryComponent } from './components/aml-search-history/aml-search-history.component';
 import { AmlAdvancedVerificationComponent } from './components/aml-advanced-verification/aml-advanced-verification.component';
 import { PepCoverageComponent } from './components/pep-coverage/pep-coverage.component';
 import { ParserAlertsComponent } from './components/parser-alerts/parser-alerts.component';
-import { PepSourcesComponent } from './components/pep-sources/pep-sources.component';
 import { authGuard } from './guards/auth.guard';
 
 export const routes: Routes = [
@@ -26,9 +24,7 @@ export const routes: Routes = [
   { path: 'verification', component: AmlVerificationComponent, canActivate: [authGuard], data: { roles: ['admin', 'tester'] } },
   { path: 'verification/advanced', component: AmlAdvancedVerificationComponent, canActivate: [authGuard], data: { roles: ['admin', 'tester'] } },
   { path: 'verification/history', component: AmlSearchHistoryComponent, canActivate: [authGuard], data: { roles: ['admin', 'tester'] } },
-  { path: 'providers', component: ListProviderComponent, canActivate: [authGuard], data: { roles: ['admin', 'tester'] } },
   { path: 'coverage', component: PepCoverageComponent, canActivate: [authGuard], data: { roles: ['admin', 'tester'] } },
-  { path: 'sources', component: PepSourcesComponent, canActivate: [authGuard], data: { roles: ['admin', 'tester'] } },
   { path: 'alerts', component: ParserAlertsComponent, canActivate: [authGuard], data: { roles: ['admin', 'tester'] } },
   // Configuration système réservée exclusivement au rôle ADMIN
   { path: 'config', component: AppConfigComponent, canActivate: [authGuard], data: { roles: ['admin'] } },

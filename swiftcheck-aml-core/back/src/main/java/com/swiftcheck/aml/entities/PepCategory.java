@@ -8,6 +8,13 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.OrderBy;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -41,4 +48,10 @@ public class PepCategory {
 
     /** Texte qui définit la catégorie, ex. « Directive (UE) 2015/849, art. 3, point 9 b) ». */
     private String legalReference;
+
+    /** Fonctions de la catégorie. */
+    @JsonIgnore
+    @OneToMany(mappedBy = "category")
+    @OrderBy("id")
+    private List<PepFunction> functions = new ArrayList<>();
 }

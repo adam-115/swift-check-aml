@@ -1,7 +1,10 @@
 package com.swiftcheck.aml.controllers;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -19,14 +22,13 @@ import org.springframework.web.bind.annotation.RestController;
 import com.swiftcheck.aml.dto.ParserDTO;
 import com.swiftcheck.aml.dto.ParserExecutionDTO;
 import com.swiftcheck.aml.entities.ExecutionTriggerEnum;
-import com.swiftcheck.aml.entities.ListProvider;
 import com.swiftcheck.aml.entities.Parser;
+import com.swiftcheck.aml.entities.PepFunction;
+import com.swiftcheck.aml.entities.PepFunctionParser;
 import com.swiftcheck.aml.dto.RetainedEntityDTO;
 import com.swiftcheck.aml.ingestion.IngestionService;
 import com.swiftcheck.aml.ingestion.RetentionService;
-import com.swiftcheck.aml.service.ListProviderService;
 import com.swiftcheck.aml.service.PepReferenceService;
-import com.swiftcheck.aml.service.PepSourceService;
 import com.swiftcheck.aml.service.ParserExecutionService;
 import com.swiftcheck.aml.dto.ParserTestDTO;
 import com.swiftcheck.aml.dto.ParserTestPreviewDTO;
@@ -62,7 +64,6 @@ public class ParserController {
 
     private final ParserService parserService;
     private final ParserExecutionService executionService;
-    private final ListProviderService providerService;
     private final IngestionService ingestionService;
     private final PluginManagementService pluginService;
     private final ParserTestService testService;
@@ -70,14 +71,12 @@ public class ParserController {
     private final ParserTestRepository testRepository;
     private final PepReferenceService referenceService;
     private final RetentionService retentionService;
-    private final PepSourceService sourceService;
 
     public ParserController(ParserService parserService, ParserExecutionService executionService,
-            ListProviderService providerService, IngestionService ingestionService,
+            IngestionService ingestionService,
             PluginManagementService pluginService, ParserTestService testService, ParserTestViews testViews,
             ParserTestRepository testRepository, PepReferenceService referenceService,
-            RetentionService retentionService, PepSourceService sourceService) {
-        this.sourceService = sourceService;
+            RetentionService retentionService) {
         this.referenceService = referenceService;
         this.retentionService = retentionService;
         this.testRepository = testRepository;
@@ -85,7 +84,6 @@ public class ParserController {
         this.testViews = testViews;
         this.parserService = parserService;
         this.executionService = executionService;
-        this.providerService = providerService;
         this.ingestionService = ingestionService;
         this.pluginService = pluginService;
     }
@@ -106,18 +104,14 @@ public class ParserController {
     @PostMapping
     public ParserDTO create(@RequestBody ParserDTO dto) {
         Parser parser = dto.toEntity();
-        parser.setListProvider(resolveProvider(dto));
-        parser.setSource(dto.getSourceId() == null ? null : sourceService.find(dto.getSourceId()));
-        parser.setCoveredFunctions(referenceService.findFunctionsByIds(dto.getCoveredFunctionIds()));
+        parser.replaceCoverage(resolveCoverage(dto));
         return toDto(parserService.create(parser));
     }
 
     @PutMapping("/{id}")
     public ParserDTO update(@PathVariable long id, @RequestBody ParserDTO dto) throws IOException {
         Parser changes = dto.toEntity();
-        changes.setListProvider(resolveProvider(dto));
-        changes.setSource(dto.getSourceId() == null ? null : sourceService.find(dto.getSourceId()));
-        changes.setCoveredFunctions(referenceService.findFunctionsByIds(dto.getCoveredFunctionIds()));
+        changes.replaceCoverage(resolveCoverage(dto));
         return toDto(parserService.update(id, changes));
     }
 
@@ -180,14 +174,18 @@ public class ParserController {
     }
 
     /**
-     * Le fournisseur choisi dans le formulaire ({@code listProvider.id}), ou aucun.
+     * Fonctions couvertes choisies dans le formulaire ({@code coverage}), avec leur complétude.
+     *
+     * @throws IllegalArgumentException si une fonction n'existe pas
      */
-    private ListProvider resolveProvider(ParserDTO dto) {
-        if (dto.getListProvider() == null || dto.getListProvider().getId() == 0) {
-            return null;
+    private List<PepFunctionParser> resolveCoverage(ParserDTO dto) {
+        Map<Long, PepFunction> functions = new HashMap<>();
+        referenceService.findFunctionsByIds(dto.getCoverage().stream().map(ParserDTO.CoverageItem::functionId).toList())
+                .forEach(f -> functions.put(f.getId(), f));
+        List<PepFunctionParser> links = new ArrayList<>();
+        for (ParserDTO.CoverageItem item : dto.getCoverage()) {
+            links.add(new PepFunctionParser(functions.get(item.functionId()), item.completeness(), item.includesFormer()));
         }
-        long providerId = dto.getListProvider().getId();
-        return providerService.findById(providerId)
-                .orElseThrow(() -> new IllegalArgumentException("Fournisseur introuvable : " + providerId));
+        return links;
     }
 }

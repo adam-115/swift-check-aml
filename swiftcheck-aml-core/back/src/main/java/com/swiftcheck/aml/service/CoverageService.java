@@ -2,11 +2,9 @@ package com.swiftcheck.aml.service;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.Set;
 
 import org.springframework.stereotype.Service;
 
@@ -15,7 +13,6 @@ import com.swiftcheck.aml.dto.CoverageDTO;
 import com.swiftcheck.aml.dto.CoverageDTO.CategoryCoverage;
 import com.swiftcheck.aml.dto.CoverageDTO.CoveringParser;
 import com.swiftcheck.aml.dto.CoverageDTO.FunctionCoverage;
-import com.swiftcheck.aml.dto.CoverageDTO.SourceRef;
 import com.swiftcheck.aml.dto.CoverageDTO.Status;
 import com.swiftcheck.aml.entities.Country;
 import com.swiftcheck.aml.entities.Parser;
@@ -23,21 +20,18 @@ import com.swiftcheck.aml.entities.ParserExecution;
 import com.swiftcheck.aml.entities.PepCategory;
 import com.swiftcheck.aml.entities.PepCategoryKind;
 import com.swiftcheck.aml.entities.PepFunction;
-import com.swiftcheck.aml.entities.PepFunctionSource;
-import com.swiftcheck.aml.entities.PepSource;
+import com.swiftcheck.aml.entities.Completeness;
+import com.swiftcheck.aml.entities.PepFunctionParser;
 import com.swiftcheck.aml.repositories.ParserExecutionRepository;
-import com.swiftcheck.aml.repositories.PepFunctionSourceRepository;
 import com.swiftcheck.aml.repositories.ParserRepository;
 
 /**
  * Page « Couverture PEP » : pour chaque fonction de la liste officielle d'un pays, existe-t-il un parser qui
  * la couvre, et combien de personnes a-t-il publiées à sa dernière publication ?
  *
- * <p>Pour chaque fonction, les sources identifiées sont aussi listées : une fonction non couverte avec une
- * source non implémentée est le prochain parser à écrire.
- *
- * <p>Une fonction est <b>couverte</b> si au moins un parser actif qui la déclare a déjà publié (SUCCESS ou
- * UNCHANGED). Une catégorie est couverte si toutes ses fonctions le sont, partielle si une partie l'est.
+ * <p>Une fonction est <b>couverte</b> si au moins un parser actif qui la déclare complète (table
+ * pep_function_parser) a déjà publié (SUCCESS ou UNCHANGED) ; <b>partielle</b> si seuls des parsers partiels
+ * l'ont fait. Une catégorie est couverte si toutes ses fonctions le sont, partielle si une partie l'est.
  */
 @Service
 public class CoverageService {
@@ -45,46 +39,28 @@ public class CoverageService {
     private final PepReferenceService reference;
     private final ParserRepository parsers;
     private final ParserExecutionRepository executions;
-    private final PepFunctionSourceRepository functionSources;
 
     public CoverageService(PepReferenceService reference, ParserRepository parsers,
-            ParserExecutionRepository executions, PepFunctionSourceRepository functionSources) {
+            ParserExecutionRepository executions) {
         this.reference = reference;
         this.parsers = parsers;
         this.executions = executions;
-        this.functionSources = functionSources;
     }
 
     public CoverageDTO coverage(String countryIso) {
         Country country = reference.getCountry(countryIso);
 
-        // Parsers qui couvrent chaque fonction, avec leur dernière publication (lue une fois par parser)
+        // Parsers qui couvrent chaque fonction, avec la complétude du lien ; dernière publication lue une fois par parser
         Map<Long, List<CoveringParser>> parsersByFunction = new HashMap<>();
-        List<Parser> allParsers = parsers.findAll();
-        for (Parser parser : allParsers) {
-            CoveringParser covering = null;
-            for (PepFunction function : parser.getCoveredFunctions()) {
-                if (covering == null) {
-                    covering = toCoveringParser(parser);
+        for (Parser parser : parsers.findAll()) {
+            CoveringParser published = null;
+            for (PepFunctionParser link : parser.getCoverage()) {
+                if (published == null) {
+                    published = toCoveringParser(parser);
                 }
-                parsersByFunction.computeIfAbsent(function.getId(), id -> new ArrayList<>()).add(covering);
+                parsersByFunction.computeIfAbsent(link.getFunction().getId(), id -> new ArrayList<>())
+                        .add(withLink(published, link));
             }
-        }
-
-        // Sources identifiées pour chaque fonction ; une source est implémentée si un parser la lit
-        Set<Long> implementedSources = new HashSet<>();
-        for (Parser parser : allParsers) {
-            if (parser.getSource() != null) {
-                implementedSources.add(parser.getSource().getId());
-            }
-        }
-        Map<Long, List<SourceRef>> sourcesByFunction = new HashMap<>();
-        for (PepFunctionSource link : functionSources.findBySourceCountryIso(country.getIso())) {
-            PepSource s = link.getSource();
-            sourcesByFunction.computeIfAbsent(link.getFunction().getId(), id -> new ArrayList<>())
-                    .add(new SourceRef(s.getId(), s.getName(), s.getUrl(), s.getParserKind(), s.getAccess(),
-                            s.getStatus(), link.getCompleteness(), link.isIncludesFormer(),
-                            implementedSources.contains(s.getId())));
         }
 
         // Fonctions du pays, rangées par catégorie
@@ -100,10 +76,8 @@ public class CoverageService {
             List<FunctionCoverage> functions = new ArrayList<>();
             for (PepFunction function : functionsByCategory.getOrDefault(category.getId(), List.of())) {
                 List<CoveringParser> covering = parsersByFunction.getOrDefault(function.getId(), List.of());
-                Status status = covering.stream().anyMatch(CoverageService::publishes) ? Status.COVERED : Status.NONE;
                 functions.add(new FunctionCoverage(function.getId(), function.getLabel(), function.getInstitution(),
-                        function.getExpectedHolders(), status, covering,
-                        sourcesByFunction.getOrDefault(function.getId(), List.of())));
+                        function.getExpectedHolders(), functionStatus(covering), covering));
             }
             Status status = categoryStatus(functions);
             if (category.getKind() == PepCategoryKind.OFFICIAL) {
@@ -117,10 +91,10 @@ public class CoverageService {
         }
 
         // Personnes publiées pour ce pays : chaque parser compté une fois, même s'il couvre plusieurs fonctions
-        int persons = parsersByFunction.values().stream().flatMap(List::stream).distinct()
-                .filter(p -> coversCountry(p, categories))
-                .filter(CoverageService::publishes)
-                .mapToInt(CoveringParser::personCount).sum();
+        Map<Long, CoveringParser> countryParsers = new HashMap<>();
+        categories.stream().flatMap(c -> c.functions().stream()).flatMap(f -> f.parsers().stream())
+                .filter(CoverageService::publishes).forEach(p -> countryParsers.putIfAbsent(p.id(), p));
+        int persons = countryParsers.values().stream().mapToInt(CoveringParser::personCount).sum();
 
         return new CoverageDTO(CountryDTO.from(country), official, coveredOfficial, persons, categories);
     }
@@ -130,18 +104,20 @@ public class CoverageService {
         return parser.enabled() && parser.lastPublishedAt() != null;
     }
 
-    private static Status categoryStatus(List<FunctionCoverage> functions) {
-        long covered = functions.stream().filter(f -> f.status() == Status.COVERED).count();
-        if (covered == 0) {
-            return Status.NONE;
+    /** COVERED : un parser complet a publié ; PARTIAL : seulement des parsers partiels ; NONE sinon. */
+    private static Status functionStatus(List<CoveringParser> covering) {
+        if (covering.stream().anyMatch(p -> publishes(p) && p.completeness() == Completeness.COMPLETE)) {
+            return Status.COVERED;
         }
-        return covered == functions.size() ? Status.COVERED : Status.PARTIAL;
+        return covering.stream().anyMatch(CoverageService::publishes) ? Status.PARTIAL : Status.NONE;
     }
 
-    /** Vrai si le parser apparaît dans au moins une fonction de ce pays. */
-    private static boolean coversCountry(CoveringParser parser, List<CategoryCoverage> categories) {
-        return categories.stream().flatMap(c -> c.functions().stream())
-                .anyMatch(f -> f.parsers().contains(parser));
+    private static Status categoryStatus(List<FunctionCoverage> functions) {
+        long covered = functions.stream().filter(f -> f.status() == Status.COVERED).count();
+        if (covered == functions.size() && covered > 0) {
+            return Status.COVERED;
+        }
+        return functions.stream().anyMatch(f -> f.status() != Status.NONE) ? Status.PARTIAL : Status.NONE;
     }
 
     private CoveringParser toCoveringParser(Parser parser) {
@@ -149,9 +125,16 @@ public class CoverageService {
         Optional<ParserExecution> published = executions
                 .findFirstByParserIdAndStatusInOrderByStartedAtDesc(parser.getId(), AlertService.PUBLISHED);
         return new CoveringParser(parser.getId(), parser.getName(), parser.getDatasetName(), parser.isEnabled(),
+                Completeness.COMPLETE, false,
                 last.map(ParserExecution::getStatus).orElse(null),
                 published.map(ParserExecution::getStartedAt).orElse(null),
                 published.map(ParserExecution::getPersonCount).orElse(0),
                 published.map(ParserExecution::getRetainedCount).orElse(0));
+    }
+
+    /** Même parser, avec la complétude déclarée pour une fonction donnée. */
+    private static CoveringParser withLink(CoveringParser p, PepFunctionParser link) {
+        return new CoveringParser(p.id(), p.name(), p.datasetName(), p.enabled(), link.getCompleteness(),
+                link.isIncludesFormer(), p.lastStatus(), p.lastPublishedAt(), p.personCount(), p.retainedCount());
     }
 }

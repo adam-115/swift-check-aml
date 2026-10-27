@@ -5,10 +5,7 @@ import java.util.List;
 
 import com.swiftcheck.aml.entities.Completeness;
 import com.swiftcheck.aml.entities.ParserExecutionStatus;
-import com.swiftcheck.aml.entities.ParserKind;
 import com.swiftcheck.aml.entities.PepCategoryKind;
-import com.swiftcheck.aml.entities.PepSourceStatus;
-import com.swiftcheck.aml.entities.SourceAccess;
 
 /**
  * Page « Couverture PEP » d'un pays : pour chaque catégorie de la liste officielle, les fonctions, les parsers
@@ -46,8 +43,8 @@ public record CoverageDTO(
     }
 
     /**
-     * @param parsers parsers qui couvrent la fonction
-     * @param sources sources identifiées où récupérer ses titulaires (implémentées ou non)
+     * @param status  COVERED si un parser actif complet a publié, PARTIAL si seuls des parsers partiels l'ont fait
+     * @param parsers parsers qui couvrent la fonction, avec leur complétude
      */
     public record FunctionCoverage(
             long id,
@@ -55,29 +52,12 @@ public record CoverageDTO(
             String institution,
             Integer expectedHolders,
             Status status,
-            List<CoveringParser> parsers,
-            List<SourceRef> sources) {
+            List<CoveringParser> parsers) {
     }
 
     /**
-     * Une source identifiée pour la fonction.
-     *
-     * @param implemented vrai si un parser lit déjà cette source
-     */
-    public record SourceRef(
-            long id,
-            String name,
-            String url,
-            ParserKind parserKind,
-            SourceAccess access,
-            PepSourceStatus status,
-            Completeness completeness,
-            boolean includesFormer,
-            boolean implemented) {
-    }
-
-    /**
-     * Un parser qui couvre la fonction. {@code personCount} est le total du parser (un parser peut couvrir
+     * Un parser qui couvre la fonction, avec la complétude déclarée pour cette fonction ({@code completeness},
+     * {@code includesFormer}). {@code personCount} est le total du parser (un parser peut couvrir
      * plusieurs fonctions, ex. bourgmestres et échevins).
      */
     public record CoveringParser(
@@ -85,6 +65,8 @@ public record CoverageDTO(
             String name,
             String datasetName,
             boolean enabled,
+            Completeness completeness,
+            boolean includesFormer,
             ParserExecutionStatus lastStatus,
             Instant lastPublishedAt,
             int personCount,

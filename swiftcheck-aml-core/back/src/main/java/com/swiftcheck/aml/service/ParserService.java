@@ -2,6 +2,8 @@ package com.swiftcheck.aml.service;
 
 import java.io.IOException;
 import java.time.Instant;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.domain.Page;
@@ -9,6 +11,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.swiftcheck.aml.entities.DataSourceType;
+import com.swiftcheck.aml.entities.ListType;
+import com.swiftcheck.aml.entities.PepFunctionParser;
 import com.swiftcheck.aml.entities.Parser;
 import com.swiftcheck.aml.ingestion.DatasetPublisher;
 import com.swiftcheck.aml.ingestion.ParserParameters;
@@ -39,12 +43,23 @@ public class ParserService {
         return parsers.findById(id);
     }
 
-    /** Crée un parser après vérification de sa configuration. */
+    /**
+     * Crée un parser après vérification de sa configuration. Le parser est enregistré d'abord sans ses fonctions
+     * couvertes : la clé d'un lien (fonction, parser) a besoin de l'identifiant du parser, et un premier
+     * enregistrement des liens par {@code persist} échouerait sur les fonctions chargées hors transaction.
+     */
     public Parser create(Parser parser) {
         parser.setId(0);
         parser.setCreatedAt(Instant.now());
         validate(parser);
-        return parsers.save(parser);
+        List<PepFunctionParser> coverage = new ArrayList<>(parser.getCoverage());
+        parser.replaceCoverage(List.of());
+        Parser saved = parsers.save(parser);
+        if (coverage.isEmpty()) {
+            return saved;
+        }
+        saved.replaceCoverage(coverage);
+        return parsers.save(saved);
     }
 
     /**
@@ -57,10 +72,11 @@ public class ParserService {
                 .orElseThrow(() -> new IllegalArgumentException("Parser introuvable : " + id));
         boolean wasEnabled = parser.isEnabled();
 
-        parser.setListProvider(changes.getListProvider());
         parser.setName(changes.getName());
         parser.setDescription(changes.getDescription());
         parser.setDatasetName(changes.getDatasetName());
+        parser.setListType(changes.getListType());
+        parser.setWebsiteUrl(changes.getWebsiteUrl());
         parser.setPluginId(changes.getPluginId());
         parser.setPluginUrl(changes.getPluginUrl());
         parser.setDataSourceType(changes.getDataSourceType());
@@ -71,8 +87,8 @@ public class ParserService {
         parser.setRetentionMonths(changes.getRetentionMonths());
         parser.setLicence(changes.getLicence());
         parser.setAttribution(changes.getAttribution());
-        parser.setSource(changes.getSource());
-        parser.setCoveredFunctions(changes.getCoveredFunctions());
+        parser.setNotes(changes.getNotes());
+        parser.replaceCoverage(changes.getCoverage());
         parser.setEnabled(changes.isEnabled());
         parser.setUpdatedAt(Instant.now());
         validate(parser);
@@ -107,6 +123,10 @@ public class ParserService {
         if (dataset == null || !dataset.matches("[a-z0-9_]+")) {
             throw new IllegalArgumentException(
                     "Nom de dataset obligatoire, en minuscules, chiffres et _ (ex. eu_sanctions).");
+        }
+        if (parser.getListType() != ListType.PEP && !parser.getCoverage().isEmpty()) {
+            throw new IllegalArgumentException("Seul un parser PEP peut couvrir des fonctions PEP (type de liste : "
+                    + parser.getListType() + ").");
         }
         if (parsers.existsByDatasetNameAndIdNot(dataset, parser.getId())) {
             throw new IllegalArgumentException("Le dataset « " + dataset + " » est déjà utilisé par un autre parser.");

@@ -2,13 +2,15 @@ package com.swiftcheck.aml.dto;
 
 import java.time.Instant;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
+import com.swiftcheck.aml.entities.Completeness;
 import com.swiftcheck.aml.entities.DataSourceType;
+import com.swiftcheck.aml.entities.ListType;
 import com.swiftcheck.aml.entities.Parser;
 import com.swiftcheck.aml.entities.ParserExecution;
 import com.swiftcheck.aml.entities.ParserKind;
-import com.swiftcheck.aml.entities.PepFunction;
 import com.swiftcheck.aml.entities.ParserTest;
 import com.swiftcheck.aml.entities.ParserTestStatus;
 import com.swiftcheck.aml.entities.ParserExecutionStatus;
@@ -22,11 +24,13 @@ import lombok.Data;
 @Data
 public class ParserDTO {
     private long id;
-    /** En entrée, seul {@code listProvider.id} est utilisé. */
-    private ListProviderDTO listProvider;
     private String name;
     private String description;
     private String datasetName;
+    /** PEP, AML (sanctions), MEDIA ou CRIMINAL. */
+    private ListType listType = ListType.PEP;
+    /** Site de l'organisme qui publie la liste. */
+    private String websiteUrl;
     private String pluginId;
     /** Chemin du JAR du plugin sur le serveur (facultatif). */
     private String pluginUrl;
@@ -38,11 +42,12 @@ public class ParserDTO {
     private int retentionMonths;
     private String licence;
     private String attribution;
-    /** Source PEP lue par le parser (identifiant de {@code pep_source}), vide pour une liste de sanctions. */
-    private Long sourceId;
-    private String sourceName;              // lecture seule
-    /** Fonctions PEP couvertes (identifiants de {@code pep_function}). */
-    private List<Long> coveredFunctionIds = new ArrayList<>();
+    /** Remarques sur la source. */
+    private String notes;
+    /** Fonctions PEP couvertes, avec leur complétude ; vide pour une liste de sanctions. */
+    private List<CoverageItem> coverage = new ArrayList<>();
+    /** Pays des fonctions couvertes (lecture seule) ; vide pour une liste de sanctions. */
+    private String countryIso;
     private boolean enabled = true;
     private Instant createdAt;
     private Instant updatedAt;
@@ -60,6 +65,10 @@ public class ParserDTO {
     private Instant lastTestAt;
     private Double lastTestFoundPercent;
 
+    /** Une fonction couverte par le parser (ligne de pep_function_parser). */
+    public record CoverageItem(long functionId, Completeness completeness, boolean includesFormer) {
+    }
+
     /** Ajoute le résumé du dernier test ({@code null} : jamais testé). */
     public ParserDTO withLastTest(ParserTest test) {
         if (test != null) {
@@ -76,10 +85,11 @@ public class ParserDTO {
     public static ParserDTO from(Parser entity, ParserExecution lastExecution) {
         ParserDTO dto = new ParserDTO();
         dto.setId(entity.getId());
-        dto.setListProvider(entity.getListProvider() == null ? null : ListProviderDTO.from(entity.getListProvider()));
         dto.setName(entity.getName());
         dto.setDescription(entity.getDescription());
         dto.setDatasetName(entity.getDatasetName());
+        dto.setListType(entity.getListType());
+        dto.setWebsiteUrl(entity.getWebsiteUrl());
         dto.setPluginId(entity.getPluginId());
         dto.setPluginUrl(entity.getPluginUrl());
         dto.setDataSourceType(entity.getDataSourceType());
@@ -90,11 +100,14 @@ public class ParserDTO {
         dto.setRetentionMonths(entity.getRetentionMonths());
         dto.setLicence(entity.getLicence());
         dto.setAttribution(entity.getAttribution());
-        if (entity.getSource() != null) {
-            dto.setSourceId(entity.getSource().getId());
-            dto.setSourceName(entity.getSource().getName());
-        }
-        dto.setCoveredFunctionIds(entity.getCoveredFunctions().stream().map(PepFunction::getId).sorted().toList());
+        dto.setNotes(entity.getNotes());
+        dto.setCoverage(entity.getCoverage().stream()
+                .map(l -> new CoverageItem(l.getFunction().getId(), l.getCompleteness(), l.isIncludesFormer()))
+                .sorted(Comparator.comparingLong(CoverageItem::functionId))
+                .toList());
+        dto.setCountryIso(entity.getCoverage().stream()
+                .map(l -> l.getFunction().getCategory().getCountry().getIso())
+                .findFirst().orElse(null));
         dto.setEnabled(entity.isEnabled());
         dto.setCreatedAt(entity.getCreatedAt());
         dto.setUpdatedAt(entity.getUpdatedAt());
@@ -109,14 +122,16 @@ public class ParserDTO {
     }
 
     /**
-     * Nouvelle entité avec les champs modifiables. Le fournisseur et les fonctions couvertes sont résolus par
-     * le contrôleur à partir de {@code listProvider.id} et {@code coveredFunctionIds}.
+     * Nouvelle entité avec les champs modifiables. Les fonctions couvertes sont résolues par le contrôleur
+     * à partir de {@code coverage}.
      */
     public Parser toEntity() {
         Parser entity = new Parser();
         entity.setName(name);
         entity.setDescription(description);
         entity.setDatasetName(datasetName == null ? null : datasetName.trim());
+        entity.setListType(listType == null ? ListType.PEP : listType);
+        entity.setWebsiteUrl(websiteUrl == null || websiteUrl.isBlank() ? null : websiteUrl.trim());
         entity.setPluginId(pluginId == null ? null : pluginId.trim());
         entity.setPluginUrl(pluginUrl == null || pluginUrl.isBlank() ? null : pluginUrl.trim());
         entity.setDataSourceType(dataSourceType);
@@ -127,6 +142,7 @@ public class ParserDTO {
         entity.setRetentionMonths(retentionMonths);
         entity.setLicence(licence == null || licence.isBlank() ? null : licence.trim());
         entity.setAttribution(attribution == null || attribution.isBlank() ? null : attribution.trim());
+        entity.setNotes(notes == null || notes.isBlank() ? null : notes.trim());
         entity.setEnabled(enabled);
         return entity;
     }

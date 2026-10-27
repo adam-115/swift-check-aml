@@ -39,6 +39,12 @@
             <artifactId>pf4j</artifactId>
             <scope>provided</scope>
         </dependency>
+        <!-- Lecture du JSON-LD de l'API du Parlement européen : Jackson est fourni par le core -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <scope>provided</scope>
+        </dependency>
     </dependencies>
 
     <build>

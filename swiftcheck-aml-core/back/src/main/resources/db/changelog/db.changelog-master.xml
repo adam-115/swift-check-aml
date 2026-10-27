@@ -4,29 +4,13 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
 
-    <!-- 001 : toutes les tables ; 002 : référentiel PEP (pays, catégories, fonctions) ; 003 : données de départ -->
+    <!--
+        001 : toutes les tables ; 002 : référentiel PEP (pays, catégories, fonctions) ;
+        003 : utilisateurs et configuration ; 004 : parsers et fonctions qu'ils couvrent.
+    -->
     <include file="db/changelog/changes/001-schema.xml" />
     <include file="db/changelog/changes/002-pep-reference-data.xml" />
     <include file="db/changelog/changes/003-seed-data.xml" />
-    <include file="db/changelog/changes/004-seed-government-former.xml" />
-    <include file="db/changelog/changes/005-seed-council-of-state.xml" />
-    <include file="db/changelog/changes/006-seed-eu-commission.xml" />
-    <include file="db/changelog/changes/007-seed-europarl-former.xml" />
-    <include file="db/changelog/changes/008-seed-grand-duke.xml" />
-    <include file="db/changelog/changes/009-seed-judiciary.xml" />
-    <include file="db/changelog/changes/010-seed-administrative-courts.xml" />
-    <include file="db/changelog/changes/011-seed-court-of-auditors.xml" />
-    <include file="db/changelog/changes/012-seed-central-bank.xml" />
-    <include file="db/changelog/changes/013-seed-ilr.xml" />
-    <include file="db/changelog/changes/014-seed-caa.xml" />
-    <include file="db/changelog/changes/015-seed-cssf.xml" />
-    <include file="db/changelog/changes/016-seed-army.xml" />
-    <include file="db/changelog/changes/017-seed-diplomats.xml" />
-    <include file="db/changelog/changes/018-seed-international-orgs.xml" />
-    <include file="db/changelog/changes/019-seed-political-parties.xml" />
-    <include file="db/changelog/changes/020-seed-state-enterprises.xml" />
-    <include file="db/changelog/changes/021-update-cssf-source.xml" />
-    <include file="db/changelog/changes/022-eu-commission-former-commissioners.xml" />
-    <include file="db/changelog/changes/023-seed-rca.xml" />
+    <include file="db/changelog/changes/004-parsers.xml" />
 
 </databaseChangeLog>

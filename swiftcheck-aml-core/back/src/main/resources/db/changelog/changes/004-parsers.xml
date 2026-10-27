@@ -1,0 +1,709 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Parsers et fonctions PEP qu'ils couvrent (pep_function_parser).
+    Un parser de sanctions (list_type AML) ne couvre aucune fonction.
+    Chaque fonction est désignée par le code de sa catégorie et son libellé (voir 002-pep-reference-data.xml).
+-->
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <!-- eu_sanctions : Sanctions financières UE -->
+    <changeSet id="004-parser-eu-sanctions" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('Sanctions financières UE',
+                'Liste consolidée des sanctions financières de l''Union européenne',
+                'eu_sanctions', 'AML', 'https://data.europa.eu/data/datasets/consolidated-list-of-persons-groups-and-entities-subject-to-eu-financial-sanctions',
+                'eu-parser', 'D:\\test parser 2\\plugins\\swiftcheck-aml-eu-0.0.1-SNAPSHOT.jar',
+                'HTTP_FILE', 'OPEN_DATA_FILE',
+                'https://webgate.ec.europa.eu/fsd/fsf/public/files/xmlFullSanctionsList_1_1/content?token=dG9rZW4tMjAxNw',
+                NULL,
+                1, 0,
+                'Réutilisation autorisée (décision 2011/833/UE)', '© Union européenne',
+                NULL, TRUE, NOW());
+        ]]></sql>
+    </changeSet>
+
+    <!-- lu_pep_europarl : Eurodéputés élus au Luxembourg -->
+    <changeSet id="004-parser-lu-pep-europarl" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('Eurodéputés élus au Luxembourg',
+                'Députés au Parlement européen élus au Luxembourg',
+                'lu_pep_europarl', 'PEP', 'https://www.europarl.europa.eu/meps/fr/full-list',
+                'lu-pep-europarl', 'D:\\test parser 2\\plugins\\swiftcheck-aml-lu-pep-europarl-0.0.1-SNAPSHOT.jar',
+                'HTTP_FILE', 'OPEN_DATA_FILE',
+                'https://www.europarl.europa.eu/meps/en/full-list/xml',
+                NULL,
+                24, 12,
+                NULL, '© Union européenne, Parlement européen',
+                NULL, TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former)
+            SELECT f.id, p.id, 'COMPLETE', FALSE
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'LU-EU' AND f.label = 'Député au Parlement européen élu au Luxembourg' AND p.dataset_name = 'lu_pep_europarl';
+        ]]></sql>
+    </changeSet>
+
+    <!-- lu_pep_chamber : Députés en fonction (Luxembourg) -->
+    <changeSet id="004-parser-lu-pep-chamber" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('Députés en fonction (Luxembourg)',
+                'Députés de la Chambre des Députés en fonction',
+                'lu_pep_chamber', 'PEP', 'https://www.chd.lu/fr/deputies',
+                'lu-pep-chamber', 'D:\\test parser 2\\plugins\\swiftcheck-aml-lu-pep-chamber-0.0.1-SNAPSHOT.jar',
+                'HTTP_FILE', 'OPEN_DATA_FILE',
+                'https://data.public.lu/fr/datasets/r/a5b6e7f9-b488-41a6-9bd1-be913a5c35b5',
+                NULL,
+                24, 12,
+                NULL, 'Chambre des Députés du Grand-Duché de Luxembourg, data.public.lu',
+                NULL, TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former)
+            SELECT f.id, p.id, 'COMPLETE', FALSE
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'LU-b' AND f.label = 'Député' AND p.dataset_name = 'lu_pep_chamber';
+        ]]></sql>
+    </changeSet>
+
+    <!-- lu_pep_chamber_former : Anciens députés (Luxembourg) -->
+    <changeSet id="004-parser-lu-pep-chamber-former" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('Anciens députés (Luxembourg)',
+                'Anciens députés de la Chambre des Députés',
+                'lu_pep_chamber_former', 'PEP', 'https://www.chd.lu/fr/deputies',
+                'lu-pep-chamber-former', 'D:\\test parser 2\\plugins\\swiftcheck-aml-lu-pep-chamber-former-0.0.1-SNAPSHOT.jar',
+                'HTTP_FILE', 'OPEN_DATA_FILE',
+                'https://data.public.lu/fr/datasets/r/8fdbd601-6931-47b5-a027-aacd3b1e47f4',
+                '{"yearsAfterEnd": "5"}',
+                24, 12,
+                NULL, 'Chambre des Députés du Grand-Duché de Luxembourg, data.public.lu',
+                NULL, TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former)
+            SELECT f.id, p.id, 'COMPLETE', TRUE
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'LU-b' AND f.label = 'Ancien député' AND p.dataset_name = 'lu_pep_chamber_former';
+        ]]></sql>
+    </changeSet>
+
+    <!-- lu_pep_municipal : Bourgmestres et échevins             (Luxembourg) -->
+    <changeSet id="004-parser-lu-pep-municipal" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('Bourgmestres et échevins (Luxembourg)',
+                'Collèges des bourgmestre et échevins depuis les élections communales 2023',
+                'lu_pep_municipal', 'PEP', 'https://data.public.lu/fr/datasets/college-des-bourgmestre-et-echevins-depuis-les-elections-communales-2023/',
+                'lu-pep-municipal', 'D:\\test parser 2\\plugins\\swiftcheck-aml-lu-pep-municipal-0.0.1-SNAPSHOT.jar',
+                'HTTP_FILE', 'OPEN_DATA_FILE',
+                'https://data.public.lu/fr/datasets/r/067d11cc-29a8-4f0c-bf35-f9d4ac1818ec',
+                '{"yearsAfterEnd": "5"}',
+                24, 12,
+                NULL, 'Ministère des Affaires intérieures, data.public.lu',
+                NULL, TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former)
+            SELECT f.id, p.id, 'COMPLETE', FALSE
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'LU-AMLR' AND f.label = 'Bourgmestre ou échevin de la Ville de Luxembourg' AND p.dataset_name = 'lu_pep_municipal';
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former)
+            SELECT f.id, p.id, 'COMPLETE', FALSE
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'LU-MUN' AND f.label = 'Bourgmestre' AND p.dataset_name = 'lu_pep_municipal';
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former)
+            SELECT f.id, p.id, 'COMPLETE', FALSE
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'LU-MUN' AND f.label = 'Échevin' AND p.dataset_name = 'lu_pep_municipal';
+        ]]></sql>
+    </changeSet>
+
+    <!-- lu_pep_government : Membres du gouvernement (Luxembourg) -->
+    <changeSet id="004-parser-lu-pep-government" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('Membres du gouvernement (Luxembourg)',
+                'Premier ministre, ministres et secrétaires d''État en fonction',
+                'lu_pep_government', 'PEP', 'https://gouvernement.lu/fr/gouvernement.html',
+                'lu-pep-government', 'D:\\test parser 2\\plugins\\swiftcheck-aml-lu-pep-government-0.0.1-SNAPSHOT.jar',
+                'HTTP_FILE', 'WEB_PAGE',
+                'https://gouvernement.lu/fr/gouvernement.html',
+                NULL,
+                24, 12,
+                NULL, 'Gouvernement du Grand-Duché de Luxembourg, gouvernement.lu',
+                NULL, TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former)
+            SELECT f.id, p.id, 'COMPLETE', FALSE
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'LU-a' AND f.label = 'Membre du gouvernement' AND p.dataset_name = 'lu_pep_government';
+        ]]></sql>
+    </changeSet>
+
+    <!-- lu_pep_legilux : Hautes             fonctions nommées au Journal officiel (Luxembourg) -->
+    <changeSet id="004-parser-lu-pep-legilux" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('Hautes fonctions nommées au Journal officiel (Luxembourg)',
+                'Nominations et démissions publiées sur Legilux depuis 2017 : Conseil d''État, hautes juridictions, Cour des comptes, BCL, CSSF, Commissariat aux assurances',
+                'lu_pep_legilux', 'PEP', 'https://legilux.public.lu',
+                'lu-pep-legilux', 'D:\\test parser 2\\plugins\\swiftcheck-aml-lu-pep-legilux-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'SPARQL',
+                NULL,
+                '{"endpoint": "https://data.legilux.public.lu/sparqlendpoint", "since": "2017-01-01", "yearsAfterEnd": "5"}',
+                168, 12,
+                NULL, 'Journal officiel du Grand-Duché de Luxembourg, legilux.public.lu',
+                'Publications administratives de nomination et de démission ; texte exploitable depuis 2017. Ne publie plus les ambassadeurs depuis 2016, ni les officiers de l''armée', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former)
+            SELECT f.id, p.id, 'PARTIAL', TRUE
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'LU-b' AND f.label = 'Membre du Conseil d''État' AND p.dataset_name = 'lu_pep_legilux';
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former)
+            SELECT f.id, p.id, 'PARTIAL', TRUE
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'LU-d' AND f.label = 'Membre de la Cour constitutionnelle' AND p.dataset_name = 'lu_pep_legilux';
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former)
+            SELECT f.id, p.id, 'PARTIAL', TRUE
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'LU-d' AND f.label = 'Président ou vice-président de la Cour supérieure de justice' AND p.dataset_name = 'lu_pep_legilux';
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former)
+            SELECT f.id, p.id, 'PARTIAL', TRUE
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'LU-d' AND f.label = 'Membre de la Cour de cassation' AND p.dataset_name = 'lu_pep_legilux';
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former)
+            SELECT f.id, p.id, 'PARTIAL', TRUE
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'LU-d' AND f.label = 'Procureur général d''État ou adjoint' AND p.dataset_name = 'lu_pep_legilux';
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former)
+            SELECT f.id, p.id, 'PARTIAL', TRUE
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'LU-d' AND f.label = 'Membre de la Cour administrative' AND p.dataset_name = 'lu_pep_legilux';
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former)
+            SELECT f.id, p.id, 'PARTIAL', TRUE
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'LU-e' AND f.label = 'Membre de la Cour des comptes' AND p.dataset_name = 'lu_pep_legilux';
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former)
+            SELECT f.id, p.id, 'PARTIAL', TRUE
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'LU-e' AND f.label = 'Directeur général ou directeur de la BCL' AND p.dataset_name = 'lu_pep_legilux';
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former)
+            SELECT f.id, p.id, 'PARTIAL', TRUE
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'LU-i' AND f.label = 'Membre de la direction d''une autorité de régulation' AND p.dataset_name = 'lu_pep_legilux';
+        ]]></sql>
+    </changeSet>
+
+    <!-- lu_pep_government_former : Anciens membres du gouvernement (Luxembourg) -->
+    <changeSet id="004-parser-lu-pep-government-former" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('Anciens membres du gouvernement (Luxembourg)',
+                'Anciens Premiers ministres, ministres et secr├®taires d''├ëtat',
+                'lu_pep_government_former', 'PEP', 'https://gouvernement.lu/fr/gouvernement.html',
+                'lu-pep-government-former', 'D:\\test parser 2\\plugins\\swiftcheck-aml-lu-pep-government-former-0.0.1-SNAPSHOT.jar',
+                'HTTP_FILE', 'WEB_PAGE',
+                'https://gouvernement.lu/fr/gouvernement/anciens-membres-gouvernement.html',
+                '{"yearsAfterEnd": "5"}',
+                24, 12,
+                NULL, 'Gouvernement du Grand-Duch├® de Luxembourg, gouvernement.lu',
+                NULL, TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former)
+            SELECT f.id, p.id, 'COMPLETE', TRUE
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'LU-a' AND f.label = 'Ancien membre du gouvernement' AND p.dataset_name = 'lu_pep_government_former';
+        ]]></sql>
+    </changeSet>
+
+    <!-- lu_pep_council_of_state : Conseil d'├ëtat (Luxembourg) -->
+    <changeSet id="004-parser-lu-pep-council-of-state" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('Conseil d''├ëtat (Luxembourg)',
+                'Conseillers d''├ëtat en fonction et anciens membres (mandats de 12 ans)',
+                'lu_pep_council_of_state', 'PEP', 'https://conseil-etat.public.lu',
+                'lu-pep-council-of-state', 'D:/test parser 2/plugins/swiftcheck-aml-lu-pep-council-of-state-0.0.1-SNAPSHOT.jar',
+                'HTTP_FILE', 'WEB_PAGE',
+                'https://conseil-etat.public.lu/fr/conseil-d-etat/historique/membresdepuis1857.html',
+                '{"yearsAfterEnd": "5", "sourceUrl": "https://conseil-etat.public.lu/fr/conseil-d-etat/historique/membresdepuis1857.html"}',
+                24, 12,
+                NULL, 'Conseil d''├ëtat du Grand-Duch├® de Luxembourg, conseil-etat.public.lu',
+                'Membres en fonction', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former)
+            SELECT f.id, p.id, 'COMPLETE', FALSE
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'LU-b' AND f.label = 'Membre du Conseil d''État' AND p.dataset_name = 'lu_pep_council_of_state';
+        ]]></sql>
+    </changeSet>
+
+    <!-- lu_pep_eu_commission : Commissaire europ├®en luxembourgeois -->
+    <changeSet id="004-parser-lu-pep-eu-commission" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('Commissaire europ├®en luxembourgeois',
+                'Commissaire europ├®en luxembourgeois en fonction et anciens commissaires r├®cents',
+                'lu_pep_eu_commission', 'PEP', 'https://commission.europa.eu',
+                'lu-pep-eu-commission', 'D:/test parser 2/plugins/swiftcheck-aml-lu-pep-eu-commission-0.0.1-SNAPSHOT.jar',
+                'HTTP_FILE', 'WEB_PAGE',
+                'https://commission.europa.eu/about/organisation/college-commissioners_fr',
+                '{"sourceUrl": "https://commission.europa.eu/about/organisation/college-commissioners_fr", "yearsAfterEnd": "5", "formerCommissionerPages": "https://commissioners.ec.europa.eu/nicolas-schmit_fr"}',
+                24, 12,
+                NULL, 'Commission europ├®enne, commission.europa.eu',
+                NULL, TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former)
+            SELECT f.id, p.id, 'COMPLETE', TRUE
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'LU-EU' AND f.label = 'Membre luxembourgeois de la Commission européenne' AND p.dataset_name = 'lu_pep_eu_commission';
+        ]]></sql>
+    </changeSet>
+
+    <!-- lu_pep_europarl_former : Anciens d??put??s europ??ens ??lus au Luxembourg -->
+    <changeSet id="004-parser-lu-pep-europarl-former" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('Anciens d??put??s europ??ens ??lus au Luxembourg',
+                'API open data du Parlement europ??en ??? anciens eurod??put??s luxembourgeois (l??gislatures pr??c??dentes)',
+                'lu_pep_europarl_former', 'PEP', 'https://www.europarl.europa.eu/meps/fr/full-list',
+                'lu-pep-europarl-former', 'D:/test parser 2/plugins/swiftcheck-aml-lu-pep-europarl-former-0.0.1-SNAPSHOT.jar',
+                'HTTP_FILE', 'OPEN_DATA_FILE',
+                'https://data.europarl.europa.eu/api/v2/meps?country-of-representation=LU&parliamentary-term=9&limit=100&format=application/ld+json',
+                '{"yearsAfterEnd": "5", "sourceUrl": "https://data.europarl.europa.eu/api/v2/meps?country-of-representation=LU&parliamentary-term=9&limit=100&format=application/ld+json"}',
+                24, 12,
+                NULL, 'Parlement europ??en, data.europarl.europa.eu',
+                NULL, TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former)
+            SELECT f.id, p.id, 'COMPLETE', TRUE
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'LU-EU' AND f.label = 'Député au Parlement européen élu au Luxembourg' AND p.dataset_name = 'lu_pep_europarl_former';
+        ]]></sql>
+    </changeSet>
+
+    <!-- lu_pep_grand_duke : PEP Luxembourg ??? Grand-Duc (Chef de l'??tat) -->
+    <changeSet id="004-parser-lu-pep-grand-duke" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Luxembourg ??? Grand-Duc (Chef de l''??tat)',
+                'S.A.R. le Grand-Duc de Luxembourg, Chef de l''??tat (Maison grand-ducale, cat??gorie LU-a)',
+                'lu_pep_grand_duke', 'PEP', 'https://monarchie.lu',
+                'lu-pep-grand-duke', 'D:\\test parser 2\\plugins\\swiftcheck-aml-lu-pep-grand-duke-0.0.1-SNAPSHOT.jar',
+                'HTTP_FILE', 'WEB_PAGE',
+                'https://monarchie.lu/fr/la-famille-grand-ducale/le-grand-duc',
+                '{"sourceUrl": "https://monarchie.lu/fr/la-famille-grand-ducale/le-grand-duc", "includeFormer": "false", "yearsAfterEnd": "5"}',
+                168, 60,
+                'Donn??es publiques officielles', 'Maison du Grand-Duc (monarchie.lu)',
+                NULL, TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former)
+            SELECT f.id, p.id, 'COMPLETE', FALSE
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'LU-a' AND f.label = 'Grand-Duc' AND p.dataset_name = 'lu_pep_grand_duke';
+        ]]></sql>
+    </changeSet>
+
+    <!-- lu_pep_judiciary : PEP Luxembourg ??? Hautes juridictions judiciaires -->
+    <changeSet id="004-parser-lu-pep-judiciary" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Luxembourg ??? Hautes juridictions judiciaires',
+                'Cour constitutionnelle, Cour de cassation, pr??sidence de la Cour sup??rieure de justice, Parquet g??n??ral (cat??gorie LU-d)',
+                'lu_pep_judiciary', 'PEP', 'https://justice.public.lu',
+                'lu-pep-judiciary', 'D:\\test parser 2\\plugins\\swiftcheck-aml-lu-pep-judiciary-0.0.1-SNAPSHOT.jar',
+                'HTTP_FILE', 'WEB_PAGE',
+                'https://justice.public.lu/fr/organisation-justice/cour-constitutionnelle.html',
+                '{"sourceUrl": "https://justice.public.lu/fr/organisation-justice/cour-constitutionnelle.html", "yearsAfterEnd": "5"}',
+                168, 60,
+                'Donn??es publiques officielles', 'Administration judiciaire (justice.public.lu)',
+                NULL, TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former)
+            SELECT f.id, p.id, 'COMPLETE', FALSE
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'LU-d' AND f.label = 'Membre de la Cour constitutionnelle' AND p.dataset_name = 'lu_pep_judiciary';
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former)
+            SELECT f.id, p.id, 'COMPLETE', FALSE
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'LU-d' AND f.label = 'Président ou vice-président de la Cour supérieure de justice' AND p.dataset_name = 'lu_pep_judiciary';
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former)
+            SELECT f.id, p.id, 'COMPLETE', FALSE
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'LU-d' AND f.label = 'Membre de la Cour de cassation' AND p.dataset_name = 'lu_pep_judiciary';
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former)
+            SELECT f.id, p.id, 'COMPLETE', FALSE
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'LU-d' AND f.label = 'Procureur général d''État ou adjoint' AND p.dataset_name = 'lu_pep_judiciary';
+        ]]></sql>
+    </changeSet>
+
+    <!-- lu_pep_administrative_courts : PEP Luxembourg ? Juridictions administratives (Cour administrative) -->
+    <changeSet id="004-parser-lu-pep-administrative-courts" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Luxembourg ? Juridictions administratives (Cour administrative)',
+                'Membres de la Cour administrative du Luxembourg (cat?gorie LU-d)',
+                'lu_pep_administrative_courts', 'PEP', 'https://ja.public.lu',
+                'lu-pep-administrative-courts', 'D:\\test parser 2\\plugins\\swiftcheck-aml-lu-pep-administrative-courts-0.0.1-SNAPSHOT.jar',
+                'HTTP_FILE', 'WEB_PAGE',
+                'https://justice.public.lu/downloads.jurad/Cour.pdf',
+                '{"sourceUrl": "https://justice.public.lu/downloads.jurad/Cour.pdf", "yearsAfterEnd": "5"}',
+                168, 60,
+                'Donn?es publiques officielles', 'Juridictions administratives (ja.public.lu / justice.public.lu)',
+                NULL, TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former)
+            SELECT f.id, p.id, 'COMPLETE', FALSE
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'LU-d' AND f.label = 'Membre de la Cour administrative' AND p.dataset_name = 'lu_pep_administrative_courts';
+        ]]></sql>
+    </changeSet>
+
+    <!-- lu_pep_court_of_auditors : PEP Luxembourg ? Cour des comptes -->
+    <changeSet id="004-parser-lu-pep-court-of-auditors" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Luxembourg ? Cour des comptes',
+                'Membres du Coll?ge de la Cour des comptes du Luxembourg (cat?gorie LU-e)',
+                'lu_pep_court_of_auditors', 'PEP', 'https://cour-des-comptes.public.lu',
+                'lu-pep-court-of-auditors', 'D:\\test parser 2\\plugins\\swiftcheck-aml-lu-pep-court-of-auditors-0.0.1-SNAPSHOT.jar',
+                'HTTP_FILE', 'WEB_PAGE',
+                'https://cour-des-comptes.public.lu/fr/cour/college.html',
+                '{"sourceUrl": "https://cour-des-comptes.public.lu/fr/cour/college.html", "yearsAfterEnd": "5"}',
+                168, 60,
+                'Donn?es publiques officielles', 'Cour des comptes du Grand-Duch? de Luxembourg (cour-des-comptes.public.lu)',
+                NULL, TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former)
+            SELECT f.id, p.id, 'COMPLETE', FALSE
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'LU-e' AND f.label = 'Membre de la Cour des comptes' AND p.dataset_name = 'lu_pep_court_of_auditors';
+        ]]></sql>
+    </changeSet>
+
+    <!-- lu_pep_central_bank : PEP Luxembourg ? Banque centrale du Luxembourg -->
+    <changeSet id="004-parser-lu-pep-central-bank" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Luxembourg ? Banque centrale du Luxembourg',
+                'Direction et Conseil de la Banque centrale du Luxembourg (cat?gorie LU-e)',
+                'lu_pep_central_bank', 'PEP', 'https://www.bcl.lu',
+                'lu-pep-central-bank', 'D:\\test parser 2\\plugins\\swiftcheck-aml-lu-pep-central-bank-0.0.1-SNAPSHOT.jar',
+                'HTTP_FILE', 'WEB_PAGE',
+                'https://www.bcl.lu/fr/apropos/organisation/organes_statutaires/',
+                '{"sourceUrl": "https://www.bcl.lu/fr/apropos/organisation/organes_statutaires/", "yearsAfterEnd": "5"}',
+                168, 60,
+                'Donn?es publiques officielles', 'Banque centrale du Luxembourg (bcl.lu)',
+                NULL, TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former)
+            SELECT f.id, p.id, 'COMPLETE', FALSE
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'LU-e' AND f.label = 'Directeur général ou directeur de la BCL' AND p.dataset_name = 'lu_pep_central_bank';
+        ]]></sql>
+    </changeSet>
+
+    <!-- lu_pep_ilr : PEP Luxembourg ? Institut Luxembourgeois de R?gulation -->
+    <changeSet id="004-parser-lu-pep-ilr" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Luxembourg ? Institut Luxembourgeois de R?gulation',
+                'Direction de l''Institut Luxembourgeois de R?gulation (cat?gorie LU-i)',
+                'lu_pep_ilr', 'PEP', 'https://www.ilr.lu',
+                'lu-pep-ilr', 'D:\\test parser 2\\plugins\\swiftcheck-aml-lu-pep-ilr-0.0.1-SNAPSHOT.jar',
+                'HTTP_FILE', 'WEB_PAGE',
+                'https://www.ilr.lu/a-propos/equipe/',
+                '{"sourceUrl": "https://www.ilr.lu/a-propos/equipe/", "yearsAfterEnd": "5"}',
+                168, 60,
+                'Donn?es publiques officielles', 'Institut Luxembourgeois de R?gulation (ilr.lu)',
+                'Pages de direction de chaque autorité', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former)
+            SELECT f.id, p.id, 'COMPLETE', FALSE
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'LU-i' AND f.label = 'Membre de la direction d''une autorité de régulation' AND p.dataset_name = 'lu_pep_ilr';
+        ]]></sql>
+    </changeSet>
+
+    <!-- lu_pep_caa : PEP Luxembourg ? Commissariat aux Assurances -->
+    <changeSet id="004-parser-lu-pep-caa" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Luxembourg ? Commissariat aux Assurances',
+                'Direction du Commissariat aux Assurances (cat?gorie LU-i)',
+                'lu_pep_caa', 'PEP', 'https://www.caa.lu',
+                'lu-pep-caa', 'D:\\test parser 2\\plugins\\swiftcheck-aml-lu-pep-caa-0.0.1-SNAPSHOT.jar',
+                'HTTP_FILE', 'WEB_PAGE',
+                'https://www.caa.lu/uploads/documents/files/ComiteDeDirectionDuCAA.pdf',
+                '{"sourceUrl": "https://www.caa.lu/uploads/documents/files/ComiteDeDirectionDuCAA.pdf", "yearsAfterEnd": "5"}',
+                168, 60,
+                'Donn?es publiques officielles', 'Commissariat aux Assurances (caa.lu)',
+                'Pages de direction de chaque autorité', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former)
+            SELECT f.id, p.id, 'COMPLETE', FALSE
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'LU-i' AND f.label = 'Membre de la direction d''une autorité de régulation' AND p.dataset_name = 'lu_pep_caa';
+        ]]></sql>
+    </changeSet>
+
+    <!-- lu_pep_cssf : PEP Luxembourg ? Commission de Surveillance du Secteur Financier -->
+    <changeSet id="004-parser-lu-pep-cssf" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Luxembourg ? Commission de Surveillance du Secteur Financier',
+                'Direction de la Commission de Surveillance du Secteur Financier (cat?gorie LU-i)',
+                'lu_pep_cssf', 'PEP', 'https://www.cssf.lu',
+                'lu-pep-cssf', 'D:\\test parser 2\\plugins\\swiftcheck-aml-lu-pep-cssf-0.0.1-SNAPSHOT.jar',
+                'HTTP_FILE', 'PDF_DOCUMENT',
+                'https://www.cssf.lu/wp-content/uploads/LM_DIRECTION.pdf',
+                '{"sourceUrl": "https://www.cssf.lu/wp-content/uploads/LM_DIRECTION.pdf", "yearsAfterEnd": "5"}',
+                168, 60,
+                'Donn?es publiques officielles', 'Commission de Surveillance du Secteur Financier (cssf.lu)',
+                'Pages de direction de chaque autorité', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former)
+            SELECT f.id, p.id, 'COMPLETE', FALSE
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'LU-i' AND f.label = 'Membre de la direction d''une autorité de régulation' AND p.dataset_name = 'lu_pep_cssf';
+        ]]></sql>
+    </changeSet>
+
+    <!-- lu_pep_army : PEP Luxembourg ? Arm?e luxembourgeoise (?tat-major) -->
+    <changeSet id="004-parser-lu-pep-army" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Luxembourg ? Arm?e luxembourgeoise (?tat-major)',
+                'Officiers sup?rieurs de l''Arm?e (Chef d''?tat-major, adjoint, commandant des forces - cat?gorie LU-f)',
+                'lu_pep_army', 'PEP', 'https://armee.public.lu',
+                'lu-pep-army', 'D:/test parser 2/plugins/swiftcheck-aml-lu-pep-army-0.0.1-SNAPSHOT.jar',
+                'HTTP_FILE', 'WEB_PAGE',
+                'https://armee.public.lu/fr/armee-luxembourgeoise/personnel/personnel-cle.html',
+                '{"sourceUrl": "https://armee.public.lu/fr/armee-luxembourgeoise/personnel/personnel-cle.html", "yearsAfterEnd": "5"}',
+                168, 60,
+                'Donn?es publiques officielles', 'Arm?e luxembourgeoise (armee.lu)',
+                'Chef d''état-major, adjoint, chefs de division', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former)
+            SELECT f.id, p.id, 'COMPLETE', FALSE
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'LU-f' AND f.label = 'Officier supérieur de l''Armée' AND p.dataset_name = 'lu_pep_army';
+        ]]></sql>
+    </changeSet>
+
+    <!-- lu_pep_diplomats : PEP Luxembourg ? Missions diplomatiques (Ambassadeurs et charg?s d'affaires) -->
+    <changeSet id="004-parser-lu-pep-diplomats" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Luxembourg ? Missions diplomatiques (Ambassadeurs et charg?s d''affaires)',
+                'Ambassadeurs et charg?s d''affaires du Luxembourg (cat?gorie LU-f)',
+                'lu_pep_diplomats', 'PEP', 'https://mae.gouvernement.lu',
+                'lu-pep-diplomats', 'D:/test parser 2/plugins/swiftcheck-aml-lu-pep-diplomats-0.0.1-SNAPSHOT.jar',
+                'HTTP_FILE', 'WEB_PAGE',
+                'https://mae.gouvernement.lu/fr/missions-diplomatiques/missions-diplomatiques-et-consulaires-luxembourgeoises.html',
+                '{"sourceUrl": "https://mae.gouvernement.lu/fr/missions-diplomatiques/missions-diplomatiques-et-consulaires-luxembourgeoises.html"}',
+                168, 60,
+                'Donn?es publiques officielles', 'Minist?re des Affaires ?trang?res et europ?ennes (mae.gouvernement.lu)',
+                'Ambassadeurs et chargés d''affaires', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former)
+            SELECT f.id, p.id, 'COMPLETE', FALSE
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'LU-f' AND f.label = 'Ambassadeur ou chargé d''affaires' AND p.dataset_name = 'lu_pep_diplomats';
+        ]]></sql>
+    </changeSet>
+
+    <!-- lu_pep_international_orgs : PEP Luxembourg ? Organisations internationales (Cour AELE, Eurocontrol, ESO) -->
+    <changeSet id="004-parser-lu-pep-international-orgs" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Luxembourg ? Organisations internationales (Cour AELE, Eurocontrol, ESO)',
+                'Dirigeants des organisations internationales ayant leur si?ge au Luxembourg (cat?gorie LU-h)',
+                'lu_pep_international_orgs', 'PEP', 'https://eftacourt.int',
+                'lu-pep-international-orgs', 'D:/test parser 2/plugins/swiftcheck-aml-lu-pep-international-orgs-0.0.1-SNAPSHOT.jar',
+                'HTTP_FILE', 'WEB_PAGE',
+                'https://eftacourt.int/the-court/judges-and-staff/',
+                '{"sourceUrl": "https://eftacourt.int/the-court/judges-and-staff/"}',
+                168, 60,
+                'Donn?es publiques officielles', 'Cour de justice de l''AELE (eftacourt.int), Eurocontrol, ESO',
+                'Dirigeants des organisations internationales ayant leur si?ge ou antenne au Luxembourg (LU-h)', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former)
+            SELECT f.id, p.id, 'COMPLETE', FALSE
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'LU-h' AND f.label = 'Dirigeant d''une organisation internationale' AND p.dataset_name = 'lu_pep_international_orgs';
+        ]]></sql>
+    </changeSet>
+
+    <!-- lu_pep_political_parties : PEP Luxembourg ? Dirigeants des partis politiques -->
+    <changeSet id="004-parser-lu-pep-political-parties" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Luxembourg ? Dirigeants des partis politiques',
+                'Membres des organes dirigeants des 7 partis politiques repr?sent?s ? la Chambre des D?put?s (cat?gorie LU-c)',
+                'lu_pep_political_parties', 'PEP', 'https://chd.lu',
+                'lu-pep-political-parties', 'D:/test parser 2/plugins/swiftcheck-aml-lu-pep-political-parties-0.0.1-SNAPSHOT.jar',
+                'HTTP_FILE', 'WEB_PAGE',
+                'https://chd.lu',
+                '{"sourceUrl": "https://chd.lu"}',
+                168, 60,
+                'Donn?es publiques officielles', 'Sites officiels des partis repr?sent?s ? la Chambre des D?put?s (csv.lu, dp.lu, lsap.lu, adr.lu, greng.lu, piraten.lu, dei-lenk.lu)',
+                'Pas de liste officielle des dirigeants trouvée : un site par parti', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former)
+            SELECT f.id, p.id, 'PARTIAL', FALSE
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'LU-c' AND f.label = 'Membre d''un organe dirigeant de parti politique' AND p.dataset_name = 'lu_pep_political_parties';
+        ]]></sql>
+    </changeSet>
+
+    <!-- lu_pep_state_enterprises : PEP Luxembourg ??? Dirigeants des entreprises publiques -->
+    <changeSet id="004-parser-lu-pep-state-enterprises" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Luxembourg ??? Dirigeants des entreprises publiques',
+                'Administrateurs, directeurs g??n??raux et commissaires du gouvernement des entreprises publiques et participations de l''??tat (cat??gorie LU-g)',
+                'lu_pep_state_enterprises', 'PEP', 'https://data.public.lu/fr/datasets/liste-des-participations-de-letat/',
+                'lu-pep-state-enterprises', 'D:/test parser 2/plugins/swiftcheck-aml-lu-pep-state-enterprises-0.0.1-SNAPSHOT.jar',
+                'HTTP_FILE', 'OPEN_DATA_FILE',
+                'https://data.public.lu/fr/datasets/r/f3157e5d-7d22-413a-b3d3-39f5d45c3807',
+                '{"sourceUrl": "https://data.public.lu/fr/datasets/liste-des-participations-de-letat/"}',
+                168, 60,
+                'Creative Commons Zero (CC0)', 'Tr??sorerie de l''??tat (Minist??re des Finances) via data.public.lu',
+                'Conseils d''administration et comit??s de direction des entreprises publiques et participations ??tatiques (LU-g)', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former)
+            SELECT f.id, p.id, 'COMPLETE', FALSE
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'LU-g' AND f.label = 'Administrateur, directeur ou commissaire du gouvernement d''une entreprise publique' AND p.dataset_name = 'lu_pep_state_enterprises';
+        ]]></sql>
+    </changeSet>
+
+    <!-- lu_pep_rca : PEP Luxembourg – Famille des PEP (Wikidata) -->
+    <changeSet id="004-parser-lu-pep-rca" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Luxembourg – Famille des PEP (Wikidata)',
+                'Conjoint, enfants, parents, frères et sœurs vivants des PEP luxembourgeois connus de Wikidata (catégorie LU-RCA)',
+                'lu_pep_rca', 'PEP', 'https://www.wikidata.org',
+                'lu-pep-rca', 'D:/test parser 2/plugins/swiftcheck-aml-lu-pep-rca-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'SPARQL',
+                NULL,
+                '{"endpoint": "https://query.wikidata.org/sparql", "yearsAfterEnd": "5", "country": "Q32", "extraPositions": "Q29639349", "excludedPositions": "Q13102207 Q60853309"}',
+                168, 12,
+                'CC0 1.0 (Wikidata)', 'Wikidata, www.wikidata.org',
+                'Couverture partielle : seuls les proches renseignés dans Wikidata. Un mariage sans date de fin est gardé.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former)
+            SELECT f.id, p.id, 'PARTIAL', FALSE
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'LU-RCA' AND f.label = 'Membre de la famille d''une PEP' AND p.dataset_name = 'lu_pep_rca';
+        ]]></sql>
+    </changeSet>
+
+    <!-- Ajouté après la recréation de la base : changeset distinct, les précédents ne doivent plus changer -->
+    <changeSet id="004-parser-lu-pep-associated-entities" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Luxembourg – Organisations liées aux députés',
+                'Organismes dont un député est administrateur ou membre d''un comité (section E) et sociétés dans lesquelles il détient une participation (section G), d''après les déclarations d''intérêts financiers publiées sur chd.lu (catégorie LU-RCA)',
+                'lu_pep_associated_entities', 'PEP', 'https://www.chd.lu/fr/deputies',
+                'lu-pep-associated-entities', 'D:/test parser 2/plugins/swiftcheck-aml-lu-pep-associated-entities-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'PDF_DOCUMENT',
+                NULL,
+                '{"deputiesUrl": "https://www.chd.lu/fr/deputies", "delayMs": "500"}',
+                168, 12,
+                'Documents publics (loi du 29 novembre 2021 sur les données ouvertes) – réutilisation à confirmer auprès de la Chambre', 'Chambre des Députés du Grand-Duché de Luxembourg, www.chd.lu',
+                'Couverture partielle : députés uniquement ; les déclarations scannées sans texte (environ un tiers) ne sont pas lues, elles sont citées dans le message de l''exécution. Données personnelles (RGPD).', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former)
+            SELECT f.id, p.id, 'PARTIAL', FALSE
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'LU-RCA' AND f.label = 'Proche associé d''une PEP' AND p.dataset_name = 'lu_pep_associated_entities';
+        ]]></sql>
+    </changeSet>
+
+    <!-- La liste XML du site europarl.europa.eu est protégée contre les robots (réponses HTTP 202) :
+         passage à l'API open data du Parlement européen, lue par le plugin depuis sa version JSON-LD -->
+    <changeSet id="004-parser-lu-pep-europarl-api" author="swiftcheck">
+        <sql><![CDATA[
+            UPDATE parser
+            SET source_location = 'https://data.europarl.europa.eu/api/v2/meps/show-current?country-of-representation=LU&format=application%2Fld%2Bjson',
+                website_url = 'https://data.europarl.europa.eu',
+                updated_at = NOW()
+            WHERE dataset_name = 'lu_pep_europarl'
+              AND source_location = 'https://www.europarl.europa.eu/meps/en/full-list/xml';
+        ]]></sql>
+    </changeSet>
+
+</databaseChangeLog>

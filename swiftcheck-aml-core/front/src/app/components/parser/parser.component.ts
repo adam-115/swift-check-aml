@@ -4,11 +4,10 @@ import { AbstractControl, FormBuilder, FormGroup, FormsModule, ReactiveFormsModu
 import { RouterLink } from '@angular/router';
 
 import {
-  DataSourceType, ListProviderDTO, ParserDTO, ParserExecutionDTO, ParserKind, ParserTestDTO, PepFunctionDTO, PepSourceDTO, PluginCheck,
+  Completeness, DataSourceType, ListType, ParserDTO, ParserExecutionDTO, ParserKind, ParserTestDTO, PepFunctionDTO, PluginCheck,
   PluginInfo,
 } from '../../models/appTypes';
 import { ParserService } from '../../services/parser.service';
-import { ListProviderService } from '../../services/list-provider.service';
 import { PepReferenceService } from '../../services/pep-reference.service';
 import { PluginService } from '../../services/plugin.service';
 import { YenteService } from '../../services/yente.service';
@@ -35,6 +34,20 @@ export const PARSER_KINDS: { value: ParserKind; label: string }[] = [
   { value: 'DECLARATION_REGISTER', label: 'T7 – Liste PEP ou registre de déclarations' },
 ];
 
+/** Types de liste : un parser PEP couvre des fonctions, une liste de sanctions aucune. */
+export const LIST_TYPES: { value: ListType; label: string }[] = [
+  { value: 'PEP', label: 'PEP' },
+  { value: 'AML', label: 'Sanctions' },
+  { value: 'MEDIA', label: 'Médias' },
+  { value: 'CRIMINAL', label: 'Criminelle' },
+];
+
+/** Une fonction cochée : complétude et anciens titulaires, modifiables dans le formulaire. */
+interface CoverageChoice {
+  completeness: Completeness;
+  includesFormer: boolean;
+}
+
 /** Fonctions PEP d'une catégorie, pour les cases à cocher du formulaire. */
 interface FunctionGroup {
   code: string;
@@ -56,6 +69,7 @@ interface FunctionGroup {
 export class ParserComponent implements OnInit {
   readonly sourceTypes = SOURCE_TYPES;
   readonly parserKinds = PARSER_KINDS;
+  readonly listTypes = LIST_TYPES;
 
   // Liste
   parsers: ParserDTO[] = [];
@@ -87,13 +101,15 @@ export class ParserComponent implements OnInit {
   isSaving = false;
   formError = '';
   form: FormGroup;
-  providers: ListProviderDTO[] = [];
 
-  // Couverture PEP : toutes les fonctions du référentiel et celles cochées dans le formulaire
+  // Couverture PEP : toutes les fonctions du référentiel et celles cochées dans le formulaire (par id de fonction)
   allFunctions: PepFunctionDTO[] = [];
-  /** Sources PEP du référentiel : le parser en lit une seule. */
-  allSources: PepSourceDTO[] = [];
-  coveredFunctionIds = new Set<number>();
+  coverage = new Map<number, CoverageChoice>();
+  /** Pays des fonctions affichées dans le formulaire (vide : tous). */
+  functionCountry = '';
+  /** Pays du référentiel, pour le filtre des fonctions du formulaire. Voir {@link refreshFunctionGroups}. */
+  functionCountries: string[] = [];
+  functionGroups: FunctionGroup[] = [];
 
   // Bouton « Vérifier » du chemin du JAR
   isVerifying = false;
@@ -113,7 +129,6 @@ export class ParserComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private parserService: ParserService,
-    private providerService: ListProviderService,
     private pluginService: PluginService,
     private yenteService: YenteService,
     private referenceService: PepReferenceService,
@@ -122,7 +137,8 @@ export class ParserComponent implements OnInit {
       id: [null],
       name: ['', Validators.required],
       description: [''],
-      listProviderId: [null],
+      listType: ['PEP', Validators.required],
+      websiteUrl: [''],
       datasetName: ['', [Validators.required, Validators.pattern(/^[a-z0-9_]+$/)]],
       pluginUrl: [''],
       pluginId: ['', Validators.required],
@@ -131,10 +147,10 @@ export class ParserComponent implements OnInit {
       parameters: ['', jsonObjectValidator],
       refreshHours: [24, [Validators.required, Validators.min(0)]],
       parserKind: [null],
-      sourceId: [null],
       retentionMonths: [0, [Validators.required, Validators.min(0)]],
       licence: [''],
       attribution: [''],
+      notes: [''],
       enabled: [true],
     });
   }
@@ -151,9 +167,12 @@ export class ParserComponent implements OnInit {
     this.watchPluginUrl();
     this.loadParsers();
     this.loadPlugins();
-    this.providerService.getAll(0, 200).subscribe({ next: page => (this.providers = page.content) });
-    this.referenceService.functions().subscribe({ next: functions => (this.allFunctions = functions) });
-    this.referenceService.sources().subscribe({ next: sources => (this.allSources = sources) });
+    this.referenceService.functions().subscribe({
+      next: functions => {
+        this.allFunctions = functions;
+        this.refreshFunctionGroups();
+      },
+    });
   }
 
   // ---------------------------------------------------------------- liste
@@ -316,7 +335,8 @@ export class ParserComponent implements OnInit {
       id: parser?.id ?? null,
       name: parser?.name ?? '',
       description: parser?.description ?? '',
-      listProviderId: parser?.listProvider?.id ?? null,
+      listType: parser?.listType ?? 'PEP',
+      websiteUrl: parser?.websiteUrl ?? '',
       datasetName: parser?.datasetName ?? '',
       pluginUrl: parser?.pluginUrl ?? '',
       pluginId: parser?.pluginId ?? '',
@@ -325,13 +345,16 @@ export class ParserComponent implements OnInit {
       parameters: parser?.parameters ?? '',
       refreshHours: parser?.refreshHours ?? 24,
       parserKind: parser?.parserKind ?? null,
-      sourceId: parser?.sourceId ?? null,
       retentionMonths: parser?.retentionMonths ?? 0,
       licence: parser?.licence ?? '',
       attribution: parser?.attribution ?? '',
+      notes: parser?.notes ?? '',
       enabled: parser?.enabled ?? true,
     });
-    this.coveredFunctionIds = new Set(parser?.coveredFunctionIds ?? []);
+    this.coverage = new Map((parser?.coverage ?? []).map(c => [c.functionId,
+      { completeness: c.completeness, includesFormer: c.includesFormer }]));
+    this.functionCountry = parser?.countryIso ?? (parser ? '' : 'LU');
+    this.refreshFunctionGroups();
     this.pluginCheck = undefined;
     this.pluginCheckError = '';
     this.isFormOpen = true;
@@ -396,7 +419,8 @@ export class ParserComponent implements OnInit {
       id: v.id ?? undefined,
       name: v.name,
       description: v.description,
-      listProvider: v.listProviderId ? { id: Number(v.listProviderId) } : undefined,
+      listType: v.listType,
+      websiteUrl: v.websiteUrl?.trim() || undefined,
       datasetName: v.datasetName,
       pluginId: v.pluginId,
       pluginUrl: v.pluginUrl?.trim() || undefined,
@@ -405,11 +429,12 @@ export class ParserComponent implements OnInit {
       parameters: v.parameters,
       refreshHours: Number(v.refreshHours),
       parserKind: v.parserKind ?? undefined,
-      sourceId: v.sourceId ?? undefined,
       retentionMonths: Number(v.retentionMonths),
       licence: v.licence,
       attribution: v.attribution,
-      coveredFunctionIds: [...this.coveredFunctionIds],
+      notes: v.notes,
+      // Une liste qui n'est pas PEP ne couvre aucune fonction
+      coverage: v.listType !== 'PEP' ? [] : [...this.coverage].map(([functionId, c]) => ({ functionId, ...c })),
       enabled: v.enabled,
     };
     this.isSaving = true;
@@ -429,61 +454,43 @@ export class ParserComponent implements OnInit {
 
   // ---------------------------------------------------------------- couverture PEP
 
-  /** Pays du fournisseur choisi (ex. LU) ; vide pour une organisation internationale ou sans fournisseur. */
-  get providerCountry(): string | undefined {
-    const id = this.form.value.listProviderId;
-    return this.providers.find(p => p.id === id)?.country || undefined;
-  }
-
   /**
-   * Fonctions à proposer, rangées par catégorie : celles du pays du fournisseur, plus celles déjà cochées
+   * Fonctions à proposer, rangées par catégorie : celles du pays choisi, plus celles déjà cochées
    * (pour ne jamais masquer une fonction couverte). Sans pays, toutes les fonctions du référentiel.
+   *
+   * <p>Calculé ici et non dans un getter : un getter rend de nouveaux objets à chaque détection de changement,
+   * le *ngFor recrée alors les lignes et leurs [ngModel], qui relancent une détection… et la page se bloque.
    */
-  get functionGroups(): FunctionGroup[] {
-    const country = this.providerCountry;
+  refreshFunctionGroups(): void {
+    this.functionCountries = [...new Set(this.allFunctions.map(f => f.countryIso))].sort();
+    const country = this.functionCountry;
     const groups = new Map<string, FunctionGroup>();
     for (const f of this.allFunctions) {
-      if (country && f.countryIso !== country && !this.coveredFunctionIds.has(f.id)) {
+      if (country && f.countryIso !== country && !this.coverage.has(f.id)) {
         continue;
       }
       const group = groups.get(f.categoryCode) ?? { code: f.categoryCode, label: f.categoryLabel, functions: [] };
       group.functions.push(f);
       groups.set(f.categoryCode, group);
     }
-    return [...groups.values()];
+    this.functionGroups = [...groups.values()];
   }
 
-  /** Sources proposées : celles du pays du fournisseur (toutes sans pays), plus celle déjà choisie. */
-  get sourceChoices(): PepSourceDTO[] {
-    const country = this.providerCountry;
-    const selected = this.form.value.sourceId;
-    return this.allSources.filter(s => !country || s.countryIso === country || s.id === selected);
-  }
+  trackGroup = (_: number, group: FunctionGroup) => group.code;
+  trackFunction = (_: number, f: PepFunctionDTO) => f.id;
 
-  /**
-   * Choisir une source coche les fonctions qu'elle couvre (on peut ensuite en décocher) et reprend sa
-   * licence et son type si le formulaire ne les donne pas encore.
-   */
-  onSourceChange(): void {
-    const source = this.allSources.find(s => s.id === this.form.value.sourceId);
-    if (!source) {
-      return;
-    }
-    source.functions.forEach(f => this.coveredFunctionIds.add(f.functionId));
-    if (!this.form.value.parserKind && source.parserKind) {
-      this.form.patchValue({ parserKind: source.parserKind });
-    }
-    if (!this.form.value.licence && source.licence) {
-      this.form.patchValue({ licence: source.licence });
-    }
-  }
-
+  /** Cocher une fonction la déclare complète, sans les anciens titulaires ; à préciser ensuite. */
   toggleFunction(id: number): void {
-    if (this.coveredFunctionIds.has(id)) {
-      this.coveredFunctionIds.delete(id);
+    if (this.coverage.has(id)) {
+      this.coverage.delete(id);
     } else {
-      this.coveredFunctionIds.add(id);
+      this.coverage.set(id, { completeness: 'COMPLETE', includesFormer: false });
     }
+    this.refreshFunctionGroups();
+  }
+
+  listTypeLabel(type?: ListType): string {
+    return LIST_TYPES.find(t => t.value === type)?.label ?? 'PEP';
   }
 
   parserKindLabel(kind?: ParserKind): string {

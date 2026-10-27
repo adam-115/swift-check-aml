@@ -79,4 +79,23 @@ class LuPepEuroparlParserTest {
         assertEquals(List.of("lu-pep-europarl-202073", "lu-pep-europarl-197421"),
                 records.stream().map(SourceRecord::entityId).toList());
     }
+
+    /** Réponse réelle de l'API open data (octobre 2026) : mêmes ID que la liste XML. */
+    @Test
+    void readsTheOpenDataApi() throws Exception {
+        FtmDatasetBuilder api = new FtmDatasetBuilder(LuPepEuroparlParser.ID_PREFIX, LuPepEuroparlParser.TOPIC);
+        try (InputStream in = LuPepEuroparlParserTest.class.getResourceAsStream("/europarl-meps-lu.jsonld")) {
+            new LuPepEuroparlParser().convert(in, api);
+        }
+
+        assertEquals(6, api.qualityReport().getEntities("Person"));
+        assertEquals(0, api.qualityReport().getTotalRejected());
+        FtmEntity metz = api.entities().stream().filter(e -> e.getId().equals("lu-pep-europarl-193292"))
+                .findFirst().orElseThrow();
+        assertEquals(Set.of("Tilly METZ"), metz.getValues("name"));
+        assertEquals(Set.of("Tilly"), metz.getValues("firstName"));
+        assertEquals(Set.of("METZ"), metz.getValues("lastName"));
+        // Marc Angel : même ID FtM qu'avec la liste XML, donc pas de nouvelle entité dans Yente
+        assertEquals(true, api.entities().stream().anyMatch(e -> e.getId().equals("lu-pep-europarl-202073")));
+    }
 }
