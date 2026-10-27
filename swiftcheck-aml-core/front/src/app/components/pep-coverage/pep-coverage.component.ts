@@ -9,7 +9,7 @@ import { apiError } from '../../services/api-error';
 import { StatusBadgeComponent } from '../shared/status-badge.component';
 
 /** Libellé et couleur de chaque nature de catégorie. */
-const KINDS: Record<PepCategoryKind, { label: string; css: string }> = {
+export const KINDS: Record<PepCategoryKind, { label: string; css: string }> = {
   OFFICIAL:   { label: 'Liste officielle', css: 'bg-slate-900 text-white' },
   AMLR:       { label: 'AMLR 2027',        css: 'bg-violet-100 text-violet-800' },
   RISK_BASED: { label: 'Approche risques', css: 'bg-sky-100 text-sky-800' },

@@ -110,6 +110,29 @@ class CoverageServiceTest {
     }
 
     @Test
+    void disabledCategoriesAreLeftOutOfTheCoverage() {
+        Country lu = new Country();
+        lu.setIso("LU");
+        PepCategory parliament = category(1, lu, "LU-b");
+        PepCategory parties = category(2, lu, "LU-c");
+        parties.setActive(false);
+
+        CountryRepository countries = mock(CountryRepository.class);
+        when(countries.findById("LU")).thenReturn(Optional.of(lu));
+        PepCategoryRepository categories = mock(PepCategoryRepository.class);
+        when(categories.findByCountryIsoOrderBySortOrderAscIdAsc("LU")).thenReturn(List.of(parliament, parties));
+        PepFunctionRepository functions = mock(PepFunctionRepository.class);
+        when(functions.findByCategoryCountryIsoOrderByCategorySortOrderAscIdAsc("LU"))
+                .thenReturn(List.of(function(10, parliament, "Député"), function(12, parties, "Dirigeant de parti")));
+
+        CoverageDTO coverage = new CoverageService(new PepReferenceService(countries, categories, functions),
+                mock(ParserRepository.class), mock(ParserExecutionRepository.class)).coverage("LU");
+
+        assertEquals(1, coverage.officialCategories());
+        assertEquals(List.of("LU-b"), coverage.categories().stream().map(CoverageDTO.CategoryCoverage::code).toList());
+    }
+
+    @Test
     void replaceCoverageUpdatesExistingLinksInPlace() {
         PepCategory parliament = category(1, new Country(), "LU-b");
         PepFunction deputy = function(10, parliament, "Député");

@@ -142,7 +142,7 @@ class IngestionServiceTest {
         // Faux plugin : écrit pluginOutput dans le fichier demandé
         Iparser fakePlugin = ctx -> {
             Files.write(ctx.outputFile(), pluginOutput);
-            return new ParserResult(pluginOutput.size(), 0, 0, java.util.Map.of(), "test");
+            return new ParserResult(pluginOutput.size(), 0, 0, java.util.Map.of(), "test", java.util.List.of());
         };
         plugins = mock(PluginManagementService.class);
         when(plugins.findParser(any(Parser.class))).thenReturn(Optional.of(fakePlugin));
@@ -405,7 +405,7 @@ class IngestionServiceTest {
         when(plugins.findParser(any(Parser.class))).thenReturn(Optional.of(ctx -> {
             Files.writeString(ctx.rawDir().resolve("page1.json"), "{\"results\": []}");
             Files.write(ctx.outputFile(), pluginOutput);
-            return new ParserResult(2, 0, 0, java.util.Map.of(), null);
+            return new ParserResult(2, 0, 0, java.util.Map.of(), null, java.util.List.of());
         }));
         ParserExecution withRaw = service.run(7, ExecutionTriggerEnum.MANUAL, false);
         assertEquals(ParserExecutionStatus.SUCCESS, withRaw.getStatus(), withRaw.getMessage());

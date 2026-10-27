@@ -76,6 +76,10 @@ class LuPepEuroparlParserTest {
 
         assertEquals(5, parsed.entityCount(), "2 personnes, 1 fonction, 2 mandats");
         assertEquals(parsed.entityCount(), Files.readAllLines(output).size());
+        // Les entités trouvées sont rendues dans le bilan, en plus du fichier NDJSON
+        assertEquals(parsed.entityCount(), parsed.entities().size());
+        assertEquals(Set.of("Marc ANGEL"), parsed.entities().stream()
+                .filter(e -> e.getId().equals("lu-pep-europarl-202073")).findFirst().orElseThrow().getValues("name"));
         assertEquals(List.of("lu-pep-europarl-202073", "lu-pep-europarl-197421"),
                 records.stream().map(SourceRecord::entityId).toList());
     }

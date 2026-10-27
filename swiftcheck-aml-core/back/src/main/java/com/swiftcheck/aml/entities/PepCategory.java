@@ -49,6 +49,9 @@ public class PepCategory {
     /** Texte qui définit la catégorie, ex. « Directive (UE) 2015/849, art. 3, point 9 b) ». */
     private String legalReference;
 
+    /** Une catégorie désactivée garde ses fonctions mais n'apparaît plus dans la page « Couverture PEP ». */
+    private boolean active = true;
+
     /** Fonctions de la catégorie. */
     @JsonIgnore
     @OneToMany(mappedBy = "category")

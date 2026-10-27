@@ -10,6 +10,7 @@ import { WikiComponent } from './components/wiki/wiki.component';
 import { AmlSearchHistoryComponent } from './components/aml-search-history/aml-search-history.component';
 import { AmlAdvancedVerificationComponent } from './components/aml-advanced-verification/aml-advanced-verification.component';
 import { PepCoverageComponent } from './components/pep-coverage/pep-coverage.component';
+import { PepCategoriesComponent } from './components/pep-categories/pep-categories.component';
 import { ParserAlertsComponent } from './components/parser-alerts/parser-alerts.component';
 import { authGuard } from './guards/auth.guard';
 
@@ -25,6 +26,7 @@ export const routes: Routes = [
   { path: 'verification/advanced', component: AmlAdvancedVerificationComponent, canActivate: [authGuard], data: { roles: ['admin', 'tester'] } },
   { path: 'verification/history', component: AmlSearchHistoryComponent, canActivate: [authGuard], data: { roles: ['admin', 'tester'] } },
   { path: 'coverage', component: PepCoverageComponent, canActivate: [authGuard], data: { roles: ['admin', 'tester'] } },
+  { path: 'pep-categories', component: PepCategoriesComponent, canActivate: [authGuard], data: { roles: ['admin'] } },
   { path: 'alerts', component: ParserAlertsComponent, canActivate: [authGuard], data: { roles: ['admin', 'tester'] } },
   // Configuration système réservée exclusivement au rôle ADMIN
   { path: 'config', component: AppConfigComponent, canActivate: [authGuard], data: { roles: ['admin'] } },

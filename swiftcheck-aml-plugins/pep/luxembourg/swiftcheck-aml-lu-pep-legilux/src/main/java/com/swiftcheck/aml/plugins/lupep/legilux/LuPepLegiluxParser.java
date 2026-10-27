@@ -109,8 +109,7 @@ public class LuPepLegiluxParser implements Iparser {
                 dataset);
         dataset.writeNdjsonFile(ctx.outputFile());
         ParserResult result = dataset.toConversionResult();
-        return new ParserResult(result.entityCount(), result.rejectedCount(), result.conflictCount(),
-                result.rejectedByProperty(), report.message(missingTexts));
+        return result.withMessage(report.message(missingTexts));
     }
 
     /** Test du parser : chaque personne gardée, avec l'ID et le nom que Yente doit connaître (sans réseau). */

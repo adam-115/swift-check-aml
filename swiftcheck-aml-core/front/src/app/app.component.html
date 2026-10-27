@@ -115,6 +115,15 @@
         <span>Couverture PEP</span>
       </a>
 
+      <!-- Référentiel PEP : modification réservée à l'ADMIN -->
+      <a *ngIf="keycloak.isAdmin()" routerLink="/pep-categories" routerLinkActive="bg-emerald-600 text-white" (click)="closeMobileMenu()"
+         class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-slate-300 hover:bg-slate-800 hover:text-white transition-colors cursor-pointer text-sm font-medium">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7" />
+        </svg>
+        <span>Catégories PEP</span>
+      </a>
+
       <a routerLink="/alerts" routerLinkActive="bg-emerald-600 text-white" (click)="closeMobileMenu()"
          class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-slate-300 hover:bg-slate-800 hover:text-white transition-colors cursor-pointer text-sm font-medium">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">

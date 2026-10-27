@@ -92,6 +92,15 @@ public class PepReferenceService {
         category.setRiskClass(values.getRiskClass());
         category.setSortOrder(values.getSortOrder());
         category.setLegalReference(values.getLegalReference());
+        category.setActive(values.isActive());
+        return categories.save(category);
+    }
+
+    /** Active ou désactive une catégorie, sans toucher au reste. */
+    public PepCategory setCategoryActive(long id, boolean active) {
+        PepCategory category = categories.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Catégorie introuvable : " + id));
+        category.setActive(active);
         return categories.save(category);
     }
 

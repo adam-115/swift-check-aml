@@ -53,6 +53,20 @@ export interface CountryDTO {
 /** Nature d'une catégorie PEP : liste officielle, AMLR 2027, approche par les risques, UE, famille et proches. */
 export type PepCategoryKind = 'OFFICIAL' | 'AMLR' | 'RISK_BASED' | 'EU' | 'RCA';
 
+/** Catégorie de fonctions PEP d'un pays, ex. LU-b « Parlementaires et Conseil d'État ». */
+export interface PepCategoryDTO {
+    id: number;                         // 0 à la création
+    countryIso: string;
+    code: string;
+    label: string;
+    kind: PepCategoryKind;
+    riskClass: number;                  // 1 = risque le plus élevé, 4 = le plus faible
+    sortOrder: number;
+    legalReference?: string;
+    active: boolean;                    // désactivée = absente de la page « Couverture PEP »
+    functionCount: number;              // lecture seule
+}
+
 export interface PepFunctionDTO {
     id: number;
     categoryId: number;

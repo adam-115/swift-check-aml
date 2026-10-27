@@ -7,10 +7,14 @@
     <!--
         001 : toutes les tables ; 002 : référentiel PEP (pays, catégories, fonctions) ;
         003 : utilisateurs et configuration ; 004 : parsers et fonctions qu'ils couvrent.
+        005 : catégorie PEP active ou désactivée.
+        006 : référentiel PEP de la France (catégories et fonctions).
     -->
     <include file="db/changelog/changes/001-schema.xml" />
     <include file="db/changelog/changes/002-pep-reference-data.xml" />
     <include file="db/changelog/changes/003-seed-data.xml" />
     <include file="db/changelog/changes/004-parsers.xml" />
+    <include file="db/changelog/changes/005-pep-category-active.xml" />
+    <include file="db/changelog/changes/006-fr-pep-reference-data.xml" />
 
 </databaseChangeLog>

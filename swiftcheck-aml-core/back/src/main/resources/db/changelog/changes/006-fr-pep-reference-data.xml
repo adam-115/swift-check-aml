@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Référentiel PEP de la France : catégories et fonctions.
+
+    Les catégories a à h reprennent la liste officielle des fonctions PEP notifiée par la France à la Commission
+    (JO C/2023/724 du 10 novembre 2023, section FR), qui reprend l'article R. 561-18 du Code monétaire et financier.
+    S'y ajoutent, comme pour le Luxembourg :
+      - FR-AMLR : exécutifs des collectivités d'au moins 50 000 habitants, ajoutés par le règlement (UE) 2024/1624
+                  à partir du 10 juillet 2027 (les élus locaux ne sont pas PEP en France aujourd'hui) ;
+      - FR-EU   : Français qui exercent une fonction dans une institution de l'Union ;
+      - FR-RCA  : membres de la famille (R. 561-18, II, sans les frères et sœurs) et proches associés (III).
+    Pas de catégorie « autorités de régulation » : la liste française n'en contient pas.
+    Voir documentation/analyse pep france/Plan_Parsers_PEP_France.pdf.
+-->
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <!-- Base légale et liste officielle de la France -->
+    <changeSet id="006-fr-country" author="swiftcheck">
+        <sql>
+            UPDATE country SET legal_basis = 'Code monétaire et financier, art. L. 561-10 et R. 561-18',
+                               official_list_reference = 'JO C/2023/724',
+                               official_list_date = '2023-11-10',
+                               official_list_url = 'https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=OJ:C_202300724'
+            WHERE iso = 'FR';
+        </sql>
+    </changeSet>
+
+    <!-- Ignoré si des catégories FR ont déjà été saisies dans l'écran « Catégories PEP » (codes uniques) -->
+    <changeSet id="006-fr-categories" author="swiftcheck">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM pep_category WHERE country_iso = 'FR'</sqlCheck>
+        </preConditions>
+        <sql>
+            INSERT INTO pep_category (country_iso, code, label, kind, risk_class, sort_order, legal_reference) VALUES
+            ('FR', 'FR-a', 'Président de la République, Premier ministre et membres du Gouvernement', 'OFFICIAL', 1, 1, 'Directive (UE) 2015/849, art. 3, point 9 a) ; CMF, art. R. 561-18'),
+            ('FR', 'FR-b', 'Députés et sénateurs', 'OFFICIAL', 1, 2, 'Directive (UE) 2015/849, art. 3, point 9 b) ; CMF, art. R. 561-18'),
+            ('FR', 'FR-c', 'Membres des organes exécutifs des partis politiques (loi n° 88-27 du 11 mars 1988)', 'OFFICIAL', 2, 3, 'Directive (UE) 2015/849, art. 3, point 9 c) ; CMF, art. R. 561-18'),
+            ('FR', 'FR-d', 'Conseil constitutionnel, Conseil d''État et Cour de cassation', 'OFFICIAL', 2, 4, 'Directive (UE) 2015/849, art. 3, point 9 d) ; CMF, art. R. 561-18'),
+            ('FR', 'FR-e', 'Cour des comptes et Conseil général de la Banque de France', 'OFFICIAL', 2, 5, 'Directive (UE) 2015/849, art. 3, point 9 e) ; CMF, art. R. 561-18'),
+            ('FR', 'FR-f', 'Ambassadeurs, chargés d''affaires et chefs d''état-major', 'OFFICIAL', 2, 6, 'Directive (UE) 2015/849, art. 3, point 9 f) ; CMF, art. R. 561-18'),
+            ('FR', 'FR-g', 'Dirigeants et administrateurs des entreprises publiques', 'OFFICIAL', 3, 7, 'Directive (UE) 2015/849, art. 3, point 9 g) ; CMF, art. R. 561-18 ; loi n° 2013-907, art. 11'),
+            ('FR', 'FR-h', 'Dirigeants des organisations internationales situées en France', 'OFFICIAL', 3, 8, 'Directive (UE) 2015/849, art. 3, point 9 h) ; liste des 21 organisations du JO C/2023/724'),
+            ('FR', 'FR-AMLR', 'Exécutifs des collectivités de 50 000 habitants ou plus (AMLR, juillet 2027)', 'AMLR', 3, 9, 'Règlement (UE) 2024/1624 (AMLR), définition des personnes politiquement exposées'),
+            ('FR', 'FR-EU', 'Français exerçant une fonction européenne', 'EU', 1, 10, 'Liste des fonctions PEP des institutions de l''UE (C(2022) 3105, JO C/2023/611)'),
+            ('FR', 'FR-RCA', 'Membres de la famille et proches associés', 'RCA', 2, 11, 'CMF, art. R. 561-18, II (famille, sans la fratrie) et III (proches associés)');
+        </sql>
+    </changeSet>
+
+    <!-- expected_holders : ordre de grandeur relevé dans l'analyse des sources (27/10/2026) ; vide si inconnu -->
+    <changeSet id="006-fr-functions" author="swiftcheck">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM pep_function f JOIN pep_category c ON c.id = f.category_id WHERE c.country_iso = 'FR'</sqlCheck>
+        </preConditions>
+        <sql>
+            INSERT INTO pep_function (category_id, label, institution, expected_holders)
+            SELECT c.id, f.label, f.institution, f.expected_holders
+            FROM pep_category c JOIN (
+                SELECT 'FR-a' AS code, 'Président de la République' AS label, 'Présidence de la République' AS institution, 1 AS expected_holders
+                UNION ALL SELECT 'FR-a', 'Premier ministre, ministre ou secrétaire d''État', 'Gouvernement', 35
+                UNION ALL SELECT 'FR-a', 'Ancien membre du Gouvernement', 'Gouvernement', NULL
+                UNION ALL SELECT 'FR-b', 'Député', 'Assemblée nationale', 577
+                UNION ALL SELECT 'FR-b', 'Ancien député', 'Assemblée nationale', NULL
+                UNION ALL SELECT 'FR-b', 'Sénateur', 'Sénat', 348
+                UNION ALL SELECT 'FR-b', 'Ancien sénateur', 'Sénat', NULL
+                UNION ALL SELECT 'FR-c', 'Président ou membre de l''organe exécutif d''un parti politique', 'Partis politiques', NULL
+                UNION ALL SELECT 'FR-d', 'Président, membre ou secrétaire général du Conseil constitutionnel', 'Conseil constitutionnel', 10
+                UNION ALL SELECT 'FR-d', 'Membre du Conseil d''État', 'Conseil d''État', 300
+                UNION ALL SELECT 'FR-d', 'Membre de la Cour de cassation', 'Cour de cassation', 400
+                UNION ALL SELECT 'FR-e', 'Magistrat de la Cour des comptes', 'Cour des comptes', 300
+                UNION ALL SELECT 'FR-e', 'Membre du Conseil général de la Banque de France', 'Banque de France', 11
+                UNION ALL SELECT 'FR-f', 'Ambassadeur ou chargé d''affaires', 'Ministère de l''Europe et des Affaires étrangères', 160
+                UNION ALL SELECT 'FR-f', 'Chef d''état-major des armées, de l''armée de terre, de la marine ou de l''armée de l''air et de l''espace', 'Ministère des Armées', 4
+                UNION ALL SELECT 'FR-g', 'Dirigeant ou administrateur d''un établissement ou d''une société publique de l''État', 'Participations de l''État (APE)', NULL
+                UNION ALL SELECT 'FR-g', 'Dirigeant ou administrateur d''une société contrôlée par une collectivité', 'Collectivités territoriales', NULL
+                UNION ALL SELECT 'FR-h', 'Dirigeant d''une organisation internationale située en France', 'Unesco, OIF, OFAJ, OMSA, BIPM, OIML…', 70
+                UNION ALL SELECT 'FR-AMLR', 'Maire ou président d''une intercommunalité, d''un département ou d''une région de 50 000 habitants ou plus', 'Collectivités territoriales', 500
+                UNION ALL SELECT 'FR-EU', 'Député au Parlement européen élu en France', 'Parlement européen', 81
+                UNION ALL SELECT 'FR-EU', 'Membre français de la Commission européenne', 'Commission européenne', 1
+                UNION ALL SELECT 'FR-EU', 'Français exerçant une autre fonction PEP dans une institution de l''UE', 'CJUE, Cour des comptes européenne, BCE, SEAE', 10
+                UNION ALL SELECT 'FR-RCA', 'Membre de la famille d''une PEP', NULL, NULL
+                UNION ALL SELECT 'FR-RCA', 'Proche associé d''une PEP', NULL, NULL
+            ) f ON f.code = c.code;
+        </sql>
+    </changeSet>
+
+</databaseChangeLog>

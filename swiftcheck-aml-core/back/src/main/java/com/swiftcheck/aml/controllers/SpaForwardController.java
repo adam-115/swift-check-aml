@@ -24,6 +24,7 @@ public class SpaForwardController {
         "/tests", "/tests/**",
         "/verification", "/verification/**",
         "/coverage", "/coverage/**",
+        "/pep-categories", "/pep-categories/**",
         "/alerts", "/alerts/**",
         "/config", "/config/**",
     };
@@ -35,6 +36,7 @@ public class SpaForwardController {
         "/tests", "/tests/**",
         "/verification", "/verification/**",
         "/coverage", "/coverage/**",
+        "/pep-categories", "/pep-categories/**",
         "/alerts", "/alerts/**",
         "/config", "/config/**",
     })

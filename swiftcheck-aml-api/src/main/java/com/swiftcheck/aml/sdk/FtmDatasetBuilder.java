@@ -255,7 +255,8 @@ public class FtmDatasetBuilder {
      * dataset.writeNdjsonFile(ctx.outputFile());         
      * return dataset.toConversionResult();
      * }</pre>
-     * Le message résume les entités par schéma et les doublons fusionnés, pour l'historique des exécutions.
+     * Le message résume les entités par schéma et les doublons fusionnés, pour l'historique des exécutions ;
+     * le bilan contient aussi la liste des entités trouvées.
      */
     public ParserResult toConversionResult() {
         // Résumé lisible, affiché dans l'historique des exécutions, ex.
@@ -263,9 +264,10 @@ public class FtmDatasetBuilder {
         String message = "Entités par schéma : " + report.getEntitiesBySchema()
                 + " ; doublons fusionnés : " + report.getMergedDuplicateCount()
                 + " ; entités vides ignorées : " + report.getEmptyEntityCount();
-        // Les chiffres utilisés par les contrôles qualité du core : entités, rejets, conflits, détail des rejets.
+        // Les chiffres utilisés par les contrôles qualité du core : entités, rejets, conflits, détail des rejets,
+        // puis la liste des entités trouvées (les mêmes que celles du fichier NDJSON).
         return new ParserResult(report.getTotalEntities(), report.getTotalRejected(), report.getIdConflictCount(),
-                report.getRejectedByProperty(), message);
+                report.getRejectedByProperty(), message, List.copyOf(entities()));
     }
 
     /**

@@ -87,8 +87,7 @@ public class LuPepRcaParser implements Iparser {
         Report report = convert(ctx.rawDir(), dataset);
         dataset.writeNdjsonFile(ctx.outputFile());
         ParserResult result = dataset.toConversionResult();
-        return new ParserResult(result.entityCount(), result.rejectedCount(), result.conflictCount(),
-                result.rejectedByProperty(), report.message());
+        return result.withMessage(report.message());
     }
 
     /** Test du parser : chaque proche gardé, avec l'ID et le nom que Yente doit connaître (sans réseau). */

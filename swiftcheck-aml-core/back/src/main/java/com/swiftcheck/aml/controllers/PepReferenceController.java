@@ -32,6 +32,7 @@ import com.swiftcheck.aml.service.PepReferenceService;
  * GET    /api/pep/countries/{iso}/coverage      page « Couverture PEP »
  * POST   /api/pep/categories                    création d'une catégorie
  * PUT    /api/pep/categories/{id}
+ * PUT    /api/pep/categories/{id}/active?value=false   activation / désactivation
  * DELETE /api/pep/categories/{id}               refusée si elle a encore des fonctions
  * GET    /api/pep/functions?country=LU          fonctions (toutes si country est absent)
  * POST   /api/pep/functions                     création d'une fonction
@@ -92,6 +93,11 @@ public class PepReferenceController {
         return PepCategoryDTO.from(reference.saveCategory(id, dto.getCountryIso(), toCategory(dto)));
     }
 
+    @PutMapping("/categories/{id}/active")
+    public PepCategoryDTO setCategoryActive(@PathVariable long id, @RequestParam boolean value) {
+        return PepCategoryDTO.from(reference.setCategoryActive(id, value));
+    }
+
     @DeleteMapping("/categories/{id}")
     public ResponseEntity<Void> deleteCategory(@PathVariable long id) {
         reference.deleteCategory(id);
@@ -129,6 +135,7 @@ public class PepReferenceController {
         category.setRiskClass(dto.getRiskClass());
         category.setSortOrder(dto.getSortOrder());
         category.setLegalReference(dto.getLegalReference());
+        category.setActive(dto.getActive() == null || dto.getActive());
         return category;
     }
 

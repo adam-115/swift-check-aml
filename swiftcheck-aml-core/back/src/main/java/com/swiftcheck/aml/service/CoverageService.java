@@ -73,6 +73,9 @@ public class CoverageService {
         int official = 0;
         int coveredOfficial = 0;
         for (PepCategory category : reference.findCategories(country.getIso())) {
+            if (!category.isActive()) {
+                continue;                                   // désactivée dans l'écran « Catégories PEP »
+            }
             List<FunctionCoverage> functions = new ArrayList<>();
             for (PepFunction function : functionsByCategory.getOrDefault(category.getId(), List.of())) {
                 List<CoveringParser> covering = parsersByFunction.getOrDefault(function.getId(), List.of());
