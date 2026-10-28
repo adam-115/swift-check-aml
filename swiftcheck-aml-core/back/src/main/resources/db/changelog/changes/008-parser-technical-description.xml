@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Description technique d'un parser, en Markdown : ce que fait le parser exactement (source, règles, paramètres,
+    entités produites, limites). Lue et modifiée depuis l'écran « Parsers », sans recompiler le plugin.
+-->
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="008-parser-technical-description" author="swiftcheck">
+        <addColumn tableName="parser">
+            <column name="technical_description" type="MEDIUMTEXT"/>
+        </addColumn>
+    </changeSet>
+
+</databaseChangeLog>

@@ -137,6 +137,14 @@ public class Parser {
     private String notes;
 
     /**
+     * Description technique en Markdown : ce que fait le parser exactement (source, règles, paramètres, entités
+     * produites, limites). Reprend en général le README du plugin, complété depuis l'écran « Parsers ».
+     * Modifiée seulement par {@code PUT /api/parsers/{id}/technical-description}, pas par le formulaire du parser.
+     */
+    @Column(columnDefinition = "MEDIUMTEXT")
+    private String technicalDescription;
+
+    /**
      * Fonctions PEP couvertes par ce parser, avec leur complétude : base de la page « Couverture PEP ».
      * Vide pour une liste de sanctions. Modifiée par {@link #replaceCoverage}.
      */

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Plugin PF4J : PEP France – exécutifs des collectivités de 50 000 habitants ou plus (Répertoire national des élus).
+    Construire :  mvn -pl swiftcheck-aml-plugins/pep/france/swiftcheck-aml-fr-pep-local-executives -am package
+    Déployer   :  copier target/swiftcheck-aml-fr-pep-local-executives-*.jar dans le dossier des plugins (pf4j.plugins.dir),
+                  puis le charger depuis l'écran des plugins ou POST /api/ftm/plugins/load?path=...
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.swiftcheck.aml</groupId>
+        <artifactId>swiftcheck-aml</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
+        <relativePath>../../../../pom.xml</relativePath>
+    </parent>
+
+    <artifactId>swiftcheck-aml-fr-pep-local-executives</artifactId>
+    <packaging>jar</packaging>
+
+    <properties>
+        <!-- Plugin-Id : c'est la valeur à saisir dans le champ « plugin » du parser -->
+        <plugin.id>fr-pep-local-executives</plugin.id>
+        <plugin.version>1.0.0</plugin.version>
+        <plugin.provider>SwiftCheck</plugin.provider>
+    </properties>
+
+    <dependencies>
+        <!-- Contrat (Iparser) et bibliothèque commune (SDK) : fournis par le core au moment de l'exécution -->
+        <dependency>
+            <groupId>com.swiftcheck.aml</groupId>
+            <artifactId>swiftcheck-aml-api</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.pf4j</groupId>
+            <artifactId>pf4j</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <!-- Lecture des fichiers JSON de l'archive : Jackson est fourni par le core -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <!-- Informations lues par PF4J dans le MANIFEST du JAR -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <configuration>
+                    <archive>
+                        <manifestEntries>
+                            <Plugin-Id>${plugin.id}</Plugin-Id>
+                            <Plugin-Version>${plugin.version}</Plugin-Version>
+                            <Plugin-Provider>${plugin.provider}</Plugin-Provider>
+                        </manifestEntries>
+                    </archive>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>

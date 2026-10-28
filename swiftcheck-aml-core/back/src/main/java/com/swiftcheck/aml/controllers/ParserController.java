@@ -1,6 +1,7 @@
 package com.swiftcheck.aml.controllers;
 
 import java.io.IOException;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -49,7 +50,9 @@ import com.swiftcheck.aml.service.PluginManagementService.PluginCheck;
  * PUT    /api/parsers/{id}            modification
  * DELETE /api/parsers/{id}            désactivation (l'historique est conservé)
  * POST   /api/parsers/{id}/run        exécution immédiate ; ?force=true pour republier même sans changement
- * GET    /api/parsers/{id}/retained   entités gardées par la rétention (disparues de la source)
+ * GET    /api/parsers/{id}/technical-description   description technique (Markdown)
+ * PUT    /api/parsers/{id}/technical-description   remplacement, {"markdown": "..."}
+ * GET    /api/parsers/{id}/retained  entités gardées par la rétention (disparues de la source)
  * GET    /api/parsers/{id}/test-preview  ce que le test va vérifier (fenêtre de confirmation)
  * POST   /api/parsers/{id}/test       test : chaque élément du fichier source est cherché dans Yente
  * POST   /api/parsers/verify-plugin?path=...   bouton « Vérifier » : charge le JAR avec PF4J et le contrôle
@@ -113,6 +116,28 @@ public class ParserController {
         Parser changes = dto.toEntity();
         changes.replaceCoverage(resolveCoverage(dto));
         return toDto(parserService.update(id, changes));
+    }
+
+    /** Description technique du parser, en Markdown ({@code markdown} vide s'il n'en a pas). */
+    @GetMapping("/{id}/technical-description")
+    public TechnicalDescription technicalDescription(@PathVariable long id) {
+        Parser parser = parserService.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Parser introuvable : " + id));
+        return TechnicalDescription.of(parser);
+    }
+
+    /** Remplace la description technique ; un texte vide l'efface. */
+    @PutMapping("/{id}/technical-description")
+    public TechnicalDescription updateTechnicalDescription(@PathVariable long id, @RequestBody TechnicalDescription body) {
+        return TechnicalDescription.of(parserService.updateTechnicalDescription(id, body.markdown()));
+    }
+
+    /** Corps des deux appels ci-dessus. {@code updatedAt} : dernière modification du parser (lecture seule). */
+    public record TechnicalDescription(String markdown, Instant updatedAt) {
+        static TechnicalDescription of(Parser parser) {
+            return new TechnicalDescription(parser.getTechnicalDescription() == null ? "" : parser.getTechnicalDescription(),
+                    parser.getUpdatedAt());
+        }
     }
 
     /** Entités disparues de la source mais encore publiées grâce à la rétention. */

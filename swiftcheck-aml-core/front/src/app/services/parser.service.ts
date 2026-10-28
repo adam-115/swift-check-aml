@@ -3,6 +3,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import {
   Page, ParserDTO, ParserExecutionDTO, ParserTestDTO, ParserTestPreviewDTO, PluginCheck, RetainedEntityDTO,
+  TechnicalDescriptionDTO,
 } from '../models/appTypes';
 
 /** Appels HTTP de l'écran « Parsers » (voir ParserController côté Java). */
@@ -36,6 +37,16 @@ export class ParserService {
   /** Désactive le parser et retire son dataset de Yente (l'historique est conservé). */
   disable(id: number): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/${id}`);
+  }
+
+  /** Description technique (Markdown) ; texte vide si le parser n'en a pas. */
+  technicalDescription(id: number): Observable<TechnicalDescriptionDTO> {
+    return this.http.get<TechnicalDescriptionDTO>(`${this.apiUrl}/${id}/technical-description`);
+  }
+
+  /** Remplace la description technique ; un texte vide l'efface. */
+  saveTechnicalDescription(id: number, markdown: string): Observable<TechnicalDescriptionDTO> {
+    return this.http.put<TechnicalDescriptionDTO>(`${this.apiUrl}/${id}/technical-description`, { markdown });
   }
 
   /** Entités disparues de la source mais encore publiées grâce à la rétention. */

@@ -1,0 +1,307 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Parsers PEP de la France et fonctions qu'ils couvrent (pep_function_parser).
+    Chaque fonction est désignée par le code de sa catégorie et son libellé (voir 006-fr-pep-reference-data.xml).
+    Plan : documentation/analyse pep france/Plan_Parsers_PEP_France.pdf (lot 1).
+-->
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <!-- fr_pep_president : Président de la République (FR-a) -->
+    <changeSet id="007-parser-fr-pep-president" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP France – Président de la République',
+                'Président de la République, d''après sa biographie officielle sur elysee.fr (catégorie FR-a)',
+                'fr_pep_president', 'PEP', 'https://www.elysee.fr',
+                'fr-pep-president', 'D:/test parser 2/plugins/swiftcheck-aml-fr-pep-president-0.0.1-SNAPSHOT.jar',
+                'HTTP_FILE', 'WEB_PAGE',
+                'https://www.elysee.fr/emmanuel-macron',
+                NULL,
+                168, 12,
+                NULL, 'Présidence de la République, www.elysee.fr',
+                'À chaque nouveau Président, remplacer l''adresse de la source par sa biographie sur elysee.fr. Le Président sortant reste publié 12 mois (rétention). Date de naissance au mois près.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former)
+            SELECT f.id, p.id, 'COMPLETE', FALSE
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'FR-a' AND f.label = 'Président de la République' AND p.dataset_name = 'fr_pep_president';
+        ]]></sql>
+    </changeSet>
+
+    <!-- fr_pep_government : membres du Gouvernement, d'après l'open data HATVP (FR-a) -->
+    <changeSet id="007-parser-fr-pep-government" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP France – Membres du Gouvernement',
+                'Premier ministre, ministres, ministres délégués et secrétaires d''État en fonction, et anciens membres récents, d''après les déclarations publiées par la HATVP (catégorie FR-a)',
+                'fr_pep_government', 'PEP', 'https://www.hatvp.fr/open-data/',
+                'fr-pep-government', 'D:/test parser 2/plugins/swiftcheck-aml-fr-pep-government-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'DECLARATION_REGISTER',
+                NULL,
+                '{"listUrl": "https://www.hatvp.fr/livraison/opendata/liste.csv", "declarationsUrl": "https://www.hatvp.fr/livraison/dossiers/", "delayMs": "300", "monthsAfterEnd": "12"}',
+                24, 12,
+                'Licence Ouverte / Open Licence (Etalab 2.0)', 'Haute Autorité pour la transparence de la vie publique, www.hatvp.fr (open data)',
+                'Un nouveau membre n''apparaît qu''après le dépôt de sa première déclaration (dans les deux mois de sa nomination) ; date de naissance et dates de fonction après sa publication. info.gouv.fr n''est pas utilisé : il refuse l''accès aux robots (HTTP 403).', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former)
+            SELECT f.id, p.id, 'COMPLETE', TRUE
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'FR-a' AND f.label = 'Premier ministre, ministre ou secrétaire d''État' AND p.dataset_name = 'fr_pep_government';
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former)
+            SELECT f.id, p.id, 'PARTIAL', TRUE
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'FR-a' AND f.label = 'Ancien membre du Gouvernement' AND p.dataset_name = 'fr_pep_government';
+        ]]></sql>
+    </changeSet>
+
+    <!-- fr_pep_national_assembly : députés en fonction et sortis depuis moins de 12 mois (FR-b) -->
+    <changeSet id="007-parser-fr-pep-national-assembly" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP France – Députés',
+                'Députés à l''Assemblée nationale en fonction, députés sortis depuis moins de 12 mois et présidence de l''Assemblée, d''après l''open data AMO30 (catégorie FR-b)',
+                'fr_pep_national_assembly', 'PEP', 'https://data.assemblee-nationale.fr/acteurs/historique-des-deputes',
+                'fr-pep-national-assembly', 'D:/test parser 2/plugins/swiftcheck-aml-fr-pep-national-assembly-0.0.1-SNAPSHOT.jar',
+                'HTTP_FILE', 'OPEN_DATA_FILE',
+                'https://data.assemblee-nationale.fr/static/openData/repository/17/amo/tous_acteurs_mandats_organes_xi_legislature/AMO30_tous_acteurs_tous_mandats_tous_organes_historique.json.zip',
+                '{"monthsAfterEnd": "12"}',
+                24, 12,
+                'Licence Ouverte / Open Licence (Etalab 2.0)', 'Assemblée nationale, data.assemblee-nationale.fr (archive AMO30)',
+                'Archive mise à jour chaque jour (environ 14 Mo). L''adresse contient le numéro de législature (17) : à changer à la prochaine législature.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former)
+            SELECT f.id, p.id, 'COMPLETE', TRUE
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'FR-b' AND f.label IN ('Député', 'Ancien député') AND p.dataset_name = 'fr_pep_national_assembly';
+        ]]></sql>
+    </changeSet>
+
+    <!-- fr_pep_senate : sénateurs en fonction et sortis depuis moins de 12 mois (FR-b) -->
+    <changeSet id="007-parser-fr-pep-senate" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP France – Sénateurs',
+                'Sénateurs en fonction, sénateurs sortis depuis moins de 12 mois et présidence du Sénat, d''après l''open data data.senat.fr (catégorie FR-b)',
+                'fr_pep_senate', 'PEP', 'https://data.senat.fr/les-senateurs/',
+                'fr-pep-senate', 'D:/test parser 2/plugins/swiftcheck-aml-fr-pep-senate-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'OPEN_DATA_FILE',
+                NULL,
+                '{"generalUrl": "https://data.senat.fr/data/senateurs/ODSEN_GENERAL.csv", "mandatesUrl": "https://data.senat.fr/data/senateurs/ODSEN_ELUSEN.csv", "monthsAfterEnd": "12"}',
+                24, 12,
+                'Licence Ouverte / Open Licence (Etalab 2.0)', 'Sénat, data.senat.fr (ODSEN_GENERAL, ODSEN_ELUSEN)',
+                'Deux fichiers : liste générale (naissance, groupe, Bureau) et mandats (dates). Un ancien sénateur décédé n''est pas repris.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former)
+            SELECT f.id, p.id, 'COMPLETE', TRUE
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'FR-b' AND f.label IN ('Sénateur', 'Ancien sénateur') AND p.dataset_name = 'fr_pep_senate';
+        ]]></sql>
+    </changeSet>
+
+    <!-- fr_pep_europarl : eurodéputés élus en France, en fonction et sortis depuis moins de 12 mois (FR-EU) -->
+    <changeSet id="007-parser-fr-pep-europarl" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP France – Députés européens',
+                'Députés au Parlement européen élus en France, en fonction et sortis depuis moins de 12 mois, d''après l''API open data du Parlement européen (catégorie FR-EU)',
+                'fr_pep_europarl', 'PEP', 'https://data.europarl.europa.eu',
+                'fr-pep-europarl', 'D:/test parser 2/plugins/swiftcheck-aml-fr-pep-europarl-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'API',
+                NULL,
+                '{"currentUrl": "https://data.europarl.europa.eu/api/v2/meps/show-current?country-of-representation=FR&format=application%2Fld%2Bjson", "termUrl": "https://data.europarl.europa.eu/api/v2/meps?country-of-representation=FR&parliamentary-term=10&limit=500&format=application%2Fld%2Bjson", "detailUrl": "https://data.europarl.europa.eu/api/v2/meps/{id}?format=application%2Fld%2Bjson", "delayMs": "300", "monthsAfterEnd": "12"}',
+                24, 12,
+                'Réutilisation autorisée en citant la source (avis juridique du Parlement européen)', 'Parlement européen, data.europarl.europa.eu',
+                'Lit la fiche de chaque député (naissance, dates de mandat) : environ 85 appels. termUrl contient le numéro de législature (10) : à changer à la prochaine législature.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former)
+            SELECT f.id, p.id, 'COMPLETE', TRUE
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'FR-EU' AND f.label = 'Député au Parlement européen élu en France' AND p.dataset_name = 'fr_pep_europarl';
+        ]]></sql>
+    </changeSet>
+
+    <!-- fr_pep_eu_commission : membre français de la Commission européenne (FR-EU) -->
+    <changeSet id="007-parser-fr-pep-eu-commission" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP France – Commissaire européen',
+                'Membre français de la Commission européenne, d''après sa fiche officielle sur commission.europa.eu (catégorie FR-EU)',
+                'fr_pep_eu_commission', 'PEP', 'https://commission.europa.eu/about/organisation/college-commissioners_fr',
+                'fr-pep-eu-commission', 'D:/test parser 2/plugins/swiftcheck-aml-fr-pep-eu-commission-0.0.1-SNAPSHOT.jar',
+                'HTTP_FILE', 'WEB_PAGE',
+                'https://commission.europa.eu/about/organisation/college-commissioners/stephane-sejourne_fr',
+                NULL,
+                168, 12,
+                'Réutilisation autorisée en citant la source (avis juridique de la Commission européenne)', 'Commission européenne, commission.europa.eu',
+                'À chaque nouvelle Commission, remplacer l''adresse par la fiche du commissaire français. Une fiche qui ne présente pas un commissaire français est refusée.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former)
+            SELECT f.id, p.id, 'COMPLETE', FALSE
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'FR-EU' AND f.label = 'Membre français de la Commission européenne' AND p.dataset_name = 'fr_pep_eu_commission';
+        ]]></sql>
+    </changeSet>
+
+    <!-- fr_pep_constitutional_council : président et membres du Conseil constitutionnel (FR-d) -->
+    <changeSet id="007-parser-fr-pep-constitutional-council" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP France – Conseil constitutionnel',
+                'Président et membres du Conseil constitutionnel, d''après conseil-constitutionnel.fr (catégorie FR-d)',
+                'fr_pep_constitutional_council', 'PEP', 'https://www.conseil-constitutionnel.fr/le-conseil-constitutionnel/les-membres',
+                'fr-pep-constitutional-council', 'D:/test parser 2/plugins/swiftcheck-aml-fr-pep-constitutional-council-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'WEB_PAGE',
+                NULL,
+                '{"membersUrl": "https://www.conseil-constitutionnel.fr/le-conseil-constitutionnel/les-membres", "delayMs": "500"}',
+                168, 12,
+                NULL, 'Conseil constitutionnel, www.conseil-constitutionnel.fr',
+                'Couverture partielle : le secrétaire général n''est pas nommé sur le site (décret au Journal officiel).', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former)
+            SELECT f.id, p.id, 'PARTIAL', FALSE
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'FR-d' AND f.label = 'Président, membre ou secrétaire général du Conseil constitutionnel'
+              AND p.dataset_name = 'fr_pep_constitutional_council';
+        ]]></sql>
+    </changeSet>
+
+    <!-- fr_pep_banque_de_france : membres du Conseil général de la Banque de France (FR-e) -->
+    <changeSet id="007-parser-fr-pep-banque-de-france" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP France – Conseil général de la Banque de France',
+                'Membres du Conseil général de la Banque de France, d''après banque-france.fr (catégorie FR-e)',
+                'fr_pep_banque_de_france', 'PEP', 'https://www.banque-france.fr',
+                'fr-pep-banque-de-france', 'D:/test parser 2/plugins/swiftcheck-aml-fr-pep-banque-de-france-0.0.1-SNAPSHOT.jar',
+                'HTTP_FILE', 'WEB_PAGE',
+                'https://www.banque-france.fr/fr/banque-de-france/gouvernance-forte-et-transparente/gouvernance-comites-consultatifs',
+                NULL,
+                168, 12,
+                NULL, 'Banque de France, www.banque-france.fr',
+                'Liste « Membres » de la section « Le Conseil général » ; le censeur et son suppléant ne sont pas repris. Ni date de naissance ni date de nomination sur la page.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former)
+            SELECT f.id, p.id, 'COMPLETE', FALSE
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'FR-e' AND f.label = 'Membre du Conseil général de la Banque de France'
+              AND p.dataset_name = 'fr_pep_banque_de_france';
+        ]]></sql>
+    </changeSet>
+
+    <!-- fr_pep_army : chefs d'état-major (FR-f) -->
+    <changeSet id="007-parser-fr-pep-army" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP France – Chefs d''état-major',
+                'Chef d''état-major des armées et chefs d''état-major de l''armée de Terre, de la Marine et de l''armée de l''Air et de l''Espace, d''après leur biographie sur defense.gouv.fr (catégorie FR-f)',
+                'fr_pep_army', 'PEP', 'https://www.defense.gouv.fr',
+                'fr-pep-army', 'D:/test parser 2/plugins/swiftcheck-aml-fr-pep-army-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'WEB_PAGE',
+                NULL,
+                '{"cemaUrl": "https://www.defense.gouv.fr/ema/chef-detat-major-armees", "cematUrl": "https://www.defense.gouv.fr/terre/chef-detat-major-larmee-terre/biographie-du-chef-detat-major-larmee-terre", "cemmUrl": "", "cemaaeUrl": "https://www.defense.gouv.fr/air/biographie-du-chef-detat-major-larmee-lair-lespace"}',
+                168, 12,
+                NULL, 'Ministère des Armées, www.defense.gouv.fr',
+                'Couverture partielle : pas de biographie à jour du chef d''état-major de la Marine sur le site (octobre 2026), cemmUrl est vide.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former)
+            SELECT f.id, p.id, 'PARTIAL', FALSE
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'FR-f' AND f.label LIKE 'Chef d''état-major des armées%' AND p.dataset_name = 'fr_pep_army';
+        ]]></sql>
+    </changeSet>
+
+    <!-- fr_pep_local_executives : exécutifs des collectivités de 50 000 habitants ou plus (FR-AMLR) -->
+    <changeSet id="007-parser-fr-pep-local-executives" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP France – Exécutifs locaux (AMLR)',
+                'Maires et présidents d''intercommunalité, de département, de région et de collectivité à statut particulier de 50 000 habitants ou plus, d''après le Répertoire national des élus (catégorie FR-AMLR, juillet 2027)',
+                'fr_pep_local_executives', 'PEP', 'https://www.data.gouv.fr/datasets/repertoire-national-des-elus-1',
+                'fr-pep-local-executives', 'D:/test parser 2/plugins/swiftcheck-aml-fr-pep-local-executives-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'OPEN_DATA_FILE',
+                NULL,
+                '{"populationsUrl": "https://geo.api.gouv.fr/communes?fields=code,nom,population,codeDepartement,codeRegion,codeEpci&format=json", "mayorsUrl": "https://www.data.gouv.fr/api/1/datasets/r/2876a346-d50c-4911-934e-19ee07b0e503", "epciUrl": "https://www.data.gouv.fr/api/1/datasets/r/41d95d7d-b172-4636-ac44-32656367cdc7", "departmentsUrl": "https://www.data.gouv.fr/api/1/datasets/r/601ef073-d986-4582-8e1a-ed14dc857fba", "regionsUrl": "https://www.data.gouv.fr/api/1/datasets/r/430e13f9-834b-4411-a1a8-da0b4b6e715c", "specialUrl": "https://www.data.gouv.fr/api/1/datasets/r/a595be27-cfab-4810-b9d4-22e193bffe35", "minPopulation": "50000"}',
+                168, 12,
+                'Licence Ouverte / Open Licence (Etalab 2.0)', 'Ministère de l''Intérieur, Répertoire national des élus (data.gouv.fr) ; populations municipales Insee via geo.api.gouv.fr',
+                'Le RNE est mis à jour chaque trimestre. Fonctions PEP à partir du 10/07/2027 (AMLR). Nouvelle-Calédonie : les présidents des trois provinces et du Congrès sont tous repris (population du territoire).', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former)
+            SELECT f.id, p.id, 'COMPLETE', FALSE
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'FR-AMLR' AND p.dataset_name = 'fr_pep_local_executives';
+        ]]></sql>
+    </changeSet>
+
+    <!-- fr_pep_rca : membres de la famille des PEP, d'après Wikidata (FR-RCA) -->
+    <changeSet id="007-parser-fr-pep-rca" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP France – Famille des PEP',
+                'Conjoint ou partenaire, enfants et leurs conjoints, père et mère des PEP français (R. 561-18, II), d''après Wikidata (catégorie FR-RCA)',
+                'fr_pep_rca', 'PEP', 'https://www.wikidata.org',
+                'fr-pep-rca', 'D:/test parser 2/plugins/swiftcheck-aml-fr-pep-rca-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'SPARQL',
+                NULL,
+                '{"endpoint": "https://query.wikidata.org/sparql", "yearsAfterEnd": "1", "country": "Q142", "positions": "Q191954 Q1587677 Q20968036 Q3044918 Q14828018 Q26268315 Q59156405 Q54996617 Q2994367 Q62129167 Q50823624 Q62078932 Q62086496 Q62076511 Q23956505 Q21500772 Q62129412 Q62131051 Q7886203", "positionClasses": "Q83307"}',
+                168, 12,
+                'CC0 (Wikidata)', 'Wikidata, www.wikidata.org',
+                'Couverture partielle : seules les familles décrites dans Wikidata. Données collaboratives, à contrôler (ex. personnage de fiction enregistré comme président de la République). Sans les frères et sœurs (définition française).', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former)
+            SELECT f.id, p.id, 'PARTIAL', FALSE
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'FR-RCA' AND f.label = 'Membre de la famille d''une PEP' AND p.dataset_name = 'fr_pep_rca';
+        ]]></sql>
+    </changeSet>
+
+    <!-- fr_pep_associated_entities : organismes dirigés et participations significatives, déclarations HATVP (FR-RCA) -->
+    <changeSet id="007-parser-fr-pep-associated-entities" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP France – Organisations liées aux PEP',
+                'Organismes dirigés par les parlementaires, membres du Gouvernement et députés européens, et sociétés dans lesquelles ils détiennent une participation significative, d''après leurs déclarations d''intérêts publiées par la HATVP (catégorie FR-RCA)',
+                'fr_pep_associated_entities', 'PEP', 'https://www.hatvp.fr/open-data/',
+                'fr-pep-associated-entities', 'D:/test parser 2/plugins/swiftcheck-aml-fr-pep-associated-entities-0.0.1-SNAPSHOT.jar',
+                'HTTP_FILE', 'DECLARATION_REGISTER',
+                'https://www.hatvp.fr/livraison/merge/declarations.xml',
+                '{"mandateTypes": "depute senateur gouvernement europe", "minCapitalPercent": "10", "minValue": "100000", "monthsAfterEnd": "12"}',
+                168, 12,
+                'Licence Ouverte / Open Licence (Etalab 2.0)', 'Haute Autorité pour la transparence de la vie publique, www.hatvp.fr (open data)',
+                'Couverture partielle : organismes et participations déclarés par les PEP eux-mêmes (fichier d''environ 80 Mo). Participation significative : 10 % du capital ou 100 000 €. Les noms masqués par la HATVP ne sont pas repris.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former)
+            SELECT f.id, p.id, 'PARTIAL', FALSE
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'FR-RCA' AND f.label = 'Proche associé d''une PEP' AND p.dataset_name = 'fr_pep_associated_entities';
+        ]]></sql>
+    </changeSet>
+
+</databaseChangeLog>

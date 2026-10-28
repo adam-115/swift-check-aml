@@ -1,0 +1,105 @@
+<div class="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-0 sm:p-6" role="dialog" aria-modal="true" aria-labelledby="bulk-dialog-title">
+  <div class="absolute inset-0 bg-slate-900/50 backdrop-blur-[2px]" (click)="close()"></div>
+
+  <div class="relative w-full sm:max-w-2xl max-h-[92vh] flex flex-col bg-white rounded-t-2xl sm:rounded-2xl shadow-2xl ring-1 ring-slate-900/10">
+
+    <!-- En-tête -->
+    <div class="border-b border-slate-200 px-5 sm:px-6 py-4 flex items-start gap-4">
+      <div class="shrink-0 h-11 w-11 rounded-xl grid place-items-center"
+           [ngClass]="bulk.mode === 'run' ? 'bg-emerald-100 text-emerald-700' : 'bg-sky-100 text-sky-700'">
+        <svg *ngIf="bulk.mode === 'run'" class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M5 4l14 8-14 8V4z"/></svg>
+        <svg *ngIf="bulk.mode === 'test'" class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+      </div>
+      <div class="flex-1 min-w-0">
+        <h2 id="bulk-dialog-title" class="text-lg font-bold text-slate-900 leading-tight">{{ title }}</h2>
+        <p class="text-sm text-slate-500 mt-0.5" *ngIf="bulk.phase === 'confirm'">
+          <ng-container *ngIf="bulk.mode === 'run'">Chaque parser récupère sa source et publie dans Yente si elle a changé.</ng-container>
+          <ng-container *ngIf="bulk.mode === 'test'">Pour chaque parser, chaque élément du fichier source de la dernière publication est cherché dans Yente.</ng-container>
+          Les parsers sont traités un par un.
+        </p>
+        <p class="text-sm text-slate-500 mt-0.5" *ngIf="bulk.phase !== 'confirm'">
+          {{ processed }} / {{ bulk.items.length }} traité{{ processed > 1 ? 's' : '' }}
+          <span *ngIf="problems" class="text-rose-700 font-semibold"> · {{ problems }} à vérifier</span>
+          <span *ngIf="count('skipped')" class="text-slate-500"> · {{ count('skipped') }} non lancé{{ count('skipped') > 1 ? 's' : '' }}</span>
+        </p>
+      </div>
+      <button type="button" (click)="close()" class="shrink-0 rounded-lg p-1.5 text-slate-400 hover:text-slate-700 hover:bg-slate-100"
+              [title]="bulk.phase === 'running' ? 'Fermer (le lot continue)' : 'Fermer (Échap)'" aria-label="Fermer">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" d="M6 6l12 12M18 6L6 18"/></svg>
+      </button>
+    </div>
+
+    <!-- Barre d'avancement -->
+    <div *ngIf="bulk.phase !== 'confirm'" class="px-5 sm:px-6 pt-4">
+      <div class="h-2 w-full overflow-hidden rounded-full bg-slate-100">
+        <div class="h-full rounded-full transition-all" [ngClass]="bulk.mode === 'run' ? 'bg-emerald-500' : 'bg-sky-500'"
+             [style.width.%]="bulk.items.length ? processed * 100 / bulk.items.length : 0"></div>
+      </div>
+    </div>
+
+    <div class="flex-1 min-h-0 overflow-y-auto px-5 sm:px-6 py-4 space-y-4">
+      <!-- Confirmation : options et avertissements -->
+      <ng-container *ngIf="bulk.phase === 'confirm'">
+        <div *ngIf="bulk.items.length === 0" class="rounded-xl border border-amber-200 bg-amber-50 p-3.5 text-sm text-amber-900">
+          Aucun parser actif dans la sélection.
+        </div>
+        <label *ngIf="bulk.mode === 'run' && bulk.items.length" class="flex items-start gap-2.5 rounded-xl border border-amber-200 bg-amber-50/60 p-3.5 text-sm text-amber-900 cursor-pointer">
+          <input type="checkbox" [(ngModel)]="bulk.force" class="mt-0.5 h-4 w-4 rounded border-amber-400 text-amber-600">
+          <span><span class="font-semibold">Forcer</span> : reconvertir et republier même si la source n'a pas changé (après une mise à jour des plugins).</span>
+        </label>
+        <p *ngIf="bulk.mode === 'test' && bulk.items.length" class="rounded-xl border border-sky-200 bg-sky-50 p-3.5 text-sm text-sky-900">
+          Un parser jamais publié ne peut pas être testé : il apparaîtra en erreur. Comptez une à trois minutes par grande liste.
+        </p>
+        <p *ngIf="bulk.excluded.length" class="text-xs text-slate-500">
+          {{ bulk.excluded.length }} parser{{ bulk.excluded.length > 1 ? 's' : '' }} de la sélection exclu{{ bulk.excluded.length > 1 ? 's' : '' }}
+          (désactivé{{ bulk.excluded.length > 1 ? 's' : '' }} ou déjà en cours) :
+          <ng-container *ngFor="let p of bulk.excluded | slice:0:8; let last = last">{{ p.name }}{{ last ? '' : ', ' }}</ng-container><ng-container *ngIf="bulk.excluded.length > 8">…</ng-container>
+        </p>
+      </ng-container>
+
+      <!-- Liste des parsers du lot -->
+      <ul *ngIf="bulk.items.length" class="rounded-xl border border-slate-200 divide-y divide-slate-100">
+        <li *ngFor="let item of bulk.items" class="px-3.5 py-2.5 flex items-start gap-3 text-sm">
+          <div class="flex-1 min-w-0">
+            <div class="font-semibold text-slate-900 truncate">{{ item.parser.name }}</div>
+            <div class="font-mono text-xs text-slate-500 truncate">{{ item.parser.datasetName }}</div>
+            <div *ngIf="item.message && item.state !== 'pending'" class="text-xs mt-0.5 line-clamp-2"
+                 [ngClass]="item.state === 'error' ? 'text-rose-700' : 'text-slate-500'" [title]="item.message">{{ item.message }}</div>
+          </div>
+          <div class="shrink-0 flex flex-col items-end gap-1">
+            <ng-container [ngSwitch]="item.state">
+              <span *ngSwitchCase="'pending'" class="text-xs text-slate-400">{{ bulk.phase === 'confirm' ? '' : 'En attente' }}</span>
+              <app-status-badge *ngSwitchCase="'running'" status="RUNNING"></app-status-badge>
+              <app-status-badge *ngSwitchCase="'done'" [status]="item.status"></app-status-badge>
+              <span *ngSwitchCase="'error'" class="text-xs font-semibold text-rose-700 bg-rose-50 ring-1 ring-rose-600/20 rounded-full px-2 py-0.5">Erreur</span>
+              <span *ngSwitchCase="'skipped'" class="text-xs text-slate-500 bg-slate-100 rounded-full px-2 py-0.5">Non lancé</span>
+            </ng-container>
+            <a *ngIf="item.link" [routerLink]="item.link" class="text-xs font-semibold text-emerald-700 hover:underline">Détail →</a>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Pied -->
+    <div class="border-t border-slate-200 px-5 sm:px-6 py-3 flex items-center justify-end gap-2">
+      <ng-container *ngIf="bulk.phase === 'confirm'">
+        <button type="button" (click)="close()" class="rounded-lg px-4 py-2 text-sm font-semibold text-slate-600 hover:bg-slate-100">Annuler</button>
+        <button type="button" (click)="confirmed.emit()" [disabled]="!bulk.items.length"
+                class="rounded-lg px-4 py-2 text-sm font-semibold text-white disabled:opacity-50"
+                [ngClass]="bulk.mode === 'run' ? 'bg-emerald-600 hover:bg-emerald-500' : 'bg-sky-600 hover:bg-sky-500'">
+          {{ bulk.mode === 'run' ? (bulk.force ? 'Forcer' : 'Exécuter') : 'Tester' }} {{ bulk.items.length }} parser{{ bulk.items.length > 1 ? 's' : '' }}
+        </button>
+      </ng-container>
+      <ng-container *ngIf="bulk.phase === 'running'">
+        <span class="mr-auto text-xs text-slate-500">Vous pouvez fermer cette fenêtre : le lot continue.</span>
+        <button type="button" (click)="stop.emit()" [disabled]="bulk.stopping"
+                class="rounded-lg border border-rose-300 bg-rose-50 px-4 py-2 text-sm font-semibold text-rose-700 hover:bg-rose-100 disabled:opacity-50"
+                title="Le parser en cours se termine, les suivants ne sont pas lancés">
+          {{ bulk.stopping ? 'Arrêt après le parser en cours…' : 'Arrêter' }}
+        </button>
+      </ng-container>
+      <button *ngIf="bulk.phase === 'finished'" type="button" (click)="close()"
+              class="rounded-lg bg-slate-900 px-4 py-2 text-sm font-semibold text-white hover:bg-slate-700">Fermer</button>
+    </div>
+  </div>
+</div>

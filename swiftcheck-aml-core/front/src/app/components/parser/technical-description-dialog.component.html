@@ -1,0 +1,90 @@
+<div class="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-0 sm:p-6"
+     role="dialog" aria-modal="true" aria-labelledby="tech-desc-title">
+  <div class="absolute inset-0 bg-slate-900/50 backdrop-blur-[2px]" (click)="close()"></div>
+
+  <div class="relative w-full flex flex-col bg-white rounded-t-2xl sm:rounded-2xl shadow-2xl ring-1 ring-slate-900/10 h-[92vh]"
+       [ngClass]="editing ? 'sm:max-w-7xl' : 'sm:max-w-4xl'">
+
+    <!-- En-tête -->
+    <div class="border-b border-slate-200 px-5 sm:px-6 py-4 flex items-start gap-4">
+      <div class="flex-1 min-w-0">
+        <p class="text-[11px] font-bold uppercase tracking-wider text-sky-700">Description technique</p>
+        <h2 id="tech-desc-title" class="text-lg font-bold text-slate-900 leading-tight truncate">{{ parser.name }}</h2>
+        <p class="text-xs text-slate-500 mt-0.5">
+          <span class="font-mono">{{ parser.datasetName }}</span> · plugin <span class="font-mono">{{ parser.pluginId }}</span>
+          <span *ngIf="updatedAt && text"> · parser modifié le {{ updatedAt | date:'dd/MM/yyyy HH:mm' }}</span>
+        </p>
+      </div>
+      <button type="button" (click)="close()" aria-label="Fermer" title="Fermer (Échap)"
+              class="rounded-lg p-1.5 text-slate-400 hover:text-slate-700 hover:bg-slate-100">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" d="M6 6l12 12M18 6L6 18"/></svg>
+      </button>
+    </div>
+
+    <div *ngIf="errorMessage" class="mx-5 sm:mx-6 mt-4 rounded-xl border border-rose-200 bg-rose-50 p-3 text-sm text-rose-800">{{ errorMessage }}</div>
+
+    <!-- Chargement -->
+    <div *ngIf="isLoading" class="flex-1 px-6 py-6 space-y-3 animate-pulse">
+      <div class="h-6 w-2/3 rounded bg-slate-200/70"></div>
+      <div class="h-4 rounded bg-slate-200/70"></div>
+      <div class="h-4 w-5/6 rounded bg-slate-200/70"></div>
+      <div class="h-32 rounded bg-slate-200/70"></div>
+    </div>
+
+    <!-- Lecture -->
+    <ng-container *ngIf="!isLoading && !editing">
+      <div class="flex-1 overflow-y-auto px-5 sm:px-8 py-6">
+        <div *ngIf="text; else empty" class="md-doc max-w-none" [innerHTML]="render(text)"></div>
+        <ng-template #empty>
+          <div class="text-center py-16 px-6">
+            <svg class="mx-auto w-10 h-10 text-slate-300" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z"/></svg>
+            <p class="mt-3 text-sm font-semibold text-slate-700">Aucune description technique</p>
+            <p class="mt-1 text-sm text-slate-500">Collez le README du plugin (Markdown) et complétez-le : source, règles, paramètres, entités produites, limites.</p>
+            <button type="button" (click)="edit()"
+                    class="mt-4 rounded-lg bg-slate-900 px-4 py-2 text-sm font-semibold text-white hover:bg-slate-700">Ajouter une description</button>
+          </div>
+        </ng-template>
+      </div>
+      <div *ngIf="text" class="border-t border-slate-200 px-5 sm:px-6 py-3 flex justify-end gap-2">
+        <button type="button" (click)="close()" class="rounded-lg px-4 py-2 text-sm font-semibold text-slate-600 hover:bg-slate-100">Fermer</button>
+        <button type="button" (click)="edit()" class="rounded-lg bg-slate-900 px-4 py-2 text-sm font-semibold text-white hover:bg-slate-700">Modifier</button>
+      </div>
+    </ng-container>
+
+    <!-- Modification : texte à gauche, aperçu à droite (onglets sur petit écran) -->
+    <ng-container *ngIf="!isLoading && editing">
+      <div class="lg:hidden flex gap-1 px-5 pt-3" role="tablist">
+        <button type="button" role="tab" (click)="mobileTab = 'edit'" [attr.aria-selected]="mobileTab === 'edit'"
+                class="rounded-lg px-3 py-1.5 text-sm font-semibold"
+                [ngClass]="mobileTab === 'edit' ? 'bg-slate-900 text-white' : 'text-slate-600 hover:bg-slate-100'">Markdown</button>
+        <button type="button" role="tab" (click)="mobileTab = 'preview'" [attr.aria-selected]="mobileTab === 'preview'"
+                class="rounded-lg px-3 py-1.5 text-sm font-semibold"
+                [ngClass]="mobileTab === 'preview' ? 'bg-slate-900 text-white' : 'text-slate-600 hover:bg-slate-100'">Aperçu</button>
+      </div>
+      <div class="flex-1 min-h-0 grid lg:grid-cols-2">
+        <div class="min-h-0 flex flex-col p-4 sm:p-5 lg:border-r border-slate-200 lg:flex" [class.hidden]="mobileTab !== 'edit'">
+          <label for="tech-desc-text" class="text-xs font-semibold text-slate-600 mb-1.5">Markdown</label>
+          <textarea #area id="tech-desc-text" [(ngModel)]="draft" (keydown.tab)="onTab($event, area)" spellcheck="false"
+                    placeholder="# nom_du_parser – …&#10;&#10;## Ce que fait ce parser&#10;…"
+                    class="flex-1 min-h-0 w-full resize-none rounded-xl border border-slate-300 bg-slate-50 p-3 font-mono text-[13px] leading-relaxed text-slate-800 focus:border-sky-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-sky-500/20"></textarea>
+          <p class="mt-1.5 text-[11px] text-slate-500">Titres #, listes -, tableaux | a | b |, `code`, **gras**. Texte vide = description effacée.</p>
+        </div>
+        <div class="min-h-0 overflow-y-auto p-4 sm:p-6 bg-white lg:block" [class.hidden]="mobileTab !== 'preview'">
+          <p class="text-xs font-semibold text-slate-600 mb-3">Aperçu</p>
+          <div *ngIf="draft.trim(); else noPreview" class="md-doc" [innerHTML]="render(draft)"></div>
+          <ng-template #noPreview><p class="text-sm text-slate-400 italic">Rien à afficher.</p></ng-template>
+        </div>
+      </div>
+      <div class="border-t border-slate-200 px-5 sm:px-6 py-3 flex items-center justify-end gap-2">
+        <span *ngIf="dirty" class="mr-auto text-xs text-amber-700">Modifications non enregistrées</span>
+        <button type="button" (click)="cancelEdit()" [disabled]="isSaving"
+                class="rounded-lg px-4 py-2 text-sm font-semibold text-slate-600 hover:bg-slate-100 disabled:opacity-50">Annuler</button>
+        <button type="button" (click)="save()" [disabled]="isSaving || !dirty"
+                class="inline-flex items-center gap-2 rounded-lg bg-sky-600 px-4 py-2 text-sm font-semibold text-white hover:bg-sky-500 disabled:opacity-50">
+          <span *ngIf="isSaving" class="h-3.5 w-3.5 rounded-full border-2 border-white/40 border-t-white animate-spin"></span>
+          Enregistrer
+        </button>
+      </div>
+    </ng-container>
+  </div>
+</div>

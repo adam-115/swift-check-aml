@@ -1,0 +1,25 @@
+% Requête :select senmat as "Matricule", quacod as "Qualité", sennomuse as "Nom usuel", senprenomuse as "Prénom usuel", etasencod as "État", 
+% 	sendatnai as "Date naissance", sendatdec as "Date de décès", sengrppolliccou as "Groupe politique", tap.TYPAPPPOLLIB as "Type d'app au grp politique",
+% 	com.COMLIBAMELI as "Commission permanente", sencircou as "Circonscription", senburliccou as "Fonction au Bureau du Sénat",
+% 	case when senautema='OUI' then senema
+% 	else 'Non public'
+% 	end as "Courrier électronique",
+%   pcs.PCSLIL as "PCS INSEE",
+%   cp.CATPROLIB as "Catégorie professionnelle",
+%   s.SENDESPRO as "Description de la profession"
+% from senateurs.sen s
+% left outer join senateurs.typapppol tap ON s.sentypappcou =  tap.TYPAPPPOLLIC
+% left outer join senateurs.com com on s.SENCOMCODCOU = com.ORGCOD
+% left outer join senateurs.pcs pcs on s.PCSCOD = pcs.PCSCOD
+% left outer join senateurs.catpro cp on s.CATPROCOD = cp.CATPROCOD
+% where s.etasencod in ('ACTIF', 'ANCIEN')
+% order by s.sennomuse, s.senprenomuse, s.senmat
+% Aucun paramètre
+% 2012 ligne(s) de résultat
+Matricule,Qualité,Nom usuel,Prénom usuel,État,Date naissance,Date de décès,Groupe politique,Type d'app au grp politique,Commission permanente,Circonscription,Fonction au Bureau du Sénat,Courrier électronique,PCS INSEE,Catégorie professionnelle,Description de la profession
+83008P,M.,Abadie,François,ANCIEN,1930-06-19 00:00:00.0,2001-03-02 00:00:00.0,RDSE,,,Hautes-Pyrénées,,Non public,Cadres d'entreprise,Salariés (Cadres divers),Directeur commercial
+14263U,M.,Abate,Patrick,ANCIEN,1956-12-28 00:00:00.0,,CRCE,,commission de la culture,Moselle,,p.abate@senat.fr,"Professeurs, professions scientifiques",Enseignement supérieur (sauf Professeurs de médecine),Professeur
+14133K,M.,Allizard,Pascal,ANCIEN,1962-12-19 00:00:00.0,,Les Républicains,,commission des affaires étrangères,Calvados,,p.allizard@senat.fr,Cadres de la fonction publique,Fonctionnaires (Hauts Fonctionnaires),Assistant parlementaire
+20684B,M.,Amard,Gabriel,ACTIF,1967-05-05 00:00:00.0,,NI,,commission des finances,Rhône,,g.amard@senat.fr,Autres personnes sans activité professionnelle,Sans profession déclarée,"Cadre d'entreprise "
+86034E,M.,Larcher,Gérard,ACTIF,1949-09-14 00:00:00.0,,Les Républicains,,Aucune,Yvelines,Président du Sénat,g.larcher@senat.fr,Vétérinaires (libéraux ou salariés),Professions médicales (Vétérinaires),Docteur vétérinaire
+04094Q,M.,Larcher,Serge,ANCIEN,1945-10-17 00:00:00.0,,SER,,commission des affaires économiques,Martinique,Secrétaire du Sénat,s.larcher@senat.fr,"Professeurs, professions scientifiques",Enseignement secondaire,Professeur de lettres

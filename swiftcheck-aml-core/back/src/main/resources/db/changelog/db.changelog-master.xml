@@ -9,6 +9,8 @@
         003 : utilisateurs et configuration ; 004 : parsers et fonctions qu'ils couvrent.
         005 : catégorie PEP active ou désactivée.
         006 : référentiel PEP de la France (catégories et fonctions).
+        007 : parsers PEP de la France et fonctions qu'ils couvrent.
+        008 : description technique des parsers (Markdown).
     -->
     <include file="db/changelog/changes/001-schema.xml" />
     <include file="db/changelog/changes/002-pep-reference-data.xml" />
@@ -16,5 +18,7 @@
     <include file="db/changelog/changes/004-parsers.xml" />
     <include file="db/changelog/changes/005-pep-category-active.xml" />
     <include file="db/changelog/changes/006-fr-pep-reference-data.xml" />
+    <include file="db/changelog/changes/007-fr-parsers.xml" />
+    <include file="db/changelog/changes/008-parser-technical-description.xml" />
 
 </databaseChangeLog>

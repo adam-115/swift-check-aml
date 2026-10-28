@@ -101,6 +101,20 @@ public class ParserService {
     }
 
     /**
+     * Remplace la description technique (Markdown). Un texte vide l'efface. Séparé de {@link #update} : le
+     * formulaire du parser ne renvoie pas ce texte et ne doit pas l'effacer.
+     *
+     * @throws IllegalArgumentException si le parser n'existe pas
+     */
+    public Parser updateTechnicalDescription(long id, String markdown) {
+        Parser parser = parsers.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Parser introuvable : " + id));
+        parser.setTechnicalDescription(markdown == null || markdown.isBlank() ? null : markdown.strip());
+        parser.setUpdatedAt(Instant.now());
+        return parsers.save(parser);
+    }
+
+    /**
      * « Suppression » d'un parser : il est désactivé et retiré de Yente, mais gardé en base pour conserver
      * l'historique de ses exécutions (preuve des listes utilisées).
      */

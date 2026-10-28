@@ -20,6 +20,7 @@
     "@angular/router": "^18.2.0",
     "@sweetalert2/ngx-sweetalert2": "^15.0.0",
     "keycloak-js": "^26.2.4",
+    "marked": "^12.0.2",
     "rxjs": "~7.8.0",
     "sweetalert2": "^11.26.25",
     "tslib": "^2.3.0",

@@ -1,0 +1,170 @@
+<div class="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-0 sm:p-6" role="dialog" aria-modal="true" aria-labelledby="parser-detail-title">
+  <div class="absolute inset-0 bg-slate-900/50 backdrop-blur-[2px]" (click)="closed.emit()"></div>
+
+  <div class="relative w-full sm:max-w-3xl max-h-[92vh] flex flex-col bg-white rounded-t-2xl sm:rounded-2xl shadow-2xl ring-1 ring-slate-900/10">
+
+    <!-- En-tête -->
+    <div class="border-b border-slate-200 px-5 sm:px-6 py-4 flex items-start gap-4">
+      <div class="flex-1 min-w-0">
+        <p class="text-[11px] font-bold uppercase tracking-wider text-emerald-700">Parser</p>
+        <h2 id="parser-detail-title" class="text-lg font-bold text-slate-900 leading-tight">{{ parser.name }}</h2>
+        <div class="mt-1.5 flex flex-wrap items-center gap-1.5 text-xs">
+          <span class="font-mono bg-slate-100 text-slate-700 px-2 py-0.5 rounded">{{ parser.datasetName }}</span>
+          <span class="font-semibold bg-emerald-50 text-emerald-700 ring-1 ring-emerald-600/20 px-2 py-0.5 rounded-full">{{ listTypeLabel }}</span>
+          <span *ngIf="parser.countryIso" class="font-semibold bg-sky-50 text-sky-700 ring-1 ring-sky-600/20 px-2 py-0.5 rounded-full">{{ parser.countryIso }}</span>
+          <span *ngIf="parser.enabled" class="font-semibold text-emerald-700">● Actif</span>
+          <span *ngIf="!parser.enabled" class="font-semibold text-slate-500 bg-slate-100 px-2 py-0.5 rounded">Désactivé</span>
+        </div>
+      </div>
+      <button type="button" (click)="closed.emit()" aria-label="Fermer" title="Fermer (Échap)"
+              class="shrink-0 rounded-lg p-1.5 text-slate-400 hover:text-slate-700 hover:bg-slate-100">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" d="M6 6l12 12M18 6L6 18"/></svg>
+      </button>
+    </div>
+
+    <div class="flex-1 min-h-0 overflow-y-auto px-5 sm:px-6 py-5 space-y-5 text-sm">
+
+      <p *ngIf="parser.description" class="text-slate-700 whitespace-pre-line">{{ parser.description }}</p>
+
+      <!-- Dernière exécution et dernier test -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+        <div class="rounded-xl border border-slate-200 p-3.5">
+          <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Dernière exécution</p>
+          <ng-container *ngIf="parser.lastStatus; else neverRun">
+            <app-status-badge [status]="parser.lastStatus"></app-status-badge>
+            <div class="text-xs text-slate-500 mt-1.5">{{ parser.lastRunAt | date:'dd/MM/yyyy HH:mm' }}</div>
+            <div *ngIf="parser.lastPersonCount" class="text-xs text-slate-700 mt-0.5">
+              {{ parser.lastPersonCount }} personne{{ parser.lastPersonCount > 1 ? 's' : '' }}<span *ngIf="parser.lastRetainedCount"> + {{ parser.lastRetainedCount }} gardée{{ parser.lastRetainedCount > 1 ? 's' : '' }} (rétention)</span>
+            </div>
+            <div *ngIf="parser.lastMessage" class="text-xs text-slate-600 mt-1 break-words">{{ parser.lastMessage }}</div>
+            <a [routerLink]="['/parsers', parser.id, 'executions']" (click)="closed.emit()" class="mt-2 inline-block text-xs font-semibold text-emerald-700 hover:underline">Historique des exécutions →</a>
+          </ng-container>
+          <ng-template #neverRun><p class="text-xs text-slate-400 italic">Jamais exécuté</p></ng-template>
+        </div>
+        <div class="rounded-xl border border-slate-200 p-3.5">
+          <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Dernier test</p>
+          <ng-container *ngIf="parser.lastTestStatus; else neverTested">
+            <app-status-badge [status]="parser.lastTestStatus"></app-status-badge>
+            <div class="text-xs text-slate-500 mt-1.5">{{ parser.lastTestAt | date:'dd/MM/yyyy HH:mm' }}</div>
+            <div class="text-xs text-slate-700 mt-0.5">{{ parser.lastTestFoundPercent | number:'1.0-1' }} % des éléments retrouvés dans Yente</div>
+            <a *ngIf="parser.lastTestId" [routerLink]="['/tests', parser.lastTestId]" (click)="closed.emit()" class="mt-2 inline-block text-xs font-semibold text-sky-700 hover:underline">Détail du test →</a>
+          </ng-container>
+          <ng-template #neverTested><p class="text-xs text-slate-400 italic">Jamais testé</p></ng-template>
+        </div>
+      </div>
+
+      <!-- Plugin et source -->
+      <section>
+        <h3 class="text-xs font-bold text-slate-900 uppercase tracking-wider mb-2">Plugin et source</h3>
+        <dl class="rounded-xl border border-slate-200 divide-y divide-slate-100">
+          <div class="grid sm:grid-cols-[11rem_1fr] gap-1 sm:gap-3 px-3.5 py-2.5">
+            <dt class="text-xs font-semibold text-slate-500">Plugin-Id</dt>
+            <dd class="font-mono text-xs text-slate-900 break-all">{{ parser.pluginId }}</dd>
+          </div>
+          <div *ngIf="parser.pluginUrl" class="grid sm:grid-cols-[11rem_1fr] gap-1 sm:gap-3 px-3.5 py-2.5">
+            <dt class="text-xs font-semibold text-slate-500">JAR sur le serveur</dt>
+            <dd class="font-mono text-xs text-slate-900 break-all">{{ parser.pluginUrl }}</dd>
+          </div>
+          <div class="grid sm:grid-cols-[11rem_1fr] gap-1 sm:gap-3 px-3.5 py-2.5">
+            <dt class="text-xs font-semibold text-slate-500">Type de source</dt>
+            <dd class="text-slate-900">{{ sourceLabel }}</dd>
+          </div>
+          <div *ngIf="kindLabel" class="grid sm:grid-cols-[11rem_1fr] gap-1 sm:gap-3 px-3.5 py-2.5">
+            <dt class="text-xs font-semibold text-slate-500">Nature de la source</dt>
+            <dd class="text-slate-900">{{ kindLabel }}</dd>
+          </div>
+          <div *ngIf="parser.sourceLocation" class="grid sm:grid-cols-[11rem_1fr] gap-1 sm:gap-3 px-3.5 py-2.5">
+            <dt class="text-xs font-semibold text-slate-500">Emplacement</dt>
+            <dd class="font-mono text-xs break-all">
+              <a *ngIf="parser.sourceLocation.startsWith('http'); else plainLocation" [href]="parser.sourceLocation" target="_blank" rel="noopener noreferrer"
+                 class="text-sky-700 hover:underline">{{ parser.sourceLocation }}</a>
+              <ng-template #plainLocation><span class="text-slate-900">{{ parser.sourceLocation }}</span></ng-template>
+            </dd>
+          </div>
+          <div *ngIf="parser.websiteUrl" class="grid sm:grid-cols-[11rem_1fr] gap-1 sm:gap-3 px-3.5 py-2.5">
+            <dt class="text-xs font-semibold text-slate-500">Site de l'organisme</dt>
+            <dd class="text-xs break-all"><a [href]="parser.websiteUrl" target="_blank" rel="noopener noreferrer" class="font-mono text-sky-700 hover:underline">{{ parser.websiteUrl }}</a></dd>
+          </div>
+          <div class="grid sm:grid-cols-[11rem_1fr] gap-1 sm:gap-3 px-3.5 py-2.5">
+            <dt class="text-xs font-semibold text-slate-500">Paramètres du plugin</dt>
+            <dd>
+              <pre *ngIf="parametersText; else noParams" class="max-h-56 overflow-auto rounded-lg bg-slate-900 text-slate-100 p-3 text-xs leading-relaxed">{{ parametersText }}</pre>
+              <ng-template #noParams><span class="text-xs text-slate-400 italic">Aucun</span></ng-template>
+            </dd>
+          </div>
+        </dl>
+      </section>
+
+      <!-- Planification et licence -->
+      <section>
+        <h3 class="text-xs font-bold text-slate-900 uppercase tracking-wider mb-2">Planification et licence</h3>
+        <dl class="rounded-xl border border-slate-200 divide-y divide-slate-100">
+          <div class="grid sm:grid-cols-[11rem_1fr] gap-1 sm:gap-3 px-3.5 py-2.5">
+            <dt class="text-xs font-semibold text-slate-500">Fréquence</dt>
+            <dd class="text-slate-900">{{ parser.refreshHours ? 'toutes les ' + parser.refreshHours + ' h' : 'à la demande' }}</dd>
+          </div>
+          <div class="grid sm:grid-cols-[11rem_1fr] gap-1 sm:gap-3 px-3.5 py-2.5">
+            <dt class="text-xs font-semibold text-slate-500">Rétention</dt>
+            <dd class="text-slate-900">{{ parser.retentionMonths ? parser.retentionMonths + ' mois' : 'aucune' }}</dd>
+          </div>
+          <div *ngIf="parser.licence" class="grid sm:grid-cols-[11rem_1fr] gap-1 sm:gap-3 px-3.5 py-2.5">
+            <dt class="text-xs font-semibold text-slate-500">Licence</dt>
+            <dd class="text-slate-900">{{ parser.licence }}</dd>
+          </div>
+          <div *ngIf="parser.attribution" class="grid sm:grid-cols-[11rem_1fr] gap-1 sm:gap-3 px-3.5 py-2.5">
+            <dt class="text-xs font-semibold text-slate-500">Mention à citer</dt>
+            <dd class="text-slate-900">{{ parser.attribution }}</dd>
+          </div>
+          <div class="grid sm:grid-cols-[11rem_1fr] gap-1 sm:gap-3 px-3.5 py-2.5">
+            <dt class="text-xs font-semibold text-slate-500">Créé / modifié</dt>
+            <dd class="text-slate-900 text-xs">{{ parser.createdAt | date:'dd/MM/yyyy HH:mm' }} · {{ parser.updatedAt | date:'dd/MM/yyyy HH:mm' }}</dd>
+          </div>
+        </dl>
+      </section>
+
+      <!-- Remarques -->
+      <section *ngIf="parser.notes">
+        <h3 class="text-xs font-bold text-slate-900 uppercase tracking-wider mb-2">Remarques sur la source</h3>
+        <p class="rounded-xl border border-amber-200 bg-amber-50/60 p-3.5 text-slate-800 whitespace-pre-line">{{ parser.notes }}</p>
+      </section>
+
+      <!-- Couverture PEP -->
+      <section *ngIf="parser.listType === 'PEP'">
+        <h3 class="text-xs font-bold text-slate-900 uppercase tracking-wider mb-2">
+          Fonctions PEP couvertes <span class="font-normal text-slate-500 normal-case">({{ parser.coverage?.length ?? 0 }})</span>
+        </h3>
+        <p *ngIf="!coverageGroups.length" class="text-xs text-slate-400 italic">Aucune fonction déclarée.</p>
+        <div *ngIf="coverageGroups.length" class="rounded-xl border border-slate-200 divide-y divide-slate-100">
+          <div *ngFor="let group of coverageGroups" class="px-3.5 py-2.5">
+            <p class="text-xs font-semibold text-slate-700 mb-1"><span class="font-mono text-slate-500">{{ group.code }}</span> {{ group.label }}</p>
+            <ul class="space-y-1">
+              <li *ngFor="let row of group.rows" class="flex flex-wrap items-baseline gap-x-2 gap-y-0.5">
+                <span class="text-slate-800">{{ row.label }}</span>
+                <span *ngIf="row.institution" class="text-xs text-slate-500">— {{ row.institution }}</span>
+                <span class="ml-auto flex gap-1.5 text-[11px] font-semibold">
+                  <span class="rounded-full px-2 py-0.5"
+                        [ngClass]="row.completeness === 'COMPLETE' ? 'bg-emerald-50 text-emerald-700' : 'bg-amber-50 text-amber-700'">
+                    {{ row.completeness === 'COMPLETE' ? 'Complète' : 'Partielle' }}
+                  </span>
+                  <span *ngIf="row.includesFormer" class="rounded-full px-2 py-0.5 bg-slate-100 text-slate-600">+ anciens</span>
+                </span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- Pied -->
+    <div class="border-t border-slate-200 px-5 sm:px-6 py-3 flex flex-wrap items-center justify-end gap-2">
+      <button type="button" (click)="showDescription.emit()"
+              class="mr-auto inline-flex items-center gap-1.5 rounded-lg px-3 py-2 text-sm font-semibold hover:bg-sky-50"
+              [ngClass]="parser.hasTechnicalDescription ? 'text-sky-700' : 'text-slate-500'">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6M7 3h7l5 5v11a2 2 0 01-2 2H7a2 2 0 01-2-2V5a2 2 0 012-2z"/></svg>
+        {{ parser.hasTechnicalDescription ? 'Description technique' : 'Pas de description technique' }}
+      </button>
+      <button type="button" (click)="closed.emit()" class="rounded-lg px-4 py-2 text-sm font-semibold text-slate-600 hover:bg-slate-100">Fermer</button>
+      <button type="button" (click)="edit.emit()" class="rounded-lg bg-slate-900 px-4 py-2 text-sm font-semibold text-white hover:bg-slate-700">Modifier</button>
+    </div>
+  </div>
+</div>

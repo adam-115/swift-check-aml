@@ -15,6 +15,9 @@ import { apiError } from '../../services/api-error';
 import { StatusBadgeComponent } from '../shared/status-badge.component';
 import { TestRunDialogComponent } from './test-run-dialog.component';
 import { ParserTestHistoryComponent } from './parser-test-history.component';
+import { TechnicalDescriptionDialogComponent } from './technical-description-dialog.component';
+import { BulkItem, BulkRun, BulkRunDialogComponent } from './bulk-run-dialog.component';
+import { ParserDetailDialogComponent } from './parser-detail-dialog.component';
 
 /** Libellés des types de source, affichés dans la liste et le formulaire. */
 export const SOURCE_TYPES: { value: DataSourceType; label: string; help: string }[] = [
@@ -63,7 +66,7 @@ interface FunctionGroup {
   selector: 'app-parser',
   standalone: true,
   imports: [CommonModule, FormsModule, ReactiveFormsModule, RouterLink, StatusBadgeComponent, TestRunDialogComponent,
-    ParserTestHistoryComponent],
+    ParserTestHistoryComponent, TechnicalDescriptionDialogComponent, BulkRunDialogComponent, ParserDetailDialogComponent],
   templateUrl: './parser.component.html',
 })
 export class ParserComponent implements OnInit {
@@ -71,12 +74,33 @@ export class ParserComponent implements OnInit {
   readonly parserKinds = PARSER_KINDS;
   readonly listTypes = LIST_TYPES;
 
-  // Liste
+  // Liste : tous les parsers sont chargés, la recherche et la pagination se font ici
+  allParsers: ParserDTO[] = [];
+  /** Parsers qui répondent aux filtres, et la page affichée. */
+  filtered: ParserDTO[] = [];
   parsers: ParserDTO[] = [];
   totalElements = 0;
   page = 0;
   totalPages = 0;
   readonly pageSize = 20;
+
+  // Recherche et filtres
+  search = '';
+  filterCountry = '';
+  filterListType: ListType | '' = '';
+  filterEnabled: '' | 'enabled' | 'disabled' = '';
+  /** Dernière exécution : un statut, NEVER (jamais exécuté) ou PROBLEM (échec ou bloquée). */
+  filterLastStatus = '';
+  /** Pays couverts par chaque parser (son pays et celui de ses fonctions), et liste des pays pour le filtre. */
+  private parserCountries = new Map<number, Set<string>>();
+  countryOptions: string[] = [];
+
+  // Lot « Exécuter tout » / « Tester tout », traité un parser à la fois
+  bulk?: BulkRun;
+  isBulkDialogOpen = false;
+
+  /** Parser dont la fenêtre « Afficher » est ouverte. */
+  detailParser?: ParserDTO;
 
   // Exécution : parsers en cours (boutons désactivés) et résultat de la dernière exécution lancée ici
   running = new Set<number>();
@@ -94,6 +118,8 @@ export class ParserComponent implements OnInit {
   /** Parser dont l'historique des tests est ouvert, et compteur pour le recharger après un test. */
   historyParser?: ParserDTO;
   historyRefresh = 0;
+  /** Parser dont la fenêtre « Description technique » est ouverte. */
+  descriptionParser?: ParserDTO;
   errorMessage = '';
 
   // Formulaire (panneau latéral)
@@ -171,28 +197,208 @@ export class ParserComponent implements OnInit {
       next: functions => {
         this.allFunctions = functions;
         this.refreshFunctionGroups();
+        this.applyFilters(false);       // pays des fonctions couvertes, pour le filtre par pays
       },
     });
   }
 
   // ---------------------------------------------------------------- liste
 
+  /** Recharge tous les parsers en gardant la page et les filtres (après une exécution, un test, un enregistrement). */
   loadParsers(): void {
-    this.parserService.getAll(this.page, this.pageSize).subscribe({
+    this.parserService.getAllForProviders().subscribe({
       next: page => {
-        this.parsers = page.content;
+        this.allParsers = page.content;
         this.totalElements = page.totalElements;
-        this.totalPages = page.totalPages;
+        this.applyFilters(false);
+        // Les fenêtres ouvertes suivent la nouvelle version du parser
+        if (this.detailParser) {
+          this.detailParser = this.allParsers.find(p => p.id === this.detailParser!.id) ?? this.detailParser;
+        }
       },
       error: err => (this.errorMessage = apiError(err)),
     });
   }
 
+  /**
+   * Applique la recherche et les filtres. Recherche : nom, dataset, plugin, description, source, remarques
+   * et pays, sans tenir compte des accents ni de la casse ; plusieurs mots doivent tous être trouvés.
+   * resetPage = false garde la page courante (rechargement), sauf si elle n'existe plus.
+   */
+  applyFilters(resetPage = true): void {
+    this.computeCountries();
+    const words = normalize(this.search).split(/\s+/).filter(w => w);
+    this.filtered = this.allParsers.filter(p => {
+      const countries = this.parserCountries.get(p.id!) ?? new Set<string>();
+      if (this.filterCountry && !countries.has(this.filterCountry)) {
+        return false;
+      }
+      if (this.filterListType && (p.listType ?? 'PEP') !== this.filterListType) {
+        return false;
+      }
+      if (this.filterEnabled && (this.filterEnabled === 'enabled') !== !!p.enabled) {
+        return false;
+      }
+      if (this.filterLastStatus) {
+        const ok = this.filterLastStatus === 'NEVER' ? !p.lastStatus
+          : this.filterLastStatus === 'PROBLEM' ? p.lastStatus === 'FAILED' || p.lastStatus === 'BLOCKED'
+          : p.lastStatus === this.filterLastStatus;
+        if (!ok) {
+          return false;
+        }
+      }
+      if (words.length) {
+        const text = normalize([p.name, p.datasetName, p.pluginId, p.description, p.sourceLocation, p.notes,
+          ...countries].join(' '));
+        return words.every(w => text.includes(w));
+      }
+      return true;
+    });
+    this.totalPages = Math.ceil(this.filtered.length / this.pageSize);
+    if (resetPage || this.page >= this.totalPages) {
+      this.page = 0;
+    }
+    this.slicePage();
+  }
+
+  get hasFilters(): boolean {
+    return !!(this.search.trim() || this.filterCountry || this.filterListType || this.filterEnabled || this.filterLastStatus);
+  }
+
+  clearFilters(): void {
+    this.search = '';
+    this.filterCountry = '';
+    this.filterListType = '';
+    this.filterEnabled = '';
+    this.filterLastStatus = '';
+    this.applyFilters();
+  }
+
+  /** Un parser couvre son pays et celui de chacune de ses fonctions PEP (un parser UE en couvre plusieurs). */
+  private computeCountries(): void {
+    const functionCountry = new Map(this.allFunctions.map(f => [f.id, f.countryIso]));
+    this.parserCountries.clear();
+    for (const p of this.allParsers) {
+      const set = new Set<string>();
+      if (p.countryIso) {
+        set.add(p.countryIso);
+      }
+      for (const c of p.coverage ?? []) {
+        const iso = functionCountry.get(c.functionId);
+        if (iso) {
+          set.add(iso);
+        }
+      }
+      this.parserCountries.set(p.id!, set);
+    }
+    this.countryOptions = [...new Set([...this.parserCountries.values()].flatMap(s => [...s]))].sort();
+  }
+
+  private slicePage(): void {
+    const start = this.page * this.pageSize;
+    this.parsers = this.filtered.slice(start, start + this.pageSize);
+  }
+
   changePage(page: number): void {
     if (page >= 0 && page < this.totalPages) {
       this.page = page;
-      this.loadParsers();
+      this.slicePage();
     }
+  }
+
+  // ---------------------------------------------------------------- exécuter tout / tester tout
+
+  /**
+   * Prépare le lot sur les parsers affichés par les filtres (toutes pages) et ouvre la confirmation.
+   * Les parsers désactivés ou déjà en cours d'exécution ou de test sont exclus.
+   */
+  openBulk(mode: BulkRun['mode']): void {
+    if (this.bulk?.phase === 'running') {
+      this.isBulkDialogOpen = true;
+      return;
+    }
+    const busy = (p: ParserDTO) => this.running.has(p.id!) || this.testing.has(p.id!);
+    const targets = this.filtered.filter(p => p.enabled && !busy(p));
+    this.bulk = {
+      mode,
+      items: targets.map(parser => ({ parser, state: 'pending' })),
+      excluded: this.filtered.filter(p => !p.enabled || busy(p)),
+      force: false,
+      phase: 'confirm',
+      stopping: false,
+    };
+    this.isBulkDialogOpen = true;
+  }
+
+  startBulk(): void {
+    if (!this.bulk || this.bulk.phase !== 'confirm') {
+      return;
+    }
+    this.bulk.phase = 'running';
+    this.errorMessage = '';
+    this.nextBulkItem(this.bulk);
+  }
+
+  stopBulk(): void {
+    if (this.bulk?.phase === 'running') {
+      this.bulk.stopping = true;
+    }
+  }
+
+  closeBulkDialog(): void {
+    this.isBulkDialogOpen = false;
+    if (this.bulk?.phase !== 'running') {
+      this.bulk = undefined;
+    }
+  }
+
+  /** Lance le parser suivant du lot ; à la fin, ou après « Arrêter », les parsers restants sont marqués non lancés. */
+  private nextBulkItem(bulk: BulkRun): void {
+    const item = bulk.items.find(i => i.state === 'pending');
+    if (!item || bulk.stopping) {
+      bulk.items.filter(i => i.state === 'pending').forEach(i => (i.state = 'skipped'));
+      bulk.phase = 'finished';
+      this.loadParsers();
+      return;
+    }
+    const id = item.parser.id!;
+    item.state = 'running';
+    const done = (status: BulkItem['status'], message: string | undefined, link: unknown[]) => {
+      item.state = 'done';
+      item.status = status;
+      item.message = message;
+      item.link = link;
+    };
+    const failed = (err: unknown) => {
+      item.state = 'error';
+      item.message = apiError(err);
+    };
+    const next = () => {
+      this.loadParsers();               // statut à jour dans la liste, parser par parser
+      this.nextBulkItem(bulk);
+    };
+    if (bulk.mode === 'run') {
+      this.running.add(id);
+      this.parserService.run(id, bulk.force).subscribe({
+        next: e => { this.running.delete(id); done(e.status, e.message, ['/executions', e.id]); next(); },
+        error: err => { this.running.delete(id); failed(err); next(); },
+      });
+    } else {
+      this.testing.set(id, Date.now());
+      this.parserService.test(id).subscribe({
+        next: t => { this.testing.delete(id); done(t.status, t.message, ['/tests', t.id]); next(); },
+        error: err => { this.testing.delete(id); failed(err); next(); },
+      });
+    }
+  }
+
+  // ---------------------------------------------------------------- détail
+
+  /** « Modifier » depuis la fenêtre de détail : elle se ferme et le formulaire s'ouvre. */
+  editFromDetail(): void {
+    const parser = this.detailParser;
+    this.detailParser = undefined;
+    this.openForm(parser);
   }
 
   sourceLabel(type?: DataSourceType): string {
@@ -540,6 +746,11 @@ export class ParserComponent implements OnInit {
       error: err => (this.pluginError = apiError(err)),
     });
   }
+}
+
+/** Minuscules sans accents, pour la recherche. */
+function normalize(text: string): string {
+  return text.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase();
 }
 
 /** Le champ « paramètres » doit être vide ou un objet JSON, ex. {"query": "SELECT ..."}. */

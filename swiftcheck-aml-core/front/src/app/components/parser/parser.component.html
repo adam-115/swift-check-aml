@@ -72,8 +72,75 @@
     <button type="button" (click)="lastTest = undefined" class="text-slate-400 hover:text-slate-600" title="Fermer">✕</button>
   </div>
 
+  <!-- Lot en cours, fenêtre fermée -->
+  <div *ngIf="bulk && !isBulkDialogOpen" class="bg-white border border-slate-200 rounded-2xl p-4 shadow-xs flex flex-col sm:flex-row sm:items-center gap-3">
+    <span *ngIf="bulk.phase === 'running'" class="h-4 w-4 shrink-0 rounded-full border-2 border-slate-200 border-t-emerald-600 animate-spin"></span>
+    <div class="flex-1 text-sm text-slate-700">
+      <span class="font-semibold text-slate-900">{{ bulk.mode === 'run' ? 'Exécution' : 'Tests' }} de {{ bulk.items.length }} parser{{ bulk.items.length > 1 ? 's' : '' }}</span>
+      — {{ bulk.phase === 'running' ? 'en cours' : 'terminé' }}
+    </div>
+    <button type="button" (click)="isBulkDialogOpen = true" class="text-sm font-semibold text-emerald-700 hover:underline whitespace-nowrap">Voir l'avancement →</button>
+  </div>
+
   <!-- Liste des parsers -->
   <div class="bg-white rounded-2xl border border-slate-200 shadow-xs overflow-hidden">
+    <!-- Recherche, filtres et actions sur la sélection -->
+    <div class="px-4 py-3.5 border-b border-slate-200 space-y-3">
+      <div class="flex flex-col lg:flex-row lg:items-center gap-3">
+        <div class="relative flex-1 min-w-0">
+          <svg class="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path stroke-linecap="round" d="M20 20l-3.5-3.5"/></svg>
+          <input type="search" [(ngModel)]="search" (ngModelChange)="applyFilters()" aria-label="Rechercher un parser"
+                 placeholder="Rechercher : nom, dataset, plugin, source, description, pays…"
+                 class="w-full rounded-xl border border-slate-300 bg-white py-2.5 pl-9 pr-3 text-sm focus:border-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-500/20">
+        </div>
+        <div class="flex flex-wrap items-center gap-2 shrink-0">
+          <button type="button" (click)="openBulk('run')" [disabled]="bulk?.phase === 'running' && bulk?.mode === 'test'"
+                  class="inline-flex items-center gap-1.5 rounded-xl bg-emerald-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-emerald-500 disabled:opacity-40"
+                  [title]="'Lancer un par un les ' + filtered.length + ' parsers affichés par les filtres'">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M5 4l14 8-14 8V4z"/></svg>
+            {{ bulk?.phase === 'running' && bulk?.mode === 'run' ? 'Exécution en cours…' : 'Exécuter tout' }}
+          </button>
+          <button type="button" (click)="openBulk('test')" [disabled]="bulk?.phase === 'running' && bulk?.mode === 'run'"
+                  class="inline-flex items-center gap-1.5 rounded-xl border border-sky-300 bg-sky-50 px-3.5 py-2.5 text-sm font-semibold text-sky-800 hover:bg-sky-100 disabled:opacity-40"
+                  [title]="'Tester un par un les ' + filtered.length + ' parsers affichés par les filtres'">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+            {{ bulk?.phase === 'running' && bulk?.mode === 'test' ? 'Tests en cours…' : 'Tester tout' }}
+          </button>
+        </div>
+      </div>
+      <div class="flex flex-wrap items-center gap-2 text-sm">
+        <select [(ngModel)]="filterCountry" (ngModelChange)="applyFilters()" aria-label="Pays couvert"
+                class="rounded-lg border border-slate-300 bg-white px-2.5 py-1.5 text-sm" [class.border-emerald-500]="filterCountry">
+          <option value="">Tous les pays</option>
+          <option *ngFor="let iso of countryOptions" [value]="iso">{{ iso }}</option>
+        </select>
+        <select [(ngModel)]="filterListType" (ngModelChange)="applyFilters()" aria-label="Type de liste"
+                class="rounded-lg border border-slate-300 bg-white px-2.5 py-1.5 text-sm" [class.border-emerald-500]="filterListType">
+          <option value="">Tous les types</option>
+          <option *ngFor="let type of listTypes" [value]="type.value">{{ type.label }}</option>
+        </select>
+        <select [(ngModel)]="filterEnabled" (ngModelChange)="applyFilters()" aria-label="État"
+                class="rounded-lg border border-slate-300 bg-white px-2.5 py-1.5 text-sm" [class.border-emerald-500]="filterEnabled">
+          <option value="">Actifs et désactivés</option>
+          <option value="enabled">Actifs</option>
+          <option value="disabled">Désactivés</option>
+        </select>
+        <select [(ngModel)]="filterLastStatus" (ngModelChange)="applyFilters()" aria-label="Dernière exécution"
+                class="rounded-lg border border-slate-300 bg-white px-2.5 py-1.5 text-sm" [class.border-emerald-500]="filterLastStatus">
+          <option value="">Toute dernière exécution</option>
+          <option value="PROBLEM">En échec ou bloquée</option>
+          <option value="SUCCESS">Publiée</option>
+          <option value="UNCHANGED">Inchangée</option>
+          <option value="BLOCKED">Bloquée</option>
+          <option value="FAILED">Échec</option>
+          <option value="NEVER">Jamais exécuté</option>
+        </select>
+        <span class="text-xs text-slate-500 ml-auto">
+          {{ filtered.length }} parser{{ filtered.length > 1 ? 's' : '' }}<span *ngIf="hasFilters"> sur {{ allParsers.length }}</span>
+        </span>
+        <button *ngIf="hasFilters" type="button" (click)="clearFilters()" class="text-xs font-semibold text-slate-600 hover:text-slate-900 hover:underline">Effacer les filtres</button>
+      </div>
+    </div>
     <div class="overflow-x-auto">
       <table class="min-w-full divide-y divide-slate-200">
         <thead class="bg-slate-50">
@@ -96,6 +163,13 @@
                 <span *ngIf="p.coverage?.length"> · {{ p.coverage?.length }} fonction{{ (p.coverage?.length ?? 0) > 1 ? 's' : '' }}</span>
               </div>
               <span *ngIf="!p.enabled" class="mt-1 inline-block text-[11px] font-semibold text-slate-500 bg-slate-100 px-2 py-0.5 rounded">Désactivé</span>
+              <button type="button" (click)="descriptionParser = p"
+                      class="mt-1.5 flex items-center gap-1 text-xs font-semibold hover:underline"
+                      [ngClass]="p.hasTechnicalDescription ? 'text-sky-700 hover:text-sky-900' : 'text-slate-400 hover:text-slate-600'"
+                      [title]="p.hasTechnicalDescription ? 'Ce que fait ce parser exactement' : 'Aucune description technique : cliquer pour en ajouter une'">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6M7 3h7l5 5v11a2 2 0 01-2 2H7a2 2 0 01-2-2V5a2 2 0 012-2z"/></svg>
+                {{ p.hasTechnicalDescription ? 'Description technique' : 'Pas de description' }}
+              </button>
             </td>
             <td class="px-3 py-4">
               <span class="font-mono text-xs bg-slate-100 text-slate-700 px-2 py-1 rounded whitespace-nowrap">{{ p.pluginId }}</span>
@@ -164,6 +238,8 @@
                 </div>
                 <!-- Actions secondaires -->
                 <div class="flex items-center gap-3 text-xs font-semibold whitespace-nowrap">
+                  <button type="button" (click)="detailParser = p" class="text-emerald-700 hover:text-emerald-900 hover:underline" title="Toutes les informations du parser">Afficher</button>
+                  <span class="text-slate-300" aria-hidden="true">·</span>
                   <a [routerLink]="['/parsers', p.id, 'executions']" class="text-slate-600 hover:text-slate-900 hover:underline" title="Historique des exécutions">Exécutions</a>
                   <span class="text-slate-300" aria-hidden="true">·</span>
                   <button type="button" (click)="openForm(p)" class="text-slate-600 hover:text-slate-900 hover:underline">Modifier</button>
@@ -176,7 +252,13 @@
             </td>
           </tr>
           <tr *ngIf="parsers.length === 0">
-            <td colspan="6" class="px-4 py-12 text-center text-sm text-slate-500">Aucun parser configuré.</td>
+            <td colspan="6" class="px-4 py-12 text-center text-sm text-slate-500">
+              <ng-container *ngIf="hasFilters; else noParser">
+                Aucun parser ne correspond à la recherche.
+                <button type="button" (click)="clearFilters()" class="ml-1 font-semibold text-emerald-700 hover:underline">Effacer les filtres</button>
+              </ng-container>
+              <ng-template #noParser>Aucun parser configuré.</ng-template>
+            </td>
           </tr>
         </tbody>
       </table>
@@ -432,7 +514,22 @@
   </form>
 </div>
 
-<!-- Historique des tests d'un parser (panneau latéral) -->
+<!-- Détail d'un parser (bouton « Afficher ») -->
+<app-parser-detail-dialog *ngIf="detailParser as dp" [parser]="dp" [functions]="allFunctions"
+                          [sourceLabel]="sourceLabel(dp.dataSourceType)" [kindLabel]="parserKindLabel(dp.parserKind)"
+                          [listTypeLabel]="listTypeLabel(dp.listType)" [escapeEnabled]="!descriptionParser"
+                          (closed)="detailParser = undefined" (edit)="editFromDetail()"
+                          (showDescription)="descriptionParser = dp"></app-parser-detail-dialog>
+
+<!-- Exécuter tout / tester tout : confirmation puis avancement -->
+<app-bulk-run-dialog *ngIf="bulk && isBulkDialogOpen" [bulk]="bulk"
+                     (confirmed)="startBulk()" (stop)="stopBulk()" (closed)="closeBulkDialog()"></app-bulk-run-dialog>
+
+<!-- Description technique (au-dessus du détail) -->
+<app-technical-description-dialog *ngIf="descriptionParser" [parser]="descriptionParser"
+                                  (saved)="descriptionParser.hasTechnicalDescription = $event"
+                                  (closed)="descriptionParser = undefined"></app-technical-description-dialog>
+
 <app-parser-test-history *ngIf="historyParser" [parser]="historyParser" [refreshKey]="historyRefresh"
                          [running]="testing.has(historyParser.id!)" [escapeEnabled]="!testDialogParser"
                          (closed)="historyParser = undefined" (runTest)="openTestDialog(historyParser)"></app-parser-test-history>

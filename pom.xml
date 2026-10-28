@@ -56,6 +56,18 @@
         <module>swiftcheck-aml-plugins/pep/luxembourg/swiftcheck-aml-lu-pep-state-enterprises</module>
         <module>swiftcheck-aml-plugins/pep/luxembourg/swiftcheck-aml-lu-pep-rca</module>
         <module>swiftcheck-aml-plugins/pep/luxembourg/swiftcheck-aml-lu-pep-associated-entities</module>
+        <module>swiftcheck-aml-plugins/pep/france/swiftcheck-aml-fr-pep-president</module>
+        <module>swiftcheck-aml-plugins/pep/france/swiftcheck-aml-fr-pep-government</module>
+        <module>swiftcheck-aml-plugins/pep/france/swiftcheck-aml-fr-pep-national-assembly</module>
+        <module>swiftcheck-aml-plugins/pep/france/swiftcheck-aml-fr-pep-senate</module>
+        <module>swiftcheck-aml-plugins/pep/france/swiftcheck-aml-fr-pep-europarl</module>
+        <module>swiftcheck-aml-plugins/pep/france/swiftcheck-aml-fr-pep-eu-commission</module>
+        <module>swiftcheck-aml-plugins/pep/france/swiftcheck-aml-fr-pep-constitutional-council</module>
+        <module>swiftcheck-aml-plugins/pep/france/swiftcheck-aml-fr-pep-banque-de-france</module>
+        <module>swiftcheck-aml-plugins/pep/france/swiftcheck-aml-fr-pep-army</module>
+        <module>swiftcheck-aml-plugins/pep/france/swiftcheck-aml-fr-pep-local-executives</module>
+        <module>swiftcheck-aml-plugins/pep/france/swiftcheck-aml-fr-pep-rca</module>
+        <module>swiftcheck-aml-plugins/pep/france/swiftcheck-aml-fr-pep-associated-entities</module>
     </modules>
 
     <dependencyManagement>

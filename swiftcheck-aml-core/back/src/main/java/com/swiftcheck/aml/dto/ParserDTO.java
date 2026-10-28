@@ -44,6 +44,11 @@ public class ParserDTO {
     private String attribution;
     /** Remarques sur la source. */
     private String notes;
+    /**
+     * Le parser a une description technique (lecture seule). Le texte lui-même est lu à part
+     * ({@code GET /api/parsers/{id}/technical-description}) pour garder la liste légère.
+     */
+    private boolean hasTechnicalDescription;
     /** Fonctions PEP couvertes, avec leur complétude ; vide pour une liste de sanctions. */
     private List<CoverageItem> coverage = new ArrayList<>();
     /** Pays des fonctions couvertes (lecture seule) ; vide pour une liste de sanctions. */
@@ -101,6 +106,7 @@ public class ParserDTO {
         dto.setLicence(entity.getLicence());
         dto.setAttribution(entity.getAttribution());
         dto.setNotes(entity.getNotes());
+        dto.setHasTechnicalDescription(entity.getTechnicalDescription() != null);
         dto.setCoverage(entity.getCoverage().stream()
                 .map(l -> new CoverageItem(l.getFunction().getId(), l.getCompleteness(), l.isIncludesFormer()))
                 .sorted(Comparator.comparingLong(CoverageItem::functionId))

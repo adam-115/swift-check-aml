@@ -1,0 +1,103 @@
+{
+ "head": {
+  "vars": [
+   "pep",
+   "pepLabel",
+   "positions"
+  ]
+ },
+ "results": {
+  "bindings": [
+   {
+    "pep": {
+     "type": "uri",
+     "value": "http://www.wikidata.org/entity/Q1237205"
+    },
+    "pepLabel": {
+     "xml:lang": "fr",
+     "type": "literal",
+     "value": "Marc Lambron"
+    },
+    "positions": {
+     "type": "literal",
+     "value": "conseiller d'État"
+    }
+   },
+   {
+    "pep": {
+     "type": "uri",
+     "value": "http://www.wikidata.org/entity/Q1360173"
+    },
+    "pepLabel": {
+     "xml:lang": "fr",
+     "type": "literal",
+     "value": "Gérard Longuet"
+    },
+    "positions": {
+     "type": "literal",
+     "value": "sénateur ou sénatrice de la Cinquième République"
+    }
+   },
+   {
+    "pep": {
+     "type": "uri",
+     "value": "http://www.wikidata.org/entity/Q30335340"
+    },
+    "pepLabel": {
+     "xml:lang": "fr",
+     "type": "literal",
+     "value": "Danièle Obono"
+    },
+    "positions": {
+     "type": "literal",
+     "value": "député français"
+    }
+   },
+   {
+    "pep": {
+     "type": "uri",
+     "value": "http://www.wikidata.org/entity/Q2965163"
+    },
+    "pepLabel": {
+     "xml:lang": "fr",
+     "type": "literal",
+     "value": "Christian Cointat"
+    },
+    "positions": {
+     "type": "literal",
+     "value": "sénateur ou sénatrice de la Cinquième République"
+    }
+   },
+   {
+    "pep": {
+     "type": "uri",
+     "value": "http://www.wikidata.org/entity/Q3142662"
+    },
+    "pepLabel": {
+     "xml:lang": "fr",
+     "type": "literal",
+     "value": "Hugues Portelli"
+    },
+    "positions": {
+     "type": "literal",
+     "value": "sénateur ou sénatrice de la Cinquième République"
+    }
+   },
+   {
+    "pep": {
+     "type": "uri",
+     "value": "http://www.wikidata.org/entity/Q12944"
+    },
+    "pepLabel": {
+     "xml:lang": "fr",
+     "type": "literal",
+     "value": "François-Noël Buffet"
+    },
+    "positions": {
+     "type": "literal",
+     "value": "sénateur ou sénatrice de la Cinquième République"
+    }
+   }
+  ]
+ }
+}

@@ -180,6 +180,7 @@ export interface ParserDTO {
     licence?: string;
     attribution?: string;
     notes?: string;                     // remarques sur la source
+    hasTechnicalDescription?: boolean;  // description technique renseignée (lecture seule, texte lu à part)
     coverage?: ParserCoverageItem[];    // fonctions PEP couvertes (vide pour les sanctions)
     countryIso?: string;                // pays des fonctions couvertes (lecture seule)
     enabled?: boolean;
@@ -316,4 +317,10 @@ export interface AmlAdvancedVerificationResponseDTO {
     companyResult?: any; // AmlVerificationResponseDTO but we can just use any for now or define it
     uboResults?: { [key: string]: any };
     errorMessage?: string;
+}
+
+/** Description technique d'un parser (Markdown), lue et modifiée depuis l'écran « Parsers ». */
+export interface TechnicalDescriptionDTO {
+    markdown: string;
+    updatedAt?: string;                 // dernière modification du parser (lecture seule)
 }
