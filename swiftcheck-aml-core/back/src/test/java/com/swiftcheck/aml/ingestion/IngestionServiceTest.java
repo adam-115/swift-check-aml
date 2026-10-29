@@ -75,6 +75,7 @@ class IngestionServiceTest {
     private Path sourceFile;
     private ApplicationConfigEntity config;
     private PluginManagementService plugins;
+    private ParserExecutionRepository executions;
     private IngestionService service;
 
     /** Lignes que le faux plugin écrira à la prochaine exécution. */
@@ -111,7 +112,7 @@ class IngestionServiceTest {
         when(parsers.findById(7L)).thenReturn(Optional.of(parser));
 
         AtomicLong ids = new AtomicLong();
-        ParserExecutionRepository executions = mock(ParserExecutionRepository.class);
+        executions = mock(ParserExecutionRepository.class);
         when(executions.save(any())).thenAnswer(call -> {
             ParserExecution e = call.getArgument(0);
             if (e.getId() == 0) {
@@ -411,6 +412,63 @@ class IngestionServiceTest {
         assertEquals(ParserExecutionStatus.SUCCESS, withRaw.getStatus(), withRaw.getMessage());
         assertEquals("page1.json", savedFiles.get(0).getOrigin());
         assertTrue(savedFiles.get(0).getArchivePath().endsWith(".json"));
+    }
+
+    @Test
+    void stopInterruptsTheRunningPluginAndNothingIsPublished() throws Exception {
+        java.util.concurrent.CountDownLatch started = new java.util.concurrent.CountDownLatch(1);
+        when(plugins.findParser(any(Parser.class))).thenReturn(Optional.of(ctx -> {
+            started.countDown();
+            Thread.sleep(60_000);          // ex. Wikidata qui ne répond pas
+            Files.write(ctx.outputFile(), pluginOutput);
+            return new ParserResult(2, 0, 0, java.util.Map.of(), null, java.util.List.of());
+        }));
+        java.util.concurrent.atomic.AtomicReference<ParserExecution> result = new java.util.concurrent.atomic.AtomicReference<>();
+        Thread runner = new Thread(() -> result.set(service.run(7, ExecutionTriggerEnum.MANUAL, false)));
+        runner.start();
+        assertTrue(started.await(10, java.util.concurrent.TimeUnit.SECONDS));
+
+        String message = service.stop(7);
+        runner.join(10_000);
+
+        assertTrue(message.contains("arrêtée"), message);
+        assertEquals(ParserExecutionStatus.FAILED, result.get().getStatus());
+        assertEquals(IngestionService.STOPPED_MESSAGE, result.get().getMessage());
+        assertFalse(Files.exists(tmp.resolve("yente/test_list/test_list.ndjson")), "rien n'est publié");
+        assertTrue(alertRows.isEmpty(), "pas d'alerte pour un arrêt voulu");
+        // Le parser est libéré : il peut être relancé
+        when(plugins.findParser(any(Parser.class))).thenReturn(Optional.of(ctx -> {
+            Files.write(ctx.outputFile(), pluginOutput);
+            return new ParserResult(2, 0, 0, java.util.Map.of(), null, java.util.List.of());
+        }));
+        assertEquals(ParserExecutionStatus.SUCCESS, service.run(7, ExecutionTriggerEnum.MANUAL, false).getStatus());
+    }
+
+    @Test
+    void pluginBuiltForAnOlderApiFailsInsteadOfStayingRunning() {
+        when(plugins.findParser(any(Parser.class))).thenReturn(Optional.of(ctx -> {
+            throw new NoSuchMethodError("'void com.swiftcheck.aml.plugin.ParserResult.<init>(int, int, int, java.util.Map, java.lang.String)'");
+        }));
+        ParserExecution run = service.run(7, ExecutionTriggerEnum.MANUAL, false);
+        assertEquals(ParserExecutionStatus.FAILED, run.getStatus());
+        assertTrue(run.getMessage().contains("incompatible"), run.getMessage());
+        assertNotNull(run.getFinishedAt());
+    }
+
+    @Test
+    void stopReleasesAnOrphanRunningExecution() {
+        assertThrows(IllegalStateException.class, () -> service.stop(7), "rien ne tourne");
+
+        // Ligne RUNNING sans exécution active dans ce serveur
+        ParserExecution orphan = new ParserExecution();
+        orphan.setId(42);
+        orphan.setParser(parser);
+        orphan.setStatus(ParserExecutionStatus.RUNNING);
+        when(executions.findByParserIdAndStatus(7L, ParserExecutionStatus.RUNNING)).thenReturn(List.of(orphan));
+
+        service.stop(7);
+        assertEquals(ParserExecutionStatus.FAILED, orphan.getStatus());
+        assertNotNull(orphan.getFinishedAt());
     }
 
     @Test

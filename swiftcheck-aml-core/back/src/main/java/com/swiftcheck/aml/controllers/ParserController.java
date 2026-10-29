@@ -50,6 +50,7 @@ import com.swiftcheck.aml.service.PluginManagementService.PluginCheck;
  * PUT    /api/parsers/{id}            modification
  * DELETE /api/parsers/{id}            désactivation (l'historique est conservé)
  * POST   /api/parsers/{id}/run        exécution immédiate ; ?force=true pour republier même sans changement
+ * POST   /api/parsers/{id}/stop       arrêt forcé de l'exécution en cours (rien n'est publié), pour relancer
  * GET    /api/parsers/{id}/technical-description   description technique (Markdown)
  * PUT    /api/parsers/{id}/technical-description   remplacement, {"markdown": "..."}
  * GET    /api/parsers/{id}/retained  entités gardées par la rétention (disparues de la source)
@@ -163,6 +164,15 @@ public class ParserController {
     @PostMapping("/{id}/run")
     public ParserExecutionDTO run(@PathVariable long id, @RequestParam(defaultValue = "false") boolean force) {
         return ParserExecutionDTO.from(ingestionService.run(id, ExecutionTriggerEnum.MANUAL, force));
+    }
+
+    /**
+     * Arrête de force l'exécution en cours (attend au plus une dizaine de secondes). L'exécution se termine en
+     * FAILED sans rien publier ; la requête « run » en attente reçoit ce résultat. 409 si rien ne tourne.
+     */
+    @PostMapping("/{id}/stop")
+    public Map<String, String> stop(@PathVariable long id) {
+        return Map.of("message", ingestionService.stop(id));
     }
 
     /**

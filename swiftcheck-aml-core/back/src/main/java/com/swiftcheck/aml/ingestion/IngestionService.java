@@ -7,6 +7,8 @@ import java.time.Instant;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.CancellationException;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Stream;
 
 import org.slf4j.Logger;
@@ -49,10 +51,10 @@ import com.swiftcheck.aml.service.PluginManagementService;
  * </pre>
  *
  * <p>
- * Service sans état : tout ce qui concerne une exécution est dans les variables
- * locales et dans la ligne
- * {@link ParserExecution}. Chaque exécution a son propre dossier de travail,
- * supprimé à la fin.
+ * Tout ce qui concerne une exécution est dans les variables locales et dans la
+ * ligne {@link ParserExecution}. Chaque exécution a son propre dossier de
+ * travail, supprimé à la fin. Seul état partagé : les exécutions en cours, pour
+ * pouvoir les arrêter ({@link #stop}).
  */
 @Service
 public class IngestionService {
@@ -74,6 +76,31 @@ public class IngestionService {
     private final DatasetDiffService diffService; // étape 5 : comparaison avec la version publiée
     private final DatasetPublisher publisher; // étape 6 : publication dans Yente
     private final AlertService alertService; // alertes ouvertes ou résolues à la fin
+
+    /** Message d'une exécution arrêtée depuis l'écran Parsers. */
+    static final String STOPPED_MESSAGE = "Exécution arrêtée par l'utilisateur : rien n'a été publié.";
+
+    /** Délai laissé au thread de l'exécution pour s'arrêter avant de libérer le parser de force. */
+    private static final long STOP_WAIT_MILLIS = 10_000;
+
+    /**
+     * Exécution en cours dans ce serveur : son thread, pour l'interrompre, et la demande d'arrêt.
+     * {@code active} passe à faux à la fin de l'exécution, sous le verrou de l'objet : un arrêt demandé
+     * à ce moment n'interrompt donc jamais le thread une fois rendu au pool de Tomcat.
+     */
+    private static final class ActiveRun {
+        final long executionId;
+        final Thread thread = Thread.currentThread();
+        volatile boolean stopRequested;
+        boolean active = true;
+
+        ActiveRun(long executionId) {
+            this.executionId = executionId;
+        }
+    }
+
+    /** Exécutions en cours, par identifiant de parser. */
+    private final ConcurrentHashMap<Long, ActiveRun> activeRuns = new ConcurrentHashMap<>();
 
     // Injection par constructeur : Spring fournit chaque service au démarrage de
     // l'application.
@@ -136,6 +163,10 @@ public class IngestionService {
         // les traces.
         execution = executionsRepository.save(execution); // visible tout de suite dans l'historique, avec son id
 
+        // Enregistrer le thread de l'exécution : le bouton « Arrêter » pourra l'interrompre.
+        ActiveRun activeRun = new ActiveRun(execution.getId());
+        activeRuns.put(parserId, activeRun);
+
         // Relire la configuration à chaque exécution : une modification faite depuis
         // l'écran
         // « Configuration » est prise en compte sans redémarrer l'application.
@@ -153,9 +184,22 @@ public class IngestionService {
             // Dérouler les étapes 1 à 6. Le statut final (SUCCESS, UNCHANGED, BLOCKED) est
             // écrit
             // dans « execution » par la méthode elle-même.
-            execute(parser, execution, workDir, config, force);
-        } catch (Exception e) {
-            // Toute erreur imprévue (réseau, fichier introuvable, plugin en erreur...)
+            execute(parser, execution, workDir, config, force, activeRun);
+        } catch (LinkageError e) {
+            // Plugin compilé pour une ancienne version de l'API (NoSuchMethodError, NoClassDefFoundError…) :
+            // c'est une Error, pas une Exception. Sans ce bloc, l'exécution resterait RUNNING pour toujours.
+            log.error("Exécution {} du parser {} : plugin incompatible", execution.getId(), parser.getDatasetName(), e);
+            finish(execution, ParserExecutionStatus.FAILED, "Plugin « " + parser.getPluginId()
+                    + " » incompatible avec cette version du core (compilé pour une ancienne API) : recompilez-le, "
+                    + "déposez le JAR et rechargez-le. Détail : " + e.getClass().getSimpleName() + " : " + e.getMessage());
+        } catch (Exception | Error e) {
+            if (activeRun.stopRequested) {
+                // Arrêt demandé : l'exception (interruption, CancellationException…) n'est pas une erreur.
+                log.warn("Exécution {} du parser {} arrêtée par l'utilisateur", execution.getId(),
+                        parser.getDatasetName());
+                finish(execution, ParserExecutionStatus.FAILED, STOPPED_MESSAGE);
+            } else {
+            // Toute erreur imprévue (réseau, fichier introuvable, plugin en erreur, mémoire...)
             // termine l'exécution
             // en FAILED. Rien n'a été publié : Yente continue d'utiliser la version
             // précédente.
@@ -164,8 +208,17 @@ public class IngestionService {
             // Message lisible gardé dans l'historique, ex. « IOException : Fichier source
             // introuvable... ».
             finish(execution, ParserExecutionStatus.FAILED, e.getClass().getSimpleName() + " : " + e.getMessage());
+            }
         } finally {
             // Exécuté dans tous les cas, succès ou erreur :
+            // 0) ne plus accepter d'arrêt, et effacer une interruption reçue : le thread
+            // de la requête retourne au pool de Tomcat et la sauvegarde ci-dessous ne doit
+            // pas être interrompue ;
+            synchronized (activeRun) {
+                activeRun.active = false;
+                Thread.interrupted();
+            }
+            activeRuns.remove(parserId, activeRun);
             // 1) supprimer les fichiers temporaires (les fichiers sources restent dans
             // l'archive) ;
             deleteQuietly(workDir);
@@ -177,8 +230,11 @@ public class IngestionService {
         // après une publication.
         // Une erreur ici ne doit pas changer le résultat de l'exécution, déjà
         // enregistré.
+        // Pas d'alerte pour un arrêt voulu par l'utilisateur.
         try {
-            alertService.afterExecution(execution);
+            if (!STOPPED_MESSAGE.equals(execution.getMessage())) {
+                alertService.afterExecution(execution);
+            }
         } catch (RuntimeException e) {
             log.error("Alerte non enregistrée pour l'exécution {}", execution.getId(), e);
         }
@@ -195,7 +251,7 @@ public class IngestionService {
      * (UNCHANGED ou BLOCKED).
      */
     private void execute(Parser parser, ParserExecution execution, Path workDir, ApplicationConfigEntity config,
-            boolean force) throws Exception {
+            boolean force, ActiveRun activeRun) throws Exception {
         // Trouver le plugin PF4J dont l'identifiant (Plugin-Id du JAR) est configuré
         // dans le parser.
         // S'il n'est pas chargé, il est chargé depuis le chemin du JAR indiqué dans le
@@ -267,7 +323,10 @@ public class IngestionService {
         // Appel du plugin : il lit la source et écrit outputFile. Une exception du
         // plugin remonte
         // jusqu'à run(), qui termine l'exécution en FAILED.
+        checkNotStopped(activeRun);
         ParserResult result = plugin.parse(context);
+        // Un plugin peut ignorer l'interruption (calcul, lecture de fichier) : on vérifie en sortant.
+        checkNotStopped(activeRun);
 
         // Un plugin qui ne renvoie pas de bilan ou n'écrit pas de fichier est
         // défectueux : on s'arrête (FAILED).
@@ -363,6 +422,8 @@ public class IngestionService {
         // manifest et demander
         // à Yente de recharger ses données. À partir d'ici, le criblage utilise la
         // nouvelle version.
+        // Dernier point d'arrêt : après un arrêt, rien n'est jamais publié.
+        checkNotStopped(activeRun);
         publisher.publish(parser, outputFile, config);
 
         // 7. Tracer
@@ -417,6 +478,76 @@ public class IngestionService {
         // Statut UNCHANGED, avec la date de la publication encore en service.
         finish(execution, ParserExecutionStatus.UNCHANGED,
                 "Données identiques à la publication du " + lastSuccess.getStartedAt() + " : rien à faire.");
+    }
+
+    /**
+     * Arrête de force l'exécution en cours d'un parser, pour pouvoir le relancer :
+     * <ol>
+     *   <li>si elle tourne dans ce serveur, son thread est interrompu (téléchargements, appels HTTP et attentes
+     *       s'arrêtent tout de suite) et elle se termine en FAILED avant toute publication ;</li>
+     *   <li>si elle ne s'est pas arrêtée après {@value #STOP_WAIT_MILLIS} ms (plugin occupé dans un calcul), ou si
+     *       aucune exécution ne tourne dans ce serveur (ligne RUNNING orpheline), les lignes RUNNING du parser sont
+     *       passées en FAILED : le parser peut être relancé. Le thread bloqué, lui, ne publiera rien.</li>
+     * </ol>
+     *
+     * @return message pour l'écran
+     * @throws IllegalArgumentException si le parser n'existe pas
+     * @throws IllegalStateException    si le parser n'a aucune exécution en cours
+     */
+    public String stop(long parserId) {
+        Parser parser = parsersRepository.findById(parserId)
+                .orElseThrow(() -> new IllegalArgumentException("Parser introuvable : " + parserId));
+        ActiveRun run = activeRuns.get(parserId);
+        if (run != null) {
+            synchronized (run) {
+                run.stopRequested = true;
+                if (run.active) {
+                    run.thread.interrupt();
+                }
+            }
+            log.warn("Arrêt demandé pour l'exécution {} du parser {}", run.executionId, parser.getDatasetName());
+            long deadline = System.currentTimeMillis() + STOP_WAIT_MILLIS;
+            while (activeRuns.get(parserId) == run && System.currentTimeMillis() < deadline) {
+                try {
+                    Thread.sleep(200);
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                    break;
+                }
+            }
+            if (activeRuns.get(parserId) != run) {
+                // L'exécution a pu se terminer d'elle-même juste avant l'arrêt : on dit ce qui s'est passé.
+                ParserExecution done = executionsRepository.findById(run.executionId).orElse(null);
+                if (done != null && !STOPPED_MESSAGE.equals(done.getMessage())) {
+                    return "L'exécution n° " + run.executionId + " s'est terminée avant l'arrêt (" + done.getStatus()
+                            + ").";
+                }
+                return "Exécution n° " + run.executionId + " arrêtée : rien n'a été publié. Le parser peut être relancé.";
+            }
+        }
+        // Thread bloqué, ou exécution qui ne tourne plus dans ce serveur : libérer le parser en base.
+        List<ParserExecution> stuck = executionsRepository.findByParserIdAndStatus(parserId, ParserExecutionStatus.RUNNING);
+        if (run == null && stuck.isEmpty()) {
+            throw new IllegalStateException("Le parser " + parser.getDatasetName() + " n'a aucune exécution en cours.");
+        }
+        for (ParserExecution execution : stuck) {
+            finish(execution, ParserExecutionStatus.FAILED, run != null
+                    ? "Exécution arrêtée de force : le plugin ne répondait pas à l'arrêt. Rien n'a été publié."
+                    : "Exécution arrêtée de force : elle ne tournait plus dans le serveur. Rien n'a été publié.");
+            executionsRepository.save(execution);
+            log.warn("Exécution {} du parser {} arrêtée de force", execution.getId(), parser.getDatasetName());
+        }
+        return run != null
+                ? "Le plugin ne répondait pas : exécution marquée arrêtée, le parser peut être relancé. "
+                        + "Le traitement bloqué ne publiera rien."
+                : "Exécution orpheline marquée arrêtée : le parser peut être relancé.";
+    }
+
+    /** Arrêt demandé : on sort par une exception, que run() transforme en FAILED « arrêtée par l'utilisateur ». */
+    private static void checkNotStopped(ActiveRun activeRun) {
+        if (activeRun.stopRequested) {
+            throw new CancellationException(STOPPED_MESSAGE);
+        }
     }
 
     /**

@@ -37,4 +37,7 @@ public interface ParserExecutionRepository extends JpaRepository<ParserExecution
 
     /** Exécutions dans un statut donné (au démarrage : celles restées RUNNING après un arrêt brutal). */
     List<ParserExecution> findByStatus(ParserExecutionStatus status);
+
+    /** Exécutions d'un parser dans un statut donné (arrêt forcé : celles restées RUNNING). */
+    List<ParserExecution> findByParserIdAndStatus(long parserId, ParserExecutionStatus status);
 }

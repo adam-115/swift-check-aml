@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Rétablit les accents des parsers PEP du Luxembourg insérés par 004 : ces textes y avaient été copiés après un
+    passage par la console Windows (« É » devenu « ├ë » ou « ? », « – » devenu « ??? »). Le nom du parser sert de
+    titre au dataset dans manifest.yml de Yente.
+
+    004 n'est pas modifié : sa somme de contrôle est enregistrée dans les bases existantes.
+-->
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="009-fix-lu-parser-accents" author="swiftcheck">
+        <sql><![CDATA[
+            UPDATE parser SET
+                description = 'Anciens Premiers ministres, ministres et secrétaires d''État',
+                attribution = 'Gouvernement du Grand-Duché de Luxembourg, gouvernement.lu'
+            WHERE dataset_name = 'lu_pep_government_former';
+
+            UPDATE parser SET
+                name = 'Conseil d''État (Luxembourg)',
+                description = 'Conseillers d''État en fonction et anciens membres (mandats de 12 ans)',
+                attribution = 'Conseil d''État du Grand-Duché de Luxembourg, conseil-etat.public.lu'
+            WHERE dataset_name = 'lu_pep_council_of_state';
+
+            UPDATE parser SET
+                name = 'Commissaire européen luxembourgeois',
+                description = 'Commissaire européen luxembourgeois en fonction et anciens commissaires récents',
+                attribution = 'Commission européenne, commission.europa.eu'
+            WHERE dataset_name = 'lu_pep_eu_commission';
+
+            UPDATE parser SET
+                name = 'Anciens députés européens élus au Luxembourg',
+                description = 'API open data du Parlement européen – anciens eurodéputés luxembourgeois (législatures précédentes)',
+                attribution = 'Parlement européen, data.europarl.europa.eu'
+            WHERE dataset_name = 'lu_pep_europarl_former';
+
+            UPDATE parser SET
+                name = 'PEP Luxembourg – Grand-Duc (Chef de l''État)',
+                description = 'S.A.R. le Grand-Duc de Luxembourg, Chef de l''État (Maison grand-ducale, catégorie LU-a)',
+                licence = 'Données publiques officielles'
+            WHERE dataset_name = 'lu_pep_grand_duke';
+
+            UPDATE parser SET
+                name = 'PEP Luxembourg – Hautes juridictions judiciaires',
+                description = 'Cour constitutionnelle, Cour de cassation, présidence de la Cour supérieure de justice, Parquet général (catégorie LU-d)',
+                licence = 'Données publiques officielles'
+            WHERE dataset_name = 'lu_pep_judiciary';
+
+            UPDATE parser SET
+                name = 'PEP Luxembourg – Juridictions administratives (Cour administrative)',
+                description = 'Membres de la Cour administrative du Luxembourg (catégorie LU-d)',
+                licence = 'Données publiques officielles'
+            WHERE dataset_name = 'lu_pep_administrative_courts';
+
+            UPDATE parser SET
+                name = 'PEP Luxembourg – Cour des comptes',
+                description = 'Membres du Collège de la Cour des comptes du Luxembourg (catégorie LU-e)',
+                licence = 'Données publiques officielles',
+                attribution = 'Cour des comptes du Grand-Duché de Luxembourg (cour-des-comptes.public.lu)'
+            WHERE dataset_name = 'lu_pep_court_of_auditors';
+
+            UPDATE parser SET
+                name = 'PEP Luxembourg – Banque centrale du Luxembourg',
+                description = 'Direction et Conseil de la Banque centrale du Luxembourg (catégorie LU-e)',
+                licence = 'Données publiques officielles'
+            WHERE dataset_name = 'lu_pep_central_bank';
+
+            UPDATE parser SET
+                name = 'PEP Luxembourg – Institut Luxembourgeois de Régulation',
+                description = 'Direction de l''Institut Luxembourgeois de Régulation (catégorie LU-i)',
+                licence = 'Données publiques officielles',
+                attribution = 'Institut Luxembourgeois de Régulation (ilr.lu)'
+            WHERE dataset_name = 'lu_pep_ilr';
+
+            UPDATE parser SET
+                name = 'PEP Luxembourg – Commissariat aux Assurances',
+                description = 'Direction du Commissariat aux Assurances (catégorie LU-i)',
+                licence = 'Données publiques officielles'
+            WHERE dataset_name = 'lu_pep_caa';
+
+            UPDATE parser SET
+                name = 'PEP Luxembourg – Commission de Surveillance du Secteur Financier',
+                description = 'Direction de la Commission de Surveillance du Secteur Financier (catégorie LU-i)',
+                licence = 'Données publiques officielles'
+            WHERE dataset_name = 'lu_pep_cssf';
+
+            UPDATE parser SET
+                name = 'PEP Luxembourg – Armée luxembourgeoise (État-major)',
+                description = 'Officiers supérieurs de l''Armée (Chef d''état-major, adjoint, commandant des forces - catégorie LU-f)',
+                licence = 'Données publiques officielles',
+                attribution = 'Armée luxembourgeoise (armee.lu)'
+            WHERE dataset_name = 'lu_pep_army';
+
+            UPDATE parser SET
+                name = 'PEP Luxembourg – Missions diplomatiques (Ambassadeurs et chargés d''affaires)',
+                description = 'Ambassadeurs et chargés d''affaires du Luxembourg (catégorie LU-f)',
+                licence = 'Données publiques officielles',
+                attribution = 'Ministère des Affaires étrangères et européennes (mae.gouvernement.lu)'
+            WHERE dataset_name = 'lu_pep_diplomats';
+
+            UPDATE parser SET
+                name = 'PEP Luxembourg – Organisations internationales (Cour AELE, Eurocontrol, ESO)',
+                description = 'Dirigeants des organisations internationales ayant leur siège au Luxembourg (catégorie LU-h)',
+                licence = 'Données publiques officielles',
+                notes = 'Dirigeants des organisations internationales ayant leur siège ou antenne au Luxembourg (LU-h)'
+            WHERE dataset_name = 'lu_pep_international_orgs';
+
+            UPDATE parser SET
+                name = 'PEP Luxembourg – Dirigeants des partis politiques',
+                description = 'Membres des organes dirigeants des 7 partis politiques représentés à la Chambre des Députés (catégorie LU-c)',
+                licence = 'Données publiques officielles',
+                attribution = 'Sites officiels des partis représentés à la Chambre des Députés (csv.lu, dp.lu, lsap.lu, adr.lu, greng.lu, piraten.lu, dei-lenk.lu)'
+            WHERE dataset_name = 'lu_pep_political_parties';
+
+            UPDATE parser SET
+                name = 'PEP Luxembourg – Dirigeants des entreprises publiques',
+                description = 'Administrateurs, directeurs généraux et commissaires du gouvernement des entreprises publiques et participations de l''État (catégorie LU-g)',
+                attribution = 'Trésorerie de l''État (Ministère des Finances) via data.public.lu',
+                notes = 'Conseils d''administration et comités de direction des entreprises publiques et participations étatiques (LU-g)'
+            WHERE dataset_name = 'lu_pep_state_enterprises';
+        ]]></sql>
+    </changeSet>
+
+</databaseChangeLog>

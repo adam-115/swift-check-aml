@@ -105,6 +105,9 @@ export class ParserComponent implements OnInit {
   // Exécution : parsers en cours (boutons désactivés) et résultat de la dernière exécution lancée ici
   running = new Set<number>();
   lastRun?: ParserExecutionDTO;
+  /** Arrêts forcés en cours, et réponse du dernier arrêt. */
+  stopping = new Set<number>();
+  stopMessage = '';
 
   // Tests : début de chaque test en cours (ms), résultat ou erreur du dernier test lancé ici, par parser.
   // Le test vit ici et non dans la fenêtre : il continue si on la ferme.
@@ -317,7 +320,7 @@ export class ParserComponent implements OnInit {
       this.isBulkDialogOpen = true;
       return;
     }
-    const busy = (p: ParserDTO) => this.running.has(p.id!) || this.testing.has(p.id!);
+    const busy = (p: ParserDTO) => this.isRunning(p) || this.testing.has(p.id!);
     const targets = this.filtered.filter(p => p.enabled && !busy(p));
     this.bulk = {
       mode,
@@ -339,9 +342,14 @@ export class ParserComponent implements OnInit {
     this.nextBulkItem(this.bulk);
   }
 
+  /** Les parsers suivants ne sont pas lancés ; une exécution en cours est arrêtée de force (un test va à son terme). */
   stopBulk(): void {
     if (this.bulk?.phase === 'running') {
       this.bulk.stopping = true;
+      const current = this.bulk.items.find(i => i.state === 'running');
+      if (this.bulk.mode === 'run' && current?.parser.id && !this.stopping.has(current.parser.id)) {
+        this.forceStop(current.parser.id);
+      }
     }
   }
 
@@ -431,6 +439,41 @@ export class ParserComponent implements OnInit {
       error: err => {
         this.running.delete(id);
         this.errorMessage = apiError(err);
+      },
+    });
+  }
+
+  /** Exécution en cours : lancée depuis cet écran, ou vue en cours en base (autre écran, planificateur, ligne orpheline). */
+  isRunning(parser: ParserDTO): boolean {
+    return this.running.has(parser.id!) || parser.lastStatus === 'RUNNING';
+  }
+
+  /**
+   * Bouton « Arrêter » : arrêt forcé de l'exécution en cours, sans rien publier, pour pouvoir relancer
+   * le parser (plugin bloqué, source qui ne répond pas…). Le serveur attend au plus une dizaine de secondes.
+   */
+  stopRun(parser: ParserDTO): void {
+    if (!parser.id || this.stopping.has(parser.id)
+        || !confirm(`Arrêter de force l'exécution de « ${parser.name} » ?\nRien ne sera publié : Yente garde la version actuelle. Le parser pourra ensuite être relancé.`)) {
+      return;
+    }
+    this.forceStop(parser.id);
+  }
+
+  private forceStop(id: number): void {
+    this.stopping.add(id);
+    this.errorMessage = '';
+    this.parserService.stop(id).subscribe({
+      next: res => {
+        this.stopping.delete(id);
+        this.running.delete(id);
+        this.stopMessage = res.message;
+        this.loadParsers();
+      },
+      error: err => {
+        this.stopping.delete(id);
+        this.errorMessage = apiError(err);
+        this.loadParsers();
       },
     });
   }

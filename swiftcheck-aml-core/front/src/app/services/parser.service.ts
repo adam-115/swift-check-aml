@@ -78,4 +78,9 @@ export class ParserService {
     const params = new HttpParams().set('force', force);
     return this.http.post<ParserExecutionDTO>(`${this.apiUrl}/${id}/run`, null, { params });
   }
+
+  /** Arrêt forcé de l'exécution en cours (rien n'est publié) ; le parser peut ensuite être relancé. */
+  stop(id: number): Observable<{ message: string }> {
+    return this.http.post<{ message: string }>(`${this.apiUrl}/${id}/stop`, null);
+  }
 }

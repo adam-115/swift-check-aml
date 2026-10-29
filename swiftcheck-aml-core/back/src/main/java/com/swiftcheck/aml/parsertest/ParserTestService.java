@@ -145,7 +145,9 @@ public class ParserTestService {
         try {
             Files.createDirectories(workDir);
             execute(parser, plugin, publication, test, workDir, config);
-        } catch (Exception e) {
+        } catch (Exception | Error e) {
+            // Error aussi : un plugin compilé pour une ancienne API lève NoSuchMethodError, et le test
+            // resterait RUNNING pour toujours.
             if (e instanceof InterruptedException) {
                 Thread.currentThread().interrupt();
             }

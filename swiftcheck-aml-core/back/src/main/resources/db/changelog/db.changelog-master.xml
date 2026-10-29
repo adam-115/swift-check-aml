@@ -11,6 +11,7 @@
         006 : référentiel PEP de la France (catégories et fonctions).
         007 : parsers PEP de la France et fonctions qu'ils couvrent.
         008 : description technique des parsers (Markdown).
+        009 : accents rétablis dans les parsers PEP du Luxembourg insérés par 004.
     -->
     <include file="db/changelog/changes/001-schema.xml" />
     <include file="db/changelog/changes/002-pep-reference-data.xml" />
@@ -20,5 +21,6 @@
     <include file="db/changelog/changes/006-fr-pep-reference-data.xml" />
     <include file="db/changelog/changes/007-fr-parsers.xml" />
     <include file="db/changelog/changes/008-parser-technical-description.xml" />
+    <include file="db/changelog/changes/009-fix-lu-parser-accents.xml" />
 
 </databaseChangeLog>

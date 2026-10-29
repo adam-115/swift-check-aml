@@ -94,8 +94,9 @@
         <span class="mr-auto text-xs text-slate-500">Vous pouvez fermer cette fenêtre : le lot continue.</span>
         <button type="button" (click)="stop.emit()" [disabled]="bulk.stopping"
                 class="rounded-lg border border-rose-300 bg-rose-50 px-4 py-2 text-sm font-semibold text-rose-700 hover:bg-rose-100 disabled:opacity-50"
-                title="Le parser en cours se termine, les suivants ne sont pas lancés">
-          {{ bulk.stopping ? 'Arrêt après le parser en cours…' : 'Arrêter' }}
+                [title]="bulk.mode === 'run' ? 'Arrête de force l\'exécution en cours (rien n\'est publié) ; les suivants ne sont pas lancés'
+                                             : 'Le test en cours se termine, les suivants ne sont pas lancés'">
+          {{ bulk.stopping ? (bulk.mode === 'run' ? 'Arrêt en cours…' : 'Arrêt après le test en cours…') : 'Arrêter' }}
         </button>
       </ng-container>
       <button *ngIf="bulk.phase === 'finished'" type="button" (click)="close()"
