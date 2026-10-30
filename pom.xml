@@ -69,6 +69,7 @@
         <module>swiftcheck-aml-plugins/pep/france/swiftcheck-aml-fr-pep-rca</module>
         <module>swiftcheck-aml-plugins/pep/france/swiftcheck-aml-fr-pep-associated-entities</module>
         <module>swiftcheck-aml-plugins/pep/france/swiftcheck-aml-fr-pep-political-parties</module>
+        <module>swiftcheck-aml-plugins/pep/france/swiftcheck-aml-fr-pep-jorf</module>
     </modules>
 
     <dependencyManagement>

@@ -13,6 +13,7 @@
         008 : description technique des parsers (Markdown).
         009 : accents rétablis dans les parsers PEP du Luxembourg insérés par 004.
         010 : parser PEP de la France pour les dirigeants des partis politiques (Wikidata).
+        011 : parser PEP de la France pour les hautes fonctions nommées au Journal officiel (DILA).
     -->
     <include file="db/changelog/changes/001-schema.xml" />
     <include file="db/changelog/changes/002-pep-reference-data.xml" />
@@ -24,5 +25,6 @@
     <include file="db/changelog/changes/008-parser-technical-description.xml" />
     <include file="db/changelog/changes/009-fix-lu-parser-accents.xml" />
     <include file="db/changelog/changes/010-fr-pep-political-parties.xml" />
+    <include file="db/changelog/changes/011-fr-pep-jorf.xml" />
 
 </databaseChangeLog>

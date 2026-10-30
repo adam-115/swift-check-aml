@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Parser PEP de la France pour les hautes fonctions nommées au Journal officiel (FR-d, FR-e, FR-f) :
+    Conseil d'État, Cour de cassation, Cour des comptes, ambassadeurs. Open data du JO publié par la DILA.
+-->
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <!-- fr_pep_jorf : nominations, retraites et fins de fonctions publiées au JO depuis 1990 -->
+    <changeSet id="011-parser-fr-pep-jorf" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP France – Hautes fonctions nommées au Journal officiel',
+                'Membres du Conseil d''État, de la Cour de cassation et de la Cour des comptes, ambassadeurs et représentants permanents, d''après les décrets de nomination, de retraite et de fin de fonctions publiés au Journal officiel depuis 1990 (catégories FR-d, FR-e, FR-f)',
+                'fr_pep_jorf', 'PEP', 'https://echanges.dila.gouv.fr/OPENDATA/JORF/',
+                'fr-pep-jorf', 'D:/test parser 2/plugins/swiftcheck-aml-fr-pep-jorf-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'OFFICIAL_GAZETTE',
+                NULL,
+                '{"cacheDir": "D:/test parser 2/cache/jorf", "since": "1990-01-01", "monthsAfterEnd": "12", "ambassadorMaxYears": "6", "extraordinaryMaxYears": "5", "cassationMaxYears": "15", "memberMaxYears": "40", "delayMs": "300"}',
+                168, 12,
+                'Licence Ouverte / Open Licence (Etalab 2.0)', 'Direction de l''information légale et administrative (DILA), open data du Journal officiel',
+                'Première exécution longue : archive complète d''environ 1,7 Go (une minute de lecture) puis un fichier par publication, gardés en extraits dans cacheDir. Ensuite, seuls les nouveaux fichiers sont téléchargés. Couverture partielle : un départ sans décret (décès, détachement) n''est pas connu, d''où le statut unknown et les durées maximales sans fin connue.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former)
+            SELECT f.id, p.id, 'PARTIAL', TRUE
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE ((c.code = 'FR-d' AND f.label IN ('Membre du Conseil d''État', 'Membre de la Cour de cassation'))
+                OR (c.code = 'FR-e' AND f.label = 'Magistrat de la Cour des comptes')
+                OR (c.code = 'FR-f' AND f.label = 'Ambassadeur ou chargé d''affaires'))
+              AND p.dataset_name = 'fr_pep_jorf';
+        ]]></sql>
+    </changeSet>
+
+</databaseChangeLog>
