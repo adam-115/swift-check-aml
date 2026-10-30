@@ -1,0 +1,136 @@
+{
+  "_comment": "Organisations internationales situées en France et fonctions PEP, d'après la liste notifiée par la France (JO C/2023/724, fonctions de la catégorie h). Pour chaque fonction, « pattern » est appliqué au texte de la page (une ligne par paragraphe) et capture le nom dans le groupe « name » (ou « first » et « last ») ; {NAME} est remplacé par un motif de nom propre. Aucun nom n'est écrit ici : ils sont lus dans la page à chaque exécution. « pending » : organisation de la liste sans page exploitable, citée dans le message de l'exécution.",
+  "organizations": [
+    {
+      "key": "ofaj",
+      "name": "Office franco-allemand pour la jeunesse (OFAJ)",
+      "pages": [
+        {
+          "url": "https://www.ofaj.org/institution/organigramme",
+          "functions": [
+            { "label": "Secrétaire général", "pattern": "^{NAME}\\nSecrétaire générale?$" }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "eppo",
+      "name": "Organisation européenne et méditerranéenne pour la protection des plantes (OEPP)",
+      "pages": [
+        {
+          "url": "https://www.eppo.int/ABOUT_EPPO/eppo_secretariat",
+          "functions": [
+            { "label": "Directeur général", "pattern": "^(?:Acting )?Director-General\\n{NAME}$" }
+          ]
+        }
+      ],
+      "pending": "Président, vice-président et directeur adjoint : la page des organes de l'OEPP ne les nomme pas dans son texte."
+    },
+    {
+      "key": "woah",
+      "name": "Organisation mondiale de la santé animale (OMSA)",
+      "pages": [
+        {
+          "url": "https://www.woah.org/fr/qui-nous-sommes/structure-et-gouvernance/direction-generale/",
+          "functions": [
+            { "label": "Directeur général", "pattern": "(?:[Dd]octeure?|Dr\\.?|Dre)\\s+{NAME} a été élue? (?:Directrice|Directeur) générale?" }
+          ]
+        }
+      ],
+      "pending": "Directeurs généraux adjoints et directeur financier : pas de page trouvée."
+    },
+    {
+      "key": "unesco",
+      "name": "Organisation des Nations unies pour l'éducation, la science et la culture (Unesco)",
+      "pages": [
+        {
+          "url": "https://www.unesco.org/fr/director-general",
+          "functions": [
+            { "label": "Directeur général", "pattern": "^{NAME}, Direct(?:eur|rice) générale? \\| UNESCO" }
+          ]
+        }
+      ],
+      "pending": "Directeur général adjoint : la page de la haute direction n'en cite pas."
+    },
+    {
+      "key": "ipgri",
+      "name": "Institut international des ressources phytogénétiques (IPGRI, Alliance Bioversity International – CIAT)",
+      "pages": [
+        {
+          "url": "https://www.alliancebioversityciat.org/who-we-are/governance",
+          "functions": [
+            { "label": "Directeur administratif", "pattern": "^{NAME}\\nDirector General, and Trustee" },
+            { "label": "Président du Conseil d'administration", "pattern": "^{NAME}\\nChair, Alliance Board of Trustees$" },
+            { "label": "Vice-Président du Conseil d'administration", "pattern": "^{NAME}\\nVice Chair, Alliance Board of Trustees$" },
+            { "label": "Membre du Conseil d'administration", "pattern": "^{NAME}\\nMember, Alliance Board of Trustees$" }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "cgiar",
+      "name": "Organisation du Système CGIAR",
+      "pages": [
+        {
+          "url": "https://www.cgiar.org/cgiar-board",
+          "functions": [
+            { "label": "Directeur", "pattern": "^{NAME}\\nCGIAR Board, Ex-Officio Non-Voting Member; Executive Managing Director$" },
+            { "label": "Membre du conseil d'administration", "pattern": "^{NAME}\\nCGIAR Board(?: Chair|, Vice-Chair|, Voting Member)$" }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "ciheam",
+      "name": "Centre international de hautes études agronomiques méditerranéennes (CIHEAM)",
+      "pages": [
+        {
+          "url": "https://www.ciheam.org/detailed-news/projects/about-us/governance/",
+          "functions": [
+            { "label": "Président du Conseil d'administration", "pattern": "(?:Ms|Mrs|Mr)\\.\\s*{NAME}\\s*\\nwas elected President of the CIHEAM Governing Board" },
+            { "label": "Secrétaire général", "pattern": "(?:Ms|Mrs|Mr)\\.\\s*{NAME}\\s*\\nwas elected Secretary General" }
+          ]
+        }
+      ],
+      "pending": "13 délégués membres du Conseil d'administration : pas de liste nominative publiée."
+    },
+    {
+      "key": "bipm",
+      "name": "Bureau international des poids et mesures (BIPM)",
+      "pages": [
+        {
+          "url": "https://www.bipm.org/fr/bipm-staff",
+          "functions": [
+            { "label": "Directeur du Bureau international des poids et mesures", "pattern": "^Direct(?:eur|rice) du BIPM\\n(?:Mme|M\\.)\\s+{NAME}$" }
+          ]
+        }
+      ],
+      "pending": "Président du Comité international des poids et mesures (CIPM) : président par intérim élu le 16/10/2026, pas encore nommé sur le site."
+    },
+    {
+      "key": "oiml",
+      "name": "Organisation internationale de métrologie légale (OIML)",
+      "pages": [
+        {
+          "url": "https://www.oiml.org/fr/structure/biml",
+          "functions": [
+            { "label": "Directeur du bureau international de métrologie légale (BIML)", "pattern": "^(?<first>\\p{Lu}[\\p{L}'’-]+)\\n(?<last>\\p{Lu}[\\p{Lu}'’ -]+)\\nDirecteur$" }
+          ]
+        }
+      ],
+      "pending": "Président du comité international de métrologie légale (CIML) : la page de la présidence ne le nomme pas dans son texte."
+    },
+    { "key": "oif", "name": "Organisation internationale de la Francophonie (OIF)", "pending": "Secrétaire générale, administrateur, cabinet et 18 directeurs : page de l'organigramme introuvable (404)." },
+    { "key": "ccnr", "name": "Commission centrale pour la navigation du Rhin (CCNR)", "pending": "Secrétaire générale, adjointe et ingénieur en chef : le secrétariat n'est pas nommé dans les pages lues." },
+    { "key": "cicr", "name": "Comité international de la Croix-Rouge (délégation régionale à Paris)", "pending": "Chef de délégation régionale et adjoint : pas de page nominative." },
+    { "key": "icao-eurnat", "name": "Organisation de l'aviation civile internationale, Bureau Europe et Atlantique Nord", "pending": "Directeur régional et adjoint : page du bureau régional introuvable (404)." },
+    { "key": "wfp-france", "name": "Programme alimentaire mondial des Nations unies pour la France et Monaco", "pending": "Directeur et représentant en France : pas de page nominative." },
+    { "key": "iif", "name": "Institut international du froid (IIF)", "pending": "Directeur général et adjoint : la page de l'équipe ne les nomme pas dans son texte." },
+    { "key": "beac", "name": "Banque des États de l'Afrique centrale (BEAC)", "pending": "Gouverneur, vice-gouverneur, secrétaire général, directeurs généraux : organigramme en image, page du gouvernement de la banque introuvable." },
+    { "key": "bceao", "name": "Banque centrale des États de l'Afrique de l'Ouest (représentation en France)", "pending": "Adjoint au représentant chargé de l'intérim : pas de page nominative." },
+    { "key": "imf", "name": "Fonds monétaire international (bureaux de Paris et Bruxelles)", "pending": "Directeur et assistant : le site refuse l'accès aux robots (HTTP 403)." },
+    { "key": "nspa", "name": "Agence OTAN de soutien et d'acquisition", "none": true },
+    { "key": "unep", "name": "Programme des Nations unies pour l'environnement", "none": true },
+    { "key": "iho", "name": "Organisation hydrographique internationale", "none": true }
+  ]
+}

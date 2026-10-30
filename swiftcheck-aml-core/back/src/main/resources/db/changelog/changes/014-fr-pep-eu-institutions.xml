@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Parser PEP de la France pour les Français exerçant une fonction PEP dans une institution de l'UE autre que le
+    Parlement européen et la Commission (FR-EU) : CJUE, Cour des comptes européenne, BCE, secrétariat général du
+    Conseil (liste C(2022) 3105, JO C/2023/611).
+-->
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="014-parser-fr-pep-eu-institutions" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP France – Français dans les institutions de l''UE',
+                'Juges, avocats généraux et greffiers de la CJUE, membres de la Cour des comptes européenne, du directoire et du conseil de surveillance prudentielle de la BCE, secrétaire général du Conseil, de nationalité française, d''après les pages officielles de ces institutions (catégorie FR-EU)',
+                'fr_pep_eu_institutions', 'PEP', 'https://curia.europa.eu/jcms/jcms/Jo2_7026/fr/',
+                'fr-pep-eu-institutions', 'D:/test parser 2/plugins/swiftcheck-aml-fr-pep-eu-institutions-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'WEB_PAGE',
+                NULL,
+                '{"delayMs": "500"}',
+                168, 12,
+                'Réutilisation autorisée des contenus des institutions de l''UE, source citée', 'CJUE (curia.europa.eu), Cour des comptes européenne, BCE, Conseil de l''Union européenne',
+                'La CJUE et la BCE ne publient pas la nationalité : elle est déduite de la biographie ou du CV (naissance ou carrière en France), et la raison est écrite dans l''entité (notes). consilium.europa.eu refuse le client du plugin (HTTP 403). Chefs des délégations de l''UE non couverts (nationalité non publiée).', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former)
+            SELECT f.id, p.id, 'PARTIAL', FALSE
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'FR-EU' AND f.label = 'Français exerçant une autre fonction PEP dans une institution de l''UE' AND p.dataset_name = 'fr_pep_eu_institutions';
+        ]]></sql>
+    </changeSet>
+
+</databaseChangeLog>

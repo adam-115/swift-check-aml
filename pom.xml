@@ -70,6 +70,9 @@
         <module>swiftcheck-aml-plugins/pep/france/swiftcheck-aml-fr-pep-associated-entities</module>
         <module>swiftcheck-aml-plugins/pep/france/swiftcheck-aml-fr-pep-political-parties</module>
         <module>swiftcheck-aml-plugins/pep/france/swiftcheck-aml-fr-pep-jorf</module>
+        <module>swiftcheck-aml-plugins/pep/france/swiftcheck-aml-fr-pep-diplomats</module>
+        <module>swiftcheck-aml-plugins/pep/france/swiftcheck-aml-fr-pep-international-orgs</module>
+        <module>swiftcheck-aml-plugins/pep/france/swiftcheck-aml-fr-pep-eu-institutions</module>
     </modules>
 
     <dependencyManagement>

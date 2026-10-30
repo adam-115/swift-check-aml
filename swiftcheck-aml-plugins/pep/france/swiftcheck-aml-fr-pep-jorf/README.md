@@ -11,7 +11,12 @@ Il lit l'**open data du Journal officiel** publié par la DILA. Il y repère les
 
 À partir de ces textes, il reconstitue les mandats depuis 1990 et les publie en entités FtM. C'est l'équivalent français de [`lu_pep_legilux`](../../luxembourg/swiftcheck-aml-lu-pep-legilux).
 
-**Mesure du 30/10/2026** (archive complète + 3 mois de fichiers quotidiens, avant ajustement final) : 7 652 articles gardés, 1 363 personnes publiées.
+**Exécution réelle du 30/10/2026** : 876 fichiers de la DILA (archive complète et fichiers quotidiens jusqu'au 30/10/2026), 8 055 articles gardés, 1 498 personnes publiées, 0 valeur rejetée.
+
+- **Première exécution** : 25 min, surtout le téléchargement de 705 fichiers. Le cache occupe ensuite 9,9 Mo.
+- **Exécutions suivantes** : 6 à 14 s.
+
+Répartition mesurée sur l'archive complète et 3 mois de fichiers quotidiens :
 
 | | Personnes | Attendu |
 |---|---|---|

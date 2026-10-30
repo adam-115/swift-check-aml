@@ -14,6 +14,9 @@
         009 : accents rétablis dans les parsers PEP du Luxembourg insérés par 004.
         010 : parser PEP de la France pour les dirigeants des partis politiques (Wikidata).
         011 : parser PEP de la France pour les hautes fonctions nommées au Journal officiel (DILA).
+        012 : parser PEP de la France pour les ambassadeurs en poste (diplomatie.gouv.fr).
+        013 : parser PEP de la France pour les dirigeants des organisations internationales situées en France.
+        014 : parser PEP de la France pour les Français dans les institutions de l'UE (CJUE, CCE, BCE, Conseil).
     -->
     <include file="db/changelog/changes/001-schema.xml" />
     <include file="db/changelog/changes/002-pep-reference-data.xml" />
@@ -26,5 +29,8 @@
     <include file="db/changelog/changes/009-fix-lu-parser-accents.xml" />
     <include file="db/changelog/changes/010-fr-pep-political-parties.xml" />
     <include file="db/changelog/changes/011-fr-pep-jorf.xml" />
+    <include file="db/changelog/changes/012-fr-pep-diplomats.xml" />
+    <include file="db/changelog/changes/013-fr-pep-international-orgs.xml" />
+    <include file="db/changelog/changes/014-fr-pep-eu-institutions.xml" />
 
 </databaseChangeLog>

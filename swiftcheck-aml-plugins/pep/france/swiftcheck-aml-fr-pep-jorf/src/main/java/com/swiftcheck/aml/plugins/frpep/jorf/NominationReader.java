@@ -148,7 +148,11 @@ final class NominationReader {
         String title = JorfArticles.fold(article.title());
         Institution titleInstitution = title.contains("(conseil d'etat)") ? Institution.CONSEIL_ETAT
                 : title.contains("(cour des comptes)") ? Institution.COUR_COMPTES : null;
+        // La DILA écrit 2999-01-01 quand la date du texte est inconnue : date de publication à la place
         LocalDate textDate = parseIsoDate(article.signature());
+        if (textDate == null || textDate.getYear() >= 2999) {
+            textDate = parseIsoDate(article.publication());
+        }
 
         List<Event> events = new ArrayList<>();
         Institution section = titleInstitution;

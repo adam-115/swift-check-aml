@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Parser PEP de la France pour les dirigeants des organisations internationales situées en France (FR-h), d'après
+    la liste notifiée par la France (JO C/2023/724) et la page officielle de chaque organisation.
+-->
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <!-- fr_pep_international_orgs : une page officielle par organisation, motifs dans international-orgs.json (FR-h) -->
+    <changeSet id="013-parser-fr-pep-international-orgs" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP France – Dirigeants des organisations internationales',
+                'Dirigeants des organisations internationales situées en France figurant sur la liste notifiée par la France (JO C/2023/724), lus sur la page officielle de chaque organisation (catégorie FR-h)',
+                'fr_pep_international_orgs', 'PEP', 'https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=OJ:C_202300724',
+                'fr-pep-international-orgs', 'D:/test parser 2/plugins/swiftcheck-aml-fr-pep-international-orgs-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'WEB_PAGE',
+                NULL,
+                '{"delayMs": "1000", "configFile": ""}',
+                168, 12,
+                'Pages publiques des organisations (citer chaque organisation)', 'OFAJ, OEPP, OMSA, Unesco, Alliance Bioversity–CIAT, CGIAR, CIHEAM, BIPM, OIML',
+                'Couverture partielle : 9 organisations sur les 18 qui ont des fonctions PEP. Les autres et les fonctions non lues sont listées dans international-orgs.json (champ pending) et dans le message de chaque exécution. alliancebioversityciat.org refuse le client du plugin (HTTP 403).', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former)
+            SELECT f.id, p.id, 'PARTIAL', FALSE
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'FR-h' AND f.label = 'Dirigeant d''une organisation internationale située en France' AND p.dataset_name = 'fr_pep_international_orgs';
+        ]]></sql>
+    </changeSet>
+
+</databaseChangeLog>

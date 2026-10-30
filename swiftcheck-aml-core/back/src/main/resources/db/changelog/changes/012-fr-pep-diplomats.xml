@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Parser PEP de la France pour les ambassadeurs en poste (FR-f), d'après les listes publiées par le ministère de
+    l'Europe et des Affaires étrangères sur diplomatie.gouv.fr. Complète fr_pep_jorf (011) pour la même fonction.
+-->
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <!-- fr_pep_diplomats : chefs de poste et ambassadeurs thématiques en poste (FR-f) -->
+    <changeSet id="012-parser-fr-pep-diplomats" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP France – Ambassadeurs en poste',
+                'Ambassadeurs, représentants permanents et chargés d''affaires en poste, et ambassadeurs thématiques nommés en Conseil des ministres, d''après les listes du ministère de l''Europe et des Affaires étrangères (catégorie FR-f)',
+                'fr_pep_diplomats', 'PEP', 'https://www.diplomatie.gouv.fr/fr/le-ministere/reseau-diplomatique/ambassades',
+                'fr-pep-diplomats', 'D:/test parser 2/plugins/swiftcheck-aml-fr-pep-diplomats-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'PDF_DOCUMENT',
+                NULL,
+                '{"embassiesUrl": "https://www.diplomatie.gouv.fr/fr/le-ministere/reseau-diplomatique/ambassades", "thematicUrl": "https://www.diplomatie.gouv.fr/fr/le-ministere/reseau-diplomatique/ambassadeurs-et-ambassadrices-thematiques", "maxListAgeDays": "200", "delayMs": "500"}',
+                168, 12,
+                'Licence Ouverte / Open Licence (Etalab 2.0)','Ministère de l''Europe et des Affaires étrangères, www.diplomatie.gouv.fr',
+                'Deux PDF dont l''adresse change à chaque mise à jour : le plugin la lit dans la page. La liste des chefs de poste est mise à jour quelques fois par an (22/05/2026 au 30/10/2026) : les nominations plus récentes sont dans fr_pep_jorf. Pas de date de naissance.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former)
+            SELECT f.id, p.id, 'COMPLETE', FALSE
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'FR-f' AND f.label = 'Ambassadeur ou chargé d''affaires' AND p.dataset_name = 'fr_pep_diplomats';
+        ]]></sql>
+    </changeSet>
+
+</databaseChangeLog>
