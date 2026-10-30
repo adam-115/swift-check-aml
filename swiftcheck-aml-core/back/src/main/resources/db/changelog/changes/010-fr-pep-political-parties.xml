@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Parser PEP de la France pour les dirigeants des partis politiques (FR-c), d'après Wikidata.
+    Aucune source officielle ne publie les dirigeants des partis (la CNCCFP ne donne que les mandataires financiers) :
+    Wikidata est la première source structurée et sourcée avant toute recherche web.
+-->
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <!-- fr_pep_political_parties : présidents, secrétaires généraux et dirigeants des partis (FR-c) -->
+    <changeSet id="010-parser-fr-pep-political-parties" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP France – Dirigeants des partis politiques',
+                'Présidents, secrétaires généraux et dirigeants des partis politiques français actifs, en fonction et sortis depuis moins de 12 mois, d''après Wikidata (catégorie FR-c)',
+                'fr_pep_political_parties', 'PEP', 'https://www.wikidata.org',
+                'fr-pep-political-parties', 'D:/test parser 2/plugins/swiftcheck-aml-fr-pep-political-parties-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'SPARQL',
+                NULL,
+                '{"endpoint": "https://query.wikidata.org/sparql", "country": "Q142", "monthsAfterEnd": "12"}',
+                168, 12,
+                'CC0 (Wikidata)', 'Wikidata, www.wikidata.org',
+                'Couverture partielle : président (P488), secrétaire général (P3975) et dirigeant (P1037) seulement, pas les bureaux ni les comités exécutifs. Dirigeant actuel : rang préféré, sinon mandat le plus récent ; un mandat sans date est gardé. Données collaboratives, à contrôler.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former)
+            SELECT f.id, p.id, 'PARTIAL', TRUE
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'FR-c' AND f.label = 'Président ou membre de l''organe exécutif d''un parti politique' AND p.dataset_name = 'fr_pep_political_parties';
+        ]]></sql>
+    </changeSet>
+
+</databaseChangeLog>

@@ -184,7 +184,7 @@ class WikidataRcaDownloader {
                       FILTER NOT EXISTS { ?pep wdt:P570 ?death }
                     }
                   }
-                  SERVICE wikibase:label { bd:serviceParam wikibase:language "fr,en".
+                  SERVICE wikibase:label { bd:serviceParam wikibase:language "fr,mul,en".
                     ?pep rdfs:label ?pepLabel . ?pos rdfs:label ?posLabel . }
                 } GROUP BY ?pep ?pepLabel
                 """.formatted(selection, excluded, q.since());
@@ -219,7 +219,7 @@ class WikidataRcaDownloader {
                   OPTIONAL { ?relative p:P569/psv:P569 ?birth .
                              ?birth wikibase:timeValue ?relativeBirth ; wikibase:timePrecision ?birthPrecision . }
                   OPTIONAL { ?relative wdt:P21 ?relativeGender }
-                  SERVICE wikibase:label { bd:serviceParam wikibase:language "fr,en". ?relative rdfs:label ?relativeLabel . }
+                  SERVICE wikibase:label { bd:serviceParam wikibase:language "fr,mul,en". ?relative rdfs:label ?relativeLabel . }
                 }
                 """.formatted(wd(pepQids));
     }

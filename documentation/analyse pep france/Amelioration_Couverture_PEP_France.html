@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Amélioration de la couverture PEP – France</title>
+<style>
+  @page { size: A4 portrait; margin: 14mm 13mm 14mm 13mm; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; color: #1e293b; font-size: 10.5px; line-height: 1.45; }
+  h1 { font-size: 22px; color: #0f172a; margin-bottom: 4px; }
+  h2 { font-size: 14px; color: #0f172a; margin: 18px 0 6px; padding-bottom: 3px; border-bottom: 2px solid #2563eb; break-after: avoid; }
+  h3 { font-size: 11.5px; color: #1e3a8a; margin: 12px 0 5px; break-after: avoid; }
+  p { margin: 4px 0; }
+  .subtitle { color: #475569; font-size: 11.5px; margin-bottom: 8px; }
+  .meta { display: flex; gap: 18px; color: #64748b; font-size: 9.5px; border-bottom: 1px solid #e2e8f0; padding-bottom: 8px; margin-bottom: 12px; }
+  .kpis { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin: 10px 0 6px; }
+  .kpi { border: 1px solid #e2e8f0; border-radius: 8px; padding: 8px 10px; background: #f8fafc; }
+  .kpi b { display: block; font-size: 20px; color: #1d4ed8; line-height: 1.1; }
+  .kpi span { color: #475569; font-size: 9.5px; }
+  table { width: 100%; border-collapse: collapse; margin: 5px 0 8px; font-size: 9.5px; }
+  th { background: #1e3a8a; color: #fff; text-align: left; padding: 4px 5px; font-weight: 600; }
+  td { border-bottom: 1px solid #e2e8f0; padding: 4px 5px; vertical-align: top; }
+  tr { break-inside: avoid; }
+  tr:nth-child(even) td { background: #f8fafc; }
+  code { font-family: Consolas, 'Courier New', monospace; font-size: 9px; background: #eef2ff; color: #1e3a8a; padding: 0 2px; border-radius: 3px; }
+  .cat { font-weight: 700; color: #1d4ed8; white-space: nowrap; }
+  .tag { display: inline-block; border-radius: 4px; padding: 0 4px; font-size: 8.5px; font-weight: 600; white-space: nowrap; }
+  .easy { background: #dcfce7; color: #166534; }
+  .mid { background: #fef9c3; color: #854d0e; }
+  .hard { background: #fee2e2; color: #991b1b; }
+  .none { background: #fee2e2; color: #991b1b; }
+  .part { background: #fef9c3; color: #854d0e; }
+  .note { border-left: 3px solid #2563eb; background: #eff6ff; padding: 6px 9px; margin: 6px 0; border-radius: 0 6px 6px 0; }
+  .warn { border-left-color: #d97706; background: #fffbeb; }
+  .ok { border-left-color: #16a34a; background: #f0fdf4; }
+  ul, ol { margin: 4px 0 4px 18px; }
+  li { margin: 2px 0; }
+  .small { font-size: 9px; color: #64748b; }
+  .footer { margin-top: 14px; border-top: 1px solid #e2e8f0; padding-top: 6px; color: #94a3b8; font-size: 8.5px; }
+  .prio { break-inside: avoid; border: 1px solid #e2e8f0; border-radius: 8px; padding: 8px 10px; margin: 8px 0; }
+  .prio h3 { margin-top: 0; }
+  .num { display: inline-block; width: 18px; height: 18px; line-height: 18px; text-align: center; border-radius: 50%; background: #1d4ed8; color: #fff; font-size: 10px; margin-right: 5px; }
+</style>
+</head>
+<body>
+
+<h1>Amélioration de la couverture PEP – France</h1>
+<p class="subtitle">Fonctions PEP françaises encore non couvertes ou partiellement couvertes, sources candidates vérifiées
+et ordre de priorité des prochains parsers.</p>
+<div class="meta"><span>SwiftCheck AML</span><span>29 octobre 2026</span><span>Référence : écran « Couverture PEP »</span>
+<span>Suite du « Plan des parsers PEP – France » (27 octobre 2026)</span></div>
+
+<div class="kpis">
+  <div class="kpi"><b>13</b><span>parsers France en place (dont <code>fr_pep_political_parties</code>, 29/10)</span></div>
+  <div class="kpi"><b>7</b><span>fonctions sans aucun parser</span></div>
+  <div class="kpi"><b>5</b><span>fonctions couvertes partiellement</span></div>
+  <div class="kpi"><b>≈ 1 200</b><span>titulaires attendus dans les fonctions non couvertes (hors FR-g)</span></div>
+</div>
+
+<div class="note warn"><b>Méthode.</b> L'écran <code>/coverage</code> demande une connexion (Keycloak) : l'état ci-dessous a été
+reconstitué à partir des données qui l'alimentent, c'est-à-dire le référentiel des fonctions (changeset <code>006</code>) et les liens
+parser ↔ fonction (<code>pep_function_parser</code>, changesets <code>007</code> et <code>010</code>). Un parser déclaré mais jamais publié
+apparaît « non couvert » à l'écran : l'état réel peut donc être plus bas.</div>
+
+<h2>1. État actuel de la couverture</h2>
+
+<h3>Fonctions sans aucun parser</h3>
+<table>
+  <tr><th>Cat.</th><th>Fonction</th><th>Titulaires attendus</th><th>Statut</th></tr>
+  <tr><td class="cat">FR-d</td><td>Membre du Conseil d'État</td><td>≈ 300</td><td><span class="tag none">Non couvert</span></td></tr>
+  <tr><td class="cat">FR-d</td><td>Membre de la Cour de cassation</td><td>≈ 400</td><td><span class="tag none">Non couvert</span></td></tr>
+  <tr><td class="cat">FR-e</td><td>Magistrat de la Cour des comptes</td><td>≈ 300</td><td><span class="tag none">Non couvert</span></td></tr>
+  <tr><td class="cat">FR-f</td><td>Ambassadeur ou chargé d'affaires</td><td>≈ 160</td><td><span class="tag none">Non couvert</span></td></tr>
+  <tr><td class="cat">FR-g</td><td>Dirigeant ou administrateur d'un établissement ou d'une société publique de l'État ; d'une société contrôlée par une collectivité</td><td>non chiffré</td><td><span class="tag none">Non couvert</span></td></tr>
+  <tr><td class="cat">FR-h</td><td>Dirigeant d'une organisation internationale située en France</td><td>≈ 70</td><td><span class="tag none">Non couvert</span></td></tr>
+  <tr><td class="cat">FR-EU</td><td>Français exerçant une autre fonction PEP dans une institution de l'UE (CJUE, Cour des comptes européenne, BCE, SEAE)</td><td>≈ 10</td><td><span class="tag none">Non couvert</span></td></tr>
+</table>
+
+<h3>Fonctions couvertes partiellement</h3>
+<table>
+  <tr><th>Cat.</th><th>Fonction</th><th>Parser</th><th>Ce qui manque</th></tr>
+  <tr><td class="cat">FR-a</td><td>Ancien membre du Gouvernement</td><td><code>fr_pep_government</code></td><td>Les anciens membres n'apparaissent que s'ils ont déposé une déclaration HATVP après leur départ.</td></tr>
+  <tr><td class="cat">FR-c</td><td>Président ou membre de l'organe exécutif d'un parti</td><td><code>fr_pep_political_parties</code></td><td>Wikidata ne décrit que le président, le secrétaire général et le dirigeant principal : pas les bureaux nationaux ni les comités exécutifs.</td></tr>
+  <tr><td class="cat">FR-d</td><td>Conseil constitutionnel</td><td><code>fr_pep_constitutional_council</code></td><td>Le secrétaire général n'est pas nommé sur le site (il l'est par décret au Journal officiel).</td></tr>
+  <tr><td class="cat">FR-f</td><td>Chefs d'état-major</td><td><code>fr_pep_army</code></td><td>Pas de biographie à jour du chef d'état-major de la Marine sur le site (octobre 2026).</td></tr>
+  <tr><td class="cat">FR-RCA</td><td>Famille et proches associés</td><td><code>fr_pep_rca</code>, <code>fr_pep_associated_entities</code></td><td>Seules les familles décrites dans Wikidata, et les organismes déclarés à la HATVP.</td></tr>
+</table>
+
+<h2>2. Pistes vérifiées le 29/10/2026</h2>
+
+<table>
+  <tr><th>Piste</th><th>Test effectué</th><th>Résultat</th></tr>
+  <tr><td><b>API Recherche d'entreprises</b><br><span class="small">recherche-entreprises.api.gouv.fr</span></td>
+      <td>Recherche par SIREN d'EDF (552081317) ; filtre <code>nature_juridique=4110</code></td>
+      <td><span class="tag easy">Exploitable</span> Conseil d'administration complet : nom, prénoms, année de naissance, qualité (ex. « Président du conseil d'administration et directeur général »). 144 EPIC nationaux listables. Gratuite, sans clé.</td></tr>
+  <tr><td><b>Open data HATVP</b><br><span class="small">liste.csv</span></td>
+      <td>Valeurs de <code>type_mandat</code> dans le fichier</td>
+      <td><span class="tag hard">Insuffisant pour FR-g</span> Types : commune, epci, depute, departement, region, senateur, ctsp, europe, gouvernement, president, autre. Les déclarations des dirigeants d'entreprises publiques ne sont pas publiées.</td></tr>
+  <tr><td><b>Wikidata</b><br><span class="small">hautes juridictions</span></td>
+      <td>Titulaires vivants, nés après 1955, sans date de fin</td>
+      <td><span class="tag hard">Insuffisant</span> Conseil d'État 47, Cour des comptes 32, Cour de cassation 4, pour 300 à 400 attendus. Une partie de ces mandats sont en plus périmés. La requête sur les ambassadeurs dépasse le délai du serveur.</td></tr>
+</table>
+
+<h2>3. Améliorations proposées, par priorité</h2>
+
+<div class="prio">
+<h3><span class="num">1</span><code>fr_pep_state_enterprises</code> – FR-g <span class="tag easy">Meilleur gain pour l'effort</span></h3>
+<ul>
+  <li><b>Source</b> : API Recherche d'entreprises (données RNE et Sirene, Licence Ouverte), type <code>PLUGIN_MANAGED</code>, nature T2 – API.</li>
+  <li><b>Périmètre</b> : les EPIC nationaux (nature juridique 4110), plus la liste des participations de l'APE. Cette liste reste à charger comme fichier de référence : elle n'a pas encore été trouvée en open data.</li>
+  <li><b>Produit</b> : dirigeants et administrateurs personnes physiques (<code>Person</code>, <code>Position</code> par entreprise, <code>Occupancy</code>). Les administrateurs personnes morales (ex. « État ») sont écartés.</li>
+  <li><b>Étape 2</b> : sociétés contrôlées par une collectivité (SEM, SPL), une fois leur périmètre défini.</li>
+</ul>
+</div>
+
+<div class="prio">
+<h3><span class="num">2</span><code>fr_pep_jorf</code> – FR-d, FR-e, FR-f <span class="tag hard">Plus forte couverture, plus long</span></h3>
+<ul>
+  <li><b>Source</b> : open data du Journal officiel (DILA, fichiers XML quotidiens et archive), décrets de nomination. Déjà prévu au lot 2 du plan.</li>
+  <li><b>Couvre</b> : Conseil d'État, Cour de cassation, Cour des comptes, ambassadeurs, soit environ 1 160 personnes. Complète aussi le secrétaire général du Conseil constitutionnel et le chef d'état-major de la Marine.</li>
+  <li><b>Difficulté</b> : lire le texte des nominations, et surtout repérer les départs (retraite, fin de fonctions, nouvelle affectation) pour ne garder que les titulaires actuels.</li>
+</ul>
+</div>
+
+<div class="prio">
+<h3><span class="num">3</span><code>fr_pep_diplomats</code> – FR-f <span class="tag mid">Rapide</span></h3>
+<ul>
+  <li><b>Source</b> : annuaire des ambassades sur diplomatie.gouv.fr (page web).</li>
+  <li><b>Intérêt</b> : la liste des ambassadeurs en poste, y compris ceux nommés avant l'archive JORF chargée. Solution plus rapide que le JORF pour cette fonction.</li>
+</ul>
+</div>
+
+<div class="prio">
+<h3><span class="num">4</span>FR-h et FR-EU – reprise de <code>lu_pep_international_orgs</code> <span class="tag mid">Moyen</span></h3>
+<ul>
+  <li>Ce parser lit déjà une page par organisation. Il peut être repris pour les 21 organisations situées en France (Unesco, OCDE, OIF, OFAJ, OMSA, BIPM, OIML…).</li>
+  <li>Même approche pour les Français de la CJUE, de la Cour des comptes européenne et de la BCE.</li>
+</ul>
+</div>
+
+<div class="prio">
+<h3><span class="num">5</span>Corrections rapides sur les fonctions partielles <span class="tag easy">Faible</span></h3>
+<ul>
+  <li><b>Anciens membres du Gouvernement</b> : compléter la HATVP par les fonctions de ministre dans Wikidata terminées depuis moins de 12 mois. La requête des fonctions de ministre existe déjà dans <code>fr_pep_rca</code> (classe Q83307).</li>
+  <li><b>Chef d'état-major de la Marine</b> : à prendre dans Wikidata, ou dans le JORF une fois disponible.</li>
+  <li><b>Bureaux des partis (FR-c)</b> : aucune source structurée. C'est le cas d'usage de la méthode SearXNG + LLM local + vérification en Java, avec validation humaine obligatoire.</li>
+</ul>
+</div>
+
+<h2>4. Recommandation</h2>
+<div class="note ok">Commencer par <b><code>fr_pep_state_enterprises</code></b> : la source est vérifiée, sans clé, et couvre une catégorie entière
+aujourd'hui vide. Enchaîner avec <b><code>fr_pep_jorf</code></b>, qui couvre le plus de fonctions (FR-d, FR-e, FR-f) mais demande le plus de travail.
+En attendant le JORF, <code>fr_pep_diplomats</code> peut couvrir rapidement les ambassadeurs en poste.</div>
+
+<div class="footer">SwiftCheck AML – Amélioration de la couverture PEP France – 29 octobre 2026. Sources vérifiées le jour même :
+API Recherche d'entreprises, open data HATVP (liste.csv), point SPARQL de Wikidata.</div>
+
+</body>
+</html>
