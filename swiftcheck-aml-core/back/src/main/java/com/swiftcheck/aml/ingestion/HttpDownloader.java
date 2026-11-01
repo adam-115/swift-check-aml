@@ -44,11 +44,16 @@ public class HttpDownloader {
             .build();
 
     /**
-     * Type de contenu demandé, déduit de l'URL. Indispensable pour la Commission européenne : à une requête
-     * qui accepte du HTML (comme celle d'un navigateur), webgate.ec.europa.eu répond HTTP 500 ; en demandant
-     * du XML, il renvoie le fichier. Mêmes valeurs que l'ancien SourceDownloadService.
+     * Type de contenu demandé, déduit de l'URL et de la nature de la source. Indispensable pour la Commission
+     * européenne : à une requête qui accepte du HTML (comme celle d'un navigateur), webgate.ec.europa.eu répond
+     * HTTP 500 ; en demandant du XML, il renvoie le fichier. À l'inverse, pour une page web (WEB_PAGE ou .html),
+     * certains pare-feux (ex. banque-france.fr) refusent {@code *&#47;*} (HTTP 403) et exigent les en-têtes de
+     * navigation d'un navigateur.
      */
-    static String acceptHeader(String url) {
+    static String acceptHeader(String url, boolean webPage) {
+        if (webPage) {
+            return "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8";
+        }
         String lower = url.toLowerCase();
         if (lower.contains("xml")) {
             return "application/xml, text/xml;q=0.9, */*;q=0.8";
@@ -57,6 +62,10 @@ public class HttpDownloader {
             return "application/json, */*;q=0.8";
         }
         return "*/*";
+    }
+
+    static String acceptHeader(String url) {
+        return acceptHeader(url, isHtmlPage(url));
     }
 
     /**
@@ -86,13 +95,24 @@ public class HttpDownloader {
      * @throws IOException si le fichier n'a pas pu être téléchargé après toutes les tentatives
      */
     public void download(String url, Path target, boolean htmlExpected) throws IOException, InterruptedException {
-        HttpRequest request = HttpRequest.newBuilder(URI.create(url))
+        boolean webPage = htmlExpected || isHtmlPage(url);
+        HttpRequest.Builder builder = HttpRequest.newBuilder(URI.create(url))
                 .timeout(Duration.ofMinutes(10))
                 .header("User-Agent", BROWSER_USER_AGENT)
-                .header("Accept", acceptHeader(url))
-                .header("Accept-Encoding", "identity")    // fichier brut, non compressé : l'empreinte SHA-256 porte sur le vrai contenu
-                .GET()
-                .build();
+                .header("Accept", acceptHeader(url, webPage))
+                .header("Accept-Language", "fr-FR,fr;q=0.9,en-US;q=0.8,en;q=0.7")
+                .header("Accept-Encoding", "identity");   // fichier brut, non compressé : l'empreinte SHA-256 porte sur le vrai contenu
+        if (webPage) {
+            builder.header("Upgrade-Insecure-Requests", "1")
+                    .header("Sec-Fetch-Dest", "document")
+                    .header("Sec-Fetch-Mode", "navigate")
+                    .header("Sec-Fetch-Site", "none")
+                    .header("Sec-Fetch-User", "?1")
+                    .header("Sec-CH-UA", "\"Chromium\";v=\"128\", \"Not;A=Brand\";v=\"24\", \"Google Chrome\";v=\"128\"")
+                    .header("Sec-CH-UA-Mobile", "?0")
+                    .header("Sec-CH-UA-Platform", "\"Windows\"");
+        }
+        HttpRequest request = builder.GET().build();
 
         IOException lastError = null;
         for (int attempt = 1; attempt <= MAX_ATTEMPTS; attempt++) {
@@ -104,7 +124,7 @@ public class HttpDownloader {
                     // ni de donner cette page au plugin. Sauf si la source est elle-même une page web
                     // (ex. gouvernement.lu/fr/gouvernement.html ou parser WEB_PAGE) : le HTML est alors le fichier attendu.
                     String type = response.headers().firstValue("Content-Type").orElse("");
-                    if (type.toLowerCase().startsWith("text/html") && !htmlExpected && !isHtmlPage(url)) {
+                    if (type.toLowerCase().startsWith("text/html") && !webPage) {
                         throw new IOException("Le serveur renvoie une page HTML au lieu du fichier : " + response.uri());
                     }
                     return;
