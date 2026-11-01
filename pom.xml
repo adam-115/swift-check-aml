@@ -73,6 +73,7 @@
         <module>swiftcheck-aml-plugins/pep/france/swiftcheck-aml-fr-pep-diplomats</module>
         <module>swiftcheck-aml-plugins/pep/france/swiftcheck-aml-fr-pep-international-orgs</module>
         <module>swiftcheck-aml-plugins/pep/france/swiftcheck-aml-fr-pep-eu-institutions</module>
+        <module>swiftcheck-aml-plugins/pep/france/swiftcheck-aml-fr-pep-wikidata-positions</module>
     </modules>
 
     <dependencyManagement>

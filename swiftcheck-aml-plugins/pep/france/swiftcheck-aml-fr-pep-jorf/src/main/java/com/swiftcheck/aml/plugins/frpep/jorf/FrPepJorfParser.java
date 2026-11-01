@@ -74,13 +74,13 @@ public class FrPepJorfParser implements Iparser {
 
     /** Réglages de la conversion, lus dans les paramètres du parser. */
     record Settings(LocalDate since, int monthsAfterEnd, int ambassadorMaxYears, int extraordinaryMaxYears,
-            int cassationMaxYears, int memberMaxYears) {
+            int cassationMaxYears, int memberMaxYears, int governmentMaxYears) {
 
         static Settings of(Map<String, String> p) {
             return new Settings(LocalDate.parse(p.getOrDefault("since", DEFAULT_SINCE).trim()),
                     integer(p, "monthsAfterEnd", 12), integer(p, "ambassadorMaxYears", 6),
                     integer(p, "extraordinaryMaxYears", 5), integer(p, "cassationMaxYears", 15),
-                    integer(p, "memberMaxYears", 40));
+                    integer(p, "memberMaxYears", 40), integer(p, "governmentMaxYears", 6));
         }
 
         /**
@@ -95,6 +95,9 @@ public class FrPepJorfParser implements Iparser {
             return switch (institution) {
                 case AMBASSADE -> ambassadorMaxYears;
                 case COUR_CASSATION -> cassationMaxYears;
+                // Un Gouvernement prend fin au plus tard après l'élection présidentielle : un décret manqué ne laisse
+                // pas un ministre en fonction indéfiniment
+                case GOUVERNEMENT -> governmentMaxYears;
                 default -> memberMaxYears;
             };
         }
@@ -148,7 +151,8 @@ public class FrPepJorfParser implements Iparser {
             Institution.CONSEIL_ETAT, "gov.judicial",
             Institution.COUR_CASSATION, "gov.judicial",
             Institution.COUR_COMPTES, "gov.national",
-            Institution.AMBASSADE, "role.diplo");
+            Institution.AMBASSADE, "role.diplo",
+            Institution.GOUVERNEMENT, "gov.national");
 
     @Override
     public ParserResult parse(ParserContext ctx) throws Exception {
@@ -241,7 +245,8 @@ public class FrPepJorfParser implements Iparser {
                 dropped++;
                 continue;
             }
-            String status = status(m.end, today);
+            // Toute fin de fonctions au Gouvernement passe par un décret : un mandat ouvert est en cours
+            String status = m.institution == Institution.GOUVERNEMENT && m.end == null ? "current" : status(m.end, today);
             switch (status) {
                 case "current" -> current++;
                 case "ended" -> ended++;
@@ -290,9 +295,22 @@ public class FrPepJorfParser implements Iparser {
                 .thenComparing(Event::kind));
         List<Mandate> mandates = new ArrayList<>();
         for (Event e : sorted) {
+            if (e.kind() == Kind.GOVERNMENT_END) {
+                // Fin des fonctions de tout le Gouvernement : le décret ne cite pas les noms
+                for (Mandate m : mandates) {
+                    if (m.open && m.institution == Institution.GOUVERNEMENT) {
+                        close(m, e.date());
+                        m.sources.add(e.article().url());
+                    }
+                }
+                continue;
+            }
             String person = personKey(e.name());
             String post = e.post() == null ? null : JorfArticles.fold(e.post());
             switch (e.kind()) {
+                case GOVERNMENT_END -> {
+                    // traité ci-dessus
+                }
                 case NOMINATION -> {
                     if (e.institution() == Institution.AMBASSADE) {
                         // Le prédécesseur au même poste et le poste précédent de la personne prennent fin
@@ -389,6 +407,12 @@ public class FrPepJorfParser implements Iparser {
 
     /** Libellé de la fonction : forme canonique (« Conseiller d'État »), ou poste d'ambassadeur. */
     static String label(Mandate m) {
+        if (m.institution == Institution.GOUVERNEMENT) {
+            // « ministre de la culture » → « Ministre de la culture » ; la mention du conseil des ministres est retirée
+            String f = m.function == null ? "Membre du Gouvernement"
+                    : m.function.replaceFirst("(?i),?\\s+et participen?t? au conseil des ministres.*$", "").trim();
+            return capitalize(f);
+        }
         if (m.institution == Institution.AMBASSADE) {
             String f = m.function == null ? "" : JorfArticles.fold(m.function);
             String post = m.function == null ? m.post : NominationReader.post(m.function);

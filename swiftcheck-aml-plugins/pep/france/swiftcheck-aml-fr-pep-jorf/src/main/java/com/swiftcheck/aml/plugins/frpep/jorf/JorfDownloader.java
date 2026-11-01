@@ -43,6 +43,8 @@ class JorfDownloader {
     private static final Logger log = LoggerFactory.getLogger(JorfDownloader.class);
 
     private static final String USER_AGENT = "SwiftCheck-AML/1.0 (liste PEP France - nominations au Journal officiel)";
+    private static final int MAX_ATTEMPTS = 3;
+    private static final long RETRY_DELAY_MS = 10_000;
     private static final Pattern FILE = Pattern.compile(
             "(Freemium_jorf_global_|JORF_)(\\d{4})(\\d{2})(\\d{2})-\\d{6}\\.tar\\.gz");
 
@@ -168,16 +170,42 @@ class JorfDownloader {
         return kept;
     }
 
-    /** Téléchargement vers un fichier temporaire, renommé seulement une fois complet. */
+    /**
+     * Téléchargement vers un fichier temporaire, renommé seulement une fois complet. Une coupure réseau (relevée le
+     * 30/10/2026 : « Connection reset » au milieu d'un fichier quotidien) est retentée {@value #MAX_ATTEMPTS} fois ;
+     * un refus HTTP 4xx ne l'est pas. Les fichiers déjà réduits restent dans le cache : une exécution qui échoue
+     * reprend là où elle s'est arrêtée.
+     */
     private void fetch(String url, Path target) throws IOException, InterruptedException {
         Path part = target.resolveSibling(target.getFileName() + ".part");
         HttpRequest request = HttpRequest.newBuilder(URI.create(url)).timeout(Duration.ofHours(2))
                 .header("User-Agent", USER_AGENT).GET().build();
-        HttpResponse<Path> response = http.send(request, HttpResponse.BodyHandlers.ofFile(part));
-        if (response.statusCode() != 200) {
-            Files.deleteIfExists(part);
-            throw new IOException("La DILA a répondu HTTP " + response.statusCode() + " (" + url + ")");
+        IOException last = null;
+        for (int attempt = 1; attempt <= MAX_ATTEMPTS; attempt++) {
+            try {
+                HttpResponse<Path> response = http.send(request, HttpResponse.BodyHandlers.ofFile(part));
+                if (response.statusCode() == 200) {
+                    Files.move(part, target, StandardCopyOption.REPLACE_EXISTING);
+                    return;
+                }
+                Files.deleteIfExists(part);
+                last = new IOException("La DILA a répondu HTTP " + response.statusCode() + " (" + url + ")");
+                if (response.statusCode() < 500 && response.statusCode() != 429) {
+                    throw last;     // refus : inutile de réessayer
+                }
+            } catch (IOException e) {
+                if (e == last) {
+                    throw e;
+                }
+                Files.deleteIfExists(part);
+                last = e;
+            }
+            log.warn("JO : téléchargement de {} : tentative {}/{} échouée ({})", url, attempt, MAX_ATTEMPTS,
+                    last.getMessage());
+            if (attempt < MAX_ATTEMPTS) {
+                Thread.sleep(RETRY_DELAY_MS * attempt);
+            }
         }
-        Files.move(part, target, StandardCopyOption.REPLACE_EXISTING);
+        throw last;
     }
 }

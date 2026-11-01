@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    fr_pep_jorf lit aussi les décrets relatifs à la composition du Gouvernement (sélection version 2) : membres du
+    Gouvernement en fonction et sortis depuis moins de 12 mois (FR-a). 011 n'est pas modifié : sa somme de contrôle
+    est peut-être déjà enregistrée.
+-->
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="016-fr-pep-jorf-government" author="swiftcheck">
+        <sql><![CDATA[
+            UPDATE parser SET
+                description = 'Membres du Gouvernement, du Conseil d''État, de la Cour de cassation et de la Cour des comptes, ambassadeurs et représentants permanents, d''après les décrets de nomination, de composition du Gouvernement, de retraite et de fin de fonctions publiés au Journal officiel depuis 1990 (catégories FR-a, FR-d, FR-e, FR-f)',
+                parameters = '{"cacheDir": "D:/test parser 2/cache/jorf", "since": "1990-01-01", "monthsAfterEnd": "12", "ambassadorMaxYears": "6", "extraordinaryMaxYears": "5", "cassationMaxYears": "15", "memberMaxYears": "40", "governmentMaxYears": "6", "delayMs": "300"}'
+            WHERE dataset_name = 'fr_pep_jorf';
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former)
+            SELECT f.id, p.id, 'COMPLETE', TRUE
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'FR-a' AND f.label IN ('Premier ministre, ministre ou secrétaire d''État', 'Ancien membre du Gouvernement')
+              AND p.dataset_name = 'fr_pep_jorf';
+        ]]></sql>
+    </changeSet>
+
+</databaseChangeLog>

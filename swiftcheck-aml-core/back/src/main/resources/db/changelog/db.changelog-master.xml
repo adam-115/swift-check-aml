@@ -17,6 +17,8 @@
         012 : parser PEP de la France pour les ambassadeurs en poste (diplomatie.gouv.fr).
         013 : parser PEP de la France pour les dirigeants des organisations internationales situées en France.
         014 : parser PEP de la France pour les Français dans les institutions de l'UE (CJUE, CCE, BCE, Conseil).
+        015 : parser PEP de la France pour les fonctions sans source officielle (Wikidata) : chef d'état-major de la Marine.
+        016 : fr_pep_jorf couvre aussi les membres du Gouvernement et les anciens membres (décrets de composition).
     -->
     <include file="db/changelog/changes/001-schema.xml" />
     <include file="db/changelog/changes/002-pep-reference-data.xml" />
@@ -32,5 +34,7 @@
     <include file="db/changelog/changes/012-fr-pep-diplomats.xml" />
     <include file="db/changelog/changes/013-fr-pep-international-orgs.xml" />
     <include file="db/changelog/changes/014-fr-pep-eu-institutions.xml" />
+    <include file="db/changelog/changes/015-fr-pep-wikidata-positions.xml" />
+    <include file="db/changelog/changes/016-fr-pep-jorf-government.xml" />
 
 </databaseChangeLog>

@@ -37,6 +37,8 @@ Une page par fonction, configurée dans les paramètres. Le parser cherche trois
 
 Une adresse vide = fonction non couverte (citée dans le message de l'exécution). Dès qu'une biographie du CEMM est publiée, il suffit de renseigner `cemmUrl`.
 
+En attendant, le CEMM est couvert par [`fr_pep_wikidata_positions`](../swiftcheck-aml-fr-pep-wikidata-positions) : l'amiral Christophe Cluzel depuis le 15/07/2026. Ne pas renseigner `cemmUrl` avec `https://www.defense.gouv.fr/marine/chef-detat-major-marine` : c'est un article du magazine *Cols bleus* qui présente encore l'amiral Vaujour (relevé du 30/10/2026).
+
 ## Ce qui est produit (FtM)
 
 | Entité | ID | Contenu |

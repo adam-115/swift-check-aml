@@ -34,7 +34,7 @@ final class JorfArticles {
      * Version de la sélection : elle entre dans le nom des extraits du cache. La changer force la relecture des
      * archives (qui doivent alors être téléchargées à nouveau).
      */
-    static final int SELECTION_VERSION = 1;
+    static final int SELECTION_VERSION = 2;
 
     /** Fichier brut déposé dans {@code rawDir} : un XML par article gardé. */
     static final String ARTICLES_FILE = "jorf-articles.zip";
@@ -51,6 +51,14 @@ final class JorfArticles {
             "cour nationale du droit d'asile|attache|jury|titularisation|ecole nationale de la magistrature"
                     + "|chambres? regionales? des comptes\\)|conseil superieur|commission|comite");
     /** « conseil\w* » : « conseiller d'Etat », « conseillère d'Etat » ne contiennent pas « conseil d'Etat ». */
+    /**
+     * Textes sur la composition du Gouvernement : « Décret du 12 octobre 2025 relatif à la composition du
+     * Gouvernement », « … portant nomination du Premier ministre », fin des fonctions du Gouvernement ou du Premier
+     * ministre (version 2 de la sélection). Tous leurs articles sont gardés.
+     */
+    static final Pattern GOVERNMENT_TITLE = Pattern.compile(
+            "composition du gouvernement|(?:cessation|fin) (?:des |de )?fonctions du (?:gouvernement|premier ministre)"
+                    + "|nomination du premier ministre|demission du gouvernement");
     private static final Pattern CONTENT_INSTITUTION = Pattern.compile(
             "conseil\\w* d'etat|cour des comptes|cour de cassation|ambassad|representante? permanente?");
 
@@ -92,6 +100,9 @@ final class JorfArticles {
             return false;
         }
         String t = fold(decode(title.group(1)));
+        if (t.startsWith("decret") && GOVERNMENT_TITLE.matcher(t).find()) {
+            return true;
+        }
         if (!TITLE_EVENT.matcher(t).find() || !TITLE_INSTITUTION.matcher(t).find() || TITLE_EXCLUDED.matcher(t).find()) {
             return false;
         }

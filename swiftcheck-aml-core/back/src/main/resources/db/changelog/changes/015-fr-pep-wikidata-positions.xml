@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Parser PEP de la France pour les fonctions à titulaire unique sans source officielle exploitable, d'après
+    Wikidata. Premier usage : le chef d'état-major de la Marine, absent de fr_pep_army (pas de biographie à jour sur
+    defense.gouv.fr).
+-->
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="015-parser-fr-pep-wikidata-positions" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP France – Fonctions sans source officielle (Wikidata)',
+                'Titulaires actuels et sortis depuis moins de 12 mois de fonctions PEP à titulaire unique sans source officielle exploitable : chef d''état-major de la Marine (catégorie FR-f)',
+                'fr_pep_wikidata_positions', 'PEP', 'https://www.wikidata.org/wiki/Q2961994',
+                'fr-pep-wikidata-positions', 'D:/test parser 2/plugins/swiftcheck-aml-fr-pep-wikidata-positions-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'SPARQL',
+                NULL,
+                '{"endpoint": "https://query.wikidata.org/sparql", "positions": "Q2961994", "monthsAfterEnd": "12"}',
+                168, 12,
+                'CC0 (Wikidata)', 'Wikidata, www.wikidata.org',
+                'Complète fr_pep_army : la page du CEMM sur defense.gouv.fr présente encore l''amiral Vaujour, remplacé le 15/07/2026. Ajouter une fonction : son QID dans le paramètre positions. Données collaboratives, à contrôler.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former)
+            SELECT f.id, p.id, 'PARTIAL', TRUE
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'FR-f' AND f.label LIKE 'Chef d''état-major des armées%' AND p.dataset_name = 'fr_pep_wikidata_positions';
+        ]]></sql>
+    </changeSet>
+
+</databaseChangeLog>

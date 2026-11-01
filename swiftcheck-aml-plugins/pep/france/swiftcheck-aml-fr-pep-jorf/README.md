@@ -25,11 +25,37 @@ Répartition mesurée sur l'archive complète et 3 mois de fichiers quotidiens :
 | Cour des comptes | 425 | ≈ 300 (le corps compte aussi les magistrats détachés) |
 | Ambassadeurs et représentants permanents | 222, dont 31 sortis depuis moins d'un an | ≈ 160 postes, plus les ambassadeurs thématiques |
 
+### Membres du Gouvernement (sélection version 2)
+
+Le parser lit aussi les décrets « relatif à la composition du Gouvernement », « portant nomination du Premier ministre » et ceux qui mettent fin aux fonctions du Gouvernement. Il en tire les **membres en fonction** et les **anciens membres sortis depuis moins de 12 mois** (FR-a). Il complète ainsi `fr_pep_government` : la HATVP ne fait connaître un ancien membre que s'il dépose une déclaration après son départ. Wikidata a été essayé, mais il ne rattache que 2 à 6 membres à chacun des gouvernements récents.
+
+| Tournure | Exemple réel |
+|---|---|
+| Liste | « Sont nommés ministres : » puis « M. Laurent NUNEZ, ministre de l'intérieur ; » (la fonction suit le nom) |
+| Ministres délégués | « Sont nommés ministres délégués … : », « - Auprès du ministre de l'intérieur : », « M. Jean-Didier BERGER ; » |
+| Nomination seule | « Mme Catherine PÉGARD est nommée ministre de la culture. » ; « M. Sébastien LECORNU est nommé Premier ministre. » |
+| Départ | « Il est mis fin aux fonctions de Mme Rachida DATI, ministre de la culture. », ou une liste après « Il est mis fin aux fonctions de : » |
+| Fin du Gouvernement | « Il est mis fin, sur la présentation de la démission du Gouvernement, aux fonctions de M. Jean-Pierre Raffarin, Premier ministre, et des autres membres du Gouvernement. » (tournure de 1991 à 2025) : tous les mandats ouverts se ferment ; le Premier ministre nommé le même jour ne l'est pas |
+
+**Mesure du 30/10/2026**, sur tout l'historique : 39 mandats publiés.
+
+- **35 membres du gouvernement Lecornu II**, avec les nominations du 26/02/2026.
+- **4 anciens sortis depuis moins d'un an** : Mmes de Montchalin, Dati et Parmentier-Lecocq, M. Fournier.
+- Aucun membre d'un gouvernement antérieur n'est resté ouvert par erreur.
+
+Un mandat ouvert au Gouvernement a le statut `current`, et non `unknown` : toute fin de fonctions passe par un décret.
+
+Trois règles complètent la lecture :
+
+- Un membre qui quitte une fonction et en reçoit une autre dans le même décret reste au Gouvernement.
+- Un mandat ouvert depuis plus de `governmentMaxYears` ans (6) est écarté : c'est une sécurité si un décret de fin de Gouvernement a été manqué.
+- Une coupure réseau pendant un téléchargement est retentée 3 fois. Une exécution qui échoue reprend ensuite là où elle s'est arrêtée, grâce au cache.
+
 ## Contexte
 
 | | |
 |---|---|
-| Catégories PEP | **FR-d** Membre du Conseil d'État, membre de la Cour de cassation · **FR-e** Magistrat de la Cour des comptes · **FR-f** Ambassadeur ou chargé d'affaires |
+| Catégories PEP | **FR-a** Premier ministre, ministre ou secrétaire d'État ; ancien membre du Gouvernement · **FR-d** Membre du Conseil d'État, membre de la Cour de cassation · **FR-e** Magistrat de la Cour des comptes · **FR-f** Ambassadeur ou chargé d'affaires |
 | Base légale | CMF, art. R. 561-18 ; directive (UE) 2015/849, art. 3, point 9 d), e) et f) |
 | Couverture | **Partielle** : voir « Limites connues » |
 | Rétention | Mandats terminés depuis moins de 12 mois (`monthsAfterEnd`), puis rétention du core (12 mois) |
@@ -116,7 +142,7 @@ Un mandat **sans fin connue** est écarté au-delà d'une durée propre à la fo
 | Type de source | `PLUGIN_MANAGED` : le plugin télécharge lui-même |
 | Nature de la source | T4 – Journal officiel (`OFFICIAL_GAZETTE`) |
 | Fréquence | 168 h |
-| Paramètres | `{"cacheDir": "D:/test parser 2/cache/jorf", "since": "1990-01-01", "monthsAfterEnd": "12", "ambassadorMaxYears": "6", "extraordinaryMaxYears": "5", "cassationMaxYears": "15", "memberMaxYears": "40", "delayMs": "300"}` |
+| Paramètres | `{"cacheDir": "D:/test parser 2/cache/jorf", "since": "1990-01-01", "monthsAfterEnd": "12", "ambassadorMaxYears": "6", "extraordinaryMaxYears": "5", "cassationMaxYears": "15", "memberMaxYears": "40", "governmentMaxYears": "6", "delayMs": "300"}` |
 
 - `cacheDir` (obligatoire) : dossier du cache, à garder entre deux exécutions et à sauvegarder comme un dossier de données.
 - `since` : publications plus anciennes ignorées. Après le 13/07/2025, l'archive complète n'est pas téléchargée.

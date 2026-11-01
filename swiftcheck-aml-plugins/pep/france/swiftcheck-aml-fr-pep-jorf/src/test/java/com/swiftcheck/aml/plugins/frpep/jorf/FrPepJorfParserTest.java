@@ -199,6 +199,69 @@ class FrPepJorfParserTest {
                 + " Belaval, conseiller d'Etat, directeur des Archives de France."))).isEmpty();
     }
 
+    /** Décrets réels relatifs à la composition du Gouvernement (12/10/2025, 22/02, 26/02 et 22/09/2026) et du Premier ministre. */
+    private FtmDatasetBuilder convertGovernment() throws Exception {
+        FtmDatasetBuilder dataset = new FtmDatasetBuilder(FrPepJorfParser.ID_PREFIX, FrPepJorfParser.TOPIC);
+        parser.convert(Path.of("src/test/resources/gouvernement"), FrPepJorfParser.Settings.of(Map.of()), TODAY, dataset);
+        return dataset;
+    }
+
+    @Test
+    void governmentMembersAndFormerMembers() throws Exception {
+        FtmDatasetBuilder dataset = convertGovernment();
+        assertThat(mandates(dataset, "Sébastien LECORNU")).containsExactly("Premier ministre | 2025-10-10 →  | current");
+        // « Sont nommés ministres : M. Laurent NUNEZ, ministre de l'intérieur ; » : la fonction suit le nom
+        assertThat(mandates(dataset, "Laurent NUNEZ")).containsExactly("Ministre de l'intérieur | 2025-10-12 →  | current");
+        // Remplacée le 26/02/2026 : ancienne ministre, PEP pendant 12 mois
+        assertThat(mandates(dataset, "Rachida DATI")).containsExactly("Ministre de la culture | 2025-10-12 → 2026-02-26 | ended");
+        assertThat(mandates(dataset, "Catherine PÉGARD")).containsExactly("Ministre de la culture | 2026-02-26 →  | current");
+        assertThat(mandates(dataset, "Michel FOURNIER")).singleElement().asString().endsWith("→ 2026-09-22 | ended");
+        // Ministre délégué devenu ministre : un seul mandat depuis 2025, fonction la plus récente
+        assertThat(mandates(dataset, "David AMIEL"))
+                .containsExactly("Ministre de l'action et des comptes publics | 2025-10-12 →  | current");
+        // En-tête et « - Auprès du ministre de l'intérieur : » pour une ligne sans fonction
+        assertThat(mandates(dataset, "Jean-Didier BERGER")).containsExactly(
+                "Ministre délégué auprès du ministre de l'intérieur | 2026-02-26 →  | current");
+        // La mention du conseil des ministres n'entre pas dans le libellé
+        assertThat(mandates(dataset, "Maud BREGEON")).singleElement().asString().doesNotContain("conseil des ministres");
+        assertThat(dataset.qualityReport().getTotalRejected()).as(dataset.qualityReport().toString()).isZero();
+    }
+
+    @Test
+    void endOfTheWholeGovernment() {
+        Article compo = new Article("JORFARTI000000000001", "JORFTEXT000000000001",
+                "Décret du 12 octobre 2025 relatif à la composition du Gouvernement", "DECRET", "2025-10-13",
+                "2025-10-12", "1", List.of("Sont nommés ministres :", "M. Laurent NUNEZ, ministre de l'intérieur ;",
+                        "Mme Rachida DATI, ministre de la culture."));
+        // Tournure réelle des décrets de 1991 à 2025 (ex. JORFTEXT000000629480, 31 mai 2005)
+        Article end = new Article("JORFARTI000000000002", "JORFTEXT000000000002",
+                "Décret du 5 mars 2026 relatif à la cessation des fonctions du Gouvernement", "DECRET", "2026-03-06",
+                "2026-03-05", "1", List.of("Il est mis fin, sur la présentation de la démission du Gouvernement, aux"
+                        + " fonctions de M. Paul DUPONT, Premier ministre, et des autres membres du Gouvernement."));
+        Article newPm = new Article("JORFARTI000000000003", "JORFTEXT000000000003",
+                "Décret du 5 mars 2026 portant nomination du Premier ministre", "DECRET", "2026-03-06", "2026-03-05", "1",
+                List.of("M. Laurent NUNEZ est nommé Premier ministre."));
+        List<Event> events = new java.util.ArrayList<>();
+        for (Article a : List.of(compo, end, newPm)) {
+            events.addAll(NominationReader.read(a));
+        }
+        List<FrPepJorfParser.Mandate> mandates = FrPepJorfParser.buildMandates(events);
+        // Fin du Gouvernement le 5 mars : tous les mandats ouverts se ferment ; le Premier ministre nommé le même jour
+        // n'est pas fermé (fin de Gouvernement traitée avant les nominations du jour)
+        assertThat(mandates).filteredOn(m -> m.name.equals("Rachida DATI")).singleElement()
+                .satisfies(m -> assertThat(m.end).isEqualTo(LocalDate.of(2026, 3, 5)));
+        assertThat(mandates).filteredOn(m -> m.name.equals("Laurent NUNEZ")).extracting(m -> m.function + " " + m.end)
+                .containsExactly("ministre de l'intérieur 2026-03-05", "Premier ministre null");
+    }
+
+    @Test
+    void departureAndNewFunctionInTheSameDecreeKeepsTheMember() {
+        List<Event> events = NominationReader.read(article("Décret du 1er avril 2026 relatif à la composition du"
+                + " Gouvernement", "Il est mis fin aux fonctions de M. Jean DUPONT, ministre des transports.",
+                "M. Jean DUPONT est nommé ministre de l'intérieur."));
+        assertThat(events).extracting(Event::kind).containsExactly(Kind.NOMINATION);
+    }
+
     @Test
     void readSourceRecordsListsPersons(@TempDir Path tmp) throws Exception {
         Files.copy(RAW.resolve(JorfArticles.ARTICLES_FILE), tmp.resolve(JorfArticles.ARTICLES_FILE));

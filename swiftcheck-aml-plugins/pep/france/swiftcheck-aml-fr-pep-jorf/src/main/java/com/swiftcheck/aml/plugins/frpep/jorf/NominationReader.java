@@ -47,14 +47,19 @@ import com.swiftcheck.aml.plugins.frpep.jorf.JorfArticles.Article;
  */
 final class NominationReader {
 
-    enum Kind { NOMINATION, DEPARTURE, EXTENSION }
+    /**
+     * Événement lu. {@code GOVERNMENT_END} : fin des fonctions de tout le Gouvernement, sans liste de noms ; il passe
+     * avant les nominations du même jour (le nouveau Premier ministre est souvent nommé le jour même).
+     */
+    enum Kind { GOVERNMENT_END, NOMINATION, DEPARTURE, EXTENSION }
 
     /** Haute institution reconnue dans une fonction ou une qualité. */
     enum Institution {
         CONSEIL_ETAT("conseil-etat", "Conseil d'État"),
         COUR_CASSATION("cour-cassation", "Cour de cassation"),
         COUR_COMPTES("cour-des-comptes", "Cour des comptes"),
-        AMBASSADE("ambassade", "Ambassades");
+        AMBASSADE("ambassade", "Ambassades"),
+        GOUVERNEMENT("gouvernement", "Gouvernement");
 
         final String key;
         final String label;
@@ -146,6 +151,9 @@ final class NominationReader {
     /** Les événements d'un article, dans l'ordre du texte. */
     static List<Event> read(Article article) {
         String title = JorfArticles.fold(article.title());
+        if (JorfArticles.GOVERNMENT_TITLE.matcher(title).find()) {
+            return readGovernment(article);
+        }
         Institution titleInstitution = title.contains("(conseil d'etat)") ? Institution.CONSEIL_ETAT
                 : title.contains("(cour des comptes)") ? Institution.COUR_COMPTES : null;
         // La DILA écrit 2999-01-01 quand la date du texte est inconnue : date de publication à la place
@@ -259,6 +267,117 @@ final class NominationReader {
     }
 
     /**
+     * Décrets sur la composition du Gouvernement. Tournures relevées (2025-2026) :
+     * <pre>
+     * Sont nommés ministres :
+     * M. Laurent NUNEZ, ministre de l'intérieur ;                     → la fonction suit le nom
+     * Sont nommés ministres délégués et participent au conseil des ministres … :
+     * - Auprès du ministre de l'intérieur :
+     * Mme Marie-Pierre VEDRENNE ;                                       → fonction = en-tête + « auprès de »
+     * Il est mis fin aux fonctions de Mme Rachida DATI, ministre de la culture.
+     * Il est mis fin aux fonctions de :                                → liste de départs
+     * M. Sébastien LECORNU est nommé Premier ministre.
+     * Il est mis fin, sur la présentation de la démission du Gouvernement, aux fonctions de M. X, Premier ministre,
+     * et des autres membres du Gouvernement.                           → fin de tout le Gouvernement
+     * </pre>
+     * Une personne qui quitte une fonction et en reçoit une autre dans le même article reste au Gouvernement : son
+     * départ n'est pas gardé.
+     */
+    static List<Event> readGovernment(Article article) {
+        LocalDate date = parseIsoDate(article.signature());
+        if (date == null || date.getYear() >= 2999) {
+            date = parseIsoDate(article.publication());
+        }
+        List<Event> events = new ArrayList<>();
+        boolean ending = false;
+        String header = null;
+        String near = null;
+        for (String raw : joinLines(article.lines())) {
+            String line = ACT_PREFIX.matcher(ARTICLE_PREFIX.matcher(raw).replaceFirst("").trim()).replaceFirst("");
+            String folded = JorfArticles.fold(line);
+            // « Il est mis fin, sur la présentation de la démission du Gouvernement, aux fonctions de M. Jean-Pierre
+            // Raffarin, Premier ministre, et des autres membres du Gouvernement. » (tournure de 1991 à 2025)
+            if (folded.matches(".*\\bmis fin\\b.*\\bfonctions\\b.*\\bmembres du gouvernement\\b.*")
+                    || folded.matches(".*\\bmis fin aux fonctions du gouvernement\\b.*")) {
+                events.add(new Event(Kind.GOVERNMENT_END, null, Institution.GOUVERNEMENT, null, null, date, null,
+                        article));
+                continue;
+            }
+            if (folded.matches("^il est mis fin.*aux fonctions de\\s*:$")) {
+                ending = true;
+                continue;
+            }
+            Matcher collective = COLLECTIVE.matcher(line);
+            if (collective.matches()) {
+                ending = false;
+                header = governmentRole(collective.group(1));
+                near = null;
+                continue;
+            }
+            if (line.endsWith(":") && folded.replaceFirst("^-\\s*", "").startsWith("aupres d")) {
+                near = line.replaceFirst("^-\\s*", "").replaceFirst("\\s*:$", "").trim();
+                near = Character.toLowerCase(near.charAt(0)) + near.substring(1);
+                continue;
+            }
+            Matcher person = PERSON.matcher(line);
+            if (!person.find()) {
+                continue;
+            }
+            String name = person.group(1).trim();
+            String afterName = line.substring(person.end(1));
+            Matcher nominated = NOMINATED.matcher(afterName);
+            String written = afterName.replaceFirst("^\\s*,\\s*", "").replaceFirst("\\s*[;.]\\s*$", "").trim();
+            if (folded.startsWith("il est mis fin") || ending) {
+                events.add(new Event(Kind.DEPARTURE, name, Institution.GOUVERNEMENT, written.isEmpty() ? null : written,
+                        null, date, null, article));
+            } else if (nominated.find()) {
+                events.add(new Event(Kind.NOMINATION, name, Institution.GOUVERNEMENT,
+                        nominated.group(1).replaceFirst("\\s*[;.]\\s*$", "").trim(), null, date, null, article));
+            } else if (header != null) {
+                events.add(new Event(Kind.NOMINATION, name, Institution.GOUVERNEMENT,
+                        governmentFunction(header, near, afterName.startsWith(",") ? written : ""), null, date, null,
+                        article));
+            }
+        }
+        // Départ et nouvelle nomination dans le même article : la personne reste au Gouvernement
+        java.util.Set<String> nominatedNames = new java.util.HashSet<>();
+        events.stream().filter(e -> e.kind() == Kind.NOMINATION).forEach(e -> nominatedNames.add(e.name()));
+        events.removeIf(e -> e.kind() == Kind.DEPARTURE && nominatedNames.contains(e.name()));
+        return events;
+    }
+
+    /** En-tête « ministres délégués auprès du Premier ministre et participent … » → « ministre délégué ». */
+    private static String governmentRole(String header) {
+        String h = JorfArticles.fold(header);
+        if (h.startsWith("secretaires d'etat")) {
+            return "secrétaire d'État";
+        }
+        if (h.startsWith("ministres delegues")) {
+            String near = header.replaceFirst("(?i)^ministres délégués\\s*", "").replaceFirst("\\s+et participent.*$", "")
+                    .trim();
+            return "ministre délégué" + (near.toLowerCase(java.util.Locale.FRENCH).startsWith("auprès") ? " " + near : "");
+        }
+        if (h.startsWith("ministres d'etat")) {
+            return "ministre d'État";
+        }
+        return "ministre";
+    }
+
+    /**
+     * Fonction d'un membre d'une liste : celle écrite après le nom si elle est complète (« ministre de l'intérieur »,
+     * « garde des sceaux, ministre de la justice »), sinon l'en-tête, « auprès de … » et la précision écrite
+     * (« ministre délégué auprès du Premier ministre, chargé des relations avec le Parlement »).
+     */
+    private static String governmentFunction(String role, String near, String written) {
+        String w = JorfArticles.fold(written);
+        if (w.matches("^(?:ministre|garde des sceaux|secretaire d'etat|haute?-commissaire|premier ministre).*")) {
+            return written;
+        }
+        String base = role + (near != null && !role.contains("auprès") ? " " + near : "");
+        return written.isEmpty() ? base : base + ", " + written;
+    }
+
+    /**
      * Retraite, fin de fonctions, radiation des cadres. L'institution quittée est celle de la fonction terminée
      * (« mis fin aux fonctions de maître des requêtes en service extraordinaire de M. X »), à défaut celle de la
      * qualité (« M. X, conseiller à la Cour de cassation, est admis… »), à défaut celle du titre. Une fin de
@@ -359,7 +478,7 @@ final class NominationReader {
                     + "|avocat\\w* general\\w*)\\b.*");
             case COUR_CASSATION -> t.matches(".*\\b(?:conseill\\w*|auditeur|auditrice|president\\w*|procureur\\w*"
                     + " general\\w*|avocat\\w* general\\w*)\\b.*|.*ladite cour.*");
-            case AMBASSADE -> false;
+            case AMBASSADE, GOUVERNEMENT -> false;
         };
         return member ? section : null;
     }

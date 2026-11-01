@@ -1,0 +1,493 @@
+{
+  "head" : {
+    "vars" : [ "pos", "posLabel", "statement", "rank", "start", "end", "person", "personLabel", "birth", "birthPrecision", "gender" ]
+  },
+  "results" : {
+    "bindings" : [ {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2898535"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1956-01-05T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2961994"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q2898535-97da8dfd-41ef-2be6-d359-eda4cdecb908"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#NormalRank"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2011-09-12T00:00:00Z"
+      },
+      "end" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2016-07-06T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "posLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "chef d'état-major de la Marine"
+      },
+      "personLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Bernard Rogel"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3166618"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1944-06-14T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2961994"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q3166618-74fcb13d-2c72-494f-bbdf-42c9f7b0611e"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#NormalRank"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "posLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "chef d'état-major de la Marine"
+      },
+      "personLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Jean-Louis Battet"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3383033"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1951-12-29T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2961994"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q3383033-64dbffb2-4d48-ef0d-60e5-581a5d06a22f"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#NormalRank"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2008-02-04T00:00:00Z"
+      },
+      "end" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2011-09-12T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "posLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "chef d'état-major de la Marine"
+      },
+      "personLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Pierre-François Forissier"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4705691"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1947-03-15T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2961994"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q4705691-f3d0c7b5-b11a-40b5-8c53-248c520d2f71"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#NormalRank"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2005-06-15T00:00:00Z"
+      },
+      "end" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2008-02-03T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "posLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "chef d'état-major de la Marine"
+      },
+      "personLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Alain Oudot de Dainville"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q26036340"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1960-10-11T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2961994"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q26036340-32e81fdc-97b1-4e82-96a0-f690bc69a364"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#NormalRank"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2016-07-13T00:00:00Z"
+      },
+      "end" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2020-08-31T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "posLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "chef d'état-major de la Marine"
+      },
+      "personLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Christophe Prazuck"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q39075385"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1940-01-03T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2961994"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q39075385-0550160e-2cc7-4d88-b02f-04f38f605abe"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#NormalRank"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1999-05-02T00:00:00Z"
+      },
+      "end" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2001-06-01T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "posLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "chef d'état-major de la Marine"
+      },
+      "personLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Jean-Luc Delaunay"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q67180223"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1933-03-27T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2961994"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q67180223-3d19f4e4-4360-7f1d-eab1-3065e4e7a8ed"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#NormalRank"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1990-11-20T00:00:00Z"
+      },
+      "end" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1994-06-30T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "posLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "chef d'état-major de la Marine"
+      },
+      "personLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Alain Coatanéa"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q86091075"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1967-10-26T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2961994"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q86091075-97dd26bc-42e7-ce72-c859-1a8711c50dab"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#NormalRank"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2020-09-01T00:00:00Z"
+      },
+      "end" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2023-08-31T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "posLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "chef d'état-major de la Marine"
+      },
+      "personLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Pierre Vandier"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q108282237"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1968-04-30T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2961994"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q108282237-ea12f068-4e43-7a73-5b91-dfcff0db3bec"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#NormalRank"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2023-09-01T00:00:00Z"
+      },
+      "end" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2026-07-15T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "posLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "chef d'état-major de la Marine"
+      },
+      "personLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Nicolas Vaujour"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q140336397"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2961994"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q140336397-81ececcd-4437-2437-524c-cc5961704ca6"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#NormalRank"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2026-07-15T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "posLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "chef d'état-major de la Marine"
+      },
+      "personLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Christophe Cluzel"
+      }
+    } ]
+  }
+}
