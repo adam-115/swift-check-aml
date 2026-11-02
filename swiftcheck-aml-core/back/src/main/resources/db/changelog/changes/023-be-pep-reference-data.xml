@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Référentiel PEP de la Belgique : catégories et fonctions.
+
+    Les catégories a à h reprennent l'article 4, 28°, de la loi du 18 septembre 2017 (prévention du blanchiment) et
+    son Annexe IV, qui détaille les fonctions (art. 41, § 4). La catégorie i (liste de la Commission, JO C/2023/724)
+    est reprise dans BE-EU pour les fonctions européennes. S'y ajoutent, comme pour la France et le Luxembourg :
+      - BE-AMLR : dirigeants des collectivités d'au moins 50 000 habitants, ajoutés par le règlement (UE) 2024/1624
+                  à partir du 10 juillet 2027 ;
+      - BE-RCA  : membres de la famille (art. 4, 29° : conjoint, enfants et leurs conjoints, parents, sans la
+                  fratrie) et proches associés (art. 4, 30°).
+    Voir documentation/analyse pep belgique/Plan_Parsers_PEP_Belgique.pdf.
+-->
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <!-- Base légale et liste officielle de la Belgique -->
+    <changeSet id="023-be-country" author="swiftcheck">
+        <sql>
+            UPDATE country SET legal_basis = 'Loi du 18 septembre 2017 relative à la prévention du blanchiment, art. 4, 28° à 30°, et art. 41',
+                               official_list_reference = 'Loi du 18 septembre 2017, Annexe IV ; JO C/2023/724',
+                               official_list_date = '2021-07-10',
+                               official_list_url = 'https://www.ejustice.just.fgov.be/eli/loi/2017/09/18/2017013368/justel'
+            WHERE iso = 'BE';
+        </sql>
+    </changeSet>
+
+    <!-- Ignoré si des catégories BE ont déjà été saisies dans l'écran « Catégories PEP » (codes uniques) -->
+    <changeSet id="023-be-categories" author="swiftcheck">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM pep_category WHERE country_iso = 'BE'</sqlCheck>
+        </preConditions>
+        <sql>
+            INSERT INTO pep_category (country_iso, code, label, kind, risk_class, sort_order, legal_reference) VALUES
+            ('BE', 'BE-a', 'Le Roi, le Premier ministre, les ministres-présidents, les ministres et les secrétaires d''État', 'OFFICIAL', 1, 1, 'Loi du 18/09/2017, art. 4, 28°, a) ; Annexe IV, 1°'),
+            ('BE', 'BE-b', 'Parlementaires : Chambre, Sénat et parlements des Régions et des Communautés', 'OFFICIAL', 1, 2, 'Loi du 18/09/2017, art. 4, 28°, b) ; Annexe IV, 2°'),
+            ('BE', 'BE-c', 'Membres des organes dirigeants des partis politiques', 'OFFICIAL', 2, 3, 'Loi du 18/09/2017, art. 4, 28°, c) ; Annexe IV, 3°'),
+            ('BE', 'BE-d', 'Cour constitutionnelle, Cour de cassation, cours d''appel, cours du travail et Conseil d''État', 'OFFICIAL', 2, 4, 'Loi du 18/09/2017, art. 4, 28°, d) ; Annexe IV, 4°'),
+            ('BE', 'BE-e', 'Cour des comptes et organes de la Banque nationale de Belgique', 'OFFICIAL', 2, 5, 'Loi du 18/09/2017, art. 4, 28°, e) ; Annexe IV, 5°'),
+            ('BE', 'BE-f', 'Ambassadeurs, consuls, chargés d''affaires et officiers généraux', 'OFFICIAL', 2, 6, 'Loi du 18/09/2017, art. 4, 28°, f) ; Annexe IV, 6°'),
+            ('BE', 'BE-g', 'Dirigeants, administrateurs et commissaires du gouvernement des entreprises publiques', 'OFFICIAL', 3, 7, 'Loi du 18/09/2017, art. 4, 28°, g) ; Annexe IV, 7°, a)'),
+            ('BE', 'BE-h', 'Dirigeants des organisations internationales établies en Belgique', 'OFFICIAL', 3, 8, 'Loi du 18/09/2017, art. 4, 28°, h) ; Annexe IV, 7°, b) ; art. 41, § 4'),
+            ('BE', 'BE-AMLR', 'Dirigeants des collectivités de 50 000 habitants ou plus (AMLR, juillet 2027)', 'AMLR', 3, 9, 'Règlement (UE) 2024/1624 (AMLR), définition des personnes politiquement exposées'),
+            ('BE', 'BE-EU', 'Belges exerçant une fonction européenne', 'EU', 1, 10, 'Loi du 18/09/2017, art. 4, 28°, i) ; liste de la Commission, JO C/2023/724'),
+            ('BE', 'BE-RCA', 'Membres de la famille et proches associés', 'RCA', 2, 11, 'Loi du 18/09/2017, art. 4, 29° (famille, sans la fratrie) et 30° (proches associés)');
+        </sql>
+    </changeSet>
+
+    <!-- expected_holders : effectif légal ou relevé le 02/11/2026 ; vide si inconnu -->
+    <changeSet id="023-be-functions" author="swiftcheck">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM pep_function f JOIN pep_category c ON c.id = f.category_id WHERE c.country_iso = 'BE'</sqlCheck>
+        </preConditions>
+        <sql>
+            INSERT INTO pep_function (category_id, label, institution, expected_holders)
+            SELECT c.id, f.label, f.institution, f.expected_holders
+            FROM pep_category c JOIN (
+                SELECT 'BE-a' AS code, 'Roi des Belges' AS label, 'Maison royale' AS institution, 1 AS expected_holders
+                UNION ALL SELECT 'BE-a', 'Premier ministre, vice-Premier ministre, ministre ou secrétaire d''État fédéral', 'Gouvernement fédéral', NULL
+                UNION ALL SELECT 'BE-a', 'Ministre-président, vice-ministre-président, ministre ou secrétaire d''État d''une Région ou d''une Communauté', 'Gouvernements des Régions et des Communautés', NULL
+                UNION ALL SELECT 'BE-a', 'Ancien membre d''un gouvernement', 'Gouvernements', NULL
+                UNION ALL SELECT 'BE-b', 'Membre de la Chambre des représentants', 'Chambre des représentants', 150
+                UNION ALL SELECT 'BE-b', 'Sénateur, y compris coopté', 'Sénat', 60
+                UNION ALL SELECT 'BE-b', 'Membre du Parlement flamand', 'Parlement flamand', 124
+                UNION ALL SELECT 'BE-b', 'Membre du Parlement de Wallonie', 'Parlement de Wallonie', 75
+                UNION ALL SELECT 'BE-b', 'Membre du Parlement de la Fédération Wallonie-Bruxelles', 'Parlement de la Fédération Wallonie-Bruxelles', 94
+                UNION ALL SELECT 'BE-b', 'Membre du Parlement de la Région de Bruxelles-Capitale', 'Parlement bruxellois', 89
+                UNION ALL SELECT 'BE-b', 'Membre du Parlement de la Communauté germanophone', 'Parlement de la Communauté germanophone', 25
+                UNION ALL SELECT 'BE-b', 'Ancien parlementaire', 'Assemblées', NULL
+                UNION ALL SELECT 'BE-c', 'Membre de la direction, du conseil politique, du comité de direction, de la gestion journalière ou du secrétariat d''un parti', 'Partis politiques', NULL
+                UNION ALL SELECT 'BE-d', 'Juge à la Cour constitutionnelle', 'Cour constitutionnelle', 12
+                UNION ALL SELECT 'BE-d', 'Conseiller à la Cour de cassation', 'Cour de cassation', NULL
+                UNION ALL SELECT 'BE-d', 'Conseiller à une cour d''appel ou à une cour du travail, y compris suppléant', 'Cours d''appel et cours du travail', NULL
+                UNION ALL SELECT 'BE-d', 'Membre du Conseil d''État : président, conseiller, assesseur ou auditeur', 'Conseil d''État', NULL
+                UNION ALL SELECT 'BE-e', 'Gouverneur, membre du Comité de direction ou du Conseil de régence de la Banque nationale', 'Banque nationale de Belgique', NULL
+                UNION ALL SELECT 'BE-e', 'Premier président, président ou conseiller à la Cour des comptes', 'Cour des comptes', NULL
+                UNION ALL SELECT 'BE-f', 'Ambassadeur, consul ou chargé d''affaires', 'SPF Affaires étrangères', NULL
+                UNION ALL SELECT 'BE-f', 'Officier général désigné par le Roi ou le ministre de la Défense', 'Défense', NULL
+                UNION ALL SELECT 'BE-g', 'Dirigeant, administrateur ou commissaire du gouvernement d''une entreprise publique', 'Entreprises publiques', NULL
+                UNION ALL SELECT 'BE-h', 'Dirigeant ou membre du conseil d''une organisation internationale établie en Belgique', 'OTAN, Benelux, Eurocontrol, OMD…', NULL
+                UNION ALL SELECT 'BE-AMLR', 'Bourgmestre ou dirigeant d''une collectivité de 50 000 habitants ou plus', 'Pouvoirs locaux', NULL
+                UNION ALL SELECT 'BE-EU', 'Député au Parlement européen élu en Belgique', 'Parlement européen', 22
+                UNION ALL SELECT 'BE-EU', 'Membre belge de la Commission européenne', 'Commission européenne', 1
+                UNION ALL SELECT 'BE-EU', 'Belge exerçant une autre fonction PEP dans une institution de l''UE', 'Institutions de l''UE', NULL
+                UNION ALL SELECT 'BE-RCA', 'Membre de la famille d''une PEP', NULL, NULL
+                UNION ALL SELECT 'BE-RCA', 'Proche associé d''une PEP', NULL, NULL
+            ) f ON f.code = c.code;
+        </sql>
+    </changeSet>
+
+</databaseChangeLog>

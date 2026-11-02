@@ -88,6 +88,31 @@
     <button type="button" (click)="isBulkDialogOpen = true" class="text-sm font-semibold text-emerald-700 hover:underline whitespace-nowrap">Voir l'avancement →</button>
   </div>
 
+  <!-- Bandeau par pays : un clic filtre la liste sur ce pays -->
+  <div *ngIf="countrySummaries.length" class="flex gap-2 overflow-x-auto pb-1 -mx-1 px-1" role="group" aria-label="Parsers par pays">
+    <button type="button" (click)="filterCountry && selectCountry(filterCountry)"
+            class="shrink-0 rounded-xl border px-3.5 py-2 text-left text-sm shadow-xs"
+            [ngClass]="!filterCountry ? 'border-emerald-500 bg-emerald-50 ring-1 ring-emerald-500' : 'border-slate-200 bg-white hover:border-slate-300'">
+      <div class="font-semibold text-slate-900">Tous les pays</div>
+      <div class="text-xs text-slate-500">{{ allParsers.length }} parser{{ allParsers.length > 1 ? 's' : '' }}</div>
+    </button>
+    <button *ngFor="let c of countrySummaries" type="button" (click)="selectCountry(c.iso)" [attr.aria-pressed]="filterCountry === c.iso"
+            class="shrink-0 rounded-xl border px-3.5 py-2 text-left text-sm shadow-xs min-w-[9.5rem]"
+            [ngClass]="filterCountry === c.iso ? 'border-emerald-500 bg-emerald-50 ring-1 ring-emerald-500' : 'border-slate-200 bg-white hover:border-slate-300'"
+            [title]="countryName(c.iso) + ' : ' + c.ok + ' publiés ou inchangés, ' + c.problems + ' en échec ou bloqués, ' + c.never + ' jamais exécutés'">
+      <div class="flex items-center justify-between gap-2">
+        <span class="font-semibold text-slate-900">{{ countryName(c.iso) }}</span>
+        <span class="font-mono text-[11px] text-slate-500">{{ c.iso }}</span>
+      </div>
+      <div class="mt-0.5 flex items-center gap-2 text-xs">
+        <span class="text-slate-600">{{ c.total }}</span>
+        <span class="text-emerald-700">✓ {{ c.ok }}</span>
+        <span *ngIf="c.problems" class="font-semibold text-rose-700">✕ {{ c.problems }}</span>
+        <span *ngIf="c.never" class="text-slate-400">○ {{ c.never }}</span>
+      </div>
+    </button>
+  </div>
+
   <!-- Liste des parsers -->
   <div class="bg-white rounded-2xl border border-slate-200 shadow-xs overflow-hidden">
     <!-- Recherche, filtres et actions sur la sélection -->
@@ -100,6 +125,11 @@
                  class="w-full rounded-xl border border-slate-300 bg-white py-2.5 pl-9 pr-3 text-sm focus:border-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-500/20">
         </div>
         <div class="flex flex-wrap items-center gap-2 shrink-0">
+          <button type="button" (click)="showFilters = !showFilters" [attr.aria-expanded]="showFilters"
+                  class="lg:hidden inline-flex items-center gap-1.5 rounded-xl border border-slate-300 bg-white px-3.5 py-2.5 text-sm font-semibold text-slate-700 hover:bg-slate-50">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M3 5h18M6 12h12M10 19h4"/></svg>
+            Filtres<span *ngIf="activeFilterCount" class="rounded-full bg-emerald-600 px-1.5 text-[11px] text-white">{{ activeFilterCount }}</span>
+          </button>
           <button type="button" (click)="openBulk('run')" [disabled]="bulk?.phase === 'running' && bulk?.mode === 'test'"
                   class="inline-flex items-center gap-1.5 rounded-xl bg-emerald-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-emerald-500 disabled:opacity-40"
                   [title]="'Lancer un par un les ' + filtered.length + ' parsers affichés par les filtres'">
@@ -114,16 +144,28 @@
           </button>
         </div>
       </div>
-      <div class="flex flex-wrap items-center gap-2 text-sm">
-        <select [(ngModel)]="filterCountry" (ngModelChange)="applyFilters()" aria-label="Pays couvert"
+
+      <!-- Filtres : toujours visibles sur grand écran, repliables sur petit écran -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:flex lg:flex-wrap items-center gap-2 text-sm" [class.hidden]="!showFilters">
+        <select [(ngModel)]="filterCountry" (ngModelChange)="filterCategory = ''; applyFilters()" aria-label="Pays couvert"
                 class="rounded-lg border border-slate-300 bg-white px-2.5 py-1.5 text-sm" [class.border-emerald-500]="filterCountry">
           <option value="">Tous les pays</option>
-          <option *ngFor="let iso of countryOptions" [value]="iso">{{ iso }}</option>
+          <option *ngFor="let iso of countryOptions" [value]="iso">{{ countryName(iso) }} ({{ iso }})</option>
+        </select>
+        <select [(ngModel)]="filterCategory" (ngModelChange)="applyFilters()" aria-label="Catégorie PEP"
+                class="rounded-lg border border-slate-300 bg-white px-2.5 py-1.5 text-sm" [class.border-emerald-500]="filterCategory">
+          <option value="">Toutes les catégories PEP</option>
+          <option *ngFor="let code of categoryOptions" [value]="code">{{ code }}</option>
         </select>
         <select [(ngModel)]="filterListType" (ngModelChange)="applyFilters()" aria-label="Type de liste"
                 class="rounded-lg border border-slate-300 bg-white px-2.5 py-1.5 text-sm" [class.border-emerald-500]="filterListType">
           <option value="">Tous les types</option>
           <option *ngFor="let type of listTypes" [value]="type.value">{{ type.label }}</option>
+        </select>
+        <select [(ngModel)]="filterKind" (ngModelChange)="applyFilters()" aria-label="Nature de la source"
+                class="rounded-lg border border-slate-300 bg-white px-2.5 py-1.5 text-sm" [class.border-emerald-500]="filterKind">
+          <option value="">Toutes les natures de source</option>
+          <option *ngFor="let kind of parserKinds" [value]="kind.value">{{ kind.label }}</option>
         </select>
         <select [(ngModel)]="filterEnabled" (ngModelChange)="applyFilters()" aria-label="État"
                 class="rounded-lg border border-slate-300 bg-white px-2.5 py-1.5 text-sm" [class.border-emerald-500]="filterEnabled">
@@ -141,152 +183,293 @@
           <option value="FAILED">Échec</option>
           <option value="NEVER">Jamais exécuté</option>
         </select>
-        <span class="text-xs text-slate-500 ml-auto">
-          {{ filtered.length }} parser{{ filtered.length > 1 ? 's' : '' }}<span *ngIf="hasFilters"> sur {{ allParsers.length }}</span>
+        <select [(ngModel)]="filterTest" (ngModelChange)="applyFilters()" aria-label="Dernier test"
+                class="rounded-lg border border-slate-300 bg-white px-2.5 py-1.5 text-sm" [class.border-emerald-500]="filterTest">
+          <option value="">Tout dernier test</option>
+          <option value="FAILED">Test en échec</option>
+          <option value="PASSED">Test réussi</option>
+          <option value="NEVER">Jamais testé</option>
+        </select>
+        <select [(ngModel)]="filterHealth" (ngModelChange)="applyFilters()" aria-label="À surveiller"
+                class="rounded-lg border border-slate-300 bg-white px-2.5 py-1.5 text-sm" [class.border-emerald-500]="filterHealth">
+          <option value="">Rien à surveiller en plus</option>
+          <option value="LATE">En retard sur sa fréquence</option>
+          <option value="PLUGIN_MISSING">Plugin non chargé</option>
+        </select>
+      </div>
+
+      <!-- Nombre, tri, regroupement, taille de page -->
+      <div class="flex flex-wrap items-center gap-x-4 gap-y-2 text-xs text-slate-600">
+        <span>
+          <span class="font-semibold text-slate-900">{{ filtered.length }}</span> parser{{ filtered.length > 1 ? 's' : '' }}<span *ngIf="hasFilters"> sur {{ allParsers.length }}</span>
         </span>
-        <button *ngIf="hasFilters" type="button" (click)="clearFilters()" class="text-xs font-semibold text-slate-600 hover:text-slate-900 hover:underline">Effacer les filtres</button>
+        <button *ngIf="hasFilters" type="button" (click)="clearFilters()" class="font-semibold text-slate-600 hover:text-slate-900 hover:underline">Effacer les filtres</button>
+        <label class="flex items-center gap-1.5 sm:ml-auto">
+          Trier par
+          <select [ngModel]="sortKey" (ngModelChange)="sortBy($event)" class="rounded-md border border-slate-300 bg-white px-1.5 py-1 text-xs">
+            <option *ngFor="let o of sortOptions" [value]="o.value">{{ o.label }}</option>
+          </select>
+          <button type="button" (click)="sortBy(sortKey)" class="rounded-md border border-slate-300 bg-white px-1.5 py-1 hover:bg-slate-50"
+                  [title]="sortDir === 'asc' ? 'Ordre croissant (cliquer pour inverser)' : 'Ordre décroissant (cliquer pour inverser)'"
+                  [attr.aria-label]="sortDir === 'asc' ? 'Ordre croissant' : 'Ordre décroissant'">{{ sortDir === 'asc' ? '↑' : '↓' }}</button>
+        </label>
+        <label class="flex items-center gap-1.5 cursor-pointer">
+          <input type="checkbox" [(ngModel)]="groupByCountry" (ngModelChange)="applyFilters(false)" class="h-3.5 w-3.5 rounded border-slate-300 text-emerald-600">
+          Regrouper par pays
+        </label>
+        <label class="flex items-center gap-1.5">
+          Par page
+          <select [ngModel]="pageSize" (ngModelChange)="setPageSize(+$event)" class="rounded-md border border-slate-300 bg-white px-1.5 py-1 text-xs">
+            <option *ngFor="let size of pageSizes" [value]="size">{{ size }}</option>
+          </select>
+        </label>
       </div>
     </div>
-    <div class="overflow-x-auto">
+
+    <!-- Grand écran : tableau compact, une ligne par parser, détail dépliable -->
+    <div class="hidden md:block overflow-x-auto">
       <table class="min-w-full divide-y divide-slate-200">
         <thead class="bg-slate-50">
           <tr class="text-left text-xs font-semibold text-slate-500 uppercase tracking-wider">
-            <th class="px-4 py-3">Parser</th>
-            <th class="px-3 py-3">Plugin</th>
-            <th class="px-3 py-3">Source et fréquence</th>
-            <th class="px-3 py-3">Dernière exécution</th>
-            <th class="px-3 py-3">Dernier test</th>
-            <th class="px-4 py-3 text-right">Actions</th>
+            <th class="w-8 py-2.5 pl-3"><span class="sr-only">Détail</span></th>
+            <th class="px-3 py-2.5">
+              <button type="button" (click)="sortBy('name')" class="inline-flex items-center gap-1 uppercase hover:text-slate-800">
+                Parser <span *ngIf="sortKey === 'name'">{{ sortDir === 'asc' ? '↑' : '↓' }}</span>
+              </button>
+            </th>
+            <th class="px-3 py-2.5">
+              <button type="button" (click)="sortBy('lastRun')" class="inline-flex items-center gap-1 uppercase hover:text-slate-800">
+                Dernière exécution <span *ngIf="sortKey === 'lastRun'">{{ sortDir === 'asc' ? '↑' : '↓' }}</span>
+              </button>
+            </th>
+            <th class="px-3 py-2.5">
+              <button type="button" (click)="sortBy('persons')" class="inline-flex items-center gap-1 uppercase hover:text-slate-800">
+                Personnes <span *ngIf="sortKey === 'persons'">{{ sortDir === 'asc' ? '↑' : '↓' }}</span>
+              </button>
+            </th>
+            <th class="px-3 py-2.5">Dernier test</th>
+            <th class="px-4 py-2.5 text-right">Actions</th>
           </tr>
         </thead>
         <tbody class="divide-y divide-slate-100">
-          <tr *ngFor="let p of parsers" [class.opacity-50]="!p.enabled" class="align-top hover:bg-slate-50/60">
-            <td class="px-4 py-4">
-              <div class="font-semibold text-slate-900 text-sm">{{ p.name }}</div>
-              <div class="font-mono text-xs text-slate-500">{{ p.datasetName }}</div>
-              <div class="text-xs text-slate-600 mt-1">
-                <span class="font-semibold">{{ listTypeLabel(p.listType) }}</span><span *ngIf="p.countryIso"> · {{ p.countryIso }}</span>
-                <span *ngIf="p.coverage?.length"> · {{ p.coverage?.length }} fonction{{ (p.coverage?.length ?? 0) > 1 ? 's' : '' }}</span>
-              </div>
-              <span *ngIf="!p.enabled" class="mt-1 inline-block text-[11px] font-semibold text-slate-500 bg-slate-100 px-2 py-0.5 rounded">Désactivé</span>
-              <button type="button" (click)="descriptionParser = p"
-                      class="mt-1.5 flex items-center gap-1 text-xs font-semibold hover:underline"
-                      [ngClass]="p.hasTechnicalDescription ? 'text-sky-700 hover:text-sky-900' : 'text-slate-400 hover:text-slate-600'"
-                      [title]="p.hasTechnicalDescription ? 'Ce que fait ce parser exactement' : 'Aucune description technique : cliquer pour en ajouter une'">
-                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6M7 3h7l5 5v11a2 2 0 01-2 2H7a2 2 0 01-2-2V5a2 2 0 012-2z"/></svg>
-                {{ p.hasTechnicalDescription ? 'Description technique' : 'Pas de description' }}
-              </button>
-            </td>
-            <td class="px-3 py-4">
-              <span class="font-mono text-xs bg-slate-100 text-slate-700 px-2 py-1 rounded whitespace-nowrap">{{ p.pluginId }}</span>
-              <div *ngIf="p.pluginUrl" class="font-mono text-[11px] text-slate-500 mt-1 max-w-[170px] truncate" [title]="p.pluginUrl">{{ jarName(p.pluginUrl) }}</div>
-            </td>
-            <td class="px-3 py-4 text-xs text-slate-600 max-w-[240px]">
-              <div class="font-medium text-slate-800">{{ sourceLabel(p.dataSourceType) }}</div>
-              <div class="font-mono truncate" [title]="p.sourceLocation || ''">{{ p.sourceLocation }}</div>
-              <div class="mt-1 inline-flex items-center gap-1 text-slate-500">
-                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
-                {{ p.refreshHours ? 'toutes les ' + p.refreshHours + ' h' : 'à la demande' }}
-              </div>
-              <div *ngIf="p.retentionMonths" class="mt-0.5 text-slate-500" title="Une personne qui disparaît de la source reste publiée ce nombre de mois">
-                rétention {{ p.retentionMonths }} mois
-              </div>
-            </td>
-            <td class="px-3 py-4 text-sm">
-              <app-status-badge [status]="isRunning(p) ? 'RUNNING' : p.lastStatus"></app-status-badge>
-              <div *ngIf="p.lastRunAt" class="text-xs text-slate-500 mt-1 whitespace-nowrap">{{ p.lastRunAt | date:'dd/MM/yyyy HH:mm' }}</div>
-              <div *ngIf="p.lastPersonCount" class="text-xs text-slate-600 mt-0.5 whitespace-nowrap">
-                {{ p.lastPersonCount }} personne{{ p.lastPersonCount > 1 ? 's' : '' }}<span *ngIf="p.lastRetainedCount"> + {{ p.lastRetainedCount }} gardée{{ p.lastRetainedCount > 1 ? 's' : '' }}</span>
-              </div>
-              <div *ngIf="p.lastMessage && p.lastStatus !== 'SUCCESS'" class="text-xs text-slate-500 mt-1 max-w-[200px] line-clamp-2" [title]="p.lastMessage">{{ p.lastMessage }}</div>
-            </td>
-            <td class="px-3 py-4 text-sm">
-              <!-- Dernier test : clic = historique des tests -->
-              <button *ngIf="testing.has(p.id!) || p.lastTestStatus; else neverTested" type="button" (click)="openTestHistory(p)"
-                      class="group text-left rounded-lg -m-1.5 p-1.5 hover:bg-sky-50" title="Historique des tests">
-                <app-status-badge [status]="testing.has(p.id!) ? 'RUNNING' : p.lastTestStatus"></app-status-badge>
-                <div *ngIf="!testing.has(p.id!)" class="mt-1.5 flex items-center gap-2">
-                  <div class="h-1.5 w-16 overflow-hidden rounded-full bg-slate-100">
-                    <div class="h-full rounded-full" [class.bg-emerald-500]="p.lastTestStatus === 'PASSED'" [class.bg-rose-400]="p.lastTestStatus !== 'PASSED'"
-                         [style.width.%]="p.lastTestFoundPercent ?? 0"></div>
+          <ng-container *ngFor="let group of groups">
+            <tr *ngIf="groupByCountry" class="bg-slate-100/70">
+              <td colspan="6" class="px-4 py-1.5 text-xs font-bold text-slate-700">
+                {{ group.label }} <span class="font-mono font-normal text-slate-500">{{ group.iso }}</span>
+                <span class="font-normal text-slate-500">· {{ group.parsers.length }} sur cette page</span>
+              </td>
+            </tr>
+            <ng-container *ngFor="let p of group.parsers">
+              <tr [class.opacity-50]="!p.enabled" class="hover:bg-slate-50/60">
+                <td class="py-2.5 pl-3 align-middle">
+                  <button type="button" (click)="toggleExpanded(p)" [attr.aria-expanded]="expanded.has(p.id!)"
+                          [attr.aria-label]="(expanded.has(p.id!) ? 'Replier ' : 'Déplier ') + p.name"
+                          class="rounded p-1 text-slate-400 hover:bg-slate-100 hover:text-slate-700">
+                    <svg class="w-4 h-4 transition-transform" [class.rotate-90]="expanded.has(p.id!)" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+                  </button>
+                </td>
+                <td class="px-3 py-2.5">
+                  <button type="button" (click)="toggleExpanded(p)" class="text-left">
+                    <span class="font-semibold text-slate-900 text-sm hover:underline">{{ p.name }}</span>
+                  </button>
+                  <div class="mt-0.5 flex flex-wrap items-center gap-1.5">
+                    <span class="font-mono text-xs text-slate-500">{{ p.datasetName }}</span>
+                    <ng-container *ngTemplateOutlet="chips; context: { $implicit: p }"></ng-container>
                   </div>
-                  <span class="text-xs font-semibold text-slate-700 tabular-nums whitespace-nowrap">{{ p.lastTestFoundPercent | number:'1.0-1' }} %</span>
-                </div>
-                <div class="text-xs text-slate-500 mt-1 whitespace-nowrap group-hover:text-sky-700">{{ testing.has(p.id!) ? 'Interrogation de Yente…' : (p.lastTestAt | date:'dd/MM/yyyy HH:mm') }}</div>
-              </button>
-              <ng-template #neverTested><span class="text-xs text-slate-400 italic">Jamais testé</span></ng-template>
-            </td>
-            <td class="px-4 py-4">
-              <div class="flex flex-col items-end gap-2">
-                <!-- Actions principales : exécution et test -->
-                <div class="flex items-center gap-1.5 whitespace-nowrap">
-                  <ng-container *ngIf="!isRunning(p); else stopButton">
-                    <button type="button" (click)="run(p, false)" [disabled]="!p.enabled"
-                            class="rounded-lg bg-emerald-600 px-2.5 py-1.5 text-xs font-semibold text-white hover:bg-emerald-500 disabled:opacity-40"
-                            title="Récupérer la source et publier si elle a changé">
-                      Lancer
-                    </button>
-                    <button type="button" (click)="run(p, true)" [disabled]="!p.enabled"
-                            class="rounded-lg border border-amber-300 bg-amber-50 px-2.5 py-1.5 text-xs font-semibold text-amber-800 hover:bg-amber-100 disabled:opacity-40"
-                            title="Reconvertir et republier même si la source n'a pas changé (après une mise à jour du plugin)">
-                      Forcer
-                    </button>
-                  </ng-container>
-                  <!-- Exécution en cours : arrêt forcé, pour relancer -->
-                  <ng-template #stopButton>
-                    <button type="button" (click)="stopRun(p)" [disabled]="stopping.has(p.id!)"
-                            class="inline-flex items-center gap-1.5 rounded-lg border border-rose-300 bg-rose-50 px-2.5 py-1.5 text-xs font-semibold text-rose-700 hover:bg-rose-100 disabled:opacity-50"
-                            title="Arrêter de force l'exécution en cours (rien n'est publié), pour pouvoir relancer le parser">
-                      <span *ngIf="stopping.has(p.id!)" class="h-3 w-3 rounded-full border-2 border-rose-200 border-t-rose-600 animate-spin"></span>
-                      <svg *ngIf="!stopping.has(p.id!)" class="w-3 h-3" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="6" width="12" height="12" rx="1.5"/></svg>
-                      {{ stopping.has(p.id!) ? 'Arrêt…' : 'Arrêter' }}
-                    </button>
-                  </ng-template>
-                  <!-- Tester | historique des tests -->
-                  <div class="inline-flex rounded-lg border border-sky-300 bg-sky-50 overflow-hidden" role="group" aria-label="Tests">
-                    <button type="button" (click)="openTestDialog(p)" [disabled]="!p.enabled || running.has(p.id!)"
-                            class="inline-flex items-center gap-1.5 px-2.5 py-1.5 text-xs font-semibold text-sky-800 hover:bg-sky-100 disabled:opacity-40"
-                            title="Chercher dans Yente chaque élément du fichier source de la dernière publication">
-                      <span *ngIf="testing.has(p.id!)" class="h-3 w-3 rounded-full border-2 border-sky-300 border-t-sky-700 animate-spin"></span>
-                      {{ testing.has(p.id!) ? 'Test…' : 'Tester' }}
-                    </button>
-                    <button type="button" (click)="openTestHistory(p)" class="border-l border-sky-300 px-2 text-sky-800 hover:bg-sky-100"
-                            title="Historique des tests" aria-label="Historique des tests"><svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M3 12a9 9 0 103-6.7L3 8m0-5v5h5m4-1v5l3 3"/></svg></button>
+                </td>
+                <td class="px-3 py-2.5 whitespace-nowrap">
+                  <app-status-badge [status]="isRunning(p) ? 'RUNNING' : p.lastStatus"></app-status-badge>
+                  <div *ngIf="p.lastRunAt" class="text-xs text-slate-500 mt-0.5">{{ p.lastRunAt | date:'dd/MM/yyyy HH:mm' }}</div>
+                </td>
+                <td class="px-3 py-2.5 text-sm text-slate-700 tabular-nums whitespace-nowrap">
+                  <ng-container *ngIf="p.lastPersonCount; else noPersons">{{ p.lastPersonCount | number:'1.0-0' }}</ng-container>
+                  <ng-template #noPersons><span class="text-slate-400">—</span></ng-template>
+                  <span *ngIf="p.lastRetainedCount" class="text-xs text-slate-500" title="Entités disparues de la source, encore publiées (rétention)"> + {{ p.lastRetainedCount }}</span>
+                </td>
+                <td class="px-3 py-2.5">
+                  <ng-container *ngTemplateOutlet="testCell; context: { $implicit: p }"></ng-container>
+                </td>
+                <td class="px-4 py-2.5">
+                  <div class="flex justify-end">
+                    <ng-container *ngTemplateOutlet="actions; context: { $implicit: p }"></ng-container>
                   </div>
-                </div>
-                <!-- Actions secondaires -->
-                <div class="flex items-center gap-3 text-xs font-semibold whitespace-nowrap">
-                  <button type="button" (click)="detailParser = p" class="text-emerald-700 hover:text-emerald-900 hover:underline" title="Toutes les informations du parser">Afficher</button>
-                  <span class="text-slate-300" aria-hidden="true">·</span>
-                  <a [routerLink]="['/parsers', p.id, 'executions']" class="text-slate-600 hover:text-slate-900 hover:underline" title="Historique des exécutions">Exécutions</a>
-                  <span class="text-slate-300" aria-hidden="true">·</span>
-                  <button type="button" (click)="openForm(p)" class="text-slate-600 hover:text-slate-900 hover:underline">Modifier</button>
-                  <ng-container *ngIf="p.enabled">
-                    <span class="text-slate-300" aria-hidden="true">·</span>
-                    <button type="button" (click)="disable(p)" class="text-rose-600 hover:text-rose-800 hover:underline">Désactiver</button>
-                  </ng-container>
-                </div>
-              </div>
-            </td>
-          </tr>
+                </td>
+              </tr>
+              <tr *ngIf="expanded.has(p.id!)" class="bg-slate-50/70">
+                <td></td>
+                <td colspan="5" class="px-3 pb-4 pt-1">
+                  <ng-container *ngTemplateOutlet="detail; context: { $implicit: p }"></ng-container>
+                </td>
+              </tr>
+            </ng-container>
+          </ng-container>
           <tr *ngIf="parsers.length === 0">
             <td colspan="6" class="px-4 py-12 text-center text-sm text-slate-500">
-              <ng-container *ngIf="hasFilters; else noParser">
-                Aucun parser ne correspond à la recherche.
-                <button type="button" (click)="clearFilters()" class="ml-1 font-semibold text-emerald-700 hover:underline">Effacer les filtres</button>
-              </ng-container>
-              <ng-template #noParser>Aucun parser configuré.</ng-template>
+              <ng-container *ngTemplateOutlet="emptyList"></ng-container>
             </td>
           </tr>
         </tbody>
       </table>
     </div>
-    <div *ngIf="totalPages > 1" class="flex items-center justify-between px-4 py-3 border-t border-slate-200 text-sm">
+
+    <!-- Petit écran : une carte par parser -->
+    <div class="md:hidden divide-y divide-slate-100">
+      <ng-container *ngFor="let group of groups">
+        <div *ngIf="groupByCountry" class="bg-slate-100/70 px-4 py-1.5 text-xs font-bold text-slate-700">
+          {{ group.label }} <span class="font-mono font-normal text-slate-500">{{ group.iso }}</span>
+        </div>
+        <div *ngFor="let p of group.parsers" class="px-4 py-3 space-y-2" [class.opacity-50]="!p.enabled">
+          <div class="flex items-start justify-between gap-3">
+            <div class="min-w-0">
+              <div class="font-semibold text-slate-900 text-sm">{{ p.name }}</div>
+              <div class="font-mono text-xs text-slate-500 truncate">{{ p.datasetName }}</div>
+            </div>
+            <app-status-badge [status]="isRunning(p) ? 'RUNNING' : p.lastStatus"></app-status-badge>
+          </div>
+          <div class="flex flex-wrap items-center gap-1.5">
+            <ng-container *ngTemplateOutlet="chips; context: { $implicit: p }"></ng-container>
+          </div>
+          <div class="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-slate-600">
+            <span *ngIf="p.lastRunAt">{{ p.lastRunAt | date:'dd/MM/yyyy HH:mm' }}</span>
+            <span *ngIf="p.lastPersonCount">{{ p.lastPersonCount | number:'1.0-0' }} personne{{ p.lastPersonCount > 1 ? 's' : '' }}</span>
+            <ng-container *ngTemplateOutlet="testCell; context: { $implicit: p }"></ng-container>
+          </div>
+          <div class="flex flex-wrap items-center justify-between gap-2">
+            <ng-container *ngTemplateOutlet="actions; context: { $implicit: p }"></ng-container>
+            <button type="button" (click)="toggleExpanded(p)" [attr.aria-expanded]="expanded.has(p.id!)"
+                    class="text-xs font-semibold text-emerald-700 hover:underline">
+              {{ expanded.has(p.id!) ? 'Masquer le détail' : 'Détail' }}
+            </button>
+          </div>
+          <div *ngIf="expanded.has(p.id!)" class="rounded-lg bg-slate-50 p-3">
+            <ng-container *ngTemplateOutlet="detail; context: { $implicit: p }"></ng-container>
+          </div>
+        </div>
+      </ng-container>
+      <div *ngIf="parsers.length === 0" class="px-4 py-12 text-center text-sm text-slate-500">
+        <ng-container *ngTemplateOutlet="emptyList"></ng-container>
+      </div>
+    </div>
+
+    <div *ngIf="totalPages > 1" class="flex items-center justify-between gap-2 px-4 py-3 border-t border-slate-200 text-sm">
       <button type="button" (click)="changePage(page - 1)" [disabled]="page === 0" class="px-3 py-1.5 rounded-lg border border-slate-300 disabled:opacity-40">Précédent</button>
       <span class="text-slate-600">Page {{ page + 1 }} / {{ totalPages }}</span>
       <button type="button" (click)="changePage(page + 1)" [disabled]="page >= totalPages - 1" class="px-3 py-1.5 rounded-lg border border-slate-300 disabled:opacity-40">Suivant</button>
     </div>
   </div>
+
+  <!-- Pastilles d'un parser : pays, type, fonctions, et ce qui demande de l'attention -->
+  <ng-template #chips let-p>
+    <span *ngFor="let iso of (p.countryIso ? [p.countryIso] : [])" class="rounded bg-slate-100 px-1.5 py-0.5 text-[11px] font-semibold text-slate-700" [title]="countryName(iso)">{{ iso }}</span>
+    <span class="rounded bg-slate-100 px-1.5 py-0.5 text-[11px] text-slate-600">{{ listTypeLabel(p.listType) }}</span>
+    <span *ngIf="p.coverage?.length" class="rounded bg-slate-100 px-1.5 py-0.5 text-[11px] text-slate-600">{{ p.coverage.length }} fonction{{ p.coverage.length > 1 ? 's' : '' }}</span>
+    <span *ngIf="!p.enabled" class="rounded bg-slate-200 px-1.5 py-0.5 text-[11px] font-semibold text-slate-600">Désactivé</span>
+    <span *ngIf="isLate(p)" class="rounded bg-amber-100 px-1.5 py-0.5 text-[11px] font-semibold text-amber-800"
+          [title]="p.lastRunAt ? 'Dernière exécution plus ancienne qu\'une fois et demie la fréquence (' + p.refreshHours + ' h)' : 'Jamais exécuté'">En retard</span>
+    <span *ngIf="isPluginMissing(p)" class="rounded bg-rose-100 px-1.5 py-0.5 text-[11px] font-semibold text-rose-700"
+          title="Aucun plugin démarré ne porte ce Plugin-Id : vérifier le chemin du JAR">Plugin non chargé</span>
+  </ng-template>
+
+  <!-- Dernier test : clic = historique des tests -->
+  <ng-template #testCell let-p>
+    <button *ngIf="testing.has(p.id!) || p.lastTestStatus; else neverTested" type="button" (click)="openTestHistory(p)"
+            class="inline-flex items-center gap-2 rounded-lg -m-1 p-1 text-left hover:bg-sky-50" title="Historique des tests">
+      <app-status-badge [status]="testing.has(p.id!) ? 'RUNNING' : p.lastTestStatus"></app-status-badge>
+      <span *ngIf="!testing.has(p.id!)" class="text-xs font-semibold text-slate-700 tabular-nums whitespace-nowrap">{{ p.lastTestFoundPercent | number:'1.0-1' }} %</span>
+    </button>
+    <ng-template #neverTested><span class="text-xs text-slate-400 italic">Jamais testé</span></ng-template>
+  </ng-template>
+
+  <!-- Actions principales : exécution et test -->
+  <ng-template #actions let-p>
+    <div class="flex items-center gap-1.5 whitespace-nowrap">
+      <ng-container *ngIf="!isRunning(p); else stopButton">
+        <button type="button" (click)="run(p, false)" [disabled]="!p.enabled"
+                class="rounded-lg bg-emerald-600 px-2.5 py-1.5 text-xs font-semibold text-white hover:bg-emerald-500 disabled:opacity-40"
+                title="Récupérer la source et publier si elle a changé">
+          Lancer
+        </button>
+        <button type="button" (click)="run(p, true)" [disabled]="!p.enabled"
+                class="rounded-lg border border-amber-300 bg-amber-50 px-2.5 py-1.5 text-xs font-semibold text-amber-800 hover:bg-amber-100 disabled:opacity-40"
+                title="Reconvertir et republier même si la source n'a pas changé (après une mise à jour du plugin)">
+          Forcer
+        </button>
+      </ng-container>
+      <!-- Exécution en cours : arrêt forcé, pour relancer -->
+      <ng-template #stopButton>
+        <button type="button" (click)="stopRun(p)" [disabled]="stopping.has(p.id!)"
+                class="inline-flex items-center gap-1.5 rounded-lg border border-rose-300 bg-rose-50 px-2.5 py-1.5 text-xs font-semibold text-rose-700 hover:bg-rose-100 disabled:opacity-50"
+                title="Arrêter de force l'exécution en cours (rien n'est publié), pour pouvoir relancer le parser">
+          <span *ngIf="stopping.has(p.id!)" class="h-3 w-3 rounded-full border-2 border-rose-200 border-t-rose-600 animate-spin"></span>
+          <svg *ngIf="!stopping.has(p.id!)" class="w-3 h-3" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="6" width="12" height="12" rx="1.5"/></svg>
+          {{ stopping.has(p.id!) ? 'Arrêt…' : 'Arrêter' }}
+        </button>
+      </ng-template>
+      <button type="button" (click)="openTestDialog(p)" [disabled]="!p.enabled || running.has(p.id!)"
+              class="inline-flex items-center gap-1.5 rounded-lg border border-sky-300 bg-sky-50 px-2.5 py-1.5 text-xs font-semibold text-sky-800 hover:bg-sky-100 disabled:opacity-40"
+              title="Chercher dans Yente chaque élément du fichier source de la dernière publication">
+        <span *ngIf="testing.has(p.id!)" class="h-3 w-3 rounded-full border-2 border-sky-300 border-t-sky-700 animate-spin"></span>
+        {{ testing.has(p.id!) ? 'Test…' : 'Tester' }}
+      </button>
+      <button type="button" (click)="openForm(p)" class="rounded-lg border border-slate-300 bg-white px-2.5 py-1.5 text-xs font-semibold text-slate-700 hover:bg-slate-50">
+        Modifier
+      </button>
+    </div>
+  </ng-template>
+
+  <!-- Détail déplié : source, plugin, planification, dernier message, liens -->
+  <ng-template #detail let-p>
+    <dl class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-6 gap-y-3 text-xs">
+      <div>
+        <dt class="font-semibold uppercase tracking-wider text-slate-500">Plugin</dt>
+        <dd class="mt-0.5"><span class="font-mono bg-slate-100 text-slate-700 px-1.5 py-0.5 rounded">{{ p.pluginId }}</span></dd>
+        <dd *ngIf="p.pluginUrl" class="mt-1 font-mono text-[11px] text-slate-500 break-all" [title]="p.pluginUrl">{{ jarName(p.pluginUrl) }}</dd>
+      </div>
+      <div>
+        <dt class="font-semibold uppercase tracking-wider text-slate-500">Source</dt>
+        <dd class="mt-0.5 font-medium text-slate-800">{{ sourceLabel(p.dataSourceType) }}<span *ngIf="kindLabel(p.parserKind)" class="font-normal text-slate-500"> · {{ kindLabel(p.parserKind) }}</span></dd>
+        <dd *ngIf="p.sourceLocation" class="mt-0.5 font-mono text-[11px] text-slate-500 break-all">{{ p.sourceLocation }}</dd>
+      </div>
+      <div>
+        <dt class="font-semibold uppercase tracking-wider text-slate-500">Planification</dt>
+        <dd class="mt-0.5 text-slate-700">{{ p.refreshHours ? 'toutes les ' + p.refreshHours + ' h' : 'à la demande' }}</dd>
+        <dd *ngIf="p.retentionMonths" class="text-slate-500" title="Une personne qui disparaît de la source reste publiée ce nombre de mois">rétention {{ p.retentionMonths }} mois</dd>
+      </div>
+      <div>
+        <dt class="font-semibold uppercase tracking-wider text-slate-500">Dernier test</dt>
+        <dd class="mt-0.5 text-slate-700">
+          <ng-container *ngIf="p.lastTestAt; else noTest">{{ p.lastTestAt | date:'dd/MM/yyyy HH:mm' }} · {{ p.lastTestFoundPercent | number:'1.0-1' }} % retrouvés</ng-container>
+          <ng-template #noTest>jamais</ng-template>
+        </dd>
+      </div>
+      <div *ngIf="p.lastMessage" class="sm:col-span-2 lg:col-span-4">
+        <dt class="font-semibold uppercase tracking-wider text-slate-500">Message de la dernière exécution</dt>
+        <dd class="mt-0.5 text-slate-700 whitespace-pre-line">{{ p.lastMessage }}</dd>
+      </div>
+      <div *ngIf="p.description" class="sm:col-span-2 lg:col-span-4">
+        <dt class="font-semibold uppercase tracking-wider text-slate-500">Description</dt>
+        <dd class="mt-0.5 text-slate-700">{{ p.description }}</dd>
+      </div>
+    </dl>
+    <div class="mt-3 flex flex-wrap items-center gap-3 text-xs font-semibold">
+      <button type="button" (click)="detailParser = p" class="text-emerald-700 hover:text-emerald-900 hover:underline" title="Toutes les informations du parser">Afficher tout</button>
+      <a [routerLink]="['/parsers', p.id, 'executions']" class="text-slate-600 hover:text-slate-900 hover:underline">Exécutions</a>
+      <button type="button" (click)="openTestHistory(p)" class="text-slate-600 hover:text-slate-900 hover:underline">Historique des tests</button>
+      <button type="button" (click)="descriptionParser = p" class="hover:underline"
+              [ngClass]="p.hasTechnicalDescription ? 'text-sky-700 hover:text-sky-900' : 'text-slate-400 hover:text-slate-600'">
+        {{ p.hasTechnicalDescription ? 'Description technique' : 'Ajouter une description technique' }}
+      </button>
+      <button *ngIf="p.enabled" type="button" (click)="disable(p)" class="text-rose-600 hover:text-rose-800 hover:underline">Désactiver</button>
+    </div>
+  </ng-template>
+
+  <ng-template #emptyList>
+    <ng-container *ngIf="hasFilters; else noParser">
+      Aucun parser ne correspond à la recherche.
+      <button type="button" (click)="clearFilters()" class="ml-1 font-semibold text-emerald-700 hover:underline">Effacer les filtres</button>
+    </ng-container>
+    <ng-template #noParser>Aucun parser configuré.</ng-template>
+  </ng-template>
 
   <!-- Plugins PF4J -->
   <div class="bg-white rounded-2xl border border-slate-200 shadow-xs overflow-hidden">

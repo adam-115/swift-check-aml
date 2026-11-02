@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Lot 1 des parsers PEP de la Belgique : le Roi, le gouvernement fédéral, la Chambre, les parlements flamand et wallon,
+    les députés européens, le commissaire européen et la famille (Wikidata). Mesures des exécutions réelles du
+    02/11/2026. Plan : documentation/analyse pep belgique/Plan_Parsers_PEP_Belgique.pdf.
+-->
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="024-parser-be-pep-king" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Belgique – Roi des Belges',
+                'Le Roi des Belges, titulaire actuel d’après Wikidata, contrôlé par la page officielle de monarchie.be (catégorie BE-a)',
+                'be_pep_king', 'PEP', 'https://www.monarchie.be/fr/famille-royale/le-roi',
+                'be-pep-king', 'D:/test parser 2/plugins/swiftcheck-aml-be-pep-king-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'SPARQL',
+                NULL,
+                '{"pageUrl": "https://www.monarchie.be/fr/famille-royale/le-roi", "endpoint": "https://query.wikidata.org/sparql"}',
+                168, 12,
+                'CC0 (Wikidata) ; monarchie.be : citer la source', 'Palais royal, www.monarchie.be ; Wikidata',
+                'La naissance vient de la page officielle ; le nom et la date d’accession de Wikidata. Si les deux ne concordent pas (changement de règne), l’exécution s’arrête.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', FALSE, 'Le roi Philippe, en fonction depuis le 21/07/2013, avec la date et le lieu de naissance de la page officielle.', NULL
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'BE-a' AND f.label LIKE 'Roi des Belges%' AND p.dataset_name = 'be_pep_king';
+        ]]></sql>
+    </changeSet>
+
+    <changeSet id="024-parser-be-pep-federal-government" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Belgique – Gouvernement fédéral',
+                'Premier ministre, vice-Premiers ministres, ministres et secrétaires d’État fédéraux, d’après belgium.be (catégorie BE-a)',
+                'be_pep_federal_government', 'PEP', 'https://www.belgium.be/fr/la_belgique/pouvoirs_publics/autorites_federales/gouvernement_federal/composition_gouvernement',
+                'be-pep-federal-government', 'D:/test parser 2/plugins/swiftcheck-aml-be-pep-federal-government-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'WEB_PAGE',
+                NULL,
+                '{"url": "https://www.belgium.be/fr/la_belgique/pouvoirs_publics/autorites_federales/gouvernement_federal/composition_gouvernement"}',
+                24, 12,
+                'Citer la source (belgium.be)', 'Service public fédéral Chancellerie, www.belgium.be',
+                'premier.be refuse les clients automatiques (HTTP 403) : non utilisé. Ni date de naissance ni date d’entrée en fonction sur la page.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', FALSE, 'Les 15 membres du gouvernement De Wever, avec leur fonction exacte et leur portrait officiel.', 'Ni date de naissance ni date d’entrée en fonction sur la page. Les anciens membres ne sont pas couverts (lot 3 : Moniteur belge).'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'BE-a' AND f.label LIKE 'Premier ministre, vice-Premier ministre%' AND p.dataset_name = 'be_pep_federal_government';
+        ]]></sql>
+    </changeSet>
+
+    <changeSet id="024-parser-be-pep-chamber" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Belgique – Chambre des représentants',
+                'Les 150 membres de la Chambre des représentants, d’après leurs fiches sur dekamer.be (catégorie BE-b)',
+                'be_pep_chamber', 'PEP', 'https://www.dekamer.be',
+                'be-pep-chamber', 'D:/test parser 2/plugins/swiftcheck-aml-be-pep-chamber-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'WEB_PAGE',
+                NULL,
+                '{"listUrl": "https://www.dekamer.be/kvvcr/showpage.cfm?section=/depute&language=fr&cfm=/site/wwwcfm/depute/cvlist54.cfm", "detailUrl": "https://www.dekamer.be/kvvcr/showpage.cfm?section=/depute&language=fr&cfm=cvview54.cfm?key={key}&lactivity=56", "delayMs": "300"}',
+                168, 12,
+                'Citer la source (Chambre des représentants)', 'Chambre des représentants de Belgique, www.dekamer.be',
+                'Lit la fiche de chaque député (150 appels, environ 2 min 30). La législature (56, cvlist54) est dans les adresses : à changer après les élections de 2029.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', FALSE, 'Les 150 députés en fonction, avec circonscription, groupe, date et lieu de naissance (149 sur 150) et début de mandat (date d’entrée pour un suppléant).', 'Une fiche sans date de naissance (Carmen Ramlot). Les anciens députés ne sont pas couverts.'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'BE-b' AND f.label LIKE 'Membre de la Chambre%' AND p.dataset_name = 'be_pep_chamber';
+        ]]></sql>
+    </changeSet>
+
+    <changeSet id="024-parser-be-pep-flemish-parliament" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Belgique – Parlement flamand',
+                'Les 124 membres du Parlement flamand, d’après l’API open data du Parlement (catégorie BE-b)',
+                'be_pep_flemish_parliament', 'PEP', 'https://ws.vlpar.be/e/opendata/api',
+                'be-pep-flemish-parliament', 'D:/test parser 2/plugins/swiftcheck-aml-be-pep-flemish-parliament-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'API',
+                NULL,
+                '{"listUrl": "https://ws.vlpar.be/e/opendata/vv/huidige", "detailUrl": "https://ws.vlpar.be/e/opendata/vv/{id}", "delayMs": "200"}',
+                168, 12,
+                'Gratis Open Data Licentie Vlaanderen', 'Vlaams Parlement, ws.vlpar.be',
+                'Lit la fiche de chaque membre (124 appels, environ 1 min 40). vlaamsparlement.be refuse les clients automatiques (HTTP 403) : la source citée est la fiche de l’API.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', FALSE, 'Les 124 membres en fonction, avec date et lieu de naissance, genre, circonscription, groupe, début du mandat en cours et portrait officiel.', 'Les anciens membres ne sont pas repris (l’API les décrit aussi : à ajouter).'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'BE-b' AND f.label LIKE 'Membre du Parlement flamand%' AND p.dataset_name = 'be_pep_flemish_parliament';
+        ]]></sql>
+    </changeSet>
+
+    <changeSet id="024-parser-be-pep-walloon-parliament" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Belgique – Parlement de Wallonie',
+                'Les 75 membres du Parlement de Wallonie et son bureau, d’après l’open data du Parlement (catégorie BE-b)',
+                'be_pep_walloon_parliament', 'PEP', 'https://www.parlement-wallonie.be',
+                'be-pep-walloon-parliament', 'D:/test parser 2/plugins/swiftcheck-aml-be-pep-walloon-parliament-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'OPEN_DATA_FILE',
+                NULL,
+                '{"url": "https://www.parlement-wallonie.be/opendata/composition_dep_od.php?f=json"}',
+                168, 12,
+                'Open data du Parlement de Wallonie : citer la source', 'Parlement de Wallonie, www.parlement-wallonie.be',
+                'Le fichier donne aussi l’adresse, le téléphone, l’e-mail et les réseaux sociaux des députés : jamais repris.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', FALSE, 'Les 75 députés en fonction, avec parti, circonscription, fonction au bureau (président, vice-présidents, secrétaires) et portrait officiel.', 'Pas de date de naissance dans le fichier. Les anciens députés ne sont pas couverts.'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'BE-b' AND f.label LIKE 'Membre du Parlement de Wallonie%' AND p.dataset_name = 'be_pep_walloon_parliament';
+        ]]></sql>
+    </changeSet>
+
+    <changeSet id="024-parser-be-pep-europarl" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Belgique – Députés européens',
+                'Les députés européens élus en Belgique, en fonction et sortis depuis moins de 12 mois (catégorie BE-EU)',
+                'be_pep_europarl', 'PEP', 'https://data.europarl.europa.eu',
+                'be-pep-europarl', 'D:/test parser 2/plugins/swiftcheck-aml-be-pep-europarl-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'API',
+                NULL,
+                '{"currentUrl": "https://data.europarl.europa.eu/api/v2/meps/show-current?country-of-representation=BE&format=application%2Fld%2Bjson", "termUrl": "https://data.europarl.europa.eu/api/v2/meps?country-of-representation=BE&parliamentary-term=10&limit=500&format=application%2Fld%2Bjson", "detailUrl": "https://data.europarl.europa.eu/api/v2/meps/{id}?format=application%2Fld%2Bjson", "delayMs": "300", "monthsAfterEnd": "12"}',
+                24, 12,
+                'Réutilisation autorisée en citant la source (avis juridique du Parlement européen)', 'Parlement européen, data.europarl.europa.eu',
+                'Reprise de fr_pep_europarl. termUrl contient le numéro de législature (10) : à changer à la prochaine législature.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', TRUE, 'Les 22 députés européens élus en Belgique, avec date et lieu de naissance, dates de mandat et photo Wikimedia Commons ; les sortis depuis moins de 12 mois.', NULL
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'BE-EU' AND f.label LIKE 'Député au Parlement européen%' AND p.dataset_name = 'be_pep_europarl';
+        ]]></sql>
+    </changeSet>
+
+    <changeSet id="024-parser-be-pep-eu-commission" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Belgique – Commissaire européen',
+                'Le membre belge de la Commission européenne, d’après sa fiche officielle (catégorie BE-EU)',
+                'be_pep_eu_commission', 'PEP', 'https://commission.europa.eu/about/organisation/college-commissioners_fr',
+                'be-pep-eu-commission', 'D:/test parser 2/plugins/swiftcheck-aml-be-pep-eu-commission-0.0.1-SNAPSHOT.jar',
+                'HTTP_FILE', 'WEB_PAGE',
+                'https://commission.europa.eu/about/organisation/college-commissioners/hadja-lahbib_fr',
+                NULL,
+                168, 12,
+                'Réutilisation autorisée en citant la source (avis juridique de la Commission européenne)', 'Commission européenne, commission.europa.eu',
+                'Reprise de fr_pep_eu_commission. À chaque nouvelle Commission, remplacer l’adresse par la fiche du commissaire belge. Une fiche qui ne présente pas un commissaire belge est refusée.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', FALSE, 'Hadja Lahbib, commissaire (2024-2029) à l’égalité, à l’état de préparation et à la gestion des crises, avec son portrait officiel.', 'Ni date de naissance ni date exacte de prise de fonctions sur la fiche.'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'BE-EU' AND f.label LIKE 'Membre belge de la Commission%' AND p.dataset_name = 'be_pep_eu_commission';
+        ]]></sql>
+    </changeSet>
+
+    <changeSet id="024-parser-be-pep-rca" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Belgique – Famille des PEP (Wikidata)',
+                'Conjoints, enfants et leurs conjoints, parents des PEP belges décrits dans Wikidata (catégorie BE-RCA)',
+                'be_pep_rca', 'PEP', 'https://www.wikidata.org',
+                'be-pep-rca', 'D:/test parser 2/plugins/swiftcheck-aml-be-pep-rca-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'SPARQL',
+                NULL,
+                '{"endpoint": "https://query.wikidata.org/sparql", "yearsAfterEnd": "1", "country": "Q31", "positions": "Q13592862 Q213107 Q87885285 Q15705021 Q17619252 Q15105064 Q19351455 Q33108580 Q2746377 Q3100220 Q435627 Q2326814 Q100530029", "positionClasses": "Q83307"}',
+                168, 12,
+                'CC0 (Wikidata)', 'Wikidata, www.wikidata.org',
+                'Reprise de fr_pep_rca. Couverture partielle : seules les familles décrites dans Wikidata. Sans les frères et sœurs (loi du 18/09/2017, art. 4, 29°). Données collaboratives, à contrôler.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'PARTIAL', FALSE, 'Conjoints, enfants et leurs conjoints, parents des PEP belges décrits dans Wikidata : 74 proches de 63 PEP (sur 1 321 PEP belges trouvées).', 'Seules les familles décrites dans Wikidata ; les ministres régionaux ne sont repris que par leur ministre-président. Données collaboratives, à contrôler.'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'BE-RCA' AND f.label LIKE 'Membre de la famille%' AND p.dataset_name = 'be_pep_rca';
+        ]]></sql>
+    </changeSet>
+
+</databaseChangeLog>

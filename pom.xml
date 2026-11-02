@@ -76,6 +76,14 @@
         <module>swiftcheck-aml-plugins/pep/france/swiftcheck-aml-fr-pep-wikidata-positions</module>
         <module>swiftcheck-aml-plugins/pep/france/swiftcheck-aml-fr-pep-state-enterprises</module>
         <module>swiftcheck-aml-plugins/pep/france/swiftcheck-aml-fr-pep-local-enterprises</module>
+        <module>swiftcheck-aml-plugins/pep/belgium/swiftcheck-aml-be-pep-europarl</module>
+        <module>swiftcheck-aml-plugins/pep/belgium/swiftcheck-aml-be-pep-eu-commission</module>
+        <module>swiftcheck-aml-plugins/pep/belgium/swiftcheck-aml-be-pep-rca</module>
+        <module>swiftcheck-aml-plugins/pep/belgium/swiftcheck-aml-be-pep-chamber</module>
+        <module>swiftcheck-aml-plugins/pep/belgium/swiftcheck-aml-be-pep-flemish-parliament</module>
+        <module>swiftcheck-aml-plugins/pep/belgium/swiftcheck-aml-be-pep-walloon-parliament</module>
+        <module>swiftcheck-aml-plugins/pep/belgium/swiftcheck-aml-be-pep-king</module>
+        <module>swiftcheck-aml-plugins/pep/belgium/swiftcheck-aml-be-pep-federal-government</module>
     </modules>
 
     <dependencyManagement>

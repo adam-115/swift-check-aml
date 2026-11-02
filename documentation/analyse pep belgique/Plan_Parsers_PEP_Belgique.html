@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Plan des parsers PEP – Belgique</title>
+<style>
+  @page { size: A4 portrait; margin: 14mm 13mm 14mm 13mm; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; color: #1e293b; font-size: 10.5px; line-height: 1.45; }
+  h1 { font-size: 22px; color: #0f172a; margin-bottom: 4px; }
+  h2 { font-size: 14px; color: #0f172a; margin: 18px 0 6px; padding-bottom: 3px; border-bottom: 2px solid #2563eb; break-after: avoid; }
+  h3 { font-size: 11.5px; color: #1e3a8a; margin: 12px 0 5px; break-after: avoid; }
+  p { margin: 4px 0; }
+  .subtitle { color: #475569; font-size: 11.5px; margin-bottom: 8px; }
+  .meta { display: flex; flex-wrap: wrap; gap: 18px; color: #64748b; font-size: 9.5px; border-bottom: 1px solid #e2e8f0; padding-bottom: 8px; margin-bottom: 12px; }
+  .kpis { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin: 10px 0 6px; }
+  .kpi { border: 1px solid #e2e8f0; border-radius: 8px; padding: 8px 10px; background: #f8fafc; }
+  .kpi b { display: block; font-size: 20px; color: #1d4ed8; line-height: 1.1; }
+  .kpi span { color: #475569; font-size: 9.5px; }
+  table { width: 100%; border-collapse: collapse; margin: 5px 0 8px; font-size: 9.5px; }
+  th { background: #1e3a8a; color: #fff; text-align: left; padding: 4px 5px; font-weight: 600; }
+  td { border-bottom: 1px solid #e2e8f0; padding: 4px 5px; vertical-align: top; }
+  tr { break-inside: avoid; }
+  tr:nth-child(even) td { background: #f8fafc; }
+  code { font-family: Consolas, 'Courier New', monospace; font-size: 9px; background: #eef2ff; color: #1e3a8a; padding: 0 2px; border-radius: 3px; }
+  .cat { font-weight: 700; color: #1d4ed8; white-space: nowrap; }
+  .tag { display: inline-block; border-radius: 4px; padding: 0 4px; font-size: 8.5px; font-weight: 600; white-space: nowrap; }
+  .easy { background: #dcfce7; color: #166534; }
+  .mid { background: #fef9c3; color: #854d0e; }
+  .hard { background: #fee2e2; color: #991b1b; }
+  .none { background: #e2e8f0; color: #334155; }
+  .note { border-left: 3px solid #2563eb; background: #eff6ff; padding: 6px 9px; margin: 6px 0; border-radius: 0 6px 6px 0; }
+  .warn { border-left-color: #d97706; background: #fffbeb; }
+  ul, ol { margin: 4px 0 4px 18px; }
+  li { margin: 2px 0; }
+  .small { font-size: 9px; color: #64748b; }
+  .footer { margin-top: 14px; border-top: 1px solid #e2e8f0; padding-top: 6px; color: #94a3b8; font-size: 8.5px; }
+  .page-break { break-before: page; }
+</style>
+</head>
+<body>
+
+<h1>Plan des parsers PEP – Belgique</h1>
+<p class="subtitle">Fonctions PEP officielles de la Belgique, où trouver leurs titulaires, quels parsers implémenter et dans quel ordre,
+pour couvrir l'Annexe IV de la loi du 18 septembre 2017 et la liste de la Commission européenne, et préparer le règlement AMLR (juillet 2027).</p>
+<div class="meta"><span>SwiftCheck AML</span><span>2 novembre 2026</span><span>Référence : écran « Couverture PEP »</span>
+<span>Sources testées en direct le 02/11/2026, User-Agent générique, aucune protection contournée</span>
+<span>Complété par l'analyse externe « belgique_pep_sources_auditables_v2.xlsx » : sources reprises après vérification</span></div>
+
+<div class="kpis">
+  <div class="kpi"><b>9</b><span>catégories officielles (art. 4, 28°, a à i), plus AMLR, UE et proches</span></div>
+  <div class="kpi"><b>23</b><span>parsers à implémenter, en 3 lots</span></div>
+  <div class="kpi"><b>7</b><span>parsers repris du Luxembourg ou de la France</span></div>
+  <div class="kpi"><b>5</b><span>sujets à étudier avant de coder (dont le Moniteur belge)</span></div>
+</div>
+
+<div class="note">
+<b>En bref.</b> La Belgique est un État fédéral : un Roi, <b>six gouvernements</b> et <b>sept assemblées</b> (Chambre, Sénat, parlements
+flamand, wallon, de la Fédération Wallonie-Bruxelles, bruxellois et germanophone), en trois langues. Son Annexe IV est plus large que
+les listes française et luxembourgeoise : elle inclut <b>tous les conseillers des cours d'appel et des cours du travail</b> (et leurs
+suppléants), <b>les consuls</b>, les généraux par grade et les dirigeants des organisations internationales établies en Belgique (OTAN,
+Benelux…). Il y a peu d'open data : seuls les parlements flamand et wallon publient leurs membres en données structurées ; tout le reste est en pages web, et les nominations
+(magistrats, généraux, diplomates, entreprises publiques) passent par le <b>Moniteur belge</b>, équivalent de notre <code>fr_pep_jorf</code>.
+</div>
+
+<h2>1. Cadre légal</h2>
+<table>
+  <tr><th style="width:24%">Texte</th><th>Contenu utile</th></tr>
+  <tr><td>Loi du 18 septembre 2017 (prévention du blanchiment), art. 4, 28°</td><td>Définition de la PEP : fonctions a) à i), sans les fonctions intermédiaires ou inférieures.</td></tr>
+  <tr><td>Art. 4, 29° et 30°</td><td><b>Famille</b> : conjoint ou équivalent, enfants et leurs conjoints, parents (pas les frères et sœurs).
+  <b>Proches associés</b> : bénéficiaires effectifs conjoints d'une entité, relation d'affaires étroite, seul bénéficiaire effectif d'une entité créée pour la PEP.</td></tr>
+  <tr><td>Art. 41, § 3 et § 4</td><td>Vigilance <b>au moins 12 mois</b> après la fin des fonctions (puis selon le risque). La liste exacte des fonctions est
+  l'<b>Annexe IV</b>, plus la liste publiée par la Commission (art. 20bis, § 3, directive 2015/849 : JO C/2023/724). Le Roi met l'annexe à jour ;
+  le ministre des Affaires étrangères demande aux organisations internationales accréditées en Belgique de tenir leur propre liste.</td></tr>
+  <tr><td>Annexe IV (loi du 20/07/2020, modifiée le 27/06/2021)</td><td>Liste détaillée par catégorie, reprise au § 2 ci-dessous.</td></tr>
+  <tr><td>Règlement (UE) 2024/1624 (AMLR), 10/07/2027</td><td>Ajoute les dirigeants des collectivités régionales et locales d'au moins 50 000 habitants.</td></tr>
+</table>
+
+<h2>2. Fonctions à couvrir et sources</h2>
+<p class="small">Libellés de l'Annexe IV. Titulaires : estimations à confirmer à la première exécution (≈). « Accès » : résultat du test du 02/11/2026.</p>
+<table>
+  <tr><th style="width:7%">Cat.</th><th style="width:30%">Fonctions (Annexe IV)</th><th style="width:10%">Titulaires</th><th>Source officielle et accès</th></tr>
+  <tr><td class="cat">BE-a</td><td>Le Roi</td><td>1</td><td>monarchie.be <span class="tag easy">200</span></td></tr>
+  <tr><td class="cat">BE-a</td><td>Premier ministre, ministres-présidents, vice-Premiers ministres, ministres et secrétaires d'État (fédéral, Régions, Communautés)</td><td>≈ 50 (6 gouvernements)</td><td>belgium.be, page « composition du gouvernement » (noms et portefeuilles lus) <span class="tag easy">200</span> ; vlaanderen.be (9 ministres lus) <span class="tag easy">200</span> ;
+  premier.be <span class="tag hard">403 Access Denied</span> (non contourné) ; wallonie.be et be.brussels <span class="tag hard">délai dépassé</span> ; Moniteur belge (arrêtés de nomination)</td></tr>
+  <tr><td class="cat">BE-b</td><td>Présidents et membres de la Chambre, du Sénat (y compris cooptés) et des parlements ; présidents et membres de commissions</td><td>≈ 620 (7 assemblées, la FWB recoupe Wallonie et Bruxelles)</td><td>Chambre : liste HTML de 150 fiches <span class="tag easy">200</span> ; Parlement flamand : API open data XML et JSON, documentée (Swagger) <span class="tag easy">200</span> ;
+  <b>Parlement de Wallonie : open data JSON ou CSV des 75 députés</b> <span class="tag easy">200</span> ; PFWB, PDG <span class="tag easy">200</span> ; Sénat (site en cadres) <span class="tag mid">200</span> ; Parlement bruxellois <span class="tag hard">délai dépassé</span></td></tr>
+  <tr><td class="cat">BE-c</td><td>Direction, conseil politique, comité de direction, gestion journalière et secrétariat des partis</td><td>inconnu (≈ 12 partis × 2 langues)</td><td>Aucune liste officielle : sites et statuts des partis, Wikidata <span class="tag easy">200</span></td></tr>
+  <tr><td class="cat">BE-d</td><td>Cour de cassation (conseillers, présidents) ; <b>cours d'appel et cours du travail</b> (conseillers, présidents de chambre) ; conseillers suppléants de ces trois cours</td><td>≈ 450 + suppléants</td><td>Moniteur belge (arrêtés royaux de nomination) <span class="tag mid">200 en IPv4, connexion parfois réinitialisée</span> ; site de la Cour de cassation : <span class="tag hard">nom de domaine non résolu</span></td></tr>
+  <tr><td class="cat">BE-d</td><td>Conseil d'État : premier président, présidents, présidents de chambre, conseillers, assesseurs, auditeurs</td><td>≈ 150</td><td>raadvst-consetat.be <span class="tag easy">200</span> + Moniteur belge</td></tr>
+  <tr><td class="cat">BE-d</td><td>Juges de la Cour constitutionnelle (y compris les présidents)</td><td>12</td><td>const-court.be <span class="tag easy">200</span> (la Cour annonce aussi des API, à étudier)</td></tr>
+  <tr><td class="cat">BE-e</td><td>Gouverneur, comité de direction et Conseil de régence de la Banque nationale</td><td>≈ 20</td><td>nbb.be : une page par organe (gouverneur, comité de direction, Conseil de régence), noms lus <span class="tag easy">200</span></td></tr>
+  <tr><td class="cat">BE-e</td><td>Premier président, présidents et conseillers de la Cour des comptes</td><td>≈ 12</td><td>courdescomptes.be <span class="tag easy">200</span></td></tr>
+  <tr><td class="cat">BE-f</td><td>Ambassadeurs, <b>consuls</b> et chargés d'affaires</td><td>≈ 90 postes + consuls</td><td>diplomatie.belgium.be <span class="tag easy">200</span> + Moniteur belge</td></tr>
+  <tr><td class="cat">BE-f</td><td>Généraux et amiraux désignés par le Roi ou le ministre (lieutenant-général, général-major, général de brigade et équivalents marine)</td><td>≈ 50 à 80</td><td>mil.be <span class="tag easy">200</span> (état-major) ; nominations au Moniteur belge</td></tr>
+  <tr><td class="cat">BE-g</td><td>CEO, administrateur délégué, président, administrateurs, comité de direction et comité exécutif, <b>commissaires du gouvernement</b> des entreprises publiques</td><td>centaines</td><td>Pages de gouvernance des entreprises (Proximus, bpost, SNCB, Infrabel, skeyes…) ; portefeuille de la SFPI <span class="tag easy">200</span> ;
+  listes de mandats de la Cour des comptes <span class="tag mid">moteur de recherche en JavaScript, pas de téléchargement en masse</span> ; BCE (KBO) open data : <span class="tag mid">compte gratuit requis</span>, sans les administrateurs ;
+  service web payant de la BCE avec les mandataires (non vérifié)</td></tr>
+  <tr><td class="cat">BE-h</td><td>Directeurs, directeurs adjoints et membres du conseil des organisations internationales établies en Belgique</td><td>≈ 100</td><td>OTAN « who is who » <span class="tag easy">200</span> ; Benelux <span class="tag easy">200</span> ; Eurocontrol <span class="tag hard">Cloudflare</span> ; OMD, OACPS, SHAPE : pages à identifier</td></tr>
+  <tr><td class="cat">BE-i / BE-EU</td><td>Fonctions de la liste de la Commission : Belges dans les institutions de l'UE ; députés européens élus en Belgique ; membre belge de la Commission</td><td>22 eurodéputés + 1 commissaire + ≈ 10</td><td>API du Parlement européen, <code>meps/show-current?country-of-representation=BE</code> (22 députés belges lus) <span class="tag easy">200</span> ; la liste XML complète répond désormais <span class="tag hard">403</span> ;
+  collège des commissaires <span class="tag easy">200</span> ; EUR-Lex C/2023/724 <span class="tag mid">202, page différée</span></td></tr>
+  <tr><td class="cat">BE-AMLR</td><td>Bourgmestres, gouverneurs et présidents des collectivités de 50 000 habitants ou plus (à partir du 10/07/2027)</td><td>à calculer (Statbel)</td><td>Statbel (populations) <span class="tag easy">200</span> ; Flandre : Mandatendatabank et point SPARQL LBLOD <span class="tag easy">200</span> ; Wallonie et Bruxelles : <span class="tag hard">délai dépassé</span>, à retester</td></tr>
+  <tr><td class="cat">BE-RCA</td><td>Famille (art. 4, 29°) et proches associés (art. 4, 30°)</td><td>—</td><td>Wikidata (famille) <span class="tag easy">200</span> ; listes de mandats de la Cour des comptes (mandats privés des PEP, côté personnes morales)</td></tr>
+</table>
+
+<div class="note warn">
+<b>Sites qui ne répondent pas depuis notre poste.</b> wallonie.be, be.brussels et parlement.brussels dépassent le délai de connexion (IPv4 et IPv6).
+Le nom de domaine de la Cour de cassation ne se résout pas. Le Moniteur belge répond, mais coupe parfois la connexion. premier.be renvoie
+« Access Denied » (403). Conformément à nos règles, <b>aucune de ces protections n'est contournée</b> : il faut retester depuis le serveur de
+production, puis passer par une autre source officielle (Moniteur belge, belgium.be) si l'accès reste fermé.
+</div>
+
+<h2 class="page-break">3. Parsers à implémenter</h2>
+<p>Noms sur le modèle France et Luxembourg (<code>be_pep_…</code>), un dataset par source. Difficulté :
+<span class="tag easy">Faible</span> <span class="tag mid">Moyen</span> <span class="tag hard">Élevé</span>.</p>
+
+<h3>Lot 1 – sources ouvertes et reprises (8 parsers)</h3>
+<table>
+  <tr><th style="width:4%">#</th><th style="width:22%">Parser</th><th style="width:26%">Source</th><th>Couvre</th><th style="width:12%">Effort</th></tr>
+  <tr><td>1</td><td><code>be_pep_king</code></td><td>monarchie.be (page HTML)</td><td>BE-a : le Roi</td><td><span class="tag easy">Faible</span> sur le modèle de <code>lu_pep_grand_duke</code></td></tr>
+  <tr><td>2</td><td><code>be_pep_federal_government</code></td><td>belgium.be, page <code>…/gouvernement_federal/composition_gouvernement</code> (noms et portefeuilles)</td><td>BE-a : Premier ministre, vice-Premiers ministres, ministres, secrétaires d'État</td><td><span class="tag easy">Faible</span></td></tr>
+  <tr><td>3</td><td><code>be_pep_chamber</code></td><td>dekamer.be : liste des 150 députés et leurs fiches</td><td>BE-b : président et membres de la Chambre</td><td><span class="tag easy">Faible</span></td></tr>
+  <tr><td>4</td><td><code>be_pep_flemish_parliament</code></td><td>API open data du Parlement flamand (<code>ws.vlpar.be</code>, XML et JSON, documentée par Swagger)</td><td>BE-b : les 124 membres du Parlement flamand</td><td><span class="tag easy">Faible</span></td></tr>
+  <tr><td>5</td><td><code>be_pep_europarl</code></td><td>API du Parlement européen (<code>country-of-representation=BE</code>)</td><td>BE-EU : 22 députés européens, et anciens sur 12 mois</td><td><span class="tag easy">Faible</span> reprise de <code>fr_pep_europarl</code></td></tr>
+  <tr><td>6</td><td><code>be_pep_eu_commission</code></td><td>commission.europa.eu (collège)</td><td>BE-EU : membre belge de la Commission</td><td><span class="tag easy">Faible</span> reprise de <code>fr_pep_eu_commission</code></td></tr>
+  <tr><td>7</td><td><code>be_pep_walloon_parliament</code></td><td>Open data du Parlement de Wallonie (<code>opendata/composition_dep_od.php?f=json</code>, aussi en CSV)</td><td>BE-b : les 75 députés wallons, avec leur parti, leur circonscription et leur fonction au bureau. <b>Le champ d'adresse postale n'est pas repris.</b></td><td><span class="tag easy">Faible</span></td></tr>
+  <tr><td>8</td><td><code>be_pep_rca</code></td><td>Wikidata (SPARQL)</td><td>BE-RCA : conjoint, enfants et leurs conjoints, parents (pas les frères et sœurs, art. 4, 29°)</td><td><span class="tag easy">Faible</span> reprise de <code>lu_pep_rca</code></td></tr>
+</table>
+
+<h3>Lot 2 – pages des institutions (10 parsers)</h3>
+<table>
+  <tr><th style="width:4%">#</th><th style="width:22%">Parser</th><th style="width:26%">Source</th><th>Couvre</th><th style="width:12%">Effort</th></tr>
+  <tr><td>9</td><td><code>be_pep_regional_governments</code></td><td>Une page par gouvernement, dans un fichier de configuration (modèle <code>fr_pep_international_orgs</code>) : Flandre, Wallonie, FWB, Bruxelles, Communauté germanophone</td><td>BE-a : ministres-présidents, vice-ministres-présidents, ministres, secrétaires d'État des entités fédérées</td><td><span class="tag mid">Moyen</span> (2 sites à retester)</td></tr>
+  <tr><td>10</td><td><code>be_pep_regional_parliaments</code></td><td>PFWB, Parlement bruxellois, Parlement de la Communauté germanophone (une configuration par assemblée) ; le Parlement de Wallonie a son open data (#7)</td><td>BE-b : membres et présidents des parlements des entités fédérées</td><td><span class="tag mid">Moyen</span></td></tr>
+  <tr><td>11</td><td><code>be_pep_senate</code></td><td>senate.be (site en cadres)</td><td>BE-b : sénateurs, y compris cooptés, et présidence</td><td><span class="tag mid">Moyen</span></td></tr>
+  <tr><td>12</td><td><code>be_pep_constitutional_court</code></td><td>const-court.be (composition ; API annoncée à étudier)</td><td>BE-d : les 12 juges, dont les 2 présidents</td><td><span class="tag easy">Faible</span></td></tr>
+  <tr><td>13</td><td><code>be_pep_council_of_state</code></td><td>raadvst-consetat.be (organisation)</td><td>BE-d : premier président, présidents, conseillers, assesseurs, auditeurs</td><td><span class="tag mid">Moyen</span></td></tr>
+  <tr><td>14</td><td><code>be_pep_court_of_audit</code></td><td>courdescomptes.be (organisation)</td><td>BE-e : premier président, présidents, conseillers</td><td><span class="tag easy">Faible</span></td></tr>
+  <tr><td>15</td><td><code>be_pep_national_bank</code></td><td>nbb.be : pages <code>…/organes-de-la-banque/gouverneur</code>, <code>comite-de-direction</code>, <code>conseil-de-regence</code></td><td>BE-e : gouverneur, comité de direction, Conseil de régence</td><td><span class="tag easy">Faible</span> sur le modèle de <code>fr_pep_banque_de_france</code></td></tr>
+  <tr><td>16</td><td><code>be_pep_diplomats</code></td><td>diplomatie.belgium.be (une page par poste)</td><td>BE-f : ambassadeurs, consuls, chargés d'affaires</td><td><span class="tag mid">Moyen</span></td></tr>
+  <tr><td>17</td><td><code>be_pep_army</code></td><td>mil.be (état-major)</td><td>BE-f : chef de la Défense et généraux en fonction publiés ; les autres viennent du Moniteur (#19)</td><td><span class="tag mid">Moyen</span></td></tr>
+  <tr><td>18</td><td><code>be_pep_international_orgs</code></td><td>Une page officielle par organisation, en configuration (OTAN, Benelux, OMD, OACPS, SHAPE…)</td><td>BE-h : dirigeants des organisations internationales établies en Belgique</td><td><span class="tag mid">Moyen</span> reprise de <code>fr_pep_international_orgs</code> (aucun nom écrit en dur)</td></tr>
+</table>
+
+<h3>Lot 3 – volumineux, après étude (5 parsers)</h3>
+<table>
+  <tr><th style="width:4%">#</th><th style="width:22%">Parser</th><th style="width:26%">Source</th><th>Couvre</th><th style="width:12%">Effort</th></tr>
+  <tr><td>19</td><td><code>be_pep_moniteur</code></td><td>Moniteur belge (ejustice.just.fgov.be) : arrêtés de nomination, démission, retraite</td><td>BE-d : Cour de cassation, <b>cours d'appel, cours du travail</b>, suppléants, Conseil d'État ; BE-f : généraux, ambassadeurs, consuls ; BE-g : commissaires du gouvernement, administrateurs nommés ; BE-a : historique des gouvernements</td><td><span class="tag hard">Élevé</span> équivalent de <code>fr_pep_jorf</code> et <code>lu_pep_legilux</code></td></tr>
+  <tr><td>20</td><td><code>be_pep_public_enterprises</code></td><td>Pages de gouvernance des entreprises publiques autonomes et des participations de la SFPI, en configuration ; listes de mandats de la Cour des comptes</td><td>BE-g : conseils d'administration, comités de direction et exécutifs, commissaires du gouvernement</td><td><span class="tag hard">Élevé</span></td></tr>
+  <tr><td>21</td><td><code>be_pep_political_parties</code></td><td>Wikidata, puis statuts et pages de direction des partis</td><td>BE-c : présidents et secrétaires généraux d'abord ; bureaux et comités ensuite</td><td><span class="tag mid">Moyen</span> partiel, comme <code>fr_pep_political_parties</code></td></tr>
+  <tr><td>22</td><td><code>be_pep_local_executives</code></td><td>Statbel (populations) ; Flandre : point SPARQL LBLOD et Mandatendatabank ; Wallonie et Bruxelles : annuaires des pouvoirs locaux</td><td>BE-AMLR : bourgmestres et présidents des collectivités de 50 000 habitants ou plus (avant le 10/07/2027)</td><td><span class="tag mid">Moyen</span> sur le modèle de <code>fr_pep_local_executives</code></td></tr>
+  <tr><td>23</td><td><code>be_pep_associated_entities</code></td><td>Listes de mandats, fonctions et professions publiées par la Cour des comptes (depuis 2018)</td><td>BE-RCA : organismes dans lesquels une PEP exerce un mandat (proches associés côté personnes morales)</td><td><span class="tag hard">Élevé</span> sur le modèle de <code>lu_pep_associated_entities</code></td></tr>
+</table>
+
+<h2>4. À étudier avant de coder</h2>
+<table>
+  <tr><th style="width:26%">Sujet</th><th>Question</th><th style="width:30%">Comment trancher</th></tr>
+  <tr><td>Moniteur belge (#19)</td><td>Pas d'open data en masse trouvé : seulement la recherche en ligne et les PDF quotidiens. Les nominations sont rédigées en français et en néerlandais. Connexion parfois réinitialisée.</td><td>Étudier la recherche par date et par type d'acte, les conditions d'utilisation et un rythme lent ; tester une semaine de publications.</td></tr>
+  <tr><td>Listes de mandats de la Cour des comptes</td><td>Couvrent presque tous les mandataires publics (parlementaires, ministres, bourgmestres, administrateurs d'entreprises publiques et d'intercommunales), publiées au plus tard le 15 février de chaque année. Le moteur de recherche fonctionne en JavaScript.</td><td>Demander un export complet à la Cour des comptes (adresse donnée par l'analyse externe : info.Regimand@ccrek.be, à confirmer) ; sinon analyser les appels du moteur dans le navigateur. Vérifier la licence de réutilisation.</td></tr>
+  <tr><td>Accès Wallonie, Bruxelles, Cour de cassation</td><td>Délai dépassé ou domaine introuvable depuis notre poste.</td><td>Retester depuis le serveur ; sinon belgium.be et le Moniteur belge.</td></tr>
+  <tr><td>Liste de la Commission (JO C/2023/724, section Belgique)</td><td>EUR-Lex a différé la page (202). La section belge peut préciser ou compléter l'Annexe IV.</td><td>Lire la section dans le navigateur et la comparer à l'Annexe IV.</td></tr>
+  <tr><td>Périmètre des magistrats</td><td>Les conseillers suppléants et les cours du travail représentent plusieurs centaines de personnes, nommées sur des décennies.</td><td>Valider le périmètre avec le responsable conformité avant le lot 3.</td></tr>
+</table>
+
+<h2>5. Règles communes</h2>
+<ul>
+  <li><b>Durée</b> : garder un titulaire au moins 12 mois après la fin de ses fonctions (art. 41, § 3), paramètre <code>monthsAfterEnd</code>.</li>
+  <li><b>Langues</b> : noms et fonctions en français, néerlandais et allemand. Garder le nom tel qu'écrit et les autres langues en alias, sans traduire les noms propres.</li>
+  <li><b>Pas d'adresse personnelle</b> : quand une source en donne (l'open data du Parlement wallon contient l'adresse postale des députés), elle n'est pas reprise dans le dataset.</li>
+  <li><b>Identité</b> : garder la date de naissance quand la source la donne (rare en Belgique : Chambre, Parlement flamand à vérifier).</li>
+  <li><b>Accès</b> : User-Agent générique SwiftCheck, rythme lent, <b>aucun contournement</b> des protections (403, Cloudflare, délai) ; la source est alors signalée dans le message de l'exécution.</li>
+  <li><b>Configuration plutôt que code</b> : les pages par gouvernement, parlement, organisation ou entreprise sont dans un fichier de configuration, sans nom écrit en dur dans le code.</li>
+  <li><b>Couverture</b> : renseigner pour chaque lien fonction ↔ parser ce qui est couvert et ce qui manque (écran « Couverture PEP »).</li>
+</ul>
+
+<h2>6. Ordre proposé</h2>
+<ol>
+  <li><b>Lot 1 – parsers 1 à 8.</b> BE-a (fédéral), BE-b (Chambre, parlements flamand et wallon) et BE-EU sont couverts ; la famille l'est via Wikidata.</li>
+  <li><b>Lot 2 – parsers 9 à 18.</b> Toutes les assemblées et tous les gouvernements, les hautes juridictions sauf les cours d'appel et du travail, BE-e, BE-f en partie et BE-h.</li>
+  <li><b>Lot 3 – parsers 19 à 23</b>, après les études du § 4. Le Moniteur belge apporte les magistrats, les généraux et l'historique ; <code>be_pep_local_executives</code> doit être en production avant le 10 juillet 2027.</li>
+</ol>
+<p>Après le lot 2, il resterait BE-c (partis), BE-g (entreprises publiques) et la partie « cours d'appel, cours du travail, suppléants » de BE-d, qui dépendent du lot 3.</p>
+
+<h2>7. Sources</h2>
+<ul class="small">
+  <li>Loi du 18 septembre 2017, art. 4, 41 et Annexe IV : ejustice.just.fgov.be/eli/loi/2017/09/18/2017013368/justel</li>
+  <li>Liste de la Commission : eur-lex.europa.eu/eli/C/2023/724/oj</li>
+  <li>Chambre : dekamer.be · Sénat : senate.be · Parlement flamand : ws.vlpar.be/e/opendata (documentation : ws.vlpar.be/e/opendata/api) · Parlement de Wallonie : parlement-wallonie.be/opendata/composition_dep_od.php?f=json · PFWB : pfwb.be · PDG : pdg.be</li>
+  <li>Gouvernements : belgium.be/fr/la_belgique/pouvoirs_publics/autorites_federales/gouvernement_federal/composition_gouvernement · vlaanderen.be/vlaamse-regering · Monarchie : monarchie.be</li>
+  <li>Cour constitutionnelle : const-court.be · Conseil d'État : raadvst-consetat.be · Cour des comptes et listes de mandats : courdescomptes.be/fr/listes-de-mandats-et-declarations-de-patrimoine · BNB : nbb.be/fr/la-banque-nationale/administration-et-controle/organes-de-la-banque</li>
+  <li>Analyse externe reprise après vérification : belgique_pep_sources_auditables_v2.xlsx (sources ci-dessus ; ses liens erronés vers le Moniteur, la Cour des comptes et l'API du Parlement européen ne sont pas repris)</li>
+  <li>Affaires étrangères : diplomatie.belgium.be · Défense : mil.be · SFPI : sfpi-fpim.be · BCE open data : kbopub.economie.fgov.be/kbo-open-data</li>
+  <li>OTAN : nato.int · Benelux : benelux.int · Parlement européen : data.europarl.europa.eu · Commission : commission.europa.eu</li>
+  <li>Pouvoirs locaux flamands : mandaten.lokaalbestuur.vlaanderen.be, centrale-vindplaats.lblod.info · Populations : statbel.fgov.be</li>
+</ul>
+
+<div class="footer">SwiftCheck AML – Plan des parsers PEP Belgique – 2 novembre 2026. Estimations de titulaires indicatives, à confirmer à la première exécution de chaque parser.</div>
+</body>
+</html>

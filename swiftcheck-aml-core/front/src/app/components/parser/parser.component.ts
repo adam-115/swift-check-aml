@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AbstractControl, FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, ValidationErrors, Validators } from '@angular/forms';
-import { RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 
 import {
   Completeness, DataSourceType, ListType, ParserDTO, ParserExecutionDTO, ParserKind, ParserTestDTO, PepFunctionDTO, PluginCheck,
@@ -56,6 +56,28 @@ interface CoverageChoice {
   gaps?: string;
 }
 
+/** Colonnes triables de la liste. */
+type SortKey = 'name' | 'country' | 'lastRun' | 'persons' | 'status';
+
+export const SORT_OPTIONS: { value: SortKey; label: string }[] = [
+  { value: 'name', label: 'Nom' },
+  { value: 'country', label: 'Pays' },
+  { value: 'lastRun', label: 'Dernière exécution' },
+  { value: 'persons', label: 'Personnes publiées' },
+  { value: 'status', label: 'État (problèmes d\'abord)' },
+];
+
+const PAGE_SIZES = [20, 50, 100];
+
+/** Un pays du bandeau : ses parsers et l'état de leur dernière exécution. */
+interface CountrySummary {
+  iso: string;
+  total: number;
+  ok: number;
+  problems: number;
+  never: number;
+}
+
 /** Fonctions PEP d'une catégorie, pour les cases à cocher du formulaire. */
 interface FunctionGroup {
   code: string;
@@ -78,6 +100,7 @@ export class ParserComponent implements OnInit {
   readonly sourceTypes = SOURCE_TYPES;
   readonly parserKinds = PARSER_KINDS;
   readonly listTypes = LIST_TYPES;
+  readonly sortOptions = SORT_OPTIONS;
 
   // Liste : tous les parsers sont chargés, la recherche et la pagination se font ici
   allParsers: ParserDTO[] = [];
@@ -87,18 +110,45 @@ export class ParserComponent implements OnInit {
   totalElements = 0;
   page = 0;
   totalPages = 0;
-  readonly pageSize = 20;
+  pageSize = 20;
+  readonly pageSizes = PAGE_SIZES;
 
-  // Recherche et filtres
+  // Recherche et filtres (repris dans l'adresse de la page, voir writeUrl)
   search = '';
   filterCountry = '';
   filterListType: ListType | '' = '';
   filterEnabled: '' | 'enabled' | 'disabled' = '';
   /** Dernière exécution : un statut, NEVER (jamais exécuté) ou PROBLEM (échec ou bloquée). */
   filterLastStatus = '';
+  /** Catégorie PEP couverte (ex. FR-g). */
+  filterCategory = '';
+  /** Nature de la source (T1 à T7). */
+  filterKind: ParserKind | '' = '';
+  /** Dernier test : NEVER, PASSED ou FAILED. */
+  filterTest: '' | 'NEVER' | 'PASSED' | 'FAILED' = '';
+  /** Santé : LATE (exécution en retard sur sa fréquence) ou PLUGIN_MISSING (plugin non chargé). */
+  filterHealth: '' | 'LATE' | 'PLUGIN_MISSING' = '';
+  /** Filtres repliés sur petit écran. */
+  showFilters = false;
+
+  // Tri, regroupement par pays et lignes dépliées
+  sortKey: SortKey = 'name';
+  sortDir: 'asc' | 'desc' = 'asc';
+  groupByCountry = false;
+  /** Page affichée, regroupée par pays quand groupByCountry est coché. */
+  groups: { iso: string; label: string; parsers: ParserDTO[] }[] = [];
+  expanded = new Set<number>();
+
   /** Pays couverts par chaque parser (son pays et celui de ses fonctions), et liste des pays pour le filtre. */
   private parserCountries = new Map<number, Set<string>>();
   countryOptions: string[] = [];
+  /** Catégories PEP couvertes par chaque parser, et liste des catégories pour le filtre. */
+  private parserCategories = new Map<number, Set<string>>();
+  categoryOptions: string[] = [];
+  /** Nom des pays du référentiel (code ISO → nom). */
+  countryNames = new Map<string, string>();
+  /** Bandeau par pays : nombre de parsers, publiés, en échec ou bloqués, jamais exécutés. */
+  countrySummaries: CountrySummary[] = [];
 
   // Lot « Exécuter tout » / « Tester tout », traité un parser à la fois
   bulk?: BulkRun;
@@ -166,6 +216,8 @@ export class ParserComponent implements OnInit {
     private pluginService: PluginService,
     private yenteService: YenteService,
     private referenceService: PepReferenceService,
+    private route: ActivatedRoute,
+    private router: Router,
   ) {
     this.form = this.fb.group({
       id: [null],
@@ -199,6 +251,10 @@ export class ParserComponent implements OnInit {
 
   ngOnInit(): void {
     this.watchPluginUrl();
+    this.readUrl();
+    this.referenceService.countries().subscribe({
+      next: countries => (this.countryNames = new Map(countries.map(c => [c.iso, c.name]))),
+    });
     this.loadParsers();
     this.loadPlugins();
     this.referenceService.functions().subscribe({
@@ -234,11 +290,36 @@ export class ParserComponent implements OnInit {
    * resetPage = false garde la page courante (rechargement), sauf si elle n'existe plus.
    */
   applyFilters(resetPage = true): void {
+    if (!this.allParsers.length) {
+      // Fonctions ou plugins lus avant les parsers : garder la page et les filtres de l'adresse
+      this.filtered = [];
+      this.parsers = [];
+      this.groups = [];
+      return;
+    }
     this.computeCountries();
     const words = normalize(this.search).split(/\s+/).filter(w => w);
     this.filtered = this.allParsers.filter(p => {
       const countries = this.parserCountries.get(p.id!) ?? new Set<string>();
       if (this.filterCountry && !countries.has(this.filterCountry)) {
+        return false;
+      }
+      if (this.filterCategory && !this.parserCategories.get(p.id!)?.has(this.filterCategory)) {
+        return false;
+      }
+      if (this.filterKind && p.parserKind !== this.filterKind) {
+        return false;
+      }
+      if (this.filterTest) {
+        const ok = this.filterTest === 'NEVER' ? !p.lastTestStatus : p.lastTestStatus === this.filterTest;
+        if (!ok) {
+          return false;
+        }
+      }
+      if (this.filterHealth === 'LATE' && !this.isLate(p)) {
+        return false;
+      }
+      if (this.filterHealth === 'PLUGIN_MISSING' && !this.isPluginMissing(p)) {
         return false;
       }
       if (this.filterListType && (p.listType ?? 'PEP') !== this.filterListType) {
@@ -262,15 +343,23 @@ export class ParserComponent implements OnInit {
       }
       return true;
     });
+    this.sortFiltered();
     this.totalPages = Math.ceil(this.filtered.length / this.pageSize);
     if (resetPage || this.page >= this.totalPages) {
       this.page = 0;
     }
     this.slicePage();
+    this.writeUrl();
+  }
+
+  /** Nombre de filtres actifs (hors recherche), affiché sur le bouton « Filtres » des petits écrans. */
+  get activeFilterCount(): number {
+    return [this.filterCountry, this.filterListType, this.filterEnabled, this.filterLastStatus, this.filterCategory,
+      this.filterKind, this.filterTest, this.filterHealth].filter(f => f).length;
   }
 
   get hasFilters(): boolean {
-    return !!(this.search.trim() || this.filterCountry || this.filterListType || this.filterEnabled || this.filterLastStatus);
+    return !!this.search.trim() || this.activeFilterCount > 0;
   }
 
   clearFilters(): void {
@@ -279,38 +368,197 @@ export class ParserComponent implements OnInit {
     this.filterListType = '';
     this.filterEnabled = '';
     this.filterLastStatus = '';
+    this.filterCategory = '';
+    this.filterKind = '';
+    this.filterTest = '';
+    this.filterHealth = '';
     this.applyFilters();
+  }
+
+  /** Clic sur un pays du bandeau : filtre sur ce pays, ou retire le filtre s'il est déjà actif. */
+  selectCountry(iso: string): void {
+    this.filterCountry = this.filterCountry === iso ? '' : iso;
+    this.filterCategory = '';           // les catégories dépendent du pays
+    this.applyFilters();
+  }
+
+  /** Clic sur l'en-tête d'une colonne : trie sur elle, ou inverse l'ordre si elle est déjà triée. */
+  sortBy(key: SortKey): void {
+    if (this.sortKey === key) {
+      this.sortDir = this.sortDir === 'asc' ? 'desc' : 'asc';
+    } else {
+      this.sortKey = key;
+      this.sortDir = key === 'lastRun' || key === 'persons' ? 'desc' : 'asc';
+    }
+    this.applyFilters(false);
+  }
+
+  setPageSize(size: number): void {
+    this.pageSize = size;
+    this.applyFilters();
+  }
+
+  toggleExpanded(p: ParserDTO): void {
+    if (this.expanded.has(p.id!)) {
+      this.expanded.delete(p.id!);
+    } else {
+      this.expanded.add(p.id!);
+    }
+  }
+
+  /** Pays principal d'un parser : le sien, sinon le premier de ses fonctions. */
+  primaryCountry(p: ParserDTO): string {
+    return p.countryIso ?? [...(this.parserCountries.get(p.id!) ?? [])][0] ?? '';
+  }
+
+  countryName(iso: string): string {
+    return this.countryNames.get(iso) ?? iso;
+  }
+
+  /**
+   * En retard : parser actif et planifié dont la dernière exécution date de plus d'une fois et demie sa fréquence
+   * (marge pour une exécution lente), ou qui n'a jamais été exécuté.
+   */
+  isLate(p: ParserDTO): boolean {
+    if (!p.enabled || !p.refreshHours) {
+      return false;
+    }
+    if (!p.lastRunAt) {
+      return true;
+    }
+    return Date.now() - new Date(p.lastRunAt).getTime() > p.refreshHours * 1.5 * 3_600_000;
+  }
+
+  /** Plugin non chargé : aucun plugin démarré ne porte ce Plugin-Id (liste des plugins pas encore lue : non). */
+  isPluginMissing(p: ParserDTO): boolean {
+    return this.plugins.length > 0 && !this.plugins.some(pl => pl.pluginId === p.pluginId && pl.state === 'STARTED');
+  }
+
+  private sortFiltered(): void {
+    const rank = (p: ParserDTO) => p.lastStatus === 'FAILED' || p.lastStatus === 'BLOCKED' ? 0 : !p.lastStatus ? 1
+      : this.isLate(p) ? 2 : 3;
+    const value = (p: ParserDTO): string | number => {
+      switch (this.sortKey) {
+        case 'country': return this.primaryCountry(p) + ' ' + normalize(p.name ?? '');
+        case 'lastRun': return p.lastRunAt ? new Date(p.lastRunAt).getTime() : 0;
+        case 'persons': return p.lastPersonCount ?? 0;
+        case 'status': return rank(p);
+        default: return normalize(p.name ?? '');
+      }
+    };
+    const dir = this.sortDir === 'asc' ? 1 : -1;
+    const byKey = (a: ParserDTO, b: ParserDTO) => {
+      const va = value(a);
+      const vb = value(b);
+      return (va < vb ? -1 : va > vb ? 1 : 0) * dir || normalize(a.name ?? '').localeCompare(normalize(b.name ?? ''));
+    };
+    // Regroupé par pays : les pays d'abord, dans l'ordre alphabétique, puis le tri choisi dans chaque pays
+    this.filtered.sort(this.groupByCountry
+      ? (a, b) => this.primaryCountry(a).localeCompare(this.primaryCountry(b)) || byKey(a, b)
+      : byKey);
+  }
+
+  /** Filtres, tri et page lus dans l'adresse (/parsers?pays=FR&execution=PROBLEM…). */
+  private readUrl(): void {
+    const q = this.route.snapshot.queryParamMap;
+    this.search = q.get('q') ?? '';
+    this.filterCountry = q.get('pays') ?? '';
+    this.filterListType = (q.get('type') ?? '') as ListType | '';
+    this.filterEnabled = (q.get('etat') ?? '') as '' | 'enabled' | 'disabled';
+    this.filterLastStatus = q.get('execution') ?? '';
+    this.filterCategory = q.get('categorie') ?? '';
+    this.filterKind = (q.get('source') ?? '') as ParserKind | '';
+    this.filterTest = (q.get('test') ?? '') as '' | 'NEVER' | 'PASSED' | 'FAILED';
+    this.filterHealth = (q.get('sante') ?? '') as '' | 'LATE' | 'PLUGIN_MISSING';
+    this.sortKey = (SORT_OPTIONS.some(o => o.value === q.get('tri')) ? q.get('tri') : 'name') as SortKey;
+    this.sortDir = q.get('ordre') === 'desc' ? 'desc' : 'asc';
+    this.groupByCountry = q.get('groupe') === 'pays';
+    const size = Number(q.get('taille'));
+    this.pageSize = PAGE_SIZES.includes(size) ? size : 20;
+    this.page = Math.max(0, Number(q.get('page') ?? 1) - 1) || 0;
+  }
+
+  /** Écrit les filtres dans l'adresse, sans nouvelle entrée d'historique : un rafraîchissement ou un lien les garde. */
+  private writeUrl(): void {
+    const params: Record<string, string | null> = {
+      q: this.search.trim() || null,
+      pays: this.filterCountry || null,
+      type: this.filterListType || null,
+      etat: this.filterEnabled || null,
+      execution: this.filterLastStatus || null,
+      categorie: this.filterCategory || null,
+      source: this.filterKind || null,
+      test: this.filterTest || null,
+      sante: this.filterHealth || null,
+      tri: this.sortKey !== 'name' ? this.sortKey : null,
+      ordre: this.sortDir === 'desc' ? 'desc' : null,
+      groupe: this.groupByCountry ? 'pays' : null,
+      taille: this.pageSize !== 20 ? String(this.pageSize) : null,
+      page: this.page > 0 ? String(this.page + 1) : null,
+    };
+    this.router.navigate([], { relativeTo: this.route, queryParams: params, replaceUrl: true });
   }
 
   /** Un parser couvre son pays et celui de chacune de ses fonctions PEP (un parser UE en couvre plusieurs). */
   private computeCountries(): void {
-    const functionCountry = new Map(this.allFunctions.map(f => [f.id, f.countryIso]));
+    const functionById = new Map(this.allFunctions.map(f => [f.id, f]));
     this.parserCountries.clear();
+    this.parserCategories.clear();
     for (const p of this.allParsers) {
-      const set = new Set<string>();
+      const countries = new Set<string>();
+      const categories = new Set<string>();
       if (p.countryIso) {
-        set.add(p.countryIso);
+        countries.add(p.countryIso);
       }
       for (const c of p.coverage ?? []) {
-        const iso = functionCountry.get(c.functionId);
-        if (iso) {
-          set.add(iso);
+        const f = functionById.get(c.functionId);
+        if (f) {
+          countries.add(f.countryIso);
+          categories.add(f.categoryCode);
         }
       }
-      this.parserCountries.set(p.id!, set);
+      this.parserCountries.set(p.id!, countries);
+      this.parserCategories.set(p.id!, categories);
     }
     this.countryOptions = [...new Set([...this.parserCountries.values()].flatMap(s => [...s]))].sort();
+    // Catégories du pays filtré (toutes sans filtre pays), dans l'ordre des codes
+    this.categoryOptions = [...new Set(this.allFunctions
+      .filter(f => !this.filterCountry || f.countryIso === this.filterCountry)
+      .filter(f => this.allParsers.some(p => this.parserCategories.get(p.id!)?.has(f.categoryCode)))
+      .map(f => f.categoryCode))].sort((a, b) => a.localeCompare(b, undefined, { numeric: true }));
+    this.countrySummaries = this.countryOptions.map(iso => {
+      const ofCountry = this.allParsers.filter(p => this.parserCountries.get(p.id!)?.has(iso));
+      return {
+        iso,
+        total: ofCountry.length,
+        ok: ofCountry.filter(p => p.lastStatus === 'SUCCESS' || p.lastStatus === 'UNCHANGED').length,
+        problems: ofCountry.filter(p => p.lastStatus === 'FAILED' || p.lastStatus === 'BLOCKED').length,
+        never: ofCountry.filter(p => !p.lastStatus).length,
+      };
+    });
   }
 
   private slicePage(): void {
     const start = this.page * this.pageSize;
     this.parsers = this.filtered.slice(start, start + this.pageSize);
+    // Regroupement par pays de la page affichée (les parsers sont déjà triés par pays)
+    this.groups = [];
+    for (const p of this.parsers) {
+      const iso = this.groupByCountry ? this.primaryCountry(p) : '';
+      let group = this.groups[this.groups.length - 1];
+      if (!group || group.iso !== iso) {
+        group = { iso, label: iso ? this.countryName(iso) : 'Sans pays', parsers: [] };
+        this.groups.push(group);
+      }
+      group.parsers.push(p);
+    }
   }
 
   changePage(page: number): void {
     if (page >= 0 && page < this.totalPages) {
       this.page = page;
       this.slicePage();
+      this.writeUrl();
     }
   }
 
@@ -416,6 +664,11 @@ export class ParserComponent implements OnInit {
 
   sourceLabel(type?: DataSourceType): string {
     return SOURCE_TYPES.find(t => t.value === type)?.label ?? '—';
+  }
+
+  /** Nature de la source (« T2 – API REST ou OData »), vide si elle n'est pas renseignée. */
+  kindLabel(kind?: ParserKind): string {
+    return PARSER_KINDS.find(k => k.value === kind)?.label ?? '';
   }
 
   // ---------------------------------------------------------------- exécution
@@ -760,7 +1013,10 @@ export class ParserComponent implements OnInit {
 
   loadPlugins(): void {
     this.pluginService.list().subscribe({
-      next: plugins => (this.plugins = plugins),
+      next: plugins => {
+        this.plugins = plugins;
+        this.applyFilters(false);       // filtre « plugin non chargé »
+      },
       error: err => (this.pluginError = apiError(err)),
     });
   }

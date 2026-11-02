@@ -25,6 +25,8 @@
         020 : fr_pep_jorf couvre aussi les dirigeants des grands ports maritimes (FR-g, sélection version 3).
         021 : détail de couverture (ce que couvre chaque parser, ce qui manque) sur pep_function_parser, rempli pour la France.
         022 : détail de couverture du Luxembourg.
+        023 : référentiel PEP de la Belgique (catégories BE-a à BE-h, BE-AMLR, BE-EU, BE-RCA ; Annexe IV de la loi du 18/09/2017).
+        024 : lot 1 des parsers PEP de la Belgique (Roi, gouvernement fédéral, Chambre, parlements flamand et wallon, UE, famille).
     -->
     <include file="db/changelog/changes/001-schema.xml" />
     <include file="db/changelog/changes/002-pep-reference-data.xml" />
@@ -48,5 +50,7 @@
     <include file="db/changelog/changes/020-fr-pep-jorf-ports.xml" />
     <include file="db/changelog/changes/021-coverage-detail.xml" />
     <include file="db/changelog/changes/022-coverage-detail-lu.xml" />
+    <include file="db/changelog/changes/023-be-pep-reference-data.xml" />
+    <include file="db/changelog/changes/024-be-parsers-lot1.xml" />
 
 </databaseChangeLog>

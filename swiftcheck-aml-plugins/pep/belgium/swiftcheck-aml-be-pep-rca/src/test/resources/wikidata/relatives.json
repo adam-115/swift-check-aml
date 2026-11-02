@@ -1,0 +1,277 @@
+{
+ "head": {
+  "vars": [
+   "pep",
+   "relationship",
+   "relative",
+   "relativeLabel",
+   "relativeBirth",
+   "birthPrecision",
+   "relativeGender"
+  ]
+ },
+ "results": {
+  "bindings": [
+   {
+    "pep": {
+     "type": "uri",
+     "value": "http://www.wikidata.org/entity/Q1360173"
+    },
+    "relative": {
+     "type": "uri",
+     "value": "http://www.wikidata.org/entity/Q47125114"
+    },
+    "relationship": {
+     "type": "literal",
+     "value": "spouse"
+    },
+    "relativeGender": {
+     "type": "uri",
+     "value": "http://www.wikidata.org/entity/Q6581072"
+    },
+    "relativeLabel": {
+     "xml:lang": "fr",
+     "type": "literal",
+     "value": "Brigitte Longuet"
+    }
+   },
+   {
+    "pep": {
+     "type": "uri",
+     "value": "http://www.wikidata.org/entity/Q2965163"
+    },
+    "relative": {
+     "type": "uri",
+     "value": "http://www.wikidata.org/entity/Q78461287"
+    },
+    "relationship": {
+     "type": "literal",
+     "value": "mother"
+    },
+    "relativeGender": {
+     "type": "uri",
+     "value": "http://www.wikidata.org/entity/Q6581072"
+    },
+    "relativeLabel": {
+     "xml:lang": "en",
+     "type": "literal",
+     "value": "Simone Cointat"
+    }
+   },
+   {
+    "pep": {
+     "type": "uri",
+     "value": "http://www.wikidata.org/entity/Q30335340"
+    },
+    "relative": {
+     "type": "uri",
+     "value": "http://www.wikidata.org/entity/Q98828566"
+    },
+    "relationship": {
+     "type": "literal",
+     "value": "father"
+    },
+    "relativeGender": {
+     "type": "uri",
+     "value": "http://www.wikidata.org/entity/Q6581097"
+    },
+    "relativeLabel": {
+     "xml:lang": "fr",
+     "type": "literal",
+     "value": "Martin Edzodzomo-Ela"
+    }
+   },
+   {
+    "pep": {
+     "type": "uri",
+     "value": "http://www.wikidata.org/entity/Q1237205"
+    },
+    "relative": {
+     "type": "uri",
+     "value": "http://www.wikidata.org/entity/Q116766630"
+    },
+    "relationship": {
+     "type": "literal",
+     "value": "partner"
+    },
+    "relativeGender": {
+     "type": "uri",
+     "value": "http://www.wikidata.org/entity/Q6581072"
+    },
+    "relativeLabel": {
+     "xml:lang": "fr",
+     "type": "literal",
+     "value": "Delphine Marang-Alexandre"
+    }
+   },
+   {
+    "pep": {
+     "type": "uri",
+     "value": "http://www.wikidata.org/entity/Q1237205"
+    },
+    "relative": {
+     "type": "uri",
+     "value": "http://www.wikidata.org/entity/Q117286794"
+    },
+    "relationship": {
+     "type": "literal",
+     "value": "child"
+    },
+    "relativeGender": {
+     "type": "uri",
+     "value": "http://www.wikidata.org/entity/Q6581072"
+    },
+    "relativeLabel": {
+     "xml:lang": "en",
+     "type": "literal",
+     "value": "Juliette Lambron"
+    }
+   },
+   {
+    "pep": {
+     "type": "uri",
+     "value": "http://www.wikidata.org/entity/Q1237205"
+    },
+    "relative": {
+     "type": "uri",
+     "value": "http://www.wikidata.org/entity/Q130259250"
+    },
+    "relationship": {
+     "type": "literal",
+     "value": "mother"
+    },
+    "relativeGender": {
+     "type": "uri",
+     "value": "http://www.wikidata.org/entity/Q6581072"
+    },
+    "relativeLabel": {
+     "xml:lang": "en",
+     "type": "literal",
+     "value": "Jacqueline Lambron"
+    }
+   },
+   {
+    "pep": {
+     "type": "uri",
+     "value": "http://www.wikidata.org/entity/Q1237205"
+    },
+    "relative": {
+     "type": "uri",
+     "value": "http://www.wikidata.org/entity/Q130259286"
+    },
+    "relationship": {
+     "type": "literal",
+     "value": "father"
+    },
+    "relativeGender": {
+     "type": "uri",
+     "value": "http://www.wikidata.org/entity/Q6581097"
+    },
+    "relativeLabel": {
+     "xml:lang": "en",
+     "type": "literal",
+     "value": "Paul Lambron"
+    }
+   },
+   {
+    "pep": {
+     "type": "uri",
+     "value": "http://www.wikidata.org/entity/Q3142662"
+    },
+    "relative": {
+     "type": "uri",
+     "value": "http://www.wikidata.org/entity/Q38206639"
+    },
+    "relationship": {
+     "type": "literal",
+     "value": "child"
+    },
+    "relativeGender": {
+     "type": "uri",
+     "value": "http://www.wikidata.org/entity/Q6581072"
+    },
+    "relativeLabel": {
+     "xml:lang": "fr",
+     "type": "literal",
+     "value": "Florence Portelli"
+    },
+    "relativeBirth": {
+     "datatype": "http://www.w3.org/2001/XMLSchema#dateTime",
+     "type": "literal",
+     "value": "1978-03-23T00:00:00Z"
+    },
+    "birthPrecision": {
+     "datatype": "http://www.w3.org/2001/XMLSchema#integer",
+     "type": "literal",
+     "value": "11"
+    }
+   },
+   {
+    "pep": {
+     "type": "uri",
+     "value": "http://www.wikidata.org/entity/Q3142662"
+    },
+    "relative": {
+     "type": "uri",
+     "value": "http://www.wikidata.org/entity/Q52832803"
+    },
+    "relationship": {
+     "type": "literal",
+     "value": "childSpouse"
+    },
+    "relativeGender": {
+     "type": "uri",
+     "value": "http://www.wikidata.org/entity/Q6581097"
+    },
+    "relativeLabel": {
+     "xml:lang": "fr",
+     "type": "literal",
+     "value": "Juanjo Mosalini"
+    },
+    "relativeBirth": {
+     "datatype": "http://www.w3.org/2001/XMLSchema#dateTime",
+     "type": "literal",
+     "value": "1972-04-29T00:00:00Z"
+    },
+    "birthPrecision": {
+     "datatype": "http://www.w3.org/2001/XMLSchema#integer",
+     "type": "literal",
+     "value": "11"
+    }
+   },
+   {
+    "pep": {
+     "type": "uri",
+     "value": "http://www.wikidata.org/entity/Q1237205"
+    },
+    "relative": {
+     "type": "uri",
+     "value": "http://www.wikidata.org/entity/Q116766773"
+    },
+    "relationship": {
+     "type": "literal",
+     "value": "spouse"
+    },
+    "relativeGender": {
+     "type": "uri",
+     "value": "http://www.wikidata.org/entity/Q6581072"
+    },
+    "relativeLabel": {
+     "xml:lang": "fr",
+     "type": "literal",
+     "value": "Sophie Missoffe"
+    },
+    "relativeBirth": {
+     "datatype": "http://www.w3.org/2001/XMLSchema#dateTime",
+     "type": "literal",
+     "value": "1958-01-01T00:00:00Z"
+    },
+    "birthPrecision": {
+     "datatype": "http://www.w3.org/2001/XMLSchema#integer",
+     "type": "literal",
+     "value": "9"
+    }
+   }
+  ]
+ }
+}

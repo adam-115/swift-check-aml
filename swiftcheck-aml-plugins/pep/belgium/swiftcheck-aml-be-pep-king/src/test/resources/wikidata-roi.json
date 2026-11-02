@@ -1,0 +1,37 @@
+{
+  "head" : {
+    "vars" : [ "king", "kingLabel", "birth", "birthPlaceLabel", "start", "image" ]
+  },
+  "results" : {
+    "bindings" : [ {
+      "king" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q155004"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2013-07-21T00:00:00Z"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1960-04-15T00:00:00Z"
+      },
+      "image" : {
+        "type" : "uri",
+        "value" : "http://commons.wikimedia.org/wiki/Special:FilePath/Visit%20of%20King%20Philippe%20I%20of%20Belgium%20to%20Ghent%20European%20Youth%20Capital%20on%2025%20April%202024%20-%20EU2024BE%20240425%20Visit%20of%20His%20Majesty%20the%20King%20to%20Ghent%20European%20Youth%20Capital%20Ghent%20JNZT%200078%20%2853677952391%29.jpg"
+      },
+      "kingLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Philippe de Belgique"
+      },
+      "birthPlaceLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Laeken"
+      }
+    } ]
+  }
+}
