@@ -72,7 +72,7 @@ class PepMediaServiceTest {
     void officialPhotoComesBeforeTheOneRetainedByAnAnalyst() {
         row("fr-an-1", "fr_pep_national_assembly", PepMedia.WEB_VALIDATED);
         PepMedia official = row("fr-an-1", "fr_pep_national_assembly", PepMedia.OFFICIAL);
-        assertEquals(official, service.lookup("fr-an-1").orElseThrow());
+        assertEquals(List.of(official, rows.get(0)), service.lookup("fr-an-1"), "officielle en premier, retenue ensuite");
     }
 
     @Test
@@ -83,7 +83,7 @@ class PepMediaServiceTest {
         Path file = archive.resolve("w.jpg");
         Files.write(file, new byte[] { 1 });
         retained.setArchivePath(file.toString());
-        assertEquals(retained, service.lookup("fr-an-2").orElseThrow());
+        assertEquals(retained, service.lookup("fr-an-2").get(0));
     }
 
     @Test

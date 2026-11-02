@@ -33,10 +33,10 @@ export class PepMediaService {
 
   constructor(private http: HttpClient) {}
 
-  /** Photo de l'entité, publiée par son dataset ; null s'il n'y en a pas. */
-  lookup(entityId: string): Observable<PepPhoto | null> {
-    return this.http.get<PepPhoto>(`${this.apiUrl}/lookup`, { params: { entityId }, observe: 'response' })
-      .pipe(map(res => res.status === 204 ? null : res.body));
+  /** Photos de l'entité, publiées par son dataset : la principale (l'officielle) en premier ; liste vide sinon. */
+  lookup(entityId: string): Observable<PepPhoto[]> {
+    return this.http.get<PepPhoto[]>(`${this.apiUrl}/lookup`, { params: { entityId } })
+      .pipe(map(photos => photos || []));
   }
 
   /** Fichier de la photo, servi par SwiftCheck (requête authentifiée, d'où le blob). */

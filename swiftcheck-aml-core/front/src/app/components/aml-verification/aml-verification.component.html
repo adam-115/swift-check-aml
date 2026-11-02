@@ -568,13 +568,14 @@
 
               <div class="flex items-start gap-3 min-w-0">
 
-              <!-- Photo du PEP : officielle, réutilisée d'un autre dataset, ou retenue par un analyste -->
+              <!-- Photos du PEP : la principale en haut (l'officielle), les photos retenues sur internet dessous -->
               <div *ngIf="photos[match.id] as ph" class="shrink-0 w-20 text-center">
                 <div class="w-20 h-24 rounded-lg overflow-hidden border bg-slate-50 flex items-center justify-center"
                   [ngClass]="ph.photo?.origin === 'WEB_VALIDATED' ? 'border-amber-400 border-2' : 'border-slate-200'">
                   <i *ngIf="ph.state === 'loading'" class="fas fa-spinner fa-spin text-slate-300"></i>
                   <img *ngIf="ph.state === 'found'" [src]="ph.objectUrl" [alt]="'Photo de ' + (match.caption || match.id)"
-                    class="w-full h-full object-cover">
+                    (click)="zoomPhoto(match, ph.objectUrl, ph.photo)" title="Agrandir"
+                    class="w-full h-full object-cover cursor-zoom-in">
                   <i *ngIf="ph.state === 'none' || ph.state === 'error'" class="fas fa-user text-3xl text-slate-200"></i>
                 </div>
                 <ng-container *ngIf="ph.state === 'found' && ph.photo as p">
@@ -590,15 +591,28 @@
                   <a *ngIf="p.pageUrl" [href]="p.pageUrl" target="_blank" rel="noopener noreferrer"
                     class="text-[9px] text-blue-500 hover:underline">source</a>
                 </ng-container>
-                <ng-container *ngIf="ph.state === 'none' || ph.state === 'error'">
-                  <p class="mt-1 text-[9px] leading-tight text-slate-400">
-                    {{ ph.state === 'none' ? 'Pas de photo officielle' : 'Photo indisponible' }}
-                  </p>
-                  <button *ngIf="!webSearches[match.id]" type="button" (click)="searchWebPhotos(match)"
-                    class="mt-1 text-[9px] font-bold text-amber-700 hover:text-amber-900 hover:underline cursor-pointer">
-                    <i class="fas fa-magnifying-glass"></i> Rechercher sur internet
-                  </button>
-                </ng-container>
+                <p *ngIf="ph.state === 'none' || ph.state === 'error'" class="mt-1 text-[9px] leading-tight text-slate-400">
+                  {{ ph.state === 'none' ? 'Pas de photo officielle' : 'Photo indisponible' }}
+                </p>
+                <!-- Autres photos (retenues sur internet) : vignettes, agrandies au clic -->
+                <div *ngIf="ph.others.length" class="mt-1.5 pt-1.5 border-t border-slate-100">
+                  <p class="text-[8px] uppercase tracking-wide text-slate-400 font-bold">Autres photos</p>
+                  <div class="mt-1 flex flex-wrap justify-center gap-1">
+                    <button *ngFor="let o of ph.others" type="button" (click)="zoomPhoto(match, o.objectUrl, o.photo)"
+                      class="w-9 h-11 rounded overflow-hidden border-2 border-amber-400 bg-slate-50 flex items-center justify-center cursor-zoom-in"
+                      [title]="'Internet, retenue par ' + o.photo.validatedBy + ' : agrandir'">
+                      <img *ngIf="o.objectUrl" [src]="o.objectUrl" alt="Autre photo" class="w-full h-full object-cover">
+                      <i *ngIf="!o.objectUrl && !o.failed" class="fas fa-spinner fa-spin text-[9px] text-slate-300"></i>
+                      <i *ngIf="o.failed" class="fas fa-user text-slate-200"></i>
+                    </button>
+                  </div>
+                </div>
+                <!-- Toujours proposée : même avec une photo officielle, l'analyste peut chercher une photo plus récente -->
+                <button *ngIf="ph.state !== 'loading' && !webSearches[match.id]" type="button" (click)="searchWebPhotos(match)"
+                  class="mt-1 text-[9px] font-bold text-amber-700 hover:text-amber-900 hover:underline cursor-pointer">
+                  <i class="fas fa-magnifying-glass"></i>
+                  {{ ph.state === 'found' ? 'Chercher d\'autres photos' : 'Rechercher sur internet' }}
+                </button>
               </div>
 
               <!-- Identité de l'entité trouvée -->
@@ -799,4 +813,26 @@
 
   </div>
 
+</div>
+<!-- Photo agrandie : clic sur le fond, sur la croix ou touche Échap pour fermer -->
+<div *ngIf="zoomedPhoto as z" class="fixed inset-0 z-50 bg-slate-900/80 flex items-center justify-center p-4"
+  (click)="closeZoom()" role="dialog" aria-modal="true"
+  [attr.aria-label]="'Photo de ' + z.caption">
+  <div class="relative bg-white rounded-xl shadow-2xl max-w-3xl w-full p-3" (click)="$event.stopPropagation()">
+    <button type="button" (click)="closeZoom()" title="Fermer"
+      class="absolute top-2 right-2 w-8 h-8 rounded-full bg-white/90 text-slate-600 hover:text-slate-900 shadow flex items-center justify-center">
+      <i class="fas fa-xmark"></i>
+    </button>
+    <img [src]="z.objectUrl" [alt]="'Photo de ' + z.caption" class="w-full max-h-[75vh] object-contain rounded-lg bg-slate-50">
+    <div class="mt-2 flex flex-wrap items-center justify-between gap-2 text-xs">
+      <span class="font-bold text-slate-800">{{ z.caption }}</span>
+      <span *ngIf="z.photo.origin === 'WEB_VALIDATED'"
+        class="font-bold text-amber-700 bg-amber-50 border border-amber-200 rounded px-2 py-0.5">
+        <i class="fas fa-triangle-exclamation"></i> Internet, retenue par {{ z.photo.validatedBy }} : droits non vérifiés
+      </span>
+      <span *ngIf="z.photo.origin === 'OFFICIAL'" class="text-slate-500">{{ z.photo.licence || 'Source officielle' }}</span>
+      <a *ngIf="z.photo.pageUrl" [href]="z.photo.pageUrl" target="_blank" rel="noopener noreferrer"
+        class="text-blue-600 hover:underline">Voir la page source</a>
+    </div>
+  </div>
 </div>

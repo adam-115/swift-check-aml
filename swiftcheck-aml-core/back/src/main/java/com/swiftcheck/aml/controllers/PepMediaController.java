@@ -66,11 +66,13 @@ public class PepMediaController {
     public record ValidateRequest(String entityId, String dataset, String imageUrl, String pageUrl) {
     }
 
-    /** Photo d'une entité ; 204 s'il n'y en a pas (l'écran propose alors la recherche sur internet). */
+    /**
+     * Photos d'une entité, la principale en premier (l'officielle, sinon celle retenue par un analyste) ; liste vide
+     * s'il n'y en a pas (l'écran propose alors la recherche sur internet).
+     */
     @GetMapping("/lookup")
-    public ResponseEntity<PhotoDTO> lookup(@RequestParam String entityId) {
-        return media.lookup(entityId).map(m -> ResponseEntity.ok(PhotoDTO.of(m)))
-                .orElse(ResponseEntity.noContent().build());
+    public List<PhotoDTO> lookup(@RequestParam String entityId) {
+        return media.lookup(entityId).stream().map(PhotoDTO::of).toList();
     }
 
     /** Le fichier de la photo, servi par SwiftCheck : le navigateur de l'analyste n'appelle aucun site extérieur. */

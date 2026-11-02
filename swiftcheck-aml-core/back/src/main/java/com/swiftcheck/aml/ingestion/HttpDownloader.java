@@ -1,12 +1,16 @@
 package com.swiftcheck.aml.ingestion;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
 import java.time.Duration;
+import java.util.zip.GZIPInputStream;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -101,7 +105,9 @@ public class HttpDownloader {
                 .header("User-Agent", BROWSER_USER_AGENT)
                 .header("Accept", acceptHeader(url, webPage))
                 .header("Accept-Language", "fr-FR,fr;q=0.9,en-US;q=0.8,en;q=0.7")
-                .header("Accept-Encoding", "identity");   // fichier brut, non compressé : l'empreinte SHA-256 porte sur le vrai contenu
+                // Pour une page web, certains WAF bloquent "Accept-Encoding: identity" combiné à un User-Agent Chrome ;
+                // on accepte alors gzip et on décompresse à la réception pour que le fichier archivé reste en clair.
+                .header("Accept-Encoding", webPage ? "gzip" : "identity");
         if (webPage) {
             builder.header("Upgrade-Insecure-Requests", "1")
                     .header("Sec-Fetch-Dest", "document")
@@ -117,7 +123,7 @@ public class HttpDownloader {
         IOException lastError = null;
         for (int attempt = 1; attempt <= MAX_ATTEMPTS; attempt++) {
             try {
-                HttpResponse<Path> response = client.send(request, HttpResponse.BodyHandlers.ofFile(target));
+                HttpResponse<InputStream> response = client.send(request, HttpResponse.BodyHandlers.ofInputStream());
                 int status = response.statusCode();
                 if (status == 200) {
                     // Une page HTML à la place du fichier (page d'erreur ou de connexion) : inutile de réessayer
@@ -125,10 +131,17 @@ public class HttpDownloader {
                     // (ex. gouvernement.lu/fr/gouvernement.html ou parser WEB_PAGE) : le HTML est alors le fichier attendu.
                     String type = response.headers().firstValue("Content-Type").orElse("");
                     if (type.toLowerCase().startsWith("text/html") && !webPage) {
+                        response.body().close();
                         throw new IOException("Le serveur renvoie une page HTML au lieu du fichier : " + response.uri());
+                    }
+                    String encoding = response.headers().firstValue("Content-Encoding").orElse("");
+                    try (InputStream raw = response.body();
+                         InputStream in = "gzip".equalsIgnoreCase(encoding.trim()) ? new GZIPInputStream(raw) : raw) {
+                        Files.copy(in, target, StandardCopyOption.REPLACE_EXISTING);
                     }
                     return;
                 }
+                response.body().close();
                 if (status >= 400 && status < 500) {
                     throw new IOException("Le serveur a refusé le téléchargement (HTTP " + status + ") : " + url);
                 }

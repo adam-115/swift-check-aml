@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { AmlVerificationService, AmlVerificationRequest } from '../../services/aml-verification.service';
@@ -8,11 +8,22 @@ import Swal from 'sweetalert2';
 import { AdverseMediaService, AdverseMediaResult } from '../../services/adverse-media.service';
 import { PepMediaService, PepPhoto, PhotoCandidate } from '../../services/pep-media.service';
 
-/** Photo d'une correspondance : chargement, photo affichée, ou absence. */
+/** Une photo chargée : ses informations et son fichier (adresse objet, la requête étant authentifiée). */
+interface LoadedPhoto {
+  photo: PepPhoto;
+  objectUrl?: string;
+  failed?: boolean;
+}
+
+/**
+ * Photos d'une correspondance : la principale en haut (l'officielle), les autres en dessous (retenues sur internet,
+ * jamais à la place de l'officielle).
+ */
 interface MatchPhoto {
   state: 'loading' | 'found' | 'none' | 'error';
   photo?: PepPhoto;
   objectUrl?: string;
+  others: LoadedPhoto[];
 }
 
 /** Recherche de photos sur internet pour une correspondance, lancée par l'analyste. */
@@ -85,6 +96,8 @@ export class AmlVerificationComponent implements OnInit {
   photos: { [entityId: string]: MatchPhoto } = {};
   /** Recherches de photos sur internet en cours ou terminées, par ID d'entité. */
   webSearches: { [entityId: string]: WebPhotoSearch } = {};
+  /** Photo affichée en grand dans la fenêtre d'agrandissement, ou null. */
+  zoomedPhoto: { objectUrl: string; photo: PepPhoto; caption: string } | null = null;
   private objectUrls: string[] = [];
 
   quickExamples = [
@@ -315,23 +328,47 @@ export class AmlVerificationComponent implements OnInit {
     return datasets.find(d => d.includes('pep')) || datasets[0] || '';
   }
 
-  /** Photo de chaque correspondance PEP, publiée par son propre dataset. */
+  /** Photos de chaque correspondance PEP, publiées par son propre dataset. */
   private loadPhotos(matches: any[]): void {
     this.clearPhotos();
-    matches.filter(m => this.isPep(m)).forEach(m => {
-      this.photos[m.id] = { state: 'loading' };
-      this.pepMediaService.lookup(m.id).subscribe({
-        next: photo => photo ? this.showPhoto(m.id, photo) : this.photos[m.id] = { state: 'none' },
-        error: () => this.photos[m.id] = { state: 'error' }
-      });
+    matches.filter(m => this.isPep(m)).forEach(m => this.reloadPhotos(m.id));
+  }
+
+  /** Charge les photos d'une entité : la première en haut, les suivantes en vignettes dessous. */
+  private reloadPhotos(entityId: string): void {
+    this.photos[entityId] = { state: 'loading', others: [] };
+    this.pepMediaService.lookup(entityId).subscribe({
+      next: photos => {
+        if (photos.length === 0) {
+          this.photos[entityId] = { state: 'none', others: [] };
+          return;
+        }
+        const others: LoadedPhoto[] = photos.slice(1).map(photo => ({ photo }));
+        const entry: MatchPhoto = { state: 'loading', photo: photos[0], others };
+        this.photos[entityId] = entry;
+        this.pepMediaService.file(photos[0].id).subscribe({
+          next: blob => { entry.objectUrl = this.objectUrl(blob); entry.state = 'found'; },
+          error: () => entry.state = 'error'
+        });
+        others.forEach(o => this.pepMediaService.file(o.photo.id).subscribe({
+          next: blob => o.objectUrl = this.objectUrl(blob),
+          error: () => o.failed = true
+        }));
+      },
+      error: () => this.photos[entityId] = { state: 'error', others: [] }
     });
   }
 
-  private showPhoto(entityId: string, photo: PepPhoto): void {
-    this.pepMediaService.file(photo.id).subscribe({
-      next: blob => this.photos[entityId] = { state: 'found', photo, objectUrl: this.objectUrl(blob) },
-      error: () => this.photos[entityId] = { state: 'error' }
-    });
+  /** Ouvre la photo en grand, avec sa mention et sa source. */
+  zoomPhoto(match: any, objectUrl: string | undefined, photo: PepPhoto | undefined): void {
+    if (objectUrl && photo) {
+      this.zoomedPhoto = { objectUrl, photo, caption: match.caption || match.id };
+    }
+  }
+
+  @HostListener('document:keydown.escape')
+  closeZoom(): void {
+    this.zoomedPhoto = null;
   }
 
   /** Recherche à la demande de l'analyste : rien n'est enregistré tant qu'il ne retient pas une photo. */
@@ -380,9 +417,9 @@ export class AmlVerificationComponent implements OnInit {
         search.saving = candidate.imageUrl;
       }
       this.pepMediaService.validate(match.id, this.datasetOf(match), candidate.imageUrl, candidate.pageUrl).subscribe({
-        next: photo => {
+        next: () => {
           delete this.webSearches[match.id];
-          this.showPhoto(match.id, photo);
+          this.reloadPhotos(match.id);      // l'officielle reste en haut, la photo retenue s'ajoute dessous
         },
         error: () => {
           if (search) {
@@ -405,6 +442,7 @@ export class AmlVerificationComponent implements OnInit {
     this.objectUrls = [];
     this.photos = {};
     this.webSearches = {};
+    this.zoomedPhoto = null;
   }
 
   private escape(s: string): string {

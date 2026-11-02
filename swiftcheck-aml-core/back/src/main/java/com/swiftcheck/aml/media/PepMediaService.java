@@ -36,7 +36,7 @@ import com.swiftcheck.aml.repositories.PepMediaRepository;
  *       plugin ({@code <dataset>.media.ndjson}) sont téléchargées, signées (SHA-256), archivées et rangées dans
  *       {@code pep_media}. Elles remplacent celles de la publication précédente du dataset ; une photo déjà
  *       téléchargée (même personne, même adresse) n'est pas retéléchargée.</li>
- *   <li><b>Photo d'une personne</b> ({@link #lookup}) : celle de son entité, officielle d'abord.</li>
+ *   <li><b>Photos d'une personne</b> ({@link #lookup}) : celles de son entité, l'officielle en premier.</li>
  *   <li><b>Photo trouvée sur internet</b> ({@link #validateWebPhoto}) : enregistrée seulement quand un analyste la
  *       retient, avec son nom, dans le dataset de la correspondance ; une publication ne la remplace pas.</li>
  * </ol>
@@ -136,16 +136,15 @@ public class PepMediaService {
     }
 
     /**
-     * Photo de l'entité : l'officielle d'abord, sinon celle retenue par un analyste. Une photo dont le fichier
-     * d'archive manque passe après les autres : si l'analyste a retenu une photo internet parce que l'officielle
-     * était indisponible, c'est la sienne qui s'affiche.
+     * Photos de l'entité, la principale en premier : l'officielle, puis celle retenue par un analyste (affichée en
+     * dessous, jamais à la place de l'officielle). Une photo dont le fichier d'archive manque passe après les autres :
+     * si l'officielle est indisponible, c'est la photo retenue qui devient la principale.
      */
-    public Optional<PepMedia> lookup(String entityId) {
-        List<PepMedia> own = repository.findByEntityId(entityId);
-        return own.stream()
+    public List<PepMedia> lookup(String entityId) {
+        return repository.findByEntityId(entityId).stream()
                 .sorted(java.util.Comparator.comparing((PepMedia m) -> !archived(m))
                         .thenComparing(m -> !PepMedia.OFFICIAL.equals(m.getOrigin())))
-                .findFirst();
+                .toList();
     }
 
     private static boolean archived(PepMedia m) {
