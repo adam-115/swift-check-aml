@@ -1,0 +1,1078 @@
+<!DOCTYPE HTML>
+<!--[if IE 8]> <html lang="fr" class="ie8" > <![endif]-->
+<!--[if IE 9]> <html lang="fr" class="ie9" > <![endif]-->
+<!--[if !IE]><!-->
+<html lang="fr" ><!--<![endif]-->
+<head><link rel="canonical" href="https://gouvernement.cfwb.be/home.html" />
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+
+    <meta property="og:site_name" content="Gouvernement de la Fédération Wallonie-Bruxelles">
+    <link rel="shortcut icon" href="/modules/spw-dtic-cg-templates/icons/favicon.ico"
+          type="image/x-icons">
+    <link rel="preconnect" href="http://webanalytics.spw.wallonie.be">
+    <link rel="preconnect" href="https://webanalytics.spw.wallonie.be">
+    <meta property="og:url" content="https://gouvernement.cfwb.be/home.html"/>
+    <meta property="og:type" content="website"/>
+        <meta name="image" property="og:image" content="https://gouvernement.cfwb.be/modules/spw-dtic-cg-templates/img/logo-og.jpg"/>
+        <meta name="author" content="SPW"/>
+
+    <meta property="og:updated_time" content="2024-04-02T11:34:54CEST"/>
+    <title>Accueil - Gouvernement de la Fédération Wallonie-Bruxelles</title>
+        <meta name="title" property="og:title" content="Gouvernement de la Fédération Wallonie-Bruxelles - Gouvernement de la Fédération Wallonie-Bruxelles"/>
+    
+<!-- Fontawesome -->
+    
+
+
+
+<!--template:addResources type="css" resources="v4-shims.min.css"/-->
+
+    
+
+
+
+
+
+
+<!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.2/html5shiv.js" defer="true"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js" defer="true"></script>
+    <![endif]-->
+
+
+
+
+<script type="application/json" id="jahia-data-ctx">{"contextPath":"","lang":"fr","uilang":"fr","siteUuid":"91099569-55ca-4891-9856-3e8bce4696d0","wcag":true,"ckeCfg":""}</script>
+<script type="application/json" id="jahia-data-ck">{"path":"/modules/ckeditor/javascript/","lng":"fr_FR"}</script>
+<link id="staticAssetCSS0" rel="stylesheet" href="/generated-resources/34771c655e48fd70d2b7edd81a4a9076.min.css" media="screen" type="text/css"/>
+<link id="staticAssetCSS1" rel="stylesheet" href="/generated-resources/53e544aef6395e48bbac1ab2efb582.min.css" media="print" type="text/css"/>
+<script id="staticAssetJavascript0" src="/generated-resources/f7408227caab2af4c2cc3a83d45e679f.min.js"  ></script>
+
+<style type="text/css">
+/*a[href*='pdf']{
+   background: url("/files/live/sites/cfwb0/files/Images/download_pdf.png") no-repeat;
+    margin: 25px auto;
+    width: 283px;
+    height: 48px;
+    text-indent: -999em;
+    display: block;
+}*/
+
+@media (min-width: 1200px){
+.liste-ministres .container-liste-ministres .cta.cta--category {
+    max-width: calc(16% - 30px) !important;
+  }
+}
+
+.liste-ministres .container-liste-ministres .cta.cta--category img {
+    max-width: 150px;
+}
+
+.template_home .img--wrapper {
+ display: none;
+}
+.template_communiques-presse .img--wrapper {
+ display: none;
+}
+
+.typespwgwnt_presse .img-fluid {
+ display: none;
+}
+
+.lastest {
+ display: none;
+}
+header#header #brand .navbar-brand {
+align-items:center;
+}
+
+@media (max-width: 767px) {
+header#header #brand .navbar-brand::before {
+ content: "";
+ width: 47px;
+ height: 50px;
+ display: block;
+ background: url("/modules/spw-dtic-cg-core/img/cfwb_47x50.png") center center no-repeat;
+}
+}
+
+main article.media.ordreDuJour .cta .img--wrapper {
+ display: none;
+}
+
+.typespwgwnt_ordreDuJour .img-fluid {
+ display: none;
+}
+
+
+</style>
+<style type="text/css" media="print">
+
+
+</style>
+
+<script>
+        $(".ms-slide").data("delay",9);
+        var slider;
+        var autoplayState;
+        var MSfullWidth = function () {
+            return {
+                //Master Slider - Full Width
+                initMSfullWidth: function (id, transition, layout, autoplay, panelcount) {
+                    slider = new MasterSlider();
+                    var mouse = false;
+
+                    //Si la propriété autoplay du composant est à false, forcer la valeur du localStorage de l'utilisateur à false
+                    if(!autoplay){
+                        localStorage.setItem('autoplay', 'false');
+                        autoplayState = false;
+                    }else{
+                        autoplayState = localStorage.getItem('autoplay');
+                        if (autoplayState === null) {
+                            autoplayState = autoplay === true;
+                            localStorage.setItem('autoplay', autoplayState);
+                        } else {
+                            autoplayState = autoplayState === 'true';
+                        }
+                    }
+
+                    if (parseInt(panelcount) > 1) {
+                        slider.control('arrows');
+                        slider.control('bullets' ,{autohide:false});
+                        mouse = true;
+                    }
+
+                    slider.setup(id , {
+                        width:1024,
+                        height:600,
+                        fullwidth:true,
+                        centerControls:false,
+                        speed:25,
+                        view: transition,
+                        mouse:mouse,
+                        loop: true,
+                        layout: layout,
+                        autoplay: autoplayState === true,
+                    });
+
+                    if(document.getElementById("switchAutoPlay")){
+                        document.getElementById('switchAutoPlay').checked = autoplayState;
+                    }
+                },
+            };
+        }();
+
+        function toggleCarousel(checkbox) {
+            if (checkbox.checked) {
+                slider.api.resume();
+                localStorage.setItem('autoplay', 'true');
+            } else {
+                slider.api.pause();
+                localStorage.setItem('autoplay', 'false');
+            }
+        }
+    </script>
+
+<script type="text/javascript">
+        $(document).ready(function() {
+            if ($('.highlight--wrapper').length) {
+                var type = "";
+                var hasUrl = '';
+                var name = '';
+                var target = '_self';
+
+                // Redirection automatique si une seule catÃ©gorie est active et pas dÃ©jÃ  sur la bonne URL
+                if (false) {
+                    var singleType = 'communiques';
+                    var currentUrl = window.location.href;
+                    if (!currentUrl.includes("?type=" + singleType)) {
+                        // Redirection sans hash pour Ã©viter lâancre
+                        window.location.replace("?type=" + singleType);
+                        return;
+                    }
+                }
+
+                if (typeof type !== 'undefined' && (type != "all" || false) && type != "concours") {
+                    if (type === "all" && false) {
+                        // Forcer type en JavaScript Ã  la catÃ©gorie unique active
+                        type = 'communiques';
+                    }
+                    // VÃ©rifier qu'une catÃ©gorie a bien Ã©tÃ© attribuÃ©e et forcer l'ajout du bouton
+                    if (type !== 'all' && type !== '') {
+                        switch (type) {
+                            case 'actualites':
+                                hasUrl = '';
+                                name = 'Toutes les actualités';
+                                title = 'Toutes les actualités';
+                                if (hasUrl && hasUrl !== '') {
+                                    $('.alaune').append('<a href="' + hasUrl + '" target="' + target + '" class="btn btn-default" title="' + title + '">' + name + '</a>');
+                                }
+                                break;
+                            case 'evenements':
+                                hasUrl = '';
+                                name = 'Tous les événements';
+                                title = 'Tous les événements';
+                                if (hasUrl && hasUrl !== '') {
+                                    $('.alaune').append('<a href="' + hasUrl + '" target="' + target + '" class="btn btn-default" title="' + title + '">' + name + '</a>');
+                                }
+                                break;
+                            case 'publications':
+                                hasUrl = '';
+                                name = 'Toutes les publications';
+                                title = 'Toutes les publications';
+                                if (hasUrl && hasUrl !== '') {
+                                    $('.alaune').append('<a href="' + hasUrl + '" target="' + target + '" class="btn btn-default" title="' + title + '">' + name + '</a>');
+                                }
+                                break;
+                            case 'videos':
+                                hasUrl = '';
+                                name = 'Toutes les vidéos';
+                                title = 'Toutes les vidéos';
+                                if (hasUrl && hasUrl !== '') {
+                                    $('.alaune').append('<a href="' + hasUrl + '" target="' + target + '" class="btn btn-default" title="' + title + '">' + name + '</a>');
+                                }
+                                break;
+                            case 'communiques':
+                                hasUrl = '';
+                                name = 'Tous les communiqués de presse';
+                                title = 'Tous les communiqués de presse';
+                                if (hasUrl && hasUrl !== '') {
+                                    $('.alaune').append('<a href="' + hasUrl + '" target="' + target + '" class="btn btn-default" title="' + title + '">' + name + '</a>');
+                                }
+                                break;
+                            case 'discours':
+                                hasUrl = '';
+                                name = 'Tous les discours';
+                                title = 'Tous les discours';
+                                if (hasUrl && hasUrl !== '') {
+                                    $('.alaune').append('<a href="' + hasUrl + '" target="' + target + '" class="btn btn-default" title="' + title + '">' + name + '</a>');
+                                }
+                                break;
+                            case 'ordresdujour':
+                                hasUrl = '';
+                                name = 'Tous les ordres du jour';
+                                title = 'Tous les ordres du jour';
+                                if (hasUrl && hasUrl !== '') {
+                                    $('.alaune').append('<a href="' + hasUrl + '" target="' + target + '" class="btn btn-default" title="' + title + '">' + name + '</a>');
+                                }
+                                break;
+                            case 'publicationsGW':
+                                hasUrl = '';
+                                name = 'Toutes les publications';
+                                title = 'Toutes les publications';
+                                if (hasUrl && hasUrl !== '') {
+                                    $('.alaune').append('<a href="' + hasUrl + '" target="' + target + '" class="btn btn-default" title="' + title + '">' + name + '</a>');
+                                }
+                                break;
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+
+<link rel="stylesheet"
+          media="all"
+          href="//cdn.jsdelivr.net/npm/@spw-ds/spw-stencil-library@1.19.0/dist/spw-stencil-library/spw-stencil-library.css">
+
+<script type="module"
+            src="//cdn.jsdelivr.net/npm/@spw-ds/spw-stencil-library@1.19.0/dist/spw-stencil-library/spw-stencil-library.esm.js">
+    </script>
+
+<script src="https://cdn.jsdelivr.net/npm/orejime@3.0.2/dist/orejime-standard-fr.js"></script>
+
+<script>
+            document.addEventListener("DOMContentLoaded", function () {
+                const ul = document.querySelector("#footer > div.bottom--footer > div > div > div.col-lg-7 > ul");
+
+                if (ul) {
+                    const li = document.createElement("li");
+
+                    const a = document.createElement("a");
+                    a.href = "#";
+                    a.textContent = "🍪";
+                    a.addEventListener("click", function (e) {
+                        e.preventDefault();
+                        if (typeof orejime !== "undefined") {
+                            orejime.prompt();
+                        } else {
+                            console.warn("Orejime n'est pas chargÃ©.");
+                        }
+                    });
+
+                    li.appendChild(a);
+                    ul.insertBefore(li, ul.firstChild);
+                } else {
+                    console.warn("Le sÃ©lecteur du sous-footer n'a pas Ã©tÃ© trouvÃ©. (uniquement CG)");
+                }
+            });
+        </script>
+    
+<script>
+            window.dataLayer = window.dataLayer || [];
+            function pushOrejimeToDataLayer(contents, source) {
+                const flat = {};
+                const maps = [
+                    contents?.consents,
+                    contents?.purposes,
+                    contents?.apps,
+                    contents
+                ].filter(Boolean)[0];
+
+                if (maps && typeof maps === 'object') {
+                    Object.entries(maps).forEach(([key, val]) => {
+                        const v = (typeof val === 'boolean') ? val
+                            : (val && typeof val === 'object' && (
+                                val.enabled === true || val.accepted === true
+                            ));
+                        flat[`consent_`] = !!v;
+                    });
+                }
+                // ICI on setup un cookie pour le dataLayer mais qui n'apparaÃ®t pas dans le modal de Orejime (demande de Sebastien)
+                //const hiddenKey = 'strictly_necessary_cookie';
+                //const hiddenValue = true;
+                // ICI le nom de l'event dans le DataLayer
+                const eventName = 'cookie_consent_level_submit';
+                // on "aplatit" ton objet contents pour l'injecter directement dans lâobjet du dataLayer
+                const cookieValues = Object.fromEntries(
+                    Object.entries(contents).map(([key, value]) => [key.replace(/-/g, '_'), value])
+                );
+                // On push le cookie dans le dataLayer
+                window.dataLayer.push({
+                    event: eventName,
+                    ...cookieValues,
+                    //[hiddenKey]: hiddenValue,
+                });
+            }
+
+            // Decode HTML entities produced by fn:escapeXml so JS strings display correctly
+            (function () {
+                window._decodeHTML = function (s) {
+                    var el = document.createElement('textarea');
+                    el.innerHTML = s;
+                    return el.value;
+                };
+            })();
+            window.orejimeConfig = {
+                privacyPolicyUrl:   
+                                            '/home/vie-privee.html',
+                                        
+
+                purposes: [
+                    {
+                        id: 'strictly_necessary_cookie',
+                        title: "Cookies strictement nécessaires",
+                        description: "L’utilisation de ces cookies est indispensable pour vous permettre de naviguer sur ce site et d’accéder à certaines fonctionnalités de base. Ils assurent notamment une connexion correcte et sécurisée. Ces cookies sont placés dès que vous accédez au site.",
+                        isMandatory: true,
+                        isExempt: false,
+                        default: true,
+                        runsOnce: true
+                    },
+
+                    {
+                        id: 'functionality_cookie',
+                        title: "Cookies de fonctionnalité",
+                        description: "Ces cookies permettent d’améliorer et de personnaliser les fonctionnalités du site mais ils ne sont pas absolument nécessaires. Ces cookies ne sont utilisés que si vous consentez à leur placement.",
+                        isMandatory: false,
+                        isExempt: false,
+                        default: false,
+                        runsOnce: true
+                    },
+
+                    {
+                        id: 'performance_cookie',
+                        title: "Cookies de performance",
+                        description: "Ces cookies nous permettent de mesurer et d’améliorer les performances de notre site Web. Toutes les informations collectées par ces cookies sont agrégées et anonymisées. Ces cookies ne sont utilisés que si vous consentez à leur placement.",
+                        isMandatory: false,
+                        isExempt: false,
+                        default: false,
+                        runsOnce: true
+                    },
+
+                    //     {
+                    //         id: 'advertising_cookie',
+                    //         title: 'advertising_cookie',
+                    //         description: advertising_cookie',
+                    //         isMandatory: false,
+                    //         isExempt: false,
+                    //         default: false,
+                    //         runsOnce: true
+                    //     },
+                ],
+                forceModal: false,
+                forceBanner: false,
+
+                translations: {
+                    banner: {
+                        accept: "Accepter tous les cookies",
+                        decline: "N’accepter que les cookies essentiels",
+                        configure: "Configurer les cookies",
+                        description: window._decodeHTML(`Nous utilisons des cookies et technologies similaires pour assurer le bon fonctionnement de notre site, mesurer son audience, personnaliser votre expérience et diffuser des contenus pertinents.\nCertains cookies sont strictement nécessaires au fonctionnement du site et ne peuvent pas être désactivés.\nD’autres, optionnels, ne seront déposés qu’après votre consentement.\nVous pouvez à tout moment accepter tous les cookies, refuser ceux qui ne sont pas essentiels ou personnaliser vos choix.\nMerci de lire notre {privacyPolicy}
+                     
+                     `),
+                        privacyPolicyLabel: "politique de confidentialité"
+                    },
+                    modal: {
+                        title: "Les informations que nous collectons",
+                        description: window._decodeHTML(`Ici, vous pouvez voir et personnaliser les informations que nous collectons sur vous.\nPour en savoir plus, merci de lire notre\nMerci de lire notre {privacyPolicy}
+                            
+                        `),
+                        save: "Enregistrer les modifications",
+                        acceptAll: "Tout accepter",
+                        declineAll: "Tout refuser",
+                    },
+                    purpose: {
+                        enabled: "Activé",
+                        disabled: "Désactivé",
+                        mandatory: "toujours requis",
+                    }
+                },
+
+                orejimeElement: '#orejime',
+                cookie: {
+                    name: 'orejime_spw',
+                    duration: 365,
+                    domain: location.hostname,
+                    sameSite: 'strict',
+                    stringify: (contents) => {
+                        try { pushOrejimeToDataLayer(contents, 'write'); } catch(e){}
+                        return JSON.stringify(contents);
+                    },
+                    parse: (cookie) => {
+                        try { return JSON.parse(cookie); } catch(e){ return null; }
+                    }
+                }
+            };
+
+        </script>
+    
+<script>
+            if (window.Orejime && window.orejimeConfig) {
+                Orejime.init(window.orejimeConfig);
+            }
+            (function initialPush(){
+                try {
+                    const name = window.orejimeConfig.cookie?.name || 'orejime';
+                    const raw = document.cookie.split('; ')
+                        .find(r => r.startsWith(name + '='))?.split('=')[1];
+                    if (raw) {
+                        const parsed = window.orejimeConfig.cookie.parse(decodeURIComponent(raw));
+                        if (parsed) pushOrejimeToDataLayer(parsed, 'init');
+                    }
+                } catch(e){}
+            })();
+
+        </script>
+    
+<script type="application/json" id="jahia-data-aggregatedjs">{"scripts":["/modules/jquery/javascript/jquery-3.7.1.min.js","/modules/assets/javascript/jquery.jahia.min.js","/modules/assets/javascript/jquery-ui.min.js","/modules/spw-dtic-cg-components/javascript/masterslider/masterslider.min.js","/modules/spw-dtic-cg-components/javascript/custom/slider.js","/modules/piwik/javascript/matomoTagManagerProd.js"]}</script>
+
+
+<script type="text/javascript">
+(function(){
+window.acK=!!window.acK;try{(function(){(function(){})();var ji=32;try{var Ji,oi,zi=J(450)?1:0,si=J(934)?0:1,iI=J(366)?1:0,JI=J(783)?0:1,lI=J(332)?1:0;for(var ZI=(J(421),0);ZI<oi;++ZI)zi+=J(26)?2:1,si+=(J(557),2),iI+=(J(54),2),JI+=J(961)?1:2,lI+=(J(124),3);Ji=zi+si+iI+JI+lI;window.SZ===Ji&&(window.SZ=++Ji)}catch(sI){window.SZ=Ji}var SI=!0;function L(I,l){I+=l;return I.toString(36)}
+function ij(I){var l=30;!I||document[z(l,148,135,145,135,128,135,138,135,146,151,113,146,127,146,131)]&&document[z(l,148,135,145,135,128,135,138,135,146,151,113,146,127,146,131)]!==L(68616527636,l)||(SI=!1);return SI}function z(I){var l=arguments.length,O=[];for(var s=1;s<l;++s)O.push(arguments[s]-I);return String.fromCharCode.apply(String,O)}function Z(I){var l=arguments.length,O=[],s=1;while(s<l)O[s-1]=arguments[s++]-I;return String.fromCharCode.apply(String,O)}function Ij(){}
+ij(window[Ij[z(ji,142,129,141,133)]]===Ij);ij(typeof ie9rgb4!==z(ji,134,149,142,131,148,137,143,142));ij(RegExp("\x3c")[L(1372173,ji)](function(){return"\x3c"})&!RegExp(L(42857,ji))[L(1372173,ji)](function(){return"'x3'+'d';"}));
+var Jj=window[z(ji,129,148,148,129,131,136,101,150,133,142,148)]||RegExp(z(ji,141,143,130,137,156,129,142,132,146,143,137,132),z(ji,137))[L(1372173,ji)](window["\x6e\x61vi\x67a\x74\x6f\x72"]["\x75\x73e\x72A\x67\x65\x6et"]),lj=+new Date+(J(80)?6E5:699419),oj,Zj,sj,iJ=window[Z(ji,147,133,148,116,137,141,133,143,149,148)],IJ=Jj?J(863)?26730:3E4:J(260)?6E3:7657;
+document[Z(ji,129,132,132,101,150,133,142,148,108,137,147,148,133,142,133,146)]&&document[Z(ji,129,132,132,101,150,133,142,148,108,137,147,148,133,142,133,146)](z(ji,150,137,147,137,130,137,140,137,148,153,131,136,129,142,135,133),function(I){var l=41;document[Z(l,159,146,156,146,139,146,149,146,157,162,124,157,138,157,142)]&&(document[Z(l,159,146,156,146,139,146,149,146,157,162,124,157,138,157,142)]===L(1058781942,l)&&I[Z(l,146,156,125,155,158,156,157,142,141)]?sj=!0:document[z(l,159,146,156,146,
+139,146,149,146,157,162,124,157,138,157,142)]===L(68616527625,l)&&(oj=+new Date,sj=!1,jJ()))});function jJ(){if(!document[Z(34,147,151,135,148,155,117,135,142,135,133,150,145,148)])return!0;var I=+new Date;if(I>lj&&(J(179)?6E5:309100)>I-oj)return ij(!1);var l=ij(Zj&&!sj&&oj+IJ<I);oj=I;Zj||(Zj=!0,iJ(function(){Zj=!1},J(968)?0:1));return l}jJ();var lJ=[J(69)?17795081:15193220,J(354)?27611931586:2147483647,J(759)?2147483647:1558153217];
+function LJ(I){var l=73;I=typeof I===L(1743045603,l)?I:I[Z(l,189,184,156,189,187,178,183,176)](J(123)?36:24);var O=window[I];if(!O||!O[Z(l,189,184,156,189,187,178,183,176)])return;var s=""+O;window[I]=function(I,l){Zj=!1;return O(I,l)};window[I][Z(l,189,184,156,189,187,178,183,176)]=function(){return s}}for(var oJ=(J(16),0);oJ<lJ[Z(ji,140,133,142,135,148,136)];++oJ)LJ(lJ[oJ]);ij(!1!==window[z(ji,129,131,107)]);window._z=window._z||{};window._z.zI="0884a9f53b194000a808aab0a551adf662b2e33ee6beb33fde48095bb1c72c3d6fa4e13074d29902718ed12d38c61c118c31aaab52f97304fd140b5d9198092578a3ba22ec931ddb";
+function OJ(I){var l=+new Date,O;!document[z(70,183,187,171,184,191,153,171,178,171,169,186,181,184,135,178,178)]||l>lj&&(J(871)?506765:6E5)>l-oj?O=ij(!1):(O=ij(Zj&&!sj&&oj+IJ<l),oj=l,Zj||(Zj=!0,iJ(function(){Zj=!1},J(438)?1:0)));return!(arguments[I]^O)}function J(I){return 674>I}
+(function(){var I=/(\A([0-9a-f]{1,4}:){1,6}(:[0-9a-f]{1,4}){1,1}\Z)|(\A(([0-9a-f]{1,4}:){1,7}|:):\Z)|(\A:(:[0-9a-f]{1,4}){1,7}\Z)/ig,l=document.getElementsByTagName("head")[0],O=[];l&&(l=l.innerHTML.slice(0,1E3));while(l=I.exec(""))O.push(l)})();})();}catch(x){}finally{ie9rgb4=void(0);};function ie9rgb4(a,b){return a>>b>>0};
+
+})();
+
+</script>
+
+<script type="text/javascript" src="/TSPD/086d14549aab2000648b82fe4930961f38fb45814dd1afb805964f629c94de97f84678c450e2f505?type=9"></script>
+</head>
+
+<body class="typejnt_page
+path-home homepage home
+template_home
+">
+
+
+
+
+
+
+
+
+
+
+<header id="header">
+    <div class="container nosqueeze  header ">
+        <div id="top--menu">
+            
+
+
+
+
+<nav id="top-menu" class="top-menu">
+    
+
+
+
+
+<ul class="border--bottom">
+        </ul></nav><div>
+                <a href="#" class="btn btn-grey letter"><i>a</i><i>a</i><i>a</i></a>
+                <a href="#" class="btn btn-grey search"><i class="fas fa-search"><span
+                        class="sr-only sr-only-focusable">Recherche</span></i></a>
+                </div>
+        </div>
+        <div id="brand">
+            <a class="navbar-brand" href="/home.html">
+                            <img class="visual local-brand"
+                                         src="/files/Images/logo_cfwb.png"
+                                         alt="Wallonie">
+                                <div class="siteBrand">
+                                    <div class="siteBrandText">Gouvernement de la Fédération Wallonie-Bruxelles</div>
+                                    <div class="siteBrandSubText"></div>
+                                </div>
+
+                            </a>
+                    <div class="search-wrapper">
+                        <form method="post" name="searchForm" action="/home/search.html" id="searchForm" class="search-form search-form--small" >
+    <input type="hidden" name="jcrMethodToCall" value="get" />
+    <input type="hidden" name="src_originSiteKey" value="cfwb0"/>
+    <input onblur="if(this.value=='')this.value='Que cherchez-vous ?';" onfocus="if(this.value=='Que cherchez-vous ?')this.value='';" name="src_terms[0].term" id="searchTerm" type="text" class="text-input" aria-label="Critère de recherche"  value="Que cherchez-vous ?"/>
+<input type="hidden" name="src_terms[0].applyFilter" value="true"/>
+<input type="hidden" name="src_terms[0].match" value="all_words"/>
+<input type="hidden" name="src_terms[0].fields.siteContent" value="true"/>
+<input type="hidden" name="src_sites.values" value="cfwb0"/><input type="hidden" name="src_sitesForReferences.values" value="systemsite"/>
+<input type="hidden" name="src_languages.values" value="fr"/><button aria-label="Lancer la recherche"><i class="fas fa-search"></i></button>
+    </form><br class="clear"/></div>
+                <button class="navbar-toggler" type="button" aria-label="Ouverture du menu">
+                <span></span>
+            </button>
+            </div>
+    </div>
+    
+
+
+
+
+<nav id="main--menu" class="main--menu">
+    
+
+
+
+
+<ul class="container border-bottom container border--bottom">
+        <li class="nav-item ">
+                                <a class="nav-link"  href="/home/competences.html">Compétences</a>
+                            </li><li class="nav-item   dropdown">
+
+                                <a class="nav-link dropdowns-toggle " href="/home/publications.html"
+                                   id="navbarDropdownMen-89132c8b-b74d-473d-9d7a-e43aa8e46c99"
+                                   data-toggle="dropdowns" aria-haspopup="true" aria-expanded="false">
+                                        Publications<i class="fa fa-angle-down"></i>
+                                </a>
+
+                                <div class="drop dropdowns-menu alone"
+                                     aria-labelledby="navbarDropdownMen-89132c8b-b74d-473d-9d7a-e43aa8e46c99">
+                                    <ul>
+                                    <li class="nav-item ">
+                                                        <a class="nav-link"
+                                                                   
+                                                                   href="/home/publications/declaration-de-politique-communa.html">Déclaration de politique communautaire</a>
+                                                            </li>
+                                                    <li class="nav-item ">
+                                                        <a class="nav-link"
+                                                                   
+                                                                   href="/home/publications/arrete-du-gouvernement.html">Arrêté du Gouvernement</a>
+                                                            </li>
+                                                    </ul>
+                                </div>
+                            </li><li class="nav-item   dropdown">
+
+                                <a class="nav-link dropdowns-toggle " href="#"
+                                   id="navbarDropdownMen-80f2728b-5285-4dcb-9861-a9f6ff74f9a4"
+                                   data-toggle="dropdowns" aria-haspopup="true" aria-expanded="false">
+                                        Médias<i class="fa fa-angle-down"></i>
+                                </a>
+
+                                <div class="drop dropdowns-menu alone"
+                                     aria-labelledby="navbarDropdownMen-80f2728b-5285-4dcb-9861-a9f6ff74f9a4">
+                                    <ul>
+                                    <li class="nav-item ">
+                                                        <a class="nav-link"
+                                                                   
+                                                                   href="/home/medias/photos.html">Photos</a>
+                                                            </li>
+                                                    <li class="nav-item ">
+                                                        <a class="nav-link"
+                                                                   
+                                                                   href="/home/medias/chartes-graphique.html">Charte graphique</a>
+                                                            </li>
+                                                    </ul>
+                                </div>
+                            </li><li class="nav-item   dropdown">
+
+                                <a class="nav-link dropdowns-toggle " href="/home/presse--actualites.html"
+                                   id="navbarDropdownMen-a9067ed0-c774-46eb-b74a-32ab669e820e"
+                                   data-toggle="dropdowns" aria-haspopup="true" aria-expanded="false">
+                                        Presse & Actualites<i class="fa fa-angle-down"></i>
+                                </a>
+
+                                <div class="drop dropdowns-menu alone"
+                                     aria-labelledby="navbarDropdownMen-a9067ed0-c774-46eb-b74a-32ab669e820e">
+                                    <ul>
+                                    <li class="nav-item ">
+                                                        <a class="nav-link"
+                                                                   
+                                                                   href="/home/presse--actualites/communiques-de-presse.html">Communiqués de presse</a>
+                                                            </li>
+                                                    <li class="nav-item ">
+                                                        <a class="nav-link"
+                                                                   
+                                                                   href="/home/presse--actualites/ordres-du-jour.html">Ordres du jour</a>
+                                                            </li>
+                                                    <li class="nav-item ">
+                                                        <a class="nav-link"
+                                                                   
+                                                                   href="/home/presse--actualites/attachees-de-presse-de-la-fwb.html">Attaché(e)s de presse de la FWB</a>
+                                                            </li>
+                                                    </ul>
+                                </div>
+                            </li>
+
+
+
+
+
+
+
+
+<li class="mobile--nav-bg">
+    <div class="nosqueeze mobile--nav">
+        <div class="container">
+                <div id="top--menu--mobile">
+                    <div>
+                        </div>
+                </div>
+            </div>
+        <div id="brand-mobile">
+            </div>
+    </div>
+</li></ul></nav></header><!-- Forcer le nom du site avec la bonne valeur (référencement) -->
+<div itemscope itemtype="https://schema.org/WebSite">
+    <meta itemprop="url" content="https://gouvernement.cfwb.be/home.html"/>
+    <meta itemprop="name" content="Gouvernement de la Fédération Wallonie-Bruxelles"/>
+</div>
+
+<main class="pagecontent">
+    
+
+<nav class="navigation-crumb">
+<div class="container   ">
+
+<nav class="navigation-crumb">
+</nav></div>
+</nav>
+<div class="container   ">
+</div>
+<div class="container   ">
+
+<section id="hero">
+
+
+
+
+
+
+<div class="container">
+            <div class="ms-layers-template">
+                <div class="master-slider ms-skin-black-2 round-skin master-slider-jahia" id="mastersliderb9cb523eeee2470ba9fd5afa04aac8c7" transition="flow" layout="boxed" autoplay="true" panelcount="1">
+                    <!-- new slide -->
+<div class="ms-slide" >
+    <!-- slide background -->
+    <img src="/files/Images/Carousel/DSC00558-2.jpg" data-src="/files/Images/Carousel/DSC00558-2.jpg" alt="Gouvernement de la Fédération Wallonie-Bruxelles 2024-2029" id="8d07b21c-2fbe-45c7-976a-99555be18dae"/>
+
+    <!-- slide text layer -->
+    <div class="ms-layer ms-promo-info-in ms-promo-info top210 full " data-effect="bottom(40)" data-duration="0" data-delay="0" data-ease="easeOutExpo">
+        <div class="no-link">Gouvernement de la Fédération Wallonie-Bruxelles 2024-2029</div>
+                </div>
+
+
+    <!-- linked slide -->
+    </div></div>
+            </div>
+            <div class="button_switchAutoPlay custom-control custom-switch" title="Activer/Désactiver le défilement automatique">
+                    <input type="checkbox" class="custom-control-input" id="switchAutoPlay" onclick="toggleCarousel(this)">
+                    <label class="custom-control-label" for="switchAutoPlay">Activer/Désactiver le défilement automatique</label>
+                </div>
+            </div></section>
+<main>
+<p><meta charset="UTF-8" /></p>
+
+<p>&nbsp;</p>
+
+<p><b>6 ministres composent le Gouvernement de la F&eacute;d&eacute;ration Wallonie-Bruxelles pour la l&eacute;gislature 2024-2029 :&nbsp;</b></p>
+
+<ul>
+	<li><b>Elisabeth DEGRYSE :&nbsp;</b>Ministre-Pr&eacute;sidente en charge du Budget, de l&#39;Enseignement sup&eacute;rieur, de la Culture, des Relations internationales et des Relations intra-francophones</li>
+	<li><b>Val&eacute;rie GLATIGNY</b>&nbsp;<b>:</b>&nbsp;Premi&egrave;re Vice-Pr&eacute;sidente et Ministre de l&rsquo;Education et de l&#39;Enseignement de promotion sociale.</li>
+	<li><b>Val&eacute;rie LESCRENIER&nbsp;:</b>&nbsp;Vice-pr&eacute;sidente et Ministre de l&#39;Enfance, de la Jeunesse, de l&rsquo;Aide &agrave; la jeunesse et des Maisons de justice.&nbsp;</li>
+	<li><b>Jacqueline GALANT</b>&nbsp;<b>:</b>&nbsp;Ministre des Sports, de la Fonction publique, de la Simplification administrative et des M&eacute;dias.</li>
+	<li><b>Yves COPPIETERS</b>&nbsp;<b>:</b>&nbsp;Ministre de la Sant&eacute;, de l&#39;&Eacute;galit&eacute; des chances et des Droits des femmes.</li>
+	<li><b>Boris DILLIES</b>&nbsp;<b>:</b>&nbsp;Ministre de la Recherche</li>
+</ul>
+
+<p><textarea id="sigmaos-focus-handler" style="opacity: 0; position: fixed; pointer-events: none; height: 1px;"></textarea></p>
+
+<p><textarea id="sigmaos-focus-handler" style="opacity: 0; position: fixed; pointer-events: none; height: 1px;"></textarea></p>
+
+<p><textarea id="sigmaos-focus-handler" style="opacity: 0; position: fixed; pointer-events: none; height: 1px;"></textarea></p><div class="liste-ministres" id="page-composition">
+    <div class="container-liste-ministres">
+                <div class="detail-ministre cta cta--category" role="button" tabIndex="0">
+    <div class="image-ministre">
+            <img title="DEGRYSE" alt="DEGRYSE" src="/files/Images/Photos%20ministres/ED-2026.jpg?t=thumbnail">
+        </div>
+    <div class="inner">
+        <p class="functions">Ministre-Présidente en charge du Budget, de l'Enseignement supérieur, de la Culture, des Relations internationales et de la Francophonie</p>
+        <a class="website_link" href="https://degryse.cfwb.be/home.html" target="_blank" >
+            <strong>Visiter son site</strong>
+        </a>
+    </div>
+    <div class="ministre-fullname">
+        <h2 class="firstname"><em>Elisabeth</em></h2>
+        <h2 class="lastname"><strong>DEGRYSE</strong></h2>
+    </div>
+</div><div class="detail-ministre cta cta--category" role="button" tabIndex="0">
+    <div class="image-ministre">
+            <img title="GLATIGNY" alt="GLATIGNY" src="/files/Images/Photos%20ministres/VG1.jpg?t=thumbnail">
+        </div>
+    <div class="inner">
+        <p class="functions">Première Vice-Présidente et Ministre de l’Education et de l'Enseignement de promotion sociale.</p>
+        <a class="website_link" href="https://glatigny.cfwb.be/home.html" target="_blank" >
+            <strong>Visiter son site</strong>
+        </a>
+    </div>
+    <div class="ministre-fullname">
+        <h2 class="firstname"><em>Valérie</em></h2>
+        <h2 class="lastname"><strong>GLATIGNY</strong></h2>
+    </div>
+</div><div class="detail-ministre cta cta--category" role="button" tabIndex="0">
+    <div class="image-ministre">
+            <img title="LESCRENIER" alt="LESCRENIER" src="/files/Images/Photos%20ministres/Ministre_Lecscrenier_Parlement_03.jpg?t=thumbnail">
+        </div>
+    <div class="inner">
+        <p class="functions">Vice-présidente et Ministre de l'Enfance, de la Jeunesse, de l’Aide à la jeunesse et des Maisons de justice. </p>
+        <a class="website_link" href="https://lescrenier.cfwb.be/home.html" target="_blank" >
+            <strong>Visiter son site</strong>
+        </a>
+    </div>
+    <div class="ministre-fullname">
+        <h2 class="firstname"><em>Valérie</em></h2>
+        <h2 class="lastname"><strong>LESCRENIER</strong></h2>
+    </div>
+</div><div class="detail-ministre cta cta--category" role="button" tabIndex="0">
+    <div class="image-ministre">
+            <img title="GALANT" alt="GALANT" src="/files/Images/Photos%20ministres/J_Galand_web.jpg?t=thumbnail">
+        </div>
+    <div class="inner">
+        <p class="functions">Ministre des Sports, de la Fonction publique, de la Simplification administrative et des Médias.</p>
+        <a class="website_link" href="https://galant.cfwb.be/home.html" target="_blank" >
+            <strong>Visiter son site</strong>
+        </a>
+    </div>
+    <div class="ministre-fullname">
+        <h2 class="firstname"><em>Jacqueline</em></h2>
+        <h2 class="lastname"><strong>GALANT</strong></h2>
+    </div>
+</div><div class="detail-ministre cta cta--category" role="button" tabIndex="0">
+    <div class="image-ministre">
+            <img title="COPPIETERS" alt="COPPIETERS" src="/files/Images/Photos%20ministres/yves%20coppiters%20portrait1.png?t=thumbnail">
+        </div>
+    <div class="inner">
+        <p class="functions">Ministre de la Santé, de l'Égalité des chances et des Droits des femmes.</p>
+        <a class="website_link" href="https://coppieters.cfwb.be/home.html" target="_blank" >
+            <strong>Visiter son site</strong>
+        </a>
+    </div>
+    <div class="ministre-fullname">
+        <h2 class="firstname"><em>Yves</em></h2>
+        <h2 class="lastname"><strong>COPPIETERS</strong></h2>
+    </div>
+</div><div class="detail-ministre cta cta--category" role="button" tabIndex="0">
+    <div class="image-ministre">
+            <img title="DILLIES" alt="DILLIES" src="/files/Images/Photos%20ministres/BD-26?t=thumbnail">
+        </div>
+    <div class="inner">
+        <p class="functions">Ministre de la Recherche</p>
+        <a class="website_link" href="" target="_blank" >
+            <strong>Visiter son site</strong>
+        </a>
+    </div>
+    <div class="ministre-fullname">
+        <h2 class="firstname"><em>Boris</em></h2>
+        <h2 class="lastname"><strong>DILLIES</strong></h2>
+    </div>
+</div></div>
+        </div><section id="highlight">
+    <div class="container">
+    <h1 title="À la une">À la une</h1>
+
+        <button class="btn-filter d-md-none" title="Filtre">Filtre<i class="fas fa-angle-down"></i></button>
+        <div class="swiper-button-prev"
+             title="Précédent"></div>
+        <div class="swiper-button-next"
+             title="Suivant"></div>
+        <div class="alaune">
+            <nav>
+                <ul>
+                    <li>
+                            <a href="?type=all#highlight" data-target="cta"
+                               class="active"
+                               title="Tout">
+                                Tout</a>
+                        </li>
+                    <li>
+                            <a href="?type=communiques#highlight" data-target="cta--communique"
+                               class=""
+                               title="Communiqués">
+                                Communiqués</a>
+                        </li>
+                    <li>
+                            <a href="?type=ordresdujour#highlight" data-target="cta--ordredujour"
+                               class=""
+                               title="Ordres du jour">
+                                Ordres du jour</a>
+                        </li>
+                    </ul>
+            </nav>
+
+<div class="highlight--wrapper swiper-wrapper" style="position: relative; height: 100vw;">
+                <article class="media swiper-slide ctl" data-macy-complete="1" >
+    <a href="/home/presse--actualites/ordres-du-jour/ordresdujour/seance-du-16-octobre-2026.html" class="cta cta--news">
+        <div class="img--wrapper">
+            <img src="/modules/spw-dtic-gw-core/img/Coq_ordreDuJour.jpg?t=med" alt="" >
+        </div>
+        <div class="inner">
+            <span class="label">Ordre du jour</span>
+            <time datetime="2026-10-16">16.10.2026</time>
+            <h2>Séance du 16 octobre 2026</h2>
+
+            <p></p>
+        </div>
+    </a>
+</article><article class="media swiper-slide ctl" data-macy-complete="1" >
+    <a href="/home/presse--actualites/communiques-de-presse/presses/budget-initial-2027-un-deficit-budgetaire-qui-se-reduit-enfin.html" class="cta cta--news">
+        <div class="img--wrapper">
+            <img src="/modules/spw-dtic-gw-core/img/Coq_presse.jpg?t=med" alt="" >
+        </div>
+        <div class="inner">
+            <span class="label">Communiqu&eacute;</span>
+            <time datetime="2026-10-09">09.10.2026</time>
+            <h2>Budget initial 2027: un déficit budgétaire qui se réduit enfin ! </h2>
+
+            <p>Le Gouvernement de la Fédération Wallonie-Bruxelles s’est accordé ce vendredi 09 octobre 2026...</p>
+        </div>
+    </a>
+</article><article class="media swiper-slide ctl" data-macy-complete="1" >
+    <a href="/home/presse--actualites/ordres-du-jour/ordresdujour/seance-du-9-octobre-2026.html" class="cta cta--news">
+        <div class="img--wrapper">
+            <img src="/modules/spw-dtic-gw-core/img/Coq_ordreDuJour.jpg?t=med" alt="" >
+        </div>
+        <div class="inner">
+            <span class="label">Ordre du jour</span>
+            <time datetime="2026-10-09">09.10.2026</time>
+            <h2>Séance du 9 octobre 2026</h2>
+
+            <p></p>
+        </div>
+    </a>
+</article><article class="media swiper-slide ctl" data-macy-complete="1" >
+    <a href="/home/presse--actualites/ordres-du-jour/ordresdujour/seance-du-2-octobre-2026.html" class="cta cta--news">
+        <div class="img--wrapper">
+            <img src="/modules/spw-dtic-gw-core/img/Coq_ordreDuJour.jpg?t=med" alt="" >
+        </div>
+        <div class="inner">
+            <span class="label">Ordre du jour</span>
+            <time datetime="2026-10-02">02.10.2026</time>
+            <h2>Séance du 2 octobre 2026</h2>
+
+            <p></p>
+        </div>
+    </a>
+</article><article class="media swiper-slide ctl" data-macy-complete="1" >
+    <a href="/home/presse--actualites/ordres-du-jour/ordresdujour/seance-du-25-septembre-2026.html" class="cta cta--news">
+        <div class="img--wrapper">
+            <img src="/modules/spw-dtic-gw-core/img/Coq_ordreDuJour.jpg?t=med" alt="" >
+        </div>
+        <div class="inner">
+            <span class="label">Ordre du jour</span>
+            <time datetime="2026-09-25">25.09.2026</time>
+            <h2>Séance du 25 septembre 2026</h2>
+
+            <p></p>
+        </div>
+    </a>
+</article><article class="media swiper-slide ctl" data-macy-complete="1" >
+    <a href="/home/presse--actualites/ordres-du-jour/ordresdujour/seance-du-18-septembre-2026.html" class="cta cta--news">
+        <div class="img--wrapper">
+            <img src="/modules/spw-dtic-gw-core/img/Coq_ordreDuJour.jpg?t=med" alt="" >
+        </div>
+        <div class="inner">
+            <span class="label">Ordre du jour</span>
+            <time datetime="2026-09-18">18.09.2026</time>
+            <h2>Séance du 18 septembre 2026</h2>
+
+            <p></p>
+        </div>
+    </a>
+</article></div>
+            </div>
+    </div>
+</section>
+
+
+</main></div></main>
+
+
+
+
+
+
+
+
+<footer id="footer">
+	<div class="top--footer">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-6 col-lg-4">
+					<h2>Accès rapides</h2>
+					<ul>
+        <li>
+                <a href="/home.html" >Accueil</a></li>
+        <li>
+                <a href="/home/competences.html" >Compétences</a></li>
+        <li>
+                <a href="/home/publications.html" >Publications</a></li>
+        <li>
+                <a href="/home/medias/photos.html" >Médias</a></li>
+        <li>
+                <a href="/home/presse--actualites.html" >Presse &amp; Actualités</a></li>
+        </ul>
+<div class="clear"></div></div>
+				<div class="col-md-6 col-lg-4">
+					<h2>Liens utiles</h2>
+					<ul>
+        <li>
+                <a href="https://www.wallonie.be/fr/acteurs-et-institutions/wallonie/gouvernement-de-wallonie" target="_blank">Gouvernement Wallon</a></li>
+        <li>
+                <a href="#" >Communiqués de presse</a></li>
+        <li>
+                <a href="/home/presse--actualites/attachees-de-presse-de-la-fwb.html" >Attaché(e)s de presse de la FWB</a></li>
+        </ul>
+<div class="clear"></div></div>
+				<div class="col-md-6 col-lg-4">
+					<h2>Nous contacter</h2>
+					<ul>
+        <li>
+                <img src="/files/Images/map_cf.png" alt="reference-d-image" height="98" width="197" /></li>
+        <li>
+                <div class="cg-link">
+    <p>Place Surlet de Chokier 15-17<br />
+1000 &nbsp; Bruxelles<br />
+T&eacute;l : 02 801 75 11</p>
+</div></li>
+        </ul>
+<div class="clear"></div></div>
+			</div>
+		</div>
+	</div>
+	<div class="bottom--footer">
+		<div class="container">
+			
+
+
+
+
+<div class="row">
+				<div class="col-lg-5 logo">
+					<img src="/modules/spw-dtic-cg-core/img/logo-cfwb-small.png"
+								 alt="Fédération Wallonie-Bruxelles" class="cgFooterImageWallonie"><i>
+						Le site officiel du Gouvernement de la Fédération Wallonie-Bruxelles</i>
+				</div>
+				<div class="col-lg-7">
+					<ul>
+						<li>
+								<a href="/home/mentions-legales.html">
+											Mentions légales</a>
+									</li>
+						<li>
+								<a href="/home/vie-privee.html">
+											Vie privée</a>
+									</li>
+						<li>
+								<a href="/home/mediateur.html">
+											Médiateur</a>
+									</li>
+						<li>
+								<a href="/home/accessibilite.html">
+											Accessibilité</a>
+									</li>
+						</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+	<a href="#header" class="scroll"><i class="fas fa-chevron-up"><span class="sr-only sr-only-focusable">Up</span></i></a>
+</footer>
+
+
+
+
+
+
+		<script type="text/javascript">
+			<!-- 
+			var piwikSettings = {
+				trackingId: "62", 
+				trackingIDNoCookies: "null", 
+				trackingServer: "webanalytics.spw.wallonie.be",
+                idTagManager: "5Pk98dUs",
+                idTagManagerInstance: "null",
+                isLegacyTracker: "false",
+                isTagManager: "true",
+				isTrackingSearch: "false", 
+				searchResultCssSelector: "", 
+				searchKeywordCssSelector: "", 
+				searchCountCssSelector: "", 
+				isTrackingJahiaConnectionMode: "false", 
+				isTrackingJahiaLanguage: "false",
+				isTrackingDomain: "false", 
+				isMatomo: "false", 
+				trackingFileName: "piwik"
+			};
+			
+			// Retrieve Jahia connection mode
+			jahiaConnectionMode = "live"; 
+		
+			// Retrieve Jahia user name 
+			hashUserName=""; 
+			
+			renderContext="live"; 
+			language="fr";
+		-->
+		</script>
+
+
+
+
+
+
+
+
+
+<script id="staticAssetJavascriptBODY0" src="/generated-resources/5518d23bc5334a74987e9aa712995dd1-defer.min.js"  defer></script>
+<script type="application/json" id="jahia-data-aggregatedjsBODY">{"scripts":["/modules/spw-dtic-cg-templates/javascript/popper.min.js","/modules/bootstrap4-core/javascript/bootstrap.min.js","/modules/spw-dtic-cg-templates/javascript/swiper.min.js","/modules/spw-dtic-cg-templates/javascript/macy.min.js","/modules/spw-dtic-cg-core/javascript/js.cookie.min.js","/modules/spw-dtic-cg-core/javascript/cg_header.js","/modules/spw-dtic-cg-core/javascript/cg_footer.js","/modules/piwik/javascript/piwikConfiguration.js","/modules/piwik/javascript/matomoVideoTracking.js"]}</script>
+
+</body>
+</html>

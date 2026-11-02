@@ -84,6 +84,17 @@
         <module>swiftcheck-aml-plugins/pep/belgium/swiftcheck-aml-be-pep-walloon-parliament</module>
         <module>swiftcheck-aml-plugins/pep/belgium/swiftcheck-aml-be-pep-king</module>
         <module>swiftcheck-aml-plugins/pep/belgium/swiftcheck-aml-be-pep-federal-government</module>
+        <!-- PEP Belgique – Lot 2 : pages des institutions -->
+        <module>swiftcheck-aml-plugins/pep/belgium/swiftcheck-aml-be-pep-regional-governments</module>
+        <module>swiftcheck-aml-plugins/pep/belgium/swiftcheck-aml-be-pep-regional-parliaments</module>
+        <module>swiftcheck-aml-plugins/pep/belgium/swiftcheck-aml-be-pep-senate</module>
+        <module>swiftcheck-aml-plugins/pep/belgium/swiftcheck-aml-be-pep-constitutional-court</module>
+        <module>swiftcheck-aml-plugins/pep/belgium/swiftcheck-aml-be-pep-council-of-state</module>
+        <module>swiftcheck-aml-plugins/pep/belgium/swiftcheck-aml-be-pep-court-of-audit</module>
+        <module>swiftcheck-aml-plugins/pep/belgium/swiftcheck-aml-be-pep-national-bank</module>
+        <module>swiftcheck-aml-plugins/pep/belgium/swiftcheck-aml-be-pep-diplomats</module>
+        <module>swiftcheck-aml-plugins/pep/belgium/swiftcheck-aml-be-pep-army</module>
+        <module>swiftcheck-aml-plugins/pep/belgium/swiftcheck-aml-be-pep-international-orgs</module>
     </modules>
 
     <dependencyManagement>

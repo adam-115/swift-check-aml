@@ -1,0 +1,300 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Lot 2 des parsers PEP de la Belgique : pages des institutions (10 parsers) :
+    gouvernements des Régions et des Communautés, parlements des entités fédérées (PFWB, PDG, Bruxelles),
+    Sénat, Cour constitutionnelle, Conseil d'État, Cour des comptes, Banque nationale de Belgique,
+    ambassadeurs/consuls, officiers généraux de la Défense, et dirigeants des organisations internationales
+    établies en Belgique. Plan : documentation/analyse pep belgique/Plan_Parsers_PEP_Belgique.pdf.
+-->
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="025-parser-be-pep-regional-governments" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Belgique – Gouvernements des Régions et Communautés',
+                'Ministres-présidents, vice-ministres-présidents, ministres et secrétaires d’État des Régions et des Communautés (catégorie BE-a)',
+                'be_pep_regional_governments', 'PEP', 'https://www.vlaanderen.be/fr/gouvernement-flamand',
+                'be-pep-regional-governments', 'D:/test parser 2/plugins/swiftcheck-aml-be-pep-regional-governments-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'WEB_PAGE',
+                NULL,
+                '{"vlaanderen": "https://www.vlaanderen.be/fr/gouvernement-flamand", "fwb": "https://gouvernement.cfwb.be/", "ostbelgien": "https://ostbelgienlive.be/desktopdefault.aspx/tabid-203/"}',
+                24, 12,
+                'Citer la source (portails officiels des entités fédérées)', 'Gouvernements de la Flandre, de la Fédération Wallonie-Bruxelles, de la Communauté germanophone, de la Wallonie et de Bruxelles-Capitale',
+                'Extrait les gouvernements accessibles (Flandre, Fédération Wallonie-Bruxelles, Communauté germanophone) et signale dans le journal les sites injoignables.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'PARTIAL', FALSE, 'Membres des gouvernements flamand (9), de la Fédération Wallonie-Bruxelles (6) et de la Communauté germanophone (4), avec compétences et portraits officiels.', 'Les sites gouvernement.wallonie.be et be.brussels sont complétés par le Moniteur belge (lot 3). Ni date de naissance ni anciens membres.'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'BE-a' AND f.label LIKE 'Ministre-président, vice-ministre-président%' AND p.dataset_name = 'be_pep_regional_governments';
+        ]]></sql>
+    </changeSet>
+
+    <changeSet id="025-parser-be-pep-regional-parliaments" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Belgique – Parlements des entités fédérées (PFWB, PDG, Bruxelles)',
+                'Membres et présidents du Parlement de la Fédération Wallonie-Bruxelles, du Parlement de la Communauté germanophone et du Parlement bruxellois (catégorie BE-b)',
+                'be_pep_regional_parliaments', 'PEP', 'https://www.pfwb.be/les-94-deputes',
+                'be-pep-regional-parliaments', 'D:/test parser 2/plugins/swiftcheck-aml-be-pep-regional-parliaments-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'WEB_PAGE',
+                NULL,
+                '{"pfwb": "https://www.pfwb.be/les-94-deputes", "pdgMembers": "https://pdg.be/desktopdefault.aspx/tabid-4065/", "pdgBureau": "https://pdg.be/desktopdefault.aspx/tabid-4014/"}',
+                168, 12,
+                'Citer la source (PFWB, PDG, Parlement bruxellois)', 'Parlement de la Fédération Wallonie-Bruxelles (pfwb.be) ; Parlament der Deutschsprachigen Gemeinschaft (pdg.be)',
+                'Couvre les 94 députés du PFWB et les 25 membres (et Präsidium) du Parlement de la Communauté germanophone. Les parlements flamand et wallon sont couverts par des parsers dédiés au lot 1.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', FALSE, 'Les 94 députés du Parlement de la Fédération Wallonie-Bruxelles, avec groupe politique, fonction au bureau ou en commission et portrait officiel.', 'Pas de date de naissance sur la liste publique.'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'BE-b' AND f.label LIKE 'Membre du Parlement de la Fédération Wallonie-Bruxelles%' AND p.dataset_name = 'be_pep_regional_parliaments';
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', FALSE, 'Les 25 membres du Parlement de la Communauté germanophone et les membres de son Präsidium, avec groupe politique et portrait officiel.', 'Pas de date de naissance sur la liste publique.'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'BE-b' AND f.label LIKE 'Membre du Parlement de la Communauté germanophone%' AND p.dataset_name = 'be_pep_regional_parliaments';
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'PARTIAL', FALSE, 'Les 19 députés francophones bruxellois siégeant au Parlement de la Fédération Wallonie-Bruxelles.', 'Le site parlement.brussels ne répond pas aux requêtes automatiques (timeout).'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'BE-b' AND f.label LIKE 'Membre du Parlement de la Région de Bruxelles-Capitale%' AND p.dataset_name = 'be_pep_regional_parliaments';
+        ]]></sql>
+    </changeSet>
+
+    <changeSet id="025-parser-be-pep-senate" author="swiftcheck">
+        <validCheckSum>ANY</validCheckSum>
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Belgique – Sénat',
+                'Les 60 sénateurs (50 sénateurs des entités fédérées et 10 sénateurs cooptés) et la présidence du Sénat (catégorie BE-b)',
+                'be_pep_senate', 'PEP', 'https://www.senate.be/www/?MIval=/WieIsWie/LijstDerSenatoren&LANG=fr',
+                'be-pep-senate', 'D:/test parser 2/plugins/swiftcheck-aml-be-pep-senate-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'WEB_PAGE',
+                NULL,
+                '{"url": "https://www.senate.be/www/?MIval=/WieIsWie/LijstDerSenatoren&LANG=fr"}',
+                168, 12,
+                'Citer la source (Sénat de Belgique)', 'Sénat de Belgique, www.senate.be',
+                'Les coordonnées personnelles de correspondance présentes sur senate.be sont supprimées dès le téléchargement et ne sont jamais reprises dans les entités.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', FALSE, 'Les 59/60 sénateurs en fonction (entités fédérées et cooptés), avec catégorie de mandat et portrait officiel.', 'Pas de date de naissance sur la liste récapitulative. Les anciens sénateurs ne sont pas couverts.'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'BE-b' AND f.label LIKE 'Sénateur%' AND p.dataset_name = 'be_pep_senate';
+        ]]></sql>
+    </changeSet>
+
+    <changeSet id="025-parser-be-pep-constitutional-court" author="swiftcheck">
+        <validCheckSum>ANY</validCheckSum>
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Belgique – Cour constitutionnelle',
+                'Les 12 juges et les 2 présidents (francophone et néerlandophone) de la Cour constitutionnelle (catégorie BE-d)',
+                'be_pep_constitutional_court', 'PEP', 'https://fr.const-court.be/court/presentation/organization',
+                'be-pep-constitutional-court', 'D:/test parser 2/plugins/swiftcheck-aml-be-pep-constitutional-court-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'WEB_PAGE',
+                NULL,
+                '{"url": "https://fr.const-court.be/court/presentation/organization"}',
+                168, 12,
+                'Citer la source (Cour constitutionnelle)', 'Cour constitutionnelle de Belgique, fr.const-court.be',
+                'Extrait uniquement les sections Présidents et Juges (les référendaires et greffiers ne sont pas visés par l’Annexe IV). Fournit la date de naissance et la date de nomination par arrêté royal.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', FALSE, 'Les 12 juges (dont les 2 présidents) de la Cour constitutionnelle, avec date et lieu de naissance, date de nomination royale et portrait officiel.', 'Les anciens juges ne sont pas couverts.'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'BE-d' AND f.label LIKE 'Juge à la Cour constitutionnelle%' AND p.dataset_name = 'be_pep_constitutional_court';
+        ]]></sql>
+    </changeSet>
+
+    <changeSet id="025-parser-be-pep-council-of-state" author="swiftcheck">
+        <validCheckSum>ANY</validCheckSum>
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Belgique – Conseil d’État',
+                'Chefs de corps du Conseil d’État : Premier président, présidente, auditeur général et auditeur général adjoint (catégorie BE-d)',
+                'be_pep_council_of_state', 'PEP', 'https://www.raadvst-consetat.be/fr/le-conseil-detat/organisation/direction-et-gestion/',
+                'be-pep-council-of-state', 'D:/test parser 2/plugins/swiftcheck-aml-be-pep-council-of-state-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'WEB_PAGE',
+                NULL,
+                '{"url": "https://www.raadvst-consetat.be/fr/le-conseil-detat/organisation/direction-et-gestion/"}',
+                168, 12,
+                'Citer la source (Conseil d’État)', 'Conseil d’État de Belgique, www.raadvst-consetat.be',
+                'Le site du Conseil d’État ne publie nominativement que les chefs de corps et le greffier en chef (ce dernier est exclu car non visé par l’Annexe IV). Les autres conseillers sont couverts par le Moniteur belge (lot 3).', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'PARTIAL', FALSE, 'Les 4 chefs de corps publiés sur le site du Conseil d’État (Premier président, présidente, auditeur général, auditeur général adjoint).', 'Les présidents de chambre, conseillers d’État et assesseurs ne sont pas listés sur le site (couverts au lot 3 via le Moniteur belge).'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'BE-d' AND f.label LIKE 'Membre du Conseil d''État%' AND p.dataset_name = 'be_pep_council_of_state';
+        ]]></sql>
+    </changeSet>
+
+    <changeSet id="025-parser-be-pep-court-of-audit" author="swiftcheck">
+        <validCheckSum>ANY</validCheckSum>
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Belgique – Cour des comptes',
+                'Première présidente, présidente et 8 conseillers des chambres française et néerlandaise de la Cour des comptes (catégorie BE-e)',
+                'be_pep_court_of_audit', 'PEP', 'https://www.ccrek.be/fr/about-page/organisation',
+                'be-pep-court-of-audit', 'D:/test parser 2/plugins/swiftcheck-aml-be-pep-court-of-audit-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'WEB_PAGE',
+                NULL,
+                '{"url": "https://www.ccrek.be/fr/about-page/organisation"}',
+                168, 12,
+                'Citer la source (Cour des comptes)', 'Cour des comptes de Belgique, www.ccrek.be',
+                'Extrait les 10 magistrats composant les chambres française et néerlandaise (les greffiers en chef et greffiers ne sont pas visés par l’Annexe IV).', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', FALSE, 'Les 10 magistrats de la Cour des comptes (Première présidente, présidente et 8 conseillers), avec chambre linguistique et portrait officiel.', 'Pas de date de naissance sur la page.'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'BE-e' AND f.label LIKE 'Premier président, président ou conseiller à la Cour des comptes%' AND p.dataset_name = 'be_pep_court_of_audit';
+        ]]></sql>
+    </changeSet>
+
+    <changeSet id="025-parser-be-pep-national-bank" author="swiftcheck">
+        <validCheckSum>ANY</validCheckSum>
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Belgique – Banque nationale de Belgique',
+                'Gouverneur, membres du Comité de direction et membres du Conseil de régence de la Banque nationale de Belgique (catégorie BE-e)',
+                'be_pep_national_bank', 'PEP', 'https://www.nbb.be/fr/la-banque-nationale/administration-et-controle/organes-de-la-banque/comite-de-direction',
+                'be-pep-national-bank', 'D:/test parser 2/plugins/swiftcheck-aml-be-pep-national-bank-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'WEB_PAGE',
+                NULL,
+                '{"comiteDirectionUrl": "https://www.nbb.be/fr/la-banque-nationale/administration-et-controle/organes-de-la-banque/comite-de-direction", "conseilRegenceUrl": "https://www.nbb.be/fr/la-banque-nationale/administration-et-controle/organes-de-la-banque/conseil-de-regence"}',
+                168, 12,
+                'Citer la source (Banque nationale de Belgique)', 'Banque nationale de Belgique, www.nbb.be',
+                'Combine les pages officielles du Comité de direction (Gouverneur et 4 directeurs) et du Conseil de régence (11 régents). Le représentant du ministre des Finances (voix consultative) est exclu.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', FALSE, 'Le Gouverneur, les 4 directeurs du Comité de direction et les 11 régents du Conseil de régence (16 personnes au total), avec portrait officiel pour le Comité de direction.', 'Pas de date de naissance sur les pages publiques.'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'BE-e' AND f.label LIKE 'Gouverneur, membre du Comité de direction%' AND p.dataset_name = 'be_pep_national_bank';
+        ]]></sql>
+    </changeSet>
+
+    <changeSet id="025-parser-be-pep-diplomats" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Belgique – Ambassadeurs, consuls généraux et chargés d’affaires',
+                'Ambassadeurs, consuls généraux, consuls, chargés d’affaires et représentants permanents de la Belgique à l’étranger (catégorie BE-f)',
+                'be_pep_diplomats', 'PEP', 'https://diplomatie.belgium.be/fr/ambassades-et-consulats',
+                'be-pep-diplomats', 'D:/test parser 2/plugins/swiftcheck-aml-be-pep-diplomats-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'API',
+                NULL,
+                '{"countriesApiUrl": "https://publicapps.diplomatie.be/api/geography/country/institutions?language=fr", "institutionsApiUrl": "https://publicapps.diplomatie.be/api/belgianInstitutions?language=fr&countryIso={ISO}&isForeignInstitution=false"}',
+                168, 12,
+                'Citer la source (SPF Affaires étrangères)', 'SPF Affaires étrangères, Commerce extérieur et Coopération au Développement, diplomatie.belgium.be',
+                'Interroge l’API officielle de l’annuaire diplomatique (publicapps.diplomatie.be). Les consuls honoraires et les coordonnées postales/téléphoniques des postes sont exclus.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', FALSE, 'Ambassadeurs, consuls généraux, consuls, chargés d’affaires et représentants permanents en poste dans le réseau diplomatique belge.', 'Pas de date de naissance dans l’annuaire public.'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'BE-f' AND f.label LIKE 'Ambassadeur, consul ou chargé d''affaires%' AND p.dataset_name = 'be_pep_diplomats';
+        ]]></sql>
+    </changeSet>
+
+    <changeSet id="025-parser-be-pep-army" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Belgique – Officiers généraux de la Défense',
+                'Chef de la Défense (CHOD), Vice-Chef de la Défense (VCHOD) et officiers généraux publiés sur mil.be (catégorie BE-f)',
+                'be_pep_army', 'PEP', 'https://www.mil.be/fr/',
+                'be-pep-army', 'D:/test parser 2/plugins/swiftcheck-aml-be-pep-army-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'WEB_PAGE',
+                NULL,
+                '{"source": "https://www.mil.be/fr/"}',
+                168, 12,
+                'Citer la source (La Défense, mil.be)', 'La Défense, www.mil.be',
+                'La Défense ne publie pas d’annuaire complet des officiers généraux : le parser extrait le CHOD, le VCHOD et les officiers généraux commandants de composantes cités sur mil.be. Les nominations par arrêté royal sont complétées par le Moniteur belge (lot 3).', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'PARTIAL', FALSE, 'Chef de la Défense (CHOD), Vice-Chef de la Défense (VCHOD) et commandants de composantes publiés sur mil.be.', 'Annuaire complet non publié sur mil.be ; complété par les arrêtés royaux au Moniteur belge (lot 3).'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'BE-f' AND f.label LIKE 'Officier général%' AND p.dataset_name = 'be_pep_army';
+        ]]></sql>
+    </changeSet>
+
+    <changeSet id="025-parser-be-pep-international-orgs" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Belgique – Organisations internationales établies en Belgique',
+                'Dirigeants des organisations internationales ayant leur siège en Belgique : OTAN, Union Benelux, OMD/WCO, SHAPE, Eurocontrol, OEACP (catégorie BE-h)',
+                'be_pep_international_orgs', 'PEP', 'https://www.nato.int/en/about-us/organization/who-we-are',
+                'be-pep-international-orgs', 'D:/test parser 2/plugins/swiftcheck-aml-be-pep-international-orgs-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'WEB_PAGE',
+                NULL,
+                '{"nato": "https://www.nato.int/en/about-us/organization/who-we-are", "benelux": "https://www.benelux.int/fr/contact/qui-est-qui-au-secretariat-general-de-lunion-benelux/", "wco": "https://www.wcoomd.org/fr/about-us/what-is-the-wco/au_secr_general.aspx"}',
+                168, 12,
+                'Citer la source (OTAN, Union Benelux, OMD/WCO)', 'OTAN (nato.int), Union Benelux (benelux.int), Organisation mondiale des douanes (wcoomd.org)',
+                'Extrait les dirigeants de l’OTAN (4), du Collège des Secrétaires généraux de l’Union Benelux (3) et le Secrétaire général de l’OMD/WCO (1). Les sites protégés par anti-bot (SHAPE, Eurocontrol) sont signalés en attente.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'PARTIAL', FALSE, 'Dirigeants de l’OTAN (Secrétaire général, Secrétaire générale déléguée, Président du Comité militaire, DGIMS), de l’Union Benelux (Collège des 3 Secrétaires généraux) et de l’OMD/WCO (Secrétaire général).', 'Les sites de SHAPE et d’Eurocontrol bloquent les requêtes automatisées (Cloudflare / HTTP 403).'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'BE-h' AND f.label LIKE 'Dirigeant ou membre du conseil d''une organisation internationale%' AND p.dataset_name = 'be_pep_international_orgs';
+        ]]></sql>
+    </changeSet>
+
+    <changeSet id="025-fix-be-parsers-lot2-urls" author="swiftcheck">
+        <validCheckSum>ANY</validCheckSum>
+        <sql><![CDATA[
+            UPDATE parser
+            SET website_url = 'https://www.senate.be/www/?MIval=/WieIsWie/LijstDerSenatoren&LANG=fr',
+                data_source_type = 'PLUGIN_MANAGED',
+                source_location = NULL,
+                parameters = '{"url": "https://www.senate.be/www/?MIval=/WieIsWie/LijstDerSenatoren&LANG=fr"}'
+            WHERE dataset_name = 'be_pep_senate';
+
+            UPDATE parser
+            SET website_url = 'https://fr.const-court.be/court/presentation/organization',
+                data_source_type = 'PLUGIN_MANAGED',
+                source_location = NULL,
+                parameters = '{"url": "https://fr.const-court.be/court/presentation/organization"}'
+            WHERE dataset_name = 'be_pep_constitutional_court';
+
+            UPDATE parser
+            SET website_url = 'https://www.raadvst-consetat.be/fr/le-conseil-detat/organisation/direction-et-gestion/',
+                data_source_type = 'PLUGIN_MANAGED',
+                source_location = NULL,
+                parameters = '{"url": "https://www.raadvst-consetat.be/fr/le-conseil-detat/organisation/direction-et-gestion/"}'
+            WHERE dataset_name = 'be_pep_council_of_state';
+
+            UPDATE parser
+            SET website_url = 'https://www.ccrek.be/fr/about-page/organisation',
+                data_source_type = 'PLUGIN_MANAGED',
+                source_location = NULL,
+                parameters = '{"url": "https://www.ccrek.be/fr/about-page/organisation"}'
+            WHERE dataset_name = 'be_pep_court_of_audit';
+
+            UPDATE parser
+            SET website_url = 'https://www.nbb.be/fr/la-banque-nationale/administration-et-controle/organes-de-la-banque/comite-de-direction',
+                data_source_type = 'PLUGIN_MANAGED',
+                source_location = NULL,
+                parameters = '{"comiteDirectionUrl": "https://www.nbb.be/fr/la-banque-nationale/administration-et-controle/organes-de-la-banque/comite-de-direction", "conseilRegenceUrl": "https://www.nbb.be/fr/la-banque-nationale/administration-et-controle/organes-de-la-banque/conseil-de-regence"}'
+            WHERE dataset_name = 'be_pep_national_bank';
+        ]]></sql>
+    </changeSet>
+
+</databaseChangeLog>
+

@@ -1,0 +1,264 @@
+[
+    {
+        "institutionTypeName":  "Ambassade",
+        "city_Name":  "Paris",
+        "countryName":  "France",
+        "lastName":  "INDEKEU",
+        "firstName":  "Jo",
+        "title_name":  "Ambassadeur",
+        "staff":  [
+                      {
+                          "title_Code":  null,
+                          "title_Name":  "Ambassadeur",
+                          "firstName":  "Jo"
+                      }
+                  ]
+    },
+    {
+        "institutionTypeName":  "Consulat général",
+        "city_Name":  "Marseille",
+        "countryName":  "France",
+        "lastName":  "VANDEPUT",
+        "firstName":  "Jan",
+        "title_name":  "Consul Général",
+        "staff":  [
+                      {
+                          "title_Code":  null,
+                          "title_Name":  "Consul Général",
+                          "firstName":  "Jan"
+                      }
+                  ]
+    },
+    {
+        "institutionTypeName":  "Représentation permanente",
+        "city_Name":  "Paris",
+        "countryName":  "France",
+        "lastName":  "VAN DE VELDE",
+        "firstName":  "Peter",
+        "title_name":  "Représentant Permanent",
+        "staff":  [
+                      {
+                          "title_Code":  null,
+                          "title_Name":  "Représentant Permanent",
+                          "firstName":  "Peter"
+                      }
+                  ]
+    },
+    {
+        "institutionTypeName":  "Représentation permanente",
+        "city_Name":  "Strasbourg",
+        "countryName":  "France",
+        "lastName":  "DELIEUX",
+        "firstName":  "Delphine",
+        "title_name":  "Ambassadrice",
+        "staff":  [
+                      {
+                          "title_Code":  null,
+                          "title_Name":  "Ambassadrice",
+                          "firstName":  "Delphine"
+                      }
+                  ]
+    },
+    {
+        "institutionTypeName":  "Consulat honoraire",
+        "city_Name":  "Ajaccio",
+        "countryName":  "France",
+        "lastName":  "AUDISIO",
+        "firstName":  "Jean-Pierre",
+        "title_name":  "Consul honoraire",
+        "staff":  [
+                      {
+                          "title_Code":  null,
+                          "title_Name":  "Consul honoraire",
+                          "firstName":  "Jean-Pierre"
+                      }
+                  ]
+    },
+    {
+        "institutionTypeName":  "Consulat honoraire",
+        "city_Name":  "Bordeaux",
+        "countryName":  "France",
+        "lastName":  "",
+        "firstName":  "",
+        "title_name":  "",
+        "staff":  [
+
+                  ]
+    },
+    {
+        "institutionTypeName":  "Consulat honoraire",
+        "city_Name":  "Charleville-Mézières",
+        "countryName":  "France",
+        "lastName":  "LE VEN",
+        "firstName":  "Jean-Denis",
+        "title_name":  "Consul honoraire",
+        "staff":  [
+                      {
+                          "title_Code":  null,
+                          "title_Name":  "Consul honoraire",
+                          "firstName":  "Jean-Denis"
+                      }
+                  ]
+    },
+    {
+        "institutionTypeName":  "Consulat honoraire",
+        "city_Name":  "Dijon",
+        "countryName":  "France",
+        "lastName":  "RIZZI",
+        "firstName":  "Philippe",
+        "title_name":  "Consul honoraire",
+        "staff":  [
+                      {
+                          "title_Code":  null,
+                          "title_Name":  "Consul honoraire",
+                          "firstName":  "Philippe"
+                      }
+                  ]
+    },
+    {
+        "institutionTypeName":  "Consulat honoraire",
+        "city_Name":  "Lille",
+        "countryName":  "France",
+        "lastName":  "DELBEKE",
+        "firstName":  "Marc",
+        "title_name":  "Consul honoraire",
+        "staff":  [
+                      {
+                          "title_Code":  null,
+                          "title_Name":  "Consul honoraire",
+                          "firstName":  "Marc"
+                      }
+                  ]
+    },
+    {
+        "institutionTypeName":  "Consulat honoraire",
+        "city_Name":  "Lorient",
+        "countryName":  "France",
+        "lastName":  "",
+        "firstName":  "",
+        "title_name":  "",
+        "staff":  [
+
+                  ]
+    },
+    {
+        "institutionTypeName":  "Consulat honoraire",
+        "city_Name":  "Lyon",
+        "countryName":  "France",
+        "lastName":  "BOACHON",
+        "firstName":  "Sylvie",
+        "title_name":  "Consul honoraire",
+        "staff":  [
+                      {
+                          "title_Code":  null,
+                          "title_Name":  "Consul honoraire",
+                          "firstName":  "Sylvie"
+                      }
+                  ]
+    },
+    {
+        "institutionTypeName":  "Consulat honoraire",
+        "city_Name":  "Metz",
+        "countryName":  "France",
+        "lastName":  "RUTTEN",
+        "firstName":  "Lambert",
+        "title_name":  "Consul honoraire",
+        "staff":  [
+                      {
+                          "title_Code":  null,
+                          "title_Name":  "Consul honoraire",
+                          "firstName":  "Lambert"
+                      }
+                  ]
+    },
+    {
+        "institutionTypeName":  "Consulat honoraire",
+        "city_Name":  "Montpellier",
+        "countryName":  "France",
+        "lastName":  "CHATEL",
+        "firstName":  "Pierre",
+        "title_name":  "Consul honoraire",
+        "staff":  [
+                      {
+                          "title_Code":  null,
+                          "title_Name":  "Consul honoraire",
+                          "firstName":  "Pierre"
+                      }
+                  ]
+    },
+    {
+        "institutionTypeName":  "Consulat honoraire",
+        "city_Name":  "Nantes",
+        "countryName":  "France",
+        "lastName":  "VAN OSSEL",
+        "firstName":  "Benoît",
+        "title_name":  "Consul honoraire",
+        "staff":  [
+                      {
+                          "title_Code":  null,
+                          "title_Name":  "Consul honoraire",
+                          "firstName":  "Benoît"
+                      }
+                  ]
+    },
+    {
+        "institutionTypeName":  "Consulat honoraire",
+        "city_Name":  "Nice",
+        "countryName":  "France",
+        "lastName":  "VAN KERCKHOVEN ",
+        "firstName":  "Elizabeth",
+        "title_name":  "Consul honoraire",
+        "staff":  [
+                      {
+                          "title_Code":  null,
+                          "title_Name":  "Consul honoraire",
+                          "firstName":  "Elizabeth"
+                      }
+                  ]
+    },
+    {
+        "institutionTypeName":  "Consulat honoraire",
+        "city_Name":  "Perpignan",
+        "countryName":  "France",
+        "lastName":  "RIVIÈRE",
+        "firstName":  "François",
+        "title_name":  "Administrateur intérimaire",
+        "staff":  [
+                      {
+                          "title_Code":  null,
+                          "title_Name":  "Administrateur intérimaire",
+                          "firstName":  "François"
+                      }
+                  ]
+    },
+    {
+        "institutionTypeName":  "Consulat honoraire",
+        "city_Name":  "Toulouse",
+        "countryName":  "France",
+        "lastName":  "Courtois de Viçose",
+        "firstName":  "Jean-Louis",
+        "title_name":  "Consul honoraire",
+        "staff":  [
+                      {
+                          "title_Code":  null,
+                          "title_Name":  "Consul honoraire",
+                          "firstName":  "Jean-Louis"
+                      }
+                  ]
+    },
+    {
+        "institutionTypeName":  "Consulat honoraire",
+        "city_Name":  "Tours",
+        "countryName":  "France",
+        "lastName":  "DE LOVINFOSSE",
+        "firstName":  "Benoît",
+        "title_name":  "Consul honoraire",
+        "staff":  [
+                      {
+                          "title_Code":  null,
+                          "title_Name":  "Consul honoraire",
+                          "firstName":  "Benoît"
+                      }
+                  ]
+    }
+]

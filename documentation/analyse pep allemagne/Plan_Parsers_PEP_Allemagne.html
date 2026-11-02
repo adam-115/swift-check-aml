@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Plan des parsers PEP – Allemagne</title>
+<style>
+  @page { size: A4 portrait; margin: 14mm 13mm 14mm 13mm; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; color: #1e293b; font-size: 10.5px; line-height: 1.45; }
+  h1 { font-size: 22px; color: #0f172a; margin-bottom: 4px; }
+  h2 { font-size: 14px; color: #0f172a; margin: 18px 0 6px; padding-bottom: 3px; border-bottom: 2px solid #2563eb; break-after: avoid; }
+  h3 { font-size: 11.5px; color: #1e3a8a; margin: 12px 0 5px; break-after: avoid; }
+  p { margin: 4px 0; }
+  .subtitle { color: #475569; font-size: 11.5px; margin-bottom: 8px; }
+  .meta { display: flex; flex-wrap: wrap; gap: 18px; color: #64748b; font-size: 9.5px; border-bottom: 1px solid #e2e8f0; padding-bottom: 8px; margin-bottom: 12px; }
+  .kpis { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin: 10px 0 6px; }
+  .kpi { border: 1px solid #e2e8f0; border-radius: 8px; padding: 8px 10px; background: #f8fafc; }
+  .kpi b { display: block; font-size: 20px; color: #1d4ed8; line-height: 1.1; }
+  .kpi span { color: #475569; font-size: 9.5px; }
+  table { width: 100%; border-collapse: collapse; margin: 5px 0 8px; font-size: 9.5px; }
+  th { background: #1e3a8a; color: #fff; text-align: left; padding: 4px 5px; font-weight: 600; }
+  td { border-bottom: 1px solid #e2e8f0; padding: 4px 5px; vertical-align: top; }
+  tr { break-inside: avoid; }
+  tr:nth-child(even) td { background: #f8fafc; }
+  code { font-family: Consolas, 'Courier New', monospace; font-size: 9px; background: #eef2ff; color: #1e3a8a; padding: 0 2px; border-radius: 3px; }
+  .cat { font-weight: 700; color: #1d4ed8; white-space: nowrap; }
+  .tag { display: inline-block; border-radius: 4px; padding: 0 4px; font-size: 8.5px; font-weight: 600; white-space: nowrap; }
+  .easy { background: #dcfce7; color: #166534; }
+  .mid { background: #fef9c3; color: #854d0e; }
+  .hard { background: #fee2e2; color: #991b1b; }
+  .none { background: #e2e8f0; color: #334155; }
+  .note { border-left: 3px solid #2563eb; background: #eff6ff; padding: 6px 9px; margin: 6px 0; border-radius: 0 6px 6px 0; }
+  .warn { border-left-color: #d97706; background: #fffbeb; }
+  ul, ol { margin: 4px 0 4px 18px; }
+  li { margin: 2px 0; }
+  .small { font-size: 9px; color: #64748b; }
+  .footer { margin-top: 14px; border-top: 1px solid #e2e8f0; padding-top: 6px; color: #94a3b8; font-size: 8.5px; }
+  .page-break { break-before: page; }
+</style>
+</head>
+<body>
+
+<h1>Plan des parsers PEP – Allemagne</h1>
+<p class="subtitle">Fonctions PEP de l'Allemagne, où trouver leurs titulaires, quels parsers implémenter et dans quel ordre, pour couvrir
+le § 1 (12) du Geldwäschegesetz (GwG) et la liste notifiée à la Commission (JO C/2023/724), et préparer le règlement AMLR (juillet 2027).</p>
+<div class="meta"><span>SwiftCheck AML</span><span>3 novembre 2026</span><span>Référence : écran « Couverture PEP »</span>
+<span>Suite de « Couverture des PEP en Allemagne – analyse des sources » (17 octobre 2026)</span>
+<span>Sources testées en direct les 2 et 3/11/2026, User-Agent générique, aucune protection contournée</span></div>
+
+<div class="kpis">
+  <div class="kpi"><b>9</b><span>catégories du GwG (§ 1 (12), a à i), plus AMLR, UE et proches</span></div>
+  <div class="kpi"><b>17</b><span>parsers à implémenter, en 3 lots</span></div>
+  <div class="kpi"><b>5</b><span>parsers repris de la France ou du Luxembourg</span></div>
+  <div class="kpi"><b>4 614</b><span>députés du Bundestag depuis 1949 en open data, avec date de naissance</span></div>
+</div>
+
+<div class="note">
+<b>En bref.</b> L'Allemagne a la liste la plus centrée sur le niveau fédéral, avec deux atouts uniques en Europe :
+<ul>
+  <li>le <b>Bundesrat</b> est composé des membres des 16 gouvernements des Länder : sa liste donne d'un coup les ministres-présidents et les ministres régionaux ;</li>
+  <li>la <b>Bundeswahlleiterin</b> publie les documents déposés par chaque parti, avec la composition de sa direction fédérale (catégorie c) : aucun autre pays étudié n'a de source officielle pour les partis.</li>
+</ul>
+Il n'existe pas de journal officiel des nominations : juges, ambassadeurs et dirigeants se lisent sur le site de chaque institution.
+Le ministère des Finances, qui publie le rapport sur les participations de l'État (entreprises publiques), est protégé par un
+contrôle anti-robots : le rapport devra être déposé à la main.
+</div>
+
+<h2>1. Cadre légal</h2>
+<table>
+  <tr><th style="width:24%">Texte</th><th>Contenu utile</th></tr>
+  <tr><td>GwG, § 1 (12)</td><td>Définition de la PEP : fonction publique importante au niveau international, européen ou national,
+  <b>ou au-dessous du niveau national si son importance politique est comparable</b>. Catégories a) à i) : chefs d'État et de gouvernement,
+  ministres, membres de la Commission, ministres adjoints et secrétaires d'État ; parlementaires ; directions des partis ; hautes juridictions ;
+  organes dirigeants des cours des comptes ; organes dirigeants des banques centrales ; ambassadeurs, chargés d'affaires et attachés de défense ;
+  organes des entreprises publiques ; dirigeants des organisations internationales. Plus les fonctions de la liste de la Commission.</td></tr>
+  <tr><td>GwG, § 1 (12), dernières phrases</td><td>Le ministère fédéral des Finances établit la liste nationale et la transmet à la Commission ; les organisations
+  internationales établies en Allemagne lui envoient chaque année leur propre liste.</td></tr>
+  <tr><td>GwG, § 1 (13) et (14)</td><td><b>Famille</b> : conjoint ou partenaire enregistré, enfants et leurs conjoints ou partenaires, parents (pas la fratrie).
+  <b>Proches associés</b> : bénéficiaires effectifs conjoints, relations d'affaires étroites, seul bénéficiaire effectif d'une structure créée pour la PEP.</td></tr>
+  <tr><td>GwG, § 15 (3)</td><td>Vigilance <b>au moins douze mois</b> après la fin des fonctions, puis selon le risque.</td></tr>
+  <tr><td>Liste notifiée (JO C/2023/724, section Allemagne)</td><td>D'après l'analyse du 17/10 : niveau fédéral, plus les cours constitutionnelles et les cours des comptes des
+  Länder ; entreprises détenues à plus de 50 % par le Bund ou un Land et employant plus de 2 000 salariés ou ayant un bilan supérieur à 3 milliards d'euros.
+  Les parlements des Länder n'y figurent pas.</td></tr>
+  <tr><td>Règlement (UE) 2024/1624 (AMLR), 10/07/2027</td><td>Ajoute les dirigeants des collectivités de 50 000 habitants ou plus (maires, Landräte).</td></tr>
+</table>
+<div class="note warn"><b>Point à valider juridiquement.</b> La clause « fonction au-dessous du niveau national d'importance politique comparable » peut viser les
+membres des parlements des Länder, absents de la liste notifiée. Le plan les met en option (parser 16), classés à part, en attendant l'avis du responsable conformité.</div>
+
+<h2>2. Fonctions à couvrir et sources</h2>
+<p class="small">Titulaires : ordres de grandeur à confirmer à la première exécution (≈). « Accès » : résultat des tests des 2 et 3/11/2026.</p>
+<table>
+  <tr><th style="width:7%">Cat.</th><th style="width:30%">Fonctions</th><th style="width:10%">Titulaires</th><th>Source officielle et accès</th></tr>
+  <tr><td class="cat">DE-a</td><td>Président fédéral</td><td>1</td><td>bundespraesident.de, page de biographie <span class="tag easy">200</span>. Élection par l'Assemblée fédérale en février 2027.</td></tr>
+  <tr><td class="cat">DE-a</td><td>Chancelier, ministres fédéraux, ministres d'État, secrétaires d'État parlementaires et secrétaires d'État</td><td>≈ 17 ministres + ≈ 70 secrétaires d'État</td><td>bundesregierung.de, page du cabinet (noms lus : Friedrich Merz, Lars Klingbeil…) <span class="tag easy">200</span> ; secrétaires d'État : pages de chaque ministère</td></tr>
+  <tr><td class="cat">DE-a</td><td>Ministres-présidents et ministres des 16 Länder (fonction d'importance comparable)</td><td>≈ 69 membres + suppléants</td><td>bundesrat.de, liste des membres avec leur fonction régionale <span class="tag easy">200</span></td></tr>
+  <tr><td class="cat">DE-b</td><td>Membres du Bundestag</td><td>630 + anciens</td><td><b>Open data du Bundestag</b> : <code>MdB-Stammdaten.zip</code>, XML de 4 614 députés depuis 1949, avec date de naissance et mandats <span class="tag easy">200</span></td></tr>
+  <tr><td class="cat">DE-b</td><td>Membres du Bundesrat</td><td>69 + suppléants</td><td>bundesrat.de (même source que DE-a Länder) <span class="tag easy">200</span></td></tr>
+  <tr><td class="cat">DE-c</td><td>Membres des directions fédérales des partis (Bundesvorstand, Parteivorstand)</td><td>≈ 30 partis × 10 à 40</td><td><b>Bundeswahlleiterin</b>, collection des documents déposés par les partis (un PDF par parti, avec la composition de la direction) <span class="tag mid">200, PDF</span></td></tr>
+  <tr><td class="cat">DE-d</td><td>Juges des cours fédérales : Cour constitutionnelle, Cour fédérale de justice, cours fédérales administrative, du travail, sociale et des finances</td><td>16 + ≈ 330</td><td>Sites des 6 cours <span class="tag easy">200</span> : BVerfG (16 juges listés), BVerwG (55 juges, page des sénats), BGH, BAG, BSG, BFH (pages d'organisation et de sénats)</td></tr>
+  <tr><td class="cat">DE-d</td><td>Présidents et juges des 16 cours constitutionnelles des Länder</td><td>≈ 150</td><td>Site de chaque cour, à configurer</td></tr>
+  <tr><td class="cat">DE-e</td><td>Organes dirigeants de la Cour des comptes fédérale et des 16 cours des comptes des Länder</td><td>≈ 40</td><td>bundesrechnungshof.de (nouveau président : Ansgar Heveling) <span class="tag easy">200</span> ; sites des cours des Länder</td></tr>
+  <tr><td class="cat">DE-f</td><td>Directoire de la Deutsche Bundesbank</td><td>≈ 6</td><td>bundesbank.de, page du directoire (Joachim Nagel, Sabine Mauderer, Michael Theurer, Lutz Lienenkämper… lus) <span class="tag easy">200</span></td></tr>
+  <tr><td class="cat">DE-g</td><td>Ambassadeurs, chargés d'affaires et attachés de défense</td><td>≈ 150 postes</td><td>Auswärtiges Amt (liste des pays) <span class="tag easy">200</span>, puis site de chaque représentation (diplo.de) ; <b>attachés de défense : aucune source publique trouvée</b></td></tr>
+  <tr><td class="cat">DE-h</td><td>Organes des entreprises publiques (Bund ou Land à plus de 50 %, plus de 2 000 salariés ou 3 Md€ de bilan)</td><td>centaines</td><td>Rapport fédéral sur les participations (Beteiligungsbericht, 119 participations directes) : ministère des Finances <span class="tag hard">503 « Security Check »</span>, non contourné ; rapports des Länder ; pages de gouvernance des entreprises</td></tr>
+  <tr><td class="cat">DE-i</td><td>Dirigeants des organisations internationales établies en Allemagne</td><td>≈ 80</td><td>Sites des organisations (Office européen des brevets, EUMETSAT, EMBL, ESO, OCCAR, organisations de l'ONU à Bonn…)</td></tr>
+  <tr><td class="cat">DE-EU</td><td>Députés européens élus en Allemagne ; membre allemand de la Commission</td><td>96 + 1</td><td>API du Parlement européen (96 députés lus) <span class="tag easy">200</span> ; Commission : Ursula von der Leyen, présidente</td></tr>
+  <tr><td class="cat">DE-AMLR</td><td>Maires et Landräte des collectivités de 50 000 habitants ou plus (à partir du 10/07/2027)</td><td>≈ 200 villes + ≈ 290 Landkreise</td><td>Destatis, répertoire des communes (populations) <span class="tag easy">200</span> ; titulaires : <b>aucune source nationale</b> (un site par Land et par collectivité), Wikidata en secours</td></tr>
+  <tr><td class="cat">Option</td><td>Membres des 16 parlements des Länder (hors liste notifiée)</td><td>≈ 1 900</td><td>API AbgeordnetenWatch (CC0, non officielle, 16 Landtage lus) <span class="tag easy">200</span> ; sites des Landtage</td></tr>
+  <tr><td class="cat">DE-RCA</td><td>Famille et proches associés</td><td>—</td><td>Wikidata (famille) ; activités annexes déclarées par les députés du Bundestag</td></tr>
+</table>
+
+<h2 class="page-break">3. Parsers à implémenter</h2>
+<p>Noms sur le modèle des autres pays (<code>de_pep_…</code>), un dataset par source. Difficulté :
+<span class="tag easy">Faible</span> <span class="tag mid">Moyen</span> <span class="tag hard">Élevé</span>.</p>
+
+<h3>Lot 1 – open data et reprises (7 parsers)</h3>
+<table>
+  <tr><th style="width:4%">#</th><th style="width:22%">Parser</th><th style="width:26%">Source</th><th>Couvre</th><th style="width:12%">Effort</th></tr>
+  <tr><td>1</td><td><code>de_pep_bundestag</code></td><td>Open data du Bundestag, <code>MdB-Stammdaten.zip</code> (XML)</td><td>DE-b : députés en fonction et sortis depuis moins de 12 mois, avec date et lieu de naissance, groupe, circonscription</td><td><span class="tag easy">Faible</span></td></tr>
+  <tr><td>2</td><td><code>de_pep_bundesrat</code></td><td>bundesrat.de, liste des membres</td><td>DE-b membres du Bundesrat ; DE-a ministres-présidents et ministres des 16 Länder</td><td><span class="tag easy">Faible</span></td></tr>
+  <tr><td>3</td><td><code>de_pep_federal_government</code></td><td>bundesregierung.de (cabinet) ; pages des ministères pour les secrétaires d'État</td><td>DE-a : Chancelier, ministres fédéraux, ministres d'État, secrétaires d'État parlementaires et secrétaires d'État</td><td><span class="tag mid">Moyen</span></td></tr>
+  <tr><td>4</td><td><code>de_pep_president</code></td><td>bundespraesident.de</td><td>DE-a : Président fédéral</td><td><span class="tag easy">Faible</span> sur le modèle de <code>be_pep_king</code></td></tr>
+  <tr><td>5</td><td><code>de_pep_europarl</code></td><td>API du Parlement européen (<code>country-of-representation=DE</code>)</td><td>DE-EU : 96 députés européens, et anciens sur 12 mois</td><td><span class="tag easy">Faible</span> reprise de <code>be_pep_europarl</code></td></tr>
+  <tr><td>6</td><td><code>de_pep_eu_commission</code></td><td>Fiche officielle de la présidente de la Commission</td><td>DE-EU : Ursula von der Leyen</td><td><span class="tag easy">Faible</span> reprise de <code>be_pep_eu_commission</code></td></tr>
+  <tr><td>7</td><td><code>de_pep_rca</code></td><td>Wikidata (SPARQL), liste autorisée de fonctions allemandes</td><td>DE-RCA : conjoint, enfants et leurs conjoints, parents</td><td><span class="tag easy">Faible</span> reprise de <code>be_pep_rca</code></td></tr>
+</table>
+
+<h3>Lot 2 – sites des institutions (7 parsers)</h3>
+<table>
+  <tr><th style="width:4%">#</th><th style="width:22%">Parser</th><th style="width:26%">Source</th><th>Couvre</th><th style="width:12%">Effort</th></tr>
+  <tr><td>8</td><td><code>de_pep_bundesbank</code></td><td>bundesbank.de, page du directoire</td><td>DE-f : président, vice-présidente, membres du directoire</td><td><span class="tag easy">Faible</span></td></tr>
+  <tr><td>9</td><td><code>de_pep_audit_courts</code></td><td>Cour des comptes fédérale et 16 cours des Länder, une page par cour en configuration</td><td>DE-e : présidents, vice-présidents, membres des organes dirigeants</td><td><span class="tag mid">Moyen</span></td></tr>
+  <tr><td>10</td><td><code>de_pep_federal_courts</code></td><td>Pages des juges des 6 cours fédérales, en configuration</td><td>DE-d : juges fédéraux (BVerfG, BGH, BVerwG, BAG, BSG, BFH)</td><td><span class="tag mid">Moyen</span></td></tr>
+  <tr><td>11</td><td><code>de_pep_land_constitutional_courts</code></td><td>Sites des 16 cours constitutionnelles des Länder, en configuration</td><td>DE-d : présidents et juges</td><td><span class="tag mid">Moyen</span></td></tr>
+  <tr><td>12</td><td><code>de_pep_parties</code></td><td>Bundeswahlleiterin : PDF des documents déposés par les partis</td><td>DE-c : membres des directions fédérales, avec la date de chaque document</td><td><span class="tag hard">Élevé</span> (PDF de formats différents)</td></tr>
+  <tr><td>13</td><td><code>de_pep_diplomats</code></td><td>Auswärtiges Amt, puis site de chaque représentation (diplo.de)</td><td>DE-g : ambassadeurs et chargés d'affaires ; pas les attachés de défense</td><td><span class="tag mid">Moyen</span></td></tr>
+  <tr><td>14</td><td><code>de_pep_international_orgs</code></td><td>Une page officielle par organisation, en configuration</td><td>DE-i : OEB, EUMETSAT, EMBL, ESO, OCCAR, ONU à Bonn…</td><td><span class="tag mid">Moyen</span> reprise de <code>fr_pep_international_orgs</code></td></tr>
+</table>
+
+<h3>Lot 3 – volumineux ou à valider (3 parsers)</h3>
+<table>
+  <tr><th style="width:4%">#</th><th style="width:22%">Parser</th><th style="width:26%">Source</th><th>Couvre</th><th style="width:12%">Effort</th></tr>
+  <tr><td>15</td><td><code>de_pep_state_enterprises</code></td><td>Beteiligungsbericht du Bund (PDF déposé à la main : site protégé) et des Länder ; pages de gouvernance</td><td>DE-h : organes des entreprises au-dessus des seuils (2 000 salariés ou 3 Md€ de bilan)</td><td><span class="tag hard">Élevé</span></td></tr>
+  <tr><td>16</td><td><code>de_pep_landtage</code> (option)</td><td>API AbgeordnetenWatch (CC0) ou sites des Landtage</td><td>Membres des 16 parlements des Länder, classés à part (hors liste notifiée)</td><td><span class="tag easy">Faible</span> technique, <span class="tag mid">à valider</span> juridiquement</td></tr>
+  <tr><td>17</td><td><code>de_pep_local_executives</code></td><td>Destatis (populations) ; titulaires : Wikidata en secours, faute de source nationale</td><td>DE-AMLR : maires et Landräte des collectivités de 50 000 habitants ou plus (avant le 10/07/2027)</td><td><span class="tag hard">Élevé</span></td></tr>
+</table>
+
+<h2>4. À étudier avant de coder</h2>
+<table>
+  <tr><th style="width:26%">Sujet</th><th>Question</th><th style="width:32%">Comment trancher</th></tr>
+  <tr><td>Rapport sur les participations</td><td>Le site du ministère des Finances répond par un contrôle anti-robots (503 « Security Check »).</td><td>Télécharger le PDF dans un navigateur et le déposer (source « fichier sur le serveur ») ; ne pas contourner la protection.</td></tr>
+  <tr><td>Documents des partis</td><td>Déposés par les partis eux-mêmes, non vérifiés, chacun à sa date (ex. décembre 2023 pour Die Linke).</td><td>Garder la date du document et la publier ; écarter ou signaler les documents trop anciens.</td></tr>
+  <tr><td>Parlements des Länder</td><td>Hors liste notifiée, mais visés par la clause d'importance comparable du § 1 (12).</td><td>Avis du responsable conformité ; parser 16 activé ou non selon la réponse.</td></tr>
+  <tr><td>Conditions de réutilisation</td><td>Celles des données du Bundestag ne sont pas précisées sur sa page open data ; la protection des données est stricte en Allemagne.</td><td>Vérifier chaque site avant collecte ; ne publier que ce qui sert au criblage.</td></tr>
+  <tr><td>Liste notifiée (C/2023/724)</td><td>EUR-Lex a différé la page (202) ; la section allemande précise le périmètre (seuils des entreprises, Länder).</td><td>Lire la section dans un navigateur et l'ajouter au référentiel.</td></tr>
+</table>
+
+<h2>5. Règles communes</h2>
+<ul>
+  <li><b>Durée</b> : garder un titulaire au moins 12 mois après la fin de ses fonctions (GwG, § 15 (3)), paramètre <code>monthsAfterEnd</code>.</li>
+  <li><b>Identité</b> : garder la date de naissance quand la source la donne (Bundestag, API du Parlement européen).</li>
+  <li><b>Pas de coordonnées personnelles</b> : ni adresse, ni téléphone, ni e-mail, même si la source les donne.</li>
+  <li><b>Accès</b> : User-Agent générique SwiftCheck, rythme lent, aucun contournement des protections ; la source bloquée est signalée dans le message de l'exécution.</li>
+  <li><b>Configuration plutôt que code</b> : pages des cours, des cours des comptes et des organisations dans un fichier de configuration, sans nom écrit en dur.</li>
+  <li><b>Couverture</b> : renseigner pour chaque lien fonction ↔ parser ce qui est couvert et ce qui manque (écran « Couverture PEP »).</li>
+</ul>
+
+<h2>6. Ordre proposé</h2>
+<ol>
+  <li><b>Lot 1 – parsers 1 à 7.</b> DE-b (Bundestag, Bundesrat), DE-a (gouvernement fédéral, Länder via le Bundesrat, Président), DE-EU et la famille.</li>
+  <li><b>Lot 2 – parsers 8 à 14.</b> Bundesbank, cours des comptes, toutes les hautes juridictions, partis, ambassadeurs, organisations internationales.</li>
+  <li><b>Lot 3 – parsers 15 à 17</b>, après les études du § 4. <code>de_pep_local_executives</code> doit être en production avant le 10 juillet 2027.</li>
+</ol>
+<p>Après le lot 2, il resterait DE-h (entreprises publiques), les attachés de défense (aucune source publique) et, selon l'avis juridique, les parlements des Länder.</p>
+
+<h2>7. Sources</h2>
+<ul class="small">
+  <li>GwG, § 1 et § 15 : gesetze-im-internet.de/gwg_2017 · Liste de la Commission : eur-lex.europa.eu/eli/C/2023/724/oj</li>
+  <li>Bundestag : bundestag.de/services/opendata (MdB-Stammdaten.zip) · Bundesrat : bundesrat.de/DE/bundesrat/mitglieder · Bundesregierung : bundesregierung.de/breg-de/bundesregierung/bundeskabinett · Président fédéral : bundespraesident.de</li>
+  <li>BVerfG : bundesverfassungsgericht.de · BGH : bundesgerichtshof.de · BVerwG : bverwg.de · BAG : bundesarbeitsgericht.de · BSG : bsg.bund.de · BFH : bundesfinanzhof.de</li>
+  <li>Bundesrechnungshof : bundesrechnungshof.de · Bundesbank : bundesbank.de/de/bundesbank/organisation/vorstand · Bundeswahlleiterin : bundeswahlleiterin.de/parteien/unterlagensammlung</li>
+  <li>Auswärtiges Amt : auswaertiges-amt.de/de/service/laender · Beteiligungsbericht : bundesfinanzministerium.de (protégé) · Destatis : destatis.de (Gemeindeverzeichnis)</li>
+  <li>Parlement européen : data.europarl.europa.eu · AbgeordnetenWatch : abgeordnetenwatch.de/api (CC0) · Wikidata</li>
+</ul>
+
+<div class="footer">SwiftCheck AML – Plan des parsers PEP Allemagne – 3 novembre 2026. Ordres de grandeur indicatifs, à confirmer à la première exécution de chaque parser.</div>
+</body>
+</html>

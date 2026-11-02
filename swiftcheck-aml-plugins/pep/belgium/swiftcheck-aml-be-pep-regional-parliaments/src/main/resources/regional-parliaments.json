@@ -1,0 +1,24 @@
+[
+  {
+    "code": "pfwb",
+    "parliamentName": "Parlement de la Fédération Wallonie-Bruxelles",
+    "jurisdiction": "Fédération Wallonie-Bruxelles",
+    "membersUrl": "https://www.pfwb.be/les-94-deputes",
+    "bureauUrl": ""
+  },
+  {
+    "code": "pdg",
+    "parliamentName": "Parlement de la Communauté germanophone (Parlament der Deutschsprachigen Gemeinschaft)",
+    "jurisdiction": "Communauté germanophone de Belgique",
+    "membersUrl": "https://pdg.be/desktopdefault.aspx/tabid-4065/",
+    "bureauUrl": "https://pdg.be/desktopdefault.aspx/tabid-4014/"
+  },
+  {
+    "code": "bruxelles",
+    "parliamentName": "Parlement de la Région de Bruxelles-Capitale",
+    "jurisdiction": "Région de Bruxelles-Capitale",
+    "membersUrl": "https://www.parlement.brussels/deputes/",
+    "bureauUrl": ""
+  }
+]
+

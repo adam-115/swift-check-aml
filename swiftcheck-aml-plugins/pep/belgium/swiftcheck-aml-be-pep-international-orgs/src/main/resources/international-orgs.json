@@ -1,0 +1,51 @@
+[
+  {
+    "code": "nato",
+    "acronym": "OTAN / NATO",
+    "name": "Organisation du Traité de l'Atlantique Nord (OTAN)",
+    "headquarters": "Bruxelles",
+    "url": "https://www.nato.int/en/about-us/organization/who-we-are",
+    "status": "active"
+  },
+  {
+    "code": "benelux",
+    "acronym": "Union Benelux",
+    "name": "Union Benelux (Secrétariat général)",
+    "headquarters": "Bruxelles",
+    "url": "https://www.benelux.int/fr/contact/qui-est-qui-au-secretariat-general-de-lunion-benelux/",
+    "status": "active"
+  },
+  {
+    "code": "wco",
+    "acronym": "OMD / WCO",
+    "name": "Organisation mondiale des douanes (OMD)",
+    "headquarters": "Bruxelles",
+    "url": "https://www.wcoomd.org/fr/about-us/what-is-the-wco/au_secr_general.aspx",
+    "status": "active"
+  },
+  {
+    "code": "shape",
+    "acronym": "SHAPE",
+    "name": "Grand Quartier général des puissances alliées en Europe (SHAPE)",
+    "headquarters": "Mons (Casteau)",
+    "url": "https://shape.nato.int/command-group",
+    "status": "pending"
+  },
+  {
+    "code": "eurocontrol",
+    "acronym": "Eurocontrol",
+    "name": "Organisation européenne pour la sécurité de la navigation aérienne (Eurocontrol)",
+    "headquarters": "Bruxelles",
+    "url": "https://www.eurocontrol.int/about-us",
+    "status": "pending"
+  },
+  {
+    "code": "oacps",
+    "acronym": "OEACP / OACPS",
+    "name": "Organisation des États d'Afrique, des Caraïbes et du Pacifique (OEACP)",
+    "headquarters": "Bruxelles",
+    "url": "https://www.oacps.org",
+    "status": "pending"
+  }
+]
+

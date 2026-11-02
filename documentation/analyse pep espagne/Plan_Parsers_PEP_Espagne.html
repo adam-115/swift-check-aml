@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Plan des parsers PEP – Espagne</title>
+<style>
+  @page { size: A4 portrait; margin: 14mm 13mm 14mm 13mm; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; color: #1e293b; font-size: 10.5px; line-height: 1.45; }
+  h1 { font-size: 22px; color: #0f172a; margin-bottom: 4px; }
+  h2 { font-size: 14px; color: #0f172a; margin: 18px 0 6px; padding-bottom: 3px; border-bottom: 2px solid #2563eb; break-after: avoid; }
+  h3 { font-size: 11.5px; color: #1e3a8a; margin: 12px 0 5px; break-after: avoid; }
+  p { margin: 4px 0; }
+  .subtitle { color: #475569; font-size: 11.5px; margin-bottom: 8px; }
+  .meta { display: flex; flex-wrap: wrap; gap: 18px; color: #64748b; font-size: 9.5px; border-bottom: 1px solid #e2e8f0; padding-bottom: 8px; margin-bottom: 12px; }
+  .kpis { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin: 10px 0 6px; }
+  .kpi { border: 1px solid #e2e8f0; border-radius: 8px; padding: 8px 10px; background: #f8fafc; }
+  .kpi b { display: block; font-size: 20px; color: #1d4ed8; line-height: 1.1; }
+  .kpi span { color: #475569; font-size: 9.5px; }
+  table { width: 100%; border-collapse: collapse; margin: 5px 0 8px; font-size: 9.5px; }
+  th { background: #1e3a8a; color: #fff; text-align: left; padding: 4px 5px; font-weight: 600; }
+  td { border-bottom: 1px solid #e2e8f0; padding: 4px 5px; vertical-align: top; }
+  tr { break-inside: avoid; }
+  tr:nth-child(even) td { background: #f8fafc; }
+  code { font-family: Consolas, 'Courier New', monospace; font-size: 9px; background: #eef2ff; color: #1e3a8a; padding: 0 2px; border-radius: 3px; }
+  .cat { font-weight: 700; color: #1d4ed8; white-space: nowrap; }
+  .tag { display: inline-block; border-radius: 4px; padding: 0 4px; font-size: 8.5px; font-weight: 600; white-space: nowrap; }
+  .easy { background: #dcfce7; color: #166534; }
+  .mid { background: #fef9c3; color: #854d0e; }
+  .hard { background: #fee2e2; color: #991b1b; }
+  .none { background: #e2e8f0; color: #334155; }
+  .note { border-left: 3px solid #2563eb; background: #eff6ff; padding: 6px 9px; margin: 6px 0; border-radius: 0 6px 6px 0; }
+  .warn { border-left-color: #d97706; background: #fffbeb; }
+  ul, ol { margin: 4px 0 4px 18px; }
+  li { margin: 2px 0; }
+  .small { font-size: 9px; color: #64748b; }
+  .footer { margin-top: 14px; border-top: 1px solid #e2e8f0; padding-top: 6px; color: #94a3b8; font-size: 8.5px; }
+  .page-break { break-before: page; }
+</style>
+</head>
+<body>
+
+<h1>Plan des parsers PEP – Espagne</h1>
+<p class="subtitle">Fonctions PEP de l'Espagne, où trouver leurs titulaires, quels parsers implémenter et dans quel ordre, pour couvrir
+l'article 14 de la loi 10/2010 et la liste notifiée à la Commission (JO C/2023/724).</p>
+<div class="meta"><span>SwiftCheck AML</span><span>3 novembre 2026</span><span>Référence : écran « Couverture PEP »</span>
+<span>Suite de « Couverture des PEP en Espagne – analyse des sources » (17 octobre 2026)</span>
+<span>Sources testées en direct le 3/11/2026, User-Agent générique, aucune protection contournée</span></div>
+
+<div class="kpis">
+  <div class="kpi"><b>13</b><span>blocs de fonctions (art. 14.2 et 14.3), plus UE et proches</span></div>
+  <div class="kpi"><b>16</b><span>parsers à implémenter, en 3 lots</span></div>
+  <div class="kpi"><b>2 ans</b><span>de vigilance après la fin des fonctions (art. 14.9), contre 12 mois ailleurs</span></div>
+  <div class="kpi"><b>6</b><span>sites officiels protégés par un contrôle anti-robots (non contournés)</span></div>
+</div>
+
+<div class="note">
+<b>En bref.</b> L'Espagne a la liste PEP la plus large des pays étudiés. Les PEP y sont aussi <b>régionales</b> (17 communautés autonomes) et
+<b>locales</b> (maires et conseillers des chefs-lieux et des communes de plus de 50 000 habitants, dès aujourd'hui et pas seulement avec l'AMLR). Elle couvre aussi les directions des
+<b>partis, syndicats et organisations patronales</b>. La meilleure source est le <b>Bulletin officiel de l'État (BOE)</b> : son API publie chaque jour
+les nominations <i>et</i> les cessations, ce qui donne de vraies dates de fin. Le Congreso publie ses députés en open data. En revanche, plusieurs
+sites clés bloquent les clients automatiques : Sénat, Tribunal constitutionnel, La Moncloa, Maison royale, CNMV. Le BOE permet de contourner ce manque
+sans contourner les protections, car les nominations y sont publiées.
+</div>
+
+<h2>1. Cadre légal</h2>
+<table>
+  <tr><th style="width:24%">Texte</th><th>Contenu utile</th></tr>
+  <tr><td>Loi 10/2010, art. 14.2 (version en vigueur depuis le 29/04/2021)</td><td>Fonctions nationales : chefs d'État et de gouvernement, ministres et autres membres du Gouvernement, secrétaires d'État, sous-secrétaires ;
+  parlementaires ; magistrats des hautes juridictions et membres équivalents du ministère public ; membres des cours des comptes et des conseils des banques centrales ;
+  ambassadeurs et chargés d'affaires ; haut personnel militaire ; organes des entreprises publiques ; dirigeants d'organisations internationales ;
+  haute direction des partis représentés au Parlement.</td></tr>
+  <tr><td>Art. 14.3</td><td>a) <b>hauts cargos</b> de l'administration de l'État (loi 3/2015, art. 1) ; b) <b>niveau autonomique</b> : présidents, conseillers et membres des gouvernements,
+  cargos équivalents, députés régionaux, directions des partis régionaux ; c) <b>niveau local</b> : maires, conseillers municipaux et cargos équivalents des chefs-lieux de province
+  ou de communauté et des entités de plus de 50 000 habitants, directions locales des partis ; d) haute direction des <b>syndicats et organisations patronales</b> ;
+  e) fonctions importantes des <b>organisations internationales accréditées en Espagne</b>.</td></tr>
+  <tr><td>Art. 14.4 et 14.6</td><td>Pas de fonctions de niveau intermédiaire ou inférieur. <b>Famille</b> : conjoint ou équivalent, parents, enfants et leurs conjoints (pas la fratrie).
+  <b>Proches</b> : co-titulaires ou contrôleurs d'une entité avec la PEP, relations d'affaires étroites, entité créée à son profit.</td></tr>
+  <tr><td>Art. 14.9</td><td>Mesures maintenues <b>deux ans</b> après la fin des fonctions, puis selon le risque. Il faut donc une <b>rétention de 24 mois pour l'Espagne</b>
+  dans le paramétrage du pays (champ « rétention » de la table des pays).</td></tr>
+  <tr><td>Liste de la Commission (JO C/2023/724, section Espagne)</td><td>Détaille les fonctions par bloc, jusqu'aux directeurs généraux, procureurs en chef et généraux de division (analyse du 17/10).
+  La Commission de prévention du blanchiment (Sepblac) publie la liste des fonctions (art. 14.3).</td></tr>
+</table>
+
+<h2>2. Fonctions à couvrir et sources</h2>
+<p class="small">Titulaires : ordres de grandeur à confirmer à la première exécution (≈). « Accès » : résultat des tests du 3/11/2026.</p>
+<table>
+  <tr><th style="width:9%">Bloc</th><th style="width:30%">Fonctions</th><th style="width:10%">Titulaires</th><th>Source officielle et accès</th></tr>
+  <tr><td class="cat">ES-a</td><td>Roi ; président, vice-présidents et ministres du Gouvernement ; secrétaires d'État, sous-secrétaires</td><td>≈ 1 + 22 + ≈ 80</td><td>La Moncloa et casareal.es <span class="tag hard">« Security Check »</span>, non contournés ;
+  <b>BOE</b> : décrets royaux de nomination et de cessation <span class="tag easy">200, API JSON</span></td></tr>
+  <tr><td class="cat">ES-b</td><td>Députés au Congreso</td><td>350 + anciens</td><td><b>Open data du Congreso</b> : députés en fonction, députés sortis (« de baja »), déclarations d'activités, en JSON, CSV et XML <span class="tag easy">200</span> ; pas de date de naissance</td></tr>
+  <tr><td class="cat">ES-b</td><td>Sénateurs</td><td>≈ 265</td><td>senado.es et son open data <span class="tag hard">403 « Access Denied »</span>, non contourné ; à résoudre (demande d'accès, Wikidata en secours)</td></tr>
+  <tr><td class="cat">ES-c</td><td>Tribunal constitutionnel, Tribunal suprême, Conseil général du pouvoir judiciaire, Audiencia Nacional, présidents des tribunaux supérieurs de justice ; procureur général et procureurs en chef</td><td>≈ 250</td><td>tribunalconstitucional.es <span class="tag hard">test de navigateur « Voight-Kampff »</span> ;
+  poderjudicial.es et fiscal.es <span class="tag easy">200</span> ; <b>BOE</b> (nominations du CGPJ et décrets royaux)</td></tr>
+  <tr><td class="cat">ES-d</td><td>Gouverneur, sous-gouverneur, conseil de gouvernement et commission exécutive de la Banque d'Espagne ; Tribunal de Cuentas</td><td>≈ 15 + 12</td><td>bde.es, pages des organes de direction (José Luis Escrivá, Soledad Núñez lus) <span class="tag easy">200</span> ; tcu.es <span class="tag easy">200</span></td></tr>
+  <tr><td class="cat">ES-e</td><td>Ambassadeurs et chefs de mission ; haut personnel militaire (chefs d'état-major, lieutenants généraux, amiraux, généraux de division)</td><td>≈ 120 + ≈ 150</td><td><b>BOE</b> (décrets royaux) ; exteriores.gob.es (embassades) <span class="tag easy">200</span></td></tr>
+  <tr><td class="cat">ES-f</td><td>Hauts cargos de l'État (loi 3/2015) : directeurs généraux, délégués du Gouvernement, régulateurs (CNMV, CNMC, CSN…), agences</td><td>≈ 800</td><td><b>BOE</b> ; portail de la transparence (liste incomplète, page déplacée : 404) ; cnmv.es <span class="tag hard">403 sur les pages internes</span> ; cnmc.es <span class="tag easy">200</span></td></tr>
+  <tr><td class="cat">ES-g</td><td>Organes des entreprises publiques</td><td>centaines</td><td>SEPI, Patrimoine de l'État ; inventaire des entités du secteur public (IGAE) : à étudier</td></tr>
+  <tr><td class="cat">ES-h</td><td>Haute direction des partis représentés au Parlement</td><td>≈ 15 partis</td><td>Registre des partis du ministère de l'Intérieur (redirection, contenu à vérifier) ; sites des partis</td></tr>
+  <tr><td class="cat">ES-i</td><td>Dirigeants des organisations internationales en Espagne et accréditées</td><td>≈ 60</td><td>Sites des organisations (ONU Tourisme, SEGIB, OEI, OISS, Union pour la Méditerranée, OICV…)</td></tr>
+  <tr><td class="cat">ES-CCAA</td><td>Présidents, conseillers, hauts cargos et députés des 17 communautés autonomes ; directions régionales des partis</td><td>≈ 1 250 députés + ≈ 1 500 cargos</td><td>17 parlements (Andalousie, Catalogne <span class="tag easy">200</span> ; Madrid <span class="tag mid">redirection anti-robots</span>), 17 gouvernements, 17 bulletins officiels (BOJA, DOGC, BOCM…)</td></tr>
+  <tr><td class="cat">ES-LOC</td><td>Maires et conseillers des chefs-lieux et des entités de plus de 50 000 habitants ; directions locales des partis</td><td>≈ 150 communes × ≈ 27</td><td>Registre national des élus : <span class="tag hard">portail en 503 ou 404, jeu de données « extinto »</span> ; INE (populations) <span class="tag easy">200</span> ; sites municipaux et régionaux</td></tr>
+  <tr><td class="cat">ES-SIND</td><td>Haute direction des syndicats et organisations patronales</td><td>≈ 100</td><td>Sites des organisations (CCOO, UGT, CEOE, Cepyme…), sans source structurée</td></tr>
+  <tr><td class="cat">ES-EU</td><td>Députés européens élus en Espagne ; membre espagnol de la Commission</td><td>61 + 1</td><td>API du Parlement européen (61 députés lus) <span class="tag easy">200</span> ; Commission : Teresa Ribera, vice-présidente exécutive</td></tr>
+  <tr><td class="cat">ES-RCA</td><td>Famille et proches</td><td>—</td><td>Wikidata ; déclarations d'activités des députés du Congreso</td></tr>
+</table>
+
+<h2 class="page-break">3. Parsers à implémenter</h2>
+<p>Noms sur le modèle des autres pays (<code>es_pep_…</code>), un dataset par source. Difficulté :
+<span class="tag easy">Faible</span> <span class="tag mid">Moyen</span> <span class="tag hard">Élevé</span>.</p>
+
+<h3>Lot 1 – le BOE et les sources ouvertes (6 parsers)</h3>
+<table>
+  <tr><th style="width:4%">#</th><th style="width:22%">Parser</th><th style="width:26%">Source</th><th>Couvre</th><th style="width:12%">Effort</th></tr>
+  <tr><td>1</td><td><code>es_pep_boe</code></td><td>API du BOE : sommaire quotidien, section II.A (« Nombramientos », « Ceses »), décrets royaux seulement ; archive depuis la date choisie</td><td>ES-a Gouvernement et secrétaires d'État ; ES-c juges et procureurs ; ES-e ambassadeurs et généraux ; ES-f hauts cargos et régulateurs, <b>avec les dates de fin</b></td><td><span class="tag hard">Élevé</span> sur le modèle de <code>fr_pep_jorf</code></td></tr>
+  <tr><td>2</td><td><code>es_pep_congreso</code></td><td>Open data du Congreso (JSON) : députés en fonction et sortis</td><td>ES-b : 350 députés, anciens sur 24 mois, groupe, circonscription</td><td><span class="tag easy">Faible</span></td></tr>
+  <tr><td>3</td><td><code>es_pep_bank_of_spain</code></td><td>bde.es, pages des organes de direction</td><td>ES-d : gouverneur, sous-gouverneur, conseil de gouvernement, commission exécutive</td><td><span class="tag easy">Faible</span></td></tr>
+  <tr><td>4</td><td><code>es_pep_europarl</code></td><td>API du Parlement européen (<code>country-of-representation=ES</code>)</td><td>ES-EU : 61 députés européens</td><td><span class="tag easy">Faible</span> reprise de <code>be_pep_europarl</code></td></tr>
+  <tr><td>5</td><td><code>es_pep_eu_commission</code></td><td>Fiche officielle de la commissaire espagnole</td><td>ES-EU : Teresa Ribera</td><td><span class="tag easy">Faible</span> reprise</td></tr>
+  <tr><td>6</td><td><code>es_pep_rca</code></td><td>Wikidata (SPARQL), liste autorisée de fonctions espagnoles</td><td>ES-RCA : conjoint, enfants et leurs conjoints, parents</td><td><span class="tag easy">Faible</span> reprise de <code>be_pep_rca</code></td></tr>
+</table>
+
+<h3>Lot 2 – institutions et communautés autonomes (6 parsers)</h3>
+<table>
+  <tr><th style="width:4%">#</th><th style="width:22%">Parser</th><th style="width:26%">Source</th><th>Couvre</th><th style="width:12%">Effort</th></tr>
+  <tr><td>7</td><td><code>es_pep_senado</code></td><td>Source à trouver : open data du Sénat bloqué (403) ; Wikidata en secours, le temps d'obtenir un accès</td><td>ES-b : sénateurs</td><td><span class="tag mid">Moyen</span>, accès à obtenir</td></tr>
+  <tr><td>8</td><td><code>es_pep_regulators</code></td><td>Une page par institution, en configuration (Tribunal de Cuentas, CNMC, CSN, AEPD…)</td><td>ES-d Tribunal de Cuentas ; ES-f présidents et conseils des régulateurs</td><td><span class="tag mid">Moyen</span></td></tr>
+  <tr><td>9</td><td><code>es_pep_judiciary</code></td><td>poderjudicial.es (Tribunal suprême, CGPJ, présidents des TSJ, Audiencia Nacional) ; fiscal.es</td><td>ES-c : complète le BOE pour les titulaires nommés avant la période lue</td><td><span class="tag mid">Moyen</span></td></tr>
+  <tr><td>10</td><td><code>es_pep_regional_governments</code></td><td>Une page par gouvernement autonome, en configuration (17)</td><td>ES-CCAA : présidents et conseillers</td><td><span class="tag mid">Moyen</span></td></tr>
+  <tr><td>11</td><td><code>es_pep_regional_parliaments</code></td><td>Une source par parlement autonome (open data quand il existe), en configuration (17)</td><td>ES-CCAA : députés régionaux</td><td><span class="tag mid">Moyen</span></td></tr>
+  <tr><td>12</td><td><code>es_pep_international_orgs</code></td><td>Une page officielle par organisation, en configuration</td><td>ES-i : ONU Tourisme, SEGIB, OEI, OISS, Union pour la Méditerranée…</td><td><span class="tag mid">Moyen</span> reprise de <code>fr_pep_international_orgs</code></td></tr>
+</table>
+
+<h3>Lot 3 – volumineux, après étude (4 parsers)</h3>
+<table>
+  <tr><th style="width:4%">#</th><th style="width:22%">Parser</th><th style="width:26%">Source</th><th>Couvre</th><th style="width:12%">Effort</th></tr>
+  <tr><td>13</td><td><code>es_pep_regional_bulletins</code></td><td>Les 17 bulletins officiels autonomes (BOJA, DOGC, BOCM…), sur le modèle du BOE</td><td>ES-CCAA : hauts cargos régionaux, avec dates de fin</td><td><span class="tag hard">Élevé</span></td></tr>
+  <tr><td>14</td><td><code>es_pep_local_officials</code></td><td>INE (populations et chefs-lieux) ; titulaires : sources régionales et municipales, Wikidata en secours</td><td>ES-LOC : maires et conseillers des communes concernées (PEP dès aujourd'hui)</td><td><span class="tag hard">Élevé</span></td></tr>
+  <tr><td>15</td><td><code>es_pep_parties_unions</code></td><td>Pages de direction des partis, syndicats et organisations patronales, en configuration</td><td>ES-h et ES-SIND</td><td><span class="tag hard">Élevé</span> (collecte ciblée)</td></tr>
+  <tr><td>16</td><td><code>es_pep_state_enterprises</code></td><td>SEPI, Patrimoine de l'État, inventaire IGAE ; pages de gouvernance</td><td>ES-g : organes des entreprises publiques</td><td><span class="tag hard">Élevé</span></td></tr>
+</table>
+
+<h2>4. À étudier avant de coder</h2>
+<table>
+  <tr><th style="width:26%">Sujet</th><th>Question</th><th style="width:32%">Comment trancher</th></tr>
+  <tr><td>Sites protégés</td><td>Sénat (403), Tribunal constitutionnel (test de navigateur), La Moncloa et Maison royale (« Security Check »), CNMV (403), Asamblea de Madrid (redirection).</td><td>Ne pas contourner. Passer par le BOE ; retester depuis le serveur ; demander un accès ou un export pour le Sénat.</td></tr>
+  <tr><td>Filtre du BOE</td><td>La section II.A contient surtout des recrutements de fonctionnaires et de professeurs (vérifié sur le BOE du 2/11/2026).</td><td>Ne garder que les décrets royaux et les fonctions de la liste ; tester sur un mois d'archive.</td></tr>
+  <tr><td>Élus locaux</td><td>Le registre national est introuvable (portail en 503, jeu de données « extinto »).</td><td>Chercher la source actuelle du ministère de la Politique territoriale ; sinon passer par les communautés autonomes.</td></tr>
+  <tr><td>Rétention de 2 ans</td><td>Le core applique la rétention du pays ; l'Espagne doit avoir 24 mois.</td><td>Mettre 24 mois dans la table des pays et dans les paramètres <code>monthsAfterEnd</code> des parsers espagnols.</td></tr>
+  <tr><td>Liste de la Commission</td><td>EUR-Lex a différé la page ; la section espagnole précise les fonctions bloc par bloc.</td><td>La lire dans un navigateur et l'ajouter au référentiel.</td></tr>
+</table>
+
+<h2>5. Règles communes</h2>
+<ul>
+  <li><b>Durée</b> : garder un titulaire au moins <b>24 mois</b> après la fin de ses fonctions (art. 14.9).</li>
+  <li><b>Dates de fin</b> : quand le BOE publie une cessation, elle ferme le mandat avec sa vraie date.</li>
+  <li><b>Pas de coordonnées personnelles</b> : ni adresse, ni téléphone, ni e-mail, même si la source les donne.</li>
+  <li><b>Accès</b> : User-Agent générique SwiftCheck, rythme lent, aucun contournement des protections ; la source bloquée est signalée dans le message de l'exécution.</li>
+  <li><b>Configuration plutôt que code</b> : institutions, communautés autonomes et organisations dans des fichiers de configuration, sans nom écrit en dur.</li>
+  <li><b>Couverture</b> : renseigner pour chaque lien fonction ↔ parser ce qui est couvert et ce qui manque (écran « Couverture PEP »).</li>
+</ul>
+
+<h2>6. Ordre proposé</h2>
+<ol>
+  <li><b>Lot 1 – parsers 1 à 6.</b> Le BOE d'abord : à lui seul, il couvre le Gouvernement, la haute administration, la justice, la diplomatie et l'armée, avec les départs. Puis le Congreso, la Banque d'Espagne, l'UE et la famille.</li>
+  <li><b>Lot 2 – parsers 7 à 12.</b> Sénat (accès à obtenir), régulateurs, juridictions, gouvernements et parlements des 17 communautés, organisations internationales.</li>
+  <li><b>Lot 3 – parsers 13 à 16</b>, après les études du § 4 : bulletins régionaux, élus locaux, partis et syndicats, entreprises publiques.</li>
+</ol>
+<p>Le niveau local est déjà PEP en Espagne : il est prioritaire par rapport aux autres pays, où il n'arrive qu'avec l'AMLR en 2027.</p>
+
+<h2>7. Sources</h2>
+<ul class="small">
+  <li>Loi 10/2010, art. 14 : boe.es (API de législation consolidée, BOE-A-2010-6737) · Liste de la Commission : eur-lex.europa.eu/eli/C/2023/724/oj</li>
+  <li>BOE, API de données ouvertes : boe.es/datosabiertos/api/boe/sumario/AAAAMMJJ · Congreso : congreso.es/es/opendata/diputados · Sénat : senado.es (bloqué)</li>
+  <li>Banque d'Espagne : bde.es/wbe/es/sobre-banco/organizacion/organos-rectores · Tribunal de Cuentas : tcu.es · CNMC : cnmc.es · Pouvoir judiciaire : poderjudicial.es · Ministère public : fiscal.es</li>
+  <li>Affaires étrangères : exteriores.gob.es · INE : ine.es · datos.gob.es · Parlements autonomes : parlamentodeandalucia.es, parlament.cat…</li>
+  <li>Parlement européen : data.europarl.europa.eu · Commission : commission.europa.eu · Wikidata</li>
+</ul>
+
+<div class="footer">SwiftCheck AML – Plan des parsers PEP Espagne – 3 novembre 2026. Ordres de grandeur indicatifs, à confirmer à la première exécution de chaque parser.</div>
+</body>
+</html>

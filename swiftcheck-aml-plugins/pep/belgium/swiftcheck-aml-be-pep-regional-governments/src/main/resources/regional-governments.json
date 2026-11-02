@@ -1,0 +1,46 @@
+{
+  "delayMs": 1500,
+  "governments": [
+    {
+      "code": "vlaanderen",
+      "name": "Gouvernement flamand (Vlaamse Regering)",
+      "entityName": "Région flamande et Communauté flamande",
+      "url": "https://www.vlaanderen.be/vlaamse-regering",
+      "fileName": "vlaanderen.html",
+      "format": "VLAANDEREN_SPOTLIGHT"
+    },
+    {
+      "code": "cfwb",
+      "name": "Gouvernement de la Fédération Wallonie-Bruxelles",
+      "entityName": "Communauté française (Fédération Wallonie-Bruxelles)",
+      "url": "https://gouvernement.cfwb.be/home.html",
+      "fileName": "cfwb.html",
+      "format": "CFWB_LIST"
+    },
+    {
+      "code": "ostbelgien",
+      "name": "Gouvernement de la Communauté germanophone (Regierung der Deutschsprachigen Gemeinschaft)",
+      "entityName": "Communauté germanophone",
+      "url": "https://ostbelgienlive.be/desktopdefault.aspx/tabid-218/",
+      "fileName": "ostbelgien.html",
+      "format": "OSTBELGIEN_LIST"
+    },
+    {
+      "code": "wallonie",
+      "name": "Gouvernement wallon",
+      "entityName": "Région wallonne",
+      "url": "https://gouvernement.wallonie.be/home/les-ministres.html",
+      "fileName": "wallonie.html",
+      "format": "WALLONIE_CARDS"
+    },
+    {
+      "code": "bruxelles",
+      "name": "Gouvernement de la Région de Bruxelles-Capitale",
+      "entityName": "Région de Bruxelles-Capitale",
+      "url": "https://be.brussels/fr/a-propos-de-la-region/structure-et-organisations/le-gouvernement-de-la-region-de-bruxelles-capitale",
+      "fileName": "bruxelles.html",
+      "format": "BRUXELLES_CARDS"
+    }
+  ]
+}
+
