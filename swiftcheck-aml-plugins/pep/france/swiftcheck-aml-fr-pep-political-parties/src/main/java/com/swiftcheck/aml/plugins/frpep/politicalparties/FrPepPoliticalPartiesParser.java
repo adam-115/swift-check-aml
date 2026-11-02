@@ -22,6 +22,7 @@ import com.swiftcheck.aml.plugin.ParserResult;
 import com.swiftcheck.aml.plugin.SourceRecord;
 import com.swiftcheck.aml.sdk.FtmDatasetBuilder;
 import com.swiftcheck.aml.sdk.FtmEntity;
+import com.swiftcheck.aml.sdk.WikidataImages;
 
 /**
  * <b>fr_pep_political_parties</b> – Dirigeants des partis politiques français, d'après Wikidata.
@@ -74,8 +75,12 @@ public class FrPepPoliticalPartiesParser implements Iparser {
 
         FtmDatasetBuilder dataset = new FtmDatasetBuilder(ID_PREFIX, TOPIC);
         Report report = convert(ctx.rawDir(), LocalDate.now().minusMonths(monthsAfterEnd(p)), dataset);
+        // Photos : image principale de chaque personne sur Wikimedia Commons (complément, jamais bloquant)
+        String photos = WikidataImages.addPhotos(dataset, WikidataImages.QID, WikidataImages.personIdSuffixes(dataset),
+                WikidataImages.httpFetcher(p.getOrDefault("endpoint", DEFAULT_ENDPOINT).trim(), WikidataImages.DEFAULT_USER_AGENT),
+                ctx.rawDir().resolve(WikidataImages.PHOTOS_FILE));
         dataset.writeNdjsonFile(ctx.outputFile());
-        return dataset.toConversionResult().withMessage(report.message());
+        return dataset.toConversionResult().withMessage((report.message() + " " + photos).trim());
     }
 
     /** Test du parser : chaque dirigeant gardé, avec l'ID et le nom que Yente doit connaître (sans réseau). */

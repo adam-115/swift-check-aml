@@ -76,6 +76,32 @@ final class EuReaders {
         return members;
     }
 
+    /** Fiche d'un membre de la CJUE : sa photo, puis son nom en titre, sans autre fiche entre les deux. */
+    private static final Pattern CJUE_PORTRAIT = Pattern.compile(
+            "(?s)<div class=\"curia-cv-item-photo\">\\s*<img[^>]*\\ssrc=\"([^\"]+)\"[^>]*>"
+                    + "(?:(?!curia-cv-item-photo).)*?<h3 class=\"curia-cv-item-title\">(.*?)</h3>");
+    private static final Pattern BASE_HREF = Pattern.compile("<base\\s+href=\"([^\"]+)\"");
+    static final String CJUE_BASE = "https://curia.europa.eu/site/";
+
+    /**
+     * Photos des fiches de la Cour de justice ou du Tribunal, par nom replié ({@link FrPepEuInstitutionsParser#fold}).
+     * Les adresses de la page sont relatives à sa balise {@code <base href>} ({@code https://curia.europa.eu/site/}).
+     */
+    static Map<String, String> cjuePortraits(Path file) throws IOException {
+        String html = Files.readString(file, StandardCharsets.UTF_8);
+        Matcher base = BASE_HREF.matcher(html);
+        java.net.URI baseUri = java.net.URI.create(base.find() ? base.group(1) : CJUE_BASE);
+        Map<String, String> photos = new HashMap<>();
+        Matcher m = CJUE_PORTRAIT.matcher(html);
+        while (m.find()) {
+            String url = baseUri.resolve(m.group(1).replace("&amp;", "&").replace(" ", "%20")).toString();
+            if (url.startsWith("https://")) {
+                photos.putIfAbsent(FrPepEuInstitutionsParser.fold(PageText.of(m.group(2)).trim()), url);
+            }
+        }
+        return photos;
+    }
+
     /** « Président de la VIème chambre » au Tribunal → « Juge au Tribunal (président de la VIème chambre) ». */
     private static String cjueFunction(String role, String court) {
         String r = role.toLowerCase(java.util.Locale.FRENCH);

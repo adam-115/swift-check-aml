@@ -35,8 +35,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  */
 final class AmoArchive {
 
-    /** Un mandat : député (ASSEMBLEE), présidence (BUREAU) ou groupe politique (GP). Dates ISO, fin nulle = en cours. */
-    record Mandate(String uid, String start, String end, String organ, String constituency) {
+    /** Un mandat : député (ASSEMBLEE), présidence (BUREAU) ou groupe politique (GP). Dates ISO, fin nulle = en cours ;
+     * législature (« 17 ») connue pour les mandats de député. */
+    record Mandate(String uid, String start, String end, String organ, String constituency, String legislature) {
 
         boolean current() {
             return end == null;
@@ -120,7 +121,7 @@ final class AmoArchive {
     private static Mandate mandate(JsonNode m, String constituency) {
         JsonNode organ = m.path("organes").path("organeRef");
         return new Mandate(text(m.path("uid")), text(m.path("dateDebut")), text(m.path("dateFin")),
-                organ.isArray() ? text(organ.get(0)) : text(organ), constituency);
+                organ.isArray() ? text(organ.get(0)) : text(organ), constituency, text(m.path("legislature")));
     }
 
     /** « Gironde, 4e circonscription ». */

@@ -77,6 +77,42 @@ public class MaListeParser implements Iparser {
   l'exécution est bloquée. Les paramètres saisis dans le parser (requête, URL…) sont dans `ctx.parameters()`.
 - `swiftcheck-aml-api` et `pf4j` restent en `provided` : c'est le core qui les fournit.
 
+## Photos des PEP
+
+FtM n'a pas de propriété « photo ». Un plugin qui connaît la photo **officielle** d'une personne la déclare :
+
+```java
+dataset.addMedia(person.getId(), "https://…/portrait.jpg", "https://…/page-de-la-personne", "© Institution");
+```
+
+`writeNdjsonFile` écrit alors `<dataset>.media.ndjson` à côté des entités. Après une publication réussie, le core
+télécharge chaque image (image seulement, 5 Mo au plus), la signe (SHA-256), l'archive et la range dans `pep_media`.
+Les photos ne vont jamais dans Yente, et aucune reconnaissance faciale n'est faite : elles sont seulement affichées à
+l'analyste. Une photo déjà téléchargée n'est pas retéléchargée ; une photo qui n'est plus déclarée disparaît.
+
+- **Source officielle seulement** : la page de l'institution (portrait de la fiche, image de partage `og:image`),
+  ou Wikimedia Commons via Wikidata (`WikidataImages` du SDK : identifiant du Parlement européen `P1186`, ou QID).
+  Pour Commons, laisser la licence à `null` : le core lit la licence et l'auteur sur Commons.
+- **Jamais de photo devinée** : rapprochement par identifiant, ou par nom exact avec une seule image candidate ;
+  sinon pas de photo.
+- **Aucun contournement** : un site qui refuse le client SwiftCheck (HTTP 403, pare-feu anti-robots) n'est pas
+  contourné, on passe par Commons. User-Agent avec un contact générique, jamais l'adresse d'un utilisateur.
+- Les photos sont un complément : une page de portraits ou Wikidata injoignable **ne bloque pas** la publication.
+  Paramètres : `wikidataEndpoint` (vide = pas de photos Commons), `photosUrl` pour `lu_pep_chamber`.
+
+**Chaque photo appartient au dataset qui l'a publiée** (au plus une par entité et par origine) : une personne
+présente dans trois datasets a trois photos, une par dataset, jamais partagées. Publier, corriger ou supprimer un
+parser ne touche donc que ses propres photos. Sans photo, l'analyste peut lancer une recherche sur internet (SearXNG,
+`swift-check-docker/searxng`) : résultats non vérifiés, avec un score de contexte ; rien n'est enregistré tant qu'il
+ne retient pas une photo, enregistrée alors avec son nom dans le dataset de la correspondance. Une publication ne
+remplace jamais une photo retenue par un analyste.
+
+| Source de la photo | Plugins |
+|---|---|
+| Site de l'institution | `fr_pep_national_assembly`, `fr_pep_senate`, `fr_pep_constitutional_council`, `fr_pep_president`, `fr_pep_army`, `fr_pep_eu_commission`, `lu_pep_chamber`, `lu_pep_government`, `lu_pep_grand_duke`, `lu_pep_court_of_auditors`, `lu_pep_army`, `lu_pep_eu_commission`, `fr_pep_banque_de_france` (gouverneur et sous-gouverneurs), `fr_pep_eu_institutions` (Cour de justice et Tribunal), `fr_pep_international_orgs` (pages dont `international-orgs.json` a un mode `photo` : OFAJ, OIML, OMSA) |
+| Wikimedia Commons (Wikidata) | `fr_pep_europarl`, `lu_pep_europarl`, `lu_pep_europarl_former` (P1186) ; `fr_pep_political_parties`, `fr_pep_rca`, `lu_pep_rca`, `fr_pep_wikidata_positions` (QID) |
+| Aucune (texte du Journal officiel, PDF, registres) | `fr_pep_jorf`, `lu_pep_legilux`, `fr_pep_diplomats`… : recherche sur internet à la demande |
+
 ## Organisation des dossiers
 
 ```

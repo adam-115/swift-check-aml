@@ -99,4 +99,29 @@ class FtmDatasetBuilderTest {
                 + "\"notes\":[\"ligne1 ligne2\"],\"topics\":[\"role.pep\"]}}", lines.get(0));
         assertTrue(Files.notExists(dir.resolve("sub/out.ndjson.tmp")));
     }
+
+    @Test
+    void writesMediaFileNextToEntities(@TempDir Path dir) throws Exception {
+        FtmDatasetBuilder e = new FtmDatasetBuilder("t", "role.pep");
+        FtmEntity p = e.newEntity("Person", "PA718838").addValue("name", "Jean Dupont");
+        e.addEntity(p);
+        e.addMedia(p.getId(), "https://example.org/photos/718838.jpg", "https://example.org/depute", "© Exemple");
+        e.addMedia(p.getId(), "https://example.org/photos/718838.jpg", "https://example.org/depute", "© Exemple");
+        Path out = dir.resolve("fr_pep_x.ndjson");
+        e.writeNdjsonFile(out);
+
+        Path media = FtmDatasetBuilder.mediaFile(out);
+        assertEquals("fr_pep_x.media.ndjson", media.getFileName().toString());
+        // Une seule ligne : la même photo déclarée deux fois n'est pas répétée
+        assertEquals(List.of("{\"entity\":\"t-PA718838\",\"url\":\"https://example.org/photos/718838.jpg\","
+                + "\"page\":\"https://example.org/depute\",\"licence\":\"© Exemple\"}"),
+                Files.readAllLines(media, StandardCharsets.UTF_8));
+        assertThrows(IllegalArgumentException.class, () -> e.addMedia(p.getId(), " ", null, null));
+
+        // Sans photo, le fichier d'une exécution précédente disparaît
+        FtmDatasetBuilder without = new FtmDatasetBuilder("t");
+        without.addEntity(without.newEntity("Person", "1").addValue("name", "Jean Dupont"));
+        without.writeNdjsonFile(out);
+        assertTrue(Files.notExists(media));
+    }
 }

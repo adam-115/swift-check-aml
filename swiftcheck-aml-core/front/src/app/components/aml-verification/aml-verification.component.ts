@@ -6,6 +6,22 @@ import { ParserService } from '../../services/parser.service';
 import { ParserDTO } from '../../models/appTypes';
 import Swal from 'sweetalert2';
 import { AdverseMediaService, AdverseMediaResult } from '../../services/adverse-media.service';
+import { PepMediaService, PepPhoto, PhotoCandidate } from '../../services/pep-media.service';
+
+/** Photo d'une correspondance : chargement, photo affichée, ou absence. */
+interface MatchPhoto {
+  state: 'loading' | 'found' | 'none' | 'error';
+  photo?: PepPhoto;
+  objectUrl?: string;
+}
+
+/** Recherche de photos sur internet pour une correspondance, lancée par l'analyste. */
+interface WebPhotoSearch {
+  state: 'loading' | 'done' | 'error';
+  error?: string;
+  candidates: (PhotoCandidate & { thumbObjectUrl?: string })[];
+  saving?: string;
+}
 
 export interface ProviderItem {
   id: string; // datasetName
@@ -65,6 +81,12 @@ export class AmlVerificationComponent implements OnInit {
   mediaResults: AdverseMediaResult[] | null = null;
   mediaLoading: boolean = false;
 
+  /** Photos des correspondances PEP, par ID d'entité. */
+  photos: { [entityId: string]: MatchPhoto } = {};
+  /** Recherches de photos sur internet en cours ou terminées, par ID d'entité. */
+  webSearches: { [entityId: string]: WebPhotoSearch } = {};
+  private objectUrls: string[] = [];
+
   quickExamples = [
     { name: 'Vladimir Putin', schema: 'Person', country: 'RU', label: 'Sanctions (Russie)' },
     { name: 'Carlos Ghosn', schema: 'Person', country: 'FR', label: 'Notice Rouge' },
@@ -75,7 +97,8 @@ export class AmlVerificationComponent implements OnInit {
   constructor(
     private amlVerificationService: AmlVerificationService,
     private parserService: ParserService,
-    private adverseMediaService: AdverseMediaService
+    private adverseMediaService: AdverseMediaService,
+    private pepMediaService: PepMediaService
   ) {}
 
   ngOnInit(): void {
@@ -268,12 +291,124 @@ export class AmlVerificationComponent implements OnInit {
     this.results = null;
     this.lastRequest = null;
     this.mediaResults = null;
+    this.clearPhotos();
   }
 
   onSchemaChange(): void {
     this.formData = {};
     this.results = null;
     this.mediaResults = null;
+    this.clearPhotos();
+  }
+
+  // ---- Photos des PEP ----
+
+  isPep(match: any): boolean {
+    return match.schema === 'Person' && (match.pepStatus === 'ACTIVE_PEP'
+      || match.properties?.topics?.includes('role.pep') || match.properties?.topics?.includes('role.rca')
+      || (match.datasets || []).some((d: string) => d.includes('pep')));
+  }
+
+  /** Dataset de la correspondance : la photo retenue lui appartient, elle n'est pas partagée avec les autres. */
+  private datasetOf(match: any): string {
+    const datasets: string[] = match.datasets || [];
+    return datasets.find(d => d.includes('pep')) || datasets[0] || '';
+  }
+
+  /** Photo de chaque correspondance PEP, publiée par son propre dataset. */
+  private loadPhotos(matches: any[]): void {
+    this.clearPhotos();
+    matches.filter(m => this.isPep(m)).forEach(m => {
+      this.photos[m.id] = { state: 'loading' };
+      this.pepMediaService.lookup(m.id).subscribe({
+        next: photo => photo ? this.showPhoto(m.id, photo) : this.photos[m.id] = { state: 'none' },
+        error: () => this.photos[m.id] = { state: 'error' }
+      });
+    });
+  }
+
+  private showPhoto(entityId: string, photo: PepPhoto): void {
+    this.pepMediaService.file(photo.id).subscribe({
+      next: blob => this.photos[entityId] = { state: 'found', photo, objectUrl: this.objectUrl(blob) },
+      error: () => this.photos[entityId] = { state: 'error' }
+    });
+  }
+
+  /** Recherche à la demande de l'analyste : rien n'est enregistré tant qu'il ne retient pas une photo. */
+  searchWebPhotos(match: any): void {
+    const p = match.properties || {};
+    const search: WebPhotoSearch = { state: 'loading', candidates: [] };
+    this.webSearches[match.id] = search;
+    this.pepMediaService.webSearch((p.name || [])[0] || match.caption, p.position || []).subscribe({
+      next: candidates => {
+        search.state = 'done';
+        search.candidates = candidates;
+        candidates.forEach(c => this.pepMediaService.thumbnail(c.thumbnailUrl).subscribe({
+          next: blob => (c as any).thumbObjectUrl = this.objectUrl(blob),
+          error: () => { /* vignette indisponible : le candidat reste affiché sans image */ }
+        }));
+      },
+      error: err => {
+        search.state = 'error';
+        search.error = err?.status === 500 ? 'Le service de recherche (SearXNG) ne répond pas.' : 'Recherche impossible.';
+      }
+    });
+  }
+
+  closeWebSearch(entityId: string): void {
+    delete this.webSearches[entityId];
+  }
+
+  retainWebPhoto(match: any, candidate: PhotoCandidate): void {
+    Swal.fire({
+      title: 'Retenir cette photo ?',
+      html: `<p class="text-sm text-left">Elle sera enregistrée pour <b>${this.escape(match.caption || match.id)}</b>, `
+        + `avec votre nom et la mention « Recherche sur internet : droits non vérifiés ».</p>`
+        + `<p class="text-sm text-left mt-2">Ne la retenez que si vous avez vérifié qu'elle montre bien cette personne `
+        + `(page source : ${this.escape(candidate.domain)}).</p>`,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Retenir',
+      cancelButtonText: 'Annuler',
+      confirmButtonColor: '#d97706'
+    }).then(choice => {
+      if (!choice.isConfirmed) {
+        return;
+      }
+      const search = this.webSearches[match.id];
+      if (search) {
+        search.saving = candidate.imageUrl;
+      }
+      this.pepMediaService.validate(match.id, this.datasetOf(match), candidate.imageUrl, candidate.pageUrl).subscribe({
+        next: photo => {
+          delete this.webSearches[match.id];
+          this.showPhoto(match.id, photo);
+        },
+        error: () => {
+          if (search) {
+            search.saving = undefined;
+          }
+          Swal.fire('Erreur', 'Photo non enregistrée : le site de l\'image ne l\'a pas fournie.', 'error');
+        }
+      });
+    });
+  }
+
+  private objectUrl(blob: Blob): string {
+    const url = URL.createObjectURL(blob);
+    this.objectUrls.push(url);
+    return url;
+  }
+
+  private clearPhotos(): void {
+    this.objectUrls.forEach(u => URL.revokeObjectURL(u));
+    this.objectUrls = [];
+    this.photos = {};
+    this.webSearches = {};
+  }
+
+  private escape(s: string): string {
+    return s.replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', '\'': '&#39;' }[c]!));
   }
 
   verifyClient(): void {
@@ -321,6 +456,7 @@ export class AmlVerificationComponent implements OnInit {
           this.results = [];
         } else if (res && res.matches) {
           this.results = res.matches;
+          this.loadPhotos(res.matches);
         } else {
           this.results = [];
         }

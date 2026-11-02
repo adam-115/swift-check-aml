@@ -60,6 +60,29 @@ class FrPepBanqueDeFranceParserTest {
         assertEquals(moulin.getId(), records.get(0).entityId());
     }
 
+    @Test
+    void portraitsOfTheGovernorsComeFromTheirCards(@TempDir Path dir) throws Exception {
+        Map<String, String> portraits = FrPepBanqueDeFranceParser.portraits(resource());
+        assertTrue(portraits.get(FrPepBanqueDeFranceParser.nameKey("Denis Beau"))
+                .startsWith("https://www.banque-france.fr/system/files/styles/"));
+        assertTrue(portraits.get(FrPepBanqueDeFranceParser.nameKey("Denis Beau")).contains("Denis-Beau_gouvernance.jpg?"),
+                "l'adresse garde ses paramètres itok");
+
+        Path input = dir.resolve("source.html");
+        Files.writeString(input, resource());
+        Path out = dir.resolve("out.ndjson");
+        ParserResult result = new FrPepBanqueDeFranceParser()
+                .parse(new ParserContext("fr_pep_banque_de_france", input, dir, out, Map.of()));
+        List<String> media = Files.readAllLines(com.swiftcheck.aml.sdk.FtmDatasetBuilder.mediaFile(out));
+
+        assertEquals(3, media.size(), "gouverneur et deux sous-gouverneurs ; les autres membres n'ont pas de portrait");
+        String moulin = result.entities().stream().filter(e -> e.getValues("name").contains("Emmanuel Moulin"))
+                .findFirst().orElseThrow().getId();
+        assertTrue(media.stream().anyMatch(l -> l.contains(moulin) && l.contains("portrait-emmanuel-moulin")
+                && l.contains("© Banque de France")));
+        assertTrue(result.message().contains("3 portraits"));
+    }
+
     private static String resource() throws Exception {
         try (InputStream in = FrPepBanqueDeFranceParserTest.class.getResourceAsStream("/gouvernance.html")) {
             return new String(in.readAllBytes(), StandardCharsets.UTF_8);

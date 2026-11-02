@@ -19,6 +19,7 @@ import com.swiftcheck.aml.plugin.ParserResult;
 import com.swiftcheck.aml.plugin.SourceRecord;
 import com.swiftcheck.aml.sdk.FtmDatasetBuilder;
 import com.swiftcheck.aml.sdk.FtmEntity;
+import com.swiftcheck.aml.sdk.WikidataImages;
 import com.swiftcheck.aml.sdk.XmlRecordReader;
 
 /**
@@ -59,6 +60,10 @@ public class LuPepEuroparlParser implements Iparser {
     /** Catégorie de risque ajoutée à chaque personne. */
     static final String TOPIC = "role.pep";
 
+    static final String PHOTOS_FILE = "wikidata-images.tsv";
+    /** Contact générique : jamais l'adresse d'un utilisateur. */
+    private static final String USER_AGENT = "SwiftCheck-AML/1.0 (liste PEP Luxembourg - photos des députés européens)";
+
     /** Pays de représentation des députés gardés, tel qu'écrit dans le fichier XML et dans l'API. */
     private static final String COUNTRY = "Luxembourg";
     private static final String COUNTRY_CODE = "LU";
@@ -73,11 +78,25 @@ public class LuPepEuroparlParser implements Iparser {
         try (InputStream source = Files.newInputStream(sourceFile(ctx))) {
             convert(source, dataset);
         }
+        String photos = addPhotos(dataset, WikidataImages.fromParameters(ctx.parameters(), USER_AGENT),
+                ctx.rawDir() == null ? null : ctx.rawDir().resolve(PHOTOS_FILE));
         dataset.writeNdjsonFile(ctx.outputFile());
-        return dataset.toConversionResult();
+        return dataset.toConversionResult().withMessage(photos);
     }
 
     /** Test du parser : chaque député élu au Luxembourg, avec l'ID et le nom que Yente doit connaître. */
+
+    /**
+     * Photos de Wikimedia Commons, par l'identifiant du Parlement européen (Wikidata P1186) : le site du Parlement
+     * refuse les clients automatiques. L'ID FtM d'un député finit par cet identifiant ; une erreur ne bloque pas
+     * la publication.
+     */
+    static String addPhotos(FtmDatasetBuilder dataset, WikidataImages.Fetcher fetcher, java.nio.file.Path saveTo) {
+        List<String> ids = dataset.entities().stream().filter(e -> "Person".equals(e.getSchema()))
+                .map(e -> e.getId().substring(e.getId().lastIndexOf('-') + 1)).toList();
+        return WikidataImages.addPhotos(dataset, "P1186", ids, fetcher, saveTo);
+    }
+
     @Override
     public List<SourceRecord> readSourceRecords(ParserContext ctx) throws Exception {
         FtmDatasetBuilder ids = new FtmDatasetBuilder(ID_PREFIX);   // uniquement pour calculer les ID

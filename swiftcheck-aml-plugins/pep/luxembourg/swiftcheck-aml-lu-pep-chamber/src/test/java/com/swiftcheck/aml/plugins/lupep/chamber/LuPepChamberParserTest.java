@@ -61,9 +61,28 @@ class LuPepChamberParserTest {
     }
 
     @Test
+    void portraitsOfChdLuAreMatchedByName() throws Exception {
+        // Page « Députés » réelle de chd.lu (novembre 2026) : chaque portrait deux fois, 60 députés
+        Map<String, String> photos = ChamberPhotos.read(Files.readString(
+                Path.of(LuPepChamberParserTest.class.getResource("/chd-deputies.html").toURI())));
+        assertEquals(60, photos.size());
+        assertEquals("https://wdocs-pub.chd.lu/photos/821.jpg", photos.get(ChamberPhotos.key("Diane Adehm")));
+
+        FtmDatasetBuilder dataset = new FtmDatasetBuilder(LuPepChamberParser.ID_PREFIX, LuPepChamberParser.TOPIC);
+        new LuPepChamberParser().convert(sample, photos, dataset);
+        assertEquals(List.of(new FtmDatasetBuilder.FtmMedia("lu-pep-chamber-Adehm-Diane-1970-09-13",
+                "https://wdocs-pub.chd.lu/photos/821.jpg", "https://www.chd.lu/fr/deputies",
+                "© Chambre des Députés du Grand-Duché de Luxembourg"),
+                new FtmDatasetBuilder.FtmMedia("lu-pep-chamber-Arendt-Nancy-1969-05-22",
+                        "https://wdocs-pub.chd.lu/photos/48.jpg", "https://www.chd.lu/fr/deputies",
+                        "© Chambre des Députés du Grand-Duché de Luxembourg")), dataset.media());
+    }
+
+    @Test
     void parseWritesOneEntityPerLineWithoutRejectedValue(@TempDir Path dir) throws Exception {
         Path output = dir.resolve("out.ndjson");
-        ParserResult parsed = new LuPepChamberParser().parse(new ParserContext("lu_pep_chamber", sample, dir, output, Map.of()));
+        ParserResult parsed = new LuPepChamberParser().parse(new ParserContext("lu_pep_chamber", sample, dir, output,
+                Map.of(LuPepChamberParser.PARAM_PHOTOS_URL, "")));                  // hors ligne : sans portraits
 
         assertEquals(5, parsed.entityCount(), "2 personnes, 1 fonction, 2 mandats");
         assertEquals(parsed.entityCount(), Files.readAllLines(output).size());

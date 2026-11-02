@@ -53,6 +53,10 @@ public class LuPepArmyParser implements Iparser {
     public static final String DEFAULT_SOURCE_URL =
             "https://armee.public.lu/fr/armee-luxembourgeoise/personnel/personnel-cle.html";
 
+    private static final Pattern PORTRAIT = Pattern.compile(
+            "<img\\s+src=\"(/fr/armee-luxembourgeoise/[^\"]+\\.coreimg\\.(?:jpe?g|png)/[^\"]+-285x285\\.(?:jpe?g|png))\"");
+    static final String PHOTO_LICENCE = "© Armée luxembourgeoise";
+
     /** Catégorie de risque PEP. */
     static final String TOPIC = "role.pep";
 
@@ -103,6 +107,7 @@ public class LuPepArmyParser implements Iparser {
     void convert(Path htmlFile, String sourceUrl, LocalDate oldestEndDate, FtmDatasetBuilder dataset) throws Exception {
         String html = Files.readString(htmlFile, StandardCharsets.UTF_8);
         List<ArmyOfficerRecord> list = extractOfficers(html, LocalDate.now(), oldestEndDate);
+        List<String> portraits = portraits(html);
 
         if (list.isEmpty()) {
             throw new IllegalStateException("Aucun officier supérieur extrait de l'Armée depuis " + htmlFile);
@@ -134,6 +139,10 @@ public class LuPepArmyParser implements Iparser {
                 person.addValue("country", "lu");
                 person.addValue("sourceUrl", sourceUrl);
                 dataset.addEntity(person);
+                String photo = portraitOf(off.fullName, portraits);
+                if (photo != null) {
+                    dataset.addMedia(person.getId(), photo, sourceUrl, PHOTO_LICENCE);   // téléchargée par le core
+                }
             }
 
             String occKey = personId + "-" + slugify(off.roleDescription) + "-"
@@ -309,6 +318,30 @@ public class LuPepArmyParser implements Iparser {
             last.append(words[i]);
         }
         return new String[] { first.toString(), last.toString() };
+    }
+
+    /**
+     * Portraits de la page (vignettes carrées 285×285), en adresses absolues. Les images n'ont pas de texte
+     * alternatif : le nom de l'officier est dans le nom du fichier
+     * ({@code …/image.coreimg.jpeg/1715765743884/colonel-pascal-ballinger-internet-pers-cle-285x285.jpeg}).
+     */
+    static List<String> portraits(String html) {
+        List<String> urls = new ArrayList<>();
+        Matcher m = PORTRAIT.matcher(html);
+        while (m.find()) {
+            urls.add("https://armee.public.lu" + m.group(1));
+        }
+        return urls;
+    }
+
+    /** Le seul portrait dont le nom de fichier contient tous les mots du nom ; {@code null} si aucun ou plusieurs. */
+    static String portraitOf(String fullName, List<String> portraits) {
+        List<String> words = List.of(slugify(fullName).split("-"));
+        List<String> found = portraits.stream().filter(url -> {
+            String file = url.substring(url.lastIndexOf('/') + 1).toLowerCase(Locale.ROOT);
+            return List.of(file.split("[^a-z0-9]+")).containsAll(words);
+        }).distinct().toList();
+        return found.size() == 1 ? found.get(0) : null;
     }
 
     static String slugify(String input) {

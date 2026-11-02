@@ -27,6 +27,7 @@ import com.swiftcheck.aml.plugin.ParserResult;
 import com.swiftcheck.aml.plugin.SourceRecord;
 import com.swiftcheck.aml.sdk.FtmDatasetBuilder;
 import com.swiftcheck.aml.sdk.FtmEntity;
+import com.swiftcheck.aml.sdk.WikidataImages;
 
 /**
  * <b>lu_pep_europarl_former</b> – Anciens députés européens élus au Luxembourg
@@ -60,6 +61,10 @@ public class LuPepEuroparlFormerParser implements Iparser {
     /** Catégorie de risque ajoutée à chaque personne. */
     static final String TOPIC = "role.pep";
 
+    static final String PHOTOS_FILE = "wikidata-images.tsv";
+    /** Contact générique : jamais l'adresse d'un utilisateur. */
+    private static final String USER_AGENT = "SwiftCheck-AML/1.0 (liste PEP Luxembourg - photos des députés européens)";
+
     /** URL source par défaut si non renseignée dans les paramètres de ParserContext. */
     static final String DEFAULT_SOURCE_URL =
             "https://data.europarl.europa.eu/api/v2/meps?country-of-representation=LU&parliamentary-term=9&limit=100&format=application/ld+json";
@@ -73,8 +78,22 @@ public class LuPepEuroparlFormerParser implements Iparser {
         Set<String> activeIds = parseActiveMepIds(ctx.parameters());
 
         convert(sourceFile(ctx), oldestEndDate, sourceUrl, activeIds, dataset);
+        String photos = addPhotos(dataset, WikidataImages.fromParameters(ctx.parameters(), USER_AGENT),
+                ctx.rawDir() == null ? null : ctx.rawDir().resolve(PHOTOS_FILE));
         dataset.writeNdjsonFile(ctx.outputFile());
-        return dataset.toConversionResult();
+        return dataset.toConversionResult().withMessage(photos);
+    }
+
+
+    /**
+     * Photos de Wikimedia Commons, par l'identifiant du Parlement européen (Wikidata P1186) : le site du Parlement
+     * refuse les clients automatiques. L'ID FtM d'un député finit par cet identifiant ; une erreur ne bloque pas
+     * la publication.
+     */
+    static String addPhotos(FtmDatasetBuilder dataset, WikidataImages.Fetcher fetcher, java.nio.file.Path saveTo) {
+        List<String> ids = dataset.entities().stream().filter(e -> "Person".equals(e.getSchema()))
+                .map(e -> e.getId().substring(e.getId().lastIndexOf('-') + 1)).toList();
+        return WikidataImages.addPhotos(dataset, "P1186", ids, fetcher, saveTo);
     }
 
     @Override

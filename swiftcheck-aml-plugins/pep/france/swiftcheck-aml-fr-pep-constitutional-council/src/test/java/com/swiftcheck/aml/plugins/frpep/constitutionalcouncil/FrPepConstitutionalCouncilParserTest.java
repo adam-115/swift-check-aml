@@ -43,7 +43,8 @@ class FrPepConstitutionalCouncilParserTest {
 
     @Test
     void readsTheOathAndBirthOnTheProfile() throws Exception {
-        assertEquals(new CouncilPages.Profile("2025-03-07", "1962-07-01", "Rodez"),
+        assertEquals(new CouncilPages.Profile("2025-03-07", "1962-07-01", "Rodez",
+                "/sites/default/files/styles/portrait_page_membre_mobile/public/2025-03/richard-ferrand-fiche-membre.jpg.webp?h=9274281d&itok=HRYofgaG"),
                 CouncilPages.profile(resource("richard-ferrand.html")));
         assertArrayEquals(new String[] { "Jacques", "MÉZARD" }, CouncilPages.splitName("Jacques MÉZARD"));
     }
@@ -68,6 +69,10 @@ class FrPepConstitutionalCouncilParserTest {
         assertEquals(Set.of("2025-03-07"), mandate.getValues("startDate"), "date de prestation de serment");
         // Fiche non téléchargée : date de nomination
         assertEquals(Set.of("2019-02-22"), entity(dataset, dataset.buildEntityId("jacques-mezard", "member")).getValues("startDate"));
+        // Portrait lu sur la fiche ; pas de photo sans fiche
+        assertEquals(1, dataset.media().size());
+        assertEquals("https://www.conseil-constitutionnel.fr/sites/default/files/styles/portrait_page_membre_mobile/public/2025-03/"
+                + "richard-ferrand-fiche-membre.jpg.webp?h=9274281d&itok=HRYofgaG", dataset.media().get(0).imageUrl());
     }
 
     @Test

@@ -34,6 +34,8 @@ class FrPepEuCommissionParserTest {
         assertEquals("Prospérité et stratégie industrielle", c.portfolio());
         assertEquals("2024", c.startYear());
         assertEquals("2029", c.endYear());
+        assertEquals("https://commission.europa.eu/sites/default/files/styles/ewcms_metatag_image/public/2025-09/"
+                + "stephane-sejourne-sq-cards-person-type-991x991-v3.jpg?h=797cbbc1&itok=Ak5rBLyh", c.photo());
     }
 
     @Test

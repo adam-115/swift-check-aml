@@ -3,10 +3,12 @@ package com.swiftcheck.aml.plugins.frpep.senate;
 import static com.swiftcheck.aml.sdk.TextUtils.joinNonBlank;
 import static com.swiftcheck.aml.sdk.TextUtils.toFtmGender;
 
+import java.text.Normalizer;
 import java.nio.file.Path;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import org.pf4j.Extension;
@@ -49,6 +51,7 @@ public class FrPepSenateParser implements Iparser {
 
     private static final String SENATOR = "Sénateur";
     private static final String PRESIDENT = "Président du Sénat";
+    static final String PHOTO_LICENCE = "© Sénat";
 
     /** Bilan de la conversion, pour le message de l'exécution. */
     record Report(int current, int former, int monthsAfterEnd, List<String> presidents) {
@@ -118,11 +121,26 @@ public class FrPepSenateParser implements Iparser {
                 presidents.add(joinNonBlank(" ", s.firstName(), s.lastName()));
             }
             dataset.addEntity(person);
+            // Photo officielle : le core la télécharge après la publication
+            dataset.addMedia(person.getId(), "https://www.senat.fr/senimg/" + slug(s) + "_carre.jpg",
+                    "https://www.senat.fr/senateur/" + slug(s) + ".html", PHOTO_LICENCE);
         }
         if (current == 0) {
             throw new IllegalStateException("Aucun sénateur en fonction dans les fichiers : fichier incomplet ou format changé.");
         }
         return new Report(current, former, monthsAfterEnd, presidents);
+    }
+
+    /**
+     * Nom de la fiche du sénateur sur senat.fr : nom et prénom usuels sans accents, en minuscules, chaque suite de
+     * caractères non alphanumériques remplacée par « _ », suivis du matricule (« d'AIGREMONT Thierry », 21704R →
+     * {@code d_aigremont_thierry21704r}). La photo porte le même nom, suivi de {@code _carre.jpg}.
+     */
+    static String slug(Senator s) {
+        String name = Normalizer.normalize(joinNonBlank(" ", s.lastName(), s.firstName()), Normalizer.Form.NFD)
+                .replaceAll("\\p{M}", "").toLowerCase(Locale.ROOT).replaceAll("[^a-z0-9]+", "_")
+                .replaceAll("^_|_$", "");
+        return name + s.id().toLowerCase(Locale.ROOT);
     }
 
     private static FtmEntity person(Senator s, FtmDatasetBuilder dataset) {
@@ -136,7 +154,7 @@ public class FrPepSenateParser implements Iparser {
         person.addValue("country", "fr");
         person.addValue("political", s.group());
         person.addValue("position", SENATOR);
-        person.addValue("sourceUrl", "https://www.senat.fr/senateur/" + s.id().toLowerCase() + ".html");
+        person.addValue("sourceUrl", "https://www.senat.fr/senateur/" + slug(s) + ".html");
         return person;
     }
 

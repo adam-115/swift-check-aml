@@ -3,8 +3,13 @@ package com.swiftcheck.aml.plugins.frpep.banquedefrance;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.text.Normalizer;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -44,6 +49,18 @@ public class FrPepBanqueDeFranceParser implements Iparser {
 
     private static final String POSITION = "Membre du Conseil général de la Banque de France";
 
+    static final String SITE = "https://www.banque-france.fr";
+    static final String PAGE_URL = SITE + "/fr/banque-de-france/gouvernance-forte-et-transparente/gouvernance-comites-consultatifs";
+    static final String PHOTO_LICENCE = "© Banque de France";
+
+    /**
+     * Carte d'une personne : son portrait puis, sans autre image entre les deux, son nom en titre
+     * ({@code <img src="/system/files/…"> … <h3 class="… card-title">Denis Beau</h3>}).
+     */
+    private static final Pattern PORTRAIT = Pattern.compile(
+            "(?si)<img[^>]*\\ssrc=\"(/system/files/[^\"]+)\"[^>]*>(?:(?!<img).){0,3000}?"
+                    + "<h3[^>]*card-title[^>]*>\\s*([^<]+?)\\s*</h3>");
+
     /** Liste « Membres » de la section « Le Conseil général », jusqu'à la fin du paragraphe. */
     private static final Pattern MEMBERS = Pattern.compile(
             "(?si)<h3>\\s*Le Conseil général\\s*</h3>.*?<h4>\\s*Membres\\s*</h4>\\s*<p>(.*?)</p>");
@@ -55,10 +72,13 @@ public class FrPepBanqueDeFranceParser implements Iparser {
     @Override
     public ParserResult parse(ParserContext ctx) throws Exception {
         FtmDatasetBuilder dataset = new FtmDatasetBuilder(ID_PREFIX, TOPIC);
-        List<Member> members = members(Files.readString(sourceFile(ctx), StandardCharsets.UTF_8));
+        String html = Files.readString(sourceFile(ctx), StandardCharsets.UTF_8);
+        List<Member> members = members(html);
         convert(members, dataset);
+        int photos = addPhotos(members, portraits(html), dataset);
         dataset.writeNdjsonFile(ctx.outputFile());
-        return dataset.toConversionResult().withMessage(members.size() + " membres du Conseil général de la Banque de France.");
+        return dataset.toConversionResult().withMessage(members.size() + " membres du Conseil général de la Banque de France, "
+                + photos + " portraits.");
     }
 
     /** Test du parser : chaque membre, avec l'ID et le nom que Yente doit connaître. */
@@ -129,6 +149,41 @@ public class FrPepBanqueDeFranceParser implements Iparser {
             occupancy.addValue("description", m.role());
             dataset.addEntity(occupancy);
         }
+    }
+
+    /** Portrait de chaque membre dont le nom est le titre d'une carte de la page ; les autres restent sans photo. */
+    static int addPhotos(List<Member> members, Map<String, String> portraits, FtmDatasetBuilder dataset) {
+        int count = 0;
+        for (Member m : members) {
+            String photo = portraits.get(nameKey(m.name()));
+            if (photo != null) {
+                dataset.addMedia(dataset.buildEntityId(m.name()), photo, PAGE_URL, PHOTO_LICENCE);
+                count++;
+            }
+        }
+        return count;
+    }
+
+    /**
+     * Portraits de la page par nom ({@link #nameKey}), adresses absolues. Une même personne a deux portraits (sa carte,
+     * puis la fenêtre de sa biographie) : on garde le premier, celui de la carte.
+     */
+    static Map<String, String> portraits(String html) {
+        Map<String, String> photos = new HashMap<>();
+        Matcher m = PORTRAIT.matcher(html);
+        while (m.find()) {
+            // l'adresse garde ses paramètres (?h=…&itok=…) : sans eux, le site répond 404
+            photos.putIfAbsent(nameKey(Html.text(m.group(2))), SITE + Html.decode(m.group(1)));
+        }
+        return photos;
+    }
+
+    /** « Agnès Bénassy-Quéré » → « agnes benassy quere » : minuscules sans accents, mots triés. */
+    static String nameKey(String name) {
+        String[] words = Normalizer.normalize(name.toLowerCase(Locale.ROOT), Normalizer.Form.NFD)
+                .replaceAll("\\p{M}", "").replaceAll("[^a-z0-9]+", " ").trim().split("\\s+");
+        Arrays.sort(words);
+        return String.join(" ", words);
     }
 
     private static String capitalize(String s) {

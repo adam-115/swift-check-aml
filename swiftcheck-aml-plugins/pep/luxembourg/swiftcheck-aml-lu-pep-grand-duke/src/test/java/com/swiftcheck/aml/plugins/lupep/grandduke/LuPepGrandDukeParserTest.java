@@ -161,6 +161,12 @@ class LuPepGrandDukeParserTest {
         assertTrue(occ.getValues("status").contains("current"));
         assertTrue(occ.getValues("startDate").contains("2025-10-03"));
         assertTrue(occ.getValues("description").contains("Grand-Duc de Luxembourg"));
+
+        // Portrait officiel (og:image de la page)
+        assertEquals(1, dataset.media().size());
+        assertEquals(person.getId(), dataset.media().get(0).entityId());
+        assertEquals("https://monarchie.lu/sites/default/files/styles/meta/public/upload/media/image/2025-08/"
+                + "legrandduc_1x1.jpg?itok=RiCve_1W", dataset.media().get(0).imageUrl());
     }
 
     @Test

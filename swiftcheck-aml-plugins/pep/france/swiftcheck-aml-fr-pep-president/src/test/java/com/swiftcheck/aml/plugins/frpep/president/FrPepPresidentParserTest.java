@@ -34,6 +34,9 @@ class FrPepPresidentParserTest {
         assertEquals("Amiens", p.birthPlace());
         assertEquals("2017", p.startYear());
         assertEquals("https://www.elysee.fr/emmanuel-macron", p.pageUrl());
+        assertEquals("https://www.elysee.fr/cdn-cgi/image/format=jpeg%2Cquality=100%2Cwidth=800%2Cheight=420%2Ctrim=287%3B0%3B950%3B0"
+                + "%2Cfit=cover/images/default/0001/10/c94ca5cbc994a3a0d4994354c9a4ac3407d6ad84.jpeg", p.photo(),
+                "portrait officiel (og:image), en JPEG");
     }
 
     @Test

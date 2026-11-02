@@ -47,6 +47,14 @@ public class LuPepGovernmentParser implements Iparser {
     private static final Pattern MEMBER_LINK = Pattern.compile(
             "href=\"//gouvernement\\.lu/fr/gouvernement/([a-z0-9-]+)\\.html\"[^>]*>\\s*<span>\\s*([^<]+?)\\s*</span>");
 
+    /**
+     * Portrait officiel d'un membre, avec son nom affiché :
+     * {@code <img src="/fr/gouvernement/_jcr_content/…/image.coreimg.jpeg/…/2023-frieden-portrait-officiel.jpeg" … alt="Luc FRIEDEN">}.
+     */
+    private static final Pattern PORTRAIT = Pattern.compile(
+            "<img\\s+src=\"(/fr/gouvernement/[^\"]+\\.coreimg\\.(?:jpe?g|png)/[^\"]+)\"[^>]*\\salt=\"([^\"]+)\"");
+    static final String PHOTO_LICENCE = "© Gouvernement du Grand-Duché de Luxembourg";
+
     /** Lien du même menu qui n'est pas un membre en fonction. */
     private static final String FORMER_MEMBERS_PAGE = "anciens-membres-gouvernement";
 
@@ -70,11 +78,14 @@ public class LuPepGovernmentParser implements Iparser {
 
     /** Lit la page et convertit chaque membre. Séparé de {@link #parse} pour être testé directement. */
     void convert(Path html, FtmDatasetBuilder dataset) throws Exception {
-        readMembers(html).forEach((memberPage, displayedName) -> convertMember(memberPage, displayedName, dataset));
+        Map<String, String> photos = portraits(Files.readString(html, StandardCharsets.UTF_8));
+        readMembers(html).forEach((memberPage, displayedName) -> convertMember(memberPage, displayedName,
+                photos.get(nameKey(displayedName)), dataset));
     }
 
     /** Un membre : la personne, la fonction de membre du gouvernement et son mandat en cours. */
-    private static void convertMember(String memberPage, String displayedName, FtmDatasetBuilder dataset) {
+    private static void convertMember(String memberPage, String displayedName, String photo,
+            FtmDatasetBuilder dataset) {
         String[] name = splitName(displayedName);
 
         // ID = identifiant de sa page sur gouvernement.lu (ex. luc-frieden)
@@ -85,6 +96,9 @@ public class LuPepGovernmentParser implements Iparser {
         person.addValue("country", "lu");
         person.addValue("sourceUrl", "https://gouvernement.lu/fr/gouvernement/" + memberPage + ".html");
         dataset.addEntity(person);
+        if (photo != null) {
+            dataset.addMedia(person.getId(), photo, "https://gouvernement.lu/fr/gouvernement.html", PHOTO_LICENCE);
+        }
 
         FtmEntity position = dataset.newEntity("Position", "member");
         position.addValue("name", "Membre du gouvernement du Luxembourg");
@@ -98,6 +112,30 @@ public class LuPepGovernmentParser implements Iparser {
         occupancy.addValue("post", position.getId());
         occupancy.addValue("status", "current");
         dataset.addEntity(occupancy);
+    }
+
+    /** Portraits de la page par nom ({@link #nameKey}), adresses absolues ; un nom porté deux fois est écarté. */
+    static Map<String, String> portraits(String html) {
+        Map<String, String> photos = new java.util.HashMap<>();
+        java.util.Set<String> twice = new java.util.HashSet<>();
+        Matcher m = PORTRAIT.matcher(html);
+        while (m.find()) {
+            String url = "https://gouvernement.lu" + m.group(1);
+            String previous = photos.putIfAbsent(nameKey(m.group(2)), url);
+            if (previous != null && !previous.equals(url)) {
+                twice.add(nameKey(m.group(2)));
+            }
+        }
+        photos.keySet().removeAll(twice);
+        return photos;
+    }
+
+    /** « Luc FRIEDEN » → « frieden luc » : minuscules sans accents, mots triés. */
+    static String nameKey(String name) {
+        String[] words = java.text.Normalizer.normalize(name.toLowerCase(java.util.Locale.ROOT), java.text.Normalizer.Form.NFD)
+                .replaceAll("\\p{M}", "").replaceAll("[^a-z0-9]+", " ").trim().split("\\s+");
+        java.util.Arrays.sort(words);
+        return String.join(" ", words);
     }
 
     /**

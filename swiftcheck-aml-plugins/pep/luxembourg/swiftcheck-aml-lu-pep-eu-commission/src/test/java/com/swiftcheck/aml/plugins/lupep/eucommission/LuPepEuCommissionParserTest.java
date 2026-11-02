@@ -180,6 +180,8 @@ class LuPepEuCommissionParserTest {
         assertEquals("ended", schmit.status());
         assertFalse(schmit.isPresident());
         assertEquals(SCHMIT_URL, schmit.pageUrl());
+        assertEquals("https://commissioners.ec.europa.eu/sites/default/files/styles/ewcms_metatag_image/public/2024-02/"
+                + "nicolas-schmit-2024.jpg?h=d832e063&itok=N-a_Xutt", schmit.photo());
     }
 
     @Test

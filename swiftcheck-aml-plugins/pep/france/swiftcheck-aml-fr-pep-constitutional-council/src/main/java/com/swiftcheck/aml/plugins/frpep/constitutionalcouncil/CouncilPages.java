@@ -33,8 +33,8 @@ final class CouncilPages {
     record Member(String slug, String name, boolean president, String nominationDate, String nominatedBy) {
     }
 
-    /** Ce que donne la fiche d'un membre (dates ISO, {@code null} si absentes). */
-    record Profile(String oathDate, String birthDate, String birthPlace) {
+    /** Ce que donne la fiche d'un membre (dates ISO, {@code null} si absentes) ; {@code photo} = adresse de son portrait, relative au site. */
+    record Profile(String oathDate, String birthDate, String birthPlace, String photo) {
     }
 
     private static final Pattern CARD = Pattern.compile("(?s)<a href=\"/membres/([a-z0-9-]+)\"[^>]*>(.*?)</a>");
@@ -45,7 +45,9 @@ final class CouncilPages {
     /** « Nommée le 1 er mars 2022 par le Président de la République » (après retrait des balises). */
     private static final Pattern DATE = Pattern.compile("(?u)le (\\d{1,2})(?: ?er)? (\\p{L}+) (\\d{4})");
     private static final Pattern BY = Pattern.compile("(?u) par (?:le |la )?(.+)$");
-    private static final Pattern PLACE = Pattern.compile("(?u)\\d{4} à ([^(]+?)\\s*(?:\\(|$)");
+    /** {@code <img … src="/sites/default/files/…/richard-ferrand-fiche-membre.jpg.webp?…" alt="Portrait de M. Richard Ferrand" />}. */
+    private static final Pattern PORTRAIT = Pattern.compile("<img[^>]*\\ssrc=\"([^\"]+)\"[^>]*\\salt=\"Portrait de[^\"]*\"");
+    private static final Pattern PLACE =Pattern.compile("(?u)\\d{4} à ([^(]+?)\\s*(?:\\(|$)");
 
     private static final Map<String, Integer> MONTHS = Map.ofEntries(
             Map.entry("janvier", 1), Map.entry("fevrier", 2), Map.entry("mars", 3), Map.entry("avril", 4),
@@ -83,7 +85,9 @@ final class CouncilPages {
     static Profile profile(String html) {
         String birth = first(BIRTH, html);
         Matcher place = birth == null ? null : PLACE.matcher(birth);
-        return new Profile(date(first(OATH, html)), date(birth), place != null && place.find() ? place.group(1).trim() : null);
+        Matcher photo = PORTRAIT.matcher(html);
+        return new Profile(date(first(OATH, html)), date(birth), place != null && place.find() ? place.group(1).trim() : null,
+                photo.find() ? Html.decode(photo.group(1)) : null);
     }
 
     /** « Richard FERRAND » → {« Richard », « FERRAND »} : les mots tout en majuscules forment le nom. */

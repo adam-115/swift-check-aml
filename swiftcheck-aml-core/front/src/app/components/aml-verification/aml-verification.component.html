@@ -566,6 +566,41 @@
 
             <div class="flex flex-col sm:flex-row sm:items-start justify-between gap-3">
 
+              <div class="flex items-start gap-3 min-w-0">
+
+              <!-- Photo du PEP : officielle, réutilisée d'un autre dataset, ou retenue par un analyste -->
+              <div *ngIf="photos[match.id] as ph" class="shrink-0 w-20 text-center">
+                <div class="w-20 h-24 rounded-lg overflow-hidden border bg-slate-50 flex items-center justify-center"
+                  [ngClass]="ph.photo?.origin === 'WEB_VALIDATED' ? 'border-amber-400 border-2' : 'border-slate-200'">
+                  <i *ngIf="ph.state === 'loading'" class="fas fa-spinner fa-spin text-slate-300"></i>
+                  <img *ngIf="ph.state === 'found'" [src]="ph.objectUrl" [alt]="'Photo de ' + (match.caption || match.id)"
+                    class="w-full h-full object-cover">
+                  <i *ngIf="ph.state === 'none' || ph.state === 'error'" class="fas fa-user text-3xl text-slate-200"></i>
+                </div>
+                <ng-container *ngIf="ph.state === 'found' && ph.photo as p">
+                  <p *ngIf="p.origin === 'WEB_VALIDATED'"
+                    class="mt-1 text-[9px] leading-tight font-bold text-amber-700 bg-amber-50 border border-amber-200 rounded px-1 py-0.5"
+                    [title]="p.licence || ''">
+                    <i class="fas fa-triangle-exclamation"></i> Internet, retenue par {{ p.validatedBy }}
+                  </p>
+                  <p *ngIf="p.origin === 'OFFICIAL'" class="mt-1 text-[9px] leading-tight text-slate-400 break-words"
+                    [title]="p.licence || ''">
+                    {{ p.licence || 'Source officielle' }}
+                  </p>
+                  <a *ngIf="p.pageUrl" [href]="p.pageUrl" target="_blank" rel="noopener noreferrer"
+                    class="text-[9px] text-blue-500 hover:underline">source</a>
+                </ng-container>
+                <ng-container *ngIf="ph.state === 'none' || ph.state === 'error'">
+                  <p class="mt-1 text-[9px] leading-tight text-slate-400">
+                    {{ ph.state === 'none' ? 'Pas de photo officielle' : 'Photo indisponible' }}
+                  </p>
+                  <button *ngIf="!webSearches[match.id]" type="button" (click)="searchWebPhotos(match)"
+                    class="mt-1 text-[9px] font-bold text-amber-700 hover:text-amber-900 hover:underline cursor-pointer">
+                    <i class="fas fa-magnifying-glass"></i> Rechercher sur internet
+                  </button>
+                </ng-container>
+              </div>
+
               <!-- Identité de l'entité trouvée -->
               <div class="space-y-1.5 min-w-0">
                 <div class="flex items-center flex-wrap gap-1.5">
@@ -606,6 +641,7 @@
 
                 <p class="text-[11px] text-slate-400 font-mono truncate">ID: {{ match.id }}</p>
               </div>
+              </div>
 
               <!-- Score & Bouton Détails (Adapté pour mobile & desktop) -->
               <div
@@ -635,6 +671,58 @@
                       prop.value }}</span>
                   </div>
                 </ng-container>
+              </div>
+            </div>
+
+            <!-- Recherche de photos sur internet, lancée par l'analyste -->
+            <div *ngIf="webSearches[match.id] as ws" class="mt-3.5 pt-3 border-t border-slate-100">
+              <div class="rounded-lg border border-amber-300 bg-amber-50 p-3 text-[11px] text-amber-900">
+                <div class="flex items-start justify-between gap-2">
+                  <p>
+                    <i class="fas fa-triangle-exclamation mr-1"></i>
+                    <b>Recherche sur internet : résultats non vérifiés.</b>
+                    Une image peut montrer une autre personne qui porte le même nom. Le score dit seulement que le nom
+                    (et la fonction) apparaissent autour de l'image ; il ne prouve pas que c'est le visage de cette personne.
+                    Rien n'est enregistré tant que vous ne retenez pas une photo.
+                  </p>
+                  <button type="button" (click)="closeWebSearch(match.id)" title="Fermer"
+                    class="text-amber-700 hover:text-amber-900 cursor-pointer"><i class="fas fa-xmark"></i></button>
+                </div>
+              </div>
+
+              <p *ngIf="ws.state === 'loading'" class="mt-3 text-xs text-slate-500">
+                <i class="fas fa-spinner fa-spin mr-1"></i> Recherche en cours…
+              </p>
+              <p *ngIf="ws.state === 'error'" class="mt-3 text-xs text-rose-600">{{ ws.error }}</p>
+              <p *ngIf="ws.state === 'done' && ws.candidates.length === 0" class="mt-3 text-xs text-slate-500">
+                Aucune image où le nom complet apparaît.
+              </p>
+
+              <div *ngIf="ws.state === 'done' && ws.candidates.length" class="mt-3 grid grid-cols-2 sm:grid-cols-4 gap-2.5">
+                <div *ngFor="let c of ws.candidates" class="rounded-lg border border-slate-200 overflow-hidden bg-white flex flex-col">
+                  <div class="h-28 bg-slate-100 flex items-center justify-center overflow-hidden">
+                    <img *ngIf="c.thumbObjectUrl" [src]="c.thumbObjectUrl" [alt]="c.title" class="w-full h-full object-cover">
+                    <i *ngIf="!c.thumbObjectUrl" class="fas fa-image text-2xl text-slate-300"></i>
+                  </div>
+                  <div class="p-2 space-y-1 flex-1 flex flex-col">
+                    <div class="flex items-center justify-between gap-1">
+                      <span class="text-[10px] font-mono text-slate-500 truncate" [title]="c.domain">{{ c.domain }}</span>
+                      <span class="text-[10px] font-bold px-1.5 rounded"
+                        [ngClass]="c.score >= 80 ? 'bg-emerald-100 text-emerald-800' : 'bg-slate-100 text-slate-600'"
+                        title="Score de contexte (sur 100)">{{ c.score }}</span>
+                    </div>
+                    <p class="text-[10px] text-slate-700 line-clamp-2" [title]="c.title">{{ c.title }}</p>
+                    <p class="text-[9px] text-slate-400">{{ c.reasons.join(' · ') }}</p>
+                    <div class="mt-auto pt-1 flex items-center justify-between gap-1">
+                      <a [href]="c.pageUrl" target="_blank" rel="noopener noreferrer"
+                        class="text-[10px] text-blue-600 hover:underline">page source</a>
+                      <button type="button" (click)="retainWebPhoto(match, c)" [disabled]="!!ws.saving"
+                        class="text-[10px] font-bold text-amber-700 hover:text-amber-900 disabled:opacity-40 cursor-pointer">
+                        <i *ngIf="ws.saving === c.imageUrl" class="fas fa-spinner fa-spin"></i> Retenir
+                      </button>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
 

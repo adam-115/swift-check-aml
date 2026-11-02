@@ -51,6 +51,7 @@ public class FrPepConstitutionalCouncilParser implements Iparser {
 
     private static final String MEMBER = "Membre du Conseil constitutionnel";
     private static final String PRESIDENT = "Président du Conseil constitutionnel";
+    static final String PHOTO_LICENCE = "© Conseil constitutionnel";
 
     @Override
     public ParserResult parse(ParserContext ctx) throws Exception {
@@ -122,7 +123,7 @@ public class FrPepConstitutionalCouncilParser implements Iparser {
         URI base = URI.create(membersUrl);
         for (Member m : members) {
             Path file = rawDir.resolve(profileFile(m.slug()));
-            Profile profile = Files.exists(file) ? CouncilPages.profile(Files.readString(file)) : new Profile(null, null, null);
+            Profile profile = Files.exists(file) ? CouncilPages.profile(Files.readString(file)) : new Profile(null, null, null, null);
             String pageUrl = base.resolve("/membres/" + m.slug()).toString();
             String[] name = CouncilPages.splitName(m.name());
 
@@ -145,6 +146,10 @@ public class FrPepConstitutionalCouncilParser implements Iparser {
                 occupancy(dataset, m, person, position(dataset, "president", PRESIDENT), "president", profile, pageUrl);
             }
             dataset.addEntity(person);
+            if (profile.photo() != null) {
+                // Portrait de la fiche du membre : le core le télécharge après la publication
+                dataset.addMedia(person.getId(), base.resolve(profile.photo()).toString(), pageUrl, PHOTO_LICENCE);
+            }
         }
         return members.size();
     }

@@ -23,6 +23,7 @@ import com.swiftcheck.aml.plugin.ParserResult;
 import com.swiftcheck.aml.plugin.SourceRecord;
 import com.swiftcheck.aml.sdk.FtmDatasetBuilder;
 import com.swiftcheck.aml.sdk.FtmEntity;
+import com.swiftcheck.aml.sdk.WikidataImages;
 
 /**
  * <b>lu_pep_rca</b> – Membres de la famille des PEP luxembourgeois, d'après Wikidata.
@@ -85,9 +86,13 @@ public class LuPepRcaParser implements Iparser {
 
         FtmDatasetBuilder dataset = new FtmDatasetBuilder(ID_PREFIX);
         Report report = convert(ctx.rawDir(), dataset);
+        // Photos : image principale de chaque personne sur Wikimedia Commons (complément, jamais bloquant)
+        String photos = WikidataImages.addPhotos(dataset, WikidataImages.QID, WikidataImages.personIdSuffixes(dataset),
+                WikidataImages.httpFetcher(p.getOrDefault("endpoint", DEFAULT_ENDPOINT).trim(), WikidataImages.DEFAULT_USER_AGENT),
+                ctx.rawDir().resolve(WikidataImages.PHOTOS_FILE));
         dataset.writeNdjsonFile(ctx.outputFile());
         ParserResult result = dataset.toConversionResult();
-        return result.withMessage(report.message());
+        return result.withMessage((report.message() + " " + photos).trim());
     }
 
     /** Test du parser : chaque proche gardé, avec l'ID et le nom que Yente doit connaître (sans réseau). */

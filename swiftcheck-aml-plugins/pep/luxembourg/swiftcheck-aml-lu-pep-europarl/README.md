@@ -46,7 +46,7 @@ Extrait :
 | Nature de la source | T1 – Fichier open data (XML) |
 | Fréquence | 24 h |
 | Rétention | 12 mois |
-| Paramètres | aucun |
+| Paramètres | `wikidataEndpoint` (facultatif) : photos Wikimedia Commons par l’identifiant du Parlement européen (P1186) ; vide = pas de photos |
 | Source PEP | « Parlement européen – liste des députés » |
 
 ## Ce qui est produit (FtM)

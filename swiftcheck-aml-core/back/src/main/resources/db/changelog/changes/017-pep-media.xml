@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Photos des PEP (pep_media). FtM n'a pas de propriété « photo » : les plugins déclarent les photos officielles dans
+    un fichier à côté du NDJSON, le core les télécharge après une publication réussie et les range ici. Une photo
+    trouvée par une recherche sur internet n'y entre que si un analyste la valide (origin = WEB_VALIDATED).
+
+    Chaque photo appartient au dataset qui l'a publiée : une personne présente dans trois datasets a trois photos.
+    Rien n'est partagé entre datasets, pour qu'un parser ne touche que ses propres photos (au plus une par entité et
+    par origine).
+-->
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="017-pep-media" author="swiftcheck">
+        <createTable tableName="pep_media">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="entity_id" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="dataset_name" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+            <!-- OFFICIAL : déclarée par le plugin (source officielle ou Commons) ; WEB_VALIDATED : recherche sur
+                 internet validée par un analyste -->
+            <column name="origin" type="VARCHAR(20)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="image_url" type="VARCHAR(2048)"/>
+            <column name="page_url" type="VARCHAR(2048)"/>
+            <column name="licence" type="VARCHAR(1000)"/>
+            <column name="content_type" type="VARCHAR(100)"/>
+            <column name="sha256" type="CHAR(64)"/>
+            <column name="size_bytes" type="BIGINT"/>
+            <column name="archive_path" type="VARCHAR(1024)"/>
+            <column name="validated_by" type="VARCHAR(255)"/>
+            <column name="fetched_at" type="TIMESTAMP"/>
+        </createTable>
+        <createIndex tableName="pep_media" indexName="idx_pep_media_entity">
+            <column name="entity_id"/>
+        </createIndex>
+        <addUniqueConstraint tableName="pep_media" columnNames="dataset_name, entity_id, origin"
+                             constraintName="uq_pep_media_dataset_entity_origin"/>
+    </changeSet>
+
+</databaseChangeLog>

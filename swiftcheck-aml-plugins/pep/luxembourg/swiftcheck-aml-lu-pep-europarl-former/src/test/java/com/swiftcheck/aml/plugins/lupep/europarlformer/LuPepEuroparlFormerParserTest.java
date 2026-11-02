@@ -41,7 +41,7 @@ class LuPepEuroparlFormerParserTest {
         Path outputFile = tempDir.resolve("output_term9.ndjson");
         // yearsAfterEnd = 10 pour retenir la 9e législature (2019-2024), et IDs des députés en fonction actuels
         ParserContext ctx = new ParserContext("lu_pep_europarl_former", term9File, null, outputFile,
-                Map.of("yearsAfterEnd", "10", "currentMepIds", "202073,840,193292"));
+                Map.of("yearsAfterEnd", "10", "currentMepIds", "202073,840,193292", "wikidataEndpoint", ""));
 
         LuPepEuroparlFormerParser parser = new LuPepEuroparlFormerParser();
         ParserResult result = parser.parse(ctx);
@@ -77,7 +77,7 @@ class LuPepEuroparlFormerParserTest {
 
         Path outputFile = tempDir.resolve("output_semedo.ndjson");
         ParserContext ctx = new ParserContext("lu_pep_europarl_former", semedoFile, null, outputFile,
-                Map.of("yearsAfterEnd", "5"));
+                Map.of("yearsAfterEnd", "5", "wikidataEndpoint", ""));
 
         LuPepEuroparlFormerParser parser = new LuPepEuroparlFormerParser();
         ParserResult result = parser.parse(ctx);
@@ -97,7 +97,7 @@ class LuPepEuroparlFormerParserTest {
 
         Path outputFile = tempDir.resolve("output_outgoing.ndjson");
         ParserContext ctx = new ParserContext("lu_pep_europarl_former", outgoingFile, null, outputFile,
-                Map.of("yearsAfterEnd", "5"));
+                Map.of("yearsAfterEnd", "5", "wikidataEndpoint", ""));
 
         LuPepEuroparlFormerParser parser = new LuPepEuroparlFormerParser();
         ParserResult result = parser.parse(ctx);

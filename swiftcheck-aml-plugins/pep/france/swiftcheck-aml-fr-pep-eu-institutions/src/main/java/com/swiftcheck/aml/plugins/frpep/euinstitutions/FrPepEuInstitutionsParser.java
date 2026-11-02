@@ -49,6 +49,7 @@ public class FrPepEuInstitutionsParser implements Iparser {
     static final String ID_PREFIX = "fr-pep-eu-institutions";
     static final String TOPIC = "role.pep";
     static final String FAILED_FILE = "sources-en-echec.txt";
+    static final String CJUE_PHOTO_LICENCE = "© Cour de justice de l'Union européenne";
 
     @Override
     public ParserResult parse(ParserContext ctx) throws Exception {
@@ -77,12 +78,13 @@ public class FrPepEuInstitutionsParser implements Iparser {
     }
 
     /** Bilan : membres lus et français retenus par institution, sources en échec. */
-    record Report(Map<String, int[]> byInstitution, List<String> french, List<String> failed) {
+    record Report(Map<String, int[]> byInstitution, List<String> french, List<String> failed, int photos) {
 
         String message() {
             StringBuilder m = new StringBuilder();
             byInstitution.forEach((inst, n) -> m.append(String.format("%s : %d membres lus, %d français. ", inst, n[0], n[1])));
             m.append("Français retenus : ").append(String.join(" ; ", french)).append('.');
+            m.append(" Portraits : ").append(photos).append('.');
             if (!failed.isEmpty()) {
                 m.append(" Sources en échec : ").append(String.join(" ; ", failed)).append('.');
             }
@@ -105,11 +107,15 @@ public class FrPepEuInstitutionsParser implements Iparser {
         }
         List<Member> members = new ArrayList<>();
         Map<String, String> urls = new LinkedHashMap<>();
+        // Photos : seules les fiches de la CJUE en ont une à côté du nom (fichier source → nom replié → adresse)
+        Map<String, Map<String, String>> portraits = new LinkedHashMap<>();
         if (Files.exists(rawDir.resolve(EuSources.CJ_FILE))) {
             members.addAll(EuReaders.cjue(rawDir.resolve(EuSources.CJ_FILE), "Cour"));
+            portraits.put(EuSources.CJ_FILE, EuReaders.cjuePortraits(rawDir.resolve(EuSources.CJ_FILE)));
         }
         if (Files.exists(rawDir.resolve(EuSources.GC_FILE))) {
             members.addAll(EuReaders.cjue(rawDir.resolve(EuSources.GC_FILE), "Tribunal"));
+            portraits.put(EuSources.GC_FILE, EuReaders.cjuePortraits(rawDir.resolve(EuSources.GC_FILE)));
         }
         if (Files.exists(rawDir.resolve(EuSources.ECA_FILE))) {
             members.addAll(EuReaders.eca(rawDir.resolve(EuSources.ECA_FILE)));
@@ -131,16 +137,23 @@ public class FrPepEuInstitutionsParser implements Iparser {
 
         Map<String, int[]> byInstitution = new LinkedHashMap<>();
         List<String> french = new ArrayList<>();
+        int photos = 0;
         for (Member m : members) {
             int[] n = byInstitution.computeIfAbsent(m.institution(), k -> new int[2]);
             n[0]++;
             if (m.french()) {
                 n[1]++;
                 french.add(m.name() + " (" + m.evidence() + ")");
-                write(dataset, m, urls.getOrDefault(m.sourceFile(), m.sourceFile()));
+                String sourceUrl = urls.getOrDefault(m.sourceFile(), m.sourceFile());
+                write(dataset, m, sourceUrl);
+                String photo = portraits.getOrDefault(m.sourceFile(), Map.of()).get(fold(m.name()));
+                if (photo != null) {
+                    dataset.addMedia(dataset.buildEntityId(fold(m.name())), photo, sourceUrl, CJUE_PHOTO_LICENCE);
+                    photos++;
+                }
             }
         }
-        Report report = new Report(byInstitution, french, failed);
+        Report report = new Report(byInstitution, french, failed, photos);
         log.info(report.message());
         return report;
     }

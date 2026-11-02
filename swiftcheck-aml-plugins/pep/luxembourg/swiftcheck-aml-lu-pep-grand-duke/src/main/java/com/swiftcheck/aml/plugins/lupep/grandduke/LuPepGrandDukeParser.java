@@ -75,6 +75,8 @@ public class LuPepGrandDukeParser implements Iparser {
     /** Pattern pour extraire le titre principal (H1). */
     private static final Pattern H1_PATTERN = Pattern.compile("(?si)<h1[^>]*>(.*?)</h1>");
 
+    static final String PHOTO_LICENCE = "© Maison du Grand-Duc";
+
     /** Pattern pour extraire l'image og:image. */
     private static final Pattern OG_IMAGE_PATTERN = Pattern.compile(
             "(?i)<meta[^>]+property=[\"']og:image[\"'][^>]+content=[\"']([^\"']+)[\"']");
@@ -329,6 +331,11 @@ public class LuPepGrandDukeParser implements Iparser {
         }
 
         dataset.addEntity(person);
+        if (m.imageUrl() != null && m.imageUrl().startsWith("https://")) {
+            // Portrait officiel (image de partage de la page) : le core le télécharge après la publication
+            dataset.addMedia(person.getId(), m.imageUrl().replace("&amp;", "&"),
+                    m.pageUrl() != null ? m.pageUrl() : sourceUrl, PHOTO_LICENCE);
+        }
 
         // Occupancy
         String occId = "occ-" + m.slug();

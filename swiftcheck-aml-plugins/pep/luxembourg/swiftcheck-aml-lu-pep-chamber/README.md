@@ -47,7 +47,7 @@ per_titre,pph_nom,pph_prenom,date_debut_depute,rattachement_abrv,rattachement_ty
 | Adresse | voir ci-dessus |
 | Fréquence | 24 h |
 | Rétention | 12 mois |
-| Paramètres | aucun |
+| Paramètres | `photosUrl` (facultatif) : page des portraits, par défaut `https://www.chd.lu/fr/deputies` (déposée dans `rawDir`, rapprochement par nom exact) ; vide = pas de photos |
 | Source PEP | « Chambre des Députés – députés en fonction » |
 
 ## Ce qui est produit (FtM)

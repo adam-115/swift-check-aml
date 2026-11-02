@@ -64,6 +64,18 @@ class FrPepEuInstitutionsParserTest {
     }
 
     @Test
+    void cjueMembersHaveTheirPortraitTheOthersNone() throws Exception {
+        FtmDatasetBuilder dataset = convert();
+        assertThat(dataset.media()).hasSize(6);    // 3 à la Cour, 3 au Tribunal ; BCE, Cour des comptes, Conseil : aucune
+        FtmDatasetBuilder.FtmMedia gervasoni = dataset.media().stream()
+                .filter(m -> m.entityId().equals(person(dataset, "Stéphane Gervasoni").getId())).findFirst().orElseThrow();
+        assertThat(gervasoni.imageUrl()).startsWith("https://curia.europa.eu/site/upload/docs/image/");
+        assertThat(gervasoni.licence()).isEqualTo(FrPepEuInstitutionsParser.CJUE_PHOTO_LICENCE);
+        assertThat(gervasoni.pageUrl()).isEqualTo("https://curia.europa.eu/jcms/jcms/Jo2_7026/fr/");
+        assertThat(dataset.media()).noneMatch(m -> m.entityId().equals(person(dataset, "Christine Lagarde").getId()));
+    }
+
+    @Test
     void reasonForEachNationality() throws Exception {
         FtmDatasetBuilder dataset = convert();
         assertThat(person(dataset, "Pierre MOSCOVICI").getValues("notes"))

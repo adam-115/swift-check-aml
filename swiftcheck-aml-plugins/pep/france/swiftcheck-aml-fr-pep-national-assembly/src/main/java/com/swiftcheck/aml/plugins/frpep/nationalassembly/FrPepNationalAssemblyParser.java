@@ -52,6 +52,7 @@ public class FrPepNationalAssemblyParser implements Iparser {
 
     private static final String DEPUTY = "Député à l'Assemblée nationale";
     private static final String PRESIDENT = "Président de l'Assemblée nationale";
+    static final String PHOTO_LICENCE = "© Assemblée nationale";
 
     /** Bilan de la conversion, pour le message de l'exécution. */
     record Report(int current, int former, int monthsAfterEnd, List<String> presidents) {
@@ -122,12 +123,28 @@ public class FrPepNationalAssemblyParser implements Iparser {
                 }
             }
             dataset.addEntity(person);
+            String photo = photoUrl(d.uid(), seats.stream().max(Comparator.comparing(Mandate::start)).orElseThrow());
+            if (photo != null) {
+                dataset.addMedia(person.getId(), photo, person.getValues("sourceUrl").iterator().next(), PHOTO_LICENCE);
+            }
         }
         if (current == 0) {
             throw new IllegalStateException("Aucun député en fonction dans l'archive : fichier incomplet ou "
                     + "format changé (attendu : AMO30 tous acteurs, tous mandats, tous organes, en JSON).");
         }
         return new Report(current, former, monthsAfterEnd, presidents);
+    }
+
+    /**
+     * Photo officielle du député (trombinoscope de la législature de son dernier mandat) :
+     * {@code PA721908} → {@code …/tribun/17/photos/carre/721908.jpg}. Le core la télécharge après la publication.
+     */
+    static String photoUrl(String uid, Mandate lastSeat) {
+        if (uid == null || !uid.matches("PA\\d+") || lastSeat.legislature() == null) {
+            return null;
+        }
+        return "https://www.assemblee-nationale.fr/dyn/static/tribun/" + lastSeat.legislature() + "/photos/carre/"
+                + uid.substring(2) + ".jpg";
     }
 
     private static boolean kept(Mandate m, String oldestEnd) {

@@ -42,6 +42,17 @@ class FrPepArmyParserTest {
     }
 
     @Test
+    void findsThePortraitOfEachChief() throws Exception {
+        assertEquals("https://www.defense.gouv.fr/sites/default/files/styles/16_9_md/public/ema/Photo%20officielle%20CEMA%20169.jpg?itok=TgJNbo7-",
+                ChiefPage.photo(resource("cema.html"), PARAMS.get("cemaUrl")), "image de partage, en https");
+        assertEquals("https://www.defense.gouv.fr/sites/default/files/styles/authority_image/public/terre/General-d-armee-de-montgros.jpg?h=d1cb525d&itok=EqhSurw9",
+                ChiefPage.photo(resource("cemat.html"), PARAMS.get("cematUrl")));
+        assertEquals("https://www.defense.gouv.fr/sites/default/files/styles/authority_image/public/air/2024_ASAP_001_D_055_009-Modifier%20carre.jpg?itok=iKi6yqjU",
+                ChiefPage.photo(resource("cemaae.html"), PARAMS.get("cemaaeUrl")));
+        assertEquals(null, ChiefPage.photo("<html></html>", PARAMS.get("cemaUrl")));
+    }
+
+    @Test
     void refusesAPageWithoutAChief() {
         assertThrows(IllegalStateException.class, () -> ChiefPage.read("<html><p>Page non trouvée</p></html>"));
     }
@@ -68,6 +79,9 @@ class FrPepArmyParserTest {
         assertEquals(Set.of("role.pep"), cemat.getValues("topics"));
         FtmEntity mandate = entity(dataset, dataset.buildEntityId("Jacques de Montgros", "1969-06-15", "cemat"));
         assertEquals(Set.of("2026-07-26"), mandate.getValues("startDate"));
+        assertEquals(3, dataset.media().size(), "un portrait par chef");
+        assertTrue(dataset.media().stream().anyMatch(m -> m.entityId().equals(cemat.getId())
+                && m.licence().equals("© Ministère des Armées")));
 
         List<SourceRecord> records = new FrPepArmyParser()
                 .readSourceRecords(new ParserContext("fr_pep_army", null, rawDir, null, PARAMS));

@@ -19,6 +19,7 @@
         014 : parser PEP de la France pour les Français dans les institutions de l'UE (CJUE, CCE, BCE, Conseil).
         015 : parser PEP de la France pour les fonctions sans source officielle (Wikidata) : chef d'état-major de la Marine.
         016 : fr_pep_jorf couvre aussi les membres du Gouvernement et les anciens membres (décrets de composition).
+        017 : photos des PEP (pep_media) : photos officielles et photos trouvées sur internet validées par un analyste.
     -->
     <include file="db/changelog/changes/001-schema.xml" />
     <include file="db/changelog/changes/002-pep-reference-data.xml" />
@@ -36,5 +37,6 @@
     <include file="db/changelog/changes/014-fr-pep-eu-institutions.xml" />
     <include file="db/changelog/changes/015-fr-pep-wikidata-positions.xml" />
     <include file="db/changelog/changes/016-fr-pep-jorf-government.xml" />
+    <include file="db/changelog/changes/017-pep-media.xml" />
 
 </databaseChangeLog>

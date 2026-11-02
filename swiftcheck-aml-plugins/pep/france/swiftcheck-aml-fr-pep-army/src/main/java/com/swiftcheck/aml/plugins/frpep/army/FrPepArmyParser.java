@@ -47,6 +47,7 @@ public class FrPepArmyParser implements Iparser {
 
     /** Catégorie de risque ajoutée à chaque personne. */
     static final String TOPIC = "role.pep";
+    static final String PHOTO_LICENCE = "© Ministère des Armées";
 
     private static final String USER_AGENT = "SwiftCheck-AML/1.0 (liste PEP France - chefs d'etat-major)";
 
@@ -116,18 +117,22 @@ public class FrPepArmyParser implements Iparser {
                 continue;
             }
             Chief chief;
+            String html;
             try {
-                chief = ChiefPage.read(Files.readString(page));
+                html = Files.readString(page);
+                chief = ChiefPage.read(html);
             } catch (IllegalStateException e) {
                 throw new IllegalStateException(function.getValue() + " (" + url(p, function.getKey()) + ") : " + e.getMessage(), e);
             }
-            write(function.getKey(), function.getValue(), chief, url(p, function.getKey()), dataset);
+            write(function.getKey(), function.getValue(), chief, url(p, function.getKey()),
+                    ChiefPage.photo(html, url(p, function.getKey())), dataset);
             covered.add(function.getKey());
         }
         return covered;
     }
 
-    private static void write(String key, String function, Chief c, String pageUrl, FtmDatasetBuilder dataset) {
+    private static void write(String key, String function, Chief c, String pageUrl, String photo,
+            FtmDatasetBuilder dataset) {
         // ID = nom + date de naissance : la page ne donne pas d'identifiant
         FtmEntity person = dataset.newEntity("Person", c.name(), c.birthDate());
         String[] parts = c.name().split("\\s+", 2);
@@ -142,6 +147,9 @@ public class FrPepArmyParser implements Iparser {
         person.addValue("position", function);
         person.addValue("sourceUrl", pageUrl);
         dataset.addEntity(person);
+        if (photo != null) {
+            dataset.addMedia(person.getId(), photo, pageUrl, PHOTO_LICENCE);     // téléchargée par le core
+        }
 
         FtmEntity position = dataset.newEntity("Position", key);
         position.addValue("name", function);

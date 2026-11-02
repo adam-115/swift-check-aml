@@ -103,6 +103,19 @@ class FrPepNationalAssemblyParserTest {
     }
 
     @Test
+    void declaresTheOfficialPhotoOfTheLastLegislature() throws Exception {
+        FtmDatasetBuilder dataset = dataset();
+        new FrPepNationalAssemblyParser().convert(zip, TODAY, 12, dataset);
+
+        String braunPivet = dataset.buildEntityId("PA721908");
+        assertTrue(dataset.media().contains(new FtmDatasetBuilder.FtmMedia(braunPivet,
+                "https://www.assemblee-nationale.fr/dyn/static/tribun/17/photos/carre/721908.jpg",
+                "https://www.assemblee-nationale.fr/dyn/deputes/PA721908", "© Assemblée nationale")));
+        assertEquals(dataset.entities().stream().filter(e -> e.getSchema().equals("Person")).count(),
+                dataset.media().size(), "une photo par député gardé");
+    }
+
+    @Test
     void theRetentionPeriodIsAParameter() throws Exception {
         // Trois ans : Nicolas Dupont-Aignan, sorti le 09/06/2024, est gardé
         FrPepNationalAssemblyParser.Report report = new FrPepNationalAssemblyParser().convert(zip, TODAY, 36, dataset());

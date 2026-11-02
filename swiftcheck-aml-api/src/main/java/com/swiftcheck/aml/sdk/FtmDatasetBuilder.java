@@ -102,6 +102,24 @@ public class FtmDatasetBuilder {
     private final EmitReport report = new EmitReport();
 
     /**
+     * Photos des personnes, déclarées par {@link #addMedia}. FtM n'a pas de propriété « photo » : elles sont écrites
+     * à part, dans {@link #mediaFile}, et le core les télécharge et les range après une publication réussie.
+     */
+    private final List<FtmMedia> media = new java.util.ArrayList<>();
+
+    /**
+     * Une photo officielle d'une entité.
+     *
+     * @param entityId ID FtM de l'entité (celui renvoyé par {@link FtmEntity#getId()})
+     * @param imageUrl adresse de l'image à télécharger
+     * @param pageUrl  page officielle où l'image est publiée (preuve de son rattachement à la personne)
+     * @param licence  licence ou mention à afficher, ex. « © Assemblée nationale » ; {@code null} si le core doit la
+     *                 lire lui-même (fichiers de Wikimedia Commons)
+     */
+    public record FtmMedia(String entityId, String imageUrl, String pageUrl, String licence) {
+    }
+
+    /**
      * Crée un builder pour une exécution d'une source. On en crée un nouveau à chaque ingestion : il ne doit
      * pas être réutilisé, sinon les entités de l'exécution précédente seraient réécrites.
      *
@@ -281,6 +299,40 @@ public class FtmDatasetBuilder {
     }
 
     /**
+     * Déclare la photo officielle d'une entité. Seule une photo publiée par la source officielle (ou par Wikimedia
+     * Commons pour une entité identifiée par son QID) doit être déclarée : jamais une image trouvée par une recherche
+     * sur le nom, qui pourrait montrer un homonyme.
+     *
+     * <p>Une entité absente du fichier publié (ID inconnu) est ignorée par le core. Une adresse déjà déclarée pour la
+     * même entité n'est pas répétée.
+     *
+     * @throws IllegalArgumentException si l'ID ou l'adresse de l'image est vide
+     */
+    public synchronized void addMedia(String entityId, String imageUrl, String pageUrl, String licence) {
+        if (entityId == null || entityId.isBlank() || imageUrl == null || imageUrl.isBlank()) {
+            throw new IllegalArgumentException("addMedia : ID d'entité et adresse de l'image obligatoires");
+        }
+        FtmMedia m = new FtmMedia(entityId, imageUrl.trim(), pageUrl, licence);
+        if (media.stream().noneMatch(x -> x.entityId().equals(entityId) && x.imageUrl().equals(m.imageUrl()))) {
+            media.add(m);
+        }
+    }
+
+    /** Les photos déclarées, dans l'ordre d'ajout (lecture seule). */
+    public synchronized List<FtmMedia> media() {
+        return List.copyOf(media);
+    }
+
+    /**
+     * Fichier des photos, à côté du fichier des entités : {@code fr_pep_senate.ndjson} → {@code
+     * fr_pep_senate.media.ndjson}. Le core le cherche à cet emplacement.
+     */
+    public static Path mediaFile(Path ndjsonFile) {
+        String name = ndjsonFile.getFileName().toString().replaceFirst("\\.ndjson$", "");
+        return ndjsonFile.resolveSibling(name + ".media.ndjson");
+    }
+
+    /**
      * Écrit toutes les entités dans le fichier {@code target}, sans risque de fichier incomplet.
      *
      * <p>Yente peut lire le fichier à tout moment. Si on écrivait directement dedans, il pourrait tomber sur
@@ -318,6 +370,38 @@ public class FtmDatasetBuilder {
         } catch (AtomicMoveNotSupportedException e) {
             // Certains disques (partage réseau, volume Docker) ne savent pas le faire : remplacement simple.
             Files.move(tmp, dest, StandardCopyOption.REPLACE_EXISTING);
+        }
+        writeMediaFile(mediaFile(dest));
+    }
+
+    /**
+     * Écrit les photos déclarées dans {@code target} (une ligne JSON par photo), ou supprime un fichier d'une exécution
+     * précédente s'il n'y en a aucune. Même écriture sûre que pour les entités.
+     * <pre>{@code {"entity":"fr-pep-an-PA718838","url":"https://…/718838.jpg","page":"https://…","licence":"© Assemblée nationale"}}</pre>
+     */
+    private void writeMediaFile(Path target) throws IOException {
+        if (media.isEmpty()) {
+            Files.deleteIfExists(target);
+            return;
+        }
+        Path tmp = target.resolveSibling(target.getFileName() + ".tmp");
+        try (BufferedWriter w = Files.newBufferedWriter(tmp, StandardCharsets.UTF_8)) {
+            for (FtmMedia m : media) {
+                StringBuilder sb = new StringBuilder(200).append("{\"entity\":");
+                appendJsonString(sb, m.entityId());
+                sb.append(",\"url\":");
+                appendJsonString(sb, m.imageUrl());
+                sb.append(",\"page\":");
+                appendJsonString(sb, m.pageUrl() == null ? "" : m.pageUrl());
+                sb.append(",\"licence\":");
+                appendJsonString(sb, m.licence() == null ? "" : m.licence());
+                w.write(sb.append("}\n").toString());
+            }
+        }
+        try {
+            Files.move(tmp, target, StandardCopyOption.REPLACE_EXISTING, StandardCopyOption.ATOMIC_MOVE);
+        } catch (AtomicMoveNotSupportedException e) {
+            Files.move(tmp, target, StandardCopyOption.REPLACE_EXISTING);
         }
     }
 

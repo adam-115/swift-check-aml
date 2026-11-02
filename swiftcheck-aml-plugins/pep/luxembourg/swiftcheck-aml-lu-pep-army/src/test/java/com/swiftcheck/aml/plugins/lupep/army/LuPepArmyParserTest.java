@@ -63,6 +63,13 @@ class LuPepArmyParserTest {
         assertThat(names).anyMatch(n -> n.contains("Schoeben") || n.contains("SCHOEBEN"));
         assertThat(names).anyMatch(n -> n.contains("Thull") || n.contains("THULL"));
 
+        // Portraits : Robinet, Ballinger et Schoeben (le nom est dans le nom du fichier) ; pas de portrait pour Thull
+        assertThat(dataset.media()).hasSize(3);
+        assertThat(dataset.media()).anyMatch(m -> m.imageUrl().endsWith("/colonel-pascal-ballinger-internet-pers-cle-285x285.jpeg")
+                && m.imageUrl().startsWith("https://armee.public.lu/fr/armee-luxembourgeoise/personnel/personnel-cle/")
+                && m.entityId().contains("ballinger"));
+        assertThat(dataset.media()).noneMatch(m -> m.entityId().contains("thull"));
+
         // 3. Occupancies
         List<FtmEntity> occupancies = entities.stream().filter(e -> "Occupancy".equals(e.getSchema())).toList();
         assertThat(occupancies).isNotEmpty();

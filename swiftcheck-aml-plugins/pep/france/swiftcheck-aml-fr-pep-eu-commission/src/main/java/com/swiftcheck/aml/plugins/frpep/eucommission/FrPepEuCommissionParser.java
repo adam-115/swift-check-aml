@@ -52,6 +52,10 @@ public class FrPepEuCommissionParser implements Iparser {
             "(?i)<meta[^>]+property=[\"']og:title[\"'][^>]+content=[\"']([^\"']*)[\"']");
     private static final Pattern OG_URL = Pattern.compile(
             "(?i)<meta[^>]+property=[\"']og:url[\"'][^>]+content=[\"']([^\"']*)[\"']");
+    /** Portrait officiel, carré (image de partage de la fiche). */
+    private static final Pattern OG_IMAGE = Pattern.compile(
+            "(?i)<meta[^>]+property=[\"']og:image[\"'][^>]+content=[\"']([^\"']*)[\"']");
+    static final String PHOTO_LICENCE = "© Union européenne";
     private static final Pattern H1 = Pattern.compile("(?si)<h1[^>]*class=\"[^\"]*ecl-page-header__title[^\"]*\"[^>]*>(.*?)</h1>");
     /** « VICE-PRÉSIDENT EXÉCUTIF (2024-2029) | Prospérité et stratégie industrielle ». */
     private static final Pattern HEADER = Pattern.compile(
@@ -60,7 +64,7 @@ public class FrPepEuCommissionParser implements Iparser {
 
     /** Le commissaire, tel que lu sur sa fiche. */
     record Commissioner(String name, String firstName, String lastName, String role, String portfolio,
-            String startYear, String endYear, String pageUrl) {
+            String startYear, String endYear, String pageUrl, String photo) {
     }
 
     @Override
@@ -92,6 +96,9 @@ public class FrPepEuCommissionParser implements Iparser {
         person.addValue("position", c.portfolio() == null ? c.role() : c.role() + " – " + c.portfolio());
         person.addValue("sourceUrl", c.pageUrl());
         dataset.addEntity(person);
+        if (c.photo() != null) {
+            dataset.addMedia(person.getId(), c.photo(), c.pageUrl(), PHOTO_LICENCE);    // téléchargée par le core
+        }
 
         FtmEntity position = dataset.newEntity("Position", "member");
         position.addValue("name", POSITION);
@@ -134,7 +141,12 @@ public class FrPepEuCommissionParser implements Iparser {
         String role = capitalize(Html.text(header.group(1)).toLowerCase());
         String portfolio = Html.text(header.group(4));
         return new Commissioner(name, parts[0], parts.length > 1 ? parts[1] : null, role,
-                portfolio.isBlank() ? null : portfolio, header.group(2), header.group(3), first(OG_URL, html));
+                portfolio.isBlank() ? null : portfolio, header.group(2), header.group(3), first(OG_URL, html),
+                https(first(OG_IMAGE, html)));
+    }
+
+    private static String https(String url) {
+        return url != null && url.startsWith("https://") ? url : null;
     }
 
     private static String capitalize(String s) {

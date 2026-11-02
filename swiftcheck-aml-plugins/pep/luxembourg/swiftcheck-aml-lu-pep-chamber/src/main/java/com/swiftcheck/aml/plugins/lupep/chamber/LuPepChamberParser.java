@@ -4,9 +4,12 @@ import static com.swiftcheck.aml.sdk.DateNormalizer.toIsoDateOrFail;
 import static com.swiftcheck.aml.sdk.TextUtils.joinNonBlank;
 import static com.swiftcheck.aml.sdk.TextUtils.toFtmGender;
 
+import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.pf4j.Extension;
 
@@ -45,12 +48,37 @@ public class LuPepChamberParser implements Iparser {
     /** Catégorie de risque ajoutée à chaque personne. */
     static final String TOPIC = "role.pep";
 
+    /** Page des portraits ; vide = pas de portraits. Par défaut {@value ChamberPhotos#DEFAULT_URL}. */
+    static final String PARAM_PHOTOS_URL = "photosUrl";
+    static final String PHOTOS_FILE = "chd-deputies.html";
+    static final String PHOTO_LICENCE = "© Chambre des Députés du Grand-Duché de Luxembourg";
+
     @Override
     public ParserResult parse(ParserContext ctx) throws Exception {
         FtmDatasetBuilder dataset = new FtmDatasetBuilder(ID_PREFIX, TOPIC);
-        convert(sourceFile(ctx), dataset);
+        String photoNote = "";
+        Map<String, String> photos = Map.of();
+        String photosUrl = ctx.parameters() == null ? null : ctx.parameters().get(PARAM_PHOTOS_URL);
+        if (photosUrl == null) {
+            photosUrl = ChamberPhotos.DEFAULT_URL;
+        }
+        if (!photosUrl.isBlank()) {
+            // Les portraits sont un complément : une page injoignable ne bloque pas la publication des députés
+            try {
+                String html = ChamberPhotos.download(photosUrl);
+                if (ctx.rawDir() != null) {
+                    Files.createDirectories(ctx.rawDir());
+                    Files.writeString(ctx.rawDir().resolve(PHOTOS_FILE), html);   // archivée avec la source
+                }
+                photos = ChamberPhotos.read(html);
+            } catch (IOException e) {
+                photoNote = "Portraits non lus (" + e.getMessage() + ").";
+            }
+        }
+        convert(sourceFile(ctx), photos, dataset);
         dataset.writeNdjsonFile(ctx.outputFile());
-        return dataset.toConversionResult();
+        return dataset.toConversionResult().withMessage(String.format("%d portraits sur %d députés. %s",
+                dataset.media().size(), dataset.qualityReport().getEntities("Person"), photoNote).trim());
     }
 
     /** Test du parser : chaque député du fichier, avec l'ID et le nom que Yente doit connaître. */
@@ -68,11 +96,16 @@ public class LuPepChamberParser implements Iparser {
 
     /** Lit le CSV ligne par ligne. Séparé de {@link #parse} pour être testé directement. */
     void convert(Path csv, FtmDatasetBuilder dataset) throws Exception {
-        CsvRecordReader.readEach(csv, row -> convertRow(row, dataset));
+        convert(csv, Map.of(), dataset);
+    }
+
+    /** Idem, avec les portraits de chd.lu par clé de nom ({@link ChamberPhotos#key}). */
+    void convert(Path csv, Map<String, String> photos, FtmDatasetBuilder dataset) throws Exception {
+        CsvRecordReader.readEach(csv, row -> convertRow(row, photos, dataset));
     }
 
     /** Un député : la personne, la fonction de député et son mandat en cours. */
-    private static void convertRow(CsvRow row, FtmDatasetBuilder dataset) {
+    private static void convertRow(CsvRow row, Map<String, String> photos, FtmDatasetBuilder dataset) {
         String lastName = row.get("pph_nom");
         String firstName = row.get("pph_prenom");
         String birthDate = birthDate(row);
@@ -87,6 +120,10 @@ public class LuPepChamberParser implements Iparser {
         person.addValue("country", "lu");
         person.addValue("political", row.get("rattachement_abrv"));
         dataset.addEntity(person);
+        String photo = photos.get(ChamberPhotos.key(joinNonBlank(" ", firstName, lastName)));
+        if (photo != null) {
+            dataset.addMedia(person.getId(), photo, ChamberPhotos.DEFAULT_URL, PHOTO_LICENCE);   // téléchargée par le core
+        }
 
         // Une seule fonction pour tous les députés : le dataset la fusionne (même ID)
         FtmEntity position = dataset.newEntity("Position", "deputy");

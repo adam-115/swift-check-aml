@@ -39,7 +39,29 @@ final class ChiefPage {
             Map.entry("mai", 5), Map.entry("juin", 6), Map.entry("juillet", 7), Map.entry("aout", 8),
             Map.entry("septembre", 9), Map.entry("octobre", 10), Map.entry("novembre", 11), Map.entry("decembre", 12));
 
+    /** Portrait du bloc « autorité » ({@code styles/authority_image}) : armée de Terre, armée de l'Air et de l'Espace. */
+    private static final Pattern AUTHORITY_IMAGE = Pattern.compile("\\ssrc=\"([^\"]*/styles/authority_image/[^\"]+)\"");
+    /** Image de partage ; l'état-major des armées y met la « Photo officielle CEMA ». */
+    private static final Pattern OG_IMAGE = Pattern.compile("(?i)<meta[^>]+property=\"og:image\"[^>]+content=\"([^\"]+)\"");
+
     private ChiefPage() {
+    }
+
+    /** Adresse absolue (https) du portrait du chef, ou {@code null} si la page n'en a pas. */
+    static String photo(String html, String pageUrl) {
+        Matcher m = AUTHORITY_IMAGE.matcher(html);
+        if (!m.find()) {
+            m = OG_IMAGE.matcher(html);
+            if (!m.find()) {
+                return null;
+            }
+        }
+        try {
+            return java.net.URI.create(pageUrl).resolve(Html.decode(m.group(1)).replace(" ", "%20")).toString()
+                    .replaceFirst("^http://", "https://");
+        } catch (IllegalArgumentException e) {
+            return null;
+        }
     }
 
     /**

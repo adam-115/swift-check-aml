@@ -61,7 +61,10 @@ class FrPepSenateParserTest {
         assertEquals(Set.of("male"), larcher.getValues("gender"));
         assertEquals(Set.of("Les Républicains"), larcher.getValues("political"));
         assertEquals(Set.of("Sénateur", "Président du Sénat"), larcher.getValues("position"));
-        assertEquals(Set.of("https://www.senat.fr/senateur/86034e.html"), larcher.getValues("sourceUrl"));
+        assertEquals(Set.of("https://www.senat.fr/senateur/larcher_gerard86034e.html"), larcher.getValues("sourceUrl"));
+        assertTrue(dataset.media().contains(new FtmDatasetBuilder.FtmMedia(larcher.getId(),
+                "https://www.senat.fr/senimg/larcher_gerard86034e_carre.jpg",
+                "https://www.senat.fr/senateur/larcher_gerard86034e.html", "© Sénat")));
         assertEquals(Set.of("role.pep"), larcher.getValues("topics"));
 
         FtmEntity seat = entity(dataset, dataset.buildEntityId("86034E", "53323"));
@@ -77,6 +80,19 @@ class FrPepSenateParserTest {
                 && e.getValues("holder").contains(allizard.getId())).findFirst().orElseThrow();
         assertEquals(Set.of("2026-09-30"), ended.getValues("endDate"));
         assertEquals(Set.of("ended"), ended.getValues("status"));
+    }
+
+    @Test
+    void slugFollowsTheSenateWebsite() {
+        // Noms réels de la liste des sénateurs de senat.fr : particule, nom composé, accents
+        assertEquals("d_aigremont_thierry21704r", FrPepSenateParser.slug(senator("21704R", "Thierry", "d'AIGREMONT")));
+        assertEquals("bessin_guerin_marie_pierre21514m",
+                FrPepSenateParser.slug(senator("21514M", "Marie-Pierre", "BESSIN-GUÉRIN")));
+        assertEquals("herve_loic14179a", FrPepSenateParser.slug(senator("14179A", "Loïc", "HERVÉ")));
+    }
+
+    private static SenateFiles.Senator senator(String id, String first, String last) {
+        return new SenateFiles.Senator(id, "M.", first, last, true, null, null, null, null, null);
     }
 
     @Test

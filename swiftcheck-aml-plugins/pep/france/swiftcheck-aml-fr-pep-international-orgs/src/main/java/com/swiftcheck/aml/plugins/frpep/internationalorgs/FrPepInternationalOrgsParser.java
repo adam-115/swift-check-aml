@@ -93,11 +93,11 @@ public class FrPepInternationalOrgsParser implements Iparser {
 
     /** Bilan, pour le message de l'exécution. */
     record Report(int organizationsRead, int leaders, List<String> functionsNotFound, List<String> pagesFailed,
-            List<String> pending) {
+            List<String> pending, int photos) {
 
         String message() {
-            StringBuilder m = new StringBuilder(String.format("%d dirigeants dans %d organisations lues.", leaders,
-                    organizationsRead));
+            StringBuilder m = new StringBuilder(String.format("%d dirigeants dans %d organisations lues, %d portraits.",
+                    leaders, organizationsRead, photos));
             if (!pagesFailed.isEmpty()) {
                 m.append(" Pages en échec : ").append(String.join(" ; ", pagesFailed)).append('.');
             }
@@ -128,6 +128,8 @@ public class FrPepInternationalOrgsParser implements Iparser {
                     .forEach(failed::add);
         }
         List<Leader> leaders = new ArrayList<>();
+        // Portraits (pages dont la configuration a un mode « photo ») : clé de la personne → adresse, page, organisation
+        Map<String, String[]> photos = new LinkedHashMap<>();
         Set<String> orgsRead = new LinkedHashSet<>();
         for (Organization org : orgs) {
             if (org.pending() != null) {
@@ -139,14 +141,23 @@ public class FrPepInternationalOrgsParser implements Iparser {
                     continue;           // page en échec, déjà citée
                 }
                 Page page = org.pages().get(i);
-                String text = PageText.of(Files.readString(file, StandardCharsets.UTF_8));
+                String html = Files.readString(file, StandardCharsets.UTF_8);
+                String text = PageText.of(html);
                 orgsRead.add(org.key());
+                Set<String> onPage = new LinkedHashSet<>();
                 for (Function function : page.functions()) {
                     List<String> names = names(function.pattern(), text);
                     if (names.isEmpty()) {
                         notFound.add(org.key() + " – " + function.label());
                     }
                     names.forEach(n -> leaders.add(new Leader(n, function.label(), org, page.url())));
+                    onPage.addAll(names);
+                }
+                for (String name : onPage) {
+                    String photo = PagePhotos.find(page.photo(), html, page.url(), name, onPage);
+                    if (photo != null) {
+                        photos.putIfAbsent(fold(name), new String[] { photo, page.url(), org.name() });
+                    }
                 }
             }
         }
@@ -159,8 +170,14 @@ public class FrPepInternationalOrgsParser implements Iparser {
             write(dataset, leader, persons);
         }
         persons.values().forEach(dataset::addEntity);
+        photos.forEach((key, p) -> {
+            FtmEntity person = persons.get(key);
+            if (person != null) {
+                dataset.addMedia(person.getId(), p[0], p[1], "© " + p[2]);
+            }
+        });
 
-        Report report = new Report(orgsRead.size(), persons.size(), notFound, failed, pending);
+        Report report = new Report(orgsRead.size(), persons.size(), notFound, failed, pending, photos.size());
         log.info(report.message());
         return report;
     }

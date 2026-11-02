@@ -96,6 +96,14 @@ class LuPepCourtOfAuditorsParserTest {
             assertThat(occ.getValues("holder")).isNotEmpty();
             assertThat(occ.getValues("post")).isNotEmpty();
         }
+
+        // Un portrait par membre, celui de sa carte (même si le fichier est mal orthographié)
+        assertThat(dataset.media()).hasSize(5);
+        assertThat(dataset.media()).anyMatch(m -> m.imageUrl().equals(
+                "https://cour-des-comptes.public.lu/dam-assets/fr/cour/college/weymerskirch/patrick-weymerskirch.jpg")
+                && m.entityId().contains("weymerskirch"));
+        assertThat(dataset.media()).anyMatch(m -> m.imageUrl().endsWith("/college/gengler/portrait.jpg")
+                && m.entityId().contains("gengler"));
     }
 
     @Test

@@ -33,6 +33,7 @@ import com.swiftcheck.aml.entities.ParserAlert;
 import com.swiftcheck.aml.entities.RetainedEntity;
 import com.swiftcheck.aml.repositories.ParserAlertRepository;
 import com.swiftcheck.aml.repositories.RetainedEntityRepository;
+import com.swiftcheck.aml.media.PepMediaService;
 import com.swiftcheck.aml.service.AlertService;
 import com.swiftcheck.aml.entities.ChangeType;
 import com.swiftcheck.aml.entities.DataSourceType;
@@ -188,7 +189,8 @@ class IngestionServiceTest {
                 new DatasetDiffService(changes),
                 new DatasetPublisher(new YenteManifestService()),
                 new RetentionService(retained),
-                new AlertService(alerts, parsers, executions));
+                new AlertService(alerts, parsers, executions),
+                mock(PepMediaService.class));
     }
 
     @Test

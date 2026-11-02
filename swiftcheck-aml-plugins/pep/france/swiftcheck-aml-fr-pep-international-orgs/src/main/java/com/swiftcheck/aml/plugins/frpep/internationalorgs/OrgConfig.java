@@ -30,7 +30,8 @@ final class OrgConfig {
     record Function(String label, Pattern pattern) {
     }
 
-    record Page(String url, List<Function> functions) {
+    /** @param photo mode de lecture des portraits ({@link PagePhotos}), ou {@code null} : pas de photo */
+    record Page(String url, List<Function> functions, String photo) {
     }
 
     /**
@@ -70,7 +71,8 @@ final class OrgConfig {
                     functions.add(new Function(f.path("label").asText(), Pattern.compile(
                             f.path("pattern").asText().replace("{NAME}", NAME), Pattern.MULTILINE)));
                 }
-                pages.add(new Page(p.path("url").asText(), functions));
+                pages.add(new Page(p.path("url").asText(), functions,
+                        p.hasNonNull("photo") ? p.path("photo").asText() : null));
             }
             orgs.add(new Organization(o.path("key").asText(), o.path("name").asText(), pages,
                     o.hasNonNull("pending") ? o.path("pending").asText() : null, o.path("none").asBoolean(false)));

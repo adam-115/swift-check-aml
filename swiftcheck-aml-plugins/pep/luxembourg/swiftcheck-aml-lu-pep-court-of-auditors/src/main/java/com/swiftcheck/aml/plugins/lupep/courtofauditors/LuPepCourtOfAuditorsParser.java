@@ -68,6 +68,11 @@ public class LuPepCourtOfAuditorsParser implements Iparser {
     private static final Pattern COLLEGE_MEMBER_PATTERN = Pattern.compile(
             "(?si)<h2>(?:<a\\s+[^>]*href=\"([^\"]+)\"[^>]*>)?(.*?)(?:</a>)?</h2>\\s*<p>(?:<em>(.*?)</em>)?");
 
+    /** Portrait d'un membre sur la page du Collège. */
+    private static final Pattern COLLEGE_PORTRAIT = Pattern.compile(
+            "<img\\s+src=\"((?:https:)?//cour-des-comptes\\.public\\.lu/dam-assets/fr/cour/college/[^\"]+\\.(?:jpe?g|png))\"");
+    static final String PHOTO_LICENCE = "© Cour des comptes du Grand-Duché de Luxembourg";
+
     /** Pattern regex pour détecter une notice biographique unitaire (fiche individuelle). */
     private static final Pattern BIO_NAME_PATTERN = Pattern.compile("(?i)Nom\\s+([A-Za-zÀ-ÿ\\-\\s]+?)\\s+Prénom\\s+([A-Za-zÀ-ÿ\\-\\s]+)");
     private static final Pattern BIO_BIRTH_PATTERN = Pattern.compile("(?i)Date(?:\\s+et\\s+lieu)?\\s+de\\s+naissance\\s+([0-9]{1,2}\\s+[A-Za-zÀ-ÿ]+\\s+[0-9]{4})");
@@ -113,6 +118,7 @@ public class LuPepCourtOfAuditorsParser implements Iparser {
     void convert(Path htmlFile, String sourceUrl, LocalDate oldestEndDate, FtmDatasetBuilder dataset) throws Exception {
         String html = Files.readString(htmlFile, StandardCharsets.UTF_8);
         List<AuditorRecord> list = extractAuditors(html, sourceUrl);
+        Map<String, String> photos = portraits(html);
 
         if (list.isEmpty()) {
             throw new IllegalStateException("Aucun membre de la Cour des comptes extrait depuis " + htmlFile);
@@ -145,6 +151,10 @@ public class LuPepCourtOfAuditorsParser implements Iparser {
             person.addValue("country", "lu");
             person.addValue("sourceUrl", aud.profileUrl != null ? aud.profileUrl : sourceUrl);
             dataset.addEntity(person);
+            String photo = photos.get(nameKey(aud.fullName));
+            if (photo != null) {
+                dataset.addMedia(person.getId(), photo, sourceUrl, PHOTO_LICENCE);   // téléchargée par le core
+            }
 
             // Mandat Occupancy
             FtmEntity occupancy = dataset.newEntity("Occupancy", personId, POS_ID_KEY);
@@ -310,6 +320,39 @@ public class LuPepCourtOfAuditorsParser implements Iparser {
             last.append(words[i]);
         }
         return new String[] { first.toString(), last.toString() };
+    }
+
+    /**
+     * Portraits de la page du Collège, par nom ({@link #nameKey}). Chaque carte montre le portrait puis le nom :
+     * {@code <img src="//cour-des-comptes.public.lu/dam-assets/fr/cour/college/gengler/portrait.jpg">} … {@code <h2><a …>Nom</a></h2>}.
+     * Le portrait d'un membre est donc la dernière image du Collège entre le nom précédent et le sien ; le nom du
+     * fichier n'est pas fiable (« weymerskirch » pour la fiche « weymerskirck »).
+     */
+    static Map<String, String> portraits(String html) {
+        Map<String, String> photos = new LinkedHashMap<>();
+        Matcher member = COLLEGE_MEMBER_PATTERN.matcher(html);
+        int previousEnd = 0;
+        while (member.find()) {
+            Matcher img = COLLEGE_PORTRAIT.matcher(html.substring(previousEnd, member.start()));
+            String src = null;
+            while (img.find()) {
+                src = img.group(1);
+            }
+            String name = cleanHtmlText(member.group(2));
+            if (src != null && !name.isBlank()) {
+                photos.putIfAbsent(nameKey(name), src.startsWith("//") ? "https:" + src : src);
+            }
+            previousEnd = member.end();
+        }
+        return photos;
+    }
+
+    /** « Patrick Weymerskirch » → « patrick weymerskirch » : minuscules sans accents, mots triés. */
+    static String nameKey(String name) {
+        String[] words = Normalizer.normalize(name.toLowerCase(Locale.ROOT), Normalizer.Form.NFD)
+                .replaceAll("\\p{M}", "").replaceAll("[^a-z0-9]+", " ").trim().split("\\s+");
+        java.util.Arrays.sort(words);
+        return String.join(" ", words);
     }
 
     private static String cleanHtmlText(String text) {

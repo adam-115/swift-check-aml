@@ -3,6 +3,7 @@ package com.swiftcheck.aml.plugins.frpep.europarl;
 import java.nio.file.Path;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -19,6 +20,7 @@ import com.swiftcheck.aml.plugins.frpep.europarl.EuroparlApi.Mandate;
 import com.swiftcheck.aml.plugins.frpep.europarl.EuroparlApi.Mep;
 import com.swiftcheck.aml.sdk.FtmDatasetBuilder;
 import com.swiftcheck.aml.sdk.FtmEntity;
+import com.swiftcheck.aml.sdk.WikidataImages;
 
 /**
  * <b>fr_pep_europarl</b> – députés au Parlement européen élus en France, en fonction et sortis depuis moins de
@@ -46,6 +48,10 @@ public class FrPepEuroparlParser implements Iparser {
 
     /** Pays de représentation, code de l'Office des publications utilisé dans les fiches. */
     static final String COUNTRY = "FRA";
+
+    static final String PHOTOS_FILE = "wikidata-images.tsv";
+    /** Contact générique : jamais l'adresse d'un utilisateur. */
+    private static final String USER_AGENT = "SwiftCheck-AML/1.0 (liste PEP France - photos des députés européens)";
 
     static final long DEFAULT_DELAY_MS = 300;
     static final int DEFAULT_MONTHS_AFTER_END = 12;
@@ -79,8 +85,24 @@ public class FrPepEuroparlParser implements Iparser {
 
         FtmDatasetBuilder dataset = new FtmDatasetBuilder(ID_PREFIX, TOPIC);
         Report report = convert(ctx.rawDir(), LocalDate.now(), monthsAfterEnd(p), failed, dataset);
+        String photos = addPhotos(dataset, EuroparlApi.meps(ctx.rawDir()).keySet(),
+                WikidataImages.fromParameters(p, USER_AGENT),
+                ctx.rawDir());
         dataset.writeNdjsonFile(ctx.outputFile());
-        return dataset.toConversionResult().withMessage(report.message());
+        return dataset.toConversionResult().withMessage(report.message() + " " + photos);
+    }
+
+    /**
+     * Photos des députés gardés : le site du Parlement refuse les clients automatiques (HTTP 403), on prend donc
+     * l'image principale de Wikimedia Commons, trouvée par l'identifiant du Parlement européen (Wikidata P1186).
+     * La réponse de Wikidata est déposée dans {@code rawDir}. Les photos sont un complément : une erreur ici ne
+     * bloque pas la publication.
+     *
+     * @return le bilan, pour le message de l'exécution
+     */
+    static String addPhotos(FtmDatasetBuilder dataset, Collection<String> mepIds, WikidataImages.Fetcher fetcher,
+            Path rawDir) {
+        return WikidataImages.addPhotos(dataset, "P1186", mepIds, fetcher, rawDir.resolve(PHOTOS_FILE));
     }
 
     /** Test du parser : chaque député gardé, avec l'ID et le nom que Yente doit connaître (sans réseau). */

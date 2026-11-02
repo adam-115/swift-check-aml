@@ -47,6 +47,39 @@ class FrPepInternationalOrgsParserTest {
                 .getValues("position").stream().toList();
     }
 
+    private static String photoOf(FtmDatasetBuilder dataset, String name) {
+        String id = dataset.entities().stream()
+                .filter(e -> "Person".equals(e.getSchema()) && e.getValues("name").contains(name))
+                .findFirst().orElseThrow().getId();
+        return dataset.media().stream().filter(m -> m.entityId().equals(id))
+                .map(FtmDatasetBuilder.FtmMedia::imageUrl).findFirst().orElse(null);
+    }
+
+    @Test
+    void portraitsOnlyWhereThePageTiesThemToTheName() throws Exception {
+        FtmDatasetBuilder dataset = convert();
+        // OFAJ : carte image + nom en titre ; la carte de Pascale Trimbach montre une photo commune avec T. Bütow : écartée
+        assertThat(photoOf(dataset, "Tobias Bütow")).startsWith("https://www.ofaj.org/").contains("tobias-butow");
+        assertThat(photoOf(dataset, "Pascale Trimbach")).isNull();
+        // OIML : texte alternatif de l'image = nom
+        assertThat(dataset.media()).anyMatch(m -> m.imageUrl().equals("https://www.oiml.org/en/ressources/biml/thumbnail-ad.jpg"));
+        // OMSA : page de la seule directrice générale, image de partage
+        assertThat(photoOf(dataset, "Emmanuelle Soubeyran")).isEqualTo(
+                "https://www.woah.org/app/uploads/2024/07/patrice-lariven-emmanuelle-s-dg-woah-2024-rescaled.png");
+        // UNESCO : pas de mode photo (le site refuse le client SwiftCheck pour ses images)
+        assertThat(photoOf(dataset, "Khaled El-Enany")).isNull();
+        assertThat(dataset.media()).hasSize(3).allSatisfy(m -> assertThat(m.licence()).startsWith("© "));
+    }
+
+    @Test
+    void ogImageIsNeverUsedForAPageNamingSeveralLeaders() {
+        String html = "<meta property=\"og:image\" content=\"https://example.org/group.jpg\">";
+        assertThat(PagePhotos.find(PagePhotos.OG_IMAGE, html, "https://example.org/", "Jean Dupont", List.of("Jean Dupont", "Marie Durand"))).isNull();
+        assertThat(PagePhotos.find(PagePhotos.OG_IMAGE, html, "https://example.org/", "Jean Dupont", List.of("Jean Dupont")))
+                .isEqualTo("https://example.org/group.jpg");
+        assertThat(PagePhotos.find(null, html, "https://example.org/", "Jean Dupont", List.of("Jean Dupont"))).isNull();
+    }
+
     @Test
     void configMatchesOfficialList() throws Exception {
         List<Organization> orgs = config();

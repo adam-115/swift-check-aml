@@ -41,7 +41,7 @@ Fiche : `bday`, `placeOfBirth`, `hasGender`, et dans `hasMembership` les mandats
 | Type de source | `PLUGIN_MANAGED` : les deux listes, puis une fiche par député (≈ 85 appels, pause de 300 ms) |
 | Nature de la source | T2 – API |
 | Fréquence | 24 h |
-| Paramètres | `currentUrl`, `termUrl`, `detailUrl` (avec `{id}`), `delayMs` (300), `monthsAfterEnd` (12) |
+| Paramètres | `currentUrl`, `termUrl`, `detailUrl` (avec `{id}`), `delayMs` (300), `monthsAfterEnd` (12), `wikidataEndpoint` (photos Wikimedia Commons par l’identifiant P1186 ; vide = pas de photos) |
 
 ## Ce qui est produit (FtM)
 

@@ -53,6 +53,22 @@ class LuPepGovernmentParserTest {
     }
 
     @Test
+    void officialPortraitsOfTheFullPage() throws Exception {
+        // Page complète réelle (novembre 2026) : 15 membres, chacun avec son portrait
+        Path page = Path.of(LuPepGovernmentParserTest.class.getResource("/government-2026-11.html").toURI());
+        FtmDatasetBuilder dataset = new FtmDatasetBuilder(LuPepGovernmentParser.ID_PREFIX, LuPepGovernmentParser.TOPIC);
+        new LuPepGovernmentParser().convert(page, dataset);
+
+        assertEquals(dataset.qualityReport().getEntities("Person"), dataset.media().size(), "un portrait par membre");
+        FtmDatasetBuilder.FtmMedia frieden = dataset.media().stream()
+                .filter(m -> m.entityId().equals("lu-pep-government-luc-frieden")).findFirst().orElseThrow();
+        assertEquals("https://gouvernement.lu/fr/gouvernement/_jcr_content/root/root-responsivegrid/content-responsivegrid/"
+                + "sections-responsivegrid/section_910006142/col1/imagetext/image.coreimg.jpeg/1714651652580/"
+                + "2023-frieden-portrait-officiel.jpeg", frieden.imageUrl());
+        assertTrue(LuPepGovernmentParser.portraits("<p>pas d'image</p>").isEmpty());
+    }
+
+    @Test
     void nameIsSplitOnUpperCaseWords() {
         String[] name = LuPepGovernmentParser.splitName("Elisabeth MARGUE");
         assertEquals("Elisabeth", name[0]);

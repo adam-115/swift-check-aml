@@ -82,6 +82,9 @@ public class LuPepEuCommissionParser implements Iparser {
             "(?i)<meta[^>]+name=[\"']description[\"'][^>]+content=[\"']([^\"']+)[\"']");
 
     /** Pattern pour extraire le titre og:title ou title d'une page individuelle. */
+    private static final Pattern OG_IMAGE = Pattern.compile(
+            "(?i)<meta[^>]+property=[\"']og:image[\"'][^>]+content=[\"']([^\"']*)[\"']");
+    static final String PHOTO_LICENCE = "© Union européenne";
     private static final Pattern META_TITLE_PATTERN = Pattern.compile(
             "(?i)<meta[^>]+property=[\"']og:title[\"'][^>]+content=[\"']([^\"']+)[\"']");
 
@@ -233,7 +236,8 @@ public class LuPepEuCommissionParser implements Iparser {
                             null, // Actif dans le collège affiché
                             "current",
                             fullLink,
-                            isPres
+                            isPres,
+                            null    // pas de portrait sur la page du Collège : celui de la fiche individuelle
                     );
                     result.put(data.slug(), data);
                 }
@@ -298,7 +302,8 @@ public class LuPepEuCommissionParser implements Iparser {
                 null,
                 "current",
                 pageUrl,
-                isPres
+                isPres,
+                ogImage(html)
         );
     }
 
@@ -383,7 +388,8 @@ public class LuPepEuCommissionParser implements Iparser {
 
         String[] parts = splitFirstLastName(name);
         return new CommissionerData(slug(name), name, parts[0], parts[1], null,
-                portfolio == null ? null : decodeEntities(portfolio).trim(), start, end, "ended", pageUrl, isPresident);
+                portfolio == null ? null : decodeEntities(portfolio).trim(), start, end, "ended", pageUrl, isPresident,
+                ogImage(html));
     }
 
     /** « 2019 » + « Décembre » → « 2019-12 » ; sans mois reconnu → « 2019 ». */
@@ -432,6 +438,12 @@ public class LuPepEuCommissionParser implements Iparser {
                 : firstOfMonth.withDayOfMonth(Integer.parseInt(p[2]));
     }
 
+    /** Portrait officiel de la fiche (image de partage), en https ; {@code null} sans image. */
+    static String ogImage(String html) {
+        String url = extractFirstMatch(html, OG_IMAGE);
+        return url != null && url.startsWith("https://") ? decodeEntities(url) : null;
+    }
+
     private void convertCommissioner(CommissionerData c, String sourceUrl, FtmDatasetBuilder dataset) {
         // 1. Personne
         FtmEntity person = dataset.newEntity("Person", c.slug());
@@ -444,6 +456,10 @@ public class LuPepEuCommissionParser implements Iparser {
         person.addValue("country", "lu");
         person.addValue("sourceUrl", c.pageUrl() != null ? c.pageUrl() : sourceUrl);
         dataset.addEntity(person);
+        if (c.photo() != null) {
+            // Portrait officiel de la fiche : le core le télécharge après la publication
+            dataset.addMedia(person.getId(), c.photo(), c.pageUrl() != null ? c.pageUrl() : sourceUrl, PHOTO_LICENCE);
+        }
 
         // 2. Position
         String posId = c.isPresident() ? "president-de-la-commission-europeenne" : "commissaire-europeen-luxembourgeois";
@@ -565,7 +581,8 @@ public class LuPepEuCommissionParser implements Iparser {
             String endDate,
             String status,
             String pageUrl,
-            boolean isPresident) {
+            boolean isPresident,
+            String photo) {
     }
 
     /** Téléchargement d'une page (remplaçable dans les tests). */

@@ -48,6 +48,9 @@ public class FrPepPresidentParser implements Iparser {
 
     private static final Pattern OG_TITLE = meta("og:title");
     private static final Pattern OG_URL = meta("og:url");
+    /** Portrait officiel (image de partage de la page). */
+    private static final Pattern OG_IMAGE = meta("og:image");
+    static final String PHOTO_LICENCE = "© Présidence de la République";
     private static final Pattern H1 = Pattern.compile("(?si)<h1[^>]*>(.*?)</h1>");
     private static final Pattern PRESIDENT = Pattern.compile("(?iu)présidente? de la République");
     /** « président de la République depuis 2017 », dans le texte ou la description (og:description). */
@@ -63,7 +66,7 @@ public class FrPepPresidentParser implements Iparser {
 
     /** Le Président, tel que lu sur la page. */
     record President(String name, String firstName, String lastName, String birthDate, String birthPlace,
-            String startYear, String pageUrl) {
+            String startYear, String pageUrl, String photo) {
     }
 
     @Override
@@ -96,6 +99,9 @@ public class FrPepPresidentParser implements Iparser {
         person.addValue("position", "Président de la République française");
         person.addValue("sourceUrl", p.pageUrl());
         dataset.addEntity(person);
+        if (p.photo() != null) {
+            dataset.addMedia(person.getId(), p.photo(), p.pageUrl(), PHOTO_LICENCE);    // téléchargée par le core
+        }
 
         FtmEntity position = dataset.newEntity("Position", "president");
         position.addValue("name", "Président de la République française");
@@ -150,7 +156,18 @@ public class FrPepPresidentParser implements Iparser {
         }
         Matcher since = SINCE.matcher(text + " " + Html.decode(html));
         return new President(name, parts[0], parts.length > 1 ? parts[1] : null, birthDate, birthPlace,
-                since.find() ? since.group(1) : null, first(OG_URL, html));
+                since.find() ? since.group(1) : null, first(OG_URL, html), photo(first(OG_IMAGE, html)));
+    }
+
+    /**
+     * Adresse du portrait, en JPEG : le CDN de l'Élysée choisit sinon le format selon le navigateur ({@code format=auto}),
+     * parfois AVIF, que le core n'archive pas.
+     */
+    static String photo(String ogImage) {
+        if (ogImage == null || !ogImage.startsWith("https://")) {
+            return null;
+        }
+        return ogImage.replace("format=auto", "format=jpeg");
     }
 
     private static Pattern meta(String property) {

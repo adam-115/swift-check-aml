@@ -55,6 +55,23 @@ class LuPepEuroparlParserTest {
     }
 
     @Test
+    void photosAreSearchedByTheParliamentId() throws Exception {
+        FtmDatasetBuilder dataset = new FtmDatasetBuilder(LuPepEuroparlParser.ID_PREFIX, LuPepEuroparlParser.TOPIC);
+        try (InputStream in = LuPepEuroparlParserTest.class.getResourceAsStream("/europarl-meps.xml")) {
+            new LuPepEuroparlParser().convert(in, dataset);
+        }
+        java.util.List<String> queries = new java.util.ArrayList<>();
+        LuPepEuroparlParser.addPhotos(dataset, q -> {
+            queries.add(q);
+            return "?id\t?image\n\"202073\"\t<http://commons.wikimedia.org/wiki/Special:FilePath/Marc%20Angel.jpg>\n";
+        }, null);
+
+        assertEquals(1, queries.size());
+        assertEquals(true, queries.get(0).contains("\"202073\""), "identifiant du Parlement, pas l'ID FtM");
+        assertEquals("lu-pep-europarl-202073", dataset.media().get(0).entityId());
+    }
+
+    @Test
     void membersFromOtherCountriesAreIgnored() {
         assertEquals(2, result.qualityReport().getEntities("Person"), "député allemand ignoré");
         assertEquals(Set.of("WISELER-LIMA"), entity("lu-pep-europarl-197421").getValues("lastName"));
@@ -70,7 +87,7 @@ class LuPepEuroparlParserTest {
         Path output = dir.resolve("out.ndjson");
 
         ParserResult parsed = new LuPepEuroparlParser()
-                .parse(new ParserContext("lu_pep_europarl", input, dir, output, Map.of()));
+                .parse(new ParserContext("lu_pep_europarl", input, dir, output, Map.of("wikidataEndpoint", "")));
         List<SourceRecord> records = new LuPepEuroparlParser()
                 .readSourceRecords(new ParserContext("lu_pep_europarl", input, null, null, Map.of()));
 

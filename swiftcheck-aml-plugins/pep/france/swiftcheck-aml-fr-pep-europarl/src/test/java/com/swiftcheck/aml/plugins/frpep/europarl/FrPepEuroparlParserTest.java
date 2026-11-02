@@ -60,6 +60,33 @@ class FrPepEuroparlParserTest {
     }
 
     @Test
+    void photosOfKeptMepsComeFromWikimediaCommons(@TempDir Path rawDir) throws Exception {
+        copy(rawDir, FILES);
+        FtmDatasetBuilder dataset = dataset();
+        new FrPepEuroparlParser().convert(rawDir, TODAY, 12, List.of(), dataset);
+        List<String> queries = new ArrayList<>();
+        String tsv = "?id\t?image\n\"124760\"\t<http://commons.wikimedia.org/wiki/Special:FilePath/Nicolas%20Bay.jpg>\n";
+
+        String note = FrPepEuroparlParser.addPhotos(dataset, EuroparlApi.meps(rawDir).keySet(), q -> {
+            queries.add(q);
+            return tsv;
+        }, rawDir);
+
+        assertEquals("Photos Wikimedia Commons : 1 sur 1.", note);
+        assertTrue(queries.get(0).contains("\"124760\"") && !queries.get(0).contains("\"256894\""),
+                "seulement les députés gardés");
+        assertEquals(List.of(new FtmDatasetBuilder.FtmMedia(dataset.buildEntityId("124760"),
+                "https://commons.wikimedia.org/wiki/Special:FilePath/Nicolas%20Bay.jpg",
+                "https://commons.wikimedia.org/wiki/File:Nicolas%20Bay.jpg", null)), dataset.media());
+        assertEquals(tsv, Files.readString(rawDir.resolve(FrPepEuroparlParser.PHOTOS_FILE)), "réponse archivée");
+
+        // Wikidata injoignable : la publication continue sans photo
+        assertTrue(FrPepEuroparlParser.addPhotos(dataset, List.of("124760"), q -> {
+            throw new IOException("HTTP 503");
+        }, rawDir).startsWith("Photos non cherchées"));
+    }
+
+    @Test
     void keepsAMepWhoLeftWithinTheRetentionPeriod(@TempDir Path rawDir) throws Exception {
         copy(rawDir, FILES);
         FtmDatasetBuilder dataset = dataset();

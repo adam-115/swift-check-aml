@@ -22,11 +22,13 @@ import com.swiftcheck.aml.entities.Parser;
 import com.swiftcheck.aml.entities.ParserExecution;
 import com.swiftcheck.aml.entities.ParserExecutionStatus;
 import com.swiftcheck.aml.entities.SourceFile;
+import com.swiftcheck.aml.media.PepMediaService;
 import com.swiftcheck.aml.plugin.Iparser;
 import com.swiftcheck.aml.plugin.ParserContext;
 import com.swiftcheck.aml.plugin.ParserResult;
 import com.swiftcheck.aml.repositories.ParserExecutionRepository;
 import com.swiftcheck.aml.repositories.ParserRepository;
+import com.swiftcheck.aml.sdk.FtmDatasetBuilder;
 import com.swiftcheck.aml.service.AlertService;
 import com.swiftcheck.aml.service.ApplicationConfigService;
 import com.swiftcheck.aml.service.PluginManagementService;
@@ -76,6 +78,7 @@ public class IngestionService {
     private final DatasetDiffService diffService; // étape 5 : comparaison avec la version publiée
     private final DatasetPublisher publisher; // étape 6 : publication dans Yente
     private final AlertService alertService; // alertes ouvertes ou résolues à la fin
+    private final PepMediaService mediaService; // photos des PEP déclarées par le plugin
 
     /** Message d'une exécution arrêtée depuis l'écran Parsers. */
     static final String STOPPED_MESSAGE = "Exécution arrêtée par l'utilisateur : rien n'a été publié.";
@@ -108,7 +111,7 @@ public class IngestionService {
             ApplicationConfigService configService, PluginManagementService plugins,
             SourceFileService sourceFiles, QualityGate qualityGate,
             DatasetDiffService diffService, DatasetPublisher publisher, RetentionService retentionService,
-            AlertService alertService) {
+            AlertService alertService, PepMediaService mediaService) {
         this.parsersRepository = parsers;
         this.executionsRepository = executions;
         this.configService = configService;
@@ -119,6 +122,7 @@ public class IngestionService {
         this.publisher = publisher;
         this.retentionService = retentionService;
         this.alertService = alertService;
+        this.mediaService = mediaService;
     }
 
     /**
@@ -426,6 +430,17 @@ public class IngestionService {
         checkNotStopped(activeRun);
         publisher.publish(parser, outputFile, config);
 
+        // 6 bis. Photos officielles déclarées par le plugin : téléchargées et rangées seulement après une publication
+        // réussie. Une erreur ici ne défait pas la publication : elle est signalée dans le message.
+        String mediaNote;
+        try {
+            mediaNote = java.util.Objects.toString(mediaService.publishOfficial(parser.getDatasetName(), FtmDatasetBuilder.mediaFile(outputFile),
+                    toPublish, config), "");
+        } catch (RuntimeException e) {
+            log.warn("Photos de {} non publiées : {}", parser.getDatasetName(), e.getMessage());
+            mediaNote = " Photos non publiées : " + e.getMessage() + ".";
+        }
+
         // 7. Tracer
         // Statut SUCCESS et message de bilan, ex. « 12468 entités publiées (+3 / -1 /
         // ~2), 0 valeurs rejetées. »
@@ -437,9 +452,9 @@ public class IngestionService {
                 : String.format(" Disparues de la source : %d gardées, %d oubliées (rétention %d mois).",
                         retention.retainedCount(), retention.expiredCount(), parser.getRetentionMonths());
         finish(execution, ParserExecutionStatus.SUCCESS, String.format(
-                "%d entités publiées (+%d / -%d / ~%d), %d valeurs rejetées.%s %s",
+                "%d entités publiées (+%d / -%d / ~%d), %d valeurs rejetées.%s%s %s",
                 toPublish.size(), diff.added(), diff.removed(), diff.changed(), result.rejectedCount(),
-                retentionNote, result.message() == null ? "" : result.message()).trim());
+                retentionNote, mediaNote, result.message() == null ? "" : result.message()).trim());
     }
 
     /**

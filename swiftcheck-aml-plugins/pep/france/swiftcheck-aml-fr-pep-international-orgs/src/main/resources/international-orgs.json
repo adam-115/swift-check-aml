@@ -1,5 +1,5 @@
 {
-  "_comment": "Organisations internationales situées en France et fonctions PEP, d'après la liste notifiée par la France (JO C/2023/724, fonctions de la catégorie h). Pour chaque fonction, « pattern » est appliqué au texte de la page (une ligne par paragraphe) et capture le nom dans le groupe « name » (ou « first » et « last ») ; {NAME} est remplacé par un motif de nom propre. Aucun nom n'est écrit ici : ils sont lus dans la page à chaque exécution. « pending » : organisation de la liste sans page exploitable, citée dans le message de l'exécution.",
+  "_comment": "Organisations internationales situées en France et fonctions PEP, d'après la liste notifiée par la France (JO C/2023/724, fonctions de la catégorie h). Pour chaque fonction, « pattern » est appliqué au texte de la page (une ligne par paragraphe) et capture le nom dans le groupe « name » (ou « first » et « last ») ; {NAME} est remplacé par un motif de nom propre. Aucun nom n'est écrit ici : ils sont lus dans la page à chaque exécution. « pending » : organisation de la liste sans page exploitable, citée dans le message de l'exécution. « photo » (facultatif) : « card » = image dont le texte alternatif est le nom, ou image suivie du nom en titre ; « og:image » = image de partage d'une page consacrée à une seule personne.",
   "organizations": [
     {
       "key": "ofaj",
@@ -7,6 +7,7 @@
       "pages": [
         {
           "url": "https://www.ofaj.org/institution/organigramme",
+          "photo": "card",
           "functions": [
             { "label": "Secrétaire général", "pattern": "^{NAME}\\nSecrétaire générale?$" }
           ]
@@ -32,6 +33,7 @@
       "pages": [
         {
           "url": "https://www.woah.org/fr/qui-nous-sommes/structure-et-gouvernance/direction-generale/",
+          "photo": "og:image",
           "functions": [
             { "label": "Directeur général", "pattern": "(?:[Dd]octeure?|Dr\\.?|Dre)\\s+{NAME} a été élue? (?:Directrice|Directeur) générale?" }
           ]
@@ -113,6 +115,7 @@
       "pages": [
         {
           "url": "https://www.oiml.org/fr/structure/biml",
+          "photo": "card",
           "functions": [
             { "label": "Directeur du bureau international de métrologie légale (BIML)", "pattern": "^(?<first>\\p{Lu}[\\p{L}'’-]+)\\n(?<last>\\p{Lu}[\\p{Lu}'’ -]+)\\nDirecteur$" }
           ]
