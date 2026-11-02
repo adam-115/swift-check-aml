@@ -182,6 +182,8 @@ public class Parser {
             PepFunctionParser change = byFunction.remove(link.getFunction().getId());
             link.setCompleteness(change.getCompleteness());
             link.setIncludesFormer(change.isIncludesFormer());
+            link.setCoveredScope(change.getCoveredScope());
+            link.setGaps(change.getGaps());
         }
         for (PepFunctionParser added : byFunction.values()) {
             added.setParser(this);

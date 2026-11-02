@@ -70,8 +70,12 @@ public class ParserDTO {
     private Instant lastTestAt;
     private Double lastTestFoundPercent;
 
-    /** Une fonction couverte par le parser (ligne de pep_function_parser). */
-    public record CoverageItem(long functionId, Completeness completeness, boolean includesFormer) {
+    /**
+     * Une fonction couverte par le parser (ligne de pep_function_parser), avec ce qu'il en couvre
+     * ({@code coveredScope}) et ce qui manque ({@code gaps}).
+     */
+    public record CoverageItem(long functionId, Completeness completeness, boolean includesFormer,
+            String coveredScope, String gaps) {
     }
 
     /** Ajoute le résumé du dernier test ({@code null} : jamais testé). */
@@ -108,7 +112,8 @@ public class ParserDTO {
         dto.setNotes(entity.getNotes());
         dto.setHasTechnicalDescription(entity.getTechnicalDescription() != null);
         dto.setCoverage(entity.getCoverage().stream()
-                .map(l -> new CoverageItem(l.getFunction().getId(), l.getCompleteness(), l.isIncludesFormer()))
+                .map(l -> new CoverageItem(l.getFunction().getId(), l.getCompleteness(), l.isIncludesFormer(),
+                        l.getCoveredScope(), l.getGaps()))
                 .sorted(Comparator.comparingLong(CoverageItem::functionId))
                 .toList());
         dto.setCountryIso(entity.getCoverage().stream()

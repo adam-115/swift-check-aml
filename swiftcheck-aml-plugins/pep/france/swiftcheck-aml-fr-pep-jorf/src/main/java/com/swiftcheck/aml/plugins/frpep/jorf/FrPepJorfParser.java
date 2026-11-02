@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.pf4j.Extension;
@@ -29,11 +30,13 @@ import com.swiftcheck.aml.sdk.FtmDatasetBuilder;
 import com.swiftcheck.aml.sdk.FtmEntity;
 
 /**
- * <b>fr_pep_jorf</b> – Hautes fonctions nommées au Journal officiel : membres du Conseil d'État, de la Cour de
- * cassation et de la Cour des comptes, ambassadeurs. Équivalent français de {@code lu_pep_legilux}.
+ * <b>fr_pep_jorf</b> – Hautes fonctions nommées au Journal officiel : membres du Gouvernement, du Conseil
+ * d'État, de la Cour de cassation et de la Cour des comptes, ambassadeurs, dirigeants des grands ports maritimes.
+ * Équivalent français de {@code lu_pep_legilux}.
  *
- * <p>Catégories <b>FR-d</b> (Conseil d'État, Cour de cassation), <b>FR-e</b> (Cour des comptes) et <b>FR-f</b>
- * (ambassadeurs) du II de l'article R. 561-18 du CMF. Source : open data du Journal officiel publié par la DILA
+ * <p>Catégories <b>FR-a</b> (Gouvernement), <b>FR-d</b> (Conseil d'État, Cour de cassation), <b>FR-e</b> (Cour des
+ * comptes), <b>FR-f</b> (ambassadeurs) et <b>FR-g</b> (grands ports maritimes, absents du registre des entreprises)
+ * du II de l'article R. 561-18 du CMF. Source : open data du Journal officiel publié par la DILA
  * (Licence Ouverte), lu par {@link JorfDownloader} ; les nominations et départs sont lus par
  * {@link NominationReader}.
  *
@@ -74,13 +77,14 @@ public class FrPepJorfParser implements Iparser {
 
     /** Réglages de la conversion, lus dans les paramètres du parser. */
     record Settings(LocalDate since, int monthsAfterEnd, int ambassadorMaxYears, int extraordinaryMaxYears,
-            int cassationMaxYears, int memberMaxYears, int governmentMaxYears) {
+            int cassationMaxYears, int memberMaxYears, int governmentMaxYears, int enterpriseMaxYears) {
 
         static Settings of(Map<String, String> p) {
             return new Settings(LocalDate.parse(p.getOrDefault("since", DEFAULT_SINCE).trim()),
                     integer(p, "monthsAfterEnd", 12), integer(p, "ambassadorMaxYears", 6),
                     integer(p, "extraordinaryMaxYears", 5), integer(p, "cassationMaxYears", 15),
-                    integer(p, "memberMaxYears", 40), integer(p, "governmentMaxYears", 6));
+                    integer(p, "memberMaxYears", 40), integer(p, "governmentMaxYears", 6),
+                    integer(p, "enterpriseMaxYears", 6));
         }
 
         /**
@@ -98,6 +102,8 @@ public class FrPepJorfParser implements Iparser {
                 // Un Gouvernement prend fin au plus tard après l'élection présidentielle : un décret manqué ne laisse
                 // pas un ministre en fonction indéfiniment
                 case GOUVERNEMENT -> governmentMaxYears;
+                // Mandats de cinq ans au directoire et au conseil de surveillance d'un grand port maritime
+                case ENTREPRISE_PUBLIQUE -> enterpriseMaxYears;
                 default -> memberMaxYears;
             };
         }
@@ -152,7 +158,12 @@ public class FrPepJorfParser implements Iparser {
             Institution.COUR_CASSATION, "gov.judicial",
             Institution.COUR_COMPTES, "gov.national",
             Institution.AMBASSADE, "role.diplo",
-            Institution.GOUVERNEMENT, "gov.national");
+            Institution.GOUVERNEMENT, "gov.national",
+            Institution.ENTREPRISE_PUBLIQUE, "gov.soe");
+
+    /** Poste à titulaire unique dans une entreprise publique : la nomination d'un successeur clôt le mandat précédent. */
+    private static final Pattern SINGLE_HOLDER = Pattern.compile(
+            "^(?:president|presidente|directeur general|directrice generale|president-directeur general)\\b");
 
     @Override
     public ParserResult parse(ParserContext ctx) throws Exception {
@@ -321,6 +332,18 @@ public class FrPepJorfParser implements Iparser {
                             }
                         }
                     }
+                    if (e.institution() == Institution.ENTREPRISE_PUBLIQUE && post != null
+                            && SINGLE_HOLDER.matcher(post).find()) {
+                        // « … est nommé président du directoire du grand port maritime de Bordeaux, en remplacement
+                        // de M. X » : le prédécesseur quitte le poste. Un administrateur, lui, n'a pas de successeur
+                        // désigné.
+                        for (Mandate m : mandates) {
+                            if (m.open && m.institution == Institution.ENTREPRISE_PUBLIQUE && post.equals(m.post)
+                                    && !m.personKey.equals(person)) {
+                                close(m, e.date());
+                            }
+                        }
+                    }
                     Mandate m = find(mandates, person, e.institution(), post, true);
                     if (m == null) {
                         m = newMandate(e, person, post);
@@ -420,6 +443,11 @@ public class FrPepJorfParser implements Iparser {
             return post == null || post.equals(m.function) ? capitalize(m.function == null ? kind : m.function)
                     : kind + " " + post;
         }
+        if (m.institution == Institution.ENTREPRISE_PUBLIQUE) {
+            // « membres du conseil de surveillance du grand port maritime de X » (nomination collective) → singulier
+            return capitalize(m.function == null ? "Dirigeant d'une entreprise publique"
+                    : m.function.replaceFirst("(?i)^(membre|président|directeur|directrice)s\\b", "$1"));
+        }
         String f = m.function == null ? "" : JorfArticles.fold(m.function);
         for (Role role : ROLES.get(m.institution)) {
             if (role.pattern().matcher(f).find()) {
@@ -445,8 +473,7 @@ public class FrPepJorfParser implements Iparser {
         FtmEntity position = dataset.newEntity("Position", JorfArticles.fold(label));
         position.addValue("name", label);
         position.addValue("country", "fr");
-        position.addValue("organization", m.institution == Institution.AMBASSADE ? "Ministère de l'Europe et des"
-                + " affaires étrangères" : m.institution.label);
+        position.addValue("organization", organization(m, label));
         position.addValue("topics", POSITION_TOPICS.get(m.institution));
         dataset.addEntity(position);
 
@@ -459,6 +486,18 @@ public class FrPepJorfParser implements Iparser {
         occupancy.addValue("status", status);
         m.sources.forEach(url -> occupancy.addValue("sourceUrl", url));
         dataset.addEntity(occupancy);
+    }
+
+    /** Organisation d'une fonction : le ministère pour un ambassadeur, le port pour un dirigeant de grand port. */
+    private static String organization(Mandate m, String label) {
+        if (m.institution == Institution.AMBASSADE) {
+            return "Ministère de l'Europe et des affaires étrangères";
+        }
+        if (m.institution == Institution.ENTREPRISE_PUBLIQUE) {
+            Matcher port = Pattern.compile("(?i)grand port (?:fluvio-)?maritime.*$").matcher(label);
+            return port.find() ? capitalize(port.group()) : m.institution.label;
+        }
+        return m.institution.label;
     }
 
     /** {@code ended} si la fin est passée, {@code current} si elle est à venir, {@code unknown} sans fin connue. */

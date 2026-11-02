@@ -34,7 +34,7 @@ final class JorfArticles {
      * Version de la sélection : elle entre dans le nom des extraits du cache. La changer force la relecture des
      * archives (qui doivent alors être téléchargées à nouveau).
      */
-    static final int SELECTION_VERSION = 2;
+    static final int SELECTION_VERSION = 3;
 
     /** Fichier brut déposé dans {@code rawDir} : un XML par article gardé. */
     static final String ARTICLES_FILE = "jorf-articles.zip";
@@ -45,7 +45,8 @@ final class JorfArticles {
             "nomination|retraite|fin de fonctions|cessation de fonctions|designation|radiation|reconduction"
                     + "|renouvellement|maintien");
     private static final Pattern TITLE_INSTITUTION = Pattern.compile(
-            "conseil d'etat|cour des comptes|cour de cassation|\\(magistrature\\)|ambassad|representante? permanente?");
+            "conseil d'etat|cour des comptes|cour de cassation|\\(magistrature\\)|ambassad|representante? permanente?"
+                    + "|grand port (?:fluvio-)?maritime");
     /** Textes qui citent une haute institution sans concerner ses membres. */
     private static final Pattern TITLE_EXCLUDED = Pattern.compile(
             "cour nationale du droit d'asile|attache|jury|titularisation|ecole nationale de la magistrature"
@@ -60,7 +61,8 @@ final class JorfArticles {
             "composition du gouvernement|(?:cessation|fin) (?:des |de )?fonctions du (?:gouvernement|premier ministre)"
                     + "|nomination du premier ministre|demission du gouvernement");
     private static final Pattern CONTENT_INSTITUTION = Pattern.compile(
-            "conseil\\w* d'etat|cour des comptes|cour de cassation|ambassad|representante? permanente?");
+            "conseil\\w* d'etat|cour des comptes|cour de cassation|ambassad|representante? permanente?"
+                    + "|grand port (?:fluvio-)?maritime");
 
     private static final Pattern CONTEXT = Pattern.compile(
             "<TEXTE cid=\"([^\"]*)\" date_publi=\"([^\"]*)\" date_signature=\"([^\"]*)\" nature=\"([^\"]*)\"");

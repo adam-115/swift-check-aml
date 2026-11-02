@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 
-import { CountryDTO, CoverageDTO, CoverageStatus, PepCategoryKind } from '../../models/appTypes';
+import { CategoryCoverage, CountryDTO, CoverageDTO, CoverageStatus, PepCategoryKind } from '../../models/appTypes';
 import { PepReferenceService } from '../../services/pep-reference.service';
 import { apiError } from '../../services/api-error';
 import { StatusBadgeComponent } from '../shared/status-badge.component';
@@ -58,6 +58,7 @@ export class PepCoverageComponent implements OnInit {
   load(): void {
     this.isLoading = true;
     this.errorMessage = '';
+    this.expanded = new Set();
     this.referenceService.coverage(this.countryIso).subscribe({
       next: coverage => {
         this.coverage = coverage;
@@ -75,6 +76,48 @@ export class PepCoverageComponent implements OnInit {
   get officialPercent(): number {
     const c = this.coverage;
     return c && c.officialCategories ? Math.round((c.coveredOfficialCategories * 100) / c.officialCategories) : 0;
+  }
+
+  /** Fonctions dont le détail de couverture est déplié. */
+  expanded = new Set<number>();
+
+  toggleDetail(id: number): void {
+    if (this.expanded.has(id)) {
+      this.expanded.delete(id);
+    } else {
+      this.expanded.add(id);
+    }
+  }
+
+  expandAll(): void {
+    this.expanded = new Set(this.coverage?.categories.flatMap(c => c.functions.map(f => f.id)) ?? []);
+  }
+
+  collapseAll(): void {
+    this.expanded.clear();
+  }
+
+  /** Résumé d'une catégorie : pourquoi elle est couverte, partielle ou non couverte. */
+  categoryReason(category: CategoryCoverage): string {
+    const total = category.functions.length;
+    const count = (s: CoverageStatus) => category.functions.filter(f => f.status === s).length;
+    const covered = count('COVERED');
+    if (total === 0) {
+      return 'Aucune fonction définie dans cette catégorie.';
+    }
+    if (covered === total) {
+      return total === 1 ? 'Couverte à 100 % : sa fonction est couverte à 100 %.'
+        : `Couverte à 100 % : ses ${total} fonctions sont couvertes à 100 %.`;
+    }
+    const parts = [`${covered} sur ${total} couverte${covered > 1 ? 's' : ''} à 100 %`];
+    if (count('PARTIAL')) {
+      parts.push(`${count('PARTIAL')} partielle${count('PARTIAL') > 1 ? 's' : ''}`);
+    }
+    if (count('NONE')) {
+      parts.push(`${count('NONE')} non couverte${count('NONE') > 1 ? 's' : ''}`);
+    }
+    return `${category.status === 'NONE' ? 'Non couverte' : 'Partielle'} : ${parts.join(', ')}. `
+      + 'Ouvrir le détail des fonctions pour voir ce qui manque.';
   }
 
   /** Nombre de fonctions couvertes / total, toutes catégories confondues. */

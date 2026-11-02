@@ -311,6 +311,50 @@ class FrPepJorfParserTest {
                 .containsExactly("JORF_20261030-002939.tar.gz");
     }
 
+    /** Décret du 9 avril 2026 (JO du 10 avril), tel que publié par la DILA. */
+    @Test
+    void readsTheNominationOfAPortDirectorAndClosesThePredecessor() throws IOException {
+        String xml = Files.readString(Path.of("src/test/resources/ports/JORFARTI000053788363.xml"), StandardCharsets.UTF_8);
+        assertThat(JorfArticles.keep(xml)).isTrue();
+        Article martin = JorfArticles.parse(xml);
+
+        List<NominationReader.Event> events = NominationReader.read(martin);
+        assertThat(events).hasSize(1);
+        NominationReader.Event e = events.get(0);
+        assertThat(e.kind()).isEqualTo(NominationReader.Kind.NOMINATION);
+        assertThat(e.institution()).isEqualTo(NominationReader.Institution.ENTREPRISE_PUBLIQUE);
+        assertThat(e.name()).isEqualTo("Ivan MARTIN");
+        assertThat(e.function()).isEqualTo("président du directoire du grand port maritime de Bordeaux");
+
+        Article laurent = article("Décret du 1er juillet 2021 portant nomination du président du directoire du grand"
+                + " port maritime de Bordeaux - M. LAURENT (Jean-Frédéric)",
+                "M. Jean-Frédéric LAURENT est nommé président du directoire du grand port maritime de Bordeaux.");
+        List<NominationReader.Event> all = new java.util.ArrayList<>(NominationReader.read(laurent));
+        all.addAll(events);
+        List<FrPepJorfParser.Mandate> mandates = FrPepJorfParser.buildMandates(all);
+
+        assertThat(mandates).hasSize(2);
+        assertThat(mandates.get(0).open).as("le prédécesseur quitte le poste").isFalse();
+        assertThat(mandates.get(1).open).isTrue();
+        assertThat(FrPepJorfParser.label(mandates.get(1)))
+                .isEqualTo("Président du directoire du grand port maritime de Bordeaux");
+    }
+
+    @Test
+    void membersOfASupervisoryBoardKeepTheirSeatWhenOthersAreNominated() {
+        Article a = article("Arrêté du 3 mars 2026 portant nomination au conseil de surveillance du grand port"
+                + " maritime de La Rochelle",
+                "Sont nommés membres du conseil de surveillance du grand port maritime de La Rochelle, en qualité de"
+                        + " représentants de l'Etat :",
+                "M. Paul DURAND, inspecteur général de l'environnement et du développement durable ;",
+                "Mme Claire MARTIN, administratrice de l'Etat.");
+        List<FrPepJorfParser.Mandate> mandates = FrPepJorfParser.buildMandates(NominationReader.read(a));
+
+        assertThat(mandates).hasSize(2).allMatch(m -> m.open);
+        assertThat(FrPepJorfParser.label(mandates.get(0)))
+                .isEqualTo("Membre du conseil de surveillance du grand port maritime de La Rochelle");
+    }
+
     private static Article article(String title, String... lines) {
         return new Article("JORFARTI000000000001", "JORFTEXT000000000001", title, "DECRET", "2000-01-01",
                 "2000-01-01", "1", List.of(lines));

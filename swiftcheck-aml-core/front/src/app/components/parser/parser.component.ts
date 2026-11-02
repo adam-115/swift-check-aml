@@ -45,10 +45,15 @@ export const LIST_TYPES: { value: ListType; label: string }[] = [
   { value: 'CRIMINAL', label: 'Criminelle' },
 ];
 
-/** Une fonction cochée : complétude et anciens titulaires, modifiables dans le formulaire. */
+/**
+ * Une fonction cochée : complétude, anciens titulaires, ce que le parser couvre et ce qui manque, modifiables dans
+ * le formulaire (affichés dans « Couverture PEP »).
+ */
 interface CoverageChoice {
   completeness: Completeness;
   includesFormer: boolean;
+  coveredScope?: string;
+  gaps?: string;
 }
 
 /** Fonctions PEP d'une catégorie, pour les cases à cocher du formulaire. */
@@ -601,7 +606,7 @@ export class ParserComponent implements OnInit {
       enabled: parser?.enabled ?? true,
     });
     this.coverage = new Map((parser?.coverage ?? []).map(c => [c.functionId,
-      { completeness: c.completeness, includesFormer: c.includesFormer }]));
+      { completeness: c.completeness, includesFormer: c.includesFormer, coveredScope: c.coveredScope, gaps: c.gaps }]));
     this.functionCountry = parser?.countryIso ?? (parser ? '' : 'LU');
     this.refreshFunctionGroups();
     this.pluginCheck = undefined;

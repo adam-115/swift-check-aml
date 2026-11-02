@@ -60,6 +60,22 @@
           <span *ngIf="c.country.legalBasis" class="text-slate-500">· {{ c.country.legalBasis }}</span>
         </div>
 
+        <div *ngIf="c.categories.length > 0" class="flex flex-wrap items-center justify-between gap-2">
+          <p class="text-xs text-slate-500">
+            « Détail » : pourquoi une fonction est couverte à 100 % ou partiellement, ce que couvre chaque parser et ce qui reste.
+          </p>
+          <div class="flex gap-2">
+            <button type="button" (click)="expandAll()"
+                    class="rounded-lg border border-slate-300 bg-white px-3 py-1.5 text-xs font-semibold text-slate-700 hover:bg-slate-50">
+              Tout déplier
+            </button>
+            <button type="button" (click)="collapseAll()"
+                    class="rounded-lg border border-slate-300 bg-white px-3 py-1.5 text-xs font-semibold text-slate-700 hover:bg-slate-50">
+              Tout replier
+            </button>
+          </div>
+        </div>
+
         <div *ngIf="c.categories.length === 0" class="text-center py-16 bg-white rounded-xl border border-dashed border-slate-300 text-sm text-slate-500">
           Aucune catégorie PEP n'est encore définie pour ce pays dans le référentiel.
         </div>
@@ -77,6 +93,7 @@
             <span class="rounded-lg px-2.5 py-1 text-xs font-semibold ring-1 ring-inset" [ngClass]="statuses[category.status].css">
               {{ statuses[category.status].label }}
             </span>
+            <p class="basis-full text-xs text-slate-600">{{ categoryReason(category) }}</p>
           </div>
 
           <div class="overflow-x-auto">
@@ -90,7 +107,8 @@
                 </tr>
               </thead>
               <tbody class="divide-y divide-slate-100">
-                <tr *ngFor="let f of category.functions" class="align-top">
+                <ng-container *ngFor="let f of category.functions">
+                <tr class="align-top">
                   <td class="px-4 py-2.5">
                     <p class="font-medium text-slate-900">{{ f.label }}</p>
                     <p *ngIf="f.institution" class="text-xs text-slate-500">{{ f.institution }}</p>
@@ -115,12 +133,51 @@
                       </span>
                     </div>
                   </td>
-                  <td class="px-4 py-2.5 text-right">
+                  <td class="px-4 py-2.5 text-right whitespace-nowrap">
                     <span class="rounded-lg px-2 py-0.5 text-xs font-semibold ring-1 ring-inset" [ngClass]="statuses[f.status].css">
                       {{ statuses[f.status].label }}
                     </span>
+                    <button type="button" (click)="toggleDetail(f.id)" [attr.aria-expanded]="expanded.has(f.id)"
+                            class="ml-2 text-xs font-semibold text-emerald-700 hover:underline">
+                      {{ expanded.has(f.id) ? 'Masquer' : 'Détail' }}
+                    </button>
                   </td>
                 </tr>
+
+                <!-- Détail : pourquoi cet état, ce que couvre chaque parser, ce qui reste -->
+                <tr *ngIf="expanded.has(f.id)" class="bg-slate-50/70">
+                  <td colspan="4" class="px-4 py-3">
+                    <p class="text-sm font-medium"
+                       [ngClass]="f.status === 'COVERED' ? 'text-emerald-800' : f.status === 'PARTIAL' ? 'text-amber-800' : 'text-rose-800'">
+                      {{ f.reason || 'Redémarrez le back pour afficher le détail de couverture.' }}
+                    </p>
+
+                    <div *ngIf="f.parsers.length" class="mt-2 grid gap-2 md:grid-cols-2">
+                      <div *ngFor="let p of f.parsers" class="rounded-lg border border-slate-200 bg-white p-3">
+                        <p class="text-xs font-semibold text-slate-700">
+                          <span class="font-mono">{{ p.datasetName }}</span>
+                          <span class="font-normal text-slate-500">
+                            · {{ p.completeness === 'COMPLETE' ? 'tous les titulaires' : 'une partie des titulaires' }}{{ p.includesFormer ? ', avec les anciens' : '' }}
+                          </span>
+                        </p>
+                        <p class="mt-1.5 text-xs text-slate-500 font-semibold uppercase tracking-wider">Couvert</p>
+                        <p class="text-xs text-slate-700">{{ p.coveredScope || 'Non renseigné : à compléter dans l\'écran « Parsers ».' }}</p>
+                        <p class="mt-1.5 text-xs text-slate-500 font-semibold uppercase tracking-wider">Reste à couvrir</p>
+                        <p class="text-xs" [ngClass]="p.gaps ? 'text-amber-800' : 'text-slate-500'">
+                          {{ p.gaps || (p.completeness === 'COMPLETE' ? 'Rien : la source donne tous les titulaires.' : 'Non renseigné : à compléter dans l\'écran « Parsers ».') }}
+                        </p>
+                      </div>
+                    </div>
+
+                    <div *ngIf="f.issues?.length" class="mt-2 rounded-lg border border-rose-200 bg-rose-50 p-3">
+                      <p class="text-xs font-semibold text-rose-800">À corriger pour que la couverture compte</p>
+                      <ul class="mt-1 list-disc pl-4 text-xs text-rose-800">
+                        <li *ngFor="let issue of f.issues">{{ issue }}</li>
+                      </ul>
+                    </div>
+                  </td>
+                </tr>
+                </ng-container>
                 <tr *ngIf="category.functions.length === 0">
                   <td colspan="4" class="px-4 py-3 text-xs text-slate-400 italic">Aucune fonction définie dans cette catégorie.</td>
                 </tr>

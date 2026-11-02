@@ -55,7 +55,7 @@ Trois règles complètent la lecture :
 
 | | |
 |---|---|
-| Catégories PEP | **FR-a** Premier ministre, ministre ou secrétaire d'État ; ancien membre du Gouvernement · **FR-d** Membre du Conseil d'État, membre de la Cour de cassation · **FR-e** Magistrat de la Cour des comptes · **FR-f** Ambassadeur ou chargé d'affaires |
+| Catégories PEP | **FR-a** Premier ministre, ministre ou secrétaire d'État ; ancien membre du Gouvernement · **FR-d** Membre du Conseil d'État, membre de la Cour de cassation · **FR-e** Magistrat de la Cour des comptes · **FR-f** Ambassadeur ou chargé d'affaires · **FR-g** Dirigeant d'un grand port maritime (partiel) |
 | Base légale | CMF, art. R. 561-18 ; directive (UE) 2015/849, art. 3, point 9 d), e) et f) |
 | Couverture | **Partielle** : voir « Limites connues » |
 | Rétention | Mandats terminés depuis moins de 12 mois (`monthsAfterEnd`), puis rétention du core (12 mois) |
@@ -78,6 +78,17 @@ Tout relire à chaque exécution représenterait plusieurs gigaoctets. Le plugin
 2. il est lu en flux (lecteur tar intégré, `TarReader`) et réduit aux articles utiles. L'archive complète prend environ 70 s et donne environ 7 500 articles ; un fichier quotidien en donne de 0 à 5 ;
 3. l'extrait est enregistré dans `<fichier>.s<version>.zip`, puis le fichier d'origine est supprimé.
 
+### Dirigeants des grands ports maritimes (sélection version 3, FR-g)
+
+Les grands ports maritimes (Marseille, Dunkerque, Bordeaux, Haropa…) n'ont **aucun dirigeant inscrit au registre des entreprises** : `fr_pep_state_enterprises` ne peut donc pas les produire. Leurs dirigeants sont nommés au Journal officiel, et le parser lit ces nominations (institution « Entreprises publiques »).
+
+Exemple réel (décret du 9 avril 2026, JO du 10 avril) : « M. Ivan MARTIN est nommé président du directoire du grand port maritime de Bordeaux, en remplacement de M. Jean-Frédéric LAURENT, à compter du 20 avril 2026. »
+
+- **Mandat** : un par personne et par poste écrit (président du directoire, membre du directoire, membre du conseil de surveillance… de tel port).
+- **Poste à titulaire unique** (président, directeur général) : la nomination d'un successeur ferme le mandat du prédécesseur. Un membre du conseil de surveillance n'a pas de successeur désigné, son mandat reste ouvert.
+- **Sans fin connue** : le mandat est écarté après `enterpriseMaxYears` ans (6 par défaut ; les mandats sont de cinq ans).
+- Le passage à la version 3 force la **relecture de l'archive complète** à la prochaine exécution, soit environ 25 min et 1,7 Go téléchargés une fois.
+
 Après la première exécution, seuls les nouveaux fichiers quotidiens sont téléchargés.
 
 Le cache ne contient que des copies réduites de fichiers publics, jamais d'état de conversion : le supprimer fait seulement tout retélécharger. Changer la sélection (`JorfArticles.SELECTION_VERSION`) force la relecture des fichiers.
@@ -85,7 +96,7 @@ Le cache ne contient que des copies réduites de fichiers publics, jamais d'éta
 ### Articles gardés (`JorfArticles.keep`)
 
 - Le titre du texte parle d'une nomination, retraite, fin de fonctions, cessation, désignation, radiation, reconduction, renouvellement ou maintien.
-- Ce titre cite le Conseil d'État, la Cour des comptes, la Cour de cassation, la magistrature, un ambassadeur ou un représentant permanent.
+- Ce titre cite le Conseil d'État, la Cour des comptes, la Cour de cassation, la magistrature, un ambassadeur, un représentant permanent ou un grand port maritime.
 - Sont exclus les textes sur la Cour nationale du droit d'asile, les attachés, les jurys, les chambres régionales des comptes, les conseils et commissions.
 - Pour un texte « (Conseil d'État) » ou « (Cour des comptes) », tous les articles sont gardés. Pour les autres, seuls les articles qui citent une haute institution. Les décrets « (magistrature) », très nombreux, ne sont ainsi gardés que pour leurs articles sur la Cour de cassation.
 
@@ -132,6 +143,7 @@ Un mandat **sans fin connue** est écarté au-delà d'une durée propre à la fo
 | `extraordinaryMaxYears` | 5 | Les nominations « en service extraordinaire » durent 4 ou 5 ans. |
 | `cassationMaxYears` | 15 | On entre à la Cour de cassation en fin de carrière (limite d'âge vers 68 ans). |
 | `memberMaxYears` | 40 | On entre au Conseil d'État ou à la Cour des comptes vers 25 ans. |
+| `enterpriseMaxYears` | 6 | Les mandats au directoire et au conseil de surveillance d'un grand port maritime durent cinq ans. |
 
 ## Configuration dans SwiftCheck
 
@@ -142,7 +154,7 @@ Un mandat **sans fin connue** est écarté au-delà d'une durée propre à la fo
 | Type de source | `PLUGIN_MANAGED` : le plugin télécharge lui-même |
 | Nature de la source | T4 – Journal officiel (`OFFICIAL_GAZETTE`) |
 | Fréquence | 168 h |
-| Paramètres | `{"cacheDir": "D:/test parser 2/cache/jorf", "since": "1990-01-01", "monthsAfterEnd": "12", "ambassadorMaxYears": "6", "extraordinaryMaxYears": "5", "cassationMaxYears": "15", "memberMaxYears": "40", "governmentMaxYears": "6", "delayMs": "300"}` |
+| Paramètres | `{"cacheDir": "D:/test parser 2/cache/jorf", "since": "1990-01-01", "monthsAfterEnd": "12", "ambassadorMaxYears": "6", "extraordinaryMaxYears": "5", "cassationMaxYears": "15", "memberMaxYears": "40", "governmentMaxYears": "6", "enterpriseMaxYears": "6", "delayMs": "300"}` |
 
 - `cacheDir` (obligatoire) : dossier du cache, à garder entre deux exécutions et à sauvegarder comme un dossier de données.
 - `since` : publications plus anciennes ignorées. Après le 13/07/2025, l'archive complète n'est pas téléchargée.

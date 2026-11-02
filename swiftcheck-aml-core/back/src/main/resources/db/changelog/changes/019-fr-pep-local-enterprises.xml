@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Parser PEP de la France pour les dirigeants et administrateurs des sociétés contrôlées par une collectivité (FR-g) :
+    SEM, SEMOP, SPL, EPIC locaux et régies au-dessus d'un seuil de chiffre d'affaires, d'après le registre national des
+    entreprises.
+-->
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="019-parser-fr-pep-local-enterprises" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP France – Sociétés contrôlées par une collectivité',
+                'Dirigeants et administrateurs des SEM, SPL, EPIC locaux et régies dont le chiffre d''affaires dépasse le seuil, d''après le registre national des entreprises (catégorie FR-g)',
+                'fr_pep_local_enterprises', 'PEP', 'https://recherche-entreprises.api.gouv.fr',
+                'fr-pep-local-enterprises', 'D:/test parser 2/plugins/swiftcheck-aml-fr-pep-local-enterprises-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'API',
+                NULL,
+                '{"apiUrl": "https://recherche-entreprises.api.gouv.fr/search", "natures": "5515,5615,4140,4150", "splQueries": "societe publique locale,SPL", "minRevenue": "50000000", "sizeFallback": "ETI,GE"}',
+                168, 12,
+                'Licence Ouverte / Open Licence (Etalab 2.0)', 'API Recherche d''entreprises (DINUM), données du registre national des entreprises (INPI) et de Sirene (Insee)',
+                'Seuil minRevenue à valider juridiquement (50 M€ selon le plan ; la HATVP retient 750 000 € pour les déclarations des dirigeants de sociétés locales). Mesure du 02/11/2026 : 154 entités à 50 M€, 307 à 10 M€, 679 à 750 000 €. Les SPL n''ont pas de nature juridique propre : seules celles dont le nom le dit sont reprises. Le registre ne donne pas de dates de fonction.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former)
+            SELECT f.id, p.id, 'PARTIAL', FALSE
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'FR-g' AND f.label LIKE 'Dirigeant ou administrateur d''une société contrôlée par une collectivité%'
+              AND p.dataset_name = 'fr_pep_local_enterprises';
+        ]]></sql>
+    </changeSet>
+
+</databaseChangeLog>

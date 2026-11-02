@@ -105,6 +105,8 @@ export interface FunctionCoverage {
     institution?: string;
     expectedHolders?: number;
     status: CoverageStatus;
+    reason: string;                     // pourquoi la fonction a cet état
+    issues: string[];                   // parser désactivé, jamais publié, dernière exécution bloquée
     parsers: CoveringParser[];          // avec la complétude déclarée pour cette fonction
 }
 
@@ -118,6 +120,8 @@ export interface CoveringParser {
     enabled: boolean;
     completeness: Completeness;         // pour cette fonction
     includesFormer: boolean;            // donne aussi les anciens titulaires
+    coveredScope?: string;              // ce que le parser couvre de la fonction
+    gaps?: string;                      // ce qui manque, et pourquoi
     lastStatus?: ExecutionStatus;
     lastPublishedAt?: string;
     personCount: number;
@@ -159,6 +163,8 @@ export interface ParserCoverageItem {
     functionId: number;
     completeness: Completeness;
     includesFormer: boolean;
+    coveredScope?: string;              // affichés dans « Couverture PEP »
+    gaps?: string;
 }
 
 /** Configuration d'un parser ; les champs last* résument la dernière exécution (lecture seule). */

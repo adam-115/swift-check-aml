@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Détail de la couverture PEP, affiché dans l'écran « Couverture PEP » : pour chaque lien fonction ↔ parser,
+    ce que le parser couvre (covered_scope) et ce qui manque (gaps). Rempli ici pour la France ; modifiable ensuite.
+-->
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="021-coverage-detail-columns" author="swiftcheck">
+        <addColumn tableName="pep_function_parser">
+            <column name="covered_scope" type="VARCHAR(1000)"/>
+            <column name="gaps" type="VARCHAR(2000)"/>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="021-coverage-detail-fr" author="swiftcheck">
+        <sql><![CDATA[
+            UPDATE pep_function_parser l
+                JOIN parser p ON p.id = l.parser_id
+                JOIN pep_function f ON f.id = l.function_id
+                JOIN pep_category c ON c.id = f.category_id
+            SET l.covered_scope = 'Le Président en fonction, d''après sa biographie officielle sur elysee.fr.',
+                l.gaps = NULL
+            WHERE p.dataset_name = 'fr_pep_president' AND c.code = 'FR-a' AND f.label LIKE 'Président de la République%';
+
+            UPDATE pep_function_parser l
+                JOIN parser p ON p.id = l.parser_id
+                JOIN pep_function f ON f.id = l.function_id
+                JOIN pep_category c ON c.id = f.category_id
+            SET l.covered_scope = 'Membres du Gouvernement en fonction, d''après les déclarations publiées par la HATVP (open data), avec leur date de naissance.',
+                l.gaps = 'Un membre nouvellement nommé n''apparaît qu''après le dépôt de sa première déclaration (jusqu''à deux mois) ; fr_pep_jorf comble ce délai.'
+            WHERE p.dataset_name = 'fr_pep_government' AND c.code = 'FR-a' AND f.label LIKE 'Premier ministre%';
+
+            UPDATE pep_function_parser l
+                JOIN parser p ON p.id = l.parser_id
+                JOIN pep_function f ON f.id = l.function_id
+                JOIN pep_category c ON c.id = f.category_id
+            SET l.covered_scope = 'Décrets de composition du Gouvernement et de nomination du Premier ministre au Journal officiel : tous les membres dès la publication.',
+                l.gaps = 'Pas de date de naissance dans les décrets : l''identité repose sur le nom.'
+            WHERE p.dataset_name = 'fr_pep_jorf' AND c.code = 'FR-a' AND f.label LIKE 'Premier ministre%';
+
+            UPDATE pep_function_parser l
+                JOIN parser p ON p.id = l.parser_id
+                JOIN pep_function f ON f.id = l.function_id
+                JOIN pep_category c ON c.id = f.category_id
+            SET l.covered_scope = 'Anciens membres qui ont déposé une déclaration de fin de fonctions à la HATVP.',
+                l.gaps = 'Un ancien membre sans déclaration après son départ n''y figure pas ; la durée de publication par la HATVP n''est pas documentée.'
+            WHERE p.dataset_name = 'fr_pep_government' AND c.code = 'FR-a' AND f.label LIKE 'Ancien membre%';
+
+            UPDATE pep_function_parser l
+                JOIN parser p ON p.id = l.parser_id
+                JOIN pep_function f ON f.id = l.function_id
+                JOIN pep_category c ON c.id = f.category_id
+            SET l.covered_scope = 'Fins de fonctions lues dans les décrets (démission du Gouvernement, remaniements) : tous les anciens membres sortis depuis moins de 12 mois.',
+                l.gaps = NULL
+            WHERE p.dataset_name = 'fr_pep_jorf' AND c.code = 'FR-a' AND f.label LIKE 'Ancien membre%';
+
+            UPDATE pep_function_parser l
+                JOIN parser p ON p.id = l.parser_id
+                JOIN pep_function f ON f.id = l.function_id
+                JOIN pep_category c ON c.id = f.category_id
+            SET l.covered_scope = 'Maires et présidents d''intercommunalité, de conseil départemental, de conseil régional et de collectivité à statut particulier des collectivités d''au moins 50 000 habitants (Répertoire national des élus, populations Insee), avec la date de naissance.',
+                l.gaps = 'Nouvelle-Calédonie : les présidents du Congrès et des trois provinces sont tous repris. Quelques présidents d''intercommunalité élus en 2026 manquent encore dans le Répertoire national des élus.'
+            WHERE p.dataset_name = 'fr_pep_local_executives' AND c.code = 'FR-AMLR';
+
+            UPDATE pep_function_parser l
+                JOIN parser p ON p.id = l.parser_id
+                JOIN pep_function f ON f.id = l.function_id
+                JOIN pep_category c ON c.id = f.category_id
+            SET l.covered_scope = 'Les 577 députés en fonction, d''après l''open data de l''Assemblée nationale.',
+                l.gaps = NULL
+            WHERE p.dataset_name = 'fr_pep_national_assembly' AND c.code = 'FR-b' AND f.label LIKE 'Député%';
+
+            UPDATE pep_function_parser l
+                JOIN parser p ON p.id = l.parser_id
+                JOIN pep_function f ON f.id = l.function_id
+                JOIN pep_category c ON c.id = f.category_id
+            SET l.covered_scope = 'Députés sortis depuis moins de 12 mois, d''après l''open data de l''Assemblée nationale.',
+                l.gaps = NULL
+            WHERE p.dataset_name = 'fr_pep_national_assembly' AND c.code = 'FR-b' AND f.label LIKE 'Ancien député%';
+
+            UPDATE pep_function_parser l
+                JOIN parser p ON p.id = l.parser_id
+                JOIN pep_function f ON f.id = l.function_id
+                JOIN pep_category c ON c.id = f.category_id
+            SET l.covered_scope = 'Les 348 sénateurs en fonction, d''après l''open data du Sénat.',
+                l.gaps = NULL
+            WHERE p.dataset_name = 'fr_pep_senate' AND c.code = 'FR-b' AND f.label LIKE 'Sénateur%';
+
+            UPDATE pep_function_parser l
+                JOIN parser p ON p.id = l.parser_id
+                JOIN pep_function f ON f.id = l.function_id
+                JOIN pep_category c ON c.id = f.category_id
+            SET l.covered_scope = 'Sénateurs sortis depuis moins de 12 mois, d''après l''open data du Sénat.',
+                l.gaps = NULL
+            WHERE p.dataset_name = 'fr_pep_senate' AND c.code = 'FR-b' AND f.label LIKE 'Ancien sénateur%';
+
+            UPDATE pep_function_parser l
+                JOIN parser p ON p.id = l.parser_id
+                JOIN pep_function f ON f.id = l.function_id
+                JOIN pep_category c ON c.id = f.category_id
+            SET l.covered_scope = 'Président, secrétaire général et dirigeant principal de chaque parti décrit dans Wikidata.',
+                l.gaps = 'Bureaux nationaux, comités exécutifs et trésoriers : absents de Wikidata. Un parti sans dirigeant renseigné n''est pas couvert. Données collaboratives, à contrôler.'
+            WHERE p.dataset_name = 'fr_pep_political_parties' AND c.code = 'FR-c';
+
+            UPDATE pep_function_parser l
+                JOIN parser p ON p.id = l.parser_id
+                JOIN pep_function f ON f.id = l.function_id
+                JOIN pep_category c ON c.id = f.category_id
+            SET l.covered_scope = 'Président et membres, d''après la page officielle du Conseil constitutionnel.',
+                l.gaps = 'Secrétaire général : il n''est pas nommé sur le site (nomination par décret au Journal officiel, pas encore lue).'
+            WHERE p.dataset_name = 'fr_pep_constitutional_council' AND c.code = 'FR-d' AND f.label LIKE 'Président, membre%';
+
+            UPDATE pep_function_parser l
+                JOIN parser p ON p.id = l.parser_id
+                JOIN pep_function f ON f.id = l.function_id
+                JOIN pep_category c ON c.id = f.category_id
+            SET l.covered_scope = 'Membres nommés au Journal officiel depuis 1990 (nominations, retraites, fins de fonctions) : environ 314 personnes.',
+                l.gaps = 'Départs sans décret (décès, disponibilité, détachement) non vus : le mandat reste ouvert jusqu''à la durée maximale ; pas de date de naissance dans les décrets ; quelques listes des années 1990 sans fonction écrite ne sont pas lues.'
+            WHERE p.dataset_name = 'fr_pep_jorf' AND c.code = 'FR-d' AND f.label LIKE 'Membre du Conseil d''État%';
+
+            UPDATE pep_function_parser l
+                JOIN parser p ON p.id = l.parser_id
+                JOIN pep_function f ON f.id = l.function_id
+                JOIN pep_category c ON c.id = f.category_id
+            SET l.covered_scope = 'Magistrats de la Cour de cassation nommés au Journal officiel depuis 1990 : environ 416 personnes.',
+                l.gaps = 'Départs sans décret (décès, disponibilité, détachement) non vus : le mandat reste ouvert jusqu''à la durée maximale ; pas de date de naissance dans les décrets ; quelques listes des années 1990 sans fonction écrite ne sont pas lues.'
+            WHERE p.dataset_name = 'fr_pep_jorf' AND c.code = 'FR-d' AND f.label LIKE 'Membre de la Cour de cassation%';
+
+            UPDATE pep_function_parser l
+                JOIN parser p ON p.id = l.parser_id
+                JOIN pep_function f ON f.id = l.function_id
+                JOIN pep_category c ON c.id = f.category_id
+            SET l.covered_scope = 'Magistrats de la Cour des comptes nommés au Journal officiel depuis 1990 : environ 425 personnes, détachés compris.',
+                l.gaps = 'Départs sans décret (décès, disponibilité, détachement) non vus : le mandat reste ouvert jusqu''à la durée maximale ; pas de date de naissance dans les décrets ; quelques listes des années 1990 sans fonction écrite ne sont pas lues.'
+            WHERE p.dataset_name = 'fr_pep_jorf' AND c.code = 'FR-e' AND f.label LIKE 'Magistrat de la Cour des comptes%';
+
+            UPDATE pep_function_parser l
+                JOIN parser p ON p.id = l.parser_id
+                JOIN pep_function f ON f.id = l.function_id
+                JOIN pep_category c ON c.id = f.category_id
+            SET l.covered_scope = 'Gouverneur, sous-gouverneurs et membres du Conseil général, d''après la page de gouvernance de la Banque de France.',
+                l.gaps = 'Ni date de naissance ni date de nomination sur la page.'
+            WHERE p.dataset_name = 'fr_pep_banque_de_france' AND c.code = 'FR-e' AND f.label LIKE 'Membre du Conseil général%';
+
+            UPDATE pep_function_parser l
+                JOIN parser p ON p.id = l.parser_id
+                JOIN pep_function f ON f.id = l.function_id
+                JOIN pep_category c ON c.id = f.category_id
+            SET l.covered_scope = 'Les députés européens élus en France, d''après l''open data du Parlement européen, et ceux sortis depuis moins de 12 mois.',
+                l.gaps = NULL
+            WHERE p.dataset_name = 'fr_pep_europarl' AND c.code = 'FR-EU' AND f.label LIKE 'Député au Parlement%';
+
+            UPDATE pep_function_parser l
+                JOIN parser p ON p.id = l.parser_id
+                JOIN pep_function f ON f.id = l.function_id
+                JOIN pep_category c ON c.id = f.category_id
+            SET l.covered_scope = 'Le membre français de la Commission, d''après sa fiche officielle.',
+                l.gaps = 'Ni date de naissance ni date exacte de prise de fonctions.'
+            WHERE p.dataset_name = 'fr_pep_eu_commission' AND c.code = 'FR-EU' AND f.label LIKE 'Membre français%';
+
+            UPDATE pep_function_parser l
+                JOIN parser p ON p.id = l.parser_id
+                JOIN pep_function f ON f.id = l.function_id
+                JOIN pep_category c ON c.id = f.category_id
+            SET l.covered_scope = 'Juges et avocats généraux français de la CJUE et du Tribunal, membre français de la Cour des comptes européenne, Français du directoire de la BCE.',
+                l.gaps = 'Chefs de délégation du SEAE : nationalité non publiée. Pour la CJUE et la BCE, la nationalité est déduite (naissance, carrière) et la raison est écrite sur la personne. consilium.europa.eu refuse le client (403), non contourné.'
+            WHERE p.dataset_name = 'fr_pep_eu_institutions' AND c.code = 'FR-EU' AND f.label LIKE 'Français exerçant%';
+
+            UPDATE pep_function_parser l
+                JOIN parser p ON p.id = l.parser_id
+                JOIN pep_function f ON f.id = l.function_id
+                JOIN pep_category c ON c.id = f.category_id
+            SET l.covered_scope = 'Ambassadeurs en poste, d''après la liste publiée par le ministère de l''Europe et des Affaires étrangères.',
+                l.gaps = 'La liste a la date de sa dernière mise à jour : un ambassadeur nommé depuis est dans fr_pep_jorf. Pas de date de naissance.'
+            WHERE p.dataset_name = 'fr_pep_diplomats' AND c.code = 'FR-f' AND f.label LIKE 'Ambassadeur%';
+
+            UPDATE pep_function_parser l
+                JOIN parser p ON p.id = l.parser_id
+                JOIN pep_function f ON f.id = l.function_id
+                JOIN pep_category c ON c.id = f.category_id
+            SET l.covered_scope = 'Ambassadeurs et représentants permanents nommés au Journal officiel depuis 1990, y compris ceux sortis depuis moins de 12 mois.',
+                l.gaps = 'Départs sans décret non vus : un mandat sans fin connue est écarté après 6 ans. Pas de date de naissance.'
+            WHERE p.dataset_name = 'fr_pep_jorf' AND c.code = 'FR-f' AND f.label LIKE 'Ambassadeur%';
+
+            UPDATE pep_function_parser l
+                JOIN parser p ON p.id = l.parser_id
+                JOIN pep_function f ON f.id = l.function_id
+                JOIN pep_category c ON c.id = f.category_id
+            SET l.covered_scope = 'Chefs d''état-major des armées, de l''armée de Terre et de l''armée de l''Air et de l''Espace, d''après leurs biographies sur defense.gouv.fr.',
+                l.gaps = 'Marine : pas de biographie à jour du chef d''état-major sur le site ; couverte par fr_pep_wikidata_positions.'
+            WHERE p.dataset_name = 'fr_pep_army' AND c.code = 'FR-f' AND f.label LIKE 'Chef d''état-major%';
+
+            UPDATE pep_function_parser l
+                JOIN parser p ON p.id = l.parser_id
+                JOIN pep_function f ON f.id = l.function_id
+                JOIN pep_category c ON c.id = f.category_id
+            SET l.covered_scope = 'Chef d''état-major de la Marine, d''après Wikidata (titulaire actuel et sortis depuis moins de 12 mois).',
+                l.gaps = 'Données collaboratives : un changement de titulaire non saisi dans Wikidata n''est pas vu.'
+            WHERE p.dataset_name = 'fr_pep_wikidata_positions' AND c.code = 'FR-f' AND f.label LIKE 'Chef d''état-major%';
+
+            UPDATE pep_function_parser l
+                JOIN parser p ON p.id = l.parser_id
+                JOIN pep_function f ON f.id = l.function_id
+                JOIN pep_category c ON c.id = f.category_id
+            SET l.covered_scope = 'Dirigeants et administrateurs inscrits au registre national des entreprises, avec le mois de naissance, pour les entreprises de l''APE et les EPIC nationaux : environ 1 600 personnes.',
+                l.gaps = '11 entreprises de l''APE sans SIREN français (5 sociétés étrangères, 6 SIREN à confirmer). 20 entreprises sans dirigeant au registre (grands ports maritimes, Caisse nationale des autoroutes…). Filiales des entreprises publiques non lues. Le registre ne donne pas de dates de fonction.'
+            WHERE p.dataset_name = 'fr_pep_state_enterprises' AND c.code = 'FR-g' AND f.label LIKE 'Dirigeant ou administrateur d''un établissement%';
+
+            UPDATE pep_function_parser l
+                JOIN parser p ON p.id = l.parser_id
+                JOIN pep_function f ON f.id = l.function_id
+                JOIN pep_category c ON c.id = f.category_id
+            SET l.covered_scope = 'Dirigeants des grands ports maritimes nommés au Journal officiel : président et membres du directoire, membres du conseil de surveillance.',
+                l.gaps = 'Seulement les grands ports maritimes : les autres entreprises sans dirigeant au registre (Caisse nationale des autoroutes, FDPITMA, quelques EPIC) ne sont pas encore lues.'
+            WHERE p.dataset_name = 'fr_pep_jorf' AND c.code = 'FR-g' AND f.label LIKE 'Dirigeant ou administrateur d''un établissement%';
+
+            UPDATE pep_function_parser l
+                JOIN parser p ON p.id = l.parser_id
+                JOIN pep_function f ON f.id = l.function_id
+                JOIN pep_category c ON c.id = f.category_id
+            SET l.covered_scope = 'Dirigeants et administrateurs des SEM, SEMOP, SPL, EPIC locaux et régies dont le chiffre d''affaires dépasse 50 M€ (ou ETI et grandes entreprises sans comptes publiés) : environ 2 300 personnes dans 154 entités.',
+                l.gaps = 'Entités sous le seuil de 50 M€ non reprises (seuil à valider juridiquement). SPL dont le nom ne dit pas qu''elles en sont une. Contrôle par la collectivité déduit de la forme juridique. Le registre ne donne pas de dates de fonction.'
+            WHERE p.dataset_name = 'fr_pep_local_enterprises' AND c.code = 'FR-g' AND f.label LIKE 'Dirigeant ou administrateur d''une société%';
+
+            UPDATE pep_function_parser l
+                JOIN parser p ON p.id = l.parser_id
+                JOIN pep_function f ON f.id = l.function_id
+                JOIN pep_category c ON c.id = f.category_id
+            SET l.covered_scope = 'Dirigeants de 9 des 18 organisations internationales situées en France, d''après leur page officielle.',
+                l.gaps = 'Non lues : OIF (organigramme introuvable), CCNR, CICR, PAM, BCEAO, OACI, IIF, BEAC (organigramme en image), FMI (refuse les robots). Fonctions partielles à l''OEPP, l''OMSA, l''Unesco, au CIHEAM, au BIPM et à l''OIML.'
+            WHERE p.dataset_name = 'fr_pep_international_orgs' AND c.code = 'FR-h';
+
+            UPDATE pep_function_parser l
+                JOIN parser p ON p.id = l.parser_id
+                JOIN pep_function f ON f.id = l.function_id
+                JOIN pep_category c ON c.id = f.category_id
+            SET l.covered_scope = 'Conjoints, enfants et parents des PEP décrits dans Wikidata.',
+                l.gaps = 'Seules les familles décrites dans Wikidata ; la HATVP masque le nom du conjoint. Données collaboratives, à contrôler.'
+            WHERE p.dataset_name = 'fr_pep_rca' AND c.code = 'FR-RCA' AND f.label LIKE 'Membre de la famille%';
+
+            UPDATE pep_function_parser l
+                JOIN parser p ON p.id = l.parser_id
+                JOIN pep_function f ON f.id = l.function_id
+                JOIN pep_category c ON c.id = f.category_id
+            SET l.covered_scope = 'Organismes déclarés par les PEP dans leurs déclarations d''intérêts à la HATVP.',
+                l.gaps = 'Seulement les organismes déclarés ; les noms masqués par la HATVP ne sont pas repris ; pas de proches associés personnes physiques.'
+            WHERE p.dataset_name = 'fr_pep_associated_entities' AND c.code = 'FR-RCA' AND f.label LIKE 'Proche associé%';
+        ]]></sql>
+    </changeSet>
+
+</databaseChangeLog>

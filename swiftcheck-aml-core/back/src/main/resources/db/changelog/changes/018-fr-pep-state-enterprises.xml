@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Parser PEP de la France pour les dirigeants et administrateurs des entreprises publiques de l'État (FR-g) :
+    entreprises de l'Agence des participations de l'État et EPIC nationaux, d'après le registre national des entreprises.
+-->
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="018-parser-fr-pep-state-enterprises" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP France – Entreprises publiques de l''État',
+                'Dirigeants et administrateurs des entreprises de l''Agence des participations de l''État et des EPIC nationaux, d''après le registre national des entreprises (catégorie FR-g)',
+                'fr_pep_state_enterprises', 'PEP', 'https://www.economie.gouv.fr/agence-participations-etat/comprendre-lape/les-entreprises-de-lape',
+                'fr-pep-state-enterprises', 'D:/test parser 2/plugins/swiftcheck-aml-fr-pep-state-enterprises-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'API',
+                NULL,
+                '{"apeUrl": "https://www.economie.gouv.fr/agence-participations-etat/comprendre-lape/les-entreprises-de-lape", "apiUrl": "https://recherche-entreprises.api.gouv.fr/search", "natures": "4110,4120", "includeSingleShare": "false"}',
+                168, 12,
+                'Licence Ouverte / Open Licence (Etalab 2.0)', 'Agence des participations de l''État (economie.gouv.fr) ; API Recherche d''entreprises (DINUM), données du registre national des entreprises (INPI) et de Sirene (Insee)',
+                'La page de l''APE est protégée par un contrôle anti-robots : quand elle ne répond pas, le périmètre vient de la liste embarquée (ape-entreprises.json, 02/11/2026). Le registre ne donne pas de dates de fonction : un ancien administrateur non radié peut subsister. Les grands ports maritimes et quelques EPIC n''ont pas de dirigeant au registre (nominations au Journal officiel).', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former)
+            SELECT f.id, p.id, 'PARTIAL', FALSE
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'FR-g' AND f.label LIKE 'Dirigeant ou administrateur d''un établissement ou d''une société publique de l''État%'
+              AND p.dataset_name = 'fr_pep_state_enterprises';
+        ]]></sql>
+    </changeSet>
+
+</databaseChangeLog>

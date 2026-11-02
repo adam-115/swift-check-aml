@@ -20,6 +20,11 @@
         015 : parser PEP de la France pour les fonctions sans source officielle (Wikidata) : chef d'état-major de la Marine.
         016 : fr_pep_jorf couvre aussi les membres du Gouvernement et les anciens membres (décrets de composition).
         017 : photos des PEP (pep_media) : photos officielles et photos trouvées sur internet validées par un analyste.
+        018 : parser PEP de la France pour les dirigeants des entreprises publiques de l'État (APE, EPIC nationaux).
+        019 : parser PEP de la France pour les dirigeants des sociétés contrôlées par une collectivité (SEM, SPL, régies).
+        020 : fr_pep_jorf couvre aussi les dirigeants des grands ports maritimes (FR-g, sélection version 3).
+        021 : détail de couverture (ce que couvre chaque parser, ce qui manque) sur pep_function_parser, rempli pour la France.
+        022 : détail de couverture du Luxembourg.
     -->
     <include file="db/changelog/changes/001-schema.xml" />
     <include file="db/changelog/changes/002-pep-reference-data.xml" />
@@ -38,5 +43,10 @@
     <include file="db/changelog/changes/015-fr-pep-wikidata-positions.xml" />
     <include file="db/changelog/changes/016-fr-pep-jorf-government.xml" />
     <include file="db/changelog/changes/017-pep-media.xml" />
+    <include file="db/changelog/changes/018-fr-pep-state-enterprises.xml" />
+    <include file="db/changelog/changes/019-fr-pep-local-enterprises.xml" />
+    <include file="db/changelog/changes/020-fr-pep-jorf-ports.xml" />
+    <include file="db/changelog/changes/021-coverage-detail.xml" />
+    <include file="db/changelog/changes/022-coverage-detail-lu.xml" />
 
 </databaseChangeLog>

@@ -58,7 +58,8 @@ class CoverageServiceTest {
         Parser gazette = parser(7, "lu_pep_legilux");
         gazette.replaceCoverage(List.of(
                 new PepFunctionParser(deputy, Completeness.PARTIAL, true),
-                new PepFunctionParser(councillor, Completeness.PARTIAL, true)));
+                new PepFunctionParser(councillor, Completeness.PARTIAL, true, "Nominations publiées depuis 2000",
+                        "Membres nommés avant 2000")));
         Parser draft = parser(6, "lu_pep_parties");                       // jamais exécuté
         draft.replaceCoverage(List.of(new PepFunctionParser(partyLeader, Completeness.COMPLETE, false)));
 
@@ -98,15 +99,29 @@ class CoverageServiceTest {
         assertEquals(Completeness.PARTIAL, fromGazette.completeness());
         assertTrue(fromGazette.includesFormer());
 
-        assertEquals(Status.PARTIAL, lub.functions().get(1).status(), "seul un parser partiel couvre le Conseil d'État");
+        assertEquals("Couverte à 100 % : lu_pep_chamber donne tous les titulaires de la fonction, complété par "
+                + "lu_pep_legilux.", deputies.reason());
+        assertTrue(deputies.issues().isEmpty());
+
+        CoverageDTO.FunctionCoverage council = lub.functions().get(1);
+        assertEquals(Status.PARTIAL, council.status(), "seul un parser partiel couvre le Conseil d'État");
+        assertEquals("Partielle : lu_pep_legilux ne donne qu'une partie des titulaires, et aucun parser complet "
+                + "n'existe pour cette fonction.", council.reason());
+        assertEquals("Membres nommés avant 2000", council.parsers().get(0).gaps(), "ce qui manque, saisi sur le lien");
+        assertEquals("Nominations publiées depuis 2000", council.parsers().get(0).coveredScope());
+
         assertEquals(Status.NONE, lub.functions().get(2).status());
         assertTrue(lub.functions().get(2).parsers().isEmpty());
+        assertEquals("Non couverte : aucun parser n'est déclaré pour cette fonction.", lub.functions().get(2).reason());
 
         // Un parser déclaré mais qui n'a jamais publié ne couvre rien
         CoverageDTO.CategoryCoverage luc = coverage.categories().get(1);
         assertEquals(Status.NONE, luc.status());
         assertEquals(1, luc.functions().get(0).parsers().size());
         assertFalse(luc.functions().get(0).parsers().get(0).includesFormer());
+        assertEquals("Non couverte : lu_pep_parties est déclaré mais n'a encore rien publié.",
+                luc.functions().get(0).reason());
+        assertEquals(List.of("lu_pep_parties n'a jamais été exécuté."), luc.functions().get(0).issues());
     }
 
     @Test
@@ -151,6 +166,11 @@ class CoverageServiceTest {
         assertTrue(original.isIncludesFormer());
         assertEquals(Completeness.COMPLETE, parser.getCoverage().get(1).getCompleteness());
         assertEquals(5L, parser.getCoverage().get(1).getId().getParserId());
+
+        parser.replaceCoverage(List.of(new PepFunctionParser(deputy, Completeness.PARTIAL, true, "Élus depuis 2018",
+                "Anciens députés")));
+        assertEquals("Anciens députés", original.getGaps(), "le détail de couverture est modifié sur place");
+        assertEquals("Élus depuis 2018", original.getCoveredScope());
 
         parser.replaceCoverage(List.of());
         assertTrue(parser.getCoverage().isEmpty());

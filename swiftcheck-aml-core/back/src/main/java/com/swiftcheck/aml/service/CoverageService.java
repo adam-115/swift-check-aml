@@ -17,6 +17,7 @@ import com.swiftcheck.aml.dto.CoverageDTO.Status;
 import com.swiftcheck.aml.entities.Country;
 import com.swiftcheck.aml.entities.Parser;
 import com.swiftcheck.aml.entities.ParserExecution;
+import com.swiftcheck.aml.entities.ParserExecutionStatus;
 import com.swiftcheck.aml.entities.PepCategory;
 import com.swiftcheck.aml.entities.PepCategoryKind;
 import com.swiftcheck.aml.entities.PepFunction;
@@ -79,8 +80,9 @@ public class CoverageService {
             List<FunctionCoverage> functions = new ArrayList<>();
             for (PepFunction function : functionsByCategory.getOrDefault(category.getId(), List.of())) {
                 List<CoveringParser> covering = parsersByFunction.getOrDefault(function.getId(), List.of());
+                Status status = functionStatus(covering);
                 functions.add(new FunctionCoverage(function.getId(), function.getLabel(), function.getInstitution(),
-                        function.getExpectedHolders(), functionStatus(covering), covering));
+                        function.getExpectedHolders(), status, reason(status, covering), issues(covering), covering));
             }
             Status status = categoryStatus(functions);
             if (category.getKind() == PepCategoryKind.OFFICIAL) {
@@ -115,6 +117,61 @@ public class CoverageService {
         return covering.stream().anyMatch(CoverageService::publishes) ? Status.PARTIAL : Status.NONE;
     }
 
+    /**
+     * Pourquoi la fonction a son état, en une phrase : quel parser la couvre à 100 %, ou pourquoi elle ne l'est
+     * que partiellement (seulement des parsers partiels, parser complet qui n'a pas publié), ou pas du tout.
+     * Le détail de ce qui manque est dans {@link CoveringParser#gaps()} et {@link #issues}.
+     */
+    static String reason(Status status, List<CoveringParser> covering) {
+        List<String> complete = datasets(covering, p -> publishes(p) && p.completeness() == Completeness.COMPLETE);
+        List<String> partial = datasets(covering, p -> publishes(p) && p.completeness() == Completeness.PARTIAL);
+        List<String> idle = datasets(covering, p -> !publishes(p));
+        return switch (status) {
+            case COVERED -> "Couverte à 100 % : " + String.join(", ", complete) + (complete.size() > 1 ? " donnent" : " donne")
+                    + " tous les titulaires de la fonction" + (partial.isEmpty() ? "." : ", complété par " + String.join(", ", partial) + ".");
+            case PARTIAL -> "Partielle : " + String.join(", ", partial) + (partial.size() > 1 ? " ne donnent" : " ne donne")
+                    + " qu'une partie des titulaires"
+                    + (datasets(covering, p -> !publishes(p) && p.completeness() == Completeness.COMPLETE).isEmpty()
+                            ? ", et aucun parser complet n'existe pour cette fonction."
+                            : " ; le parser complet n'a pas encore publié.");
+            case NONE -> covering.isEmpty() ? "Non couverte : aucun parser n'est déclaré pour cette fonction."
+                    : "Non couverte : " + String.join(", ", idle) + (idle.size() > 1 ? " sont déclarés" : " est déclaré")
+                            + " mais n'" + (idle.size() > 1 ? "ont" : "a") + " encore rien publié.";
+        };
+    }
+
+    /** Problèmes de fonctionnement : parser désactivé, jamais publié, dernière exécution en échec ou bloquée. */
+    static List<String> issues(List<CoveringParser> covering) {
+        List<String> issues = new ArrayList<>();
+        for (CoveringParser p : covering) {
+            if (!p.enabled()) {
+                issues.add(p.datasetName() + " est désactivé : ses personnes ne sont plus publiées.");
+            } else if (p.lastPublishedAt() == null) {
+                issues.add(p.datasetName() + (p.lastStatus() == null ? " n'a jamais été exécuté."
+                        : " n'a encore rien publié (dernière exécution " + statusLabel(p.lastStatus()) + ")."));
+            } else if (p.lastStatus() != null && !AlertService.PUBLISHED.contains(p.lastStatus())
+                    && p.lastStatus() != ParserExecutionStatus.RUNNING) {
+                issues.add(p.datasetName() + " : la dernière exécution est " + statusLabel(p.lastStatus())
+                        + " ; la publication précédente reste en ligne.");
+            }
+        }
+        return issues;
+    }
+
+    private static String statusLabel(ParserExecutionStatus status) {
+        return switch (status) {
+            case RUNNING -> "en cours";
+            case SUCCESS -> "réussie";
+            case UNCHANGED -> "sans changement";
+            case BLOCKED -> "bloquée par les contrôles qualité";
+            case FAILED -> "en échec";
+        };
+    }
+
+    private static List<String> datasets(List<CoveringParser> covering, java.util.function.Predicate<CoveringParser> filter) {
+        return covering.stream().filter(filter).map(CoveringParser::datasetName).distinct().toList();
+    }
+
     private static Status categoryStatus(List<FunctionCoverage> functions) {
         long covered = functions.stream().filter(f -> f.status() == Status.COVERED).count();
         if (covered == functions.size() && covered > 0) {
@@ -128,7 +185,7 @@ public class CoverageService {
         Optional<ParserExecution> published = executions
                 .findFirstByParserIdAndStatusInOrderByStartedAtDesc(parser.getId(), AlertService.PUBLISHED);
         return new CoveringParser(parser.getId(), parser.getName(), parser.getDatasetName(), parser.isEnabled(),
-                Completeness.COMPLETE, false,
+                Completeness.COMPLETE, false, null, null,
                 last.map(ParserExecution::getStatus).orElse(null),
                 published.map(ParserExecution::getStartedAt).orElse(null),
                 published.map(ParserExecution::getPersonCount).orElse(0),
@@ -138,6 +195,6 @@ public class CoverageService {
     /** Même parser, avec la complétude déclarée pour une fonction donnée. */
     private static CoveringParser withLink(CoveringParser p, PepFunctionParser link) {
         return new CoveringParser(p.id(), p.name(), p.datasetName(), p.enabled(), link.getCompleteness(),
-                link.isIncludesFormer(), p.lastStatus(), p.lastPublishedAt(), p.personCount(), p.retainedCount());
+                link.isIncludesFormer(), link.getCoveredScope(), link.getGaps(), p.lastStatus(), p.lastPublishedAt(), p.personCount(), p.retainedCount());
     }
 }

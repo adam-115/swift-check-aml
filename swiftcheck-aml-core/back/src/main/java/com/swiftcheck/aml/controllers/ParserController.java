@@ -219,8 +219,13 @@ public class ParserController {
                 .forEach(f -> functions.put(f.getId(), f));
         List<PepFunctionParser> links = new ArrayList<>();
         for (ParserDTO.CoverageItem item : dto.getCoverage()) {
-            links.add(new PepFunctionParser(functions.get(item.functionId()), item.completeness(), item.includesFormer()));
+            links.add(new PepFunctionParser(functions.get(item.functionId()), item.completeness(), item.includesFormer(),
+                    blankToNull(item.coveredScope()), blankToNull(item.gaps())));
         }
         return links;
+    }
+
+    private static String blankToNull(String text) {
+        return text == null || text.isBlank() ? null : text.trim();
     }
 }

@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
@@ -62,12 +63,27 @@ public class PepFunctionParser {
     /** Le parser donne aussi les anciens titulaires (vigilance après la fin des fonctions). */
     private boolean includesFormer;
 
+    /** Ce que le parser couvre de la fonction (titulaires, périmètre, source), affiché dans « Couverture PEP ». */
+    @Column(name = "covered_scope", length = 1000)
+    private String coveredScope;
+
+    /** Ce qui manque et pourquoi (titulaires absents de la source, source bloquée…) ; vide si rien ne manque. */
+    @Column(name = "gaps", length = 2000)
+    private String gaps;
+
     public PepFunctionParser() {
     }
 
     public PepFunctionParser(PepFunction function, Completeness completeness, boolean includesFormer) {
+        this(function, completeness, includesFormer, null, null);
+    }
+
+    public PepFunctionParser(PepFunction function, Completeness completeness, boolean includesFormer,
+            String coveredScope, String gaps) {
         this.function = function;
         this.completeness = completeness == null ? Completeness.COMPLETE : completeness;
         this.includesFormer = includesFormer;
+        this.coveredScope = coveredScope;
+        this.gaps = gaps;
     }
 }

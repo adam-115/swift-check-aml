@@ -512,6 +512,12 @@
                            class="h-3.5 w-3.5 rounded border-slate-300 text-emerald-600">
                     avec les anciens titulaires
                   </label>
+                  <textarea [ngModel]="link.coveredScope" (ngModelChange)="link.coveredScope = $event" [ngModelOptions]="{ standalone: true }"
+                            rows="2" placeholder="Ce que couvre ce parser (titulaires, source, période)" aria-label="Ce que couvre ce parser"
+                            class="w-full rounded border border-slate-300 px-2 py-1 text-xs"></textarea>
+                  <textarea [ngModel]="link.gaps" (ngModelChange)="link.gaps = $event" [ngModelOptions]="{ standalone: true }"
+                            rows="2" placeholder="Ce qui manque, et pourquoi (vide si rien ne manque)" aria-label="Ce qui manque"
+                            class="w-full rounded border border-slate-300 px-2 py-1 text-xs"></textarea>
                 </div>
               </div>
             </div>

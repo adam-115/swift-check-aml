@@ -1,0 +1,319 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Détail de la couverture PEP du Luxembourg (voir 021) : ce que couvre chaque parser et ce qui manque.
+    Chiffres des dernières exécutions du 02/11/2026. Modifiable ensuite dans l'écran « Parsers ».
+-->
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="022-coverage-detail-lu" author="swiftcheck">
+        <sql><![CDATA[
+            UPDATE pep_function_parser l
+                JOIN parser p ON p.id = l.parser_id
+                JOIN pep_function f ON f.id = l.function_id
+                JOIN pep_category c ON c.id = f.category_id
+            SET l.covered_scope = 'Le Grand-Duc régnant, d''après sa fiche officielle sur monarchie.lu, avec la date et le lieu de naissance.',
+                l.gaps = NULL
+            WHERE p.dataset_name = 'lu_pep_grand_duke' AND c.code = 'LU-a' AND f.label LIKE 'Grand-Duc%';
+
+            UPDATE pep_function_parser l
+                JOIN parser p ON p.id = l.parser_id
+                JOIN pep_function f ON f.id = l.function_id
+                JOIN pep_category c ON c.id = f.category_id
+            SET l.covered_scope = 'Les 15 membres du gouvernement en fonction, d''après gouvernement.lu.',
+                l.gaps = 'La fonction exacte (Premier ministre, ministre de…, secrétaire d''État) n''est pas lue : tous sont « membre du gouvernement ». Ni date de naissance ni date d''entrée en fonction sur la page.'
+            WHERE p.dataset_name = 'lu_pep_government' AND c.code = 'LU-a' AND f.label LIKE 'Membre du gouvernement%';
+
+            UPDATE pep_function_parser l
+                JOIN parser p ON p.id = l.parser_id
+                JOIN pep_function f ON f.id = l.function_id
+                JOIN pep_category c ON c.id = f.category_id
+            SET l.covered_scope = '34 anciens membres du gouvernement et le détail de leurs mandats, d''après la page officielle des anciens membres (gouvernement.lu).',
+                l.gaps = NULL
+            WHERE p.dataset_name = 'lu_pep_government_former' AND c.code = 'LU-a' AND f.label LIKE 'Ancien membre%';
+
+            UPDATE pep_function_parser l
+                JOIN parser p ON p.id = l.parser_id
+                JOIN pep_function f ON f.id = l.function_id
+                JOIN pep_category c ON c.id = f.category_id
+            SET l.covered_scope = 'Bourgmestre et échevins de la Ville de Luxembourg, d''après le fichier des collèges des bourgmestre et échevins (ministère des Affaires intérieures, data.public.lu).',
+                l.gaps = 'Pas de date de naissance : l''ID repose sur le nom, le prénom et la commune.'
+            WHERE p.dataset_name = 'lu_pep_municipal' AND c.code = 'LU-AMLR';
+
+            UPDATE pep_function_parser l
+                JOIN parser p ON p.id = l.parser_id
+                JOIN pep_function f ON f.id = l.function_id
+                JOIN pep_category c ON c.id = f.category_id
+            SET l.covered_scope = 'Les 60 députés en fonction, d''après l''open data de la Chambre des Députés (data.public.lu), avec la date de naissance.',
+                l.gaps = NULL
+            WHERE p.dataset_name = 'lu_pep_chamber' AND c.code = 'LU-b' AND f.label LIKE 'Député%';
+
+            UPDATE pep_function_parser l
+                JOIN parser p ON p.id = l.parser_id
+                JOIN pep_function f ON f.id = l.function_id
+                JOIN pep_category c ON c.id = f.category_id
+            SET l.covered_scope = '58 anciens députés dont le mandat a pris fin il y a moins de 5 ans, d''après la liste officielle des anciens députés (depuis 1999).',
+                l.gaps = 'La date de naissance manque pour certains anciens députés : leur ID repose alors sur le nom et le prénom.'
+            WHERE p.dataset_name = 'lu_pep_chamber_former' AND c.code = 'LU-b' AND f.label LIKE 'Ancien député%';
+
+            UPDATE pep_function_parser l
+                JOIN parser p ON p.id = l.parser_id
+                JOIN pep_function f ON f.id = l.function_id
+                JOIN pep_category c ON c.id = f.category_id
+            SET l.covered_scope = '35 membres du Conseil d''État en fonction ou sortis depuis moins de 5 ans, d''après la liste officielle des membres depuis 1857 (conseil-etat.public.lu).',
+                l.gaps = NULL
+            WHERE p.dataset_name = 'lu_pep_council_of_state' AND c.code = 'LU-b' AND f.label LIKE 'Membre du Conseil d''État%';
+
+            UPDATE pep_function_parser l
+                JOIN parser p ON p.id = l.parser_id
+                JOIN pep_function f ON f.id = l.function_id
+                JOIN pep_category c ON c.id = f.category_id
+            SET l.covered_scope = 'Nominations, renouvellements et démissions publiés au Journal officiel (Legilux) depuis 2017, avec les anciens titulaires.',
+                l.gaps = 'Titulaires nommés avant 2017 absents, sauf renouvellement ou démission depuis. Ni identifiant ni date de naissance dans les actes. Quelques actes à la tournure non reconnue sont cités dans le message de l''exécution.'
+            WHERE p.dataset_name = 'lu_pep_legilux' AND c.code = 'LU-b' AND f.label LIKE 'Membre du Conseil d''État%';
+
+            UPDATE pep_function_parser l
+                JOIN parser p ON p.id = l.parser_id
+                JOIN pep_function f ON f.id = l.function_id
+                JOIN pep_category c ON c.id = f.category_id
+            SET l.covered_scope = '10 dirigeants des partis représentés à la Chambre des Députés.',
+                l.gaps = 'Pas de liste officielle des dirigeants (un site par parti) : les autres membres des organes dirigeants (comités directeurs, bureaux exécutifs) ne sont pas lus.'
+            WHERE p.dataset_name = 'lu_pep_political_parties' AND c.code = 'LU-c';
+
+            UPDATE pep_function_parser l
+                JOIN parser p ON p.id = l.parser_id
+                JOIN pep_function f ON f.id = l.function_id
+                JOIN pep_category c ON c.id = f.category_id
+            SET l.covered_scope = 'Membres de la Cour constitutionnelle, d''après la page officielle de justice.public.lu.',
+                l.gaps = NULL
+            WHERE p.dataset_name = 'lu_pep_judiciary' AND c.code = 'LU-d' AND f.label LIKE 'Membre de la Cour constitutionnelle%';
+
+            UPDATE pep_function_parser l
+                JOIN parser p ON p.id = l.parser_id
+                JOIN pep_function f ON f.id = l.function_id
+                JOIN pep_category c ON c.id = f.category_id
+            SET l.covered_scope = 'Nominations, renouvellements et démissions publiés au Journal officiel (Legilux) depuis 2017, avec les anciens titulaires.',
+                l.gaps = 'Titulaires nommés avant 2017 absents, sauf renouvellement ou démission depuis. Ni identifiant ni date de naissance dans les actes. Quelques actes à la tournure non reconnue sont cités dans le message de l''exécution.'
+            WHERE p.dataset_name = 'lu_pep_legilux' AND c.code = 'LU-d' AND f.label LIKE 'Membre de la Cour constitutionnelle%';
+
+            UPDATE pep_function_parser l
+                JOIN parser p ON p.id = l.parser_id
+                JOIN pep_function f ON f.id = l.function_id
+                JOIN pep_category c ON c.id = f.category_id
+            SET l.covered_scope = 'Président et vice-présidents de la Cour supérieure de justice, d''après la page officielle de justice.public.lu.',
+                l.gaps = NULL
+            WHERE p.dataset_name = 'lu_pep_judiciary' AND c.code = 'LU-d' AND f.label LIKE 'Président ou vice-président%';
+
+            UPDATE pep_function_parser l
+                JOIN parser p ON p.id = l.parser_id
+                JOIN pep_function f ON f.id = l.function_id
+                JOIN pep_category c ON c.id = f.category_id
+            SET l.covered_scope = 'Nominations, renouvellements et démissions publiés au Journal officiel (Legilux) depuis 2017, avec les anciens titulaires.',
+                l.gaps = 'Titulaires nommés avant 2017 absents, sauf renouvellement ou démission depuis. Ni identifiant ni date de naissance dans les actes. Quelques actes à la tournure non reconnue sont cités dans le message de l''exécution.'
+            WHERE p.dataset_name = 'lu_pep_legilux' AND c.code = 'LU-d' AND f.label LIKE 'Président ou vice-président%';
+
+            UPDATE pep_function_parser l
+                JOIN parser p ON p.id = l.parser_id
+                JOIN pep_function f ON f.id = l.function_id
+                JOIN pep_category c ON c.id = f.category_id
+            SET l.covered_scope = 'Membres de la Cour de cassation, d''après la page officielle de justice.public.lu.',
+                l.gaps = NULL
+            WHERE p.dataset_name = 'lu_pep_judiciary' AND c.code = 'LU-d' AND f.label LIKE 'Membre de la Cour de cassation%';
+
+            UPDATE pep_function_parser l
+                JOIN parser p ON p.id = l.parser_id
+                JOIN pep_function f ON f.id = l.function_id
+                JOIN pep_category c ON c.id = f.category_id
+            SET l.covered_scope = 'Nominations, renouvellements et démissions publiés au Journal officiel (Legilux) depuis 2017, avec les anciens titulaires.',
+                l.gaps = 'Titulaires nommés avant 2017 absents, sauf renouvellement ou démission depuis. Ni identifiant ni date de naissance dans les actes. Quelques actes à la tournure non reconnue sont cités dans le message de l''exécution.'
+            WHERE p.dataset_name = 'lu_pep_legilux' AND c.code = 'LU-d' AND f.label LIKE 'Membre de la Cour de cassation%';
+
+            UPDATE pep_function_parser l
+                JOIN parser p ON p.id = l.parser_id
+                JOIN pep_function f ON f.id = l.function_id
+                JOIN pep_category c ON c.id = f.category_id
+            SET l.covered_scope = 'Procureur général d''État et procureurs généraux d''État adjoints, d''après la page officielle de justice.public.lu.',
+                l.gaps = NULL
+            WHERE p.dataset_name = 'lu_pep_judiciary' AND c.code = 'LU-d' AND f.label LIKE 'Procureur général%';
+
+            UPDATE pep_function_parser l
+                JOIN parser p ON p.id = l.parser_id
+                JOIN pep_function f ON f.id = l.function_id
+                JOIN pep_category c ON c.id = f.category_id
+            SET l.covered_scope = 'Nominations, renouvellements et démissions publiés au Journal officiel (Legilux) depuis 2017, avec les anciens titulaires.',
+                l.gaps = 'Titulaires nommés avant 2017 absents, sauf renouvellement ou démission depuis. Ni identifiant ni date de naissance dans les actes. Quelques actes à la tournure non reconnue sont cités dans le message de l''exécution.'
+            WHERE p.dataset_name = 'lu_pep_legilux' AND c.code = 'LU-d' AND f.label LIKE 'Procureur général%';
+
+            UPDATE pep_function_parser l
+                JOIN parser p ON p.id = l.parser_id
+                JOIN pep_function f ON f.id = l.function_id
+                JOIN pep_category c ON c.id = f.category_id
+            SET l.covered_scope = 'Magistrats de la Cour administrative, d''après les convocations d''audiences publiées sur justice.public.lu (4 personnes à la dernière exécution).',
+                l.gaps = 'La source est la composition des chambres d''audience publiées : un membre qui n''y siège pas n''est pas lu (14 personnes disparues de la source sont gardées par la rétention).'
+            WHERE p.dataset_name = 'lu_pep_administrative_courts' AND c.code = 'LU-d' AND f.label LIKE 'Membre de la Cour administrative%';
+
+            UPDATE pep_function_parser l
+                JOIN parser p ON p.id = l.parser_id
+                JOIN pep_function f ON f.id = l.function_id
+                JOIN pep_category c ON c.id = f.category_id
+            SET l.covered_scope = 'Nominations, renouvellements et démissions publiés au Journal officiel (Legilux) depuis 2017, avec les anciens titulaires.',
+                l.gaps = 'Titulaires nommés avant 2017 absents, sauf renouvellement ou démission depuis. Ni identifiant ni date de naissance dans les actes. Quelques actes à la tournure non reconnue sont cités dans le message de l''exécution.'
+            WHERE p.dataset_name = 'lu_pep_legilux' AND c.code = 'LU-d' AND f.label LIKE 'Membre de la Cour administrative%';
+
+            UPDATE pep_function_parser l
+                JOIN parser p ON p.id = l.parser_id
+                JOIN pep_function f ON f.id = l.function_id
+                JOIN pep_category c ON c.id = f.category_id
+            SET l.covered_scope = 'Les 5 membres du Collège (président, vice-président, conseillers), d''après cour-des-comptes.public.lu, avec la date de naissance.',
+                l.gaps = NULL
+            WHERE p.dataset_name = 'lu_pep_court_of_auditors' AND c.code = 'LU-e' AND f.label LIKE 'Membre de la Cour des comptes%';
+
+            UPDATE pep_function_parser l
+                JOIN parser p ON p.id = l.parser_id
+                JOIN pep_function f ON f.id = l.function_id
+                JOIN pep_category c ON c.id = f.category_id
+            SET l.covered_scope = 'Nominations, renouvellements et démissions publiés au Journal officiel (Legilux) depuis 2017, avec les anciens titulaires.',
+                l.gaps = 'Titulaires nommés avant 2017 absents, sauf renouvellement ou démission depuis. Ni identifiant ni date de naissance dans les actes. Quelques actes à la tournure non reconnue sont cités dans le message de l''exécution.'
+            WHERE p.dataset_name = 'lu_pep_legilux' AND c.code = 'LU-e' AND f.label LIKE 'Membre de la Cour des comptes%';
+
+            UPDATE pep_function_parser l
+                JOIN parser p ON p.id = l.parser_id
+                JOIN pep_function f ON f.id = l.function_id
+                JOIN pep_category c ON c.id = f.category_id
+            SET l.covered_scope = 'Direction (directeur général, directeurs) et Conseil de la BCL, d''après la page des organes statutaires de bcl.lu : 9 personnes.',
+                l.gaps = NULL
+            WHERE p.dataset_name = 'lu_pep_central_bank' AND c.code = 'LU-e' AND f.label LIKE 'Directeur général%';
+
+            UPDATE pep_function_parser l
+                JOIN parser p ON p.id = l.parser_id
+                JOIN pep_function f ON f.id = l.function_id
+                JOIN pep_category c ON c.id = f.category_id
+            SET l.covered_scope = 'Nominations, renouvellements et démissions publiés au Journal officiel (Legilux) depuis 2017, avec les anciens titulaires.',
+                l.gaps = 'Titulaires nommés avant 2017 absents, sauf renouvellement ou démission depuis. Ni identifiant ni date de naissance dans les actes. Quelques actes à la tournure non reconnue sont cités dans le message de l''exécution.'
+            WHERE p.dataset_name = 'lu_pep_legilux' AND c.code = 'LU-e' AND f.label LIKE 'Directeur général%';
+
+            UPDATE pep_function_parser l
+                JOIN parser p ON p.id = l.parser_id
+                JOIN pep_function f ON f.id = l.function_id
+                JOIN pep_category c ON c.id = f.category_id
+            SET l.covered_scope = 'Les 6 députés européens élus au Luxembourg en fonction, d''après la liste officielle du Parlement européen.',
+                l.gaps = 'Ni date de naissance ni genre dans le fichier.'
+            WHERE p.dataset_name = 'lu_pep_europarl' AND c.code = 'LU-EU' AND f.label LIKE 'Député au Parlement%';
+
+            UPDATE pep_function_parser l
+                JOIN parser p ON p.id = l.parser_id
+                JOIN pep_function f ON f.id = l.function_id
+                JOIN pep_category c ON c.id = f.category_id
+            SET l.covered_scope = '8 anciens députés européens élus au Luxembourg, sortis depuis moins de 5 ans, d''après l''API open data du Parlement européen.',
+                l.gaps = NULL
+            WHERE p.dataset_name = 'lu_pep_europarl_former' AND c.code = 'LU-EU' AND f.label LIKE 'Député au Parlement%';
+
+            UPDATE pep_function_parser l
+                JOIN parser p ON p.id = l.parser_id
+                JOIN pep_function f ON f.id = l.function_id
+                JOIN pep_category c ON c.id = f.category_id
+            SET l.covered_scope = 'Le membre luxembourgeois de la Commission en fonction (collège des commissaires) et l''ancien commissaire sorti depuis moins de 5 ans.',
+                l.gaps = 'L''ancien commissaire est lu sur une page donnée en paramètre (formerCommissionerPages) : à mettre à jour à chaque changement de commissaire.'
+            WHERE p.dataset_name = 'lu_pep_eu_commission' AND c.code = 'LU-EU' AND f.label LIKE 'Membre luxembourgeois%';
+
+            UPDATE pep_function_parser l
+                JOIN parser p ON p.id = l.parser_id
+                JOIN pep_function f ON f.id = l.function_id
+                JOIN pep_category c ON c.id = f.category_id
+            SET l.covered_scope = '18 ambassadeurs et chargés d''affaires, d''après le portail des missions diplomatiques du ministère des Affaires étrangères et les pages d''équipe des ambassades.',
+                l.gaps = '18 personnes lues pour environ 40 postes attendus : une mission sans page d''équipe nominative n''est pas couverte. Legilux ne publie plus les nominations d''ambassadeurs depuis 2016.'
+            WHERE p.dataset_name = 'lu_pep_diplomats' AND c.code = 'LU-f' AND f.label LIKE 'Ambassadeur%';
+
+            UPDATE pep_function_parser l
+                JOIN parser p ON p.id = l.parser_id
+                JOIN pep_function f ON f.id = l.function_id
+                JOIN pep_category c ON c.id = f.category_id
+            SET l.covered_scope = 'Chef d''état-major, chef d''état-major adjoint, commandant des forces et autres officiers du personnel-clé de l''Armée (armee.public.lu) : 5 personnes.',
+                l.gaps = 'Seuls les officiers du personnel-clé publié sur le site, pour environ 10 attendus.'
+            WHERE p.dataset_name = 'lu_pep_army' AND c.code = 'LU-f' AND f.label LIKE 'Officier supérieur%';
+
+            UPDATE pep_function_parser l
+                JOIN parser p ON p.id = l.parser_id
+                JOIN pep_function f ON f.id = l.function_id
+                JOIN pep_category c ON c.id = f.category_id
+            SET l.covered_scope = '1 050 administrateurs, directeurs et commissaires du gouvernement de 111 entreprises et participations de l''État, d''après la liste officielle des participations (Trésorerie de l''État, data.public.lu).',
+                l.gaps = NULL
+            WHERE p.dataset_name = 'lu_pep_state_enterprises' AND c.code = 'LU-g';
+
+            UPDATE pep_function_parser l
+                JOIN parser p ON p.id = l.parser_id
+                JOIN pep_function f ON f.id = l.function_id
+                JOIN pep_category c ON c.id = f.category_id
+            SET l.covered_scope = 'Juges et greffier de la Cour de l''AELE lus sur eftacourt.int, et dirigeants de l''Office statistique de l''AELE et d''Eurocontrol Luxembourg : 11 personnes.',
+                l.gaps = 'Les juges ad hoc de la Cour de l''AELE et les dirigeants de l''Office statistique de l''AELE et d''Eurocontrol sont écrits dans le code du plugin, pas lus dans une source : à vérifier et à mettre à jour à la main.'
+            WHERE p.dataset_name = 'lu_pep_international_orgs' AND c.code = 'LU-h';
+
+            UPDATE pep_function_parser l
+                JOIN parser p ON p.id = l.parser_id
+                JOIN pep_function f ON f.id = l.function_id
+                JOIN pep_category c ON c.id = f.category_id
+            SET l.covered_scope = 'Comité de direction du Commissariat aux assurances, d''après caa.lu : 3 personnes.',
+                l.gaps = NULL
+            WHERE p.dataset_name = 'lu_pep_caa' AND c.code = 'LU-i';
+
+            UPDATE pep_function_parser l
+                JOIN parser p ON p.id = l.parser_id
+                JOIN pep_function f ON f.id = l.function_id
+                JOIN pep_category c ON c.id = f.category_id
+            SET l.covered_scope = 'Direction de la CSSF (directeur général et directeurs), d''après le PDF officiel de la direction : 5 personnes.',
+                l.gaps = NULL
+            WHERE p.dataset_name = 'lu_pep_cssf' AND c.code = 'LU-i';
+
+            UPDATE pep_function_parser l
+                JOIN parser p ON p.id = l.parser_id
+                JOIN pep_function f ON f.id = l.function_id
+                JOIN pep_category c ON c.id = f.category_id
+            SET l.covered_scope = 'Direction de l''ILR (directeur, directeurs adjoints), d''après la page d''équipe d''ilr.lu : 3 personnes.',
+                l.gaps = NULL
+            WHERE p.dataset_name = 'lu_pep_ilr' AND c.code = 'LU-i';
+
+            UPDATE pep_function_parser l
+                JOIN parser p ON p.id = l.parser_id
+                JOIN pep_function f ON f.id = l.function_id
+                JOIN pep_category c ON c.id = f.category_id
+            SET l.covered_scope = 'Nominations, renouvellements et démissions publiés au Journal officiel (Legilux) depuis 2017, avec les anciens titulaires.',
+                l.gaps = 'Titulaires nommés avant 2017 absents, sauf renouvellement ou démission depuis. Ni identifiant ni date de naissance dans les actes. Quelques actes à la tournure non reconnue sont cités dans le message de l''exécution. Le conseil d''administration de l''ILR (publié en arrêté) n''est pas lu.'
+            WHERE p.dataset_name = 'lu_pep_legilux' AND c.code = 'LU-i';
+
+            UPDATE pep_function_parser l
+                JOIN parser p ON p.id = l.parser_id
+                JOIN pep_function f ON f.id = l.function_id
+                JOIN pep_category c ON c.id = f.category_id
+            SET l.covered_scope = 'Les bourgmestres des 100 communes, mandats en cours et terminés depuis moins de 5 ans, d''après le fichier des collèges des bourgmestre et échevins (data.public.lu).',
+                l.gaps = 'Pas de date de naissance : l''ID repose sur le nom, le prénom et la commune. Seuls les mandats depuis les élections communales de 2023 ; l''adresse du fichier changera après les élections de 2029.'
+            WHERE p.dataset_name = 'lu_pep_municipal' AND c.code = 'LU-MUN' AND f.label LIKE 'Bourgmestre%';
+
+            UPDATE pep_function_parser l
+                JOIN parser p ON p.id = l.parser_id
+                JOIN pep_function f ON f.id = l.function_id
+                JOIN pep_category c ON c.id = f.category_id
+            SET l.covered_scope = 'Les échevins des 100 communes, mandats en cours et terminés depuis moins de 5 ans, d''après le fichier des collèges des bourgmestre et échevins (data.public.lu).',
+                l.gaps = 'Pas de date de naissance : l''ID repose sur le nom, le prénom et la commune. Seuls les mandats depuis les élections communales de 2023 ; l''adresse du fichier changera après les élections de 2029.'
+            WHERE p.dataset_name = 'lu_pep_municipal' AND c.code = 'LU-MUN' AND f.label LIKE 'Échevin%';
+
+            UPDATE pep_function_parser l
+                JOIN parser p ON p.id = l.parser_id
+                JOIN pep_function f ON f.id = l.function_id
+                JOIN pep_category c ON c.id = f.category_id
+            SET l.covered_scope = 'Conjoints, enfants, parents, frères et sœurs des PEP luxembourgeois décrits dans Wikidata : 55 proches de 30 PEP.',
+                l.gaps = 'Seules les familles décrites dans Wikidata (30 PEP sur 392 connues de Wikidata). Données collaboratives, à contrôler.'
+            WHERE p.dataset_name = 'lu_pep_rca' AND c.code = 'LU-RCA' AND f.label LIKE 'Membre de la famille%';
+
+            UPDATE pep_function_parser l
+                JOIN parser p ON p.id = l.parser_id
+                JOIN pep_function f ON f.id = l.function_id
+                JOIN pep_category c ON c.id = f.category_id
+            SET l.covered_scope = '74 organismes liés à 15 députés (mandats et participations), d''après les déclarations d''intérêts financiers publiées sur chd.lu.',
+                l.gaps = '22 déclarations scannées sans texte ne sont pas lues (il faudrait une reconnaissance de caractères). Seuls les députés déclarent. Pas de proches associés personnes physiques.'
+            WHERE p.dataset_name = 'lu_pep_associated_entities' AND c.code = 'LU-RCA' AND f.label LIKE 'Proche associé%';
+        ]]></sql>
+    </changeSet>
+
+</databaseChangeLog>

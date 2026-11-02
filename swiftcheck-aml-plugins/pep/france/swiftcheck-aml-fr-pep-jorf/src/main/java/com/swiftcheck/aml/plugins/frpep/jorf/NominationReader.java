@@ -59,7 +59,13 @@ final class NominationReader {
         COUR_CASSATION("cour-cassation", "Cour de cassation"),
         COUR_COMPTES("cour-des-comptes", "Cour des comptes"),
         AMBASSADE("ambassade", "Ambassades"),
-        GOUVERNEMENT("gouvernement", "Gouvernement");
+        GOUVERNEMENT("gouvernement", "Gouvernement"),
+        /**
+         * Dirigeants des grands ports maritimes, nommés par décret (« M. Ivan MARTIN est nommé président du directoire
+         * du grand port maritime de Bordeaux ») : ils n'ont pas de dirigeant inscrit au registre des entreprises, que
+         * lit {@code fr_pep_state_enterprises}.
+         */
+        ENTREPRISE_PUBLIQUE("entreprise-publique", "Entreprises publiques");
 
         final String key;
         final String label;
@@ -144,6 +150,9 @@ final class NominationReader {
                     + "administratifs|cours? administratives? d'appel|avocats? aux? conseils?|chefs? des services"
                     + "|tresorier|agent comptable|conseiller (?:commercial|culturel|economique|des affaires etrangeres)"
                     + "|premier conseiller a l'ambassade|ambassade de france a ");
+
+    /** Entreprise publique dont les dirigeants sont nommés au Journal officiel (texte sans accents ni casse). */
+    static final Pattern ENTERPRISE = Pattern.compile("\\bgrand port (?:fluvio-)?maritime\\b");
 
     private NominationReader() {
     }
@@ -254,13 +263,13 @@ final class NominationReader {
 
             Institution target = institution(function, section);
             if (target != null) {
-                events.add(new Event(Kind.NOMINATION, name, target, function,
-                        target == Institution.AMBASSADE ? post(function) : null, when, null, article));
+                events.add(new Event(Kind.NOMINATION, name, target, function, postOf(target, function), when, null,
+                        article));
             }
             // Nommé hors de l'institution citée par sa qualité : il la quitte
             if (qualityInstitution != null && qualityInstitution != target) {
                 events.add(new Event(Kind.DEPARTURE, name, qualityInstitution, quality,
-                        qualityInstitution == Institution.AMBASSADE ? post(quality) : null, when, null, article));
+                        postOf(qualityInstitution, quality), when, null, article));
             }
         }
         return events;
@@ -409,8 +418,7 @@ final class NominationReader {
         // Retraite suivie d'un maintien en fonction : la fin est celle du maintien
         LocalDate until = MAINTAINED.matcher(line).find() ? date(UNTIL_DATE, line) : null;
         LocalDate when = until != null ? until : orElse(date(FROM_DATE, line), defaultDate);
-        events.add(new Event(Kind.DEPARTURE, name, from, function,
-                from == Institution.AMBASSADE && function != null ? post(function) : null, when, null, article));
+        events.add(new Event(Kind.DEPARTURE, name, from, function, postOf(from, function), when, null, article));
     }
 
     /**
@@ -457,6 +465,9 @@ final class NominationReader {
                         + "aupres d.*")) {
             return Institution.AMBASSADE;
         }
+        if (ENTERPRISE.matcher(t).find()) {
+            return Institution.ENTREPRISE_PUBLIQUE;
+        }
         if (t.contains("cour de cassation")) {
             return Institution.COUR_CASSATION;
         }
@@ -478,7 +489,7 @@ final class NominationReader {
                     + "|avocat\\w* general\\w*)\\b.*");
             case COUR_CASSATION -> t.matches(".*\\b(?:conseill\\w*|auditeur|auditrice|president\\w*|procureur\\w*"
                     + " general\\w*|avocat\\w* general\\w*)\\b.*|.*ladite cour.*");
-            case AMBASSADE, GOUVERNEMENT -> false;
+            case AMBASSADE, GOUVERNEMENT, ENTREPRISE_PUBLIQUE -> false;
         };
         return member ? section : null;
     }
@@ -494,6 +505,28 @@ final class NominationReader {
     }
 
     /** Poste d'ambassadeur : ce qui suit « de la République française », ou la fonction entière. */
+    /**
+     * Poste dans une entreprise publique : la fonction écrite, au singulier, sans accents ni casse (« membres du
+     * conseil de surveillance du grand port maritime de La Rochelle » → « membre du conseil de surveillance du grand
+     * port maritime de la rochelle »).
+     */
+    static String enterprisePost(String function) {
+        return JorfArticles.fold(function).replaceFirst("^(membre|president|vice-president|directeur|directrice)s\\b",
+                "$1").trim();
+    }
+
+    /** Poste d'un événement : celui d'un ambassadeur ou d'un dirigeant d'entreprise publique, sinon {@code null}. */
+    private static String postOf(Institution institution, String function) {
+        if (function == null) {
+            return null;
+        }
+        return switch (institution) {
+            case AMBASSADE -> post(function);
+            case ENTREPRISE_PUBLIQUE -> enterprisePost(function);
+            default -> null;
+        };
+    }
+
     static String post(String function) {
         String f = function.replaceFirst("(?i)^.*?(?:de la République française|de la France)\\s+", "");
         return f.isBlank() ? function : f.trim();
