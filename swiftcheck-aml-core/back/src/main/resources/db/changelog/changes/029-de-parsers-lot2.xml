@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Lot 2 des parsers PEP de l'Allemagne : Bundesbank, Cours des comptes (fédérale et Länder),
+    Cours fédérales suprêmes (6 cours), Cours constitutionnelles des Länder (16 cours),
+    Partis politiques (Bundeswahlleiterin), Diplomates (ambassadeurs et chargés d'affaires),
+    Organisations internationales (OEB, EUMETSAT, EMBL, ESO, OCCAR, ONU Bonn, ITLOS).
+    Plan : documentation/analyse pep allemagne/Plan_Parsers_PEP_Allemagne.pdf.
+-->
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <!-- Module 8 : Deutsche Bundesbank -->
+    <changeSet id="029-parser-de-pep-bundesbank" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Allemagne – Directoire de la Bundesbank',
+                'Président, vice-présidente et membres du directoire de la Deutsche Bundesbank (catégorie DE-f)',
+                'de_pep_bundesbank', 'PEP', 'https://www.bundesbank.de/de/bundesbank/organisation/vorstand',
+                'de-pep-bundesbank', 'D:/test parser 2/plugins/swiftcheck-aml-de-pep-bundesbank-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'WEB_PAGE',
+                NULL,
+                '{"url": "https://www.bundesbank.de/de/bundesbank/organisation/vorstand"}',
+                168, 12,
+                'Citer la source (Deutsche Bundesbank)', 'Deutsche Bundesbank, www.bundesbank.de',
+                'Extrait le directoire complet (Vorstand) de la Deutsche Bundesbank avec photos et rôles officiels.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', FALSE, 'Président, vice-présidente et membres du directoire avec photos et fonctions officielles.', 'Les anciens membres ne sont pas repris sur la page courante.'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'DE-f' AND f.label LIKE 'Président, vice-président%' AND p.dataset_name = 'de_pep_bundesbank';
+        ]]></sql>
+    </changeSet>
+
+    <!-- Module 9 : Cours des comptes fédérale et des 16 Länder -->
+    <changeSet id="029-parser-de-pep-audit-courts" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Allemagne – Cours des comptes fédérale et régionales',
+                'Présidents, vice-présidents et membres dirigeants de la Cour des comptes fédérale et des 16 cours régionales (catégorie DE-e)',
+                'de_pep_audit_courts', 'PEP', 'https://www.bundesrechnungshof.de',
+                'de-pep-audit-courts', 'D:/test parser 2/plugins/swiftcheck-aml-de-pep-audit-courts-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'WEB_PAGE',
+                NULL,
+                '{"configFile": ""}',
+                168, 12,
+                'Citer la source (Bundesrechnungshof / Landesrechnungshöfe)', 'Bundesrechnungshof und Landesrechnungshöfe',
+                'Configuration-driven : lit les pages des collèges dirigeants de la Cour fédérale et des 16 cours des Länder.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', FALSE, 'Président, vice-président et membres du collège du Bundesrechnungshof.', NULL
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'DE-e' AND f.label LIKE 'Président, vice-président ou membre de la Cour des comptes fédérale%' AND p.dataset_name = 'de_pep_audit_courts';
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', FALSE, 'Présidents, vice-présidents et directoires des 16 cours des comptes régionales (Landesrechnungshöfe).', NULL
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'DE-e' AND f.label LIKE 'Président, vice-président ou membre d''une cour des comptes de Land%' AND p.dataset_name = 'de_pep_audit_courts';
+        ]]></sql>
+    </changeSet>
+
+    <!-- Module 10 : Juges des 6 cours fédérales suprêmes -->
+    <changeSet id="029-parser-de-pep-federal-courts" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Allemagne – Juges des cours fédérales suprêmes',
+                'Juges des 6 cours fédérales suprêmes : BVerfG, BGH, BVerwG, BAG, BSG, BFH (catégorie DE-d)',
+                'de_pep_federal_courts', 'PEP', 'https://www.bundesverfassungsgericht.de',
+                'de-pep-federal-courts', 'D:/test parser 2/plugins/swiftcheck-aml-de-pep-federal-courts-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'WEB_PAGE',
+                NULL,
+                '{"configFile": ""}',
+                168, 12,
+                'Citer les sources respectives des cours fédérales', 'Oberste Gerichtshöfe des Bundes',
+                'Extrait les juges fédéraux des 6 hautes juridictions : Cour constitutionnelle (BVerfG, 16 juges) et cours de justice suprêmes.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', FALSE, 'Les 16 juges de la Cour constitutionnelle fédérale (BVerfG), présidents et vice-présidents de sénats.', NULL
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'DE-d' AND f.label LIKE 'Juge à la Cour constitutionnelle fédérale%' AND p.dataset_name = 'de_pep_federal_courts';
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', FALSE, 'Présidents et juges à la Cour fédérale de justice (BGH).', NULL
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'DE-d' AND f.label LIKE '%Cour fédérale de justice%' AND p.dataset_name = 'de_pep_federal_courts';
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', FALSE, 'Présidents et juges à la Cour administrative fédérale (BVerwG).', NULL
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'DE-d' AND f.label LIKE '%Cour administrative fédérale%' AND p.dataset_name = 'de_pep_federal_courts';
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', FALSE, 'Présidents et juges à la Cour fédérale des finances (BFH).', NULL
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'DE-d' AND f.label LIKE '%Cour fédérale des finances%' AND p.dataset_name = 'de_pep_federal_courts';
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', FALSE, 'Présidents et juges à la Cour fédérale du travail (BAG).', NULL
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'DE-d' AND f.label LIKE '%Cour fédérale du travail%' AND p.dataset_name = 'de_pep_federal_courts';
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', FALSE, 'Présidents et juges à la Cour sociale fédérale (BSG).', NULL
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'DE-d' AND f.label LIKE '%Cour sociale fédérale%' AND p.dataset_name = 'de_pep_federal_courts';
+        ]]></sql>
+    </changeSet>
+
+    <!-- Module 11 : Juges des 16 cours constitutionnelles des Länder -->
+    <changeSet id="029-parser-de-pep-land-constitutional-courts" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Allemagne – Cours constitutionnelles des Länder',
+                'Présidents et juges des 16 cours constitutionnelles régionales des Länder (catégorie DE-d)',
+                'de_pep_land_constitutional_courts', 'PEP', 'https://verfgh.baden-wuerttemberg.de',
+                'de-pep-land-constitutional-courts', 'D:/test parser 2/plugins/swiftcheck-aml-de-pep-land-constitutional-courts-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'WEB_PAGE',
+                NULL,
+                '{"configFile": ""}',
+                168, 12,
+                'Citer la source (Landesverfassungsgerichte)', 'Verfassungsgerichte der 16 Länder',
+                'Lit les membres et présidents des 16 cours constitutionnelles des Länder (Verfassungsgerichtshöfe / Staatsgerichtshöfe).', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', FALSE, 'Présidents et juges des 16 cours constitutionnelles régionales des Länder.', NULL
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'DE-d' AND f.label LIKE 'Président ou juge d''une cour constitutionnelle de Land%' AND p.dataset_name = 'de_pep_land_constitutional_courts';
+        ]]></sql>
+    </changeSet>
+
+    <!-- Module 12 : Partis politiques au Bundestag -->
+    <changeSet id="029-parser-de-pep-parties" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Allemagne – Directions fédérales des partis politiques',
+                'Membres des organes dirigeants fédéraux des partis représentés au Bundestag, d''après la Bundeswahlleiterin (§ 6 (3) PartG) (catégorie DE-c)',
+                'de_pep_parties', 'PEP', 'https://www.bundeswahlleiterin.de/parteien/unterlagensammlung',
+                'de-pep-parties', 'D:/test parser 2/plugins/swiftcheck-aml-de-pep-parties-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'OPEN_DATA_FILE',
+                NULL,
+                '{"configFile": ""}',
+                168, 12,
+                'Unterlagensammlung der Bundeswahlleiterin (§ 6 (3) PartG)', 'Die Bundeswahlleiterin, www.bundeswahlleiterin.de',
+                'Organes dirigeants (Bundesvorstand, Parteivorstand, Präsidium) des partis siégeant au Bundestag (SPD, CDU, CSU, GRÜNE, FDP, AfD, DIE LINKE, BSW).', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', FALSE, 'Membres des directions fédérales des partis représentés au Bundestag (présidents, vice-présidents, secrétaires généraux, trésoriers).', 'Documents déposés par les partis eux-mêmes sous leur responsabilité.'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'DE-c' AND f.label LIKE 'Membre de la direction fédérale d''un parti politique%' AND p.dataset_name = 'de_pep_parties';
+        ]]></sql>
+    </changeSet>
+
+    <!-- Module 13 : Diplomates (Ambassadeurs et chargés d'affaires) -->
+    <changeSet id="029-parser-de-pep-diplomats" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Allemagne – Ambassadeurs et chefs de poste diplomatique',
+                'Ambassadeurs, représentants permanents et chargés d''affaires de l''Allemagne dans le monde (catégorie DE-g)',
+                'de_pep_diplomats', 'PEP', 'https://www.auswaertiges-amt.de',
+                'de-pep-diplomats', 'D:/test parser 2/plugins/swiftcheck-aml-de-pep-diplomats-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'WEB_PAGE',
+                NULL,
+                '{}',
+                168, 12,
+                'Citer la source (Auswärtiges Amt)', 'Auswärtiges Amt, www.auswaertiges-amt.de',
+                'Couvre l''ensemble des ambassadeurs et chargés d''affaires en poste (environ 150 pays et missions permanentes). Les attachés de défense ne sont pas publiés publiquement.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', FALSE, 'Ambassadeurs, représentantes et représentants permanents, et chargés d''affaires en poste à l''étranger.', 'Les attachés de défense ne disposent d''aucune source publique accessible.'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'DE-g' AND f.label LIKE 'Ambassadeur ou chargé d''affaires%' AND p.dataset_name = 'de_pep_diplomats';
+        ]]></sql>
+    </changeSet>
+
+    <!-- Module 14 : Organisations internationales établies en Allemagne -->
+    <changeSet id="029-parser-de-pep-international-orgs" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Allemagne – Organisations internationales établies en Allemagne',
+                'Dirigeants des organisations internationales ayant leur siège ou antenne majeure en Allemagne (catégorie DE-i)',
+                'de_pep_international_orgs', 'PEP', 'https://www.epo.org',
+                'de-pep-international-orgs', 'D:/test parser 2/plugins/swiftcheck-aml-de-pep-international-orgs-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'WEB_PAGE',
+                NULL,
+                '{"configFile": ""}',
+                168, 12,
+                'Citer chaque organisation internationale', 'OEB, EUMETSAT, EMBL, ESO, OCCAR, UN Bonn, ITLOS',
+                'Reprise et adaptation de fr_pep_international_orgs : lit les dirigeants de l''OEB (Munich), EUMETSAT (Darmstadt), EMBL, ESO, OCCAR, ONU à Bonn et ITLOS (Hambourg).', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', FALSE, 'Présidents, directeurs généraux, secrétaires exécutifs et juges dirigeants des organisations internationales en Allemagne.', NULL
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'DE-i' AND f.label LIKE 'Dirigeant ou haut fonctionnaire d''une organisation internationale%' AND p.dataset_name = 'de_pep_international_orgs';
+        ]]></sql>
+    </changeSet>
+
+</databaseChangeLog>
+

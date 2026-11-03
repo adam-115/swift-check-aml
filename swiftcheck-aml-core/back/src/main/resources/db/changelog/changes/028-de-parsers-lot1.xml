@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Lot 1 des parsers PEP de l'Allemagne : Bundestag (open data XML), Bundesrat (membres et gouvernements des 16 Länder),
+    gouvernement fédéral, Président fédéral, Parlement européen, Commission européenne et famille (Wikidata).
+    Plan : documentation/analyse pep allemagne/Plan_Parsers_PEP_Allemagne.pdf.
+-->
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="028-parser-de-pep-bundestag" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Allemagne – Députés du Bundestag',
+                'Les députés du Bundestag en fonction et les anciens sortis depuis moins de 12 mois, d’après l’open data XML du Bundestag (catégorie DE-b)',
+                'de_pep_bundestag', 'PEP', 'https://www.bundestag.de/services/opendata',
+                'de-pep-bundestag', 'D:/test parser 2/plugins/swiftcheck-aml-de-pep-bundestag-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'OPEN_DATA_FILE',
+                NULL,
+                '{"url": "https://www.bundestag.de/resource/blob/472878/MdB-Stammdaten.zip", "monthsAfterEnd": "12"}',
+                168, 12,
+                'Open Data Bundestag (Datenlizenz Deutschland - Namensnennung 2.0)', 'Deutscher Bundestag, www.bundestag.de',
+                'Fichier XML MdB-Stammdaten.zip contenant l''ensemble des 4 614 députés depuis 1949 avec date et lieu de naissance, parti, circonscription et dates de mandat.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', TRUE, 'Députés du Bundestag en fonction et sortis depuis moins de 12 mois, avec date et lieu de naissance, parti, groupe et circonscription.', NULL
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'DE-b' AND f.label LIKE 'Membre du Bundestag%' AND p.dataset_name = 'de_pep_bundestag';
+        ]]></sql>
+    </changeSet>
+
+    <changeSet id="028-parser-de-pep-bundesrat" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Allemagne – Bundesrat et gouvernements des Länder',
+                'Les membres du Bundesrat (catégorie DE-b) et ministres-présidents et ministres des 16 Länder (catégorie DE-a), d’après bundesrat.de',
+                'de_pep_bundesrat', 'PEP', 'https://www.bundesrat.de',
+                'de-pep-bundesrat', 'D:/test parser 2/plugins/swiftcheck-aml-de-pep-bundesrat-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'WEB_PAGE',
+                NULL,
+                '{"url": "https://www.bundesrat.de/DE/bundesrat/mitglieder/mitglieder-node.html?param3=Alle"}',
+                24, 12,
+                'Citer la source (Bundesrat)', 'Bundesrat, www.bundesrat.de',
+                'Extrait les membres titulaires et suppléants du Bundesrat, qui composent les exécutifs des 16 Länder. Donne d’un coup les ministres-présidents et ministres régionaux.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', FALSE, 'Les membres titulaires du Bundesrat avec leur Land et leur parti.', 'Les anciens membres ne sont pas repris sur la page courante.'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'DE-b' AND f.label LIKE 'Membre du Bundesrat%' AND f.label NOT LIKE '%suppléant%' AND p.dataset_name = 'de_pep_bundesrat';
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', FALSE, 'Les membres suppléants du Bundesrat avec leur Land et leur parti.', NULL
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'DE-b' AND f.label LIKE 'Membre suppléant du Bundesrat%' AND p.dataset_name = 'de_pep_bundesrat';
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', FALSE, 'Les ministres-présidents et maires gouverneurs des 16 Länder, avec leur fonction régionale exacte.', NULL
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'DE-a' AND f.label LIKE 'Ministre-président d''un Land%' AND p.dataset_name = 'de_pep_bundesrat';
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', FALSE, 'Les ministres et sénateurs des 16 Länder siégeant au Bundesrat.', NULL
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'DE-a' AND f.label LIKE 'Ministre ou sénateur d''un gouvernement de Land%' AND p.dataset_name = 'de_pep_bundesrat';
+        ]]></sql>
+    </changeSet>
+
+    <changeSet id="028-parser-de-pep-federal-government" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Allemagne – Gouvernement fédéral',
+                'Chancelier fédéral et ministres fédéraux, d’après bundesregierung.de (catégorie DE-a)',
+                'de_pep_federal_government', 'PEP', 'https://www.bundesregierung.de/breg-de/bundesregierung/bundeskabinett',
+                'de-pep-federal-government', 'D:/test parser 2/plugins/swiftcheck-aml-de-pep-federal-government-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'WEB_PAGE',
+                NULL,
+                '{"url": "https://www.bundesregierung.de/breg-de/bundesregierung/bundeskabinett"}',
+                24, 12,
+                'Citer la source (Presse- und Informationsamt der Bundesregierung)', 'Presse- und Informationsamt der Bundesregierung, www.bundesregierung.de',
+                'Lit la page officielle du cabinet fédéral. Donne le Chancelier et les ministres fédéraux avec leur fonction exacte et portrait officiel.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', FALSE, 'Le Chancelier fédéral avec son portrait officiel.', 'Les anciens membres ne sont pas repris sur la page courante.'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'DE-a' AND f.label LIKE 'Chancelier fédéral%' AND p.dataset_name = 'de_pep_federal_government';
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', FALSE, 'Les ministres fédéraux et ministres d''État du cabinet.', NULL
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'DE-a' AND f.label LIKE 'Ministre fédéral ou ministre d''État%' AND p.dataset_name = 'de_pep_federal_government';
+        ]]></sql>
+    </changeSet>
+
+    <changeSet id="028-parser-de-pep-president" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Allemagne – Président fédéral',
+                'Le Président fédéral de la République fédérale d''Allemagne, d’après sa page officielle sur bundespraesident.de (catégorie DE-a)',
+                'de_pep_president', 'PEP', 'https://www.bundespraesident.de',
+                'de-pep-president', 'D:/test parser 2/plugins/swiftcheck-aml-de-pep-president-0.0.1-SNAPSHOT.jar',
+                'HTTP_FILE', 'WEB_PAGE',
+                'https://www.bundespraesident.de/DE/bundespraesident/frank-walter-steinmeier_node.html',
+                NULL,
+                168, 12,
+                'Citer la source (Bundespräsidialamt)', 'Bundespräsidialamt, www.bundespraesident.de',
+                'Biographie officielle du Président fédéral, date et lieu de naissance, année d''élection et portrait officiel.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', FALSE, 'Le Président fédéral Frank-Walter Steinmeier, avec date et lieu de naissance, début du mandat et photo officielle.', NULL
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'DE-a' AND f.label LIKE 'Président fédéral%' AND p.dataset_name = 'de_pep_president';
+        ]]></sql>
+    </changeSet>
+
+    <changeSet id="028-parser-de-pep-europarl" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Allemagne – Députés européens',
+                'Les députés européens élus en Allemagne, en fonction et sortis depuis moins de 12 mois (catégorie DE-EU)',
+                'de_pep_europarl', 'PEP', 'https://data.europarl.europa.eu',
+                'de-pep-europarl', 'D:/test parser 2/plugins/swiftcheck-aml-de-pep-europarl-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'API',
+                NULL,
+                '{"currentUrl": "https://data.europarl.europa.eu/api/v2/meps/show-current?country-of-representation=DE&format=application%2Fld%2Bjson", "termUrl": "https://data.europarl.europa.eu/api/v2/meps?country-of-representation=DE&parliamentary-term=10&limit=500&format=application%2Fld%2Bjson", "detailUrl": "https://data.europarl.europa.eu/api/v2/meps/{id}?format=application%2Fld%2Bjson", "delayMs": "300", "monthsAfterEnd": "12"}',
+                24, 12,
+                'Réutilisation autorisée en citant la source (avis juridique du Parlement européen)', 'Parlement européen, data.europarl.europa.eu',
+                'Reprise de be_pep_europarl et fr_pep_europarl avec filtre pays DE. 96 eurodéputés avec dates de naissance et mandats.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', TRUE, 'Les 96 députés européens élus en Allemagne, avec date et lieu de naissance, dates de mandat et photo Wikimedia Commons ; les sortis depuis moins de 12 mois.', NULL
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'DE-EU' AND f.label LIKE 'Député au Parlement européen%' AND p.dataset_name = 'de_pep_europarl';
+        ]]></sql>
+    </changeSet>
+
+    <changeSet id="028-parser-de-pep-eu-commission" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Allemagne – Présidence de la Commission européenne',
+                'Le membre allemand de la Commission européenne (Présidente), d’après sa fiche officielle (catégorie DE-EU)',
+                'de_pep_eu_commission', 'PEP', 'https://commission.europa.eu/about/organisation/college-commissioners_fr',
+                'de-pep-eu-commission', 'D:/test parser 2/plugins/swiftcheck-aml-de-pep-eu-commission-0.0.1-SNAPSHOT.jar',
+                'HTTP_FILE', 'WEB_PAGE',
+                'https://commission.europa.eu/about/organisation/college-commissioners/ursula-von-der-leyen_fr',
+                NULL,
+                168, 12,
+                'Réutilisation autorisée en citant la source (Commission européenne)', 'Commission européenne, commission.europa.eu',
+                'Ursula von der Leyen, Présidente de la Commission européenne (2024-2029) avec photo officielle.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', FALSE, 'Ursula von der Leyen, présidente de la Commission européenne, avec son portrait officiel.', 'Ni date de naissance ni date exacte de prise de fonctions sur la fiche.'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'DE-EU' AND f.label LIKE 'Membre allemand de la Commission%' AND p.dataset_name = 'de_pep_eu_commission';
+        ]]></sql>
+    </changeSet>
+
+    <changeSet id="028-parser-de-pep-rca" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Allemagne – Famille des PEP (Wikidata)',
+                'Conjoints, enfants et leurs conjoints, parents des PEP allemandes décrits dans Wikidata (catégorie DE-RCA)',
+                'de_pep_rca', 'PEP', 'https://www.wikidata.org',
+                'de-pep-rca', 'D:/test parser 2/plugins/swiftcheck-aml-de-pep-rca-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'SPARQL',
+                NULL,
+                '{"endpoint": "https://query.wikidata.org/sparql", "yearsAfterEnd": "1", "country": "Q183", "positions": "Q25223 Q4970 Q310662 Q1939555 Q19368417 Q17478052 Q17488092", "positionClasses": "Q83307 Q19368688"}',
+                168, 12,
+                'CC0 (Wikidata)', 'Wikidata, www.wikidata.org',
+                'Famille au sens du GwG § 1 (13) : conjoint, enfants, parents (sans la fratrie). Données collaboratives, à contrôler.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'PARTIAL', FALSE, 'Conjoints, enfants et leurs conjoints, parents des PEP allemandes décrits dans Wikidata.', 'Seules les familles décrites dans Wikidata. Données collaboratives.'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'DE-RCA' AND f.label LIKE 'Membre de la famille%' AND p.dataset_name = 'de_pep_rca';
+        ]]></sql>
+    </changeSet>
+
+</databaseChangeLog>
+

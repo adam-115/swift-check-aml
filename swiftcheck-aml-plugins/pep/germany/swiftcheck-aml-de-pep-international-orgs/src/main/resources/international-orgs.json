@@ -1,0 +1,69 @@
+{
+  "organizations": [
+    {
+      "key": "epo",
+      "name": "Europäisches Patentamt (EPO / OEB)",
+      "city": "München",
+      "leadership": [
+        { "role": "Präsident des EPA", "pattern": "\\bPräsident(?:\\s+des\\s+EPA)?\\s*[:\\-]\\s*(.+)" },
+        { "role": "Vizepräsident des EPA", "pattern": "\\bVizepräsident(?:\\s+des\\s+EPA)?\\s*[:\\-]\\s*(.+)" }
+      ],
+      "url": "https://www.epo.org/about-us/governance.html"
+    },
+    {
+      "key": "eumetsat",
+      "name": "EUMETSAT (Europäische Organisation für die Nutzung meteorologischer Satelliten)",
+      "city": "Darmstadt",
+      "leadership": [
+        { "role": "Generaldirektor", "pattern": "\\b(?:Generaldirektor|Director-General)\\s*[:\\-]\\s*(.+)" }
+      ],
+      "url": "https://www.eumetsat.int/about-us/management"
+    },
+    {
+      "key": "embl",
+      "name": "Europäisches Laboratorium für Molekularbiologie (EMBL)",
+      "city": "Heidelberg",
+      "leadership": [
+        { "role": "Generaldirektor", "pattern": "\\b(?:Generaldirektor|Director General)\\s*[:\\-]\\s*(.+)" }
+      ],
+      "url": "https://www.embl.org/about/leadership/"
+    },
+    {
+      "key": "eso",
+      "name": "Europäische Südsternwarte (ESO)",
+      "city": "Garching",
+      "leadership": [
+        { "role": "Generaldirektor", "pattern": "\\b(?:Generaldirektor|Director General)\\s*[:\\-]\\s*(.+)" }
+      ],
+      "url": "https://www.eso.org/public/about-eso/dg-office/"
+    },
+    {
+      "key": "occar",
+      "name": "Organisation Conjointe de Coopération en matière d'Armement (OCCAR)",
+      "city": "Bonn",
+      "leadership": [
+        { "role": "Direktor", "pattern": "\\b(?:Direktor|Director)\\s*[:\\-]\\s*(.+)" }
+      ],
+      "url": "https://www.occar.int/organisation"
+    },
+    {
+      "key": "un-bonn",
+      "name": "Campus des Nations Unies à Bonn (UN Bonn / UNFCCC)",
+      "city": "Bonn",
+      "leadership": [
+        { "role": "Executive Secretary (UNFCCC)", "pattern": "\\b(?:Executive Secretary|Exekutivsekretär)\\s*[:\\-]\\s*(.+)" }
+      ],
+      "url": "https://unfccc.int/about-us/the-executive-secretary"
+    },
+    {
+      "key": "itlos",
+      "name": "Internationaler Seegerichtshof (ITLOS)",
+      "city": "Hamburg",
+      "leadership": [
+        { "role": "Präsident des Seegerichtshofs", "pattern": "\\bPräsident\\s*[:\\-]\\s*(.+)" },
+        { "role": "Kanzler des Seegerichtshofs (Registrar)", "pattern": "\\bKanzler\\s*[:\\-]\\s*(.+)" }
+      ],
+      "url": "https://www.itlos.org/the-tribunal/members/"
+    }
+  ]
+}

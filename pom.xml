@@ -101,6 +101,26 @@
         <module>swiftcheck-aml-plugins/pep/belgium/swiftcheck-aml-be-pep-political-parties</module>
         <module>swiftcheck-aml-plugins/pep/belgium/swiftcheck-aml-be-pep-local-executives</module>
         <module>swiftcheck-aml-plugins/pep/belgium/swiftcheck-aml-be-pep-associated-entities</module>
+        <!-- PEP Allemagne - Lot 1 : open data et reprises -->
+        <module>swiftcheck-aml-plugins/pep/germany/swiftcheck-aml-de-pep-bundestag</module>
+        <module>swiftcheck-aml-plugins/pep/germany/swiftcheck-aml-de-pep-bundesrat</module>
+        <module>swiftcheck-aml-plugins/pep/germany/swiftcheck-aml-de-pep-federal-government</module>
+        <module>swiftcheck-aml-plugins/pep/germany/swiftcheck-aml-de-pep-europarl</module>
+        <module>swiftcheck-aml-plugins/pep/germany/swiftcheck-aml-de-pep-eu-commission</module>
+        <module>swiftcheck-aml-plugins/pep/germany/swiftcheck-aml-de-pep-rca</module>
+        <module>swiftcheck-aml-plugins/pep/germany/swiftcheck-aml-de-pep-president</module>
+        <!-- PEP Allemagne - Lot 2 : institutions -->
+        <module>swiftcheck-aml-plugins/pep/germany/swiftcheck-aml-de-pep-bundesbank</module>
+        <module>swiftcheck-aml-plugins/pep/germany/swiftcheck-aml-de-pep-audit-courts</module>
+        <module>swiftcheck-aml-plugins/pep/germany/swiftcheck-aml-de-pep-federal-courts</module>
+        <module>swiftcheck-aml-plugins/pep/germany/swiftcheck-aml-de-pep-land-constitutional-courts</module>
+        <module>swiftcheck-aml-plugins/pep/germany/swiftcheck-aml-de-pep-parties</module>
+        <module>swiftcheck-aml-plugins/pep/germany/swiftcheck-aml-de-pep-diplomats</module>
+        <module>swiftcheck-aml-plugins/pep/germany/swiftcheck-aml-de-pep-international-orgs</module>
+        <!-- PEP Allemagne - Lot 3 : volumineux et validation -->
+        <module>swiftcheck-aml-plugins/pep/germany/swiftcheck-aml-de-pep-state-enterprises</module>
+        <module>swiftcheck-aml-plugins/pep/germany/swiftcheck-aml-de-pep-landtage</module>
+        <module>swiftcheck-aml-plugins/pep/germany/swiftcheck-aml-de-pep-local-executives</module>
     </modules>
 
     <dependencyManagement>

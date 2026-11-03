@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Lot 3 des parsers PEP de l'Allemagne :
+    - Entreprises publiques fédérales et des Länder (Beteiligungsbericht BMF, seuils GwG)
+    - Députés des 16 parlements des Länder (Landtage / Bürgerschaften / Abgeordnetenhaus)
+    - Exécutifs locaux de 50 000 hab. et plus (AMLR juillet 2027 : Oberbürgermeister et Landräte).
+    Plan : documentation/analyse pep allemagne/Plan_Parsers_PEP_Allemagne.pdf.
+-->
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <!-- Module 15 : Entreprises publiques (catégorie DE-h) -->
+    <changeSet id="030-parser-de-pep-state-enterprises" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Allemagne – Entreprises publiques',
+                'Organes de direction et de surveillance des entreprises publiques fédérales et des Länder au-delà des seuils GwG (catégorie DE-h)',
+                'de_pep_state_enterprises', 'PEP', 'https://www.bundesfinanzministerium.de',
+                'de-pep-state-enterprises', 'D:/test parser 2/plugins/swiftcheck-aml-de-pep-state-enterprises-0.0.1-SNAPSHOT.jar',
+                'FILE_ON_SERVER', 'REPORT_FILE',
+                NULL,
+                '{"configFile": ""}',
+                720, 12,
+                'Rapport sur les participations du Bund (BMF)', 'Bundesministerium der Finanzen (BMF)',
+                'Lit les organes de direction (Vorstand) et de surveillance (Aufsichtsrat) des entreprises publiques du Bund et des Länder selon les critères du GwG § 1 (12) h) (> 50% public, > 2000 salariés ou > 3 Md€).', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', FALSE, 'Membres des directoires et conseils de surveillance des entreprises publiques stratégiques (Deutsche Bahn, KfW, Telekom, DHL, Uniper, DFS, Bundesdruckerei…).', 'Certains rapports régionaux des Länder restent à intégrer manuellement.'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'DE-h' AND f.label LIKE 'Membre du directoire ou du conseil de surveillance%' AND p.dataset_name = 'de_pep_state_enterprises';
+        ]]></sql>
+    </changeSet>
+
+    <!-- Module 16 : Parlements des Länder (Landtage) -->
+    <changeSet id="030-parser-de-pep-landtage" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Allemagne – Parlements des Länder',
+                'Membres des 16 parlements régionaux des Länder (Landtage, Bürgerschaften, Abgeordnetenhaus) (catégorie DE-b optionnelle)',
+                'de_pep_landtage', 'PEP', 'https://www.abgeordnetenwatch.de',
+                'de-pep-landtage', 'D:/test parser 2/plugins/swiftcheck-aml-de-pep-landtage-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'API',
+                NULL,
+                '{"endpoint": "https://www.abgeordnetenwatch.de/api/v2"}',
+                168, 12,
+                'CC0 (AbgeordnetenWatch) et sites officiels des Landtage', 'AbgeordnetenWatch.de / Landtage der 16 Bundesländer',
+                'Optionnel : couvre environ 1 900 parlementaires régionaux des 16 Länder (critère d''importance comparable du GwG § 1 (12)).', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', FALSE, 'Les députés en fonction des 16 parlements des Länder avec leur parti et leur circonscription.', 'Fonction hors liste notifiée JO C/2023/724, suivie selon avis juridique du responsable conformité.'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'DE-b' AND f.label LIKE 'Membre d''un parlement de Land%' AND p.dataset_name = 'de_pep_landtage';
+        ]]></sql>
+    </changeSet>
+
+    <!-- Module 17 : Exécutifs locaux de 50 000 hab. et plus (AMLR 2027) -->
+    <changeSet id="030-parser-de-pep-local-executives" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Allemagne – Maires et Landräte (>= 50 000 hab.)',
+                'Maires des villes de 50 000 hab. et plus et Landräte des Landkreise (catégorie DE-AMLR, applicable juillet 2027)',
+                'de_pep_local_executives', 'PEP', 'https://www.destatis.de',
+                'de-pep-local-executives', 'D:/test parser 2/plugins/swiftcheck-aml-de-pep-local-executives-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'SPARQL',
+                NULL,
+                '{"minPopulation": "50000", "endpoint": "https://query.wikidata.org/sparql"}',
+                168, 12,
+                'Destatis (Gemeindeverzeichnis) / CC0 Wikidata', 'Statistisches Bundesamt (Destatis) / Wikidata',
+                'Anticipation du règlement (UE) 2024/1624 (AMLR). Couvre les ~200 maires (Oberbürgermeister) et ~290 préfets de cantons (Landräte) au-dessus de 50 000 habitants.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', FALSE, 'Maires et premiers magistrats des communes et villes de 50 000 habitants ou plus (Oberbürgermeister).', NULL
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'DE-AMLR' AND f.label LIKE 'Maire ou premier magistrat%' AND p.dataset_name = 'de_pep_local_executives';
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', FALSE, 'Présidents de conseil d''arrondissement d''au moins 50 000 habitants (Landräte).', NULL
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'DE-AMLR' AND f.label LIKE 'Président de conseil d''arrondissement%' AND p.dataset_name = 'de_pep_local_executives';
+        ]]></sql>
+    </changeSet>
+
+</databaseChangeLog>
+

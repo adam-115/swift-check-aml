@@ -29,6 +29,8 @@
         024 : lot 1 des parsers PEP de la Belgique (Roi, gouvernement fédéral, Chambre, parlements flamand et wallon, UE, famille).
         025 : lot 2 des parsers PEP de la Belgique (pages des institutions : gouvernements et parlements fédérés, Sénat, hautes juridictions, BNB, diplomates, Défense, organisations internationales).
         026 : lot 3 des parsers PEP de la Belgique (volumineux, après étude : Moniteur belge, entreprises publiques, partis politiques, exécutifs locaux, entités associées Cour des comptes).
+        027 : référentiel PEP de l'Allemagne (catégories DE-a à DE-i, DE-AMLR, DE-EU, DE-RCA ; GwG § 1 (12) et JO C/2023/724).
+        028 : lot 1 des parsers PEP de l'Allemagne (Bundestag, Bundesrat et gouvernements régionaux, gouvernement fédéral, Président fédéral, UE, famille).
     -->
     <include file="db/changelog/changes/001-schema.xml" />
     <include file="db/changelog/changes/002-pep-reference-data.xml" />
@@ -56,5 +58,9 @@
     <include file="db/changelog/changes/024-be-parsers-lot1.xml" />
     <include file="db/changelog/changes/025-be-parsers-lot2.xml" />
     <include file="db/changelog/changes/026-be-parsers-lot3.xml" />
+    <include file="db/changelog/changes/027-de-pep-reference-data.xml" />
+    <include file="db/changelog/changes/028-de-parsers-lot1.xml" />
+    <include file="db/changelog/changes/029-de-parsers-lot2.xml" />
+    <include file="db/changelog/changes/030-de-parsers-lot3.xml" />
 
 </databaseChangeLog>

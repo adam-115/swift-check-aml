@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Référentiel PEP de l'Allemagne : catégories et fonctions.
+
+    Les catégories a à i reprennent le § 1 (12) du Geldwäschegesetz (GwG) et la liste officielle notifiée
+    par l'Allemagne à la Commission européenne (JO C/2023/724). S'y ajoutent :
+      - DE-AMLR : dirigeants des collectivités de 50 000 habitants ou plus (maires, Landräte),
+                  ajoutés par le règlement (UE) 2024/1624 à partir du 10 juillet 2027 ;
+      - DE-EU   : Allemands exerçant une fonction européenne (députés européens, présidence de la Commission) ;
+      - DE-RCA  : membres de la famille (§ 1 (13) : conjoint, enfants et leurs conjoints, parents, sans la fratrie)
+                  et proches associés (§ 1 (14)).
+    Voir documentation/analyse pep allemagne/Plan_Parsers_PEP_Allemagne.pdf.
+-->
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <!-- Base légale et liste officielle de l'Allemagne -->
+    <changeSet id="027-de-country" author="swiftcheck">
+        <sql>
+            UPDATE country SET legal_basis = 'Geldwäschegesetz (GwG), § 1 (12) à (14) et § 15 (3)',
+                               official_list_reference = 'JO C/2023/724 (section Allemagne) ; GwG § 1 (12)',
+                               official_list_date = '2023-10-24',
+                               official_list_url = 'https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=OJ:C_202300724'
+            WHERE iso = 'DE';
+        </sql>
+    </changeSet>
+
+    <!-- Ignoré si des catégories DE ont déjà été saisies dans l'écran « Catégories PEP » (codes uniques) -->
+    <changeSet id="027-de-categories" author="swiftcheck">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM pep_category WHERE country_iso = 'DE'</sqlCheck>
+        </preConditions>
+        <sql>
+            INSERT INTO pep_category (country_iso, code, label, kind, risk_class, sort_order, legal_reference) VALUES
+            ('DE', 'DE-a', 'Président fédéral, chancelier, ministres fédéraux, secrétaires d''État, ministres-présidents et ministres des Länder', 'OFFICIAL', 1, 1, 'GwG, § 1 (12) a) ; JO C/2023/724'),
+            ('DE', 'DE-b', 'Parlementaires fédéraux : membres du Bundestag et membres du Bundesrat', 'OFFICIAL', 1, 2, 'GwG, § 1 (12) b) ; JO C/2023/724'),
+            ('DE', 'DE-c', 'Membres des organes dirigeants des partis politiques représentés au Bundestag', 'OFFICIAL', 2, 3, 'GwG, § 1 (12) c) ; JO C/2023/724'),
+            ('DE', 'DE-d', 'Juges des cours fédérales suprêmes et des cours constitutionnelles des Länder', 'OFFICIAL', 2, 4, 'GwG, § 1 (12) d) ; JO C/2023/724'),
+            ('DE', 'DE-e', 'Organes dirigeants de la Cour des comptes fédérale et des cours des comptes des Länder', 'OFFICIAL', 2, 5, 'GwG, § 1 (12) e) ; JO C/2023/724'),
+            ('DE', 'DE-f', 'Directoire de la Banque fédérale d''Allemagne (Deutsche Bundesbank)', 'OFFICIAL', 2, 6, 'GwG, § 1 (12) f) ; JO C/2023/724'),
+            ('DE', 'DE-g', 'Ambassadeurs, chargés d''affaires et attachés de défense', 'OFFICIAL', 2, 7, 'GwG, § 1 (12) g) ; JO C/2023/724'),
+            ('DE', 'DE-h', 'Organes de direction ou de surveillance des entreprises publiques du Bund et des Länder', 'OFFICIAL', 3, 8, 'GwG, § 1 (12) h) ; JO C/2023/724'),
+            ('DE', 'DE-i', 'Dirigeants des organisations internationales établies en Allemagne', 'OFFICIAL', 3, 9, 'GwG, § 1 (12) i) ; JO C/2023/724'),
+            ('DE', 'DE-AMLR', 'Dirigeants des collectivités de 50 000 habitants ou plus : maires et Landräte (AMLR, juillet 2027)', 'AMLR', 3, 10, 'Règlement (UE) 2024/1624 (AMLR), définition des personnes politiquement exposées'),
+            ('DE', 'DE-EU', 'Allemands exerçant une fonction européenne', 'EU', 1, 11, 'Liste de la Commission, JO C/2023/724'),
+            ('DE', 'DE-RCA', 'Membres de la famille et proches associés', 'RCA', 2, 12, 'GwG, § 1 (13) (famille, sans la fratrie) et (14) (proches associés)');
+        </sql>
+    </changeSet>
+
+    <!-- expected_holders : effectif légal ou relevé le 03/11/2026 ; vide si variable ou inconnu -->
+    <changeSet id="027-de-functions" author="swiftcheck">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM pep_function f JOIN pep_category c ON c.id = f.category_id WHERE c.country_iso = 'DE'</sqlCheck>
+        </preConditions>
+        <sql>
+            INSERT INTO pep_function (category_id, label, institution, expected_holders)
+            SELECT c.id, f.label, f.institution, f.expected_holders
+            FROM pep_category c JOIN (
+                SELECT 'DE-a' AS code, 'Président fédéral (Bundespräsident)' AS label, 'Présidence fédérale' AS institution, 1 AS expected_holders
+                UNION ALL SELECT 'DE-a', 'Chancelier fédéral (Bundeskanzler)' AS label, 'Chancellerie fédérale' AS institution, 1 AS expected_holders
+                UNION ALL SELECT 'DE-a', 'Ministre fédéral ou ministre d''État (Bundesminister, Staatsminister)' AS label, 'Gouvernement fédéral' AS institution, 16 AS expected_holders
+                UNION ALL SELECT 'DE-a', 'Secrétaire d''État parlementaire ou secrétaire d''État (Parlamentarischer Staatssekretär, Staatssekretär)' AS label, 'Ministères fédéraux' AS institution, 70 AS expected_holders
+                UNION ALL SELECT 'DE-a', 'Ministre-président d''un Land (Ministerpräsident, Regierender Bürgermeister)' AS label, 'Gouvernements des Länder' AS institution, 16 AS expected_holders
+                UNION ALL SELECT 'DE-a', 'Ministre ou sénateur d''un gouvernement de Land (Landesminister, Senator)' AS label, 'Gouvernements des Länder' AS institution, 53 AS expected_holders
+                UNION ALL SELECT 'DE-a', 'Ancien membre du gouvernement fédéral ou d''un gouvernement de Land' AS label, 'Gouvernements' AS institution, NULL AS expected_holders
+                UNION ALL SELECT 'DE-b', 'Membre du Bundestag (Mitglied des Deutschen Bundestages)' AS label, 'Bundestag' AS institution, 630 AS expected_holders
+                UNION ALL SELECT 'DE-b', 'Membre du Bundesrat (Mitglied des Bundesrates)' AS label, 'Bundesrat' AS institution, 69 AS expected_holders
+                UNION ALL SELECT 'DE-b', 'Membre suppléant du Bundesrat (Stellvertretendes Mitglied des Bundesrates)' AS label, 'Bundesrat' AS institution, 80 AS expected_holders
+                UNION ALL SELECT 'DE-b', 'Membre d''un parlement de Land (Landtag, hors liste notifiée)' AS label, 'Parlements des Länder' AS institution, 1900 AS expected_holders
+                UNION ALL SELECT 'DE-b', 'Ancien membre du Bundestag ou du Bundesrat' AS label, 'Parlements fédéraux' AS institution, NULL AS expected_holders
+                UNION ALL SELECT 'DE-c', 'Membre de la direction fédérale d''un parti politique (Bundesvorstand, Parteivorstand)' AS label, 'Partis politiques' AS institution, NULL AS expected_holders
+                UNION ALL SELECT 'DE-d', 'Juge à la Cour constitutionnelle fédérale (Bundesverfassungsgericht)' AS label, 'Bundesverfassungsgericht' AS institution, 16 AS expected_holders
+                UNION ALL SELECT 'DE-d', 'Président ou juge à la Cour fédérale de justice (BGH)' AS label, 'Bundesgerichtshof' AS institution, 150 AS expected_holders
+                UNION ALL SELECT 'DE-d', 'Président ou juge à la Cour administrative fédérale (BVerwG)' AS label, 'Bundesverwaltungsgericht' AS institution, 55 AS expected_holders
+                UNION ALL SELECT 'DE-d', 'Président ou juge à la Cour fédérale des finances (BFH)' AS label, 'Bundesfinanzhof' AS institution, 60 AS expected_holders
+                UNION ALL SELECT 'DE-d', 'Président ou juge à la Cour fédérale du travail (BAG)' AS label, 'Bundesarbeitsgericht' AS institution, 40 AS expected_holders
+                UNION ALL SELECT 'DE-d', 'Président ou juge à la Cour sociale fédérale (BSG)' AS label, 'Bundessozialgericht' AS institution, 45 AS expected_holders
+                UNION ALL SELECT 'DE-d', 'Président ou juge d''une cour constitutionnelle de Land' AS label, 'Cours constitutionnelles des Länder' AS institution, 150 AS expected_holders
+                UNION ALL SELECT 'DE-e', 'Président, vice-président ou membre de la Cour des comptes fédérale (Bundesrechnungshof)' AS label, 'Bundesrechnungshof' AS institution, 16 AS expected_holders
+                UNION ALL SELECT 'DE-e', 'Président, vice-président ou membre d''une cour des comptes de Land (Landesrechnungshof)' AS label, 'Cours des comptes des Länder' AS institution, 24 AS expected_holders
+                UNION ALL SELECT 'DE-f', 'Président, vice-présidente ou membre du directoire de la Deutsche Bundesbank' AS label, 'Deutsche Bundesbank' AS institution, 6 AS expected_holders
+                UNION ALL SELECT 'DE-g', 'Ambassadeur ou chargé d''affaires de la République fédérale d''Allemagne' AS label, 'Auswärtiges Amt' AS institution, 150 AS expected_holders
+                UNION ALL SELECT 'DE-g', 'Attaché de défense' AS label, 'Bundeswehr' AS institution, NULL AS expected_holders
+                UNION ALL SELECT 'DE-h', 'Membre du directoire ou du conseil de surveillance d''une entreprise publique fédérale ou de Land' AS label, 'Entreprises publiques' AS institution, NULL AS expected_holders
+                UNION ALL SELECT 'DE-i', 'Dirigeant ou haut fonctionnaire d''une organisation internationale établie en Allemagne' AS label, 'OEB, EUMETSAT, EMBL, ESO, OCCAR, ONU Bonn…' AS institution, 80 AS expected_holders
+                UNION ALL SELECT 'DE-AMLR', 'Maire ou premier magistrat d''une commune de 50 000 habitants ou plus (Oberbürgermeister)' AS label, 'Villes de 50 000 hab. et plus' AS institution, 200 AS expected_holders
+                UNION ALL SELECT 'DE-AMLR', 'Président de conseil d''arrondissement d''au moins 50 000 habitants (Landrat)' AS label, 'Landkreise de 50 000 hab. et plus' AS institution, 290 AS expected_holders
+                UNION ALL SELECT 'DE-EU', 'Député au Parlement européen élu en Allemagne' AS label, 'Parlement européen' AS institution, 96 AS expected_holders
+                UNION ALL SELECT 'DE-EU', 'Membre allemand de la Commission européenne (Présidente)' AS label, 'Commission européenne' AS institution, 1 AS expected_holders
+                UNION ALL SELECT 'DE-EU', 'Allemand exerçant une autre fonction PEP dans une institution de l''UE' AS label, 'Institutions de l''UE' AS institution, NULL AS expected_holders
+                UNION ALL SELECT 'DE-RCA', 'Membre de la famille d''une PEP allemande' AS label, NULL AS institution, NULL AS expected_holders
+                UNION ALL SELECT 'DE-RCA', 'Proche associé d''une PEP allemande' AS label, NULL AS institution, NULL AS expected_holders
+            ) f ON f.code = c.code;
+        </sql>
+    </changeSet>
+
+</databaseChangeLog>
+

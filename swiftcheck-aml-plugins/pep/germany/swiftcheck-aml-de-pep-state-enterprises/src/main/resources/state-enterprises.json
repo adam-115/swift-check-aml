@@ -1,0 +1,77 @@
+{
+  "enterprises": [
+    {
+      "key": "deutsche-bahn",
+      "name": "Deutsche Bahn AG",
+      "sector": "Transport & Logistik",
+      "shareholder": "Bundesrepublik Deutschland (100 %)",
+      "url": "https://www.deutschebahn.com/de/konzern/konzernprofil/vorstand",
+      "governance": [
+        { "role": "Vorstandsvorsitzender", "name": "Dr. Richard Lutz" },
+        { "role": "Aufsichtsratsvorsitzender", "name": "Werner Gatzer" }
+      ]
+    },
+    {
+      "key": "kfw",
+      "name": "KfW Bankengruppe",
+      "sector": "Finanzsektor / Förderbank",
+      "shareholder": "Bund (80 %), Länder (20 %)",
+      "url": "https://www.kfw.de/ueber-die-kfw/Vorstand-und-Gremien/",
+      "governance": [
+        { "role": "Vorstandsvorsitzender", "name": "Stefan Wintels" },
+        { "role": "Verwaltungsratsvorsitzender", "name": "Dr. Robert Habeck" }
+      ]
+    },
+    {
+      "key": "deutsche-telekom",
+      "name": "Deutsche Telekom AG",
+      "sector": "Telekommunikation",
+      "shareholder": "Bund + KfW (ca. 30,5 %)",
+      "url": "https://www.telekom.com/de/konzern/management",
+      "governance": [
+        { "role": "Vorstandsvorsitzender", "name": "Timotheus Höttges" }
+      ]
+    },
+    {
+      "key": "deutsche-post",
+      "name": "Deutsche Post AG (DHL Group)",
+      "sector": "Post & Logistik",
+      "shareholder": "KfW (ca. 16,5 %)",
+      "url": "https://group.dhl.com/de/ueber-uns/unternehmensfuehrung.html",
+      "governance": [
+        { "role": "Vorstandsvorsitzender", "name": "Dr. Tobias Meyer" }
+      ]
+    },
+    {
+      "key": "uniper",
+      "name": "Uniper SE",
+      "sector": "Energieversorgung",
+      "shareholder": "Bundesrepublik Deutschland (über 99 %)",
+      "url": "https://www.uniper.energy/de/unternehmen/fuehrung",
+      "governance": [
+        { "role": "Vorstandsvorsitzender (CEO)", "name": "Michael Lewis" }
+      ]
+    },
+    {
+      "key": "dfs",
+      "name": "DFS Deutsche Flugsicherung GmbH",
+      "sector": "Luftverkehr",
+      "shareholder": "Bundesrepublik Deutschland (100 %)",
+      "url": "https://www.dfs.de/homepage/de/unternehmen/management/",
+      "governance": [
+        { "role": "Vorsitzender der Geschäftsführung", "name": "Arndt Schoenemann" }
+      ]
+    },
+    {
+      "key": "bundesdruckerei",
+      "name": "Bundesdruckerei Gruppe GmbH",
+      "sector": "Sicherheitstechnologie",
+      "shareholder": "Bundesrepublik Deutschland (100 %)",
+      "url": "https://www.bundesdruckerei.de/de/Unternehmen/Geschaeftsfuehrung",
+      "governance": [
+        { "role": "Vorsitzender der Geschäftsführung", "name": "Dr. Stefan Hofschen" }
+      ]
+    }
+  ]
+}
+

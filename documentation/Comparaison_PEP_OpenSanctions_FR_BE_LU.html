@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>SwiftCheck AML et OpenSanctions – PEP FR, BE, LU</title>
+<style>
+  @page { size: A4 portrait; margin: 14mm 13mm 14mm 13mm; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; color: #1e293b; font-size: 10.5px; line-height: 1.45; }
+  h1 { font-size: 22px; color: #0f172a; margin-bottom: 4px; }
+  h2 { font-size: 14px; color: #0f172a; margin: 18px 0 6px; padding-bottom: 3px; border-bottom: 2px solid #2563eb; break-after: avoid; }
+  h3 { font-size: 11.5px; color: #1e3a8a; margin: 12px 0 5px; break-after: avoid; }
+  p { margin: 4px 0; }
+  .subtitle { color: #475569; font-size: 11.5px; margin-bottom: 8px; }
+  .meta { display: flex; flex-wrap: wrap; gap: 18px; color: #64748b; font-size: 9.5px; border-bottom: 1px solid #e2e8f0; padding-bottom: 8px; margin-bottom: 12px; }
+  .kpis { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin: 10px 0 6px; }
+  .kpi { border: 1px solid #e2e8f0; border-radius: 8px; padding: 8px 10px; background: #f8fafc; }
+  .kpi b { display: block; font-size: 20px; color: #1d4ed8; line-height: 1.1; }
+  .kpi span { color: #475569; font-size: 9.5px; }
+  table { width: 100%; border-collapse: collapse; margin: 5px 0 8px; font-size: 9.5px; }
+  th { background: #1e3a8a; color: #fff; text-align: left; padding: 4px 5px; font-weight: 600; }
+  td { border-bottom: 1px solid #e2e8f0; padding: 4px 5px; vertical-align: top; }
+  tr { break-inside: avoid; }
+  tr:nth-child(even) td { background: #f8fafc; }
+  code { font-family: Consolas, 'Courier New', monospace; font-size: 9px; background: #eef2ff; color: #1e3a8a; padding: 0 2px; border-radius: 3px; }
+  .cat { font-weight: 700; color: #1d4ed8; white-space: nowrap; }
+  .tag { display: inline-block; border-radius: 4px; padding: 0 4px; font-size: 8.5px; font-weight: 600; white-space: nowrap; }
+  .easy { background: #dcfce7; color: #166534; }
+  .mid { background: #fef9c3; color: #854d0e; }
+  .hard { background: #fee2e2; color: #991b1b; }
+  .none { background: #e2e8f0; color: #334155; }
+  .note { border-left: 3px solid #2563eb; background: #eff6ff; padding: 6px 9px; margin: 6px 0; border-radius: 0 6px 6px 0; }
+  .warn { border-left-color: #d97706; background: #fffbeb; }
+  ul, ol { margin: 4px 0 4px 18px; }
+  li { margin: 2px 0; }
+  .small { font-size: 9px; color: #64748b; }
+  .footer { margin-top: 14px; border-top: 1px solid #e2e8f0; padding-top: 6px; color: #94a3b8; font-size: 8.5px; }
+  .page-break { break-before: page; }
+</style>
+</head>
+<body>
+
+<h1>SwiftCheck AML et OpenSanctions – PEP France, Belgique, Luxembourg</h1>
+<p class="subtitle">Comparaison catégorie par catégorie entre nos 68 parsers et les données PEP publiées par OpenSanctions pour les trois pays déjà implémentés.</p>
+<div class="meta"><span>SwiftCheck AML</span><span>3 novembre 2026</span>
+<span>Nos chiffres : dernière exécution réussie de chaque parser (base swift_check_2)</span>
+<span>OpenSanctions : pages pays et EveryPolitician consultées le 3/11/2026</span></div>
+
+<div class="kpis">
+  <div class="kpi"><b>68</b><span>parsers SwiftCheck (FR 20, BE 23, LU 25), une source officielle par catégorie</span></div>
+  <div class="kpi"><b>9 879</b><span>personnes chez nous : FR 6 524, BE 1 449, LU 1 906 (en fonction ou sorties depuis moins de 12 mois)</span></div>
+  <div class="kpi"><b>112 577</b><span>PEP chez OpenSanctions : FR 109 513, BE 2 353, LU 711 (historique et statut incertain compris)</span></div>
+  <div class="kpi"><b>~200</b><span>pays couverts par OpenSanctions, contre 3 (plus l'UE) chez nous</span></div>
+</div>
+
+<div class="note">
+<b>En bref.</b>
+<ul>
+  <li><b>Sur ces trois pays, nous couvrons nettement plus de fonctions de la loi.</b> On le voit surtout sur les catégories qu'OpenSanctions laisse vides ou presque :
+  hautes juridictions, Cour des comptes, organes des banques centrales, entreprises publiques, dirigeants de partis, organisations internationales, régulateurs luxembourgeois et parlements régionaux belges.</li>
+  <li><b>OpenSanctions affiche beaucoup plus de noms, mais ce n'est pas la même chose.</b> Son total français vient pour l'essentiel des <b>68 720 maires</b> de toutes les communes et des anciens titulaires sans date de fin.
+  Nous suivons au contraire la loi : exécutifs des collectivités de 50 000 habitants et plus, et règle des 12 mois.</li>
+  <li><b>OpenSanctions garde deux avantages nets.</b> Il couvre le <b>reste du monde</b>, indispensable pour les clients étrangers. Et il a un historique profond.
+  Sa licence <b>CC BY-NC 4.0</b> interdit toutefois l'usage commercial sans contrat payant.</li>
+</ul>
+</div>
+
+<h2>1. Ce qui est comparé</h2>
+<table>
+  <tr><th style="width:22%">Point</th><th>SwiftCheck AML</th><th>OpenSanctions</th></tr>
+  <tr><td>Périmètre</td><td>Les fonctions de la loi de chaque pays (CMF R.561-18 pour la France, loi du 18/09/2017 pour la Belgique, loi du 12/11/2004 pour le Luxembourg), l'UE et l'AMLR</td><td>« Office-holders » au sens large, selon une méthodologie propre ; tous niveaux, toutes périodes</td></tr>
+  <tr><td>Sources</td><td>Un parser par source officielle (parlements, gouvernements, juridictions, JORF, Legilux, Moniteur…) ; Wikidata seulement pour la famille et en dernier recours</td><td>Quelques sources officielles par pays (parlements, maires, HATVP) ; le reste vient de Wikidata, de la liste « World Leaders » de la CIA et d'EveryPolitician</td></tr>
+  <tr><td>Durée</td><td>12 mois après la fin de la fonction, puis sortie de la liste</td><td>Historique conservé ; beaucoup de titulaires au statut « incertain » (pas de date de fin connue)</td></tr>
+  <tr><td>Traçabilité</td><td>Fichiers bruts archivés à chaque exécution, empreinte SHA-256, détail de la couverture par fonction</td><td>Lien vers la source, date de mise à jour du jeu de données</td></tr>
+  <tr><td>Licence</td><td>Données à nous ; licences des sources respectées (Licence Ouverte, CC BY…)</td><td>CC BY-NC 4.0 : usage commercial soumis à licence payante</td></tr>
+</table>
+<p class="small">Les volumes ne se comparent pas un pour un : OpenSanctions compte les titulaires de toutes les époques, nous seulement les titulaires actuels et ceux sortis depuis moins de 12 mois.</p>
+
+<h2 class="page-break">2. France</h2>
+<p class="small">Légende : <span class="tag easy">Complet</span> <span class="tag mid">Partiel</span> <span class="tag hard">Absent</span>. Côté SwiftCheck, statut et nombre de personnes à la dernière exécution réussie.</p>
+<table>
+  <tr><th style="width:8%">Cat.</th><th style="width:22%">Fonctions</th><th style="width:35%">SwiftCheck AML</th><th>OpenSanctions</th></tr>
+  <tr><td class="cat">FR-a</td><td>Président, Premier ministre, Gouvernement</td><td><span class="tag easy">Complet</span> <code>fr_pep_president</code> (1), <code>fr_pep_government</code> (36), JORF pour les fins de fonction</td><td><span class="tag easy">Complet</span> CIA, Wikidata, HATVP</td></tr>
+  <tr><td class="cat">FR-b</td><td>Députés et sénateurs</td><td><span class="tag easy">Complet</span> 632 députés et 423 sénateurs, sortants de moins de 12 mois compris</td><td><span class="tag easy">Complet</span> <code>fr_assemblee</code> (3 150) et <code>fr_senat</code> (522), historique compris</td></tr>
+  <tr><td class="cat">FR-c</td><td>Organes exécutifs des partis</td><td><span class="tag mid">Partiel</span> <code>fr_pep_political_parties</code> (137)</td><td><span class="tag hard">Absent</span></td></tr>
+  <tr><td class="cat">FR-d</td><td>Conseil constitutionnel, Conseil d'État, Cour de cassation</td><td><span class="tag mid">Partiel</span> Conseil constitutionnel (9) ; Conseil d'État et Cassation par le JORF</td><td><span class="tag hard">Absent</span> (seulement l'Inspection générale de la justice)</td></tr>
+  <tr><td class="cat">FR-e</td><td>Cour des comptes, Banque de France</td><td><span class="tag mid">Partiel</span> Conseil général de la Banque de France (11) ; Cour des comptes par le JORF</td><td><span class="tag mid">Partiel</span> gouverneur et sous-gouverneurs seulement</td></tr>
+  <tr><td class="cat">FR-f</td><td>Ambassadeurs, chefs d'état-major</td><td><span class="tag mid">Partiel</span> 194 ambassadeurs en poste, 3 chefs d'état-major</td><td><span class="tag mid">Partiel</span> ambassadeurs surtout anciens (Wikidata) ; état-major bien couvert</td></tr>
+  <tr><td class="cat">FR-g</td><td>Entreprises publiques</td><td><span class="tag mid">Partiel</span> 1 591 (État) et 2 270 (sociétés locales de 50 M€ et plus)</td><td><span class="tag hard">Absent</span> (quelques dirigeants via la HATVP)</td></tr>
+  <tr><td class="cat">FR-h</td><td>Organisations internationales en France</td><td><span class="tag mid">Partiel</span> <code>fr_pep_international_orgs</code> (40)</td><td><span class="tag mid">Partiel</span> onglet « intergouvernemental » d'EveryPolitician, sans détail par pays</td></tr>
+  <tr><td class="cat">FR-EU</td><td>Fonctions européennes</td><td><span class="tag easy">Complet</span> 82 députés européens, commissaire, 9 autres fonctions UE</td><td><span class="tag easy">Complet</span> députés européens, commissaires</td></tr>
+  <tr><td class="cat">AMLR</td><td>Exécutifs locaux (50 000 hab. et plus)</td><td><span class="tag easy">Complet</span> 455</td><td><span class="tag easy">Au-delà</span> 68 720 maires de toutes les communes (hors champ légal actuel)</td></tr>
+  <tr><td class="cat">RCA</td><td>Famille et proches</td><td><span class="tag mid">Partiel</span> 241 membres de la famille, 387 organisations liées</td><td><span class="tag mid">Partiel</span> 1 070 proches, Wikidata</td></tr>
+</table>
+
+<h2>3. Belgique</h2>
+<table>
+  <tr><th style="width:8%">Cat.</th><th style="width:22%">Fonctions</th><th style="width:35%">SwiftCheck AML</th><th>OpenSanctions</th></tr>
+  <tr><td class="cat">BE-a</td><td>Roi, gouvernement fédéral, gouvernements des entités fédérées</td><td><span class="tag easy">Complet</span> Roi (1), fédéral (15), Régions et Communautés (15)</td><td><span class="tag mid">Partiel</span> fédéral complet (CIA) ; ministres-présidents régionaux au statut « incertain »</td></tr>
+  <tr><td class="cat">BE-b</td><td>Chambre, Sénat, parlements régionaux</td><td><span class="tag easy">Complet</span> Chambre 150, Sénat 60, flamand 124, wallon 75, PFWB, germanophone et bruxellois 119</td><td><span class="tag mid">Partiel</span> Chambre (651), Sénat (126), flamand (125), wallon (76) ; <b>pas</b> de jeu pour Bruxelles, la Fédération Wallonie-Bruxelles ni la Communauté germanophone</td></tr>
+  <tr><td class="cat">BE-c</td><td>Organes dirigeants des partis</td><td><span class="tag mid">Partiel</span> 20 (Wikidata, faute de registre officiel)</td><td><span class="tag hard">Absent</span></td></tr>
+  <tr><td class="cat">BE-d</td><td>Cour constitutionnelle, Cassation, Conseil d'État</td><td><span class="tag mid">Partiel</span> Cour constitutionnelle (12), Conseil d'État (4), Moniteur belge</td><td><span class="tag hard">Absent</span> (deux anciens premiers présidents de la Cassation)</td></tr>
+  <tr><td class="cat">BE-e</td><td>Cour des comptes, Banque nationale</td><td><span class="tag easy">Complet</span> Cour des comptes (10), BNB (20)</td><td><span class="tag mid">Partiel</span> gouverneur de la BNB seulement</td></tr>
+  <tr><td class="cat">BE-f</td><td>Ambassadeurs, officiers généraux</td><td><span class="tag mid">Partiel</span> 110 diplomates, 6 officiers généraux</td><td><span class="tag mid">Partiel</span> quelques ambassadeurs belges (surtout anciens), chef de la Défense</td></tr>
+  <tr><td class="cat">BE-g</td><td>Entreprises publiques</td><td><span class="tag mid">Partiel</span> 234 (Cour des comptes et SFPI)</td><td><span class="tag hard">Absent</span></td></tr>
+  <tr><td class="cat">BE-h</td><td>Organisations internationales en Belgique</td><td><span class="tag mid">Partiel</span> 7</td><td><span class="tag hard">Absent</span> pour la Belgique (OTAN, UE gérées à part)</td></tr>
+  <tr><td class="cat">BE-EU</td><td>Fonctions européennes</td><td><span class="tag easy">Complet</span> 22 députés européens, Hadja Lahbib</td><td><span class="tag easy">Complet</span></td></tr>
+  <tr><td class="cat">AMLR</td><td>Exécutifs locaux (50 000 hab. et plus)</td><td><span class="tag easy">Complet</span> 44</td><td><span class="tag hard">Absent</span></td></tr>
+  <tr><td class="cat">RCA</td><td>Famille et proches</td><td><span class="tag mid">Partiel</span> 111 membres de la famille, 286 entités associées (Regimand)</td><td><span class="tag mid">Partiel</span> 134 proches</td></tr>
+</table>
+
+<h2 class="page-break">4. Luxembourg</h2>
+<table>
+  <tr><th style="width:8%">Cat.</th><th style="width:22%">Fonctions</th><th style="width:35%">SwiftCheck AML</th><th>OpenSanctions</th></tr>
+  <tr><td class="cat">LU-a</td><td>Grand-Duc, gouvernement</td><td><span class="tag easy">Complet</span> Grand-Duc (1), gouvernement (15), anciens membres (34)</td><td><span class="tag easy">Complet</span> CIA et Wikidata</td></tr>
+  <tr><td class="cat">LU-b</td><td>Chambre, Conseil d'État</td><td><span class="tag easy">Complet</span> 60 députés, 58 anciens, 35 conseillers d'État</td><td><span class="tag mid">Partiel</span> Chambre (61) ; Conseil d'État par Wikidata, aucun membre « en fonction »</td></tr>
+  <tr><td class="cat">LU-c</td><td>Organes dirigeants des partis</td><td><span class="tag mid">Partiel</span> 10</td><td><span class="tag hard">Absent</span></td></tr>
+  <tr><td class="cat">LU-d</td><td>Hautes juridictions</td><td><span class="tag mid">Partiel</span> juridictions judiciaires (9), administratives (4), Legilux (83 nominations)</td><td><span class="tag mid">Partiel</span> 8 personnes avec le tag « juge »</td></tr>
+  <tr><td class="cat">LU-e</td><td>Cour des comptes, Banque centrale</td><td><span class="tag mid">Partiel</span> Cour des comptes (5), BCL (9)</td><td><span class="tag mid">Partiel</span> président de la BCL seulement</td></tr>
+  <tr><td class="cat">LU-f</td><td>Ambassadeurs, officiers</td><td><span class="tag easy">Complet</span> 18 diplomates, 5 officiers</td><td><span class="tag mid">Partiel</span> 15 diplomates, 7 militaires (surtout anciens)</td></tr>
+  <tr><td class="cat">LU-g</td><td>Entreprises publiques</td><td><span class="tag easy">Complet</span> 1 050</td><td><span class="tag hard">Absent</span></td></tr>
+  <tr><td class="cat">LU-h</td><td>Organisations internationales au Luxembourg</td><td><span class="tag easy">Complet</span> 11 (Cour AELE, Eurocontrol, ESO…)</td><td><span class="tag hard">Absent</span></td></tr>
+  <tr><td class="cat">LU-i</td><td>Autorités de régulation</td><td><span class="tag mid">Partiel</span> CSSF (5), CAA (3), ILR (3)</td><td><span class="tag hard">Absent</span> (le jeu CSSF d'OpenSanctions contient des sanctions, pas des dirigeants)</td></tr>
+  <tr><td class="cat">LU-MUN</td><td>Bourgmestres et échevins</td><td><span class="tag easy">Complet</span> 380</td><td><span class="tag easy">Complet</span> 580 (<code>lu_bourgmestres</code>, historique compris)</td></tr>
+  <tr><td class="cat">LU-EU</td><td>Fonctions européennes</td><td><span class="tag easy">Complet</span> 6 députés européens, 8 anciens, 2 commissaires</td><td><span class="tag easy">Complet</span></td></tr>
+  <tr><td class="cat">RCA</td><td>Famille et proches</td><td><span class="tag mid">Partiel</span> 77 membres de la famille, 15 organisations liées</td><td><span class="tag mid">Partiel</span> 47 proches</td></tr>
+</table>
+
+<h2>5. Bilan</h2>
+<table>
+  <tr><th style="width:24%">Critère</th><th>SwiftCheck AML</th><th>OpenSanctions</th><th style="width:14%">Avantage</th></tr>
+  <tr><td>Catégories légales couvertes (FR, BE, LU)</td><td>Toutes, de façon complète ou partielle</td><td>Parlements, gouvernements, maires, UE ; le reste est absent ou presque</td><td><b>SwiftCheck</b></td></tr>
+  <tr><td>Respect de la règle des 12 mois</td><td>Oui, date de fin suivie</td><td>Historique mélangé, nombreux statuts « incertain »</td><td><b>SwiftCheck</b></td></tr>
+  <tr><td>Preuve et audit</td><td>Fichiers bruts archivés, détail de couverture par fonction</td><td>Lien vers la source</td><td><b>SwiftCheck</b></td></tr>
+  <tr><td>Profondeur historique</td><td>12 mois</td><td>Plusieurs décennies</td><td>OpenSanctions</td></tr>
+  <tr><td>PEP étrangers (hors FR, BE, LU, UE)</td><td>Aucun pour l'instant</td><td>Environ 200 pays</td><td><b>OpenSanctions</b></td></tr>
+  <tr><td>Résolution d'entités (doublons entre sources)</td><td>Par identifiant et par Yente</td><td>Moteur dédié, très mature</td><td>OpenSanctions</td></tr>
+  <tr><td>Usage commercial</td><td>Libre</td><td>Licence payante obligatoire</td><td><b>SwiftCheck</b></td></tr>
+  <tr><td>Maintenance</td><td>68 parsers à faire vivre</td><td>Assurée par l'éditeur</td><td>OpenSanctions</td></tr>
+</table>
+
+<div class="warn">
+<b>Points faibles à corriger chez nous.</b>
+<ul>
+  <li><code>fr_pep_jorf</code> a échoué à sa dernière exécution (la nouvelle sélection v3 relit toute l'archive), et <code>be_pep_moniteur</code> est BLOQUÉ.
+  Ces deux parsers alimentent les juridictions, la Cour des comptes et les fins de fonction : tant qu'ils ne tournent pas, les catégories FR-d, FR-e, BE-d et BE-f restent partielles.</li>
+  <li>Tous les anciens parlementaires belges ne sont pas couverts (« Ancien parlementaire » sans parser complet).</li>
+  <li>Famille et proches : nous dépendons de Wikidata, comme OpenSanctions.</li>
+</ul>
+</div>
+
+<h2>6. Recommandations</h2>
+<ol>
+  <li><b>Mettre en avant la couverture légale.</b> Sur la France, la Belgique et le Luxembourg, SwiftCheck couvre des catégories qu'OpenSanctions n'a pas : juridictions, banques centrales, entreprises publiques, régulateurs, partis.
+  C'est un argument commercial direct auprès des banques de ces pays.</li>
+  <li><b>Réparer d'abord <code>fr_pep_jorf</code> et <code>be_pep_moniteur</code></b> : ils comblent la plupart des catégories encore partielles.</li>
+  <li><b>Décider pour les PEP étrangers.</b> Deux voies : continuer pays par pays (plans déjà prêts pour l'Allemagne, l'Espagne, le Portugal, l'Autriche et l'Italie), ou prendre une licence commerciale OpenSanctions pour le reste du monde.</li>
+  <li><b>Vérifier la règle des 12 mois</b> sur les cas où OpenSanctions affiche des PEP que nous n'avons pas : un ancien titulaire sorti depuis plus de 12 mois n'est pas un manque chez nous.</li>
+</ol>
+
+<h2>7. Sources</h2>
+<ul class="small">
+  <li>OpenSanctions : opensanctions.org/countries/fr/, /be/, /lu/ · Méthodologie PEP : opensanctions.org/docs/coverage/pep/methodology/</li>
+  <li>EveryPolitician : everypolitician.org/territories/fr/, /be/, /lu/ (positions suivies et nombre de titulaires)</li>
+  <li>SwiftCheck AML : tables <code>parser</code>, <code>parser_execution</code>, <code>pep_function_parser</code> de la base swift_check_2, au 3/11/2026</li>
+</ul>
+
+<div class="footer">SwiftCheck AML – Comparaison avec OpenSanctions (France, Belgique, Luxembourg) – 3 novembre 2026. Chiffres d'OpenSanctions lus sur leurs pages publiques ; ils évoluent chaque jour.</div>
+</body>
+</html>

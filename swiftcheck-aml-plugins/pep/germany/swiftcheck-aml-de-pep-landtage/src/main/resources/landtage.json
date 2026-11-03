@@ -1,0 +1,21 @@
+{
+  "parliaments": [
+    { "key": "bw", "name": "Landtag von Baden-Württemberg", "state": "Baden-Württemberg", "city": "Stuttgart", "seats": 154 },
+    { "key": "by", "name": "Bayerischer Landtag", "state": "Bayern", "city": "München", "seats": 203 },
+    { "key": "be", "name": "Abgeordnetenhaus von Berlin", "state": "Berlin", "city": "Berlin", "seats": 159 },
+    { "key": "bb", "name": "Landtag Brandenburg", "state": "Brandenburg", "city": "Potsdam", "seats": 88 },
+    { "key": "hb", "name": "Bremische Bürgerschaft", "state": "Bremen", "city": "Bremen", "seats": 87 },
+    { "key": "hh", "name": "Hamburgische Bürgerschaft", "state": "Hamburg", "city": "Hamburg", "seats": 123 },
+    { "key": "he", "name": "Hessischer Landtag", "state": "Hessen", "city": "Wiesbaden", "seats": 133 },
+    { "key": "mv", "name": "Landtag Mecklenburg-Vorpommern", "state": "Mecklenburg-Vorpommern", "city": "Schwerin", "seats": 79 },
+    { "key": "ni", "name": "Niedersächsischer Landtag", "state": "Niedersachsen", "city": "Hannover", "seats": 146 },
+    { "key": "nw", "name": "Landtag Nordrhein-Westfalen", "state": "Nordrhein-Westfalen", "city": "Düsseldorf", "seats": 195 },
+    { "key": "rp", "name": "Landtag Rheinland-Pfalz", "state": "Rheinland-Pfalz", "city": "Mainz", "seats": 101 },
+    { "key": "sl", "name": "Landtag des Saarlandes", "state": "Saarland", "city": "Saarbrücken", "seats": 51 },
+    { "key": "sn", "name": "Sächsischer Landtag", "state": "Sachsen", "city": "Dresden", "seats": 120 },
+    { "key": "st", "name": "Landtag von Sachsen-Anhalt", "state": "Sachsen-Anhalt", "city": "Magdeburg", "seats": 97 },
+    { "key": "sh", "name": "Schleswig-Holsteinischer Landtag", "state": "Schleswig-Holstein", "city": "Kiel", "seats": 69 },
+    { "key": "th", "name": "Thüringer Landtag", "state": "Thüringen", "city": "Erfurt", "seats": 88 }
+  ]
+}
+

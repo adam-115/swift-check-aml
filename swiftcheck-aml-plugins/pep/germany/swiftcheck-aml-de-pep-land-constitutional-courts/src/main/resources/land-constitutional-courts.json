@@ -1,0 +1,101 @@
+{
+  "courts": [
+    {
+      "key": "vgh-bw",
+      "name": "Verfassungsgerichtshof für das Land Baden-Württemberg",
+      "state": "Baden-Württemberg",
+      "url": "https://verfgh.baden-wuerttemberg.de/de/das-gericht/mitglieder"
+    },
+    {
+      "key": "vgh-by",
+      "name": "Bayerischer Verfassungsgerichtshof",
+      "state": "Bayern",
+      "url": "https://www.bayern.verfassungsgerichtshof.de/mitglieder"
+    },
+    {
+      "key": "vgh-be",
+      "name": "Verfassungsgerichtshof des Landes Berlin",
+      "state": "Berlin",
+      "url": "https://www.berlin.de/gerichte/verfassungsgerichtshof/das-gericht/mitglieder/"
+    },
+    {
+      "key": "vgh-bb",
+      "name": "Landesverfassungsgericht Brandenburg",
+      "state": "Brandenburg",
+      "url": "https://verfassungsgericht.brandenburg.de/vgbbl/de/mitglieder"
+    },
+    {
+      "key": "stgh-hb",
+      "name": "Staatsgerichtshof der Freien Hansestadt Bremen",
+      "state": "Bremen",
+      "url": "https://www.staatsgerichtshof.bremen.de/mitglieder"
+    },
+    {
+      "key": "vgh-hh",
+      "name": "Hamburgisches Verfassungsgericht",
+      "state": "Hamburg",
+      "url": "https://justiz.hamburg.de/gerichte/hamburgisches-verfassungsgericht/mitglieder"
+    },
+    {
+      "key": "stgh-he",
+      "name": "Staatsgerichtshof des Landes Hessen",
+      "state": "Hessen",
+      "url": "https://staatsgerichtshof.hessen.de/ueber-uns/mitglieder"
+    },
+    {
+      "key": "vgh-mv",
+      "name": "Landesverfassungsgericht Mecklenburg-Vorpommern",
+      "state": "Mecklenburg-Vorpommern",
+      "url": "https://www.lverfg-mv.de/das-gericht/mitglieder"
+    },
+    {
+      "key": "stgh-ni",
+      "name": "Niedersächsischer Staatsgerichtshof",
+      "state": "Niedersachsen",
+      "url": "https://staatsgerichtshof.niedersachsen.de/startseite/mitglieder"
+    },
+    {
+      "key": "vgh-nw",
+      "name": "Verfassungsgerichtshof für das Land Nordrhein-Westfalen",
+      "state": "Nordrhein-Westfalen",
+      "url": "https://www.vgh.nrw.de/gericht/mitglieder"
+    },
+    {
+      "key": "vgh-rp",
+      "name": "Verfassungsgerichtshof Rheinland-Pfalz",
+      "state": "Rheinland-Pfalz",
+      "url": "https://verfgh.rlp.de/de/das-gericht/mitglieder"
+    },
+    {
+      "key": "vgh-sl",
+      "name": "Verfassungsgerichtshof des Saarlandes",
+      "state": "Saarland",
+      "url": "https://www.verfassungsgerichtshof-saarland.de/mitglieder"
+    },
+    {
+      "key": "vgh-sn",
+      "name": "Verfassungsgerichtshof des Freistaates Sachsen",
+      "state": "Sachsen",
+      "url": "https://www.justiz.sachsen.de/verfgh/mitglieder.html"
+    },
+    {
+      "key": "vgh-st",
+      "name": "Landesverfassungsgericht Sachsen-Anhalt",
+      "state": "Sachsen-Anhalt",
+      "url": "https://lverg.sachsen-anhalt.de/ueber-uns/mitglieder"
+    },
+    {
+      "key": "vgh-sh",
+      "name": "Schleswig-Holsteinisches Landesverfassungsgericht",
+      "state": "Schleswig-Holstein",
+      "url": "https://www.schleswig-holstein.de/DE/landesregierung/ministerien-behoerden/LVERFG/mitglieder"
+    },
+    {
+      "key": "vgh-th",
+      "name": "Thüringer Verfassungsgerichtshof",
+      "state": "Thüringen",
+      "url": "https://verfassungsgerichtshof.thueringen.de/ueber-uns/mitglieder"
+    }
+  ]
+}
+

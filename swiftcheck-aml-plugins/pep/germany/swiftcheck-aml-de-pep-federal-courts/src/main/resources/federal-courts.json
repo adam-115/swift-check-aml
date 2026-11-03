@@ -1,0 +1,53 @@
+{
+  "courts": [
+    {
+      "key": "bverfg",
+      "name": "Bundesverfassungsgericht",
+      "acronym": "BVerfG",
+      "city": "Karlsruhe",
+      "positionName": "Richter am Bundesverfassungsgericht",
+      "url": "https://www.bundesverfassungsgericht.de/DE/Richter/richter_node.html"
+    },
+    {
+      "key": "bgh",
+      "name": "Bundesgerichtshof",
+      "acronym": "BGH",
+      "city": "Karlsruhe",
+      "positionName": "Bundesrichter am Bundesgerichtshof",
+      "url": "https://www.bundesgerichtshof.de/DE/DasGericht/Organisation/organisation_node.html"
+    },
+    {
+      "key": "bverwg",
+      "name": "Bundesverwaltungsgericht",
+      "acronym": "BVerwG",
+      "city": "Leipzig",
+      "positionName": "Bundesrichter am Bundesverwaltungsgericht",
+      "url": "https://www.bverwg.de/das-gericht/organisation/senate"
+    },
+    {
+      "key": "bag",
+      "name": "Bundesarbeitsgericht",
+      "acronym": "BAG",
+      "city": "Erfurt",
+      "positionName": "Bundesrichter am Bundesarbeitsgericht",
+      "url": "https://www.bundesarbeitsgericht.de/das-gericht/organisation/senate/"
+    },
+    {
+      "key": "bsg",
+      "name": "Bundessozialgericht",
+      "acronym": "BSG",
+      "city": "Kassel",
+      "positionName": "Bundesrichter am Bundessozialgericht",
+      "url": "https://www.bsg.bund.de/DE/Das-Gericht/Senate/senate_node.html"
+    },
+    {
+      "key": "bfh",
+      "name": "Bundesfinanzhof",
+      "acronym": "BFH",
+      "city": "München",
+      "positionName": "Bundesrichter am Bundesfinanzhof",
+      "url": "https://www.bundesfinanzhof.de/de/das-gericht/organisation/senate/"
+    }
+  ]
+}
+
