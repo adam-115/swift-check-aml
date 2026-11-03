@@ -1,0 +1,19 @@
+{
+  "institutions": [
+    { "slug": "chambre", "query": "Chambre des", "label": "Chambre des représentants" },
+    { "slug": "senat", "query": "Sénat", "label": "Sénat" },
+    { "slug": "gouvernement_federal", "query": "Gouvernement fédéral", "label": "Gouvernement fédéral" },
+    { "slug": "parlement_flamand", "query": "Parlement flamand", "label": "Parlement flamand" },
+    { "slug": "gouvernement_flamand", "query": "Gouvernement flamand", "label": "Gouvernement flamand" },
+    { "slug": "parlement_wallon", "query": "Parlement wallon", "label": "Parlement de Wallonie" },
+    { "slug": "gouvernement_wallon", "query": "Gouvernement wallon", "label": "Gouvernement wallon" },
+    { "slug": "parlement_cf", "query": "Parlement de la Communauté française", "label": "Parlement de la Fédération Wallonie-Bruxelles" },
+    { "slug": "gouvernement_cf", "query": "Gouvernement de la Communauté française", "label": "Gouvernement de la Fédération Wallonie-Bruxelles" },
+    { "slug": "parlement_bruxelles", "query": "Parlement de la Région de Bruxelles-Capitale", "label": "Parlement de la Région de Bruxelles-Capitale" },
+    { "slug": "gouvernement_bruxelles", "query": "Gouvernement de la Région de Bruxelles-Capitale", "label": "Gouvernement de la Région de Bruxelles-Capitale" },
+    { "slug": "parlement_dg", "query": "Parlement de la Communauté germanophone", "label": "Parlement de la Communauté germanophone" },
+    { "slug": "gouvernement_dg", "query": "Gouvernement de la Communauté germanophone", "label": "Gouvernement de la Communauté germanophone" },
+    { "slug": "parlement_europeen", "query": "Parlement européen", "label": "Parlement européen" }
+  ]
+}
+

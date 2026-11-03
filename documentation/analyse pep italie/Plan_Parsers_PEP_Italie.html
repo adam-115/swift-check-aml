@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Plan des parsers PEP – Italie</title>
+<style>
+  @page { size: A4 portrait; margin: 14mm 13mm 14mm 13mm; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; color: #1e293b; font-size: 10.5px; line-height: 1.45; }
+  h1 { font-size: 22px; color: #0f172a; margin-bottom: 4px; }
+  h2 { font-size: 14px; color: #0f172a; margin: 18px 0 6px; padding-bottom: 3px; border-bottom: 2px solid #2563eb; break-after: avoid; }
+  h3 { font-size: 11.5px; color: #1e3a8a; margin: 12px 0 5px; break-after: avoid; }
+  p { margin: 4px 0; }
+  .subtitle { color: #475569; font-size: 11.5px; margin-bottom: 8px; }
+  .meta { display: flex; flex-wrap: wrap; gap: 18px; color: #64748b; font-size: 9.5px; border-bottom: 1px solid #e2e8f0; padding-bottom: 8px; margin-bottom: 12px; }
+  .kpis { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin: 10px 0 6px; }
+  .kpi { border: 1px solid #e2e8f0; border-radius: 8px; padding: 8px 10px; background: #f8fafc; }
+  .kpi b { display: block; font-size: 20px; color: #1d4ed8; line-height: 1.1; }
+  .kpi span { color: #475569; font-size: 9.5px; }
+  table { width: 100%; border-collapse: collapse; margin: 5px 0 8px; font-size: 9.5px; }
+  th { background: #1e3a8a; color: #fff; text-align: left; padding: 4px 5px; font-weight: 600; }
+  td { border-bottom: 1px solid #e2e8f0; padding: 4px 5px; vertical-align: top; }
+  tr { break-inside: avoid; }
+  tr:nth-child(even) td { background: #f8fafc; }
+  code { font-family: Consolas, 'Courier New', monospace; font-size: 9px; background: #eef2ff; color: #1e3a8a; padding: 0 2px; border-radius: 3px; }
+  .cat { font-weight: 700; color: #1d4ed8; white-space: nowrap; }
+  .tag { display: inline-block; border-radius: 4px; padding: 0 4px; font-size: 8.5px; font-weight: 600; white-space: nowrap; }
+  .easy { background: #dcfce7; color: #166534; }
+  .mid { background: #fef9c3; color: #854d0e; }
+  .hard { background: #fee2e2; color: #991b1b; }
+  .none { background: #e2e8f0; color: #334155; }
+  .note { border-left: 3px solid #2563eb; background: #eff6ff; padding: 6px 9px; margin: 6px 0; border-radius: 0 6px 6px 0; }
+  .warn { border-left-color: #d97706; background: #fffbeb; }
+  ul, ol { margin: 4px 0 4px 18px; }
+  li { margin: 2px 0; }
+  .small { font-size: 9px; color: #64748b; }
+  .footer { margin-top: 14px; border-top: 1px solid #e2e8f0; padding-top: 6px; color: #94a3b8; font-size: 8.5px; }
+  .page-break { break-before: page; }
+</style>
+</head>
+<body>
+
+<h1>Plan des parsers PEP – Italie</h1>
+<p class="subtitle">Fonctions PEP de l'Italie, où trouver leurs titulaires, quels parsers implémenter et dans quel ordre, pour couvrir
+l'article 1, comma 2, lettre dd) du décret législatif 231/2007 et la liste notifiée à la Commission (JO C/2023/724).</p>
+<div class="meta"><span>SwiftCheck AML</span><span>3 novembre 2026</span><span>Référence : écran « Couverture PEP »</span>
+<span>Base : « Spécification de collecte PEP Europe » (section Italie)</span>
+<span>Sources testées en direct le 3/11/2026, User-Agent générique, aucune protection contournée</span></div>
+
+<div class="kpis">
+  <div class="kpi"><b>9</b><span>groupes de fonctions dans la loi (points 1.1 à 1.9), plus UE et proches</span></div>
+  <div class="kpi"><b>16</b><span>parsers à implémenter, en 3 lots</span></div>
+  <div class="kpi"><b>701</b><span>maires de communes de 15 000 habitants ou plus, dans le CSV du ministère de l'Intérieur</span></div>
+  <div class="kpi"><b>SPARQL</b><span>Chambre et Sénat : open data, licence CC BY</span></div>
+</div>
+
+<div class="note">
+<b>En bref.</b> La loi italienne va plus loin que la directive. Elle vise déjà :
+<ul>
+  <li>les maires des chefs-lieux de province et des communes de <b>15 000 habitants ou plus</b> (l'AMLR ne demandera que 50 000) ;</li>
+  <li>les présidents, assesseurs et conseillers des <b>régions</b> ;</li>
+  <li>les directeurs généraux des agences sanitaires locales (ASL) et des hôpitaux publics ;</li>
+  <li>les entreprises contrôlées par les régions et par ces mêmes communes.</li>
+</ul>
+Le point fort, c'est le ministère de l'Intérieur : il publie en CSV <b>tous les élus locaux et régionaux en fonction</b>, avec leur date de naissance,
+leur fonction et la population de la commune. La Chambre et le Sénat ont chacun un point d'accès SPARQL. En revanche, plusieurs sites
+d'institutions sont protégés : la Cour constitutionnelle (Radware), les Affaires étrangères (Radware) et la Cour des comptes (403). Aucune de ces protections n'est contournée.
+</div>
+
+<h2>1. Cadre légal</h2>
+<table>
+  <tr><th style="width:24%">Texte</th><th>Contenu utile (texte en vigueur lu sur Normattiva)</th></tr>
+  <tr><td>D.Lgs. 231/2007, art. 1, c. 2, lett. dd), point 1</td><td>Personnes qui occupent ou ont cessé <b>depuis moins d'un an</b> d'occuper une fonction publique importante :
+  1.1 Président de la République, président du Conseil, ministres, vice-ministres et sous-secrétaires, présidents de région, assesseurs régionaux, maires des chefs-lieux de province ou des villes métropolitaines, maires des communes de 15 000 habitants ou plus ;
+  1.2 députés, sénateurs, députés européens, conseillers régionaux ;
+  1.3 membres des organes directeurs centraux des partis politiques ;
+  1.4 juges de la Cour constitutionnelle, magistrats de la Cour de cassation et de la Cour des comptes, conseillers d'État et membres du Conseil de justice administrative de la Région sicilienne ;
+  1.5 membres des organes directeurs des banques centrales et des <b>autorités indépendantes</b> ;
+  1.6 ambassadeurs, chargés d'affaires, officiers de grade le plus élevé des forces armées ;
+  1.7 organes d'administration, de direction ou de contrôle des entreprises contrôlées par l'État, ou détenues majoritairement par les régions, les chefs-lieux de province, les villes métropolitaines et les communes de 15 000 habitants ou plus ;
+  1.8 directeurs généraux des ASL, des hôpitaux publics et universitaires et des autres organismes du service sanitaire national ;
+  1.9 directeurs, directeurs adjoints et membres de l'organe de gestion des organisations internationales.</td></tr>
+  <tr><td>Même lettre dd), points 2 et 3</td><td>Famille (parents, conjoint ou partenaire, enfants et leurs conjoints ou partenaires) et personnes connues pour être étroitement associées.</td></tr>
+  <tr><td>Durée</td><td>La définition elle-même couvre ceux qui ont quitté leur fonction « depuis moins d'un an » : <b>12 mois</b>.</td></tr>
+  <tr><td>Règlement (UE) 2024/1624 (AMLR), 10/07/2027</td><td>Seuil de 50 000 habitants pour les collectivités : déjà couvert, la loi italienne descend à 15 000.</td></tr>
+</table>
+
+<h2>2. Fonctions à couvrir et sources</h2>
+<p class="small">Titulaires : ordres de grandeur, à confirmer à la première exécution (≈). « Accès » : résultat des tests du 3/11/2026.</p>
+<table>
+  <tr><th style="width:7%">Point</th><th style="width:30%">Fonctions</th><th style="width:11%">Titulaires</th><th>Source officielle et accès</th></tr>
+  <tr><td class="cat">1.1</td><td>Président de la République</td><td>1</td><td>quirinale.it <span class="tag easy">200</span></td></tr>
+  <tr><td class="cat">1.1</td><td>Président du Conseil, ministres, vice-ministres, sous-secrétaires</td><td>≈ 65</td><td>governo.it, page « Ministri e Sottosegretari » (Giorgia Meloni, Antonio Tajani, Matteo Salvini… lus) <span class="tag easy">200</span></td></tr>
+  <tr><td class="cat">1.1 / 1.2</td><td>Présidents de région, assesseurs et conseillers régionaux</td><td>≈ 870</td><td><b>Anagrafe degli amministratori</b> du ministère de l'Intérieur : <code>ammreg.csv</code> (mis à jour le 24/08/2026), avec date et lieu de naissance <span class="tag easy">200</span></td></tr>
+  <tr><td class="cat">1.1</td><td>Maires des chefs-lieux et des communes de 15 000 habitants ou plus</td><td>701 + quelques chefs-lieux plus petits</td><td>Même source : <code>ammcom.csv</code> (125 956 lignes, 7 783 maires, population de la commune incluse) <span class="tag easy">200</span> ; <code>ammmetropolitani.csv</code> pour les villes métropolitaines ; liste des chefs-lieux à reprendre de l'ISTAT</td></tr>
+  <tr><td class="cat">1.2</td><td>Députés et sénateurs, en fonction et anciens</td><td>400 + 200 (415 et 254 inscrits en 19e législature, remplaçants compris)</td><td><b>dati.camera.it</b> et <b>dati.senato.it</b> : SPARQL, licence CC BY <span class="tag easy">200</span></td></tr>
+  <tr><td class="cat">1.2</td><td>Députés européens élus en Italie ; membre italien de la Commission</td><td>76 + 1</td><td>API du Parlement européen <span class="tag easy">200</span> ; Commission : Raffaele Fitto</td></tr>
+  <tr><td class="cat">1.3</td><td>Organes directeurs centraux des partis</td><td>≈ 30 partis inscrits</td><td>Registre des partis politiques (parlamento.it, Commission de garantie des statuts) : il donne les statuts, pas les noms. Les noms viennent des sites des partis <span class="tag mid">à étudier</span></td></tr>
+  <tr><td class="cat">1.4</td><td>Juges de la Cour constitutionnelle</td><td>15</td><td>cortecostituzionale.it <span class="tag hard">Radware</span>, non contourné : autre source à trouver (communiqués du Quirinale et du Parlement, Gazzetta Ufficiale)</td></tr>
+  <tr><td class="cat">1.4</td><td>Magistrats de la Cassation, de la Cour des comptes ; conseillers d'État ; CGA de Sicile</td><td>centaines</td><td>cortedicassazione.it <span class="tag easy">200</span> ; corteconti.it <span class="tag hard">403</span> ; giustizia-amministrativa.it <span class="tag easy">200</span>.
+  Pas de liste nominative complète des magistrats : décrets de nomination et organigrammes</td></tr>
+  <tr><td class="cat">1.5</td><td>Directoire de la Banque d'Italie ; collèges des autorités indépendantes (CONSOB, IVASS, AGCM, AGCOM, ARERA, ANAC, Garante privacy, ART, COVIP…)</td><td>≈ 60</td><td>bancaditalia.it <span class="tag easy">200</span> (page du directoire à repérer) ; agcom.it, arera.it, anticorruzione.it, garanteprivacy.it, ivass.it <span class="tag easy">200</span> ; consob.it <span class="tag mid">503</span> lors du test</td></tr>
+  <tr><td class="cat">1.6</td><td>Ambassadeurs et chargés d'affaires ; officiers de grade le plus élevé</td><td>≈ 130 + ≈ 20</td><td>esteri.it <span class="tag hard">Radware</span>, non contourné : décrets de nomination à la Gazzetta Ufficiale ; difesa.it <span class="tag easy">200</span></td></tr>
+  <tr><td class="cat">1.7</td><td>Organes des entreprises contrôlées par l'État, ou détenues majoritairement par les régions et les communes visées</td><td>milliers</td><td>Participations du ministère de l'Économie (MEF) ; rubriques « Amministrazione trasparente » des sociétés (obligation légale) ; données « Partecipazioni pubbliche » du Trésor <span class="tag mid">à étudier</span></td></tr>
+  <tr><td class="cat">1.8</td><td>Directeurs généraux des ASL, hôpitaux et autres organismes sanitaires</td><td>≈ 200</td><td>Liste des organismes sur salute.gov.it <span class="tag easy">200</span> ; nom du directeur général dans « Amministrazione trasparente » de chaque organisme</td></tr>
+  <tr><td class="cat">1.9</td><td>Dirigeants des organisations internationales en Italie (FAO, FIDA, PAM, ESA-ESRIN, IUE, UNICRI, Collège de défense de l'OTAN, EFSA…)</td><td>≈ 80</td><td>fao.org, ifad.org, wfp.org, eui.eu, esa.int <span class="tag easy">200</span></td></tr>
+  <tr><td class="cat">Toutes</td><td>Nominations et cessations (gouvernement, hautes fonctions, ambassadeurs, autorités)</td><td>—</td><td>Gazzetta Ufficiale <span class="tag easy">200</span> : rôle du JORF français ; Normattiva <span class="tag easy">200</span> (dati.normattiva.it, open data)</td></tr>
+  <tr><td class="cat">RCA</td><td>Famille et proches</td><td>—</td><td>Wikidata</td></tr>
+</table>
+
+<h2 class="page-break">3. Parsers à implémenter</h2>
+<p>Noms sur le modèle des autres pays (<code>it_pep_…</code>), un dataset par source. Difficulté :
+<span class="tag easy">Faible</span> <span class="tag mid">Moyen</span> <span class="tag hard">Élevé</span>.</p>
+
+<h3>Lot 1 – open data et reprises (8 parsers)</h3>
+<table>
+  <tr><th style="width:4%">#</th><th style="width:22%">Parser</th><th style="width:26%">Source</th><th>Couvre</th><th style="width:12%">Effort</th></tr>
+  <tr><td>1</td><td><code>it_pep_local_administrators</code></td><td>CSV de l'Anagrafe degli amministratori (ministère de l'Intérieur)</td><td>1.1 et 1.2 : présidents et assesseurs de région, conseillers régionaux, maires des chefs-lieux et des communes de 15 000 habitants ou plus ; anciens titulaires par comparaison avec l'exécution précédente</td><td><span class="tag easy">Faible</span> (le plus gros volume, environ 1 600 personnes)</td></tr>
+  <tr><td>2</td><td><code>it_pep_chamber</code></td><td>SPARQL de dati.camera.it</td><td>1.2 : députés, en fonction et sortis depuis moins de 12 mois</td><td><span class="tag easy">Faible</span></td></tr>
+  <tr><td>3</td><td><code>it_pep_senate</code></td><td>SPARQL de dati.senato.it</td><td>1.2 : sénateurs, sénateurs à vie compris</td><td><span class="tag easy">Faible</span></td></tr>
+  <tr><td>4</td><td><code>it_pep_government</code></td><td>governo.it, page « Ministri e Sottosegretari »</td><td>1.1 : président du Conseil, ministres, vice-ministres, sous-secrétaires</td><td><span class="tag easy">Faible</span> sur le modèle de <code>be_pep_federal_government</code></td></tr>
+  <tr><td>5</td><td><code>it_pep_president</code></td><td>quirinale.it</td><td>1.1 : Président de la République</td><td><span class="tag easy">Faible</span></td></tr>
+  <tr><td>6</td><td><code>it_pep_europarl</code></td><td>API du Parlement européen (<code>country-of-representation=IT</code>)</td><td>1.2 : 76 députés européens</td><td><span class="tag easy">Faible</span> reprise</td></tr>
+  <tr><td>7</td><td><code>it_pep_eu_commission</code></td><td>Fiche officielle du commissaire italien</td><td>Raffaele Fitto</td><td><span class="tag easy">Faible</span> reprise</td></tr>
+  <tr><td>8</td><td><code>it_pep_rca</code></td><td>Wikidata (SPARQL), liste autorisée de fonctions italiennes</td><td>Points 2 et 3 : famille</td><td><span class="tag easy">Faible</span> reprise</td></tr>
+</table>
+
+<h3>Lot 2 – institutions (6 parsers)</h3>
+<table>
+  <tr><th style="width:4%">#</th><th style="width:22%">Parser</th><th style="width:26%">Source</th><th>Couvre</th><th style="width:12%">Effort</th></tr>
+  <tr><td>9</td><td><code>it_pep_central_bank_authorities</code></td><td>Banque d'Italie et une page par autorité indépendante, en configuration</td><td>1.5 : directoire de la Banque d'Italie et collèges des autorités</td><td><span class="tag easy">Faible</span></td></tr>
+  <tr><td>10</td><td><code>it_pep_high_courts</code></td><td>Cassation, Conseil d'État, CGA de Sicile (pages officielles) ; Cour constitutionnelle et Cour des comptes par une source ouverte</td><td>1.4 : présidents et magistrats des hautes juridictions</td><td><span class="tag hard">Élevé</span> (deux sites protégés, pas de liste complète)</td></tr>
+  <tr><td>11</td><td><code>it_pep_military</code></td><td>difesa.it, pages des états-majors</td><td>1.6 : chefs d'état-major et officiers de grade le plus élevé</td><td><span class="tag easy">Faible</span></td></tr>
+  <tr><td>12</td><td><code>it_pep_health_directors</code></td><td>Liste des organismes (salute.gov.it), puis « Amministrazione trasparente » de chacun</td><td>1.8 : directeurs généraux des ASL et hôpitaux publics</td><td><span class="tag mid">Moyen</span> (≈ 200 sites de formats différents)</td></tr>
+  <tr><td>13</td><td><code>it_pep_parties</code></td><td>Registre des partis (parlamento.it) pour la liste ; sites des partis pour les organes</td><td>1.3 : organes directeurs centraux</td><td><span class="tag mid">Moyen</span></td></tr>
+  <tr><td>14</td><td><code>it_pep_international_orgs</code></td><td>Une page officielle par organisation, en configuration</td><td>1.9 : FAO, FIDA, PAM, ESA-ESRIN, IUE, UNICRI, EFSA…</td><td><span class="tag mid">Moyen</span> reprise de <code>fr_pep_international_orgs</code></td></tr>
+</table>
+
+<h3>Lot 3 – Gazzetta Ufficiale et entreprises (2 parsers)</h3>
+<table>
+  <tr><th style="width:4%">#</th><th style="width:22%">Parser</th><th style="width:26%">Source</th><th>Couvre</th><th style="width:12%">Effort</th></tr>
+  <tr><td>15</td><td><code>it_pep_gazzetta</code></td><td>Gazzetta Ufficiale (série générale), décrets de nomination et de cessation</td><td>1.4, 1.5, 1.6 : ambassadeurs (le site des Affaires étrangères est bloqué), juges de la Cour constitutionnelle, membres des autorités ; dates de fin pour tous</td><td><span class="tag hard">Élevé</span>, équivalent de <code>fr_pep_jorf</code></td></tr>
+  <tr><td>16</td><td><code>it_pep_state_enterprises</code></td><td>Participations du MEF et du Trésor, puis « Amministrazione trasparente » des sociétés</td><td>1.7 : sociétés de l'État, des régions et des communes visées</td><td><span class="tag hard">Élevé</span> (milliers de sociétés, à cadrer comme FR-g)</td></tr>
+</table>
+
+<h2>4. À étudier avant de coder</h2>
+<table>
+  <tr><th style="width:26%">Sujet</th><th>Question</th><th style="width:34%">Comment trancher</th></tr>
+  <tr><td>Chefs-lieux de moins de 15 000 habitants</td><td>Le CSV ne dit pas si une commune est chef-lieu de province.</td><td>Ajouter la liste ISTAT des chefs-lieux en configuration, avec son code commune.</td></tr>
+  <tr><td>Anciens élus locaux</td><td>Le CSV ne contient que les personnes en fonction.</td><td>Garder 12 mois les personnes disparues d'une exécution à l'autre ; les fichiers annuels au 31 décembre (2007 à 2025) permettent d'initialiser.</td></tr>
+  <tr><td>Données personnelles du CSV</td><td>Il contient diplôme, profession et lieu de naissance.</td><td>Ne garder que nom, date et lieu de naissance, fonction, commune, dates ; ne pas reprendre diplôme ni profession.</td></tr>
+  <tr><td>Sites protégés</td><td>Cour constitutionnelle et Affaires étrangères (Radware), Cour des comptes (403), CONSOB (503 lors du test).</td><td>Ne pas contourner. Passer par la Gazzetta Ufficiale, Normattiva ou une autre page officielle ; signaler la source bloquée dans le message de l'exécution.</td></tr>
+  <tr><td>Partis</td><td>Le registre ne donne pas les noms des dirigeants.</td><td>Une page « organes » par parti, en configuration ; cible : les partis représentés au Parlement.</td></tr>
+  <tr><td>Magistrats</td><td>« Magistrats de la Cassation et de la Cour des comptes » : tous, ou les fonctions de direction ?</td><td>Avis du responsable conformité ; à défaut, commencer par les présidents de chambre et de section.</td></tr>
+  <tr><td>Entreprises</td><td>Périmètre très large (communes de 15 000 habitants et plus).</td><td>Commencer par l'État et les régions, puis les chefs-lieux ; même méthode que FR-g.</td></tr>
+</table>
+
+<h2>5. Règles communes</h2>
+<ul>
+  <li><b>Durée</b> : garder un titulaire 12 mois après la fin de ses fonctions (lettre dd : « depuis moins d'un an »).</li>
+  <li><b>Citer la source</b> : la licence CC BY de la Chambre et du Sénat impose l'attribution.</li>
+  <li><b>Pas de coordonnées personnelles</b> : ni adresse, ni téléphone, ni e-mail, même si la source les donne.</li>
+  <li><b>Accès</b> : User-Agent générique SwiftCheck, rythme lent, aucun contournement des protections.</li>
+  <li><b>Configuration plutôt que code</b> : chefs-lieux, autorités, organismes sanitaires, partis et organisations dans des fichiers de configuration.</li>
+  <li><b>Couverture</b> : renseigner pour chaque lien fonction ↔ parser ce qui est couvert et ce qui manque (écran « Couverture PEP »).</li>
+</ul>
+
+<h2>6. Ordre proposé</h2>
+<ol>
+  <li><b>Lot 1 – parsers 1 à 8.</b> En premier les élus locaux et régionaux : une seule source officielle couvre le plus grand nombre de PEP italiens. Ensuite le Parlement, le gouvernement, le Président, l'UE et la famille.</li>
+  <li><b>Lot 2 – parsers 9 à 14.</b> Banque d'Italie et autorités, hautes juridictions, armée, santé, partis, organisations internationales.</li>
+  <li><b>Lot 3 – parsers 15 et 16.</b> Gazzetta Ufficiale (elle comble les sites bloqués et fournit les dates de fin), puis les entreprises publiques.</li>
+</ol>
+<p>Après le lot 1, les points 1.1 et 1.2 (l'essentiel des PEP italiens en nombre) sont couverts par des sources officielles ouvertes.</p>
+
+<h2>7. Sources</h2>
+<ul class="small">
+  <li>D.Lgs. 231/2007 : normattiva.it (urn:nir:stato:decreto.legislativo:2007-11-21;231) · Liste de la Commission : eur-lex.europa.eu/eli/C/2023/724/oj</li>
+  <li>Élus locaux et régionaux : dait.interno.gov.it/elezioni/open-data/amministratori-locali-e-regionali-in-carica (ammcom.csv, ammreg.csv, ammmetropolitani.csv)</li>
+  <li>Chambre : dati.camera.it/sparql · Sénat : dati.senato.it/sparql · Gouvernement : governo.it/it/ministri-e-sottosegretari · Président : quirinale.it</li>
+  <li>Juridictions : cortecostituzionale.it · cortedicassazione.it · corteconti.it · giustizia-amministrativa.it · Partis : parlamento.it (registre des partis politiques)</li>
+  <li>Banque d'Italie : bancaditalia.it · Autorités : consob.it, ivass.it, agcm.it, agcom.it, arera.it, anticorruzione.it, garanteprivacy.it · Affaires étrangères : esteri.it · Défense : difesa.it · Santé : salute.gov.it · MEF : mef.gov.it</li>
+  <li>Gazzetta Ufficiale : gazzettaufficiale.it · Organisations : fao.org, ifad.org, wfp.org, eui.eu, esa.int · Parlement européen : data.europarl.europa.eu · Wikidata</li>
+</ul>
+
+<div class="footer">SwiftCheck AML – Plan des parsers PEP Italie – 3 novembre 2026. Ordres de grandeur indicatifs, à confirmer à la première exécution de chaque parser.</div>
+</body>
+</html>

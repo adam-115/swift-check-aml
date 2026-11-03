@@ -1,0 +1,110 @@
+{
+  "enterprises": [
+    {
+      "slug": "sncb",
+      "query": "SNCB",
+      "name": "SNCB (Société nationale des chemins de fer belges)",
+      "keywords": ["sncb", "nmbs", "chemins de fer belges", "belgische spoorwegen"],
+      "description": "Entreprise publique autonome fédérale – Transport ferroviaire"
+    },
+    {
+      "slug": "infrabel",
+      "query": "Infrabel",
+      "name": "Infrabel",
+      "keywords": ["infrabel"],
+      "description": "Entreprise publique autonome fédérale – Gestionnaire de l'infrastructure ferroviaire"
+    },
+    {
+      "slug": "bpost",
+      "query": "bpost",
+      "name": "bpost",
+      "keywords": ["bpost", "la poste"],
+      "description": "Entreprise publique autonome fédérale – Services postaux (portefeuille SFPI)"
+    },
+    {
+      "slug": "proximus",
+      "query": "Proximus",
+      "name": "Proximus",
+      "keywords": ["proximus", "belgacom"],
+      "description": "Entreprise publique autonome fédérale – Télécommunications (portefeuille SFPI)"
+    },
+    {
+      "slug": "skeyes",
+      "query": "skeyes",
+      "name": "skeyes (Belgocontrol)",
+      "keywords": ["skeyes", "belgocontrol"],
+      "description": "Entreprise publique autonome fédérale – Sécurité de la navigation aérienne"
+    },
+    {
+      "slug": "loterie_nationale",
+      "query": "Loterie Nationale",
+      "name": "Loterie Nationale",
+      "keywords": ["loterie nationale", "nationale loterij"],
+      "description": "Société anonyme de droit public – Portefeuille SFPI"
+    },
+    {
+      "slug": "sfpi",
+      "query": "SFPI",
+      "name": "SFPI (Société fédérale de Participations et d'Investissement)",
+      "keywords": ["sfpi", "fpim", "société fédérale de participations", "federale participatie"],
+      "description": "Société fédérale de Participations et d'Investissement"
+    },
+    {
+      "slug": "credendo",
+      "query": "Credendo",
+      "name": "Credendo (Ducroire)",
+      "keywords": ["credendo", "ducroire", "delcredere"],
+      "description": "Institution publique d'assurance-crédit à l'exportation"
+    },
+    {
+      "slug": "rtbf",
+      "query": "RTBF",
+      "name": "RTBF (Radio-Télévision belge de la Communauté française)",
+      "keywords": ["rtbf", "radio-télévision belge"],
+      "description": "Entreprise publique autonome culturelle – Communauté française"
+    },
+    {
+      "slug": "vrt",
+      "query": "VRT",
+      "name": "VRT (Vlaamse Radio- en Televisieomroeporganisatie)",
+      "keywords": ["vrt", "vlaamse radio"],
+      "description": "Entreprise publique de radiodiffusion – Communauté flamande"
+    },
+    {
+      "slug": "stib",
+      "query": "STIB",
+      "name": "STIB / MIVB (Société des Transports Intercommunaux de Bruxelles)",
+      "keywords": ["stib", "mivb", "transports intercommunaux de bruxelles"],
+      "description": "Organisme d'intérêt public – Transport public bruxellois"
+    },
+    {
+      "slug": "de_lijn",
+      "query": "De Lijn",
+      "name": "Vlaamse Vervoermaatschappij De Lijn",
+      "keywords": ["de lijn", "vlaamse vervoermaatschappij"],
+      "description": "Entreprise publique de transport – Région flamande"
+    },
+    {
+      "slug": "belfius",
+      "query": "Belfius",
+      "name": "Belfius Banque et Assurances",
+      "keywords": ["belfius"],
+      "description": "Participation publique stratégique à 100 % – Portefeuille SFPI"
+    },
+    {
+      "slug": "apetra",
+      "query": "Apetra",
+      "name": "APETRA (Agence de gestion des stocks stratégiques de pétrole)",
+      "keywords": ["apetra"],
+      "description": "Société anonyme de droit public à finalité sociale – Énergie"
+    },
+    {
+      "slug": "astrid",
+      "query": "ASTRID",
+      "name": "ASTRID",
+      "keywords": ["astrid"],
+      "description": "Société anonyme de droit public – Télécommunications des services de secours et de sécurité"
+    }
+  ]
+}
+

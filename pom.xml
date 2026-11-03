@@ -95,6 +95,12 @@
         <module>swiftcheck-aml-plugins/pep/belgium/swiftcheck-aml-be-pep-diplomats</module>
         <module>swiftcheck-aml-plugins/pep/belgium/swiftcheck-aml-be-pep-army</module>
         <module>swiftcheck-aml-plugins/pep/belgium/swiftcheck-aml-be-pep-international-orgs</module>
+        <!-- PEP Belgique – Lot 3 : volumineux, après étude -->
+        <module>swiftcheck-aml-plugins/pep/belgium/swiftcheck-aml-be-pep-moniteur</module>
+        <module>swiftcheck-aml-plugins/pep/belgium/swiftcheck-aml-be-pep-public-enterprises</module>
+        <module>swiftcheck-aml-plugins/pep/belgium/swiftcheck-aml-be-pep-political-parties</module>
+        <module>swiftcheck-aml-plugins/pep/belgium/swiftcheck-aml-be-pep-local-executives</module>
+        <module>swiftcheck-aml-plugins/pep/belgium/swiftcheck-aml-be-pep-associated-entities</module>
     </modules>
 
     <dependencyManagement>

@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Lot 3 des parsers PEP de la Belgique : volumineux, après étude (5 parsers) :
+    1. be_pep_moniteur : Moniteur belge (Journal officiel, ejustice.just.fgov.be) : nominations judiciaires (BE-d),
+       officiers généraux et ambassadeurs (BE-f), commissaires du gouvernement et administrateurs d'entreprises publiques (BE-g),
+       membres et anciens membres des gouvernements (BE-a) ;
+    2. be_pep_public_enterprises : Entreprises publiques fédérales et régionales (SNCB, Infrabel, bpost, Proximus,
+       skeyes, Loterie Nationale, SFPI, Credendo, RTBF, VRT, STIB, De Lijn, Belfius, Apetra, ASTRID) via Regimand Cour des comptes (BE-g) ;
+    3. be_pep_political_parties : Dirigeants des partis politiques belges (BE-c) via Wikidata SPARQL (Q31) ;
+    4. be_pep_local_executives : Bourgmestres et gouverneurs provinciaux des collectivités >= 50 000 habitants (BE-AMLR)
+       via Wikidata (Q31) et LBLOD Mandatendatabank ;
+    5. be_pep_associated_entities : Organismes liés aux PEP belges (BE-RCA) via déclarations de mandats Cour des comptes (Regimand).
+    Plan : documentation/analyse pep belgique/Plan_Parsers_PEP_Belgique.pdf.
+-->
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="026-parser-be-pep-moniteur" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Belgique – Moniteur belge (nominations et démissions)',
+                'Arrêtés royaux, ministériels et judiciaires de nomination, renouvellement, démission et retraite des hautes fonctions publiques (catégories BE-d, BE-f, BE-g, BE-a)',
+                'be_pep_moniteur', 'PEP', 'https://www.ejustice.just.fgov.be/cgi/summary.pl?language=fr',
+                'be-pep-moniteur', 'D:/test parser 2/plugins/swiftcheck-aml-be-pep-moniteur-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'WEB_PAGE',
+                NULL,
+                '{"baseUrl": "https://www.ejustice.just.fgov.be/cgi", "days": "30", "delayMs": "1000", "yearsAfterEnd": "5"}',
+                24, 60,
+                'Domaine public (Service public fédéral Justice)', 'Moniteur belge (ejustice.just.fgov.be)',
+                'Collecte quotidienne des actes officiels de nomination et de cessation de fonction parus au Moniteur belge.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', TRUE, 'Magistrats du siège et du parquet de la Cour de cassation (nominations, renouvellements, retraites).', 'Délai de publication officiel.'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'BE-d' AND f.label LIKE 'Conseiller à la Cour de cassation%' AND p.dataset_name = 'be_pep_moniteur';
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', TRUE, 'Conseillers et magistrats suppléants des cours d’appel et des cours du travail.', 'Délai de publication officiel.'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'BE-d' AND f.label LIKE 'Conseiller à une cour d''appel%' AND p.dataset_name = 'be_pep_moniteur';
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', TRUE, 'Membres du Conseil d’État (premiers présidents, présidents, conseillers, assesseurs, auditeurs).', 'Délai de publication officiel.'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'BE-d' AND f.label LIKE 'Membre du Conseil d''État%' AND p.dataset_name = 'be_pep_moniteur';
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', TRUE, 'Ambassadeurs, consuls généraux et chargés d’affaires nommés par arrêté royal.', 'Délai de publication officiel.'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'BE-f' AND f.label LIKE 'Ambassadeur, consul%' AND p.dataset_name = 'be_pep_moniteur';
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', TRUE, 'Officiers généraux de la Défense (général, lieutenant-général, général-major, amiral).', 'Délai de publication officiel.'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'BE-f' AND f.label LIKE 'Officier général%' AND p.dataset_name = 'be_pep_moniteur';
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'PARTIAL', TRUE, 'Commissaires du gouvernement et administrateurs nommés par arrêté royal ou ministériel.', 'Complété par be_pep_public_enterprises (listes déclarées).'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'BE-g' AND f.label LIKE 'Dirigeant, administrateur ou commissaire du gouvernement%' AND p.dataset_name = 'be_pep_moniteur';
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', TRUE, 'Anciens membres des gouvernements fédéral et régionaux (arrêtés de démission acceptée).', 'Couvre les démissions publiées depuis la date paramétrée.'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'BE-a' AND f.label LIKE 'Ancien membre d''un gouvernement%' AND p.dataset_name = 'be_pep_moniteur';
+        ]]></sql>
+    </changeSet>
+
+    <changeSet id="026-parser-be-pep-public-enterprises" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Belgique – Entreprises publiques (Cour des comptes & SFPI)',
+                'Conseils d’administration, comités de direction et commissaires du gouvernement des entreprises publiques autonomes et participations stratégiques fédérales et régionales (catégorie BE-g)',
+                'be_pep_public_enterprises', 'PEP', 'https://public.regimand.be/',
+                'be-pep-public-enterprises', 'D:/test parser 2/plugins/swiftcheck-aml-be-pep-public-enterprises-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'API',
+                NULL,
+                '{"regimandUrl": "https://public.regimand.be", "sfpiUrl": "https://www.sfpi-fpim.be/fr/investissements/", "year": "2024", "yearsAfterEnd": "5"}',
+                168, 60,
+                'Cour des comptes de Belgique (public.regimand.be) et SFPI (sfpi-fpim.be)', 'Cour des comptes de Belgique ; Société Fédérale de Participations et d''Investissement',
+                'Croise les déclarations officielles de mandats de la Cour des comptes pour 15 entreprises publiques majeures (SNCB, Infrabel, bpost, Proximus, skeyes, Loterie Nationale, SFPI, Credendo, RTBF, VRT, STIB, De Lijn, Belfius, Apetra, ASTRID).', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', TRUE, 'Membres des conseils d’administration, présidents, directeurs généraux et commissaires du gouvernement des entreprises publiques autonomes et des participations de la SFPI.', 'Les mandats non rémunérés d''entreprises publiques locales non régionales relèvent de be_pep_associated_entities.'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'BE-g' AND f.label LIKE 'Dirigeant, administrateur ou commissaire du gouvernement d''une entreprise publique%' AND p.dataset_name = 'be_pep_public_enterprises';
+        ]]></sql>
+    </changeSet>
+
+    <changeSet id="026-parser-be-pep-political-parties" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Belgique – Partis politiques (Wikidata)',
+                'Présidents, secrétaires généraux et dirigeants des partis politiques belges représentés au Parlement fédéral ou dans les parlements régionaux (catégorie BE-c)',
+                'be_pep_political_parties', 'PEP', 'https://query.wikidata.org/',
+                'be-pep-political-parties', 'D:/test parser 2/plugins/swiftcheck-aml-be-pep-political-parties-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'SPARQL',
+                NULL,
+                '{"countryQid": "Q31", "endpoint": "https://query.wikidata.org/sparql", "monthsAfterEnd": "12"}',
+                168, 60,
+                'CC0 1.0 Universal (Wikidata)', 'Contributeurs Wikidata (entité Q31 - Belgique)',
+                'Requête SPARQL ciblée sur les partis politiques actifs belges avec propriétés P488 (président), P3975 (secrétaire général), P1037/P169 (directeur/dirigeant).', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', TRUE, 'Présidents, secrétaires généraux et dirigeants nationaux de l’ensemble des partis politiques belges (N-VA, MR, PS, PTB-PVDA, Vlaams Belang, Vooruit, CD&V, Les Engagés, Open Vld, Groen, Ecolo, DéFI).', 'Dates précises dépendantes des déclarations Wikidata.'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'BE-c' AND f.label LIKE 'Membre de la direction, du conseil politique%' AND p.dataset_name = 'be_pep_political_parties';
+        ]]></sql>
+    </changeSet>
+
+    <changeSet id="026-parser-be-pep-local-executives" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Belgique – Exécutifs locaux (50 000 hab. et plus)',
+                'Bourgmestres et gouverneurs de provinces des collectivités de 50 000 habitants ou plus (catégorie BE-AMLR, règlement (UE) 2024/1624 applicable le 10/07/2027)',
+                'be_pep_local_executives', 'PEP', 'https://query.wikidata.org/',
+                'be-pep-local-executives', 'D:/test parser 2/plugins/swiftcheck-aml-be-pep-local-executives-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'SPARQL',
+                NULL,
+                '{"wikidataEndpoint": "https://query.wikidata.org/sparql", "lblodEndpoint": "https://centrale-vindplaats.lblod.info/sparql", "minPopulation": "50000", "countryQid": "Q31"}',
+                168, 60,
+                'CC0 1.0 (Wikidata) et Licence Ouverte Flandre (LBLOD Mandatendatabank)', 'Wikidata (Q31) ; Agentschap Binnenlands Bestuur (LBLOD Mandatendatabank)',
+                'Couvre les 10 gouverneurs de province, le gouverneur de l’arrondissement de Bruxelles-Capitale, et les bourgmestres des communes belges >= 50 000 hab. (Anvers, Gand, Charleroi, Liège, Bruxelles-Ville, Schaerbeek, Anderlecht, Bruges, Namur, Louvain, Mons, Molenbeek, Ixelles, Alost, Malines, Uccle, La Louvière, Hasselt, Saint-Nicolas, Ostende, Tournai, Genk, Seraing, Roulers, Verviers, etc.).', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', TRUE, 'Tous les bourgmestres des communes belges de plus de 50 000 habitants et l’ensemble des gouverneurs de province et d’arrondissement.', 'Règlement AMLR (UE) 2024/1624 art. 2(1)(35).'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'BE-AMLR' AND f.label LIKE 'Bourgmestre ou dirigeant d''une collectivité de 50 000 habitants ou plus%' AND p.dataset_name = 'be_pep_local_executives';
+        ]]></sql>
+    </changeSet>
+
+    <changeSet id="026-parser-be-pep-associated-entities" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Belgique – Entités associées aux PEP (Regimand Cour des comptes)',
+                'Organismes, sociétés et institutions privées ou dérivées dans lesquels les PEP belges exercent des mandats déclarés (catégorie BE-RCA, proches associés personnes morales)',
+                'be_pep_associated_entities', 'PEP', 'https://public.regimand.be/',
+                'be-pep-associated-entities', 'D:/test parser 2/plugins/swiftcheck-aml-be-pep-associated-entities-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'API',
+                NULL,
+                '{"regimandUrl": "https://public.regimand.be", "year": "2024"}',
+                168, 60,
+                'Cour des comptes de Belgique (public.regimand.be)', 'Cour des comptes de Belgique (registre officiel des mandats, fonctions et professions)',
+                'Extrait chaque organisme externe (isLiable = false) lié aux mandataires publics assujettis (députés, sénateurs, ministres fédéraux et régionaux). Crée les entités Person, Organization (role.rca) et les relations Directorship.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', TRUE, 'Organismes et sociétés liés aux parlementaires et membres de gouvernement belges, avec liens Directorship et statut de rémunération.', 'Ne couvre pas les personnes physiques (famille PEP).'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'BE-RCA' AND f.label LIKE 'Proche associé d''une PEP%' AND p.dataset_name = 'be_pep_associated_entities';
+        ]]></sql>
+    </changeSet>
+
+</databaseChangeLog>
+

@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Plan des parsers PEP – Autriche</title>
+<style>
+  @page { size: A4 portrait; margin: 14mm 13mm 14mm 13mm; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; color: #1e293b; font-size: 10.5px; line-height: 1.45; }
+  h1 { font-size: 22px; color: #0f172a; margin-bottom: 4px; }
+  h2 { font-size: 14px; color: #0f172a; margin: 18px 0 6px; padding-bottom: 3px; border-bottom: 2px solid #2563eb; break-after: avoid; }
+  h3 { font-size: 11.5px; color: #1e3a8a; margin: 12px 0 5px; break-after: avoid; }
+  p { margin: 4px 0; }
+  .subtitle { color: #475569; font-size: 11.5px; margin-bottom: 8px; }
+  .meta { display: flex; flex-wrap: wrap; gap: 18px; color: #64748b; font-size: 9.5px; border-bottom: 1px solid #e2e8f0; padding-bottom: 8px; margin-bottom: 12px; }
+  .kpis { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin: 10px 0 6px; }
+  .kpi { border: 1px solid #e2e8f0; border-radius: 8px; padding: 8px 10px; background: #f8fafc; }
+  .kpi b { display: block; font-size: 20px; color: #1d4ed8; line-height: 1.1; }
+  .kpi span { color: #475569; font-size: 9.5px; }
+  table { width: 100%; border-collapse: collapse; margin: 5px 0 8px; font-size: 9.5px; }
+  th { background: #1e3a8a; color: #fff; text-align: left; padding: 4px 5px; font-weight: 600; }
+  td { border-bottom: 1px solid #e2e8f0; padding: 4px 5px; vertical-align: top; }
+  tr { break-inside: avoid; }
+  tr:nth-child(even) td { background: #f8fafc; }
+  code { font-family: Consolas, 'Courier New', monospace; font-size: 9px; background: #eef2ff; color: #1e3a8a; padding: 0 2px; border-radius: 3px; }
+  .cat { font-weight: 700; color: #1d4ed8; white-space: nowrap; }
+  .tag { display: inline-block; border-radius: 4px; padding: 0 4px; font-size: 8.5px; font-weight: 600; white-space: nowrap; }
+  .easy { background: #dcfce7; color: #166534; }
+  .mid { background: #fef9c3; color: #854d0e; }
+  .hard { background: #fee2e2; color: #991b1b; }
+  .none { background: #e2e8f0; color: #334155; }
+  .note { border-left: 3px solid #2563eb; background: #eff6ff; padding: 6px 9px; margin: 6px 0; border-radius: 0 6px 6px 0; }
+  .warn { border-left-color: #d97706; background: #fffbeb; }
+  ul, ol { margin: 4px 0 4px 18px; }
+  li { margin: 2px 0; }
+  .small { font-size: 9px; color: #64748b; }
+  .footer { margin-top: 14px; border-top: 1px solid #e2e8f0; padding-top: 6px; color: #94a3b8; font-size: 8.5px; }
+  .page-break { break-before: page; }
+</style>
+</head>
+<body>
+
+<h1>Plan des parsers PEP – Autriche</h1>
+<p class="subtitle">Fonctions PEP de l'Autriche, où trouver leurs titulaires, quels parsers implémenter et dans quel ordre, pour couvrir
+le § 2 Z 6 du Finanzmarkt-Geldwäschegesetz (FM-GwG) et la liste notifiée à la Commission (JO C/2023/724).</p>
+<div class="meta"><span>SwiftCheck AML</span><span>3 novembre 2026</span><span>Référence : écran « Couverture PEP »</span>
+<span>Suite de « Couverture des PEP en Autriche – analyse des sources » (17 octobre 2026)</span>
+<span>Sources testées en direct le 3/11/2026, User-Agent générique, aucune protection contournée</span></div>
+
+<div class="kpis">
+  <div class="kpi"><b>8</b><span>catégories du FM-GwG (§ 2 Z 6, a à h), plus UE et proches</span></div>
+  <div class="kpi"><b>14</b><span>parsers à implémenter, en 3 lots</span></div>
+  <div class="kpi"><b>CC BY 4.0</b><span>open data du Parlement : Nationalrat et Bundesrat</span></div>
+  <div class="kpi"><b>≈ 95 %</b><span>des catégories atteignables, le petit nombre d'institutions aidant</span></div>
+</div>
+
+<div class="note">
+<b>En bref.</b> L'Autriche est le pays où une couverture presque complète est la plus accessible. La loi elle-même nomme les fonctions
+autrichiennes visées (§ 2 Z 6 FM-GwG), et il y a peu d'institutions : 3 hautes cours, 9 Länder, une banque nationale. Les sources sont bonnes :
+<ul>
+  <li>le Parlement publie ses députés en open data sous licence CC BY 4.0 ;</li>
+  <li>le ministère de l'Intérieur tient un registre légal des partis ;</li>
+  <li>la page du gouvernement fédéral liste ses membres.</li>
+</ul>
+Contrairement à l'Allemagne, la liste inclut expressément les <b>gouvernements des Länder</b>. Il n'y a ni élus locaux ni parlements régionaux,
+jusqu'à l'AMLR. Deux sites sont protégés : la page web du RIS, dont l'API reste ouverte, et l'AIEA.
+</div>
+
+<h2>1. Cadre légal</h2>
+<table>
+  <tr><th style="width:24%">Texte</th><th>Contenu utile (texte en vigueur lu dans l'API du RIS)</th></tr>
+  <tr><td>FM-GwG, § 2 Z 6</td><td>Personne qui exerce ou a exercé une fonction publique importante. Pour l'Autriche, la loi précise :
+  a) Président fédéral, Chancelier, membres du gouvernement fédéral <b>et des gouvernements des Länder</b> ; b) députés du Nationalrat et membres du Bundesrat ;
+  c) membres des organes dirigeants des <b>partis représentés au Nationalrat</b> ; d) juges de la Cour suprême (OGH), de la Cour constitutionnelle (VfGH) et de la Cour
+  administrative (VwGH) ; e) président de la Cour des comptes fédérale, directeurs des cours des comptes des Länder, membres du directoire de la Banque nationale (OeNB) ;
+  f) ambassadeurs, chargés d'affaires et officiers supérieurs (à partir du grade de lieutenant général d'après l'analyse du 17/10) ; g) organes des entreprises détenues à 50 % au moins
+  par l'État fédéral ou sous son contrôle effectif ; h) dirigeants des organisations internationales.</td></tr>
+  <tr><td>FM-GwG, § 2 Z 7 et Z 8</td><td>Membres de la famille et personnes connues pour être étroitement associées.</td></tr>
+  <tr><td>FM-GwG, § 11</td><td>Après la fin des fonctions, le risque est pris en compte pendant <b>au moins douze mois</b> (« für mindestens zwölf Monate »).</td></tr>
+  <tr><td>Règlement (UE) 2024/1624 (AMLR), 10/07/2027</td><td>Ajoute les dirigeants des collectivités de 50 000 habitants ou plus.</td></tr>
+</table>
+
+<h2>2. Fonctions à couvrir et sources</h2>
+<p class="small">Titulaires : ordres de grandeur à confirmer à la première exécution (≈). « Accès » : résultat des tests du 3/11/2026.</p>
+<table>
+  <tr><th style="width:7%">Cat.</th><th style="width:30%">Fonctions</th><th style="width:10%">Titulaires</th><th>Source officielle et accès</th></tr>
+  <tr><td class="cat">AT-a</td><td>Président fédéral</td><td>1</td><td>bundespraesident.at <span class="tag easy">200</span></td></tr>
+  <tr><td class="cat">AT-a</td><td>Chancelier, ministres et secrétaires d'État fédéraux</td><td>≈ 20</td><td>bundeskanzleramt.gv.at, page « Die Bundesregierung » (Christian Stocker, Claudia Bauer… lus) <span class="tag easy">200</span></td></tr>
+  <tr><td class="cat">AT-a</td><td>Membres des gouvernements des 9 Länder</td><td>≈ 75</td><td>Site de chaque Landesregierung, à configurer (adresses à repérer : les premières testées répondent 404)</td></tr>
+  <tr><td class="cat">AT-b</td><td>Députés du Nationalrat et membres du Bundesrat</td><td>183 + 60 + anciens</td><td><b>Open data du Parlement</b> (CC BY 4.0) : export ou API des listes de députés, depuis 1918 <span class="tag easy">200</span> ;
+  certaines données ne sont pas libres de réutilisation (droit d'auteur, protection des données) : à vérifier pour chaque jeu</td></tr>
+  <tr><td class="cat">AT-c</td><td>Organes dirigeants des partis représentés au Nationalrat</td><td>≈ 5 partis</td><td>Registre des partis du ministère de l'Intérieur (extraits PDF par parti, obligation légale de publication des représentants) ; certains extraits indiquent « non communiqué »</td></tr>
+  <tr><td class="cat">AT-d</td><td>Juges du VfGH, du VwGH et de l'OGH</td><td>14 + ≈ 70 + ≈ 60</td><td>vfgh.gv.at (membres et membres suppléants, tableau depuis 1919) <span class="tag easy">200</span> ; vwgh.gv.at, ogh.gv.at <span class="tag easy">200</span></td></tr>
+  <tr><td class="cat">AT-e</td><td>Présidente de la Cour des comptes fédérale ; directeurs des 9 cours des comptes des Länder ; directoire de l'OeNB</td><td>1 + 9 + 4</td><td>rechnungshof.gv.at <span class="tag easy">200</span> ; sites des Landesrechnungshöfe ; oenb.at, page du directoire (gouverneur, vice-gouverneure, deux membres) <span class="tag easy">200</span></td></tr>
+  <tr><td class="cat">AT-f</td><td>Ambassadeurs et chargés d'affaires ; officiers généraux à partir de lieutenant général</td><td>≈ 100 + ≈ 15</td><td>bmeia.gv.at (représentations) <span class="tag easy">200</span> ; bundesheer.at <span class="tag easy">200</span></td></tr>
+  <tr><td class="cat">AT-g</td><td>Organes des entreprises publiques fédérales</td><td>centaines</td><td>Portefeuille de l'ÖBAG (OMV, Casinos Austria, BIG…) <span class="tag easy">200</span> ; rapports du ministère des Finances sur les participations ; pages de gouvernance</td></tr>
+  <tr><td class="cat">AT-h</td><td>Dirigeants des organisations internationales en Autriche (ONU à Vienne, AIEA, OSCE, OPEP, OTICE, ICMPD…)</td><td>≈ 80</td><td>unov.org, osce.org <span class="tag easy">200</span> ; iaea.org <span class="tag hard">Cloudflare</span>, non contourné ; sites des autres organisations</td></tr>
+  <tr><td class="cat">AT-EU</td><td>Députés européens élus en Autriche ; membre autrichien de la Commission</td><td>20 + 1</td><td>API du Parlement européen (20 députés lus) <span class="tag easy">200</span> ; Commission : Magnus Brunner</td></tr>
+  <tr><td class="cat">Option</td><td>Membres des 9 Landtage (hors liste)</td><td>≈ 440</td><td>Sites des Landtage ; Meine Abgeordneten (non officiel)</td></tr>
+  <tr><td class="cat">AT-RCA</td><td>Famille et proches</td><td>—</td><td>Wikidata</td></tr>
+</table>
+
+<h2 class="page-break">3. Parsers à implémenter</h2>
+<p>Noms sur le modèle des autres pays (<code>at_pep_…</code>), un dataset par source. Difficulté :
+<span class="tag easy">Faible</span> <span class="tag mid">Moyen</span> <span class="tag hard">Élevé</span>.</p>
+
+<h3>Lot 1 – open data et reprises (6 parsers)</h3>
+<table>
+  <tr><th style="width:4%">#</th><th style="width:22%">Parser</th><th style="width:26%">Source</th><th>Couvre</th><th style="width:12%">Effort</th></tr>
+  <tr><td>1</td><td><code>at_pep_parliament</code></td><td>Open data du Parlement (CC BY 4.0), export ou API</td><td>AT-b : Nationalrat et Bundesrat, en fonction et sortis depuis moins de 12 mois</td><td><span class="tag easy">Faible</span></td></tr>
+  <tr><td>2</td><td><code>at_pep_federal_government</code></td><td>bundeskanzleramt.gv.at, page « Die Bundesregierung »</td><td>AT-a : Chancelier, ministres, secrétaires d'État</td><td><span class="tag easy">Faible</span> sur le modèle de <code>be_pep_federal_government</code></td></tr>
+  <tr><td>3</td><td><code>at_pep_president</code></td><td>bundespraesident.at</td><td>AT-a : Président fédéral</td><td><span class="tag easy">Faible</span> sur le modèle de <code>be_pep_king</code></td></tr>
+  <tr><td>4</td><td><code>at_pep_europarl</code></td><td>API du Parlement européen (<code>country-of-representation=AT</code>)</td><td>AT-EU : 20 députés européens</td><td><span class="tag easy">Faible</span> reprise de <code>be_pep_europarl</code></td></tr>
+  <tr><td>5</td><td><code>at_pep_eu_commission</code></td><td>Fiche officielle du commissaire autrichien</td><td>AT-EU : Magnus Brunner</td><td><span class="tag easy">Faible</span> reprise</td></tr>
+  <tr><td>6</td><td><code>at_pep_rca</code></td><td>Wikidata (SPARQL), liste autorisée de fonctions autrichiennes</td><td>AT-RCA : famille</td><td><span class="tag easy">Faible</span> reprise de <code>be_pep_rca</code></td></tr>
+</table>
+
+<h3>Lot 2 – institutions (7 parsers)</h3>
+<table>
+  <tr><th style="width:4%">#</th><th style="width:22%">Parser</th><th style="width:26%">Source</th><th>Couvre</th><th style="width:12%">Effort</th></tr>
+  <tr><td>7</td><td><code>at_pep_land_governments</code></td><td>Une page par Landesregierung, en configuration (9)</td><td>AT-a : Landeshauptleute, leurs adjoints et les Landesräte</td><td><span class="tag mid">Moyen</span></td></tr>
+  <tr><td>8</td><td><code>at_pep_high_courts</code></td><td>Pages des membres du VfGH, du VwGH et de l'OGH, en configuration</td><td>AT-d : juges des trois hautes cours, membres suppléants du VfGH compris</td><td><span class="tag easy">Faible</span></td></tr>
+  <tr><td>9</td><td><code>at_pep_audit_and_central_bank</code></td><td>Cour des comptes fédérale, 9 cours des Länder, directoire de l'OeNB, en configuration</td><td>AT-e</td><td><span class="tag easy">Faible</span></td></tr>
+  <tr><td>10</td><td><code>at_pep_parties</code></td><td>Registre des partis du ministère de l'Intérieur (extraits PDF)</td><td>AT-c : organes dirigeants des partis représentés au Nationalrat</td><td><span class="tag mid">Moyen</span> (PDF)</td></tr>
+  <tr><td>11</td><td><code>at_pep_diplomats</code></td><td>bmeia.gv.at, pages des représentations</td><td>AT-f : ambassadeurs et chargés d'affaires</td><td><span class="tag mid">Moyen</span></td></tr>
+  <tr><td>12</td><td><code>at_pep_army</code></td><td>bundesheer.at</td><td>AT-f : officiers généraux à partir de lieutenant général</td><td><span class="tag easy">Faible</span></td></tr>
+  <tr><td>13</td><td><code>at_pep_international_orgs</code></td><td>Une page officielle par organisation, en configuration (AIEA bloquée : autre source)</td><td>AT-h : ONU à Vienne, OSCE, OPEP, OTICE, ICMPD…</td><td><span class="tag mid">Moyen</span> reprise de <code>fr_pep_international_orgs</code></td></tr>
+</table>
+
+<h3>Lot 3 – entreprises publiques (1 parser)</h3>
+<table>
+  <tr><th style="width:4%">#</th><th style="width:22%">Parser</th><th style="width:26%">Source</th><th>Couvre</th><th style="width:12%">Effort</th></tr>
+  <tr><td>14</td><td><code>at_pep_state_enterprises</code></td><td>Portefeuille de l'ÖBAG et participations fédérales (ministère des Finances), puis pages de gouvernance des sociétés</td><td>AT-g : organes des entreprises détenues à 50 % au moins par l'État fédéral</td><td><span class="tag hard">Élevé</span> (pas de liste nominative unique)</td></tr>
+</table>
+
+<h2>4. À étudier avant de coder</h2>
+<table>
+  <tr><th style="width:26%">Sujet</th><th>Question</th><th style="width:32%">Comment trancher</th></tr>
+  <tr><td>Licence des données du Parlement</td><td>Certaines informations des jeux de données ne sont pas libres de réutilisation (droit d'auteur, protection des données).</td><td>Lire la rubrique « Erlaubte Nutzung und Lizenzierung » de chaque jeu ; ne reprendre que les champs autorisés ; citer le Parlement (CC BY 4.0).</td></tr>
+  <tr><td>Registre des partis</td><td>Extraits PDF déclarés par les partis, parfois « non communiqué ».</td><td>Publier ce qui est déclaré, signaler les extraits incomplets dans le message de l'exécution.</td></tr>
+  <tr><td>Entreprises publiques</td><td>Définition large (50 % ou contrôle effectif), sans liste nominative unique.</td><td>Partir de l'ÖBAG et du rapport sur les participations fédérales ; puis les organes de chaque société.</td></tr>
+  <tr><td>Sites protégés</td><td>Page web du RIS (« Security Check ») et AIEA (Cloudflare).</td><td>Ne pas contourner : l'API du RIS est ouverte ; pour l'AIEA, chercher une autre source officielle (rapports, ONU).</td></tr>
+  <tr><td>Parlements des Länder</td><td>Hors liste notifiée.</td><td>Option, après avis du responsable conformité.</td></tr>
+</table>
+
+<h2>5. Règles communes</h2>
+<ul>
+  <li><b>Durée</b> : garder un titulaire au moins 12 mois après la fin de ses fonctions (FM-GwG, § 11).</li>
+  <li><b>Citer la source</b> : la licence CC BY 4.0 du Parlement impose l'attribution.</li>
+  <li><b>Pas de coordonnées personnelles</b> : ni adresse, ni téléphone, ni e-mail, même si la source les donne.</li>
+  <li><b>Accès</b> : User-Agent générique SwiftCheck, rythme lent, aucun contournement des protections ; la source bloquée est signalée dans le message de l'exécution.</li>
+  <li><b>Configuration plutôt que code</b> : Länder, cours, cours des comptes et organisations dans des fichiers de configuration, sans nom écrit en dur.</li>
+  <li><b>Couverture</b> : renseigner pour chaque lien fonction ↔ parser ce qui est couvert et ce qui manque (écran « Couverture PEP »).</li>
+</ul>
+
+<h2>6. Ordre proposé</h2>
+<ol>
+  <li><b>Lot 1 – parsers 1 à 6.</b> Parlement (il remplace la source non officielle dont dépend OpenSanctions), gouvernement fédéral, Président, UE et famille.</li>
+  <li><b>Lot 2 – parsers 7 à 13.</b> Gouvernements des Länder, hautes cours, Cour des comptes et OeNB, partis, diplomates, armée, organisations internationales.</li>
+  <li><b>Lot 3 – parser 14</b> : entreprises publiques.</li>
+</ol>
+<p>Après le lot 2, toutes les catégories sauf AT-g sont couvertes par une source officielle, ce qu'aucun concurrent ouvert ne fait.</p>
+
+<h2>7. Sources</h2>
+<ul class="small">
+  <li>FM-GwG : API du RIS, data.bka.gv.at/ris/api (loi n° 20009769) · Liste de la Commission : eur-lex.europa.eu/eli/C/2023/724/oj</li>
+  <li>Parlement : parlament.gv.at/recherchieren/open-data (CC BY 4.0) · Gouvernement : bundeskanzleramt.gv.at/bundeskanzleramt/die-bundesregierung.html · Président : bundespraesident.at</li>
+  <li>VfGH : vfgh.gv.at/verfassungsgerichtshof/verfassungsrichter · VwGH : vwgh.gv.at · OGH : ogh.gv.at · Cour des comptes : rechnungshof.gv.at · OeNB : oenb.at/die-oenb/organisation/direktorium.html</li>
+  <li>Affaires étrangères : bmeia.gv.at · Armée : bundesheer.at · ÖBAG : oebag.gv.at · Ministère de l'Intérieur (registre des partis) : bmi.gv.at</li>
+  <li>ONU Vienne : unov.org · OSCE : osce.org · Parlement européen : data.europarl.europa.eu · Wikidata</li>
+</ul>
+
+<div class="footer">SwiftCheck AML – Plan des parsers PEP Autriche – 3 novembre 2026. Ordres de grandeur indicatifs, à confirmer à la première exécution de chaque parser.</div>
+</body>
+</html>

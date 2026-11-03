@@ -1,0 +1,1544 @@
+{
+  "head" : {
+    "vars" : [ "party", "partyLabel", "role", "statement", "rank", "start", "end", "person", "personLabel", "birth", "birthPrecision", "gender" ]
+  },
+  "results" : {
+    "bindings" : [ {
+      "party" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q60970690"
+      },
+      "role" : {
+        "type" : "literal",
+        "value" : "chair"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q60970690-c14f94c0-452d-c435-dd7e-8e0243a0042f"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q93132241"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#NormalRank"
+      },
+      "partyLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "DierAnimal"
+      },
+      "personLabel" : {
+        "xml:lang" : "nl",
+        "type" : "literal",
+        "value" : "Adonis Villalon"
+      }
+    }, {
+      "party" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q478306"
+      },
+      "role" : {
+        "type" : "literal",
+        "value" : "chair"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q478306-C35A4F20-AE02-4268-9C8B-8579F76F2132"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q326740"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#NormalRank"
+      },
+      "partyLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "VLOTT"
+      },
+      "personLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Hugo Coveliers"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1947-02-21T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      }
+    }, {
+      "party" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q28982"
+      },
+      "role" : {
+        "type" : "literal",
+        "value" : "chair"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/q28982-b26742ef-4faa-47af-3d6a-974d3308ec7e"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q336599"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#NormalRank"
+      },
+      "partyLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Nieuw-Vlaamse Alliantie"
+      },
+      "personLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Bart De Wever"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1970-12-21T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2004-01-01T00:00:00Z"
+      },
+      "end" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2025-02-03T00:00:00Z"
+      }
+    }, {
+      "party" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1470087"
+      },
+      "role" : {
+        "type" : "literal",
+        "value" : "chair"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q1470087-2439F7B1-3E17-4AAD-B83F-9C4D3F0387C5"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q678494"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#NormalRank"
+      },
+      "partyLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "DéFI"
+      },
+      "personLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Olivier Maingain"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1958-08-03T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1995-01-01T00:00:00Z"
+      }
+    }, {
+      "party" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1160192"
+      },
+      "role" : {
+        "type" : "literal",
+        "value" : "chair"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/q1160192-e79c7fa4-4434-c036-bbdf-6856e366dcab"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q718316"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#NormalRank"
+      },
+      "partyLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Anders"
+      },
+      "personLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Gwendolyn Rutten"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1975-06-26T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581072"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2012-12-08T00:00:00Z"
+      },
+      "end" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2020-05-22T00:00:00Z"
+      }
+    }, {
+      "party" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1774476"
+      },
+      "role" : {
+        "type" : "literal",
+        "value" : "chair"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q1774476-bb56b6fc-4326-1392-265f-4b78544dd712"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q733266"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#NormalRank"
+      },
+      "partyLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Perspectives. Liberté. Progrès."
+      },
+      "personLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Kattrin Jadin"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1980-07-01T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581072"
+      }
+    }, {
+      "party" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q533384"
+      },
+      "role" : {
+        "type" : "literal",
+        "value" : "chair"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q533384-926976d9-4cbe-7528-f5cd-b5c19cd18981"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q950958"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#NormalRank"
+      },
+      "partyLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Mouvement réformateur"
+      },
+      "personLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Charles Michel"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1975-12-21T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "end" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2019-12-01T00:00:00Z"
+      }
+    }, {
+      "party" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q750673"
+      },
+      "role" : {
+        "type" : "literal",
+        "value" : "chair"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/q750673-b34b84c3-4f94-a741-f912-971b2b60604a"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q961911"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#NormalRank"
+      },
+      "partyLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Christen-Democratisch en Vlaams"
+      },
+      "personLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Wouter Beke"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1974-08-09T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2010-12-22T00:00:00Z"
+      },
+      "end" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2019-12-06T00:00:00Z"
+      }
+    }, {
+      "party" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q130671"
+      },
+      "role" : {
+        "type" : "literal",
+        "value" : "chair"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/q130671-a99b368d-4ba1-a003-9b89-425e1a712ff2"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q981442"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#NormalRank"
+      },
+      "partyLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Libertair, Direct, Democratisch"
+      },
+      "personLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Jean-Marie Dedecker"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1952-06-13T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      }
+    }, {
+      "party" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q645787"
+      },
+      "role" : {
+        "type" : "literal",
+        "value" : "chair"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q645787-8ad654bb-4662-306c-d625-b8289ae5a764"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1341556"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#NormalRank"
+      },
+      "partyLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Parti socialiste"
+      },
+      "personLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Paul Magnette"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1971-06-28T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      }
+    }, {
+      "party" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2133093"
+      },
+      "role" : {
+        "type" : "literal",
+        "value" : "chair"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q2133093-63438492-7C34-449E-A969-A69E6D8048DD"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1399098"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#NormalRank"
+      },
+      "partyLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Mouvement des citoyens pour le changement"
+      },
+      "personLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Gérard Deprez"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1943-08-13T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1998-01-01T00:00:00Z"
+      }
+    }, {
+      "party" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1084016"
+      },
+      "role" : {
+        "type" : "literal",
+        "value" : "chair"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q1084016-57DF8AD7-6A79-4005-ABEF-F8386E5949B3"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1872926"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#NormalRank"
+      },
+      "partyLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Christlich Soziale Partei"
+      },
+      "personLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Luc Frank"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1972-04-29T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      }
+    }, {
+      "party" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q925616"
+      },
+      "role" : {
+        "type" : "literal",
+        "value" : "chair"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q925616-CED0F1AE-CA52-402B-ABFE-13CDCC47425A"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2074019"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#NormalRank"
+      },
+      "partyLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Parti du travail de Belgique"
+      },
+      "personLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Peter Mertens"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1969-12-17T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "end" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2021-12-31T00:00:00Z"
+      }
+    }, {
+      "party" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q939354"
+      },
+      "role" : {
+        "type" : "literal",
+        "value" : "chair"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/q939354-0d44fb1e-4036-3642-84e7-895f2dae5eaa"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2234719"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#NormalRank"
+      },
+      "partyLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Vooruit"
+      },
+      "personLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "John Crombez"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1973-09-19T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2015-06-01T00:00:00Z"
+      },
+      "end" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2019-11-08T00:00:00Z"
+      }
+    }, {
+      "party" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q939354"
+      },
+      "role" : {
+        "type" : "literal",
+        "value" : "chair"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/q939354-0d44fb1e-4036-3642-84e7-895f2dae5eaa"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2234719"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#NormalRank"
+      },
+      "partyLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Vooruit"
+      },
+      "personLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "John Crombez"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1973-01-01T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "9"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2015-06-01T00:00:00Z"
+      },
+      "end" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2019-11-08T00:00:00Z"
+      }
+    }, {
+      "party" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q41881908"
+      },
+      "role" : {
+        "type" : "literal",
+        "value" : "chair"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q41881908-7cf9c254-4c49-6c88-7218-67d11de20058"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2509933"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#NormalRank"
+      },
+      "partyLabel" : {
+        "xml:lang" : "nl",
+        "type" : "literal",
+        "value" : "Vrijheid, Intimiteit, Thuis, Arbeid en Liefde"
+      },
+      "personLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Vital Haghebaert"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1952-01-01T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "9"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      }
+    }, {
+      "party" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3366478"
+      },
+      "role" : {
+        "type" : "literal",
+        "value" : "chair"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q3366478-C611BCF4-A4C7-4785-9820-2ACB567BD298"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3165415"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#NormalRank"
+      },
+      "partyLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Parti jeunes musulmans"
+      },
+      "personLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Jean-François Abdullah Bastin"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1943-01-01T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "9"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      }
+    }, {
+      "party" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q840814"
+      },
+      "role" : {
+        "type" : "literal",
+        "value" : "chair"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q840814-37c9f933-439b-fed4-58f7-70968267939b"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3302670"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#PreferredRank"
+      },
+      "partyLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Les Engagés"
+      },
+      "personLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Maxime Prévot"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1978-04-09T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2022-03-17T00:00:00Z"
+      }
+    }, {
+      "party" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q750673"
+      },
+      "role" : {
+        "type" : "literal",
+        "value" : "chair"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q750673-44de27e6-4593-4412-d1e6-fe2ce2ce127b"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q11002836"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#NormalRank"
+      },
+      "partyLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Christen-Democratisch en Vlaams"
+      },
+      "personLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Joachim Coens"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1966-09-06T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2019-12-06T00:00:00Z"
+      },
+      "end" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2022-06-25T00:00:00Z"
+      }
+    }, {
+      "party" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1160192"
+      },
+      "role" : {
+        "type" : "literal",
+        "value" : "chair"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q1160192-8559f488-4720-df01-da66-2578d520044a"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q15127115"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#NormalRank"
+      },
+      "partyLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Anders"
+      },
+      "personLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Egbert Lachaert"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1977-07-04T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2020-05-22T00:00:00Z"
+      },
+      "end" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2023-06-01T00:00:00Z"
+      }
+    }, {
+      "party" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q925616"
+      },
+      "role" : {
+        "type" : "literal",
+        "value" : "chair"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q925616-5085c0b9-4246-f09b-c468-85cb7a621eb8"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q16672153"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#NormalRank"
+      },
+      "partyLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Parti du travail de Belgique"
+      },
+      "personLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Raoul Hedebouw"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1977-07-12T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2021-12-05T00:00:00Z"
+      }
+    }, {
+      "party" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q28982"
+      },
+      "role" : {
+        "type" : "literal",
+        "value" : "chair"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q28982-a23b3928-4bdd-d9ca-0d91-14330226d910"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q17149643"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#PreferredRank"
+      },
+      "partyLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Nieuw-Vlaamse Alliantie"
+      },
+      "personLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Valerie Van Peel"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1979-10-11T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581072"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2025-04-26T00:00:00Z"
+      }
+    }, {
+      "party" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q682990"
+      },
+      "role" : {
+        "type" : "literal",
+        "value" : "chair"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/q682990-bfa34300-49a0-6c3a-a249-a74f4ee89fa3"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q17300271"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#NormalRank"
+      },
+      "partyLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Vlaams Belang"
+      },
+      "personLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Tom Van Grieken"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1986-10-07T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2014-01-01T00:00:00Z"
+      }
+    }, {
+      "party" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q533384"
+      },
+      "role" : {
+        "type" : "literal",
+        "value" : "chair"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q533384-6b43fc61-4163-3a64-9223-cb76e63a646a"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q18433444"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#NormalRank"
+      },
+      "partyLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Mouvement réformateur"
+      },
+      "personLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Georges-Louis Bouchez"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1986-03-23T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2019-12-01T00:00:00Z"
+      }
+    }, {
+      "party" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q28982"
+      },
+      "role" : {
+        "type" : "literal",
+        "value" : "director"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q28982-dc0bcc58-4009-ff99-c29a-aa5988defa0b"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q49970472"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#NormalRank"
+      },
+      "partyLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Nieuw-Vlaamse Alliantie"
+      },
+      "personLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Piet De Zaeger"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1971-05-30T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2004-07-01T00:00:00Z"
+      }
+    }, {
+      "party" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q939354"
+      },
+      "role" : {
+        "type" : "literal",
+        "value" : "director"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q939354-f0b1ae74-4d09-c21d-8706-2e3576c46df7"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q65249245"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#NormalRank"
+      },
+      "partyLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Vooruit"
+      },
+      "personLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Conner Rousseau"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1992-11-13T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2017-01-01T00:00:00Z"
+      },
+      "end" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2019-11-08T00:00:00Z"
+      }
+    }, {
+      "party" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q939354"
+      },
+      "role" : {
+        "type" : "literal",
+        "value" : "chair"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q939354-0b5511da-4fd3-71db-cc79-7904a5f9d440"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q65249245"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#PreferredRank"
+      },
+      "partyLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Vooruit"
+      },
+      "personLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Conner Rousseau"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1992-11-13T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2019-11-08T00:00:00Z"
+      }
+    }, {
+      "party" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1160192"
+      },
+      "role" : {
+        "type" : "literal",
+        "value" : "chair"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q1160192-feea40d4-4579-c6d0-ba06-dd04aeefa5e2"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q69745447"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#NormalRank"
+      },
+      "partyLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Anders"
+      },
+      "personLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Tom Ongena"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1975-09-20T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2023-07-04T00:00:00Z"
+      },
+      "end" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2026-01-20T00:00:00Z"
+      }
+    }, {
+      "party" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q750673"
+      },
+      "role" : {
+        "type" : "literal",
+        "value" : "chair"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q750673-c7303913-4e5a-37eb-f8c0-b5f1b9a85415"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q75807853"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#PreferredRank"
+      },
+      "partyLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Christen-Democratisch en Vlaams"
+      },
+      "personLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Sammy Mahdi"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1988-09-21T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2022-06-25T00:00:00Z"
+      }
+    }, {
+      "party" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q840814"
+      },
+      "role" : {
+        "type" : "literal",
+        "value" : "chair"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q840814-3b1f2ed4-4633-d429-8136-723ee5af17e8"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q124218598"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#NormalRank"
+      },
+      "partyLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Les Engagés"
+      },
+      "personLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Yvan Verougstraete"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1975-10-06T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      }
+    }, {
+      "party" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1160192"
+      },
+      "role" : {
+        "type" : "literal",
+        "value" : "chair"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q1160192-278d8b28-44d4-62dd-16cf-25caa08d536f"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q132672668"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#NormalRank"
+      },
+      "partyLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Anders"
+      },
+      "personLabel" : {
+        "xml:lang" : "nl",
+        "type" : "literal",
+        "value" : "Frédéric De Gucht"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1981-04-29T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2025-10-17T00:00:00Z"
+      }
+    } ]
+  }
+}

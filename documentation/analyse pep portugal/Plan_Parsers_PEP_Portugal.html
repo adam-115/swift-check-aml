@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Plan des parsers PEP – Portugal</title>
+<style>
+  @page { size: A4 portrait; margin: 14mm 13mm 14mm 13mm; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; color: #1e293b; font-size: 10.5px; line-height: 1.45; }
+  h1 { font-size: 22px; color: #0f172a; margin-bottom: 4px; }
+  h2 { font-size: 14px; color: #0f172a; margin: 18px 0 6px; padding-bottom: 3px; border-bottom: 2px solid #2563eb; break-after: avoid; }
+  h3 { font-size: 11.5px; color: #1e3a8a; margin: 12px 0 5px; break-after: avoid; }
+  p { margin: 4px 0; }
+  .subtitle { color: #475569; font-size: 11.5px; margin-bottom: 8px; }
+  .meta { display: flex; flex-wrap: wrap; gap: 18px; color: #64748b; font-size: 9.5px; border-bottom: 1px solid #e2e8f0; padding-bottom: 8px; margin-bottom: 12px; }
+  .kpis { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin: 10px 0 6px; }
+  .kpi { border: 1px solid #e2e8f0; border-radius: 8px; padding: 8px 10px; background: #f8fafc; }
+  .kpi b { display: block; font-size: 20px; color: #1d4ed8; line-height: 1.1; }
+  .kpi span { color: #475569; font-size: 9.5px; }
+  table { width: 100%; border-collapse: collapse; margin: 5px 0 8px; font-size: 9.5px; }
+  th { background: #1e3a8a; color: #fff; text-align: left; padding: 4px 5px; font-weight: 600; }
+  td { border-bottom: 1px solid #e2e8f0; padding: 4px 5px; vertical-align: top; }
+  tr { break-inside: avoid; }
+  tr:nth-child(even) td { background: #f8fafc; }
+  code { font-family: Consolas, 'Courier New', monospace; font-size: 9px; background: #eef2ff; color: #1e3a8a; padding: 0 2px; border-radius: 3px; }
+  .cat { font-weight: 700; color: #1d4ed8; white-space: nowrap; }
+  .tag { display: inline-block; border-radius: 4px; padding: 0 4px; font-size: 8.5px; font-weight: 600; white-space: nowrap; }
+  .easy { background: #dcfce7; color: #166534; }
+  .mid { background: #fef9c3; color: #854d0e; }
+  .hard { background: #fee2e2; color: #991b1b; }
+  .none { background: #e2e8f0; color: #334155; }
+  .note { border-left: 3px solid #2563eb; background: #eff6ff; padding: 6px 9px; margin: 6px 0; border-radius: 0 6px 6px 0; }
+  .warn { border-left-color: #d97706; background: #fffbeb; }
+  ul, ol { margin: 4px 0 4px 18px; }
+  li { margin: 2px 0; }
+  .small { font-size: 9px; color: #64748b; }
+  .footer { margin-top: 14px; border-top: 1px solid #e2e8f0; padding-top: 6px; color: #94a3b8; font-size: 8.5px; }
+  .page-break { break-before: page; }
+</style>
+</head>
+<body>
+
+<h1>Plan des parsers PEP – Portugal</h1>
+<p class="subtitle">Fonctions PEP du Portugal, où trouver leurs titulaires, quels parsers implémenter et dans quel ordre, pour couvrir
+la loi 83/2017 et la liste notifiée à la Commission (JO C/2023/724, 54 fonctions).</p>
+<div class="meta"><span>SwiftCheck AML</span><span>3 novembre 2026</span><span>Référence : écran « Couverture PEP »</span>
+<span>Suite de « Couverture des PEP au Portugal – analyse des sources » (17 octobre 2026)</span>
+<span>Sources testées en direct le 3/11/2026, User-Agent générique, aucune protection contournée</span></div>
+
+<div class="kpis">
+  <div class="kpi"><b>54</b><span>fonctions dans la liste notifiée, en 11 blocs</span></div>
+  <div class="kpi"><b>16</b><span>parsers à implémenter, en 3 lots</span></div>
+  <div class="kpi"><b>308</b><span>communes : tous les maires et adjoints sont PEP, quelle que soit la taille</span></div>
+  <div class="kpi"><b>1</b><span>seule vraie source open data (le Parlement) ; le reste en pages web ou au Journal officiel</span></div>
+</div>
+
+<div class="note">
+<b>En bref.</b> Le Portugal est le marché le moins couvert : OpenSanctions n'y utilise qu'une source, le Parlement. SwiftCheck peut le dépasser
+vite avec deux étapes : le Parlement (open data complet depuis l'Assemblée constituante) et les <b>308 maires et leurs adjoints</b>,
+PEP quelle que soit la taille de la commune. La difficulté vient du reste :
+<ul>
+  <li>le <b>Diário da República</b> (journal officiel), qui publie les nominations, est une application JavaScript sans API documentée ;</li>
+  <li>la <b>Banque du Portugal</b> est protégée par un contrôle anti-robots ;</li>
+  <li>il n'existe pas de fichier national ouvert des élus locaux.</li>
+</ul>
+</div>
+
+<h2>1. Cadre légal</h2>
+<table>
+  <tr><th style="width:24%">Texte</th><th>Contenu utile</th></tr>
+  <tr><td>Loi 83/2017 du 18 août, art. 2.º, n.º 1, al. cc)</td><td>Personnes politiquement exposées : personnes qui, dans tout pays, exercent <b>ou ont exercé au cours des douze derniers mois</b>
+  des fonctions publiques proéminentes de niveau supérieur. La loi 58/2020 a modifié le texte.</td></tr>
+  <tr><td>Loi 83/2017, art. 2.º, alinéas voisines</td><td>Membres proches de la famille et personnes reconnues comme étroitement associées ; titulaires d'autres cargos politiques ou publics
+  (maires et adjoints exécutifs notamment).</td></tr>
+  <tr><td>Loi 83/2017, art. 19.º</td><td>Mesures de vigilance renforcées pour les PEP, leur famille et leurs proches.</td></tr>
+  <tr><td>Liste notifiée (JO C/2023/724, section Portugal)</td><td>54 fonctions. En plus des fonctions nationales, elle compte : les organes de l'État (Conseil d'État, médiateur, CNPD, CES, ERC) ; les Açores et Madère ;
+  les chefs de poste consulaire ; les officiers généraux de la GNR et les commissaires de la PSP ; <b>tous les maires et adjoints</b> ; les instituts publics, les fondations
+  et les entreprises publiques de l'État, des régions et des communes ; les directions des partis nationaux et régionaux (analyse du 17/10).</td></tr>
+  <tr><td>Durée</td><td>12 mois après la fin des fonctions (« doze meses »), comme au Luxembourg et en France.</td></tr>
+</table>
+
+<h2>2. Fonctions à couvrir et sources</h2>
+<p class="small">Titulaires : ordres de grandeur à confirmer à la première exécution (≈). « Accès » : résultat des tests du 3/11/2026.</p>
+<table>
+  <tr><th style="width:9%">Bloc</th><th style="width:30%">Fonctions</th><th style="width:10%">Titulaires</th><th>Source officielle et accès</th></tr>
+  <tr><td class="cat">PT-a</td><td>Président de la République ; Premier ministre, ministres, secrétaires et sous-secrétaires d'État</td><td>1 + ≈ 60</td><td>presidencia.pt <span class="tag easy">200</span> ;
+  portugal.gov.pt, page de composition <span class="tag mid">200, noms chargés par JavaScript</span> ; Diário da República (nominations, exonérations)</td></tr>
+  <tr><td class="cat">PT-b</td><td>Députés à l'Assembleia da República</td><td>230 + anciens</td><td><b>Open data du Parlement</b> : « Informação base » (législatures, groupes, circonscriptions, députés), « Registo biográfico », composition des organes, registre d'intérêts <span class="tag easy">200</span></td></tr>
+  <tr><td class="cat">PT-c</td><td>Tribunal constitutionnel, Cour suprême de justice, Cour suprême administrative, Tribunal de Contas, conseils supérieurs de la magistrature, procureur général et Conseil supérieur du ministère public</td><td>≈ 150</td><td>tribunalconstitucional.pt, stj.pt, tcontas.pt, ministeriopublico.pt <span class="tag easy">200</span> (pages des juges à localiser) ; Diário da República</td></tr>
+  <tr><td class="cat">PT-d</td><td>Organes de la Banque du Portugal ; régulateurs et entités administratives indépendantes (CMVM, ASF, ERC, CNPD)</td><td>≈ 40</td><td>bportugal.pt <span class="tag hard">contrôle anti-robots</span>, non contourné ; cmvm.pt <span class="tag easy">200</span> ; sites des autres régulateurs</td></tr>
+  <tr><td class="cat">PT-ÉTAT</td><td>Conseil d'État, médiateur (Provedor de Justiça), Conseil supérieur de défense nationale, Conseil économique et social</td><td>≈ 60</td><td>Sites des organes ; presidencia.pt (Conseil d'État)</td></tr>
+  <tr><td class="cat">PT-REG</td><td>Représentants de la République et membres des gouvernements des Açores et de Madère</td><td>≈ 25</td><td>portal.azores.gov.pt, madeira.gov.pt <span class="tag easy">200</span> ; journaux officiels régionaux</td></tr>
+  <tr><td class="cat">PT-e</td><td>Chefs de mission diplomatique et de poste consulaire ; officiers généraux des forces armées et de la GNR ; commissaires divisionnaires de la PSP</td><td>≈ 130 + ≈ 150</td><td>Portail diplomatique du ministère des Affaires étrangères <span class="tag easy">200</span> ; Diário da República (promotions, nominations)</td></tr>
+  <tr><td class="cat">PT-LOC</td><td>Maires et adjoints exécutifs (vereadores) des 308 communes (élections du 12/10/2025)</td><td>≈ 2 000</td><td>Résultats officiels des municipales : site du ministère de l'Administration interne <span class="tag mid">200, application JavaScript</span> ;
+  CNE <span class="tag easy">200</span> ; dados.gov.pt (pas de fichier des élus, seulement l'archive web) ; sites des 308 câmaras</td></tr>
+  <tr><td class="cat">PT-f</td><td>Organes des instituts publics, fondations publiques, entités indépendantes et entreprises publiques de l'État, des régions et des communes</td><td>milliers</td><td>Diário da República (nominations) ; listes du secteur des entreprises de l'État (DGTF) et du secteur local (DGAL), à vérifier</td></tr>
+  <tr><td class="cat">PT-g</td><td>Organes de direction exécutifs des partis nationaux et régionaux</td><td>≈ 20 partis</td><td>Sites des partis ; registre des partis du Tribunal constitutionnel, à vérifier</td></tr>
+  <tr><td class="cat">PT-h</td><td>Dirigeants des organisations internationales au Portugal</td><td>≈ 30</td><td>Sites des organisations (CPLP, EMSA, EUDA…)</td></tr>
+  <tr><td class="cat">PT-EU</td><td>Députés européens élus au Portugal ; membre portugais de la Commission</td><td>21 + 1</td><td>API du Parlement européen (21 députés lus) <span class="tag easy">200</span> ; Commission : Maria Luís Albuquerque</td></tr>
+  <tr><td class="cat">PT-RCA</td><td>Famille et proches</td><td>—</td><td>Wikidata ; registre d'intérêts des députés ; déclarations de l'Entidade para a Transparência (accès public à vérifier)</td></tr>
+</table>
+
+<div class="note warn"><b>Diário da República.</b> diariodarepublica.pt répond (200), mais la page ne contient que le lanceur d'une application JavaScript
+(OutSystems) : aucun texte, et aucune API documentée. Il faut donc demander un accès à l'Imprensa Nacional-Casa da Moeda, vérifier dados.gov.pt
+(catalogue central selon la loi 68/2021) ou étudier les appels de l'application dans un navigateur.
+C'est le préalable des parsers qui lisent les nominations.</div>
+
+<h2 class="page-break">3. Parsers à implémenter</h2>
+<p>Noms sur le modèle des autres pays (<code>pt_pep_…</code>), un dataset par source. Difficulté :
+<span class="tag easy">Faible</span> <span class="tag mid">Moyen</span> <span class="tag hard">Élevé</span>.</p>
+
+<h3>Lot 1 – open data et reprises (6 parsers)</h3>
+<table>
+  <tr><th style="width:4%">#</th><th style="width:22%">Parser</th><th style="width:26%">Source</th><th>Couvre</th><th style="width:12%">Effort</th></tr>
+  <tr><td>1</td><td><code>pt_pep_parliament</code></td><td>Open data du Parlement : « Informação base » et « Registo biográfico » (XML ou JSON)</td><td>PT-b : 230 députés et anciens sur 12 mois, groupe, circonscription, biographie</td><td><span class="tag easy">Faible</span></td></tr>
+  <tr><td>2</td><td><code>pt_pep_government</code></td><td>portugal.gov.pt (composition ; données de la page JavaScript à identifier)</td><td>PT-a : Premier ministre, ministres, secrétaires et sous-secrétaires d'État</td><td><span class="tag mid">Moyen</span></td></tr>
+  <tr><td>3</td><td><code>pt_pep_president</code></td><td>presidencia.pt</td><td>PT-a : Président de la République</td><td><span class="tag easy">Faible</span> sur le modèle de <code>be_pep_king</code></td></tr>
+  <tr><td>4</td><td><code>pt_pep_europarl</code></td><td>API du Parlement européen (<code>country-of-representation=PT</code>)</td><td>PT-EU : 21 députés européens</td><td><span class="tag easy">Faible</span> reprise de <code>be_pep_europarl</code></td></tr>
+  <tr><td>5</td><td><code>pt_pep_eu_commission</code></td><td>Fiche officielle de la commissaire portugaise</td><td>PT-EU : Maria Luís Albuquerque</td><td><span class="tag easy">Faible</span> reprise</td></tr>
+  <tr><td>6</td><td><code>pt_pep_rca</code></td><td>Wikidata (SPARQL), liste autorisée de fonctions portugaises</td><td>PT-RCA : famille</td><td><span class="tag easy">Faible</span> reprise de <code>be_pep_rca</code></td></tr>
+</table>
+
+<h3>Lot 2 – maires et institutions (7 parsers)</h3>
+<table>
+  <tr><th style="width:4%">#</th><th style="width:22%">Parser</th><th style="width:26%">Source</th><th>Couvre</th><th style="width:12%">Effort</th></tr>
+  <tr><td>7</td><td><code>pt_pep_mayors</code></td><td>Résultats officiels des municipales de 2025 (ministère de l'Administration interne, CNE) ; sites des câmaras en complément</td><td>PT-LOC : maires et adjoints exécutifs des 308 communes</td><td><span class="tag hard">Élevé</span>, <b>gain le plus fort</b></td></tr>
+  <tr><td>8</td><td><code>pt_pep_courts</code></td><td>Pages des juges des hautes juridictions et du ministère public, en configuration</td><td>PT-c : TC, STJ, STA, Tribunal de Contas, PGR, conseils supérieurs</td><td><span class="tag mid">Moyen</span></td></tr>
+  <tr><td>9</td><td><code>pt_pep_regulators</code></td><td>Pages de gouvernance des régulateurs, en configuration ; Banque du Portugal par une autre source (site protégé)</td><td>PT-d : Banque du Portugal, CMVM, ASF, ERC, CNPD</td><td><span class="tag mid">Moyen</span></td></tr>
+  <tr><td>10</td><td><code>pt_pep_state_organs</code></td><td>Sites du Conseil d'État, du médiateur, du CES, du CSDN</td><td>PT-ÉTAT</td><td><span class="tag easy">Faible</span></td></tr>
+  <tr><td>11</td><td><code>pt_pep_autonomous_regions</code></td><td>Sites des gouvernements des Açores et de Madère</td><td>PT-REG : présidents, secrétaires régionaux, représentants de la République</td><td><span class="tag easy">Faible</span></td></tr>
+  <tr><td>12</td><td><code>pt_pep_diplomats</code></td><td>Portail diplomatique (missions et postes consulaires)</td><td>PT-e : chefs de mission et de poste consulaire</td><td><span class="tag mid">Moyen</span></td></tr>
+  <tr><td>13</td><td><code>pt_pep_international_orgs</code></td><td>Une page officielle par organisation, en configuration</td><td>PT-h : CPLP, EMSA, EUDA…</td><td><span class="tag mid">Moyen</span> reprise de <code>fr_pep_international_orgs</code></td></tr>
+</table>
+
+<h3>Lot 3 – après l'étude du Diário da República (3 parsers)</h3>
+<table>
+  <tr><th style="width:4%">#</th><th style="width:22%">Parser</th><th style="width:26%">Source</th><th>Couvre</th><th style="width:12%">Effort</th></tr>
+  <tr><td>14</td><td><code>pt_pep_diario_republica</code></td><td>Diário da République (accès à obtenir), sur le modèle de <code>fr_pep_jorf</code></td><td>PT-e officiers généraux et commissaires de la PSP ; PT-c nominations ; PT-a historique du Gouvernement ; PT-f nominations aux conseils</td><td><span class="tag hard">Élevé</span></td></tr>
+  <tr><td>15</td><td><code>pt_pep_public_sector</code></td><td>Listes DGTF (entreprises de l'État) et DGAL (secteur local), pages de gouvernance</td><td>PT-f : entreprises publiques de l'État d'abord, puis instituts, fondations et secteur local</td><td><span class="tag hard">Élevé</span></td></tr>
+  <tr><td>16</td><td><code>pt_pep_parties</code></td><td>Pages de direction des partis, en configuration ; registre du Tribunal constitutionnel à vérifier</td><td>PT-g : organes exécutifs nationaux et régionaux</td><td><span class="tag mid">Moyen</span> (collecte ciblée)</td></tr>
+</table>
+
+<h2>4. À étudier avant de coder</h2>
+<table>
+  <tr><th style="width:26%">Sujet</th><th>Question</th><th style="width:32%">Comment trancher</th></tr>
+  <tr><td>Diário da República</td><td>Application JavaScript sans API documentée.</td><td>Demander un accès à l'INCM ; vérifier dados.gov.pt ; sinon étudier les appels de l'application dans un navigateur et leurs conditions d'utilisation.</td></tr>
+  <tr><td>Maires et adjoints</td><td>Pas de fichier national ouvert ; le site des résultats électoraux est une application JavaScript.</td><td>Étudier ses appels de données ; contacter le ministère de l'Administration interne ou la CNE ; en dernier recours, les sites des 308 câmaras.</td></tr>
+  <tr><td>Banque du Portugal</td><td>Contrôle anti-robots sur bportugal.pt.</td><td>Ne pas contourner ; retester depuis le serveur, sinon nominations au Diário da República ou rapport annuel.</td></tr>
+  <tr><td>Page du Gouvernement</td><td>Les noms sont chargés par JavaScript.</td><td>Trouver la source des données de la page ; sinon Diário da República.</td></tr>
+  <tr><td>Liste de la Commission</td><td>EUR-Lex a différé la page ; la section portugaise détaille les 54 fonctions.</td><td>La lire dans un navigateur et l'ajouter au référentiel.</td></tr>
+</table>
+
+<h2>5. Règles communes</h2>
+<ul>
+  <li><b>Durée</b> : garder un titulaire 12 mois après la fin de ses fonctions (art. 2.º, n.º 1, al. cc).</li>
+  <li><b>Citer la source</b> : l'Assembleia da República autorise la réutilisation libre à condition de la citer.</li>
+  <li><b>Pas de coordonnées personnelles</b> : ni adresse, ni téléphone, ni e-mail, même si la source les donne.</li>
+  <li><b>Accès</b> : User-Agent générique SwiftCheck, rythme lent, aucun contournement des protections ; la source bloquée est signalée dans le message de l'exécution.</li>
+  <li><b>Configuration plutôt que code</b> : juridictions, régulateurs, organes et organisations dans des fichiers de configuration, sans nom écrit en dur.</li>
+  <li><b>Couverture</b> : renseigner pour chaque lien fonction ↔ parser ce qui est couvert et ce qui manque (écran « Couverture PEP »).</li>
+</ul>
+
+<h2>6. Ordre proposé</h2>
+<ol>
+  <li><b>Lot 1 – parsers 1 à 6.</b> Parlement, Gouvernement, Président, UE et famille : SwiftCheck est au niveau d'OpenSanctions dès cette étape.</li>
+  <li><b>Lot 2 – parsers 7 à 13.</b> Les maires d'abord (absents de toutes les sources ouvertes), puis juridictions, régulateurs, organes de l'État, régions autonomes, diplomates et organisations internationales.</li>
+  <li><b>Lot 3 – parsers 14 à 16</b>, une fois l'accès au Diário da República réglé : officiers généraux, nominations, secteur public, partis.</li>
+</ol>
+
+<h2>7. Sources</h2>
+<ul class="small">
+  <li>Loi 83/2017 (modifiée par la loi 58/2020) : diariodarepublica.pt ; liste de la Commission : eur-lex.europa.eu/eli/C/2023/724/oj</li>
+  <li>Assembleia da República, dados abertos : parlamento.pt/Cidadania/Paginas/DadosAbertos.aspx (Informação base, Registo biográfico)</li>
+  <li>Gouvernement : portugal.gov.pt · Présidence : presidencia.pt · Tribunal constitutionnel : tribunalconstitucional.pt · STJ : stj.pt · Tribunal de Contas : tcontas.pt · Ministère public : ministeriopublico.pt</li>
+  <li>Banque du Portugal : bportugal.pt (protégé) · CMVM : cmvm.pt · Portail diplomatique : portaldiplomatico.mne.gov.pt · Açores : portal.azores.gov.pt · Madère : madeira.gov.pt</li>
+  <li>Élections : eleicoes.mai.gov.pt, cne.pt · Données ouvertes : dados.gov.pt · Parlement européen : data.europarl.europa.eu · Wikidata</li>
+</ul>
+
+<div class="footer">SwiftCheck AML – Plan des parsers PEP Portugal – 3 novembre 2026. Ordres de grandeur indicatifs, à confirmer à la première exécution de chaque parser.</div>
+</body>
+</html>

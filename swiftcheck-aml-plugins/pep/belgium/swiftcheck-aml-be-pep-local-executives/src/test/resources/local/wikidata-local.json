@@ -1,0 +1,4313 @@
+{
+  "head" : {
+    "vars" : [ "area", "areaLabel", "areaLabelNl", "kind", "population", "statement", "rank", "start", "end", "person", "personLabel", "birth", "birthPrecision", "gender" ]
+  },
+  "results" : {
+    "bindings" : [ {
+      "area" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q72946"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q72946-53575cdf-4e9c-93bc-b4cf-4da3249d751c"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q98058368"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#NormalRank"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2018-01-01T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "areaLabelNl" : {
+        "xml:lang" : "nl",
+        "type" : "literal",
+        "value" : "Vorst"
+      },
+      "kind" : {
+        "type" : "literal",
+        "value" : "commune"
+      },
+      "population" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "56581"
+      },
+      "areaLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Forest"
+      },
+      "personLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Stéphane Roberti"
+      }
+    }, {
+      "area" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q118958"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q118958-0ae07f18-4b4a-659c-c29e-280213217aed"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2063633"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#NormalRank"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1905-01-01T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "areaLabelNl" : {
+        "xml:lang" : "nl",
+        "type" : "literal",
+        "value" : "Leuven"
+      },
+      "kind" : {
+        "type" : "literal",
+        "value" : "commune"
+      },
+      "population" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "101032"
+      },
+      "areaLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Louvain"
+      },
+      "personLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Léon Colins"
+      },
+      "end" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1921-01-01T00:00:00Z"
+      }
+    }, {
+      "area" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q194037"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q194037-D294CD47-E4AE-4190-9423-3B172F29469E"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q109037450"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#NormalRank"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2018-12-03T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "areaLabelNl" : {
+        "xml:lang" : "nl",
+        "type" : "literal",
+        "value" : "Seraing"
+      },
+      "kind" : {
+        "type" : "literal",
+        "value" : "commune"
+      },
+      "population" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "64270"
+      },
+      "areaLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Seraing"
+      },
+      "personLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Francis Bekaert"
+      },
+      "end" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2023-03-20T00:00:00Z"
+      }
+    }, {
+      "area" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q12886"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q12886-7142946a-4697-c050-f8b0-e7f4b29e2e43"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q98000375"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#NormalRank"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2020-01-01T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "areaLabelNl" : {
+        "xml:lang" : "nl",
+        "type" : "literal",
+        "value" : "Anderlecht"
+      },
+      "kind" : {
+        "type" : "literal",
+        "value" : "commune"
+      },
+      "population" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "120887"
+      },
+      "areaLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Anderlecht"
+      },
+      "personLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Fabrice Cumps"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q731064"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1955-03-04T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "area" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q81046"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q81046-25f0fa24-4ce3-a995-cdf4-e4bc08a81f6f"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#NormalRank"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2006-12-04T00:00:00Z"
+      },
+      "end" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2007-07-09T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "kind" : {
+        "type" : "literal",
+        "value" : "commune"
+      },
+      "population" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "204322"
+      },
+      "areaLabel" : {
+        "xml:lang" : "mul",
+        "type" : "literal",
+        "value" : "Charleroi"
+      },
+      "personLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Léon Casaert"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1341556"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1971-06-28T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "area" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q81046"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/q81046-D642605E-31A7-4FC3-AA24-059B10740E92"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#NormalRank"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2012-12-03T00:00:00Z"
+      },
+      "end" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2024-12-02T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "kind" : {
+        "type" : "literal",
+        "value" : "commune"
+      },
+      "population" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "204322"
+      },
+      "areaLabel" : {
+        "xml:lang" : "mul",
+        "type" : "literal",
+        "value" : "Charleroi"
+      },
+      "personLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Paul Magnette"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1684787"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1944-04-28T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "area" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q81046"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q81046-1d06ac6c-4510-b736-7c0c-87a12d974d08"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#NormalRank"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1983-01-01T00:00:00Z"
+      },
+      "end" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2000-01-01T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "kind" : {
+        "type" : "literal",
+        "value" : "commune"
+      },
+      "population" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "204322"
+      },
+      "areaLabel" : {
+        "xml:lang" : "mul",
+        "type" : "literal",
+        "value" : "Charleroi"
+      },
+      "personLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Jean-Claude Van Cauwenberghe"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2471058"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1946-12-02T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "area" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q81046"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q81046-54d3c226-4320-80ae-11e2-9883239fc2c5"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#NormalRank"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2007-07-09T00:00:00Z"
+      },
+      "end" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2012-02-16T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "kind" : {
+        "type" : "literal",
+        "value" : "commune"
+      },
+      "population" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "204322"
+      },
+      "areaLabel" : {
+        "xml:lang" : "mul",
+        "type" : "literal",
+        "value" : "Charleroi"
+      },
+      "personLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Jean-Jacques Viseur"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3591262"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1963-06-09T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "area" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q81046"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q81046-dc979360-4b4e-1958-34c7-37785b2fa546"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#NormalRank"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2012-02-16T00:00:00Z"
+      },
+      "end" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2012-12-03T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "kind" : {
+        "type" : "literal",
+        "value" : "commune"
+      },
+      "population" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "204322"
+      },
+      "areaLabel" : {
+        "xml:lang" : "mul",
+        "type" : "literal",
+        "value" : "Charleroi"
+      },
+      "personLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Éric Massin"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q91117810"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1986-01-01T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "9"
+      },
+      "area" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q81046"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q81046-12af2069-4b8a-7042-05a6-c172b80f2b08"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#PreferredRank"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2024-12-02T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "kind" : {
+        "type" : "literal",
+        "value" : "commune"
+      },
+      "population" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "204322"
+      },
+      "areaLabel" : {
+        "xml:lang" : "mul",
+        "type" : "literal",
+        "value" : "Charleroi"
+      },
+      "personLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Thomas Dermine"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q91117810"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1986-05-01T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "area" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q81046"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q81046-12af2069-4b8a-7042-05a6-c172b80f2b08"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#PreferredRank"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2024-12-02T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "kind" : {
+        "type" : "literal",
+        "value" : "commune"
+      },
+      "population" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "204322"
+      },
+      "areaLabel" : {
+        "xml:lang" : "mul",
+        "type" : "literal",
+        "value" : "Charleroi"
+      },
+      "personLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Thomas Dermine"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q15048"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1951-07-18T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "area" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q83407"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/q83407-3D585C80-0AC7-454D-B015-310701EC0625"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#NormalRank"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2001-01-01T00:00:00Z"
+      },
+      "end" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2018-12-03T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "kind" : {
+        "type" : "literal",
+        "value" : "commune"
+      },
+      "population" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "95299"
+      },
+      "areaLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Mons"
+      },
+      "personLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Elio Di Rupo"
+      },
+      "areaLabelNl" : {
+        "xml:lang" : "nl",
+        "type" : "literal",
+        "value" : "Bergen"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2230751"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1934-11-05T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "area" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q83407"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q83407-9708de64-4d72-54ab-99fd-3eec8a93536f"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#NormalRank"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1989-01-01T00:00:00Z"
+      },
+      "end" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2001-01-01T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "kind" : {
+        "type" : "literal",
+        "value" : "commune"
+      },
+      "population" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "95299"
+      },
+      "areaLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Mons"
+      },
+      "personLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Maurice Lafosse"
+      },
+      "areaLabelNl" : {
+        "xml:lang" : "nl",
+        "type" : "literal",
+        "value" : "Bergen"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q17350765"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1976-10-08T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "area" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q83407"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q83407-ae77c9af-4cc5-72a8-c8be-10d073ffedc5"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#PreferredRank"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2018-12-03T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "kind" : {
+        "type" : "literal",
+        "value" : "commune"
+      },
+      "population" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "95299"
+      },
+      "areaLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Mons"
+      },
+      "personLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Nicolas Martin"
+      },
+      "areaLabelNl" : {
+        "xml:lang" : "nl",
+        "type" : "literal",
+        "value" : "Bergen"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q928374"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1938-05-03T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "area" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q118958"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/q118958-EB8AEF67-9FE3-41DE-BCB7-80A59E8464E6"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#NormalRank"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1995-09-27T00:00:00Z"
+      },
+      "end" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2019-01-01T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "kind" : {
+        "type" : "literal",
+        "value" : "commune"
+      },
+      "population" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "101032"
+      },
+      "areaLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Louvain"
+      },
+      "personLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Louis Tobback"
+      },
+      "areaLabelNl" : {
+        "xml:lang" : "nl",
+        "type" : "literal",
+        "value" : "Leuven"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2324477"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1979-06-24T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "area" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q118958"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q118958-df3a42ad-4229-b49b-1153-749458c9575d"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#PreferredRank"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2019-01-01T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "kind" : {
+        "type" : "literal",
+        "value" : "commune"
+      },
+      "population" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "101032"
+      },
+      "areaLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Louvain"
+      },
+      "personLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Mohamed Ridouani"
+      },
+      "areaLabelNl" : {
+        "xml:lang" : "nl",
+        "type" : "literal",
+        "value" : "Leuven"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q822247"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1945-11-03T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "area" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q134121"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q134121-99d2f7e3-427f-2cd2-a599-6711975ee6e6"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#NormalRank"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2001-01-01T00:00:00Z"
+      },
+      "end" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2006-01-01T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "kind" : {
+        "type" : "literal",
+        "value" : "commune"
+      },
+      "population" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "115330"
+      },
+      "areaLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Namur"
+      },
+      "personLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Bernard Anselme"
+      },
+      "areaLabelNl" : {
+        "xml:lang" : "nl",
+        "type" : "literal",
+        "value" : "Namen"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1974916"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1947-05-11T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "area" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q134121"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q134121-af83ea41-41d2-961f-7026-68f94bc4e341"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#NormalRank"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1983-01-01T00:00:00Z"
+      },
+      "end" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2000-01-01T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "kind" : {
+        "type" : "literal",
+        "value" : "commune"
+      },
+      "population" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "115330"
+      },
+      "areaLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Namur"
+      },
+      "personLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Jean-Louis Close"
+      },
+      "areaLabelNl" : {
+        "xml:lang" : "nl",
+        "type" : "literal",
+        "value" : "Namen"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2366023"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1949-09-24T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "area" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q134121"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q134121-01842e51-4ccc-91b6-8dad-56d6c8d3d0d7"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#NormalRank"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2006-01-01T00:00:00Z"
+      },
+      "end" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2012-01-01T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "kind" : {
+        "type" : "literal",
+        "value" : "commune"
+      },
+      "population" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "115330"
+      },
+      "areaLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Namur"
+      },
+      "personLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Jacques Étienne"
+      },
+      "areaLabelNl" : {
+        "xml:lang" : "nl",
+        "type" : "literal",
+        "value" : "Namen"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3302670"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1978-04-09T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "area" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q134121"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q134121-eeb12d6a-4728-29f1-67bc-7ccb43a25af3"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#PreferredRank"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2012-01-01T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "kind" : {
+        "type" : "literal",
+        "value" : "commune"
+      },
+      "population" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "115330"
+      },
+      "areaLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Namur"
+      },
+      "personLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Maxime Prévot"
+      },
+      "areaLabelNl" : {
+        "xml:lang" : "nl",
+        "type" : "literal",
+        "value" : "Namen"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q15993"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1964-05-12T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "area" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q162022"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/q162022-27F290E8-6C3F-41E3-92A4-8F6017E5BC28"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#NormalRank"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2001-01-01T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "kind" : {
+        "type" : "literal",
+        "value" : "commune"
+      },
+      "population" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "86921"
+      },
+      "areaLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Malines"
+      },
+      "personLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Bart Somers"
+      },
+      "areaLabelNl" : {
+        "xml:lang" : "nl",
+        "type" : "literal",
+        "value" : "Mechelen"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3370366"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1966-07-01T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "area" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q173219"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q173219-17e23abe-4918-be11-be75-0fa8280b7938"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#NormalRank"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2018-12-01T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "kind" : {
+        "type" : "literal",
+        "value" : "commune"
+      },
+      "population" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "69554"
+      },
+      "areaLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Tournai"
+      },
+      "personLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Paul-Olivier Delannois"
+      },
+      "areaLabelNl" : {
+        "xml:lang" : "nl",
+        "type" : "literal",
+        "value" : "Doornik"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2942011"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1978-06-22T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "area" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q180775"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q180775-acbca165-45fd-dc31-e194-1f1c92b1cd47"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#PreferredRank"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2018-01-01T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581072"
+      },
+      "kind" : {
+        "type" : "literal",
+        "value" : "commune"
+      },
+      "population" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "97979"
+      },
+      "areaLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Molenbeek-Saint-Jean"
+      },
+      "personLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Catherine Moureaux"
+      },
+      "areaLabelNl" : {
+        "xml:lang" : "nl",
+        "type" : "literal",
+        "value" : "Sint-Jans-Molenbeek"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3086602"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1960-06-18T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "area" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q180775"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q180775-d29b4908-4aa2-487f-00c0-2972d46bf073"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#NormalRank"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2012-01-01T00:00:00Z"
+      },
+      "end" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2018-01-01T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581072"
+      },
+      "kind" : {
+        "type" : "literal",
+        "value" : "commune"
+      },
+      "population" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "97979"
+      },
+      "areaLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Molenbeek-Saint-Jean"
+      },
+      "personLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Françoise Schepmans"
+      },
+      "areaLabelNl" : {
+        "xml:lang" : "nl",
+        "type" : "literal",
+        "value" : "Sint-Jans-Molenbeek"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2126084"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1972-03-24T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "area" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q189692"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/q189692-D0832786-6F9C-4CFC-A7CD-630CD733FEC4"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#NormalRank"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2009-01-01T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "kind" : {
+        "type" : "literal",
+        "value" : "commune"
+      },
+      "population" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "66110"
+      },
+      "areaLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Genk"
+      },
+      "personLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Wim Dries"
+      },
+      "areaLabelNl" : {
+        "xml:lang" : "nl",
+        "type" : "literal",
+        "value" : "Genk"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q17485965"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1986-07-31T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "area" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q194037"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q194037-7b83569c-4581-6d13-4414-7dbd483fafc2"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#PreferredRank"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2023-03-20T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581072"
+      },
+      "kind" : {
+        "type" : "literal",
+        "value" : "commune"
+      },
+      "population" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "64270"
+      },
+      "areaLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Seraing"
+      },
+      "personLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Déborah Géradon"
+      },
+      "areaLabelNl" : {
+        "xml:lang" : "nl",
+        "type" : "literal",
+        "value" : "Seraing"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2421445"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1971-05-18T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "area" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q202954"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q202954-B05FB845-6B2C-431E-AA8A-117786220044"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#PreferredRank"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581072"
+      },
+      "kind" : {
+        "type" : "literal",
+        "value" : "commune"
+      },
+      "population" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "55198"
+      },
+      "areaLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Verviers"
+      },
+      "personLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Muriel Targnion"
+      },
+      "areaLabelNl" : {
+        "xml:lang" : "nl",
+        "type" : "literal",
+        "value" : "Verviers"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q17350547"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1972-12-26T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "area" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q203312"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q203312-13b8c4f2-4903-c2dc-aff6-515f8f092560"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#NormalRank"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2017-09-15T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "kind" : {
+        "type" : "literal",
+        "value" : "commune"
+      },
+      "population" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "83980"
+      },
+      "areaLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Uccle"
+      },
+      "personLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Boris Dilliès"
+      },
+      "areaLabelNl" : {
+        "xml:lang" : "nl",
+        "type" : "literal",
+        "value" : "Ukkel"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2966669"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1968-03-06T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "area" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q208713"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q208713-8e6059c4-4ede-67c7-2b1e-9ea509052302"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#NormalRank"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2018-11-26T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "kind" : {
+        "type" : "literal",
+        "value" : "commune"
+      },
+      "population" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "87632"
+      },
+      "areaLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Ixelles"
+      },
+      "personLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Christos Doulkeridis"
+      },
+      "areaLabelNl" : {
+        "xml:lang" : "nl",
+        "type" : "literal",
+        "value" : "Elsene"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q28129942"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1972-06-12T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "area" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q211037"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/q211037-6D1B2760-F6FA-4D9C-BE99-4871A35B29C1"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#NormalRank"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2016-01-01T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "kind" : {
+        "type" : "literal",
+        "value" : "commune"
+      },
+      "population" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "64495"
+      },
+      "areaLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Roulers"
+      },
+      "personLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Kris Declercq"
+      },
+      "areaLabelNl" : {
+        "xml:lang" : "nl",
+        "type" : "literal",
+        "value" : "Roeselare"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q29871193"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1961-05-13T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "area" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q211572"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q211572-804be41b-42e6-cefb-48c3-4b7c8280cc0a"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#PreferredRank"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2006-01-01T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "kind" : {
+        "type" : "literal",
+        "value" : "commune"
+      },
+      "population" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "80986"
+      },
+      "areaLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "La Louvière"
+      },
+      "personLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Jacques Gobert"
+      },
+      "areaLabelNl" : {
+        "xml:lang" : "nl",
+        "type" : "literal",
+        "value" : "La Louvière"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q678494"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1958-08-03T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "area" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q211764"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q211764-7fef66af-47ac-d33f-96d5-2742df1be207"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#NormalRank"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2006-01-01T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "kind" : {
+        "type" : "literal",
+        "value" : "commune"
+      },
+      "population" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "57712"
+      },
+      "areaLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Woluwe-Saint-Lambert"
+      },
+      "personLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Olivier Maingain"
+      },
+      "areaLabelNl" : {
+        "xml:lang" : "nl",
+        "type" : "literal",
+        "value" : "Sint-Lambrechts-Woluwe"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q43178584"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1959-01-01T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "9"
+      },
+      "area" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q220145"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q220145-C4589B53-CA68-4678-8FD9-A7183B01F3B2"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#NormalRank"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2017-10-02T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581072"
+      },
+      "kind" : {
+        "type" : "literal",
+        "value" : "commune"
+      },
+      "population" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "58234"
+      },
+      "areaLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Mouscron"
+      },
+      "personLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Brigitte Aubert"
+      },
+      "areaLabelNl" : {
+        "xml:lang" : "nl",
+        "type" : "literal",
+        "value" : "Moeskroen"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3134474"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1956-11-20T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "area" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q241918"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q241918-8139105d-4131-e6fd-4aee-eeeaeed5f0eb"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#NormalRank"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2000-01-01T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "kind" : {
+        "type" : "literal",
+        "value" : "commune"
+      },
+      "population" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "52728"
+      },
+      "areaLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Jette"
+      },
+      "personLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Hervé Doyen"
+      },
+      "areaLabelNl" : {
+        "xml:lang" : "nl",
+        "type" : "literal",
+        "value" : "Jette"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2198639"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1958-02-01T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "area" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1095"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/q1095-63b0732f-4970-2365-48b2-a955398b8a0d"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#NormalRank"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2009-10-05T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "kind" : {
+        "type" : "literal",
+        "value" : "province"
+      },
+      "population" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "904919"
+      },
+      "areaLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Limbourg"
+      },
+      "personLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Herman Reynders"
+      },
+      "areaLabelNl" : {
+        "xml:lang" : "nl",
+        "type" : "literal",
+        "value" : "Limburg"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2938795"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1962-06-27T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "area" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1114"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q1114-736d4990-4651-1788-e685-33e8bd088893"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#PreferredRank"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2020-07-17T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581072"
+      },
+      "kind" : {
+        "type" : "literal",
+        "value" : "province"
+      },
+      "population" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "1602532"
+      },
+      "areaLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Flandre-Orientale"
+      },
+      "personLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Carina Van Cauter"
+      },
+      "areaLabelNl" : {
+        "xml:lang" : "nl",
+        "type" : "literal",
+        "value" : "Oost-Vlaanderen"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4343491"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1953-10-30T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "area" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1114"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/q1114-9e823788-4793-4b81-af7d-4c4ba3b48a1a"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#NormalRank"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2013-02-01T00:00:00Z"
+      },
+      "end" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2018-01-01T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "kind" : {
+        "type" : "literal",
+        "value" : "province"
+      },
+      "population" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "1602532"
+      },
+      "areaLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Flandre-Orientale"
+      },
+      "personLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Jan Briers"
+      },
+      "areaLabelNl" : {
+        "xml:lang" : "nl",
+        "type" : "literal",
+        "value" : "Oost-Vlaanderen"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2173071"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1960-09-18T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "area" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1113"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/q1113-415aa266-4149-2417-33a2-3019ba9bda43"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#NormalRank"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2012-02-01T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "kind" : {
+        "type" : "literal",
+        "value" : "province"
+      },
+      "population" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "1231585"
+      },
+      "areaLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Flandre-Occidentale"
+      },
+      "personLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Carl Decaluwé"
+      },
+      "areaLabelNl" : {
+        "xml:lang" : "nl",
+        "type" : "literal",
+        "value" : "West-Vlaanderen"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2399955"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1954-12-12T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "area" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1118"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/q1118-9222f21c-4ba9-e4a0-7fdf-1f218b79231c"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#NormalRank"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1995-01-01T00:00:00Z"
+      },
+      "end" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2020-07-17T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "kind" : {
+        "type" : "literal",
+        "value" : "province"
+      },
+      "population" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "1204541"
+      },
+      "areaLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Brabant flamand"
+      },
+      "personLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Lodewijk De Witte"
+      },
+      "areaLabelNl" : {
+        "xml:lang" : "nl",
+        "type" : "literal",
+        "value" : "Vlaams-Brabant"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q17038223"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1969-01-12T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "area" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1118"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q1118-800b7cd6-479d-067f-440e-6eed626631b7"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#PreferredRank"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2020-07-17T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "kind" : {
+        "type" : "literal",
+        "value" : "province"
+      },
+      "population" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "1204541"
+      },
+      "areaLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Brabant flamand"
+      },
+      "personLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Jan Spooren"
+      },
+      "areaLabelNl" : {
+        "xml:lang" : "nl",
+        "type" : "literal",
+        "value" : "Vlaams-Brabant"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2438905"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1969-01-08T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "area" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1116"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/q1116-730d4c4c-4f9d-9ef2-83d2-9fe6c98bf326"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#PreferredRank"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2008-05-01T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581072"
+      },
+      "kind" : {
+        "type" : "literal",
+        "value" : "province"
+      },
+      "population" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "1921189"
+      },
+      "areaLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Anvers"
+      },
+      "personLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Cathy Berx"
+      },
+      "areaLabelNl" : {
+        "xml:lang" : "nl",
+        "type" : "literal",
+        "value" : "Antwerpen"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2556069"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1943-04-24T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "area" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1116"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q1116-55e40c3e-49eb-49ac-1d1a-504c890f24bf"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#NormalRank"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1993-01-01T00:00:00Z"
+      },
+      "end" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2008-01-01T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "kind" : {
+        "type" : "literal",
+        "value" : "province"
+      },
+      "population" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "1921189"
+      },
+      "areaLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Anvers"
+      },
+      "personLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Camille Paulus"
+      },
+      "areaLabelNl" : {
+        "xml:lang" : "nl",
+        "type" : "literal",
+        "value" : "Antwerpen"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2749463"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1950-06-17T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "area" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1122"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/q1122-23f9d90c-4996-68f7-1192-71416554b887"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#NormalRank"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2007-01-08T00:00:00Z"
+      },
+      "end" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2014-11-04T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581072"
+      },
+      "kind" : {
+        "type" : "literal",
+        "value" : "province"
+      },
+      "population" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "415381"
+      },
+      "areaLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Brabant wallon"
+      },
+      "personLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Marie-José Laloy"
+      },
+      "areaLabelNl" : {
+        "xml:lang" : "nl",
+        "type" : "literal",
+        "value" : "Waals-Brabant"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3106370"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1964-01-01T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "9"
+      },
+      "area" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1122"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q1122-681fd7ac-4179-fbc4-29c3-2f4669e17291"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#PreferredRank"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2015-10-01T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "kind" : {
+        "type" : "literal",
+        "value" : "province"
+      },
+      "population" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "415381"
+      },
+      "areaLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Brabant wallon"
+      },
+      "personLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Gilles Mahieu"
+      },
+      "areaLabelNl" : {
+        "xml:lang" : "nl",
+        "type" : "literal",
+        "value" : "Waals-Brabant"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q22582456"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1966-11-01T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "area" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1126"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/q1126-4c4b63b8-4af1-0c3d-0a00-bccdeea3d226"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#NormalRank"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2016-02-01T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "kind" : {
+        "type" : "literal",
+        "value" : "province"
+      },
+      "population" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "296008"
+      },
+      "areaLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Luxembourg"
+      },
+      "personLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Olivier Schmitz"
+      },
+      "areaLabelNl" : {
+        "xml:lang" : "nl",
+        "type" : "literal",
+        "value" : "Luxemburg"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1915825"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1965-01-01T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "area" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1127"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q1127-37945461-486c-c368-a158-714ea10d7135"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#PreferredRank"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2015-10-01T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "kind" : {
+        "type" : "literal",
+        "value" : "province"
+      },
+      "population" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "1122925"
+      },
+      "areaLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Liège"
+      },
+      "personLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Hervé Jamar"
+      },
+      "areaLabelNl" : {
+        "xml:lang" : "nl",
+        "type" : "literal",
+        "value" : "Luik"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2741931"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1948-04-19T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "area" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1127"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/q1127-217c9112-432f-2c02-9813-9e911a32bfca"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#NormalRank"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2004-10-01T00:00:00Z"
+      },
+      "end" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2015-09-30T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "kind" : {
+        "type" : "literal",
+        "value" : "province"
+      },
+      "population" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "1122925"
+      },
+      "areaLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Liège"
+      },
+      "personLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Michel Foret"
+      },
+      "areaLabelNl" : {
+        "xml:lang" : "nl",
+        "type" : "literal",
+        "value" : "Luik"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2027000"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1965-10-27T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "area" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1125"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/q1125-f6e0c66e-401a-95bb-3220-73d025616ea0"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#NormalRank"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2007-01-08T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "kind" : {
+        "type" : "literal",
+        "value" : "province"
+      },
+      "population" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "505348"
+      },
+      "areaLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Namur"
+      },
+      "personLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Denis Mathen"
+      },
+      "areaLabelNl" : {
+        "xml:lang" : "nl",
+        "type" : "literal",
+        "value" : "Namen"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q22002044"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1970-06-19T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "area" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1129"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q1129-4da9197f-4b99-5cc8-24d4-5f9f95c3b362"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#NormalRank"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2013-03-28T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "kind" : {
+        "type" : "literal",
+        "value" : "province"
+      },
+      "population" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "1365328"
+      },
+      "areaLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Hainaut"
+      },
+      "personLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Tommy Leclercq"
+      },
+      "areaLabelNl" : {
+        "xml:lang" : "nl",
+        "type" : "literal",
+        "value" : "Henegouwen"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q12500"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1953-05-19T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "area" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1296"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/q1296-5E077F48-94F8-4D7E-9989-EAF4E5F9C839"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#NormalRank"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2007-01-01T00:00:00Z"
+      },
+      "end" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2018-01-01T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "kind" : {
+        "type" : "literal",
+        "value" : "commune"
+      },
+      "population" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "272657"
+      },
+      "areaLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Gand"
+      },
+      "personLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Daniël Termont"
+      },
+      "areaLabelNl" : {
+        "xml:lang" : "nl",
+        "type" : "literal",
+        "value" : "Gent"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1939878"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1981-12-26T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "area" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1296"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q1296-d9982fd6-46dd-56c5-f480-b3a2434f58ab"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#PreferredRank"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2018-01-01T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "kind" : {
+        "type" : "literal",
+        "value" : "commune"
+      },
+      "population" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "272657"
+      },
+      "areaLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Gand"
+      },
+      "personLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Mathias De Clercq"
+      },
+      "areaLabelNl" : {
+        "xml:lang" : "nl",
+        "type" : "literal",
+        "value" : "Gent"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2355048"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1959-03-17T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "area" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3992"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q3992-aca40624-4a76-1152-c20b-15860d71c691"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#PreferredRank"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1999-09-15T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "kind" : {
+        "type" : "literal",
+        "value" : "commune"
+      },
+      "population" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "195278"
+      },
+      "areaLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Liège"
+      },
+      "personLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Willy Demeyer"
+      },
+      "areaLabelNl" : {
+        "xml:lang" : "nl",
+        "type" : "literal",
+        "value" : "Luik"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q822355"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1961-12-30T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "area" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q12887"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q12887-b845ceeb-48db-6a03-8c07-2c9797c63872"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#NormalRank"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2001-01-01T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "kind" : {
+        "type" : "literal",
+        "value" : "commune"
+      },
+      "population" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "132799"
+      },
+      "areaLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Schaerbeek"
+      },
+      "personLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Bernard Clerfayt"
+      },
+      "areaLabelNl" : {
+        "xml:lang" : "nl",
+        "type" : "literal",
+        "value" : "Schaarbeek"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3009751"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1964-04-01T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "area" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q12887"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q12887-BFE20852-C143-46EA-9502-905741562896"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#PreferredRank"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2019-01-01T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581072"
+      },
+      "kind" : {
+        "type" : "literal",
+        "value" : "commune"
+      },
+      "population" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "132799"
+      },
+      "areaLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Schaerbeek"
+      },
+      "personLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Cécile Jodogne"
+      },
+      "areaLabelNl" : {
+        "xml:lang" : "nl",
+        "type" : "literal",
+        "value" : "Schaarbeek"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q336599"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1970-12-21T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "area" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q12892"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/q12892-DCD66997-F839-448D-9100-D6DD6E23F8CA"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#NormalRank"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2013-01-01T00:00:00Z"
+      },
+      "end" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2025-02-02T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "kind" : {
+        "type" : "literal",
+        "value" : "commune"
+      },
+      "population" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "529247"
+      },
+      "areaLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Anvers"
+      },
+      "personLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Bart De Wever"
+      },
+      "areaLabelNl" : {
+        "xml:lang" : "nl",
+        "type" : "literal",
+        "value" : "Antwerpen"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q106563994"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1989-05-24T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "area" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q12892"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q12892-99ecbb5b-4a21-5e74-2d11-1305df850bee"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#PreferredRank"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2025-02-03T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581072"
+      },
+      "kind" : {
+        "type" : "literal",
+        "value" : "commune"
+      },
+      "population" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "529247"
+      },
+      "areaLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Anvers"
+      },
+      "personLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Els van Doesburg"
+      },
+      "areaLabelNl" : {
+        "xml:lang" : "nl",
+        "type" : "literal",
+        "value" : "Antwerpen"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2186628"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1959-01-28T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "area" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q12994"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/q12994-CEC06065-C6E0-44EC-A46F-B5C1AAB8D93A"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#NormalRank"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2013-01-01T00:00:00Z"
+      },
+      "end" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2018-01-01T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "kind" : {
+        "type" : "literal",
+        "value" : "commune"
+      },
+      "population" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "118509"
+      },
+      "areaLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Bruges"
+      },
+      "personLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Renaat Landuyt"
+      },
+      "areaLabelNl" : {
+        "xml:lang" : "nl",
+        "type" : "literal",
+        "value" : "Brugge"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3350890"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1957-01-01T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "9"
+      },
+      "area" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q12994"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q12994-b39c37c7-469b-fb15-28af-ea0da06fb0fb"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#PreferredRank"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2019-01-01T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "kind" : {
+        "type" : "literal",
+        "value" : "commune"
+      },
+      "population" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "118509"
+      },
+      "areaLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Bruges"
+      },
+      "personLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Dirk De fauw"
+      },
+      "areaLabelNl" : {
+        "xml:lang" : "nl",
+        "type" : "literal",
+        "value" : "Brugge"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3350890"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1957-12-07T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "area" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q12994"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q12994-b39c37c7-469b-fb15-28af-ea0da06fb0fb"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#PreferredRank"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2019-01-01T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "kind" : {
+        "type" : "literal",
+        "value" : "commune"
+      },
+      "population" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "118509"
+      },
+      "areaLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Bruges"
+      },
+      "personLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Dirk De fauw"
+      },
+      "areaLabelNl" : {
+        "xml:lang" : "nl",
+        "type" : "literal",
+        "value" : "Brugge"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q549887"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1973-08-01T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "area" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q12995"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/q12995-2442B72A-2F3E-45A3-94B1-FA01A4005ACD"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#NormalRank"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2013-01-01T00:00:00Z"
+      },
+      "end" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2024-01-01T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "kind" : {
+        "type" : "literal",
+        "value" : "commune"
+      },
+      "population" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "77741"
+      },
+      "areaLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Courtrai"
+      },
+      "personLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Vincent Van Quickenborne"
+      },
+      "areaLabelNl" : {
+        "xml:lang" : "nl",
+        "type" : "literal",
+        "value" : "Kortrijk"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q106889227"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1973-01-01T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "9"
+      },
+      "area" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q12995"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q12995-c01be824-4f22-2514-e4de-2deb4d06565a"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#PreferredRank"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2024-01-01T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581072"
+      },
+      "kind" : {
+        "type" : "literal",
+        "value" : "commune"
+      },
+      "population" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "77741"
+      },
+      "areaLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Courtrai"
+      },
+      "personLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Ruth Vandenberghe"
+      },
+      "areaLabelNl" : {
+        "xml:lang" : "nl",
+        "type" : "literal",
+        "value" : "Kortrijk"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q946183"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1955-07-06T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "area" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q12996"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q12996-0a905c4d-4044-3ee1-7968-00a3a58be68c"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#NormalRank"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2015-01-01T00:00:00Z"
+      },
+      "end" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2018-01-01T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "kind" : {
+        "type" : "literal",
+        "value" : "commune"
+      },
+      "population" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "71557"
+      },
+      "areaLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Ostende"
+      },
+      "personLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Johan Vande Lanotte"
+      },
+      "areaLabelNl" : {
+        "xml:lang" : "nl",
+        "type" : "literal",
+        "value" : "Oostende"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q946183"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1955-01-01T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "9"
+      },
+      "area" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q12996"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q12996-0a905c4d-4044-3ee1-7968-00a3a58be68c"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#NormalRank"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2015-01-01T00:00:00Z"
+      },
+      "end" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2018-01-01T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "kind" : {
+        "type" : "literal",
+        "value" : "commune"
+      },
+      "population" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "71557"
+      },
+      "areaLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Ostende"
+      },
+      "personLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Johan Vande Lanotte"
+      },
+      "areaLabelNl" : {
+        "xml:lang" : "nl",
+        "type" : "literal",
+        "value" : "Oostende"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2397200"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1955-12-01T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "area" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q12996"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/q12996-D2915AF1-0F94-4E7F-8EDC-E21516B84416"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#NormalRank"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1997-01-01T00:00:00Z"
+      },
+      "end" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2015-01-01T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "kind" : {
+        "type" : "literal",
+        "value" : "commune"
+      },
+      "population" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "71557"
+      },
+      "areaLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Ostende"
+      },
+      "personLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Jean Vandecasteele"
+      },
+      "areaLabelNl" : {
+        "xml:lang" : "nl",
+        "type" : "literal",
+        "value" : "Oostende"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2701515"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1962-05-04T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "area" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q12996"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q12996-268054a1-4f9d-4439-260d-1d75b46f4643"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#PreferredRank"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2019-01-02T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "kind" : {
+        "type" : "literal",
+        "value" : "commune"
+      },
+      "population" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "71557"
+      },
+      "areaLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Ostende"
+      },
+      "personLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Bart Tommelein"
+      },
+      "areaLabelNl" : {
+        "xml:lang" : "nl",
+        "type" : "literal",
+        "value" : "Oostende"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2305667"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1967-02-25T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "area" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q13121"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/q13121-E06333C4-D63B-45EE-A977-ECED39695BA4"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#NormalRank"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2013-01-01T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "kind" : {
+        "type" : "literal",
+        "value" : "commune"
+      },
+      "population" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "88854"
+      },
+      "areaLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Alost"
+      },
+      "personLabel" : {
+        "xml:lang" : "mul",
+        "type" : "literal",
+        "value" : "Christoph D'Haese"
+      },
+      "areaLabelNl" : {
+        "xml:lang" : "nl",
+        "type" : "literal",
+        "value" : "Aalst"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2564979"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1958-06-09T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "area" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q13127"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/q13127-096EDD9B-490C-43AC-954C-90573F05AF80"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#PreferredRank"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "kind" : {
+        "type" : "literal",
+        "value" : "commune"
+      },
+      "population" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "80167"
+      },
+      "areaLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Saint-Nicolas"
+      },
+      "personLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Lieven Dehandschutter"
+      },
+      "areaLabelNl" : {
+        "xml:lang" : "nl",
+        "type" : "literal",
+        "value" : "Sint-Niklaas"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2704168"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1961-07-25T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "area" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q13127"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q13127-24bc4a07-46ea-bfcf-ab41-7142a103e078"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#NormalRank"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581072"
+      },
+      "kind" : {
+        "type" : "literal",
+        "value" : "commune"
+      },
+      "population" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "80167"
+      },
+      "areaLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Saint-Nicolas"
+      },
+      "personLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Christel Geerts"
+      },
+      "areaLabelNl" : {
+        "xml:lang" : "nl",
+        "type" : "literal",
+        "value" : "Sint-Niklaas"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2118869"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1960-01-24T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "area" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q239"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/q239-15ED8EED-9067-4C41-A84D-D6D1A7725138"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#NormalRank"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2013-12-13T00:00:00Z"
+      },
+      "end" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2017-07-20T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "kind" : {
+        "type" : "literal",
+        "value" : "commune"
+      },
+      "population" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "195546"
+      },
+      "areaLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Bruxelles"
+      },
+      "personLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Yvan Mayeur"
+      },
+      "areaLabelNl" : {
+        "xml:lang" : "nl",
+        "type" : "literal",
+        "value" : "Brussel"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3379592"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1971-03-18T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "area" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q239"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q239-5c76f1e1-4e18-d31a-02b9-f9ea3f1112e1"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#PreferredRank"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2017-07-20T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "kind" : {
+        "type" : "literal",
+        "value" : "commune"
+      },
+      "population" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "195546"
+      },
+      "areaLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Bruxelles"
+      },
+      "personLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Philippe Close"
+      },
+      "areaLabelNl" : {
+        "xml:lang" : "nl",
+        "type" : "literal",
+        "value" : "Brussel"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2294276"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1967-03-30T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "area" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q58780"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/q58780-21183421-CA75-4B17-AEA0-60ED3BCEE17E"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#NormalRank"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2019-01-01T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "kind" : {
+        "type" : "literal",
+        "value" : "commune"
+      },
+      "population" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "90249"
+      },
+      "areaLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Hasselt"
+      },
+      "personLabel" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Steven Vandeput"
+      },
+      "areaLabelNl" : {
+        "xml:lang" : "nl",
+        "type" : "literal",
+        "value" : "Hasselt"
+      }
+    } ]
+  }
+}
