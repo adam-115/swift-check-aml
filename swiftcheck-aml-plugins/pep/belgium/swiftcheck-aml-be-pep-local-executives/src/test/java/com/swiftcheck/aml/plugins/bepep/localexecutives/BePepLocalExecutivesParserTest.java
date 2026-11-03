@@ -40,6 +40,7 @@ class BePepLocalExecutivesParserTest {
         assertThat(report.governors()).isPositive();
         assertThat(report.lblodAdded()).isPositive();
         assertThat(dataset.qualityReport().getTotalRejected()).as(dataset.qualityReport().toString()).isZero();
+        assertThat(dataset.toConversionResult().conflictCount()).as("ID conflicts").isZero();
 
         List<String> names = dataset.entities().stream()
                 .filter(e -> "Person".equals(e.getSchema()))

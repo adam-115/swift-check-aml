@@ -311,7 +311,7 @@ public class BePepLocalExecutivesParser implements Iparser {
 
         FtmEntity position = writePosition(dataset, area);
 
-        FtmEntity occupancy = dataset.newEntity("Occupancy", s.personQid(), area.qid(),
+        FtmEntity occupancy = dataset.newEntity("Occupancy", "occ", s.personQid(), area.qid(),
                 s.start() == null ? "" : s.start());
         occupancy.addValue("holder", person.getId());
         occupancy.addValue("post", position.getId());
@@ -325,7 +325,7 @@ public class BePepLocalExecutivesParser implements Iparser {
     private static void writeLblod(FtmDatasetBuilder dataset, Area area, String firstName, String familyName,
             String fullName, String start, String personUri) {
         String title = area.functionTitle();
-        FtmEntity person = dataset.newEntity("Person", "lblod", area.qid(), fold(fullName));
+        FtmEntity person = dataset.newEntity("Person", "lblod-person", area.qid(), fold(fullName));
         person.addValue("name", fullName);
         person.addValue("firstName", firstName);
         person.addValue("lastName", familyName);
@@ -336,7 +336,8 @@ public class BePepLocalExecutivesParser implements Iparser {
 
         FtmEntity position = writePosition(dataset, area);
 
-        FtmEntity occupancy = dataset.newEntity("Occupancy", "lblod", area.qid(), fold(fullName));
+        FtmEntity occupancy = dataset.newEntity("Occupancy", "lblod-occ", area.qid(), fold(fullName),
+                start == null ? "" : start);
         occupancy.addValue("holder", person.getId());
         occupancy.addValue("post", position.getId());
         occupancy.addValue("startDate", start);
@@ -346,7 +347,7 @@ public class BePepLocalExecutivesParser implements Iparser {
     }
 
     private static FtmEntity writePosition(FtmDatasetBuilder dataset, Area area) {
-        FtmEntity position = dataset.newEntity("Position", area.qid(), area.kind());
+        FtmEntity position = dataset.newEntity("Position", "pos", area.qid(), area.kind());
         position.addValue("name", area.functionTitle());
         position.addValue("country", "be");
         position.addValue("subnationalArea", area.labelFr());
