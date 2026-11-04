@@ -50,5 +50,25 @@ class DePepInternationalOrgsParserTest {
         List<SourceRecord> records = parser.readSourceRecords(ctx);
         assertThat(records).hasSize(4);
     }
+
+    @Test
+    void testParseInternationalOrgsBaselineFallback(@TempDir Path tempDir) throws Exception {
+        Path outputFile = tempDir.resolve("output.ndjson");
+        ParserContext ctx = new ParserContext("de_pep_international_orgs", null, tempDir, outputFile, Map.of());
+        DePepInternationalOrgsParser parser = new DePepInternationalOrgsParser();
+
+        ParserResult result = parser.parse(ctx);
+        assertThat(result.message()).contains("dirigeants d'organisations internationales en Allemagne extraits");
+
+        List<String> lines = Files.readAllLines(outputFile);
+        assertThat(lines).isNotEmpty();
+        assertThat(lines).anyMatch(l -> l.contains("António Campinos"));
+        assertThat(lines).anyMatch(l -> l.contains("Simon Stiell"));
+
+        assertThat(Files.exists(tempDir.resolve("international-orgs.json"))).isTrue();
+
+        List<SourceRecord> records = parser.readSourceRecords(ctx);
+        assertThat(records).isNotEmpty();
+    }
 }
 

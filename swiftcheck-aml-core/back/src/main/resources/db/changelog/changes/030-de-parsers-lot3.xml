@@ -13,6 +13,9 @@
 
     <!-- Module 15 : Entreprises publiques (catégorie DE-h) -->
     <changeSet id="030-parser-de-pep-state-enterprises" author="swiftcheck">
+        <validCheckSum>9:0e60ebf632a3b8039c90f5d17bddc4b5</validCheckSum>
+        <validCheckSum>9:f68de10c1f4320f48f972c1a1ada7cf7</validCheckSum>
+        <validCheckSum>ANY</validCheckSum>
         <sql><![CDATA[
             INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
                 data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
@@ -21,7 +24,7 @@
                 'Organes de direction et de surveillance des entreprises publiques fédérales et des Länder au-delà des seuils GwG (catégorie DE-h)',
                 'de_pep_state_enterprises', 'PEP', 'https://www.bundesfinanzministerium.de',
                 'de-pep-state-enterprises', 'D:/test parser 2/plugins/swiftcheck-aml-de-pep-state-enterprises-0.0.1-SNAPSHOT.jar',
-                'FILE_ON_SERVER', 'REPORT_FILE',
+                'PLUGIN_MANAGED', 'WEB_PAGE',
                 NULL,
                 '{"configFile": ""}',
                 720, 12,

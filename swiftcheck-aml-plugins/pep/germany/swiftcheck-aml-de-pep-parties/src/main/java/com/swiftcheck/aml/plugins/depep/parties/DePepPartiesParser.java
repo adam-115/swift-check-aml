@@ -1,13 +1,17 @@
 package com.swiftcheck.aml.plugins.depep.parties;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -15,7 +19,7 @@ import org.pf4j.Extension;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.swiftcheck.aml.plugin.Iparser;
 import com.swiftcheck.aml.plugin.ParserContext;
@@ -23,12 +27,14 @@ import com.swiftcheck.aml.plugin.ParserResult;
 import com.swiftcheck.aml.plugin.SourceRecord;
 import com.swiftcheck.aml.sdk.FtmDatasetBuilder;
 import com.swiftcheck.aml.sdk.FtmEntity;
+import com.swiftcheck.aml.sdk.WikidataImages;
 
 /**
- * <b>de_pep_parties</b> – Membres des organes dirigeants des partis politiques représentés au Bundestag.
+ * <b>de_pep_parties</b> – Membres des organes dirigeants des partis politiques allemands (DE-c).
  * <p>
  * Catégorie <b>DE-c</b> (§ 1 (12) c) GwG ; liste JO C/2023/724).
- * Source : Unterlagensammlung der Bundeswahlleiterin (§ 6 (3) PartG) et déclarations officielles des partis.
+ * Source principale live : Wikidata SPARQL (pays Q183 - Allemagne).
+ * Source de secours : baseline officielle intégrée ({@value #BASELINE_RESOURCE}).
  */
 @Extension
 public class DePepPartiesParser implements Iparser {
@@ -37,7 +43,19 @@ public class DePepPartiesParser implements Iparser {
 
     static final String ID_PREFIX = "de-pep-parties";
     static final String TOPIC = "role.pep";
-    static final String CONFIG_RESOURCE = "/parties.json";
+    static final String DEFAULT_ENDPOINT = "https://query.wikidata.org/sparql";
+    static final String DEFAULT_COUNTRY = "Q183";
+    static final int DEFAULT_MONTHS_AFTER_END = 12;
+
+    private static final Map<String, String> ROLES = Map.of(
+            "chair", "Parteivorsitzende(r)",
+            "secretaryGeneral", "Generalsekretär(in)",
+            "director", "Bundesgeschäftsführer(in) / Parteileitung"
+    );
+
+    private static final String PREFERRED_RANK = "http://wikiba.se/ontology#PreferredRank";
+    private static final String MALE = "Q6581097";
+    private static final String FEMALE = "Q6581072";
 
     private static final Pattern ACADEMIC_TITLE = Pattern.compile(
             "^(?:(?:Prof\\.?\\s+Dr\\.?|Prof\\.?|Dr\\.?|h\\.c\\.)\\s+)+");
@@ -45,189 +63,341 @@ public class DePepPartiesParser implements Iparser {
     private static final Pattern LINE_ROLE_PATTERN = Pattern.compile(
             "(?i)^\\s*(?:[-*•]\\s*)?((?:Bundes)?vorsitzende[rn]?|Stellvertretende[rn]?\\s+(?:Bundes)?vorsitzende[rn]?|Generalsekretär(?:in)?|Schatzmeister(?:in)?|Bundesgeschäftsführer(?:in)?|Beisitzer(?:in)?|Mitglied des (?:Bundes|Partei)vorstands)\\s*[:\\-]\\s*(.+)$");
 
-    private static final Pattern HTML_ROW_PATTERN = Pattern.compile(
-            "(?si)<(?:tr|li|div)[^>]*>\\s*(?:<(?:td|span|strong|p)[^>]*>\\s*([^<]+?)\\s*</(?:td|span|strong|p)>)?\\s*<(?:td|span|p|a)[^>]*>\\s*([^<]+?)\\s*</(?:td|span|p|a)>\\s*</(?:tr|li|div)>");
+    private final ObjectMapper json = new ObjectMapper();
 
-    @JsonIgnoreProperties(ignoreUnknown = true)
-    public record PartyConfig(String key, String name, String shortName, String boardName, boolean bundestag) {
+    record Statement(String id, String partyQid, String partyLabel, String role, boolean preferred, String start,
+                     String end, String personQid, String personLabel, Set<String> birthDates, String gender) {
     }
 
-    @JsonIgnoreProperties(ignoreUnknown = true)
-    public record Config(List<PartyConfig> parties) {
+    record Selection(List<Statement> current, List<Statement> former, int superseded, int endedLongAgo) {
     }
 
-    record BoardMember(String partyKey, String partyName, String partyShortName, String role,
-                       String fullName, String title, String cleanName, LocalDate docDate) {
+    record Report(int parties, int persons, int current, int former, int superseded, int endedLongAgo, int unnamed) {
+        String message() {
+            String m = String.format("%d partis politiques allemands dans Wikidata : %d dirigeants, "
+                            + "%d mandats en cours, %d terminés depuis moins de 12 mois. Écartés : %d mandats "
+                            + "remplacés, %d terminés depuis plus longtemps.",
+                    parties, persons, current, former, superseded, endedLongAgo);
+            return unnamed == 0 ? m : m + String.format(" %d dirigeants sans nom écartés.", unnamed);
+        }
+    }
+
+    record BaselineMember(String party, String role, String fullName, String title, String cleanName) {
     }
 
     @Override
     public ParserResult parse(ParserContext ctx) throws Exception {
-        Config config = loadConfig(ctx);
-        List<BoardMember> allMembers = new ArrayList<>();
+        Map<String, String> p = ctx.parameters() == null ? Map.of() : ctx.parameters();
+        FtmDatasetBuilder dataset = new FtmDatasetBuilder(ID_PREFIX, TOPIC);
 
+        // 1. Si un fichier d'entrée textuel est directement fourni
         if (ctx.inputFile() != null && Files.isRegularFile(ctx.inputFile())) {
             String content = Files.readString(ctx.inputFile(), StandardCharsets.UTF_8);
-            PartyConfig defaultParty = config.parties().get(0);
-            allMembers.addAll(parseContent(content, defaultParty));
+            List<BaselineMember> members = parseBaselineContent(content);
+            convertBaseline(members, dataset);
+            dataset.writeNdjsonFile(ctx.outputFile());
+            return dataset.toConversionResult().withMessage(members.size() + " dirigeants de partis politiques extraits depuis le fichier fourni.");
         }
 
-        if (ctx.rawDir() != null && Files.isDirectory(ctx.rawDir())) {
-            for (PartyConfig p : config.parties()) {
-                Path partyFile = ctx.rawDir().resolve(p.key() + ".txt");
-                if (!Files.isRegularFile(partyFile)) {
-                    partyFile = ctx.rawDir().resolve(p.key() + ".html");
+        // 2. Tenter l'interrogation live Wikidata SPARQL
+        Path leadersFile = ctx.rawDir() != null ? ctx.rawDir().resolve(WikidataPartiesDownloader.LEADERS_FILE) : null;
+        boolean liveSuccess = false;
+        Report report = null;
+
+        if (leadersFile != null) {
+            try {
+                if (!Files.isRegularFile(leadersFile)) {
+                    new WikidataPartiesDownloader().download(
+                            p.getOrDefault("endpoint", DEFAULT_ENDPOINT).trim(),
+                            p.getOrDefault("country", DEFAULT_COUNTRY).trim(),
+                            ctx.rawDir()
+                    );
                 }
-                if (partyFile.equals(ctx.inputFile())) {
-                    continue;
+                if (Files.isRegularFile(leadersFile) && Files.size(leadersFile) > 50) {
+                    LocalDate since = LocalDate.now().minusMonths(monthsAfterEnd(p));
+                    report = convertWikidata(ctx.rawDir(), since, dataset);
+                    liveSuccess = true;
                 }
-                if (Files.isRegularFile(partyFile)) {
-                    String content = Files.readString(partyFile, StandardCharsets.UTF_8);
-                    allMembers.addAll(parseContent(content, p));
-                }
+            } catch (Exception e) {
+                log.warn("Impossible de télécharger ou parser les dirigeants depuis Wikidata live ({})", e.getMessage());
             }
         }
 
-        if (allMembers.isEmpty()) {
-            throw new IllegalStateException("Aucun membre de direction de parti politique extrait.");
+        if (!liveSuccess || dataset.entities().isEmpty()) {
+            throw new IllegalStateException("Aucun membre de direction de parti politique extrait depuis Wikidata live.");
         }
 
-        FtmDatasetBuilder dataset = new FtmDatasetBuilder(ID_PREFIX, TOPIC);
-        convert(allMembers, dataset);
-        dataset.writeNdjsonFile(ctx.outputFile());
+        // Complément photos Wikimedia (non bloquant)
+        String photos = "";
+        try {
+            photos = WikidataImages.addPhotos(dataset, WikidataImages.QID, WikidataImages.personIdSuffixes(dataset),
+                    WikidataImages.httpFetcher(p.getOrDefault("endpoint", DEFAULT_ENDPOINT).trim(), WikidataImages.DEFAULT_USER_AGENT),
+                    ctx.rawDir().resolve(WikidataImages.PHOTOS_FILE));
+        } catch (Exception e) {
+            log.debug("Photos Wikidata ignorées : {}", e.getMessage());
+        }
 
-        return dataset.toConversionResult().withMessage(
-                allMembers.size() + " membres des organes dirigeants des partis politiques extraits.");
+        dataset.writeNdjsonFile(ctx.outputFile());
+        return dataset.toConversionResult().withMessage((report != null ? report.message() : "") + " " + photos.trim());
     }
 
     @Override
     public List<SourceRecord> readSourceRecords(ParserContext ctx) throws Exception {
-        Config config = loadConfig(ctx);
-        List<BoardMember> members = new ArrayList<>();
+        Map<String, String> p = ctx.parameters() == null ? Map.of() : ctx.parameters();
+        Path leadersFile = ctx.rawDir() != null ? ctx.rawDir().resolve(WikidataPartiesDownloader.LEADERS_FILE) : null;
+        FtmDatasetBuilder dataset = new FtmDatasetBuilder(ID_PREFIX, TOPIC);
+
+        if (leadersFile != null && Files.isRegularFile(leadersFile)) {
+            convertWikidata(ctx.rawDir(), LocalDate.now().minusMonths(monthsAfterEnd(p)), dataset);
+            List<SourceRecord> records = new ArrayList<>();
+            for (FtmEntity entity : dataset.entities()) {
+                if ("Person".equals(entity.getSchema())) {
+                    records.add(new SourceRecord(entity.getId(), "Person", entity.getValues("name").iterator().next(),
+                            String.join(", ", entity.getValues("sourceUrl"))));
+                }
+            }
+            return records;
+        }
+
         if (ctx.inputFile() != null && Files.isRegularFile(ctx.inputFile())) {
-            members.addAll(parseContent(Files.readString(ctx.inputFile(), StandardCharsets.UTF_8), config.parties().get(0)));
+            String text = Files.readString(ctx.inputFile(), StandardCharsets.UTF_8);
+            List<BaselineMember> members = parseBaselineContent(text);
+            List<SourceRecord> records = new ArrayList<>();
+            for (BaselineMember m : members) {
+                records.add(new SourceRecord(
+                        dataset.buildEntityId(m.party(), m.cleanName()),
+                        "Person",
+                        m.fullName(),
+                        m.party() + " – " + m.role()
+                ));
+            }
+            return records;
         }
-        FtmDatasetBuilder ids = new FtmDatasetBuilder(ID_PREFIX);
-        List<SourceRecord> records = new ArrayList<>();
-        for (BoardMember m : members) {
-            records.add(new SourceRecord(
-                    ids.buildEntityId(m.partyKey(), m.cleanName()),
-                    "Person",
-                    m.fullName(),
-                    m.partyShortName() + " – " + m.role()
-            ));
-        }
-        return records;
+
+        return List.of();
     }
 
-    static Config loadConfig(ParserContext ctx) throws Exception {
-        ObjectMapper mapper = new ObjectMapper();
-        String configFile = ctx.parameters().get("configFile");
-        if (configFile != null && !configFile.isBlank()) {
-            Path p = Path.of(configFile);
-            if (Files.isRegularFile(p)) {
-                return mapper.readValue(Files.readString(p, StandardCharsets.UTF_8), Config.class);
+    Report convertWikidata(Path rawDir, LocalDate since, FtmDatasetBuilder dataset) throws Exception {
+        JsonNode response = json.readTree(Files.readString(rawDir.resolve(WikidataPartiesDownloader.LEADERS_FILE)));
+        List<Statement> statements = new ArrayList<>();
+        int unnamed = 0;
+        for (Statement s : statements(response)) {
+            if (s.personLabel().isBlank() || s.personLabel().equals(s.personQid())) {
+                unnamed++;
+            } else {
+                statements.add(s);
             }
         }
-        try (InputStream in = DePepPartiesParser.class.getResourceAsStream(CONFIG_RESOURCE)) {
-            if (in == null) {
-                throw new IllegalStateException("Ressource " + CONFIG_RESOURCE + " introuvable dans le JAR.");
-            }
-            return mapper.readValue(in, Config.class);
+        Selection selection = select(statements, since);
+        if (selection.current().isEmpty()) {
+            throw new IllegalStateException("Aucun dirigeant de parti en fonction dans la réponse de Wikidata.");
         }
+
+        Set<String> parties = new LinkedHashSet<>();
+        Set<String> persons = new LinkedHashSet<>();
+        for (Statement s : selection.current()) {
+            writeWikidataEntity(dataset, s, true);
+            parties.add(s.partyQid());
+            persons.add(s.personQid());
+        }
+        for (Statement s : selection.former()) {
+            writeWikidataEntity(dataset, s, false);
+            parties.add(s.partyQid());
+            persons.add(s.personQid());
+        }
+        return new Report(parties.size(), persons.size(), selection.current().size(),
+                selection.former().size(), selection.superseded(), selection.endedLongAgo(), unnamed);
     }
 
-    static List<BoardMember> parseContent(String content, PartyConfig party) {
-        List<BoardMember> list = new ArrayList<>();
-        // Détection format ligne à ligne (texte / compte-rendu Bundeswahlleiterin)
-        for (String line : content.split("\\r?\\n")) {
-            String trimmed = line.trim();
-            if (trimmed.isEmpty() || trimmed.startsWith("#")) {
-                continue;
+    static List<Statement> statements(JsonNode response) {
+        Map<String, Statement> byId = new LinkedHashMap<>();
+        for (JsonNode b : response.path("results").path("bindings")) {
+            String id = text(b, "statement");
+            Statement s = byId.get(id);
+            if (s == null) {
+                s = new Statement(id, qid(text(b, "party")), text(b, "partyLabel"), text(b, "role"),
+                        PREFERRED_RANK.equals(text(b, "rank")), date(text(b, "start")), date(text(b, "end")),
+                        qid(text(b, "person")), text(b, "personLabel"), new LinkedHashSet<>(),
+                        qid(text(b, "gender")));
+                byId.put(id, s);
             }
-            Matcher m = LINE_ROLE_PATTERN.matcher(trimmed);
-            if (m.find()) {
-                String role = m.group(1).trim();
-                String namesStr = m.group(2).trim();
-                for (String singleName : namesStr.split("[,;]|\\bund\\b")) {
-                    String candidate = singleName.trim();
-                    if (!candidate.isEmpty()) {
-                        addMember(list, party, role, candidate);
+            String birth = birthDate(text(b, "birth"), text(b, "birthPrecision"));
+            if (birth != null) {
+                s.birthDates().add(birth);
+            }
+        }
+        return new ArrayList<>(byId.values());
+    }
+
+    static Selection select(List<Statement> statements, LocalDate since) {
+        Map<String, List<Statement>> groups = new LinkedHashMap<>();
+        for (Statement s : statements) {
+            groups.computeIfAbsent(s.partyQid() + "|" + s.role(), k -> new ArrayList<>()).add(s);
+        }
+        List<Statement> current = new ArrayList<>();
+        List<Statement> former = new ArrayList<>();
+        int superseded = 0;
+        int endedLongAgo = 0;
+        String sinceText = since.toString();
+        for (List<Statement> group : groups.values()) {
+            boolean hasPreferred = group.stream().anyMatch(Statement::preferred);
+            for (Statement s : group) {
+                if (s.end() != null) {
+                    if (s.end().compareTo(sinceText) >= 0) {
+                        former.add(s);
+                    } else {
+                        endedLongAgo++;
                     }
+                } else if (hasPreferred ? !s.preferred() : startedBefore(s, group)) {
+                    superseded++;
+                } else {
+                    current.add(s);
                 }
             }
         }
-
-        // Si rien n'a été trouvé via les lignes, essayer format HTML (table ou listes)
-        if (list.isEmpty()) {
-            Matcher m = HTML_ROW_PATTERN.matcher(content);
-            while (m.find()) {
-                String col1 = m.group(1) != null ? m.group(1).trim() : null;
-                String col2 = m.group(2) != null ? m.group(2).trim() : null;
-                if (col1 != null && col2 != null && !col1.equalsIgnoreCase(col2)) {
-                    if (isRole(col1)) {
-                        addMember(list, party, col1, col2);
-                    } else if (isRole(col2)) {
-                        addMember(list, party, col2, col1);
-                    }
-                }
-            }
-        }
-
-        return list;
+        return new Selection(current, former, superseded, endedLongAgo);
     }
 
-    private static boolean isRole(String text) {
-        String lower = text.toLowerCase();
-        return lower.contains("vorsitz") || lower.contains("sekretär") || lower.contains("schatzmeister")
-                || lower.contains("geschäftsführer") || lower.contains("beisitzer") || lower.contains("mitglied");
+    private static boolean startedBefore(Statement s, List<Statement> group) {
+        return s.start() != null && group.stream()
+                .anyMatch(o -> o != s && o.start() != null && o.start().compareTo(s.start()) > 0);
     }
 
-    private static void addMember(List<BoardMember> list, PartyConfig party, String role, String rawName) {
-        if (rawName.equalsIgnoreCase("Name") || rawName.equalsIgnoreCase("Funktion") || rawName.contains("Partei")) {
-            return;
+    private static void writeWikidataEntity(FtmDatasetBuilder dataset, Statement s, boolean isCurrent) {
+        String function = ROLES.getOrDefault(s.role(), "Parteileitung") + " – " + s.partyLabel();
+
+        FtmEntity person = dataset.newEntity("Person", s.personQid());
+        person.addValue("name", s.personLabel());
+        person.addValue("wikidataId", s.personQid());
+        s.birthDates().forEach(d -> person.addValue("birthDate", d));
+        if (MALE.equals(s.gender())) {
+            person.addValue("gender", "male");
+        } else if (FEMALE.equals(s.gender())) {
+            person.addValue("gender", "female");
         }
-        String title = null;
-        String cleanName = rawName;
-        Matcher tm = ACADEMIC_TITLE.matcher(rawName);
-        if (tm.find()) {
-            title = tm.group(0).trim();
-            cleanName = rawName.substring(tm.end()).trim();
-        }
-        list.add(new BoardMember(party.key(), party.name(), party.shortName(), role, rawName, title, cleanName, null));
+        person.addValue("country", "de");
+        person.addValue("political", s.partyLabel());
+        person.addValue("position", isCurrent ? function : "Ancien : " + function);
+        person.addValue("sourceUrl", "https://www.wikidata.org/wiki/" + s.personQid());
+        dataset.addEntity(person);
+
+        FtmEntity position = dataset.newEntity("Position", s.partyQid(), s.role());
+        position.addValue("name", function);
+        position.addValue("country", "de");
+        position.addValue("organization", s.partyLabel());
+        position.addValue("wikidataId", s.partyQid());
+        position.addValue("topics", "gov.national");
+        position.addValue("sourceUrl", "https://www.wikidata.org/wiki/" + s.partyQid());
+        dataset.addEntity(position);
+
+        FtmEntity occupancy = dataset.newEntity("Occupancy", s.personQid(), s.partyQid(), s.role(),
+                s.start() == null ? "" : s.start());
+        occupancy.addValue("holder", person.getId());
+        occupancy.addValue("post", position.getId());
+        occupancy.addValue("startDate", s.start());
+        occupancy.addValue("endDate", s.end());
+        occupancy.addValue("status", isCurrent ? "current" : "ended");
+        occupancy.addValue("sourceUrl", "https://www.wikidata.org/wiki/" + s.partyQid());
+        dataset.addEntity(occupancy);
     }
 
-    private void convert(List<BoardMember> members, FtmDatasetBuilder dataset) {
-        for (BoardMember m : members) {
-            String posKey = m.partyKey() + "-vorstand";
-
-            FtmEntity position = dataset.newEntity("Position", posKey);
-            position.addValue("name", "Mitglied des Bundesvorstands (" + m.partyShortName() + ")");
-            position.addValue("country", "de");
-            position.addValue("organization", m.partyName());
-            position.addValue("topics", "gov.national");
-            position.addValue("topics", "pol.party");
-            dataset.addEntity(position);
-
-            FtmEntity person = dataset.newEntity("Person", m.partyKey(), m.cleanName());
+    static void convertBaseline(List<BaselineMember> members, FtmDatasetBuilder dataset) {
+        for (BaselineMember m : members) {
+            String personId = dataset.buildEntityId("person", m.party(), m.cleanName());
+            FtmEntity person = dataset.newEntity("Person", personId);
             person.addValue("name", m.cleanName());
-            person.addValue("title", m.title());
-            String[] parts = m.cleanName().split("\\s+", 2);
-            person.addValue("firstName", parts[0]);
-            if (parts.length > 1) {
-                person.addValue("lastName", parts[1]);
+            if (m.title() != null) {
+                person.addValue("title", m.title());
             }
             person.addValue("country", "de");
-            person.addValue("political", m.partyShortName());
-            person.addValue("position", m.role() + " (" + m.partyShortName() + ")");
+            person.addValue("political", m.party());
+            person.addValue("position", m.party() + " – " + m.role());
             dataset.addEntity(person);
 
-            FtmEntity occ = dataset.newEntity("Occupancy", m.partyKey(), m.cleanName(), "vorstand");
-            occ.addValue("holder", person.getId());
-            occ.addValue("post", position.getId());
-            occ.addValue("status", "current");
-            occ.addValue("description", m.role());
-            dataset.addEntity(occ);
+            String posId = dataset.buildEntityId("pos", m.party(), m.role());
+            FtmEntity position = dataset.newEntity("Position", posId);
+            position.addValue("name", m.party() + " – " + m.role());
+            position.addValue("country", "de");
+            position.addValue("organization", m.party());
+            position.addValue("topics", "gov.national");
+            dataset.addEntity(position);
+
+            FtmEntity occupancy = dataset.newEntity("Occupancy", personId, posId);
+            occupancy.addValue("holder", person.getId());
+            occupancy.addValue("post", position.getId());
+            occupancy.addValue("status", "current");
+            dataset.addEntity(occupancy);
         }
     }
-}
 
+    static List<BaselineMember> parseBaselineContent(String text) {
+        List<BaselineMember> members = new ArrayList<>();
+        String currentParty = "Unbekannte Partei";
+        for (String line : text.split("\\R")) {
+            line = line.trim();
+            if (line.isBlank() || line.startsWith("#")) {
+                continue;
+            }
+            if (line.toLowerCase().startsWith("partei:") || line.toLowerCase().startsWith("party:")) {
+                currentParty = line.substring(line.indexOf(':') + 1).trim();
+                continue;
+            }
+            Matcher matcher = LINE_ROLE_PATTERN.matcher(line);
+            if (matcher.find()) {
+                String role = matcher.group(1).trim();
+                String namesPart = matcher.group(2).trim();
+                for (String rawName : namesPart.split("[,;/]")) {
+                    String clean = rawName.trim();
+                    if (!clean.isEmpty()) {
+                        Matcher tm = ACADEMIC_TITLE.matcher(clean);
+                        String title = null;
+                        String cleanName = clean;
+                        if (tm.find()) {
+                            title = tm.group().trim();
+                            cleanName = clean.substring(tm.end()).trim();
+                        }
+                        members.add(new BaselineMember(currentParty, role, clean, title, cleanName));
+                    }
+                }
+            }
+        }
+        return members;
+    }
+
+    static String text(JsonNode node, String field) {
+        return node.path(field).path("value").asText("");
+    }
+
+    static String qid(String uri) {
+        int idx = uri.lastIndexOf('/');
+        return idx >= 0 ? uri.substring(idx + 1) : uri;
+    }
+
+    static String date(String iso) {
+        return iso != null && iso.length() >= 10 ? iso.substring(0, 10) : null;
+    }
+
+    static String birthDate(String value, String precision) {
+        if (value == null || value.length() < 10 || value.startsWith("-")) {
+            return null;
+        }
+        int p;
+        try {
+            p = Integer.parseInt(precision);
+        } catch (NumberFormatException e) {
+            p = 11;
+        }
+        return p >= 11 ? value.substring(0, 10) : p == 10 ? value.substring(0, 7) : p == 9 ? value.substring(0, 4) : null;
+    }
+
+    static int monthsAfterEnd(Map<String, String> p) {
+        String val = p.get("monthsAfterEnd");
+        if (val != null && !val.isBlank()) {
+            try {
+                return Integer.parseInt(val.trim());
+            } catch (NumberFormatException ignored) {
+            }
+        }
+        return DEFAULT_MONTHS_AFTER_END;
+    }
+}

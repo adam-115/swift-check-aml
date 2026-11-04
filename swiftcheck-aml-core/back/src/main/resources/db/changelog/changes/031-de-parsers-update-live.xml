@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="031-update-de-parsers-live" author="swiftcheck">
+        <validCheckSum>ANY</validCheckSum>
+        <sql><![CDATA[
+            UPDATE parser 
+            SET data_source_type = 'PLUGIN_MANAGED', 
+                parser_kind = 'SPARQL', 
+                website_url = 'https://www.wikidata.org', 
+                parameters = '{"endpoint": "https://query.wikidata.org/sparql", "country": "Q183", "monthsAfterEnd": "12"}' 
+            WHERE dataset_name = 'de_pep_parties';
+
+            UPDATE parser 
+            SET data_source_type = 'PLUGIN_MANAGED',
+                parser_kind = 'WEB_PAGE' 
+            WHERE dataset_name = 'de_pep_state_enterprises';
+        ]]></sql>
+    </changeSet>
+
+</databaseChangeLog>

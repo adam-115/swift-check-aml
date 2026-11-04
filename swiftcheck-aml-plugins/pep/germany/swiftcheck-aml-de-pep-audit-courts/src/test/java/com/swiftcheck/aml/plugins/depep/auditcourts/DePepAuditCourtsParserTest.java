@@ -71,5 +71,26 @@ class DePepAuditCourtsParserTest {
         List<SourceRecord> records = parser.readSourceRecords(ctx);
         assertThat(records).hasSize(3);
     }
+
+    @Test
+    void testParseAuditCourtsBaselineFallback(@TempDir Path tempDir) throws Exception {
+        Path outputFile = tempDir.resolve("output.ndjson");
+        ParserContext ctx = new ParserContext("de_pep_audit_courts", null, tempDir, outputFile, Map.of());
+        DePepAuditCourtsParser parser = new DePepAuditCourtsParser();
+
+        ParserResult result = parser.parse(ctx);
+        assertThat(result.message()).contains("dirigeants de cours des comptes extraits");
+
+        List<String> lines = Files.readAllLines(outputFile);
+        assertThat(lines).isNotEmpty();
+        assertThat(lines).anyMatch(l -> l.contains("Kay Scheller"));
+        assertThat(lines).anyMatch(l -> l.contains("Cornelia Ruppert"));
+
+        // Verify rawDir has audit-courts.json
+        assertThat(Files.exists(tempDir.resolve("audit-courts.json"))).isTrue();
+
+        List<SourceRecord> records = parser.readSourceRecords(ctx);
+        assertThat(records).isNotEmpty();
+    }
 }
 

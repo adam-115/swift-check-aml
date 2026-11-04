@@ -69,6 +69,7 @@ class DePepStateEnterprisesParserTest {
         List<String> lines = Files.readAllLines(outputFile);
         assertThat(lines).isNotEmpty();
         assertThat(lines).anyMatch(l -> l.contains("Richard Lutz"));
+        assertThat(Files.exists(tempDir.resolve("state-enterprises.json"))).isTrue();
     }
 }
 

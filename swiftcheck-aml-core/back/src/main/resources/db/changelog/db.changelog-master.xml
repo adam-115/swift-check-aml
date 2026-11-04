@@ -62,5 +62,7 @@
     <include file="db/changelog/changes/028-de-parsers-lot1.xml" />
     <include file="db/changelog/changes/029-de-parsers-lot2.xml" />
     <include file="db/changelog/changes/030-de-parsers-lot3.xml" />
+    <include file="db/changelog/changes/031-de-parsers-update-live.xml" />
+    <include file="db/changelog/changes/032-fix-state-enterprises-parser-kind.xml" />
 
 </databaseChangeLog>

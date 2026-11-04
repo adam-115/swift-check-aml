@@ -1,9 +1,14 @@
 package com.swiftcheck.aml.plugins.depep.federalcourts;
 
 import java.io.InputStream;
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -54,7 +59,12 @@ public class DePepFederalCourtsParser implements Iparser {
             "(?si)<img[^>]*\\ssrc=\"([^\"]+)\"[^>]*>");
 
     @JsonIgnoreProperties(ignoreUnknown = true)
-    public record CourtConfig(String key, String name, String acronym, String city, String positionName, String url) {
+    public record BaselineJudge(String name, String role) {
+    }
+
+    @JsonIgnoreProperties(ignoreUnknown = true)
+    public record CourtConfig(String key, String name, String acronym, String city, String positionName, String url,
+                              List<BaselineJudge> baselineJudges) {
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
@@ -77,17 +87,56 @@ public class DePepFederalCourtsParser implements Iparser {
                     .findFirst()
                     .orElse(config.courts().get(0));
             allJudges.addAll(extractJudges(html, defaultCourt));
+            FtmDatasetBuilder dataset = new FtmDatasetBuilder(ID_PREFIX, TOPIC);
+            convert(allJudges, dataset);
+            dataset.writeNdjsonFile(ctx.outputFile());
+            return dataset.toConversionResult().withMessage(
+                    allJudges.size() + " juges des cours fédérales suprêmes extraits.");
         }
 
-        if (ctx.rawDir() != null && Files.isDirectory(ctx.rawDir())) {
+        Map<String, String> p = ctx.parameters() == null ? Map.of() : ctx.parameters();
+        boolean allowCrawl = !"false".equalsIgnoreCase(p.get("crawl"));
+
+        if (ctx.rawDir() != null) {
+            Files.createDirectories(ctx.rawDir());
             for (CourtConfig c : config.courts()) {
                 Path courtFile = ctx.rawDir().resolve(c.key() + ".html");
-                if (courtFile.equals(ctx.inputFile())) {
-                    continue;
-                }
+                String html = null;
                 if (Files.isRegularFile(courtFile)) {
-                    String html = Files.readString(courtFile, StandardCharsets.UTF_8);
-                    allJudges.addAll(extractJudges(html, c));
+                    html = Files.readString(courtFile, StandardCharsets.UTF_8);
+                } else if (allowCrawl && c.url() != null && !c.url().isBlank()) {
+                    html = crawl(c.url(), "SwiftCheck-AML/1.0 (liste PEP Allemagne - Cours fédérales)");
+                    if (html != null && !html.isBlank()) {
+                        Files.writeString(courtFile, html, StandardCharsets.UTF_8);
+                    }
+                }
+                List<Judge> courtJudges = html != null ? extractJudges(html, c) : List.of();
+                if (!courtJudges.isEmpty()) {
+                    allJudges.addAll(courtJudges);
+                } else if (c.baselineJudges() != null) {
+                    for (BaselineJudge bj : c.baselineJudges()) {
+                        String fullName = bj.name();
+                        Matcher m = ACADEMIC_TITLE.matcher(fullName);
+                        String title = null;
+                        String cleanName = fullName;
+                        if (m.find()) {
+                            title = m.group().trim();
+                            cleanName = fullName.substring(m.end()).trim();
+                        }
+                        allJudges.add(new Judge(
+                                c.key(), c.name(), c.acronym(), c.positionName(),
+                                fullName, title, cleanName, bj.role(), null, c.url()
+                        ));
+                    }
+                }
+            }
+
+            Path rawConfigFile = ctx.rawDir().resolve("federal-courts.json");
+            if (!Files.exists(rawConfigFile)) {
+                try (InputStream in = DePepFederalCourtsParser.class.getResourceAsStream(CONFIG_RESOURCE)) {
+                    if (in != null) {
+                        Files.copy(in, rawConfigFile);
+                    }
                 }
             }
         }
@@ -104,12 +153,54 @@ public class DePepFederalCourtsParser implements Iparser {
                 allJudges.size() + " juges des cours fédérales suprêmes extraits.");
     }
 
+    static String crawl(String url, String userAgent) {
+        try {
+            HttpClient client = HttpClient.newBuilder()
+                    .connectTimeout(Duration.ofSeconds(2))
+                    .followRedirects(HttpClient.Redirect.NORMAL)
+                    .build();
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(URI.create(url))
+                    .timeout(Duration.ofSeconds(3))
+                    .header("User-Agent", userAgent)
+                    .GET()
+                    .build();
+            HttpResponse<String> resp = client.send(request, HttpResponse.BodyHandlers.ofString(StandardCharsets.UTF_8));
+            if (resp.statusCode() == 200) {
+                return resp.body();
+            }
+        } catch (Exception e) {
+            log.warn("Échec du crawl de {} : {}", url, e.getMessage());
+        }
+        return null;
+    }
+
     @Override
     public List<SourceRecord> readSourceRecords(ParserContext ctx) throws Exception {
         Config config = loadConfig(ctx);
         List<Judge> judges = new ArrayList<>();
         if (ctx.inputFile() != null && Files.isRegularFile(ctx.inputFile())) {
             judges.addAll(extractJudges(Files.readString(ctx.inputFile(), StandardCharsets.UTF_8), config.courts().get(0)));
+        }
+        if (judges.isEmpty() && config.courts() != null) {
+            for (CourtConfig c : config.courts()) {
+                if (c.baselineJudges() != null) {
+                    for (BaselineJudge bj : c.baselineJudges()) {
+                        String fullName = bj.name();
+                        Matcher m = ACADEMIC_TITLE.matcher(fullName);
+                        String title = null;
+                        String cleanName = fullName;
+                        if (m.find()) {
+                            title = m.group().trim();
+                            cleanName = fullName.substring(m.end()).trim();
+                        }
+                        judges.add(new Judge(
+                                c.key(), c.name(), c.acronym(), c.positionName(),
+                                fullName, title, cleanName, bj.role(), null, c.url()
+                        ));
+                    }
+                }
+            }
         }
         FtmDatasetBuilder ids = new FtmDatasetBuilder(ID_PREFIX);
         List<SourceRecord> records = new ArrayList<>();

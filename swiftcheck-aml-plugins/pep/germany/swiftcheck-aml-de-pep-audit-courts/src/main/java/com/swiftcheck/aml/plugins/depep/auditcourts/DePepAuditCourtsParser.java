@@ -1,9 +1,14 @@
 package com.swiftcheck.aml.plugins.depep.auditcourts;
 
 import java.io.InputStream;
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -54,8 +59,13 @@ public class DePepAuditCourtsParser implements Iparser {
             "(?si)<img[^>]*\\ssrc=\"([^\"]+)\"[^>]*>");
 
     @JsonIgnoreProperties(ignoreUnknown = true)
+    public record BaselineMember(String name, String role) {
+    }
+
+    @JsonIgnoreProperties(ignoreUnknown = true)
     public record CourtConfig(String key, String name, String jurisdiction, String state, String url,
-                              String cardPattern, String headingPattern, String rolePattern) {
+                              String cardPattern, String headingPattern, String rolePattern,
+                              List<BaselineMember> baselineMembers) {
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
@@ -71,26 +81,65 @@ public class DePepAuditCourtsParser implements Iparser {
         Config config = loadConfig(ctx);
         List<CourtMember> allMembers = new ArrayList<>();
 
+        // Si un fichier d'entrée spécifique est fourni (ex: test unitaire ou injection ciblée)
         if (ctx.inputFile() != null && Files.isRegularFile(ctx.inputFile())) {
             String html = Files.readString(ctx.inputFile(), StandardCharsets.UTF_8);
-            // Par défaut associe au Bundesrechnungshof si brh dans le nom, sinon première cour
             CourtConfig defaultCourt = config.courts().stream()
                     .filter(c -> "brh".equalsIgnoreCase(c.key()))
                     .findFirst()
                     .orElse(config.courts().get(0));
             allMembers.addAll(extractMembers(html, defaultCourt));
+            FtmDatasetBuilder dataset = new FtmDatasetBuilder(ID_PREFIX, TOPIC);
+            convert(allMembers, dataset);
+            dataset.writeNdjsonFile(ctx.outputFile());
+            return dataset.toConversionResult().withMessage(
+                    allMembers.size() + " dirigeants de cours des comptes extraits.");
         }
 
-        // Si rawDir contient des fichiers par cour (.html)
-        if (ctx.rawDir() != null && Files.isDirectory(ctx.rawDir())) {
+        Map<String, String> p = ctx.parameters() == null ? Map.of() : ctx.parameters();
+        boolean allowCrawl = !"false".equalsIgnoreCase(p.get("crawl"));
+
+        // Crawl live de chaque cour vers rawDir
+        if (ctx.rawDir() != null) {
+            Files.createDirectories(ctx.rawDir());
             for (CourtConfig c : config.courts()) {
                 Path courtFile = ctx.rawDir().resolve(c.key() + ".html");
-                if (courtFile.equals(ctx.inputFile())) {
-                    continue;
-                }
+                String html = null;
                 if (Files.isRegularFile(courtFile)) {
-                    String html = Files.readString(courtFile, StandardCharsets.UTF_8);
-                    allMembers.addAll(extractMembers(html, c));
+                    html = Files.readString(courtFile, StandardCharsets.UTF_8);
+                } else if (allowCrawl && c.url() != null && !c.url().isBlank()) {
+                    html = crawl(c.url(), "SwiftCheck-AML/1.0 (liste PEP Allemagne - Cours des comptes)");
+                    if (html != null && !html.isBlank()) {
+                        Files.writeString(courtFile, html, StandardCharsets.UTF_8);
+                    }
+                }
+                List<CourtMember> courtMembers = html != null ? extractMembers(html, c) : List.of();
+                if (!courtMembers.isEmpty()) {
+                    allMembers.addAll(courtMembers);
+                } else if (c.baselineMembers() != null) {
+                    for (BaselineMember bm : c.baselineMembers()) {
+                        String fullName = bm.name();
+                        Matcher m = ACADEMIC_TITLE.matcher(fullName);
+                        String title = null;
+                        String cleanName = fullName;
+                        if (m.find()) {
+                            title = m.group().trim();
+                            cleanName = fullName.substring(m.end()).trim();
+                        }
+                        allMembers.add(new CourtMember(
+                                c.key(), c.name(), c.jurisdiction(), c.state(),
+                                fullName, title, cleanName, bm.role(), null, c.url()
+                        ));
+                    }
+                }
+            }
+
+            Path rawConfigFile = ctx.rawDir().resolve("audit-courts.json");
+            if (!Files.exists(rawConfigFile)) {
+                try (InputStream in = DePepAuditCourtsParser.class.getResourceAsStream(CONFIG_RESOURCE)) {
+                    if (in != null) {
+                        Files.copy(in, rawConfigFile);
+                    }
                 }
             }
         }
@@ -107,12 +156,54 @@ public class DePepAuditCourtsParser implements Iparser {
                 allMembers.size() + " dirigeants de cours des comptes extraits.");
     }
 
+    static String crawl(String url, String userAgent) {
+        try {
+            HttpClient client = HttpClient.newBuilder()
+                    .connectTimeout(Duration.ofSeconds(2))
+                    .followRedirects(HttpClient.Redirect.NORMAL)
+                    .build();
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(URI.create(url))
+                    .timeout(Duration.ofSeconds(3))
+                    .header("User-Agent", userAgent)
+                    .GET()
+                    .build();
+            HttpResponse<String> resp = client.send(request, HttpResponse.BodyHandlers.ofString(StandardCharsets.UTF_8));
+            if (resp.statusCode() == 200) {
+                return resp.body();
+            }
+        } catch (Exception e) {
+            log.warn("Échec du crawl de {} : {}", url, e.getMessage());
+        }
+        return null;
+    }
+
     @Override
     public List<SourceRecord> readSourceRecords(ParserContext ctx) throws Exception {
         Config config = loadConfig(ctx);
         List<CourtMember> members = new ArrayList<>();
         if (ctx.inputFile() != null && Files.isRegularFile(ctx.inputFile())) {
             members.addAll(extractMembers(Files.readString(ctx.inputFile(), StandardCharsets.UTF_8), config.courts().get(0)));
+        }
+        if (members.isEmpty() && config.courts() != null) {
+            for (CourtConfig c : config.courts()) {
+                if (c.baselineMembers() != null) {
+                    for (BaselineMember bm : c.baselineMembers()) {
+                        String fullName = bm.name();
+                        Matcher m = ACADEMIC_TITLE.matcher(fullName);
+                        String title = null;
+                        String cleanName = fullName;
+                        if (m.find()) {
+                            title = m.group().trim();
+                            cleanName = fullName.substring(m.end()).trim();
+                        }
+                        members.add(new CourtMember(
+                                c.key(), c.name(), c.jurisdiction(), c.state(),
+                                fullName, title, cleanName, bm.role(), null, c.url()
+                        ));
+                    }
+                }
+            }
         }
         FtmDatasetBuilder ids = new FtmDatasetBuilder(ID_PREFIX);
         List<SourceRecord> records = new ArrayList<>();

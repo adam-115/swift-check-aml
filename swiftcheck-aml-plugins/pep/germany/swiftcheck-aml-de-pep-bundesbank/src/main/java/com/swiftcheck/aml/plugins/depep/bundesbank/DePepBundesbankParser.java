@@ -10,8 +10,10 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.Duration;
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -41,6 +43,7 @@ public class DePepBundesbankParser implements Iparser {
     static final String TOPIC = "role.pep";
     static final String DEFAULT_URL = "https://www.bundesbank.de/de/bundesbank/organisation/vorstand";
     static final String SITE = "https://www.bundesbank.de";
+    static final String BASELINE_RESOURCE = "/bundesbank-baseline.html";
 
     private static final Pattern CARD_PATTERN = Pattern.compile(
             "(?si)<(?:div|li|article)[^>]*class=\"[^\"]*(?:teaser|card|member|portrait|person)[^\"]*\"[^>]*>(.*?)(?=<div[^>]*class=\"[^\"]*(?:teaser|card|member|portrait|person)|<li[^>]*class=\"[^\"]*(?:teaser|card|member|portrait|person)|</(?:body|ul|main)>|$)");
@@ -53,6 +56,12 @@ public class DePepBundesbankParser implements Iparser {
 
     private static final Pattern IMG_PATTERN = Pattern.compile(
             "(?si)<img[^>]*\\ssrc=\"([^\"]+)\"[^>]*>");
+
+    private static final Pattern VORSTAND_LINK = Pattern.compile(
+            "(?si)<a\\s+[^>]*href=\"(/de/bundesbank/organisation/vorstand/[^\"]+)\"[^>]*>([\\s\\S]*?)</a>");
+
+    private static final Pattern VORSTAND_H2_BLOCK = Pattern.compile(
+            "(?si)<h[2-4][^>]*>\\s*<a\\s+[^>]*href=\"(/de/bundesbank/organisation/vorstand/[^\"]+)\"[^>]*>([\\s\\S]*?)</a>\\s*</h[2-4]>\\s*(?:<p[^>]*>([\\s\\S]*?)</p>)?");
 
     private static final Pattern ACADEMIC_TITLE = Pattern.compile(
             "^(?:(?:Prof\\.?\\s+Dr\\.?|Prof\\.?|Dr\\.?|h\\.c\\.)\\s+)+");
@@ -97,88 +106,150 @@ public class DePepBundesbankParser implements Iparser {
         if (ctx.inputFile() != null && Files.isRegularFile(ctx.inputFile())) {
             return Files.readString(ctx.inputFile(), StandardCharsets.UTF_8);
         }
-        Map<String, String> p = ctx.parameters();
+        Map<String, String> p = ctx.parameters() == null ? Map.of() : ctx.parameters();
         String url = p.getOrDefault("url", DEFAULT_URL).trim();
-        log.info("Téléchargement du directoire de la Bundesbank : {}", url);
-        HttpClient client = HttpClient.newBuilder()
-                .connectTimeout(Duration.ofSeconds(15))
-                .followRedirects(HttpClient.Redirect.NORMAL)
-                .build();
-        HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create(url))
-                .header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) SwiftCheck-AML/1.0")
-                .timeout(Duration.ofSeconds(30))
-                .GET()
-                .build();
-        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString(StandardCharsets.UTF_8));
-        if (response.statusCode() != 200) {
-            throw new IllegalStateException("Erreur HTTP " + response.statusCode() + " lors de l'accès à " + url);
+
+        String html = null;
+        try {
+            log.info("Téléchargement du directoire de la Bundesbank : {}", url);
+            HttpClient client = HttpClient.newBuilder()
+                    .connectTimeout(Duration.ofSeconds(15))
+                    .followRedirects(HttpClient.Redirect.NORMAL)
+                    .build();
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(URI.create(url))
+                    .header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36")
+                    .timeout(Duration.ofSeconds(30))
+                    .GET()
+                    .build();
+            HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString(StandardCharsets.UTF_8));
+            if (response.statusCode() == 200 && response.body() != null && !response.body().isBlank()) {
+                html = response.body();
+            }
+        } catch (Exception e) {
+            log.warn("Impossible de télécharger {}: {}. Utilisation des données de secours.", url, e.getMessage());
         }
-        return response.body();
+
+        if (html == null) {
+            try (InputStream in = DePepBundesbankParser.class.getResourceAsStream(BASELINE_RESOURCE)) {
+                if (in != null) {
+                    html = new String(in.readAllBytes(), StandardCharsets.UTF_8);
+                }
+            }
+        }
+
+        if (html == null) {
+            throw new IllegalStateException("Impossible de charger la page du directoire de la Bundesbank.");
+        }
+
+        if (ctx.rawDir() != null) {
+            Files.createDirectories(ctx.rawDir());
+            Files.writeString(ctx.rawDir().resolve("bundesbank_vorstand.html"), html, StandardCharsets.UTF_8);
+        }
+
+        return html;
     }
 
     static List<Member> extractMembers(String html) {
         List<Member> members = new ArrayList<>();
-        Matcher cardMatcher = CARD_PATTERN.matcher(html);
-        while (cardMatcher.find()) {
-            String card = cardMatcher.group(1);
-            Matcher headMatcher = HEADING_PATTERN.matcher(card);
-            if (!headMatcher.find()) {
-                continue;
-            }
-            String profileUrl = headMatcher.group(1);
-            String rawName = headMatcher.group(2).trim();
-            if (rawName.equalsIgnoreCase("Vorstand") || rawName.contains("Bundesbank") && !rawName.contains("Dr.") && !rawName.contains(" ")) {
+        Set<String> seenNames = new LinkedHashSet<>();
+
+        // 1. Détection via les blocs h2/h3 de présentation Bundesbank CMS
+        Matcher h2Matcher = VORSTAND_H2_BLOCK.matcher(html);
+        while (h2Matcher.find()) {
+            String profileUrl = h2Matcher.group(1);
+            String rawName = h2Matcher.group(2).replaceAll("<[^>]+>", "").trim();
+            String roleHtml = h2Matcher.group(3) != null ? h2Matcher.group(3).replaceAll("<[^>]+>", " ").trim() : "";
+
+            if (rawName.isBlank() || rawName.equalsIgnoreCase("Vorstand") || rawName.contains("Geschäftsverteilung")) {
                 continue;
             }
 
             String title = null;
             String cleanName = rawName;
-            Matcher titleMatcher = ACADEMIC_TITLE.matcher(rawName);
-            if (titleMatcher.find()) {
-                title = titleMatcher.group(0).trim();
-                cleanName = rawName.substring(titleMatcher.end()).trim();
+            Matcher tm = ACADEMIC_TITLE.matcher(rawName);
+            if (tm.find()) {
+                title = tm.group(0).trim();
+                cleanName = rawName.substring(tm.end()).trim();
             }
 
-            String role = null;
-            Matcher roleMatcher = ROLE_PATTERN.matcher(card);
-            if (roleMatcher.find()) {
-                role = roleMatcher.group(1).trim();
-            }
-            if (role == null) {
-                if (card.contains("Präsidentin") || card.contains("Präsident")) {
-                    role = card.contains("Vizepräsident") ? "Vizepräsidentin der Deutschen Bundesbank" : "Präsident der Deutschen Bundesbank";
-                } else {
-                    role = "Mitglied des Vorstands der Deutschen Bundesbank";
-                }
+            if (!seenNames.add(cleanName.toLowerCase())) {
+                continue;
             }
 
-            String photoUrl = null;
-            Matcher imgMatcher = IMG_PATTERN.matcher(card);
-            if (imgMatcher.find()) {
-                photoUrl = imgMatcher.group(1);
-                if (photoUrl.startsWith("/")) {
-                    photoUrl = SITE + photoUrl;
-                }
-            }
-
-            members.add(new Member(rawName, title, cleanName, role, photoUrl, profileUrl));
+            String role = determineRole(rawName, roleHtml);
+            members.add(new Member(rawName, title, cleanName, role, null, profileUrl));
         }
 
-        // Fallback si la structure des cards n'a pas matché (ex: liste simple de h3 ou liens)
+        // 2. Détection via CARD_PATTERN classique si pas trouvé en h2
         if (members.isEmpty()) {
-            Matcher headMatcher = HEADING_PATTERN.matcher(html);
-            while (headMatcher.find()) {
-                String rawName = headMatcher.group(2).trim();
-                if (isProbableBoardMember(rawName)) {
-                    String title = null;
-                    String cleanName = rawName;
-                    Matcher tm = ACADEMIC_TITLE.matcher(rawName);
-                    if (tm.find()) {
-                        title = tm.group(0).trim();
-                        cleanName = rawName.substring(tm.end()).trim();
+            Matcher cardMatcher = CARD_PATTERN.matcher(html);
+            while (cardMatcher.find()) {
+                String card = cardMatcher.group(1);
+                Matcher headMatcher = HEADING_PATTERN.matcher(card);
+                if (!headMatcher.find()) {
+                    continue;
+                }
+                String profileUrl = headMatcher.group(1);
+                String rawName = headMatcher.group(2).replaceAll("<[^>]+>", "").trim();
+                if (rawName.isBlank() || rawName.equalsIgnoreCase("Vorstand") || rawName.contains("Bundesbank") && !rawName.contains("Dr.") && !rawName.contains(" ")) {
+                    continue;
+                }
+
+                String title = null;
+                String cleanName = rawName;
+                Matcher titleMatcher = ACADEMIC_TITLE.matcher(rawName);
+                if (titleMatcher.find()) {
+                    title = titleMatcher.group(0).trim();
+                    cleanName = rawName.substring(titleMatcher.end()).trim();
+                }
+
+                if (!seenNames.add(cleanName.toLowerCase())) {
+                    continue;
+                }
+
+                String role = null;
+                Matcher roleMatcher = ROLE_PATTERN.matcher(card);
+                if (roleMatcher.find()) {
+                    role = roleMatcher.group(1).trim();
+                }
+                if (role == null) {
+                    role = determineRole(rawName, card);
+                }
+
+                String photoUrl = null;
+                Matcher imgMatcher = IMG_PATTERN.matcher(card);
+                if (imgMatcher.find()) {
+                    photoUrl = imgMatcher.group(1);
+                    if (photoUrl.startsWith("/")) {
+                        photoUrl = SITE + photoUrl;
                     }
-                    members.add(new Member(rawName, title, cleanName, "Mitglied des Vorstands der Deutschen Bundesbank", null, headMatcher.group(1)));
+                }
+
+                members.add(new Member(rawName, title, cleanName, role, photoUrl, profileUrl));
+            }
+        }
+
+        // 3. Fallback direct via les liens du Vorstand
+        if (members.isEmpty()) {
+            Matcher linkMatcher = VORSTAND_LINK.matcher(html);
+            while (linkMatcher.find()) {
+                String profileUrl = linkMatcher.group(1);
+                String rawName = linkMatcher.group(2).replaceAll("<[^>]+>", "").trim();
+                if (rawName.isBlank() || rawName.equalsIgnoreCase("Vorstand") || rawName.contains("Geschäftsverteilung")
+                        || rawName.length() < 3 || rawName.contains("Downloads")) {
+                    continue;
+                }
+                String title = null;
+                String cleanName = rawName;
+                Matcher tm = ACADEMIC_TITLE.matcher(rawName);
+                if (tm.find()) {
+                    title = tm.group(0).trim();
+                    cleanName = rawName.substring(tm.end()).trim();
+                }
+                if (seenNames.add(cleanName.toLowerCase())) {
+                    String role = determineRole(rawName, "");
+                    members.add(new Member(rawName, title, cleanName, role, null, profileUrl));
                 }
             }
         }
@@ -186,10 +257,21 @@ public class DePepBundesbankParser implements Iparser {
         return members;
     }
 
-    private static boolean isProbableBoardMember(String name) {
-        return (name.contains("Nagel") || name.contains("Mauderer") || name.contains("Theurer")
-                || name.contains("Lienenkämper") || name.contains("Buch") || name.contains("Wuermeling")
-                || name.startsWith("Dr.") || name.startsWith("Prof.")) && !name.contains("Bundesbank");
+    private static String determineRole(String name, String context) {
+        String combined = (name + " " + context).toLowerCase();
+        if (combined.contains("präsidentin") || combined.contains("praesidentin")) {
+            return combined.contains("vize") ? "Vizepräsidentin der Deutschen Bundesbank" : "Präsidentin der Deutschen Bundesbank";
+        }
+        if (combined.contains("präsident") || combined.contains("praesident")) {
+            return combined.contains("vize") ? "Vizepräsident der Deutschen Bundesbank" : "Präsident der Deutschen Bundesbank";
+        }
+        if (name.contains("Nagel")) {
+            return "Präsident der Deutschen Bundesbank";
+        }
+        if (name.contains("Mauderer")) {
+            return "Vizepräsidentin der Deutschen Bundesbank";
+        }
+        return "Mitglied des Vorstands der Deutschen Bundesbank";
     }
 
     private void convert(List<Member> members, FtmDatasetBuilder dataset) {

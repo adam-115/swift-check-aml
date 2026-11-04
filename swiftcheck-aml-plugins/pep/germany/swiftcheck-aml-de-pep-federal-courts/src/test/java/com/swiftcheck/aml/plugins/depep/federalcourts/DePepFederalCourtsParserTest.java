@@ -71,5 +71,25 @@ class DePepFederalCourtsParserTest {
         List<SourceRecord> records = parser.readSourceRecords(ctx);
         assertThat(records).hasSize(3);
     }
+
+    @Test
+    void testParseFederalCourtsBaselineFallback(@TempDir Path tempDir) throws Exception {
+        Path outputFile = tempDir.resolve("output.ndjson");
+        ParserContext ctx = new ParserContext("de_pep_federal_courts", null, tempDir, outputFile, Map.of());
+        DePepFederalCourtsParser parser = new DePepFederalCourtsParser();
+
+        ParserResult result = parser.parse(ctx);
+        assertThat(result.message()).contains("juges des cours fédérales suprêmes extraits");
+
+        List<String> lines = Files.readAllLines(outputFile);
+        assertThat(lines).isNotEmpty();
+        assertThat(lines).anyMatch(l -> l.contains("Stephan Harbarth"));
+        assertThat(lines).anyMatch(l -> l.contains("Bettina Limperg"));
+
+        assertThat(Files.exists(tempDir.resolve("federal-courts.json"))).isTrue();
+
+        List<SourceRecord> records = parser.readSourceRecords(ctx);
+        assertThat(records).isNotEmpty();
+    }
 }
 

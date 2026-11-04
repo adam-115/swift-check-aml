@@ -1,9 +1,14 @@
 package com.swiftcheck.aml.plugins.depep.diplomats;
 
 import java.io.InputStream;
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -95,6 +100,9 @@ public class DePepDiplomatsParser implements Iparser {
         return records;
     }
 
+    static final String BASELINE_RESOURCE = "/diplomats-baseline.txt";
+    static final String DEFAULT_URL = "https://www.auswaertiges-amt.de/de/aussenpolitik/laender";
+
     private String loadContent(ParserContext ctx) throws Exception {
         if (ctx.inputFile() != null && Files.isRegularFile(ctx.inputFile())) {
             return Files.readString(ctx.inputFile(), StandardCharsets.UTF_8);
@@ -103,7 +111,63 @@ public class DePepDiplomatsParser implements Iparser {
         if (rawFile != null && Files.isRegularFile(rawFile)) {
             return Files.readString(rawFile, StandardCharsets.UTF_8);
         }
-        throw new IllegalStateException("Aucun fichier d'ambassades/diplomates trouvé dans " + ctx.inputFile());
+
+        Map<String, String> p = ctx.parameters() == null ? Map.of() : ctx.parameters();
+        boolean allowCrawl = !"false".equalsIgnoreCase(p.get("crawl"));
+        if (allowCrawl && ctx.rawDir() != null) {
+            String url = p.getOrDefault("url", DEFAULT_URL).trim();
+            Path rawHtml = ctx.rawDir().resolve("diplomats.html");
+            if (Files.isRegularFile(rawHtml)) {
+                return Files.readString(rawHtml, StandardCharsets.UTF_8);
+            }
+            String html = crawl(url, "SwiftCheck-AML/1.0 (liste PEP Allemagne - Diplomates)");
+            if (html != null && !html.isBlank()) {
+                Files.createDirectories(ctx.rawDir());
+                Files.writeString(rawHtml, html, StandardCharsets.UTF_8);
+                List<Diplomat> crawled = extractDiplomats(html);
+                if (!crawled.isEmpty()) {
+                    return html;
+                }
+            }
+        }
+
+        // Fallback sur ressource embarquée officielle
+        String content = null;
+        try (InputStream in = DePepDiplomatsParser.class.getResourceAsStream(BASELINE_RESOURCE)) {
+            if (in != null) {
+                content = new String(in.readAllBytes(), StandardCharsets.UTF_8);
+            }
+        }
+        if (content == null) {
+            throw new IllegalStateException("Aucun fichier d'ambassades/diplomates trouvé dans " + ctx.inputFile());
+        }
+        if (ctx.rawDir() != null) {
+            Files.createDirectories(ctx.rawDir());
+            Files.writeString(ctx.rawDir().resolve("diplomats.txt"), content, StandardCharsets.UTF_8);
+        }
+        return content;
+    }
+
+    static String crawl(String url, String userAgent) {
+        try {
+            HttpClient client = HttpClient.newBuilder()
+                    .connectTimeout(Duration.ofSeconds(2))
+                    .followRedirects(HttpClient.Redirect.NORMAL)
+                    .build();
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(URI.create(url))
+                    .timeout(Duration.ofSeconds(3))
+                    .header("User-Agent", userAgent)
+                    .GET()
+                    .build();
+            HttpResponse<String> resp = client.send(request, HttpResponse.BodyHandlers.ofString(StandardCharsets.UTF_8));
+            if (resp.statusCode() == 200) {
+                return resp.body();
+            }
+        } catch (Exception e) {
+            log.warn("Échec du crawl de {} : {}", url, e.getMessage());
+        }
+        return null;
     }
 
     static List<Diplomat> extractDiplomats(String content) {

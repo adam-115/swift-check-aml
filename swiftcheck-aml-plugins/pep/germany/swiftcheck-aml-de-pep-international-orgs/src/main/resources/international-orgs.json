@@ -8,7 +8,10 @@
         { "role": "Präsident des EPA", "pattern": "\\bPräsident(?:\\s+des\\s+EPA)?\\s*[:\\-]\\s*(.+)" },
         { "role": "Vizepräsident des EPA", "pattern": "\\bVizepräsident(?:\\s+des\\s+EPA)?\\s*[:\\-]\\s*(.+)" }
       ],
-      "url": "https://www.epo.org/about-us/governance.html"
+      "url": "https://www.epo.org/about-us/governance.html",
+      "baselineLeaders": [
+        { "name": "António Campinos", "role": "Präsident des EPA" }
+      ]
     },
     {
       "key": "eumetsat",
@@ -17,7 +20,10 @@
       "leadership": [
         { "role": "Generaldirektor", "pattern": "\\b(?:Generaldirektor|Director-General)\\s*[:\\-]\\s*(.+)" }
       ],
-      "url": "https://www.eumetsat.int/about-us/management"
+      "url": "https://www.eumetsat.int/about-us/management",
+      "baselineLeaders": [
+        { "name": "Phil Evans", "role": "Generaldirektor von EUMETSAT" }
+      ]
     },
     {
       "key": "embl",
@@ -26,7 +32,10 @@
       "leadership": [
         { "role": "Generaldirektor", "pattern": "\\b(?:Generaldirektor|Director General)\\s*[:\\-]\\s*(.+)" }
       ],
-      "url": "https://www.embl.org/about/leadership/"
+      "url": "https://www.embl.org/about/leadership/",
+      "baselineLeaders": [
+        { "name": "Prof. Edith Heard", "role": "Generaldirektorin des EMBL" }
+      ]
     },
     {
       "key": "eso",
@@ -35,7 +44,10 @@
       "leadership": [
         { "role": "Generaldirektor", "pattern": "\\b(?:Generaldirektor|Director General)\\s*[:\\-]\\s*(.+)" }
       ],
-      "url": "https://www.eso.org/public/about-eso/dg-office/"
+      "url": "https://www.eso.org/public/about-eso/dg-office/",
+      "baselineLeaders": [
+        { "name": "Prof. Xavier Barcons", "role": "Generaldirektor der ESO" }
+      ]
     },
     {
       "key": "occar",
@@ -44,7 +56,10 @@
       "leadership": [
         { "role": "Direktor", "pattern": "\\b(?:Direktor|Director)\\s*[:\\-]\\s*(.+)" }
       ],
-      "url": "https://www.occar.int/organisation"
+      "url": "https://www.occar.int/organisation",
+      "baselineLeaders": [
+        { "name": "Joachim Sucker", "role": "Direktor der OCCAR-EA" }
+      ]
     },
     {
       "key": "un-bonn",
@@ -53,7 +68,10 @@
       "leadership": [
         { "role": "Executive Secretary (UNFCCC)", "pattern": "\\b(?:Executive Secretary|Exekutivsekretär)\\s*[:\\-]\\s*(.+)" }
       ],
-      "url": "https://unfccc.int/about-us/the-executive-secretary"
+      "url": "https://unfccc.int/about-us/the-executive-secretary",
+      "baselineLeaders": [
+        { "name": "Simon Stiell", "role": "Executive Secretary (UNFCCC)" }
+      ]
     },
     {
       "key": "itlos",
@@ -63,7 +81,11 @@
         { "role": "Präsident des Seegerichtshofs", "pattern": "\\bPräsident\\s*[:\\-]\\s*(.+)" },
         { "role": "Kanzler des Seegerichtshofs (Registrar)", "pattern": "\\bKanzler\\s*[:\\-]\\s*(.+)" }
       ],
-      "url": "https://www.itlos.org/the-tribunal/members/"
+      "url": "https://www.itlos.org/the-tribunal/members/",
+      "baselineLeaders": [
+        { "name": "Tomas Heidar", "role": "Präsident des Internationalen Seegerichtshofs" },
+        { "name": "Ximena Hinrichs Oyarce", "role": "Kanzlerin des Internationalen Seegerichtshofs" }
+      ]
     }
   ]
 }

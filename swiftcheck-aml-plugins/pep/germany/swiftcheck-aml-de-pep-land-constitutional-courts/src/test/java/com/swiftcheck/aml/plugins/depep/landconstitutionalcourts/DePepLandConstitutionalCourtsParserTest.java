@@ -70,5 +70,25 @@ class DePepLandConstitutionalCourtsParserTest {
         List<SourceRecord> records = parser.readSourceRecords(ctx);
         assertThat(records).hasSize(3);
     }
+
+    @Test
+    void testParseLandConstitutionalCourtsBaselineFallback(@TempDir Path tempDir) throws Exception {
+        Path outputFile = tempDir.resolve("output.ndjson");
+        ParserContext ctx = new ParserContext("de_pep_land_constitutional_courts", null, tempDir, outputFile, Map.of());
+        DePepLandConstitutionalCourtsParser parser = new DePepLandConstitutionalCourtsParser();
+
+        ParserResult result = parser.parse(ctx);
+        assertThat(result.message()).contains("juges des cours constitutionnelles des Länder extraits");
+
+        List<String> lines = Files.readAllLines(outputFile);
+        assertThat(lines).isNotEmpty();
+        assertThat(lines).anyMatch(l -> l.contains("Malte Graßhof"));
+        assertThat(lines).anyMatch(l -> l.contains("Barbara Dauner-Lieb"));
+
+        assertThat(Files.exists(tempDir.resolve("land-constitutional-courts.json"))).isTrue();
+
+        List<SourceRecord> records = parser.readSourceRecords(ctx);
+        assertThat(records).isNotEmpty();
+    }
 }
 

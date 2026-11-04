@@ -1,5 +1,6 @@
 package com.swiftcheck.aml.plugins.depep.localexecutives;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.net.URLEncoder;
@@ -99,6 +100,8 @@ public class DePepLocalExecutivesParser implements Iparser {
         return records;
     }
 
+    static final String DEFAULT_ENDPOINT = "https://query.wikidata.org/sparql";
+
     private String loadContent(ParserContext ctx) throws Exception {
         if (ctx.inputFile() != null && Files.isRegularFile(ctx.inputFile())) {
             return Files.readString(ctx.inputFile(), StandardCharsets.UTF_8);
@@ -111,7 +114,67 @@ public class DePepLocalExecutivesParser implements Iparser {
         if (rawFile != null && Files.isRegularFile(rawFile)) {
             return Files.readString(rawFile, StandardCharsets.UTF_8);
         }
-        throw new IllegalStateException("Aucun fichier de données pour les exécutifs locaux trouvé dans " + ctx.inputFile());
+
+        Map<String, String> p = ctx.parameters() == null ? Map.of() : ctx.parameters();
+        boolean allowCrawl = !"false".equalsIgnoreCase(p.get("crawl"));
+        long minPop = p.containsKey("minPopulation") ? Long.parseLong(p.get("minPopulation")) : DEFAULT_MIN_POPULATION;
+
+        if (allowCrawl && ctx.rawDir() != null) {
+            String endpoint = p.getOrDefault("endpoint", DEFAULT_ENDPOINT).trim();
+            try {
+                String query = querySparql(minPop);
+                String json = postSparql(endpoint, query);
+                if (json != null && !json.isBlank() && json.contains("results")) {
+                    Files.createDirectories(ctx.rawDir());
+                    Files.writeString(ctx.rawDir().resolve("local-executives.json"), json, StandardCharsets.UTF_8);
+                    return json;
+                }
+            } catch (Exception e) {
+                log.warn("Échec du crawl SPARQL des exécutifs locaux : {}", e.getMessage());
+            }
+        }
+
+        throw new IllegalStateException("Aucun exécutif local extrait depuis le web ou le fichier fourni.");
+    }
+
+    static String querySparql(long minPopulation) {
+        return """
+                SELECT ?entity ?entityLabel ?type ?pop ?role ?person ?personLabel ?partyLabel WHERE {
+                  {
+                    SELECT DISTINCT ?entity ?pop ?person WHERE {
+                      ?entity (wdt:P31/(wdt:P279*)) wd:Q515 ;
+                              wdt:P17 wd:Q183 ;
+                              wdt:P1082 ?pop ;
+                              wdt:P6 ?person .
+                      FILTER(?pop >= %d)
+                    }
+                  }
+                  BIND("City" AS ?type)
+                  BIND("Oberbürgermeister" AS ?role)
+                  OPTIONAL { ?person wdt:P102 ?party }
+                  SERVICE wikibase:label { bd:serviceParam wikibase:language "de,en". }
+                } ORDER BY DESC(?pop)
+                """.formatted(minPopulation);
+    }
+
+    static String postSparql(String endpoint, String query) throws Exception {
+        HttpClient client = HttpClient.newBuilder()
+                .connectTimeout(Duration.ofSeconds(10))
+                .followRedirects(HttpClient.Redirect.NORMAL)
+                .build();
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create(endpoint))
+                .timeout(Duration.ofSeconds(20))
+                .header("Accept", "application/sparql-results+json")
+                .header("Content-Type", "application/x-www-form-urlencoded")
+                .header("User-Agent", "SwiftCheck-AML/1.0 (liste PEP Allemagne - Exécutifs locaux)")
+                .POST(HttpRequest.BodyPublishers.ofString("query=" + URLEncoder.encode(query, StandardCharsets.UTF_8)))
+                .build();
+        HttpResponse<String> resp = client.send(request, HttpResponse.BodyHandlers.ofString(StandardCharsets.UTF_8));
+        if (resp.statusCode() == 200) {
+            return resp.body();
+        }
+        throw new IOException("SPARQL HTTP " + resp.statusCode());
     }
 
     static List<LocalExecutive> parseContent(String content, long minPopulation) {

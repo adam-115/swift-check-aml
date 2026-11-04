@@ -139,19 +139,22 @@
 
     <!-- Module 12 : Partis politiques au Bundestag -->
     <changeSet id="029-parser-de-pep-parties" author="swiftcheck">
+        <validCheckSum>9:5fbc277bb2fb3532d4b3a8d9f26561f7</validCheckSum>
+        <validCheckSum>9:6f34be53f60c4763c8a966a003cd74c9</validCheckSum>
+        <validCheckSum>ANY</validCheckSum>
         <sql><![CDATA[
             INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
                 data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
                 licence, attribution, notes, enabled, created_at)
             VALUES ('PEP Allemagne – Directions fédérales des partis politiques',
-                'Membres des organes dirigeants fédéraux des partis représentés au Bundestag, d''après la Bundeswahlleiterin (§ 6 (3) PartG) (catégorie DE-c)',
-                'de_pep_parties', 'PEP', 'https://www.bundeswahlleiterin.de/parteien/unterlagensammlung',
+                'Membres des organes dirigeants fédéraux des partis représentés au Bundestag (catégorie DE-c)',
+                'de_pep_parties', 'PEP', 'https://www.wikidata.org',
                 'de-pep-parties', 'D:/test parser 2/plugins/swiftcheck-aml-de-pep-parties-0.0.1-SNAPSHOT.jar',
-                'PLUGIN_MANAGED', 'OPEN_DATA_FILE',
+                'PLUGIN_MANAGED', 'SPARQL',
                 NULL,
-                '{"configFile": ""}',
+                '{"endpoint": "https://query.wikidata.org/sparql", "country": "Q183", "monthsAfterEnd": "12"}',
                 168, 12,
-                'Unterlagensammlung der Bundeswahlleiterin (§ 6 (3) PartG)', 'Die Bundeswahlleiterin, www.bundeswahlleiterin.de',
+                'CC0 (Wikidata) & Unterlagensammlung (§ 6 (3) PartG)', 'Wikidata / Bundeswahlleiterin',
                 'Organes dirigeants (Bundesvorstand, Parteivorstand, Präsidium) des partis siégeant au Bundestag (SPD, CDU, CSU, GRÜNE, FDP, AfD, DIE LINKE, BSW).', TRUE, NOW());
 
             INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)

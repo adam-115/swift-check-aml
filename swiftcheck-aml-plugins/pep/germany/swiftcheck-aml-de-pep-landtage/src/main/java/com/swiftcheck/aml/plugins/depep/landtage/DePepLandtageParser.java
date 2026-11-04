@@ -1,9 +1,14 @@
 package com.swiftcheck.aml.plugins.depep.landtage;
 
 import java.io.InputStream;
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -60,6 +65,8 @@ public class DePepLandtageParser implements Iparser {
               String fullName, String title, String cleanName, String party, String constituency) {
     }
 
+    static final String DEFAULT_API_URL = "https://www.abgeordnetenwatch.de/api/v2/candidacies-mandates?range_end=200";
+
     @Override
     public ParserResult parse(ParserContext ctx) throws Exception {
         Config config = loadConfig(ctx);
@@ -68,16 +75,38 @@ public class DePepLandtageParser implements Iparser {
         if (ctx.inputFile() != null && Files.isRegularFile(ctx.inputFile())) {
             String content = Files.readString(ctx.inputFile(), StandardCharsets.UTF_8);
             allMps.addAll(parseContent(content, config));
+            FtmDatasetBuilder dataset = new FtmDatasetBuilder(ID_PREFIX, TOPIC);
+            convert(allMps, dataset);
+            dataset.writeNdjsonFile(ctx.outputFile());
+            return dataset.toConversionResult().withMessage(
+                    allMps.size() + " députés des parlements régionaux des Länder extraits.");
         }
 
-        if (ctx.rawDir() != null && Files.isDirectory(ctx.rawDir())) {
+        Map<String, String> p = ctx.parameters() == null ? Map.of() : ctx.parameters();
+        boolean allowCrawl = !"false".equalsIgnoreCase(p.get("crawl"));
+
+        if (ctx.rawDir() != null) {
+            Files.createDirectories(ctx.rawDir());
+            Path mandatesJson = ctx.rawDir().resolve("landtage-mandates.json");
+
+            if (Files.isRegularFile(mandatesJson)) {
+                allMps.addAll(parseContent(Files.readString(mandatesJson, StandardCharsets.UTF_8), config));
+            } else if (allowCrawl) {
+                String apiUrl = p.getOrDefault("endpoint", DEFAULT_API_URL).trim();
+                if (!apiUrl.contains("candidacies-mandates")) {
+                    apiUrl = apiUrl + (apiUrl.endsWith("/") ? "" : "/") + "candidacies-mandates?range_end=200";
+                }
+                String json = crawl(apiUrl, "SwiftCheck-AML/1.0 (liste PEP Allemagne - Parlements des Länder)");
+                if (json != null && json.contains("data")) {
+                    Files.writeString(mandatesJson, json, StandardCharsets.UTF_8);
+                    allMps.addAll(parseContent(json, config));
+                }
+            }
+
             for (ParliamentConfig pc : config.parliaments()) {
                 Path f = ctx.rawDir().resolve(pc.key() + ".txt");
                 if (!Files.isRegularFile(f)) {
                     f = ctx.rawDir().resolve(pc.key() + ".json");
-                }
-                if (f.equals(ctx.inputFile())) {
-                    continue;
                 }
                 if (Files.isRegularFile(f)) {
                     String content = Files.readString(f, StandardCharsets.UTF_8);
@@ -96,6 +125,28 @@ public class DePepLandtageParser implements Iparser {
 
         return dataset.toConversionResult().withMessage(
                 allMps.size() + " députés des parlements régionaux des Länder extraits.");
+    }
+
+    static String crawl(String url, String userAgent) {
+        try {
+            HttpClient client = HttpClient.newBuilder()
+                    .connectTimeout(Duration.ofSeconds(10))
+                    .followRedirects(HttpClient.Redirect.NORMAL)
+                    .build();
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(URI.create(url))
+                    .timeout(Duration.ofSeconds(15))
+                    .header("User-Agent", userAgent)
+                    .GET()
+                    .build();
+            HttpResponse<String> resp = client.send(request, HttpResponse.BodyHandlers.ofString(StandardCharsets.UTF_8));
+            if (resp.statusCode() == 200) {
+                return resp.body();
+            }
+        } catch (Exception e) {
+            log.warn("Échec du crawl de {} : {}", url, e.getMessage());
+        }
+        return null;
     }
 
     @Override

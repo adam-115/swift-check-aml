@@ -1,9 +1,14 @@
 package com.swiftcheck.aml.plugins.depep.stateenterprises;
 
 import java.io.InputStream;
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -71,14 +76,52 @@ public class DePepStateEnterprisesParser implements Iparser {
         if (ctx.inputFile() != null && Files.isRegularFile(ctx.inputFile())) {
             String content = Files.readString(ctx.inputFile(), StandardCharsets.UTF_8);
             allDirectors.addAll(parseFileContent(content, config));
+            FtmDatasetBuilder dataset = new FtmDatasetBuilder(ID_PREFIX, TOPIC_PEP);
+            convert(allDirectors, dataset);
+            dataset.writeNdjsonFile(ctx.outputFile());
+            return dataset.toConversionResult().withMessage(
+                    allDirectors.size() + " dirigeants d'entreprises publiques allemandes extraits.");
         }
 
-        // Si aucun fichier fourni ou directors vide, on utilise la gouvernance configurée par défaut
-        if (allDirectors.isEmpty() && config.enterprises() != null) {
-            for (EnterpriseConfig ec : config.enterprises()) {
-                if (ec.governance() != null) {
-                    for (GovernanceMember gm : ec.governance()) {
-                        addDirector(allDirectors, ec.key(), ec.name(), gm.role(), gm.name(), ec.url());
+        Map<String, String> p = ctx.parameters() == null ? Map.of() : ctx.parameters();
+        boolean allowCrawl = !"false".equalsIgnoreCase(p.get("crawl"));
+
+        if (ctx.rawDir() != null) {
+            Files.createDirectories(ctx.rawDir());
+            if (config.enterprises() != null) {
+                for (EnterpriseConfig ec : config.enterprises()) {
+                    Path entFile = ctx.rawDir().resolve(ec.key() + ".html");
+                    String content = null;
+                    if (Files.isRegularFile(entFile)) {
+                        content = Files.readString(entFile, StandardCharsets.UTF_8);
+                    } else if (allowCrawl && ec.url() != null && !ec.url().isBlank()) {
+                        content = crawl(ec.url(), "SwiftCheck-AML/1.0 (liste PEP Allemagne - Entreprises publiques)");
+                        if (content != null && !content.isBlank()) {
+                            Files.writeString(entFile, content, StandardCharsets.UTF_8);
+                        }
+                    }
+
+                    if (content != null) {
+                        allDirectors.addAll(parseFileContent(content, config));
+                    }
+
+                    if (ec.governance() != null) {
+                        for (GovernanceMember gm : ec.governance()) {
+                            final String name = gm.name();
+                            boolean exists = allDirectors.stream().anyMatch(d -> d.fullName().equalsIgnoreCase(name));
+                            if (!exists) {
+                                addDirector(allDirectors, ec.key(), ec.name(), gm.role(), gm.name(), ec.url());
+                            }
+                        }
+                    }
+                }
+            }
+
+            Path rawConfigFile = ctx.rawDir().resolve("state-enterprises.json");
+            if (!Files.exists(rawConfigFile)) {
+                try (InputStream in = DePepStateEnterprisesParser.class.getResourceAsStream(CONFIG_RESOURCE)) {
+                    if (in != null) {
+                        Files.copy(in, rawConfigFile);
                     }
                 }
             }
@@ -94,6 +137,28 @@ public class DePepStateEnterprisesParser implements Iparser {
 
         return dataset.toConversionResult().withMessage(
                 allDirectors.size() + " dirigeants d'entreprises publiques allemandes extraits.");
+    }
+
+    static String crawl(String url, String userAgent) {
+        try {
+            HttpClient client = HttpClient.newBuilder()
+                    .connectTimeout(Duration.ofSeconds(2))
+                    .followRedirects(HttpClient.Redirect.NORMAL)
+                    .build();
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(URI.create(url))
+                    .timeout(Duration.ofSeconds(3))
+                    .header("User-Agent", userAgent)
+                    .GET()
+                    .build();
+            HttpResponse<String> resp = client.send(request, HttpResponse.BodyHandlers.ofString(StandardCharsets.UTF_8));
+            if (resp.statusCode() == 200) {
+                return resp.body();
+            }
+        } catch (Exception e) {
+            log.warn("Échec du crawl de {} : {}", url, e.getMessage());
+        }
+        return null;
     }
 
     @Override

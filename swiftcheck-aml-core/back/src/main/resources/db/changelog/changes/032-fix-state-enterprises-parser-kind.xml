@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="032-fix-state-enterprises-parser-kind" author="swiftcheck">
+        <sql><![CDATA[
+            UPDATE parser 
+            SET parser_kind = 'WEB_PAGE' 
+            WHERE dataset_name = 'de_pep_state_enterprises' AND parser_kind != 'WEB_PAGE';
+        ]]></sql>
+    </changeSet>
+
+</databaseChangeLog>
+
