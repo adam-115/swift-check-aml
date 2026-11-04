@@ -70,5 +70,6 @@
     <include file="db/changelog/changes/040-lu-parties-wikidata.xml" />
     <include file="db/changelog/changes/041-de-eu-commission-url.xml" />
     <include file="db/changelog/changes/042-be-coverage-gaps.xml" />
+    <include file="db/changelog/changes/043-fr-wikidata-positions-cc-secretary.xml" />
 
 </databaseChangeLog>
