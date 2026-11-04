@@ -121,6 +121,23 @@
         <module>swiftcheck-aml-plugins/pep/germany/swiftcheck-aml-de-pep-state-enterprises</module>
         <module>swiftcheck-aml-plugins/pep/germany/swiftcheck-aml-de-pep-landtage</module>
         <module>swiftcheck-aml-plugins/pep/germany/swiftcheck-aml-de-pep-local-executives</module>
+        <!-- PEP Espagne - Lot 1 : BOE et sources ouvertes -->
+        <module>swiftcheck-aml-plugins/pep/spain/swiftcheck-aml-es-pep-boe</module>
+        <module>swiftcheck-aml-plugins/pep/spain/swiftcheck-aml-es-pep-congreso</module>
+        <module>swiftcheck-aml-plugins/pep/spain/swiftcheck-aml-es-pep-bank-of-spain</module>
+        <module>swiftcheck-aml-plugins/pep/spain/swiftcheck-aml-es-pep-europarl</module>
+        <module>swiftcheck-aml-plugins/pep/spain/swiftcheck-aml-es-pep-eu-commission</module>
+        <module>swiftcheck-aml-plugins/pep/spain/swiftcheck-aml-es-pep-rca</module>
+        <!-- PEP Espagne - Lot 2 : institutions et communautés autonomes (Wikidata en secours des sources bloquées) -->
+        <module>swiftcheck-aml-plugins/pep/spain/swiftcheck-aml-es-pep-regulators</module>
+        <module>swiftcheck-aml-plugins/pep/spain/swiftcheck-aml-es-pep-senado</module>
+        <module>swiftcheck-aml-plugins/pep/spain/swiftcheck-aml-es-pep-judiciary</module>
+        <module>swiftcheck-aml-plugins/pep/spain/swiftcheck-aml-es-pep-regional-governments</module>
+        <module>swiftcheck-aml-plugins/pep/spain/swiftcheck-aml-es-pep-regional-parliaments</module>
+        <module>swiftcheck-aml-plugins/pep/spain/swiftcheck-aml-es-pep-local-officials</module>
+        <!-- PEP Espagne - Lot 3 : partis et syndicats, entreprises publiques (Wikidata) -->
+        <module>swiftcheck-aml-plugins/pep/spain/swiftcheck-aml-es-pep-parties-unions</module>
+        <module>swiftcheck-aml-plugins/pep/spain/swiftcheck-aml-es-pep-state-enterprises</module>
     </modules>
 
     <dependencyManagement>

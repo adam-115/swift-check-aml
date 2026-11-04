@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Lot 2 des parsers PEP de l'Espagne : institutions et communautés autonomes. Les sources officielles du Sénat
+    (HTTP 403), du Tribunal constitutionnel (test de navigateur) et des parlements régionaux (formats multiples) ne sont
+    pas lisibles ; Wikidata en est le secours prévu par le plan. Pas de parser pour les organisations internationales
+    (ES-i) : aucune source exploitable (Wikidata clairsemé et périmé, pages sans structure).
+    Plan : documentation/analyse pep espagne/Plan_Parsers_PEP_Espagne.pdf.
+-->
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="035-parser-es-pep-senado" author="swiftcheck">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM parser WHERE dataset_name = 'es_pep_senado'</sqlCheck>
+        </preConditions>
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Espagne – Sénateurs (Wikidata)',
+                'Les sénateurs de la XVe législature, d''après Wikidata, en attendant un accès à l''open data du Sénat (bloc ES-b)',
+                'es_pep_senado', 'PEP', 'https://www.wikidata.org',
+                'es-pep-senado', 'D:/test parser 2/plugins/swiftcheck-aml-es-pep-senado-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'SPARQL',
+                NULL,
+                '{"endpoint":"https://query.wikidata.org/sparql","monthsAfterEnd":"24","delayMs":"2000","kind":"positions","positions":"Q19323171","terms":"Q118800859 Q121224921","positionLabel":"Sénateur (Senador)","organization":"Senado","topics":"gov.legislative gov.national","openSince":"2023-01-01"}',
+                168, 24,
+                'CC0 (Wikidata)', 'Wikidata, www.wikidata.org',
+                'Le site et l''open data du Sénat (senado.es) répondent HTTP 403 (protection non contournée). Wikidata ne décrit que 34 des 265 sénateurs de la XVe législature : à remplacer dès qu''un accès ou un export du Sénat est obtenu. Données collaboratives de Wikidata : un changement de titulaire non saisi n''est pas vu, à contrôler.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'PARTIAL', TRUE, 'Les sénateurs de la XVe législature décrits dans Wikidata, en fonction ou sortis depuis moins de 24 mois, avec date de naissance et dates de mandat quand elles existent.', 'Environ 13 % des sénateurs seulement (34 sur 265) : l''open data du Sénat est bloqué (HTTP 403). Demander un accès ou un export au Sénat.'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'ES-b' AND f.label LIKE 'Sénateur%' AND p.dataset_name = 'es_pep_senado';
+        ]]></sql>
+    </changeSet>
+
+    <changeSet id="035-parser-es-pep-regulators" author="swiftcheck">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM parser WHERE dataset_name = 'es_pep_regulators'</sqlCheck>
+        </preConditions>
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Espagne – Organismes régulateurs',
+                'Présidents et conseillers des organismes régulateurs de l''État dont la page officielle est lisible : Conseil de sécurité nucléaire (bloc ES-f)',
+                'es_pep_regulators', 'PEP', 'https://www.csn.es',
+                'es-pep-regulators', 'D:/test parser 2/plugins/swiftcheck-aml-es-pep-regulators-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'WEB_PAGE',
+                NULL,
+                '{"institutions":"csn"}',
+                168, 24,
+                'Réutilisation autorisée en citant la source (Consejo de Seguridad Nuclear)', 'Consejo de Seguridad Nuclear, www.csn.es',
+                'Une page par organisme, décrite dans regulators.json (dans le plugin). Au 03/11/2026 seul le CSN est lisible : CNMV (HTTP 403, non contourné), CNMC (organigramme sans noms), AEPD (HTTP 500) et Tribunal de Cuentas (page dynamique) ne le sont pas ; leurs nominations viennent du BOE.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'PARTIAL', FALSE, 'Le président, la vice-présidente et les conseillers du Conseil de sécurité nucléaire.', 'CNMV, CNMC, AEPD et autres régulateurs : pages fermées ou sans noms. Leurs nominations arrivent par le BOE (es_pep_boe).'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'ES-f' AND f.label LIKE 'Président ou membre du conseil d''un organisme régulateur%' AND p.dataset_name = 'es_pep_regulators';
+        ]]></sql>
+    </changeSet>
+
+    <changeSet id="035-parser-es-pep-judiciary" author="swiftcheck">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM parser WHERE dataset_name = 'es_pep_judiciary'</sqlCheck>
+        </preConditions>
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Espagne – Hautes juridictions (Wikidata)',
+                'Magistrats et présidents du Tribunal constitutionnel et président du Tribunal suprême, d''après Wikidata (bloc ES-c)',
+                'es_pep_judiciary', 'PEP', 'https://www.wikidata.org',
+                'es-pep-judiciary', 'D:/test parser 2/plugins/swiftcheck-aml-es-pep-judiciary-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'SPARQL',
+                NULL,
+                '{"endpoint":"https://query.wikidata.org/sparql","monthsAfterEnd":"24","delayMs":"2000","kind":"positions","positions":"Q64624734 Q28518041 Q29934477","positionLabel":"{subject}","organization":"Hautes juridictions","topics":"gov.judicial gov.national","openSince":"2012-01-01"}',
+                168, 24,
+                'CC0 (Wikidata)', 'Wikidata, www.wikidata.org',
+                'Le Tribunal constitutionnel est protégé par un test de navigateur (non contourné) ; le CGPJ et le ministère public n''ont pas de page de composition lisible. Wikidata complète les nominations du BOE pour les titulaires nommés avant la période lue. Données collaboratives de Wikidata : un changement de titulaire non saisi n''est pas vu, à contrôler.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'PARTIAL', TRUE, 'Les magistrats du Tribunal constitutionnel décrits dans Wikidata, avec leurs dates de nomination, et le président du Tribunal.', 'Site du Tribunal constitutionnel protégé (non contourné). Wikidata peut être en retard sur un changement de composition.'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'ES-c' AND f.label LIKE 'Magistrat du Tribunal constitutionnel%' AND p.dataset_name = 'es_pep_judiciary';
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'PARTIAL', TRUE, 'Le président du Tribunal suprême décrit dans Wikidata.', 'Seulement le président : pas de liste des magistrats et présidents de chambre (poderjudicial.es sans page lisible). Contrôler la date du dernier changement de président.'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'ES-c' AND f.label LIKE 'Magistrat ou président de chambre du Tribunal suprême%' AND p.dataset_name = 'es_pep_judiciary';
+        ]]></sql>
+    </changeSet>
+
+    <changeSet id="035-parser-es-pep-regional-governments" author="swiftcheck">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM parser WHERE dataset_name = 'es_pep_regional_governments'</sqlCheck>
+        </preConditions>
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Espagne – Présidents des communautés autonomes (Wikidata)',
+                'Les présidents des 16 communautés autonomes, d''après la propriété « chef du gouvernement » de Wikidata (bloc ES-CCAA)',
+                'es_pep_regional_governments', 'PEP', 'https://www.wikidata.org',
+                'es-pep-regional-governments', 'D:/test parser 2/plugins/swiftcheck-aml-es-pep-regional-governments-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'SPARQL',
+                NULL,
+                '{"endpoint":"https://query.wikidata.org/sparql","monthsAfterEnd":"24","delayMs":"2000","kind":"heads","entities":"Q3908 Q3934 Q3946 Q3995 Q4040 Q5705 Q5720 Q5727 Q5739 Q5748 Q5756 Q5772 Q5777 Q5783 Q5813 Q107356467","properties":"P6","positionLabel":"Président de {subject}","topics":"gov.executive gov.regional","openSince":"2015-01-01"}',
+                168, 24,
+                'CC0 (Wikidata)', 'Wikidata, www.wikidata.org',
+                'Les 17 sites de gouvernements autonomes n''ont pas de format commun ; Wikidata donne le chef du gouvernement de chaque communauté avec ses dates. Ceuta et Melilla (villes autonomes) ne sont pas incluses. Données collaboratives de Wikidata : un changement de titulaire non saisi n''est pas vu, à contrôler.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'PARTIAL', TRUE, 'Les présidents des 16 communautés autonomes en fonction ou sortis depuis moins de 24 mois, avec dates de mandat.', 'Ni Ceuta ni Melilla. Les conseillers (consejeros) et les hauts cargos régionaux ne sont pas couverts avant les bulletins officiels régionaux.'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'ES-CCAA' AND f.label LIKE 'Président d''une communauté autonome%' AND p.dataset_name = 'es_pep_regional_governments';
+        ]]></sql>
+    </changeSet>
+
+    <changeSet id="035-parser-es-pep-regional-parliaments" author="swiftcheck">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM parser WHERE dataset_name = 'es_pep_regional_parliaments'</sqlCheck>
+        </preConditions>
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Espagne – Députés des parlements autonomes (Wikidata)',
+                'Les députés des parlements des communautés autonomes élus depuis 2022, d''après Wikidata (bloc ES-CCAA)',
+                'es_pep_regional_parliaments', 'PEP', 'https://www.wikidata.org',
+                'es-pep-regional-parliaments', 'D:/test parser 2/plugins/swiftcheck-aml-es-pep-regional-parliaments-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'SPARQL',
+                NULL,
+                '{"endpoint":"https://query.wikidata.org/sparql","monthsAfterEnd":"24","delayMs":"2000","kind":"positions","jurisdictions":"Q3908 Q3934 Q3946 Q3995 Q4040 Q5705 Q5720 Q5727 Q5739 Q5748 Q5756 Q5772 Q5777 Q5783 Q5813 Q107356467","positionRegex":"^(diputad|procurador|parlamentari)","positionLabel":"{subject}","topics":"gov.legislative gov.regional","openSince":"2022-01-01"}',
+                168, 24,
+                'CC0 (Wikidata)', 'Wikidata, www.wikidata.org',
+                'Un parlement par communauté, sans format commun ni open data systématique. Wikidata décrit environ un tiers des députés régionaux (436 sur ≈ 1 250 mesurés au 03/11/2026). Données collaboratives de Wikidata : un changement de titulaire non saisi n''est pas vu, à contrôler.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'PARTIAL', TRUE, 'Les députés régionaux élus depuis 2022 décrits dans Wikidata, en fonction ou sortis depuis moins de 24 mois.', 'Environ 35 % des députés régionaux seulement. Les 17 parlements publient leurs membres sous des formats différents : à brancher un par un.'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'ES-CCAA' AND f.label LIKE 'Député d''un parlement autonome%' AND p.dataset_name = 'es_pep_regional_parliaments';
+        ]]></sql>
+    </changeSet>
+
+</databaseChangeLog>

@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Référentiel PEP de l'Espagne : catégories et fonctions.
+
+    Les blocs a à i reprennent l'article 14 de la Ley 10/2010 (version en vigueur depuis le 29/04/2021) et la liste
+    officielle notifiée par l'Espagne à la Commission européenne (JO C/2023/724). S'y ajoutent :
+      - ES-CCAA : niveau autonomique (art. 14.3 b) : présidents, conseillers, hauts cargos et députés des 17 communautés ;
+      - ES-LOC  : niveau local (art. 14.3 c) : maires et conseillers des chefs-lieux et des entités de plus de 50 000 habitants.
+                  Ce niveau est une PEP en Espagne dès aujourd'hui, pas seulement avec l'AMLR de juillet 2027 ;
+      - ES-SIND : haute direction des syndicats et des organisations patronales (art. 14.3 d) ;
+      - ES-EU   : Espagnols exerçant une fonction européenne ;
+      - ES-RCA  : famille (art. 14.4 : conjoint, enfants et leurs conjoints, parents, sans la fratrie) et proches (art. 14.6).
+    Rétention : 24 mois après la fin des fonctions (art. 14.9).
+    Voir documentation/analyse pep espagne/Plan_Parsers_PEP_Espagne.pdf.
+-->
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <!-- Base légale et liste officielle de l'Espagne -->
+    <changeSet id="033-es-country" author="swiftcheck">
+        <sql>
+            UPDATE country SET legal_basis = 'Ley 10/2010 de prevención del blanqueo de capitales y de la financiación del terrorismo, art. 14 (personas con responsabilidad pública) et 14.9 (deux ans)',
+                               retention_months = 24,
+                               official_list_reference = 'JO C/2023/724 (section Espagne) ; Ley 10/2010, art. 14',
+                               official_list_date = '2023-10-24',
+                               official_list_url = 'https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=OJ:C_202300724'
+            WHERE iso = 'ES';
+        </sql>
+    </changeSet>
+
+    <!-- Ignoré si des catégories ES ont déjà été saisies dans l'écran « Catégories PEP » (codes uniques) -->
+    <changeSet id="033-es-categories" author="swiftcheck">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM pep_category WHERE country_iso = 'ES'</sqlCheck>
+        </preConditions>
+        <sql>
+            INSERT INTO pep_category (country_iso, code, label, kind, risk_class, sort_order, legal_reference) VALUES
+            ('ES', 'ES-a', 'Roi, président du Gouvernement, vice-présidents, ministres, secrétaires d''État et sous-secrétaires', 'OFFICIAL', 1, 1, 'Ley 10/2010, art. 14.2 ; JO C/2023/724'),
+            ('ES', 'ES-b', 'Parlementaires nationaux : députés du Congreso et sénateurs', 'OFFICIAL', 1, 2, 'Ley 10/2010, art. 14.2 ; JO C/2023/724'),
+            ('ES', 'ES-c', 'Hautes juridictions et ministère public : Tribunal constitutionnel, Tribunal suprême, Conseil général du pouvoir judiciaire, Audiencia Nacional, tribunaux supérieurs de justice, procureurs', 'OFFICIAL', 2, 3, 'Ley 10/2010, art. 14.2 ; JO C/2023/724'),
+            ('ES', 'ES-d', 'Banque d''Espagne et Tribunal de Cuentas', 'OFFICIAL', 2, 4, 'Ley 10/2010, art. 14.2 ; JO C/2023/724'),
+            ('ES', 'ES-e', 'Ambassadeurs, chefs de mission et haut personnel militaire', 'OFFICIAL', 2, 5, 'Ley 10/2010, art. 14.2 ; JO C/2023/724'),
+            ('ES', 'ES-f', 'Hauts cargos de l''administration de l''État (loi 3/2015) : directeurs généraux, délégués du Gouvernement, régulateurs', 'OFFICIAL', 2, 6, 'Ley 10/2010, art. 14.3 a) ; Ley 3/2015, art. 1 ; JO C/2023/724'),
+            ('ES', 'ES-g', 'Organes de direction des entreprises publiques', 'OFFICIAL', 3, 7, 'Ley 10/2010, art. 14.2 ; JO C/2023/724'),
+            ('ES', 'ES-h', 'Haute direction des partis politiques représentés au Parlement', 'OFFICIAL', 2, 8, 'Ley 10/2010, art. 14.2 ; JO C/2023/724'),
+            ('ES', 'ES-i', 'Dirigeants des organisations internationales établies ou accréditées en Espagne', 'OFFICIAL', 3, 9, 'Ley 10/2010, art. 14.2 et 14.3 e) ; JO C/2023/724'),
+            ('ES', 'ES-CCAA', 'Communautés autonomes : présidents, conseillers, hauts cargos, députés régionaux et directions régionales des partis', 'OFFICIAL', 2, 10, 'Ley 10/2010, art. 14.3 b) ; JO C/2023/724'),
+            ('ES', 'ES-LOC', 'Niveau local : maires et conseillers des chefs-lieux et des entités de plus de 50 000 habitants, directions locales des partis (PEP dès aujourd''hui)', 'OFFICIAL', 3, 11, 'Ley 10/2010, art. 14.3 c) ; JO C/2023/724'),
+            ('ES', 'ES-SIND', 'Haute direction des syndicats et des organisations patronales', 'OFFICIAL', 3, 12, 'Ley 10/2010, art. 14.3 d) ; JO C/2023/724'),
+            ('ES', 'ES-EU', 'Espagnols exerçant une fonction européenne', 'EU', 1, 13, 'Liste de la Commission, JO C/2023/724'),
+            ('ES', 'ES-RCA', 'Membres de la famille et proches associés', 'RCA', 2, 14, 'Ley 10/2010, art. 14.4 (famille, sans la fratrie) et 14.6 (proches associés)');
+        </sql>
+    </changeSet>
+
+    <!-- expected_holders : effectif légal ou ordre de grandeur du plan du 03/11/2026 ; vide si variable ou inconnu -->
+    <changeSet id="033-es-functions" author="swiftcheck">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM pep_function f JOIN pep_category c ON c.id = f.category_id WHERE c.country_iso = 'ES'</sqlCheck>
+        </preConditions>
+        <sql>
+            INSERT INTO pep_function (category_id, label, institution, expected_holders)
+            SELECT c.id, f.label, f.institution, f.expected_holders
+            FROM pep_category c JOIN (
+                SELECT 'ES-a' AS code, 'Roi d''Espagne (Rey)' AS label, 'Casa de Su Majestad el Rey' AS institution, 1 AS expected_holders
+                UNION ALL SELECT 'ES-a', 'Président du Gouvernement (Presidente del Gobierno)', 'Presidencia del Gobierno', 1
+                UNION ALL SELECT 'ES-a', 'Vice-président du Gouvernement (Vicepresidente del Gobierno)', 'Gobierno de España', 4
+                UNION ALL SELECT 'ES-a', 'Ministre du Gouvernement (Ministro)', 'Gobierno de España', 22
+                UNION ALL SELECT 'ES-a', 'Secrétaire d''État (Secretario de Estado)', 'Ministères', 40
+                UNION ALL SELECT 'ES-a', 'Sous-secrétaire (Subsecretario)', 'Ministères', 22
+                UNION ALL SELECT 'ES-a', 'Ancien membre du Gouvernement', 'Gobierno de España', NULL
+                UNION ALL SELECT 'ES-b', 'Député au Congreso de los Diputados', 'Congreso de los Diputados', 350
+                UNION ALL SELECT 'ES-b', 'Sénateur (Senador)', 'Senado', 265
+                UNION ALL SELECT 'ES-b', 'Ancien parlementaire national', 'Cortes Generales', NULL
+                UNION ALL SELECT 'ES-c', 'Magistrat du Tribunal constitutionnel', 'Tribunal Constitucional', 12
+                UNION ALL SELECT 'ES-c', 'Magistrat ou président de chambre du Tribunal suprême', 'Tribunal Supremo', 80
+                UNION ALL SELECT 'ES-c', 'Membre du Conseil général du pouvoir judiciaire (CGPJ)', 'Consejo General del Poder Judicial', 21
+                UNION ALL SELECT 'ES-c', 'Président de l''Audiencia Nacional ou d''un tribunal supérieur de justice', 'Audiencia Nacional et Tribunales Superiores de Justicia', 18
+                UNION ALL SELECT 'ES-c', 'Procureur général de l''État et procureurs en chef (Fiscal General, Fiscal de Sala, Fiscal Superior)', 'Ministerio Fiscal', 50
+                UNION ALL SELECT 'ES-d', 'Gouverneur, sous-gouverneur, membre du Conseil de gouvernement ou de la Commission exécutive de la Banque d''Espagne', 'Banco de España', 15
+                UNION ALL SELECT 'ES-d', 'Président ou conseiller du Tribunal de Cuentas', 'Tribunal de Cuentas', 12
+                UNION ALL SELECT 'ES-e', 'Ambassadeur ou chef de mission (Embajador)', 'Ministerio de Asuntos Exteriores', 120
+                UNION ALL SELECT 'ES-e', 'Chef d''état-major ou officier général (général de division et au-dessus, amiraux)', 'Fuerzas Armadas', 150
+                UNION ALL SELECT 'ES-f', 'Directeur général et assimilés (Director General)', 'Administración General del Estado', 400
+                UNION ALL SELECT 'ES-f', 'Délégué du Gouvernement', 'Delegaciones del Gobierno', 19
+                UNION ALL SELECT 'ES-f', 'Secrétaire général de l''administration de l''État', 'Administración General del Estado', 100
+                UNION ALL SELECT 'ES-f', 'Président ou membre du conseil d''un organisme régulateur (CNMV, CNMC, CSN, AEPD…)', 'Organismos reguladores', 60
+                UNION ALL SELECT 'ES-g', 'Membre du conseil d''administration d''une entreprise publique de l''État', 'SEPI, Patrimonio del Estado, entreprises publiques', NULL
+                UNION ALL SELECT 'ES-h', 'Membre de la direction d''un parti représenté au Parlement', 'Partis politiques', 200
+                UNION ALL SELECT 'ES-i', 'Dirigeant d''une organisation internationale établie ou accréditée en Espagne', 'ONU Tourisme, SEGIB, OEI, OISS, Union pour la Méditerranée…', 60
+                UNION ALL SELECT 'ES-CCAA', 'Président d''une communauté autonome', 'Gobiernos autonómicos', 17
+                UNION ALL SELECT 'ES-CCAA', 'Conseiller ou membre d''un gouvernement autonome', 'Gobiernos autonómicos', 130
+                UNION ALL SELECT 'ES-CCAA', 'Député d''un parlement autonome', 'Parlamentos autonómicos', 1250
+                UNION ALL SELECT 'ES-CCAA', 'Haut cargo d''une communauté autonome (publié aux bulletins officiels régionaux)', 'Boletines oficiales autonómicos', 1500
+                UNION ALL SELECT 'ES-CCAA', 'Membre de la direction régionale d''un parti', 'Partis politiques', NULL
+                UNION ALL SELECT 'ES-LOC', 'Maire d''un chef-lieu ou d''une commune de plus de 50 000 habitants', 'Ayuntamientos', 150
+                UNION ALL SELECT 'ES-LOC', 'Conseiller municipal d''un chef-lieu ou d''une commune de plus de 50 000 habitants', 'Ayuntamientos', 4000
+                UNION ALL SELECT 'ES-LOC', 'Membre de la direction locale d''un parti', 'Partis politiques', NULL
+                UNION ALL SELECT 'ES-SIND', 'Membre de la haute direction d''un syndicat ou d''une organisation patronale (CCOO, UGT, CEOE, Cepyme…)', 'Syndicats et organisations patronales', 100
+                UNION ALL SELECT 'ES-EU', 'Député au Parlement européen élu en Espagne', 'Parlement européen', 61
+                UNION ALL SELECT 'ES-EU', 'Membre espagnol de la Commission européenne', 'Commission européenne', 1
+                UNION ALL SELECT 'ES-EU', 'Espagnol exerçant une autre fonction PEP dans une institution de l''UE', 'Institutions de l''UE', NULL
+                UNION ALL SELECT 'ES-RCA', 'Membre de la famille d''une PEP espagnole', NULL, NULL
+                UNION ALL SELECT 'ES-RCA', 'Proche associé d''une PEP espagnole', NULL, NULL
+            ) f ON f.code = c.code;
+        </sql>
+    </changeSet>
+
+</databaseChangeLog>

@@ -1,0 +1,203 @@
+{
+  "head" : {
+    "vars" : [ "pep", "pepLabel", "birth", "birthPrec", "gender", "start", "end", "subj", "subjLabel" ]
+  },
+  "results" : {
+    "bindings" : [ {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q109481051"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1972-09-09T00:00:00Z"
+      },
+      "birthPrec" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "subj" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1661823"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2021-01-01T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "pepLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "Marc Murtra i Millar"
+      },
+      "subjLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "Indra Sistemas"
+      },
+      "end" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2025-01-01T00:00:00Z"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q63726145"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1980-10-02T00:00:00Z"
+      },
+      "birthPrec" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "subj" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2476154"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2025-01-01T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "pepLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "Álvaro Fernández Heredia"
+      },
+      "subjLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "Renfe"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q86659132"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1962-10-15T00:00:00Z"
+      },
+      "birthPrec" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "subj" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1661823"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2023-01-01T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "pepLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "José Vicente de los Mozos"
+      },
+      "subjLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "Indra Sistemas"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q130321125"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1969-01-01T00:00:00Z"
+      },
+      "birthPrec" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "9"
+      },
+      "subj" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q358752"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2024-09-17T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "pepLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "Luis Pedro Marco"
+      },
+      "subjLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "Administrador de Infraestructuras Ferroviarias"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q448547"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1963-03-14T00:00:00Z"
+      },
+      "birthPrec" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "subj" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1425548"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2023-12-18T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "pepLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "Pedro Duque"
+      },
+      "subjLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "Hispasat"
+      }
+    } ]
+  }
+}

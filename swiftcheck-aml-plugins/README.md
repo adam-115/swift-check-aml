@@ -109,8 +109,8 @@ remplace jamais une photo retenue par un analyste.
 
 | Source de la photo | Plugins |
 |---|---|
-| Site de l'institution | `fr_pep_national_assembly`, `fr_pep_senate`, `fr_pep_constitutional_council`, `fr_pep_president`, `fr_pep_army`, `fr_pep_eu_commission`, `lu_pep_chamber`, `lu_pep_government`, `lu_pep_grand_duke`, `lu_pep_court_of_auditors`, `lu_pep_army`, `lu_pep_eu_commission`, `fr_pep_banque_de_france` (gouverneur et sous-gouverneurs), `fr_pep_eu_institutions` (Cour de justice et Tribunal), `fr_pep_international_orgs` (pages dont `international-orgs.json` a un mode `photo` : OFAJ, OIML, OMSA), `be_pep_federal_government`, `be_pep_flemish_parliament`, `be_pep_walloon_parliament`, `be_pep_eu_commission` |
-| Wikimedia Commons (Wikidata) | `fr_pep_europarl`, `lu_pep_europarl`, `lu_pep_europarl_former` (P1186) ; `fr_pep_political_parties`, `fr_pep_rca`, `lu_pep_rca`, `fr_pep_wikidata_positions` (QID) ; `be_pep_europarl` (P1186), `be_pep_rca` (QID) |
+| Site de l'institution | `fr_pep_national_assembly`, `fr_pep_senate`, `fr_pep_constitutional_council`, `fr_pep_president`, `fr_pep_army`, `fr_pep_eu_commission`, `lu_pep_chamber`, `lu_pep_government`, `lu_pep_grand_duke`, `lu_pep_court_of_auditors`, `lu_pep_army`, `lu_pep_eu_commission`, `fr_pep_banque_de_france` (gouverneur et sous-gouverneurs), `fr_pep_eu_institutions` (Cour de justice et Tribunal), `fr_pep_international_orgs` (pages dont `international-orgs.json` a un mode `photo` : OFAJ, OIML, OMSA), `be_pep_federal_government`, `be_pep_flemish_parliament`, `be_pep_walloon_parliament`, `be_pep_eu_commission`, `es_pep_eu_commission` |
+| Wikimedia Commons (Wikidata) | `fr_pep_europarl`, `lu_pep_europarl`, `lu_pep_europarl_former` (P1186) ; `fr_pep_political_parties`, `fr_pep_rca`, `lu_pep_rca`, `fr_pep_wikidata_positions` (QID) ; `be_pep_europarl` (P1186), `be_pep_rca` (QID) ; `es_pep_europarl` (P1186), `es_pep_rca` (QID) |
 | Aucune (texte du Journal officiel, PDF, registres) | `fr_pep_jorf`, `lu_pep_legilux`, `fr_pep_diplomats`… : recherche sur internet à la demande |
 
 ## Organisation des dossiers

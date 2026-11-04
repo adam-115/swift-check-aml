@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Lot 3 des parsers PEP de l'Espagne : niveau local, partis et syndicats, entreprises publiques. Wikidata en secours
+    des sources introuvables (registre des élus locaux) ou sans structure (partis, syndicats, entreprises). Pas de parser
+    pour les bulletins officiels des 17 communautés autonomes : un format et une protection différents par bulletin.
+    Plan : documentation/analyse pep espagne/Plan_Parsers_PEP_Espagne.pdf.
+-->
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="036-parser-es-pep-local-officials" author="swiftcheck">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM parser WHERE dataset_name = 'es_pep_local_officials'</sqlCheck>
+        </preConditions>
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Espagne – Maires des grandes communes et chefs-lieux (Wikidata)',
+                'Les maires des communes de plus de 50 000 habitants et des chefs-lieux de province, d''après Wikidata (bloc ES-LOC)',
+                'es_pep_local_officials', 'PEP', 'https://www.wikidata.org',
+                'es-pep-local-officials', 'D:/test parser 2/plugins/swiftcheck-aml-es-pep-local-officials-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'SPARQL',
+                NULL,
+                '{"endpoint":"https://query.wikidata.org/sparql","monthsAfterEnd":"24","delayMs":"2000","kind":"mayors","minPopulation":"50000","positionLabel":"Maire de {subject} (Alcalde)","topics":"gov.muni","openSince":"2019-01-01"}',
+                168, 24,
+                'CC0 (Wikidata)', 'Wikidata, www.wikidata.org',
+                'Le registre national des élus locaux est introuvable (portail en 503/404, jeu de données éteint). Wikidata donne 55 maires (en fonction ou sortis depuis moins de 24 mois) sur ≈ 150 communes concernées. Les conseillers municipaux ne sont pas couverts. Ce niveau est une PEP en Espagne dès aujourd''hui. Données collaboratives de Wikidata : un changement de titulaire non saisi n''est pas vu, à contrôler.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'PARTIAL', TRUE, 'Les maires des communes de plus de 50 000 habitants et des chefs-lieux de province décrits dans Wikidata.', 'Environ un tiers des communes concernées ; aucun conseiller municipal. Chercher la source actuelle du ministère de la Politique territoriale, ou les sources des communautés autonomes.'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'ES-LOC' AND f.label LIKE 'Maire d''un chef-lieu%' AND p.dataset_name = 'es_pep_local_officials';
+        ]]></sql>
+    </changeSet>
+
+    <changeSet id="036-parser-es-pep-parties-unions" author="swiftcheck">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM parser WHERE dataset_name = 'es_pep_parties_unions'</sqlCheck>
+        </preConditions>
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Espagne – Dirigeants des partis et syndicats (Wikidata)',
+                'Dirigeants des partis représentés au Parlement, des principaux syndicats et des organisations patronales, d''après Wikidata (blocs ES-h et ES-SIND)',
+                'es_pep_parties_unions', 'PEP', 'https://www.wikidata.org',
+                'es-pep-parties-unions', 'D:/test parser 2/plugins/swiftcheck-aml-es-pep-parties-unions-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'SPARQL',
+                NULL,
+                '{"endpoint":"https://query.wikidata.org/sparql","monthsAfterEnd":"24","delayMs":"2000","kind":"heads","entities":"Q138198 Q185088 Q15630787 Q112098527 Q150068 Q97155800 Q1029761 Q43093 Q885433 Q1104327 Q16059622 Q2001535 Q833196 Q393165 Q5782715","properties":"P488 P3320 P3975","positionLabel":"Dirigeant de {subject}","topics":"gov.national","openSince":"2015-01-01"}',
+                168, 24,
+                'CC0 (Wikidata)', 'Wikidata, www.wikidata.org',
+                'Quinze organisations configurées (PSOE, PP, Vox, Sumar, ERC, Junts, EH Bildu, PNV, BNG, CC, Podemos, CCOO, UGT, CEOE, Cepyme) ; Wikidata donne le président ou secrétaire général et parfois un second dirigeant. Pas de page de direction lisible de façon uniforme. Données collaboratives de Wikidata : un changement de titulaire non saisi n''est pas vu, à contrôler.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'PARTIAL', TRUE, 'Les présidents et secrétaires généraux des partis représentés au Parlement décrits dans Wikidata.', 'Seulement un à deux dirigeants par parti (Wikidata) : pas les comités exécutifs.'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'ES-h' AND f.label LIKE 'Membre de la direction d''un parti représenté%' AND p.dataset_name = 'es_pep_parties_unions';
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'PARTIAL', TRUE, 'Les dirigeants de CCOO et de l’UGT décrits dans Wikidata.', 'CEOE et Cepyme sans dirigeant daté dans Wikidata ; pas les comités exécutifs.'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'ES-SIND' AND f.label LIKE 'Membre de la haute direction d''un syndicat%' AND p.dataset_name = 'es_pep_parties_unions';
+        ]]></sql>
+    </changeSet>
+
+    <changeSet id="036-parser-es-pep-state-enterprises" author="swiftcheck">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM parser WHERE dataset_name = 'es_pep_state_enterprises'</sqlCheck>
+        </preConditions>
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Espagne – Dirigeants d''entreprises publiques (Wikidata)',
+                'Dirigeants de sociétés détenues par l''État (SEPI, Renfe, Adif, Correos, RTVE, Indra, Hispasat), d''après Wikidata (bloc ES-g)',
+                'es_pep_state_enterprises', 'PEP', 'https://www.wikidata.org',
+                'es-pep-state-enterprises', 'D:/test parser 2/plugins/swiftcheck-aml-es-pep-state-enterprises-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'SPARQL',
+                NULL,
+                '{"endpoint":"https://query.wikidata.org/sparql","monthsAfterEnd":"24","delayMs":"2000","kind":"heads","entities":"Q1436777 Q776605 Q2476154 Q358752 Q54829 Q1661823 Q1425548","properties":"P488 P169 P1037","positionLabel":"Dirigeant de {subject}","topics":"gov.soe","openSince":"2015-01-01"}',
+                168, 24,
+                'CC0 (Wikidata)', 'Wikidata, www.wikidata.org',
+                'Pas de liste nominative unique des organes des entreprises publiques : la SEPI, le Patrimonio del Estado et l''inventaire des entités du secteur public (IGAE) sont à étudier. Sept entités configurées. Données collaboratives de Wikidata : un changement de titulaire non saisi n''est pas vu, à contrôler.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'PARTIAL', TRUE, 'Les dirigeants datés de sept entités publiques décrits dans Wikidata.', 'Sept entités sur plusieurs centaines ; seulement le président ou le directeur général. Étudier la SEPI, le Patrimonio del Estado et l''inventaire de l''IGAE.'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'ES-g' AND f.label LIKE 'Membre du conseil d''administration d''une entreprise publique%' AND p.dataset_name = 'es_pep_state_enterprises';
+        ]]></sql>
+    </changeSet>
+
+</databaseChangeLog>

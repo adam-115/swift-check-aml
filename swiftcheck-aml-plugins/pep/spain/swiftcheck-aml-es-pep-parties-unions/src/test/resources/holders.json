@@ -1,0 +1,626 @@
+{
+  "head" : {
+    "vars" : [ "pep", "pepLabel", "birth", "birthPrec", "gender", "start", "end", "subj", "subjLabel" ]
+  },
+  "results" : {
+    "bindings" : [ {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q12382958"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1977-07-27T00:00:00Z"
+      },
+      "birthPrec" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "subj" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q885433"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2016-02-01T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581072"
+      },
+      "pepLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "Ana Belén Pontón Mondelo"
+      },
+      "subjLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Galician Nationalist Bloc"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2457783"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1961-09-10T00:00:00Z"
+      },
+      "birthPrec" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "subj" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q185088"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2022-04-02T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "pepLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "Alberto Núñez Feijóo"
+      },
+      "subjLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "Partido Popular"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q24524789"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1987-09-25T00:00:00Z"
+      },
+      "birthPrec" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "subj" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q16059622"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2021-06-13T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581072"
+      },
+      "pepLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "Ione Belarra"
+      },
+      "subjLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "Podemos"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2223490"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1974-12-23T00:00:00Z"
+      },
+      "birthPrec" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "subj" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q185088"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2022-04-02T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581072"
+      },
+      "pepLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "Concepción Gamarra Ruiz-Clavijo"
+      },
+      "subjLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "Partido Popular"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q17037054"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1966-09-06T00:00:00Z"
+      },
+      "birthPrec" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "subj" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q97155800"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2022-06-04T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "pepLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "Jordi Turull"
+      },
+      "subjLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "Junts per Catalunya"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6070218"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1972-02-29T00:00:00Z"
+      },
+      "birthPrec" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "subj" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q138198"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2017-06-18T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "pepLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "Pedro Sánchez"
+      },
+      "subjLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "Partido Socialista Obrero Español"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q42963597"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1983-10-11T00:00:00Z"
+      },
+      "birthPrec" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "subj" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q150068"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2024-12-14T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581072"
+      },
+      "pepLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "Elisenda Alamany"
+      },
+      "subjLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "Esquerra Republicana de Catalunya"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q11928776"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1956-03-20T00:00:00Z"
+      },
+      "birthPrec" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "subj" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q833196"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2016-01-01T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "pepLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "Pepe Álvarez"
+      },
+      "subjLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "Unión General de Trabajadores"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q12268566"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1972-10-02T00:00:00Z"
+      },
+      "birthPrec" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "subj" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2001535"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2017-07-01T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "pepLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "Unai Sordo Calvo"
+      },
+      "subjLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "Comisiones Obreras"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q547356"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1958-07-06T00:00:00Z"
+      },
+      "birthPrec" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "subj" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1029761"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2017-01-01T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "pepLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "Arnaldo Otegi"
+      },
+      "subjLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "Euskal Herria Bildu"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4740163"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1962-12-29T00:00:00Z"
+      },
+      "birthPrec" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "subj" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q97155800"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2024-10-26T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "pepLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "Carles Puigdemont"
+      },
+      "subjLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "Junts per Catalunya"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q10745532"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1977-01-25T00:00:00Z"
+      },
+      "birthPrec" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "subj" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q150068"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2011-09-17T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581072"
+      },
+      "pepLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "Marta Rovira"
+      },
+      "subjLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "Esquerra Republicana de Catalunya"
+      },
+      "end" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2024-12-14T00:00:00Z"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q5661421"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1962-06-21T00:00:00Z"
+      },
+      "birthPrec" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "subj" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q43093"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2025-03-30T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "pepLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "Aitor Esteban"
+      },
+      "subjLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "Partido Nacionalista Vasco"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q8198786"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1962-07-13T00:00:00Z"
+      },
+      "birthPrec" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "subj" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q43093"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2013-01-01T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "pepLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "Andoni Ortuzar"
+      },
+      "subjLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "Partido Nacionalista Vasco"
+      },
+      "end" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2025-03-30T00:00:00Z"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q62585987"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1987-02-04T00:00:00Z"
+      },
+      "birthPrec" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "subj" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q15630787"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2022-10-06T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "pepLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "Ignacio Garriga De Vaz de Conceição"
+      },
+      "subjLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "Vox"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2984396"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1951-07-29T00:00:00Z"
+      },
+      "birthPrec" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "subj" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q138198"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2017-06-18T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581072"
+      },
+      "pepLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "Cristina Narbona"
+      },
+      "subjLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "Partido Socialista Obrero Español"
+      }
+    } ]
+  }
+}

@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Lot 1 des parsers PEP de l'Espagne : BOE (nominations et cessations), Congreso, Banque d'Espagne,
+    Parlement européen, Commission européenne et famille (Wikidata).
+    Plan : documentation/analyse pep espagne/Plan_Parsers_PEP_Espagne.pdf.
+-->
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="034-parser-es-pep-boe" author="swiftcheck">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM parser WHERE dataset_name = 'es_pep_boe'</sqlCheck>
+        </preConditions>
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Espagne – Nominations et cessations du BOE',
+                'Nominations, désignations, promotions et cessations publiées au BOE (section II.A) : Gouvernement, secrétaires d''État, hauts cargos, hautes juridictions, ambassadeurs et officiers généraux, avec les dates de fin (blocs ES-a, ES-c, ES-d, ES-e, ES-f)',
+                'es_pep_boe', 'PEP', 'https://www.boe.es',
+                'es-pep-boe', 'D:/test parser 2/plugins/swiftcheck-aml-es-pep-boe-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'OFFICIAL_GAZETTE',
+                NULL,
+                '{"archiveMonths":"26","sections":"2A","delayMs":"250","monthsAfterEnd":"24"}',
+                24, 24,
+                'Réutilisation autorisée en citant la source (Agencia Estatal Boletín Oficial del Estado)', 'Agencia Estatal Boletín Oficial del Estado, www.boe.es (datos abiertos)',
+                'API de données ouvertes du BOE : un sommaire par jour. Les titres des décrets royaux (« se nombra… a don X », « se dispone el cese de don X como… ») donnent la personne, la fonction et la date ; le décret qui nomme tous les ministres est lu dans son texte. Les fonctions retenues sont dans boe-functions.json (dans le plugin). Premier passage : environ 800 jours à lire (quelques minutes), puis seulement les nouveaux jours.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'PARTIAL', TRUE, 'Le décret de nomination et de cessation du Président du Gouvernement.', 'Seuls les changements publiés au BOE depuis le début de l''archive (26 mois) : un titulaire en fonction depuis avant n''y figure pas et doit venir d''un parser d''institution.'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'ES-a' AND f.label LIKE 'Président du Gouvernement%' AND p.dataset_name = 'es_pep_boe';
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'PARTIAL', TRUE, 'Les décrets de nomination et de cessation des vice-présidents.', 'Seuls les changements publiés au BOE depuis le début de l''archive (26 mois) : un titulaire en fonction depuis avant n''y figure pas et doit venir d''un parser d''institution.'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'ES-a' AND f.label LIKE 'Vice-président du Gouvernement%' AND p.dataset_name = 'es_pep_boe';
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'PARTIAL', TRUE, 'Les ministres nommés par le décret d''ensemble et les cessations individuelles.', 'Seuls les changements publiés au BOE depuis le début de l''archive (26 mois) : un titulaire en fonction depuis avant n''y figure pas et doit venir d''un parser d''institution.'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'ES-a' AND f.label LIKE 'Ministre du Gouvernement%' AND p.dataset_name = 'es_pep_boe';
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'PARTIAL', TRUE, 'Les décrets de nomination et de cessation des secrétaires d''État.', 'Seuls les changements publiés au BOE depuis le début de l''archive (26 mois) : un titulaire en fonction depuis avant n''y figure pas et doit venir d''un parser d''institution.'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'ES-a' AND f.label LIKE 'Secrétaire d''État%' AND p.dataset_name = 'es_pep_boe';
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'PARTIAL', TRUE, 'Les décrets de nomination et de cessation des sous-secrétaires.', 'Seuls les changements publiés au BOE depuis le début de l''archive (26 mois) : un titulaire en fonction depuis avant n''y figure pas et doit venir d''un parser d''institution.'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'ES-a' AND f.label LIKE 'Sous-secrétaire%' AND p.dataset_name = 'es_pep_boe';
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'PARTIAL', TRUE, 'Les cessations publiées au BOE, avec leur date.', 'Seuls les changements publiés au BOE depuis le début de l''archive (26 mois) : un titulaire en fonction depuis avant n''y figure pas et doit venir d''un parser d''institution.'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'ES-a' AND f.label LIKE 'Ancien membre du Gouvernement%' AND p.dataset_name = 'es_pep_boe';
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'PARTIAL', TRUE, 'Les nominations de magistrats et présidents du Tribunal constitutionnel publiées au BOE.', 'Seuls les changements publiés au BOE depuis le début de l''archive (26 mois) : un titulaire en fonction depuis avant n''y figure pas et doit venir d''un parser d''institution.'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'ES-c' AND f.label LIKE 'Magistrat du Tribunal constitutionnel%' AND p.dataset_name = 'es_pep_boe';
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'PARTIAL', TRUE, 'Les nominations de magistrats et de présidents de chambre du Tribunal suprême.', 'Seuls les changements publiés au BOE depuis le début de l''archive (26 mois) : un titulaire en fonction depuis avant n''y figure pas et doit venir d''un parser d''institution.'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'ES-c' AND f.label LIKE 'Magistrat ou président de chambre du Tribunal suprême%' AND p.dataset_name = 'es_pep_boe';
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'PARTIAL', TRUE, 'Les nominations de membres et de dirigeants du CGPJ publiées au BOE.', 'Seuls les changements publiés au BOE depuis le début de l''archive (26 mois) : un titulaire en fonction depuis avant n''y figure pas et doit venir d''un parser d''institution.'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'ES-c' AND f.label LIKE 'Membre du Conseil général du pouvoir judiciaire%' AND p.dataset_name = 'es_pep_boe';
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'PARTIAL', TRUE, 'Les nominations de présidents de l''Audiencia Nacional et des tribunaux supérieurs de justice.', 'Seuls les changements publiés au BOE depuis le début de l''archive (26 mois) : un titulaire en fonction depuis avant n''y figure pas et doit venir d''un parser d''institution.'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'ES-c' AND f.label LIKE 'Président de l''Audiencia Nacional ou d''un tribunal supérieur de justice%' AND p.dataset_name = 'es_pep_boe';
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'PARTIAL', TRUE, 'Fiscal General del Estado, fiscales de Sala, fiscales superiores et fiscales jefes anticorruption et antidrogue.', 'Seuls les changements publiés au BOE depuis le début de l''archive (26 mois) : un titulaire en fonction depuis avant n''y figure pas et doit venir d''un parser d''institution.'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'ES-c' AND f.label LIKE 'Procureur général de l''État et procureurs en chef%' AND p.dataset_name = 'es_pep_boe';
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'PARTIAL', TRUE, 'Les nominations de président et de conseillers du Tribunal de Cuentas.', 'Seuls les changements publiés au BOE depuis le début de l''archive (26 mois) : un titulaire en fonction depuis avant n''y figure pas et doit venir d''un parser d''institution.'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'ES-d' AND f.label LIKE 'Président ou conseiller du Tribunal de Cuentas%' AND p.dataset_name = 'es_pep_boe';
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'PARTIAL', TRUE, 'Les désignations d''ambassadeurs et de représentants permanents (« se designa Embajador de España en… »).', 'Seuls les changements publiés au BOE depuis le début de l''archive (26 mois) : un titulaire en fonction depuis avant n''y figure pas et doit venir d''un parser d''institution.'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'ES-e' AND f.label LIKE 'Ambassadeur ou chef de mission%' AND p.dataset_name = 'es_pep_boe';
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'PARTIAL', TRUE, 'Les promotions aux grades de général de division et au-dessus, amiraux et chefs d''état-major.', 'Seuls les changements publiés au BOE depuis le début de l''archive (26 mois) : un titulaire en fonction depuis avant n''y figure pas et doit venir d''un parser d''institution.'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'ES-e' AND f.label LIKE 'Chef d''état-major ou officier général%' AND p.dataset_name = 'es_pep_boe';
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'PARTIAL', TRUE, 'Les nominations et cessations des directeurs généraux.', 'Seuls les changements publiés au BOE depuis le début de l''archive (26 mois) : un titulaire en fonction depuis avant n''y figure pas et doit venir d''un parser d''institution.'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'ES-f' AND f.label LIKE 'Directeur général et assimilés%' AND p.dataset_name = 'es_pep_boe';
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'PARTIAL', TRUE, 'Les nominations et cessations des délégués du Gouvernement dans les communautés autonomes.', 'Seuls les changements publiés au BOE depuis le début de l''archive (26 mois) : un titulaire en fonction depuis avant n''y figure pas et doit venir d''un parser d''institution.'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'ES-f' AND f.label LIKE 'Délégué du Gouvernement%' AND p.dataset_name = 'es_pep_boe';
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'PARTIAL', TRUE, 'Les nominations et cessations des secrétaires généraux.', 'Seuls les changements publiés au BOE depuis le début de l''archive (26 mois) : un titulaire en fonction depuis avant n''y figure pas et doit venir d''un parser d''institution.'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'ES-f' AND f.label LIKE 'Secrétaire général de l''administration%' AND p.dataset_name = 'es_pep_boe';
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'PARTIAL', TRUE, 'Les nominations aux organismes listés dans boe-functions.json (CNMV, CNMC, CSN, AEPD…).', 'Seuls les changements publiés au BOE depuis le début de l''archive (26 mois) : un titulaire en fonction depuis avant n''y figure pas et doit venir d''un parser d''institution.'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'ES-f' AND f.label LIKE 'Président ou membre du conseil d''un organisme régulateur%' AND p.dataset_name = 'es_pep_boe';
+        ]]></sql>
+    </changeSet>
+
+    <changeSet id="034-parser-es-pep-congreso" author="swiftcheck">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM parser WHERE dataset_name = 'es_pep_congreso'</sqlCheck>
+        </preConditions>
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Espagne – Députés du Congreso',
+                'Les députés du Congreso de los Diputados en fonction et les anciens sortis depuis moins de 24 mois, d''après l''open data du Congreso (bloc ES-b)',
+                'es_pep_congreso', 'PEP', 'https://www.congreso.es/es/opendata/diputados',
+                'es-pep-congreso', 'D:/test parser 2/plugins/swiftcheck-aml-es-pep-congreso-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'OPEN_DATA_FILE',
+                NULL,
+                '{"pageUrl":"https://www.congreso.es/es/opendata/diputados","monthsAfterEnd":"24"}',
+                24, 24,
+                'Réutilisation autorisée en citant la source (Congreso de los Diputados, open data)', 'Congreso de los Diputados, www.congreso.es',
+                'Deux fichiers JSON dont le nom change à chaque mise à jour (DiputadosActivos et DiputadosDeBaja), trouvés par la page de l''open data. Ni date de naissance ni identifiant dans la source ; la biographie n''est pas reprise.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', TRUE, 'Députés en fonction et sortis depuis moins de 24 mois, avec circonscription, groupe parlementaire, formation électorale et dates de mandat.', 'Pas de date de naissance dans l''open data : le rapprochement se fait sur le nom.'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'ES-b' AND f.label LIKE 'Député au Congreso%' AND p.dataset_name = 'es_pep_congreso';
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'PARTIAL', TRUE, 'Les députés du Congreso sortis depuis moins de 24 mois.', 'Les sénateurs sortis ne sont pas couverts avant le parser du Sénat.'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'ES-b' AND f.label LIKE 'Ancien parlementaire national%' AND p.dataset_name = 'es_pep_congreso';
+        ]]></sql>
+    </changeSet>
+
+    <changeSet id="034-parser-es-pep-bank-of-spain" author="swiftcheck">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM parser WHERE dataset_name = 'es_pep_bank_of_spain'</sqlCheck>
+        </preConditions>
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Espagne – Banque d''Espagne',
+                'Gouverneur, sous-gouverneur, Conseil de gouvernement et Commission exécutive de la Banque d''Espagne, d''après bde.es (bloc ES-d)',
+                'es_pep_bank_of_spain', 'PEP', 'https://www.bde.es',
+                'es-pep-bank-of-spain', 'D:/test parser 2/plugins/swiftcheck-aml-es-pep-bank-of-spain-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'WEB_PAGE',
+                NULL,
+                '{"councilUrl":"https://www.bde.es/wbe/es/sobre-banco/organizacion/organos-rectores/consejo-gobierno/","executiveUrl":"https://www.bde.es/wbe/es/sobre-banco/organizacion/organos-rectores/comision-ejecutiva/"}',
+                168, 24,
+                'Réutilisation autorisée en citant la source (Banco de España)', 'Banco de España, www.bde.es',
+                'Deux pages : Consejo de Gobierno (gouverneur, sous-gouverneure, six consejeros, secrétaire générale du Trésor, vice-présidente de la CNMV) et Comisión Ejecutiva. Les photos des fiches sont une photo de groupe : non reprises. Les directeurs généraux, qui assistent sans voix délibérative, ne sont pas repris.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', FALSE, 'Les 10 membres du Conseil de gouvernement et les 4 de la Commission exécutive.', 'Les anciens membres ne sont pas sur la page : le core les garde 24 mois après leur disparition de la source.'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'ES-d' AND f.label LIKE 'Gouverneur, sous-gouverneur%' AND p.dataset_name = 'es_pep_bank_of_spain';
+        ]]></sql>
+    </changeSet>
+
+    <changeSet id="034-parser-es-pep-europarl" author="swiftcheck">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM parser WHERE dataset_name = 'es_pep_europarl'</sqlCheck>
+        </preConditions>
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Espagne – Députés européens',
+                'Les eurodéputés élus en Espagne, en fonction et sortis depuis moins de 24 mois, d''après l''API open data du Parlement européen (bloc ES-EU)',
+                'es_pep_europarl', 'PEP', 'https://data.europarl.europa.eu',
+                'es-pep-europarl', 'D:/test parser 2/plugins/swiftcheck-aml-es-pep-europarl-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'API',
+                NULL,
+                '{"currentUrl":"https://data.europarl.europa.eu/api/v2/meps/show-current?country-of-representation=ES&format=application%2Fld%2Bjson","termUrl":"https://data.europarl.europa.eu/api/v2/meps?country-of-representation=ES&parliamentary-term=10&limit=500&format=application%2Fld%2Bjson","detailUrl":"https://data.europarl.europa.eu/api/v2/meps/{id}?format=application%2Fld%2Bjson","delayMs":"300","monthsAfterEnd":"24"}',
+                24, 24,
+                'Réutilisation autorisée en citant la source (avis juridique du Parlement européen)', 'Parlement européen, data.europarl.europa.eu',
+                '61 eurodéputés espagnols (législature 10) avec date et lieu de naissance, genre et dates de mandat. Reprise de be_pep_europarl.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', TRUE, 'Eurodéputés espagnols en fonction et sortis depuis moins de 24 mois, avec date de naissance et mandats.', NULL
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'ES-EU' AND f.label LIKE 'Député au Parlement européen élu en Espagne%' AND p.dataset_name = 'es_pep_europarl';
+        ]]></sql>
+    </changeSet>
+
+    <changeSet id="034-parser-es-pep-eu-commission" author="swiftcheck">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM parser WHERE dataset_name = 'es_pep_eu_commission'</sqlCheck>
+        </preConditions>
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Espagne – Commissaire européenne',
+                'Le membre espagnol de la Commission européenne, d''après sa fiche officielle (bloc ES-EU)',
+                'es_pep_eu_commission', 'PEP', 'https://commission.europa.eu/about/organisation/college-commissioners_fr',
+                'es-pep-eu-commission', 'D:/test parser 2/plugins/swiftcheck-aml-es-pep-eu-commission-0.0.1-SNAPSHOT.jar',
+                'HTTP_FILE', 'WEB_PAGE',
+                'https://commission.europa.eu/about/organisation/college-commissioners/teresa-ribera_fr',
+                NULL,
+                168, 24,
+                'Réutilisation autorisée en citant la source (Commission européenne)', 'Commission européenne, commission.europa.eu',
+                'Teresa Ribera, vice-présidente exécutive de la Commission européenne (2024-2029). À chaque nouvelle Commission, changer l''adresse de la fiche.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', FALSE, 'La commissaire espagnole, avec son portrait officiel.', 'Ni date de naissance ni date exacte de prise de fonctions sur la fiche.'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'ES-EU' AND f.label LIKE 'Membre espagnol de la Commission%' AND p.dataset_name = 'es_pep_eu_commission';
+        ]]></sql>
+    </changeSet>
+
+    <changeSet id="034-parser-es-pep-rca" author="swiftcheck">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM parser WHERE dataset_name = 'es_pep_rca'</sqlCheck>
+        </preConditions>
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Espagne – Famille des PEP (Wikidata)',
+                'Conjoints, enfants et leurs conjoints, parents des PEP espagnoles décrits dans Wikidata (bloc ES-RCA)',
+                'es_pep_rca', 'PEP', 'https://www.wikidata.org',
+                'es-pep-rca', 'D:/test parser 2/plugins/swiftcheck-aml-es-pep-rca-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'SPARQL',
+                NULL,
+                '{"endpoint":"https://query.wikidata.org/sparql","yearsAfterEnd":"2","country":"Q29","positions":"Q3847454 Q844587 Q3113035 Q18171345 Q19323171 Q17014422 Q64624734 Q28518041 Q29934477 Q6352222","positionClasses":"Q83307"}',
+                168, 24,
+                'CC0 (Wikidata)', 'Wikidata, www.wikidata.org',
+                'Famille au sens de l''art. 14.4 de la loi 10/2010 : conjoint, enfants et leurs conjoints, parents (sans la fratrie). Données collaboratives, à contrôler. Rétention de 2 ans après la fin des fonctions.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'PARTIAL', FALSE, 'Conjoints, enfants et leurs conjoints, parents des PEP espagnoles décrits dans Wikidata.', 'Seules les familles décrites dans Wikidata. Données collaboratives.'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'ES-RCA' AND f.label LIKE 'Membre de la famille d%' AND p.dataset_name = 'es_pep_rca';
+        ]]></sql>
+    </changeSet>
+
+</databaseChangeLog>

@@ -1,0 +1,1310 @@
+{
+  "head" : {
+    "vars" : [ "pep", "pepLabel", "birth", "birthPrec", "gender", "start", "end", "subj", "subjLabel" ]
+  },
+  "results" : {
+    "bindings" : [ {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q126721577"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1966-01-01T00:00:00Z"
+      },
+      "birthPrec" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "9"
+      },
+      "subj" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q19323171"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2024-06-13T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581072"
+      },
+      "pepLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "Rosa Faustina Viera Fernández"
+      },
+      "subjLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "senador de España"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q131338797"
+      },
+      "subj" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q19323171"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2023-07-23T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "pepLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "Sergio Ramos"
+      },
+      "subjLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "senador de España"
+      },
+      "end" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2024-11-25T00:00:00Z"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q14122435"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1959-01-26T00:00:00Z"
+      },
+      "birthPrec" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "subj" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q19323171"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2024-07-26T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "pepLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "Alfons Garcia Rodriguez"
+      },
+      "subjLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "senador de España"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q20994748"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1968-02-08T00:00:00Z"
+      },
+      "birthPrec" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "subj" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q19323171"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2023-07-23T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581072"
+      },
+      "pepLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "Amparo Marco"
+      },
+      "subjLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "senador de España"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q43371415"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1964-02-12T00:00:00Z"
+      },
+      "birthPrec" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "subj" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q19323171"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2024-07-26T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581072"
+      },
+      "pepLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "Teresa Pallarès Piqué"
+      },
+      "subjLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "senador de España"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q127790509"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1972-02-19T00:00:00Z"
+      },
+      "birthPrec" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "subj" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q19323171"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2023-06-09T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581072"
+      },
+      "pepLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "Carmina Ballester Feliu"
+      },
+      "subjLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "senador de España"
+      },
+      "end" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2026-10-05T00:00:00Z"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q46856555"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1968-05-15T00:00:00Z"
+      },
+      "birthPrec" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "subj" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q19323171"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2024-07-26T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "pepLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "Francesc Xavier Ten i Costa"
+      },
+      "subjLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "senador de España"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q50379617"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1977-03-21T00:00:00Z"
+      },
+      "birthPrec" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "subj" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q19323171"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2023-07-23T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "pepLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "Juan Antonio Sagredo"
+      },
+      "subjLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "senador de España"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q20725437"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1981-08-07T00:00:00Z"
+      },
+      "birthPrec" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "subj" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q19323171"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2024-07-26T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581072"
+      },
+      "pepLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "Lorena Roldán"
+      },
+      "subjLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "senador de España"
+      },
+      "end" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2025-07-11T00:00:00Z"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q43287265"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1969-10-13T00:00:00Z"
+      },
+      "birthPrec" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "subj" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q19323171"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2024-07-26T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "pepLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "Eduard Pujol"
+      },
+      "subjLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "senador de España"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q131382423"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1961-10-05T00:00:00Z"
+      },
+      "birthPrec" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "subj" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q19323171"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2024-11-26T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "pepLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "Jaime Morales"
+      },
+      "subjLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "senador de España"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q28872549"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1966-03-31T00:00:00Z"
+      },
+      "birthPrec" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "subj" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q19323171"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2023-07-23T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581072"
+      },
+      "pepLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "Nerea Ahedo Ceza"
+      },
+      "subjLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "senador de España"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q111424756"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1959-01-01T00:00:00Z"
+      },
+      "birthPrec" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "9"
+      },
+      "subj" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q19323171"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2023-08-17T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "pepLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "Antonio Muñoz Martínez"
+      },
+      "subjLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "senador de España"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q5941993"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1962-07-02T00:00:00Z"
+      },
+      "birthPrec" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "subj" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q19323171"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2024-04-15T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "pepLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "José Manuel Balseiro"
+      },
+      "subjLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "senador de España"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q27999091"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1972-10-24T00:00:00Z"
+      },
+      "birthPrec" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "subj" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q19323171"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2023-07-23T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "pepLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "Javier Antón Cacho"
+      },
+      "subjLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "senador de España"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q133842129"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1963-06-22T00:00:00Z"
+      },
+      "birthPrec" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "subj" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q19323171"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2023-07-23T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581072"
+      },
+      "pepLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "María Caballero Martínez"
+      },
+      "subjLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "senador de España"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q14117877"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1960-06-09T00:00:00Z"
+      },
+      "birthPrec" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "subj" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q19323171"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2023-07-23T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "pepLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "Juan Manuel Ávila Gutiérrez"
+      },
+      "subjLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "senador de España"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q21001076"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1977-12-01T00:00:00Z"
+      },
+      "birthPrec" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "subj" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q19323171"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2023-07-23T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "pepLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "Agustín Almodóbar Barceló"
+      },
+      "subjLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "senador de España"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q28872654"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1974-02-09T00:00:00Z"
+      },
+      "birthPrec" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "subj" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q19323171"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2023-07-23T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "pepLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "Ander Gil"
+      },
+      "subjLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "senador de España"
+      },
+      "end" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2025-04-22T00:00:00Z"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q17987578"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1978-05-25T00:00:00Z"
+      },
+      "birthPrec" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "subj" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q19323171"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2025-05-01T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "pepLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "Luis Tudanca Fernández"
+      },
+      "subjLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "senador de España"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q5401435"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1969-03-21T00:00:00Z"
+      },
+      "birthPrec" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "subj" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q19323171"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2023-08-17T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "pepLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "Pedro Rollán"
+      },
+      "subjLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "senador de España"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q14089395"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1960-11-30T00:00:00Z"
+      },
+      "birthPrec" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "subj" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q19323171"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2023-01-01T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "pepLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "José Alberto Armijo Navas"
+      },
+      "subjLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "senador de España"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3412142"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1952-10-28T00:00:00Z"
+      },
+      "birthPrec" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "subj" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q19323171"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2023-08-16T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "pepLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "Pío García-Escudero"
+      },
+      "subjLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "senador de España"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2089386"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1957-12-28T00:00:00Z"
+      },
+      "birthPrec" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "subj" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q19323171"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2022-07-28T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "pepLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "Javier Arenas Bocanegra"
+      },
+      "subjLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "senador de España"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q26159887"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1970-05-08T00:00:00Z"
+      },
+      "birthPrec" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "subj" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q19323171"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2024-07-26T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581072"
+      },
+      "pepLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "Laura Castel"
+      },
+      "subjLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "senador de España"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q131580966"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1973-09-07T00:00:00Z"
+      },
+      "birthPrec" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "subj" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q19323171"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2023-07-23T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581072"
+      },
+      "pepLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "Cristina Díaz Moreno"
+      },
+      "subjLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "senador de España"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q136656626"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1961-10-16T00:00:00Z"
+      },
+      "birthPrec" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "subj" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q19323171"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2023-07-23T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "pepLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "José Entrena Ávila"
+      },
+      "subjLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "senador de España"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q14084347"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1953-12-22T00:00:00Z"
+      },
+      "birthPrec" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "subj" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q19323171"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2024-07-01T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "pepLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "Miguel Gracia"
+      },
+      "subjLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "senador de España"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q11916119"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1963-06-10T00:00:00Z"
+      },
+      "birthPrec" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "subj" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q19323171"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2023-07-23T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581072"
+      },
+      "pepLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "Cristina Moreno Fernández"
+      },
+      "subjLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "senador de España"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q9256481"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1975-10-16T00:00:00Z"
+      },
+      "birthPrec" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "subj" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q19323171"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2023-07-23T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581072"
+      },
+      "pepLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "Eva Ortiz Vilella"
+      },
+      "subjLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "senador de España"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q70869936"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1972-05-14T00:00:00Z"
+      },
+      "birthPrec" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "subj" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q19323171"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2025-03-28T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581072"
+      },
+      "pepLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "María Teresa Pérez"
+      },
+      "subjLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "senador de España"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q763954"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1964-04-03T00:00:00Z"
+      },
+      "birthPrec" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "subj" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q19323171"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2023-07-28T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "pepLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "Enric Morera i Català"
+      },
+      "subjLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "senador de España"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q14132008"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1979-07-26T00:00:00Z"
+      },
+      "birthPrec" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "subj" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q19323171"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2024-09-27T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581072"
+      },
+      "pepLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "Idurre Bideguren"
+      },
+      "subjLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "senador de España"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q5401435"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1969-03-01T00:00:00Z"
+      },
+      "birthPrec" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "10"
+      },
+      "subj" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q19323171"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2023-08-17T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "pepLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "Pedro Rollán"
+      },
+      "subjLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "senador de España"
+      }
+    } ]
+  }
+}
