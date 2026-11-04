@@ -1,0 +1,598 @@
+<!-- TEST DEBUG 2025 -->
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	  <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Le Parlement de Wallonie</title>
+    <meta name="description" content="Site internet du Parlement de Wallonie"/>
+  	<meta name="keywords" content="parlement de Wallonie, parlement wallon, parlement, wallon, wallonie, belgique, namur, décret, commission, comité, parlementaire, député, citoyen, Saint-Gilles, assemblée"/>
+    <meta name="google-site-verification" content="01Bt7JVWlNbcJY_suN7k9_NSkuviXfcmtSB0jz_a_r8"/>
+    <!-- <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script>
+      (adsbygoogle = window.adsbygoogle || []).push({
+        google_ad_client: "ca-pub-6261049671876267",
+        enable_page_level_ads: true
+      });
+    </script> -->
+    <link rel="canonical" href="https://www.parlement-wallonie.be" />
+
+    <!--ICONES-->
+    <link rel="SHORTCUT ICON" href="favicones/favicon.ico"/>
+    <link rel="apple-touch-icon" sizes="57x57" href="favicones/apple-touch-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="favicones/apple-touch-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="favicones/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="favicones/apple-touch-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="favicones/apple-touch-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="favicones/apple-touch-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="favicones/apple-touch-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="favicones/apple-touch-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="favicones/apple-touch-icon-180x180.png">
+    <link rel="icon" type="image/png" href="favicones/favicon-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="favicones/favicon-194x194.png" sizes="194x194">
+    <link rel="icon" type="image/png" href="favicones/favicon-96x96.png" sizes="96x96">
+    <link rel="icon" type="image/png" href="favicones/android-chrome-192x192.png" sizes="192x192">
+    <link rel="icon" type="image/png" href="favicones/favicon-16x16.png" sizes="16x16">
+    <link rel="manifest" href="favicones/manifest.json">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="favicones/mstile-144x144.png">
+    <meta name="theme-color" content="#ffffff">
+
+    <!-- Les flux -->
+    <link rel="alternate" type="application/rss+xml" title="News du Parlement de Wallonie" href="https://www.parlement-wallonie.be/actu/rss_generator.php"/>
+    <link rel="alternate" type="application/rss+xml" title="Agenda du Parlement de Wallonie" href="https://www.parlement-wallonie.be/actu/rss_cal_generator.php?aff=rss"/>
+  	<link rel="alternate" type="application/rss+xml" title="Comptes rendus et autres publications du Parlement de Wallonie" href="https://www.parlement-wallonie.be/actu/rss_doc_generator.php"/>
+    <link rel="alternate" type="application/rss+xml" title="Derniers décrets du Parlement de Wallonie" href="https://www.parlement-wallonie.be/actu/rss_doc_generator.php?aff=rss&type=parch"/>
+    <link rel="alternate" type="application/rss+xml" title="Dernières questions d'actualité publiées par le Parlement de Wallonie" href="https://www.parlement-wallonie.be/actu/rss_doc_generator.php?aff=rss&type=qa"/>
+    <link rel="alternate" type="application/rss+xml" title="Derniers bulletins des questions et réponses écrites publiés par le Parlement de Wallonie" href="https://www.parlement-wallonie.be/actu/rss_doc_generator.php?aff=rss&type=qr"/>
+    <link rel="alternate" type="application/rss+xml" title="Derniers bulletins des travaux du Parlement de Wallonie" href="https://www.parlement-wallonie.be/actu/rss_doc_generator.php?aff=rss&type=bt"/>
+    <link rel="alternate" type="application/rss+xml" title="Dernières résolutions adoptées au Parlement de Wallonie" href="https://www.parlement-wallonie.be/actu/rss_doc_generator.php?aff=rss&type=res"/>
+    <link rel="alternate" type="application/rss+xml" title="Derniers enregistrements audio et vidéo du Parlement de Wallonie" href="https://www.parlement-wallonie.be/actu/rss_pod_generator.php?aff=rss"/>
+    <link rel="alternate" type="application/rss+xml" title="La composition du Parlement de Wallonie" href="https://www.parlement-wallonie.be/actu/rss_people_generator.php?aff=rss"/>
+
+    <!-- Le styles -->
+    <!-- <link rel="stylesheet" href="https://www.parlement-wallonie.be/css/bootstrap.min.css"> -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css" rel="stylesheet" media="all">
+   <!-- <link rel="stylesheet" href="https://www.parlement-wallonie.be/css/nonresponsive.css">-->
+    <!-- <link rel="stylesheet" href="https://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css"/> -->
+    <link rel="stylesheet" href="/css/jquery-ui.css"/>
+    <link rel="stylesheet" href="/css/colorbox.css"/>
+    <link rel="stylesheet" href="/css/fontello.css">
+    <link rel="stylesheet" href="/css/animation.css">
+    <link rel="stylesheet" href="/css/styles.css">
+    <!-- <link rel="stylesheet" href="/css/styles-accessibilite.css"> -->
+	  <script type="text/javascript">
+  		if (navigator.userAgent.toLowerCase().match('chromium')){
+  		document.write('<link rel="stylesheet" type="text/css" href="css/stylechromium.css">');
+  		};
+    </script>
+    <!--<link rel="stylesheet" href="https://www.parlement-wallonie.be/css/jquery-ui-1.8.5.custom.css"/>-->
+    <!--[if IE 7]>
+      <link rel="stylesheet" href="https://www.parlement-wallonie.be/css/fontello-ie7.css"><![endif]-->
+	  <!--[if IE 7]>
+	     <link rel="stylesheet" href="https://www.parlement-wallonie.be/css/font-awesome-ie7.min.css">
+	  <![endif]-->
+    <!--[if IE 8]>
+    <link rel="stylesheet" href="https://www.parlement-wallonie.be/css/styles-ie8.css">
+    <![endif]-->
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+      <script src="https://www.parlement-wallonie.be/js/respond.min.js"></script>
+    <![endif]-->
+    <!--[if lt IE 8]>
+<div class="alert alert-danger espace_top-vbg"><h1><i class="icon-attention"></i></h1>Vous utilisez une très vieille version d'Internet Explorer. Pour des raisons de sécurité et de compatibilité avec les sites modernes, nous vous conseillons d'utiliser un navigateur récent.</div>
+    <![endif]-->
+    <!-- Fav and touch icons
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="../assets/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="../assets/ico/apple-touch-icon-114-precomposed.png">
+	<link rel="apple-touch-icon-precomposed" sizes="72x72" href="../assets/ico/apple-touch-icon-72-precomposed.png">
+	<link rel="apple-touch-icon-precomposed" href="../assets/ico/apple-touch-icon-57-precomposed.png">
+	<link rel="shortcut icon" href="../assets/ico/favicon.png">-->
+	<meta name='robots' content='max-image-preview:large' />
+<link rel="alternate" type="application/rss+xml" title="Parlement de Wallonie &raquo; pwpages Flux des commentaires" href="https://www.parlement-wallonie.be/pwpages/feed" />
+<link rel="alternate" title="oEmbed (JSON)" type="application/json+oembed" href="https://www.parlement-wallonie.be/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fwww.parlement-wallonie.be%2Fpwpages" />
+<link rel="alternate" title="oEmbed (XML)" type="text/xml+oembed" href="https://www.parlement-wallonie.be/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fwww.parlement-wallonie.be%2Fpwpages&#038;format=xml" />
+<style id="wp-img-auto-sizes-contain-inline-css">
+img:is([sizes=auto i],[sizes^="auto," i]){contain-intrinsic-size:3000px 1500px}
+/*# sourceURL=wp-img-auto-sizes-contain-inline-css */
+</style>
+<style id="wp-emoji-styles-inline-css">
+
+	img.wp-smiley, img.emoji {
+		display: inline !important;
+		border: none !important;
+		box-shadow: none !important;
+		height: 1em !important;
+		width: 1em !important;
+		margin: 0 0.07em !important;
+		vertical-align: -0.1em !important;
+		background: none !important;
+		padding: 0 !important;
+	}
+/*# sourceURL=wp-emoji-styles-inline-css */
+</style>
+<style id="wp-block-library-inline-css">
+:root{--wp-block-synced-color:#7a00df;--wp-block-synced-color--rgb:122,0,223;--wp-bound-block-color:var(--wp-block-synced-color);--wp-editor-canvas-background:#ddd;--wp-admin-theme-color:#007cba;--wp-admin-theme-color--rgb:0,124,186;--wp-admin-theme-color-darker-10:#006ba1;--wp-admin-theme-color-darker-10--rgb:0,107,160.5;--wp-admin-theme-color-darker-20:#005a87;--wp-admin-theme-color-darker-20--rgb:0,90,135;--wp-admin-border-width-focus:2px}@media (min-resolution:192dpi){:root{--wp-admin-border-width-focus:1.5px}}.wp-element-button{cursor:pointer}:root .has-very-light-gray-background-color{background-color:#eee}:root .has-very-dark-gray-background-color{background-color:#313131}:root .has-very-light-gray-color{color:#eee}:root .has-very-dark-gray-color{color:#313131}:root .has-vivid-green-cyan-to-vivid-cyan-blue-gradient-background{background:linear-gradient(135deg,#00d084,#0693e3)}:root .has-purple-crush-gradient-background{background:linear-gradient(135deg,#34e2e4,#4721fb 50%,#ab1dfe)}:root .has-hazy-dawn-gradient-background{background:linear-gradient(135deg,#faaca8,#dad0ec)}:root .has-subdued-olive-gradient-background{background:linear-gradient(135deg,#fafae1,#67a671)}:root .has-atomic-cream-gradient-background{background:linear-gradient(135deg,#fdd79a,#004a59)}:root .has-nightshade-gradient-background{background:linear-gradient(135deg,#330968,#31cdcf)}:root .has-midnight-gradient-background{background:linear-gradient(135deg,#020381,#2874fc)}:root{--wp--preset--font-size--normal:16px;--wp--preset--font-size--huge:42px}.has-regular-font-size{font-size:1em}.has-larger-font-size{font-size:2.625em}.has-normal-font-size{font-size:var(--wp--preset--font-size--normal)}.has-huge-font-size{font-size:var(--wp--preset--font-size--huge)}:root .has-text-align-center{text-align:center}:root .has-text-align-left{text-align:left}:root .has-text-align-right{text-align:right}.has-fit-text{white-space:nowrap!important}#end-resizable-editor-section{display:none}.aligncenter{clear:both}.items-justified-left{justify-content:flex-start}.items-justified-center{justify-content:center}.items-justified-right{justify-content:flex-end}.items-justified-space-between{justify-content:space-between}.screen-reader-text{word-wrap:normal!important;border:0;clip-path:inset(50%);height:1px;margin:-1px;overflow:hidden;padding:0;position:absolute;width:1px;word-break:normal!important}.screen-reader-text:focus{background-color:#ddd;clip-path:none;color:#444;display:block;font-size:1em;height:auto;left:5px;line-height:normal;padding:15px 23px 14px;text-decoration:none;top:5px;width:auto;z-index:100000}html :where(.has-border-color){border-style:solid}html :where([style^=border-color],[style*=";border-color"],[style*="; border-color"]){border-style:solid}html :where([style^=border-top-color],[style*=";border-top-color"],[style*="; border-top-color"]){border-top-style:solid}html :where([style^=border-right-color],[style*=";border-right-color"],[style*="; border-right-color"]){border-right-style:solid}html :where([style^=border-bottom-color],[style*=";border-bottom-color"],[style*="; border-bottom-color"]){border-bottom-style:solid}html :where([style^=border-left-color],[style*=";border-left-color"],[style*="; border-left-color"]){border-left-style:solid}html :where([style^=border-width],[style*=";border-width"],[style*="; border-width"]){border-style:solid}html :where([style^=border-top-width],[style*=";border-top-width"],[style*="; border-top-width"]){border-top-style:solid}html :where([style^=border-right-width],[style*=";border-right-width"],[style*="; border-right-width"]){border-right-style:solid}html :where([style^=border-bottom-width],[style*=";border-bottom-width"],[style*="; border-bottom-width"]){border-bottom-style:solid}html :where([style^=border-left-width],[style*=";border-left-width"],[style*="; border-left-width"]){border-left-style:solid}html :where(img[class*=wp-image-]){height:auto;max-width:100%}:where(figure){margin:0 0 1em}html :where(.is-position-sticky){--wp-admin--admin-bar--position-offset:var(--wp-admin--admin-bar--height,0px)}@media screen and (max-width:600px){html :where(.is-position-sticky){--wp-admin--admin-bar--position-offset:0px}}
+
+/*# sourceURL=/wp-includes/css/dist/block-library/common.min.css */
+</style>
+<style id="classic-theme-styles-inline-css">
+/*! This file is auto-generated */
+.wp-block-button__link{color:#fff;background-color:#32373c;border-radius:9999px;box-shadow:none;text-decoration:none;padding:calc(.667em + 2px) calc(1.333em + 2px);font-size:1.125em}.wp-block-file__button{background:#32373c;color:#fff;text-decoration:none}
+/*# sourceURL=/wp-includes/css/classic-themes.min.css */
+</style>
+
+
+<link rel="https://api.w.org/" href="https://www.parlement-wallonie.be/wp-json/" /><link rel="alternate" title="JSON" type="application/json" href="https://www.parlement-wallonie.be/wp-json/wp/v2/pages/73" /><link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://www.parlement-wallonie.be/xmlrpc.php?rsd" />
+<link rel="canonical" href="https://www.parlement-wallonie.be/pwpages" />
+<link rel='shortlink' href='https://www.parlement-wallonie.be/?p=73' />
+<!--OpenGraph tags-->
+<meta property="og:title" content="Site internet du Parlement de Wallonie" />
+<meta property="og:type" content="website" />
+<meta property="og:image" content="http://www.parlement-wallonie.be/embleme-600x600.png"/>
+<meta property="og:url" content="http://www.parlement-wallonie.be" />
+<meta property="og:description" content="Site internet du Parlement de Wallonie" />
+<meta property="og:site_name" content="Parlement de Wallonie"/>
+            		<link rel="icon" href="https://www.parlement-wallonie.be/wp-content/uploads/2023/09/colloque150923_01-200x200.jpg" sizes="32x32" />
+<link rel="icon" href="https://www.parlement-wallonie.be/wp-content/uploads/2023/09/colloque150923_01-200x200.jpg" sizes="192x192" />
+<link rel="apple-touch-icon" href="https://www.parlement-wallonie.be/wp-content/uploads/2023/09/colloque150923_01-200x200.jpg" />
+<meta name="msapplication-TileImage" content="https://www.parlement-wallonie.be/wp-content/uploads/2023/09/colloque150923_01.jpg" />
+	<!-- JQuery -->
+	<!--<script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+	<script type="text/javascript" src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>-->
+  	<!-- <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+  	<script type="text/javascript" src="https://code.jquery.com/ui/1.11.1/jquery-ui.min.js"></script> -->
+  <script type="text/javascript" src="js/jquery-1-11-1.min.js"></script>
+  <script type="text/javascript" src="js/jquery-ui-1-11-1.min.js"></script>
+  </head>
+    <body>
+    <!-- modal pour code QR -->
+    <div class="modal fade" id="pw_qr" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          </div>
+          <div class="modal-body">
+          </div>
+          <div class="modal-footer">
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+      <nav class="navbar navbar-fixed-top navbar-default">
+        <div class="container">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar1" aria-expanded="false" aria-controls="navbar">
+              <span class="sr-only">Toggle navigation infos</span>
+              <span class="glyphicon glyphicon-info-sign"></span>
+              <!--<span class="icon-bar"></span>
+              <span class="icon-bar"></span>-->
+            </button>
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar2" aria-expanded="false" aria-controls="navbar2">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="glyphicon glyphicon-menu-hamburger"></span>
+              <!--<span class="icon-bar"></span>
+              <span class="icon-bar"></span>-->
+            </button>
+            <a class="navbar-brand" href="https://www.parlement-wallonie.be/" title="Vers page d'accueil du site"><img src="https://www.parlement-wallonie.be/media/img/interface/embleme.gif" width="218" alt="Emblème du Parlement de Wallonie"/></a>
+          </div>
+          <!-- NavBar Right-->
+          <div id="navbar1" class="collapse navbar-collapse">
+            <ul class="nav navbar-nav navbar-right">
+  			<li><a href="https://www.parlement-wallonie.be/contacts" title="Vers la page contacts"><span class="icon-users"></span> Contact</a></li>
+  			<li><a href="https://www.parlement-wallonie.be/acces" title="Vers la page accès"><span class="icon-location"></span>Accès</a></li>
+  			<li><a href="https://www.parlement-wallonie.be/liens" title="Vers la page liens"><span class="glyphicon glyphicon-link"></span> Liens</a></li>
+  			<li><a href="https://www.parlement-wallonie.be/qualite" title="Vers la page qualité"><span class="glyphicon glyphicon-check"></span> Politique qualité</a></li>
+  			<li><a href="https://www.parlement-wallonie.be/flux-rss" title="Vers la page flux RSS"><span class="icon-rss"></span>Flux RSS</a></li>
+        <li><a href="https://www.parlement-wallonie.be/opendata" title="Vers la page opendata"><span class="icon-folder-open"></span>Open data</a></li>
+  			<li><a href="https://www.parlement-wallonie.be/codes-qr" title="Vers la page codes QR"><span class="glyphicon glyphicon-qrcode"></span> Code QR</a></li>
+  			<!--<li><a href="#"><span class="glyphicon glyphicon-phone"></span> Site mobile</a></li>	-->
+  			<li><a href="https://twitter.com/ParlWallonie" target="_blank" title="Vers le compte Twitter du Parlement de Wallonie"><svg xmlns="http://www.w3.org/2000/svg" height="0.9em" viewBox="0 0 512 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><style>svg{fill:#777777}</style><path d="M389.2 48h70.6L305.6 224.2 487 464H345L233.7 318.6 106.5 464H35.8L200.7 275.5 26.8 48H172.4L272.9 180.9 389.2 48zM364.4 421.8h39.1L151.1 88h-42L364.4 421.8z"/></svg></a></li>
+  			<li><a href="https://www.facebook.com/parlwal" target="_blank" title="Vers la page Facebook du Parlement de Wallonie"><span class="icon-facebook" aria-hidden="true"><!--<span class="invisible">Icône Facebook</span>--></span></a></li>
+        <li><a href="https://www.youtube.com/channel/UCUuYqgfbrMsn2Qx4TLXb_9A" target="_blank" title="Vers la chaïne Youtube du Parlement de Wallonie"><span class="icon-youtube-play" aria-hidden="true"><!--<span class="invisible">Icône Youtube</span>--></span></a></li>
+   			<li><a href="https://www.linkedin.com/company/parlwal/" target="_blank" title="Vers le compte Linkedin du Parlement de Wallonie"><svg xmlns="http://www.w3.org/2000/svg" height="0.9em" viewBox="0 0 448 512"><!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"/></svg></a></li>
+
+</ul>
+          </div><!-- /.nav-collapse -->
+          <!-- End NavBar Right-->
+          <!-- je m'énerve-->
+          <!-- NavBar Main-->
+           <div id="navbar2" class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+              <li id="menu-titre-compo" class="dropdown">
+              	<a href="#" class="dropdown-toggle" data-toggle="dropdown">Composition <span class="caret"></span></a>
+    					<ul class="dropdown-menu">
+    						<li><a href="https://www.parlement-wallonie.be/vos-elus"><h4 class="text-danger">Les députés</h4></a></li>
+    						<li>
+    							<form id="home_dep_search_form" name="home_dep_search_form" method="get" action="pwpages" role="form">
+    								<div class="col-lg-12 dep-search-home">
+    									<div class="input-group input-group-sm">
+    											<input class="form-control" name="home_dep_search" id="home_dep_search"  placeholder="Rechercher un député">
+    											<input type="hidden" name="p" value="composition_dep">
+    											<span class="input-group-btn">
+    											<button class="btn btn-default" type="button" onClick="home_dep_search_form.submit();"><span class="glyphicon glyphicon-search"></span></button>
+    											</span>
+    									 </div>
+    								</div>
+    							</form>
+    						</li>
+    						<li role="presentation" class="divider"></li>
+    						<li><a href="https://www.parlement-wallonie.be/le-president">Le Président</a></li>
+    						<li><a href="https://www.parlement-wallonie.be/pwpages?p=composition_burconf&tri=bur">Le Bureau</a></li>
+                <li><a href="https://www.parlement-wallonie.be/pwpages?p=composition_burconf&tri=bur-elarg">Le Bureau élargi</a></li>
+    						<!--<li><a href="future-composition-du-parlement-de-wallonie">La Conférence des présidents</a></li> -->
+                <li><a href="https://www.parlement-wallonie.be/pwpages?p=composition_burconf&tri=conf">La Conférence des présidents</a></li>
+    						<li><a href="https://www.parlement-wallonie.be/pwpages?p=composition_com">Les commissions et comités</a></li>
+    						<li><a href="https://www.parlement-wallonie.be/groupes">Les groupes politiques</a></li>
+    						<li><a href="https://www.parlement-wallonie.be/pwpages?p=composition_mandat_choix">Les anciens membres</a></li>
+    					</ul>
+              </li>
+              <li id="menu-titre-travaux" class="dropdown">
+              	<a href="#" class="dropdown-toggle" data-toggle="dropdown">Travaux parlementaires <span class="caret"></span></a>
+      					<ul class="dropdown-menu">
+      						<li><a href="https://www.parlement-wallonie.be/vos-elus"><h4 class="text-danger">Par député</h4></a></li>
+      						<li role="presentation" class="divider"></li>
+                  <li><a href="https://www.parlement-wallonie.be/pwpages?p=activite">Activité parlementaire (statistiques)</a></li>
+                  <li role="presentation" class="divider"></li>
+      						<li role="presentation" class="dropdown-header">Séances plénières et commissions :</li>
+      						<li class="sous_menu"><a href="https://www.parlement-wallonie.be/pwpages?p=pub-form">Texte, audio et vidéo <i class="icon-help icon-link pop-travparl-01" rel="popover" data-original-title title></i></a></li>
+      						<li role="presentation" class="divider"></li>
+      						<li role="presentation" class="dropdown-header">Législatif :</li>
+      						<li class="sous_menu"><a href="https://www.parlement-wallonie.be/pwpages?p=decrets-budgets-form">Décrets et budgets <i class="icon-help icon-link pop-travparl-02" rel="popover" data-original-title title></i></a></li>
+      						<li role="presentation" class="divider"></li>
+      						<li role="presentation" class="dropdown-header">Contrôle du Gouvernement :</li>
+      						<li class="sous_menu"><a href="https://www.parlement-wallonie.be/pwpages?p=interp-questions-form">Interpellations et questions <i class="icon-help icon-link pop-travparl-03" rel="popover" data-original-title title></i></a></li>
+      						<li class="sous_menu"><a href="https://www.parlement-wallonie.be/controle-divers">Divers <i class="icon-help icon-link pop-travparl-04" rel="popover" data-original-title title></i></a></li>
+      						<li role="presentation" class="divider"></li>
+      						<li><a href="https://www.parlement-wallonie.be/pwpages?p=doc-divers-form">Résolutions, avis et accords <i class="icon-help icon-link pop-travparl-05" rel="popover" data-original-title title></i></a></li>
+      						<li><a href="https://www.parlement-wallonie.be/reglement">Règlement <i class="icon-help icon-link pop-travparl-regl" rel="popover" data-original-title title></i></a></li>
+      						<li role="presentation" class="divider"></li>
+      						<li role="presentation" class="dropdown-header">Publications :</li>
+      						<ul class="list-inline">
+      						<li><a href="https://www.parlement-wallonie.be/pwpages?p=pub-new">Récentes</a> | <a href="https://www.parlement-wallonie.be/actu/rss_doc_generator.php?aff=rss">RSS<i class="icon-rss"></i></a> | <a href="https://www.parlement-wallonie.be/pwpages?p=pub-all-form">Toutes</a></li>
+      						</ul>
+      					</ul>
+              </li>
+              <li id="menu-titre-agenda" class="dropdown">
+              	<a href="#" class="dropdown-toggle" data-toggle="dropdown">Agenda <span class="caret"></span></a>
+      					<ul class="dropdown-menu">
+      					  <li><a href="https://www.parlement-wallonie.be/pwpages?p=ag-pub&cal=sem">Cette semaine</a></li>
+      						<li><a href="https://www.parlement-wallonie.be/pwpages?p=ag-pub&cal=mois">Ce mois</a></li>
+      						<li role="presentation" class="divider"></li>
+      						<li><a href="https://www.parlement-wallonie.be/pwpages?p=ag-form">Recherche</a></li>
+      						<li role="presentation" class="divider"></li>
+      						<li><a href="https://www.parlement-wallonie.be/actu/rss_cal_generator.php?aff=rss">RSS<i class="icon-rss"></i></a></li>
+      					</ul>
+              </li>
+              <li id="menu-titre-parlement" class="dropdown">
+              	<a href="#" class="dropdown-toggle" data-toggle="dropdown">Votre parlement <span class="caret"></span></a>
+      					<ul class="dropdown-menu">
+      						<li role="presentation" class="dropdown-header">Découverte</li>
+                  <li class="espace_gauche"><a href="https://www.parlement-wallonie.be/en-video">En vidéo <span class="glyphicon glyphicon-play-circle"></span></a></li>
+                  <li class="espace_gauche"><a href="https://www.parlement-wallonie.be/pwpages?p=visite">Visite</a></li>
+                  <li class="espace_gauche"><a href="https://www.parlement-wallonie.be/batiment">Bâtiments</a></li>
+                  <li class="espace_gauche"><a href="https://www.parlement-wallonie.be/le-parlement-de-wallonie">Le Parlement de Wallonie</a></li>
+                  <li class="espace_gauche"><a href="https://www.parlement-wallonie.be/region-wallonne">La Région wallonne</a></li>
+                  <li role="presentation" class="dropdown-header">Organisation</li>
+                  <li class="espace_gauche"><a href="https://www.parlement-wallonie.be/acces">Accès</a></li>
+                  <li class="espace_gauche"><a href="https://www.parlement-wallonie.be/acces#manifestation">Manifestation</a></li>
+                  <li class="espace_gauche"><a href="https://www.parlement-wallonie.be/subvention-octroyee-par-le-parlement-de-wallonie">Subvention</a></li>
+                  <li class="espace_gauche"><a href="https://www.parlement-wallonie.be/occupation-de-locaux">Occupation de locaux</a></li>
+                  <li class="espace_gauche"><a href="https://www.parlement-wallonie.be/registre-des-representants-dinteret">Registre des représentants d’intérêt</a></li>
+                  <li role="presentation" class="dropdown-header">Publications</li>
+                  <li class="espace_gauche"><a href="https://www.parlement-wallonie.be/publications#rap1">Rapports d'activités</a></li>
+                  <li class="espace_gauche"><a href="https://www.parlement-wallonie.be/communiques-bur">Communiqués du Bureau</a></li>
+                  <li class="espace_gauche"><a href="https://www.parlement-wallonie.be/publications#brochures">Brochures</a></li>
+                  <li class="espace_gauche"><a href="https://www.parlement-wallonie.be/publications#jeunes">Journal des enfants</a></li>
+                  <li class="espace_gauche"><a href="https://talents.parlement-wallonie.be" target="_blank">Talents wallons</a></li>
+                  <li class="espace_gauche"><a href="https://www.parlement-wallonie.be/territoires-memoire">Territoires de la Mémoire</a></li>
+                  <li class="espace_gauche"><a href="https://www.parlement-wallonie.be/pwpages?p=lexique">Lexique</a></li>
+      					</ul>
+              </li>
+              <li id="menu-titre-inter" class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">International <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                  <li><a href="https://www.parlement-wallonie.be/cpi">Le C.P.I.</a></li>
+                  <li><a href="https://www.parlement-wallonie.be/calre">La CALRE</a></li>
+                  <li><a href="https://www.parlement-wallonie.be/ass-parlementaire-benelux">L'Assemblée Interparlementaire Benelux</a></li>
+                  <li><a href="https://www.parlement-wallonie.be/ue-role">Le Parlement de Wallonie<br />et l'Union européenne</a></li>
+                  <li><a href="https://www.parlement-wallonie.be/communiques-missions">Les communiqués des missions</a></li>
+                </ul>
+              </li>
+              <li id="menu-titre-avis" class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Votre avis <span class="caret"></span></a>
+                <ul class="dropdown-menu dropdown-menu-right">
+                  <li><a href="https://www.parlement-wallonie.be/vous-faire-entendre">Vous faire entendre</a></li>
+                  <li><a href="https://www.parlement-wallonie.be/consultations-publiques">Consultations publiques</a></li>
+                  <li><a href="https://www.parlement-wallonie.be/petition">Pétitions</a></li>
+                  <li><a href="https://www.parlement-wallonie.be/com-delib">Commissions délibératives</a></li>
+                  <li><a href="https://www.parlement-wallonie.be/la-consultation-populaire">Consultation populaire</a></li>
+                  <li role="presentation" class="divider"></li>
+                  <li><a href="https://www.parlement-wallonie.be/panel-citoyen-jeunes">Panel citoyen</a></li>
+                </ul>
+              </li>
+              <!-- Jira INFO-11274
+              <li id="menu-titre-inter" class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Elections<span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                  <li><a href="elections-regionales-du-9-juin-2024">Élections régionales</a></li>
+                  <li><a href="elections-locales-du-13-octobre-2024">Élections locales</a></li>
+                </ul>
+              </li>
+              -->
+            </ul>
+          </div><!-- /.nav-collapse -->
+          <!-- End NavBar Main-->
+        </div><!-- /.container -->
+      </nav><!-- /.navbar -->
+
+      <div class="container">
+  
+  		<div class="row">
+  			<div id="banner" class="col-xs-12">
+  			<img src="https://www.parlement-wallonie.be/media/img/interface/banner-home-04.jpg" alt="Image de la salle des séances plénières du Parlement de Wallonie">
+  			</div><!--end banner-->
+  		</div><!--/row-->
+  
+<script>
+$(document).ready(function() {
+	$("#titre_page").html("pwpages");/*AFFICHAGE DU TITRE DE LA PAGE SI HOME OU PAGE WORDPRESS*/
+});
+</script>
+<!--MID NAVBAR START-->	
+		<div class="row zone-breadcrumb" style="margin-bottom: 5px;">
+			<div class="col-xs-12 col-sm-8 col-md-8 col-lg-9 page-titre">
+				<a href="https://www.parlement-wallonie.be/" title="Vers page d'accueil du site"><span class="glyphicon glyphicon-home" aria-hidden="true"><!--<span class="invisible">Icône Home</span>--></span></a> / <span id="titre_page"></span>
+				<!--<a href="#"><span class="glyphicon glyphicon-home"></span></a> / Le Parlement wallon-->
+			</div>
+			<div class="col-xs-12 col-sm-4 col-md-4 col-lg-3">
+				<form role="search" method="get" id="searchform" action="https://www.parlement-wallonie.be/">
+					<div class="input-group input-group-sm">
+					<label for="s" class="invisible">Rechercher dans les pages</label>
+					<input type="text" class="form-control" placeholder="Rechercher dans les pages" name="s" id="s">
+					<input type="hidden" name="post_type" value="all" />
+					<span class="input-group-btn">
+					<button type="submit" class="btn btn-default" type="button" id="searchsubmit" role="button" value="Recherche"><span class="glyphicon glyphicon-search"><!--<span class="invisible">Icône Recherche</span>--></span></button>
+					</span>
+					</div>
+				</form>
+			</div>
+		</div><!--/row-->
+<!--MID NAVBAR END-->
+      <div class="row page" id="page">
+      	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">	
+<script language="JavaScript" type="text/javascript">
+function ImgError(source){//teste si la photo du mandataire existe via l'erreur générée
+	source.src = "https://nautilus.parlement-wallon.be/Archives/Photos/deputes/officiel/dummy.jpg";
+	source.onerror = "";
+	return true;
+}
+</script>
+	<div class="col-xs-5 col-sm-3 col-md-3 col-lg-3 padding-l-zero espace-bottom-sm bckg-pw-light-blue"><!--FICHE PARL-->
+		<img src="https://nautilus.parlement-wallon.be/Archives/Photos/deputes/officiel/2690.jpg" alt="" name="Photo" width="233" height="270" onerror="ImgError(this)">
+	</div>
+	<div class="col-xs-7">
+		<h3 class="visible-xs">BAURAIN <span class="text-pw-blue">Pascal</span></h3>
+	</div>
+	<div class="col-xs-12 col-sm-9 col-md-9 col-lg-9" style="height: auto;">
+	 <h3 class="hidden-xs">BAURAIN <span class="text-pw-blue">Pascal</span></h3>
+	 <blockquote>
+	 	<ul class="list-unstyled">
+	 		<li>Mandataire <span class="engages"><strong>Les Engagés</strong></span></li>
+	 		<li>Province  de <strong>Hainaut</strong>, circonscription de <strong>Mons</strong></li>
+	 			 	</ul>
+	 </blockquote>
+	</div><!--END FICHE ANCIEN MANDATAIRE-->
+	<script type="text/javascript">
+//AJAX LEGISLATURE
+$(document).ready(function() {
+	var content = $('#content_stuff');
+	$("#link-leg").on('click', '.getdata_leg', function(){
+		$.ajax({
+			type: "GET",
+			url: $(this).attr("href"),
+			timeout: 10000,
+			beforeSend: function(data){
+			content.html('<p>Chargement...</p>').effect('highlight',{color:'#BDF690'},1000);
+			},
+			success: function(data) {
+    		content.empty().html(data);
+  			},
+        	error: function(req,error){
+          	if(error === 'error'){error = req.statusText;}
+          	var errormsg = 'Erreur: '+error;
+          	content.html(errormsg).effect('highlight',{color:'#FF0000'},1000);
+        	}
+		});//FIN AJAX
+		return false;
+		alert('tess');
+		});
+});
+</script>
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" id="link-leg">
+				<h4>Travail parlementaire</h4>
+				<h5>Législatures :</h5>
+				<h5><a href="ajax?p=composition_dep_det_ch_legis&idleg=&nomleg=t&id_pers=2690" class="getdata_leg">Toutes</a> <a href="ajax?p=composition_dep_det_ch_legis&idleg=12&nomleg=2024-2029&id_pers=2690" class="getdata_leg">2024-2029</a> <a href="ajax?p=composition_dep_det_ch_legis&idleg=10&nomleg=2014-2019&id_pers=2690" class="getdata_leg">2014-2019</a> </h5><div id="content_stuff"></div>
+</div>
+<div style="text-align: left;" class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+	<h4>Historique Parlement wallon</h4>
+	<ul><li>Membre effectif de la Commission chargée de questions européennes  : du <span class="text-pw-date">10/04/2025</span> au <span class="text-pw-date">03/09/2025</span></li><li>Vice-Président de la Commission de l'Aménagement du territoire, de la Mobilité et des Pouvoirs locaux  : du <span class="text-pw-date">17/09/2024</span> au <span class="text-pw-date">03/09/2025</span></li><li>Membre suppléant de la Commission de l'énergie, du climat et du logement  : du <span class="text-pw-date">17/09/2024</span> au <span class="text-pw-date">03/09/2025</span></li><li>Membre effectif de la Commission des poursuites  : du <span class="text-pw-date">15/07/2024</span> au <span class="text-pw-date">03/09/2025</span></li><li>Membre effectif de la Commission de l'environnement  : du <span class="text-pw-date">27/06/2024</span> au <span class="text-pw-date">15/07/2024</span></li><li>Député wallon  : du <span class="text-pw-date">25/06/2024</span> au <span class="text-pw-date">03/09/2025</span></li><li>Président de la Commission spéciale chargée d'examiner la transparence et le fonctionnement du groupe Publifin  : du <span class="text-pw-date">02/02/2017</span> au <span class="text-pw-date">15/02/2017</span></li><li>Député wallon  : du <span class="text-pw-date">25/05/2016</span> au <span class="text-pw-date">30/11/2018</span></li></ul>
+</div><div style="text-align: left;" class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+		  <h4>Mandats autres assemblées législatives</h4>
+		  <ul><li><strong>Communauté française</strong><br />Député  : du <span class="text-pw-date">02/07/2024</span> au <span class="text-pw-date">03/09/2025</span></li><li><strong>Communauté française</strong><br />Député  : du <span class="text-pw-date">01/06/2016</span> au <span class="text-pw-date">30/11/2018</span></li></ul>
+		 </div><div style="text-align: left;" class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+		<h4>Autres mandats</h4>
+		<ul><li>Conseiller communal de Saint-Ghislain : <span class="text-pw-date">2012 - 2025</span></li><li>Conseiller au CPAS de Saint-Ghislain : <span class="text-pw-date">2007 - 2012</span></li></ul>
+	</div><!--oraok-->
+   
+		   		   <script>
+				$(document).ready(function() {
+					$("#titre_page").html("Composition - Les anciens  membres - Fiche");
+					/*AFFICHAGE DU TITRE DE LA PAGE VAR $titre_pwpage DANS CHAQUE PAGE*/
+				});
+			</script>
+		</div>
+	</div><!--/.row-->
+	<div class="row espace_top">
+		<!--start footer if we are not on the homepage-->
+		
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espace_in_top" id="footer"><p>© Copyright <a href="mailto:developpeur@parlement-wallonie.be" title="Lien vers l'adresse courriel du développeur">Parlement de Wallonie 2026</a> - BCE : 0931.814.167 <a href="https://www.parlement-wallonie.be/mentions-legales" title="Lien vers les mentions légales">Mentions légales</a> | <a href="https://www.parlement-wallonie.be/plugs" title="Lien vers les modules d'extensions logicielles">Modules d'extensions logicielles</a> | <a href="https://outlook.office.com" target="_blank" title="Lien vers le webmail">Courriel interne</a></p>
+</div>
+<!--end footer-->
+		<!--end footer-->
+			<a href="#" class="back-to-top" title="Vers le haut de la page"><span class="glyphicon glyphicon-circle-arrow-up"><span class="invisible">Icône flèche vers le haut</span></span></a>
+	</div>
+</div><!--/.container-->
+	<!--CONTAINER END-->
+
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster  -->
+    <script type="text/javascript"  src="https://www.parlement-wallonie.be/js/bootstrap.min.js"></script>
+	<!--<script type="text/javascript" src="http://code.jquery.com/ui/1.8.1/jquery-ui.min.js"></script>-->
+	<script type="text/javascript" src="https://www.parlement-wallonie.be/js/jquery_qrcode.js"></script>
+	<script type="text/javascript" src="https://www.parlement-wallonie.be/js/jquery.colorbox-min.js"></script>
+<script>
+$(document).ready(function()
+{
+//AGENDA
+function agenda() {
+	//var ajax_load = '<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 zone-agenda-home-loader">Chargement de l\'agenda ...</div>';
+	var content = $('#ag-home');
+	$.ajaxSetup({ cache: false });
+		$.ajax({
+			type: "GET",
+			url: 'https://www.parlement-wallonie.be//content/agenda-home.php',
+			timeout: 30000,//délai pour connexion à l'agenda
+			/*beforeSend: function(data){
+				content.html(ajax_load);
+			},*/
+			success: function(data) {
+				content.empty().html(data);
+  			},
+        	error: function(req,error){
+				if(error === 'error'){error = req.statusText;}
+				var errormsg = 'Erreur: '+error;
+				content.show();
+				//content.html(errormsg).effect('highlight',{color:'#FF0000'},1000);
+			}
+		});//fin ajax
+	}//fin fonction agenda
+	agenda();//exécution agenda
+//CODES QR
+$("body").on('click', '.qr_link', function(){
+		$("#pw_qr .modal-body").append('<div id="qr_container"></div>');
+		var render_mode = "canvas";var dialog_width = 255;
+		if (/MSIE (\d+\.\d+);/.test(navigator.userAgent)){ //test for MSIE x.x;
+			dialog_width = 240;
+ 			var ieversion=new Number(RegExp.$1) // capture x.x portion and store as a number
+ 			if (ieversion<=8)
+  			render_mode = "table";
+			}
+		var url_pw = $(this).prev('a').prop('href');//prop = url absolue
+		//url_pw = url_pw.replace("../","http://www.parlement-wallon.be/");
+		//url_pw = url_pw.replace("default.php?p=pod","http://www.parlement-wallon.be/content/default.php?p=pod");
+		url_pw = url_pw.replace(" ","%20");
+		$('#pw_qr').modal();//création de la dialog box
+		jQuery('#pw_qr .modal-body #qr_container').qrcode({
+			render: render_mode,
+			width: 200,height: 200,
+			text : url_pw
+		});
+		$("#pw_qr .modal-footer").append('<a href="codes-qr" target="_blank" title="aide"><i class="icon-help icon-link text-pw-blue"></i></a>');
+	});//FIN CLICK
+		$('#pw_qr').on('hidden.bs.modal', function (e) {
+			$('.modal-body').empty();$('.modal-footer').empty();//on efface le précédent QR code
+		})
+	//LIGHTBOX
+	//$('#header').();//header on/off
+	$("a[rel='lightbox']").click(function(){
+		$("a[rel='lightbox']").colorbox({rel:'nofollow', title:'Copyright Parlement wallon'});
+		//return false;
+		});
+	/*//top of page//*/
+				var offset = 220;
+				var duration = 500;
+				$(window).scroll(function() {
+					if ($(this).scrollTop() > offset) {
+						$('.back-to-top').fadeIn(duration);
+					} else {
+						$('.back-to-top').fadeOut(duration);
+					}
+				});
+				$('.back-to-top').click(function(event) {
+					event.preventDefault();
+					$('html, body').animate({scrollTop: 0}, duration);
+					return false;
+				})
+	/*//fin top of page//*/
+});
+$(document).ready(function () {
+	$(function() {
+		var listeparl = [
+			"AIT ALOUHA Rachida","AMMI Jamila","BASTIN Christophe","BASTIN Jean-Paul","BAURAIN Pascal","BERNARD Alice","BLONDEL Vincent","BLUGE Valérie","BORSUS Willy","CASSART-MAILLEUX Caroline","CHINTINNE Grégory","CLOQUET Jean-Jacques","COLLIGNON Christophe","CRAMPONT Vincent","CREMASCO Veronica","DAYE Maxime","DE BUE Valérie","DE RODDER Dorothée","de WASSEIGE Olivier","DEJARDIN Valérie","DESALLE Caroline","DEVIN Laurent","DEWEZ Arnaud","DI ANTONIO Carlo","DISPA Benoît","DODRIMONT Philippe","DUPONT Jori","DURENNE Véronique","EVRARD Yves","FAFCHAMPS Sophie","FIEVET Hervé","FONTAINE Eddy","GARDIER Charles","GOFFINET Anne-Catherine","GRECO Isabella","GYSEN Armelle","HANUS Mélissa","HAZEE Stéphane","HUBERTY François","JACOB Loïc","JACQMIN Marie","JANSSEN Nicolas","LAFFUT Anne","LAMBELIN Anne","LAZARON Geneviève","LEFEBVRE Bruno","LEPINE Jean-Pierre","LINARD Bénédicte","LIRADELFO Julien","MAILLEN Vincent","MAROY Olivier","MASSAKI MBAKI Chris","MAUEL Christine","MOCKEL Freddy","MORREALE Christie","MUGEMANGANGO Germain","MURATORE Sylvie","NIKOLIC Diana","OZEN Özlem","PALERMO Vincent","PAVET Amandine","PECRIAUX Sophie","RESINELLI Loris","ROBERTY Sabine","SOUPART Guillaume","SPIES Patrick","TAQUIN Caroline","TELLIER Céline","THORON Stéphanie","TILLIEUX Eliane","TZANETATOS Nicolas","VAN WALLE Patricia","VANDORPE Mathilde","WAHL Jean-Paul","WARZEE-CAVERENNE Valérie","WITSEL Thierry"	
+		];
+			$("#home_dep_search_choix").bind( "keydown", function( event ) {
+				$(this).autocomplete({
+					source: listeparl,
+					select: function(event, ui) {
+						//assign value back to the form element
+						if(ui.item){
+								$(event.target).val(ui.item.value);
+						}
+						//submit the form
+						$(event.target.form).submit();
+					}
+				});
+			});//end bind
+			$("#home_dep_search").bind( "keydown", function( event ) {
+				$(this).autocomplete({
+					source: listeparl,
+					select: function(event, ui) {
+						//assign value back to the form element
+						if(ui.item){
+								$(event.target).val(ui.item.value);
+						}
+						//submit the form
+						$(event.target.form).submit();
+					}
+				});
+			});//end bind
+	});
+});
+</script>
+    <script>
+$(document).ready(function () {
+	$(function (){
+		   $(".pop-travparl-01").popover({ container: 'body', trigger: "hover", placement: "right", html: 1, content:'<ul class="list-unstyled"><li>Ordres du jour</li><li>Bulletins des travaux</li><li>Comptes rendus</li><li>Enregistrements audio et vidéo</li></ul>'});
+		   $(".pop-travparl-02").popover({ container: 'body', trigger: "hover", placement: "right", html: 1, content:'<ul class="list-unstyled"><li>Propositions de décret</li><li>Projets de décret</li><li>Projets de budget</li><li>Textes adoptés</li></ul>' });
+		   $(".pop-travparl-03").popover({ container: 'body', trigger: "hover", placement: "right", html: 1, content:'<ul class="list-unstyled"><li>Interpellations</li><li>Questions orales</li><li>Questions d\'actualité</li><li>Questions écrites</li></ul>' });
+		   $(".pop-travparl-04").popover({ container: 'body', trigger: "hover", placement: "right", html: 1, content:'<ul class="list-unstyled"><li>Motions</li><li>Rapports qui doivent être déposés au Parlement wallon</li><li>Rapports parlementaires</li><li>Rapports du M&eacutediateur</li><li>Cahiers d\'observations de la Cour des comptes</li><li>Déclarations de politique régionale du Gouvernement wallon, notes de politique, Contrats d\'avenir et discours sur l\'état de la Wallonie</li><li>Pétitions</li></ul>' });
+		   $(".pop-travparl-05").popover({ container: 'body', trigger: "hover", placement: "right", html: 1, content:'<ul class="list-unstyled"><li>R&eacutesolutions</li><li>Avis</li><li>Accords</li></ul>' });
+		   $(".pop-travparl-06").popover({ container: 'body', trigger: "hover", placement: "right", html: 1, content:'<ul class="list-unstyled"><li>Motions</li><li>Rapports qui doivent être déposés au Parlement wallon</li><li>Rapports parlementaires</li><li>Rapports du Médiateur</li><li>Cahiers d\'observations de la Cour des comptes</li><li>Déclarations de politique régionale du Gouvernement wallon, notes de politique, Contrats d\'avenir et discours sur l\'état de la Wallonie</li><li>Pétition</li></ul>' });
+		   $(".pop-travparl-07").popover({ container: 'body', trigger: "hover", placement: "right", html: 1, content:'<ul class="list-unstyled"><li>Ordre du jour de séance pléniére (ODJS)</li><li>Questions d\'actualité (QA)</li><li>Ordre du jour de commission ou de comité (ODJC)</li><li>Compte rendu analytique/avancé - Séance pléniére (CRA)</li><li>Compte rendu analytique/avancé - Commission ou comité (CRAC)</li><li>Compte rendu intégral - Séance pléniére (CRI)</li><li>Compte rendu intégral - Commission ou comité (CRIC)</li><li>Bulletin des travaux (BT)</li><li>Document budgétaire (BUDGET)</li><li>Cahier d\'observations de la Cour des comptes (COCC)</li><li>Proposition et projet de décret (DECRET)</li><li>Document divers (DOC)</li><li>Déclaration de politique régionale (DPR)</li><li>Motion (MOTION)</li><li>Texte du décret adopté et transmis au Gouvernement (PARCHEMIN)</li><li>Rapport de commission (RAPPORT)</li><li>Dispositions décrétales et réglementaires régionales wallonnes (REPERTOIRE)</li><li>Proposition de résolution (RES)</li><li>Pétitions (PETITION)</li></ul>' });
+			$(".popmenu").popover({ container: 'body', trigger: "hover", placement: "right", html: 1, content:'<ul class="list-unstyled"><li>Ordres du jour</li><li>Bulletins des travaux</li><li>Comptes rendus</li><li>Enregistrements audio et vidéo</li></ul>' });
+			$(".pop-travparl-08").popover({ container: 'body', trigger: "hover", placement: "right", html: 1, content:'<ul class="list-unstyled"><li>Propositions de décret</li><li>Projets de décret</li><li>Projets de budget</li><li>Textes adoptés</li><li>Projets de résolution</li><li>Avis</li><li>Accords</li><li>Projets de motion</li><li>Cahiers d\'observations de la Cour des comptes</li><li>Composition</li><li>Historique du Règlement</li><li>Rapports du Médiateur</li><li>Déclarations de politique régionale</li><li>Contrats d\'avenir</li><li>Notes de politique régionale</li><li>Discours sur l\'état de la Wallonie</li><li>Interpellations</li><li>Questions orales</li><li>Questions d\'actualité</li><li>Questions écrites</li></ul>' });
+			$(".pop-travparl-regl").popover({ container: 'body', trigger: "hover", placement: "right", html: 1, content:'<ul class="list-unstyled"><li>Règlement du Parlement wallon</li><li>Jurisprudence du Bureau et de la Conférence des présidents et Règles interprétatives du Règlement</li><li>Historique du Règlement</li><li>Règlement du Parlement wallon relatif aux indemnités et avantages dus aux titulaires de fonctions spéciales</li><li>Règlement spécifique au Médiateur</li><li>Règlement du Bureau régissant l\'utilisation de l\'emblème du Parlement wallon</li><li>Règlement du Bureau relatif aux médias</li></ul>' });
+		   $(".pop-rss-ag").popover({ container: 'body', trigger: "hover", placement: "right", html: 1, content:'Flux RSS de l\'agenda'});
+	});
+});
+    </script>
+<script>
+	/*Google Analytics*/
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-3047007-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+  </body>
+</html>

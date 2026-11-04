@@ -10,6 +10,7 @@ import java.net.http.HttpResponse;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.Duration;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -49,7 +50,10 @@ public class BePepFlemishParliamentParser implements Iparser {
 
     static final String DEFAULT_LIST_URL = "https://ws.vlpar.be/e/opendata/vv/huidige";
     static final String DEFAULT_DETAIL_URL = "https://ws.vlpar.be/e/opendata/vv/{id}";
+    static final String DEFAULT_FORMER_URL = "https://ws.vlpar.be/e/opendata/vv/gewezen";
+    static final int DEFAULT_RETENTION_MONTHS = 12;
     static final String LIST_FILE = "vlaams-parlement-leden.json";
+    static final String FORMER_LIST_FILE = "vlaams-parlement-gewezen.json";
     static final String DETAIL_PREFIX = "vlaams-parlement-lid-";
     static final String POSITION = "Membre du Parlement flamand";
     static final String PHOTO_LICENCE = "© Vlaams Parlement";
@@ -66,11 +70,18 @@ public class BePepFlemishParliamentParser implements Iparser {
         byte[] get(String url) throws IOException, InterruptedException;
     }
 
-    record Report(int members, int withBirthDate, List<String> withoutDetail) {
+    record Report(int members, int withBirthDate, List<String> withoutDetail, int former) {
+
+        Report(int members, int withBirthDate, List<String> withoutDetail) {
+            this(members, withBirthDate, withoutDetail, 0);
+        }
 
         String message() {
             String m = String.format("%d membres du Parlement flamand, dont %d avec leur date de naissance.", members,
                     withBirthDate);
+            if (former > 0) {
+                m += String.format(" %d anciens membres dont le mandat a pris fin pendant la durée de rétention.", former);
+            }
             return withoutDetail.isEmpty() ? m
                     : m + String.format(" %d fiches absentes : %s.", withoutDetail.size(), String.join(", ", withoutDetail));
         }
@@ -79,10 +90,11 @@ public class BePepFlemishParliamentParser implements Iparser {
     @Override
     public ParserResult parse(ParserContext ctx) throws Exception {
         Map<String, String> p = ctx.parameters() == null ? Map.of() : ctx.parameters();
-        download(httpFetcher(), param(p, "listUrl", DEFAULT_LIST_URL), param(p, "detailUrl", DEFAULT_DETAIL_URL),
-                Long.parseLong(param(p, "delayMs", "200")), ctx.rawDir());
+        int retention = Integer.parseInt(param(p, "retentionMonths", String.valueOf(DEFAULT_RETENTION_MONTHS)));
+        download(httpFetcher(), param(p, "listUrl", DEFAULT_LIST_URL), param(p, "formerUrl", DEFAULT_FORMER_URL),
+                param(p, "detailUrl", DEFAULT_DETAIL_URL), Long.parseLong(param(p, "delayMs", "200")), ctx.rawDir());
         FtmDatasetBuilder dataset = new FtmDatasetBuilder(ID_PREFIX, TOPIC);
-        Report report = convert(ctx.rawDir(), dataset);
+        Report report = convert(ctx.rawDir(), dataset, LocalDate.now(), retention);
         dataset.writeNdjsonFile(ctx.outputFile());
         return dataset.toConversionResult().withMessage(report.message());
     }
@@ -105,10 +117,26 @@ public class BePepFlemishParliamentParser implements Iparser {
     /** Dépose la liste puis la fiche de chaque membre dans {@code rawDir}. */
     static void download(Fetcher fetcher, String listUrl, String detailUrl, long delayMs, Path rawDir)
             throws IOException, InterruptedException {
+        download(fetcher, listUrl, null, detailUrl, delayMs, rawDir);
+    }
+
+    /**
+     * Dépose la liste des membres en fonction, puis, si {@code formerUrl} est renseigné, celle des anciens membres
+     * ({@code vv/gewezen}), puis la fiche de chacun. Les anciens sont lus pour garder ceux dont le mandat a pris
+     * fin pendant la durée de rétention.
+     */
+    static void download(Fetcher fetcher, String listUrl, String formerUrl, String detailUrl, long delayMs, Path rawDir)
+            throws IOException, InterruptedException {
         Files.createDirectories(rawDir);
         byte[] list = fetcher.get(listUrl);
         Files.write(rawDir.resolve(LIST_FILE), list);
-        for (JsonNode member : members(JSON.readTree(list))) {
+        List<JsonNode> all = new ArrayList<>(members(JSON.readTree(list)));
+        if (formerUrl != null && !formerUrl.isBlank()) {
+            byte[] former = fetcher.get(formerUrl);
+            Files.write(rawDir.resolve(FORMER_LIST_FILE), former);
+            all.addAll(members(JSON.readTree(former)));
+        }
+        for (JsonNode member : all) {
             String id = member.path("id").asText();
             try {
                 Files.write(rawDir.resolve(DETAIL_PREFIX + id + ".json"), fetcher.get(detailUrl.replace("{id}", id)));
@@ -121,6 +149,10 @@ public class BePepFlemishParliamentParser implements Iparser {
 
     /** Lit les fichiers de {@code rawDir} et écrit les membres. Séparé de {@link #parse} pour les tests. */
     Report convert(Path rawDir, FtmDatasetBuilder dataset) throws IOException {
+        return convert(rawDir, dataset, LocalDate.now(), DEFAULT_RETENTION_MONTHS);
+    }
+
+    Report convert(Path rawDir, FtmDatasetBuilder dataset, LocalDate today, int retentionMonths) throws IOException {
         Path listFile = rawDir.resolve(LIST_FILE);
         if (!Files.exists(listFile)) {
             throw new IllegalStateException(LIST_FILE + " absent de " + rawDir + " : le téléchargement n'a pas eu lieu.");
@@ -146,7 +178,50 @@ public class BePepFlemishParliamentParser implements Iparser {
             }
             write(m, detail, birth, dataset);
         }
-        return new Report(members.size(), withBirth, withoutDetail);
+        int former = 0;
+        Path formerFile = rawDir.resolve(FORMER_LIST_FILE);
+        if (Files.exists(formerFile)) {
+            LocalDate cutoff = today.minusMonths(retentionMonths);
+            for (JsonNode m : members(JSON.readTree(formerFile.toFile()))) {
+                Path file = rawDir.resolve(DETAIL_PREFIX + m.path("id").asText() + ".json");
+                if (!Files.exists(file)) {
+                    continue;
+                }
+                JsonNode detail = JSON.readTree(file.toFile());
+                if (detail.has("volksvertegenwoordiger")) {
+                    detail = detail.path("volksvertegenwoordiger");
+                }
+                String end = lastMandateEnd(detail);
+                if (end == null || LocalDate.parse(end).isBefore(cutoff) || LocalDate.parse(end).isAfter(today)) {
+                    continue;
+                }
+                write(m, detail, date(detail.path("geboortedatum").asText(null)), dataset, end);
+                former++;
+            }
+        }
+        return new Report(members.size(), withBirth, withoutDetail, former);
+    }
+
+    /** Fin du dernier mandat de député (hors titre honoraire) : la plus récente {@code datumtot}, ou null. */
+    static String lastMandateEnd(JsonNode detail) {
+        String end = null;
+        for (JsonNode mandate : detail.path("mandaat-vlaams-parlement")) {
+            if (isHonorary(mandate)) {
+                continue;
+            }
+            String to = date(mandate.path("datumtot").asText(null));
+            if (to == null) {
+                return null;
+            }
+            if (end == null || to.compareTo(end) > 0) {
+                end = to;
+            }
+        }
+        return end;
+    }
+
+    private static boolean isHonorary(JsonNode mandate) {
+        return mandate.path("mandaat").asText("").toLowerCase().startsWith("ere-");
     }
 
     /** Membres de la liste : {@code {"items": [{"volksvertegenwoordiger": {…}}]}}. */
@@ -162,6 +237,10 @@ public class BePepFlemishParliamentParser implements Iparser {
     }
 
     private static void write(JsonNode m, JsonNode detail, String birth, FtmDatasetBuilder dataset) {
+        write(m, detail, birth, dataset, null);
+    }
+
+    private static void write(JsonNode m, JsonNode detail, String birth, FtmDatasetBuilder dataset, String endDate) {
         String id = m.path("id").asText();
         String firstName = m.path("voornaam").asText(null);
         String lastName = m.path("naam").asText(null);
@@ -196,12 +275,13 @@ public class BePepFlemishParliamentParser implements Iparser {
         position.addValue("topics", "gov.legislative");
         dataset.addEntity(position);
 
-        String start = detail == null ? null : currentMandateStart(detail);
+        String start = detail == null ? null : (endDate == null ? currentMandateStart(detail) : endedMandateStart(detail, endDate));
         FtmEntity occupancy = dataset.newEntity("Occupancy", id, start);
         occupancy.addValue("holder", person.getId());
         occupancy.addValue("post", position.getId());
-        occupancy.addValue("status", "current");
+        occupancy.addValue("status", endDate == null ? "current" : "ended");
         occupancy.addValue("startDate", start);
+        occupancy.addValue("endDate", endDate);
         occupancy.addValue("constituency", m.path("kieskring").asText("").replaceFirst("^Kieskring\\s+", ""));
         occupancy.addValue("politicalGroup", m.path("fractie").path("naam").asText(null));
         occupancy.addValue("sourceUrl", pageUrl);
@@ -212,7 +292,7 @@ public class BePepFlemishParliamentParser implements Iparser {
     static String currentMandateStart(JsonNode detail) {
         String start = null;
         for (JsonNode mandate : detail.path("mandaat-vlaams-parlement")) {
-            if (mandate.path("datumtot").isMissingNode() || mandate.path("datumtot").isNull()) {
+            if (!isHonorary(mandate) && (mandate.path("datumtot").isMissingNode() || mandate.path("datumtot").isNull())) {
                 String from = date(mandate.path("datumvan").asText(null));
                 if (from != null && (start == null || from.compareTo(start) > 0)) {
                     start = from;
@@ -220,6 +300,16 @@ public class BePepFlemishParliamentParser implements Iparser {
             }
         }
         return start;
+    }
+
+    /** Début du mandat terminé à la date donnée. */
+    static String endedMandateStart(JsonNode detail, String endDate) {
+        for (JsonNode mandate : detail.path("mandaat-vlaams-parlement")) {
+            if (!isHonorary(mandate) && endDate.equals(date(mandate.path("datumtot").asText(null)))) {
+                return date(mandate.path("datumvan").asText(null));
+            }
+        }
+        return null;
     }
 
     /** « 1985-03-04T00:00:00+0100 » → « 1985-03-04 ». */

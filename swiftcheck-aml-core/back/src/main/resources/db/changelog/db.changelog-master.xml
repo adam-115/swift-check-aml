@@ -56,5 +56,6 @@
     <include file="db/changelog/changes/024-be-parsers-lot1.xml" />
     <include file="db/changelog/changes/025-be-parsers-lot2.xml" />
     <include file="db/changelog/changes/026-be-parsers-lot3.xml" />
+    <include file="db/changelog/changes/042-be-coverage-gaps.xml" />
 
 </databaseChangeLog>
