@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Belgique : comblement des écarts relevés en comparant le classeur « belgique_pep_sources_auditables_v2 » aux parseurs.
+
+    1. be_pep_king : le Roi est aussi confirmé par le Moniteur belge (numéro du 21/07/2013), source primaire, en plus
+       de monarchie.be et de Wikidata.
+    2. be_pep_local_executives : ajout des échevins, présidents de CPAS et députés provinciaux des collectivités
+       retenues, d'après Regimand (Cour des comptes), en plus des bourgmestres et gouverneurs.
+    3. be_pep_flemish_parliament, be_pep_walloon_parliament : les anciens parlementaires dont le mandat a pris fin
+       pendant la durée de rétention sont repris (API vv/gewezen pour la Flandre, fiches « anciens membres » pour la
+       Wallonie).
+-->
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="042-be-king-moniteur" author="swiftcheck">
+        <sql><![CDATA[
+            UPDATE parser
+            SET description = 'Le Roi des Belges, titulaire actuel d’après Wikidata, contrôlé par la page officielle de monarchie.be et par le Moniteur belge (catégorie BE-a)',
+                parameters = '{"pageUrl": "https://www.monarchie.be/fr/famille-royale/le-roi", "endpoint": "https://query.wikidata.org/sparql", "moniteurUrl": "https://www.ejustice.just.fgov.be/mopdf/2013/07/21_1.pdf"}',
+                attribution = 'Moniteur belge, ejustice.just.fgov.be ; Palais royal, www.monarchie.be ; Wikidata',
+                notes = 'La naissance vient de la page officielle ; le nom et la date d’accession de Wikidata. Le Moniteur belge du 21/07/2013 (source primaire) doit nommer le même Roi et la même date d’accession. Si les sources ne concordent pas (changement de règne), l’exécution s’arrête : renseigner alors moniteurUrl avec le numéro de l’avènement du nouveau Roi.'
+            WHERE dataset_name = 'be_pep_king';
+
+            UPDATE pep_function_parser l
+            JOIN parser p ON p.id = l.parser_id
+            SET l.covered_scope = 'Le roi Philippe, en fonction depuis le 21/07/2013, confirmé par le Moniteur belge (source primaire), avec la date et le lieu de naissance de la page officielle.'
+            WHERE p.dataset_name = 'be_pep_king';
+        ]]></sql>
+    </changeSet>
+
+    <changeSet id="042-be-flemish-former" author="swiftcheck">
+        <sql><![CDATA[
+            UPDATE parser
+            SET description = 'Les 124 membres du Parlement flamand et les anciens membres dont le mandat a pris fin pendant la durée de rétention, d’après l’API open data du Parlement (catégorie BE-b)',
+                parameters = '{"listUrl": "https://ws.vlpar.be/e/opendata/vv/huidige", "formerUrl": "https://ws.vlpar.be/e/opendata/vv/gewezen", "detailUrl": "https://ws.vlpar.be/e/opendata/vv/{id}", "delayMs": "200", "retentionMonths": "12"}',
+                notes = 'Lit la fiche de chaque membre en fonction (124 appels) puis celle de chacun des quelque 940 anciens, pour y lire la fin de leur dernier mandat (environ 4 minutes avec delayMs = 200). vlaamsparlement.be refuse les clients automatiques (HTTP 403) : la source citée est la fiche de l’API.'
+            WHERE dataset_name = 'be_pep_flemish_parliament';
+
+            UPDATE pep_function_parser l
+            JOIN parser p ON p.id = l.parser_id
+            SET l.includes_former = TRUE,
+                l.covered_scope = 'Les 124 membres en fonction, avec date et lieu de naissance, genre, circonscription, groupe, début du mandat en cours et portrait officiel ; les anciens membres dont le dernier mandat a pris fin pendant la durée de rétention (12 mois), avec les dates de leur mandat.',
+                l.gaps = NULL
+            WHERE p.dataset_name = 'be_pep_flemish_parliament';
+        ]]></sql>
+    </changeSet>
+
+    <changeSet id="042-be-walloon-former" author="swiftcheck">
+        <sql><![CDATA[
+            UPDATE parser
+            SET description = 'Les 75 membres du Parlement de Wallonie, son bureau et les anciens députés dont le mandat a pris fin pendant la durée de rétention, d’après l’open data et les fiches du Parlement (catégorie BE-b)',
+                parameters = '{"url": "https://www.parlement-wallonie.be/opendata/composition_dep_od.php?f=json", "formerUrl": "https://www.parlement-wallonie.be/pwpages?p=composition_mandataires", "detailUrl": "https://www.parlement-wallonie.be/pwpages?p=composition_dep_det&id={id}&t=old", "delayMs": "300", "retentionMonths": "12"}',
+                notes = 'Le fichier open data donne aussi l’adresse, le téléphone, l’e-mail et les réseaux sociaux des députés : jamais repris. Les anciens ne sont pas dans l’open data : la liste paginée « Les anciens membres » (9 pages) donne des années, puis la fiche des seuls anciens dont une période finit l’année de la limite de rétention ou après donne la date exacte du mandat. Si cette lecture échoue, les députés en fonction sont quand même publiés et le message d’exécution l’indique.'
+            WHERE dataset_name = 'be_pep_walloon_parliament';
+
+            UPDATE pep_function_parser l
+            JOIN parser p ON p.id = l.parser_id
+            SET l.includes_former = TRUE,
+                l.covered_scope = 'Les 75 députés en fonction, avec parti, circonscription, fonction au bureau (président, vice-présidents, secrétaires) et portrait officiel ; les anciens députés dont le mandat a pris fin pendant la durée de rétention (12 mois), avec les dates de leur mandat.',
+                l.gaps = 'Pas de date de naissance dans le fichier ni dans les fiches des anciens.'
+            WHERE p.dataset_name = 'be_pep_walloon_parliament';
+        ]]></sql>
+    </changeSet>
+
+    <changeSet id="042-be-local-mandates-regimand" author="swiftcheck">
+        <sql><![CDATA[
+            UPDATE parser
+            SET name = 'PEP Belgique – Pouvoirs locaux (50 000 hab. et plus)',
+                description = 'Bourgmestres, gouverneurs de provinces, échevins, présidents de CPAS et députés provinciaux des collectivités de 50 000 habitants ou plus (catégorie BE-AMLR, règlement (UE) 2024/1624 applicable le 10/07/2027)',
+                website_url = 'https://public.regimand.be/',
+                parameters = '{"wikidataEndpoint": "https://query.wikidata.org/sparql", "lblodEndpoint": "https://centrale-vindplaats.lblod.info/sparql", "regimandUrl": "https://public.regimand.be", "regimandDelayMs": "500", "minPopulation": "50000", "countryQid": "Q31"}',
+                licence = 'CC0 1.0 (Wikidata), Licence Ouverte Flandre (LBLOD Mandatendatabank) et données publiques de la Cour des comptes (Regimand)',
+                attribution = 'Wikidata (Q31) ; Agentschap Binnenlands Bestuur (LBLOD Mandatendatabank) ; Cour des comptes, public.regimand.be',
+                notes = 'Bourgmestres et gouverneurs : Wikidata et LBLOD. Échevins, présidents de CPAS et députés provinciaux : déclarations de mandats de la Cour des comptes (Regimand), interrogées collectivité par collectivité (environ 3 minutes pour 40 collectivités). Regimand publie le dernier exercice clos (2024 en novembre 2026) : un mandat sans date de fin dans ce dernier exercice est repris comme en cours. Pour couvrir toutes les communes, mettre minPopulation à 0 (environ 580 communes, plus d’une demi-heure). Une collectivité dont la lecture Regimand échoue est citée dans le message d’exécution ; si toutes échouent, l’exécution s’arrête.'
+            WHERE dataset_name = 'be_pep_local_executives';
+
+            INSERT INTO pep_function (category_id, label, institution, expected_holders)
+            SELECT c.id, 'Échevin, président de CPAS ou député provincial d''une collectivité de 50 000 habitants ou plus', 'Pouvoirs locaux', NULL
+            FROM pep_category c
+            WHERE c.code = 'BE-AMLR'
+              AND NOT EXISTS (SELECT 1 FROM pep_function f WHERE f.category_id = c.id
+                              AND f.label LIKE 'Échevin, président de CPAS ou député provincial%');
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'PARTIAL', TRUE,
+                   'Échevins, présidents de CPAS et députés provinciaux des communes et provinces de 50 000 habitants ou plus (Wallonie, Bruxelles et Flandre), d’après les déclarations de mandats de la Cour des comptes (Regimand) ; mandats terminés repris pendant la durée de rétention.',
+                   'Regimand publie le dernier exercice clos, avec un décalage : un changement d’échevin intervenu depuis n’est pas encore visible. Les communes de moins de 50 000 habitants ne sont lues que si minPopulation est abaissé.'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'BE-AMLR' AND f.label LIKE 'Échevin, président de CPAS ou député provincial%'
+              AND p.dataset_name = 'be_pep_local_executives'
+              AND NOT EXISTS (SELECT 1 FROM pep_function_parser x WHERE x.function_id = f.id AND x.parser_id = p.id);
+        ]]></sql>
+    </changeSet>
+
+</databaseChangeLog>

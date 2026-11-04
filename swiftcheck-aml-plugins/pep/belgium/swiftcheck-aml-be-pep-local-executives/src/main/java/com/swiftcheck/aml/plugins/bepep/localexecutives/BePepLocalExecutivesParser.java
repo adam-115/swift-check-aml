@@ -63,6 +63,9 @@ public class BePepLocalExecutivesParser implements Iparser {
 
     static final String WIKIDATA_FILE = "wikidata-local.json";
     static final String LBLOD_FILE = "lblod-local.json";
+    static final String REGIMAND_PREFIX = "regimand-";
+    static final String REGIMAND_FAILURES = "regimand-echecs.txt";
+    static final long DEFAULT_REGIMAND_DELAY_MS = 500L;
 
     private static final String USER_AGENT = "SwiftCheck-AML/1.0 (liste PEP Belgique - executifs locaux)";
     private static final String PREFERRED_RANK = "http://wikiba.se/ontology#PreferredRank";
@@ -85,11 +88,24 @@ public class BePepLocalExecutivesParser implements Iparser {
             String personQid, String personLabel, Set<String> birthDates, String gender) {
     }
 
-    record Report(int communes, int provinces, int mayors, int governors, int lblodAdded, long minPopulation) {
+    record Report(int communes, int provinces, int mayors, int governors, int lblodAdded, long minPopulation,
+            int regimandMandates, List<String> regimandFailures) {
+
+        Report(int communes, int provinces, int mayors, int governors, int lblodAdded, long minPopulation) {
+            this(communes, provinces, mayors, governors, lblodAdded, minPopulation, 0, List.of());
+        }
+
         String message() {
-            return String.format(
+            String m = String.format(
                     "Collectivités belges de %d habitants ou plus (%d communes, %d provinces) : %d bourgmestres et %d gouverneurs (dont %d complétés via LBLOD).",
                     minPopulation, communes, provinces, mayors, governors, lblodAdded);
+            if (regimandMandates > 0) {
+                m += String.format(" %d échevins, présidents de CPAS et députés provinciaux (Cour des comptes, Regimand).", regimandMandates);
+            }
+            if (!regimandFailures.isEmpty()) {
+                m += " Regimand non lu pour : " + String.join(", ", regimandFailures) + ".";
+            }
+            return m;
         }
     }
 
@@ -100,6 +116,12 @@ public class BePepLocalExecutivesParser implements Iparser {
         download(p.getOrDefault("wikidataEndpoint", DEFAULT_WIKIDATA_ENDPOINT).trim(),
                 p.getOrDefault("lblodEndpoint", DEFAULT_LBLOD_ENDPOINT).trim(),
                 minPop, ctx.rawDir());
+        String regimandUrl = p.getOrDefault("regimandUrl", RegimandLocal.DEFAULT_URL).trim();
+        if (!regimandUrl.isBlank()) {
+            downloadRegimand(RegimandLocal.httpClient(regimandUrl), minPop,
+                    Long.parseLong(p.getOrDefault("regimandDelayMs", String.valueOf(DEFAULT_REGIMAND_DELAY_MS)).trim()),
+                    ctx.rawDir());
+        }
 
         FtmDatasetBuilder dataset = new FtmDatasetBuilder(ID_PREFIX, TOPIC);
         Report report = convert(ctx.rawDir(), minPop, LocalDate.now().minusMonths(monthsAfterEnd(p)), dataset);
@@ -140,6 +162,52 @@ public class BePepLocalExecutivesParser implements Iparser {
                 log.warn("LBLOD SPARQL indisponible ({}) : {}", lblodEndpoint, e.getMessage());
             }
         }
+    }
+
+    /**
+     * Interroge Regimand pour chaque collectivité de la réponse Wikidata, par son nom français puis néerlandais.
+     * Une collectivité en échec est notée dans {@code regimand-echecs.txt}, l'exécution continue ; si toutes échouent, elle s'arrête.
+     */
+    void downloadRegimand(RegimandLocal.Client client, long minPopulation, long delayMs, Path rawDir)
+            throws IOException, InterruptedException {
+        Path wiki = rawDir.resolve(WIKIDATA_FILE);
+        Map<String, Area> areas = areas(json.readTree(Files.readString(wiki, StandardCharsets.UTF_8)), minPopulation);
+        List<String> failures = new ArrayList<>();
+        for (Area area : areas.values()) {
+            Map<String, JsonNode> byId = new LinkedHashMap<>();
+            try {
+                for (String label : new LinkedHashSet<>(List.of(area.labelFr(), area.labelNl()))) {
+                    for (JsonNode statement : json.readTree(client.search(label))) {
+                        byId.putIfAbsent(statement.path("id").asText(), statement);
+                    }
+                    Thread.sleep(delayMs);
+                }
+                Files.writeString(rawDir.resolve(REGIMAND_PREFIX + area.qid() + ".json"),
+                        json.writeValueAsString(byId.values()), StandardCharsets.UTF_8);
+            } catch (IOException e) {
+                failures.add(area.labelFr() + " (" + e.getMessage() + ")");
+            }
+        }
+        if (!areas.isEmpty() && failures.size() == areas.size()) {
+            throw new IOException("Regimand illisible pour toutes les collectivités : " + failures.get(0));
+        }
+        Files.writeString(rawDir.resolve(REGIMAND_FAILURES), String.join("\n", failures), StandardCharsets.UTF_8);
+    }
+
+    /** Collectivités de la réponse Wikidata d'au moins {@code minPopulation} habitants. */
+    Map<String, Area> areas(JsonNode wikiRoot, long minPopulation) {
+        Map<String, Area> areas = new LinkedHashMap<>();
+        for (JsonNode b : wikiRoot.path("results").path("bindings")) {
+            long pop = text(b, "population").isEmpty() ? 0 : Long.parseLong(text(b, "population"));
+            if (pop < minPopulation) {
+                continue;
+            }
+            String qid = qid(text(b, "area"));
+            String fr = text(b, "areaLabel");
+            String nl = text(b, "areaLabelNl");
+            areas.computeIfAbsent(qid, k -> new Area(qid, fr, nl.isBlank() ? fr : nl, text(b, "kind"), pop));
+        }
+        return areas;
     }
 
     Report convert(Path rawDir, long minPopulation, LocalDate since, FtmDatasetBuilder dataset) throws Exception {
@@ -254,6 +322,27 @@ public class BePepLocalExecutivesParser implements Iparser {
             }
         }
 
+        int regimandMandates = 0;
+        for (Area area : areasByQid.values()) {
+            Path file = rawDir.resolve(REGIMAND_PREFIX + area.qid() + ".json");
+            if (!Files.exists(file)) {
+                continue;
+            }
+            for (RegimandLocal.Mandate m : RegimandLocal.select(json.readTree(Files.readString(file, StandardCharsets.UTF_8)),
+                    "province".equals(area.kind()), List.of(area.labelFr(), area.labelNl()), since)) {
+                writeRegimand(dataset, area, m, since);
+                regimandMandates++;
+            }
+        }
+        List<String> regimandFailures = new ArrayList<>();
+        Path failuresFile = rawDir.resolve(REGIMAND_FAILURES);
+        if (Files.exists(failuresFile)) {
+            for (String line : Files.readAllLines(failuresFile, StandardCharsets.UTF_8)) {
+                if (!line.isBlank()) {
+                    regimandFailures.add(line.trim());
+                }
+            }
+        }
         if (mayors == 0) {
             throw new IllegalStateException("Aucun bourgmestre d'une commune de " + minPopulation
                     + " habitants ou plus extrait : réponse vide ou format changé.");
@@ -261,7 +350,8 @@ public class BePepLocalExecutivesParser implements Iparser {
 
         int communes = (int) areasByQid.values().stream().filter(a -> "commune".equals(a.kind())).count();
         int provinces = (int) areasByQid.values().stream().filter(a -> "province".equals(a.kind())).count();
-        Report report = new Report(communes, provinces, mayors, governors, lblodAdded, minPopulation);
+        Report report = new Report(communes, provinces, mayors, governors, lblodAdded, minPopulation,
+                regimandMandates, regimandFailures);
         log.info(report.message());
         return report;
     }
@@ -343,6 +433,40 @@ public class BePepLocalExecutivesParser implements Iparser {
         occupancy.addValue("startDate", start);
         occupancy.addValue("status", "current");
         occupancy.addValue("sourceUrl", personUri.isBlank() ? "https://centrale-vindplaats.lblod.info" : personUri);
+        dataset.addEntity(occupancy);
+    }
+
+    /** Échevin, président de CPAS ou député provincial déclaré à la Cour des comptes. */
+    private static void writeRegimand(FtmDatasetBuilder dataset, Area area, RegimandLocal.Mandate m, LocalDate since) {
+        boolean current = m.end() == null;
+        String title = m.role() + " – " + area.labelFr();
+        FtmEntity person = dataset.newEntity("Person", "regimand", m.profileId());
+        person.addValue("name", m.fullName());
+        person.addValue("firstName", m.firstName());
+        person.addValue("lastName", m.lastName());
+        person.addValue("country", "be");
+        person.addValue("position", current ? title : "Ancien : " + title);
+        person.addValue("sourceUrl", RegimandLocal.SOURCE_URL);
+        dataset.addEntity(person);
+
+        FtmEntity position = dataset.newEntity("Position", "regimand", area.qid(), RegimandLocal.fold(m.role()));
+        position.addValue("name", title);
+        position.addValue("country", "be");
+        position.addValue("subnationalArea", area.labelFr());
+        position.addValue("description", "Collectivité belge de " + area.population() + " habitants");
+        position.addValue("topics", area.topic());
+        position.addValue("topics", "gov.executive");
+        position.addValue("sourceUrl", RegimandLocal.SOURCE_URL);
+        dataset.addEntity(position);
+
+        FtmEntity occupancy = dataset.newEntity("Occupancy", "regimand", m.profileId(), area.qid(),
+                RegimandLocal.fold(m.role()), m.start() == null ? "" : m.start());
+        occupancy.addValue("holder", person.getId());
+        occupancy.addValue("post", position.getId());
+        occupancy.addValue("startDate", m.start());
+        occupancy.addValue("endDate", m.end());
+        occupancy.addValue("status", current ? "current" : "ended");
+        occupancy.addValue("sourceUrl", RegimandLocal.SOURCE_URL);
         dataset.addEntity(occupancy);
     }
 

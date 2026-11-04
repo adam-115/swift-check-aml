@@ -57,6 +57,9 @@ public class BePepKingParser implements Iparser {
     static final String DEFAULT_ENDPOINT = "https://query.wikidata.org/sparql";
     static final String PAGE_FILE = "monarchie-le-roi.html";
     static final String WIKIDATA_FILE = "wikidata-roi.json";
+    /** Numéro du Moniteur belge de l'avènement (21 juillet 2013) : source primaire qui confirme le Roi. */
+    static final String DEFAULT_MONITEUR_URL = "https://www.ejustice.just.fgov.be/mopdf/2013/07/21_1.pdf";
+    static final String MONITEUR_FILE = "moniteur-2013-07-21.pdf";
     static final String POSITION = "Roi des Belges";
     static final String KING_QID = "Q13592862";
 
@@ -88,13 +91,14 @@ public class BePepKingParser implements Iparser {
         Files.createDirectories(ctx.rawDir());
         String pageUrl = param(p, "pageUrl", DEFAULT_PAGE_URL);
         Files.write(ctx.rawDir().resolve(PAGE_FILE), get(pageUrl, "text/html,*/*;q=0.8"));
+        Files.write(ctx.rawDir().resolve(MONITEUR_FILE), get(param(p, "moniteurUrl", DEFAULT_MONITEUR_URL), "application/pdf,*/*;q=0.8"));
         Files.write(ctx.rawDir().resolve(WIKIDATA_FILE), get(param(p, "endpoint", DEFAULT_ENDPOINT) + "?query="
                 + URLEncoder.encode(QUERY, StandardCharsets.UTF_8), "application/sparql-results+json"));
         FtmDatasetBuilder dataset = new FtmDatasetBuilder(ID_PREFIX, TOPIC);
         King king = convert(ctx.rawDir(), pageUrl, dataset);
         dataset.writeNdjsonFile(ctx.outputFile());
         return dataset.toConversionResult().withMessage("Roi des Belges : " + king.name() + ", en fonction depuis le "
-                + king.start() + " (Wikidata, contrôlé par monarchie.be).");
+                + king.start() + " (Wikidata, contrôlé par monarchie.be et par le Moniteur belge).");
     }
 
     @Override
@@ -131,6 +135,11 @@ public class BePepKingParser implements Iparser {
             throw new IllegalStateException("Wikidata (" + name + ", né le " + wikidataBirth + ") ne correspond pas à "
                     + "la page officielle (né le " + birthDate + ") : vérifier un changement de règne.");
         }
+        Path moniteur = rawDir.resolve(MONITEUR_FILE);
+        if (!Files.exists(moniteur)) {
+            throw new IllegalStateException(MONITEUR_FILE + " absent de " + rawDir + " : le Moniteur belge n'a pas été téléchargé.");
+        }
+        MoniteurCheck.verify(MoniteurCheck.pdfText(moniteur), firstName, start, DEFAULT_MONITEUR_URL);
         King king = new King(qid, name, start, birthDate, birth.group(1).trim());
 
         FtmEntity person = dataset.newEntity("Person", qid);

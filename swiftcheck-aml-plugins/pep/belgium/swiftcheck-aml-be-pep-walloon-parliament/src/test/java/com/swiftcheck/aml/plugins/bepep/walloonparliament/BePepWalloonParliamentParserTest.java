@@ -70,4 +70,94 @@ class BePepWalloonParliamentParserTest {
             Files.write(rawDir.resolve(BePepWalloonParliamentParser.FILE), in.readAllBytes());
         }
     }
+
+    @Test
+    void keepsAFormerDeputyWhoseMandateEndedDuringTheRetention(@TempDir Path rawDir) throws Exception {
+        copyFixture(rawDir);
+        copyFormer(rawDir);
+        FtmDatasetBuilder dataset = dataset();
+
+        BePepWalloonParliamentParser.Report report = new BePepWalloonParliamentParser().convert(rawDir, dataset,
+                java.time.LocalDate.of(2026, 4, 1), 12);
+
+        assertEquals(1, report.former());
+        FtmEntity baurain = person(dataset, "2690");
+        assertEquals(Set.of("Pascal BAURAIN"), baurain.getValues("name"));
+        FtmEntity occupancy = dataset.entities().stream().filter(e -> "Occupancy".equals(e.getSchema())
+                && e.getValues("holder").contains(baurain.getId())).findFirst().orElseThrow();
+        assertEquals(Set.of("ended"), occupancy.getValues("status"));
+        assertEquals(Set.of("2024-06-25"), occupancy.getValues("startDate"));
+        assertEquals(Set.of("2025-09-03"), occupancy.getValues("endDate"));
+        assertEquals(Set.of("Les Engagés"), occupancy.getValues("politicalGroup"));
+    }
+
+    @Test
+    void dropsAFormerDeputyOnceTheRetentionIsOver(@TempDir Path rawDir) throws Exception {
+        copyFixture(rawDir);
+        copyFormer(rawDir);
+
+        BePepWalloonParliamentParser.Report report = new BePepWalloonParliamentParser().convert(rawDir, dataset(),
+                java.time.LocalDate.of(2026, 11, 4), 12);
+
+        assertEquals(0, report.former());
+    }
+
+    @Test
+    void onlyOpensTheFormerDeputiesWhoseMandateMayStillBeInRetention() throws Exception {
+        java.util.List<WalloonFormer.Entry> entries = new java.util.ArrayList<>();
+        for (int page = 1; page <= 9; page++) {
+            entries.addAll(WalloonFormer.entries(resource(BePepWalloonParliamentParser.FORMER_PREFIX + page + ".html")));
+        }
+        assertEquals(517, entries.size());
+        var candidates = WalloonFormer.candidates(entries, java.time.LocalDate.of(2025, 11, 4));
+        assertEquals(12, candidates.size(), "les anciens de la législature 2024-2029");
+        assertTrue(candidates.stream().anyMatch(c -> c.fullName().equals("BAURAIN Pascal")));
+        
+        
+        assertEquals("ALBERT", entries.stream().filter(e -> e.id().equals("813")).findFirst().orElseThrow().lastName());
+        assertEquals("Victor dit Vicky", entries.stream().filter(e -> e.id().equals("813")).findFirst().orElseThrow().firstName());
+    }
+
+    @Test
+    void downloadsEveryPageOfTheListThenOnlyTheCandidatesRecords(@TempDir Path rawDir) throws Exception {
+        java.util.List<String> calls = new java.util.ArrayList<>();
+        BePepWalloonParliamentParser.downloadFormer(url -> {
+            calls.add(url);
+            if (url.contains("composition_dep_det")) {
+                return resource(BePepWalloonParliamentParser.FORMER_DETAIL_PREFIX + "2690.html");
+            }
+            int page = url.contains("pg-nb=") ? Integer.parseInt(url.substring(url.indexOf("pg-nb=") + 6)) : 1;
+            return page <= 9 ? resource(BePepWalloonParliamentParser.FORMER_PREFIX + page + ".html") : "<html></html>";
+        }, "list?p=composition_mandataires", "composition_dep_det&id={id}", java.time.LocalDate.of(2025, 11, 4), 0, rawDir);
+
+        assertEquals(22, calls.size(), "10 pages de liste (la dixième est vide) et 12 fiches");
+        assertTrue(calls.contains("composition_dep_det&id=2690"));
+        assertTrue(Files.exists(rawDir.resolve(BePepWalloonParliamentParser.FORMER_DETAIL_PREFIX + "2690.html")));
+    }
+
+    private static String resource(String file) throws IOException {
+        try (InputStream in = BePepWalloonParliamentParserTest.class.getResourceAsStream("/" + file)) {
+            return new String(in.readAllBytes(), java.nio.charset.StandardCharsets.UTF_8);
+        }
+    }
+
+    private static void copyFormer(Path rawDir) throws IOException {
+        java.util.List<String> files = new java.util.ArrayList<>();
+        for (int page = 1; page <= 9; page++) {
+            files.add(BePepWalloonParliamentParser.FORMER_PREFIX + page + ".html");
+        }
+        files.add(BePepWalloonParliamentParser.FORMER_DETAIL_PREFIX + "2690.html");
+        for (String file : files) {
+            Files.writeString(rawDir.resolve(file), resource(file));
+        }
+    }
+
+    @Test
+    void readsTheFeminineFormOfTheMandateLine() {
+        var entry = new WalloonFormer.Entry("3680", "DALCQ Anne-Catherine", "Anne-Catherine", "DALCQ", null, null, 2029);
+        var mandate = WalloonFormer.mandate(entry,
+                "<p>Députée wallonne : du 25/06/2024 au 15/07/2024</p><p>Communauté française Députée : du 02/07/2024 au 15/07/2024</p>");
+        assertEquals(java.time.LocalDate.of(2024, 7, 15), mandate.end());
+        assertEquals(java.time.LocalDate.of(2024, 6, 25), mandate.start());
+    }
 }

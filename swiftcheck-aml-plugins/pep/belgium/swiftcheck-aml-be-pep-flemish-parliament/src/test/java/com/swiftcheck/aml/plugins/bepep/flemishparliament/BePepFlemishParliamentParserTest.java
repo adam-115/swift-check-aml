@@ -99,4 +99,37 @@ class BePepFlemishParliamentParserTest {
             return in.readAllBytes();
         }
     }
+
+    @Test
+    void keepsAFormerMemberWhoseMandateEndedDuringTheRetention(@TempDir Path rawDir) throws Exception {
+        copyFixture(rawDir);
+        for (String file : List.of(BePepFlemishParliamentParser.FORMER_LIST_FILE, "vlaams-parlement-lid-4381.json")) {
+            Files.write(rawDir.resolve(file), bytes(file));
+        }
+        FtmDatasetBuilder dataset = dataset();
+        BePepFlemishParliamentParser.Report report = new BePepFlemishParliamentParser().convert(rawDir, dataset,
+                java.time.LocalDate.of(2025, 3, 1), 12);
+
+        assertEquals(1, report.former());
+        FtmEntity almaci = person(dataset, "4381");
+        assertEquals("Meyrem Almaci", almaci.getValues("name").iterator().next());
+        FtmEntity occupancy = dataset.entities().stream()
+                .filter(e -> "Occupancy".equals(e.getSchema()) && e.getValues("holder").contains(almaci.getId()))
+                .findFirst().orElseThrow();
+        assertEquals(Set.of("ended"), Set.copyOf(occupancy.getValues("status")));
+        assertEquals(Set.of("2024-06-08"), Set.copyOf(occupancy.getValues("endDate")));
+    }
+
+    @Test
+    void dropsAFormerMemberOnceTheRetentionIsOver(@TempDir Path rawDir) throws Exception {
+        copyFixture(rawDir);
+        for (String file : List.of(BePepFlemishParliamentParser.FORMER_LIST_FILE, "vlaams-parlement-lid-4381.json")) {
+            Files.write(rawDir.resolve(file), bytes(file));
+        }
+        FtmDatasetBuilder dataset = dataset();
+        BePepFlemishParliamentParser.Report report = new BePepFlemishParliamentParser().convert(rawDir, dataset,
+                java.time.LocalDate.of(2026, 11, 4), 12);
+
+        assertEquals(0, report.former());
+    }
 }

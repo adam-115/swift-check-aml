@@ -69,5 +69,6 @@
     <include file="db/changelog/changes/039-de-parsers-federal-secretaries.xml" />
     <include file="db/changelog/changes/040-lu-parties-wikidata.xml" />
     <include file="db/changelog/changes/041-de-eu-commission-url.xml" />
+    <include file="db/changelog/changes/042-be-coverage-gaps.xml" />
 
 </databaseChangeLog>
