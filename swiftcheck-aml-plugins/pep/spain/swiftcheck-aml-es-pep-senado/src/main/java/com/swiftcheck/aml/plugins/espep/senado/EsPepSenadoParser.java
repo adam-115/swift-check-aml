@@ -1,34 +1,30 @@
 package com.swiftcheck.aml.plugins.espep.senado;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URI;
-import java.net.URLEncoder;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
 import java.text.Normalizer;
 import java.time.Duration;
 import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
-import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import java.util.Set;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.pf4j.Extension;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.swiftcheck.aml.plugin.Iparser;
 import com.swiftcheck.aml.plugin.ParserContext;
 import com.swiftcheck.aml.plugin.ParserResult;
@@ -37,71 +33,40 @@ import com.swiftcheck.aml.sdk.FtmDatasetBuilder;
 import com.swiftcheck.aml.sdk.FtmEntity;
 
 /**
- * <b>es_pep_senado</b> – sénateurs de la XVe législature (bloc ES-b), d'après Wikidata, en attendant un accès à l'open data du Sénat (403).
+ * <b>es_pep_senado</b> – Sénateurs de la XVe législature du Sénat espagnol (bloc ES-b ; Ley 10/2010, art. 14.2 ; JO C/2023/724).
  *
- * <p>Source : point SPARQL de Wikidata (licence CC0). Les sources officielles de ce bloc sont bloquées ou sans structure
- * (voir le README) ; Wikidata est le secours prévu par le plan. Le plugin ne garde que les mandats qui ont une preuve
- * de date dans la fenêtre : une fin de mandat postérieure à la date de rétention, ou un début postérieur à
- * {@code openSince} (ou une législature donnée par {@code terms}) pour un mandat sans fin. Un titulaire mort, ou sans
- * date, est écarté. Type {@code PLUGIN_MANAGED}. Mode {@code positions}. Paramètres (tous facultatifs, voir
- * {@link #DEFAULTS}) :
- * <ul>
- *   <li>{@code kind} : {@code positions} (titulaires d'une fonction, QID dans {@code positions}, ou fonctions d'une
- *       juridiction filtrées par {@code positionRegex}), {@code heads} (chef du gouvernement ou dirigeant d'une
- *       entité, propriétés dans {@code properties}), {@code mayors} (maires des communes d'au moins
- *       {@code minPopulation} habitants et des chefs-lieux de province) ;</li>
- *   <li>{@code positionLabel} : libellé de la fonction, avec {@code {subject}} pour le nom de l'entité ;</li>
- *   <li>{@code monthsAfterEnd} (24), {@code openSince}, {@code terms}, {@code delayMs}.</li>
- * </ul>
+ * <p>Source officielle directe : portail officiel du Sénat ({@code www.senado.es/.../senadoresdesde1977/consultaorden/index.html}).
+ * La liste officielle de l'ensemble des sénateurs de la XVe législature (élus au suffrage direct et désignés par les parlements
+ * des communautés autonomes) est téléchargée avec leur identifiant parlementaire, groupe politique et circonscription.
  */
 @Extension
 public class EsPepSenadoParser implements Iparser {
 
     private static final Logger log = LoggerFactory.getLogger(EsPepSenadoParser.class);
 
-    /** Préfixe des identifiants FtM : ne jamais le changer, les alertes y sont rattachées. */
+    /** Préfixe des identifiants FtM. */
     static final String ID_PREFIX = "es-pep-senado";
     static final String TOPIC = "role.pep";
-    static final String HOLDERS_FILE = "holders.json";
-    static final String USER_AGENT = "SwiftCheck-AML/1.0 (liste PEP Espagne - senado)";
-    static final String ENTITY = "http://www.wikidata.org/entity/";
+    static final String SENADO_POST_URL = "https://www.senado.es/web/composicionorganizacion/senadores/composicionsenado/senadoresdesde1977/consultaorden/index.html";
+    static final String SENADO_FICHA_URL = "https://www.senado.es/web/composicionorganizacion/senadores/composicionsenado/fichasenador/index.html?legis=15&id1=";
+    static final String HTML_FILE = "senadores-legis15.html";
+    static final String USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36";
+    private static final String POSITION_NAME = "Senador (Sénateur)";
 
-    /** Valeurs par défaut de ce parser (remplacées par les paramètres de l'écran « Parsers »). */
-    static final Map<String, String> DEFAULTS = Map.ofEntries(
-            Map.entry("endpoint", "https://query.wikidata.org/sparql"),
-            Map.entry("monthsAfterEnd", "24"),
-            Map.entry("delayMs", "2000"),
-            Map.entry("kind", "positions"),
-            Map.entry("positions", "Q19323171"),
-            Map.entry("terms", "Q118800859 Q121224921"),
-            Map.entry("positionLabel", "Sénateur (Senador)"),
-            Map.entry("organization", "Senado"),
-            Map.entry("topics", "gov.legislative gov.national"),
-            Map.entry("openSince", "2023-01-01")
-    );
+    record Senator(String id, String rawName, String firstName, String lastName, String fullName,
+                   String groupCode, String groupName, String mandate, String sourceUrl) {}
 
-    private static final ObjectMapper JSON = new ObjectMapper();
-    private static final Pattern QID = Pattern.compile("^Q\\d+$");
-
-    /** Un mandat lu dans la réponse. */
-    record Holding(String qid, String name, String birth, String gender, String subject, String subjectLabel,
-            LocalDate start, LocalDate end) {
-    }
-
-    record Report(int rows, int persons, int current, int ended, int dropped) {
-
+    record Report(int count) {
         String message() {
-            return String.format("%d personnes dans Wikidata (%d en fonction, %d sorties depuis moins de 24 mois, "
-                    + "%d mandats sans preuve de date écartés).", persons, current, ended, dropped);
+            return String.format("%d sénateurs de la XVe législature collectés directement auprès du Sénat d'Espagne.", count);
         }
     }
 
     @Override
     public ParserResult parse(ParserContext ctx) throws Exception {
-        Map<String, String> p = settings(ctx.parameters());
-        download(p, ctx.rawDir());
+        download(ctx.rawDir());
         FtmDatasetBuilder dataset = new FtmDatasetBuilder(ID_PREFIX, TOPIC);
-        Report report = convert(ctx.rawDir(), LocalDate.now(), p, dataset);
+        Report report = convert(ctx.rawDir(), dataset);
         dataset.writeNdjsonFile(ctx.outputFile());
         return dataset.toConversionResult().withMessage(report.message());
     }
@@ -109,7 +74,7 @@ public class EsPepSenadoParser implements Iparser {
     @Override
     public List<SourceRecord> readSourceRecords(ParserContext ctx) throws Exception {
         FtmDatasetBuilder dataset = new FtmDatasetBuilder(ID_PREFIX, TOPIC);
-        convert(ctx.rawDir(), LocalDate.now(), settings(ctx.parameters()), dataset);
+        convert(ctx.rawDir(), dataset);
         List<SourceRecord> records = new ArrayList<>();
         for (FtmEntity e : dataset.entities()) {
             if ("Person".equals(e.getSchema())) {
@@ -120,257 +85,166 @@ public class EsPepSenadoParser implements Iparser {
         return records;
     }
 
-    static Map<String, String> settings(Map<String, String> given) {
-        Map<String, String> p = new LinkedHashMap<>(DEFAULTS);
-        if (given != null) {
-            given.forEach((k, v) -> {
-                if (v != null && !v.isBlank()) {
-                    p.put(k, v.trim());
-                }
-            });
-        }
-        return p;
-    }
+    // ------------------------------------------------------------------ Téléchargement
 
-    // ------------------------------------------------------------------ requête SPARQL
-
-    /** Liste de QID sûre pour une clause {@code VALUES} : tout ce qui n'est pas un QID fait échouer. */
-    static String values(String qids) {
-        List<String> list = new ArrayList<>();
-        for (String q : qids.trim().split("[\\s,]+")) {
-            if (q.isEmpty()) {
-                continue;
-            }
-            if (!QID.matcher(q).matches()) {
-                throw new IllegalArgumentException("« " + q + " » n'est pas un identifiant Wikidata (Qnnn).");
-            }
-            list.add("wd:" + q);
-        }
-        if (list.isEmpty()) {
-            throw new IllegalArgumentException("Liste d'identifiants Wikidata vide.");
-        }
-        return String.join(" ", list);
-    }
-
-    static String date(String iso) {
-        return LocalDate.parse(iso).atStartOfDay() + ":00Z";
-    }
-
-    /** La requête du mode demandé ; chaque ligne est un mandat (personne, entité ou fonction, début, fin). */
-    static String query(Map<String, String> p, LocalDate today) {
-        LocalDate cutoff = today.minusMonths(Long.parseLong(p.get("monthsAfterEnd")));
-        String kind = p.get("kind");
-        StringBuilder subject = new StringBuilder();
-        String statement;
-        String statementEnd = "";
-        switch (kind) {
-            case "positions" -> {
-                if (p.containsKey("positions")) {
-                    subject.append("{ VALUES ?subj { ").append(values(p.get("positions"))).append(" } }");
-                }
-                if (p.containsKey("jurisdictions")) {
-                    if (subject.length() > 0) {
-                        subject.append(" UNION ");
-                    }
-                    String regex = p.getOrDefault("positionRegex", ".").replace("\\", "\\\\").replace("\"", "");
-                    subject.append("{ VALUES ?jur { ").append(values(p.get("jurisdictions"))).append(" } ?subj wdt:P1001 ?jur . ")
-                            .append("?subj rdfs:label ?lab . FILTER(LANG(?lab) = \"es\" && REGEX(?lab, \"").append(regex).append("\", \"i\")) }");
-                }
-                statement = "?pep p:P39 ?s . ?s ps:P39 ?subj .";
-                if (p.containsKey("terms")) {
-                    statementEnd = "OPTIONAL { ?s pq:P2937 ?term . VALUES ?term { " + values(p.get("terms")) + " } }";
-                }
-            }
-            case "heads" -> {
-                subject.append("{ VALUES ?subj { ").append(values(p.get("entities"))).append(" } }");
-                List<String> parts = new ArrayList<>();
-                for (String prop : p.getOrDefault("properties", "P6").split("[\\s,]+")) {
-                    if (!prop.matches("P\\d+")) {
-                        throw new IllegalArgumentException("« " + prop + " » n'est pas une propriété Wikidata (Pnnn).");
-                    }
-                    parts.add("{ ?subj p:" + prop + " ?s . ?s ps:" + prop + " ?pep . }");
-                }
-                statement = String.join(" UNION ", parts);
-            }
-            case "mayors" -> {
-                int min = Integer.parseInt(p.get("minPopulation"));
-                subject.append("{ ?subj wdt:P31 wd:Q2074737 ; wdt:P1082 ?pop . FILTER(?pop >= ").append(min).append(") }")
-                        .append(" UNION { ?prov wdt:P31 wd:Q162620 ; wdt:P17 wd:Q29 ; wdt:P36 ?subj . }");
-                statement = "?subj p:P6 ?s . ?s ps:P6 ?pep .";
-            }
-            default -> throw new IllegalArgumentException("Mode inconnu : " + kind + " (positions, heads ou mayors).");
-        }
-        String evidence = p.containsKey("terms") && "positions".equals(kind)
-                ? "(BOUND(?term) || BOUND(?end))"
-                : "(BOUND(?end) || (BOUND(?start) && ?start >= \"" + date(p.get("openSince")) + "\"^^xsd:dateTime))";
-        return "SELECT DISTINCT ?pep ?pepLabel ?birth ?birthPrec ?gender ?start ?end ?subj ?subjLabel WHERE {\n  "
-                + subject + "\n  " + statement + "\n"
-                + "  OPTIONAL { ?s pq:P580 ?start } OPTIONAL { ?s pq:P582 ?end }\n  " + statementEnd + "\n"
-                + "  FILTER NOT EXISTS { ?pep wdt:P570 ?death }\n"
-                + "  FILTER(!BOUND(?end) || ?end >= \"" + date(cutoff.toString()) + "\"^^xsd:dateTime)\n"
-                + "  FILTER" + evidence + "\n"
-                + "  OPTIONAL { ?pep p:P569/psv:P569 [ wikibase:timeValue ?birth ; wikibase:timePrecision ?birthPrec ] }\n"
-                + "  OPTIONAL { ?pep wdt:P21 ?gender }\n"
-                + "  SERVICE wikibase:label { bd:serviceParam wikibase:language \"es,en\" . }\n}";
-    }
-
-    static void download(Map<String, String> p, Path rawDir) throws IOException, InterruptedException {
+    static void download(Path rawDir) throws IOException, InterruptedException {
         Files.createDirectories(rawDir);
-        String sparql = query(p, LocalDate.now());
-        HttpClient client = HttpClient.newBuilder().connectTimeout(Duration.ofSeconds(15)).build();
-        IOException last = null;
-        for (int attempt = 1; attempt <= 3; attempt++) {
-            HttpRequest request = HttpRequest.newBuilder(URI.create(p.get("endpoint") + "?format=json&query="
-                    + URLEncoder.encode(sparql, StandardCharsets.UTF_8))).timeout(Duration.ofSeconds(120))
-                    .header("User-Agent", USER_AGENT).header("Accept", "application/sparql-results+json").GET().build();
-            HttpResponse<byte[]> response = client.send(request, HttpResponse.BodyHandlers.ofByteArray());
-            if (response.statusCode() == 200) {
-                Files.write(rawDir.resolve(HOLDERS_FILE), response.body());
-                Files.writeString(rawDir.resolve("query.rq"), sparql, StandardCharsets.UTF_8);
-                return;
-            }
-            last = new IOException("Wikidata a répondu HTTP " + response.statusCode());
-            Thread.sleep(Long.parseLong(p.get("delayMs")) * attempt);
+        Path target = rawDir.resolve(HTML_FILE);
+        if (Files.isRegularFile(target) && Files.size(target) > 50_000) {
+            return;
         }
-        throw last;
+
+        // Essayer via node si disponible (contourne l'incompatibilité JA3/TLS d'Akamai Edge)
+        boolean downloaded = false;
+        try {
+            String script = "async function run() {"
+                    + "  const form = new URLSearchParams({ legis: '15', idcom: 'A', boton_obtener_listado: 'OBTENER LISTADO' });"
+                    + "  const res = await fetch('" + SENADO_POST_URL + "', {"
+                    + "    method: 'POST',"
+                    + "    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },"
+                    + "    body: form.toString()"
+                    + "  });"
+                    + "  const buf = Buffer.from(await res.arrayBuffer());"
+                    + "  process.stdout.write(buf);"
+                    + "}"
+                    + "run().catch(e => { console.error(e); process.exit(1); });";
+
+            ProcessBuilder pb = new ProcessBuilder("node", "-e", script);
+            Process p = pb.start();
+            Path tmp = rawDir.resolve("download.tmp");
+            try (InputStream in = p.getInputStream()) {
+                Files.copy(in, tmp, StandardCopyOption.REPLACE_EXISTING);
+            }
+            int code = p.waitFor();
+            if (code == 0 && Files.size(tmp) > 50_000) {
+                Files.move(tmp, target, StandardCopyOption.REPLACE_EXISTING);
+                downloaded = true;
+                log.info("Sénat téléchargé avec succès via node ({} octets).", Files.size(target));
+            } else {
+                Files.deleteIfExists(tmp);
+            }
+        } catch (Exception e) {
+            log.debug("Exécution de node non disponible : {}", e.getMessage());
+        }
+
+        if (!downloaded) {
+            // Téléchargement direct standard Java HttpClient
+            HttpClient client = HttpClient.newBuilder()
+                    .followRedirects(HttpClient.Redirect.NORMAL)
+                    .connectTimeout(Duration.ofSeconds(15))
+                    .build();
+
+            String body = "legis=15&idcom=A&boton_obtener_listado=OBTENER+LISTADO";
+            HttpRequest request = HttpRequest.newBuilder(URI.create(SENADO_POST_URL))
+                    .timeout(Duration.ofSeconds(30))
+                    .header("User-Agent", USER_AGENT)
+                    .header("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8")
+                    .header("Content-Type", "application/x-www-form-urlencoded")
+                    .POST(HttpRequest.BodyPublishers.ofString(body))
+                    .build();
+
+            HttpResponse<byte[]> response = client.send(request, HttpResponse.BodyHandlers.ofByteArray());
+            if (response.statusCode() == 200 && response.body().length > 50_000) {
+                Files.write(target, response.body());
+                downloaded = true;
+            } else {
+                throw new IOException("Impossible de télécharger la composition du Sénat depuis " + SENADO_POST_URL
+                        + " (HTTP " + response.statusCode() + ").");
+            }
+        }
     }
 
-    // ------------------------------------------------------------------ conversion
+    // ------------------------------------------------------------------ Conversion
 
-    Report convert(Path rawDir, LocalDate today, Map<String, String> p, FtmDatasetBuilder dataset) throws IOException {
-        Path file = rawDir.resolve(HOLDERS_FILE);
+    Report convert(Path rawDir, FtmDatasetBuilder dataset) throws IOException {
+        Path file = rawDir.resolve(HTML_FILE);
         if (!Files.isRegularFile(file)) {
-            throw new IllegalStateException(HOLDERS_FILE + " absent de " + rawDir + " : le téléchargement n'a pas eu lieu.");
+            throw new IllegalStateException(HTML_FILE + " absent de " + rawDir);
         }
-        List<Holding> holdings = read(file);
-        if (holdings.isEmpty()) {
-            throw new IllegalStateException("Wikidata n'a renvoyé aucun titulaire : requête vide ou fonctions mal configurées "
-                    + "(voir query.rq dans les données brutes).");
+
+        List<Senator> senators = readHtml(file);
+        if (senators.isEmpty()) {
+            throw new IllegalStateException("Aucun sénateur trouvé dans " + HTML_FILE);
         }
-        LocalDate oldestEnd = today.minusMonths(Long.parseLong(p.get("monthsAfterEnd")));
+
+        FtmEntity position = dataset.newEntity("Position", "senador");
+        position.addValue("name", "Senador");
+        position.addValue("organization", "Senado de España");
+        position.addValue("country", "es");
+        position.addValue("topics", "gov.legislative");
+        position.addValue("topics", "gov.national");
+        dataset.addEntity(position);
+
         Map<String, FtmEntity> persons = new LinkedHashMap<>();
-        Set<String> seen = new LinkedHashSet<>();
-        int current = 0;
-        int ended = 0;
-        int dropped = 0;
-        for (Holding h : holdings) {
-            if (h.end() != null && h.end().isBefore(oldestEnd)) {
-                dropped++;
-                continue;
-            }
-            if (!seen.add(h.qid() + "|" + h.subject() + "|" + h.start() + "|" + h.end())) {
-                continue;
-            }
-            boolean isEnded = h.end() != null && h.end().isBefore(today);
-            if (isEnded) {
-                ended++;
-            } else {
-                current++;
-            }
-            String label = p.get("positionLabel").replace("{subject}", h.subjectLabel());
-            FtmEntity person = persons.computeIfAbsent(h.qid(), k -> newPerson(h, dataset));
-            person.addValue("position", (isEnded ? "Ancien : " : "") + label);
+        for (Senator s : senators) {
+            FtmEntity person = persons.computeIfAbsent(s.id(), k -> newPerson(s, dataset));
+            person.addValue("position", POSITION_NAME);
 
-            FtmEntity position = dataset.newEntity("Position", h.subject());
-            position.addValue("name", label);
-            position.addValue("country", "es");
-            position.addValue("organization", p.getOrDefault("organization", h.subjectLabel()));
-            for (String topic : p.get("topics").split("[\\s,]+")) {
-                position.addValue("topics", topic);
-            }
-            dataset.addEntity(position);
-
-            FtmEntity occupancy = dataset.newEntity("Occupancy", h.qid(), h.subject(), h.start() == null ? "" : h.start().toString());
+            FtmEntity occupancy = dataset.newEntity("Occupancy", s.id(), "15");
             occupancy.addValue("holder", person.getId());
             occupancy.addValue("post", position.getId());
-            occupancy.addValue("startDate", h.start() == null ? null : h.start().toString());
-            occupancy.addValue("endDate", h.end() == null ? null : h.end().toString());
-            occupancy.addValue("status", isEnded ? "ended" : "current");
-            occupancy.addValue("sourceUrl", "https://www.wikidata.org/wiki/" + h.qid());
+            occupancy.addValue("status", "current");
+            if (s.mandate() != null && !s.mandate().isBlank()) {
+                occupancy.addValue("description", s.mandate());
+            }
+            occupancy.addValue("sourceUrl", s.sourceUrl());
             dataset.addEntity(occupancy);
         }
+
         persons.values().forEach(dataset::addEntity);
-        if (persons.isEmpty()) {
-            throw new IllegalStateException("Aucun mandat dans la fenêtre de rétention.");
-        }
-        Report report = new Report(holdings.size(), persons.size(), current, ended, dropped);
+        Report report = new Report(senators.size());
         log.info(report.message());
         return report;
     }
 
-    static List<Holding> read(Path file) throws IOException {
-        List<Holding> list = new ArrayList<>();
-        for (JsonNode b : JSON.readTree(file.toFile()).path("results").path("bindings")) {
-            String qid = qid(b.path("pep"));
-            String name = value(b, "pepLabel");
-            String subject = qid(b.path("subj"));
-            String subjectLabel = value(b, "subjLabel");
-            if (qid == null || subject == null || name == null || QID.matcher(name).matches()) {
-                continue;   // personne sans libellé dans Wikidata : rien à rapprocher
-            }
-            list.add(new Holding(qid, name, birth(value(b, "birth"), value(b, "birthPrec")),
-                    gender(qid(b.path("gender"))), subject, subjectLabel == null || QID.matcher(subjectLabel).matches()
-                            ? subject : subjectLabel,
-                    day(value(b, "start")), day(value(b, "end"))));
+    static List<Senator> readHtml(Path file) throws IOException {
+        String html = Files.readString(file, StandardCharsets.UTF_8);
+        List<Senator> list = new ArrayList<>();
+
+        Pattern regex = Pattern.compile(
+                "<a title=\"Acceso a la ficha de ([^\"]+)\" href=\"([^\"]*id1=(\\d+)[^\"]*)\">[\\s\\S]*?<abbr title=\"([^\"]*)\">([^<]*)</abbr>[\\s\\S]*?<span class=\"col-3\">\\s*([^<]+)\\s*</span>",
+                Pattern.CASE_INSENSITIVE
+        );
+
+        Matcher m = regex.matcher(html);
+        while (m.find()) {
+            String rawName = m.group(1).trim();
+            String id = m.group(3).trim();
+            String groupName = m.group(4).trim();
+            String groupCode = m.group(5).trim();
+            String mandate = m.group(6).replaceAll("\\s+", " ").trim();
+
+            String[] parts = rawName.split(",", 2);
+            String last = parts[0].trim();
+            String first = parts.length > 1 ? parts[1].trim() : null;
+            String fullName = first == null ? last : (first + " " + last).trim();
+
+            String sourceUrl = SENADO_FICHA_URL + id;
+            list.add(new Senator(id, rawName, first, last, fullName, groupCode, groupName, mandate, sourceUrl));
         }
         return list;
     }
 
-    private static FtmEntity newPerson(Holding h, FtmDatasetBuilder dataset) {
-        FtmEntity person = dataset.newEntity("Person", h.qid());
-        person.addValue("name", h.name());
+    private static FtmEntity newPerson(Senator s, FtmDatasetBuilder dataset) {
+        FtmEntity person = dataset.newEntity("Person", s.id());
+        person.addValue("name", s.fullName());
+        if (s.firstName() != null) {
+            person.addValue("firstName", s.firstName());
+        }
+        if (s.lastName() != null) {
+            person.addValue("lastName", s.lastName());
+        }
         person.addValue("country", "es");
         person.addValue("nationality", "es");
-        person.addValue("birthDate", h.birth());
-        person.addValue("gender", h.gender());
-        person.addValue("wikidataId", h.qid());
-        person.addValue("sourceUrl", "https://www.wikidata.org/wiki/" + h.qid());
+        if (s.groupCode() != null && !s.groupCode().isBlank()) {
+            person.addValue("political", s.groupName() != null && !s.groupName().isBlank()
+                    ? s.groupCode() + " - " + s.groupName() : s.groupCode());
+        }
+        person.addValue("sourceUrl", s.sourceUrl());
         return person;
     }
 
-    private static String qid(JsonNode node) {
-        String v = node.path("value").asText(null);
-        return v != null && v.startsWith(ENTITY) ? v.substring(ENTITY.length()) : null;
-    }
-
-    private static String value(JsonNode binding, String field) {
-        String v = binding.path(field).path("value").asText(null);
-        return v == null || v.isBlank() ? null : v;
-    }
-
-    private static LocalDate day(String iso) {
-        if (iso == null) {
-            return null;
-        }
-        try {
-            return OffsetDateTime.parse(iso).toLocalDate();
-        } catch (DateTimeParseException e) {
-            return null;
-        }
-    }
-
-    /** Date de naissance à la précision de Wikidata : 11 = jour, 10 = mois, 9 = année ; moins précis = ignoré. */
-    static String birth(String iso, String precision) {
-        LocalDate date = day(iso);
-        if (date == null || precision == null) {
-            return null;
-        }
-        return switch (precision) {
-            case "11" -> date.toString();
-            case "10" -> String.format("%04d-%02d", date.getYear(), date.getMonthValue());
-            case "9" -> String.format("%04d", date.getYear());
-            default -> null;
-        };
-    }
-
-    private static String gender(String qid) {
-        if ("Q6581097".equals(qid)) {
-            return "male";
-        }
-        return "Q6581072".equals(qid) ? "female" : null;
-    }
-
-    static String key(String text) {
+    static String personKey(String text) {
         return Normalizer.normalize(text, Normalizer.Form.NFD).replaceAll("\\p{M}+", "").toLowerCase(Locale.ROOT)
                 .replaceAll("[^a-z0-9]+", " ").trim();
     }

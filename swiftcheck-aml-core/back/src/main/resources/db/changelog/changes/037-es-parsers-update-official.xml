@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Mise à jour des parsers PEP de l'Espagne : passage de es_pep_senado et es_pep_judiciary
+    aux sources officielles directes (Sénat d'Espagne, BOE et Poder Judicial).
+-->
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="037-update-es-pep-senado-official" author="swiftcheck">
+        <sql><![CDATA[
+            UPDATE parser
+            SET name = 'PEP Espagne — Sénat (Sénateurs XVe législature)',
+                description = 'Les sénateurs de la XVe législature collectés directement auprès du portail officiel du Sénat (bloc ES-b)',
+                website_url = 'https://www.senado.es',
+                parser_kind = 'WEB_PAGE',
+                parameters = NULL,
+                attribution = 'Senado de España, www.senado.es',
+                notes = 'Liste officielle exhaustive de l''ensemble des sénateurs de la XVe législature (élus au suffrage direct et désignés par les parlements autonomes) avec leur identifiant parlementaire officiel, groupe politique et circonscription.'
+            WHERE dataset_name = 'es_pep_senado';
+
+            UPDATE pep_function_parser pfp
+            JOIN parser p ON p.id = pfp.parser_id
+            SET pfp.completeness = 'COMPLETE',
+                pfp.covered_scope = 'L''ensemble des 265 sénateurs élus et désignés de la XVe législature, avec leur identifiant parlementaire, groupe politique et circonscription.',
+                pfp.gaps = NULL
+            WHERE p.dataset_name = 'es_pep_senado';
+        ]]></sql>
+    </changeSet>
+
+    <changeSet id="037-update-es-pep-judiciary-official" author="swiftcheck">
+        <sql><![CDATA[
+            UPDATE parser
+            SET name = 'PEP Espagne — Hautes juridictions (Tribunal Constitucional, Tribunal Supremo, CGPJ)',
+                description = 'Magistrats et présidence du Tribunal constitutionnel, Tribunal suprême et Conseil général du pouvoir judiciaire d''après les sources officielles BOE et Poder Judicial (bloc ES-c)',
+                website_url = 'https://www.boe.es',
+                parser_kind = 'OFFICIAL_GAZETTE',
+                parameters = NULL,
+                attribution = 'BOE (Agencia Estatal Boletín Oficial del Estado) et Consejo General del Poder Judicial',
+                notes = 'Composition officielle intégrale : décrets royaux de nomination des magistrats et de la présidence du Tribunal Constitucional et du CGPJ (RD 755/2024, RD 756/2024, RD 888/2024) publiés au BOE, et composition officielle de la Sala de Gobierno du Tribunal Supremo sur poderjudicial.es.'
+            WHERE dataset_name = 'es_pep_judiciary';
+
+            UPDATE pep_function_parser pfp
+            JOIN parser p ON p.id = pfp.parser_id
+            SET pfp.completeness = 'COMPLETE',
+                pfp.covered_scope = 'Magistrats et présidence du Tribunal constitutionnel (12 membres), Sala de Gobierno du Tribunal suprême et les 20 vocales et présidente du CGPJ.',
+                pfp.gaps = NULL
+            WHERE p.dataset_name = 'es_pep_judiciary';
+        ]]></sql>
+    </changeSet>
+
+</databaseChangeLog>
+

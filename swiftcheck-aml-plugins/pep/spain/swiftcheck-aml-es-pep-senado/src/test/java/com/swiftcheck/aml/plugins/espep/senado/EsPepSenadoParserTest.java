@@ -2,35 +2,28 @@ package com.swiftcheck.aml.plugins.espep.senado;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.time.LocalDate;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
-import org.junit.jupiter.api.Assumptions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
-import com.swiftcheck.aml.plugin.ParserContext;
 import com.swiftcheck.aml.sdk.FtmDatasetBuilder;
 import com.swiftcheck.aml.sdk.FtmEntity;
 
-/** Réponse réelle de Wikidata du 2026-11-04 (voir {@code src/test/resources/holders.json}). */
 class EsPepSenadoParserTest {
 
-    private static final LocalDate TODAY = LocalDate.parse("2026-11-04");
-    private static final Map<String, String> P = EsPepSenadoParser.settings(null);
-
-    private static Path rawDir(Path dir) throws IOException {
-        try (InputStream in = EsPepSenadoParserTest.class.getResourceAsStream("/holders.json")) {
-            Files.copy(in, dir.resolve(EsPepSenadoParser.HOLDERS_FILE));
+    private static Path prepareRawDir(Path dir) throws IOException {
+        try (InputStream in = EsPepSenadoParserTest.class.getResourceAsStream("/senadores-legis15.html")) {
+            assertNotNull(in, "Ressource manquante : /senadores-legis15.html");
+            Files.copy(in, dir.resolve(EsPepSenadoParser.HTML_FILE));
         }
         return dir;
     }
@@ -40,88 +33,39 @@ class EsPepSenadoParserTest {
     }
 
     @Test
-    void convertsTheRealResponse(@TempDir Path dir) throws Exception {
+    void convertsOfficialSenatorsList(@TempDir Path dir) throws Exception {
+        Path rawDir = prepareRawDir(dir);
         FtmDatasetBuilder dataset = dataset();
-        EsPepSenadoParser.Report report = new EsPepSenadoParser().convert(rawDir(dir), TODAY, P, dataset);
+        EsPepSenadoParser.Report report = new EsPepSenadoParser().convert(rawDir, dataset);
 
-        assertTrue(report.persons() > 0);
+        assertTrue(report.count() >= 265, "Tous les sénateurs de la législature doivent être présents");
         assertEquals(0, dataset.qualityReport().getTotalRejected());
+
         List<FtmEntity> persons = dataset.entities().stream().filter(e -> "Person".equals(e.getSchema())).toList();
-        assertEquals(report.persons(), persons.size());
+        assertEquals(report.count(), persons.size());
+
         for (FtmEntity person : persons) {
             assertEquals(Set.of("role.pep"), person.getValues("topics"));
             assertEquals(Set.of("es"), person.getValues("nationality"));
-            assertEquals(1, person.getValues("wikidataId").size());
+            assertEquals(Set.of("es"), person.getValues("country"));
             assertFalse(person.getValues("position").isEmpty());
+            assertTrue(person.getValues("sourceUrl").iterator().next().contains("senado.es"));
         }
+
+        // Vérification de sénateurs connus
+        assertTrue(persons.stream().anyMatch(p -> p.getValues("name").iterator().next().toLowerCase().contains("abdelhakim")));
+        assertTrue(persons.stream().anyMatch(p -> p.getValues("name").iterator().next().toLowerCase().contains("zubiaga")));
     }
 
     @Test
-    void keepsAKnownHolder(@TempDir Path dir) throws Exception {
-        FtmDatasetBuilder dataset = dataset();
-        new EsPepSenadoParser().convert(rawDir(dir), TODAY, P, dataset);
-
-        FtmEntity person = dataset.entities().stream().filter(e -> "Person".equals(e.getSchema())
-                && e.getValues("wikidataId").contains("Q126721577")).findFirst().orElseThrow();
-        assertEquals(Set.of("Rosa Faustina Viera Fernández"), person.getValues("name"));
-        assertTrue(dataset.entities().stream().anyMatch(e -> "Occupancy".equals(e.getSchema())
-                && e.getValues("holder").contains(person.getId())));
-    }
-
-    @Test
-    void appliesTheRetentionOfTheCountry(@TempDir Path dir) throws Exception {
-        // beaucoup plus tard, tout mandat terminé dans la réponse a dépassé 24 mois : il est écarté
-        FtmDatasetBuilder later = dataset();
-        EsPepSenadoParser.Report atSnapshot = new EsPepSenadoParser().convert(rawDir(dir), TODAY, P, dataset());
-        try {
-            EsPepSenadoParser.Report report = new EsPepSenadoParser().convert(dir, TODAY.plusYears(30), P, later);
-            assertEquals(0, report.ended(), "tout mandat terminé a dépassé 24 mois");
-            assertTrue(report.dropped() >= atSnapshot.ended() + atSnapshot.dropped());
-        } catch (IllegalStateException expected) {
-            assertTrue(expected.getMessage().contains("fenêtre"), "aucun mandat ne doit rester");
-        }
-    }
-
-    @Test
-    void failsWhenTheResponseIsEmpty(@TempDir Path dir) throws Exception {
-        Files.writeString(dir.resolve(EsPepSenadoParser.HOLDERS_FILE),
-                "{\"head\":{\"vars\":[]},\"results\":{\"bindings\":[]}}");
-        assertThrows(IllegalStateException.class, () -> new EsPepSenadoParser().convert(dir, TODAY, P, dataset()));
-    }
-
-    @Test
-    void queryIsProtectedAgainstInjection() {
-        Map<String, String> bad = new java.util.LinkedHashMap<>(P);
-        bad.put("kind", "positions");
-        bad.put("positions", "Q1 } UNION { ?x ?y ?z");
-        assertThrows(IllegalArgumentException.class, () -> EsPepSenadoParser.query(bad, TODAY));
-        Map<String, String> unknown = new java.util.LinkedHashMap<>(P);
-        unknown.put("kind", "autre");
-        assertThrows(IllegalArgumentException.class, () -> EsPepSenadoParser.query(unknown, TODAY));
-    }
-
-    @Test
-    void queryHasTheRetentionDate() {
-        String sparql = EsPepSenadoParser.query(P, LocalDate.parse("2026-11-04"));
-        assertTrue(sparql.contains("2024-11-04T00:00:00Z"), "24 mois avant le 4 novembre 2026");
-        assertTrue(sparql.contains("FILTER NOT EXISTS { ?pep wdt:P570 ?death }"));
-    }
-
-    @Test
-    void birthDateKeepsThePrecisionOfWikidata() {
-        assertEquals("1970-05-12", EsPepSenadoParser.birth("1970-05-12T00:00:00Z", "11"));
-        assertEquals("1970-05", EsPepSenadoParser.birth("1970-05-01T00:00:00Z", "10"));
-        assertEquals("1970", EsPepSenadoParser.birth("1970-01-01T00:00:00Z", "9"));
-        assertEquals(null, EsPepSenadoParser.birth("1900-01-01T00:00:00Z", "8"));
-    }
-
-    /** Rafraîchit {@code holders.json} : {@code mvn test -Dtest=*Test -Dlive.snapshot=<dossier>}. */
-    @Test
-    void snapshotLive() throws Exception {
-        String target = System.getProperty("live.snapshot");
-        Assumptions.assumeTrue(target != null, "facultatif : -Dlive.snapshot=<dossier>");
-        Path out = Path.of(target);
-        EsPepSenadoParser.download(P, out);
-        assertTrue(Files.isRegularFile(out.resolve(EsPepSenadoParser.HOLDERS_FILE)));
+    void parsesHtmlRegexDetails(@TempDir Path dir) throws Exception {
+        prepareRawDir(dir);
+        List<EsPepSenadoParser.Senator> senators = EsPepSenadoParser.readHtml(dir.resolve(EsPepSenadoParser.HTML_FILE));
+        assertTrue(senators.size() >= 300);
+        EsPepSenadoParser.Senator first = senators.get(0);
+        assertNotNull(first.id());
+        assertNotNull(first.fullName());
+        assertNotNull(first.groupCode());
+        assertNotNull(first.mandate());
     }
 }
