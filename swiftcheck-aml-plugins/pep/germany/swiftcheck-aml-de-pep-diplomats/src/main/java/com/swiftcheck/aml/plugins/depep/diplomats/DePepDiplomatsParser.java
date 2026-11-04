@@ -100,26 +100,17 @@ public class DePepDiplomatsParser implements Iparser {
         return records;
     }
 
-    static final String BASELINE_RESOURCE = "/diplomats-baseline.txt";
     static final String DEFAULT_URL = "https://www.auswaertiges-amt.de/de/aussenpolitik/laender";
 
     private String loadContent(ParserContext ctx) throws Exception {
         if (ctx.inputFile() != null && Files.isRegularFile(ctx.inputFile())) {
             return Files.readString(ctx.inputFile(), StandardCharsets.UTF_8);
         }
-        Path rawFile = ctx.rawDir() != null ? ctx.rawDir().resolve("diplomats.txt") : null;
-        if (rawFile != null && Files.isRegularFile(rawFile)) {
-            return Files.readString(rawFile, StandardCharsets.UTF_8);
-        }
-
         Map<String, String> p = ctx.parameters() == null ? Map.of() : ctx.parameters();
         boolean allowCrawl = !"false".equalsIgnoreCase(p.get("crawl"));
         if (allowCrawl && ctx.rawDir() != null) {
             String url = p.getOrDefault("url", DEFAULT_URL).trim();
             Path rawHtml = ctx.rawDir().resolve("diplomats.html");
-            if (Files.isRegularFile(rawHtml)) {
-                return Files.readString(rawHtml, StandardCharsets.UTF_8);
-            }
             String html = crawl(url, "SwiftCheck-AML/1.0 (liste PEP Allemagne - Diplomates)");
             if (html != null && !html.isBlank()) {
                 Files.createDirectories(ctx.rawDir());
@@ -131,21 +122,9 @@ public class DePepDiplomatsParser implements Iparser {
             }
         }
 
-        // Fallback sur ressource embarquée officielle
-        String content = null;
-        try (InputStream in = DePepDiplomatsParser.class.getResourceAsStream(BASELINE_RESOURCE)) {
-            if (in != null) {
-                content = new String(in.readAllBytes(), StandardCharsets.UTF_8);
-            }
-        }
-        if (content == null) {
-            throw new IllegalStateException("Aucun fichier d'ambassades/diplomates trouvé dans " + ctx.inputFile());
-        }
-        if (ctx.rawDir() != null) {
-            Files.createDirectories(ctx.rawDir());
-            Files.writeString(ctx.rawDir().resolve("diplomats.txt"), content, StandardCharsets.UTF_8);
-        }
-        return content;
+        // Aucune liste de secours : le plugin ne publie que ce qu'il lit en ligne à chaque exécution.
+        throw new IllegalStateException("Aucune liste d'ambassadeurs lisible en ligne (" + p.getOrDefault("url", DEFAULT_URL)
+                + ") : le site du ministère des Affaires étrangères ne publie pas de liste nominative exploitable.");
     }
 
     static String crawl(String url, String userAgent) {

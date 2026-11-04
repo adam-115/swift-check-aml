@@ -1,152 +1,76 @@
 package com.swiftcheck.aml.plugins.lupep.politicalparties;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-import java.nio.charset.StandardCharsets;
+import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
 import com.swiftcheck.aml.plugin.ParserContext;
 import com.swiftcheck.aml.plugin.ParserResult;
-import com.swiftcheck.aml.plugin.SourceRecord;
-import com.swiftcheck.aml.plugins.lupep.politicalparties.LuPepPoliticalPartiesParser.PartyLeaderRecord;
-import com.swiftcheck.aml.sdk.FtmDatasetBuilder;
-import com.swiftcheck.aml.sdk.FtmEntity;
 
+/**
+ * Réponse réelle de Wikidata (SPARQL) pour les partis politiques du Luxembourg, relevée le 4 novembre 2026.
+ * Aucune liste de dirigeants n'est embarquée dans le plugin : tout vient de cette réponse, téléchargée à chaque exécution.
+ */
 class LuPepPoliticalPartiesParserTest {
 
-    @TempDir
-    Path tempDir;
+    private static LuPepPoliticalPartiesParser parserWithFixture() {
+        return new LuPepPoliticalPartiesParser((endpoint, country, raw) -> {
+            try (InputStream in = LuPepPoliticalPartiesParserTest.class.getResourceAsStream("/leaders.json")) {
+                Files.write(raw.resolve("leaders.json"), in.readAllBytes());
+            }
+        });
+    }
 
-    private LuPepPoliticalPartiesParser parser;
-    private Path sampleCsv;
-
-    @BeforeEach
-    void setUp() throws Exception {
-        parser = new LuPepPoliticalPartiesParser();
-        sampleCsv = Path.of("src/test/resources/partis_politiques_luxembourg.csv");
-        if (!Files.exists(sampleCsv)) {
-            sampleCsv = tempDir.resolve("sample_parties.csv");
-            Files.writeString(sampleCsv,
-                    "parti_code,parti_nom,role,nom_complet,prenom,nom,source_url\n"
-                    + "CSV,Chrëschtlech-Sozial Vollekspartei,Président national,Luc Frieden,Luc,Frieden,https://csv.lu\n"
-                    + "DP,Demokratesch Partei,Présidente nationale,Carole Hartmann,Carole,Hartmann,https://dp.lu\n",
-                    StandardCharsets.UTF_8);
-        }
+    private static ParserContext context(Path dir, Map<String, String> params) {
+        // wikidataEndpoint vide : pas de recherche de photos pendant le test
+        return new ParserContext("lu_pep_political_parties", null, dir, dir.resolve("out.ndjson"), params);
     }
 
     @Test
-    @DisplayName("Devrait extraire dynamiquement les dirigeants depuis le fichier source CSV sans aucun nom en dur")
-    void testExtractLeadersDynamically() throws Exception {
-        List<PartyLeaderRecord> leaders = parser.extractLeaders(sampleCsv, LuPepPoliticalPartiesParser.DEFAULT_SOURCE_URL);
+    void readsTheLeadersOfTheElevenPartiesFromWikidata(@TempDir Path dir) throws Exception {
+        ParserResult r = parserWithFixture().parse(context(dir, Map.of("wikidataEndpoint", "")));
 
-        assertThat(leaders).isNotEmpty();
-        assertThat(leaders.size()).isGreaterThanOrEqualTo(40);
-
-        // Vérification de la présence des partis représentés
-        assertThat(leaders).anyMatch(l -> "CSV".equals(l.partyCode));
-        assertThat(leaders).anyMatch(l -> "DP".equals(l.partyCode));
-        assertThat(leaders).anyMatch(l -> "LSAP".equals(l.partyCode));
-        assertThat(leaders).anyMatch(l -> "ADR".equals(l.partyCode));
-        assertThat(leaders).anyMatch(l -> l.partyCode.contains("gréng"));
-        assertThat(leaders).anyMatch(l -> "Piraten".equals(l.partyCode));
-        assertThat(leaders).anyMatch(l -> l.partyCode.contains("Lénk"));
+        assertThat(r.message()).contains("11 partis politiques luxembourgeois dans Wikidata").contains("13 dirigeants");
+        String all = Files.readString(dir.resolve("out.ndjson"));
+        assertThat(all).contains("\"name\":[\"Luc Frieden\"]", "\"name\":[\"Carole Hartmann\"]", "\"name\":[\"Francine Closener\"]",
+                "\"name\":[\"Dan Biancalana\"]").contains("role.pep").contains("\"country\":[\"lu\"]");
     }
 
     @Test
-    @DisplayName("Devrait convertir dynamiquement n'importe quel fichier source en entités FollowTheMoney valides")
-    void testConvertCustomFileGeneratesValidFtm(@TempDir Path dir) throws Exception {
-        Path customCsv = dir.resolve("custom_test.csv");
-        Files.writeString(customCsv,
-                "parti_code,parti_nom,role,nom_complet,prenom,nom,source_url\n"
-                + "TEST,Parti de Test,Président,Jean Dupont,Jean,Dupont,https://test.lu\n"
-                + "TEST,Parti de Test,Secrétaire général,Marie Martin,Marie,Martin,https://test.lu\n",
-                StandardCharsets.UTF_8);
+    void publishesNothingWhenWikidataCannotBeReached(@TempDir Path dir) {
+        LuPepPoliticalPartiesParser failing = new LuPepPoliticalPartiesParser((endpoint, country, raw) -> {
+            throw new java.io.IOException("réseau coupé");
+        });
 
-        FtmDatasetBuilder dataset = new FtmDatasetBuilder("lu-pep-parties", "role.pep");
-        parser.convert(customCsv, "https://test.lu", LocalDate.now().minusYears(5), dataset);
-
-        List<FtmEntity> entities = new ArrayList<>(dataset.entities());
-        assertThat(entities).isNotEmpty();
-
-        // 1 Position
-        List<FtmEntity> positions = entities.stream().filter(e -> "Position".equals(e.getSchema())).toList();
-        assertThat(positions).hasSize(1);
-        assertThat(positions.get(0).getValues("name")).contains("Membre d'un organe dirigeant de parti politique");
-
-        // 2 Personnes
-        List<FtmEntity> persons = entities.stream().filter(e -> "Person".equals(e.getSchema())).toList();
-        assertThat(persons).hasSize(2);
-        assertThat(persons.get(0).getValues("name")).contains("Jean Dupont");
-        assertThat(persons.get(1).getValues("name")).contains("Marie Martin");
-
-        // 2 Occupancies
-        List<FtmEntity> occs = entities.stream().filter(e -> "Occupancy".equals(e.getSchema())).toList();
-        assertThat(occs).hasSize(2);
-        for (FtmEntity occ : occs) {
-            // « role » n'existe pas dans le schéma FtM Occupancy : le contrôle qualité du core le rejette
-            assertThat(occ.getValues("role")).as("Occupancy ne doit pas avoir la propriété 'role'").isEmpty();
-            assertThat(occ.getValues("description")).isNotEmpty();
-        }
+        assertThatThrownBy(() -> failing.parse(context(dir, Map.of()))).isInstanceOf(IllegalStateException.class);
     }
 
     @Test
-    @DisplayName("Devrait lire dynamiquement les SourceRecords via readSourceRecords")
-    void testReadSourceRecords() throws Exception {
-        Path rawDir = tempDir.resolve("raw");
-        Files.createDirectories(rawDir);
+    void doesNotReuseAFileLeftInTheWorkFolder(@TempDir Path dir) throws Exception {
+        Files.writeString(dir.resolve("leaders.json"), "{\"results\":{\"bindings\":[]}}");
 
-        ParserContext ctx = new ParserContext(
-                "lu_pep_political_parties",
-                sampleCsv,
-                rawDir,
-                tempDir.resolve("out.ndjson"),
-                Map.of("sourceUrl", LuPepPoliticalPartiesParser.DEFAULT_SOURCE_URL)
-        );
+        ParserResult r = parserWithFixture().parse(context(dir, Map.of("wikidataEndpoint", "")));
 
-        List<SourceRecord> records = parser.readSourceRecords(ctx);
-        assertThat(records).isNotEmpty();
-        assertThat(records.size()).isGreaterThanOrEqualTo(40);
-        assertThat(records.get(0).schema()).isEqualTo("Person");
-        assertThat(records.get(0).name()).isNotBlank();
+        assertThat(r.message()).contains("13 dirigeants"); // le fichier laissé a été remplacé par le téléchargement
     }
 
     @Test
-    @DisplayName("Devrait exécuter parse() complet et générer le fichier NDJSON")
-    void testFullParse() throws Exception {
-        Path outFile = tempDir.resolve("parties.ndjson");
-        Path rawDir = tempDir.resolve("raw");
-        Files.createDirectories(rawDir);
-
-        ParserContext ctx = new ParserContext(
-                "lu_pep_political_parties",
-                sampleCsv,
-                rawDir,
-                outFile,
-                Map.of("sourceUrl", LuPepPoliticalPartiesParser.DEFAULT_SOURCE_URL)
-        );
-
-        ParserResult result = parser.parse(ctx);
-        assertThat(result).isNotNull();
-        assertThat(result.entityCount()).isGreaterThan(80);
-        assertThat(Files.exists(outFile)).isTrue();
-        assertThat(Files.size(outFile)).isGreaterThan(500);
-    }
-
-    @Test
-    @DisplayName("Devrait slugifier proprement les identifiants")
-    void testSlugify() {
-        assertThat(LuPepPoliticalPartiesParser.slugify("Chrëschtlech-Sozial Vollekspartei")).isEqualTo("chreschtlech-sozial-vollekspartei");
-        assertThat(LuPepPoliticalPartiesParser.slugify("déi gréng")).isEqualTo("dei-greng");
-        assertThat(LuPepPoliticalPartiesParser.slugify("déi Lénk")).isEqualTo("dei-lenk");
+    void embedsNoPersonalDataInTheJar() {
+        assertThat(LuPepPoliticalPartiesParser.class.getResource("/partis_politiques_luxembourg.csv")).isNull();
+        assertThat(List.of("Luc Frieden", "Carole Hartmann")).allMatch(n -> {
+            try (InputStream in = LuPepPoliticalPartiesParser.class.getResourceAsStream("/" + n)) {
+                return in == null;
+            } catch (java.io.IOException e) {
+                return true;
+            }
+        });
     }
 }

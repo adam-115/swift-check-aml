@@ -75,5 +75,18 @@ class DePepLocalExecutivesParserTest {
         ParserResult result = parser.parse(ctx);
         assertThat(result.message()).contains("2 maires et Landräte");
     }
-}
 
+    @Test
+    void parsesRealWikidataBindings() {
+        String json = "{\"head\":{},\"results\":{\"bindings\":[{"
+                + "\"entityLabel\":{\"type\":\"literal\",\"value\":\"Köln\"},"
+                + "\"type\":{\"type\":\"literal\",\"value\":\"City\"},"
+                + "\"pop\":{\"type\":\"literal\",\"value\":\"1084831\"},"
+                + "\"role\":{\"type\":\"literal\",\"value\":\"Oberbürgermeister\"},"
+                + "\"personLabel\":{\"type\":\"literal\",\"value\":\"Henriette Reker\"},"
+                + "\"partyLabel\":{\"type\":\"literal\",\"value\":\"parteilos\"}}]}}";
+        var list = DePepLocalExecutivesParser.parseContent(json, 50000);
+        assertThat(list).hasSize(1);
+        assertThat(list.get(0).entityName()).isEqualTo("Köln");
+    }
+}

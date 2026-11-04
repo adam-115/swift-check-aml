@@ -130,23 +130,20 @@ class FrPepStateEnterprisesParserTest {
     }
 
     @Test
-    void blockedApePageFallsBackToTheEmbeddedListAndSaysSo(@TempDir Path rawDir) throws Exception {
+    void blockedApePageStopsTheRunInsteadOfFallingBackToAnEmbeddedList(@TempDir Path rawDir) {
         CompanyRegistry.Fetcher fetcher = url -> {
             if (url.startsWith("https://ape")) {
                 throw new IOException("HTTP 403 : " + url);  // contrôle anti-robots : jamais contourné
             }
             return "{\"results\":[],\"total_pages\":1}".getBytes(StandardCharsets.UTF_8);
         };
-        FrPepStateEnterprisesParser.download(fetcher, Map.of("apeUrl", "https://ape.test", "natures", "4110"), rawDir);
-        copyFixture(rawDir);
-        Files.delete(rawDir.resolve(FrPepStateEnterprisesParser.APE_FILE));
 
-        FrPepStateEnterprisesParser.Report report = new FrPepStateEnterprisesParser().convert(rawDir, Map.of(), dataset());
+        IOException e = org.junit.jupiter.api.Assertions.assertThrows(IOException.class,
+                () -> FrPepStateEnterprisesParser.download(fetcher, Map.of("apeUrl", "https://ape.test", "natures", "4110"), rawDir));
 
-        assertEquals(71, report.apeListed(), "mêmes entreprises que la page, sans les entités à une seule action");
-        assertEquals(3, report.apeCompanies());
-        assertTrue(report.message().startsWith("Page de l'APE inaccessible (HTTP 403 : https://ape.test)"),
-                report.message());
+        assertTrue(e.getMessage().contains("HTTP 403"));
+        // aucune liste de secours : sans la page, le dossier de travail ne contient pas de page APE
+        assertTrue(!Files.exists(rawDir.resolve(FrPepStateEnterprisesParser.APE_FILE)));
     }
 
     @Test

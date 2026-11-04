@@ -111,6 +111,8 @@
         <module>swiftcheck-aml-plugins/pep/germany/swiftcheck-aml-de-pep-president</module>
         <!-- PEP Allemagne - Lot 2 : institutions -->
         <module>swiftcheck-aml-plugins/pep/germany/swiftcheck-aml-de-pep-bundesbank</module>
+        <module>swiftcheck-aml-plugins/pep/germany/swiftcheck-aml-de-pep-bafin</module>
+        <module>swiftcheck-aml-plugins/pep/germany/swiftcheck-aml-de-pep-federal-secretaries</module>
         <module>swiftcheck-aml-plugins/pep/germany/swiftcheck-aml-de-pep-audit-courts</module>
         <module>swiftcheck-aml-plugins/pep/germany/swiftcheck-aml-de-pep-federal-courts</module>
         <module>swiftcheck-aml-plugins/pep/germany/swiftcheck-aml-de-pep-land-constitutional-courts</module>

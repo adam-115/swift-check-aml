@@ -65,12 +65,11 @@ class DePepPartiesParserTest {
 
     @Test
     void testParseWikidataLiveResponse(@TempDir Path tempDir) throws Exception {
-        // Pré-déposer leaders.json dans rawDir simulant la réponse téléchargée de Wikidata
-        Files.writeString(tempDir.resolve("leaders.json"), MOCK_WIKIDATA_JSON);
         Path outputFile = tempDir.resolve("output.ndjson");
 
         ParserContext ctx = new ParserContext("de_pep_parties", null, tempDir, outputFile, Map.of());
-        DePepPartiesParser parser = new DePepPartiesParser();
+        // le téléchargement est simulé : le plugin récupère toujours la réponse en direct, sans fichier laissé dans rawDir
+        DePepPartiesParser parser = new DePepPartiesParser((endpoint, country, raw) -> Files.writeString(raw.resolve("leaders.json"), MOCK_WIKIDATA_JSON));
 
         ParserResult result = parser.parse(ctx);
         assertThat(result.message()).contains("partis politiques allemands dans Wikidata");

@@ -4,145 +4,97 @@
       "key": "vgh-bw",
       "name": "Verfassungsgerichtshof für das Land Baden-Württemberg",
       "state": "Baden-Württemberg",
-      "url": "https://verfgh.baden-wuerttemberg.de/de/das-gericht/mitglieder",
-      "baselineJudges": [
-        { "name": "Malte Graßhof", "role": "Präsident des Verfassungsgerichtshofs Baden-Württemberg" }
-      ]
+      "url": "https://verfgh.baden-wuerttemberg.de/mitglieder"
     },
     {
       "key": "vgh-by",
       "name": "Bayerischer Verfassungsgerichtshof",
       "state": "Bayern",
-      "url": "https://www.bayern.verfassungsgerichtshof.de/mitglieder",
-      "baselineJudges": [
-        { "name": "Dr. Hans-Joachim Heßler", "role": "Präsident des Bayerischen Verfassungsgerichtshofs" }
-      ]
+      "url": "https://www.bayern.verfassungsgerichtshof.de/bayverfgh/richterinnen-und-richter/verzeichnis_der_richterinnen_und_richter.php"
     },
     {
       "key": "vgh-be",
       "name": "Verfassungsgerichtshof des Landes Berlin",
       "state": "Berlin",
-      "url": "https://www.berlin.de/gerichte/verfassungsgerichtshof/das-gericht/mitglieder/",
-      "baselineJudges": [
-        { "name": "Prof. Dr. Ludgera Selting", "role": "Präsidentin des Verfassungsgerichtshofs des Landes Berlin" }
-      ]
+      "url": "https://www.berlin.de/gerichte/sonstige-gerichte/verfassungsgerichtshof/ueber-uns-verfassungsgerichtshof-des-landes-berlin-265018.php"
     },
     {
       "key": "vgh-bb",
       "name": "Landesverfassungsgericht Brandenburg",
       "state": "Brandenburg",
-      "url": "https://verfassungsgericht.brandenburg.de/vgbbl/de/mitglieder",
-      "baselineJudges": [
-        { "name": "Markus Möller", "role": "Präsident des Landesverfassungsgerichts Brandenburg" }
-      ]
+      "url": "https://verfassungsgericht.brandenburg.de/verfgbbg/de/ueber-uns/die-verfassungsrichter/verfassungsrichter/"
     },
     {
       "key": "stgh-hb",
       "name": "Staatsgerichtshof der Freien Hansestadt Bremen",
       "state": "Bremen",
-      "url": "https://www.staatsgerichtshof.bremen.de/mitglieder",
-      "baselineJudges": [
-        { "name": "Dr. Ann-Marie Wolff", "role": "Präsidentin des Staatsgerichtshofs der Freien Hansestadt Bremen" }
-      ]
+      "url": "https://www.staatsgerichtshof.bremen.de/mitglieder/amtierende-mitglieder-1460"
     },
     {
       "key": "vgh-hh",
       "name": "Hamburgisches Verfassungsgericht",
       "state": "Hamburg",
-      "url": "https://justiz.hamburg.de/gerichte/hamburgisches-verfassungsgericht/mitglieder",
-      "baselineJudges": [
-        { "name": "Birgit Voßkühler", "role": "Präsidentin des Hamburgischen Verfassungsgerichts" }
-      ]
+      "url": "https://www.hamburgisches-verfassungsgericht.de/richter"
     },
     {
       "key": "stgh-he",
       "name": "Staatsgerichtshof des Landes Hessen",
       "state": "Hessen",
-      "url": "https://staatsgerichtshof.hessen.de/ueber-uns/mitglieder",
-      "baselineJudges": [
-        { "name": "Dr. Wilhelm Wolf", "role": "Präsident des Staatsgerichtshofs des Landes Hessen" }
-      ]
+      "url": "https://staatsgerichtshof.hessen.de/mitglieder-des-staatsgerichtshofs"
     },
     {
       "key": "vgh-mv",
       "name": "Landesverfassungsgericht Mecklenburg-Vorpommern",
       "state": "Mecklenburg-Vorpommern",
-      "url": "https://www.lverfg-mv.de/das-gericht/mitglieder",
-      "baselineJudges": [
-        { "name": "Michael Hirschfeld", "role": "Präsident des Landesverfassungsgerichts Mecklenburg-Vorpommern" }
-      ]
+      "url": "https://www.mv-justiz.de/gerichte-und-staatsanwaltschaften/landesverfassungsgericht/Das-Landesverfassungsgericht/Mitglieder-des-Landesverfassungsgerichts/"
     },
     {
       "key": "stgh-ni",
       "name": "Niedersächsischer Staatsgerichtshof",
       "state": "Niedersachsen",
-      "url": "https://staatsgerichtshof.niedersachsen.de/startseite/mitglieder",
-      "baselineJudges": [
-        { "name": "Dr. Thomas Smollich", "role": "Präsident des Niedersächsischen Staatsgerichtshofs" }
-      ]
+      "url": "https://staatsgerichtshof.niedersachsen.de/startseite/mitglieder/aktuelle_mitglieder/"
     },
     {
       "key": "vgh-nw",
       "name": "Verfassungsgerichtshof für das Land Nordrhein-Westfalen",
       "state": "Nordrhein-Westfalen",
-      "url": "https://www.vgh.nrw.de/gericht/mitglieder",
-      "baselineJudges": [
-        { "name": "Prof. Dr. Dr. h.c. Barbara Dauner-Lieb", "role": "Präsidentin des Verfassungsgerichtshofs für das Land Nordrhein-Westfalen" }
-      ]
+      "url": "https://www.verfgh.nrw.de/verfassungsgerichtshof/mitglieder/index.php"
     },
     {
       "key": "vgh-rp",
       "name": "Verfassungsgerichtshof Rheinland-Pfalz",
       "state": "Rheinland-Pfalz",
-      "url": "https://verfgh.rlp.de/de/das-gericht/mitglieder",
-      "baselineJudges": [
-        { "name": "Prof. Dr. Lars Brocker", "role": "Präsident des Verfassungsgerichtshofs Rheinland-Pfalz" }
-      ]
+      "url": "https://verfgh.justiz.rlp.de/wir-ueber-uns/richterinnen-und-richter"
     },
     {
       "key": "vgh-sl",
       "name": "Verfassungsgerichtshof des Saarlandes",
       "state": "Saarland",
-      "url": "https://www.verfassungsgerichtshof-saarland.de/mitglieder",
-      "baselineJudges": [
-        { "name": "Prof. Dr. Roland Rixecker", "role": "Präsident des Verfassungsgerichtshofs des Saarlandes" }
-      ]
+      "url": "https://www.verfassungsgerichtshof-saarland.de/verfassungsgerichtshof/organisation-des-verfassungsgerichtshofs-des-saarlandes/"
     },
     {
       "key": "vgh-sn",
       "name": "Verfassungsgerichtshof des Freistaates Sachsen",
       "state": "Sachsen",
-      "url": "https://www.justiz.sachsen.de/verfgh/mitglieder.html",
-      "baselineJudges": [
-        { "name": "Matthias Grünberg", "role": "Präsident des Verfassungsgerichtshofs des Freistaates Sachsen" }
-      ]
+      "url": "https://www.verfassungsgerichtshof.sachsen.de/mitglieder-4508.html"
     },
     {
       "key": "vgh-st",
       "name": "Landesverfassungsgericht Sachsen-Anhalt",
       "state": "Sachsen-Anhalt",
-      "url": "https://lverg.sachsen-anhalt.de/ueber-uns/mitglieder",
-      "baselineJudges": [
-        { "name": "Uwe Wegehaupt", "role": "Präsident des Landesverfassungsgerichts Sachsen-Anhalt" }
-      ]
+      "url": "https://verfassungsgericht.sachsen-anhalt.de/organisation-und-kontakt"
     },
     {
       "key": "vgh-sh",
       "name": "Schleswig-Holsteinisches Landesverfassungsgericht",
       "state": "Schleswig-Holstein",
-      "url": "https://www.schleswig-holstein.de/DE/landesregierung/ministerien-behoerden/LVERFG/mitglieder",
-      "baselineJudges": [
-        { "name": "Prof. Dr. Christoph Brüning", "role": "Präsident des Schleswig-Holsteinischen Landesverfassungsgerichts" }
-      ]
+      "url": "https://www.schleswig-holstein.de/DE/justiz/gerichte-und-justizbehoerden/LVG/Organisation/mitglieder"
     },
     {
       "key": "vgh-th",
       "name": "Thüringer Verfassungsgerichtshof",
       "state": "Thüringen",
-      "url": "https://verfassungsgerichtshof.thueringen.de/ueber-uns/mitglieder",
-      "baselineJudges": [
-        { "name": "Klaus von der Weiden", "role": "Präsident des Thüringer Verfassungsgerichtshofs" }
-      ]
+      "url": "https://verfassungsgerichtshof.thueringen.de/mitglieder"
     }
   ]
 }

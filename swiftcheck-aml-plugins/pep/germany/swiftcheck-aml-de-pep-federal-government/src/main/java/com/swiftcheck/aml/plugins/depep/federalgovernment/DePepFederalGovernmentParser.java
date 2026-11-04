@@ -182,10 +182,6 @@ public class DePepFederalGovernmentParser implements Iparser {
         if (ctx.inputFile() != null && Files.exists(ctx.inputFile())) {
             return Files.readString(ctx.inputFile(), StandardCharsets.UTF_8);
         }
-        Path rawFile = ctx.rawDir() != null ? ctx.rawDir().resolve("bundeskabinett.html") : null;
-        if (rawFile != null && Files.exists(rawFile) && Files.size(rawFile) > 1000) {
-            return Files.readString(rawFile, StandardCharsets.UTF_8);
-        }
         String url = p.getOrDefault("url", DEFAULT_URL).trim();
         HttpClient client = HttpClient.newBuilder()
                 .followRedirects(HttpClient.Redirect.NORMAL)
@@ -199,9 +195,9 @@ public class DePepFederalGovernmentParser implements Iparser {
         if (resp.statusCode() != 200) {
             throw new IOException("HTTP " + resp.statusCode() + " lors du téléchargement de " + url);
         }
-        if (rawFile != null) {
+        if (ctx.rawDir() != null) {
             Files.createDirectories(ctx.rawDir());
-            Files.writeString(rawFile, resp.body(), StandardCharsets.UTF_8);
+            Files.writeString(ctx.rawDir().resolve("bundeskabinett.html"), resp.body(), StandardCharsets.UTF_8);
         }
         return resp.body();
     }

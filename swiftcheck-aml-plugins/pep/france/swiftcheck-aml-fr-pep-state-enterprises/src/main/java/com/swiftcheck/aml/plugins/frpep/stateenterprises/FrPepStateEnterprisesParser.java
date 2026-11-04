@@ -60,10 +60,6 @@ public class FrPepStateEnterprisesParser implements Iparser {
     static final String DEFAULT_API_URL = "https://recherche-entreprises.api.gouv.fr/search";
     static final String DEFAULT_NATURES = "4110,4120";
     static final String APE_FILE = "ape.html";
-    /** Déposé à la place de {@link #APE_FILE} quand la page ne répond pas : le périmètre vient alors du fichier embarqué. */
-    static final String APE_UNAVAILABLE = "ape-indisponible.txt";
-    /** Date de vérification de {@code ape-entreprises.json}. */
-    static final String KNOWN_DATE = "02/11/2026";
     static final String POSITION = "Dirigeant ou administrateur d'un établissement ou d'une société publique de l'État";
 
     /** En dessous, la page a changé de format : mieux vaut s'arrêter que publier une liste tronquée. */
@@ -136,14 +132,10 @@ public class FrPepStateEnterprisesParser implements Iparser {
         Files.createDirectories(rawDir);
         String apeUrl = param(p, "apeUrl", DEFAULT_APE_URL);
         Files.deleteIfExists(rawDir.resolve(APE_FILE));
-        Files.deleteIfExists(rawDir.resolve(APE_UNAVAILABLE));
-        try {
-            Files.write(rawDir.resolve(APE_FILE), fetcher.get(apeUrl));
-        } catch (IOException e) {
-            // Page protégée par un contrôle anti-robots (Cloudflare) ou en panne : on ne le contourne pas ; le
-            // périmètre vient du fichier embarqué, et le message de l'exécution le dit
-            Files.writeString(rawDir.resolve(APE_UNAVAILABLE), e.getMessage());
-        }
+        // Le périmètre vient uniquement de la page de l'APE, lue à chaque exécution : si elle ne répond pas, l'exécution
+        // échoue (aucune liste de secours embarquée). Le fichier ape-entreprises.json ne sert qu'à relier un libellé de la
+        // page à son SIREN.
+        Files.write(rawDir.resolve(APE_FILE), fetcher.get(apeUrl));
         String api = param(p, "apiUrl", DEFAULT_API_URL);
         Map<String, Known> known = known();
         boolean singleShare = Boolean.parseBoolean(param(p, "includeSingleShare", "false"));
@@ -165,9 +157,7 @@ public class FrPepStateEnterprisesParser implements Iparser {
     /** Lit les fichiers de {@code rawDir} et écrit les entreprises et leurs dirigeants. Séparé de {@link #parse}. */
     Report convert(Path rawDir, Map<String, String> p, FtmDatasetBuilder dataset) throws IOException {
         List<ApePage.Listed> listed = listed(rawDir);
-        String perimeter = Files.exists(rawDir.resolve(APE_FILE)) ? "Périmètre : page de l'APE."
-                : "Page de l'APE inaccessible (" + Files.readString(rawDir.resolve(APE_UNAVAILABLE)).trim()
-                        + ") : périmètre de la liste embarquée du " + KNOWN_DATE + ".";
+        String perimeter = "Périmètre : page de l'APE.";
         boolean singleShare = Boolean.parseBoolean(param(p, "includeSingleShare", "false"));
         Map<String, Known> known = known();
 
@@ -229,10 +219,7 @@ public class FrPepStateEnterprisesParser implements Iparser {
         return new Report(perimeter, apeListed, apeCompanies, withoutSiren, unknown, epics, withoutLeaders, leaders, persons);
     }
 
-    /**
-     * Entreprises de la page de l'APE déposée dans {@code rawDir} ; si la page n'a pas pu être lue, celles de
-     * {@code ape-entreprises.json}.
-     */
+    /** Entreprises de la page de l'APE téléchargée dans {@code rawDir}. */
     static List<ApePage.Listed> listed(Path rawDir) throws IOException {
         Path page = rawDir.resolve(APE_FILE);
         if (Files.exists(page)) {
@@ -243,14 +230,7 @@ public class FrPepStateEnterprisesParser implements Iparser {
             }
             return listed;
         }
-        if (!Files.exists(rawDir.resolve(APE_UNAVAILABLE))) {
-            throw new IllegalStateException(APE_FILE + " absent de " + rawDir + " : le téléchargement n'a pas eu lieu.");
-        }
-        List<ApePage.Listed> listed = new ArrayList<>();
-        for (Known k : knownList()) {
-            listed.add(new ApePage.Listed(k.names().get(0), "liste du " + KNOWN_DATE, k.singleShare()));
-        }
-        return listed;
+        throw new IllegalStateException(APE_FILE + " absent de " + rawDir + " : le téléchargement n'a pas eu lieu.");
     }
 
     /** {@code ape-entreprises.json}, indexé par nom replié (voir {@link ApePage#fold}). */

@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Allemagne, lot A (analyse fonctionnelle du 04/11/2026) : la couverture annoncée ne correspondait pas à ce que lisent les parsers.
+    - Bundestag : l'adresse du zip contient un identifiant de version ; on la découvre désormais sur la page open data
+    - Plus aucun nom embarqué dans les plugins : cours, cours des comptes, organisations internationales et entreprises publiques
+      lisent leurs pages en direct à chaque exécution ; les ambassades, sans source en ligne, sont désactivées
+    - Parlements des Länder : lecture par législature avec dates, rétention de 12 mois.
+    Analyse : documentation/analyse pep allemagne/Analyse_Fonctionnelle_PEP_Allemagne.pdf.
+-->
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="037-de-bundestag-discover-zip-url" author="swiftcheck">
+        <sql><![CDATA[
+            UPDATE parser
+            SET parameters = '{"monthsAfterEnd": "12"}'
+            WHERE dataset_name = 'de_pep_bundestag';
+        ]]></sql>
+    </changeSet>
+
+    <changeSet id="037-de-landtage-by-legislature" author="swiftcheck">
+        <sql><![CDATA[
+            UPDATE parser
+            SET parameters = '{"endpoint": "https://www.abgeordnetenwatch.de/api/v2", "monthsAfterEnd": "12", "delayMs": "300"}',
+                retention_months = 12
+            WHERE dataset_name = 'de_pep_landtage';
+
+            UPDATE pep_function_parser pfp
+            JOIN parser p ON p.id = pfp.parser_id
+            SET pfp.includes_former = TRUE,
+                pfp.covered_scope = 'Les députés des 16 parlements des Länder, en fonction ou sortis depuis moins de 12 mois, avec parti, circonscription, dates de mandat et année de naissance.',
+                pfp.gaps = 'Source tierce (abgeordnetenwatch, CC0). Un Land dont le nombre de mandats lus est inférieur à 90 % des sièges est signalé dans le message d''exécution. Fonction hors liste notifiée JO C/2023/724.'
+            WHERE p.dataset_name = 'de_pep_landtage';
+        ]]></sql>
+    </changeSet>
+
+    <changeSet id="037-de-live-sources-coverage" author="swiftcheck">
+        <sql><![CDATA[
+            -- Plus aucune liste de noms embarquée : chaque exécution télécharge les pages et lit les noms en direct.
+            UPDATE pep_function_parser pfp
+            JOIN parser p ON p.id = pfp.parser_id
+            JOIN pep_function f ON f.id = pfp.function_id
+            SET pfp.completeness = 'COMPLETE',
+                pfp.includes_former = FALSE,
+                pfp.covered_scope = 'Les 16 juges (deux sénats de huit), lus sur la page officielle à chaque exécution.',
+                pfp.gaps = NULL
+            WHERE p.dataset_name = 'de_pep_federal_courts'
+              AND f.label LIKE 'Juge à la Cour constitutionnelle fédérale%';
+
+            UPDATE pep_function_parser pfp
+            JOIN parser p ON p.id = pfp.parser_id
+            JOIN pep_function f ON f.id = pfp.function_id
+            SET pfp.completeness = 'PARTIAL',
+                pfp.includes_former = TRUE,
+                pfp.covered_scope = 'Président, vice-président et anciens présidents sortis depuis moins de 12 mois, lus sur la page officielle de la cour à chaque exécution.',
+                pfp.gaps = 'Les autres juges ne sont pas lus : ils ne sont publiés que dans des plans de répartition par chambre. Le BVerwG n''a pas de président en fonction.'
+            WHERE p.dataset_name = 'de_pep_federal_courts'
+              AND f.label NOT LIKE 'Juge à la Cour constitutionnelle fédérale%';
+
+            UPDATE pep_function_parser pfp
+            JOIN parser p ON p.id = pfp.parser_id
+            SET pfp.completeness = 'COMPLETE',
+                pfp.includes_former = FALSE,
+                pfp.covered_scope = 'Les membres titulaires des 16 cours constitutionnelles des Länder, lus sur les 16 pages officielles à chaque exécution (un extracteur par cour).',
+                pfp.gaps = 'Les suppléants ne sont pas repris. Rhénanie-du-Nord-Westphalie : la page ne donne pas le prénom de la présidente. Une page illisible est signalée dans le message d''exécution.'
+            WHERE p.dataset_name = 'de_pep_land_constitutional_courts';
+
+            UPDATE pep_function_parser pfp
+            JOIN parser p ON p.id = pfp.parser_id
+            SET pfp.completeness = 'PARTIAL',
+                pfp.includes_former = TRUE,
+                pfp.covered_scope = 'Président et vice-président du Bundesrechnungshof lus sur le site, et le président sorti depuis moins de 12 mois quand le communiqué de changement de présidence est publié.',
+                pfp.gaps = 'Les autres membres du collège et les 16 cours des comptes des Länder ne sont pas couverts : leurs pages répondent 404 ou n''existent pas sous une forme lisible.'
+            WHERE p.dataset_name = 'de_pep_audit_courts';
+
+            UPDATE pep_function_parser pfp
+            JOIN parser p ON p.id = pfp.parser_id
+            SET pfp.completeness = 'PARTIAL',
+                pfp.includes_former = FALSE,
+                pfp.covered_scope = 'Directions de six entreprises (Deutsche Bahn, KfW, Deutsche Telekom, Uniper, DFS, Bundesdruckerei), lues sur leurs pages à chaque exécution, avec le conseil de surveillance de Telekom et les présidents des conseils de DFS.',
+                pfp.gaps = 'DHL Group (page illisible depuis le poste d''exécution), conseils de surveillance des autres entreprises, et toutes les autres entreprises publiques non couverts.'
+            WHERE p.dataset_name = 'de_pep_state_enterprises';
+
+            UPDATE pep_function_parser pfp
+            JOIN parser p ON p.id = pfp.parser_id
+            SET pfp.completeness = 'PARTIAL',
+                pfp.includes_former = TRUE,
+                pfp.covered_scope = 'Direction de l''ESO, du EMBL et du tribunal international du droit de la mer (président, vice-président, 19 juges), lues en direct.',
+                pfp.gaps = 'EPO, EUMETSAT, OCCAR et CCNUCC non couverts : pages en 404, sans nom ou protégées.'
+            WHERE p.dataset_name = 'de_pep_international_orgs';
+
+            -- Aucune source en ligne exploitable pour les ambassadeurs : le parser ne peut plus publier de liste.
+            UPDATE parser
+            SET enabled = FALSE,
+                notes = 'Désactivé : aucune liste nominative d''ambassadeurs lisible en ligne, et plus aucune liste embarquée dans le plugin.'
+            WHERE dataset_name = 'de_pep_diplomats';
+
+            UPDATE pep_function_parser pfp
+            JOIN parser p ON p.id = pfp.parser_id
+            SET pfp.completeness = 'PARTIAL',
+                pfp.covered_scope = 'Aucune.',
+                pfp.gaps = 'Le ministère des Affaires étrangères ne publie pas de liste nominative lisible ; la liste de noms qui était embarquée dans le plugin a été supprimée.'
+            WHERE p.dataset_name = 'de_pep_diplomats';
+        ]]></sql>
+    </changeSet>
+
+</databaseChangeLog>

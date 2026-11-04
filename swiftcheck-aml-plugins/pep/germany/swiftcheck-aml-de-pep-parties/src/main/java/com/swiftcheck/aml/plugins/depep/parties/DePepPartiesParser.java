@@ -85,6 +85,22 @@ public class DePepPartiesParser implements Iparser {
     record BaselineMember(String party, String role, String fullName, String title, String cleanName) {
     }
 
+    /** Téléchargement des dirigeants, remplaçable dans les tests. */
+    @FunctionalInterface
+    interface Downloader {
+        void download(String endpoint, String countryQid, Path rawDir) throws Exception;
+    }
+
+    private final Downloader downloader;
+
+    public DePepPartiesParser() {
+        this(new WikidataPartiesDownloader()::download);
+    }
+
+    DePepPartiesParser(Downloader downloader) {
+        this.downloader = downloader;
+    }
+
     @Override
     public ParserResult parse(ParserContext ctx) throws Exception {
         Map<String, String> p = ctx.parameters() == null ? Map.of() : ctx.parameters();
@@ -106,8 +122,8 @@ public class DePepPartiesParser implements Iparser {
 
         if (leadersFile != null) {
             try {
-                if (!Files.isRegularFile(leadersFile)) {
-                    new WikidataPartiesDownloader().download(
+                {
+                    downloader.download(
                             p.getOrDefault("endpoint", DEFAULT_ENDPOINT).trim(),
                             p.getOrDefault("country", DEFAULT_COUNTRY).trim(),
                             ctx.rawDir()

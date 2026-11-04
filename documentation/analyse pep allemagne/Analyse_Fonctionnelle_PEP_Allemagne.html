@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Analyse fonctionnelle PEP Allemagne</title>
+<style>
+  @page { size: A4 portrait; margin: 14mm 13mm 14mm 13mm; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; color: #1e293b; font-size: 10.5px; line-height: 1.45; }
+  h1 { font-size: 22px; color: #0f172a; margin-bottom: 4px; }
+  h2 { font-size: 14px; color: #0f172a; margin: 18px 0 6px; padding-bottom: 3px; border-bottom: 2px solid #2563eb; break-after: avoid; }
+  h3 { font-size: 11.5px; color: #1e3a8a; margin: 12px 0 5px; break-after: avoid; }
+  p { margin: 4px 0; }
+  .subtitle { color: #475569; font-size: 11.5px; margin-bottom: 8px; }
+  .meta { display: flex; flex-wrap: wrap; gap: 18px; color: #64748b; font-size: 9.5px; border-bottom: 1px solid #e2e8f0; padding-bottom: 8px; margin-bottom: 12px; }
+  .kpis { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin: 10px 0 6px; }
+  .kpi { border: 1px solid #e2e8f0; border-radius: 8px; padding: 8px 10px; background: #f8fafc; }
+  .kpi b { display: block; font-size: 20px; color: #1d4ed8; line-height: 1.1; }
+  .kpi span { color: #475569; font-size: 9.5px; }
+  table { width: 100%; border-collapse: collapse; margin: 5px 0 8px; font-size: 9.5px; }
+  th { background: #1e3a8a; color: #fff; text-align: left; padding: 4px 5px; font-weight: 600; }
+  td { border-bottom: 1px solid #e2e8f0; padding: 4px 5px; vertical-align: top; }
+  tr { break-inside: avoid; }
+  tr:nth-child(even) td { background: #f8fafc; }
+  code { font-family: Consolas, 'Courier New', monospace; font-size: 9px; background: #eef2ff; color: #1e3a8a; padding: 0 2px; border-radius: 3px; }
+  .cat { font-weight: 700; color: #1d4ed8; white-space: nowrap; }
+  .tag { display: inline-block; border-radius: 4px; padding: 0 4px; font-size: 8.5px; font-weight: 600; white-space: nowrap; }
+  .easy { background: #dcfce7; color: #166534; }
+  .mid { background: #fef9c3; color: #854d0e; }
+  .hard { background: #fee2e2; color: #991b1b; }
+  .none { background: #e2e8f0; color: #334155; }
+  .note { border-left: 3px solid #2563eb; background: #eff6ff; padding: 6px 9px; margin: 6px 0; border-radius: 0 6px 6px 0; }
+  .warn { border-left-color: #d97706; background: #fffbeb; }
+  ul, ol { margin: 4px 0 4px 18px; }
+  li { margin: 2px 0; }
+  .small { font-size: 9px; color: #64748b; }
+  .footer { margin-top: 14px; border-top: 1px solid #e2e8f0; padding-top: 6px; color: #94a3b8; font-size: 8.5px; }
+  .page-break { break-before: page; }
+</style>
+
+</head>
+<body>
+
+<h1>Analyse fonctionnelle PEP Allemagne – améliorations des parsers</h1>
+<p class="subtitle">Étude du classeur <code>allemagne_pep_sources_teste.xlsx</code> (21 lignes testées le 03.11.2026) rapprochée des 17 plugins <code>de_pep_*</code> en place :
+ce qui est faux ou fragile aujourd'hui, ce qu'il faut corriger, ajouter ou retirer.</p>
+<div class="meta"><span>SwiftCheck AML</span><span>4 novembre 2026</span>
+<span>Lecture du code des 17 plugins et des changelogs 027 à 032</span>
+<span>Contrôles en direct le 04/11/2026, User-Agent générique, 3 s entre deux requêtes, rien contourné</span></div>
+
+<div class="kpis">
+  <div class="kpi"><b>200 / 2 596</b><span>mandats régionaux lus par <code>de_pep_landtage</code> (une seule page d'API, sans pagination)</span></div>
+  <div class="kpi"><b>6 sur 11</b><span>URL de nos fichiers de configuration en échec (3 fois 404, 2 domaines introuvables, 1 sans réponse)</span></div>
+  <div class="kpi"><b>5</b><span>plugins qui retombent sur une liste de noms figée quand la page ne se lit pas</span></div>
+  <div class="kpi"><b>9</b><span>parsers ou extensions à ajouter, dont 4 qui profitent directement du classeur</span></div>
+</div>
+
+<div class="note warn">
+<b>En bref.</b> Le classeur est utile, mais sa plus grande valeur n'est pas dans les sources nouvelles : il met en évidence
+que <b>plusieurs de nos parsers ne lisent pas ce qu'ils annoncent</b>. Trois constats pèsent plus que le reste :
+<ol>
+  <li><b>Parlements des Länder</b> : le parser ne lit qu'une page de 200 mandats sur 2 596 (API abgeordnetenwatch), sans filtre de législature ni de dates. La description annonce « environ 1 900 parlementaires » : ce n'est pas ce que le code lit.</li>
+  <li><b>Cours, chambres des comptes, entreprises, organisations, ambassades</b> : plusieurs URL sont fausses (404, domaines inexistants) et, quand la page ne se lit pas, le plugin écrit sans bruit une <b>liste de noms figée dans le jar</b>, qui peut être périmée. Rien ne le signale à l'écran.</li>
+  <li><b>Juges des cours fédérales suprêmes</b> : seulement présidents et vice-présidents (2 à 3 noms par cour, 14 au BVerfG) alors que le GwG vise les membres des juridictions suprêmes, soit plusieurs centaines de personnes.</li>
+</ol>
+Les sources nouvelles du classeur (recht.bund.de, API DIP, chancelleries des Länder, rapports de participation, Lobbyregister) viennent après ces corrections, pas avant.
+</div>
+
+<h2>1. Ce que dit le classeur</h2>
+<table>
+  <tr><th style="width:15%">Résultat</th><th style="width:7%">Lignes</th><th>Lignes concernées</th><th style="width:32%">Ce que cela change pour nous</th></tr>
+  <tr><td><span class="tag easy">Testé OK</span></td><td>5</td><td>recht.bund.de (×2), cabinet fédéral, Bundesbank (6 membres), Lobbyregister (7 013 entrées, export JSON)</td><td>Nos parsers cabinet et Bundesbank lisent déjà ces pages. recht.bund.de et le Lobbyregister sont de nouvelles sources.</td></tr>
+  <tr><td><span class="tag mid">À confirmer</span></td><td>1</td><td>API Parlement européen</td><td>Confirmé de notre côté : l'API répond en JSON-LD avec <code>country-of-representation=DE</code> (Bernd Lange, Markus Ferber). Le « binaire illisible » est de la compression : décompresser côté client.</td></tr>
+  <tr><td><span class="tag hard">Bloqué (robots)</span></td><td>2</td><td>Bundestag <code>xml/v2/mdb/index.xml</code>, abgeordnetenwatch</td><td>Les deux répondent 200 depuis notre poste (voir annexe). Le blocage ne concerne que l'outil de test du classeur.</td></tr>
+  <tr><td><span class="tag hard">Erreur</span></td><td>3</td><td>BVerfG, BaFin, Bundesrechnungshof</td><td>Nos URL du BVerfG et du Bundesrechnungshof sont aussi en cause (redirection, 404). La BaFin n'a <b>aucun parser</b> chez nous.</td></tr>
+  <tr><td><span class="tag none">Non testé</span></td><td>10</td><td>Bundesrat, 16 sites des Länder, cours constitutionnelles, cinq cours fédérales, ambassades, Handelsregister, rapports de participation, partis, API DIP…</td><td>Près de la moitié du classeur. Rien ne doit partir en production sans contrôle, comme le classeur le dit lui-même.</td></tr>
+</table>
+
+<h2>2. Constats sur l'existant (vérifiés dans le code et en direct)</h2>
+
+<h3>2.1 Parlements des Länder : 8 % des mandats, sans dates</h3>
+<ul>
+  <li>L'URL par défaut est <code>candidacies-mandates?range_end=200</code>, lue <b>une seule fois</b>. L'API contient 2 596 mandats (<code>type=mandate</code>, tous parlements confondus, Bundestag compris) : la page lue en couvre 8 %.</li>
+  <li>Le code ne lit ni <code>start_date</code> ni <code>end_date</code> (aucune occurrence dans le plugin) : la règle des 12 mois après la fin du mandat n'est pas appliquée.</li>
+  <li>L'API sait faire mieux : <code>/parliaments</code> donne la législature courante de chaque Land (<code>current_project</code>, par exemple « Sachsen 2024 – 2029 »), <code>candidacies-mandates?parliament_period=ID&amp;type=mandate</code> donne les mandats avec dates, et le champ <code>info</code> indique les remplacements.</li>
+  <li>Le classeur le demande d'ailleurs : « il faut absolument utiliser cette API ». Elle est sous licence CC0.</li>
+</ul>
+
+<h3>2.2 URL de nos fichiers de configuration (11 testées sur environ 70)</h3>
+<table>
+  <tr><th style="width:30%">Plugin</th><th>URL configurée</th><th style="width:30%">Résultat le 04/11</th></tr>
+  <tr><td>federal-courts (BVerfG)</td><td><code>…/DE/Richter/richter_node.html</code></td><td>Redirigée vers <code>…/DasBundesverfassungsgericht/RichterinnenRichter/…</code> (200)</td></tr>
+  <tr><td>federal-courts (BGH)</td><td><code>…/Organisation/organisation_node.html</code></td><td>200 (page d'organisation, pas une liste de juges)</td></tr>
+  <tr><td>federal-courts (BVerwG)</td><td><code>bverwg.de/das-gericht/organisation/senate</code></td><td><span class="tag hard">404</span></td></tr>
+  <tr><td>audit-courts (Bundesrechnungshof)</td><td><code>…/Organisation/Kollegium/kollegium_node.html</code></td><td><span class="tag hard">404</span></td></tr>
+  <tr><td>land-constitutional-courts (Bayern)</td><td><code>…verfassungsgerichtshof.de/mitglieder</code></td><td><span class="tag hard">404</span> (le classeur donne une autre adresse)</td></tr>
+  <tr><td>land-constitutional-courts (NRW)</td><td><code>www.vgh.nrw.de/gericht/mitglieder</code></td><td><span class="tag hard">domaine introuvable</span> (le classeur donne <code>verfgh.nrw.de</code>)</td></tr>
+  <tr><td>land-constitutional-courts (Rhénanie-Palatinat)</td><td><code>verfgh.rlp.de/…</code></td><td><span class="tag hard">domaine introuvable</span> (le classeur donne <code>verfgh.justiz.rlp.de</code>)</td></tr>
+  <tr><td>state-enterprises (Deutsche Bahn)</td><td><code>…/konzernprofil/vorstand</code></td><td>Pas de réponse en 20 s (à refaire)</td></tr>
+  <tr><td>bundesbank, bundestag (zip), cabinet fédéral</td><td>—</td><td><span class="tag easy">200</span></td></tr>
+</table>
+<p class="small">Les URL du classeur pour les cours constitutionnelles des Länder ont l'air d'avoir été relevées sur les sites : elles diffèrent des nôtres dans les 16 cas. Je n'ai testé en direct qu'un échantillon ; les autres sont à tester avant correction.</p>
+
+<h3>2.3 Listes de noms figées dans les jars</h3>
+<table>
+  <tr><th style="width:24%">Plugin</th><th style="width:30%">Contenu figé</th><th>Risque</th></tr>
+  <tr><td>federal-courts</td><td>14 noms au BVerfG (sur 16 juges), présidence seulement ailleurs</td><td>Les juges du BGH, BVerwG, BFH, BAG, BSG manquent presque tous ; 2 sièges du BVerfG aussi.</td></tr>
+  <tr><td>audit-courts</td><td>1 à 2 personnes par chambre des comptes</td><td>Membres du collège absents ; présidents à contrôler.</td></tr>
+  <tr><td>land-constitutional-courts</td><td>Quelques noms par cour</td><td>Mêmes limites, avec des URL fausses : le repli sert probablement tout le temps.</td></tr>
+  <tr><td>state-enterprises</td><td>7 entreprises, 1 à 2 dirigeants chacune</td><td>Conseils de surveillance et centaines d'entités publiques hors champ. Des noms sont probablement périmés : le fichier donne Richard Lutz à la tête de la Deutsche Bahn et Robert Habeck à la présidence du conseil d'administration de la KfW. À ma connaissance Evelyn Palla a succédé à Richard Lutz en octobre 2025 et Robert Habeck a quitté le gouvernement en mai 2025 : <b>à vérifier</b>.</td></tr>
+  <tr><td>international-orgs</td><td>7 organisations (EPO, EUMETSAT, EMBL, ESO, OCCAR, CCNUCC, ITLOS)</td><td>Choix arbitraire, noms à re-dater.</td></tr>
+  <tr><td>diplomats</td><td>Liste d'ambassadeurs dans un fichier texte</td><td>Les postes changent chaque été et rien ne met la liste à jour.</td></tr>
+  <tr><td>bundesbank</td><td>Page HTML de référence dans le jar</td><td>Utilisée si la page directe échoue : même risque.</td></tr>
+</table>
+<div class="note warn">
+<b>Le vrai défaut n'est pas la liste figée, c'est le silence.</b> Un repli est acceptable s'il est annoncé. L'exécution doit au moins dire « N personnes viennent d'une liste figée datée du… » et passer la complétude en <code>PARTIAL</code> (voir R2).
+</div>
+
+<h3>2.4 Autres fragilités</h3>
+<ul>
+  <li><b>Bundestag</b> : le zip est téléchargé par une adresse contenant un identifiant de version (<code>/resource/blob/472878/…</code>). Elle répond 200 aujourd'hui (953 Ko) mais change à chaque nouvelle publication. Le fichier <code>xml/v2/mdb/index.xml</code> (641 Ko, une fiche par député avec statut « Aktiv »), cité par le classeur, existe.</li>
+  <li><b>Fédéral</b> : le parser du cabinet ne lit que le Chancelier et les ministres. Les secrétaires d'État parlementaires et fonctionnaires, que le classeur réclame, ne sont lus par aucun plugin.</li>
+  <li><b>Militaires</b> : aucun plugin ne couvre les généraux et amiraux (ligne E2 du classeur) ; aucune occurrence dans les 17 modules.</li>
+  <li><b>BaFin</b> (président, directeurs exécutifs) : aucun plugin.</li>
+</ul>
+
+<h2>3. Recommandations pour les parsers existants</h2>
+<table>
+  <tr><th style="width:5%">N°</th><th style="width:18%">Parser</th><th>Changement</th><th style="width:8%">Priorité</th><th style="width:7%">Effort</th></tr>
+  <tr><td>R1</td><td><code>de_pep_landtage</code></td><td>Passer à la pagination par législature : lire <code>/parliaments</code>, prendre le <code>current_project</code> de chacun des 16 Länder, puis <code>candidacies-mandates?parliament_period=…&amp;type=mandate</code> par pages de 100. Lire <code>start_date</code>/<code>end_date</code> et appliquer 12 mois. Ajouter l'année de naissance via <code>/politicians/{id}</code> (une requête par personne, avec pause). Ne pas reprendre la profession ni la résidence. Enregistrer chaque page dans <code>rawDir</code>.</td><td><span class="tag hard">P0</span></td><td>2 j</td></tr>
+  <tr><td>R2</td><td>Les 5 plugins à repli</td><td>Rendre le repli visible : message d'exécution « repli utilisé pour N personnes », mention sur chaque entité issue du repli (« liste figée du jj/mm/aaaa »), complétude basculée en <code>PARTIAL</code>, option <code>failOnBaseline=true</code>. Ajouter la date de contrôle dans chaque fichier de configuration.</td><td><span class="tag hard">P0</span></td><td>1,5 j</td></tr>
+  <tr><td>R3</td><td><code>land-constitutional-courts</code></td><td>Remplacer les 16 URL par celles du classeur (membres actuels, anciens membres, présidents), avec un extracteur par famille de site et non un motif générique. Brême publie un PDF récapitulatif daté du 29/09/2026 : à lire directement. Garder la liste figée comme secours seulement.</td><td><span class="tag hard">P0</span></td><td>3 j</td></tr>
+  <tr><td>R4</td><td><code>federal-courts</code></td><td>Lire les pages par chambre (BGH : 13 civiles, 7 pénales, chambres spéciales ; BFH, BAG, BVerwG, BSG : plans de répartition en PDF) pour avoir tous les juges et pas seulement la présidence. Corriger l'URL du BVerfG et du BVerwG. Vérifier que le BVerfG compte bien 16 juges.</td><td><span class="tag hard">P0</span></td><td>3 j</td></tr>
+  <tr><td>R5</td><td><code>audit-courts</code></td><td>Retrouver la page actuelle du Bundesrechnungshof (404) ; tester les 16 chambres régionales ; ajouter les membres du collège, pas seulement le président.</td><td><span class="tag mid">P1</span></td><td>2 j</td></tr>
+  <tr><td>R6</td><td><code>de_pep_bundestag</code></td><td>Découvrir l'adresse du zip en lisant la page <code>/services/opendata</code>, avec repli sur <code>xml/v2/mdb/index.xml</code> ; échouer clairement si ni l'un ni l'autre ne répond.</td><td><span class="tag mid">P1</span></td><td>0,5 j</td></tr>
+  <tr><td>R7</td><td><code>federal-government</code></td><td>Étendre aux secrétaires d'État parlementaires et fonctionnaires (pages du cabinet et des ministères) ; contrôler chaque nom avec les actes de nomination (voir N1).</td><td><span class="tag mid">P1</span></td><td>2 j</td></tr>
+  <tr><td>R8</td><td><code>de_pep_bundesrat</code></td><td>Garder comme recoupement, car la liste des gouvernements vient mieux des chancelleries (N3). Lire aussi les membres suppléants, qui sont souvent des secrétaires d'État.</td><td><span class="tag easy">P2</span></td><td>0,5 j</td></tr>
+  <tr><td>R9</td><td><code>de_pep_europarl</code></td><td>Aucun changement de source : l'API répond. Vérifier la décompression côté client et tester aussi l'écriture complète <code>…/country/DEU</code> du classeur.</td><td><span class="tag easy">P2</span></td><td>0,2 j</td></tr>
+  <tr><td>R10</td><td><code>state-enterprises</code></td><td>Remplacer la liste de 7 entreprises par la liste du rapport de participation de l'État (N6), puis lire chaque site pour le directoire et le conseil de surveillance. Faire valider tous les noms actuels.</td><td><span class="tag mid">P1</span></td><td>4 j</td></tr>
+  <tr><td>R11</td><td><code>de_pep_parties</code></td><td>Le classeur propose les rapports financiers des partis : ils décrivent l'argent, pas la direction (à vérifier sur un rapport). Garder Wikidata plus les sites des partis représentés au Bundestag pour les comités directeurs, et garder les rapports comme source de contrôle des financements.</td><td><span class="tag mid">P1</span></td><td>2 j</td></tr>
+  <tr><td>R12</td><td><code>international-orgs</code></td><td>Définir la liste des organisations à partir de la notification allemande (organisations dont le siège est en Allemagne), puis lire chaque site. À défaut, déclarer clairement les 7 actuelles comme un échantillon.</td><td><span class="tag easy">P2</span></td><td>1,5 j</td></tr>
+</table>
+
+<h2>4. Parsers à ajouter</h2>
+<table>
+  <tr><th style="width:5%">N°</th><th style="width:21%">Parser proposé</th><th>Source et rôle</th><th style="width:24%">Précautions</th></tr>
+  <tr><td>N1</td><td><code>de_pep_bgbl</code> (recht.bund.de)</td><td>Publications 2023 et après du BGBl, avec recherche. Rôle : <b>preuve</b> des nominations (organisation du gouvernement, décrets), rattachée aux personnes existantes, et non liste de PEP à part. Le commentaire du classeur demande un crawler à une requête toutes les 30 s, 1 000 par 8 h au maximum.</td><td>Le <code>robots.txt</code> de recht.bund.de n'a rien rendu depuis ici : le relire avant tout crawl. Tester sur un échantillon quels actes sont publiés : je ne suis pas sûr que les nominations de ministres et les promotions de généraux y figurent.</td></tr>
+  <tr><td>N2</td><td><code>de_pep_dip</code> (API DIP du Bundestag)</td><td>Procès-verbaux et procédures : date de prise de fonction des ministres et secrétaires d'État, assermentations. Sert à dater les mandats que la page du cabinet ne date pas.</td><td>Inscription gratuite pour une clé : la mettre dans la configuration de l'application, jamais dans le dépôt. Rien à écrire avant un test après inscription.</td></tr>
+  <tr><td>N3</td><td><code>de_pep_land_governments</code> (16 chancelleries)</td><td>Pages gouvernement des 16 Länder du classeur : ministre-président, ministres, secrétaires d'État, anciens ministres-présidents (Brême, Sarre). Complément : <code>daten.berlin.de</code> pour Berlin.</td><td>Aucun format commun. Une description par Land dans un JSON comme pour l'Espagne, un test avec un extrait réel par Land.</td></tr>
+  <tr><td>N4</td><td><code>de_pep_bafin</code></td><td>Direction de la BaFin (président, directeurs exécutifs) et conseil d'administration. Les URL du classeur sont en erreur : retrouver les pages actuelles.</td><td>Rien à lire tant que les pages ne sont pas relevées.</td></tr>
+  <tr><td>N5</td><td><code>de_pep_bundeswehr</code></td><td>Hauts gradés : Generalinspekteur, inspecteurs des armées, commandements. Le classeur donne le BGBl comme source, ce qui me paraît improbable.</td><td>Définir le seuil de grade avec la liste notifiée avant de coder.</td></tr>
+  <tr><td>N6</td><td><code>de_pep_participations</code> (Bund et 16 Länder)</td><td>Le rapport de participation fédéral (PDF annuel) et les 16 rapports des Länder donnent la liste des entreprises publiques et le taux de participation. Le site du ministère des Finances est protégé par un contrôle anti-robots : dépôt manuel du PDF dans <code>rawDir</code>, lecture avec PDFBox.</td><td>Contrôler le seuil du GwG (&gt; 50 %, &gt; 2 000 salariés ou &gt; 3 Md€). Handelsregister : le plafond de 60 requêtes par heure du classeur est à relire dans les conditions du site avant tout usage.</td></tr>
+  <tr><td>N7</td><td><code>de_pep_lobbyregister</code></td><td>Export JSON (7 013 entrées). <b>Pas une source de PEP</b>, le classeur le dit. Utile pour repérer d'anciens députés et fonctionnaires devenus représentants d'intérêts. À faire en dernier.</td><td>Ne pas créer de PEP à partir de cette liste. Lever l'ambiguïté de l'étiquette « H1 », utilisée aussi pour les partis.</td></tr>
+  <tr><td>N8</td><td>Extension <code>de_pep_landtage</code> : open data propre aux Länder</td><td>Quand un Land publie un open data propre (Berlin, par exemple), le lire pour croiser abgeordnetenwatch.</td><td>À décider après R1.</td></tr>
+  <tr><td>N9</td><td><code>de_pep_state_secretaries</code> (fédéral)</td><td>Si R7 est trop lourd, un plugin séparé pour les secrétaires d'État permet de livrer à part.</td><td>—</td></tr>
+</table>
+
+<h2>5. Erreurs et ambiguïtés dans le classeur</h2>
+<ul>
+  <li>Cellules corrompues : « wa tta ra tkarfest », « wa tkaarfest », « wa naaaari » dans les colonnes D et E. Les lignes cours constitutionnelles, cours fédérales et Bundesbank sont à relire.</li>
+  <li>La ligne G1 mélange les eurodéputés allemands (API Parlement européen) et les directeurs d'organisations internationales : ce sont deux parsers différents (<code>de_pep_europarl</code> et <code>de_pep_international_orgs</code>).</li>
+  <li>La classification « H1 » désigne à la fois le Lobbyregister et les partis.</li>
+  <li>Noms de Länder en anglais ou déformés (« Mechlenburg », « Rhineland », « Saxon ») : à normaliser avant de s'en servir comme clés.</li>
+  <li>Le Handelsregister n'a pas d'API officielle : la colonne G « Manuel ou payant » est juste, mais le chiffre de 60 requêtes par heure n'est pas vérifié.</li>
+  <li>Aucune ligne ne couvre les secrétaires d'État des Länder, alors que les pages Hessen et Sarre qu'il cite en parlent.</li>
+</ul>
+
+<h2>6. Ordre de réalisation</h2>
+<table>
+  <tr><th style="width:16%">Lot</th><th>Contenu</th><th style="width:10%">Effort</th><th style="width:32%">Bénéfice</th></tr>
+  <tr><td><b>A – justesse</b></td><td>R1, R2, R3, R4, R6</td><td>10 j</td><td>Les chiffres annoncés deviennent vrais ; tout repli est visible.</td></tr>
+  <tr><td><b>B – complétude</b></td><td>R5, R7, R10, R11, N3, N4</td><td>17 j</td><td>Gouvernements des Länder, secrétaires d'État, BaFin, entreprises publiques.</td></tr>
+  <tr><td><b>C – preuves</b></td><td>N1, N2 (après tests), N5</td><td>8 j</td><td>Dates de nomination justifiées par un texte officiel.</td></tr>
+  <tr><td><b>D – enrichissement</b></td><td>N6, N7, N8, R12</td><td>8 j</td><td>Entreprises publiques en volume, liens avec les lobbyistes.</td></tr>
+</table>
+<p class="small">Les efforts sont des estimations pour un parser avec tests sur extraits réels, comme pour les pays déjà faits. Les sites du lot B ne se lisent pas tous de la même manière : compter plus de marge sur les Länder.</p>
+
+<h2>7. Décisions à prendre</h2>
+<ol>
+  <li><b>Bloquer l'exécution en cas de repli ?</b> Je recommande non par défaut (message et complétude <code>PARTIAL</code>), avec l'option <code>failOnBaseline</code> pour la production.</li>
+  <li><b>Crawler recht.bund.de</b> : une requête toutes les 30 s, sur un échantillon d'abord ? Le classeur fixe 1 000 requêtes par 8 h.</li>
+  <li><b>Clé de l'API DIP</b> : qui s'inscrit et où est-elle stockée ?</li>
+  <li><b>Périmètre militaire</b> : quel grade inclure ? La liste notifiée à la Commission le précise-t-elle ?</li>
+  <li><b>Listes figées</b> : faut-il re-dater les noms en lisant les sites avant le lot A, ou laisser les parsers les remplacer ?</li>
+</ol>
+
+<h2>Annexe – contrôles du 04/11/2026</h2>
+<table>
+  <tr><th style="width:55%">Contrôle</th><th>Résultat</th></tr>
+  <tr><td><code>bundestag.de/xml/v2/mdb/index.xml</code></td><td>200, <code>application/xml</code>, 641 Ko, fiches avec statut « Aktiv »</td></tr>
+  <tr><td><code>bundestag.de/resource/blob/472878/MdB-Stammdaten.zip</code></td><td>200, <code>application/zip</code>, 953 Ko</td></tr>
+  <tr><td>API abgeordnetenwatch <code>/parliaments</code></td><td>200, 18 parlements, licence CC0, version 2.10.0</td></tr>
+  <tr><td>API abgeordnetenwatch <code>/candidacies-mandates?type=mandate</code></td><td>200, <b>2 596 mandats</b>, avec <code>start_date</code>, <code>end_date</code>, <code>info</code></td></tr>
+  <tr><td>API Parlement européen <code>show-current?country-of-representation=DE</code></td><td>200, <code>application/ld+json</code> (réponse compressée)</td></tr>
+  <tr><td>11 URL de nos fichiers de configuration</td><td>Voir le tableau 2.2</td></tr>
+  <tr><td><code>recht.bund.de/robots.txt</code></td><td>Réponse vide depuis ce poste : à relire</td></tr>
+</table>
+<p class="footer">SwiftCheck AML – analyse du 4 novembre 2026. Rien n'a été modifié dans le code. Les noms de dirigeants cités sont à vérifier sur les sites officiels.</p>
+</body>
+</html>

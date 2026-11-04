@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Allemagne, lot B (analyse fonctionnelle du 04/11/2026) : direction de la BaFin.
+    La BaFin n'est pas une banque centrale : la fonction est suivie à titre complémentaire, hors liste notifiée JO C/2023/724
+    (à faire valider par le responsable conformité).
+    Analyse : documentation/analyse pep allemagne/Analyse_Fonctionnelle_PEP_Allemagne.pdf.
+-->
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="038-parser-de-pep-bafin" author="swiftcheck">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM parser WHERE dataset_name = 'de_pep_bafin'</sqlCheck>
+        </preConditions>
+        <sql><![CDATA[
+            INSERT INTO pep_function (category_id, label, institution, expected_holders)
+            SELECT c.id, 'Président ou directeur exécutif de la BaFin (hors liste notifiée)', 'Bundesanstalt für Finanzdienstleistungsaufsicht', 7
+            FROM pep_category c WHERE c.code = 'DE-f';
+
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Allemagne – Direction de la BaFin',
+                'Président et directeurs exécutifs de l''autorité fédérale de supervision financière (catégorie DE-f, hors liste notifiée)',
+                'de_pep_bafin', 'PEP', 'https://www.bafin.de/DE/die-bafin/ueber-die-bafin/organisation/direktorium/direktorium_node.html',
+                'de-pep-bafin', 'D:/test parser 2/plugins/swiftcheck-aml-de-pep-bafin-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'WEB_PAGE',
+                NULL,
+                '{"url": "https://www.bafin.de/DE/die-bafin/ueber-die-bafin/organisation/direktorium/direktorium_node.html"}',
+                168, 12,
+                'Citer la source (BaFin)', 'Bundesanstalt für Finanzdienstleistungsaufsicht, www.bafin.de',
+                'Lit la page « Direktorium » : un bloc par membre. Le Verwaltungsrat n''est pas publié sous une forme lisible. Fonction hors liste notifiée JO C/2023/724 : la BaFin n''est pas une banque centrale.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'PARTIAL', FALSE, 'Le président et les six directeurs exécutifs du Direktorium, lus sur la page officielle.', 'Verwaltungsrat non couvert (membres non publiés sous forme lisible) ; anciens membres absents de la page.'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'DE-f' AND f.label LIKE 'Président ou directeur exécutif de la BaFin%' AND p.dataset_name = 'de_pep_bafin';
+        ]]></sql>
+    </changeSet>
+
+</databaseChangeLog>

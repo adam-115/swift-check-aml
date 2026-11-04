@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Allemagne – correspondance classeur et parseurs</title>
+<style>
+  @page { size: A4 portrait; margin: 14mm 13mm 14mm 13mm; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; color: #1e293b; font-size: 10.5px; line-height: 1.45; }
+  h1 { font-size: 22px; color: #0f172a; margin-bottom: 4px; }
+  h2 { font-size: 14px; color: #0f172a; margin: 18px 0 6px; padding-bottom: 3px; border-bottom: 2px solid #2563eb; break-after: avoid; }
+  h3 { font-size: 11.5px; color: #1e3a8a; margin: 12px 0 5px; break-after: avoid; }
+  p { margin: 4px 0; }
+  .subtitle { color: #475569; font-size: 11.5px; margin-bottom: 8px; }
+  .meta { display: flex; flex-wrap: wrap; gap: 18px; color: #64748b; font-size: 9.5px; border-bottom: 1px solid #e2e8f0; padding-bottom: 8px; margin-bottom: 12px; }
+  .kpis { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin: 10px 0 6px; }
+  .kpi { border: 1px solid #e2e8f0; border-radius: 8px; padding: 8px 10px; background: #f8fafc; }
+  .kpi b { display: block; font-size: 20px; color: #1d4ed8; line-height: 1.1; }
+  .kpi span { color: #475569; font-size: 9.5px; }
+  table { width: 100%; border-collapse: collapse; margin: 5px 0 8px; font-size: 9.5px; }
+  th { background: #1e3a8a; color: #fff; text-align: left; padding: 4px 5px; font-weight: 600; }
+  td { border-bottom: 1px solid #e2e8f0; padding: 4px 5px; vertical-align: top; }
+  tr { break-inside: avoid; }
+  tr:nth-child(even) td { background: #f8fafc; }
+  code { font-family: Consolas, 'Courier New', monospace; font-size: 9px; background: #eef2ff; color: #1e3a8a; padding: 0 2px; border-radius: 3px; }
+  .cat { font-weight: 700; color: #1d4ed8; white-space: nowrap; }
+  .tag { display: inline-block; border-radius: 4px; padding: 0 4px; font-size: 8.5px; font-weight: 600; white-space: nowrap; }
+  .easy { background: #dcfce7; color: #166534; }
+  .mid { background: #fef9c3; color: #854d0e; }
+  .hard { background: #fee2e2; color: #991b1b; }
+  .none { background: #e2e8f0; color: #334155; }
+  .note { border-left: 3px solid #2563eb; background: #eff6ff; padding: 6px 9px; margin: 6px 0; border-radius: 0 6px 6px 0; }
+  .warn { border-left-color: #d97706; background: #fffbeb; }
+  ul, ol { margin: 4px 0 4px 18px; }
+  li { margin: 2px 0; }
+  .small { font-size: 9px; color: #64748b; }
+  .footer { margin-top: 14px; border-top: 1px solid #e2e8f0; padding-top: 6px; color: #94a3b8; font-size: 8.5px; }
+  .page-break { break-before: page; }
+</style>
+
+<style>
+  @page { size: A4 landscape; margin: 11mm 10mm 11mm 10mm; }
+  body { font-size: 9.5px; }
+  td, th { font-size: 8.8px; }
+  td a, td .u { font-family: Consolas, 'Courier New', monospace; font-size: 8px; color: #1e3a8a; word-break: break-all; }
+  .n { font-weight: 700; color: #1d4ed8; text-align: center; }
+</style>
+</head>
+<body>
+
+<h1>Allemagne – quel parseur couvre quelle ligne du classeur, et d'où il tire l'information</h1>
+<p class="subtitle">Pour chacune des 21 lignes de <code>allemagne_pep_sources_teste.xlsx</code> : le parseur qui la couvre, l'adresse exacte qu'il télécharge à chaque exécution, et ce qui n'est pas couvert.</p>
+<div class="meta"><span>SwiftCheck AML</span><span>4 novembre 2026</span>
+<span>Les numéros 1 à 21 suivent l'ordre des lignes du classeur (feuille « Sources PEP Allemagne »)</span>
+<span>Les parseurs téléchargent leurs pages à chaque exécution : aucun nom n'est embarqué</span></div>
+
+<h2>1. Les 21 lignes du classeur</h2>
+<table>
+  <tr><th style="width:2.5%">N°</th><th style="width:15%">Ligne du classeur</th><th style="width:11%">Parseur</th><th style="width:7%">État</th><th style="width:38%">Source lue par le parseur (téléchargée à chaque exécution)</th><th>Ce qui n'est pas couvert</th></tr>
+
+  <tr><td class="n">1</td><td>Exekutive (Bund)<br><b>Bundespräsident</b></td><td><code>de_pep_president</code></td><td><span class="tag easy">couvert</span></td>
+    <td>Page de la présidence fédérale : <span class="u">https://www.bundespraesident.de/DE/Bundespraesident-Frank-Walter-Steinmeier/bundespraesident-frank-walter-steinmeier_node.html</span> (biographie, date et lieu de naissance, photo officielle).</td>
+    <td>La source indiquée par le classeur, <span class="u">recht.bund.de</span>, n'est pas lue (voir ligne BGBl en 3).</td></tr>
+
+  <tr><td class="n">2</td><td>Exekutive (Bund)<br><b>Bundeskanzler, Bundesminister, Parl. Staatssekretäre</b></td>
+    <td><code>de_pep_federal_government</code><br><code>de_pep_federal_secretaries</code></td><td><span class="tag easy">couvert</span><br><span class="tag mid">partiel</span></td>
+    <td><b>Chancelier et ministres</b> : <span class="u">https://www.bundesregierung.de/breg-de/bundesregierung/bundeskabinett</span> (une fiche par personne).<br>
+    <b>Secrétaires d'État</b> : PDF du chapitre 6.3 du Datenhandbuch du Bundestag, dont l'adresse est découverte sur <span class="u">https://www.bundestag.de/dokumente/parlamentsarchiv/datenhandbuch/06/kapitel-06-475940</span>. Tableau lu colonne par colonne, avec les dates d'arrivée et de départ (remaniement du 29/07/2026 compris).</td>
+    <td>Le PDF est un instantané (arrêté au 12/08/2026) : un changement postérieur n'est pas vu. Le message d'exécution donne son âge.</td></tr>
+
+  <tr><td class="n">3</td><td>Exekutive (Bund)<br><b>Nominations via Plenarprotokolle</b> (API DIP)</td><td>—</td><td><span class="tag hard">non couvert</span></td>
+    <td>Aucune.</td>
+    <td>L'API DIP demande une clé gratuite : à obtenir de votre côté (elle serait stockée dans la configuration de l'application, jamais dans le dépôt). Sans clé je ne peux pas tester.<br>Même cas pour <b>recht.bund.de (BGBl)</b>, cité sur plusieurs lignes : le <code>robots.txt</code> impose 30 s entre deux requêtes et interdit la recherche, et je ne sais pas si les nominations y figurent.</td></tr>
+
+  <tr><td class="n">4</td><td>Legislative (Bund)<br><b>Mitglieder des Bundestages (MdB)</b></td><td><code>de_pep_bundestag</code></td><td><span class="tag easy">couvert</span></td>
+    <td>Page open data <span class="u">https://www.bundestag.de/services/opendata</span> : le plugin y découvre l'adresse du fichier <span class="u">MdB-Stammdaten.zip</span> (XML de tous les députés depuis 1949, avec naissance, parti, mandats). Contrôle de fraîcheur avec <span class="u">https://www.bundestag.de/xml/v2/mdb/index.xml</span> (députés actifs).</td>
+    <td>Le zip est arrêté au 29/04/2026 ; les écarts avec l'index du jour sont annoncés dans le message d'exécution.</td></tr>
+
+  <tr><td class="n">5</td><td>Legislative (Bund)<br><b>Mitglieder des Bundesrates</b></td><td><code>de_pep_bundesrat</code></td><td><span class="tag easy">couvert</span></td>
+    <td><span class="u">https://www.bundesrat.de/DE/bundesrat/mitglieder/mitglieder-node.html?param3=Alle</span> (membres titulaires et suppléants, avec Land et parti).</td>
+    <td>Le « Handbuch » en PDF cité par le classeur n'est pas lu.</td></tr>
+
+  <tr><td class="n">6</td><td>Legislative (Länder)<br><b>Abgeordnete aller 16 Landtage</b></td><td><code>de_pep_landtage</code></td><td><span class="tag easy">couvert</span></td>
+    <td>API abgeordnetenwatch.de (CC0) : <span class="u">https://www.abgeordnetenwatch.de/api/v2</span> – <code>/parliaments</code>, <code>/parliament-periods</code>, <code>/candidacies-mandates</code> (par législature, pages de 100, avec dates), <code>/politicians</code> (année de naissance).</td>
+    <td>Source tierce. L'année de naissance demande un appel par personne (15 à 30 minutes).</td></tr>
+
+  <tr><td class="n">7</td><td>Exekutive (Länder)<br><b>Ministerpräsidenten + Landesminister (16)</b></td><td><code>de_pep_bundesrat</code> (en partie)</td><td><span class="tag mid">partiel</span></td>
+    <td>Même page que la ligne 5 : les membres du Bundesrat sont les membres des gouvernements des Länder.</td>
+    <td>Les 16 sites des gouvernements (bayern.de, land.nrw, thueringen.de…) ne sont pas lus : 16 structures différentes, aucun extracteur écrit. Les secrétaires d'État des Länder ne sont couverts nulle part. <span class="u">daten.berlin.de</span> n'est pas lu.</td></tr>
+
+  <tr><td class="n">8</td><td>Exekutive (Länder)<br><b>Juges des cours constitutionnelles des Länder</b></td><td><code>de_pep_land_constitutional_courts</code></td><td><span class="tag easy">couvert</span></td>
+    <td>Les 16 pages des membres des cours (liste en annexe A), un extracteur par cour. 161 membres titulaires vérifiés un à un.</td>
+    <td>Les suppléants ne sont pas repris. Le prénom de la présidente de NRW manque sur la page officielle.</td></tr>
+
+  <tr><td class="n">9</td><td>Justiz (Bund)<br><b>Richter am BVerfG (16 juges)</b></td><td><code>de_pep_federal_courts</code></td><td><span class="tag easy">couvert</span></td>
+    <td><span class="u">https://www.bundesverfassungsgericht.de/DE/DasBundesverfassungsgericht/RichterinnenRichter/richterinnenRichter_node.html</span> (les huit membres de chaque sénat).</td>
+    <td>—</td></tr>
+
+  <tr><td class="n">10</td><td>Justiz (Bund)<br><b>Präsidenten/Richter BGH, BVerwG, BFH, BAG, BSG</b></td><td><code>de_pep_federal_courts</code></td><td><span class="tag mid">partiel</span></td>
+    <td>Pages de présidence, une par cour :<br>
+    BGH <span class="u">bundesgerichtshof.de/DE/DasGericht/Praesidenten/praesidenten_node.html</span> (présidents, dont l'ancienne présidente avec ses dates)<br>
+    BVerwG <span class="u">bverwg.de/das-gericht/organisation/der-praesident</span><br>
+    BAG <span class="u">bundesarbeitsgericht.de/die-arbeitsgerichtsbarkeit/organisation/</span><br>
+    BSG <span class="u">bsg.bund.de/DE/Gericht/Praesidentin_Vizepraesident/praesidentin_vizepraesident_node.html</span><br>
+    BFH <span class="u">bundesfinanzhof.de/de/gericht/organisation/praesident-und-vizepraesident/</span></td>
+    <td>Seuls président et vice-président sont lus. Les autres juges (environ 300) ne figurent que dans les pages par chambre et les plans de répartition en PDF du classeur : un extracteur par site reste à écrire. Le BVerwG n'a pas de président en fonction.</td></tr>
+
+  <tr><td class="n">11</td><td>Banken &amp; Kontrolle (Bund)<br><b>Président + Vorstand de la Bundesbank</b></td><td><code>de_pep_bundesbank</code></td><td><span class="tag easy">couvert</span></td>
+    <td><span class="u">https://www.bundesbank.de/de/bundesbank/organisation/vorstand</span> (directoire, rôles officiels, portraits).</td>
+    <td>Présidents des Hauptverwaltungen et conseils consultatifs (liste du classeur) non lus.</td></tr>
+
+  <tr><td class="n">12</td><td>Banken &amp; Kontrolle (Bund)<br><b>Président, Exekutivdirektoren, Verwaltungsrat BaFin</b></td><td><code>de_pep_bafin</code></td><td><span class="tag easy">couvert</span></td>
+    <td><span class="u">https://www.bafin.de/DE/die-bafin/ueber-die-bafin/organisation/direktorium/direktorium_node.html</span> (le président et six directeurs exécutifs).</td>
+    <td>Verwaltungsrat non lu (membres non publiés sous forme lisible). La BaFin n'est pas une banque centrale : fonction suivie « hors liste notifiée ».</td></tr>
+
+  <tr><td class="n">13</td><td>Kontrolle (Bund)<br><b>Président + membres Bundesrechnungshof</b></td><td><code>de_pep_audit_courts</code></td><td><span class="tag mid">partiel</span></td>
+    <td><span class="u">https://www.bundesrechnungshof.de/ueber-uns/wer-wir-sind</span> (président et vice-présidente) et <span class="u">https://www.bundesrechnungshof.de/aktuelles/ansgar-heveling-ist-neuer-praesident</span> (communiqué qui nomme le président sorti et la date de sa sortie).</td>
+    <td>Les autres membres du collège ne sont pas lus. Les 16 cours des comptes des Länder répondent 404 : aucune page lisible.</td></tr>
+
+  <tr><td class="n">14</td><td>Diplomatie (Bund)<br><b>Botschafter, Gesandte, Geschäftsträger</b></td><td><code>de_pep_diplomats</code></td><td><span class="tag hard">désactivé</span></td>
+    <td>Aucune. Le site du ministère des Affaires étrangères donne les postes, pas les noms (le classeur le dit).</td>
+    <td>Aucune liste nominative lisible en ligne. La liste qui était embarquée dans le plugin a été supprimée.</td></tr>
+
+  <tr><td class="n">15</td><td>Verteidigung (Bund)<br><b>Generale und Admirale</b></td><td>—</td><td><span class="tag hard">non couvert</span></td>
+    <td>Aucune.</td>
+    <td>Pas de page officielle fiable ; la source du classeur (BGBl) me semble improbable pour des promotions militaires ; le grade minimal à retenir est à décider de votre côté.</td></tr>
+
+  <tr><td class="n">16</td><td>Staatliche Unternehmen (Bund)<br><b>Organes des entreprises publiques</b> (Handelsregister)</td><td><code>de_pep_state_enterprises</code> (substitut)</td><td><span class="tag mid">partiel</span></td>
+    <td>Le Handelsregister n'a pas d'API officielle. Le parseur lit à la place les pages de direction de six entreprises (liste en annexe B).</td>
+    <td>DHL Group illisible depuis ce poste ; Uniper répond 403 au client Java (non contourné). Toutes les autres entreprises publiques et la plupart des conseils de surveillance ne sont pas couverts.</td></tr>
+
+  <tr><td class="n">17</td><td>Staatliche Unternehmen (Bund)<br><b>Beteiligungsbericht der Bundesregierung</b></td><td>—</td><td><span class="tag hard">non couvert</span></td>
+    <td>Aucune.</td>
+    <td>Le site du ministère des Finances répond « Security Check » (protection anti-robots, jamais contournée). Il faudrait un dépôt manuel du PDF ; je n'en ai aucun exemplaire pour écrire et tester le parseur.</td></tr>
+
+  <tr><td class="n">18</td><td>Staatliche Unternehmen (Länder)<br><b>Beteiligungsberichte des 16 Länder</b></td><td>—</td><td><span class="tag hard">non couvert</span></td>
+    <td>Aucune.</td>
+    <td>Aucune URL identifiée dans le classeur ; dépôts manuels de PDF.</td></tr>
+
+  <tr><td class="n">19</td><td>Lobbyismus (Bund)<br><b>Lobbyregister</b> (proches, § 1 (14) GwG)</td><td>—</td><td><span class="tag hard">non couvert</span></td>
+    <td>Aucune.</td>
+    <td>Ce n'est pas une source de PEP, le classeur le dit. J'ai lu les 7 028 entrées par l'API officielle : les députés qui y figurent sont déjà couverts (ligne 4), il n'apporte aucun PEP nouveau. Le <code>robots.txt</code> interdit les exports de recherche.</td></tr>
+
+  <tr><td class="n">20</td><td>Internationale Organisationen<br><b>Dirigeants d'organisations internationales (MEP allemands)</b></td>
+    <td><code>de_pep_europarl</code><br><code>de_pep_international_orgs</code></td><td><span class="tag easy">couvert</span><br><span class="tag mid">partiel</span></td>
+    <td><b>Eurodéputés</b> : API du Parlement européen <span class="u">https://data.europarl.europa.eu/api/v2/meps/show-current?country-of-representation=DE&amp;format=application%2Fld%2Bjson</span> (en fonction), liste de la législature en cours, puis une fiche par député.<br>
+    <b>Organisations internationales</b> : ESO <span class="u">eso.org/public/about-eso/dg-office/</span>, EMBL <span class="u">embl.org/news/tag/director-general/</span>, ITLOS <span class="u">itlos.org/en/main/the-tribunal/members/</span> (21 juges).</td>
+    <td>EPO, EUMETSAT, OCCAR et CCNUCC : pages en 404, sans nom, ou protégées. Cette ligne du classeur mélange deux parseurs différents.</td></tr>
+
+  <tr><td class="n">21</td><td>Politische Parteien (Bund + Länder)<br><b>Mitglieder der Parteivorstände</b></td><td><code>de_pep_parties</code></td><td><span class="tag mid">partiel</span></td>
+    <td>Wikidata (SPARQL) : <span class="u">https://query.wikidata.org/sparql</span>, partis actifs d'Allemagne (Q183) : président, secrétaire général, directeur ; photos sur Wikimedia Commons.</td>
+    <td>Je ne lis pas les rapports financiers du classeur (ils décrivent l'argent, pas la direction). Un à deux dirigeants par parti : ni vice-présidents ni comités directeurs. Données collaboratives, à contrôler.</td></tr>
+</table>
+
+<h2>2. Parseurs sans ligne dans le classeur</h2>
+<table>
+  <tr><th style="width:20%">Parseur</th><th style="width:33%">Ce qu'il couvre</th><th>Source lue</th></tr>
+  <tr><td><code>de_pep_eu_commission</code></td><td>Ursula von der Leyen, présidente de la Commission européenne.</td><td><span class="u">https://commissioners.ec.europa.eu/ursula-von-der-leyen_de</span></td></tr>
+  <tr><td><code>de_pep_rca</code></td><td>Famille des PEP allemandes (conjoints, enfants, parents).</td><td>Wikidata <span class="u">https://query.wikidata.org/sparql</span> (données collaboratives, à contrôler).</td></tr>
+  <tr><td><code>de_pep_local_executives</code></td><td>Maires et Landräte des communes de 50 000 habitants et plus (exigence AMLR de juillet 2027).</td><td>Wikidata <span class="u">https://query.wikidata.org/sparql</span>.</td></tr>
+</table>
+
+<h2>3. Vue inverse : quel parseur couvre quelles lignes</h2>
+<table>
+  <tr><th style="width:24%">Parseur</th><th style="width:18%">Lignes du classeur</th><th>Remarque</th></tr>
+  <tr><td><code>president</code></td><td>1</td><td></td></tr>
+  <tr><td><code>federal_government</code></td><td>2</td><td>Chancelier et ministres.</td></tr>
+  <tr><td><code>federal_secretaries</code></td><td>2</td><td>Secrétaires d'État, ministres d'État, anciens ministres du remaniement du 29/07/2026.</td></tr>
+  <tr><td><code>bundestag</code></td><td>4</td><td></td></tr>
+  <tr><td><code>bundesrat</code></td><td>5, 7</td><td>Ligne 7 en partie.</td></tr>
+  <tr><td><code>landtage</code></td><td>6</td><td></td></tr>
+  <tr><td><code>land_constitutional_courts</code></td><td>8</td><td></td></tr>
+  <tr><td><code>federal_courts</code></td><td>9, 10</td><td>Ligne 9 complète, ligne 10 présidences seulement.</td></tr>
+  <tr><td><code>bundesbank</code></td><td>11</td><td></td></tr>
+  <tr><td><code>bafin</code></td><td>12</td><td></td></tr>
+  <tr><td><code>audit_courts</code></td><td>13</td><td>Bundesrechnungshof seul.</td></tr>
+  <tr><td><code>diplomats</code></td><td>14</td><td>Désactivé.</td></tr>
+  <tr><td><code>state_enterprises</code></td><td>16 (substitut)</td><td>Six entreprises.</td></tr>
+  <tr><td><code>europarl</code>, <code>international_orgs</code></td><td>20</td><td></td></tr>
+  <tr><td><code>parties</code></td><td>21</td><td></td></tr>
+  <tr><td><i>aucun</i></td><td>3, 15, 17, 18, 19</td><td>Clé DIP, grade militaire, PDF de participation (fédéral et Länder), Lobbyregister.</td></tr>
+</table>
+
+<h2>Annexe A – Les 16 cours constitutionnelles des Länder (ligne 8)</h2>
+<table>
+  <tr><th style="width:17%">Land</th><th>Page lue (membres)</th></tr>
+  <tr><td>Baden-Württemberg</td><td><span class="u">https://verfgh.baden-wuerttemberg.de/mitglieder</span></td></tr>
+  <tr><td>Bayern</td><td><span class="u">https://www.bayern.verfassungsgerichtshof.de/bayverfgh/richterinnen-und-richter/verzeichnis_der_richterinnen_und_richter.php</span></td></tr>
+  <tr><td>Berlin</td><td><span class="u">https://www.berlin.de/gerichte/sonstige-gerichte/verfassungsgerichtshof/ueber-uns-verfassungsgerichtshof-des-landes-berlin-265018.php</span></td></tr>
+  <tr><td>Brandenburg</td><td><span class="u">https://verfassungsgericht.brandenburg.de/verfgbbg/de/ueber-uns/die-verfassungsrichter/verfassungsrichter/</span></td></tr>
+  <tr><td>Bremen</td><td><span class="u">https://www.staatsgerichtshof.bremen.de/mitglieder/amtierende-mitglieder-1460</span></td></tr>
+  <tr><td>Hamburg</td><td><span class="u">https://www.hamburgisches-verfassungsgericht.de/richter</span></td></tr>
+  <tr><td>Hessen</td><td><span class="u">https://staatsgerichtshof.hessen.de/mitglieder-des-staatsgerichtshofs</span></td></tr>
+  <tr><td>Mecklenburg-Vorpommern</td><td><span class="u">https://www.mv-justiz.de/gerichte-und-staatsanwaltschaften/landesverfassungsgericht/Das-Landesverfassungsgericht/Mitglieder-des-Landesverfassungsgerichts/</span></td></tr>
+  <tr><td>Niedersachsen</td><td><span class="u">https://staatsgerichtshof.niedersachsen.de/startseite/mitglieder/aktuelle_mitglieder/</span></td></tr>
+  <tr><td>Nordrhein-Westfalen</td><td><span class="u">https://www.verfgh.nrw.de/verfassungsgerichtshof/mitglieder/index.php</span></td></tr>
+  <tr><td>Rheinland-Pfalz</td><td><span class="u">https://verfgh.justiz.rlp.de/wir-ueber-uns/richterinnen-und-richter</span></td></tr>
+  <tr><td>Saarland</td><td><span class="u">https://www.verfassungsgerichtshof-saarland.de/verfassungsgerichtshof/organisation-des-verfassungsgerichtshofs-des-saarlandes/</span></td></tr>
+  <tr><td>Sachsen</td><td><span class="u">https://www.verfassungsgerichtshof.sachsen.de/mitglieder-4508.html</span></td></tr>
+  <tr><td>Sachsen-Anhalt</td><td><span class="u">https://verfassungsgericht.sachsen-anhalt.de/organisation-und-kontakt</span></td></tr>
+  <tr><td>Schleswig-Holstein</td><td><span class="u">https://www.schleswig-holstein.de/DE/justiz/gerichte-und-justizbehoerden/LVG/Organisation/mitglieder</span></td></tr>
+  <tr><td>Thüringen</td><td><span class="u">https://verfassungsgerichtshof.thueringen.de/mitglieder</span> (a répondu HTTP 503 lors d'un essai en direct : signalé dans le message d'exécution, sans bloquer les autres cours)</td></tr>
+</table>
+<p class="small">Ces adresses sont celles du classeur (colonne D de la ligne 8) ; elles répondent toutes 200.</p>
+
+<h2>Annexe B – Les six entreprises lues à la place du Handelsregister (ligne 16)</h2>
+<table>
+  <tr><th style="width:17%">Entreprise</th><th style="width:58%">Page lue</th><th>Ce qui est lu</th></tr>
+  <tr><td>Deutsche Bahn</td><td><span class="u">https://www.deutschebahn.com/de/konzern/konzernprofil/Vorstand_neu</span></td><td>Directoire, avec la date de prise de fonction de chaque membre.</td></tr>
+  <tr><td>KfW</td><td><span class="u">https://www.kfw.de/%C3%9Cber-die-KfW/Arbeitsweise-und-Unternehmensf%C3%BChrung/Vorstand/</span></td><td>Directoire.</td></tr>
+  <tr><td>Deutsche Telekom</td><td><span class="u">https://www.telekom.com/de/ueber-uns/unternehmensfuehrung/vorstand</span> et <span class="u">…/aufsichtsrat</span></td><td>Directoire et conseil de surveillance (président et vice-président identifiés).</td></tr>
+  <tr><td>Uniper</td><td><span class="u">https://www.uniper.energy/investors/corporate-governance/management-board</span></td><td>Directoire. <b>403 en direct</b> : non lu à l'exécution.</td></tr>
+  <tr><td>DFS</td><td><span class="u">https://karriere.dfs.de/de/impressum</span></td><td>Présidente du conseil de surveillance et direction.</td></tr>
+  <tr><td>Bundesdruckerei</td><td><span class="u">https://www.bundesdruckerei.de/de/konzern/geschaeftsfuehrung</span></td><td>Direction (CEO, CSO, CTO).</td></tr>
+  <tr><td>DHL Group</td><td><span class="u">https://group.dhl.com/de/ueber-uns/unternehmensfuehrung/vorstand.html</span></td><td><b>Illisible</b> depuis ce poste : aucun extracteur, signalé à chaque exécution.</td></tr>
+</table>
+
+<p class="footer">SwiftCheck AML – correspondance classeur / parseurs du 4 novembre 2026. Une page qui change de mise en page fait échouer l'extracteur concerné : le message d'exécution le signale au lieu de publier un résultat partiel.</p>
+</body>
+</html>

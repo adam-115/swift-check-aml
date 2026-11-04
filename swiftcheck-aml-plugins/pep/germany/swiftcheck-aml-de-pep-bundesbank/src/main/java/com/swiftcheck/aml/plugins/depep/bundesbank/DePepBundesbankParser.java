@@ -43,7 +43,6 @@ public class DePepBundesbankParser implements Iparser {
     static final String TOPIC = "role.pep";
     static final String DEFAULT_URL = "https://www.bundesbank.de/de/bundesbank/organisation/vorstand";
     static final String SITE = "https://www.bundesbank.de";
-    static final String BASELINE_RESOURCE = "/bundesbank-baseline.html";
 
     private static final Pattern CARD_PATTERN = Pattern.compile(
             "(?si)<(?:div|li|article)[^>]*class=\"[^\"]*(?:teaser|card|member|portrait|person)[^\"]*\"[^>]*>(.*?)(?=<div[^>]*class=\"[^\"]*(?:teaser|card|member|portrait|person)|<li[^>]*class=\"[^\"]*(?:teaser|card|member|portrait|person)|</(?:body|ul|main)>|$)");
@@ -118,7 +117,7 @@ public class DePepBundesbankParser implements Iparser {
                     .build();
             HttpRequest request = HttpRequest.newBuilder()
                     .uri(URI.create(url))
-                    .header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36")
+                    .header("User-Agent", "SwiftCheck-AML/1.0 (liste PEP Allemagne - Bundesbank)")
                     .timeout(Duration.ofSeconds(30))
                     .GET()
                     .build();
@@ -127,15 +126,7 @@ public class DePepBundesbankParser implements Iparser {
                 html = response.body();
             }
         } catch (Exception e) {
-            log.warn("Impossible de télécharger {}: {}. Utilisation des données de secours.", url, e.getMessage());
-        }
-
-        if (html == null) {
-            try (InputStream in = DePepBundesbankParser.class.getResourceAsStream(BASELINE_RESOURCE)) {
-                if (in != null) {
-                    html = new String(in.readAllBytes(), StandardCharsets.UTF_8);
-                }
-            }
+            log.warn("Impossible de télécharger {} : {}", url, e.getMessage());
         }
 
         if (html == null) {

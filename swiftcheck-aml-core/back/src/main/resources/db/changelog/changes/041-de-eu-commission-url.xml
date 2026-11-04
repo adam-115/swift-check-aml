@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Allemagne, Commission européenne : l'ancienne adresse de la fiche de la présidente
+    (commission.europa.eu/about/organisation/college-commissioners/ursula-von-der-leyen_fr) répond HTTP 404 depuis le
+    déménagement du site des commissaires. La fiche est maintenant sur commissioners.ec.europa.eu.
+-->
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="041-de-eu-commission-url" author="swiftcheck">
+        <sql><![CDATA[
+            UPDATE parser
+            SET source_location = 'https://commissioners.ec.europa.eu/ursula-von-der-leyen_de',
+                website_url = 'https://commissioners.ec.europa.eu/',
+                attribution = 'Commission européenne, commissioners.ec.europa.eu'
+            WHERE dataset_name = 'de_pep_eu_commission';
+        ]]></sql>
+    </changeSet>
+
+</databaseChangeLog>

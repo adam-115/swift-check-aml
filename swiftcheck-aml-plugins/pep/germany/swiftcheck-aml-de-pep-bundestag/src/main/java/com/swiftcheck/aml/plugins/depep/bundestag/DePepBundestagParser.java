@@ -7,9 +7,12 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.Duration;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -48,6 +51,8 @@ public class DePepBundestagParser implements Iparser {
     private static final String POSITION = "Membre du Bundestag (Mitglied des Deutschen Bundestages)";
 
     static final String DEFAULT_ZIP_URL = "https://www.bundestag.de/resource/blob/472878/MdB-Stammdaten.zip";
+    static final String OPENDATA_PAGE = "https://www.bundestag.de/services/opendata";
+    static final String DEFAULT_INDEX_URL = "https://www.bundestag.de/xml/v2/mdb/index.xml";
     static final String USER_AGENT = "SwiftCheck-AML/1.0 (liste PEP Allemagne - Bundestag)";
     static final int DEFAULT_MONTHS_AFTER_END = 12;
 
@@ -76,9 +81,81 @@ public class DePepBundestagParser implements Iparser {
         Path file = resolveInputFile(ctx, p);
         FtmDatasetBuilder dataset = new FtmDatasetBuilder(ID_PREFIX, TOPIC);
 
-        Report report = convert(file, today, months, dataset);
+        java.util.Set<String> currentIds = new java.util.HashSet<>();
+        Report report = convert(file, today, months, dataset, currentIds);
         dataset.writeNdjsonFile(ctx.outputFile());
-        return dataset.toConversionResult().withMessage(report.message());
+        String message = report.message() + freshness(ctx, p, today, currentIds);
+        return dataset.toConversionResult().withMessage(message);
+    }
+
+    /** Adresse du zip lue dans la page open data : l'identifiant de version de l'adresse change à chaque publication. */
+    static String discoverZipUrl(String html) {
+        Matcher m = Pattern.compile("href=\"(/resource/blob/\\d+/MdB-Stammdaten\\.zip)\"").matcher(html);
+        return m.find() ? "https://www.bundestag.de" + m.group(1) : null;
+    }
+
+    /** Date « Stand: jj.mm.aaaa » affichée sur la page open data à côté du lien du zip. */
+    static LocalDate standDate(String html) {
+        Matcher m = Pattern.compile("MdB-Stammdaten\\.zip.{0,400}?Stand:\\s*(\\d{2}\\.\\d{2}\\.\\d{4})", Pattern.DOTALL).matcher(html);
+        return m.find() ? LocalDate.parse(m.group(1), GERMAN_DATE) : null;
+    }
+
+    /** Identifiants des députés « Aktiv » de l'index live {@code xml/v2/mdb/index.xml}. */
+    static java.util.Set<String> activeIds(String indexXml) {
+        java.util.Set<String> ids = new java.util.HashSet<>();
+        Matcher m = Pattern.compile("<mdbID status=\"Aktiv\">(\\d+)</mdbID>").matcher(indexXml);
+        while (m.find()) {
+            ids.add(m.group(1));
+        }
+        return ids;
+    }
+
+    /**
+     * Compare le zip (mis à jour rarement) à l'index live : date du fichier et écarts de composition. Un écart signifie
+     * que le zip ne décrit plus exactement le Bundestag actuel. Le résultat ne change pas les données, il est annoncé.
+     */
+    private String freshness(ParserContext ctx, Map<String, String> p, LocalDate today, java.util.Set<String> zipCurrent) {
+        StringBuilder sb = new StringBuilder();
+        try {
+            Path page = ctx.rawDir() == null ? null : ctx.rawDir().resolve("opendata.html");
+            if (page != null && Files.isRegularFile(page)) {
+                LocalDate stand = standDate(Files.readString(page, StandardCharsets.UTF_8));
+                if (stand != null) {
+                    long days = java.time.temporal.ChronoUnit.DAYS.between(stand, today);
+                    sb.append(" Fichier du Bundestag arrêté au ").append(stand.format(GERMAN_DATE));
+                    if (days > 60) {
+                        sb.append(" (").append(days).append(" jours : les départs et arrivées depuis cette date sont à contrôler)");
+                    }
+                    sb.append('.');
+                }
+            }
+            if (!"false".equalsIgnoreCase(p.get("checkIndex")) && ctx.rawDir() != null) {
+                String index = httpGet(p.getOrDefault("indexUrl", DEFAULT_INDEX_URL).trim());
+                Files.writeString(ctx.rawDir().resolve("mdb-index.xml"), index, StandardCharsets.UTF_8);
+                java.util.Set<String> live = activeIds(index);
+                java.util.Set<String> arrived = new java.util.HashSet<>(live);
+                arrived.removeAll(zipCurrent);
+                java.util.Set<String> left = new java.util.HashSet<>(zipCurrent);
+                left.removeAll(live);
+                sb.append(" Index live du Bundestag : ").append(live.size()).append(" députés actifs, ")
+                        .append(arrived.size()).append(" absents du fichier, ")
+                        .append(left.size()).append(" du fichier qui ne sont plus actifs.");
+            }
+        } catch (Exception e) {
+            sb.append(" Contrôle de fraîcheur impossible : ").append(e.getMessage()).append('.');
+        }
+        return sb.toString();
+    }
+
+    private static String httpGet(String url) throws IOException, InterruptedException {
+        HttpClient client = HttpClient.newBuilder().followRedirects(HttpClient.Redirect.NORMAL)
+                .connectTimeout(Duration.ofSeconds(30)).build();
+        HttpResponse<String> resp = client.send(HttpRequest.newBuilder(URI.create(url)).timeout(Duration.ofMinutes(2))
+                .header("User-Agent", USER_AGENT).GET().build(), HttpResponse.BodyHandlers.ofString(StandardCharsets.UTF_8));
+        if (resp.statusCode() != 200) {
+            throw new IOException("HTTP " + resp.statusCode() + " pour " + url);
+        }
+        return resp.body();
     }
 
     @Override
@@ -101,6 +178,11 @@ public class DePepBundestagParser implements Iparser {
     }
 
     Report convert(Path file, LocalDate today, int monthsAfterEnd, FtmDatasetBuilder dataset) throws Exception {
+        return convert(file, today, monthsAfterEnd, dataset, new java.util.HashSet<>());
+    }
+
+    Report convert(Path file, LocalDate today, int monthsAfterEnd, FtmDatasetBuilder dataset,
+                   java.util.Set<String> currentIds) throws Exception {
         LocalDate cutoff = today.minusMonths(monthsAfterEnd);
         int[] counts = new int[4]; // total, current, kept, skipped
 
@@ -113,6 +195,7 @@ public class DePepBundestagParser implements Iparser {
                 }
                 if (mdb.current()) {
                     counts[1]++;
+                    currentIds.add(mdb.id());
                     write(mdb, dataset);
                 } else if (mdb.latestEnd() != null && !LocalDate.parse(mdb.latestEnd()).isBefore(cutoff)) {
                     counts[2]++;
@@ -271,10 +354,20 @@ public class DePepBundestagParser implements Iparser {
         }
         Files.createDirectories(ctx.rawDir());
         Path localZip = ctx.rawDir().resolve("MdB-Stammdaten.zip");
-        if (Files.exists(localZip) && Files.size(localZip) > 1000) {
-            return localZip;
+        String url = p.getOrDefault("url", "").trim();
+        if (url.isEmpty()) {
+            try {
+                String page = httpGet(p.getOrDefault("opendataUrl", OPENDATA_PAGE).trim());
+                Files.writeString(ctx.rawDir().resolve("opendata.html"), page, StandardCharsets.UTF_8);
+                url = discoverZipUrl(page);
+            } catch (IOException e) {
+                log.warn("Page open data illisible : {}", e.getMessage());
+            }
+            if (url == null || url.isEmpty()) {
+                log.warn("Lien du zip introuvable sur la page open data, repli sur {}", DEFAULT_ZIP_URL);
+                url = DEFAULT_ZIP_URL;
+            }
         }
-        String url = p.getOrDefault("url", DEFAULT_ZIP_URL).trim();
         log.info("Téléchargement de {} vers {}", url, localZip);
         HttpClient client = HttpClient.newBuilder()
                 .followRedirects(HttpClient.Redirect.NORMAL)

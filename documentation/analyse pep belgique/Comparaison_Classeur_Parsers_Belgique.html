@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Belgique – comparaison classeur et parseurs</title>
+<style>
+  @page { size: A4 portrait; margin: 14mm 13mm 14mm 13mm; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; color: #1e293b; font-size: 10.5px; line-height: 1.45; }
+  h1 { font-size: 22px; color: #0f172a; margin-bottom: 4px; }
+  h2 { font-size: 14px; color: #0f172a; margin: 18px 0 6px; padding-bottom: 3px; border-bottom: 2px solid #2563eb; break-after: avoid; }
+  h3 { font-size: 11.5px; color: #1e3a8a; margin: 12px 0 5px; break-after: avoid; }
+  p { margin: 4px 0; }
+  .subtitle { color: #475569; font-size: 11.5px; margin-bottom: 8px; }
+  .meta { display: flex; flex-wrap: wrap; gap: 18px; color: #64748b; font-size: 9.5px; border-bottom: 1px solid #e2e8f0; padding-bottom: 8px; margin-bottom: 12px; }
+  .kpis { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin: 10px 0 6px; }
+  .kpi { border: 1px solid #e2e8f0; border-radius: 8px; padding: 8px 10px; background: #f8fafc; }
+  .kpi b { display: block; font-size: 20px; color: #1d4ed8; line-height: 1.1; }
+  .kpi span { color: #475569; font-size: 9.5px; }
+  table { width: 100%; border-collapse: collapse; margin: 5px 0 8px; font-size: 9.5px; }
+  th { background: #1e3a8a; color: #fff; text-align: left; padding: 4px 5px; font-weight: 600; }
+  td { border-bottom: 1px solid #e2e8f0; padding: 4px 5px; vertical-align: top; }
+  tr { break-inside: avoid; }
+  tr:nth-child(even) td { background: #f8fafc; }
+  code { font-family: Consolas, 'Courier New', monospace; font-size: 9px; background: #eef2ff; color: #1e3a8a; padding: 0 2px; border-radius: 3px; }
+  .cat { font-weight: 700; color: #1d4ed8; white-space: nowrap; }
+  .tag { display: inline-block; border-radius: 4px; padding: 0 4px; font-size: 8.5px; font-weight: 600; white-space: nowrap; }
+  .easy { background: #dcfce7; color: #166534; }
+  .mid { background: #fef9c3; color: #854d0e; }
+  .hard { background: #fee2e2; color: #991b1b; }
+  .none { background: #e2e8f0; color: #334155; }
+  .note { border-left: 3px solid #2563eb; background: #eff6ff; padding: 6px 9px; margin: 6px 0; border-radius: 0 6px 6px 0; }
+  .warn { border-left-color: #d97706; background: #fffbeb; }
+  ul, ol { margin: 4px 0 4px 18px; }
+  li { margin: 2px 0; }
+  .small { font-size: 9px; color: #64748b; }
+  .footer { margin-top: 14px; border-top: 1px solid #e2e8f0; padding-top: 6px; color: #94a3b8; font-size: 8.5px; }
+  .page-break { break-before: page; }
+</style>
+<style>
+  @page { size: A4 landscape; margin: 11mm 10mm 11mm 10mm; }
+  body { font-size: 9.5px; }
+  td, th { font-size: 8.8px; }
+  td a, td .u { font-family: Consolas, 'Courier New', monospace; font-size: 8px; color: #1e3a8a; word-break: break-all; }
+  .n { font-weight: 700; color: #1d4ed8; text-align: center; }
+</style>
+</head>
+<body>
+<h1>Belgique – comparaison du classeur et des parseurs</h1>
+<p class="subtitle">Classeur « belgique_pep_sources_auditables_v2.xlsx » (19 lignes de sources) comparé aux 23 parseurs belges existants.</p>
+<div class="meta"><span>SwiftCheck AML</span><span>4 novembre 2026</span><span>Comparaison faite d'après les sources déclarées dans le code ; aucun parseur relancé</span></div>
+
+<h2>1. Lignes du classeur couvertes</h2>
+<table>
+<tr><th>Ligne du classeur</th><th>Parseur existant</th><th>Écart</th></tr>
+<tr><td>Premier ministre et ministres fédéraux (belgium.be)</td><td><code>be_pep_federal_government</code></td><td>Même page.</td></tr>
+<tr><td>Chambre, 150 députés (dekamer.be)</td><td><code>be_pep_chamber</code></td><td>Même source (<code>cvlist54</code>).</td></tr>
+<tr><td>Sénat, 60 sénateurs</td><td><code>be_pep_senate</code></td><td>Source équivalente (senate.be, liste des sénateurs).</td></tr>
+<tr><td>Parlement wallon, JSON (URL vide dans le classeur)</td><td><code>be_pep_walloon_parliament</code></td><td>Endpoint officiel <code>composition_dep_od.php?f=json</code>, déjà utilisé.</td></tr>
+<tr><td>Parlement flamand, API ws.vlpar.be</td><td><code>be_pep_flemish_parliament</code></td><td>Nous lisons <code>/opendata/vv/huidige</code> : élus actuels seulement.</td></tr>
+<tr><td>Gouvernements wallon, flamand, bruxellois, FWB, germanophone</td><td><code>be_pep_regional_governments</code></td><td>Les 5 sites du classeur sont couverts.</td></tr>
+<tr><td>Parlements bruxellois, FWB, germanophone</td><td><code>be_pep_regional_parliaments</code></td><td>Mêmes sites ; FWB via l'API Algolia du site.</td></tr>
+<tr><td>Exécutif local flamand (SPARQL LBLOD)</td><td><code>be_pep_local_executives</code></td><td>Même source, limitée aux bourgmestres et gouverneurs.</td></tr>
+<tr><td>Cour constitutionnelle</td><td><code>be_pep_constitutional_court</code></td><td>Page officielle de la Cour, plus fiable que la recherche manuelle au Moniteur.</td></tr>
+<tr><td>Conseil d'État</td><td><code>be_pep_council_of_state</code></td><td>Page d'organisation du Conseil d'État.</td></tr>
+<tr><td>Cour de cassation</td><td><code>be_pep_moniteur</code></td><td>Nominations lues au Moniteur belge.</td></tr>
+<tr><td>Banque nationale et Cour des comptes</td><td><code>be_pep_national_bank</code>, <code>be_pep_court_of_audit</code></td><td>BNB : Comité de direction et Conseil de régence lus ; Gouverneur seul, Commission des sanctions et Collège de résolution non lus.</td></tr>
+<tr><td>Diplomatie et Défense</td><td><code>be_pep_diplomats</code>, <code>be_pep_army</code></td><td>Voir section 2.</td></tr>
+<tr><td>Entreprises publiques (API BCE payante)</td><td><code>be_pep_public_enterprises</code></td><td>Regimand (Cour des comptes) et portefeuille SFPI, gratuits.</td></tr>
+<tr><td>Eurodéputés belges</td><td><code>be_pep_europarl</code></td><td>Même API du Parlement européen.</td></tr>
+<tr><td>Organisations internationales</td><td><code>be_pep_international_orgs</code></td><td>6 organisations ; le classeur ne détaille que le Parlement européen.</td></tr>
+<tr><td>data.gov.be (aucun jeu PEP)</td><td>aucun</td><td>Rien à faire.</td></tr>
+</table>
+
+<h2>2. Écarts à connaître</h2>
+<table>
+<tr><th>#</th><th>Sujet</th><th>Constat</th></tr>
+<tr><td>1</td><td>Roi des Belges</td><td>Le classeur dit que monarchie.be n'est pas auditable. <code>be_pep_king</code> croise monarchie.be avec Wikidata. Écart réel avec le critère ; un contrôle sur l'acte du Moniteur belge pourrait être ajouté.</td></tr>
+<tr><td>2</td><td>Mandataires locaux hors Flandre</td><td>Le classeur voit ccrek.be/Regimand comme la source la plus complète (échevins, CPAS, provinces, rémunérations). Nous prenons seulement les chefs d'exécutif des collectivités d'au moins 50 000 habitants (Wikidata et LBLOD). Échevins, présidents de CPAS et mandataires wallons et bruxellois non couverts.</td></tr>
+<tr><td>3</td><td>Entités liées</td><td><code>be_pep_associated_entities</code> lit Regimand pour les organismes liés aux PEP, pas pour la liste générale des mandataires.</td></tr>
+<tr><td>4</td><td>Anciens parlementaires</td><td>Les lignes « Anciens » (Wallonie) et « Former » (Flandre) ne sont pas lues ; la rétention de 12 mois est gérée par le core.</td></tr>
+<tr><td>5</td><td>Ambassadeurs</td><td>Le classeur indique que l'open data du SPF AE ne donne pas les noms. Notre parseur interroge <code>publicapps.diplomatie.be/api/belgianInstitutions</code> ; la présence des noms n'a pas été vérifiée en direct.</td></tr>
+<tr><td>6</td><td>Commission européenne</td><td>Nous couvrons le commissaire belge, absent du classeur. Risque d'adresse obsolète en base, comme pour l'Allemagne : à revérifier.</td></tr>
+</table>
+
+<h2>3. Couverture au-delà du classeur</h2>
+<p>Le classeur ne contient rien sur <code>be_pep_political_parties</code> (Wikidata), <code>be_pep_rca</code> (proches et famille) ni <code>be_pep_associated_entities</code>.</p>
+<div class="footer">SwiftCheck AML – comparaison Belgique, 4 novembre 2026.</div>
+</body>
+</html>

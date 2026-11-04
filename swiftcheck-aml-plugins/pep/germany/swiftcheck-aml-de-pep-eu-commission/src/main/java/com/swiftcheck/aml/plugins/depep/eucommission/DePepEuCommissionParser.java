@@ -147,10 +147,6 @@ public class DePepEuCommissionParser implements Iparser {
         if (ctx.inputFile() != null && Files.isRegularFile(ctx.inputFile())) {
             return Files.readString(ctx.inputFile(), StandardCharsets.UTF_8);
         }
-        Path rawFile = ctx.rawDir() != null ? ctx.rawDir().resolve("commissioner.html") : null;
-        if (rawFile != null && Files.isRegularFile(rawFile)) {
-            return Files.readString(rawFile, StandardCharsets.UTF_8);
-        }
         Map<String, String> p = ctx.parameters() == null ? Map.of() : ctx.parameters();
         String url = p.getOrDefault("url", DEFAULT_URL).trim();
         try {

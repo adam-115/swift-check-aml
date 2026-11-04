@@ -86,21 +86,13 @@ public class BePepMoniteurParser implements Iparser {
         Path rawDir = ctx.rawDir();
         Map<String, String> p = ctx.parameters() != null ? ctx.parameters() : Map.of();
 
-        // Si aucun fichier html présent, télécharger
-        boolean hasHtml = false;
-        if (Files.exists(rawDir)) {
-            try (DirectoryStream<Path> stream = Files.newDirectoryStream(rawDir, "*.html")) {
-                hasHtml = stream.iterator().hasNext();
-            }
-        }
-        if (!hasHtml) {
-            long delayMs = Long.parseLong(p.getOrDefault("delayMs", DEFAULT_DELAY_MS).trim());
-            int days = Integer.parseInt(p.getOrDefault("days", DEFAULT_SINCE_DAYS).trim());
-            LocalDate until = LocalDate.now();
-            LocalDate since = until.minusDays(days);
-            String baseUrl = p.get("baseUrl");
-            new MoniteurDownloader(Duration.ofMillis(delayMs)).download(baseUrl, since, until, rawDir);
-        }
+        // Toujours télécharger : aucun fichier déjà présent dans rawDir n'est réutilisé
+        long delayMs = Long.parseLong(p.getOrDefault("delayMs", DEFAULT_DELAY_MS).trim());
+        int days = Integer.parseInt(p.getOrDefault("days", DEFAULT_SINCE_DAYS).trim());
+        LocalDate until = LocalDate.now();
+        LocalDate since = until.minusDays(days);
+        String baseUrl = p.get("baseUrl");
+        new MoniteurDownloader(Duration.ofMillis(delayMs)).download(baseUrl, since, until, rawDir);
 
         FtmDatasetBuilder dataset = new FtmDatasetBuilder(ID_PREFIX, TOPIC);
         Report report = convert(rawDir, oldestEndDate(p, LocalDate.now()), LocalDate.now(), dataset);

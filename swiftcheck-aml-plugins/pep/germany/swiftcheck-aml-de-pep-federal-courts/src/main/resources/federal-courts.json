@@ -1,87 +1,10 @@
 {
   "courts": [
-    {
-      "key": "bverfg",
-      "name": "Bundesverfassungsgericht",
-      "acronym": "BVerfG",
-      "city": "Karlsruhe",
-      "positionName": "Richter am Bundesverfassungsgericht",
-      "url": "https://www.bundesverfassungsgericht.de/DE/Richter/richter_node.html",
-      "baselineJudges": [
-        { "name": "Prof. Dr. Stephan Harbarth", "role": "Präsident des Bundesverfassungsgerichts" },
-        { "name": "Prof. Dr. Doris König", "role": "Vizepräsidentin des Bundesverfassungsgerichts" },
-        { "name": "Prof. Dr. Ines Härtel", "role": "Richterin des Bundesverfassungsgerichts" },
-        { "name": "Prof. Dr. Astrid Wallrabenstein", "role": "Richterin des Bundesverfassungsgerichts" },
-        { "name": "Prof. Dr. Henning Radtke", "role": "Richter des Bundesverfassungsgerichts" },
-        { "name": "Dr. Rhona Fetzer", "role": "Richterin des Bundesverfassungsgerichts" },
-        { "name": "Dr. Josef Christ", "role": "Richter des Bundesverfassungsgerichts" },
-        { "name": "Dr. Yvonne Ott", "role": "Richterin des Bundesverfassungsgerichts" },
-        { "name": "Thomas Offenloch", "role": "Richter des Bundesverfassungsgerichts" },
-        { "name": "Prof. Dr. Heinrich Amadeus Wolff", "role": "Richter des Bundesverfassungsgerichts" },
-        { "name": "Prof. Dr. Martin Eifert", "role": "Richter des Bundesverfassungsgerichts" },
-        { "name": "Miriam Meßling", "role": "Richterin des Bundesverfassungsgerichts" },
-        { "name": "Holger Wöckel", "role": "Richter des Bundesverfassungsgerichts" },
-        { "name": "Dr. Peter Frank", "role": "Richter des Bundesverfassungsgerichts" }
-      ]
-    },
-    {
-      "key": "bgh",
-      "name": "Bundesgerichtshof",
-      "acronym": "BGH",
-      "city": "Karlsruhe",
-      "positionName": "Bundesrichter am Bundesgerichtshof",
-      "url": "https://www.bundesgerichtshof.de/DE/DasGericht/Organisation/organisation_node.html",
-      "baselineJudges": [
-        { "name": "Bettina Limperg", "role": "Präsidentin des Bundesgerichtshofes" },
-        { "name": "Jürgen Ellenberger", "role": "Vizepräsident des Bundesgerichtshofes" }
-      ]
-    },
-    {
-      "key": "bverwg",
-      "name": "Bundesverwaltungsgericht",
-      "acronym": "BVerwG",
-      "city": "Leipzig",
-      "positionName": "Bundesrichter am Bundesverwaltungsgericht",
-      "url": "https://www.bverwg.de/das-gericht/organisation/senate",
-      "baselineJudges": [
-        { "name": "Prof. Dr. Andreas Korbmacher", "role": "Präsident des Bundesverwaltungsgerichts" },
-        { "name": "Susanne Kraus", "role": "Vizepräsidentin des Bundesverwaltungsgerichts" }
-      ]
-    },
-    {
-      "key": "bag",
-      "name": "Bundesarbeitsgericht",
-      "acronym": "BAG",
-      "city": "Erfurt",
-      "positionName": "Bundesrichter am Bundesarbeitsgericht",
-      "url": "https://www.bundesarbeitsgericht.de/das-gericht/organisation/senate/",
-      "baselineJudges": [
-        { "name": "Inken Gallner", "role": "Präsidentin des Bundesarbeitsgerichts" },
-        { "name": "Dr. Waldemar Reinfelder", "role": "Vizepräsident des Bundesarbeitsgerichts" }
-      ]
-    },
-    {
-      "key": "bsg",
-      "name": "Bundessozialgericht",
-      "acronym": "BSG",
-      "city": "Kassel",
-      "positionName": "Bundesrichter am Bundessozialgericht",
-      "url": "https://www.bsg.bund.de/DE/Das-Gericht/Senate/senate_node.html",
-      "baselineJudges": [
-        { "name": "Christine Fuchsloch", "role": "Präsidentin des Bundessozialgerichts" },
-        { "name": "Miriam Meßling", "role": "Vizepräsidentin des Bundessozialgerichts" }
-      ]
-    },
-    {
-      "key": "bfh",
-      "name": "Bundesfinanzhof",
-      "acronym": "BFH",
-      "city": "München",
-      "positionName": "Bundesrichter am Bundesfinanzhof",
-      "url": "https://www.bundesfinanzhof.de/de/das-gericht/organisation/senate/",
-      "baselineJudges": [
-        { "name": "Dr. Hans-Josef Thesling", "role": "Präsident des Bundesfinanzhofs" }
-      ]
-    }
+    { "key": "bverfg", "name": "Bundesverfassungsgericht", "acronym": "BVerfG", "url": "https://www.bundesverfassungsgericht.de/DE/DasBundesverfassungsgericht/RichterinnenRichter/richterinnenRichter_node.html" },
+    { "key": "bgh", "name": "Bundesgerichtshof", "acronym": "BGH", "url": "https://www.bundesgerichtshof.de/DE/DasGericht/Praesidenten/praesidenten_node.html" },
+    { "key": "bverwg", "name": "Bundesverwaltungsgericht", "acronym": "BVerwG", "url": "https://www.bverwg.de/das-gericht/organisation/der-praesident" },
+    { "key": "bag", "name": "Bundesarbeitsgericht", "acronym": "BAG", "url": "https://www.bundesarbeitsgericht.de/die-arbeitsgerichtsbarkeit/organisation/" },
+    { "key": "bsg", "name": "Bundessozialgericht", "acronym": "BSG", "url": "https://www.bsg.bund.de/DE/Gericht/Praesidentin_Vizepraesident/praesidentin_vizepraesident_node.html" },
+    { "key": "bfh", "name": "Bundesfinanzhof", "acronym": "BFH", "url": "https://www.bundesfinanzhof.de/de/gericht/organisation/praesident-und-vizepraesident/" }
   ]
 }

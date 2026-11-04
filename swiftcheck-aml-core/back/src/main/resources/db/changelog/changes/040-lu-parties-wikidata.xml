@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Luxembourg, partis politiques : le plugin lisait un fichier CSV de dirigeants écrit à la main et embarqué dans le jar.
+    Il lit désormais Wikidata (SPARQL) à chaque exécution, comme le plugin allemand. La couverture est partielle : Wikidata
+    ne décrit qu'un à deux dirigeants par parti.
+-->
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="040-lu-parties-wikidata" author="swiftcheck">
+        <sql><![CDATA[
+            UPDATE parser
+            SET data_source_type = 'PLUGIN_MANAGED',
+                parser_kind = 'SPARQL',
+                website_url = 'https://www.wikidata.org',
+                source_location = NULL,
+                parameters = '{"endpoint": "https://query.wikidata.org/sparql", "country": "Q32", "monthsAfterEnd": "12"}',
+                retention_months = 12,
+                licence = 'CC0 (Wikidata)',
+                attribution = 'Wikidata, www.wikidata.org',
+                notes = 'Dirigeants des partis luxembourgeois décrits dans Wikidata (président, secrétaire général, directeur), lus à chaque exécution. Données collaboratives : à contrôler. Plus aucun fichier de dirigeants n''est embarqué dans le plugin.'
+            WHERE dataset_name = 'lu_pep_political_parties';
+
+            UPDATE pep_function_parser pfp
+            JOIN parser p ON p.id = pfp.parser_id
+            SET pfp.completeness = 'PARTIAL',
+                pfp.includes_former = TRUE,
+                pfp.covered_scope = 'Présidents, secrétaires généraux et directeurs des partis luxembourgeois décrits dans Wikidata, en fonction ou sortis depuis moins de 12 mois.',
+                pfp.gaps = 'Un à deux dirigeants par parti seulement (13 pour 11 partis au 04/11/2026) : ni vice-présidents ni comités directeurs. Des partis représentés à la Chambre peuvent manquer. Données collaboratives.'
+            WHERE p.dataset_name = 'lu_pep_political_parties';
+        ]]></sql>
+    </changeSet>
+
+</databaseChangeLog>

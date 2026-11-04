@@ -1,6 +1,6 @@
 package com.swiftcheck.aml.plugins.depep.landconstitutionalcourts;
 
-import java.io.InputStream;
+import java.io.IOException;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
@@ -9,11 +9,11 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.Duration;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import org.pf4j.Extension;
 import org.slf4j.Logger;
@@ -24,301 +24,180 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.swiftcheck.aml.plugin.Iparser;
 import com.swiftcheck.aml.plugin.ParserContext;
 import com.swiftcheck.aml.plugin.ParserResult;
-import com.swiftcheck.aml.plugin.SourceRecord;
 import com.swiftcheck.aml.sdk.FtmDatasetBuilder;
 import com.swiftcheck.aml.sdk.FtmEntity;
 
 /**
- * <b>de_pep_land_constitutional_courts</b> – Présidents et juges des 16 cours constitutionnelles des Länder.
+ * <b>de_pep_land_constitutional_courts</b> – Membres des 16 cours constitutionnelles des Länder (catégorie
+ * <b>DE-d</b>, § 1 (12) d) GwG).
  * <p>
- * Catégorie <b>DE-d</b> (§ 1 (12) d) GwG ; liste JO C/2023/724).
- * Couvre les juges constitutionnels régionaux des 16 Länder allemands.
+ * Les 16 pages sont téléchargées à chaque exécution et lues par un extracteur propre à chaque cour
+ * ({@link LandCourts}). Aucun nom n'est embarqué dans le plugin : une page illisible ou qui a changé est signalée dans
+ * le message d'exécution et ne produit aucune personne. Les suppléants ne sont pas repris.
  */
 @Extension
 public class DePepLandConstitutionalCourtsParser implements Iparser {
 
     private static final Logger log = LoggerFactory.getLogger(DePepLandConstitutionalCourtsParser.class);
 
-    static final String ID_PREFIX = "de-pep-land-const-courts";
+    static final String ID_PREFIX = "de-pep-land-constitutional-courts";
     static final String TOPIC = "role.pep";
     static final String CONFIG_RESOURCE = "/land-constitutional-courts.json";
-
-    private static final Pattern ACADEMIC_TITLE = Pattern.compile(
-            "^(?:(?:Prof\\.?\\s+Dr\\.?|Prof\\.?|Dr\\.?|h\\.c\\.)\\s+)+");
-
-    private static final Pattern CARD_PATTERN = Pattern.compile(
-            "(?si)<(?:div|li|article|tr)[^>]*class=\"[^\"]*(?:teaser|card|member|person|richter|judge|entry)[^\"]*\"[^>]*>(.*?)(?=<div[^>]*class=\"[^\"]*(?:teaser|card|member|person|richter|judge|entry)|<li[^>]*class=\"[^\"]*(?:teaser|card|member|person|richter)|</(?:body|ul|main|table)>|$)");
-
-    private static final Pattern HEADING_PATTERN = Pattern.compile(
-            "(?si)<(?:h[2-4]|td|strong|b)[^>]*>\\s*(?:<a[^>]*href=\"([^\"]*)\"[^>]*>)?\\s*([^<]+?)\\s*(?:</a>)?\\s*</(?:h[2-4]|td|strong|b)>");
-
-    private static final Pattern ROLE_PATTERN = Pattern.compile(
-            "(?si)<(?:p|div|span|td)[^>]*class=\"[^\"]*(?:role|text|subline|subtitle|function|position|amt)[^\"]*\"[^>]*>\\s*([^<]+?)\\s*</(?:p|div|span|td)>");
-
-    private static final Pattern IMG_PATTERN = Pattern.compile(
-            "(?si)<img[^>]*\\ssrc=\"([^\"]+)\"[^>]*>");
+    static final String USER_AGENT = "SwiftCheck-AML/1.0 (liste PEP Allemagne - Cours constitutionnelles régionales)";
+    /** En dessous, la page est considérée comme illisible : aucune cour n'a moins de cinq membres titulaires. */
+    static final int MIN_MEMBERS = 5;
 
     @JsonIgnoreProperties(ignoreUnknown = true)
-    public record BaselineJudge(String name, String role) {
-    }
-
-    @JsonIgnoreProperties(ignoreUnknown = true)
-    public record CourtConfig(String key, String name, String state, String url, List<BaselineJudge> baselineJudges) {
+    public record CourtConfig(String key, String name, String state, String url) {
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     public record Config(List<CourtConfig> courts) {
     }
 
-    record Judge(String courtKey, String courtName, String state,
-                 String fullName, String title, String cleanName, String role, String photoUrl, String profileUrl) {
+    /** Résultat de la lecture d'une cour. */
+    record Outcome(CourtConfig court, List<LandCourts.Member> members, String problem) {
+    }
+
+    /** Accès HTTP remplaçable dans les tests. */
+    interface Fetcher {
+        String get(String url) throws IOException;
     }
 
     @Override
     public ParserResult parse(ParserContext ctx) throws Exception {
-        Config config = loadConfig(ctx);
-        List<Judge> allJudges = new ArrayList<>();
-
-        if (ctx.inputFile() != null && Files.isRegularFile(ctx.inputFile())) {
-            String html = Files.readString(ctx.inputFile(), StandardCharsets.UTF_8);
-            CourtConfig defaultCourt = config.courts().get(0);
-            allJudges.addAll(extractJudges(html, defaultCourt));
-            FtmDatasetBuilder dataset = new FtmDatasetBuilder(ID_PREFIX, TOPIC);
-            convert(allJudges, dataset);
-            dataset.writeNdjsonFile(ctx.outputFile());
-            return dataset.toConversionResult().withMessage(
-                    allJudges.size() + " juges des cours constitutionnelles des Länder extraits.");
-        }
-
         Map<String, String> p = ctx.parameters() == null ? Map.of() : ctx.parameters();
-        boolean allowCrawl = !"false".equalsIgnoreCase(p.get("crawl"));
-
-        if (ctx.rawDir() != null) {
-            Files.createDirectories(ctx.rawDir());
-            for (CourtConfig c : config.courts()) {
-                Path courtFile = ctx.rawDir().resolve(c.key() + ".html");
-                String html = null;
-                if (Files.isRegularFile(courtFile)) {
-                    html = Files.readString(courtFile, StandardCharsets.UTF_8);
-                } else if (allowCrawl && c.url() != null && !c.url().isBlank()) {
-                    html = crawl(c.url(), "SwiftCheck-AML/1.0 (liste PEP Allemagne - Cours constitutionnelles régionales)");
-                    if (html != null && !html.isBlank()) {
-                        Files.writeString(courtFile, html, StandardCharsets.UTF_8);
-                    }
-                }
-                List<Judge> courtJudges = html != null ? extractJudges(html, c) : List.of();
-                if (!courtJudges.isEmpty()) {
-                    allJudges.addAll(courtJudges);
-                } else if (c.baselineJudges() != null) {
-                    for (BaselineJudge bj : c.baselineJudges()) {
-                        String fullName = bj.name();
-                        Matcher m = ACADEMIC_TITLE.matcher(fullName);
-                        String title = null;
-                        String cleanName = fullName;
-                        if (m.find()) {
-                            title = m.group().trim();
-                            cleanName = fullName.substring(m.end()).trim();
-                        }
-                        allJudges.add(new Judge(
-                                c.key(), c.name(), c.state(),
-                                fullName, title, cleanName, bj.role(), null, c.url()
-                        ));
-                    }
-                }
-            }
-
-            Path rawConfigFile = ctx.rawDir().resolve("land-constitutional-courts.json");
-            if (!Files.exists(rawConfigFile)) {
-                try (InputStream in = DePepLandConstitutionalCourtsParser.class.getResourceAsStream(CONFIG_RESOURCE)) {
-                    if (in != null) {
-                        Files.copy(in, rawConfigFile);
-                    }
-                }
-            }
+        if (ctx.rawDir() == null) {
+            throw new IllegalStateException("Aucun dossier de données brutes.");
         }
-
-        if (allJudges.isEmpty()) {
-            throw new IllegalStateException("Aucun juge constitutionnel de Land extrait.");
-        }
-
+        Files.createDirectories(ctx.rawDir());
+        Config config = loadConfig();
+        long delay = parseLong(p.get("delayMs"), 1500);
+        List<Outcome> outcomes = readAll(config, http(delay), ctx.rawDir());
         FtmDatasetBuilder dataset = new FtmDatasetBuilder(ID_PREFIX, TOPIC);
-        convert(allJudges, dataset);
+        String message = convert(outcomes, LocalDate.now(), dataset);
         dataset.writeNdjsonFile(ctx.outputFile());
-
-        return dataset.toConversionResult().withMessage(
-                allJudges.size() + " juges des cours constitutionnelles des Länder extraits.");
+        return dataset.toConversionResult().withMessage(message);
     }
 
-    static String crawl(String url, String userAgent) {
-        try {
-            HttpClient client = HttpClient.newBuilder()
-                    .connectTimeout(Duration.ofSeconds(2))
-                    .followRedirects(HttpClient.Redirect.NORMAL)
-                    .build();
-            HttpRequest request = HttpRequest.newBuilder()
-                    .uri(URI.create(url))
-                    .timeout(Duration.ofSeconds(3))
-                    .header("User-Agent", userAgent)
-                    .GET()
-                    .build();
-            HttpResponse<String> resp = client.send(request, HttpResponse.BodyHandlers.ofString(StandardCharsets.UTF_8));
-            if (resp.statusCode() == 200) {
-                return resp.body();
-            }
-        } catch (Exception e) {
-            log.warn("Échec du crawl de {} : {}", url, e.getMessage());
-        }
-        return null;
-    }
-
-    @Override
-    public List<SourceRecord> readSourceRecords(ParserContext ctx) throws Exception {
-        Config config = loadConfig(ctx);
-        List<Judge> judges = new ArrayList<>();
-        if (ctx.inputFile() != null && Files.isRegularFile(ctx.inputFile())) {
-            judges.addAll(extractJudges(Files.readString(ctx.inputFile(), StandardCharsets.UTF_8), config.courts().get(0)));
-        }
-        if (judges.isEmpty() && config.courts() != null) {
-            for (CourtConfig c : config.courts()) {
-                if (c.baselineJudges() != null) {
-                    for (BaselineJudge bj : c.baselineJudges()) {
-                        String fullName = bj.name();
-                        Matcher m = ACADEMIC_TITLE.matcher(fullName);
-                        String title = null;
-                        String cleanName = fullName;
-                        if (m.find()) {
-                            title = m.group().trim();
-                            cleanName = fullName.substring(m.end()).trim();
-                        }
-                        judges.add(new Judge(
-                                c.key(), c.name(), c.state(),
-                                fullName, title, cleanName, bj.role(), null, c.url()
-                        ));
-                    }
-                }
-            }
-        }
-        FtmDatasetBuilder ids = new FtmDatasetBuilder(ID_PREFIX);
-        List<SourceRecord> records = new ArrayList<>();
-        for (Judge j : judges) {
-            records.add(new SourceRecord(
-                    ids.buildEntityId(j.courtKey(), j.cleanName()),
-                    "Person",
-                    j.fullName(),
-                    j.courtName() + " – " + j.role()
-            ));
-        }
-        return records;
-    }
-
-    static Config loadConfig(ParserContext ctx) throws Exception {
-        ObjectMapper mapper = new ObjectMapper();
-        String configFile = ctx.parameters().get("configFile");
-        if (configFile != null && !configFile.isBlank()) {
-            Path p = Path.of(configFile);
-            if (Files.isRegularFile(p)) {
-                return mapper.readValue(Files.readString(p, StandardCharsets.UTF_8), Config.class);
-            }
-        }
-        try (InputStream in = DePepLandConstitutionalCourtsParser.class.getResourceAsStream(CONFIG_RESOURCE)) {
+    static Config loadConfig() throws IOException {
+        try (var in = DePepLandConstitutionalCourtsParser.class.getResourceAsStream(CONFIG_RESOURCE)) {
             if (in == null) {
                 throw new IllegalStateException("Ressource " + CONFIG_RESOURCE + " introuvable dans le JAR.");
             }
-            return mapper.readValue(in, Config.class);
+            return new ObjectMapper().readValue(in, Config.class);
         }
     }
 
-    static List<Judge> extractJudges(String html, CourtConfig court) {
-        List<Judge> judges = new ArrayList<>();
-        Matcher cardMatcher = CARD_PATTERN.matcher(html);
-        while (cardMatcher.find()) {
-            String card = cardMatcher.group(1);
-            Matcher headMatcher = HEADING_PATTERN.matcher(card);
-            if (!headMatcher.find()) {
+    /** Télécharge chaque page (toujours en direct), l'enregistre dans {@code rawDir} et applique l'extracteur de la cour. */
+    static List<Outcome> readAll(Config config, Fetcher fetcher, Path rawDir) throws IOException {
+        List<Outcome> out = new ArrayList<>();
+        for (CourtConfig c : config.courts()) {
+            var extractor = LandCourts.EXTRACTORS.get(c.key());
+            if (extractor == null) {
+                out.add(new Outcome(c, List.of(), "aucun extracteur pour cette cour"));
                 continue;
             }
-            String profileUrl = headMatcher.group(1);
-            String rawName = headMatcher.group(2).trim();
-            if (rawName.equalsIgnoreCase("Mitglieder") || rawName.equalsIgnoreCase("Gericht")
-                    || rawName.contains("Verfassungsgericht") && !rawName.contains(" ")) {
-                continue;
-            }
-
-            String title = null;
-            String cleanName = rawName;
-            Matcher tm = ACADEMIC_TITLE.matcher(rawName);
-            if (tm.find()) {
-                title = tm.group(0).trim();
-                cleanName = rawName.substring(tm.end()).trim();
-            }
-
-            String role = null;
-            Matcher rm = ROLE_PATTERN.matcher(card);
-            if (rm.find()) {
-                role = rm.group(1).trim();
-            }
-            if (role == null) {
-                if (card.contains("Präsidentin")) {
-                    role = "Präsidentin des " + court.name();
-                } else if (card.contains("Präsident") && !card.contains("Vizepräsident")) {
-                    role = "Präsident des " + court.name();
-                } else if (card.contains("Vizepräsident")) {
-                    role = "Vizepräsident/in des " + court.name();
-                } else {
-                    role = "Verfassungsrichter/in (" + court.state() + ")";
+            try {
+                String html = fetcher.get(c.url());
+                if (rawDir != null) {
+                    Files.writeString(rawDir.resolve(c.key() + ".html"), html, StandardCharsets.UTF_8);
                 }
+                List<LandCourts.Member> members = extractor.apply(PageText.lines(html));
+                if (members.size() < MIN_MEMBERS) {
+                    out.add(new Outcome(c, List.of(), "page lue mais " + members.size() + " membre(s) reconnu(s), la mise en page a changé"));
+                } else {
+                    out.add(new Outcome(c, members, null));
+                }
+            } catch (IOException | RuntimeException e) {
+                log.warn("Cour {} non lue : {}", c.key(), e.getMessage());
+                out.add(new Outcome(c, List.of(), e.getMessage()));
             }
-
-            String photoUrl = null;
-            Matcher im = IMG_PATTERN.matcher(card);
-            if (im.find()) {
-                photoUrl = im.group(1);
-            }
-
-            judges.add(new Judge(court.key(), court.name(), court.state(),
-                    rawName, title, cleanName, role, photoUrl, profileUrl));
         }
-
-        return judges;
+        if (out.stream().allMatch(o -> o.members().isEmpty())) {
+            throw new IllegalStateException("Aucune cour constitutionnelle lisible : "
+                    + String.join(" ; ", out.stream().map(o -> o.court().key() + " (" + o.problem() + ")").toList()));
+        }
+        return out;
     }
 
-    private void convert(List<Judge> judges, FtmDatasetBuilder dataset) {
-        for (Judge j : judges) {
-            String posKey = j.courtKey() + "-judge";
-
-            FtmEntity position = dataset.newEntity("Position", posKey);
-            position.addValue("name", "Verfassungsrichter (" + j.state() + ")");
+    static String convert(List<Outcome> outcomes, LocalDate today, FtmDatasetBuilder dataset) {
+        int persons = 0;
+        List<String> failures = new ArrayList<>();
+        for (Outcome o : outcomes) {
+            if (o.problem() != null) {
+                failures.add(o.court().state() + " (" + o.problem() + ")");
+                continue;
+            }
+            CourtConfig c = o.court();
+            FtmEntity position = dataset.newEntity("Position", c.key() + "-judge");
+            position.addValue("name", "Verfassungsrichter (" + c.state() + ")");
             position.addValue("country", "de");
-            position.addValue("organization", j.courtName());
+            position.addValue("organization", c.name());
             position.addValue("topics", "gov.national");
             position.addValue("topics", "gov.judicial");
             dataset.addEntity(position);
+            for (LandCourts.Member m : o.members()) {
+                FtmEntity person = dataset.newEntity("Person", c.key(), m.cleanName());
+                person.addValue("name", m.cleanName());
+                person.addValue("title", m.title());
+                String[] parts = m.cleanName().split("\\s+", 2);
+                person.addValue("firstName", parts.length > 1 ? parts[0] : null);
+                person.addValue("lastName", parts.length > 1 ? parts[1] : parts[0]);
+                person.addValue("country", "de");
+                person.addValue("position", m.role() + " – " + c.name());
+                person.addValue("sourceUrl", c.url());
+                person.addValue("notes", m.note());
+                dataset.addEntity(person);
 
-            FtmEntity person = dataset.newEntity("Person", j.courtKey(), j.cleanName());
-            person.addValue("name", j.cleanName());
-            person.addValue("title", j.title());
-            String[] parts = j.cleanName().split("\\s+", 2);
-            person.addValue("firstName", parts[0]);
-            if (parts.length > 1) {
-                person.addValue("lastName", parts[1]);
+                boolean ended = m.endDate() != null && !m.endDate().isAfter(today);
+                FtmEntity occ = dataset.newEntity("Occupancy", c.key(), m.cleanName(), "judge");
+                occ.addValue("holder", person.getId());
+                occ.addValue("post", position.getId());
+                occ.addValue("endDate", m.endDate() == null ? null : m.endDate().toString());
+                occ.addValue("status", ended ? "ended" : "current");
+                occ.addValue("description", m.role());
+                dataset.addEntity(occ);
+                persons++;
             }
-            person.addValue("country", "de");
-            person.addValue("position", j.role());
-            if (j.photoUrl() != null) {
-                person.addValue("imageUrl", j.photoUrl());
-            }
-            if (j.profileUrl() != null) {
-                person.addValue("sourceUrl", j.profileUrl());
-            }
-            dataset.addEntity(person);
+        }
+        String message = persons + " membres lus sur " + (outcomes.size() - failures.size()) + " cours constitutionnelles";
+        return failures.isEmpty() ? message + "." : message + ". Cours non lues : " + String.join(" ; ", failures) + ".";
+    }
 
-            FtmEntity occ = dataset.newEntity("Occupancy", j.courtKey(), j.cleanName(), "judge");
-            occ.addValue("holder", person.getId());
-            occ.addValue("post", position.getId());
-            occ.addValue("status", "current");
-            occ.addValue("description", j.role());
-            dataset.addEntity(occ);
+    private static long parseLong(String v, long def) {
+        try {
+            return Long.parseLong(v == null ? "" : v.trim());
+        } catch (NumberFormatException e) {
+            return def;
         }
     }
-}
 
+    static Fetcher http(long delayMs) {
+        HttpClient client = HttpClient.newBuilder().version(HttpClient.Version.HTTP_1_1).followRedirects(HttpClient.Redirect.NORMAL)
+                .connectTimeout(Duration.ofSeconds(15)).build();
+        return url -> {
+            IOException last = null;
+            for (int attempt = 1; attempt <= 2; attempt++) {
+                try {
+                    Thread.sleep(delayMs);
+                    HttpResponse<String> resp = client.send(HttpRequest.newBuilder(URI.create(url)).timeout(Duration.ofSeconds(30))
+                            .header("User-Agent", USER_AGENT).GET().build(), HttpResponse.BodyHandlers.ofString(StandardCharsets.UTF_8));
+                    if (resp.statusCode() == 200) {
+                        return resp.body();
+                    }
+                    last = new IOException("HTTP " + resp.statusCode());
+                    if (resp.statusCode() < 500 && resp.statusCode() != 429) {
+                        break;
+                    }
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                    throw new IOException("Interrompu", e);
+                } catch (IOException e) {
+                    last = e;
+                }
+            }
+            throw last;
+        };
+    }
+}

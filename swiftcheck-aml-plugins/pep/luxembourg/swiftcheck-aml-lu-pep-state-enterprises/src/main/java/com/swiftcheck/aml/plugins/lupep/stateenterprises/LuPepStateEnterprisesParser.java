@@ -309,16 +309,9 @@ public class LuPepStateEnterprisesParser implements Iparser {
                 }
             }
         }
-        // Repli transparent sur la ressource bundlée
-        try (InputStream is = getClass().getResourceAsStream("/participations.json")) {
-            if (is != null) {
-                Path temp = Files.createTempFile("participations_", ".json");
-                Files.copy(is, temp, StandardCopyOption.REPLACE_EXISTING);
-                temp.toFile().deleteOnExit();
-                return temp;
-            }
-        }
-        throw new IllegalStateException("Aucun fichier source reçu et ressource JSON introuvable pour " + ctx.datasetName());
+        // Aucune ressource embarquée : le fichier des participations est téléchargé par le cœur à chaque exécution
+        throw new IllegalStateException("Aucun fichier source reçu pour " + ctx.datasetName()
+                + " : le fichier des participations de l'État (data.public.lu) n'a pas été téléchargé.");
     }
 
     private String resolveSourceUrl(ParserContext ctx) {

@@ -1,17 +1,18 @@
 package com.swiftcheck.aml.plugins.depep.landtage;
 
-import java.io.InputStream;
-import java.net.URI;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.time.Duration;
+import java.text.Normalizer;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -19,22 +20,20 @@ import org.pf4j.Extension;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.swiftcheck.aml.plugin.Iparser;
 import com.swiftcheck.aml.plugin.ParserContext;
 import com.swiftcheck.aml.plugin.ParserResult;
-import com.swiftcheck.aml.plugin.SourceRecord;
 import com.swiftcheck.aml.sdk.FtmDatasetBuilder;
 import com.swiftcheck.aml.sdk.FtmEntity;
 
 /**
- * <b>de_pep_landtage</b> – Députés des 16 parlements régionaux des Länder (Landtage / Bürgerschaften / Abgeordnetenhaus).
+ * <b>de_pep_landtage</b> – Députés des 16 parlements régionaux des Länder (Landtage, Bürgerschaften, Abgeordnetenhaus).
  * <p>
- * Catégorie <b>DE-b (optionnelle / importance comparable)</b>.
- * Environ 1 900 parlementaires régionaux à travers les 16 Länder.
- * Sources : API AbgeordnetenWatch (CC0) et registres des parlements des Länder.
+ * Catégorie <b>DE-b</b> (hors liste notifiée). Source : API abgeordnetenwatch.de (CC0), lue à chaque exécution par
+ * législature, avec les dates de mandat. Les parlements, leur nom et leurs législatures viennent de l'API : aucune
+ * liste n'est embarquée dans le plugin. Un député sorti compte pendant la durée de rétention (12 mois par défaut).
  */
 @Extension
 public class DePepLandtageParser implements Iparser {
@@ -43,266 +42,221 @@ public class DePepLandtageParser implements Iparser {
 
     static final String ID_PREFIX = "de-pep-landtage";
     static final String TOPIC = "role.pep";
-    static final String CONFIG_RESOURCE = "/landtage.json";
+    static final String USER_AGENT = "SwiftCheck-AML/1.0 (liste PEP Allemagne - Parlements des Länder)";
 
     private static final Pattern ACADEMIC_TITLE = Pattern.compile(
             "^(?:(?:Prof\\.?\\s+Dr\\.?|Prof\\.?|Dr\\.?|h\\.c\\.)\\s+)+");
+    /** Parlements de l'API qui ne sont pas des Landtage : lus par d'autres plugins. */
+    private static final Set<String> NOT_LAND = Set.of("Bundestag", "EU-Parlament");
 
-    /** Format ligne: "Baden-Württemberg | Winfried Kretschmann | GRÜNE | Wahlkreis Nürtingen" */
-    private static final Pattern LINE_PATTERN = Pattern.compile(
-            "^\\s*([^|:;]+?)\\s*[|:;]\\s*([^|:;]+?)\\s*[|:;]\\s*([^|:;]+?)(?:\\s*[|:;]\\s*(.*))?$",
-            Pattern.CASE_INSENSITIVE);
-
-    @JsonIgnoreProperties(ignoreUnknown = true)
-    public record ParliamentConfig(String key, String name, String state, String city, int seats) {
+    /** Un parlement régional lu dans l'API. */
+    record Land(String key, String state, String organization) {
     }
 
-    @JsonIgnoreProperties(ignoreUnknown = true)
-    public record Config(List<ParliamentConfig> parliaments) {
+    record LiveReport(List<AbgeordnetenwatchApi.Mandate> mandates, Map<String, Land> lands, Map<Long, Integer> birthYears, String message) {
     }
-
-    record MP(String parliamentKey, String parliamentName, String state,
-              String fullName, String title, String cleanName, String party, String constituency) {
-    }
-
-    static final String DEFAULT_API_URL = "https://www.abgeordnetenwatch.de/api/v2/candidacies-mandates?range_end=200";
 
     @Override
     public ParserResult parse(ParserContext ctx) throws Exception {
-        Config config = loadConfig(ctx);
-        List<MP> allMps = new ArrayList<>();
-
-        if (ctx.inputFile() != null && Files.isRegularFile(ctx.inputFile())) {
-            String content = Files.readString(ctx.inputFile(), StandardCharsets.UTF_8);
-            allMps.addAll(parseContent(content, config));
-            FtmDatasetBuilder dataset = new FtmDatasetBuilder(ID_PREFIX, TOPIC);
-            convert(allMps, dataset);
-            dataset.writeNdjsonFile(ctx.outputFile());
-            return dataset.toConversionResult().withMessage(
-                    allMps.size() + " députés des parlements régionaux des Länder extraits.");
-        }
-
         Map<String, String> p = ctx.parameters() == null ? Map.of() : ctx.parameters();
-        boolean allowCrawl = !"false".equalsIgnoreCase(p.get("crawl"));
-
-        if (ctx.rawDir() != null) {
-            Files.createDirectories(ctx.rawDir());
-            Path mandatesJson = ctx.rawDir().resolve("landtage-mandates.json");
-
-            if (Files.isRegularFile(mandatesJson)) {
-                allMps.addAll(parseContent(Files.readString(mandatesJson, StandardCharsets.UTF_8), config));
-            } else if (allowCrawl) {
-                String apiUrl = p.getOrDefault("endpoint", DEFAULT_API_URL).trim();
-                if (!apiUrl.contains("candidacies-mandates")) {
-                    apiUrl = apiUrl + (apiUrl.endsWith("/") ? "" : "/") + "candidacies-mandates?range_end=200";
-                }
-                String json = crawl(apiUrl, "SwiftCheck-AML/1.0 (liste PEP Allemagne - Parlements des Länder)");
-                if (json != null && json.contains("data")) {
-                    Files.writeString(mandatesJson, json, StandardCharsets.UTF_8);
-                    allMps.addAll(parseContent(json, config));
-                }
-            }
-
-            for (ParliamentConfig pc : config.parliaments()) {
-                Path f = ctx.rawDir().resolve(pc.key() + ".txt");
-                if (!Files.isRegularFile(f)) {
-                    f = ctx.rawDir().resolve(pc.key() + ".json");
-                }
-                if (Files.isRegularFile(f)) {
-                    String content = Files.readString(f, StandardCharsets.UTF_8);
-                    allMps.addAll(parseContent(content, config));
-                }
-            }
+        if (ctx.rawDir() == null) {
+            throw new IllegalStateException("Aucun dossier de données brutes.");
         }
-
-        if (allMps.isEmpty()) {
-            throw new IllegalStateException("Aucun député de Landtag extrait.");
-        }
+        Files.createDirectories(ctx.rawDir());
+        int months = intParam(p, "monthsAfterEnd", 12);
+        long delay = intParam(p, "delayMs", 300);
+        AbgeordnetenwatchApi.Fetcher fetcher = AbgeordnetenwatchApi.http(USER_AGENT, delay);
+        LocalDate today = LocalDate.now();
+        LiveReport report = live(p, ctx.rawDir(), fetcher, today, months);
 
         FtmDatasetBuilder dataset = new FtmDatasetBuilder(ID_PREFIX, TOPIC);
-        convert(allMps, dataset);
+        convertMandates(report.mandates(), report.lands(), report.birthYears(), today, months, dataset);
         dataset.writeNdjsonFile(ctx.outputFile());
-
-        return dataset.toConversionResult().withMessage(
-                allMps.size() + " députés des parlements régionaux des Länder extraits.");
+        return dataset.toConversionResult().withMessage(report.message());
     }
 
-    static String crawl(String url, String userAgent) {
+    private static int intParam(Map<String, String> p, String key, int def) {
         try {
-            HttpClient client = HttpClient.newBuilder()
-                    .connectTimeout(Duration.ofSeconds(10))
-                    .followRedirects(HttpClient.Redirect.NORMAL)
-                    .build();
-            HttpRequest request = HttpRequest.newBuilder()
-                    .uri(URI.create(url))
-                    .timeout(Duration.ofSeconds(15))
-                    .header("User-Agent", userAgent)
-                    .GET()
-                    .build();
-            HttpResponse<String> resp = client.send(request, HttpResponse.BodyHandlers.ofString(StandardCharsets.UTF_8));
-            if (resp.statusCode() == 200) {
-                return resp.body();
-            }
-        } catch (Exception e) {
-            log.warn("Échec du crawl de {} : {}", url, e.getMessage());
+            return Integer.parseInt(p.getOrDefault(key, "").trim());
+        } catch (NumberFormatException e) {
+            return def;
         }
-        return null;
     }
 
-    @Override
-    public List<SourceRecord> readSourceRecords(ParserContext ctx) throws Exception {
-        Config config = loadConfig(ctx);
-        List<MP> mps = new ArrayList<>();
-        if (ctx.inputFile() != null && Files.isRegularFile(ctx.inputFile())) {
-            mps.addAll(parseContent(Files.readString(ctx.inputFile(), StandardCharsets.UTF_8), config));
-        }
-        FtmDatasetBuilder ids = new FtmDatasetBuilder(ID_PREFIX);
-        List<SourceRecord> records = new ArrayList<>();
-        for (MP mp : mps) {
-            records.add(new SourceRecord(
-                    ids.buildEntityId(mp.parliamentKey(), mp.cleanName()),
-                    "Person",
-                    mp.fullName(),
-                    mp.parliamentName() + " (" + mp.party() + ")"
-            ));
-        }
-        return records;
+    static String slug(String label) {
+        String s = Normalizer.normalize(label, Normalizer.Form.NFD).replaceAll("\\p{M}", "").toLowerCase(Locale.ROOT);
+        return s.replaceAll("[^a-z0-9]+", "-").replaceAll("^-|-$", "");
     }
 
-    static Config loadConfig(ParserContext ctx) throws Exception {
+    /**
+     * Lit l'API par législature : liste des parlements, législatures actives de chacun, mandats par pages de 100, puis
+     * années de naissance (un appel par personne, à chaque exécution). Chaque réponse est conservée dans {@code rawDir}.
+     */
+    static LiveReport live(Map<String, String> p, Path rawDir, AbgeordnetenwatchApi.Fetcher fetcher, LocalDate today, int months)
+            throws Exception {
+        String base = p.getOrDefault("endpoint", AbgeordnetenwatchApi.DEFAULT_ENDPOINT).trim();
+        base = base.endsWith("/") ? base.substring(0, base.length() - 1) : base;
         ObjectMapper mapper = new ObjectMapper();
-        String configFile = ctx.parameters().get("configFile");
-        if (configFile != null && !configFile.isBlank()) {
-            Path p = Path.of(configFile);
-            if (Files.isRegularFile(p)) {
-                return mapper.readValue(Files.readString(p, StandardCharsets.UTF_8), Config.class);
-            }
-        }
-        try (InputStream in = DePepLandtageParser.class.getResourceAsStream(CONFIG_RESOURCE)) {
-            if (in == null) {
-                throw new IllegalStateException("Ressource " + CONFIG_RESOURCE + " introuvable dans le JAR.");
-            }
-            return mapper.readValue(in, Config.class);
-        }
-    }
 
-    static List<MP> parseContent(String content, Config config) {
-        List<MP> list = new ArrayList<>();
-        String trimmed = content.trim();
+        String parliamentsJson = fetcher.get(base + "/parliaments?range_end=100");
+        Files.writeString(rawDir.resolve("parliaments.json"), parliamentsJson, StandardCharsets.UTF_8);
 
-        // 1. Détection JSON (AbgeordnetenWatch API ou array JSON)
-        if (trimmed.startsWith("[") || trimmed.startsWith("{")) {
-            try {
-                ObjectMapper mapper = new ObjectMapper();
-                JsonNode root = mapper.readTree(content);
-                JsonNode array = root.isArray() ? root : (root.has("data") ? root.get("data") : null);
-                if (array != null && array.isArray()) {
-                    for (JsonNode item : array) {
-                        String name = item.has("label") ? item.get("label").asText()
-                                : (item.has("name") ? item.get("name").asText()
-                                : (item.has("first_name") && item.has("last_name")
-                                ? item.get("first_name").asText() + " " + item.get("last_name").asText() : null));
-                        if (name == null || name.isBlank()) {
-                            continue;
-                        }
-                        String party = item.has("party") ? item.get("party").asText()
-                                : (item.has("fraction") ? item.get("fraction").asText() : null);
-                        String state = item.has("parliament") ? item.get("parliament").asText()
-                                : (item.has("state") ? item.get("state").asText() : "Baden-Württemberg");
-                        ParliamentConfig pc = findParliament(state, config);
-                        addMp(list, pc, name, party, null);
-                    }
-                    if (!list.isEmpty()) {
-                        return list;
-                    }
-                }
-            } catch (Exception e) {
-                log.debug("Format JSON non parsable : {}", e.getMessage());
-            }
-        }
-
-        // 2. Format lignes texte délimitées
-        for (String line : content.split("\\r?\\n")) {
-            String l = line.trim();
-            if (l.isEmpty() || l.startsWith("#")) {
+        List<AbgeordnetenwatchApi.Mandate> mandates = new ArrayList<>();
+        Map<String, Land> lands = new LinkedHashMap<>();
+        List<String> failures = new ArrayList<>();
+        int periodCount = 0;
+        for (AbgeordnetenwatchApi.Parliament parliament : AbgeordnetenwatchApi.parliaments(parliamentsJson)) {
+            if (NOT_LAND.contains(parliament.label())) {
                 continue;
             }
-            Matcher m = LINE_PATTERN.matcher(l);
-            if (m.find()) {
-                String stateOrParl = m.group(1).trim();
-                String rawName = m.group(2).trim();
-                String party = m.group(3).trim();
-                String constituency = m.group(4) != null ? m.group(4).trim() : null;
-
-                ParliamentConfig pc = findParliament(stateOrParl, config);
-                addMp(list, pc, rawName, party, constituency);
+            Land land = new Land(slug(parliament.label()), parliament.label(), parliament.longLabel());
+            lands.put(land.key(), land);
+            try {
+                String periodsJson = fetcher.get(base + "/parliament-periods?parliament=" + parliament.id() + "&range_end=50");
+                Files.writeString(rawDir.resolve("periods-" + land.key() + ".json"), periodsJson, StandardCharsets.UTF_8);
+                for (AbgeordnetenwatchApi.Period period : AbgeordnetenwatchApi.activePeriods(
+                        AbgeordnetenwatchApi.periods(periodsJson), today, months)) {
+                    periodCount++;
+                    int start = 0;
+                    int total = Integer.MAX_VALUE;
+                    int page = 0;
+                    while (start < total) {
+                        String json = fetcher.get(base + "/candidacies-mandates?parliament_period=" + period.id()
+                                + "&type=mandate&range_start=" + start + "&range_end=" + (start + AbgeordnetenwatchApi.PAGE_SIZE));
+                        Files.writeString(rawDir.resolve("mandates-" + land.key() + "-" + period.id() + "-" + page + ".json"),
+                                json, StandardCharsets.UTF_8);
+                        AbgeordnetenwatchApi.Page result = AbgeordnetenwatchApi.mandatePage(json);
+                        total = result.total();
+                        for (JsonNode item : result.items()) {
+                            mandates.add(AbgeordnetenwatchApi.mandate(item, land.key(), period));
+                        }
+                        if (result.items().isEmpty()) {
+                            break;
+                        }
+                        start += AbgeordnetenwatchApi.PAGE_SIZE;
+                        page++;
+                    }
+                }
+            } catch (java.io.IOException e) {
+                failures.add(land.state() + " (" + e.getMessage() + ")");
+                log.warn("Landtag {} non lu : {}", land.state(), e.getMessage());
             }
         }
-
-        return list;
-    }
-
-    private static ParliamentConfig findParliament(String query, Config config) {
-        String lower = query.toLowerCase();
-        for (ParliamentConfig pc : config.parliaments()) {
-            if (pc.key().equalsIgnoreCase(query) || pc.state().equalsIgnoreCase(query)
-                    || lower.contains(pc.state().toLowerCase()) || lower.contains(pc.key())) {
-                return pc;
-            }
+        if (mandates.isEmpty()) {
+            throw new IllegalStateException("Aucun mandat lu dans l'API abgeordnetenwatch"
+                    + (failures.isEmpty() ? "." : " : " + String.join(", ", failures)));
         }
-        return config.parliaments().get(0);
-    }
 
-    private static void addMp(List<MP> list, ParliamentConfig pc, String rawName, String party, String constituency) {
-        String title = null;
-        String cleanName = rawName;
-        Matcher tm = ACADEMIC_TITLE.matcher(rawName);
-        if (tm.find()) {
-            title = tm.group(0).trim();
-            cleanName = rawName.substring(tm.end()).trim();
+        // Années de naissance : un appel par personne, à chaque exécution (aucun cache d'un run à l'autre).
+        Map<Long, Integer> births = new HashMap<>();
+        boolean wantBirths = !"false".equalsIgnoreCase(p.get("birthYears"));
+        int budget = intParam(p, "maxPoliticianCalls", 3000);
+        int fetched = 0;
+        if (wantBirths) {
+            Set<Long> seen = new HashSet<>();
+            for (AbgeordnetenwatchApi.Mandate m : mandates) {
+                if (!seen.add(m.politicianId()) || fetched >= budget) {
+                    continue;
+                }
+                try {
+                    Integer year = AbgeordnetenwatchApi.birthYear(fetcher.get(base + "/politicians/" + m.politicianId()));
+                    births.put(m.politicianId(), year == null ? 0 : year);
+                    fetched++;
+                } catch (java.io.IOException e) {
+                    log.warn("Année de naissance de {} non lue : {}", m.name(), e.getMessage());
+                    break; // l'API refuse ou tombe : on garde ce qui est lu
+                }
+            }
+            Map<String, Integer> out = new java.util.TreeMap<>();
+            births.forEach((k, v) -> out.put(String.valueOf(k), v));
+            Files.writeString(rawDir.resolve("politicians.json"), mapper.writeValueAsString(out), StandardCharsets.UTF_8);
         }
-        list.add(new MP(pc.key(), pc.name(), pc.state(), rawName, title, cleanName, party, constituency));
+
+        Map<String, Integer> perLand = new LinkedHashMap<>();
+        for (AbgeordnetenwatchApi.Mandate m : mandates) {
+            perLand.merge(m.parliamentKey(), 1, Integer::sum);
+        }
+        long known = mandates.stream().map(AbgeordnetenwatchApi.Mandate::politicianId).distinct()
+                .filter(id -> births.getOrDefault(id, 0) > 0).count();
+        String message = mandates.size() + " mandats lus sur " + periodCount + " législatures de " + perLand.size()
+                + " parlements ; années de naissance connues pour " + known + " personnes."
+                + (failures.isEmpty() ? "" : " Parlements non lus : " + String.join(", ", failures) + ".");
+        return new LiveReport(mandates, lands, births, message);
     }
 
-    private void convert(List<MP> mps, FtmDatasetBuilder dataset) {
-        for (MP mp : mps) {
-            String posKey = mp.parliamentKey() + "-mp";
-
-            FtmEntity position = dataset.newEntity("Position", posKey);
-            position.addValue("name", "Mitglied des Landtages (" + mp.state() + ")");
-            position.addValue("country", "de");
-            position.addValue("organization", mp.parliamentName());
-            position.addValue("topics", "gov.national");
-            position.addValue("topics", "gov.state");
-            dataset.addEntity(position);
-
-            FtmEntity person = dataset.newEntity("Person", mp.parliamentKey(), mp.cleanName());
-            person.addValue("name", mp.cleanName());
-            person.addValue("title", mp.title());
-            String[] parts = mp.cleanName().split("\\s+", 2);
-            person.addValue("firstName", parts[0]);
-            if (parts.length > 1) {
-                person.addValue("lastName", parts[1]);
+    /** Écrit les mandats dans la fenêtre de rétention : en cours, ou terminés depuis moins de {@code months} mois. */
+    static int convertMandates(List<AbgeordnetenwatchApi.Mandate> mandates, Map<String, Land> lands, Map<Long, Integer> births,
+                               LocalDate today, int months, FtmDatasetBuilder dataset) {
+        LocalDate cutoff = today.minusMonths(months);
+        Map<Long, FtmEntity> persons = new LinkedHashMap<>();
+        Set<String> positions = new HashSet<>();
+        int written = 0;
+        for (AbgeordnetenwatchApi.Mandate m : mandates) {
+            Land land = lands.get(m.parliamentKey());
+            LocalDate end = m.end() != null ? m.end() : (m.periodEnd() != null && m.periodEnd().isBefore(today) ? m.periodEnd() : null);
+            if (land == null || (end != null && end.isBefore(cutoff))) {
+                continue;
             }
-            person.addValue("country", "de");
-            if (mp.party() != null && !mp.party().isBlank()) {
-                person.addValue("political", mp.party());
+            String positionName = "Mitglied des Landtages (" + land.state() + ")";
+            FtmEntity position = dataset.newEntity("Position", land.key() + "-mp");
+            if (positions.add(land.key())) {
+                position.addValue("name", positionName);
+                position.addValue("country", "de");
+                position.addValue("organization", land.organization());
+                position.addValue("topics", "gov.national");
+                position.addValue("topics", "gov.state");
+                dataset.addEntity(position);
             }
-            person.addValue("position", "Mitglied des Landtages (" + mp.state() + ")");
-            dataset.addEntity(person);
 
-            FtmEntity occ = dataset.newEntity("Occupancy", mp.parliamentKey(), mp.cleanName(), "mp");
+            String title = null;
+            String cleanName = m.name();
+            Matcher tm = ACADEMIC_TITLE.matcher(m.name());
+            if (tm.find()) {
+                title = tm.group(0).trim();
+                cleanName = m.name().substring(tm.end()).trim();
+            }
+            FtmEntity person = persons.get(m.politicianId());
+            if (person == null) {
+                person = dataset.newEntity("Person", "aw", String.valueOf(m.politicianId()));
+                person.addValue("name", cleanName);
+                person.addValue("title", title);
+                String[] parts = cleanName.split("\\s+", 2);
+                person.addValue("firstName", parts[0]);
+                if (parts.length > 1) {
+                    person.addValue("lastName", parts[1]);
+                }
+                person.addValue("country", "de");
+                Integer year = births.get(m.politicianId());
+                if (year != null && year > 0) {
+                    person.addValue("birthDate", String.valueOf(year));
+                }
+                person.addValue("sourceUrl", m.profileUrl());
+                if (m.party() != null && !m.party().isBlank()) {
+                    person.addValue("political", m.party());
+                }
+                persons.put(m.politicianId(), person);
+            }
+            person.addValue("position", positionName);
+
+            FtmEntity occ = dataset.newEntity("Occupancy", "aw", String.valueOf(m.id()));
             occ.addValue("holder", person.getId());
             occ.addValue("post", position.getId());
-            occ.addValue("status", "current");
-            if (mp.party() != null && !mp.party().isBlank()) {
-                occ.addValue("politicalGroup", mp.party());
+            occ.addValue("startDate", m.start() == null ? null : m.start().toString());
+            occ.addValue("endDate", end == null ? null : end.toString());
+            occ.addValue("status", end != null && !end.isAfter(today) ? "ended" : "current");
+            if (m.party() != null && !m.party().isBlank()) {
+                occ.addValue("politicalGroup", m.party());
             }
-            if (mp.constituency() != null && !mp.constituency().isBlank()) {
-                occ.addValue("description", mp.constituency());
+            if (m.constituency() != null && !m.constituency().isBlank()) {
+                occ.addValue("description", m.constituency());
             }
             dataset.addEntity(occ);
+            written++;
         }
+        persons.values().forEach(dataset::addEntity);
+        if (written == 0) {
+            throw new IllegalStateException("Aucun mandat dans la fenêtre de rétention.");
+        }
+        return written;
     }
 }
-

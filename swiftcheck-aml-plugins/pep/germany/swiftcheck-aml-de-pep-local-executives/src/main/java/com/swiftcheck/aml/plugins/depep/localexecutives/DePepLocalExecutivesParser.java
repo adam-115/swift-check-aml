@@ -106,14 +106,6 @@ public class DePepLocalExecutivesParser implements Iparser {
         if (ctx.inputFile() != null && Files.isRegularFile(ctx.inputFile())) {
             return Files.readString(ctx.inputFile(), StandardCharsets.UTF_8);
         }
-        Path rawFile = ctx.rawDir() != null ? ctx.rawDir().resolve("local-executives.json") : null;
-        if (rawFile != null && Files.isRegularFile(rawFile)) {
-            return Files.readString(rawFile, StandardCharsets.UTF_8);
-        }
-        rawFile = ctx.rawDir() != null ? ctx.rawDir().resolve("local-executives.txt") : null;
-        if (rawFile != null && Files.isRegularFile(rawFile)) {
-            return Files.readString(rawFile, StandardCharsets.UTF_8);
-        }
 
         Map<String, String> p = ctx.parameters() == null ? Map.of() : ctx.parameters();
         boolean allowCrawl = !"false".equalsIgnoreCase(p.get("crawl"));
@@ -121,6 +113,7 @@ public class DePepLocalExecutivesParser implements Iparser {
 
         if (allowCrawl && ctx.rawDir() != null) {
             String endpoint = p.getOrDefault("endpoint", DEFAULT_ENDPOINT).trim();
+            Exception failure = null;
             try {
                 String query = querySparql(minPop);
                 String json = postSparql(endpoint, query);
@@ -130,7 +123,12 @@ public class DePepLocalExecutivesParser implements Iparser {
                     return json;
                 }
             } catch (Exception e) {
-                log.warn("Échec du crawl SPARQL des exécutifs locaux : {}", e.getMessage());
+                failure = e;
+                log.warn("Échec du crawl SPARQL des exécutifs locaux : {}", e.toString());
+            }
+            if (failure != null) {
+                // la vraie cause (dépassement de délai, HTTP 429…) doit apparaître dans l'écran d'exécution
+                throw new IllegalStateException("Requête SPARQL des exécutifs locaux échouée (" + endpoint + ") : " + failure, failure);
             }
         }
 
@@ -157,24 +155,44 @@ public class DePepLocalExecutivesParser implements Iparser {
                 """.formatted(minPopulation);
     }
 
+    /**
+     * Requête SPARQL de toutes les villes de 50 000 habitants et plus : Wikidata y met environ 15 secondes. L'ancien délai
+     * de 20 secondes était dépassé dès que le service ralentissait, et l'exécution échouait. Délai porté à 3 minutes, avec
+     * trois essais espacés sur dépassement, 429 et erreurs 5xx.
+     */
     static String postSparql(String endpoint, String query) throws Exception {
         HttpClient client = HttpClient.newBuilder()
-                .connectTimeout(Duration.ofSeconds(10))
+                .version(HttpClient.Version.HTTP_1_1)
+                .connectTimeout(Duration.ofSeconds(15))
                 .followRedirects(HttpClient.Redirect.NORMAL)
                 .build();
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create(endpoint))
-                .timeout(Duration.ofSeconds(20))
+                .timeout(Duration.ofMinutes(3))
                 .header("Accept", "application/sparql-results+json")
                 .header("Content-Type", "application/x-www-form-urlencoded")
                 .header("User-Agent", "SwiftCheck-AML/1.0 (liste PEP Allemagne - Exécutifs locaux)")
                 .POST(HttpRequest.BodyPublishers.ofString("query=" + URLEncoder.encode(query, StandardCharsets.UTF_8)))
                 .build();
-        HttpResponse<String> resp = client.send(request, HttpResponse.BodyHandlers.ofString(StandardCharsets.UTF_8));
-        if (resp.statusCode() == 200) {
-            return resp.body();
+        Exception last = null;
+        for (int attempt = 1; attempt <= 3; attempt++) {
+            try {
+                HttpResponse<String> resp = client.send(request, HttpResponse.BodyHandlers.ofString(StandardCharsets.UTF_8));
+                if (resp.statusCode() == 200) {
+                    return resp.body();
+                }
+                last = new IOException("SPARQL HTTP " + resp.statusCode());
+                if (resp.statusCode() < 500 && resp.statusCode() != 429) {
+                    break;
+                }
+            } catch (java.net.http.HttpTimeoutException | java.net.ConnectException e) {
+                last = e;
+            }
+            if (attempt < 3) {
+                Thread.sleep(5000L * attempt);
+            }
         }
-        throw new IOException("SPARQL HTTP " + resp.statusCode());
+        throw last;
     }
 
     static List<LocalExecutive> parseContent(String content, long minPopulation) {
@@ -193,13 +211,13 @@ public class DePepLocalExecutivesParser implements Iparser {
                 if (items != null && items.isArray()) {
                     for (JsonNode item : items) {
                         String name = extractValue(item, "name", "leaderLabel", "personLabel");
-                        String entity = extractValue(item, "city", "areaLabel", "muniLabel", "kreisLabel");
+                        String entity = extractValue(item, "entityLabel", "city", "areaLabel", "muniLabel", "kreisLabel");
                         String type = extractValue(item, "type", "kind");
                         String role = extractValue(item, "role", "title", "positionLabel");
                         String party = extractValue(item, "party", "partyLabel");
                         long pop = extractLong(item, "population", "pop");
 
-                        if (name == null || entity == null || (pop > 0 && pop < minPopulation)) {
+                        if (name == null || entity == null || name.matches("Q[0-9]+") || entity.matches("Q[0-9]+") || (pop > 0 && pop < minPopulation)) {
                             continue;
                         }
                         if (role == null) {
