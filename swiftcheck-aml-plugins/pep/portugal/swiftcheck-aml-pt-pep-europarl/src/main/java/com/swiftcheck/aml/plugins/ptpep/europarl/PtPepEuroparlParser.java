@@ -169,14 +169,14 @@ public class PtPepEuroparlParser implements Iparser {
             person.addValue("birthPlace", detail.birthPlace());
             person.addValue("gender", detail.gender());
         }
-        person.addValue("country", "be");
+        person.addValue("country", "pt");
         person.addValue("position", POSITION);
         person.addValue("sourceUrl", pageUrl);
         dataset.addEntity(person);
 
         FtmEntity position = dataset.newEntity("Position", "member");
         position.addValue("name", POSITION);
-        position.addValue("country", "be");
+        position.addValue("country", "pt");
         position.addValue("organization", "Parlement européen");
         position.addValue("topics", "gov.igo");
         position.addValue("topics", "gov.legislative");

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Autriche, suite : partis représentés au Nationalrat (registre du ministère de l'Intérieur) et organes de l'ÖBAG
+    (société de participations de l'État fédéral). Voir 049-at-pep-reference-and-parsers.xml.
+
+      - at_pep_parties          : ÖVP, SPÖ, FPÖ, Grüne (NEOS n'a rien déclaré au registre : signalé, pas inventé)
+      - at_pep_state_enterprises : directoire et conseil de surveillance de l'ÖBAG (portefeuille : OMV, Casinos Austria, BIG…)
+-->
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="050-parser-at-pep-parties" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Autriche – Partis politiques',
+                'Représentants déclarés des partis représentés au Nationalrat, d''après le registre des partis du ministère de l''Intérieur (catégorie AT-c)',
+                'at_pep_parties', 'PEP', 'https://www.bmi.gv.at/',
+                'at-pep-parties', 'D:/test parser 2/plugins/swiftcheck-aml-at-pep-parties-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'PDF',
+                NULL,
+                '{"pdfUrl": "https://citizen.bmi.gv.at/at.gv.bmi.fnsweb-p/par/public/api/ParteienGesamtverzeichnis.pdf", "parties": "500004=ÖVP;500002=SPÖ;500008=FPÖ;500106=GRÜNE;500940=NEOS"}',
+                168, 12,
+                'Registre officiel des partis : citer la source', 'Bundesministerium für Inneres, Parteienregister',
+                'Le PDF est téléchargé à chaque exécution. Un parti qui indique « Nicht bekannt gegeben » (NEOS à ce jour) est cité dans le message d''exécution comme non déclaré. Autres partis : ajouter leur numéro de registre au paramètre parties.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'PARTIAL', FALSE, 'Les représentants déclarés de l''ÖVP, du SPÖ, du FPÖ et des Grüne au niveau fédéral (président, adjoints, directeurs généraux, trésoriers).', 'NEOS n''a déclaré aucun représentant au registre. Organes régionaux des partis non lus. Anciens dirigeants non nommés.'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'AT-c' AND f.label LIKE 'Membre d''un organe dirigeant%' AND p.dataset_name = 'at_pep_parties';
+        ]]></sql>
+    </changeSet>
+
+    <changeSet id="050-parser-at-pep-state-enterprises" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Autriche – Entreprises publiques (ÖBAG)',
+                'Directoire et conseil de surveillance de l''ÖBAG, société de participations de l''État fédéral (catégorie AT-g)',
+                'at_pep_state_enterprises', 'PEP', 'https://oebag.gv.at/',
+                'at-pep-institutions', 'D:/test parser 2/plugins/swiftcheck-aml-at-pep-institutions-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'WEB_PAGE',
+                NULL,
+                '{"keys": "oebag_board,oebag_supervisory", "delayMs": "1500"}',
+                168, 12,
+                'Site officiel de l''ÖBAG : citer la source', 'ÖBAG – Österreichische Beteiligungs AG, oebag.gv.at',
+                'Premier maillon de la catégorie AT-g : ÖBAG elle-même. Les organes des sociétés du portefeuille (OMV, Casinos Austria, BIG, Verbund…) restent à ajouter, une page de gouvernance par société, dans institutions.json.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'PARTIAL', FALSE, 'Le directoire et le conseil de surveillance de l''ÖBAG en fonction.', 'Les organes des sociétés détenues (OMV, Casinos Austria, BIG, Verbund…) et des autres entreprises publiques fédérales ne sont pas lus. Pas de dates de mandat.'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'AT-g' AND f.label LIKE 'Organe d''une entreprise publique fédérale%' AND p.dataset_name = 'at_pep_state_enterprises';
+        ]]></sql>
+    </changeSet>
+
+</databaseChangeLog>

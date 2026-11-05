@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Autriche : ajoute le gouvernement de Vienne (page « Stadtregierung » de wien.gv.at) au parseur at_pep_land_governments.
+    Restent non lus : Styrie, Carinthie (sites injoignables) et Burgenland (noms absents du texte de la page).
+-->
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="051-at-land-governments-vienna" author="swiftcheck">
+        <sql><![CDATA[
+            UPDATE parser
+               SET parameters = JSON_SET(parameters, '$.keys', 'land_wien,land_noe,land_salzburg,land_tirol,land_vorarlberg,land_ooe'),
+                   description = 'Landeshauptleute, adjoints et Landesräte de Vienne, Basse-Autriche, Salzbourg, Tyrol, Vorarlberg et Haute-Autriche, d''après les pages officielles (catégorie AT-a)',
+                   notes = 'Styrie, Carinthie, Burgenland : non lus (site injoignable ou noms absents du texte de la page). Les adresses sont dans institutions.json ; une page qui change de mise en page est signalée dans le message d''exécution sans arrêter les autres.'
+             WHERE dataset_name = 'at_pep_land_governments';
+
+            UPDATE pep_function_parser
+               SET covered_scope = 'Les membres en fonction des gouvernements de Vienne, Basse-Autriche, Salzbourg, Tyrol, Vorarlberg et Haute-Autriche.',
+                   gaps = 'Styrie, Carinthie et Burgenland non couverts ; anciens membres seulement pendant la rétention de 12 mois.'
+             WHERE parser_id = (SELECT id FROM parser WHERE dataset_name = 'at_pep_land_governments');
+        ]]></sql>
+    </changeSet>
+</databaseChangeLog>

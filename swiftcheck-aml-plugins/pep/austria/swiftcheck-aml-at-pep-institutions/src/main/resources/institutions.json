@@ -1,0 +1,150 @@
+{
+  "institutions": [
+    {
+      "key": "vfgh",
+      "name": "Verfassungsgerichtshof (VfGH)",
+      "acronym": "VfGH",
+      "category": "AT-d",
+      "topics": [
+        "gov.judicial"
+      ],
+      "url": "https://www.vfgh.gv.at/verfassungsgerichtshof/verfassungsrichter/mitglieder.de.html"
+    },
+    {
+      "key": "vfgh_substitutes",
+      "name": "Verfassungsgerichtshof (VfGH) – Ersatzmitglieder",
+      "acronym": "VfGH-E",
+      "category": "AT-d",
+      "topics": [
+        "gov.judicial"
+      ],
+      "url": "https://www.vfgh.gv.at/verfassungsgerichtshof/verfassungsrichter/ersatzmitglieder.de.html"
+    },
+    {
+      "key": "ogh",
+      "name": "Oberster Gerichtshof (OGH)",
+      "acronym": "OGH",
+      "category": "AT-d",
+      "topics": [
+        "gov.judicial"
+      ],
+      "url": "https://www.ogh.gv.at/der-oberste-gerichtshof/richterinnen-und-richter/"
+    },
+    {
+      "key": "vwgh",
+      "name": "Verwaltungsgerichtshof (VwGH)",
+      "acronym": "VwGH",
+      "category": "AT-d",
+      "topics": [
+        "gov.judicial"
+      ],
+      "url": "https://www.vwgh.gv.at/gerichtshof/richterinnen_und_richter/index.html"
+    },
+    {
+      "key": "oenb",
+      "name": "Oesterreichische Nationalbank (OeNB) – Direktorium",
+      "acronym": "OeNB",
+      "category": "AT-e",
+      "topics": [
+        "gov.financial"
+      ],
+      "url": "https://www.oenb.at/die-oenb/organisation/direktorium.html"
+    },
+    {
+      "key": "rechnungshof",
+      "name": "Rechnungshof Österreich",
+      "acronym": "RH",
+      "category": "AT-e",
+      "topics": [
+        "gov.admin"
+      ],
+      "url": "https://www.rechnungshof.gv.at/rh/home/wer-wir-sind/wer-wir-sind_2/The_President.html"
+    },
+    {
+      "key": "land_noe",
+      "name": "Landesregierung Niederösterreich",
+      "acronym": "NÖ",
+      "category": "AT-a",
+      "topics": [
+        "gov.state",
+        "gov.executive"
+      ],
+      "url": "https://www.noe.gv.at/noe/Landesregierung/Landesregierung.html"
+    },
+    {
+      "key": "land_salzburg",
+      "name": "Landesregierung Salzburg",
+      "acronym": "Sbg",
+      "category": "AT-a",
+      "topics": [
+        "gov.state",
+        "gov.executive"
+      ],
+      "url": "https://www.salzburg.gv.at/politik/landesregierung"
+    },
+    {
+      "key": "land_tirol",
+      "name": "Landesregierung Tirol",
+      "acronym": "Tirol",
+      "category": "AT-a",
+      "topics": [
+        "gov.state",
+        "gov.executive"
+      ],
+      "url": "https://www.tirol.gv.at/regierung/landesregierung/"
+    },
+    {
+      "key": "land_vorarlberg",
+      "name": "Landesregierung Vorarlberg",
+      "acronym": "Vbg",
+      "category": "AT-a",
+      "topics": [
+        "gov.state",
+        "gov.executive"
+      ],
+      "url": "https://vorarlberg.at/landesregierung"
+    },
+    {
+      "key": "land_ooe",
+      "name": "Landesregierung Oberösterreich",
+      "acronym": "OÖ",
+      "category": "AT-a",
+      "topics": [
+        "gov.state",
+        "gov.executive"
+      ],
+      "url": "https://www.land-oberoesterreich.gv.at/12189.htm"
+    },
+    {
+      "key": "oebag_board",
+      "name": "ÖBAG – Vorstand",
+      "acronym": "ÖBAG-V",
+      "category": "AT-g",
+      "topics": [
+        "gov.soe"
+      ],
+      "url": "https://oebag.gv.at/das-team/"
+    },
+    {
+      "key": "oebag_supervisory",
+      "name": "ÖBAG – Aufsichtsrat",
+      "acronym": "ÖBAG-AR",
+      "category": "AT-g",
+      "topics": [
+        "gov.soe"
+      ],
+      "url": "https://oebag.gv.at/unser-aufsichtsrat/"
+    },
+    {
+      "key": "land_wien",
+      "name": "Stadtregierung Wien (Landesregierung)",
+      "acronym": "Wien",
+      "category": "AT-a",
+      "topics": [
+        "gov.state",
+        "gov.executive"
+      ],
+      "url": "https://www.wien.gv.at/kontakt/stadtregierung"
+    }
+  ]
+}

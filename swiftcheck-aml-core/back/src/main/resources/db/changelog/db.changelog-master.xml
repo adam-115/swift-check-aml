@@ -76,5 +76,8 @@
     <include file="db/changelog/changes/046-former-pep-history.xml" />
     <include file="db/changelog/changes/047-fr-death-check-notes.xml" />
     <include file="db/changelog/changes/048-pt-pep-reference-and-parsers.xml" />
+    <include file="db/changelog/changes/049-at-pep-reference-and-parsers.xml" />
+    <include file="db/changelog/changes/050-at-parties-and-oebag.xml" />
+    <include file="db/changelog/changes/051-at-land-governments-vienna.xml" />
 
 </databaseChangeLog>

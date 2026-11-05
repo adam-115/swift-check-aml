@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Autriche : référentiel PEP (catégories, fonctions) et parseurs des lots 1 et 2 disponibles.
+
+    Base légale : FM-GwG (Finanzmarkt-Geldwäschegesetz) § 2 Z 6 lit. a à h, douze mois au moins après la fin des fonctions
+    (§ 11) ; liste notifiée à la Commission (JO C/2023/724). Plan : documentation/analyse pep autriche/
+    Plan_Parsers_PEP_Autriche.pdf (analyse du 3/11/2026).
+
+    Parseurs de ce lot (sources officielles lues en direct le 5/11/2026) :
+      - at_pep_parliament              : open data du Parlement (CC BY 4.0), Nationalrat et Bundesrat, historique inclus
+      - at_pep_federal_government      : page du Bundeskanzleramt (chancelier, ministres, secrétaires d'État)
+      - at_pep_president               : récit de vie du Président sur bundespraesident.at
+      - at_pep_europarl                : API du Parlement européen (20 députés)
+      - at_pep_eu_commission           : fiche du commissaire autrichien
+      - at_pep_high_courts             : VfGH (membres et suppléants), OGH, VwGH
+      - at_pep_audit_and_central_bank  : président du Rechnungshof, directoire de l'OeNB
+      - at_pep_land_governments        : gouvernements de Basse-Autriche, Salzbourg, Tyrol, Vorarlberg, Haute-Autriche
+
+    Non couvert à ce jour (motif noté dans l'écran « Couverture PEP ») : gouvernements de Vienne, Styrie, Carinthie et
+    Burgenland (page absente, injoignable ou noms non présents dans le texte), partis (extraits PDF du ministère de
+    l'Intérieur), diplomates, armée, organisations internationales, entreprises publiques, Landesrechnungshöfe.
+-->
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="049-at-country" author="swiftcheck">
+        <sql>
+            UPDATE country SET legal_basis = 'Finanzmarkt-Geldwäschegesetz (FM-GwG) § 2 Z 6 lit. a à h, § 11 : au moins douze mois après la fin des fonctions',
+                               retention_months = 12,
+                               official_list_reference = 'JO C/2023/724 (section Autriche) ; FM-GwG § 2 Z 6',
+                               official_list_date = '2023-10-24',
+                               official_list_url = 'https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=OJ:C_202300724'
+            WHERE iso = 'AT';
+        </sql>
+    </changeSet>
+
+    <changeSet id="049-at-categories" author="swiftcheck">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM pep_category WHERE country_iso = 'AT'</sqlCheck>
+        </preConditions>
+        <sql>
+            INSERT INTO pep_category (country_iso, code, label, kind, risk_class, sort_order, legal_reference) VALUES
+            ('AT', 'AT-a', 'Président fédéral, chancelier, membres du gouvernement fédéral et des gouvernements des Länder', 'OFFICIAL', 1, 1, 'FM-GwG § 2 Z 6 lit. a ; JO C/2023/724'),
+            ('AT', 'AT-b', 'Députés du Nationalrat et membres du Bundesrat', 'OFFICIAL', 1, 2, 'FM-GwG § 2 Z 6 lit. b ; JO C/2023/724'),
+            ('AT', 'AT-c', 'Organes dirigeants des partis représentés au Nationalrat', 'OFFICIAL', 2, 3, 'FM-GwG § 2 Z 6 lit. c ; JO C/2023/724'),
+            ('AT', 'AT-d', 'Juges de la Cour suprême (OGH), de la Cour constitutionnelle (VfGH) et de la Cour administrative (VwGH)', 'OFFICIAL', 2, 4, 'FM-GwG § 2 Z 6 lit. d ; JO C/2023/724'),
+            ('AT', 'AT-e', 'Cour des comptes fédérale, cours des comptes des Länder et directoire de la Banque nationale (OeNB)', 'OFFICIAL', 2, 5, 'FM-GwG § 2 Z 6 lit. e ; JO C/2023/724'),
+            ('AT', 'AT-f', 'Ambassadeurs, chargés d''affaires et officiers supérieurs', 'OFFICIAL', 2, 6, 'FM-GwG § 2 Z 6 lit. f ; JO C/2023/724'),
+            ('AT', 'AT-g', 'Organes des entreprises détenues à 50 % au moins par l''État fédéral ou sous son contrôle effectif', 'OFFICIAL', 3, 7, 'FM-GwG § 2 Z 6 lit. g ; JO C/2023/724'),
+            ('AT', 'AT-h', 'Dirigeants des organisations internationales établies en Autriche', 'OFFICIAL', 3, 8, 'FM-GwG § 2 Z 6 lit. h ; JO C/2023/724'),
+            ('AT', 'AT-EU', 'Autrichiens exerçant une fonction européenne', 'EU', 1, 9, 'Liste de la Commission, JO C/2023/724'),
+            ('AT', 'AT-RCA', 'Membres de la famille et proches associés', 'RCA', 2, 10, 'FM-GwG § 2 Z 7 et Z 8');
+        </sql>
+    </changeSet>
+
+    <changeSet id="049-at-functions" author="swiftcheck">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM pep_function f JOIN pep_category c ON c.id = f.category_id WHERE c.country_iso = 'AT'</sqlCheck>
+        </preConditions>
+        <sql>
+            INSERT INTO pep_function (category_id, label, institution, expected_holders)
+            SELECT c.id, f.label, f.institution, f.expected_holders
+            FROM pep_category c JOIN (
+                SELECT 'AT-a' AS code, 'Président fédéral (Bundespräsident)' AS label, 'Präsidentschaftskanzlei' AS institution, 1 AS expected_holders
+                UNION ALL SELECT 'AT-a', 'Chancelier, vice-chancelier, ministres et secrétaires d''État fédéraux', 'Bundesregierung', 21
+                UNION ALL SELECT 'AT-a', 'Membres des gouvernements des neuf Länder', 'Landesregierungen', 75
+                UNION ALL SELECT 'AT-b', 'Député du Nationalrat et membre du Bundesrat (en fonction et anciens)', 'Parlament', 243
+                UNION ALL SELECT 'AT-c', 'Membre d''un organe dirigeant d''un parti représenté au Nationalrat', 'Parteien', 50
+                UNION ALL SELECT 'AT-d', 'Juge de la Cour constitutionnelle (VfGH), membres et suppléants', 'Verfassungsgerichtshof', 20
+                UNION ALL SELECT 'AT-d', 'Juge de la Cour suprême (OGH) et de la Cour administrative (VwGH)', 'OGH et VwGH', 160
+                UNION ALL SELECT 'AT-e', 'Président du Rechnungshof et directoire de la Banque nationale (OeNB)', 'Rechnungshof, OeNB', 5
+                UNION ALL SELECT 'AT-e', 'Directeurs des cours des comptes des Länder (Landesrechnungshöfe)', 'Landesrechnungshöfe', 9
+                UNION ALL SELECT 'AT-f', 'Ambassadeur ou chargé d''affaires', 'Außenministerium (BMEIA)', 100
+                UNION ALL SELECT 'AT-f', 'Officier général à partir du grade de lieutenant général', 'Bundesheer', 15
+                UNION ALL SELECT 'AT-g', 'Organe d''une entreprise publique fédérale', 'ÖBAG et participations fédérales', NULL
+                UNION ALL SELECT 'AT-h', 'Dirigeant d''une organisation internationale établie en Autriche', 'ONU Vienne, OSCE, OPEP, OTICE, ICMPD…', 80
+                UNION ALL SELECT 'AT-EU', 'Député au Parlement européen élu en Autriche', 'Parlement européen', 20
+                UNION ALL SELECT 'AT-EU', 'Membre autrichien de la Commission européenne', 'Commission européenne', 1
+                UNION ALL SELECT 'AT-RCA', 'Membre de la famille d''une PEP autrichienne', NULL, NULL
+                UNION ALL SELECT 'AT-RCA', 'Proche associé d''une PEP autrichienne', NULL, NULL
+            ) f ON f.code = c.code;
+        </sql>
+    </changeSet>
+
+    <changeSet id="049-parser-at-pep-europarl" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Autriche – Députés européens',
+                'Les députés au Parlement européen élus en Autriche, en fonction et sortis depuis moins de 12 mois, avec naissance et dates de mandat (catégorie AT-EU)',
+                'at_pep_europarl', 'PEP', 'https://data.europarl.europa.eu/',
+                'at-pep-europarl', 'D:/test parser 2/plugins/swiftcheck-aml-at-pep-europarl-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'API',
+                NULL,
+                '{"currentUrl": "https://data.europarl.europa.eu/api/v2/meps/show-current?country-of-representation=AT&format=application%2Fld%2Bjson", "termUrl": "https://data.europarl.europa.eu/api/v2/meps?country-of-representation=AT&parliamentary-term=10&limit=500&format=application%2Fld%2Bjson", "detailUrl": "https://data.europarl.europa.eu/api/v2/meps/{id}?format=application%2Fld%2Bjson", "delayMs": "300", "monthsAfterEnd": "12"}',
+                168, 12,
+                'Réutilisation autorisée en citant la source (Parlement européen)', 'Parlement européen, data.europarl.europa.eu',
+                'Reprise de pt_pep_europarl. Une fiche par député. L''API limite le débit (HTTP 429) : le plugin attend puis réessaie. Photos : Wikimedia Commons.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', TRUE, 'Les députés européens élus en Autriche et ceux sortis depuis moins de 12 mois, avec date et lieu de naissance, genre, groupe et dates de mandat.', NULL
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'AT-EU' AND f.label LIKE 'Député au Parlement européen%' AND p.dataset_name = 'at_pep_europarl';
+        ]]></sql>
+    </changeSet>
+
+    <changeSet id="049-parser-at-pep-eu-commission" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Autriche – Commissaire européen',
+                'Le membre autrichien de la Commission européenne, d''après sa fiche officielle (catégorie AT-EU)',
+                'at_pep_eu_commission', 'PEP', 'https://commission.europa.eu/about/organisation/college-commissioners_en',
+                'at-pep-eu-commission', 'D:/test parser 2/plugins/swiftcheck-aml-at-pep-eu-commission-0.0.1-SNAPSHOT.jar',
+                'HTTP_FILE', 'WEB_PAGE',
+                'https://commission.europa.eu/about/organisation/college-commissioners/magnus-brunner_en',
+                NULL,
+                168, 12,
+                'Réutilisation autorisée en citant la source (avis juridique de la Commission européenne)', 'Commission européenne, commission.europa.eu',
+                'Reprise de pt_pep_eu_commission. À chaque nouvelle Commission, remplacer l''adresse par la fiche du commissaire autrichien. Une fiche qui ne présente pas un commissaire autrichien est refusée.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', FALSE, 'Magnus Brunner, commissaire (2024-2029) aux affaires intérieures et à la migration.', 'Ni date de naissance ni lieu de naissance sur la fiche.'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'AT-EU' AND f.label LIKE 'Membre autrichien de la Commission%' AND p.dataset_name = 'at_pep_eu_commission';
+        ]]></sql>
+    </changeSet>
+
+    <changeSet id="049-parser-at-pep-president" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Autriche – Président fédéral',
+                'Le Président fédéral autrichien, d''après son récit de vie officiel sur bundespraesident.at (catégorie AT-a)',
+                'at_pep_president', 'PEP', 'https://www.bundespraesident.at/',
+                'at-pep-president', 'D:/test parser 2/plugins/swiftcheck-aml-at-pep-president-0.0.1-SNAPSHOT.jar',
+                'HTTP_FILE', 'WEB_PAGE',
+                'https://www.bundespraesident.at/aktuelles/detail/lebenslauf-alexander-van-der-bellen',
+                NULL,
+                168, 12,
+                'Site officiel de la Présidence fédérale : citer la source', 'Präsidentschaftskanzlei, www.bundespraesident.at',
+                'La page donne le nom, la date et le lieu de naissance ; pas de date de prise de fonctions exploitable. À chaque nouveau Président, remplacer l''adresse par son récit de vie ; le sortant reste publié 12 mois par la rétention du cœur.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', FALSE, 'Le Président fédéral en fonction, avec date et lieu de naissance.', 'Pas de date de prise de fonctions.'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'AT-a' AND f.label LIKE 'Président fédéral%' AND p.dataset_name = 'at_pep_president';
+        ]]></sql>
+    </changeSet>
+
+    <changeSet id="049-parser-at-pep-federal-government" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Autriche – Gouvernement fédéral',
+                'Chancelier, vice-chancelier, ministres et secrétaires d''État fédéraux, d''après la page officielle du Bundeskanzleramt (catégorie AT-a)',
+                'at_pep_federal_government', 'PEP', 'https://www.bundeskanzleramt.gv.at/',
+                'at-pep-federal-government', 'D:/test parser 2/plugins/swiftcheck-aml-at-pep-federal-government-0.0.1-SNAPSHOT.jar',
+                'HTTP_FILE', 'WEB_PAGE',
+                'https://www.bundeskanzleramt.gv.at/bundeskanzleramt/die-bundesregierung/bundesministerinnen-und-bundesminister.html',
+                NULL,
+                168, 12,
+                'Site officiel du Bundeskanzleramt : citer la source', 'Bundeskanzleramt Österreich, www.bundeskanzleramt.gv.at',
+                'La page ne donne ni naissance ni date de prise de fonctions : les membres sont identifiés par leur nom. Un ancien nom (« vormals ») devient un alias. À chaque changement de gouvernement, les sortants restent publiés 12 mois par la rétention du cœur.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'PARTIAL', FALSE, 'Le chancelier, le vice-chancelier, les ministres et les secrétaires d''État en fonction.', 'Anciens membres du gouvernement : seulement ceux retirés de la page depuis moins de 12 mois. Pas de date de naissance.'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'AT-a' AND f.label LIKE 'Chancelier, vice-chancelier%' AND p.dataset_name = 'at_pep_federal_government';
+        ]]></sql>
+    </changeSet>
+
+    <changeSet id="049-parser-at-pep-parliament" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Autriche – Parlement (Nationalrat et Bundesrat)',
+                'Députés du Nationalrat et membres du Bundesrat, en fonction et sortis depuis moins de 20 ans, avec naissance et dates de mandat (catégorie AT-b)',
+                'at_pep_parliament', 'PEP', 'https://www.parlament.gv.at/recherchieren/open-data/',
+                'at-pep-parliament', 'D:/test parser 2/plugins/swiftcheck-aml-at-pep-parliament-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'API',
+                NULL,
+                '{"listUrl": "https://www.parlament.gv.at/Filter/api/filter/data/409?1=1&showAll=true&export=true", "personUrl": "https://www.parlament.gv.at/person/{id}?json=true", "delayMs": "300", "monthsAfterEnd": "240"}',
+                168, 12,
+                'CC BY 4.0 (Parlamentsdirektion)', 'Parlamentsdirektion, Open Data du Parlement autrichien, parlament.gv.at (CC BY 4.0)',
+                'Interface JSON publique du Parlement. Une fiche par personne gardée (environ 900 appels pour 20 ans). Les personnes décédées ne sont pas publiées. Aucune coordonnée personnelle lue. monthsAfterEnd à 12 pour ne garder que le minimum légal.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', TRUE, 'Tous les députés du Nationalrat et membres du Bundesrat en fonction, et les anciens sortis depuis moins de 20 ans, avec groupe, Land et dates de mandat ; naissance depuis la fiche officielle ; décédés écartés.', 'Les anciens membres sortis il y a plus de 20 ans ne sont pas publiés (paramètre monthsAfterEnd).'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'AT-b' AND f.label LIKE 'Député du Nationalrat%' AND p.dataset_name = 'at_pep_parliament';
+        ]]></sql>
+    </changeSet>
+
+    <changeSet id="049-parser-at-pep-high-courts" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Autriche – Hautes juridictions',
+                'Membres et suppléants du VfGH, juges de l''OGH et du VwGH, d''après les pages officielles des cours (catégorie AT-d)',
+                'at_pep_high_courts', 'PEP', 'https://www.vfgh.gv.at/',
+                'at-pep-institutions', 'D:/test parser 2/plugins/swiftcheck-aml-at-pep-institutions-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'WEB_PAGE',
+                NULL,
+                '{"keys": "vfgh,vfgh_substitutes,ogh,vwgh", "delayMs": "1500"}',
+                168, 12,
+                'Sites officiels des cours : citer la source', 'VfGH, OGH et VwGH (vfgh.gv.at, ogh.gv.at, vwgh.gv.at)',
+                'Même plugin que at_pep_audit_and_central_bank et at_pep_land_governments ; le paramètre keys choisit les institutions. Adresses dans institutions.json. Aucun nom embarqué.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', FALSE, 'Les 14 membres et 6 suppléants du VfGH en fonction.', 'Pas de dates de nomination sur les pages ; anciens juges non nommés.'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'AT-d' AND f.label LIKE 'Juge de la Cour constitutionnelle%' AND p.dataset_name = 'at_pep_high_courts';
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', FALSE, 'Les juges de l''OGH (une soixantaine) et du VwGH (une centaine) en fonction.', 'Pas de dates de nomination sur les pages ; anciens juges non nommés.'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'AT-d' AND f.label LIKE 'Juge de la Cour suprême (OGH)%' AND p.dataset_name = 'at_pep_high_courts';
+        ]]></sql>
+    </changeSet>
+
+    <changeSet id="049-parser-at-pep-audit-and-central-bank" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Autriche – Cour des comptes et banque nationale',
+                'Président du Rechnungshof et directoire de l''OeNB (gouverneur, vice-gouverneure, directeurs), avec les périodes de fonctions (catégorie AT-e)',
+                'at_pep_audit_and_central_bank', 'PEP', 'https://www.oenb.at/',
+                'at-pep-institutions', 'D:/test parser 2/plugins/swiftcheck-aml-at-pep-institutions-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'WEB_PAGE',
+                NULL,
+                '{"keys": "oenb,rechnungshof", "delayMs": "1500"}',
+                168, 12,
+                'Sites officiels : citer la source', 'Rechnungshof Österreich et Oesterreichische Nationalbank',
+                'Une fin de période future (ex. 2031) n''est pas publiée comme date de fin. Landesrechnungshöfe non couverts.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', FALSE, 'La présidente du Rechnungshof et les quatre membres du directoire de l''OeNB, avec leurs périodes de fonctions pour l''OeNB.', NULL
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'AT-e' AND f.label LIKE 'Président du Rechnungshof%' AND p.dataset_name = 'at_pep_audit_and_central_bank';
+        ]]></sql>
+    </changeSet>
+
+    <changeSet id="049-parser-at-pep-land-governments" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Autriche – Gouvernements des Länder',
+                'Landeshauptleute, adjoints et Landesräte de Basse-Autriche, Salzbourg, Tyrol, Vorarlberg et Haute-Autriche, d''après les pages officielles (catégorie AT-a)',
+                'at_pep_land_governments', 'PEP', 'https://www.salzburg.gv.at/politik/landesregierung',
+                'at-pep-institutions', 'D:/test parser 2/plugins/swiftcheck-aml-at-pep-institutions-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'WEB_PAGE',
+                NULL,
+                '{"keys": "land_noe,land_salzburg,land_tirol,land_vorarlberg,land_ooe", "delayMs": "1500"}',
+                168, 12,
+                'Sites officiels des Länder : citer la source', 'Amt der Landesregierung de chaque Land',
+                'Vienne, Styrie, Carinthie, Burgenland : non lus (page non trouvée, site injoignable ou noms absents du texte). Les adresses sont dans institutions.json ; une page de Land qui change de mise en page est signalée dans le message d''exécution sans arrêter les autres.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'PARTIAL', FALSE, 'Les membres en fonction des gouvernements de Basse-Autriche, Salzbourg, Tyrol, Vorarlberg et Haute-Autriche.', 'Vienne, Styrie, Carinthie et Burgenland non couverts ; anciens membres seulement pendant la rétention de 12 mois.'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'AT-a' AND f.label LIKE 'Membres des gouvernements des neuf Länder%' AND p.dataset_name = 'at_pep_land_governments';
+        ]]></sql>
+    </changeSet>
+
+</databaseChangeLog>
