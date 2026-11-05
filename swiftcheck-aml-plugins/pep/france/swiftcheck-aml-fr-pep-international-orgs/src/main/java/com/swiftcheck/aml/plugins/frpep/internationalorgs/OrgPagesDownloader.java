@@ -1,4 +1,4 @@
-﻿package com.swiftcheck.aml.plugins.frpep.internationalorgs;
+package com.swiftcheck.aml.plugins.frpep.internationalorgs;
 
 import java.io.IOException;
 import java.net.URI;

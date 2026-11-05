@@ -47,8 +47,8 @@ l'article 37 du Criminal Justice (Money Laundering and Terrorist Financing) Act 
 
 <div class="kpis">
   <div class="kpi"><b>10</b><span>catégories IE (IE-a à IE-h, IE-EU, IE-RCA)</span></div>
-  <div class="kpi"><b>4</b><span>parsers livrés (lot 1)</span></div>
-  <div class="kpi"><b>~295</b><span>personnes publiées : 233 parlementaires, 14 MEP, ministres, Président, commissaire</span></div>
+  <div class="kpi"><b>10</b><span>parsers livrés (lots 1 à 3)</span></div>
+  <div class="kpi"><b>~1 150</b><span>personnes avec l’historique de 50 ans (OpenSanctions : 788)</span></div>
   <div class="kpi"><b>12 mois</b><span>vigilance après la fin des fonctions (rétention du pays)</span></div>
 </div>
 
@@ -60,7 +60,7 @@ l'article 37 du Criminal Justice (Money Laundering and Terrorist Financing) Act 
   <li><b>Identité :</b> l'API de l'Oireachtas ne donne ni date de naissance ni sexe : le criblage repose sur le nom, la fonction et le mandat.</li>
 </ul>
 
-<h2>2. Parsers livrés (lot 1)</h2>
+<h2>2. Parsers livrés (lots 1 à 3)</h2>
 <table>
   <tr><th>Parser</th><th>Catégorie</th><th>Source</th><th>Résultat réel</th><th>Remarques</th></tr>
   <tr><td><code>ie_pep_parliament</code></td><td class="cat">IE-a, IE-b</td><td>API ouverte <code>api.oireachtas.ie/v1</code> (houses, members), sans clé</td>
@@ -72,6 +72,18 @@ l'article 37 du Criminal Justice (Money Laundering and Terrorist Financing) Act 
       <td>Michael McGrath (2024-2029)</td><td>Une fiche qui ne présente pas un commissaire irlandais est refusée ; adresse à changer à chaque Commission</td></tr>
   <tr><td><code>ie_pep_president</code></td><td class="cat">IE-a</td><td>Page du Président en fonction sur <code>president.ie</code></td>
       <td>Catherine Connolly (depuis 2025)</td><td>Page d'ancien Président refusée ; ni naissance ni lieu ; adresse à changer à chaque élection (la page d'accueil a un titre périmé)</td></tr>
+  <tr><td><code>ie_pep_parliament_history</code></td><td class="cat">IE-b</td><td>Même API, <code>monthsAfterEnd = 600</code> (50 ans)</td>
+      <td>environ 950 personnes (30 chambres, 45 s)</td><td>Objectif OpenSanctions : 788 membres du Parlement. Mêmes identifiants que <code>ie_pep_parliament</code> ; décès écartés seulement si l'API les donne ; au-delà des 12 mois légaux : à activer selon l'approche par les risques</td></tr>
+  <tr><td><code>ie_pep_courts</code></td><td class="cat">IE-d</td><td>Page « The Judges » de <code>courts.ie</code></td>
+      <td>Supreme Court, Court of Appeal, High Court (une soixantaine de juges)</td><td>Chief Justice et présidents de cours repérés ; membres de droit distingués ; Circuit Court non reprise (paramètre <code>courts</code>)</td></tr>
+  <tr><td><code>ie_pep_central_bank</code></td><td class="cat">IE-e</td><td>Page « The Commission » de <code>centralbank.ie</code></td>
+      <td>10 membres de la Commission</td><td>Governor, Deputy Governors, Secretary General du Department of Finance, membres nommés ; la secrétaire de la Commission n'est pas reprise</td></tr>
+  <tr><td><code>ie_pep_councillors</code></td><td class="cat">IE-AMLR</td><td>CSV des conseils sur data.gov.ie / Smart Dublin</td>
+      <td>103 conseillers (Dublin City 63, Dún Laoghaire-Rathdown 40)</td><td>Couche étendue hors article 37 ; seuls 2 conseils sur 31 publient leur liste en CSV</td></tr>
+  <tr><td><code>ie_pep_state_enterprises</code></td><td class="cat">IE-g</td><td>Pages officielles des conseils d'ESB, d'Uisce Éireann et de Bord na Móna</td>
+      <td>34 administrateurs (12 + 10 + 12)</td><td>Un extracteur par site ; An Post (contrôle Radware) et RTÉ (403) non contournés ; EirGrid, daa, Coillte, CIÉ : pas de page de conseil lisible</td></tr>
+  <tr><td><code>ie_pep_defence_forces</code></td><td class="cat">IE-f</td><td>Tableau « Designated Public Officials » de <code>military.ie</code></td>
+      <td>12 officiers généraux et amiraux</td><td>Chef d'état-major, adjoints, généraux de brigade, commodore ; les Assistant Secretary (civils) sont écartés</td></tr>
 </table>
 
 <h2>3. Fonctions restantes et état des sources</h2>
@@ -79,26 +91,26 @@ l'article 37 du Criminal Justice (Money Laundering and Terrorist Financing) Act 
 <table>
   <tr><th>Catégorie</th><th>Fonction</th><th>Source candidate</th><th>État</th><th>Priorité</th></tr>
   <tr><td class="cat">IE-d</td><td>Juges de la Cour suprême, de la Cour d'appel, de la High Court</td><td><code>courts.ie/supreme-court</code>, <code>courts.ie/judges</code></td>
-      <td><span class="tag easy">accessible (200)</span> composition à analyser</td><td>Lot 2</td></tr>
+      <td><span class="tag easy">livré</span> <code>ie_pep_courts</code></td><td>Fait</td></tr>
   <tr><td class="cat">IE-e</td><td>Comptroller and Auditor General ; organes de la Banque centrale</td><td><code>audgen.gov.ie</code>, <code>centralbank.ie</code></td>
-      <td><span class="tag hard">audgen : pas de connexion</span> <span class="tag mid">centralbank : adresse à retrouver (404)</span></td><td>Lot 2</td></tr>
+      <td><span class="tag easy">Banque centrale livrée</span> <code>ie_pep_central_bank</code> ; <span class="tag hard">audgen.gov.ie : pas de connexion</span></td><td>C&amp;AG en attente</td></tr>
   <tr><td class="cat">IE-f</td><td>Ambassadeurs et chargés d'affaires</td><td><code>ireland.ie</code> (Department of Foreign Affairs)</td>
       <td><span class="tag hard">403 au client automatique</span> non contourné</td><td>Lot 2, accès à demander</td></tr>
   <tr><td class="cat">IE-f</td><td>Officiers généraux des Defence Forces</td><td><code>defenceforces.ie</code></td>
-      <td><span class="tag hard">pas de connexion</span></td><td>Lot 2</td></tr>
+      <td><span class="tag easy">livré</span> <code>ie_pep_defence_forces</code></td><td>Fait</td></tr>
   <tr><td class="cat">IE-c</td><td>Organes dirigeants des partis</td><td>Sites des partis ; registre de la Standards in Public Office Commission (<code>sipo.ie</code>)</td>
-      <td><span class="tag hard">sipo.ie : 403</span> <span class="tag hard">finegael.ie : 403</span></td><td>Lot 3</td></tr>
+      <td><span class="tag hard">sipo.ie : 403</span> ; les sites des partis répondent mais ne publient pas la liste de leurs organes dirigeants</td><td>Pas de source</td></tr>
   <tr><td class="cat">IE-g</td><td>Entreprises détenues par l'État (ESB, etc.)</td><td>Sites des entreprises ; registre des entreprises (CRO)</td>
-      <td><span class="tag mid">à analyser</span> (esb.ie : adresse à retrouver)</td><td>Lot 3</td></tr>
+      <td><span class="tag easy">ESB, Uisce Éireann, Bord na Móna livrés</span> ; <span class="tag hard">An Post : Radware</span> <span class="tag hard">RTÉ : 403</span> <span class="tag mid">EirGrid, daa, Coillte, CIÉ : pas de page lisible</span></td><td>Partiel</td></tr>
   <tr><td class="cat">IE-h</td><td>Organisations internationales</td><td>À identifier</td><td><span class="tag none">non analysé</span></td><td>Lot 3</td></tr>
   <tr><td class="cat">IE-RCA</td><td>Famille et proches associés</td><td>Aucune source officielle connue ; seule Wikidata en a</td><td><span class="tag none">exclu (pas de Wikidata)</span></td><td>—</td></tr>
 </table>
 
 <div class="note warn"><b>Non contourné :</b> les pages qui répondent 403 au client automatique (Department of Foreign Affairs, SIPO, gov.ie, Fine Gael) ne sont pas lues avec des en-têtes modifiés. Pour ces fonctions, la voie propre est de demander un fichier ou un flux aux organismes.</div>
 
-<h2>4. Ce que l'API de l'Oireachtas peut encore apporter</h2>
+<h2>4. Ce que l’API de l’Oireachtas a déjà apporté</h2>
 <ul>
-  <li><b>Anciennes législatures :</b> en réglant <code>monthsAfterEnd</code> plus grand, les membres des chambres précédentes (33e Dáil, 26e Seanad) sont repris avec leurs fonctions ministérielles.</li>
+  <li><b>Anciennes législatures :</b> livrées par <code>ie_pep_parliament_history</code> (50 ans, environ 950 personnes), contre 788 membres du Parlement chez OpenSanctions.</li>
   <li><b>Comités :</b> les présidents de commissions figurent dans les mêmes données ; ils sont hors du champ PEP de l'article 37 et non repris.</li>
   <li><b>Attorney General, Tánaiste :</b> pas de fonction distincte dans l'API ; à chercher dans une autre source officielle (site du Gouvernement, 403 à ce jour).</li>
 </ul>

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Irlande, lot 3, sans Wikidata :
+
+      - ie_pep_state_enterprises : conseils d'administration d'ESB, d'Uisce Éireann et de Bord na Móna (pages officielles,
+        un extracteur par site)
+      - ie_pep_defence_forces    : officiers généraux et amiraux (liste des Designated Public Officials, military.ie)
+
+    Non couvert, avec le motif :
+      - An Post (contrôle Radware), RTÉ (403), dfa.ie (403), sipo.ie (403) : non contournés ;
+      - EirGrid, daa, Coillte, CIÉ : pas de page de conseil lisible (noms dans du texte libre ou page non trouvée) ;
+      - partis politiques : pas de liste publique de leurs organes dirigeants ;
+      - Comptroller and Auditor General (audgen.gov.ie) : ne répond pas.
+-->
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="060-parser-ie-pep-state-enterprises" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Irlande – Entreprises d''État',
+                'Membres du conseil d''administration d''ESB, d''Uisce Éireann et de Bord na Móna, d''après les pages officielles des entreprises (catégorie IE-g)',
+                'ie_pep_state_enterprises', 'PEP', 'https://esb.ie/',
+                'ie-pep-state-enterprises', 'D:/test parser 2/plugins/swiftcheck-aml-ie-pep-state-enterprises-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'WEB_PAGE',
+                NULL,
+                '{"entities": "esb|ESB|https://esb.ie/who-we-are/esb-management-team/esb-board-members;uisce_eireann|Uisce Éireann|https://www.water.ie/about/about-irish-water/corporate-governance;bord_na_mona|Bord na Móna|https://www.bnm.ie/who-we-are/our-board/", "delayMs": "1500"}',
+                168, 12,
+                'Sites officiels des entreprises : citer la source', 'ESB, Uisce Éireann, Bord na Móna',
+                '34 administrateurs (12 + 10 + 12). Un extracteur par site (clés esb, uisce_eireann, bord_na_mona) : une autre entreprise demande un nouvel extracteur. Non couverts : An Post (contrôle Radware), RTÉ (403) — non contournés — ; EirGrid, daa, Coillte, CIÉ : pas de page de conseil lisible.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'PARTIAL', FALSE,
+                   'Les conseils d''administration d''ESB (12), d''Uisce Éireann (10) et de Bord na Móna (12), avec présidents et directeurs généraux.',
+                   'An Post, RTÉ, EirGrid, daa, Coillte, CIÉ et les autres entreprises détenues par l''État ne sont pas couverts ; pas de dates ni de naissance.'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'IE-g' AND f.label LIKE 'Organe dirigeant d''une entreprise détenue par l''État%' AND p.dataset_name = 'ie_pep_state_enterprises';
+        ]]></sql>
+    </changeSet>
+
+    <changeSet id="060-parser-ie-pep-defence-forces" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Irlande – Defence Forces',
+                'Officiers généraux et amiraux des Defence Forces, d''après la liste des Designated Public Officials du site officiel (catégorie IE-f)',
+                'ie_pep_defence_forces', 'PEP', 'https://www.military.ie/',
+                'ie-pep-defence-forces', 'D:/test parser 2/plugins/swiftcheck-aml-ie-pep-defence-forces-0.0.1-SNAPSHOT.jar',
+                'HTTP_FILE', 'WEB_PAGE',
+                'https://www.military.ie/en/public-information/designated-public-officials/',
+                NULL,
+                168, 12,
+                'Site officiel des Defence Forces : citer la source', 'Óglaigh na hÉireann / Defence Forces, www.military.ie',
+                'Tableau RANK / NAME / APPT publié au titre de la loi sur le lobbying : 12 officiers (chef d''état-major, adjoints, généraux de brigade, commodore). Les Assistant Secretary (civils du ministère) sont écartés. Ni dates ni naissance.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', FALSE,
+                   'Les 12 officiers généraux et amiraux désignés : chef d''état-major, adjoints, généraux de brigade et commodore.',
+                   'Pas de dates ni de naissance ; les anciens titulaires ne sont pas nommés par la source.'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'IE-f' AND f.label = 'Officier général des forces de défense' AND p.dataset_name = 'ie_pep_defence_forces';
+        ]]></sql>
+    </changeSet>
+
+</databaseChangeLog>

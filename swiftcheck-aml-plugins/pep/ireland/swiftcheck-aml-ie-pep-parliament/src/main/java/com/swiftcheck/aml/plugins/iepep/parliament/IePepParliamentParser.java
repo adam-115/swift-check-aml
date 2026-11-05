@@ -67,7 +67,7 @@ public class IePepParliamentParser implements Iparser {
     record Report(int houses, int current, int former, int skipped, int offices) {
 
         String message() {
-            return String.format("%d chambres lues : %d membres en fonction, %d anciens membres (moins d'un an), "
+            return String.format("%d chambres lues : %d membres en fonction, %d anciens membres (période de rétention), "
                     + "%d plus anciens ou décédés ignorés ; %d fonctions (ministres, présidents de chambre…).",
                     houses, current, former, skipped, offices);
         }

@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>SwiftCheck AML contre OpenSanctions – état au 5 novembre 2026</title>
+<style>
+  @page { size: A4 portrait; margin: 14mm 13mm 14mm 13mm; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; color: #1e293b; font-size: 10.5px; line-height: 1.45; }
+  h1 { font-size: 22px; color: #0f172a; margin-bottom: 4px; }
+  h2 { font-size: 14px; color: #0f172a; margin: 18px 0 6px; padding-bottom: 3px; border-bottom: 2px solid #2563eb; break-after: avoid; }
+  h3 { font-size: 11.5px; color: #1e3a8a; margin: 12px 0 5px; break-after: avoid; }
+  p { margin: 4px 0; }
+  .subtitle { color: #475569; font-size: 11.5px; margin-bottom: 8px; }
+  .meta { display: flex; flex-wrap: wrap; gap: 18px; color: #64748b; font-size: 9.5px; border-bottom: 1px solid #e2e8f0; padding-bottom: 8px; margin-bottom: 12px; }
+  .kpis { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin: 10px 0 6px; }
+  .kpi { border: 1px solid #e2e8f0; border-radius: 8px; padding: 8px 10px; background: #f8fafc; }
+  .kpi b { display: block; font-size: 20px; color: #1d4ed8; line-height: 1.1; }
+  .kpi span { color: #475569; font-size: 9.5px; }
+  table { width: 100%; border-collapse: collapse; margin: 5px 0 8px; font-size: 9.5px; }
+  th { background: #1e3a8a; color: #fff; text-align: left; padding: 4px 5px; font-weight: 600; }
+  td { border-bottom: 1px solid #e2e8f0; padding: 4px 5px; vertical-align: top; }
+  tr { break-inside: avoid; }
+  tr:nth-child(even) td { background: #f8fafc; }
+  td.n, th.n { text-align: right; white-space: nowrap; }
+  code { font-family: Consolas, 'Courier New', monospace; font-size: 9px; background: #eef2ff; color: #1e3a8a; padding: 0 2px; border-radius: 3px; }
+  .tag { display: inline-block; border-radius: 4px; padding: 0 5px; font-size: 8.5px; font-weight: 700; white-space: nowrap; }
+  .win { background: #dcfce7; color: #166534; }
+  .eq { background: #fef9c3; color: #854d0e; }
+  .lose { background: #fee2e2; color: #991b1b; }
+  .none { background: #e2e8f0; color: #334155; }
+  .note { border-left: 3px solid #2563eb; background: #eff6ff; padding: 6px 9px; margin: 6px 0; border-radius: 0 6px 6px 0; }
+  .warn { border-left-color: #d97706; background: #fffbeb; }
+  ul, ol { margin: 4px 0 4px 18px; }
+  li { margin: 2px 0; }
+  .footer { margin-top: 14px; border-top: 1px solid #e2e8f0; padding-top: 6px; color: #94a3b8; font-size: 8.5px; }
+</style>
+</head>
+<body>
+
+<h1>SwiftCheck AML contre OpenSanctions</h1>
+<p class="subtitle">Où nous dépassons OpenSanctions pour les PEP européens, où nous restons derrière, et pourquoi. Neuf pays : France, Belgique, Luxembourg, Allemagne, Espagne, Portugal, Autriche, Italie, Irlande.</p>
+<div class="meta"><span>SwiftCheck AML</span><span>5 novembre 2026</span>
+<span>OpenSanctions : pages pays consultées le 5/11/2026 (jeux nationaux officiels)</span>
+<span>Nous : dernières exécutions réussies de la base locale, complétées par les essais du jour pour les parsers pas encore exécutés</span></div>
+
+<div class="kpis">
+  <div class="kpi"><b>~6 400</b><span>personnes dans des fonctions que les jeux nationaux d'OpenSanctions ne couvrent pas (gouvernements, juges, banques, diplomates, armée, partis, entreprises d'État, UE, proches)</span></div>
+  <div class="kpi"><b>193 000</b><span>élus locaux français contre 68 720 maires chez OpenSanctions</span></div>
+  <div class="kpi"><b>3 pays</b><span>où un jeu comparable est déjà plus gros chez nous : France (locaux, HATVP), Irlande, Luxembourg (Chambre)</span></div>
+  <div class="kpi"><b>7 pays</b><span>où OpenSanctions garde plus de parlementaires, parce que nous ne gardons que les 12 mois de vigilance légale</span></div>
+</div>
+
+<h2>1. Verdict en une page</h2>
+<ul>
+  <li><b>Là où nous dépassons :</b> (a) la <b>largeur</b> : OpenSanctions n'a, par pays, que des parlements et quelques jeux locaux ; nous couvrons en plus gouvernements, juridictions, banques centrales, diplomates, armée, partis, entreprises publiques, institutions de l'UE, organisations internationales et proches ; (b) le <b>local en France</b> et les <b>déclarants HATVP</b> ; (c) l'<b>Irlande</b> ; (d) la <b>Chambre luxembourgeoise</b>.</li>
+  <li><b>Là où nous restons derrière :</b> les <b>parlements en volume</b> (France Assemblée, Allemagne Bundestag, Espagne, Italie, Belgique, Portugal) et surtout l'<b>Espagne locale</b> (54 contre 94 357). La cause est connue : OpenSanctions garde tout l'historique, nous seulement la période légale de 12 mois.</li>
+  <li><b>Comment combler :</b> le paramètre d'historique (<code>monthsAfterEnd</code>) existe déjà pour l'Irlande, l'Italie et le Portugal ; il suffit de le monter et d'activer la couche « historique » comme nous l'avons fait pour l'Irlande (954 contre 788). L'Espagne locale attend le service ministériel, en maintenance.</li>
+</ul>
+
+<h2>2. Jeux comparables, pays par pays</h2>
+<p>Colonne « OpenSanctions » : entités du jeu national officiel correspondant. Colonne « Nous » : personnes publiées par le parser équivalent. Les chiffres ne sont pas dédupliqués entre parsers.</p>
+<table>
+  <tr><th>Pays</th><th>Fonction</th><th class="n">OpenSanctions</th><th class="n">Nous</th><th>Résultat</th><th>Remarque</th></tr>
+  <tr><td>France</td><td>Maires et élus locaux</td><td class="n">68 720</td><td class="n">192 998</td><td><span class="tag win">on dépasse</span></td><td>35 097 maires et présidents + 157 901 adjoints, bureaux d'EPCI, conseillers départementaux et régionaux (Répertoire national des élus)</td></tr>
+  <tr><td>France</td><td>Déclarants HATVP</td><td class="n">4 380</td><td class="n">7 085</td><td><span class="tag win">on dépasse</span></td><td>Liste officielle complète ; pas de date de naissance</td></tr>
+  <tr><td>France</td><td>Assemblée nationale</td><td class="n">3 150</td><td class="n">632</td><td><span class="tag lose">derrière</span></td><td>Eux : toutes les législatures ; nous : en fonction + 12 mois</td></tr>
+  <tr><td>France</td><td>Sénat</td><td class="n">522</td><td class="n">423</td><td><span class="tag lose">derrière</span></td><td>Même cause</td></tr>
+  <tr><td>Irlande</td><td>Parlement (Oireachtas)</td><td class="n">788</td><td class="n">954</td><td><span class="tag win">on dépasse</span></td><td>50 ans d'historique, 233 en fonction ; décès écartés seulement quand l'API les donne</td></tr>
+  <tr><td>Luxembourg</td><td>Chambre des députés</td><td class="n">61</td><td class="n">118</td><td><span class="tag win">on dépasse</span></td><td>60 en fonction + 58 anciens</td></tr>
+  <tr><td>Luxembourg</td><td>Élus communaux</td><td class="n">580</td><td class="n">380</td><td><span class="tag lose">derrière</span></td><td>Nous : bourgmestres et échevins</td></tr>
+  <tr><td>Belgique</td><td>Parlement flamand</td><td class="n">125</td><td class="n">124</td><td><span class="tag eq">égalité</span></td><td></td></tr>
+  <tr><td>Belgique</td><td>Parlement wallon</td><td class="n">76</td><td class="n">75</td><td><span class="tag eq">égalité</span></td><td></td></tr>
+  <tr><td>Belgique</td><td>Chambre</td><td class="n">651</td><td class="n">150</td><td><span class="tag lose">derrière</span></td><td>Historique</td></tr>
+  <tr><td>Belgique</td><td>Sénat</td><td class="n">126</td><td class="n">60</td><td><span class="tag lose">derrière</span></td><td>Historique</td></tr>
+  <tr><td>Allemagne</td><td>Bundesrat</td><td class="n">182</td><td class="n">180</td><td><span class="tag eq">égalité</span></td><td></td></tr>
+  <tr><td>Allemagne</td><td>Bundestag</td><td class="n">1 818</td><td class="n">631</td><td><span class="tag lose">derrière</span></td><td>Historique ; les données ouvertes du Bundestag contiennent 4 614 mandats</td></tr>
+  <tr><td>Italie</td><td>Chambre</td><td class="n">905</td><td class="n">405</td><td><span class="tag lose">derrière</span></td><td>Historique</td></tr>
+  <tr><td>Italie</td><td>Sénat</td><td class="n">456</td><td class="n">245</td><td><span class="tag lose">derrière</span></td><td>Historique</td></tr>
+  <tr><td>Italie</td><td>Maires et élus régionaux</td><td class="n">0</td><td class="n">1 466</td><td><span class="tag win">on dépasse</span></td><td>Jeu absent chez OpenSanctions : 701 maires, 17 présidents, 110 assesseurs, 711 conseillers régionaux</td></tr>
+  <tr><td>Espagne</td><td>Parlements</td><td class="n">1 403</td><td class="n">797</td><td><span class="tag lose">derrière</span></td><td>Congrès 369 + Sénat 33 + parlements régionaux 395</td></tr>
+  <tr><td>Espagne</td><td>Maires et conseillers</td><td class="n">94 357</td><td class="n">54</td><td><span class="tag lose">très derrière</span></td><td>Écart n° 1 : le service ministériel est en maintenance</td></tr>
+  <tr><td>Portugal</td><td>Parlement</td><td class="n">1 129</td><td class="n">271</td><td><span class="tag lose">derrière</span></td><td>Nous lisons la législature en cours seulement ; les fichiers des législatures précédentes existent</td></tr>
+  <tr><td>Autriche</td><td>Parlement</td><td class="n">988</td><td class="n">non mesuré</td><td><span class="tag none">à exécuter</span></td><td>Les 10 parsers autrichiens sont codés mais jamais exécutés dans la base</td></tr>
+</table>
+
+<h2>3. Fonctions sans équivalent dans les jeux nationaux d'OpenSanctions</h2>
+<p>Pour ces catégories OpenSanctions ne publie pas de jeu national par pays ; il n'a que le jeu mondial dérivé de Wikidata (371 400 PEP), non officiel et incomplet, que nous n'utilisons pas. Personnes publiées par nos parsers :</p>
+<table>
+  <tr><th>Pays</th><th class="n">Total</th><th>Ce que nous avons en plus</th></tr>
+  <tr><td>France</td><td class="n">~2 700</td><td>entreprises publiques 1 591, proches 628, diplomates et armée 197, partis 137, UE 92, organisations internationales 40, gouvernement et chef d'État 39</td></tr>
+  <tr><td>Luxembourg</td><td class="n">~1 400</td><td>entreprises publiques 1 050, gouvernement (actuel et anciens) et Grand-Duc 133, proches 92, juridictions et autorités 73, diplomates et armée 23</td></tr>
+  <tr><td>Belgique</td><td class="n">~880</td><td>proches 397, entreprises publiques 234, diplomates et armée 116, juridictions, comptes et banque 46, gouvernements 35, partis 20</td></tr>
+  <tr><td>Allemagne</td><td class="n">~730</td><td>partis 221, proches 204, UE 102, gouvernement et secrétaires d'État 90, juridictions et banques 70, diplomates 27</td></tr>
+  <tr><td>Espagne</td><td class="n">~260</td><td>proches 134, UE 62, juridictions et régulateurs 27, gouvernements 16, partis et syndicats 16</td></tr>
+  <tr><td>Italie</td><td class="n">~180</td><td>UE 78, gouvernement 69, autorités et banque d'Italie 24, organisations internationales 6</td></tr>
+  <tr><td>Irlande</td><td class="n">~135</td><td>juges 62, Defence Forces 12, Banque centrale 10, entreprises d'État 34, UE 15, Présidente 1 ; ministres et Taoiseach avec les parlementaires</td></tr>
+  <tr><td>Portugal</td><td class="n">~110</td><td>gouvernement 62 et Président 1, juridictions et régulateurs 21, UE 22</td></tr>
+</table>
+
+<h2>4. Où nous sommes derrière, et comment combler</h2>
+<table>
+  <tr><th>Écart</th><th>Cause</th><th>Comblement</th></tr>
+  <tr><td>Espagne locale : 54 contre 94 357</td><td>Application officielle <code>concejales.redsara.es</code> en maintenance ; pas de fichier ouvert</td><td>Retester le service ; sinon demander le fichier au ministère. Plus gros gain possible.</td></tr>
+  <tr><td>Parlements : France, Allemagne, Italie, Belgique</td><td>Fenêtre légale de 12 mois ; OpenSanctions garde l'historique</td><td>Une couche « historique » par pays, comme <code>ie_pep_parliament_history</code> (50 ans, 954 contre 788). Les sources ouvertes ont l'historique : Assemblée nationale et Sénat (open data), Bundestag (4 614 mandats), SPARQL italien, API belges.</td></tr>
+  <tr><td>Portugal : 271 contre 1 129</td><td>Seule la législature XVII est lue</td><td>Lire aussi les législatures précédentes (un fichier JSON par législature sur la même page).</td></tr>
+  <tr><td>Luxembourg communal : 380 contre 580</td><td>Nous ne gardons que les exécutifs communaux</td><td>Ajouter les conseillers communaux si la source les donne.</td></tr>
+  <tr><td>Autriche</td><td>Parsers jamais exécutés</td><td>Exécuter les 10 parsers et mesurer.</td></tr>
+</table>
+
+<h2>5. Réserves sur la comparaison</h2>
+<div class="note warn">
+  <ul>
+    <li><b>Fenêtres différentes :</b> OpenSanctions publie l'historique complet ; nous publions la période de vigilance légale. Un chiffre plus bas chez nous n'est donc pas un trou de couverture mais un choix. Le comparer à l'historique de l'Irlande (954 contre 788) donne l'ordre de grandeur de ce que nous obtiendrions.</li>
+    <li><b>Doublons :</b> les totaux de la section 3 additionnent des parsers qui peuvent partager des personnes (ex. HATVP et gouvernement). Ce sont des ordres de grandeur.</li>
+    <li><b>Qualité des identités :</b> beaucoup de nos sources donnent la date de naissance (RNE, Bundestag, SPARQL italien, Parlement européen), mais pas toutes (Oireachtas, HATVP, Parlement portugais, pages de conseils).</li>
+    <li><b>Wikidata :</b> OpenSanctions s'appuie dessus pour les ministres, juges et autres fonctions hors parlement. Nous l'écartons : notre couverture de ces fonctions est officielle mais limitée aux sources lisibles (voir les listes de sources bloquées : captcha, 403, non contournées).</li>
+    <li><b>Dates des chiffres :</b> ceux d'OpenSanctions viennent de leurs pages pays du 5/11/2026 ; les nôtres, des dernières exécutions de la base locale (quelques-unes datent de plusieurs jours) et des essais du jour pour l'Irlande, le Portugal (gouvernement), la France (RNE, HATVP).</li>
+  </ul>
+</div>
+
+<div class="footer">SwiftCheck AML – comparaison avec OpenSanctions – 5 novembre 2026.</div>
+</body>
+</html>
