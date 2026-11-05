@@ -1,0 +1,601 @@
+{
+ "head": {
+  "counts": {
+   "memberCount": 2,
+   "resultCount": 2
+  }
+ },
+ "results": [
+  {
+   "member": {
+    "memberCode": "Garret-Ahearn.S.2020-03-30",
+    "dateOfDeath": null,
+    "image": false,
+    "lastName": "Ahearn",
+    "wikiTitle": null,
+    "gender": "",
+    "fullName": "Garret Ahearn",
+    "uri": "https://data.oireachtas.ie/ie/oireachtas/member/id/Garret-Ahearn.S.2020-03-30",
+    "memberships": [
+     {
+      "membership": {
+       "uri": "https://data.oireachtas.ie/ie/oireachtas/member/id/Garret-Ahearn.S.2020-03-30/house/seanad/27",
+       "dateRange": {
+        "start": "2025-01-29",
+        "end": null
+       },
+       "house": {
+        "showAs": "27th Seanad",
+        "houseNo": "27",
+        "chamberType": "house",
+        "houseCode": "seanad",
+        "uri": "https://data.oireachtas.ie/ie/oireachtas/house/seanad/27"
+       },
+       "parties": [
+        {
+         "party": {
+          "dateRange": {
+           "end": null,
+           "start": "2025-01-29"
+          },
+          "partyCode": "Fine_Gael",
+          "showAs": "Fine Gael",
+          "uri": "https://data.oireachtas.ie/ie/oireachtas/party/seanad/27/Fine_Gael"
+         }
+        }
+       ],
+       "represents": [
+        {
+         "represent": {
+          "uri": "https://data.oireachtas.ie/ie/oireachtas/house/seanad/27/panel/Administrative-Panel",
+          "representType": "panel",
+          "representCode": "Administrative-Panel",
+          "showAs": "Administrative Panel"
+         }
+        }
+       ],
+       "offices": [],
+       "committees": [
+        {
+         "committeeCode": "248",
+         "mainStatus": "Live",
+         "memberDateRange": {
+          "start": "2025-02-26 00:00:00+00:00",
+          "end": null
+         },
+         "uri": "https://data.oireachtas.ie/ie/oireachtas/committee/seanad/27/committee_on_parliamentary_privileges_and_oversight_seanad_eireann",
+         "status": "Live - Primary",
+         "committeeID": 248,
+         "committeeDateRange": {
+          "start": "2025-02-12 00:00:00+00:00",
+          "end": null
+         },
+         "expiryType": "Standing",
+         "committeeName": [
+          {
+           "nameEn": "Committee on Parliamentary Privileges and Oversight (Seanad Éireann)",
+           "nameGa": "An Coiste um Pribhléidí Parlaiminteacha agus Formhaoirsiú (Seanad Éireann)",
+           "dateRange": {
+            "start": "2025-01-29 00:00:00+00:00",
+            "end": null
+           }
+          }
+         ],
+         "committeeType": [
+          "Parliamentary Regulation and Reform"
+         ],
+         "role": [],
+         "serviceUnit": "Seanad Office"
+        },
+        {
+         "committeeCode": "249",
+         "mainStatus": "Live",
+         "memberDateRange": {
+          "start": "2025-02-26 00:00:00+00:00",
+          "end": null
+         },
+         "uri": "https://data.oireachtas.ie/ie/oireachtas/committee/seanad/27/committee_of_selection_seanad_eireann",
+         "status": "Live - Primary",
+         "committeeID": 249,
+         "committeeDateRange": {
+          "start": "2025-02-12 00:00:00+00:00",
+          "end": null
+         },
+         "expiryType": "Standing",
+         "committeeName": [
+          {
+           "nameEn": "Committee of Selection (Seanad Éireann)",
+           "nameGa": "An Coiste Roghnóireachta (Seanad Éireann)",
+           "dateRange": {
+            "start": "2025-01-29 00:00:00+00:00",
+            "end": null
+           }
+          }
+         ],
+         "committeeType": [
+          "Parliamentary Business and Committee Membership"
+         ],
+         "role": [],
+         "serviceUnit": "Seanad Office"
+        },
+        {
+         "committeeCode": "264",
+         "mainStatus": "Live",
+         "memberDateRange": {
+          "start": "2025-05-13 00:00:00+00:00",
+          "end": null
+         },
+         "uri": "https://data.oireachtas.ie/ie/oireachtas/committee/seanad/27/seanad_select_committee_on_arts_media_communications_culture_and_sport",
+         "status": "Live - Secondary",
+         "committeeID": 264,
+         "committeeDateRange": {
+          "start": "2025-05-13 00:00:00+00:00",
+          "end": null
+         },
+         "expiryType": "Sessional",
+         "committeeName": [
+          {
+           "nameEn": "Seanad Select Committee on Arts, Media, Communications, Culture and Sport",
+           "nameGa": "Roghchoiste an tSeanaid um Ealaíona, Meáin, Cumarsáid, Cultúr agus Spórt ",
+           "dateRange": {
+            "start": "2025-05-01 00:00:00+00:00",
+            "end": null
+           }
+          }
+         ],
+         "committeeType": [
+          "Shadow Department"
+         ],
+         "role": [],
+         "serviceUnit": "Committees' Secretariat"
+        },
+        {
+         "committeeCode": "265",
+         "mainStatus": "Live",
+         "memberDateRange": {
+          "start": "2025-05-13 00:00:00+00:00",
+          "end": null
+         },
+         "uri": "https://data.oireachtas.ie/ie/oireachtas/committee/dail/34/joint_committee_on_arts_media_communications_culture_and_sport",
+         "status": "Live - Primary",
+         "committeeID": 265,
+         "committeeDateRange": {
+          "start": "2025-05-07 00:00:00+00:00",
+          "end": null
+         },
+         "expiryType": "Sessional",
+         "committeeName": [
+          {
+           "nameEn": "Joint Committee on Arts, Media, Communications, Culture and Sport",
+           "nameGa": "An Comhchoiste um Ealaíona, Meáin, Cumarsáid, Cultúr agus Spórt ",
+           "dateRange": {
+            "start": "2025-05-01 00:00:00+00:00",
+            "end": null
+           }
+          }
+         ],
+         "committeeType": [
+          "Shadow Department"
+         ],
+         "role": [],
+         "serviceUnit": "Committees' Secretariat"
+        },
+        {
+         "committeeCode": "291",
+         "mainStatus": "Live",
+         "memberDateRange": {
+          "start": "2025-05-13 00:00:00+00:00",
+          "end": null
+         },
+         "uri": "https://data.oireachtas.ie/ie/oireachtas/committee/seanad/27/seanad_select_committee_on_foreign_affairs_and_trade",
+         "status": "Live - Secondary",
+         "committeeID": 291,
+         "committeeDateRange": {
+          "start": "2025-05-13 00:00:00+00:00",
+          "end": null
+         },
+         "expiryType": "Sessional",
+         "committeeName": [
+          {
+           "nameEn": "Seanad Select Committee on Foreign Affairs and Trade",
+           "nameGa": "Roghchoiste an tSeanaid um Ghnóthaí Eachtracha agus Trádáil",
+           "dateRange": {
+            "start": "2025-05-01 00:00:00+00:00",
+            "end": null
+           }
+          }
+         ],
+         "committeeType": [
+          "Shadow Department"
+         ],
+         "role": [],
+         "serviceUnit": "Committees' Secretariat"
+        },
+        {
+         "committeeCode": "FOJ",
+         "mainStatus": "Live",
+         "memberDateRange": {
+          "start": "2025-05-13 00:00:00+00:00",
+          "end": null
+         },
+         "uri": "https://data.oireachtas.ie/ie/oireachtas/committee/dail/34/joint_committee_on_foreign_affairs_and_trade",
+         "status": "Live - Primary",
+         "committeeID": 292,
+         "committeeDateRange": {
+          "start": "2025-05-07 00:00:00+00:00",
+          "end": null
+         },
+         "expiryType": "Sessional",
+         "committeeName": [
+          {
+           "nameEn": "Joint Committee on Foreign Affairs and Trade",
+           "nameGa": "An Comhchoiste um Ghnóthaí Eachtracha agus Trádáil",
+           "dateRange": {
+            "start": "2025-05-01 00:00:00+00:00",
+            "end": null
+           }
+          }
+         ],
+         "committeeType": [
+          "Shadow Department"
+         ],
+         "role": {
+          "title": "Leas-Chathaoirleach",
+          "dateRange": {
+           "start": "2025-05-20 00:00:00+00:00",
+           "end": null
+          }
+         },
+         "serviceUnit": "Committees' Secretariat"
+        },
+        {
+         "committeeCode": "329",
+         "mainStatus": "Live",
+         "memberDateRange": {
+          "start": "2025-10-21 00:00:00+00:00",
+          "end": null
+         },
+         "uri": "https://data.oireachtas.ie/ie/oireachtas/committee/dail/34/seanad_select_committee_on_eu_scrutiny_and_transparency",
+         "status": "Live - Primary",
+         "committeeID": 329,
+         "committeeDateRange": {
+          "start": "2025-07-08 00:00:00+00:00",
+          "end": null
+         },
+         "expiryType": "Standing",
+         "committeeName": [
+          {
+           "nameEn": "Seanad Select Committee on EU Scrutiny and Transparency",
+           "nameGa": "Roghchoiste an tSeanaid um Ghrinnscrúdú agus Trédhearcacht AE",
+           "dateRange": {
+            "start": "2025-07-09 00:00:00+00:00",
+            "end": null
+           }
+          }
+         ],
+         "committeeType": [
+          "Policy"
+         ],
+         "role": [],
+         "serviceUnit": "Seanad Office"
+        },
+        {
+         "committeeCode": "PCJ",
+         "mainStatus": "Live",
+         "memberDateRange": {
+          "start": "2025-11-20 00:00:00+00:00",
+          "end": null
+         },
+         "uri": "https://data.oireachtas.ie/ie/oireachtas/committee/dail/34/seanad_public_consultation_committee",
+         "status": "Live - Primary",
+         "committeeID": 333,
+         "committeeDateRange": {
+          "start": "2025-10-22 00:00:00+00:00",
+          "end": null
+         },
+         "expiryType": "Sessional",
+         "committeeName": [
+          {
+           "nameEn": "Seanad Public Consultation Committee",
+           "nameGa": "Choiste Comhairliúcháin Phoiblí an tSeanaid",
+           "dateRange": {
+            "start": "2025-10-23 00:00:00+00:00",
+            "end": null
+           }
+          }
+         ],
+         "committeeType": [
+          "Consultative"
+         ],
+         "role": [],
+         "serviceUnit": "Seanad Office"
+        }
+       ]
+      }
+     }
+    ],
+    "firstName": "Garret",
+    "showAs": "Garret Ahearn",
+    "pId": "GarretAhearn"
+   }
+  },
+  {
+   "member": {
+    "memberCode": "Seán-Kyne.D.2011-03-09",
+    "dateOfDeath": null,
+    "image": false,
+    "lastName": "Kyne",
+    "wikiTitle": null,
+    "gender": "",
+    "fullName": "Seán Kyne",
+    "uri": "https://data.oireachtas.ie/ie/oireachtas/member/id/Seán-Kyne.D.2011-03-09",
+    "memberships": [
+     {
+      "membership": {
+       "uri": "https://data.oireachtas.ie/ie/oireachtas/member/id/Seán-Kyne.D.2011-03-09/house/seanad/27",
+       "dateRange": {
+        "start": "2025-01-29",
+        "end": "2026-05-24"
+       },
+       "house": {
+        "showAs": "27th Seanad",
+        "houseNo": "27",
+        "chamberType": "house",
+        "houseCode": "seanad",
+        "uri": "https://data.oireachtas.ie/ie/oireachtas/house/seanad/27"
+       },
+       "parties": [
+        {
+         "party": {
+          "dateRange": {
+           "end": "2026-05-24",
+           "start": "2025-01-29"
+          },
+          "partyCode": "Fine_Gael",
+          "showAs": "Fine Gael",
+          "uri": "https://data.oireachtas.ie/ie/oireachtas/party/seanad/27/Fine_Gael"
+         }
+        }
+       ],
+       "represents": [
+        {
+         "represent": {
+          "uri": "https://data.oireachtas.ie/ie/oireachtas/house/seanad/27/panel/Cultural-and-Educational-Panel",
+          "representType": "panel",
+          "representCode": "Cultural-and-Educational-Panel",
+          "showAs": "Cultural and Educational Panel"
+         }
+        }
+       ],
+       "offices": [],
+       "committees": [
+        {
+         "committeeCode": "SC1",
+         "mainStatus": "Live",
+         "memberDateRange": {
+          "start": "2025-05-13 00:00:00+00:00",
+          "end": "2026-05-25 00:00:00+00:00"
+         },
+         "uri": "https://data.oireachtas.ie/ie/oireachtas/committee/dail/34/comhchoiste_na_gaeilge_na_gaeltachta_agus_phobal_labhartha_na_gaeilge",
+         "status": "Live - Primary",
+         "committeeID": 243,
+         "committeeDateRange": {
+          "start": "2025-02-12 00:00:00+00:00",
+          "end": null
+         },
+         "expiryType": "Standing",
+         "committeeName": [
+          {
+           "nameEn": "Comhchoiste na Gaeilge, na Gaeltachta agus Phobal Labhartha na Gaeilge",
+           "nameGa": "Comhchoiste na Gaeilge, na Gaeltachta agus Phobal Labhartha na Gaeilge",
+           "dateRange": {
+            "start": "2025-01-29 00:00:00+00:00",
+            "end": null
+           }
+          }
+         ],
+         "committeeType": [
+          "Shadow Department",
+          "Policy"
+         ],
+         "role": [],
+         "serviceUnit": "Committees' Secretariat"
+        },
+        {
+         "committeeCode": "248",
+         "mainStatus": "Live",
+         "memberDateRange": {
+          "start": "2025-02-26 00:00:00+00:00",
+          "end": "2026-05-25 00:00:00+00:00"
+         },
+         "uri": "https://data.oireachtas.ie/ie/oireachtas/committee/seanad/27/committee_on_parliamentary_privileges_and_oversight_seanad_eireann",
+         "status": "Live - Primary",
+         "committeeID": 248,
+         "committeeDateRange": {
+          "start": "2025-02-12 00:00:00+00:00",
+          "end": null
+         },
+         "expiryType": "Standing",
+         "committeeName": [
+          {
+           "nameEn": "Committee on Parliamentary Privileges and Oversight (Seanad Éireann)",
+           "nameGa": "An Coiste um Pribhléidí Parlaiminteacha agus Formhaoirsiú (Seanad Éireann)",
+           "dateRange": {
+            "start": "2025-01-29 00:00:00+00:00",
+            "end": null
+           }
+          }
+         ],
+         "committeeType": [
+          "Parliamentary Regulation and Reform"
+         ],
+         "role": [],
+         "serviceUnit": "Seanad Office"
+        },
+        {
+         "committeeCode": "249",
+         "mainStatus": "Live",
+         "memberDateRange": {
+          "start": "2025-02-26 00:00:00+00:00",
+          "end": "2026-05-25 00:00:00+00:00"
+         },
+         "uri": "https://data.oireachtas.ie/ie/oireachtas/committee/seanad/27/committee_of_selection_seanad_eireann",
+         "status": "Live - Primary",
+         "committeeID": 249,
+         "committeeDateRange": {
+          "start": "2025-02-12 00:00:00+00:00",
+          "end": null
+         },
+         "expiryType": "Standing",
+         "committeeName": [
+          {
+           "nameEn": "Committee of Selection (Seanad Éireann)",
+           "nameGa": "An Coiste Roghnóireachta (Seanad Éireann)",
+           "dateRange": {
+            "start": "2025-01-29 00:00:00+00:00",
+            "end": null
+           }
+          }
+         ],
+         "committeeType": [
+          "Parliamentary Business and Committee Membership"
+         ],
+         "role": [],
+         "serviceUnit": "Seanad Office"
+        },
+        {
+         "committeeCode": "251",
+         "mainStatus": "Live",
+         "memberDateRange": {
+          "start": "2025-05-13 00:00:00+00:00",
+          "end": "2026-05-25 00:00:00+00:00"
+         },
+         "uri": "https://data.oireachtas.ie/ie/oireachtas/committee/seanad/27/roghchoiste_na_gaeilge_na_gaeltachta_agus_phobal_labhartha_na_gaeilge_seanad_eireann",
+         "status": "Live - Secondary",
+         "committeeID": 251,
+         "committeeDateRange": {
+          "start": "2025-02-12 00:00:00+00:00",
+          "end": null
+         },
+         "expiryType": "Standing",
+         "committeeName": [
+          {
+           "nameEn": "Roghchoiste na Gaeilge, na Gaeltachta agus Phobal Labhartha na Gaeilge (Seanad Éireann)",
+           "nameGa": "Roghchoiste na Gaeilge, na Gaeltachta agus Phobal Labhartha na Gaeilge (Seanad Éireann)",
+           "dateRange": {
+            "start": "2025-01-29 00:00:00+00:00",
+            "end": null
+           }
+          }
+         ],
+         "committeeType": [
+          "Shadow Department",
+          "Policy"
+         ],
+         "role": [],
+         "serviceUnit": "Committees' Secretariat"
+        },
+        {
+         "committeeCode": "270",
+         "mainStatus": "Live",
+         "memberDateRange": {
+          "start": "2025-05-13 00:00:00+00:00",
+          "end": "2026-05-25 00:00:00+00:00"
+         },
+         "uri": "https://data.oireachtas.ie/ie/oireachtas/committee/seanad/27/seanad_select_committee_on_defence_and_national_security",
+         "status": "Live - Secondary",
+         "committeeID": 270,
+         "committeeDateRange": {
+          "start": "2025-05-13 00:00:00+00:00",
+          "end": null
+         },
+         "expiryType": "Sessional",
+         "committeeName": [
+          {
+           "nameEn": "Seanad Select Committee on Defence and National Security",
+           "nameGa": "Roghchoiste an tSeanaid um Chosaint agus Slándáil Náisiúnta ",
+           "dateRange": {
+            "start": "2025-05-01 00:00:00+00:00",
+            "end": null
+           }
+          }
+         ],
+         "committeeType": [
+          "Shadow Department"
+         ],
+         "role": [],
+         "serviceUnit": "Committees' Secretariat"
+        },
+        {
+         "committeeCode": "271",
+         "mainStatus": "Live",
+         "memberDateRange": {
+          "start": "2025-05-13 00:00:00+00:00",
+          "end": "2026-05-25 00:00:00+00:00"
+         },
+         "uri": "https://data.oireachtas.ie/ie/oireachtas/committee/dail/34/joint_committee_on_defence_and_national_security",
+         "status": "Live - Primary",
+         "committeeID": 271,
+         "committeeDateRange": {
+          "start": "2025-05-13 00:00:00+00:00",
+          "end": null
+         },
+         "expiryType": "Sessional",
+         "committeeName": [
+          {
+           "nameEn": "Joint Committee on Defence and National Security",
+           "nameGa": "An Comhchoiste um Chosaint agus Slándáil Náisiúnta ",
+           "dateRange": {
+            "start": "2025-05-01 00:00:00+00:00",
+            "end": null
+           }
+          }
+         ],
+         "committeeType": [
+          "Shadow Department"
+         ],
+         "role": [],
+         "serviceUnit": "Committees' Secretariat"
+        },
+        {
+         "committeeCode": "PCJ",
+         "mainStatus": "Live",
+         "memberDateRange": {
+          "start": "2025-11-20 00:00:00+00:00",
+          "end": "2026-05-25 00:00:00+00:00"
+         },
+         "uri": "https://data.oireachtas.ie/ie/oireachtas/committee/dail/34/seanad_public_consultation_committee",
+         "status": "Live - Primary",
+         "committeeID": 333,
+         "committeeDateRange": {
+          "start": "2025-10-22 00:00:00+00:00",
+          "end": null
+         },
+         "expiryType": "Sessional",
+         "committeeName": [
+          {
+           "nameEn": "Seanad Public Consultation Committee",
+           "nameGa": "Choiste Comhairliúcháin Phoiblí an tSeanaid",
+           "dateRange": {
+            "start": "2025-10-23 00:00:00+00:00",
+            "end": null
+           }
+          }
+         ],
+         "committeeType": [
+          "Consultative"
+         ],
+         "role": [],
+         "serviceUnit": "Seanad Office"
+        }
+       ]
+      }
+     }
+    ],
+    "firstName": "Seán",
+    "showAs": "Seán Kyne",
+    "pId": "SeanKyne"
+   }
+  }
+ ]
+}

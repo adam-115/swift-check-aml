@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Irlande : référentiel PEP et lot 1 de parsers, sans Wikidata (sauf les photos des députés européens, comme les autres pays).
+
+    Base légale : Criminal Justice (Money Laundering and Terrorist Financing) Act 2010, art. 37 (modifié par la loi de 2018) :
+    personne qui exerce ou a exercé au cours des douze derniers mois une fonction publique importante ; liste notifiée à la
+    Commission (JO C/2023/724). Rétention de 12 mois.
+
+    Parsers (plugins dans swiftcheck-aml-plugins/pep/ireland) :
+      - ie_pep_parliament   : API ouverte de l'Oireachtas (api.oireachtas.ie) : Dáil, Seanad, Taoiseach, ministres, ministres d'État
+      - ie_pep_europarl     : API du Parlement européen (14 députés élus en Irlande)
+      - ie_pep_eu_commission: fiche officielle du commissaire irlandais (Michael McGrath)
+      - ie_pep_president    : page du Président en fonction sur president.ie
+
+    Non couvert à ce jour : juridictions, autorités indépendantes, Banque centrale, armée, diplomates, partis, entreprises
+    publiques d'État, organisations internationales, conseillers locaux ; proches (RCA) : seule source connue = Wikidata, exclue.
+-->
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="058-ie-country" author="swiftcheck">
+        <sql>
+            UPDATE country SET legal_basis = 'Criminal Justice (Money Laundering and Terrorist Financing) Act 2010, art. 37 (modifié par le Criminal Justice (Money Laundering and Terrorist Financing) (Amendment) Act 2018) : personnes exerçant ou ayant exercé depuis moins de douze mois une fonction publique importante, leurs proches et associés',
+                               retention_months = 12,
+                               official_list_reference = 'JO C/2023/724 (section Irlande) ; Criminal Justice Act 2010, art. 37',
+                               official_list_date = '2023-10-24',
+                               official_list_url = 'https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=OJ:C_202300724'
+            WHERE iso = 'IE';
+        </sql>
+    </changeSet>
+
+    <changeSet id="058-ie-categories" author="swiftcheck">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM pep_category WHERE country_iso = 'IE'</sqlCheck>
+        </preConditions>
+        <sql>
+            INSERT INTO pep_category (country_iso, code, label, kind, risk_class, sort_order, legal_reference) VALUES
+            ('IE', 'IE-a', 'Chef de l''État, Taoiseach, ministres et ministres d''État', 'OFFICIAL', 1, 1, 'Criminal Justice Act 2010, art. 37 ; JO C/2023/724'),
+            ('IE', 'IE-b', 'Membres de l''Oireachtas : Dáil Éireann et Seanad Éireann', 'OFFICIAL', 1, 2, 'Criminal Justice Act 2010, art. 37 ; JO C/2023/724'),
+            ('IE', 'IE-c', 'Organes dirigeants des partis politiques', 'OFFICIAL', 2, 3, 'Criminal Justice Act 2010, art. 37 ; JO C/2023/724'),
+            ('IE', 'IE-d', 'Cour suprême, Cour d''appel, High Court et autres hautes juridictions', 'OFFICIAL', 2, 4, 'Criminal Justice Act 2010, art. 37 ; JO C/2023/724'),
+            ('IE', 'IE-e', 'Cour des comptes (Comptroller and Auditor General) et Banque centrale d''Irlande', 'OFFICIAL', 2, 5, 'Criminal Justice Act 2010, art. 37 ; JO C/2023/724'),
+            ('IE', 'IE-f', 'Ambassadeurs, chargés d''affaires et officiers généraux des forces de défense', 'OFFICIAL', 2, 6, 'Criminal Justice Act 2010, art. 37 ; JO C/2023/724'),
+            ('IE', 'IE-g', 'Organes dirigeants des entreprises détenues par l''État', 'OFFICIAL', 3, 7, 'Criminal Justice Act 2010, art. 37 ; JO C/2023/724'),
+            ('IE', 'IE-h', 'Dirigeants des organisations internationales', 'OFFICIAL', 3, 8, 'Criminal Justice Act 2010, art. 37 ; JO C/2023/724'),
+            ('IE', 'IE-EU', 'Irlandais exerçant une fonction européenne', 'EU', 1, 9, 'Liste de la Commission, JO C/2023/724'),
+            ('IE', 'IE-RCA', 'Membres de la famille et proches associés', 'RCA', 2, 10, 'Criminal Justice Act 2010, art. 37 (membres de la famille et personnes connues comme étroitement associées)');
+        </sql>
+    </changeSet>
+
+    <changeSet id="058-ie-functions" author="swiftcheck">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM pep_function f JOIN pep_category c ON c.id = f.category_id WHERE c.country_iso = 'IE'</sqlCheck>
+        </preConditions>
+        <sql>
+            INSERT INTO pep_function (category_id, label, institution, expected_holders)
+            SELECT c.id, f.label, f.institution, f.expected_holders
+            FROM pep_category c JOIN (
+                SELECT 'IE-a' AS code, 'Président d''Irlande (Uachtarán na hÉireann)' AS label, 'Áras an Uachtaráin' AS institution, 1 AS expected_holders
+                UNION ALL SELECT 'IE-a', 'Taoiseach, ministres et ministres d''État', 'Government of Ireland', 35
+                UNION ALL SELECT 'IE-a', 'Ancien membre du Gouvernement', 'Government of Ireland', NULL
+                UNION ALL SELECT 'IE-b', 'Teachta Dála (député)', 'Dáil Éireann', 174
+                UNION ALL SELECT 'IE-b', 'Sénateur', 'Seanad Éireann', 60
+                UNION ALL SELECT 'IE-b', 'Ancien député ou sénateur', 'Oireachtas', NULL
+                UNION ALL SELECT 'IE-b', 'Député européen élu en Irlande', 'Parlement européen', 14
+                UNION ALL SELECT 'IE-c', 'Membre d''un organe dirigeant d''un parti', 'Partis politiques', 30
+                UNION ALL SELECT 'IE-d', 'Juge de la Cour suprême, de la Cour d''appel ou de la High Court', 'Courts Service', 60
+                UNION ALL SELECT 'IE-e', 'Comptroller and Auditor General ; organes de la Banque centrale d''Irlande', 'Cour des comptes, Banque centrale', 15
+                UNION ALL SELECT 'IE-f', 'Ambassadeur ou chargé d''affaires', 'Department of Foreign Affairs', 90
+                UNION ALL SELECT 'IE-f', 'Officier général des forces de défense', 'Defence Forces', 15
+                UNION ALL SELECT 'IE-g', 'Organe dirigeant d''une entreprise détenue par l''État', 'Entreprises d''État', NULL
+                UNION ALL SELECT 'IE-h', 'Dirigeant d''une organisation internationale', 'Organisations internationales', NULL
+                UNION ALL SELECT 'IE-EU', 'Membre irlandais de la Commission européenne', 'Commission européenne', 1
+                UNION ALL SELECT 'IE-RCA', 'Membre de la famille d''une PEP irlandaise', NULL, NULL
+                UNION ALL SELECT 'IE-RCA', 'Proche associé d''une PEP irlandaise', NULL, NULL
+            ) f ON f.code = c.code;
+        </sql>
+    </changeSet>
+
+    <changeSet id="058-parser-ie-pep-parliament" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Irlande – Oireachtas et Gouvernement',
+                'Députés (Dáil), sénateurs (Seanad), Taoiseach, ministres et ministres d''État, d''après l''API ouverte de l''Oireachtas, en fonction et sortis depuis moins de 12 mois (catégories IE-a et IE-b)',
+                'ie_pep_parliament', 'PEP', 'https://api.oireachtas.ie/',
+                'ie-pep-parliament', 'D:/test parser 2/plugins/swiftcheck-aml-ie-pep-parliament-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'API',
+                NULL,
+                '{"apiUrl": "https://api.oireachtas.ie/v1", "monthsAfterEnd": "12", "delayMs": "1000"}',
+                168, 12,
+                'Licence Oireachtas (PSI) / Creative Commons Attribution 4.0 : citer la source', 'Houses of the Oireachtas, api.oireachtas.ie',
+                'Environ 3 appels : liste des chambres, puis les membres du Dáil et du Seanad en cours (et des chambres terminées depuis moins de 12 mois). Fonctions (Taoiseach, ministres, ministres d''État, Ceann Comhairle) avec dates. L''API ne donne ni date de naissance ni sexe. Les décédés sont écartés.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', TRUE,
+                   'Tous les membres du Dáil et du Seanad en fonction et sortis depuis moins de 12 mois, avec parti, circonscription ou panel et dates de mandat.',
+                   'Ni date de naissance ni sexe dans l''API.'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'IE-b' AND f.label IN ('Teachta Dála (député)', 'Sénateur', 'Ancien député ou sénateur')
+              AND p.dataset_name = 'ie_pep_parliament';
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', TRUE,
+                   'Taoiseach, ministres et ministres d''État en fonction ou sortis depuis moins de 12 mois, avec dates de nomination et de fin, d''après les fonctions du membre à l''Oireachtas.',
+                   'Seulement les membres de l''Oireachtas (tous les ministres irlandais le sont). Pas de fonction « Tánaiste » distincte dans l''API.'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'IE-a' AND f.label IN ('Taoiseach, ministres et ministres d''État', 'Ancien membre du Gouvernement')
+              AND p.dataset_name = 'ie_pep_parliament';
+        ]]></sql>
+    </changeSet>
+
+    <changeSet id="058-parser-ie-pep-europarl" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Irlande – Députés européens',
+                'Les députés au Parlement européen élus en Irlande, en fonction et sortis depuis moins de 12 mois, avec naissance et dates de mandat (catégorie IE-b)',
+                'ie_pep_europarl', 'PEP', 'https://data.europarl.europa.eu/',
+                'ie-pep-europarl', 'D:/test parser 2/plugins/swiftcheck-aml-ie-pep-europarl-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'API',
+                NULL,
+                '{"currentUrl": "https://data.europarl.europa.eu/api/v2/meps/show-current?country-of-representation=IE&format=application%2Fld%2Bjson", "termUrl": "https://data.europarl.europa.eu/api/v2/meps?country-of-representation=IE&parliamentary-term=10&limit=500&format=application%2Fld%2Bjson", "detailUrl": "https://data.europarl.europa.eu/api/v2/meps/{id}?format=application%2Fld%2Bjson", "delayMs": "400", "monthsAfterEnd": "12"}',
+                168, 12,
+                'Réutilisation autorisée en citant la source (Parlement européen)', 'Parlement européen, data.europarl.europa.eu',
+                'Reprise de it_pep_europarl. Une fiche par député (16 appels). L''API limite le débit (HTTP 429) : le plugin attend puis réessaie. Photos : Wikimedia Commons (images seulement).', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', TRUE, 'Les 14 députés européens élus en Irlande et ceux sortis depuis moins de 12 mois, avec naissance, genre, groupe et dates de mandat.', NULL
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'IE-b' AND f.label LIKE 'Député européen%' AND p.dataset_name = 'ie_pep_europarl';
+        ]]></sql>
+    </changeSet>
+
+    <changeSet id="058-parser-ie-pep-eu-commission" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Irlande – Commissaire européen',
+                'Le membre irlandais de la Commission européenne, d''après sa fiche officielle (catégorie IE-EU)',
+                'ie_pep_eu_commission', 'PEP', 'https://commission.europa.eu/about/organisation/college-commissioners_en',
+                'ie-pep-eu-commission', 'D:/test parser 2/plugins/swiftcheck-aml-ie-pep-eu-commission-0.0.1-SNAPSHOT.jar',
+                'HTTP_FILE', 'WEB_PAGE',
+                'https://commission.europa.eu/about/organisation/college-commissioners/michael-mcgrath_en',
+                NULL,
+                168, 12,
+                'Réutilisation autorisée en citant la source (avis juridique de la Commission européenne)', 'Commission européenne, commission.europa.eu',
+                'Reprise de it_pep_eu_commission. À chaque nouvelle Commission, remplacer l''adresse par la fiche du commissaire irlandais. Une fiche qui ne présente pas un commissaire irlandais est refusée.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', FALSE, 'Michael McGrath, commissaire chargé de la démocratie, de la justice, de l''État de droit et de la protection des consommateurs (2024-2029).', 'Ni date ni lieu de naissance sur la fiche.'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'IE-EU' AND f.label LIKE 'Membre irlandais de la Commission%' AND p.dataset_name = 'ie_pep_eu_commission';
+        ]]></sql>
+    </changeSet>
+
+    <changeSet id="058-parser-ie-pep-president" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Irlande – Président d''Irlande',
+                'Le Président d''Irlande en fonction, d''après sa page officielle sur president.ie (catégorie IE-a)',
+                'ie_pep_president', 'PEP', 'https://president.ie/',
+                'ie-pep-president', 'D:/test parser 2/plugins/swiftcheck-aml-ie-pep-president-0.0.1-SNAPSHOT.jar',
+                'HTTP_FILE', 'WEB_PAGE',
+                'https://president.ie/the-president/catherine-connolly',
+                NULL,
+                168, 12,
+                'Site officiel de la Présidence d''Irlande : citer la source', 'Áras an Uachtaráin, president.ie',
+                'Le nom vient du titre de la page, la période du texte « 2025 - Present Day » ; une page d''ancien Président est refusée. Ni date ni lieu de naissance. À chaque nouveau Président, remplacer l''adresse (menu « President in Office » du site) : le sortant reste publié 12 mois par la rétention du cœur.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', FALSE, 'Le Président d''Irlande en fonction (Catherine Connolly depuis 2025).', 'Pas de date ni de lieu de naissance ; année de début seulement.'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'IE-a' AND f.label LIKE 'Président d''Irlande%' AND p.dataset_name = 'ie_pep_president';
+        ]]></sql>
+    </changeSet>
+
+</databaseChangeLog>

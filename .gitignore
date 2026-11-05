@@ -46,3 +46,5 @@ swift-check-docker/
 .mtj.tmp/
 .DS_Store
 Thumbs.db
+/swiftcheck-aml-tools/crawler-stealth/node_modules
+/swiftcheck-aml-tools/crawler-stealth

@@ -1,0 +1,1065 @@
+{
+ "head": {
+  "counts": {
+   "memberCount": 7,
+   "resultCount": 7
+  }
+ },
+ "results": [
+  {
+   "member": {
+    "memberCode": "Ciarán-Ahern.D.2024-11-29",
+    "dateOfDeath": null,
+    "image": false,
+    "lastName": "Ahern",
+    "wikiTitle": null,
+    "gender": "",
+    "fullName": "Ciarán Ahern",
+    "uri": "https://data.oireachtas.ie/ie/oireachtas/member/id/Ciarán-Ahern.D.2024-11-29",
+    "memberships": [
+     {
+      "membership": {
+       "uri": "https://data.oireachtas.ie/ie/oireachtas/member/id/Ciarán-Ahern.D.2024-11-29/house/dail/34",
+       "dateRange": {
+        "start": "2024-11-29",
+        "end": null
+       },
+       "house": {
+        "showAs": "34th Dáil",
+        "houseNo": "34",
+        "chamberType": "house",
+        "houseCode": "dail",
+        "uri": "https://data.oireachtas.ie/ie/oireachtas/house/dail/34"
+       },
+       "parties": [
+        {
+         "party": {
+          "dateRange": {
+           "end": null,
+           "start": "2024-11-29"
+          },
+          "partyCode": "Labour_Party",
+          "showAs": "Labour Party",
+          "uri": "https://data.oireachtas.ie/ie/oireachtas/party/dail/34/Labour_Party"
+         }
+        }
+       ],
+       "represents": [
+        {
+         "represent": {
+          "uri": "https://data.oireachtas.ie/ie/oireachtas/house/dail/34/constituency/Dublin-South-West",
+          "representType": "constituency",
+          "representCode": "Dublin-South-West",
+          "showAs": "Dublin South-West"
+         }
+        }
+       ],
+       "offices": [],
+       "committees": [
+        {
+         "committeeCode": "237",
+         "mainStatus": "Live",
+         "memberDateRange": {
+          "start": "2025-05-07 00:00:00+00:00",
+          "end": null
+         },
+         "uri": "https://data.oireachtas.ie/ie/oireachtas/committee/dail/34/committee_on_members_interests_of_dail_eireann",
+         "status": "Live - Primary",
+         "committeeID": 237,
+         "committeeDateRange": {
+          "start": "2024-12-18 00:00:00+00:00",
+          "end": null
+         },
+         "expiryType": "Standing",
+         "committeeName": [
+          {
+           "nameEn": "Committee on Members' Interests of Dáil Éireann",
+           "nameGa": "An Coiste um Leasanna Chomhaltaí Dháil Éireann",
+           "dateRange": {
+            "start": "2024-11-29 00:00:00+00:00",
+            "end": null
+           }
+          }
+         ],
+         "committeeType": [
+          "Statutory"
+         ],
+         "role": [],
+         "serviceUnit": "Committees' Secretariat"
+        },
+        {
+         "committeeCode": "281",
+         "mainStatus": "Live",
+         "memberDateRange": {
+          "start": "2025-05-07 00:00:00+00:00",
+          "end": null
+         },
+         "uri": "https://data.oireachtas.ie/ie/oireachtas/committee/dail/34/select_committee_on_climate_environment_and_energy",
+         "status": "Live - Primary",
+         "committeeID": 281,
+         "committeeDateRange": {
+          "start": "2025-04-30 00:00:00+00:00",
+          "end": null
+         },
+         "expiryType": "Sessional",
+         "committeeName": [
+          {
+           "nameEn": "Select Committee on Climate, Environment and Energy",
+           "nameGa": "An Roghchoiste um Aeráid, Comhshaol agus Fuinneamh ",
+           "dateRange": {
+            "start": "2025-05-01 00:00:00+00:00",
+            "end": null
+           }
+          }
+         ],
+         "committeeType": [
+          "Shadow Department"
+         ],
+         "role": [],
+         "serviceUnit": "Committees' Secretariat"
+        },
+        {
+         "committeeCode": "283",
+         "mainStatus": "Live",
+         "memberDateRange": {
+          "start": "2025-05-07 00:00:00+00:00",
+          "end": null
+         },
+         "uri": "https://data.oireachtas.ie/ie/oireachtas/committee/dail/34/joint_committee_on_climate_environment_and_energy",
+         "status": "Live - Primary",
+         "committeeID": 283,
+         "committeeDateRange": {
+          "start": "2025-05-13 00:00:00+00:00",
+          "end": null
+         },
+         "expiryType": "Sessional",
+         "committeeName": [
+          {
+           "nameEn": "Joint Committee on Climate, Environment and Energy",
+           "nameGa": "An Comhchoiste um Aeráid, Comhshaol agus Fuinneamh ",
+           "dateRange": {
+            "start": "2025-05-01 00:00:00+00:00",
+            "end": null
+           }
+          }
+         ],
+         "committeeType": [
+          "Shadow Department"
+         ],
+         "role": [],
+         "serviceUnit": "Committees' Secretariat"
+        }
+       ]
+      }
+     }
+    ],
+    "firstName": "Ciarán",
+    "showAs": "Ciarán Ahern",
+    "pId": "CiaranAhern"
+   }
+  },
+  {
+   "member": {
+    "memberCode": "Dara-Calleary.D.2007-06-14",
+    "dateOfDeath": null,
+    "image": false,
+    "lastName": "Calleary",
+    "wikiTitle": null,
+    "gender": "",
+    "fullName": "Dara Calleary",
+    "uri": "https://data.oireachtas.ie/ie/oireachtas/member/id/Dara-Calleary.D.2007-06-14",
+    "memberships": [
+     {
+      "membership": {
+       "uri": "https://data.oireachtas.ie/ie/oireachtas/member/id/Dara-Calleary.D.2007-06-14/house/dail/34",
+       "dateRange": {
+        "start": "2024-11-29",
+        "end": null
+       },
+       "house": {
+        "showAs": "34th Dáil",
+        "houseNo": "34",
+        "chamberType": "house",
+        "houseCode": "dail",
+        "uri": "https://data.oireachtas.ie/ie/oireachtas/house/dail/34"
+       },
+       "parties": [
+        {
+         "party": {
+          "dateRange": {
+           "end": null,
+           "start": "2024-11-29"
+          },
+          "partyCode": "Fianna_Fáil",
+          "showAs": "Fianna Fáil",
+          "uri": "https://data.oireachtas.ie/ie/oireachtas/party/dail/34/Fianna_Fáil"
+         }
+        }
+       ],
+       "represents": [
+        {
+         "represent": {
+          "uri": "https://data.oireachtas.ie/ie/oireachtas/house/dail/34/constituency/Mayo",
+          "representType": "constituency",
+          "representCode": "Mayo",
+          "showAs": "Mayo"
+         }
+        }
+       ],
+       "offices": [
+        {
+         "office": {
+          "dateRange": {
+           "end": "2025-06-01",
+           "start": "2025-01-23"
+          },
+          "officeName": {
+           "uri": null,
+           "showAs": "Minister for Social Protection"
+          }
+         }
+        },
+        {
+         "office": {
+          "dateRange": {
+           "end": null,
+           "start": "2025-06-02"
+          },
+          "officeName": {
+           "uri": null,
+           "showAs": "Minister for Social Protection"
+          }
+         }
+        },
+        {
+         "office": {
+          "dateRange": {
+           "end": null,
+           "start": "2025-06-02"
+          },
+          "officeName": {
+           "uri": null,
+           "showAs": "Minister for Rural and Community Development and the Gaeltacht"
+          }
+         }
+        },
+        {
+         "office": {
+          "dateRange": {
+           "end": "2025-06-01",
+           "start": "2025-01-23"
+          },
+          "officeName": {
+           "uri": null,
+           "showAs": "Minister for Rural and Community Development"
+          }
+         }
+        }
+       ],
+       "committees": []
+      }
+     }
+    ],
+    "firstName": "Dara",
+    "showAs": "Dara Calleary",
+    "pId": "DaraCalleary"
+   }
+  },
+  {
+   "member": {
+    "memberCode": "Catherine-Connolly.D.2016-10-03",
+    "dateOfDeath": null,
+    "image": false,
+    "lastName": "Connolly",
+    "wikiTitle": null,
+    "gender": "",
+    "fullName": "Catherine Connolly",
+    "uri": "https://data.oireachtas.ie/ie/oireachtas/member/id/Catherine-Connolly.D.2016-10-03",
+    "memberships": [
+     {
+      "membership": {
+       "uri": "https://data.oireachtas.ie/ie/oireachtas/member/id/Catherine-Connolly.D.2016-10-03/house/dail/34",
+       "dateRange": {
+        "start": "2024-11-29",
+        "end": "2025-10-25"
+       },
+       "house": {
+        "showAs": "34th Dáil",
+        "houseNo": "34",
+        "chamberType": "house",
+        "houseCode": "dail",
+        "uri": "https://data.oireachtas.ie/ie/oireachtas/house/dail/34"
+       },
+       "parties": [
+        {
+         "party": {
+          "dateRange": {
+           "end": "2025-10-25",
+           "start": "2024-11-29"
+          },
+          "partyCode": "Independent",
+          "showAs": "Independent",
+          "uri": "https://data.oireachtas.ie/ie/oireachtas/party/dail/34/Independent"
+         }
+        }
+       ],
+       "represents": [
+        {
+         "represent": {
+          "uri": "https://data.oireachtas.ie/ie/oireachtas/house/dail/34/constituency/Galway-West",
+          "representType": "constituency",
+          "representCode": "Galway-West",
+          "showAs": "Galway West"
+         }
+        }
+       ],
+       "offices": [],
+       "committees": [
+        {
+         "committeeCode": "ACC",
+         "mainStatus": "Live",
+         "memberDateRange": {
+          "start": "2025-05-07 00:00:00+00:00",
+          "end": "2025-10-25 00:00:00+00:00"
+         },
+         "uri": "https://data.oireachtas.ie/ie/oireachtas/committee/dail/34/committee_of_public_accounts",
+         "status": "Live - Primary",
+         "committeeID": 236,
+         "committeeDateRange": {
+          "start": "2024-12-18 00:00:00+00:00",
+          "end": null
+         },
+         "expiryType": "Standing",
+         "committeeName": [
+          {
+           "nameEn": "Committee of Public Accounts",
+           "nameGa": "An Coiste um Chuntais Phoiblí",
+           "dateRange": {
+            "start": "2024-11-29 00:00:00+00:00",
+            "end": null
+           }
+          }
+         ],
+         "committeeType": [
+          "Shadow Department",
+          "Oversight"
+         ],
+         "role": [],
+         "serviceUnit": "Committees' Secretariat"
+        },
+        {
+         "committeeCode": "SC1",
+         "mainStatus": "Live",
+         "memberDateRange": {
+          "start": "2025-05-07 00:00:00+00:00",
+          "end": "2025-10-25 00:00:00+00:00"
+         },
+         "uri": "https://data.oireachtas.ie/ie/oireachtas/committee/dail/34/comhchoiste_na_gaeilge_na_gaeltachta_agus_phobal_labhartha_na_gaeilge",
+         "status": "Live - Primary",
+         "committeeID": 243,
+         "committeeDateRange": {
+          "start": "2025-02-12 00:00:00+00:00",
+          "end": null
+         },
+         "expiryType": "Standing",
+         "committeeName": [
+          {
+           "nameEn": "Comhchoiste na Gaeilge, na Gaeltachta agus Phobal Labhartha na Gaeilge",
+           "nameGa": "Comhchoiste na Gaeilge, na Gaeltachta agus Phobal Labhartha na Gaeilge",
+           "dateRange": {
+            "start": "2025-01-29 00:00:00+00:00",
+            "end": null
+           }
+          }
+         ],
+         "committeeType": [
+          "Shadow Department",
+          "Policy"
+         ],
+         "role": {
+          "title": "Cathaoirleach",
+          "dateRange": {
+           "start": "2025-05-07 00:00:00+00:00",
+           "end": "2025-10-25 00:00:00+00:00"
+          }
+         },
+         "serviceUnit": "Committees' Secretariat"
+        },
+        {
+         "committeeCode": "SCS",
+         "mainStatus": "Live",
+         "memberDateRange": {
+          "start": "2025-05-07 00:00:00+00:00",
+          "end": "2025-10-25 00:00:00+00:00"
+         },
+         "uri": "https://data.oireachtas.ie/ie/oireachtas/committee/dail/34/roghchoiste_na_gaeilge_na_gaeltachta_agus_phobal_labhartha_na_gaeilge",
+         "status": "Live - Primary",
+         "committeeID": 244,
+         "committeeDateRange": {
+          "start": "2025-02-12 00:00:00+00:00",
+          "end": null
+         },
+         "expiryType": "Standing",
+         "committeeName": [
+          {
+           "nameEn": "Roghchoiste na Gaeilge, na Gaeltachta agus Phobal Labhartha na Gaeilge",
+           "nameGa": "Roghchoiste na Gaeilge, na Gaeltachta agus Phobal Labhartha na Gaeilge",
+           "dateRange": {
+            "start": "2025-01-29 00:00:00+00:00",
+            "end": null
+           }
+          }
+         ],
+         "committeeType": [
+          "Shadow Department",
+          "Policy"
+         ],
+         "role": {
+          "title": "Cathaoirleach",
+          "dateRange": {
+           "start": "2025-05-07 00:00:00+00:00",
+           "end": "2025-10-25 00:00:00+00:00"
+          }
+         },
+         "serviceUnit": "Committees' Secretariat"
+        },
+        {
+         "committeeCode": "WGC",
+         "mainStatus": "Live",
+         "memberDateRange": {
+          "start": "2025-05-07 00:00:00+00:00",
+          "end": "2025-10-25 00:00:00+00:00"
+         },
+         "uri": "https://data.oireachtas.ie/ie/oireachtas/committee/dail/34/working_group_of_committee_cathaoirligh",
+         "status": "Live - Primary",
+         "committeeID": 247,
+         "committeeDateRange": {
+          "start": "2025-02-12 00:00:00+00:00",
+          "end": null
+         },
+         "expiryType": "Standing",
+         "committeeName": [
+          {
+           "nameEn": "Working Group of Committee Cathaoirligh",
+           "nameGa": "An Gasra Oibre de Chathaoirligh Coistí",
+           "dateRange": {
+            "start": "2025-01-29 00:00:00+00:00",
+            "end": null
+           }
+          }
+         ],
+         "committeeType": [
+          "The Committee System and Parliamentary Administration"
+         ],
+         "role": [],
+         "serviceUnit": "Committees' Secretariat"
+        }
+       ]
+      }
+     }
+    ],
+    "firstName": "Catherine",
+    "showAs": "Catherine Connolly",
+    "pId": "CatherineConnolly"
+   }
+  },
+  {
+   "member": {
+    "memberCode": "Paschal-Donohoe.S.2007-07-23",
+    "dateOfDeath": null,
+    "image": false,
+    "lastName": "Donohoe",
+    "wikiTitle": null,
+    "gender": "",
+    "fullName": "Paschal Donohoe",
+    "uri": "https://data.oireachtas.ie/ie/oireachtas/member/id/Paschal-Donohoe.S.2007-07-23",
+    "memberships": [
+     {
+      "membership": {
+       "uri": "https://data.oireachtas.ie/ie/oireachtas/member/id/Paschal-Donohoe.S.2007-07-23/house/dail/34",
+       "dateRange": {
+        "start": "2024-11-29",
+        "end": "2025-11-21"
+       },
+       "house": {
+        "showAs": "34th Dáil",
+        "houseNo": "34",
+        "chamberType": "house",
+        "houseCode": "dail",
+        "uri": "https://data.oireachtas.ie/ie/oireachtas/house/dail/34"
+       },
+       "parties": [
+        {
+         "party": {
+          "dateRange": {
+           "end": "2025-11-21",
+           "start": "2024-11-29"
+          },
+          "partyCode": "Fine_Gael",
+          "showAs": "Fine Gael",
+          "uri": "https://data.oireachtas.ie/ie/oireachtas/party/dail/34/Fine_Gael"
+         }
+        }
+       ],
+       "represents": [
+        {
+         "represent": {
+          "uri": "https://data.oireachtas.ie/ie/oireachtas/house/dail/34/constituency/Dublin-Central",
+          "representType": "constituency",
+          "representCode": "Dublin-Central",
+          "showAs": "Dublin Central"
+         }
+        }
+       ],
+       "offices": [
+        {
+         "office": {
+          "dateRange": {
+           "end": "2025-11-18",
+           "start": "2025-01-23"
+          },
+          "officeName": {
+           "uri": null,
+           "showAs": "Minister for Finance"
+          }
+         }
+        }
+       ],
+       "committees": []
+      }
+     }
+    ],
+    "firstName": "Paschal",
+    "showAs": "Paschal Donohoe",
+    "pId": "PaschalDonohoe"
+   }
+  },
+  {
+   "member": {
+    "memberCode": "Simon-Harris.D.2011-03-09",
+    "dateOfDeath": null,
+    "image": false,
+    "lastName": "Harris",
+    "wikiTitle": null,
+    "gender": "",
+    "fullName": "Simon Harris",
+    "uri": "https://data.oireachtas.ie/ie/oireachtas/member/id/Simon-Harris.D.2011-03-09",
+    "memberships": [
+     {
+      "membership": {
+       "uri": "https://data.oireachtas.ie/ie/oireachtas/member/id/Simon-Harris.D.2011-03-09/house/dail/34",
+       "dateRange": {
+        "start": "2024-11-29",
+        "end": null
+       },
+       "house": {
+        "showAs": "34th Dáil",
+        "houseNo": "34",
+        "chamberType": "house",
+        "houseCode": "dail",
+        "uri": "https://data.oireachtas.ie/ie/oireachtas/house/dail/34"
+       },
+       "parties": [
+        {
+         "party": {
+          "dateRange": {
+           "end": null,
+           "start": "2024-11-29"
+          },
+          "partyCode": "Fine_Gael",
+          "showAs": "Fine Gael",
+          "uri": "https://data.oireachtas.ie/ie/oireachtas/party/dail/34/Fine_Gael"
+         }
+        }
+       ],
+       "represents": [
+        {
+         "represent": {
+          "uri": "https://data.oireachtas.ie/ie/oireachtas/house/dail/34/constituency/Wicklow",
+          "representType": "constituency",
+          "representCode": "Wicklow",
+          "showAs": "Wicklow"
+         }
+        }
+       ],
+       "offices": [
+        {
+         "office": {
+          "dateRange": {
+           "end": "2025-01-22",
+           "start": "2024-11-29"
+          },
+          "officeName": {
+           "uri": null,
+           "showAs": "Taoiseach"
+          }
+         }
+        },
+        {
+         "office": {
+          "dateRange": {
+           "end": "2025-03-25",
+           "start": "2025-01-23"
+          },
+          "officeName": {
+           "uri": null,
+           "showAs": "Minister for Defence"
+          }
+         }
+        },
+        {
+         "office": {
+          "dateRange": {
+           "end": "2025-11-18",
+           "start": "2025-03-26"
+          },
+          "officeName": {
+           "uri": null,
+           "showAs": "Minister for Defence"
+          }
+         }
+        },
+        {
+         "office": {
+          "dateRange": {
+           "end": "2025-11-18",
+           "start": "2025-03-26"
+          },
+          "officeName": {
+           "uri": null,
+           "showAs": "Minister for Foreign Affairs and Trade"
+          }
+         }
+        },
+        {
+         "office": {
+          "dateRange": {
+           "end": "2025-03-25",
+           "start": "2025-01-23"
+          },
+          "officeName": {
+           "uri": null,
+           "showAs": "Minister for Foreign Affairs"
+          }
+         }
+        },
+        {
+         "office": {
+          "dateRange": {
+           "end": null,
+           "start": "2025-11-18"
+          },
+          "officeName": {
+           "uri": null,
+           "showAs": "Minister for Finance"
+          }
+         }
+        }
+       ],
+       "committees": []
+      }
+     }
+    ],
+    "firstName": "Simon",
+    "showAs": "Simon Harris",
+    "pId": "SimonHarris"
+   }
+  },
+  {
+   "member": {
+    "memberCode": "Micheál-Martin.D.1989-06-29",
+    "dateOfDeath": null,
+    "image": false,
+    "lastName": "Martin",
+    "wikiTitle": null,
+    "gender": "",
+    "fullName": "Micheál Martin",
+    "uri": "https://data.oireachtas.ie/ie/oireachtas/member/id/Micheál-Martin.D.1989-06-29",
+    "memberships": [
+     {
+      "membership": {
+       "uri": "https://data.oireachtas.ie/ie/oireachtas/member/id/Micheál-Martin.D.1989-06-29/house/dail/34",
+       "dateRange": {
+        "start": "2024-11-29",
+        "end": null
+       },
+       "house": {
+        "showAs": "34th Dáil",
+        "houseNo": "34",
+        "chamberType": "house",
+        "houseCode": "dail",
+        "uri": "https://data.oireachtas.ie/ie/oireachtas/house/dail/34"
+       },
+       "parties": [
+        {
+         "party": {
+          "dateRange": {
+           "end": null,
+           "start": "2024-11-29"
+          },
+          "partyCode": "Fianna_Fáil",
+          "showAs": "Fianna Fáil",
+          "uri": "https://data.oireachtas.ie/ie/oireachtas/party/dail/34/Fianna_Fáil"
+         }
+        }
+       ],
+       "represents": [
+        {
+         "represent": {
+          "uri": "https://data.oireachtas.ie/ie/oireachtas/house/dail/34/constituency/Cork-South-Central",
+          "representType": "constituency",
+          "representCode": "Cork-South-Central",
+          "showAs": "Cork South-Central"
+         }
+        }
+       ],
+       "offices": [
+        {
+         "office": {
+          "dateRange": {
+           "end": null,
+           "start": "2025-01-23"
+          },
+          "officeName": {
+           "uri": null,
+           "showAs": "Taoiseach"
+          }
+         }
+        }
+       ],
+       "committees": []
+      }
+     }
+    ],
+    "firstName": "Micheál",
+    "showAs": "Micheál Martin",
+    "pId": "MichaelMartin"
+   }
+  },
+  {
+   "member": {
+    "memberCode": "Verona-Murphy.D.2020-02-08",
+    "dateOfDeath": null,
+    "image": false,
+    "lastName": "Murphy",
+    "wikiTitle": null,
+    "gender": "",
+    "fullName": "Verona Murphy",
+    "uri": "https://data.oireachtas.ie/ie/oireachtas/member/id/Verona-Murphy.D.2020-02-08",
+    "memberships": [
+     {
+      "membership": {
+       "uri": "https://data.oireachtas.ie/ie/oireachtas/member/id/Verona-Murphy.D.2020-02-08/house/dail/34",
+       "dateRange": {
+        "start": "2024-11-29",
+        "end": null
+       },
+       "house": {
+        "showAs": "34th Dáil",
+        "houseNo": "34",
+        "chamberType": "house",
+        "houseCode": "dail",
+        "uri": "https://data.oireachtas.ie/ie/oireachtas/house/dail/34"
+       },
+       "parties": [
+        {
+         "party": {
+          "dateRange": {
+           "end": null,
+           "start": "2024-11-29"
+          },
+          "partyCode": "Independent",
+          "showAs": "Independent",
+          "uri": "https://data.oireachtas.ie/ie/oireachtas/party/dail/34/Independent"
+         }
+        }
+       ],
+       "represents": [
+        {
+         "represent": {
+          "uri": "https://data.oireachtas.ie/ie/oireachtas/house/dail/34/constituency/Wexford",
+          "representType": "constituency",
+          "representCode": "Wexford",
+          "showAs": "Wexford"
+         }
+        }
+       ],
+       "offices": [
+        {
+         "office": {
+          "dateRange": {
+           "end": null,
+           "start": "2024-12-18"
+          },
+          "officeName": {
+           "uri": null,
+           "showAs": "Ceann Comhairle"
+          }
+         }
+        }
+       ],
+       "committees": [
+        {
+         "committeeCode": "232",
+         "mainStatus": "Live",
+         "memberDateRange": {
+          "start": "2024-12-18 00:00:00+00:00",
+          "end": null
+         },
+         "uri": "https://data.oireachtas.ie/ie/oireachtas/committee/dail/34/business_committee_dail_eireann",
+         "status": "Live - Primary",
+         "committeeID": 232,
+         "committeeDateRange": {
+          "start": "2024-12-18 00:00:00+00:00",
+          "end": null
+         },
+         "expiryType": "Standing",
+         "committeeName": [
+          {
+           "nameEn": "Business Committee (Dáil Éireann)",
+           "nameGa": "An Coiste Gnó (Dáil Éireann)",
+           "dateRange": {
+            "start": "2024-11-29 00:00:00+00:00",
+            "end": null
+           }
+          }
+         ],
+         "committeeType": [
+          "Parliamentary Business and Committee Membership"
+         ],
+         "role": {
+          "title": "Cathaoirleach",
+          "dateRange": {
+           "start": "2024-12-18 00:00:00+00:00",
+           "end": null
+          }
+         },
+         "serviceUnit": "Journal Office"
+        },
+        {
+         "committeeCode": "233",
+         "mainStatus": "Live",
+         "memberDateRange": {
+          "start": "2024-12-18 00:00:00+00:00",
+          "end": null
+         },
+         "uri": "https://data.oireachtas.ie/ie/oireachtas/committee/dail/34/committee_on_standing_orders_and_dail_reform",
+         "status": "Live - Primary",
+         "committeeID": 233,
+         "committeeDateRange": {
+          "start": "2024-12-18 00:00:00+00:00",
+          "end": null
+         },
+         "expiryType": "Standing",
+         "committeeName": [
+          {
+           "nameEn": "Committee on Standing Orders and Dáil Reform",
+           "nameGa": "An Coiste um Buan-Orduithe agus Athleasú na Dála",
+           "dateRange": {
+            "start": "2024-11-29 00:00:00+00:00",
+            "end": null
+           }
+          }
+         ],
+         "committeeType": [
+          "Parliamentary Regulation and Reform"
+         ],
+         "role": {
+          "title": "Cathaoirleach",
+          "dateRange": {
+           "start": "2024-12-18 00:00:00+00:00",
+           "end": null
+          }
+         },
+         "serviceUnit": "Journal Office"
+        },
+        {
+         "committeeCode": "234",
+         "mainStatus": "Live",
+         "memberDateRange": {
+          "start": "2024-12-18 00:00:00+00:00",
+          "end": null
+         },
+         "uri": "https://data.oireachtas.ie/ie/oireachtas/committee/dail/34/committee_on_parliamentary_privileges_and_oversight_dail_eireann",
+         "status": "Live - Primary",
+         "committeeID": 234,
+         "committeeDateRange": {
+          "start": "2024-12-18 00:00:00+00:00",
+          "end": null
+         },
+         "expiryType": "Standing",
+         "committeeName": [
+          {
+           "nameEn": "Committee on Parliamentary Privileges and Oversight (Dáil Éireann)",
+           "nameGa": "An Coiste um Pribhléidí Parlaiminteacha agus Formhaoirsiú (Dáil Éireann)",
+           "dateRange": {
+            "start": "2024-11-29 00:00:00+00:00",
+            "end": null
+           }
+          }
+         ],
+         "committeeType": [
+          "Parliamentary Regulation and Reform"
+         ],
+         "role": {
+          "title": "Cathaoirleach",
+          "dateRange": {
+           "start": "2024-12-18 00:00:00+00:00",
+           "end": null
+          }
+         },
+         "serviceUnit": "Journal Office"
+        },
+        {
+         "committeeCode": "238",
+         "mainStatus": "Live",
+         "memberDateRange": {
+          "start": "2024-12-18 00:00:00+00:00",
+          "end": null
+         },
+         "uri": "https://data.oireachtas.ie/ie/oireachtas/committee/dail/34/committee_of_selection_dail_eireann",
+         "status": "Live - Primary",
+         "committeeID": 238,
+         "committeeDateRange": {
+          "start": "2024-12-18 00:00:00+00:00",
+          "end": null
+         },
+         "expiryType": "Standing",
+         "committeeName": [
+          {
+           "nameEn": "Committee of Selection (Dáil Éireann)",
+           "nameGa": "An Coiste Roghnóireachta (Dáil Éireann)",
+           "dateRange": {
+            "start": "2024-11-29 00:00:00+00:00",
+            "end": null
+           }
+          }
+         ],
+         "committeeType": [
+          "Parliamentary Business and Committee Membership"
+         ],
+         "role": {
+          "title": "Cathaoirleach",
+          "dateRange": {
+           "start": "2024-12-18 00:00:00+00:00",
+           "end": null
+          }
+         },
+         "serviceUnit": "Journal Office"
+        },
+        {
+         "committeeCode": "WGC",
+         "mainStatus": "Live",
+         "memberDateRange": {
+          "start": "2024-12-18 00:00:00+00:00",
+          "end": "2025-02-13 00:00:00+00:00"
+         },
+         "uri": "https://data.oireachtas.ie/ie/oireachtas/committee/dail/34/working_group_of_committee_cathaoirligh",
+         "status": "Live - Primary",
+         "committeeID": 247,
+         "committeeDateRange": {
+          "start": "2025-02-12 00:00:00+00:00",
+          "end": null
+         },
+         "expiryType": "Standing",
+         "committeeName": [
+          {
+           "nameEn": "Working Group of Committee Cathaoirligh",
+           "nameGa": "An Gasra Oibre de Chathaoirligh Coistí",
+           "dateRange": {
+            "start": "2025-01-29 00:00:00+00:00",
+            "end": null
+           }
+          }
+         ],
+         "committeeType": [
+          "The Committee System and Parliamentary Administration"
+         ],
+         "role": [],
+         "serviceUnit": "Committees' Secretariat"
+        },
+        {
+         "committeeCode": "256",
+         "mainStatus": "Live",
+         "memberDateRange": {
+          "start": "2024-12-18 00:00:00+00:00",
+          "end": null
+         },
+         "uri": "https://data.oireachtas.ie/ie/oireachtas/committee/dail/34/committee_on_remit_oversight_dail_eireann",
+         "status": "Live - Primary",
+         "committeeID": 256,
+         "committeeDateRange": {
+          "start": "2024-12-18 00:00:00+00:00",
+          "end": null
+         },
+         "expiryType": "Standing",
+         "committeeName": [
+          {
+           "nameEn": "Committee on Remit Oversight (Dáil Éireann)",
+           "nameGa": "An Coiste um Fhormhaoirsiú Sainchúraim",
+           "dateRange": {
+            "start": "2025-01-29 00:00:00+00:00",
+            "end": null
+           }
+          }
+         ],
+         "committeeType": [
+          "Parliamentary Regulation and Reform"
+         ],
+         "role": {
+          "title": "Cathaoirleach",
+          "dateRange": {
+           "start": "2024-12-18 00:00:00+00:00",
+           "end": null
+          }
+         },
+         "serviceUnit": "Journal Office"
+        },
+        {
+         "committeeCode": "258",
+         "mainStatus": "Live",
+         "memberDateRange": {
+          "start": "2024-12-18 00:00:00+00:00",
+          "end": null
+         },
+         "uri": "https://data.oireachtas.ie/ie/oireachtas/committee/dail/34/joint_committee_on_remit_oversight",
+         "status": "Live - Primary",
+         "committeeID": 258,
+         "committeeDateRange": {
+          "start": "2025-02-12 00:00:00+00:00",
+          "end": null
+         },
+         "expiryType": "Standing",
+         "committeeName": [
+          {
+           "nameEn": "Joint Committee on Remit Oversight",
+           "nameGa": null,
+           "dateRange": {
+            "start": "2025-01-29 00:00:00+00:00",
+            "end": null
+           }
+          }
+         ],
+         "committeeType": [
+          "Parliamentary Regulation and Reform"
+         ],
+         "role": {
+          "title": "Cathaoirleach",
+          "dateRange": {
+           "start": "2024-12-18 00:00:00+00:00",
+           "end": null
+          }
+         },
+         "serviceUnit": "Journal Office"
+        }
+       ]
+      }
+     }
+    ],
+    "firstName": "Verona",
+    "showAs": "Verona Murphy",
+    "pId": "VeronaMurphy"
+   }
+  }
+ ]
+}

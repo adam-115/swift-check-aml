@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Trois sources officielles qui comblent des écarts avec OpenSanctions (rapport « Sources manquantes pour dépasser
+    OpenSanctions », novembre 2026), sans Wikidata :
+
+      - pt_pep_parliament : Assembleia da República, open data « Composição de órgãos » (JSON de la législature).
+        Corrige la note de 048 : le Parlement n'est pas bloqué, la voie « Dados Abertos » répond au client automatique.
+      - fr_pep_rne_elected : Répertoire national des élus (data.gouv.fr), adjoints au maire, maires délégués,
+        bureaux d'intercommunalité, conseillers départementaux, régionaux et de collectivités à statut particulier.
+        Les maires et présidents (deja repris par fr_pep_local_executives_all) ne sont pas doublés.
+      - fr_pep_hatvp : liste officielle des déclarants de la HATVP (liste.csv), y compris adjoints, vice-présidents,
+        conseillers départementaux et régionaux, membres de la HATVP. Ni date de naissance ni date de début.
+        (fr_pep_hatvp avait été écarté le 28/10 comme redondant : il ne l'est pas pour les élus locaux.)
+-->
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="056-parser-pt-pep-parliament" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Portugal – Parlement',
+                'Députés à l''Assembleia da República et membres de son bureau, d''après les données ouvertes « Composição de órgãos » du Parlement (catégorie PT-b)',
+                'pt_pep_parliament', 'PEP', 'https://www.parlamento.pt/Cidadania/Paginas/DadosAbertos.aspx',
+                'pt-pep-parliament', 'D:/test parser 2/plugins/swiftcheck-aml-pt-pep-parliament-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'OPEN_DATA_FILE',
+                NULL,
+                '{"pageUrl": "https://www.parlamento.pt/Cidadania/Paginas/DAComposicaoOrgaos.aspx", "monthsAfterEnd": "12", "delayMs": "1500"}',
+                168, 12,
+                'Données ouvertes du Parlement portugais : citer la source', 'Assembleia da República, www.parlamento.pt',
+                'Le plugin suit la page des législatures puis le lien signé vers OrgaoComposicaoXVII_json.txt (5 Mo), relu à chaque exécution. Mandats suspendus (ministres, maire…) repris avec une note. Pas de date de naissance dans ce fichier. Paramètre facultatif legislature (par défaut la plus récente).', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', TRUE,
+                   'Députés en fonction, mandats suspendus et anciens députés depuis moins d''un an, avec groupe parlementaire, cercle électoral et fonctions du bureau.',
+                   'Ni date de naissance ni sexe dans le fichier.'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'PT-b' AND f.label IN ('Député à l''Assembleia da República', 'Ancien député')
+              AND p.dataset_name = 'pt_pep_parliament';
+        ]]></sql>
+    </changeSet>
+
+    <changeSet id="056-parser-fr-pep-rne-elected" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP France – Élus locaux (adjoints, conseillers, bureaux)',
+                'Adjoints au maire, maires délégués, membres du bureau des intercommunalités, conseillers départementaux, régionaux et de collectivités à statut particulier, d''après le Répertoire national des élus (couche étendue)',
+                'fr_pep_rne_elected', 'PEP', 'https://www.data.gouv.fr/datasets/repertoire-national-des-elus-1',
+                'fr-pep-rne-elected', 'D:/test parser 2/plugins/swiftcheck-aml-fr-pep-rne-elected-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'OPEN_DATA_FILE',
+                NULL,
+                '{"municipalUrl": "https://www.data.gouv.fr/api/1/datasets/r/d5f400de-ae3f-4966-8cb6-a85c70c6c24a", "epciUrl": "https://www.data.gouv.fr/api/1/datasets/r/41d95d7d-b172-4636-ac44-32656367cdc7", "departmentsUrl": "https://www.data.gouv.fr/api/1/datasets/r/601ef073-d986-4582-8e1a-ed14dc857fba", "regionsUrl": "https://www.data.gouv.fr/api/1/datasets/r/430e13f9-834b-4411-a1a8-da0b4b6e715c", "specialUrl": "https://www.data.gouv.fr/api/1/datasets/r/a595be27-cfab-4810-b9d4-22e193bffe35", "includeCouncillors": "false"}',
+                168, 12,
+                'Licence Ouverte / Open Licence (Etalab 2.0)', 'Ministère de l''Intérieur, Répertoire national des élus (data.gouv.fr)',
+                'Environ 158 000 personnes et 172 000 mandats (adjoints 117 000, bureaux d''EPCI 11 700, conseillers départementaux 4 000, régionaux 1 700). Télécharge 66 Mo (fichier des conseillers municipaux). Les maires et présidents sont dans fr_pep_local_executives_all : pas de doublon. Les conseillers municipaux sans fonction (357 000) sont exclus ; includeCouncillors = true pour les ajouter. Couche au-delà du champ légal actuel : à activer selon l''approche par les risques.', TRUE, NOW());
+
+            INSERT INTO pep_function (category_id, label, institution, expected_holders)
+            SELECT c.id, 'Adjoint au maire, vice-président d''intercommunalité, conseiller départemental ou régional (couche étendue)', 'Pouvoirs locaux', 135000
+            FROM pep_category c
+            WHERE c.code = 'FR-AMLR'
+              AND NOT EXISTS (SELECT 1 FROM pep_function f WHERE f.category_id = c.id
+                              AND f.label LIKE 'Adjoint au maire, vice-président d''intercommunalité%');
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', FALSE,
+                   'Adjoints au maire, maires délégués, bureaux d''intercommunalité, conseillers départementaux, régionaux et des collectivités à statut particulier, d''après le Répertoire national des élus.',
+                   'Conseillers municipaux sans fonction exclus par défaut. Hors champ légal actuel. Anciens élus non repris (le fichier ne donne que les mandats en cours).'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'FR-AMLR' AND f.label LIKE 'Adjoint au maire, vice-président d''intercommunalité%'
+              AND p.dataset_name = 'fr_pep_rne_elected';
+        ]]></sql>
+    </changeSet>
+
+    <changeSet id="056-parser-fr-pep-hatvp" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP France – Déclarants HATVP',
+                'Personnes assujetties à la HATVP : parlementaires, membres du Gouvernement, élus locaux déclarants (adjoints, vice-présidents, conseillers), membres de la HATVP, d''après la liste officielle des déclarations',
+                'fr_pep_hatvp', 'PEP', 'https://www.hatvp.fr/open-data/',
+                'fr-pep-hatvp', 'D:/test parser 2/plugins/swiftcheck-aml-fr-pep-hatvp-0.0.1-SNAPSHOT.jar',
+                'HTTP_FILE', 'OPEN_DATA_FILE',
+                'https://www.hatvp.fr/livraison/opendata/liste.csv',
+                NULL,
+                168, 12,
+                'Licence Ouverte / Open Licence (Etalab 2.0)', 'Haute Autorité pour la transparence de la vie publique, www.hatvp.fr',
+                'Environ 7 100 personnes et 7 900 fonctions (13 700 lignes de déclarations). Pas de date de naissance ni de début de fonction : elles sont dans les déclarations XML, non lues. Paramètre facultatif types (ex. commune,epci,departement,region,ctsp,autre). Recoupe fr_pep_government, fr_pep_national_assembly et fr_pep_senate (préfixe d''identifiants différent).', TRUE, NOW());
+
+            INSERT INTO pep_function (category_id, label, institution, expected_holders)
+            SELECT c.id, 'Personne assujettie à la HATVP (déclarant : parlementaire, membre du Gouvernement, élu local, membre de la HATVP)', 'Haute Autorité pour la transparence de la vie publique', 7100
+            FROM pep_category c
+            WHERE c.code = 'FR-AMLR'
+              AND NOT EXISTS (SELECT 1 FROM pep_function f WHERE f.category_id = c.id
+                              AND f.label LIKE 'Personne assujettie à la HATVP%');
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', TRUE,
+                   'Tous les déclarants de la liste officielle : fonction, type de mandat, photo officielle quand elle est référencée.',
+                   'Ni date de naissance ni date de début de fonction. Le périmètre est celui de l''obligation de déclaration, pas celui de la définition PEP.'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'FR-AMLR' AND f.label LIKE 'Personne assujettie à la HATVP%'
+              AND p.dataset_name = 'fr_pep_hatvp';
+        ]]></sql>
+    </changeSet>
+
+</databaseChangeLog>

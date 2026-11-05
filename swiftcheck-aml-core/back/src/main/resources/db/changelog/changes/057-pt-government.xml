@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Portugal : Gouvernement (catégorie PT-a). Source : pages officielles du portail du Gouvernement (portugal.gov.pt).
+    La page « composition » charge ses noms par une API interne et n'est pas utilisée ; le plugin découvre les pages de
+    chaque ministre et secrétaire d'État par le sitemap public (autorisé par robots.txt), lit leur titre et l'historique
+    des titulaires, et la biographie du Premier ministre. Titulaires partis repris pendant 12 mois.
+    Corrige la note de 048 (« Gouvernement : noms chargés par JavaScript »).
+-->
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="057-parser-pt-pep-government" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Portugal – Gouvernement',
+                'Premier ministre, ministres et secrétaires d''État, d''après les pages officielles du portail du Gouvernement (catégorie PT-a)',
+                'pt_pep_government', 'PEP', 'https://portugal.gov.pt/',
+                'pt-pep-government', 'D:/test parser 2/plugins/swiftcheck-aml-pt-pep-government-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'WEB_PAGE',
+                NULL,
+                '{"sitemapUrl": "https://portugal.gov.pt/sitemap.xml", "monthsAfterEnd": "12", "delayMs": "1500"}',
+                168, 12,
+                'Site officiel du Gouvernement : citer la source', 'Governo de Portugal, portugal.gov.pt',
+                'Environ 60 pages lues à chaque exécution (1,5 s entre deux requêtes, soit 1 à 2 minutes). Le gouvernement est le plus récent du sitemap (plus grand gcNN) ; paramètre facultatif government (ex. gc25). Un identifiant officiel par personne ; le Premier ministre vient de sa biographie (nom écrit sans accent par le site : Luis Montenegro). Pas de date de début pour le Premier ministre.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', TRUE,
+                   'Premier ministre, ministres et secrétaires d''État en fonction, et partis depuis moins d''un an, avec dates de début et de fin.',
+                   'Date de naissance seulement pour le Premier ministre. Pas de date de début pour le Premier ministre.'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'PT-a' AND f.label IN ('Premier ministre, ministres, secrétaires et sous-secrétaires d''État', 'Ancien membre du Gouvernement')
+              AND p.dataset_name = 'pt_pep_government';
+        ]]></sql>
+    </changeSet>
+
+</databaseChangeLog>

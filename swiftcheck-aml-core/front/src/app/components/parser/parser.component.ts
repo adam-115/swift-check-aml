@@ -69,10 +69,35 @@ export const SORT_OPTIONS: { value: SortKey; label: string }[] = [
 
 const PAGE_SIZES = [20, 50, 100];
 
-/** Un pays du bandeau : ses parsers et l'état de leur dernière exécution. */
+/** Un pays de la navigation : ses parsers et l'état de leur dernière exécution. */
 interface CountrySummary {
   iso: string;
   total: number;
+  ok: number;
+  problems: number;
+  never: number;
+}
+
+/** Filtres rapides (tuiles de santé) : un seul à la fois, chacun correspond à un filtre précis. */
+export type QuickKey = 'ALL' | 'OK' | 'PROBLEM' | 'LATE' | 'NEVER' | 'PLUGIN_MISSING' | 'DISABLED';
+
+/** Indicateurs de santé de l'ensemble des parsers (avant filtres), affichés en tuiles cliquables. */
+interface Kpis {
+  total: number;
+  ok: number;
+  problems: number;
+  late: number;
+  never: number;
+  pluginMissing: number;
+  disabled: number;
+  persons: number;
+}
+
+/** Un groupe de la liste : un pays, ses parsers et leur santé. */
+interface ParserGroup {
+  iso: string;
+  label: string;
+  parsers: ParserDTO[];
   ok: number;
   problems: number;
   never: number;
@@ -134,10 +159,28 @@ export class ParserComponent implements OnInit {
   // Tri, regroupement par pays et lignes dépliées
   sortKey: SortKey = 'name';
   sortDir: 'asc' | 'desc' = 'asc';
-  groupByCountry = false;
-  /** Page affichée, regroupée par pays quand groupByCountry est coché. */
-  groups: { iso: string; label: string; parsers: ParserDTO[] }[] = [];
+  /** Vue « Par pays » (accordéons, par défaut) ou « Liste » à plat paginée. */
+  groupByCountry = true;
+  /** Parsers affichés, regroupés par pays en vue « Par pays » (un seul groupe vide en vue « Liste »). */
+  groups: ParserGroup[] = [];
   expanded = new Set<number>();
+  /** Pays dépliés en vue « Par pays ». */
+  openCountries = new Set<string>();
+  /** Après une action de l'utilisateur sur les filtres : déplier tous les pays du résultat. */
+  private autoOpen = false;
+  /** Premier chargement fait : les pays à problèmes sont dépliés une seule fois. */
+  private initialOpenDone = false;
+
+  /** Onglet affiché : parsers ou plugins. */
+  tab: 'parsers' | 'plugins' = 'parsers';
+  /** Menu « ⋯ » ouvert (id du parser). */
+  menuFor?: number;
+  /** Filtres peu fréquents (source, test, catégorie, type) repliés derrière « Filtres ». */
+  showAdvanced = false;
+  /** Recherche dans la navigation des pays. */
+  countrySearch = '';
+  /** Santé de l'ensemble des parsers. */
+  kpis: Kpis = { total: 0, ok: 0, problems: 0, late: 0, never: 0, pluginMissing: 0, disabled: 0, persons: 0 };
 
   /** Pays couverts par chaque parser (son pays et celui de ses fonctions), et liste des pays pour le filtre. */
   private parserCountries = new Map<number, Set<string>>();
@@ -331,6 +374,7 @@ export class ParserComponent implements OnInit {
       if (this.filterLastStatus) {
         const ok = this.filterLastStatus === 'NEVER' ? !p.lastStatus
           : this.filterLastStatus === 'PROBLEM' ? p.lastStatus === 'FAILED' || p.lastStatus === 'BLOCKED'
+          : this.filterLastStatus === 'OK' ? p.lastStatus === 'SUCCESS' || p.lastStatus === 'UNCHANGED'
           : p.lastStatus === this.filterLastStatus;
         if (!ok) {
           return false;
@@ -344,12 +388,156 @@ export class ParserComponent implements OnInit {
       return true;
     });
     this.sortFiltered();
-    this.totalPages = Math.ceil(this.filtered.length / this.pageSize);
+    // Vue « Par pays » : tout le résultat, sans pagination ; vue « Liste » : une page à la fois
+    this.totalPages = this.groupByCountry ? 1 : Math.ceil(this.filtered.length / this.pageSize);
     if (resetPage || this.page >= this.totalPages) {
       this.page = 0;
     }
+    // Une recherche ou un filtre choisis par l'utilisateur déplient les pays du résultat
+    this.autoOpen = resetPage && this.hasFilters;
     this.slicePage();
+    this.openInitialCountries();
     this.writeUrl();
+  }
+
+  /** Premier affichage : seuls les pays à problèmes (et le pays demandé dans l'adresse) sont dépliés. */
+  private openInitialCountries(): void {
+    if (this.initialOpenDone || !this.countrySummaries.length) {
+      return;
+    }
+    this.initialOpenDone = true;
+    this.countrySummaries.filter(c => c.problems > 0).forEach(c => this.openCountries.add(c.iso));
+    if (this.filterCountry) {
+      this.openCountries.add(this.filterCountry);
+    }
+  }
+
+  // ---------------------------------------------------------------- filtres rapides et navigation
+
+  /** Filtre rapide actif : celui dont le filtre est le seul posé (hors recherche, pays et filtres de détail). */
+  get quick(): QuickKey {
+    if (this.filterListType || this.filterCategory || this.filterKind || this.filterTest) {
+      return 'ALL';
+    }
+    const set = [this.filterLastStatus, this.filterHealth, this.filterEnabled].filter(f => f);
+    if (set.length !== 1) {
+      return 'ALL';
+    }
+    if (this.filterLastStatus === 'PROBLEM') { return 'PROBLEM'; }
+    if (this.filterLastStatus === 'OK') { return 'OK'; }
+    if (this.filterLastStatus === 'NEVER') { return 'NEVER'; }
+    if (this.filterHealth === 'LATE') { return 'LATE'; }
+    if (this.filterHealth === 'PLUGIN_MISSING') { return 'PLUGIN_MISSING'; }
+    if (this.filterEnabled === 'disabled') { return 'DISABLED'; }
+    return 'ALL';
+  }
+
+
+  /** Tuile de santé : pose le filtre correspondant, ou l'enlève si elle est déjà active. */
+  setQuick(key: QuickKey): void {
+    const current = this.quick === key && key !== 'ALL';
+    this.filterLastStatus = '';
+    this.filterHealth = '';
+    this.filterEnabled = '';
+    if (!current) {
+      switch (key) {
+        case 'PROBLEM': this.filterLastStatus = 'PROBLEM'; break;
+        case 'OK': this.filterLastStatus = 'OK'; break;
+        case 'NEVER': this.filterLastStatus = 'NEVER'; break;
+        case 'LATE': this.filterHealth = 'LATE'; break;
+        case 'PLUGIN_MISSING': this.filterHealth = 'PLUGIN_MISSING'; break;
+        case 'DISABLED': this.filterEnabled = 'disabled'; break;
+        default: break;
+      }
+    }
+    this.applyFilters();
+  }
+
+  /** Vue « Par pays » ou « Liste ». */
+  setGrouping(byCountry: boolean): void {
+    this.groupByCountry = byCountry;
+    this.applyFilters(true);
+  }
+
+  /** Pays de la navigation, filtrés par la recherche de pays. */
+  get visibleCountries(): CountrySummary[] {
+    const q = normalize(this.countrySearch.trim());
+    return q ? this.countrySummaries.filter(c => normalize(this.countryName(c.iso) + ' ' + c.iso).includes(q))
+      : this.countrySummaries;
+  }
+
+  isCountryOpen(iso: string): boolean {
+    return this.openCountries.has(iso);
+  }
+
+  toggleCountry(iso: string): void {
+    if (!this.openCountries.delete(iso)) {
+      this.openCountries.add(iso);
+    }
+  }
+
+  /** « Tout déplier » / « Tout replier » pour les pays affichés. */
+  setAllCountries(open: boolean): void {
+    this.openCountries = open ? new Set(this.groups.map(g => g.iso)) : new Set<string>();
+  }
+
+  get allCountriesOpen(): boolean {
+    return this.groups.length > 0 && this.groups.every(g => this.openCountries.has(g.iso));
+  }
+
+  // ---------------------------------------------------------------- menu et libellés
+
+  trackParser = (_: number, p: ParserDTO) => p.id;
+  trackParserGroup = (_: number, g: ParserGroup) => g.iso;
+  trackChip = (_: number, chip: { key: string }) => chip.key;
+
+  /** Phrase de l'info-bulle de la pastille de santé d'une ligne. */
+  healthLabel(p: ParserDTO): string {
+    switch (this.health(p)) {
+      case 'ok': return 'Publié ou inchangé, à jour';
+      case 'problem': return p.lastStatus === 'BLOCKED' ? 'Dernière exécution bloquée par le contrôle qualité' : 'Dernière exécution en échec';
+      case 'late': return 'En retard sur sa fréquence de mise à jour';
+      case 'never': return 'Jamais exécuté';
+      default: return 'Désactivé';
+    }
+  }
+
+  toggleMenu(p: ParserDTO): void {
+    this.menuFor = this.menuFor === p.id ? undefined : p.id;
+  }
+
+  closeMenu(): void {
+    this.menuFor = undefined;
+  }
+
+  /** « il y a 3 h », « hier », « il y a 12 j » ; la date exacte est dans l'info-bulle. */
+  relativeTime(iso?: string): string {
+    if (!iso) {
+      return '';
+    }
+    const minutes = Math.round((Date.now() - new Date(iso).getTime()) / 60_000);
+    if (minutes < 1) { return 'à l\'instant'; }
+    if (minutes < 60) { return `il y a ${minutes} min`; }
+    const hours = Math.round(minutes / 60);
+    if (hours < 24) { return `il y a ${hours} h`; }
+    const days = Math.round(hours / 24);
+    if (days === 1) { return 'hier'; }
+    if (days < 60) { return `il y a ${days} j`; }
+    return `il y a ${Math.round(days / 30)} mois`;
+  }
+
+  /** Libellé court de la nature de la source (« T2 »), l'intitulé complet est en info-bulle. */
+  kindShort(kind?: ParserKind): string {
+    const i = PARSER_KINDS.findIndex(k => k.value === kind);
+    return i >= 0 ? `T${i + 1}` : '';
+  }
+
+  /** Santé résumée d'un parser, pour la pastille de la ligne : problème, en retard, jamais exécuté ou sain. */
+  health(p: ParserDTO): 'problem' | 'late' | 'never' | 'ok' | 'disabled' {
+    if (!p.enabled) { return 'disabled'; }
+    if (p.lastStatus === 'FAILED' || p.lastStatus === 'BLOCKED') { return 'problem'; }
+    if (!p.lastStatus) { return 'never'; }
+    return this.isLate(p) ? 'late' : 'ok';
   }
 
   /** Nombre de filtres actifs (hors recherche), affiché sur le bouton « Filtres » des petits écrans. */
@@ -472,7 +660,8 @@ export class ParserComponent implements OnInit {
     this.filterHealth = (q.get('sante') ?? '') as '' | 'LATE' | 'PLUGIN_MISSING';
     this.sortKey = (SORT_OPTIONS.some(o => o.value === q.get('tri')) ? q.get('tri') : 'name') as SortKey;
     this.sortDir = q.get('ordre') === 'desc' ? 'desc' : 'asc';
-    this.groupByCountry = q.get('groupe') === 'pays';
+    this.groupByCountry = q.get('vue') !== 'liste';
+    this.tab = q.get('onglet') === 'plugins' ? 'plugins' : 'parsers';
     const size = Number(q.get('taille'));
     this.pageSize = PAGE_SIZES.includes(size) ? size : 20;
     this.page = Math.max(0, Number(q.get('page') ?? 1) - 1) || 0;
@@ -492,7 +681,8 @@ export class ParserComponent implements OnInit {
       sante: this.filterHealth || null,
       tri: this.sortKey !== 'name' ? this.sortKey : null,
       ordre: this.sortDir === 'desc' ? 'desc' : null,
-      groupe: this.groupByCountry ? 'pays' : null,
+      vue: this.groupByCountry ? null : 'liste',
+      onglet: this.tab === 'plugins' ? 'plugins' : null,
       taille: this.pageSize !== 20 ? String(this.pageSize) : null,
       page: this.page > 0 ? String(this.page + 1) : null,
     };
@@ -536,21 +726,43 @@ export class ParserComponent implements OnInit {
         never: ofCountry.filter(p => !p.lastStatus).length,
       };
     });
+    this.kpis = {
+      total: this.allParsers.length,
+      ok: this.allParsers.filter(p => p.lastStatus === 'SUCCESS' || p.lastStatus === 'UNCHANGED').length,
+      problems: this.allParsers.filter(p => p.lastStatus === 'FAILED' || p.lastStatus === 'BLOCKED').length,
+      late: this.allParsers.filter(p => this.isLate(p)).length,
+      never: this.allParsers.filter(p => !p.lastStatus).length,
+      pluginMissing: this.allParsers.filter(p => this.isPluginMissing(p)).length,
+      disabled: this.allParsers.filter(p => !p.enabled).length,
+      persons: this.allParsers.reduce((sum, p) => sum + (p.lastPersonCount ?? 0), 0),
+    };
   }
 
   private slicePage(): void {
     const start = this.page * this.pageSize;
-    this.parsers = this.filtered.slice(start, start + this.pageSize);
-    // Regroupement par pays de la page affichée (les parsers sont déjà triés par pays)
+    this.parsers = this.groupByCountry ? this.filtered : this.filtered.slice(start, start + this.pageSize);
+    // Regroupement par pays (les parsers sont déjà triés par pays) ; la vue « Liste » n'a qu'un groupe sans titre
     this.groups = [];
     for (const p of this.parsers) {
       const iso = this.groupByCountry ? this.primaryCountry(p) : '';
       let group = this.groups[this.groups.length - 1];
       if (!group || group.iso !== iso) {
-        group = { iso, label: iso ? this.countryName(iso) : 'Sans pays', parsers: [] };
+        group = { iso, label: iso ? this.countryName(iso) : 'Sans pays', parsers: [], ok: 0, problems: 0, never: 0 };
         this.groups.push(group);
       }
       group.parsers.push(p);
+      const health = this.health(p);
+      if (health === 'ok' || health === 'late') {
+        group.ok++;
+      } else if (health === 'problem') {
+        group.problems++;
+      } else if (health === 'never') {
+        group.never++;
+      }
+    }
+    if (this.autoOpen) {
+      this.openCountries = new Set(this.groups.map(g => g.iso));
+      this.autoOpen = false;
     }
   }
 
@@ -568,17 +780,18 @@ export class ParserComponent implements OnInit {
    * Prépare le lot sur les parsers affichés par les filtres (toutes pages) et ouvre la confirmation.
    * Les parsers désactivés ou déjà en cours d'exécution ou de test sont exclus.
    */
-  openBulk(mode: BulkRun['mode']): void {
+  openBulk(mode: BulkRun['mode'], subset?: ParserDTO[]): void {
     if (this.bulk?.phase === 'running') {
       this.isBulkDialogOpen = true;
       return;
     }
     const busy = (p: ParserDTO) => this.isRunning(p) || this.testing.has(p.id!);
-    const targets = this.filtered.filter(p => p.enabled && !busy(p));
+    const scope = subset ?? this.filtered;           // un pays (en-tête de groupe) ou tout le résultat des filtres
+    const targets = scope.filter(p => p.enabled && !busy(p));
     this.bulk = {
       mode,
       items: targets.map(parser => ({ parser, state: 'pending' })),
-      excluded: this.filtered.filter(p => !p.enabled || busy(p)),
+      excluded: scope.filter(p => !p.enabled || busy(p)),
       force: false,
       phase: 'confirm',
       stopping: false,
@@ -1010,6 +1223,49 @@ export class ParserComponent implements OnInit {
   }
 
   // ---------------------------------------------------------------- plugins
+
+  /** Recherche dans la liste des plugins. */
+  pluginSearch = '';
+
+  get filteredPlugins(): PluginInfo[] {
+    const q = normalize(this.pluginSearch.trim());
+    return q ? this.plugins.filter(p => normalize(p.pluginId + ' ' + (p.path ?? '')).includes(q)) : this.plugins;
+  }
+
+  /** Nombre de parsers qui utilisent ce plugin. */
+  pluginUsage(pluginId: string): number {
+    return this.allParsers.filter(p => p.pluginId === pluginId).length;
+  }
+
+  /** Plugin-Id demandés par des parsers mais qu'aucun plugin démarré ne porte. */
+  get missingPluginIds(): string[] {
+    return [...new Set(this.allParsers.filter(p => this.isPluginMissing(p)).map(p => p.pluginId!))].sort();
+  }
+
+  setTab(tab: 'parsers' | 'plugins'): void {
+    this.tab = tab;
+    this.menuFor = undefined;
+    this.writeUrl();
+  }
+
+  /** Filtres actifs sous forme de pastilles retirables, sous la barre de recherche. */
+  get activeChips(): { key: string; label: string; clear: () => void }[] {
+    const chips: { key: string; label: string; clear: () => void }[] = [];
+    const add = (key: string, label: string, clear: () => void) => chips.push({ key, label, clear: () => { clear(); this.applyFilters(); } });
+    if (this.filterCountry) { add('pays', this.countryName(this.filterCountry), () => { this.filterCountry = ''; this.filterCategory = ''; }); }
+    if (this.filterCategory) { add('cat', 'Catégorie ' + this.filterCategory, () => (this.filterCategory = '')); }
+    if (this.filterListType) { add('type', 'Liste ' + this.listTypeLabel(this.filterListType), () => (this.filterListType = '')); }
+    if (this.filterKind) { add('kind', this.kindShort(this.filterKind) + ' ' + (PARSER_KINDS.find(k => k.value === this.filterKind)?.label.split('–')[1]?.trim() ?? ''), () => (this.filterKind = '')); }
+    if (this.filterEnabled) { add('etat', this.filterEnabled === 'enabled' ? 'Actifs' : 'Désactivés', () => (this.filterEnabled = '')); }
+    if (this.filterLastStatus) {
+      const labels: Record<string, string> = { PROBLEM: 'En échec ou bloqués', OK: 'Publiés ou inchangés', SUCCESS: 'Publiés', UNCHANGED: 'Inchangés',
+        BLOCKED: 'Bloqués', FAILED: 'En échec', NEVER: 'Jamais exécutés' };
+      add('exec', labels[this.filterLastStatus] ?? this.filterLastStatus, () => (this.filterLastStatus = ''));
+    }
+    if (this.filterTest) { add('test', { FAILED: 'Test en échec', PASSED: 'Test réussi', NEVER: 'Jamais testés' }[this.filterTest], () => (this.filterTest = '')); }
+    if (this.filterHealth) { add('sante', this.filterHealth === 'LATE' ? 'En retard' : 'Plugin non chargé', () => (this.filterHealth = '')); }
+    return chips;
+  }
 
   loadPlugins(): void {
     this.pluginService.list().subscribe({

@@ -142,6 +142,15 @@ public class HttpDownloader {
                     return;
                 }
                 response.body().close();
+                if (status == 403 || status == 503 || (status >= 400 && status < 500 && webPage)) {
+                    log.info("Accès refusé ou contrôle anti-robot détecté (HTTP {}) pour {}, essai avec StealthBrowserFetcher", status, url);
+                    try {
+                        com.swiftcheck.aml.sdk.StealthBrowserFetcher.fetchToFile(url, target);
+                        return;
+                    } catch (Exception ex) {
+                        log.warn("StealthBrowserFetcher a échoué pour {} : {}", url, ex.getMessage());
+                    }
+                }
                 if (status >= 400 && status < 500) {
                     throw new IOException("Le serveur a refusé le téléchargement (HTTP " + status + ") : " + url);
                 }

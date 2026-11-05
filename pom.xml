@@ -66,6 +66,8 @@
         <module>swiftcheck-aml-plugins/pep/france/swiftcheck-aml-fr-pep-banque-de-france</module>
         <module>swiftcheck-aml-plugins/pep/france/swiftcheck-aml-fr-pep-army</module>
         <module>swiftcheck-aml-plugins/pep/france/swiftcheck-aml-fr-pep-local-executives</module>
+        <module>swiftcheck-aml-plugins/pep/france/swiftcheck-aml-fr-pep-rne-elected</module>
+        <module>swiftcheck-aml-plugins/pep/france/swiftcheck-aml-fr-pep-hatvp</module>
         <module>swiftcheck-aml-plugins/pep/france/swiftcheck-aml-fr-pep-rca</module>
         <module>swiftcheck-aml-plugins/pep/france/swiftcheck-aml-fr-pep-associated-entities</module>
         <module>swiftcheck-aml-plugins/pep/france/swiftcheck-aml-fr-pep-political-parties</module>
@@ -124,6 +126,12 @@
         <module>swiftcheck-aml-plugins/pep/germany/swiftcheck-aml-de-pep-landtage</module>
         <module>swiftcheck-aml-plugins/pep/germany/swiftcheck-aml-de-pep-local-executives</module>
         <module>swiftcheck-aml-plugins/pep/portugal/swiftcheck-aml-pt-pep-europarl</module>
+        <module>swiftcheck-aml-plugins/pep/portugal/swiftcheck-aml-pt-pep-parliament</module>
+        <module>swiftcheck-aml-plugins/pep/portugal/swiftcheck-aml-pt-pep-government</module>
+        <module>swiftcheck-aml-plugins/pep/ireland/swiftcheck-aml-ie-pep-parliament</module>
+        <module>swiftcheck-aml-plugins/pep/ireland/swiftcheck-aml-ie-pep-europarl</module>
+        <module>swiftcheck-aml-plugins/pep/ireland/swiftcheck-aml-ie-pep-eu-commission</module>
+        <module>swiftcheck-aml-plugins/pep/ireland/swiftcheck-aml-ie-pep-president</module>
         <module>swiftcheck-aml-plugins/pep/portugal/swiftcheck-aml-pt-pep-eu-commission</module>
         <module>swiftcheck-aml-plugins/pep/portugal/swiftcheck-aml-pt-pep-president</module>
         <module>swiftcheck-aml-plugins/pep/portugal/swiftcheck-aml-pt-pep-courts</module>

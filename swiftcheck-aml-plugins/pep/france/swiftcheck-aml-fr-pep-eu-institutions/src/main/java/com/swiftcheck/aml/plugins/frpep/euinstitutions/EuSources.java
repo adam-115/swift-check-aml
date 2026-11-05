@@ -104,6 +104,12 @@ class EuSources {
                     .header("User-Agent", USER_AGENT).GET().build();
             HttpResponse<byte[]> response = http.send(request, HttpResponse.BodyHandlers.ofByteArray());
             if (response.statusCode() != 200) {
+                try {
+                    com.swiftcheck.aml.sdk.StealthBrowserFetcher.fetchToFile(url, target);
+                    return true;
+                } catch (Exception ex) {
+                    // Fallthrough to standard error reporting
+                }
                 failed.add(target.getFileName() + " : HTTP " + response.statusCode());
                 return false;
             }

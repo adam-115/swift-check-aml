@@ -1,0 +1,106 @@
+{
+ "head": {
+  "counts": {
+   "housesCount": 6,
+   "resultCount": 6
+  }
+ },
+ "results": [
+  {
+   "house": {
+    "showAs": "27th Seanad",
+    "seats": 60,
+    "houseNo": "27",
+    "dateRange": {
+     "start": "2025-01-29",
+     "end": null
+    },
+    "chamberType": "house",
+    "chamberCode": "seanad",
+    "houseType": "seanad",
+    "houseCode": "seanad",
+    "uri": "https://data.oireachtas.ie/ie/oireachtas/house/seanad/27"
+   }
+  },
+  {
+   "house": {
+    "showAs": "34th Dáil & 27th Seanad",
+    "seats": 234,
+    "houseNo": "27",
+    "dateRange": {
+     "start": "2025-01-29",
+     "end": null
+    },
+    "chamberType": "house",
+    "chamberCode": "dail & seanad",
+    "houseType": "dail & seanad",
+    "houseCode": "dail & seanad",
+    "uri": "https://data.oireachtas.ie/ie/oireachtas/house/dail & seanad/27"
+   }
+  },
+  {
+   "house": {
+    "showAs": "34th Dáil",
+    "seats": 174,
+    "houseNo": "34",
+    "dateRange": {
+     "start": "2024-11-29",
+     "end": null
+    },
+    "chamberType": "house",
+    "chamberCode": "dail",
+    "houseType": "dail",
+    "houseCode": "dail",
+    "uri": "https://data.oireachtas.ie/ie/oireachtas/house/dail/34"
+   }
+  },
+  {
+   "house": {
+    "showAs": "26th Seanad",
+    "seats": 60,
+    "houseNo": "26",
+    "dateRange": {
+     "start": "2020-03-30",
+     "end": "2025-01-29"
+    },
+    "chamberType": "house",
+    "chamberCode": "seanad",
+    "houseType": "seanad",
+    "houseCode": "seanad",
+    "uri": "https://data.oireachtas.ie/ie/oireachtas/house/seanad/26"
+   }
+  },
+  {
+   "house": {
+    "showAs": "33rd Dáil",
+    "seats": 160,
+    "houseNo": "33",
+    "dateRange": {
+     "start": "2020-02-08",
+     "end": "2024-11-08"
+    },
+    "chamberType": "house",
+    "chamberCode": "dail",
+    "houseType": "dail",
+    "houseCode": "dail",
+    "uri": "https://data.oireachtas.ie/ie/oireachtas/house/dail/33"
+   }
+  },
+  {
+   "house": {
+    "showAs": "33rd Dáil & 26th Seanad",
+    "seats": 220,
+    "houseNo": "26",
+    "dateRange": {
+     "start": "2020-02-08",
+     "end": "2024-11-08"
+    },
+    "chamberType": "house",
+    "chamberCode": "dail & seanad",
+    "houseType": "dail & seanad",
+    "houseCode": "dail & seanad",
+    "uri": "https://data.oireachtas.ie/ie/oireachtas/house/dail & seanad/26"
+   }
+  }
+ ]
+}
