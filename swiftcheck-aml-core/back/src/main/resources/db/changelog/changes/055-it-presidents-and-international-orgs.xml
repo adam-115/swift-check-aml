@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Italie, lot 2 (suite) : présidents de l'AGCM et de l'AGCOM, et dirigeants de la FAO et du PAM établis à Rome.
+
+    FIDA : le plugin sait lire sa page « Leadership » (clé ifad dans institutions.json) mais le site répond HTTP 403 au
+    client automatique lors du test du 5/11/2026 ; il n'est donc pas dans la liste par défaut (aucun contournement).
+-->
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="055-authorities-add-presidents" author="swiftcheck">
+        <sql><![CDATA[
+            UPDATE parser
+               SET parameters = JSON_SET(parameters, '$.keys', 'banca_ditalia,garante_privacy,agcm,agcm_president,agcom,agcom_president,ivass')
+             WHERE dataset_name = 'it_pep_central_bank_authorities';
+
+            UPDATE pep_function_parser
+               SET covered_scope = 'Le gouverneur, le directeur général et les trois sous-directeurs généraux de la Banque d''Italie ; le collège du Garante privacy (dont un membre sorti en janvier 2026) ; le président et deux membres de l''AGCM ; le président et les quatre commissaires de l''AGCOM ; sept membres de l''IVASS.',
+                   gaps = 'Consob (captcha Radware), ANAC et ARERA (pas de page lisible) ; autres autorités. Le nom du président de l''AGCM est lu dans l''adresse de sa fiche (accents éventuels perdus).'
+             WHERE parser_id = (SELECT id FROM parser WHERE dataset_name = 'it_pep_central_bank_authorities');
+        ]]></sql>
+    </changeSet>
+
+    <changeSet id="055-parser-it-pep-international-orgs" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Italie – Organisations internationales',
+                'Directeur général de la FAO et direction du Programme alimentaire mondial, d''après leurs pages officielles (catégorie IT-1.9)',
+                'it_pep_international_orgs', 'PEP', 'https://www.fao.org/',
+                'it-pep-institutions', 'D:/test parser 2/plugins/swiftcheck-aml-it-pep-institutions-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'WEB_PAGE',
+                NULL,
+                '{"keys": "fao,wfp", "delayMs": "1500"}',
+                168, 12,
+                'Sites officiels des organisations : citer la source', 'FAO (fao.org) et Programme alimentaire mondial (wfp.org)',
+                'FIDA : extracteur prêt (clé ifad) mais le site répond 403 au client automatique, non contourné. Autres organisations établies en Italie (ESA-ESRIN, IUE, UNICRI, EFSA…) à ajouter une page à la fois.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'PARTIAL', FALSE, 'Le directeur général de la FAO ; le directeur exécutif, le directeur exécutif adjoint et les directeurs exécutifs assistants du PAM.', 'FIDA (403), ESA-ESRIN, IUE, UNICRI, EFSA et autres ; adjoints de la FAO.'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'IT-1.9' AND f.label LIKE 'Dirigeant d''une organisation internationale%' AND p.dataset_name = 'it_pep_international_orgs';
+        ]]></sql>
+    </changeSet>
+</databaseChangeLog>

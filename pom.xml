@@ -135,6 +135,12 @@
         <module>swiftcheck-aml-plugins/pep/austria/swiftcheck-aml-at-pep-federal-government</module>
         <module>swiftcheck-aml-plugins/pep/austria/swiftcheck-aml-at-pep-institutions</module>
         <module>swiftcheck-aml-plugins/pep/austria/swiftcheck-aml-at-pep-parties</module>
+        <module>swiftcheck-aml-plugins/pep/italy/swiftcheck-aml-it-pep-europarl</module>
+        <module>swiftcheck-aml-plugins/pep/italy/swiftcheck-aml-it-pep-eu-commission</module>
+        <module>swiftcheck-aml-plugins/pep/italy/swiftcheck-aml-it-pep-president</module>
+        <module>swiftcheck-aml-plugins/pep/italy/swiftcheck-aml-it-pep-parliament</module>
+        <module>swiftcheck-aml-plugins/pep/italy/swiftcheck-aml-it-pep-local-administrators</module>
+        <module>swiftcheck-aml-plugins/pep/italy/swiftcheck-aml-it-pep-institutions</module>
     </modules>
 
     <dependencyManagement>

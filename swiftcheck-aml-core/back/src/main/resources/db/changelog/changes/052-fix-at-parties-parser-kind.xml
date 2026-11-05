@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Correction : at_pep_parties avait parser_kind = 'PDF', valeur absente de l'énumération ParserKind
+    (OPEN_DATA_FILE, API, SPARQL, OFFICIAL_GAZETTE, WEB_PAGE, PDF_DOCUMENT, DECLARATION_REGISTER).
+    Erreur au chargement : « No enum constant ...ParserKind.PDF ». La 050 est laissée telle quelle pour ne pas
+    changer sa somme de contrôle Liquibase.
+-->
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="052-fix-at-parties-parser-kind" author="swiftcheck">
+        <sql>UPDATE parser SET parser_kind = 'PDF_DOCUMENT' WHERE parser_kind = 'PDF';</sql>
+    </changeSet>
+</databaseChangeLog>

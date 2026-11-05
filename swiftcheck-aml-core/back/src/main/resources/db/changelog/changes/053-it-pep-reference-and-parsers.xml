@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Italie : référentiel PEP (catégories, fonctions) et parseurs du lot 1.
+
+    Base légale : D.Lgs. 231/2007, art. 1 c.2 lett. dd), points 1.1 à 1.9 (« moins d'un an » après la fin des fonctions) ;
+    liste notifiée à la Commission (JO C/2023/724). Plan : documentation/analyse pep italie/Plan_Parsers_PEP_Italie.pdf.
+
+    Parseurs de ce lot (sources officielles lues en direct le 5/11/2026, aucune donnée Wikidata) :
+      - it_pep_chamber               : SPARQL dati.camera.it, députés
+      - it_pep_senate                : SPARQL dati.senato.it, sénateurs
+      - it_pep_government            : SPARQL dati.camera.it, président du Conseil, ministres, sous-secrétaires
+      - it_pep_local_administrators  : CSV du ministère de l'Intérieur, maires (15 000 habitants et plus) et élus régionaux
+      - it_pep_europarl              : API du Parlement européen (76 députés)
+      - it_pep_eu_commission         : fiche officielle du commissaire italien
+      - it_pep_president             : biographie sur quirinale.it
+
+    Non couvert à ce jour : lot 2 (autorités, Banque d'Italie, juridictions, armée, diplomates, partis, ASL,
+    organisations internationales) et lot 3 (entreprises publiques). Proches (RCA) : seule source connue = Wikidata, exclue.
+-->
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="053-it-country" author="swiftcheck">
+        <sql>
+            UPDATE country SET legal_basis = 'D.Lgs. 231/2007, art. 1 c.2 lett. dd), points 1.1 à 1.9 : personnes exerçant ou ayant cessé depuis moins d''un an une fonction publique importante, leurs proches et associés',
+                               retention_months = 12,
+                               official_list_reference = 'JO C/2023/724 (section Italie) ; D.Lgs. 231/2007',
+                               official_list_date = '2023-10-24',
+                               official_list_url = 'https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=OJ:C_202300724'
+            WHERE iso = 'IT';
+        </sql>
+    </changeSet>
+
+    <changeSet id="053-it-categories" author="swiftcheck">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM pep_category WHERE country_iso = 'IT'</sqlCheck>
+        </preConditions>
+        <sql>
+            INSERT INTO pep_category (country_iso, code, label, kind, risk_class, sort_order, legal_reference) VALUES
+            ('IT', 'IT-1.1', 'Chef de l''État, président du Conseil, ministres, vice-ministres, sous-secrétaires, présidents et assesseurs de Région, maires des chefs-lieux et des communes de 15 000 habitants ou plus', 'OFFICIAL', 1, 1, 'D.Lgs. 231/2007, art. 1 c.2 lett. dd), point 1.1 ; JO C/2023/724'),
+            ('IT', 'IT-1.2', 'Députés, sénateurs, députés européens, conseillers régionaux', 'OFFICIAL', 1, 2, 'D.Lgs. 231/2007, art. 1 c.2 lett. dd), point 1.2 ; JO C/2023/724'),
+            ('IT', 'IT-1.3', 'Organes centraux de direction des partis politiques', 'OFFICIAL', 2, 3, 'D.Lgs. 231/2007, art. 1 c.2 lett. dd), point 1.3 ; JO C/2023/724'),
+            ('IT', 'IT-1.4', 'Juges de la Cour constitutionnelle, magistrats de la Cour de cassation et de la Cour des comptes, conseillers d''État', 'OFFICIAL', 2, 4, 'D.Lgs. 231/2007, art. 1 c.2 lett. dd), point 1.4 ; JO C/2023/724'),
+            ('IT', 'IT-1.5', 'Organes de direction des banques centrales et des autorités indépendantes', 'OFFICIAL', 2, 5, 'D.Lgs. 231/2007, art. 1 c.2 lett. dd), point 1.5 ; JO C/2023/724'),
+            ('IT', 'IT-1.6', 'Ambassadeurs, chargés d''affaires, officiers de haut rang des forces armées', 'OFFICIAL', 2, 6, 'D.Lgs. 231/2007, art. 1 c.2 lett. dd), point 1.6 ; JO C/2023/724'),
+            ('IT', 'IT-1.7', 'Organes des sociétés contrôlées par l''État, les Régions et les communes concernées', 'OFFICIAL', 3, 7, 'D.Lgs. 231/2007, art. 1 c.2 lett. dd), point 1.7 ; JO C/2023/724'),
+            ('IT', 'IT-1.8', 'Directeurs généraux des ASL, des hôpitaux et des autres entités du service de santé national', 'OFFICIAL', 3, 8, 'D.Lgs. 231/2007, art. 1 c.2 lett. dd), point 1.8 ; JO C/2023/724'),
+            ('IT', 'IT-1.9', 'Dirigeants des organisations internationales établies en Italie', 'OFFICIAL', 3, 9, 'D.Lgs. 231/2007, art. 1 c.2 lett. dd), point 1.9 ; JO C/2023/724'),
+            ('IT', 'IT-EU', 'Italiens exerçant une fonction européenne', 'EU', 1, 10, 'Liste de la Commission, JO C/2023/724'),
+            ('IT', 'IT-RCA', 'Membres de la famille et proches associés', 'RCA', 2, 11, 'D.Lgs. 231/2007, art. 1 c.2 lett. dd), points 2 et 3');
+        </sql>
+    </changeSet>
+
+    <changeSet id="053-it-functions" author="swiftcheck">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM pep_function f JOIN pep_category c ON c.id = f.category_id WHERE c.country_iso = 'IT'</sqlCheck>
+        </preConditions>
+        <sql>
+            INSERT INTO pep_function (category_id, label, institution, expected_holders)
+            SELECT c.id, f.label, f.institution, f.expected_holders
+            FROM pep_category c JOIN (
+                SELECT 'IT-1.1' AS code, 'Président de la République' AS label, 'Quirinale' AS institution, 1 AS expected_holders
+                UNION ALL SELECT 'IT-1.1', 'Président du Conseil, ministres, vice-ministres et sous-secrétaires', 'Governo', 65
+                UNION ALL SELECT 'IT-1.1', 'Président de Région et assesseur régional', 'Regioni', 130
+                UNION ALL SELECT 'IT-1.1', 'Maire de chef-lieu ou de commune d''au moins 15 000 habitants', 'Comuni', 701
+                UNION ALL SELECT 'IT-1.2', 'Député à la Chambre des députés', 'Camera dei deputati', 400
+                UNION ALL SELECT 'IT-1.2', 'Sénateur de la République', 'Senato della Repubblica', 200
+                UNION ALL SELECT 'IT-1.2', 'Député européen élu en Italie', 'Parlement européen', 76
+                UNION ALL SELECT 'IT-1.2', 'Conseiller régional', 'Consigli regionali', 700
+                UNION ALL SELECT 'IT-1.3', 'Membre d''un organe central de direction d''un parti', 'Partiti politici', 30
+                UNION ALL SELECT 'IT-1.4', 'Juge de la Cour constitutionnelle', 'Corte costituzionale', 15
+                UNION ALL SELECT 'IT-1.4', 'Magistrat de la Cour de cassation, de la Cour des comptes ; conseiller d''État', 'Alte magistrature', NULL
+                UNION ALL SELECT 'IT-1.5', 'Organes de la Banque d''Italie et des autorités indépendantes', 'Banca d''Italia, AGCM, AGCOM, ARERA, IVASS, Consob, ANAC, Garante privacy', 60
+                UNION ALL SELECT 'IT-1.6', 'Ambassadeur ou chargé d''affaires', 'Ministero degli Affari Esteri', 130
+                UNION ALL SELECT 'IT-1.6', 'Officier de haut rang des forces armées', 'Difesa', 20
+                UNION ALL SELECT 'IT-1.7', 'Organe d''une société contrôlée par l''État, une Région ou une commune concernée', 'Partecipazioni pubbliche', NULL
+                UNION ALL SELECT 'IT-1.8', 'Directeur général d''ASL, d''hôpital ou d''entité du service de santé national', 'ASL et aziende ospedaliere', 200
+                UNION ALL SELECT 'IT-1.9', 'Dirigeant d''une organisation internationale établie en Italie', 'FAO, FIDA, PAM…', 80
+                UNION ALL SELECT 'IT-EU', 'Membre italien de la Commission européenne', 'Commission européenne', 1
+                UNION ALL SELECT 'IT-RCA', 'Membre de la famille d''une PEP italienne', NULL, NULL
+                UNION ALL SELECT 'IT-RCA', 'Proche associé d''une PEP italienne', NULL, NULL
+            ) f ON f.code = c.code;
+        </sql>
+    </changeSet>
+
+    <changeSet id="053-parser-it-pep-chamber" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Italie – Chambre des députés',
+                'Députés en fonction et sortis depuis moins de 12 mois, avec naissance et dates de mandat ; décédés écartés (catégorie IT-1.2)',
+                'it_pep_chamber', 'PEP', 'https://dati.camera.it/',
+                'it-pep-parliament', 'D:/test parser 2/plugins/swiftcheck-aml-it-pep-parliament-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'SPARQL',
+                NULL,
+                '{"body": "chamber", "chamberUrl": "https://dati.camera.it/sparql", "monthsAfterEnd": "12", "pageSize": "2000", "delayMs": "500"}',
+                168, 12,
+                'Open data de la Chambre des députés : citer la source (licence à vérifier sur dati.camera.it)', 'Camera dei deputati, dati.camera.it',
+                'Même plugin que it_pep_senate et it_pep_government ; le paramètre body choisit le jeu. Requêtes SPARQL paginées. Quand un mandat n''a pas de fin, la fin de la législature en tient lieu. Un historique plus long : monthsAfterEnd plus grand.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', TRUE, 'Tous les députés en fonction et ceux sortis depuis moins de 12 mois, avec date et lieu de naissance ; les décédés (Umberto Bossi à ce jour) ne sont pas publiés.', 'Historique réglable (monthsAfterEnd) mais limité à 12 mois par défaut.'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'IT-1.2' AND f.label LIKE 'Député à la Chambre%' AND p.dataset_name = 'it_pep_chamber';
+        ]]></sql>
+    </changeSet>
+
+    <changeSet id="053-parser-it-pep-senate" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Italie – Sénat',
+                'Sénateurs en fonction (sénateurs à vie compris) et sortis depuis moins de 12 mois, avec naissance et mandats ; décédés écartés (catégorie IT-1.2)',
+                'it_pep_senate', 'PEP', 'https://dati.senato.it/',
+                'it-pep-parliament', 'D:/test parser 2/plugins/swiftcheck-aml-it-pep-parliament-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'SPARQL',
+                NULL,
+                '{"body": "senate", "senateUrl": "https://dati.senato.it/sparql", "monthsAfterEnd": "12", "pageSize": "2000", "delayMs": "500"}',
+                168, 12,
+                'Open data du Sénat : citer la source (licence à vérifier sur dati.senato.it)', 'Senato della Repubblica, dati.senato.it',
+                'Un mandat sans date de fin n''est « en cours » que dans la dernière législature (déterminée à chaque exécution).', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', TRUE, 'Tous les sénateurs en fonction et ceux sortis depuis moins de 12 mois, avec date et lieu de naissance ; décédés écartés.', 'Historique limité à 12 mois par défaut.'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'IT-1.2' AND f.label LIKE 'Sénateur de la République%' AND p.dataset_name = 'it_pep_senate';
+        ]]></sql>
+    </changeSet>
+
+    <changeSet id="053-parser-it-pep-government" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Italie – Gouvernement',
+                'Président du Conseil, ministres, vice-ministres et sous-secrétaires en fonction ou sortis depuis moins de 12 mois, avec leurs dates de nomination et de fin (catégorie IT-1.1)',
+                'it_pep_government', 'PEP', 'https://dati.camera.it/',
+                'it-pep-parliament', 'D:/test parser 2/plugins/swiftcheck-aml-it-pep-parliament-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'SPARQL',
+                NULL,
+                '{"body": "government", "chamberUrl": "https://dati.camera.it/sparql", "monthsAfterEnd": "12", "pageSize": "2000", "delayMs": "500"}',
+                168, 12,
+                'Open data de la Chambre des députés : citer la source', 'Camera dei deputati, dati.camera.it',
+                'La Chambre publie les membres du gouvernement depuis 1848 avec les dates : l''historique se règle avec monthsAfterEnd. Une même fonction écrite deux fois (casse) n''est publiée qu''une fois.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', TRUE, 'Le président du Conseil, les ministres, vice-ministres et sous-secrétaires en fonction et ceux sortis depuis moins de 12 mois, avec dates et naissance.', 'Aucune ; historique limité à 12 mois par défaut (disponible depuis 1848).'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'IT-1.1' AND f.label LIKE 'Président du Conseil, ministres%' AND p.dataset_name = 'it_pep_government';
+        ]]></sql>
+    </changeSet>
+
+    <changeSet id="053-parser-it-pep-local-administrators" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Italie – Maires et élus régionaux',
+                'Maires des communes d''au moins 15 000 habitants, présidents, assesseurs et conseillers des Régions, d''après le CSV de l''Anagrafe des administrateurs du ministère de l''Intérieur (catégories IT-1.1 et IT-1.2)',
+                'it_pep_local_administrators', 'PEP', 'https://dait.interno.gov.it/',
+                'it-pep-local-administrators', 'D:/test parser 2/plugins/swiftcheck-aml-it-pep-local-administrators-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'OPEN_DATA_FILE',
+                NULL,
+                '{"communesUrl": "https://dait.interno.gov.it/documenti/ammcom.csv", "regionsUrl": "https://dait.interno.gov.it/documenti/ammreg.csv", "minPopulation": "15000"}',
+                168, 12,
+                'Données ouvertes du ministère de l''Intérieur : citer la source', 'Ministero dell''Interno, Anagrafe degli amministratori locali e regionali, dait.interno.gov.it',
+                'Fichier de 31 Mo téléchargé à chaque exécution. Il ne contient que les personnes en fonction : celles qui disparaissent restent publiées 12 mois par la rétention du cœur. Les chefs-lieux de moins de 15 000 habitants s''ajoutent avec le paramètre capoluogoCodes (« province/commune »). Ni diplôme, ni profession, ni liste électorale ne sont repris.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'PARTIAL', FALSE, 'Les 701 maires des communes d''au moins 15 000 habitants, avec date et lieu de naissance et date d''entrée en fonction.', 'Chefs-lieux de moins de 15 000 habitants à ajouter par leur code ; Vallée d''Aoste et Trentin-Haut-Adige hors du fichier ; anciens maires seulement pendant la rétention de 12 mois.'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'IT-1.1' AND f.label LIKE 'Maire de chef-lieu%' AND p.dataset_name = 'it_pep_local_administrators';
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'PARTIAL', FALSE, 'Les présidents de 17 Régions et leurs 110 assesseurs, avec naissance et date d''entrée en fonction.', 'La Campanie n''a pas de président dans le fichier ; Vallée d''Aoste et Trentin-Haut-Adige absents ; anciens titulaires seulement pendant la rétention de 12 mois.'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'IT-1.1' AND f.label LIKE 'Président de Région%' AND p.dataset_name = 'it_pep_local_administrators';
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'PARTIAL', FALSE, 'Environ 700 conseillers régionaux (suppléants exclus), avec naissance et date d''entrée en fonction.', 'Vallée d''Aoste et Trentin-Haut-Adige absents ; anciens conseillers seulement pendant la rétention de 12 mois.'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'IT-1.2' AND f.label = 'Conseiller régional' AND p.dataset_name = 'it_pep_local_administrators';
+        ]]></sql>
+    </changeSet>
+
+    <changeSet id="053-parser-it-pep-europarl" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Italie – Députés européens',
+                'Les députés au Parlement européen élus en Italie, en fonction et sortis depuis moins de 12 mois, avec naissance et dates de mandat (catégorie IT-1.2)',
+                'it_pep_europarl', 'PEP', 'https://data.europarl.europa.eu/',
+                'it-pep-europarl', 'D:/test parser 2/plugins/swiftcheck-aml-it-pep-europarl-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'API',
+                NULL,
+                '{"currentUrl": "https://data.europarl.europa.eu/api/v2/meps/show-current?country-of-representation=IT&format=application%2Fld%2Bjson", "termUrl": "https://data.europarl.europa.eu/api/v2/meps?country-of-representation=IT&parliamentary-term=10&limit=500&format=application%2Fld%2Bjson", "detailUrl": "https://data.europarl.europa.eu/api/v2/meps/{id}?format=application%2Fld%2Bjson", "delayMs": "400", "monthsAfterEnd": "12"}',
+                168, 12,
+                'Réutilisation autorisée en citant la source (Parlement européen)', 'Parlement européen, data.europarl.europa.eu',
+                'Reprise de at_pep_europarl. Une fiche par député (77 appels, environ 4 minutes). L''API limite le débit (HTTP 429) : le plugin attend puis réessaie. Photos : Wikimedia Commons (images seulement).', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', TRUE, 'Les 76 députés européens élus en Italie et ceux sortis depuis moins de 12 mois (Antonio Decaro à ce jour), avec naissance, genre, groupe et dates de mandat.', NULL
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'IT-1.2' AND f.label LIKE 'Député européen%' AND p.dataset_name = 'it_pep_europarl';
+        ]]></sql>
+    </changeSet>
+
+    <changeSet id="053-parser-it-pep-eu-commission" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Italie – Commissaire européen',
+                'Le membre italien de la Commission européenne, d''après sa fiche officielle (catégorie IT-EU)',
+                'it_pep_eu_commission', 'PEP', 'https://commission.europa.eu/about/organisation/college-commissioners_en',
+                'it-pep-eu-commission', 'D:/test parser 2/plugins/swiftcheck-aml-it-pep-eu-commission-0.0.1-SNAPSHOT.jar',
+                'HTTP_FILE', 'WEB_PAGE',
+                'https://commission.europa.eu/about/organisation/college-commissioners/raffaele-fitto_en',
+                NULL,
+                168, 12,
+                'Réutilisation autorisée en citant la source (avis juridique de la Commission européenne)', 'Commission européenne, commission.europa.eu',
+                'Reprise de at_pep_eu_commission. À chaque nouvelle Commission, remplacer l''adresse par la fiche du commissaire italien. Une fiche qui ne présente pas un commissaire italien est refusée.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', FALSE, 'Raffaele Fitto, vice-président exécutif (2024-2029) chargé de la cohésion et des réformes.', 'Ni date ni lieu de naissance sur la fiche.'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'IT-EU' AND f.label LIKE 'Membre italien de la Commission%' AND p.dataset_name = 'it_pep_eu_commission';
+        ]]></sql>
+    </changeSet>
+
+    <changeSet id="053-parser-it-pep-president" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Italie – Président de la République',
+                'Le Président de la République italienne, d''après sa biographie officielle sur quirinale.it (catégorie IT-1.1)',
+                'it_pep_president', 'PEP', 'https://www.quirinale.it/',
+                'it-pep-president', 'D:/test parser 2/plugins/swiftcheck-aml-it-pep-president-0.0.1-SNAPSHOT.jar',
+                'HTTP_FILE', 'WEB_PAGE',
+                'https://www.quirinale.it/page/biografia',
+                NULL,
+                168, 12,
+                'Site officiel de la Présidence de la République : citer la source', 'Presidenza della Repubblica, www.quirinale.it',
+                'Le nom vient du titre de la page, la naissance de la phrase « nato a … il … ». Pas de date de prise de fonctions exploitable. À chaque nouveau Président, la page change : le sortant reste publié 12 mois par la rétention du cœur.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', FALSE, 'Le Président de la République en fonction, avec date et lieu de naissance.', 'Pas de date de prise de fonctions.'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'IT-1.1' AND f.label = 'Président de la République' AND p.dataset_name = 'it_pep_president';
+        ]]></sql>
+    </changeSet>
+
+</databaseChangeLog>

@@ -1,0 +1,114 @@
+{
+  "institutions": [
+    {
+      "key": "banca_ditalia",
+      "name": "Banca d'Italia – Direttorio",
+      "acronym": "BdI",
+      "category": "IT-1.5",
+      "topics": [
+        "gov.financial"
+      ],
+      "url": "https://www.bancaditalia.it/chi-siamo/funzioni-governance/direttorio/index.html"
+    },
+    {
+      "key": "garante_privacy",
+      "name": "Garante per la protezione dei dati personali – Collegio",
+      "acronym": "GPDP",
+      "category": "IT-1.5",
+      "topics": [
+        "gov.admin"
+      ],
+      "url": "https://www.garanteprivacy.it/home/autorita/collegio"
+    },
+    {
+      "key": "agcm",
+      "name": "Autorità garante della concorrenza e del mercato – Collegio",
+      "acronym": "AGCM",
+      "category": "IT-1.5",
+      "topics": [
+        "gov.admin"
+      ],
+      "url": "https://www.agcm.it/chi-siamo/collegio/componenti"
+    },
+    {
+      "key": "agcom",
+      "name": "Autorità per le garanzie nelle comunicazioni – Commissari",
+      "acronym": "AGCOM",
+      "category": "IT-1.5",
+      "topics": [
+        "gov.admin"
+      ],
+      "url": "https://www.agcom.it/istituzione/commissari"
+    },
+    {
+      "key": "ivass",
+      "name": "IVASS – Direttorio integrato",
+      "acronym": "IVASS",
+      "category": "IT-1.5",
+      "topics": [
+        "gov.financial"
+      ],
+      "url": "https://www.ivass.it/chi-siamo/organizzazione/direttorio-integrato/index.html"
+    },
+    {
+      "key": "difesa_smd",
+      "name": "Stato Maggiore della Difesa",
+      "acronym": "SMD",
+      "category": "IT-1.6",
+      "topics": [
+        "gov.security"
+      ],
+      "url": "https://www.difesa.it/smd/casmd/biografia/24874.html"
+    },
+    {
+      "key": "agcm_president",
+      "name": "Autorità garante della concorrenza e del mercato – Presidente",
+      "acronym": "AGCM-P",
+      "category": "IT-1.5",
+      "topics": [
+        "gov.admin"
+      ],
+      "url": "https://www.agcm.it/chi-siamo/collegio/presidente"
+    },
+    {
+      "key": "agcom_president",
+      "name": "Autorità per le garanzie nelle comunicazioni – Presidente",
+      "acronym": "AGCOM-P",
+      "category": "IT-1.5",
+      "topics": [
+        "gov.admin"
+      ],
+      "url": "https://www.agcom.it/istituzione"
+    },
+    {
+      "key": "fao",
+      "name": "FAO – Organisation des Nations unies pour l'alimentation et l'agriculture",
+      "acronym": "FAO",
+      "category": "IT-1.9",
+      "topics": [
+        "gov.igo"
+      ],
+      "url": "https://www.fao.org/director-general/biography/en"
+    },
+    {
+      "key": "wfp",
+      "name": "Programme alimentaire mondial (PAM)",
+      "acronym": "PAM",
+      "category": "IT-1.9",
+      "topics": [
+        "gov.igo"
+      ],
+      "url": "https://www.wfp.org/governance-and-leadership"
+    },
+    {
+      "key": "ifad",
+      "name": "Fonds international de développement agricole (FIDA)",
+      "acronym": "FIDA",
+      "category": "IT-1.9",
+      "topics": [
+        "gov.igo"
+      ],
+      "url": "https://www.ifad.org/en/leadership"
+    }
+  ]
+}

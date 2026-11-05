@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Italie, lot 2 (premier volet) : Banque d'Italie, autorités indépendantes lisibles et chef d'état-major de la Défense.
+    Même plugin it-pep-institutions pour les deux parseurs (paramètre keys). Voir 053-it-pep-reference-and-parsers.xml.
+
+    Non lus à ce jour, avec le motif : Consob (captcha Radware), Cour constitutionnelle (captcha Radware), Cour de
+    cassation et CSM (HTTP 403), Cour des comptes (403), Affaires étrangères (liste des ambassadeurs non lisible),
+    ANAC, ARERA (pas de page de composition lisible), présidents d'AGCM et d'AGCOM et chefs des armées et des corps
+    (noms absents du texte des pages ou sites injoignables), partis, directeurs d'ASL et organisations internationales
+    (une page par entité, non encore écrites).
+-->
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="054-parser-it-pep-central-bank-authorities" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Italie – Banque d''Italie et autorités',
+                'Direction de la Banque d''Italie, collèges du Garante privacy, de l''AGCM, de l''AGCOM et direction intégrée de l''IVASS, d''après les pages officielles (catégorie IT-1.5)',
+                'it_pep_central_bank_authorities', 'PEP', 'https://www.bancaditalia.it/',
+                'it-pep-institutions', 'D:/test parser 2/plugins/swiftcheck-aml-it-pep-institutions-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'WEB_PAGE',
+                NULL,
+                '{"keys": "banca_ditalia,garante_privacy,agcm,agcom,ivass", "delayMs": "1500"}',
+                168, 12,
+                'Sites officiels : citer la source', 'Banca d''Italia, Garante privacy, AGCM, AGCOM, IVASS',
+                'Adresses dans institutions.json, aucun nom embarqué. Un membre dont la fin de fonctions date de plus de 12 mois n''est pas publié. Les membres de la Banque d''Italie apparaissent aussi à l''IVASS (direction intégrée).', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'PARTIAL', TRUE, 'Le gouverneur, le directeur général et les trois sous-directeurs généraux de la Banque d''Italie ; le collège du Garante privacy (dont un membre sorti en janvier 2026) ; deux membres de l''AGCM ; les quatre commissaires de l''AGCOM ; sept membres de l''IVASS.', 'Consob (captcha Radware), ANAC et ARERA (pas de page lisible) ; présidents de l''AGCM et de l''AGCOM (nom absent du texte de la page) ; autres autorités.'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'IT-1.5' AND f.label LIKE 'Organes de la Banque d''Italie%' AND p.dataset_name = 'it_pep_central_bank_authorities';
+        ]]></sql>
+    </changeSet>
+
+    <changeSet id="054-parser-it-pep-military" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Italie – Forces armées',
+                'Le chef d''état-major de la Défense, d''après la page officielle du ministère de la Défense (catégorie IT-1.6)',
+                'it_pep_military', 'PEP', 'https://www.difesa.it/',
+                'it-pep-institutions', 'D:/test parser 2/plugins/swiftcheck-aml-it-pep-institutions-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'WEB_PAGE',
+                NULL,
+                '{"keys": "difesa_smd", "delayMs": "1500"}',
+                168, 12,
+                'Site officiel du ministère de la Défense : citer la source', 'Ministero della Difesa, www.difesa.it',
+                'Un seul titulaire pour l''instant. Les chefs d''état-major des armées et les commandants de l''Arma et de la Guardia di Finanza demandent une page par force (sites injoignables ou noms absents du texte lors des tests).', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'PARTIAL', FALSE, 'Le chef d''état-major de la Défense en fonction.', 'Chefs d''état-major de l''armée de terre, de la marine et de l''armée de l''air ; commandants des Carabinieri et de la Guardia di Finanza ; autres officiers de haut rang.'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'IT-1.6' AND f.label LIKE 'Officier de haut rang%' AND p.dataset_name = 'it_pep_military';
+        ]]></sql>
+    </changeSet>
+</databaseChangeLog>

@@ -79,5 +79,9 @@
     <include file="db/changelog/changes/049-at-pep-reference-and-parsers.xml" />
     <include file="db/changelog/changes/050-at-parties-and-oebag.xml" />
     <include file="db/changelog/changes/051-at-land-governments-vienna.xml" />
+    <include file="db/changelog/changes/052-fix-at-parties-parser-kind.xml" />
+    <include file="db/changelog/changes/053-it-pep-reference-and-parsers.xml" />
+    <include file="db/changelog/changes/054-it-institutions.xml" />
+    <include file="db/changelog/changes/055-it-presidents-and-international-orgs.xml" />
 
 </databaseChangeLog>
