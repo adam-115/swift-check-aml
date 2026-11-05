@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="fr"><head><meta charset="utf-8"><title>Sources manquantes pour dépasser OpenSanctions</title>
+<style>
+@page{size:A4;margin:13mm}
+body{font-family:Segoe UI,Arial,sans-serif;font-size:9.8pt;color:#1b2430;line-height:1.38}
+h1{font-size:19pt;margin:0 0 1mm;color:#0b3d6b}h2{font-size:13pt;color:#0b3d6b;border-bottom:2px solid #0b3d6b;padding-bottom:1mm;margin-top:6mm}h3{font-size:11pt;color:#0b3d6b;margin:4mm 0 1mm}
+.sub{color:#5a6674;font-size:9pt}
+table{border-collapse:collapse;width:100%;margin:2mm 0;font-size:8.6pt}th,td{border:1px solid #c9d3de;padding:1.3mm 1.8mm;vertical-align:top;text-align:left}th{background:#0b3d6b;color:#fff}
+tr{page-break-inside:avoid}
+.ok{color:#14733a;font-weight:600}.w{color:#a15c00;font-weight:600}.ko{color:#b3261e;font-weight:600}
+.box{background:#eaf6ee;border-left:4px solid #14733a;padding:2.2mm 3mm;margin:3mm 0}
+.warn{background:#fff7e0;border-left:4px solid #e0a800;padding:2.2mm 3mm;margin:3mm 0}
+code{font-size:8.2pt}
+</style></head><body>
+<h1>Sources manquantes pour dépasser OpenSanctions</h1>
+<div class="sub">Huit pays déjà traités : France, Belgique, Luxembourg, Allemagne, Espagne, Portugal, Autriche, Italie. Recherche et tests du 5 novembre 2026, User-Agent générique, aucune protection contournée, aucune source Wikidata proposée. « Vérifié » = la source a répondu à un test de cette session ; « à vérifier » = trouvée par recherche, non testée.</div>
+
+<h2>1. Ce que fait OpenSanctions, et où se trouve leur avantage</h2>
+<p>Leur collection PEP repose sur <b>deux étages</b>. (a) Des jeux <b>officiels</b>, surtout des parlements et des élus locaux. (b) Deux jeux <b>Wikidata</b> mondiaux (371 400 PEP et 184 328 personnes de catégories pertinentes) qui comblent tout le reste : ministres, juges, ambassadeurs, dirigeants d'autorités. Sans Wikidata, notre avantage doit venir de sources officielles pour ce « reste » ; c'est ce que ce rapport cherche.</p>
+<table><tr><th>Pays</th><th>Jeux officiels OpenSanctions (entités)</th><th>Jeux non officiels</th></tr>
+<tr><td>France</td><td>Maires, ministère de l'Intérieur 68 720 · HATVP déclarations 4 380 · Assemblée nationale 3 150 · Sénat 522</td><td>—</td></tr>
+<tr><td>Belgique</td><td>Chambre 651 · Sénat 126 · Parlement flamand 125 · Parlement wallon 76</td><td>—</td></tr>
+<tr><td>Luxembourg</td><td>Maires et échevins (portail open data) 580 · Chambre 61</td><td>—</td></tr>
+<tr><td>Allemagne</td><td>Bundestag 1 818 · Bundesrat 182</td><td>AbgeordnetenWatch 2 515</td></tr>
+<tr><td>Espagne</td><td><b>Maires et conseillers municipaux, ministère de la Politique territoriale 94 357</b> · Parlement 1 403</td><td>—</td></tr>
+<tr><td>Portugal</td><td>Assemblée de la République 1 129</td><td>—</td></tr>
+<tr><td>Autriche</td><td>Parlement 988</td><td>« Public Officials » (Meine Abgeordneten) 1 597</td></tr>
+<tr><td>Italie</td><td>Chambre 905 · Sénat 456</td><td>—</td></tr></table>
+<div class="box"><b>Lecture.</b> Sur le plan des chiffres bruts, OpenSanctions n'est vraiment loin devant que sur les <b>élus locaux espagnols (94 357)</b> et dans une moindre mesure français (68 720). Partout ailleurs, nos parseurs couvrent déjà plus de fonctions qu'eux, mais ils n'ont pas le « filet » Wikidata : les trous à combler sont des fonctions précises, listées ci-dessous.</div>
+
+<h2>2. Les huit écarts les plus rentables (ordre de priorité)</h2>
+<table><tr><th>#</th><th>Écart</th><th>Source officielle</th><th>État</th><th>Gain</th></tr>
+<tr><td>1</td><td><b>Espagne : maires et conseillers municipaux</b> (nous : 54 personnes, issues de Wikidata)</td><td>Registro de alcaldes, ministère de la Politique territoriale : <code>https://concejales.redsara.es/consulta/</code> (fiche du catalogue : <code>https://datos.gob.es/es/catalogo/e05232701-registro-de-alcaldes</code>)</td><td><span class="w">Vérifié : l'application répond « Servicio en mantenimiento » le 5/11. À retester ; sinon demande de fichier au ministère</span></td><td>+ ≈ 94 000 personnes ; égalise OpenSanctions, supprime la dépendance Wikidata</td></tr>
+<tr><td>2</td><td><b>France : élus locaux et départementaux/régionaux</b> (nous : 34 826 maires + 1 182 présidents d'EPCI)</td><td>Répertoire national des élus, ministère de l'Intérieur, 12 fichiers CSV sur data.gouv.fr (<code>https://www.data.gouv.fr/datasets/repertoire-national-des-elus-1</code>) : conseillers municipaux (65 Mo), communautaires, <b>départementaux</b>, <b>régionaux</b>, assemblées d'outre-mer, Français de l'étranger, députés, sénateurs, eurodéputés. Mis à jour le 11/08/2026</td><td><span class="ok">Vérifié (liste des fichiers, tailles et dates)</span></td><td>Adjoints, vice-présidents et conseillers départementaux/régionaux : dépasse les 68 720 « maires » d'OpenSanctions</td></tr>
+<tr><td>3</td><td><b>France : déclarants HATVP</b> (parseur abandonné en octobre car jugé redondant avec le gouvernement)</td><td><code>https://www.hatvp.fr/livraison/opendata/liste.csv</code> : 13 673 lignes, <b>7 070 personnes</b>, avec type de mandat (commune 1 576, EPCI 3 394, département 3 080, région 1 026, députés, sénateurs, eurodéputés, gouvernement), qualité, département, dates de dépôt</td><td><span class="ok">Vérifié (fichier téléchargé et compté)</span></td><td>Comble les vice-présidents d'exécutifs locaux, parlementaires et collaborateurs ; OpenSanctions a 4 380 entités de cette source</td></tr>
+<tr><td>4</td><td><b>Portugal : Parlement</b> (parseur non fait, jugé bloqué)</td><td>Voie publique : page « Dados Abertos » → <code>DAComposicaoOrgaos.aspx</code> → page de chaque législature → fichier <code>OrgaoComposicaoXVII_json.txt</code> sur <code>app.parlamento.pt/webutils/docs/doc.txt</code>. Même source que OpenSanctions</td><td><span class="ok">Vérifié : 200, 5,3 Mo, 1 446 entrées de députés pour la XVIIe législature. Ma conclusion « bloqué » du 5/11 était trop pessimiste</span></td><td>Égalise OpenSanctions (1 129) et complète avec les anciennes législatures</td></tr>
+<tr><td>5</td><td><b>Belgique : listes de mandats</b> de tous les élus et dirigeants publics</td><td>Cour des comptes / Rekenhof : liste annuelle des mandats, fonctions et professions (parlementaires, ministres, gouverneurs, bourgmestres, échevins, dirigeants d'entités semi-publiques), publiée au Moniteur belge et sur <code>https://www.ccrek.be/en/lists-of-mandates</code>, avec moteur de recherche</td><td><span class="w">Page vérifiée (200) ; format téléchargeable en masse à confirmer</span></td><td>BE-e/f : organes des entités publiques et mandats cumulés, au-delà des parlements d'OpenSanctions</td></tr>
+<tr><td>6</td><td><b>Toutes nationalités : institutions de l'UE</b> (nous : seulement eurodéputés et commissaire, sauf la France)</td><td>Cour de justice (<code>curia.europa.eu</code>, 200), BCE conseil des gouverneurs (<code>ecb.europa.eu</code>, 200), Cour des comptes européenne, BEI, CESE, Comité des régions, SEAE. Le site du Conseil (<code>consilium.europa.eu</code>) répond 403 et le répertoire des eurodéputés 403</td><td><span class="w">Pages CJUE et BCE vérifiées ; les autres : Cour des comptes européenne 404, BEI 404</span></td><td>Une famille de fonctions entière, que le plan « fr_pep_eu_institutions » a déjà fait pour la France ; à répéter pour les sept autres pays</td></tr>
+<tr><td>7</td><td><b>Autriche : Landtage</b> (9 parlements régionaux) et maires des grandes villes</td><td>Sites des 9 Landtage ; Gemeindebund / Land pour les maires. Le jeu « Public Officials » d'OpenSanctions est non officiel</td><td><span class="w">À vérifier (aucun fichier national de maires trouvé ; la Haute-Autriche publie un fichier <code>ooeGem.txt</code>)</span></td><td>Égalise le jeu « Public Officials » (1 597) avec des sources officielles</td></tr>
+<tr><td>8</td><td><b>Hauts fonctionnaires et dirigeants d'autorités</b> (Banque d'Espagne exclue, CNMV, etc.)</td><td>Espagne : Portal de la Transparencia, section Altos cargos (<code>transparencia.gob.es</code>, ancien et actuel) et BOE (nominations, déclarations publiées au 1er trimestre). Portugal : Entidade para a Transparência. Italie : Gazzetta Ufficiale, Normattiva</td><td><span class="w">Pas de jeu ouvert téléchargeable trouvé pour l'Espagne ; Portugal injoignable (<code>transparencia.tc.pt</code>, pas de réponse)</span></td><td>Remplace le « filet » Wikidata pour les nominations</td></tr></table>
+
+<h2>3. Pays par pays</h2>
+
+<h3>France</h3>
+<table><tr><th>Ce que nous avons</th><th>Sources à ajouter (sans Wikidata)</th></tr>
+<tr><td>Président, gouvernement (HATVP), Assemblée, Sénat, eurodéputés, Commission, JORF (en cours), diplomates (PDF du ministère), organisations internationales (9/18), Conseil constitutionnel, Banque de France, armée, entreprises d'État, élus locaux (34 826 maires)</td>
+<td>1) <b>RNE complet</b> : conseillers départementaux et régionaux, assemblées d'outre-mer, adjoints (données de l'Intérieur, 11/08/2026).<br>2) <b>HATVP liste.csv</b> (7 070 personnes).<br>3) <b>JORF</b> : lancer l'exécution complète (archive 1,7 Go, une fois) pour les nominations et fins de fonctions.<br>4) <b>Institutions de l'UE</b> déjà faites ; ajouter le Conseil seulement si le 403 est levé.<br>5) Annuaire de l'administration (préfets, directeurs d'administration centrale) : à rechercher sur <code>data.gouv.fr</code>, aucun jeu vérifié.</td></tr></table>
+
+<h3>Belgique</h3>
+<table><tr><th>Ce que nous avons</th><th>Sources à ajouter</th></tr>
+<tr><td>22 parseurs : Chambre, Sénat, parlements régionaux, Roi, gouvernement, cours, Banque nationale, armée, diplomates, entreprises publiques, partis, élus locaux (Regimand), Moniteur belge</td>
+<td>1) <b>Cour des comptes : listes de mandats</b> (annuelles, Moniteur belge + site).<br>2) <b>Institutions de l'UE</b> (CJUE, BCE, Cour des comptes européenne) pour les Belges.<br>3) Sites belges bloqués ou injoignables à retester depuis le serveur : <code>premier.be</code> (403), <code>wallonie.be</code>, <code>be.brussels</code>, <code>parlement.brussels</code> (délai dépassé), Eurocontrol (Cloudflare).</td></tr></table>
+
+<h3>Luxembourg</h3>
+<table><tr><th>Ce que nous avons</th><th>Sources à ajouter</th></tr>
+<tr><td>Chambre (avec historique 5 ans), gouvernement, grand-duc, cours, CSSF, ILR, CAA, Banque centrale, armée, diplomates, entreprises, partis, Legilux, communes</td>
+<td>1) Institutions de l'UE (le Luxembourg y est très représenté : CJUE, BCE, BEI, Cour des comptes européenne). 2) Vérification du décès des anciens élus (aucun champ de décès dans l'API de la Chambre ni du Parlement européen). 3) Aucun blocage anti-robots documenté.</td></tr></table>
+
+<h3>Allemagne</h3>
+<table><tr><th>Ce que nous avons</th><th>Sources à ajouter</th></tr>
+<tr><td>Bundestag (historique 1 865 anciens), Bundesrat, 16 Landtage, président, gouvernement fédéral, secrétaires d'État (PDF), BaFin, Bundesbank, cours fédérales et des Länder (161 membres), partis, entreprises publiques (6/7), organisations internationales</td>
+<td>1) <b>Ambassadeurs</b> : chaque ambassade a un site <code>diplo.de</code> avec « Leitung » ; il faut dresser la liste des sites (page <code>auswaertiges-amt.de/de/service/laender</code>) ; reporté par vous.<br>2) <b>Juges des 5 cours fédérales</b> : un extracteur par site.<br>3) <b>Rapport de participation</b> du ministère des Finances : site en 503 « Security Check », dépôt manuel du PDF.<br>4) <b>Institutions de l'UE</b> pour les Allemands.<br>5) <b>API DIP</b> du Bundestag : clé à obtenir.<br>6) Lobbyregister : <code>robots.txt</code> interdit la recherche, et il n'ajouterait aucun PEP nouveau.</td></tr></table>
+
+<h3>Espagne</h3>
+<table><tr><th>Ce que nous avons</th><th>Sources à ajouter</th></tr>
+<tr><td>BOE, Congrès, Parlement européen, Commission, Banque d'Espagne, régulateurs, judiciaire, parlements et gouvernements régionaux, bulletins régionaux ; <b>Sénat, élus locaux, entreprises d'État sur Wikidata</b> (33, 54 et 5 personnes)</td>
+<td>1) <b>Registro de alcaldes / concejales</b> (voir écart 1) : remplace le parseur Wikidata des élus locaux (54 → ≈ 94 000).<br>2) <b>Sénat</b> : <code>senado.es</code> répond 403 ; demande d'accès ou export, sinon rester sur le Congrès.<br>3) <b>Altos cargos</b> du Portal de la Transparencia et déclarations publiées au BOE.<br>4) <b>La Moncloa et Casa Real</b> (« Security Check »), <b>Tribunal constitutionnel</b> (test de navigateur), <b>CNMV</b> (403) : passer par le BOE et retester depuis le serveur.<br>5) Entreprises d'État : SEPI, patrimonio del Estado (à identifier, pas de jeu vérifié).</td></tr></table>
+
+<h3>Portugal</h3>
+<table><tr><th>Ce que nous avons</th><th>Sources à ajouter</th></tr>
+<tr><td>Eurodéputés, Président, Commissaire, Tribunal de Contas, ERC</td>
+<td>1) <b>Parlement</b> : voie publique vérifiée (écart 4), à coder en priorité.<br>2) Gouvernement : <code>portugal.gov.pt</code> charge les noms en JavaScript ; chercher le <i>Diário da República</i> (application sans API documentée) ou une demande d'accès à l'INCM.<br>3) Maires et adjoints (308 communes) : application des résultats électoraux sans fichier ouvert ; demande au MAI/SGMAI.<br>4) Banco de Portugal : anti-robots ; CMVM, ASF, CNPD : pas de page lisible.<br>5) Entidade para a Transparência (déclarations) : injoignable lors du test.</td></tr></table>
+
+<h3>Autriche</h3>
+<table><tr><th>Ce que nous avons</th><th>Sources à ajouter</th></tr>
+<tr><td>Parlement (Nationalrat et Bundesrat, 243 + historique), gouvernement fédéral (21), Président, eurodéputés, Commissaire, hautes cours (143), OeNB, Rechnungshof, partis (4/5), ÖBAG, 6 gouvernements de Land</td>
+<td>1) <b>Landtage</b> (9 sites officiels).<br>2) Gouvernements de <b>Styrie, Carinthie, Burgenland</b> (sites injoignables ou noms hors du texte).<br>3) <b>Filiales de l'ÖBAG</b> (OMV, Casinos Austria, BIG, Verbund…), une page de gouvernance chacune.<br>4) <b>Diplomates, armée, organisations internationales</b> à Vienne (AIEA : Cloudflare).<br>5) <b>Institutions de l'UE</b> pour les Autrichiens.<br>6) Landesrechnungshöfe (9).</td></tr></table>
+
+<h3>Italie</h3>
+<table><tr><th>Ce que nous avons</th><th>Sources à ajouter</th></tr>
+<tr><td>Chambre, Sénat, gouvernement, 701 maires, 17 présidents de Région, 110 assesseurs, 711 conseillers régionaux, eurodéputés (76), Commissaire, Président, Banque d'Italie et autorités (23), chef d'état-major, FAO/PAM</td>
+<td>1) <b>Gazzetta Ufficiale</b> (équivalent du JORF) : nominations de juges de la Cour constitutionnelle, ambassadeurs, membres d'autorités, dates de fin.<br>2) <b>Directeurs généraux d'ASL</b> (≈ 200 établissements, une page « Amministrazione trasparente » chacun ; liste des organismes sur <code>salute.gov.it</code>).<br>3) Autorités sans page lisible : Consob (captcha), ANAC, ARERA ; chefs des armées et corps ; Cour de cassation, Cour des comptes, CSM (403) ; Cour constitutionnelle (captcha).<br>4) Chefs-lieux de moins de 15 000 habitants (paramètre <code>capoluogoCodes</code>) ; Campanie sans président dans le fichier de l'Intérieur ; Vallée d'Aoste et Trentin-Haut-Adige absents.<br>5) Entreprises publiques (MEF, « Partecipazioni pubbliche »).</td></tr></table>
+
+<h2>4. Sources transversales à créer une fois pour les huit pays</h2>
+<table><tr><th>Famille</th><th>Sources</th><th>État</th></tr>
+<tr><td>Institutions de l'UE, filtrées par nationalité</td><td>Cour de justice et Tribunal (<code>curia.europa.eu</code>), BCE (conseil des gouverneurs et directoire), Cour des comptes européenne, BEI, CESE, Comité des régions, SEAE, DG de la Commission</td><td><span class="ok">CJUE et BCE : 200</span> ; la nationalité n'est pas publiée, il faut la déduire de la naissance ou de la carrière comme pour <code>fr_pep_eu_institutions</code></td></tr>
+<tr><td>Journaux officiels (nominations et fins de fonctions)</td><td>JORF (fait), BOE (fait), Moniteur belge (fait), Legilux (fait), Gazzetta Ufficiale (à faire), <i>Diário da República</i> (JavaScript), Bundesanzeiger (peu utile)</td><td>Gazzetta : <span class="w">à vérifier</span></td></tr>
+<tr><td>Registres de transparence</td><td>HATVP (France, vérifié), Cour des comptes de Belgique (listes de mandats), Portal de la Transparencia (Espagne), Entidade para a Transparência (Portugal), Bundestag (Allemagne, fait)</td><td>voir écarts 3, 5, 8</td></tr>
+<tr><td>Vérification des décès (pour élargir l'historique sans publier de morts)</td><td>Fichier INSEE des décès (France), champs de décès des données ouvertes de la Chambre, du Sénat et du Parlement autrichien (déjà exploités)</td><td>INSEE reporté par vous (jeton à créer)</td></tr></table>
+
+<h2>5. Corrections à mes messages précédents</h2>
+<div class="warn"><ul>
+<li><b>Portugal, Parlement</b> : je l'avais classé « bloqué ». La voie publique (page Dados Abertos puis fichier JSON) répond avec notre client. À coder.</li>
+<li><b>FIDA, AIEA, Affaires étrangères d'Italie</b> : mes tests ont donné des résultats contradictoires selon l'outil ; à retester depuis le serveur avant de conclure.</li>
+<li>Les chiffres OpenSanctions sont ceux de leurs pages pays du 5/11/2026 ; leur total par pays inclut des entités d'autres sources que la page ne détaille pas.</li>
+</ul></div>
+
+<h2>6. Plan d'action proposé</h2>
+<ol>
+<li><b>Court terme (sources déjà vérifiées)</b> : <code>pt_pep_parliament</code> ; RNE complet pour la France (conseillers départementaux et régionaux, adjoints) ; <code>fr_pep_hatvp</code> sur <code>liste.csv</code>.</li>
+<li><b>Moyen terme</b> : institutions de l'UE pour les sept autres pays ; Cour des comptes de Belgique ; Landtage autrichiens ; Gazzetta Ufficiale.</li>
+<li><b>Dépend d'un accès</b> : élus locaux espagnols (service en maintenance, à retester ou à demander), Sénat espagnol, maires portugais, Diário da República, rapport de participation allemand, INSEE.</li>
+</ol>
+<p class="sub">Sources : opensanctions.org (pages pays et collection PEP, 5/11/2026) ; data.gouv.fr ; hatvp.fr ; parlamento.pt ; app.parlamento.pt ; datos.gob.es ; concejales.redsara.es ; ccrek.be ; curia.europa.eu ; ecb.europa.eu ; documents internes du projet (plans par pays, migrations 001 à 055).</p>
+</body></html>

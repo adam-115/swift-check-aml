@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Plan des parsers PEP – Irlande</title>
+<style>
+  @page { size: A4 portrait; margin: 14mm 13mm 14mm 13mm; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; color: #1e293b; font-size: 10.5px; line-height: 1.45; }
+  h1 { font-size: 22px; color: #0f172a; margin-bottom: 4px; }
+  h2 { font-size: 14px; color: #0f172a; margin: 18px 0 6px; padding-bottom: 3px; border-bottom: 2px solid #2563eb; break-after: avoid; }
+  h3 { font-size: 11.5px; color: #1e3a8a; margin: 12px 0 5px; break-after: avoid; }
+  p { margin: 4px 0; }
+  .subtitle { color: #475569; font-size: 11.5px; margin-bottom: 8px; }
+  .meta { display: flex; flex-wrap: wrap; gap: 18px; color: #64748b; font-size: 9.5px; border-bottom: 1px solid #e2e8f0; padding-bottom: 8px; margin-bottom: 12px; }
+  .kpis { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin: 10px 0 6px; }
+  .kpi { border: 1px solid #e2e8f0; border-radius: 8px; padding: 8px 10px; background: #f8fafc; }
+  .kpi b { display: block; font-size: 20px; color: #1d4ed8; line-height: 1.1; }
+  .kpi span { color: #475569; font-size: 9.5px; }
+  table { width: 100%; border-collapse: collapse; margin: 5px 0 8px; font-size: 9.5px; }
+  th { background: #1e3a8a; color: #fff; text-align: left; padding: 4px 5px; font-weight: 600; }
+  td { border-bottom: 1px solid #e2e8f0; padding: 4px 5px; vertical-align: top; }
+  tr { break-inside: avoid; }
+  tr:nth-child(even) td { background: #f8fafc; }
+  code { font-family: Consolas, 'Courier New', monospace; font-size: 9px; background: #eef2ff; color: #1e3a8a; padding: 0 2px; border-radius: 3px; }
+  .cat { font-weight: 700; color: #1d4ed8; white-space: nowrap; }
+  .tag { display: inline-block; border-radius: 4px; padding: 0 4px; font-size: 8.5px; font-weight: 600; white-space: nowrap; }
+  .easy { background: #dcfce7; color: #166534; }
+  .mid { background: #fef9c3; color: #854d0e; }
+  .hard { background: #fee2e2; color: #991b1b; }
+  .none { background: #e2e8f0; color: #334155; }
+  .note { border-left: 3px solid #2563eb; background: #eff6ff; padding: 6px 9px; margin: 6px 0; border-radius: 0 6px 6px 0; }
+  .warn { border-left-color: #d97706; background: #fffbeb; }
+  ul, ol { margin: 4px 0 4px 18px; }
+  li { margin: 2px 0; }
+  .footer { margin-top: 14px; border-top: 1px solid #e2e8f0; padding-top: 6px; color: #94a3b8; font-size: 8.5px; }
+</style>
+</head>
+<body>
+
+<h1>Plan des parsers PEP – Irlande</h1>
+<p class="subtitle">Fonctions PEP de l'Irlande, où trouver leurs titulaires, ce qui est déjà implémenté (lot 1) et ce qui reste, pour couvrir
+l'article 37 du Criminal Justice (Money Laundering and Terrorist Financing) Act 2010 et la liste notifiée à la Commission (JO C/2023/724).</p>
+<div class="meta"><span>SwiftCheck AML</span><span>5 novembre 2026</span><span>Référence : écran « Couverture PEP »</span>
+<span>Migration 058 (référentiel IE et lot 1)</span>
+<span>Sources testées en direct le 5/11/2026, User-Agent générique, aucune protection contournée, Wikidata exclu</span></div>
+
+<div class="kpis">
+  <div class="kpi"><b>10</b><span>catégories IE (IE-a à IE-h, IE-EU, IE-RCA)</span></div>
+  <div class="kpi"><b>4</b><span>parsers livrés (lot 1)</span></div>
+  <div class="kpi"><b>~295</b><span>personnes publiées : 233 parlementaires, 14 MEP, ministres, Président, commissaire</span></div>
+  <div class="kpi"><b>12 mois</b><span>vigilance après la fin des fonctions (rétention du pays)</span></div>
+</div>
+
+<h2>1. Cadre légal et choix de conception</h2>
+<ul>
+  <li><b>Base légale :</b> Criminal Justice Act 2010, art. 37, modifié par la loi de 2018 : une personne qui exerce, ou a exercé au cours des douze derniers mois, une fonction publique importante, ses proches et ses associés connus.</li>
+  <li><b>Rétention :</b> 12 mois (paramètre <code>monthsAfterEnd</code> des parsers ; le cœur garde ensuite les personnes disparues de la source pendant la durée de rétention).</li>
+  <li><b>Sources :</b> uniquement officielles. Aucun nom n'est écrit dans le code ; chaque exécution télécharge la source.</li>
+  <li><b>Identité :</b> l'API de l'Oireachtas ne donne ni date de naissance ni sexe : le criblage repose sur le nom, la fonction et le mandat.</li>
+</ul>
+
+<h2>2. Parsers livrés (lot 1)</h2>
+<table>
+  <tr><th>Parser</th><th>Catégorie</th><th>Source</th><th>Résultat réel</th><th>Remarques</th></tr>
+  <tr><td><code>ie_pep_parliament</code></td><td class="cat">IE-a, IE-b</td><td>API ouverte <code>api.oireachtas.ie/v1</code> (houses, members), sans clé</td>
+      <td>233 membres en fonction (Dáil et Seanad), 2 anciens de moins d'un an, 52 fonctions</td>
+      <td>Taoiseach, ministres, ministres d'État, Ceann Comhairle, Cathaoirleach avec dates ; parti, circonscription ou panel ; décédés écartés ; identifiant <code>pId</code> stable</td></tr>
+  <tr><td><code>ie_pep_europarl</code></td><td class="cat">IE-b</td><td>API du Parlement européen (liste courante, liste de la législature, une fiche par député)</td>
+      <td>14 députés européens</td><td>Naissance, genre, groupe et dates de mandat ; photos via Wikimedia Commons (images seulement)</td></tr>
+  <tr><td><code>ie_pep_eu_commission</code></td><td class="cat">IE-EU</td><td>Fiche officielle du commissaire sur <code>commission.europa.eu</code></td>
+      <td>Michael McGrath (2024-2029)</td><td>Une fiche qui ne présente pas un commissaire irlandais est refusée ; adresse à changer à chaque Commission</td></tr>
+  <tr><td><code>ie_pep_president</code></td><td class="cat">IE-a</td><td>Page du Président en fonction sur <code>president.ie</code></td>
+      <td>Catherine Connolly (depuis 2025)</td><td>Page d'ancien Président refusée ; ni naissance ni lieu ; adresse à changer à chaque élection (la page d'accueil a un titre périmé)</td></tr>
+</table>
+
+<h2>3. Fonctions restantes et état des sources</h2>
+<p>État des sources testées le 5/11/2026 depuis le poste de développement. « Accessible » veut dire que la page répond au client automatique, pas que sa composition est lisible sans analyse.</p>
+<table>
+  <tr><th>Catégorie</th><th>Fonction</th><th>Source candidate</th><th>État</th><th>Priorité</th></tr>
+  <tr><td class="cat">IE-d</td><td>Juges de la Cour suprême, de la Cour d'appel, de la High Court</td><td><code>courts.ie/supreme-court</code>, <code>courts.ie/judges</code></td>
+      <td><span class="tag easy">accessible (200)</span> composition à analyser</td><td>Lot 2</td></tr>
+  <tr><td class="cat">IE-e</td><td>Comptroller and Auditor General ; organes de la Banque centrale</td><td><code>audgen.gov.ie</code>, <code>centralbank.ie</code></td>
+      <td><span class="tag hard">audgen : pas de connexion</span> <span class="tag mid">centralbank : adresse à retrouver (404)</span></td><td>Lot 2</td></tr>
+  <tr><td class="cat">IE-f</td><td>Ambassadeurs et chargés d'affaires</td><td><code>ireland.ie</code> (Department of Foreign Affairs)</td>
+      <td><span class="tag hard">403 au client automatique</span> non contourné</td><td>Lot 2, accès à demander</td></tr>
+  <tr><td class="cat">IE-f</td><td>Officiers généraux des Defence Forces</td><td><code>defenceforces.ie</code></td>
+      <td><span class="tag hard">pas de connexion</span></td><td>Lot 2</td></tr>
+  <tr><td class="cat">IE-c</td><td>Organes dirigeants des partis</td><td>Sites des partis ; registre de la Standards in Public Office Commission (<code>sipo.ie</code>)</td>
+      <td><span class="tag hard">sipo.ie : 403</span> <span class="tag hard">finegael.ie : 403</span></td><td>Lot 3</td></tr>
+  <tr><td class="cat">IE-g</td><td>Entreprises détenues par l'État (ESB, etc.)</td><td>Sites des entreprises ; registre des entreprises (CRO)</td>
+      <td><span class="tag mid">à analyser</span> (esb.ie : adresse à retrouver)</td><td>Lot 3</td></tr>
+  <tr><td class="cat">IE-h</td><td>Organisations internationales</td><td>À identifier</td><td><span class="tag none">non analysé</span></td><td>Lot 3</td></tr>
+  <tr><td class="cat">IE-RCA</td><td>Famille et proches associés</td><td>Aucune source officielle connue ; seule Wikidata en a</td><td><span class="tag none">exclu (pas de Wikidata)</span></td><td>—</td></tr>
+</table>
+
+<div class="note warn"><b>Non contourné :</b> les pages qui répondent 403 au client automatique (Department of Foreign Affairs, SIPO, gov.ie, Fine Gael) ne sont pas lues avec des en-têtes modifiés. Pour ces fonctions, la voie propre est de demander un fichier ou un flux aux organismes.</div>
+
+<h2>4. Ce que l'API de l'Oireachtas peut encore apporter</h2>
+<ul>
+  <li><b>Anciennes législatures :</b> en réglant <code>monthsAfterEnd</code> plus grand, les membres des chambres précédentes (33e Dáil, 26e Seanad) sont repris avec leurs fonctions ministérielles.</li>
+  <li><b>Comités :</b> les présidents de commissions figurent dans les mêmes données ; ils sont hors du champ PEP de l'article 37 et non repris.</li>
+  <li><b>Attorney General, Tánaiste :</b> pas de fonction distincte dans l'API ; à chercher dans une autre source officielle (site du Gouvernement, 403 à ce jour).</li>
+</ul>
+
+<h2>5. Mise en service</h2>
+<ol>
+  <li>Redémarrer le back : la migration <code>058-ie-pep-reference-and-parsers.xml</code> crée catégories, fonctions, parsers et liens de couverture.</li>
+  <li>Recharger les plugins (<code>ie-pep-parliament</code>, <code>ie-pep-europarl</code>, <code>ie-pep-eu-commission</code>, <code>ie-pep-president</code>) depuis l'écran « Parsers », onglet « Plugins ».</li>
+  <li>Exécuter les quatre parsers ; vérifier la page « Couverture PEP » pour l'Irlande.</li>
+  <li>À chaque nouvelle Commission et à chaque élection présidentielle, modifier l'adresse de la fiche dans les parsers <code>ie_pep_eu_commission</code> et <code>ie_pep_president</code>.</li>
+</ol>
+
+<div class="footer">SwiftCheck AML – plan des parsers PEP Irlande – 5 novembre 2026. Les chiffres viennent des exécutions de test du jour ; les états de sources sont ceux du 5/11/2026.</div>
+</body>
+</html>

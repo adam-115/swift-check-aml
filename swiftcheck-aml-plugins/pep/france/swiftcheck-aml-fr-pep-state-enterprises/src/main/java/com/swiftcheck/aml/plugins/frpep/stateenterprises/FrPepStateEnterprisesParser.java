@@ -282,6 +282,14 @@ public class FrPepStateEnterprisesParser implements Iparser {
                 .connectTimeout(Duration.ofSeconds(30))
                 .build();
         return url -> {
+            if (url.contains("economie.gouv.fr")) {
+                try {
+                    return com.swiftcheck.aml.sdk.StealthBrowserFetcher.fetchBytes(url);
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                    throw new IOException("Téléchargement interrompu : " + url, e);
+                }
+            }
             HttpRequest request = HttpRequest.newBuilder(URI.create(url)).timeout(Duration.ofMinutes(2))
                     .header("User-Agent", USER_AGENT)
                     .header("Accept", url.contains("recherche-entreprises") ? "application/json" : "text/html,*/*;q=0.8")

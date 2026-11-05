@@ -1,0 +1,295 @@
+{
+ "Plenario": {
+  "Composicao": [
+   {
+    "DepCadId": 2061,
+    "DepCargo": [
+     {
+      "carDes": "Presidente",
+      "carDtFim": null,
+      "carDtInicio": "2025-06-03",
+      "carId": 1
+     }
+    ],
+    "DepCPDes": "Viana do Castelo",
+    "DepCPId": 16,
+    "DepGP": [
+     {
+      "gpDtFim": "2026-11-05",
+      "gpDtInicio": "2025-06-03",
+      "gpId": 7261,
+      "gpSigla": "PSD"
+     }
+    ],
+    "DepId": 17128,
+    "DepNomeCompleto": "José Pedro Correia de Aguiar Branco",
+    "DepNomeParlamentar": "José Pedro Aguiar-Branco",
+    "DepSituacao": [
+     {
+      "sioDes": "Efetivo",
+      "sioDtFim": null,
+      "sioDtInicio": "2025-06-03"
+     }
+    ],
+    "LegDes": "XVII",
+    "Videos": null
+   },
+   {
+    "DepCadId": 7341,
+    "DepCargo": null,
+    "DepCPDes": "Açores",
+    "DepCPId": 19,
+    "DepGP": [
+     {
+      "gpDtFim": "2026-11-05",
+      "gpDtInicio": "2025-06-03",
+      "gpId": 7263,
+      "gpSigla": "PS"
+     }
+    ],
+    "DepId": 15769,
+    "DepNomeCompleto": "Francisco Miguel Vital Gomes do Vale César",
+    "DepNomeParlamentar": "Francisco César",
+    "DepSituacao": [
+     {
+      "sioDes": "Efetivo",
+      "sioDtFim": null,
+      "sioDtInicio": "2025-06-03"
+     }
+    ],
+    "LegDes": "XVII",
+    "Videos": null
+   },
+   {
+    "DepCadId": 8897,
+    "DepCargo": null,
+    "DepCPDes": "Açores",
+    "DepCPId": 19,
+    "DepGP": [
+     {
+      "gpDtFim": "2026-11-05",
+      "gpDtInicio": "2025-06-03",
+      "gpId": 7262,
+      "gpSigla": "CH"
+     }
+    ],
+    "DepId": 15763,
+    "DepNomeCompleto": "Pedro Miguel Ramalho Furtado Rodrigues",
+    "DepNomeParlamentar": "Pedro Rodrigues",
+    "DepSituacao": [
+     {
+      "sioDes": "Suplente",
+      "sioDtFim": null,
+      "sioDtInicio": "2025-06-03"
+     }
+    ],
+    "LegDes": "XVII",
+    "Videos": null
+   },
+   {
+    "DepCadId": 9008,
+    "DepCargo": null,
+    "DepCPDes": "Açores",
+    "DepCPId": 19,
+    "DepGP": [
+     {
+      "gpDtFim": "2026-11-05",
+      "gpDtInicio": "2025-06-03",
+      "gpId": 7262,
+      "gpSigla": "CH"
+     }
+    ],
+    "DepId": 15760,
+    "DepNomeCompleto": "Francisco Gabriel Meneses de Lima",
+    "DepNomeParlamentar": "Francisco Lima",
+    "DepSituacao": [
+     {
+      "sioDes": "Renunciou",
+      "sioDtFim": null,
+      "sioDtInicio": "2025-06-03"
+     }
+    ],
+    "LegDes": "XVII",
+    "Videos": null
+   },
+   {
+    "DepCadId": 5693,
+    "DepCargo": null,
+    "DepCPDes": "Beja",
+    "DepCPId": 2,
+    "DepGP": [
+     {
+      "gpDtFim": "2026-11-05",
+      "gpDtInicio": "2025-06-03",
+      "gpId": 7262,
+      "gpSigla": "CH"
+     }
+    ],
+    "DepId": 15872,
+    "DepNomeCompleto": "Rui Celestino dos Santos Cristina",
+    "DepNomeParlamentar": "Rui Cristina",
+    "DepSituacao": [
+     {
+      "sioDes": "Renunciou",
+      "sioDtFim": null,
+      "sioDtInicio": "2025-11-03"
+     },
+     {
+      "sioDes": "Efetivo",
+      "sioDtFim": "2025-11-02",
+      "sioDtInicio": "2025-06-03"
+     }
+    ],
+    "LegDes": "XVII",
+    "Videos": null
+   },
+   {
+    "DepCadId": 1561,
+    "DepCargo": null,
+    "DepCPDes": "Aveiro",
+    "DepCPId": 1,
+    "DepGP": [
+     {
+      "gpDtFim": "2026-11-05",
+      "gpDtInicio": "2025-06-03",
+      "gpId": 7261,
+      "gpSigla": "PSD"
+     }
+    ],
+    "DepId": 15851,
+    "DepNomeCompleto": "Luís Filipe Montenegro Cardoso de Morais Esteves",
+    "DepNomeParlamentar": "Luís Montenegro",
+    "DepSituacao": [
+     {
+      "sioDes": "Suspenso(Eleito)",
+      "sioDtFim": null,
+      "sioDtInicio": "2025-06-03"
+     }
+    ],
+    "LegDes": "XVII",
+    "Videos": null
+   },
+   {
+    "DepCadId": 2641,
+    "DepCargo": null,
+    "DepCPDes": "Aveiro",
+    "DepCPId": 1,
+    "DepGP": [
+     {
+      "gpDtFim": "2026-11-05",
+      "gpDtInicio": "2025-06-03",
+      "gpId": 7261,
+      "gpSigla": "PSD"
+     }
+    ],
+    "DepId": 15858,
+    "DepNomeCompleto": "Paulo César Lima Cavaleiro",
+    "DepNomeParlamentar": "Paulo Cavaleiro",
+    "DepSituacao": [
+     {
+      "sioDes": "Efetivo Temporário",
+      "sioDtFim": null,
+      "sioDtInicio": "2025-06-03"
+     }
+    ],
+    "LegDes": "XVII",
+    "Videos": null
+   },
+   {
+    "DepCadId": 9025,
+    "DepCargo": null,
+    "DepCPDes": "Aveiro",
+    "DepCPId": 1,
+    "DepGP": [
+     {
+      "gpDtFim": "2026-11-05",
+      "gpDtInicio": "2025-06-03",
+      "gpId": 7262,
+      "gpSigla": "CH"
+     }
+    ],
+    "DepId": 15793,
+    "DepNomeCompleto": "Darlene de Fátima Couto Costa",
+    "DepNomeParlamentar": "Darlene Costa",
+    "DepSituacao": [
+     {
+      "sioDes": "Suplente",
+      "sioDtFim": null,
+      "sioDtInicio": "2026-01-13"
+     },
+     {
+      "sioDes": "Efetivo Temporário",
+      "sioDtFim": "2026-01-12",
+      "sioDtInicio": "2026-01-12"
+     },
+     {
+      "sioDes": "Suplente",
+      "sioDtFim": "2026-01-11",
+      "sioDtInicio": "2025-06-03"
+     }
+    ],
+    "LegDes": "XVII",
+    "Videos": null
+   },
+   {
+    "DepCadId": 9009,
+    "DepCargo": null,
+    "DepCPDes": "Açores",
+    "DepCPId": 19,
+    "DepGP": [
+     {
+      "gpDtFim": "2026-11-05",
+      "gpDtInicio": "2025-06-03",
+      "gpId": 7262,
+      "gpSigla": "CH"
+     }
+    ],
+    "DepId": 15761,
+    "DepNomeCompleto": "Olivéria de Lurdes Cabral dos Santos",
+    "DepNomeParlamentar": "Olivéria Santos",
+    "DepSituacao": [
+     {
+      "sioDes": "Desistência",
+      "sioDtFim": null,
+      "sioDtInicio": "2025-06-03"
+     }
+    ],
+    "LegDes": "XVII",
+    "Videos": null
+   },
+   {
+    "DepCadId": 6945,
+    "DepCargo": [
+     {
+      "carDes": "Vice-Presidente",
+      "carDtFim": null,
+      "carDtInicio": "2025-06-03",
+      "carId": 2
+     }
+    ],
+    "DepCPDes": "Lisboa",
+    "DepCPId": 11,
+    "DepGP": [
+     {
+      "gpDtFim": "2026-11-05",
+      "gpDtInicio": "2025-06-03",
+      "gpId": 7264,
+      "gpSigla": "IL"
+     }
+    ],
+    "DepId": 16306,
+    "DepNomeCompleto": "Rodrigo Miguel Dias Saraiva",
+    "DepNomeParlamentar": "Rodrigo Saraiva",
+    "DepSituacao": [
+     {
+      "sioDes": "Efetivo",
+      "sioDtFim": null,
+      "sioDtInicio": "2025-06-03"
+     }
+    ],
+    "LegDes": "XVII",
+    "Videos": null
+   }
+  ]
+ }
+}

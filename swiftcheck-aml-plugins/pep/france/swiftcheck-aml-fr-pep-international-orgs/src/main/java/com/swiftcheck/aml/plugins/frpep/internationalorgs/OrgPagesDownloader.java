@@ -1,4 +1,4 @@
-package com.swiftcheck.aml.plugins.frpep.internationalorgs;
+﻿package com.swiftcheck.aml.plugins.frpep.internationalorgs;
 
 import java.io.IOException;
 import java.net.URI;
@@ -51,6 +51,13 @@ class OrgPagesDownloader {
                     HttpResponse<String> response = http.send(request,
                             HttpResponse.BodyHandlers.ofString(StandardCharsets.UTF_8));
                     if (response.statusCode() != 200) {
+                        try {
+                            Path target = rawDir.resolve(OrgConfig.pageFile(org, i));
+                            com.swiftcheck.aml.sdk.StealthBrowserFetcher.fetchToFile(url, target);
+                            continue;
+                        } catch (Exception ex) {
+                            // Repli sur échec standard
+                        }
                         failed.add(org.key() + " : HTTP " + response.statusCode());
                         continue;
                     }

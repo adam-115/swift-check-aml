@@ -148,8 +148,15 @@ public class BePepInternationalOrgsParser implements Iparser {
                         .GET()
                         .build();
                 HttpResponse<String> resp = client.send(req, HttpResponse.BodyHandlers.ofString(StandardCharsets.UTF_8));
-                if (resp.statusCode() == 200) {
+                                if (resp.statusCode() == 200) {
                     Files.writeString(ctx.rawDir().resolve(org.code() + ".html"), resp.body(), StandardCharsets.UTF_8);
+                } else {
+                    try {
+                        Path target = ctx.rawDir().resolve(org.code() + ".html");
+                        com.swiftcheck.aml.sdk.StealthBrowserFetcher.fetchToFile(org.url(), target);
+                    } catch (Exception ex) {
+                        log.warn("[be_pep_international_orgs] Stealth fallback failed for {}: {}", org.acronym(), ex.getMessage());
+                    }
                 }
             } catch (Exception e) {
                 log.warn("[be_pep_international_orgs] Page indisponible pour {} ({}) : {}",
