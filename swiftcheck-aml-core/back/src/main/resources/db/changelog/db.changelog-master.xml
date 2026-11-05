@@ -71,5 +71,7 @@
     <include file="db/changelog/changes/041-de-eu-commission-url.xml" />
     <include file="db/changelog/changes/042-be-coverage-gaps.xml" />
     <include file="db/changelog/changes/043-fr-jorf-single-posts.xml" />
+    <include file="db/changelog/changes/044-fr-local-executives-all.xml" />
+    <include file="db/changelog/changes/045-be-local-executives-all.xml" />
 
 </databaseChangeLog>

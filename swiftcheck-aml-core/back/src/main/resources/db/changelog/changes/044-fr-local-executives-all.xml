@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    France : couche « élus locaux étendus ». Même plugin que fr_pep_local_executives, sans seuil de population :
+    tous les maires (34 826), les présidents d'intercommunalité (1 182), de département (94), de région (14) et de
+    collectivité à statut particulier (17), d'après le Répertoire national des élus. Les personnes des collectivités de
+    50 000 habitants et plus ont les mêmes identifiants que dans fr_pep_local_executives : elles ne sont pas doublées
+    dans l'index. Cette couche dépasse le champ légal actuel (AMLR, juillet 2027) : à activer selon l'approche par les
+    risques de chaque établissement.
+-->
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="044-parser-fr-pep-local-executives-all" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP France – Élus locaux étendus (toutes les communes)',
+                'Maires de toutes les communes et présidents d''intercommunalité, de département, de région et de collectivité à statut particulier, sans seuil de population, d''après le Répertoire national des élus (catégorie FR-AMLR, couche étendue)',
+                'fr_pep_local_executives_all', 'PEP', 'https://www.data.gouv.fr/datasets/repertoire-national-des-elus-1',
+                'fr-pep-local-executives', 'D:/test parser 2/plugins/swiftcheck-aml-fr-pep-local-executives-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'OPEN_DATA_FILE',
+                NULL,
+                '{"populationsUrl": "https://geo.api.gouv.fr/communes?fields=code,nom,population,codeDepartement,codeRegion,codeEpci&format=json", "mayorsUrl": "https://www.data.gouv.fr/api/1/datasets/r/2876a346-d50c-4911-934e-19ee07b0e503", "epciUrl": "https://www.data.gouv.fr/api/1/datasets/r/41d95d7d-b172-4636-ac44-32656367cdc7", "departmentsUrl": "https://www.data.gouv.fr/api/1/datasets/r/601ef073-d986-4582-8e1a-ed14dc857fba", "regionsUrl": "https://www.data.gouv.fr/api/1/datasets/r/430e13f9-834b-4411-a1a8-da0b4b6e715c", "specialUrl": "https://www.data.gouv.fr/api/1/datasets/r/a595be27-cfab-4810-b9d4-22e193bffe35", "minPopulation": "0"}',
+                168, 12,
+                'Licence Ouverte / Open Licence (Etalab 2.0)', 'Ministère de l''Intérieur, Répertoire national des élus (data.gouv.fr) ; populations municipales Insee via geo.api.gouv.fr',
+                'Couche étendue au-delà du champ légal : environ 36 100 élus (34 826 maires). Même plugin et mêmes identifiants que fr_pep_local_executives. Environ 30 secondes d''exécution. Le RNE est mis à jour chaque trimestre.', TRUE, NOW());
+
+            INSERT INTO pep_function (category_id, label, institution, expected_holders)
+            SELECT c.id, 'Maire ou président de collectivité de moins de 50 000 habitants (couche étendue)', 'Pouvoirs locaux', NULL
+            FROM pep_category c
+            WHERE c.code = 'FR-AMLR'
+              AND NOT EXISTS (SELECT 1 FROM pep_function f WHERE f.category_id = c.id
+                              AND f.label LIKE 'Maire ou président de collectivité de moins de 50 000 habitants%');
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', FALSE,
+                   'Tous les maires (34 826), présidents d''intercommunalité (1 182), de département, de région et de collectivité à statut particulier, d''après le Répertoire national des élus.',
+                   'Conseillers municipaux, adjoints et vice-présidents : non repris. Hors champ légal actuel.'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'FR-AMLR' AND f.label LIKE 'Maire ou président de collectivité de moins de 50 000 habitants%'
+              AND p.dataset_name = 'fr_pep_local_executives_all';
+        ]]></sql>
+    </changeSet>
+
+</databaseChangeLog>

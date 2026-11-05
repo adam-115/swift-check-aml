@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Belgique : couche « pouvoirs locaux étendus ». Même plugin que be_pep_local_executives, sans seuil de population :
+    bourgmestres et gouverneurs (Wikidata et LBLOD) et échevins, présidents de CPAS et députés provinciaux
+    (Cour des comptes, Regimand) de toutes les communes et provinces. Hors champ légal actuel : à activer selon
+    l'approche par les risques de chaque établissement.
+-->
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="045-parser-be-pep-local-executives-all" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Belgique – Pouvoirs locaux étendus (toutes les communes)',
+                'Bourgmestres, gouverneurs, échevins, présidents de CPAS et députés provinciaux de toutes les communes et provinces belges, sans seuil de population (couche étendue)',
+                'be_pep_local_executives_all', 'PEP', 'https://public.regimand.be/',
+                'be-pep-local-executives', 'D:/test parser 2/plugins/swiftcheck-aml-be-pep-local-executives-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'SPARQL',
+                NULL,
+                '{"wikidataEndpoint": "https://query.wikidata.org/sparql", "lblodEndpoint": "https://centrale-vindplaats.lblod.info/sparql", "regimandUrl": "https://public.regimand.be", "regimandDelayMs": "300", "minPopulation": "0", "countryQid": "Q31"}',
+                168, 12,
+                'CC0 1.0 (Wikidata), Licence Ouverte Flandre (LBLOD Mandatendatabank) et données publiques de la Cour des comptes (Regimand)',
+                'Wikidata (Q31) ; Agentschap Binnenlands Bestuur (LBLOD Mandatendatabank) ; Cour des comptes, public.regimand.be',
+                'Couche étendue au-delà du champ légal, même plugin et mêmes identifiants que be_pep_local_executives. Exécution longue (environ une heure) : une recherche Regimand par commune, avec 300 ms entre deux appels. Regimand publie le dernier exercice clos. Les bourgmestres wallons et bruxellois viennent de Wikidata, faute de source officielle libre : la liste de l''Union des villes et communes de Wallonie (open data Wallonie) est en CC BY-NC.', TRUE, NOW());
+
+            INSERT INTO pep_function (category_id, label, institution, expected_holders)
+            SELECT c.id, 'Bourgmestre, échevin, président de CPAS ou député provincial d''une collectivité de moins de 50 000 habitants (couche étendue)', 'Pouvoirs locaux', NULL
+            FROM pep_category c
+            WHERE c.code = 'BE-AMLR'
+              AND NOT EXISTS (SELECT 1 FROM pep_function f WHERE f.category_id = c.id
+                              AND f.label LIKE 'Bourgmestre, échevin, président de CPAS ou député provincial d''une collectivité de moins%');
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'PARTIAL', TRUE,
+                   'Bourgmestres, échevins, présidents de CPAS et députés provinciaux de toutes les communes et provinces belges.',
+                   'Regimand publie le dernier exercice clos, avec un décalage. Conseillers communaux et membres des conseils de CPAS : non repris. Hors champ légal actuel.'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'BE-AMLR' AND f.label LIKE 'Bourgmestre, échevin, président de CPAS ou député provincial d''une collectivité de moins%'
+              AND p.dataset_name = 'be_pep_local_executives_all';
+        ]]></sql>
+    </changeSet>
+
+</databaseChangeLog>
