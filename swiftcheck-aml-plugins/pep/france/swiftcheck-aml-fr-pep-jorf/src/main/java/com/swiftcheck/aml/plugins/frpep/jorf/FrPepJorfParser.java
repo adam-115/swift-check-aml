@@ -159,7 +159,9 @@ public class FrPepJorfParser implements Iparser {
             Institution.COUR_COMPTES, "gov.national",
             Institution.AMBASSADE, "role.diplo",
             Institution.GOUVERNEMENT, "gov.national",
-            Institution.ENTREPRISE_PUBLIQUE, "gov.soe");
+            Institution.ENTREPRISE_PUBLIQUE, "gov.soe",
+            Institution.CHEF_ETAT_MAJOR_MARINE, "gov.national",
+            Institution.SECRETAIRE_GENERAL_CC, "gov.judicial");
 
     /** Poste à titulaire unique dans une entreprise publique : la nomination d'un successeur clôt le mandat précédent. */
     private static final Pattern SINGLE_HOLDER = Pattern.compile(
@@ -257,7 +259,9 @@ public class FrPepJorfParser implements Iparser {
                 continue;
             }
             // Toute fin de fonctions au Gouvernement passe par un décret : un mandat ouvert est en cours
-            String status = m.institution == Institution.GOUVERNEMENT && m.end == null ? "current" : status(m.end, today);
+            // Un poste à titulaire unique change aussi par décret : le titulaire sans fin est en cours
+            String status = (m.institution == Institution.GOUVERNEMENT || isSinglePost(m.institution)) && m.end == null
+                    ? "current" : status(m.end, today);
             switch (status) {
                 case "current" -> current++;
                 case "ended" -> ended++;
@@ -328,6 +332,14 @@ public class FrPepJorfParser implements Iparser {
                         for (Mandate m : mandates) {
                             if (m.open && m.institution == Institution.AMBASSADE
                                     && (post.equals(m.post) != m.personKey.equals(person))) {
+                                close(m, e.date());
+                            }
+                        }
+                    }
+                    if (isSinglePost(e.institution())) {
+                        // La nomination d'un successeur clôt le mandat du précédent titulaire
+                        for (Mandate m : mandates) {
+                            if (m.open && m.institution == e.institution() && !m.personKey.equals(person)) {
                                 close(m, e.date());
                             }
                         }
@@ -428,8 +440,19 @@ public class FrPepJorfParser implements Iparser {
         m.open = false;
     }
 
+    /** Poste occupé par une seule personne à la fois, nommée par décret. */
+    static boolean isSinglePost(Institution institution) {
+        return institution == Institution.CHEF_ETAT_MAJOR_MARINE || institution == Institution.SECRETAIRE_GENERAL_CC;
+    }
+
     /** Libellé de la fonction : forme canonique (« Conseiller d'État »), ou poste d'ambassadeur. */
     static String label(Mandate m) {
+        if (m.institution == Institution.CHEF_ETAT_MAJOR_MARINE) {
+            return "Chef d'état-major de la Marine";
+        }
+        if (m.institution == Institution.SECRETAIRE_GENERAL_CC) {
+            return "Secrétaire général du Conseil constitutionnel";
+        }
         if (m.institution == Institution.GOUVERNEMENT) {
             // « ministre de la culture » → « Ministre de la culture » ; la mention du conseil des ministres est retirée
             String f = m.function == null ? "Membre du Gouvernement"

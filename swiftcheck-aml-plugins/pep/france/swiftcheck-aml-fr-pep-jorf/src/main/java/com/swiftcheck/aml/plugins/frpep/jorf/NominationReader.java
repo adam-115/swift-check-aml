@@ -65,7 +65,11 @@ final class NominationReader {
          * du grand port maritime de Bordeaux ») : ils n'ont pas de dirigeant inscrit au registre des entreprises, que
          * lit {@code fr_pep_state_enterprises}.
          */
-        ENTREPRISE_PUBLIQUE("entreprise-publique", "Entreprises publiques");
+        ENTREPRISE_PUBLIQUE("entreprise-publique", "Entreprises publiques"),
+        /** Chef d'état-major de la Marine (« M. le vice-amiral d'escadre X est nommé chef d'état-major de la marine »). */
+        CHEF_ETAT_MAJOR_MARINE("chef-etat-major-marine", "Chef d'état-major de la Marine"),
+        /** Secrétaire général du Conseil constitutionnel, nommé par décret du Président de la République. */
+        SECRETAIRE_GENERAL_CC("secretaire-general-conseil-constitutionnel", "Conseil constitutionnel");
 
         final String key;
         final String label;
@@ -106,7 +110,7 @@ final class NominationReader {
     private static final Pattern ENDED = Pattern.compile(
             "(?i)\\bmis fin\\b|radiée?s? des cadres|admise?s? à cesser|cesse(?:ra|r)? (?:d'exercer )?ses fonctions");
     private static final Pattern ENDED_FUNCTION = Pattern.compile(
-            "aux fonctions (?:de |d'|d’)(.+?)\\s+(?:de|du)\\s+" + CIVILITY + "\\s");
+            "aux fonctions (?:de |d'|d’)(.+?)\\s+(?:de|du|exercées? par)\\s+" + CIVILITY + "\\s");
     private static final Pattern FUNCTIONS_OF_PERSON = Pattern.compile("aux fonctions de\\s+" + CIVILITY + "\\s");
     /** Maintien en fonction ou en détachement dans une haute institution : la fin prévue change. */
     private static final Pattern MAINTAINED = Pattern.compile(
@@ -153,6 +157,11 @@ final class NominationReader {
 
     /** Entreprise publique dont les dirigeants sont nommés au Journal officiel (texte sans accents ni casse). */
     static final Pattern ENTERPRISE = Pattern.compile("\\bgrand port (?:fluvio-)?maritime\\b");
+
+    /** Grade d'un officier général écrit devant son nom : « le vice-amiral d'escadre », « l'amiral », « le général ». */
+    private static final Pattern RANK = Pattern.compile(
+            "^(?:le|l'|l’)\\s*(?:(?:vice-|contre-)?amiral(?:\\s+d'escadre|\\s+d’escadre)?|g[ée]n[ée]ral(?:\\s+(?:d'armée|de corps d'armée|de division|de brigade))?)\\s+",
+            Pattern.CASE_INSENSITIVE | Pattern.UNICODE_CASE);
 
     private NominationReader() {
     }
@@ -210,7 +219,7 @@ final class NominationReader {
                 }
                 continue;
             }
-            String name = person.group(1).trim();
+            String name = RANK.matcher(person.group(1).trim()).replaceFirst("");
             String afterName = line.substring(person.end(1));
             Matcher given = GIVEN_NAMES.matcher(afterName);
             if (given.find() && !given.group(1).matches("(?i)\\s*(?:hors tour|tour|rang|\\d).*")) {
@@ -332,7 +341,7 @@ final class NominationReader {
             if (!person.find()) {
                 continue;
             }
-            String name = person.group(1).trim();
+            String name = RANK.matcher(person.group(1).trim()).replaceFirst("");
             String afterName = line.substring(person.end(1));
             Matcher nominated = NOMINATED.matcher(afterName);
             String written = afterName.replaceFirst("^\\s*,\\s*", "").replaceFirst("\\s*[;.]\\s*$", "").trim();
@@ -468,6 +477,13 @@ final class NominationReader {
         if (ENTERPRISE.matcher(t).find()) {
             return Institution.ENTREPRISE_PUBLIQUE;
         }
+        // Postes à titulaire unique : la fonction doit commencer ainsi (pas « adjoint au chef d'état-major… »)
+        if (t.matches("^chef d'etat-major de la marine\\b.*")) {
+            return Institution.CHEF_ETAT_MAJOR_MARINE;
+        }
+        if (t.matches("^secretaire generale? du conseil constitutionnel\\b.*")) {
+            return Institution.SECRETAIRE_GENERAL_CC;
+        }
         if (t.contains("cour de cassation")) {
             return Institution.COUR_CASSATION;
         }
@@ -489,7 +505,7 @@ final class NominationReader {
                     + "|avocat\\w* general\\w*)\\b.*");
             case COUR_CASSATION -> t.matches(".*\\b(?:conseill\\w*|auditeur|auditrice|president\\w*|procureur\\w*"
                     + " general\\w*|avocat\\w* general\\w*)\\b.*|.*ladite cour.*");
-            case AMBASSADE, GOUVERNEMENT, ENTREPRISE_PUBLIQUE -> false;
+            case AMBASSADE, GOUVERNEMENT, ENTREPRISE_PUBLIQUE, CHEF_ETAT_MAJOR_MARINE, SECRETAIRE_GENERAL_CC -> false;
         };
         return member ? section : null;
     }

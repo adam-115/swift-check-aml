@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    France : le secrétaire général du Conseil constitutionnel et le chef d'état-major de la Marine sont lus dans les
+    décrets du Journal officiel (fr_pep_jorf), source d'État, et non plus dans Wikidata.
+      - décret du 16/04/2026 portant nomination de la secrétaire générale du Conseil constitutionnel ;
+      - décret du 24/03/2026 portant fin de ses prédécesseures ;
+      - décret du 24/06/2026 portant nomination d'officiers généraux (chef d'état-major de la Marine à compter du 15/07/2026).
+    fr_pep_wikidata_positions est désactivé : Wikidata ne sert plus qu'en dernier recours.
+-->
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="043-fr-jorf-single-posts" author="swiftcheck">
+        <sql><![CDATA[
+            UPDATE parser
+            SET description = 'Membres du Conseil d''État, de la Cour de cassation et de la Cour des comptes, ambassadeurs et représentants permanents, dirigeants des grands ports maritimes, secrétaire général du Conseil constitutionnel et chef d''état-major de la Marine, d''après les décrets de nomination, de retraite et de fin de fonctions publiés au Journal officiel depuis 1990 (catégories FR-a, FR-d, FR-e, FR-f et FR-g)',
+                notes = CONCAT(IFNULL(notes, ''), ' Depuis la version 4 de la sélection des textes (secrétaire général du Conseil constitutionnel, chef d''état-major de la Marine), la première exécution relit toute l''archive de la DILA.')
+            WHERE dataset_name = 'fr_pep_jorf';
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'PARTIAL', TRUE,
+                   'Secrétaire général du Conseil constitutionnel, d''après les décrets de nomination et de fin de fonctions au Journal officiel ; le successeur clôt le mandat du précédent.',
+                   'Le président et les membres viennent de fr_pep_constitutional_council.'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'FR-d' AND f.label = 'Président, membre ou secrétaire général du Conseil constitutionnel'
+              AND p.dataset_name = 'fr_pep_jorf'
+              AND NOT EXISTS (SELECT 1 FROM pep_function_parser x WHERE x.function_id = f.id AND x.parser_id = p.id);
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'PARTIAL', TRUE,
+                   'Chef d''état-major de la Marine, d''après le décret de nomination des officiers généraux au Journal officiel ; le successeur clôt le mandat du précédent.',
+                   'Chefs d''état-major des armées, de l''armée de Terre et de l''armée de l''Air et de l''Espace : voir fr_pep_army.'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'FR-f' AND f.label LIKE 'Chef d''état-major des armées%'
+              AND p.dataset_name = 'fr_pep_jorf'
+              AND NOT EXISTS (SELECT 1 FROM pep_function_parser x WHERE x.function_id = f.id AND x.parser_id = p.id);
+
+            UPDATE pep_function_parser l
+                JOIN parser p ON p.id = l.parser_id
+                JOIN pep_function f ON f.id = l.function_id
+            SET l.gaps = 'Le secrétaire général n''est pas nommé sur le site : il vient de fr_pep_jorf (décrets du Journal officiel).'
+            WHERE p.dataset_name = 'fr_pep_constitutional_council' AND f.label = 'Président, membre ou secrétaire général du Conseil constitutionnel';
+
+            UPDATE pep_function_parser l
+                JOIN parser p ON p.id = l.parser_id
+                JOIN pep_function f ON f.id = l.function_id
+            SET l.gaps = 'Marine : pas de biographie à jour du chef d''état-major sur le site ; couverte par fr_pep_jorf (décret du Journal officiel).'
+            WHERE p.dataset_name = 'fr_pep_army' AND f.label LIKE 'Chef d''état-major des armées%';
+
+            DELETE l FROM pep_function_parser l JOIN parser p ON p.id = l.parser_id
+            WHERE p.dataset_name = 'fr_pep_wikidata_positions';
+
+            UPDATE parser
+            SET enabled = FALSE,
+                notes = 'Désactivé : le chef d''état-major de la Marine et le secrétaire général du Conseil constitutionnel sont lus dans les décrets du Journal officiel (fr_pep_jorf). Ce parseur ne sert qu''en dernier recours, pour une fonction à titulaire unique sans aucune source officielle exploitable ; ajouter alors son QID dans le paramètre positions et le réactiver. Données collaboratives, à contrôler.'
+            WHERE dataset_name = 'fr_pep_wikidata_positions';
+        ]]></sql>
+    </changeSet>
+
+</databaseChangeLog>

@@ -375,4 +375,61 @@ class FrPepJorfParserTest {
         padding.write(new byte[(512 - data.length % 512) % 512]);
         out.write(padding.toByteArray());
     }
+
+    private static List<Event> readPost(String file) throws IOException {
+        String xml = Files.readString(Path.of("src/test/resources/postes/" + file), StandardCharsets.UTF_8);
+        assertThat(JorfArticles.keep(xml)).as("article gardé par la sélection : " + file).isTrue();
+        return NominationReader.read(JorfArticles.parse(xml));
+    }
+
+    @Test
+    void readsTheNavyChiefOfStaffDecreeOf24June2026() throws IOException {
+        List<Event> events = readPost("cemm-nomination-2026-06-24.xml");
+
+        assertThat(events).hasSize(1);
+        Event e = events.get(0);
+        assertThat(e.kind()).isEqualTo(Kind.NOMINATION);
+        assertThat(e.institution()).isEqualTo(Institution.CHEF_ETAT_MAJOR_MARINE);
+        assertThat(e.name()).isEqualTo("Christophe CLUZEL");
+        assertThat(e.date()).isEqualTo(LocalDate.of(2026, 7, 15));
+    }
+
+    @Test
+    void readsTheConstitutionalCouncilSecretaryGeneralDecrees() throws IOException {
+        List<Event> nomination = readPost("sg-cc-nomination-2026-04-16.xml");
+        List<Event> end = readPost("sg-cc-fin-2026-03-24.xml");
+
+        assertThat(nomination).hasSize(1);
+        assertThat(nomination.get(0).institution()).isEqualTo(Institution.SECRETAIRE_GENERAL_CC);
+        assertThat(nomination.get(0).name()).isEqualTo("Catherine LEROY");
+        assertThat(nomination.get(0).date()).isEqualTo(LocalDate.of(2026, 4, 16));
+        assertThat(end).hasSize(1);
+        assertThat(end.get(0).kind()).isEqualTo(Kind.DEPARTURE);
+        assertThat(end.get(0).institution()).isEqualTo(Institution.SECRETAIRE_GENERAL_CC);
+        assertThat(end.get(0).name()).isEqualTo("Aurélie BRETONNEAU");
+        assertThat(end.get(0).date()).isEqualTo(LocalDate.of(2026, 3, 24));
+    }
+
+    @Test
+    void aNewSingleHolderClosesThePredecessorAndStaysCurrent() throws IOException {
+        List<Event> events = new java.util.ArrayList<>(readPost("sg-cc-nomination-2026-04-16.xml"));
+        events.addAll(readPost("sg-cc-fin-2026-03-24.xml"));
+        // Son prédécesseur, nommé avant la période lue, est cité seulement par la fin de ses fonctions
+
+        List<FrPepJorfParser.Mandate> mandates = FrPepJorfParser.buildMandates(events);
+
+        assertThat(mandates).hasSize(2);
+        FrPepJorfParser.Mandate bretonneau = mandates.stream().filter(m -> m.name.contains("BRETONNEAU")).findFirst().orElseThrow();
+        FrPepJorfParser.Mandate leroy = mandates.stream().filter(m -> m.name.contains("LEROY")).findFirst().orElseThrow();
+        assertThat(bretonneau.end).isEqualTo(LocalDate.of(2026, 3, 24));
+        assertThat(leroy.end).isNull();
+        assertThat(leroy.start).isEqualTo(LocalDate.of(2026, 4, 16));
+        assertThat(FrPepJorfParser.label(leroy)).isEqualTo("Secrétaire général du Conseil constitutionnel");
+    }
+
+    @Test
+    void aMilitaryRankIsNotPartOfTheName() throws IOException {
+        List<Event> events = readPost("cemm-nomination-2026-06-24.xml");
+        assertThat(events.get(0).name()).doesNotContainIgnoringCase("amiral");
+    }
 }
