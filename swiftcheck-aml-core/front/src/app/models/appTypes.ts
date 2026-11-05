@@ -304,6 +304,18 @@ export interface PluginCheck {
     path: string;
 }
 
+/** JAR connu du serveur (dossier des plugins ou parser), chargé ou non. */
+export interface AvailablePlugin {
+    pluginId: string | null;
+    version: string | null;
+    path: string;
+    inFolder: boolean;
+    parsers: number;
+    loaded: boolean;
+    loadedPath: string | null;
+    error: string | null;
+}
+
 export interface PluginInfo {
     pluginId: string;
     version: string;

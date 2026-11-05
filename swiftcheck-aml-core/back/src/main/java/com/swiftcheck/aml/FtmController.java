@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.swiftcheck.aml.service.PluginManagementService;
+import com.swiftcheck.aml.service.PluginManagementService.AvailablePlugin;
 import com.swiftcheck.aml.service.PluginManagementService.PluginInfo;
 
 import tech.followthemoney.model.Model;
@@ -22,6 +23,7 @@ import tech.followthemoney.model.Model;
  * <pre>
  * GET  /api/ftm/schemas                       schémas FollowTheMoney disponibles
  * GET  /api/ftm/plugins                       plugins chargés (id, version, état, fichier)
+ * GET  /api/ftm/plugins/available             JAR connus (dossier des plugins et parsers), chargés ou non
  * POST /api/ftm/plugins/load?path=...         charge un JAR (remplace la version chargée de même id)
  * POST /api/ftm/plugins/{pluginId}/reload     recharge un plugin depuis son JAR
  * POST /api/ftm/plugins/{pluginId}/unload     décharge un plugin
@@ -46,6 +48,11 @@ public class FtmController {
     @GetMapping("/plugins")
     public List<PluginInfo> listPlugins() {
         return pluginService.listPlugins();
+    }
+
+    @GetMapping("/plugins/available")
+    public List<AvailablePlugin> listAvailable() {
+        return pluginService.listAvailable();
     }
 
     @PostMapping("/plugins/load")

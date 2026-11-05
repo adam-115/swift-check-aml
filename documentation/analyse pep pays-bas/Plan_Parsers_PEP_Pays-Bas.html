@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Plan des parsers PEP – Pays-Bas</title>
+<style>
+  @page { size: A4 portrait; margin: 14mm 13mm 14mm 13mm; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; color: #1e293b; font-size: 10.5px; line-height: 1.45; }
+  h1 { font-size: 22px; color: #0f172a; margin-bottom: 4px; }
+  h2 { font-size: 14px; color: #0f172a; margin: 18px 0 6px; padding-bottom: 3px; border-bottom: 2px solid #2563eb; break-after: avoid; }
+  p { margin: 4px 0; }
+  .subtitle { color: #475569; font-size: 11.5px; margin-bottom: 8px; }
+  .meta { display: flex; flex-wrap: wrap; gap: 18px; color: #64748b; font-size: 9.5px; border-bottom: 1px solid #e2e8f0; padding-bottom: 8px; margin-bottom: 12px; }
+  .kpis { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin: 10px 0 6px; }
+  .kpi { border: 1px solid #e2e8f0; border-radius: 8px; padding: 8px 10px; background: #f8fafc; }
+  .kpi b { display: block; font-size: 20px; color: #1d4ed8; line-height: 1.1; }
+  .kpi span { color: #475569; font-size: 9.5px; }
+  table { width: 100%; border-collapse: collapse; margin: 5px 0 8px; font-size: 9.5px; }
+  th { background: #1e3a8a; color: #fff; text-align: left; padding: 4px 5px; font-weight: 600; }
+  td { border-bottom: 1px solid #e2e8f0; padding: 4px 5px; vertical-align: top; }
+  tr { break-inside: avoid; }
+  tr:nth-child(even) td { background: #f8fafc; }
+  td.n, th.n { text-align: right; white-space: nowrap; }
+  code { font-family: Consolas, 'Courier New', monospace; font-size: 9px; background: #eef2ff; color: #1e3a8a; padding: 0 2px; border-radius: 3px; }
+  .cat { font-weight: 700; color: #1d4ed8; white-space: nowrap; }
+  .tag { display: inline-block; border-radius: 4px; padding: 0 4px; font-size: 8.5px; font-weight: 600; white-space: nowrap; }
+  .win { background: #dcfce7; color: #166534; }
+  .eq { background: #fef9c3; color: #854d0e; }
+  .mid { background: #fef9c3; color: #854d0e; }
+  .hard { background: #fee2e2; color: #991b1b; }
+  .none { background: #e2e8f0; color: #334155; }
+  .note { border-left: 3px solid #2563eb; background: #eff6ff; padding: 6px 9px; margin: 6px 0; border-radius: 0 6px 6px 0; }
+  .warn { border-left-color: #d97706; background: #fffbeb; }
+  ul, ol { margin: 4px 0 4px 18px; }
+  li { margin: 2px 0; }
+  .footer { margin-top: 14px; border-top: 1px solid #e2e8f0; padding-top: 6px; color: #94a3b8; font-size: 8.5px; }
+</style>
+</head>
+<body>
+
+<h1>Plan des parsers PEP – Pays-Bas</h1>
+<p class="subtitle">Fonctions PEP des Pays-Bas, où trouver leurs titulaires, ce qui est implémenté et ce qui reste, pour couvrir la Wwft et la liste notifiée à la Commission (JO C/2023/724), et dépasser OpenSanctions.</p>
+<div class="meta"><span>SwiftCheck AML</span><span>6 novembre 2026</span><span>Référence : écran « Couverture PEP »</span>
+<span>Migration 061 (référentiel NL et parsers)</span>
+<span>Sources testées en direct les 5 et 6/11/2026, User-Agent générique, aucune protection contournée, Wikidata exclu</span></div>
+
+<div class="kpis">
+  <div class="kpi"><b>10</b><span>catégories NL (NL-a à NL-h, NL-EU, NL-RCA)</span></div>
+  <div class="kpi"><b>8</b><span>parsers livrés (dont l’historique de 50 ans)</span></div>
+  <div class="kpi"><b>~520</b><span>personnes dans la fenêtre légale de 12 mois ; ~1 300 avec l'historique</span></div>
+  <div class="kpi"><b>227</b><span>membres des deux Chambres chez OpenSanctions (151 + 76)</span></div>
+</div>
+
+<h2>1. Cadre légal et choix de conception</h2>
+<ul>
+  <li><b>Base légale :</b> Wet ter voorkoming van witwassen en financieren van terrorisme (Wwft) : une personne qui exerce, ou a exercé au cours des douze derniers mois, une fonction publique importante (<i>politiek prominente persoon</i>), ses proches et associés.</li>
+  <li><b>Rétention :</b> 12 mois (paramètre <code>monthsAfterEnd</code> ; le cœur garde ensuite les personnes disparues de la source pendant la durée de rétention).</li>
+  <li><b>Sources :</b> uniquement officielles. Aucun nom n'est écrit dans le code ; chaque exécution télécharge la source.</li>
+  <li><b>Atout des Pays-Bas :</b> la Tweede Kamer publie une API OData complète (identité, naissance, décès, sièges avec dates et groupe), sans clé.</li>
+</ul>
+
+<h2>2. Parsers livrés (lots 1 et 2)</h2>
+<table>
+  <tr><th>Parser</th><th>Catégorie</th><th>Source</th><th>Résultat réel</th><th>Remarques</th></tr>
+  <tr><td><code>nl_pep_parliament</code></td><td class="cat">NL-b</td><td>API OData <code>gegevensmagazijn.tweedekamer.nl</code> (Persoon, FractieZetelPersoon) ; liste officielle <code>eerstekamer.nl/alle_leden</code></td>
+      <td>150 députés en fonction, 121 anciens de moins d'un an, 75 sénateurs</td>
+      <td>Naissance, genre, groupe, dates de mandat ; sénateurs : nom complet repris de la fiche Persoon quand elle correspond (55 sur 75), début de mandat calculé depuis l'ancienneté en jours ; décédés écartés ; anciens sénateurs non repris (la source ne donne pas leur chambre)</td></tr>
+  <tr><td><code>nl_pep_parliament_history</code></td><td class="cat">NL-b</td><td>Même plugin, <code>monthsAfterEnd = 600</code></td>
+      <td>environ 840 personnes (35 décédés écartés), une minute et demie</td>
+      <td>Objectif OpenSanctions : 227 pour les deux Chambres ; mêmes identifiants que <code>nl_pep_parliament</code> ; au-delà des 12 mois légaux : à activer selon l'approche par les risques</td></tr>
+  <tr><td><code>nl_pep_government</code></td><td class="cat">NL-a</td><td>Pages <code>rijksoverheid.nl/regering/bewindspersonen</code> (liste et une fiche par membre)</td>
+      <td>28 membres (ministre-président, ministres, secrétaires d'État)</td><td>Naissance, lieu, parti, date de nomination (2 membres sans naissance sur leur fiche) ; anciens membres non nommés par la source</td></tr>
+  <tr><td><code>nl_pep_europarl</code></td><td class="cat">NL-b</td><td>API du Parlement européen (liste courante, liste de la législature, une fiche par député)</td>
+      <td>31 députés européens en fonction, 3 sortis dans la législature</td><td>Naissance, genre, groupe, dates de mandat ; photos via Wikimedia Commons (images seulement)</td></tr>
+  <tr><td><code>nl_pep_eu_commission</code></td><td class="cat">NL-EU</td><td>Fiche officielle sur <code>commission.europa.eu</code></td>
+      <td>Wopke Hoekstra (2024-2029)</td><td>Fiche refusée si elle ne présente pas un commissaire néerlandais ; adresse à changer à chaque Commission</td></tr>
+  <tr><td><code>nl_pep_king</code></td><td class="cat">NL-a</td><td>Page du Roi sur <code>koninklijkhuis.nl</code></td>
+      <td>Willem-Alexander (accession le 30/04/2013)</td><td>Page refusée sans la phrase d'accession ; pas de naissance sur la page ; adresse à changer au changement de règne</td></tr>
+  <tr><td><code>nl_pep_institutions</code></td><td class="cat">NL-d, NL-e</td><td>Pages « Leden en staatsraden » (Raad van State), « Kamers » (Hoge Raad), « College » (Algemene Rekenkamer), « Organisatie » (Centrale Raad van Beroep)</td>
+      <td>environ 190 membres : Raad van State 75, Hoge Raad 37, Algemene Rekenkamer 3, Centrale Raad van Beroep 78</td><td>Un extracteur par site ; Hoge Raad et Centrale Raad van Beroep : initiales seulement ; ni dates ni naissance</td></tr>
+</table>
+
+<h2>3. Fonctions restantes et état des sources</h2>
+<table>
+  <tr><th>Catégorie</th><th>Fonction</th><th>Source candidate</th><th>État</th><th>Priorité</th></tr>
+  <tr><td class="cat">NL-e</td><td>Direction de De Nederlandsche Bank</td><td><code>dnb.nl</code></td>
+      <td><span class="tag hard">403 au client automatique</span> non contourné</td><td>Accès à demander</td></tr>
+  <tr><td class="cat">NL-d</td><td>Centrale Raad van Beroep, College van Beroep voor het bedrijfsleven</td><td>Sites des juridictions</td>
+      <td><span class="tag win">Centrale Raad van Beroep livrée</span> <span class="tag mid">College van Beroep voor het bedrijfsleven : page non trouvée</span></td><td>Partiel</td></tr>
+  <tr><td class="cat">NL-f</td><td>Ambassadeurs et chargés d'affaires</td><td>Site du ministère des Affaires étrangères</td>
+      <td><span class="tag hard">liste JavaScript</span> <span class="tag hard">sitemap de 1 209 fichiers inexploitable</span> <span class="tag hard">nederlandwereldwijd.nl : 404</span></td><td>Accès à demander</td></tr>
+  <tr><td class="cat">NL-f</td><td>Officiers généraux</td><td><code>defensie.nl</code></td>
+      <td><span class="tag win">commandants livrés</span> <code>nl_pep_defence</code> ; autres officiers non nommés sur une page lisible</td><td>Partiel</td></tr>
+  <tr><td class="cat">NL-c</td><td>Organes dirigeants des partis</td><td>Sites des partis ; registre de la Kiesraad</td>
+      <td><span class="tag mid">non testé</span></td><td>Lot 3</td></tr>
+  <tr><td class="cat">NL-g</td><td>Entreprises publiques</td><td>Sites des entreprises</td>
+      <td><span class="tag mid">non testé</span></td><td>Lot 3</td></tr>
+  <tr><td class="cat">NL-h</td><td>Organisations internationales (La Haye)</td><td>À identifier</td><td><span class="tag none">non analysé</span></td><td>Lot 3</td></tr>
+  <tr><td class="cat">NL-RCA</td><td>Famille et proches associés</td><td>Aucune source officielle connue ; seule Wikidata en a</td><td><span class="tag none">exclu (pas de Wikidata)</span></td><td>—</td></tr>
+  <tr><td><code>nl_pep_defence</code></td><td class="cat">NL-f</td><td>Pages des commandants sur <code>defensie.nl</code> (CDS, forces terrestres, navales, aériennes, Maréchaussée)</td>
+      <td>5 commandants (Eichelsheim, Swillens, Liebregs, Steur, Costongs)</td><td>Grade et nom de la ligne « Curriculum vitae », date de la phrase « Sinds … » ; les autres officiers généraux ne sont pas nommés sur une page lisible</td></tr>
+</table>
+
+<div class="note warn"><b>Non contourné :</b> les pages qui répondent 403 au client automatique (De Nederlandsche Bank) ne sont pas lues avec des en-têtes modifiés. Pour ces fonctions, la voie propre est de demander un fichier ou un flux à l'organisme.</div>
+
+<h2>4. Comparaison avec OpenSanctions</h2>
+<p>OpenSanctions publie pour les Pays-Bas la Tweede Kamer (151 entités, hebdomadaire) et l'Eerste Kamer (76, mensuel), plus deux listes de sanctions et de personnes recherchées hors PEP (5/11/2026).</p>
+<table>
+  <tr><th>Fonction</th><th class="n">OpenSanctions</th><th class="n">Nous</th><th>Résultat</th></tr>
+  <tr><td>Tweede Kamer</td><td class="n">151</td><td class="n">271 (150 en fonction + 121 anciens) ; ~690 avec l'historique</td><td><span class="tag win">on dépasse</span></td></tr>
+  <tr><td>Eerste Kamer</td><td class="n">76</td><td class="n">75</td><td><span class="tag eq">égalité</span></td></tr>
+  <tr><td>Gouvernement, Roi, juridictions supérieures, Cour des comptes, UE</td><td class="n">non couverts</td><td class="n">~180</td><td><span class="tag win">on dépasse</span></td></tr>
+</table>
+
+<h2>5. Mise en service</h2>
+<ol>
+  <li>Redémarrer le back : les migrations <code>061-nl-pep-reference-and-parsers.xml</code> et <code>062-nl-lot2.xml</code> créent catégories, fonctions, parsers et liens de couverture.</li>
+  <li>Charger les plugins <code>nl-pep-defence</code>, <code>nl-pep-parliament</code>, <code>nl-pep-government</code>, <code>nl-pep-europarl</code>, <code>nl-pep-eu-commission</code>, <code>nl-pep-king</code>, <code>nl-pep-institutions</code> (onglet « Plugins », « Tout charger »).</li>
+  <li>Exécuter les 8 parsers ; vérifier la page « Couverture PEP » pour les Pays-Bas.</li>
+  <li>À chaque nouvelle Commission et à chaque changement de règne, modifier l'adresse de la fiche dans <code>nl_pep_eu_commission</code> et <code>nl_pep_king</code>.</li>
+</ol>
+
+<div class="footer">SwiftCheck AML – plan des parsers PEP Pays-Bas – 6 novembre 2026. Les chiffres viennent des exécutions de test du jour ; les états de sources sont ceux des 5 et 6/11/2026.</div>
+</body>
+</html>

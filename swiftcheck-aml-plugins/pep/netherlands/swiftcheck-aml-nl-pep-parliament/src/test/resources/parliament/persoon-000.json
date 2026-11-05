@@ -1,0 +1,82 @@
+{
+ "value": [
+  {
+   "Id": "beb41c8f-0433-418c-ba75-617240b3baa3",
+   "Titels": null,
+   "Initialen": "E.B.",
+   "Tussenvoegsel": "van",
+   "Achternaam": "Apeldoorn",
+   "Voornamen": "Bastiaan",
+   "Geslacht": "man",
+   "Functie": "Eerste Kamerlid",
+   "Geboortedatum": "1970-03-22",
+   "Geboorteplaats": "Groningen",
+   "Overlijdensdatum": null
+  },
+  {
+   "Id": "fd6c6b85-606d-46c2-a803-72f793816c73",
+   "Titels": null,
+   "Initialen": "J.P.S.",
+   "Tussenvoegsel": null,
+   "Achternaam": "Six Dijkstra",
+   "Voornamen": "Jesse Petrus Samuel",
+   "Geslacht": "man",
+   "Functie": "Oud Kamerlid",
+   "Geboortedatum": "1994-09-23",
+   "Geboorteplaats": "Dordrecht",
+   "Overlijdensdatum": null
+  },
+  {
+   "Id": "4bf69aa9-29a7-44db-b7ee-8bfa40e343dd",
+   "Titels": null,
+   "Initialen": "Q.M.",
+   "Tussenvoegsel": null,
+   "Achternaam": "Rajkowski",
+   "Voornamen": "Queeny-Aimée Magdalena",
+   "Geslacht": "vrouw",
+   "Functie": "Tweede Kamerlid",
+   "Geboortedatum": "1988-11-17",
+   "Geboorteplaats": "Nijmegen",
+   "Overlijdensdatum": null
+  },
+  {
+   "Id": "6f517f12-afe7-43c8-b610-9533d5d23454",
+   "Titels": null,
+   "Initialen": "J.",
+   "Tussenvoegsel": null,
+   "Achternaam": "Bakker-Klein",
+   "Voornamen": "Janny",
+   "Geslacht": "vrouw",
+   "Functie": "Eerste Kamerlid",
+   "Geboortedatum": "1960-01-06",
+   "Geboorteplaats": null,
+   "Overlijdensdatum": null
+  },
+  {
+   "Id": "a8ec9ff1-6a91-4063-9a8d-c3af07a11a0d",
+   "Titels": null,
+   "Initialen": "A.",
+   "Tussenvoegsel": null,
+   "Achternaam": "Oualhadj",
+   "Voornamen": "Ahlam",
+   "Geslacht": "vrouw",
+   "Functie": "Tweede Kamerlid",
+   "Geboortedatum": "1990-02-26",
+   "Geboorteplaats": "‘S-Gravenhage",
+   "Overlijdensdatum": null
+  },
+  {
+   "Id": "cf6c0969-6741-4130-bd75-ee65ad71ad1d",
+   "Titels": null,
+   "Initialen": "D.R.F.",
+   "Tussenvoegsel": null,
+   "Achternaam": "Clemminck",
+   "Voornamen": "Danny Ranjith Franciscus",
+   "Geslacht": "man",
+   "Functie": "Tweede Kamerlid",
+   "Geboortedatum": "1986-01-12",
+   "Geboorteplaats": "Ratnapura",
+   "Overlijdensdatum": null
+  }
+ ]
+}

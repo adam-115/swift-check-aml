@@ -1,0 +1,52 @@
+{
+ "value": [
+  {
+   "Persoon_Id": "cf6c0969-6741-4130-bd75-ee65ad71ad1d",
+   "Functie": "Lid",
+   "Van": "2025-11-12T00:00:00+01:00",
+   "TotEnMet": null,
+   "FractieZetel": {
+    "Fractie_Id": "fab6e7e1-9d63-446a-a6e1-e1c74e3f679e",
+    "Fractie": {
+     "Afkorting": "JA21"
+    }
+   }
+  },
+  {
+   "Persoon_Id": "a8ec9ff1-6a91-4063-9a8d-c3af07a11a0d",
+   "Functie": "Lid",
+   "Van": "2025-11-12T00:00:00+01:00",
+   "TotEnMet": null,
+   "FractieZetel": {
+    "Fractie_Id": "4e9f6f5b-2544-4667-8134-6b85c4ebb4e0",
+    "Fractie": {
+     "Afkorting": "D66"
+    }
+   }
+  },
+  {
+   "Persoon_Id": "4bf69aa9-29a7-44db-b7ee-8bfa40e343dd",
+   "Functie": "Lid",
+   "Van": "2024-03-29T00:00:00+01:00",
+   "TotEnMet": "2026-03-30T00:00:00+02:00",
+   "FractieZetel": {
+    "Fractie_Id": "7476e97a-3243-4122-9df6-ba7d82a5279b",
+    "Fractie": {
+     "Afkorting": "VVD"
+    }
+   }
+  },
+  {
+   "Persoon_Id": "fd6c6b85-606d-46c2-a803-72f793816c73",
+   "Functie": "Lid",
+   "Van": "2023-12-06T00:00:00+01:00",
+   "TotEnMet": "2025-11-11T00:00:00+01:00",
+   "FractieZetel": {
+    "Fractie_Id": "ad182a43-bc8c-40b3-894d-4a92515e70e7",
+    "Fractie": {
+     "Afkorting": "Nieuw Sociaal Contract"
+    }
+   }
+  }
+ ]
+}

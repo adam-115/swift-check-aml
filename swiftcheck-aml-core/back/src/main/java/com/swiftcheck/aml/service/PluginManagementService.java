@@ -14,12 +14,15 @@ import org.pf4j.PluginWrapper;
 import org.pf4j.spring.SpringPluginManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.swiftcheck.aml.entities.Parser;
 import com.swiftcheck.aml.entities.ParserExecutionStatus;
 import com.swiftcheck.aml.plugin.Iparser;
 import com.swiftcheck.aml.repositories.ParserExecutionRepository;
+import com.swiftcheck.aml.repositories.ParserRepository;
 
 /**
  * Gestion des plugins PF4J (un JAR par liste) : lister, charger, recharger, décharger, trouver.
@@ -51,12 +54,96 @@ public class PluginManagementService {
     public record PluginCheck(String pluginId, String version, String parserClass, String path) {
     }
 
+    /**
+     * Un JAR de plugin connu du serveur : trouvé dans le dossier des plugins ou indiqué par un parser.
+     *
+     * @param loaded     un plugin de même Plugin-Id est chargé depuis ce même fichier
+     * @param loadedPath fichier d'où le plugin de même Plugin-Id est chargé s'il diffère de celui-ci, sinon {@code null}
+     * @param error      raison pour laquelle le JAR n'a pas pu être lu (ce n'est pas un plugin), sinon {@code null}
+     */
+    public record AvailablePlugin(String pluginId, String version, String path, boolean inFolder, int parsers,
+            boolean loaded, String loadedPath, String error) {
+    }
+
     private final SpringPluginManager pluginManager;
     private final ParserExecutionRepository executions;
+    private final ParserRepository parserRepository;
+    private final String pluginsDir;
 
     public PluginManagementService(SpringPluginManager pluginManager, ParserExecutionRepository executions) {
+        this(pluginManager, executions, null, null);
+    }
+
+    @Autowired
+    public PluginManagementService(SpringPluginManager pluginManager, ParserExecutionRepository executions,
+            ParserRepository parserRepository, @Value("${pf4j.plugins.dir:}") String pluginsDir) {
         this.pluginManager = pluginManager;
         this.executions = executions;
+        this.parserRepository = parserRepository;
+        this.pluginsDir = pluginsDir;
+    }
+
+    /**
+     * Les JAR que le serveur connaît : ceux du dossier des plugins et ceux que les parsers indiquent
+     * ({@link Parser#getPluginUrl()}), chargés ou non. Sert à l'écran « Plugins » pour montrer ce qui est chargé, ce
+     * qui ne l'est pas, et ce qu'un parser attend sans que son JAR soit chargé. Un JAR illisible est renvoyé avec son
+     * erreur au lieu de faire échouer la liste.
+     */
+    public List<AvailablePlugin> listAvailable() {
+        java.util.Map<String, Integer> parsersByJar = new java.util.HashMap<>();
+        java.util.Set<String> paths = new java.util.LinkedHashSet<>();
+        java.util.Set<String> folderPaths = new java.util.HashSet<>();
+        if (pluginsDir != null && !pluginsDir.isBlank() && Files.isDirectory(Path.of(pluginsDir))) {
+            try (var stream = Files.list(Path.of(pluginsDir))) {
+                stream.filter(p -> p.getFileName().toString().toLowerCase().endsWith(".jar")).sorted().forEach(p -> {
+                    paths.add(normalize(p));
+                    folderPaths.add(normalize(p));
+                });
+            } catch (IOException e) {
+                log.warn("Dossier des plugins illisible : {}", e.getMessage());
+            }
+        }
+        if (parserRepository != null) {
+            for (Parser parser : parserRepository.findAll()) {
+                if (parser.getPluginUrl() != null && !parser.getPluginUrl().isBlank()) {
+                    String key = normalize(Path.of(parser.getPluginUrl().trim()));
+                    paths.add(key);
+                    parsersByJar.merge(key, 1, Integer::sum);
+                }
+            }
+        }
+        List<AvailablePlugin> out = new java.util.ArrayList<>();
+        for (String path : paths) {
+            Path jar = Path.of(path);
+            boolean inFolder = folderPaths.contains(path);
+            int parsers = parsersByJar.getOrDefault(path, 0);
+            try {
+                if (!Files.isRegularFile(jar)) {
+                    throw new IllegalArgumentException("Fichier introuvable sur le serveur : " + path);
+                }
+                String id = readPluginId(jar);
+                PluginWrapper wrapper = pluginManager.getPlugin(id);
+                boolean sameFile = wrapper != null && normalize(wrapper.getPluginPath()).equals(path);
+                out.add(new AvailablePlugin(id, readVersion(jar), path, inFolder, parsers, sameFile,
+                        wrapper != null && !sameFile ? wrapper.getPluginPath().toString() : null, null));
+            } catch (IllegalArgumentException e) {
+                out.add(new AvailablePlugin(null, null, path, inFolder, parsers, false, null, e.getMessage()));
+            }
+        }
+        return out;
+    }
+
+    private static String normalize(Path p) {
+        return p.toAbsolutePath().normalize().toString().replace('\\', '/');
+    }
+
+    private static String readVersion(Path jar) {
+        try (JarFile file = new JarFile(jar.toFile())) {
+            Manifest manifest = file.getManifest();
+            return manifest == null ? null : manifest.getMainAttributes().getValue("Plugin-Version");
+        } catch (IOException e) {
+            return null;
+        }
     }
 
     public List<PluginInfo> listPlugins() {

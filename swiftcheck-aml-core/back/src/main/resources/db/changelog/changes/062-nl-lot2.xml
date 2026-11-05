@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Pays-Bas, lot 2, sans Wikidata :
+
+      - nl_pep_defence      : commandants des forces armées (CDS, forces terrestres, navales, aériennes, Maréchaussée),
+                              pages officielles de defensie.nl
+      - nl_pep_institutions : ajout de la Centrale Raad van Beroep (bestuur, senior raadsheren, raadsheren et
+                              plaatsvervangers) à la configuration existante
+
+    Non couvert, avec le motif :
+      - ambassadeurs : la liste de rijksoverheid.nl est une recherche JavaScript, ses pages individuelles ne sont pas
+        listées par le sitemap de façon exploitable (1 209 fichiers) ; nederlandwereldwijd.nl renvoie 404 au client automatique ;
+      - De Nederlandsche Bank (403, non contourné) ; College van Beroep voor het bedrijfsleven (page non trouvée) ;
+      - partis, entreprises publiques, organisations internationales : non analysés.
+-->
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="062-parser-nl-pep-defence" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Pays-Bas – Forces armées',
+                'Commandant der Strijdkrachten et commandants des forces terrestres, navales, aériennes et de la Maréchaussée, d''après les pages officielles de defensie.nl (catégorie NL-f)',
+                'nl_pep_defence', 'PEP', 'https://www.defensie.nl/',
+                'nl-pep-defence', 'D:/test parser 2/plugins/swiftcheck-aml-nl-pep-defence-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'WEB_PAGE',
+                NULL,
+                '{"pages": "https://www.defensie.nl/defensieonderdelen/bestuursstaf/cds;https://www.defensie.nl/defensieonderdelen/koninklijke-landmacht/c-las;https://www.defensie.nl/defensieonderdelen/koninklijke-marine/cszk;https://www.defensie.nl/defensieonderdelen/koninklijke-luchtmacht/clrs;https://www.defensie.nl/defensieonderdelen/koninklijke-marechaussee/commandant-koninklijke-marechaussee", "delayMs": "1500"}',
+                168, 12,
+                'Site officiel de Defensie : citer la source', 'Ministerie van Defensie, www.defensie.nl',
+                'Cinq pages, un commandant chacune : grade et nom de la ligne « Curriculum vitae », date de la phrase « Sinds … ». Un autre commandement : ajouter son adresse au paramètre pages. Les officiers sortis ne sont pas nommés (rétention du cœur). Les adresses des pages de commandants ont déjà changé une fois : une page introuvable fait échouer l''exécution avec son adresse.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'PARTIAL', FALSE,
+                   'Le Commandant der Strijdkrachten et les commandants des forces terrestres, navales, aériennes et de la Maréchaussée, avec grade et date de prise de fonctions.',
+                   'Les autres officiers généraux (adjoints, commandants de commandements, chef de la Defensiestaf) ne sont pas nommés sur une page lisible ; pas de date de naissance.'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'NL-f' AND f.label = 'Officier général des forces armées' AND p.dataset_name = 'nl_pep_defence';
+        ]]></sql>
+    </changeSet>
+
+    <changeSet id="062-nl-institutions-crvb" author="swiftcheck">
+        <sql><![CDATA[
+            UPDATE parser SET
+                parameters = '{"sources": "raad_van_state|Raad van State|https://www.raadvanstate.nl/overrvs/organisatie/leden-staatsraden/;hoge_raad|Hoge Raad|https://www.hogeraad.nl/hoge-raad/kamers/;algemene_rekenkamer|Algemene Rekenkamer|https://www.rekenkamer.nl/over-de-algemene-rekenkamer/organisatie/college;centrale_raad_van_beroep|Centrale Raad van Beroep|https://www.rechtspraak.nl/organisatie-en-contact/organisatie/centrale-raad-van-beroep/over-de-crvb/organisatie", "delayMs": "1500"}',
+                description = 'Membres de la Raad van State, de la Hoge Raad, de la Centrale Raad van Beroep et de l''Algemene Rekenkamer, d''après les pages officielles (catégories NL-d et NL-e)',
+                notes = 'Un extracteur par site. Raad van State : prénoms lus entre parenthèses ; Hoge Raad et Centrale Raad van Beroep : initiales seulement (président, bestuur, senior raadsheren, raadsheren, plaatsvervangers) ; Rekenkamer : trois membres du collège. Ni dates ni naissance : seuls les membres en fonction sont nommés. De Nederlandsche Bank (403) non couverte, non contournée ; College van Beroep voor het bedrijfsleven : page non trouvée.'
+            WHERE dataset_name = 'nl_pep_institutions';
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'PARTIAL', FALSE,
+                   'Le bestuur, les senior raadsheren, les raadsheren et les raadsheren-plaatsvervangers de la Centrale Raad van Beroep.',
+                   'College van Beroep voor het bedrijfsleven non couvert (page non trouvée) ; initiales seulement ; pas de dates ni de naissance.'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'NL-d' AND f.label LIKE 'Juge de la Centrale Raad van Beroep%' AND p.dataset_name = 'nl_pep_institutions';
+        ]]></sql>
+    </changeSet>
+
+</databaseChangeLog>

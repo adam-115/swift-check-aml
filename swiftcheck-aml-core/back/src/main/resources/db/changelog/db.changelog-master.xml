@@ -88,5 +88,7 @@
     <include file="db/changelog/changes/058-ie-pep-reference-and-parsers.xml" />
     <include file="db/changelog/changes/059-ie-lot2.xml" />
     <include file="db/changelog/changes/060-ie-lot3.xml" />
+    <include file="db/changelog/changes/061-nl-pep-reference-and-parsers.xml" />
+    <include file="db/changelog/changes/062-nl-lot2.xml" />
 
 </databaseChangeLog>

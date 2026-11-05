@@ -5,7 +5,7 @@ import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 
 import {
   Completeness, DataSourceType, ListType, ParserDTO, ParserExecutionDTO, ParserKind, ParserTestDTO, PepFunctionDTO, PluginCheck,
-  PluginInfo,
+  AvailablePlugin, PluginInfo,
 } from '../../models/appTypes';
 import { ParserService } from '../../services/parser.service';
 import { PepReferenceService } from '../../services/pep-reference.service';
@@ -1267,11 +1267,91 @@ export class ParserComponent implements OnInit {
     return chips;
   }
 
+  /** JAR connus du serveur (dossier des plugins et parsers), chargés ou non. */
+  available: AvailablePlugin[] = [];
+  /** Affichage de l'onglet Plugins : tous, chargés ou non chargés. */
+  pluginView: 'all' | 'loaded' | 'notLoaded' = 'all';
+  /** JAR en cours de chargement (boutons désactivés). */
+  busyJars = new Set<string>();
+
+  /** JAR lisibles qui ne sont pas chargés depuis ce fichier (plugin absent, ou autre version chargée). */
+  get notLoadedJars(): AvailablePlugin[] {
+    const q = normalize(this.pluginSearch.trim());
+    return this.available.filter(a => !a.error && !a.loaded
+      && (!q || normalize((a.pluginId ?? '') + ' ' + a.path).includes(q)));
+  }
+
+  /** Fichiers qui ne sont pas des plugins lisibles ou qui n'existent plus (indiqués par un parser). */
+  get brokenJars(): AvailablePlugin[] {
+    return this.available.filter(a => !!a.error);
+  }
+
+  get notLoadedCount(): number {
+    return this.available.filter(a => !a.error && !a.loaded).length;
+  }
+
+  loadAvailable(): void {
+    this.pluginService.available().subscribe({
+      next: list => (this.available = list),
+      error: err => (this.pluginError = apiError(err)),
+    });
+  }
+
+  /** Charge un JAR de la liste « non chargés ». */
+  loadFile(jar: AvailablePlugin): void {
+    if (this.busyJars.has(jar.path)) {
+      return;
+    }
+    this.busyJars.add(jar.path);
+    this.pluginMessage = '';
+    this.pluginError = '';
+    this.pluginService.load(jar.path).subscribe({
+      next: res => {
+        this.busyJars.delete(jar.path);
+        this.pluginMessage = `Plugin ${res.pluginId} chargé.`;
+        this.loadPlugins();
+      },
+      error: err => {
+        this.busyJars.delete(jar.path);
+        this.pluginError = `${jar.pluginId ?? jar.path} : ${apiError(err)}`;
+        this.loadPlugins();
+      },
+    });
+  }
+
+  /** Charge un par un tous les JAR non chargés ; les erreurs sont comptées, pas bloquantes. */
+  loadAllMissing(): void {
+    const queue = this.available.filter(a => !a.error && !a.loaded);
+    if (!queue.length || !confirm(`Charger les ${queue.length} plugin(s) non chargé(s), un par un ?`)) {
+      return;
+    }
+    this.pluginMessage = '';
+    this.pluginError = '';
+    let ok = 0;
+    const failures: string[] = [];
+    const next = (): void => {
+      const jar = queue.shift();
+      if (!jar) {
+        this.pluginMessage = `${ok} plugin(s) chargé(s).`;
+        this.pluginError = failures.length ? `${failures.length} échec(s) : ${failures.join(' ; ')}` : '';
+        this.loadPlugins();
+        return;
+      }
+      this.busyJars.add(jar.path);
+      this.pluginService.load(jar.path).subscribe({
+        next: () => { this.busyJars.delete(jar.path); ok++; next(); },
+        error: err => { this.busyJars.delete(jar.path); failures.push(`${jar.pluginId ?? jar.path} (${apiError(err)})`); next(); },
+      });
+    };
+    next();
+  }
+
   loadPlugins(): void {
     this.pluginService.list().subscribe({
       next: plugins => {
         this.plugins = plugins;
         this.applyFilters(false);       // filtre « plugin non chargé »
+        this.loadAvailable();
       },
       error: err => (this.pluginError = apiError(err)),
     });

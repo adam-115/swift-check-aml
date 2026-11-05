@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Pays-Bas : référentiel PEP et parsers, sans Wikidata (sauf les photos des députés européens, comme les autres pays).
+
+    Base légale : Wet ter voorkoming van witwassen en financieren van terrorisme (Wwft) : personnes qui exercent ou ont exercé
+    depuis moins de douze mois une fonction publique importante ; liste notifiée à la Commission (JO C/2023/724). Rétention de 12 mois.
+
+    Parsers (plugins dans swiftcheck-aml-plugins/pep/netherlands) :
+      - nl_pep_parliament     : Tweede Kamer (API OData ouverte) et Eerste Kamer (liste officielle)
+      - nl_pep_government     : ministre-président, ministres et secrétaires d'État (rijksoverheid.nl)
+      - nl_pep_europarl       : API du Parlement européen (31 députés élus aux Pays-Bas)
+      - nl_pep_eu_commission  : fiche officielle du commissaire néerlandais (Wopke Hoekstra)
+      - nl_pep_king           : page du Roi sur koninklijkhuis.nl
+      - nl_pep_institutions   : Raad van State, Hoge Raad, Algemene Rekenkamer
+
+    Non couvert à ce jour : De Nederlandsche Bank (dnb.nl répond 403), ambassadeurs, officiers généraux, partis, entreprises
+    publiques, organisations internationales, anciens sénateurs (la source ne les date pas) ; proches (RCA) : seule source
+    connue = Wikidata, exclue.
+-->
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="061-nl-country" author="swiftcheck">
+        <sql>
+            UPDATE country SET legal_basis = 'Wet ter voorkoming van witwassen en financieren van terrorisme (Wwft) : personnes exerçant ou ayant exercé depuis moins de douze mois une fonction publique importante (politiek prominente persoon), leurs proches et associés',
+                               retention_months = 12,
+                               official_list_reference = 'JO C/2023/724 (section Pays-Bas) ; Wwft',
+                               official_list_date = '2023-10-24',
+                               official_list_url = 'https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=OJ:C_202300724'
+            WHERE iso = 'NL';
+        </sql>
+    </changeSet>
+
+    <changeSet id="061-nl-categories" author="swiftcheck">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM pep_category WHERE country_iso = 'NL'</sqlCheck>
+        </preConditions>
+        <sql>
+            INSERT INTO pep_category (country_iso, code, label, kind, risk_class, sort_order, legal_reference) VALUES
+            ('NL', 'NL-a', 'Chef de l''État, ministre-président, ministres et secrétaires d''État', 'OFFICIAL', 1, 1, 'Wwft ; JO C/2023/724'),
+            ('NL', 'NL-b', 'Membres de la Tweede Kamer et de l''Eerste Kamer des États généraux', 'OFFICIAL', 1, 2, 'Wwft ; JO C/2023/724'),
+            ('NL', 'NL-c', 'Organes dirigeants des partis politiques', 'OFFICIAL', 2, 3, 'Wwft ; JO C/2023/724'),
+            ('NL', 'NL-d', 'Hoge Raad, Raad van State, Centrale Raad van Beroep, College van Beroep voor het bedrijfsleven', 'OFFICIAL', 2, 4, 'Wwft ; JO C/2023/724'),
+            ('NL', 'NL-e', 'Algemene Rekenkamer et direction de De Nederlandsche Bank', 'OFFICIAL', 2, 5, 'Wwft ; JO C/2023/724'),
+            ('NL', 'NL-f', 'Ambassadeurs, chargés d''affaires et officiers généraux des forces armées', 'OFFICIAL', 2, 6, 'Wwft ; JO C/2023/724'),
+            ('NL', 'NL-g', 'Organes dirigeants des entreprises publiques', 'OFFICIAL', 3, 7, 'Wwft ; JO C/2023/724'),
+            ('NL', 'NL-h', 'Dirigeants des organisations internationales', 'OFFICIAL', 3, 8, 'Wwft ; JO C/2023/724'),
+            ('NL', 'NL-EU', 'Néerlandais exerçant une fonction européenne', 'EU', 1, 9, 'Liste de la Commission, JO C/2023/724'),
+            ('NL', 'NL-RCA', 'Membres de la famille et proches associés', 'RCA', 2, 10, 'Wwft (membres de la famille et personnes connues comme étroitement associées)');
+        </sql>
+    </changeSet>
+
+    <changeSet id="061-nl-functions" author="swiftcheck">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM pep_function f JOIN pep_category c ON c.id = f.category_id WHERE c.country_iso = 'NL'</sqlCheck>
+        </preConditions>
+        <sql>
+            INSERT INTO pep_function (category_id, label, institution, expected_holders)
+            SELECT c.id, f.label, f.institution, f.expected_holders
+            FROM pep_category c JOIN (
+                SELECT 'NL-a' AS code, 'Roi des Pays-Bas (Koning der Nederlanden)' AS label, 'Koninklijk Huis' AS institution, 1 AS expected_holders
+                UNION ALL SELECT 'NL-a', 'Ministre-président, ministre ou secrétaire d''État', 'Rijksoverheid', 30
+                UNION ALL SELECT 'NL-a', 'Ancien membre du Gouvernement', 'Rijksoverheid', NULL
+                UNION ALL SELECT 'NL-b', 'Membre de la Tweede Kamer', 'Tweede Kamer', 150
+                UNION ALL SELECT 'NL-b', 'Membre de l''Eerste Kamer', 'Eerste Kamer', 75
+                UNION ALL SELECT 'NL-b', 'Ancien membre de la Tweede Kamer', 'Tweede Kamer', NULL
+                UNION ALL SELECT 'NL-b', 'Député européen élu aux Pays-Bas', 'Parlement européen', 31
+                UNION ALL SELECT 'NL-c', 'Membre d''un organe dirigeant d''un parti', 'Partis politiques', 30
+                UNION ALL SELECT 'NL-d', 'Membre de la Raad van State ou de la Hoge Raad', 'Raad van State, Hoge Raad', 90
+                UNION ALL SELECT 'NL-d', 'Juge de la Centrale Raad van Beroep ou du College van Beroep voor het bedrijfsleven', 'Juridictions administratives supérieures', NULL
+                UNION ALL SELECT 'NL-e', 'Membre du collège de l''Algemene Rekenkamer', 'Algemene Rekenkamer', 3
+                UNION ALL SELECT 'NL-e', 'Membre de la direction de De Nederlandsche Bank', 'De Nederlandsche Bank', 6
+                UNION ALL SELECT 'NL-f', 'Ambassadeur ou chargé d''affaires', 'Ministerie van Buitenlandse Zaken', 150
+                UNION ALL SELECT 'NL-f', 'Officier général des forces armées', 'Defensie', 20
+                UNION ALL SELECT 'NL-g', 'Organe dirigeant d''une entreprise publique', 'Entreprises publiques', NULL
+                UNION ALL SELECT 'NL-h', 'Dirigeant d''une organisation internationale', 'Organisations internationales', NULL
+                UNION ALL SELECT 'NL-EU', 'Membre néerlandais de la Commission européenne', 'Commission européenne', 1
+                UNION ALL SELECT 'NL-RCA', 'Membre de la famille d''une PEP néerlandaise', NULL, NULL
+                UNION ALL SELECT 'NL-RCA', 'Proche associé d''une PEP néerlandaise', NULL, NULL
+            ) f ON f.code = c.code;
+        </sql>
+    </changeSet>
+
+    <changeSet id="061-parser-nl-pep-parliament" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Pays-Bas – Parlement',
+                'Membres de la Tweede Kamer (API OData ouverte) et de l''Eerste Kamer (liste officielle), en fonction et sortis depuis moins de 12 mois (catégorie NL-b)',
+                'nl_pep_parliament', 'PEP', 'https://opendata.tweedekamer.nl/',
+                'nl-pep-parliament', 'D:/test parser 2/plugins/swiftcheck-aml-nl-pep-parliament-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'API',
+                NULL,
+                '{"odataUrl": "https://gegevensmagazijn.tweedekamer.nl/OData/v4/2.0", "senateUrl": "https://www.eerstekamer.nl/alle_leden", "monthsAfterEnd": "12", "delayMs": "500"}',
+                168, 12,
+                'Données ouvertes de la Tweede Kamer : citer la source ; liste de l''Eerste Kamer : site officiel', 'Tweede Kamer der Staten-Generaal (opendata.tweedekamer.nl) ; Eerste Kamer der Staten-Generaal (eerstekamer.nl)',
+                'Environ 20 appels (13 pages de personnes). Tweede Kamer : 150 en fonction + anciens de la période (identité, naissance, genre, groupe). Eerste Kamer : les 75 membres de la liste officielle, nom complet repris de la fiche Persoon de même naissance et même nom (55 sur 75 à ce jour) ; les anciens sénateurs ne sont pas repris, la source ne donne pas leur chambre. Les décédés sont écartés. Un historique plus long : monthsAfterEnd plus grand.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', TRUE,
+                   'Tous les membres de la Tweede Kamer en fonction et sortis depuis moins de 12 mois, avec naissance, genre, groupe et dates de mandat.',
+                   NULL
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'NL-b' AND f.label IN ('Membre de la Tweede Kamer', 'Ancien membre de la Tweede Kamer') AND p.dataset_name = 'nl_pep_parliament';
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'PARTIAL', FALSE,
+                   'Les 75 sénateurs en fonction de la liste officielle, avec groupe, naissance et début de mandat (calculé depuis l''ancienneté en jours).',
+                   'Anciens sénateurs non repris (la source ne donne pas leur chambre) ; nom complet seulement quand la fiche Persoon correspond.'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'NL-b' AND f.label = 'Membre de l''Eerste Kamer' AND p.dataset_name = 'nl_pep_parliament';
+        ]]></sql>
+    </changeSet>
+
+    <changeSet id="061-parser-nl-pep-parliament-history" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Pays-Bas – Parlement, historique de 50 ans',
+                'Anciens membres de la Tweede Kamer des 50 dernières années, d''après l''API OData ouverte (couche étendue de nl_pep_parliament)',
+                'nl_pep_parliament_history', 'PEP', 'https://opendata.tweedekamer.nl/',
+                'nl-pep-parliament', 'D:/test parser 2/plugins/swiftcheck-aml-nl-pep-parliament-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'API',
+                NULL,
+                '{"odataUrl": "https://gegevensmagazijn.tweedekamer.nl/OData/v4/2.0", "senateUrl": "https://www.eerstekamer.nl/alle_leden", "monthsAfterEnd": "600", "delayMs": "500"}',
+                720, 12,
+                'Données ouvertes de la Tweede Kamer : citer la source ; liste de l''Eerste Kamer : site officiel', 'Tweede Kamer der Staten-Generaal (opendata.tweedekamer.nl) ; Eerste Kamer der Staten-Generaal (eerstekamer.nl)',
+                'Même plugin et mêmes identifiants que nl_pep_parliament. Environ 840 personnes (150 en fonction, 75 sénateurs, environ 690 anciens vivants) contre 227 pour la Tweede et l''Eerste Kamer chez OpenSanctions. Les décédés sont écartés (35). Au-delà des 12 mois de vigilance légale : à activer selon l''approche par les risques. Une minute et demie d''exécution.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', TRUE,
+                   'Tous les membres vivants de la Tweede Kamer des 50 dernières années, avec naissance, genre, groupe et dates de mandat.',
+                   'Anciens sénateurs non repris (la source ne donne pas leur chambre).'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'NL-b' AND f.label = 'Ancien membre de la Tweede Kamer' AND p.dataset_name = 'nl_pep_parliament_history';
+        ]]></sql>
+    </changeSet>
+
+    <changeSet id="061-parser-nl-pep-government" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Pays-Bas – Gouvernement',
+                'Ministre-président, ministres et secrétaires d''État, d''après les pages officielles de rijksoverheid.nl (catégorie NL-a)',
+                'nl_pep_government', 'PEP', 'https://www.rijksoverheid.nl/regering/bewindspersonen',
+                'nl-pep-government', 'D:/test parser 2/plugins/swiftcheck-aml-nl-pep-government-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'WEB_PAGE',
+                NULL,
+                '{"listUrl": "https://www.rijksoverheid.nl/regering/bewindspersonen", "delayMs": "1000"}',
+                168, 12,
+                'Site officiel du gouvernement néerlandais : citer la source', 'Rijksoverheid, www.rijksoverheid.nl',
+                'Une page de liste et une fiche par membre (environ 30 appels, 30 secondes). Naissance, lieu, parti et date de nomination lus sur la fiche. La page ne liste que les membres en fonction : les anciens ministres restent publiés pendant la rétention du cœur.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', FALSE,
+                   'Ministre-président, ministres et secrétaires d''État en fonction, avec naissance, parti et date de nomination.',
+                   'Les anciens membres ne sont pas nommés par la source.'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'NL-a' AND f.label = 'Ministre-président, ministre ou secrétaire d''État' AND p.dataset_name = 'nl_pep_government';
+        ]]></sql>
+    </changeSet>
+
+    <changeSet id="061-parser-nl-pep-europarl" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Pays-Bas – Députés européens',
+                'Les députés au Parlement européen élus aux Pays-Bas, en fonction et sortis depuis moins de 12 mois, avec naissance et dates de mandat (catégorie NL-b)',
+                'nl_pep_europarl', 'PEP', 'https://data.europarl.europa.eu/',
+                'nl-pep-europarl', 'D:/test parser 2/plugins/swiftcheck-aml-nl-pep-europarl-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'API',
+                NULL,
+                '{"currentUrl": "https://data.europarl.europa.eu/api/v2/meps/show-current?country-of-representation=NL&format=application%2Fld%2Bjson", "termUrl": "https://data.europarl.europa.eu/api/v2/meps?country-of-representation=NL&parliamentary-term=10&limit=500&format=application%2Fld%2Bjson", "detailUrl": "https://data.europarl.europa.eu/api/v2/meps/{id}?format=application%2Fld%2Bjson", "delayMs": "400", "monthsAfterEnd": "12"}',
+                168, 12,
+                'Réutilisation autorisée en citant la source (Parlement européen)', 'Parlement européen, data.europarl.europa.eu',
+                'Reprise de ie_pep_europarl. Une fiche par député (36 appels). L''API limite le débit (HTTP 429) : le plugin attend puis réessaie. Photos : Wikimedia Commons (images seulement).', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', TRUE, 'Les 31 députés européens élus aux Pays-Bas et ceux sortis depuis moins de 12 mois, avec naissance, genre, groupe et dates de mandat.', NULL
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'NL-b' AND f.label LIKE 'Député européen%' AND p.dataset_name = 'nl_pep_europarl';
+        ]]></sql>
+    </changeSet>
+
+    <changeSet id="061-parser-nl-pep-eu-commission" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Pays-Bas – Commissaire européen',
+                'Le membre néerlandais de la Commission européenne, d''après sa fiche officielle (catégorie NL-EU)',
+                'nl_pep_eu_commission', 'PEP', 'https://commission.europa.eu/about/organisation/college-commissioners_en',
+                'nl-pep-eu-commission', 'D:/test parser 2/plugins/swiftcheck-aml-nl-pep-eu-commission-0.0.1-SNAPSHOT.jar',
+                'HTTP_FILE', 'WEB_PAGE',
+                'https://commission.europa.eu/about/organisation/college-commissioners/wopke-hoekstra_en',
+                NULL,
+                168, 12,
+                'Réutilisation autorisée en citant la source (avis juridique de la Commission européenne)', 'Commission européenne, commission.europa.eu',
+                'Reprise de ie_pep_eu_commission. À chaque nouvelle Commission, remplacer l''adresse par la fiche du commissaire néerlandais. Une fiche qui ne présente pas un commissaire néerlandais est refusée.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', FALSE, 'Wopke Hoekstra, commissaire chargé du climat, de la neutralité carbone et de la croissance propre (2024-2029).', 'Ni date ni lieu de naissance sur la fiche.'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'NL-EU' AND f.label LIKE 'Membre néerlandais de la Commission%' AND p.dataset_name = 'nl_pep_eu_commission';
+        ]]></sql>
+    </changeSet>
+
+    <changeSet id="061-parser-nl-pep-king" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Pays-Bas – Roi',
+                'Le Roi des Pays-Bas, chef d''État, d''après sa page officielle sur koninklijkhuis.nl (catégorie NL-a)',
+                'nl_pep_king', 'PEP', 'https://www.koninklijkhuis.nl/',
+                'nl-pep-king', 'D:/test parser 2/plugins/swiftcheck-aml-nl-pep-king-0.0.1-SNAPSHOT.jar',
+                'HTTP_FILE', 'WEB_PAGE',
+                'https://www.koninklijkhuis.nl/leden-koninklijk-huis/koning-willem-alexander',
+                NULL,
+                168, 12,
+                'Site officiel de la Maison royale : citer la source', 'Koninklijk Huis, www.koninklijkhuis.nl',
+                'Le nom vient du titre de la page, la date d''accession de la phrase « Op 30 april 2013 volgt Koning … op als Koning der Nederlanden » ; une autre page de la famille royale est refusée. Pas de date ni de lieu de naissance. Au changement de règne, remplacer l''adresse.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', FALSE, 'Le Roi des Pays-Bas en fonction, avec sa date d''accession.', 'Pas de date ni de lieu de naissance.'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'NL-a' AND f.label LIKE 'Roi des Pays-Bas%' AND p.dataset_name = 'nl_pep_king';
+        ]]></sql>
+    </changeSet>
+
+    <changeSet id="061-parser-nl-pep-institutions" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Pays-Bas – Hautes institutions',
+                'Membres de la Raad van State, de la Hoge Raad et de l''Algemene Rekenkamer, d''après les pages officielles (catégories NL-d et NL-e)',
+                'nl_pep_institutions', 'PEP', 'https://www.raadvanstate.nl/',
+                'nl-pep-institutions', 'D:/test parser 2/plugins/swiftcheck-aml-nl-pep-institutions-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'WEB_PAGE',
+                NULL,
+                '{"sources": "raad_van_state|Raad van State|https://www.raadvanstate.nl/overrvs/organisatie/leden-staatsraden/;hoge_raad|Hoge Raad|https://www.hogeraad.nl/hoge-raad/kamers/;algemene_rekenkamer|Algemene Rekenkamer|https://www.rekenkamer.nl/over-de-algemene-rekenkamer/organisatie/college", "delayMs": "1500"}',
+                168, 12,
+                'Sites officiels des institutions : citer la source', 'Raad van State, Hoge Raad, Algemene Rekenkamer',
+                'Un extracteur par site. Raad van State : prénoms lus entre parenthèses ; Hoge Raad : initiales seulement ; Rekenkamer : trois membres du collège. Ni dates ni naissance : seuls les membres en fonction sont nommés. De Nederlandsche Bank (403) non couverte, non contournée.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'PARTIAL', FALSE,
+                   'Membres de la Raad van State et de la Hoge Raad en fonction (vice-président, président, staatsraden, raadsheren).',
+                   'Hoge Raad : initiales seulement ; Centrale Raad van Beroep et College van Beroep voor het bedrijfsleven non couverts ; pas de dates ni de naissance.'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'NL-d' AND f.label = 'Membre de la Raad van State ou de la Hoge Raad' AND p.dataset_name = 'nl_pep_institutions';
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', FALSE,
+                   'Les trois membres du collège de l''Algemene Rekenkamer (président compris).',
+                   'Pas de dates ni de naissance.'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'NL-e' AND f.label = 'Membre du collège de l''Algemene Rekenkamer' AND p.dataset_name = 'nl_pep_institutions';
+        ]]></sql>
+    </changeSet>
+
+</databaseChangeLog>

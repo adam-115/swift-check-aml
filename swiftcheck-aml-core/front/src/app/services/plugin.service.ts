@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { PluginInfo } from '../models/appTypes';
+import { AvailablePlugin, PluginInfo } from '../models/appTypes';
 
 /** Plugins PF4J (un JAR par liste) : lister, charger, recharger, décharger. */
 @Injectable({ providedIn: 'root' })
@@ -12,6 +12,11 @@ export class PluginService {
 
   list(): Observable<PluginInfo[]> {
     return this.http.get<PluginInfo[]>(this.apiUrl);
+  }
+
+  /** JAR connus du serveur (dossier des plugins et parsers), chargés ou non. */
+  available(): Observable<AvailablePlugin[]> {
+    return this.http.get<AvailablePlugin[]>(`${this.apiUrl}/available`);
   }
 
   /** Charge un JAR (chemin sur le serveur). Une version déjà chargée avec le même Plugin-Id est remplacée. */
