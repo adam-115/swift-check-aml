@@ -166,4 +166,65 @@ class FrPepEuroparlParserTest {
             return in.readAllBytes();
         }
     }
+
+    @Test
+    void aLongHistoryChecksEveryMepWhoLeftMoreThanTwelveMonthsAgo(@TempDir Path rawDir) throws Exception {
+        copy(rawDir, FILES);
+        List<String> asked = new ArrayList<>();
+
+        FrPepEuroparlParser.Report report = new FrPepEuroparlParser().convert(rawDir, TODAY, 1200, List.of(),
+                dataset(), (first, last, birth) -> {
+                    asked.add(first + " " + last + " " + birth);
+                    return birth.toString().equals("1982-12-13");         // Vedrenne : décédée (cas de test)
+                });
+
+        assertEquals(1, asked.size(), "Vedrenne seule : Josserand n'a pas de naissance, donc pas de vérification possible");
+        assertEquals(0, report.tooOld());
+        assertEquals(1, report.deceased());
+        assertEquals(0, report.former(), "Josserand reste non vérifiée");
+        assertEquals(1, report.unverified().size());
+        assertTrue(report.message().contains("1 anciens députés décédés (fichier INSEE) non repris."));
+    }
+
+    @Test
+    void aFormerMepWhoseDeathCannotBeCheckedIsNotPublished(@TempDir Path rawDir) throws Exception {
+        copy(rawDir, FILES);
+
+        FrPepEuroparlParser.Report report = new FrPepEuroparlParser().convert(rawDir, TODAY, 1200, List.of(),
+                dataset(), (first, last, birth) -> {
+                    throw new IOException("Contrôle des décès INSEE : HTTP 503");
+                });
+
+        assertEquals(0, report.former());
+        assertEquals(2, report.unverified().size());
+    }
+
+    @Test
+    void aPreviousTermMepWithoutDetailIsNeverPublished(@TempDir Path rawDir) throws Exception {
+        copy(rawDir, FILES);
+        Files.writeString(rawDir.resolve("term-1.json"),
+                "{\"data\": [{\"identifier\": \"999999\", \"label\": \"Jean TEST\", \"givenName\": \"Jean\", \"familyName\": \"Test\"}]}");
+
+        FrPepEuroparlParser.Report report = new FrPepEuroparlParser().convert(rawDir, TODAY, 1200, List.of(),
+                dataset(), (first, last, birth) -> false);
+
+        assertTrue(report.unverified().stream().anyMatch(u -> u.contains("Jean TEST")));
+        assertEquals(1, report.former(), "Vedrenne, vivante, est reprise ; Josserand n'a pas de naissance");
+    }
+
+    @Test
+    void downloadsThePreviousTermsToo(@TempDir Path rawDir) throws Exception {
+        List<String> urls = new ArrayList<>();
+        EuroparlApi.download(url -> {
+            urls.add(url);
+            if (url.startsWith("t")) {
+                return "{\"data\": [{\"identifier\": \"1\", \"label\": \"A B\"}]}".getBytes();
+            }
+            return "{\"data\": [{\"identifier\": \"2\", \"label\": \"C D\"}]}".getBytes();
+        }, "current", "term", List.of("prev9", "prev8"), "detail/{id}", 0, rawDir);
+
+        assertTrue(urls.containsAll(List.of("current", "term", "prev9", "prev8")));
+        assertTrue(Files.exists(rawDir.resolve("term-1.json")) && Files.exists(rawDir.resolve("term-2.json")));
+        assertEquals(3, EuroparlApi.meps(rawDir).size() >= 2 ? 3 : 0);
+    }
 }

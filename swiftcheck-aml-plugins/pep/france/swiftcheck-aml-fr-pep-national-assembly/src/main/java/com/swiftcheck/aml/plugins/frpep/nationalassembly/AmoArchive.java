@@ -46,7 +46,7 @@ final class AmoArchive {
 
     /** Un acteur qui a été député. */
     record Deputy(String uid, String title, String firstName, String lastName, String birthDate, String birthPlace,
-            List<Mandate> seats, List<Mandate> presidencies, List<Mandate> groups) {
+            String deathDate, List<Mandate> seats, List<Mandate> presidencies, List<Mandate> groups) {
     }
 
     /** Contenu utile de l'archive : les députés et le nom abrégé de chaque groupe politique. */
@@ -115,7 +115,8 @@ final class AmoArchive {
         return new Deputy(uid.isObject() ? text(uid.path("#text")) : text(uid),
                 text(civil.path("ident").path("civ")), text(civil.path("ident").path("prenom")),
                 text(civil.path("ident").path("nom")), text(civil.path("infoNaissance").path("dateNais")),
-                text(civil.path("infoNaissance").path("villeNais")), seats, presidencies, groups);
+                text(civil.path("infoNaissance").path("villeNais")), text(civil.path("dateDeces")), seats, presidencies,
+                groups);
     }
 
     private static Mandate mandate(JsonNode m, String constituency) {

@@ -73,5 +73,8 @@
     <include file="db/changelog/changes/043-fr-jorf-single-posts.xml" />
     <include file="db/changelog/changes/044-fr-local-executives-all.xml" />
     <include file="db/changelog/changes/045-be-local-executives-all.xml" />
+    <include file="db/changelog/changes/046-former-pep-history.xml" />
+    <include file="db/changelog/changes/047-fr-death-check-notes.xml" />
+    <include file="db/changelog/changes/048-pt-pep-reference-and-parsers.xml" />
 
 </databaseChangeLog>

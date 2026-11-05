@@ -1,0 +1,6 @@
+{
+  "courts": [
+    { "key": "tcontas", "name": "Tribunal de Contas", "acronym": "TdC", "country": "pt",
+      "url": "https://www.tcontas.pt/pt-pt/TribunalContas/Equipa/Pages/composicao-jc.aspx" }
+  ]
+}

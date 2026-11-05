@@ -56,4 +56,28 @@ class DePepBundestagParserTest {
         List<SourceRecord> records = new DePepBundestagParser().readSourceRecords(ctx);
         assertEquals(2, records.size());
     }
+
+    @Test
+    void aLongHistoryKeepsLivingFormerMembersButNotTheDeceased(@TempDir Path tempDir) throws Exception {
+        String xml;
+        try (InputStream in = getClass().getResourceAsStream("/test_mdb.xml")) {
+            assertNotNull(in);
+            xml = new String(in.readAllBytes(), java.nio.charset.StandardCharsets.UTF_8);
+        }
+        Path alive = tempDir.resolve("alive.xml");
+        Files.writeString(alive, xml);
+        int altmann = xml.indexOf("Altmann");
+        int bio = xml.indexOf("<BIOGRAFISCHE_ANGABEN>", altmann) + "<BIOGRAFISCHE_ANGABEN>".length();
+        Path deceased = tempDir.resolve("deceased.xml");
+        Files.writeString(deceased, xml.substring(0, bio) + "<STERBEDATUM>12.03.1990</STERBEDATUM>" + xml.substring(bio));
+
+        DePepBundestagParser.Report living = new DePepBundestagParser().convert(alive, TODAY, 1200,
+                new FtmDatasetBuilder(DePepBundestagParser.ID_PREFIX, DePepBundestagParser.TOPIC));
+        DePepBundestagParser.Report dead = new DePepBundestagParser().convert(deceased, TODAY, 1200,
+                new FtmDatasetBuilder(DePepBundestagParser.ID_PREFIX, DePepBundestagParser.TOPIC));
+
+        assertEquals(2, living.formerKept(), "sorti en 1969 mais vivant : repris dans un historique de 100 ans");
+        assertEquals(1, dead.formerKept(), "décédé : jamais repris");
+        assertEquals(1, dead.formerSkipped());
+    }
 }

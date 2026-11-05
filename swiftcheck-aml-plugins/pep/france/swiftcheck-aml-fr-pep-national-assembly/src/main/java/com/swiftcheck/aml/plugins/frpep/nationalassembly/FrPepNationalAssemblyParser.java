@@ -97,6 +97,9 @@ public class FrPepNationalAssemblyParser implements Iparser {
         int former = 0;
         List<String> presidents = new ArrayList<>();
         for (Deputy d : content.deputies()) {
+            if (d.deathDate() != null) {
+                continue;                                   // décédé : plus une personne à surveiller
+            }
             List<Mandate> seats = d.seats().stream().filter(m -> kept(m, oldestEnd)).toList();
             if (seats.isEmpty()) {
                 continue;                                   // sorti depuis plus longtemps

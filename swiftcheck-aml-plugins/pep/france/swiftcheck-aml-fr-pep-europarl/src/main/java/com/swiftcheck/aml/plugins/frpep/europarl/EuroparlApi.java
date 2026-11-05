@@ -40,7 +40,10 @@ final class EuroparlApi {
 
     static final String CURRENT_FILE = "current.json";
     static final String TERM_FILE = "term.json";
+    /** Législatures précédentes : {@code term-1.json}, {@code term-2.json}… (historique au-delà de 12 mois). */
+    static final String PREVIOUS_TERM_PREFIX = "term-";
 
+    private static final int MAX_ATTEMPTS = 5;
     private static final String USER_AGENT = "SwiftCheck-AML/1.0 (liste PEP France - deputes europeens)";
     private static final ObjectMapper JSON = new ObjectMapper();
 
@@ -72,9 +75,21 @@ final class EuroparlApi {
      */
     static List<String> download(Fetcher fetcher, String currentUrl, String termUrl, String detailUrl, long delayMillis,
             Path rawDir) throws IOException, InterruptedException {
+        return download(fetcher, currentUrl, termUrl, List.of(), detailUrl, delayMillis, rawDir);
+    }
+
+    /**
+     * Comme ci-dessus, avec en plus la liste des députés de chaque législature précédente ({@code previousTermUrls}).
+     */
+    static List<String> download(Fetcher fetcher, String currentUrl, String termUrl, List<String> previousTermUrls,
+            String detailUrl, long delayMillis, Path rawDir) throws IOException, InterruptedException {
         Files.createDirectories(rawDir);
         Files.write(rawDir.resolve(CURRENT_FILE), fetcher.get(currentUrl));
         Files.write(rawDir.resolve(TERM_FILE), fetcher.get(termUrl));
+        for (int i = 0; i < previousTermUrls.size(); i++) {
+            Files.write(rawDir.resolve(PREVIOUS_TERM_PREFIX + (i + 1) + ".json"), fetcher.get(previousTermUrls.get(i)));
+            Thread.sleep(delayMillis);
+        }
         List<String> failed = new ArrayList<>();
         for (String id : meps(rawDir).keySet()) {
             Thread.sleep(delayMillis);
@@ -96,7 +111,11 @@ final class EuroparlApi {
     /** Députés des deux listes, ceux en fonction d'abord (avec leur groupe). */
     static Map<String, Mep> meps(Path rawDir) throws IOException {
         Map<String, Mep> meps = new LinkedHashMap<>();
-        for (String file : List.of(CURRENT_FILE, TERM_FILE)) {
+        List<String> files = new ArrayList<>(List.of(CURRENT_FILE, TERM_FILE));
+        for (int i = 1; Files.exists(rawDir.resolve(PREVIOUS_TERM_PREFIX + i + ".json")); i++) {
+            files.add(PREVIOUS_TERM_PREFIX + i + ".json");
+        }
+        for (String file : files) {
             Path path = rawDir.resolve(file);
             if (!Files.exists(path)) {
                 throw new IllegalStateException(file + " absent de " + rawDir + " : le téléchargement n'a pas eu lieu.");
@@ -110,6 +129,15 @@ final class EuroparlApi {
             }
         }
         return meps;
+    }
+
+    /** Ids des députés des listes de la législature en cours (en fonction ou sortis depuis). */
+    static java.util.Set<String> recentIds(Path rawDir) throws IOException {
+        java.util.Set<String> ids = new java.util.HashSet<>();
+        for (String file : List.of(CURRENT_FILE, TERM_FILE)) {
+            JSON.readTree(rawDir.resolve(file).toFile()).path("data").forEach(m -> ids.add(text(m.path("identifier"))));
+        }
+        return ids;
     }
 
     /** Ids des députés en fonction. */
@@ -164,7 +192,19 @@ final class EuroparlApi {
         return url -> {
             HttpRequest request = HttpRequest.newBuilder(URI.create(url)).timeout(Duration.ofMinutes(2))
                     .header("User-Agent", USER_AGENT).GET().build();
-            HttpResponse<byte[]> response = client.send(request, HttpResponse.BodyHandlers.ofByteArray());
+            HttpResponse<byte[]> response = null;
+            // L'API limite le débit (HTTP 429) : on attend le délai demandé puis on réessaie, sans insister
+            for (int attempt = 1; attempt <= MAX_ATTEMPTS; attempt++) {
+                response = client.send(request, HttpResponse.BodyHandlers.ofByteArray());
+                int status = response.statusCode();
+                if (status != 429 && status != 503) {
+                    break;
+                }
+                if (attempt < MAX_ATTEMPTS) {
+                    long wait = response.headers().firstValueAsLong("Retry-After").orElse(10L * attempt);
+                    Thread.sleep(Math.min(wait, 120L) * 1000L);
+                }
+            }
             if (response.statusCode() != 200) {
                 throw new IOException("HTTP " + response.statusCode() + " : " + url);
             }

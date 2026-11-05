@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Anciens PEP au-delà de 12 mois. Le cœur sait déjà les distinguer : à la recherche, une personne dont le mandat a
+    pris fin depuis plus de 12 mois est « Ancien PEP (Historique) », risque moyen, et non « PEP actif » ou
+    « Période de refroidissement » (AmlVerificationService). Il manquait les données : les parsers écartaient tout
+    mandat terminé depuis plus de monthsAfterEnd mois (12). On porte cette durée à 1 200 mois (100 ans) pour les
+    sources qui donnent des dates exactes ET la date de décès, afin de ne jamais reprendre une personne décédée :
+      - fr_pep_senate : liste générale + mandats du Sénat (Date de décès) ;
+      - fr_pep_national_assembly : archive AMO30 de l'Assemblée (dateDeces) ;
+      - de_pep_bundestag : MdB-Stammdaten du Bundestag (STERBEDATUM).
+    Mesure en direct le 05/11/2026 : Sénat 348 en fonction + 616 anciens, Assemblée 574 + 1 417, Bundestag 630 + 1 865.
+-->
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="046-former-pep-history" author="swiftcheck">
+        <sql><![CDATA[
+            UPDATE parser
+            SET parameters = JSON_SET(parameters, '$.monthsAfterEnd', '1200'),
+                notes = CONCAT(IFNULL(notes, ''), ' Historique long : les anciens dont le mandat date de plus de 12 mois sont repris (monthsAfterEnd = 1200) ; la recherche les présente comme « Ancien PEP (Historique) ». Les personnes décédées ne sont jamais reprises.')
+            WHERE dataset_name IN ('fr_pep_senate', 'fr_pep_national_assembly', 'de_pep_bundestag');
+
+            UPDATE pep_function_parser l
+                JOIN parser p ON p.id = l.parser_id
+            SET l.includes_former = TRUE
+            WHERE p.dataset_name IN ('fr_pep_senate', 'fr_pep_national_assembly', 'de_pep_bundestag');
+        ]]></sql>
+    </changeSet>
+
+</databaseChangeLog>

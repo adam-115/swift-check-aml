@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Portugal : référentiel PEP (pays, catégories, fonctions) et premiers parseurs.
+
+    Base légale : loi 83/2017 du 18 août, art. 2.º, n.º 1, al. cc) (loi 58/2020), douze mois après la fin des fonctions ;
+    liste notifiée à la Commission (JO C/2023/724, 54 fonctions). Plan : documentation/analyse pep portugal/
+    Plan_Parsers_PEP_Portugal.pdf (analyse du 3/11/2026).
+
+    Parseurs de ce lot (sources officielles lues en direct le 5/11/2026) :
+      - pt_pep_europarl      : API du Parlement européen (21 députés)
+      - pt_pep_eu_commission : fiche officielle de la commissaire portugaise
+      - pt_pep_president     : biographie du Président sur presidencia.pt
+      - pt_pep_courts        : Tribunal de Contas (président, vice-président, juges conseillers)
+      - pt_pep_regulators    : Conseil régulateur de l'ERC
+
+    Fonctions non couvertes à ce jour (le motif est noté dans l'écran « Couverture PEP ») : Parlement (pages de
+    parlamento.pt refusées au client automatique : HTTP 403 ou connexion coupée), Gouvernement (noms chargés par
+    JavaScript), maires et adjoints (application des résultats électoraux sans fichier ouvert), Banque du Portugal
+    (contrôle anti-robots), Tribunal constitutionnel et Cour suprême (pages sans composition lisible), Diário da República
+    (application JavaScript sans API documentée).
+-->
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="048-pt-country" author="swiftcheck">
+        <sql>
+            UPDATE country SET legal_basis = 'Lei n.º 83/2017 de 18 de agosto (modifiée par la loi 58/2020), art. 2.º, n.º 1, al. cc) : titulaires de cargos políticos ou públicos de nível superior, douze mois après la fin des fonctions',
+                               retention_months = 12,
+                               official_list_reference = 'JO C/2023/724 (section Portugal, 54 fonctions) ; Lei n.º 83/2017',
+                               official_list_date = '2023-10-24',
+                               official_list_url = 'https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=OJ:C_202300724'
+            WHERE iso = 'PT';
+        </sql>
+    </changeSet>
+
+    <changeSet id="048-pt-categories" author="swiftcheck">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM pep_category WHERE country_iso = 'PT'</sqlCheck>
+        </preConditions>
+        <sql>
+            INSERT INTO pep_category (country_iso, code, label, kind, risk_class, sort_order, legal_reference) VALUES
+            ('PT', 'PT-a', 'Président de la République, Premier ministre, ministres, secrétaires et sous-secrétaires d''État', 'OFFICIAL', 1, 1, 'Lei 83/2017, art. 2.º, n.º 1, al. cc) ; JO C/2023/724'),
+            ('PT', 'PT-b', 'Députés à l''Assembleia da República', 'OFFICIAL', 1, 2, 'Lei 83/2017, art. 2.º, n.º 1, al. cc) ; JO C/2023/724'),
+            ('PT', 'PT-c', 'Hautes juridictions et ministère public : Tribunal constitutionnel, Cour suprême de justice, Cour suprême administrative, Tribunal de Contas, conseils supérieurs, procureur général', 'OFFICIAL', 2, 3, 'Lei 83/2017, art. 2.º, n.º 1, al. cc) ; JO C/2023/724'),
+            ('PT', 'PT-d', 'Banque du Portugal, régulateurs et entités administratives indépendantes (CMVM, ASF, ERC, CNPD…)', 'OFFICIAL', 2, 4, 'Lei 83/2017, art. 2.º, n.º 1, al. cc) ; JO C/2023/724'),
+            ('PT', 'PT-ETAT', 'Organes de l''État : Conseil d''État, médiateur (Provedor de Justiça), Conseil supérieur de défense nationale, Conseil économique et social', 'OFFICIAL', 2, 5, 'Lei 83/2017 ; JO C/2023/724'),
+            ('PT', 'PT-REG', 'Régions autonomes des Açores et de Madère : représentants de la République et membres des gouvernements régionaux', 'OFFICIAL', 2, 6, 'Lei 83/2017 ; JO C/2023/724'),
+            ('PT', 'PT-e', 'Chefs de mission diplomatique et de poste consulaire, officiers généraux des forces armées et de la GNR, commissaires de la PSP', 'OFFICIAL', 2, 7, 'Lei 83/2017, art. 2.º, n.º 1, al. cc) ; JO C/2023/724'),
+            ('PT', 'PT-LOC', 'Niveau local : maires et adjoints exécutifs (vereadores) des 308 communes, quelle que soit leur taille', 'OFFICIAL', 3, 8, 'Lei 83/2017 ; JO C/2023/724'),
+            ('PT', 'PT-f', 'Instituts publics, fondations publiques, entités indépendantes et entreprises publiques de l''État, des régions et des communes', 'OFFICIAL', 3, 9, 'Lei 83/2017, art. 2.º, n.º 1, al. cc) ; JO C/2023/724'),
+            ('PT', 'PT-g', 'Organes de direction exécutifs des partis politiques nationaux et régionaux', 'OFFICIAL', 2, 10, 'Lei 83/2017 ; JO C/2023/724'),
+            ('PT', 'PT-h', 'Dirigeants des organisations internationales établies au Portugal', 'OFFICIAL', 3, 11, 'Lei 83/2017 ; JO C/2023/724'),
+            ('PT', 'PT-EU', 'Portugais exerçant une fonction européenne', 'EU', 1, 12, 'Liste de la Commission, JO C/2023/724'),
+            ('PT', 'PT-RCA', 'Membres de la famille et proches associés', 'RCA', 2, 13, 'Lei 83/2017, art. 2.º (membres de la famille proche et personnes reconnues comme étroitement associées)');
+        </sql>
+    </changeSet>
+
+    <changeSet id="048-pt-functions" author="swiftcheck">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM pep_function f JOIN pep_category c ON c.id = f.category_id WHERE c.country_iso = 'PT'</sqlCheck>
+        </preConditions>
+        <sql>
+            INSERT INTO pep_function (category_id, label, institution, expected_holders)
+            SELECT c.id, f.label, f.institution, f.expected_holders
+            FROM pep_category c JOIN (
+                SELECT 'PT-a' AS code, 'Président de la République (Presidente da República)' AS label, 'Presidência da República' AS institution, 1 AS expected_holders
+                UNION ALL SELECT 'PT-a', 'Premier ministre, ministres, secrétaires et sous-secrétaires d''État', 'Governo', 60
+                UNION ALL SELECT 'PT-a', 'Ancien membre du Gouvernement', 'Governo', NULL
+                UNION ALL SELECT 'PT-b', 'Député à l''Assembleia da República', 'Assembleia da República', 230
+                UNION ALL SELECT 'PT-b', 'Ancien député', 'Assembleia da República', NULL
+                UNION ALL SELECT 'PT-c', 'Juge du Tribunal constitutionnel', 'Tribunal Constitucional', 13
+                UNION ALL SELECT 'PT-c', 'Juge conseiller de la Cour suprême de justice et de la Cour suprême administrative', 'STJ et STA', 100
+                UNION ALL SELECT 'PT-c', 'Président, vice-président et juges conseillers du Tribunal de Contas', 'Tribunal de Contas', 16
+                UNION ALL SELECT 'PT-c', 'Conseils supérieurs de la magistrature, procureur général et Conseil supérieur du ministère public', 'CSM, PGR, CSMP', 40
+                UNION ALL SELECT 'PT-d', 'Organes de la Banque du Portugal', 'Banco de Portugal', 15
+                UNION ALL SELECT 'PT-d', 'Conseil régulateur de l''ERC', 'ERC', 5
+                UNION ALL SELECT 'PT-d', 'Organes de la CMVM, de l''ASF et de la CNPD', 'CMVM, ASF, CNPD', 20
+                UNION ALL SELECT 'PT-ETAT', 'Conseil d''État, médiateur (Provedor de Justiça), CSDN et Conseil économique et social', 'Órgãos do Estado', 60
+                UNION ALL SELECT 'PT-REG', 'Représentant de la République et membres des gouvernements des Açores et de Madère', 'Açores et Madeira', 25
+                UNION ALL SELECT 'PT-e', 'Chef de mission diplomatique ou de poste consulaire', 'Ministério dos Negócios Estrangeiros', 130
+                UNION ALL SELECT 'PT-e', 'Officier général des forces armées et de la GNR, commissaire de la PSP', 'Forças Armadas, GNR, PSP', 150
+                UNION ALL SELECT 'PT-LOC', 'Maire (Presidente de Câmara Municipal) et adjoints exécutifs (vereadores)', 'Câmaras municipais', 2000
+                UNION ALL SELECT 'PT-f', 'Dirigeant d''un institut public, d''une fondation publique ou d''une entreprise publique', 'Setor Empresarial do Estado et local', NULL
+                UNION ALL SELECT 'PT-g', 'Membre de l''organe exécutif d''un parti politique', 'Partidos políticos', 20
+                UNION ALL SELECT 'PT-h', 'Dirigeant d''une organisation internationale établie au Portugal', 'CPLP, EMSA, EUDA…', 30
+                UNION ALL SELECT 'PT-EU', 'Député au Parlement européen élu au Portugal', 'Parlement européen', 21
+                UNION ALL SELECT 'PT-EU', 'Membre portugais de la Commission européenne', 'Commission européenne', 1
+                UNION ALL SELECT 'PT-EU', 'Portugais exerçant une autre fonction PEP dans une institution de l''UE', 'Institutions de l''UE', NULL
+                UNION ALL SELECT 'PT-RCA', 'Membre de la famille d''une PEP portugaise', NULL, NULL
+                UNION ALL SELECT 'PT-RCA', 'Proche associé d''une PEP portugaise', NULL, NULL
+            ) f ON f.code = c.code;
+        </sql>
+    </changeSet>
+
+    <changeSet id="048-parser-pt-pep-europarl" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Portugal – Députés européens',
+                'Les députés au Parlement européen élus au Portugal, en fonction et sortis depuis moins de 12 mois, avec naissance et dates de mandat (catégorie PT-EU)',
+                'pt_pep_europarl', 'PEP', 'https://data.europarl.europa.eu/',
+                'pt-pep-europarl', 'D:/test parser 2/plugins/swiftcheck-aml-pt-pep-europarl-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'API',
+                NULL,
+                '{"currentUrl": "https://data.europarl.europa.eu/api/v2/meps/show-current?country-of-representation=PT&format=application%2Fld%2Bjson", "termUrl": "https://data.europarl.europa.eu/api/v2/meps?country-of-representation=PT&parliamentary-term=10&limit=500&format=application%2Fld%2Bjson", "detailUrl": "https://data.europarl.europa.eu/api/v2/meps/{id}?format=application%2Fld%2Bjson", "delayMs": "500", "monthsAfterEnd": "12"}',
+                168, 12,
+                'Réutilisation autorisée en citant la source (Parlement européen)', 'Parlement européen, data.europarl.europa.eu',
+                'Reprise de be_pep_europarl. Une fiche par député (21 appels). L''API limite le débit (HTTP 429) : le plugin attend puis réessaie. Photos : Wikimedia Commons.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', TRUE, 'Les 21 députés européens élus au Portugal et ceux sortis depuis moins de 12 mois, avec date et lieu de naissance, genre, groupe et dates de mandat.', NULL
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'PT-EU' AND f.label LIKE 'Député au Parlement européen%' AND p.dataset_name = 'pt_pep_europarl';
+        ]]></sql>
+    </changeSet>
+
+    <changeSet id="048-parser-pt-pep-eu-commission" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Portugal – Commissaire européenne',
+                'Le membre portugais de la Commission européenne, d''après sa fiche officielle (catégorie PT-EU)',
+                'pt_pep_eu_commission', 'PEP', 'https://commission.europa.eu/about/organisation/college-commissioners_en',
+                'pt-pep-eu-commission', 'D:/test parser 2/plugins/swiftcheck-aml-pt-pep-eu-commission-0.0.1-SNAPSHOT.jar',
+                'HTTP_FILE', 'WEB_PAGE',
+                'https://commission.europa.eu/about/organisation/college-commissioners/maria-luis-albuquerque_en',
+                NULL,
+                168, 12,
+                'Réutilisation autorisée en citant la source (avis juridique de la Commission européenne)', 'Commission européenne, commission.europa.eu',
+                'Reprise de be_pep_eu_commission. À chaque nouvelle Commission, remplacer l''adresse par la fiche du commissaire portugais. Une fiche qui ne présente pas un commissaire portugais est refusée.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', FALSE, 'Maria Luís Albuquerque, commissaire (2024-2029) aux services financiers et à l''Union de l''épargne et des investissements, avec son portrait officiel.', 'Ni date de naissance ni date exacte de prise de fonctions sur la fiche.'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'PT-EU' AND f.label LIKE 'Membre portugais de la Commission%' AND p.dataset_name = 'pt_pep_eu_commission';
+        ]]></sql>
+    </changeSet>
+
+    <changeSet id="048-parser-pt-pep-president" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Portugal – Président de la République',
+                'Le Président de la République portugaise, d''après sa biographie officielle sur presidencia.pt (catégorie PT-a)',
+                'pt_pep_president', 'PEP', 'https://www.presidencia.pt/',
+                'pt-pep-president', 'D:/test parser 2/plugins/swiftcheck-aml-pt-pep-president-0.0.1-SNAPSHOT.jar',
+                'HTTP_FILE', 'WEB_PAGE',
+                'https://www.presidencia.pt/presidente-da-republica/o-presidente/biografia/',
+                NULL,
+                168, 12,
+                'Site officiel de la Présidence de la République : citer la source', 'Presidência da República Portuguesa, www.presidencia.pt',
+                'La page donne le nom, la date et le lieu de naissance ; pas la date de prise de fonctions. À chaque nouveau Président, la page est remplacée : le sortant reste publié 12 mois par la rétention du cœur.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', FALSE, 'Le Président de la République en fonction, avec date et lieu de naissance.', 'Pas de date de prise de fonctions ni de portrait sur la page.'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'PT-a' AND f.label LIKE 'Président de la République%' AND p.dataset_name = 'pt_pep_president';
+        ]]></sql>
+    </changeSet>
+
+    <changeSet id="048-parser-pt-pep-courts" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Portugal – Hautes juridictions',
+                'Président, vice-président et juges conseillers du Tribunal de Contas, d''après la page officielle de sa composition (catégorie PT-c)',
+                'pt_pep_courts', 'PEP', 'https://www.tcontas.pt/',
+                'pt-pep-courts', 'D:/test parser 2/plugins/swiftcheck-aml-pt-pep-courts-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'WEB_PAGE',
+                NULL,
+                '{"delayMs": "1500"}',
+                168, 12,
+                'Site officiel du Tribunal de Contas : citer la source', 'Tribunal de Contas, www.tcontas.pt',
+                'Les adresses sont dans courts.json du plugin ; aucun nom n''est embarqué. Tribunal constitutionnel et Cour suprême de justice : pas de page de composition lisible sans JavaScript, non couverts.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', FALSE, 'Le président, le vice-président et les juges conseillers du Tribunal de Contas en fonction.', 'Pas de dates de nomination sur la page ; les sortants ne sont pas nommés (le cœur garde un retiré 12 mois).'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'PT-c' AND f.label LIKE 'Président, vice-président et juges conseillers du Tribunal de Contas%' AND p.dataset_name = 'pt_pep_courts';
+        ]]></sql>
+    </changeSet>
+
+    <changeSet id="048-parser-pt-pep-regulators" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Portugal – Régulateurs',
+                'Président, vice-président et membres du Conseil régulateur de l''ERC, d''après la page officielle (catégorie PT-d)',
+                'pt_pep_regulators', 'PEP', 'https://www.erc.pt/',
+                'pt-pep-regulators', 'D:/test parser 2/plugins/swiftcheck-aml-pt-pep-regulators-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'WEB_PAGE',
+                NULL,
+                '{"delayMs": "1500"}',
+                168, 12,
+                'Site officiel de l''ERC : citer la source', 'Entidade Reguladora para a Comunicação Social, www.erc.pt',
+                'Les adresses sont dans regulators.json du plugin. Banque du Portugal : contrôle anti-robots, non contourné. CMVM, ASF et CNPD : pas de page de composition lisible sans JavaScript, non couverts.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'PARTIAL', FALSE, 'Les cinq membres du Conseil régulateur de l''ERC (communication sociale).', 'Les autres régulateurs (CMVM, ASF, CNPD) ne sont pas lus.'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'PT-d' AND f.label LIKE 'Conseil régulateur de l''ERC%' AND p.dataset_name = 'pt_pep_regulators';
+        ]]></sql>
+    </changeSet>
+
+</databaseChangeLog>

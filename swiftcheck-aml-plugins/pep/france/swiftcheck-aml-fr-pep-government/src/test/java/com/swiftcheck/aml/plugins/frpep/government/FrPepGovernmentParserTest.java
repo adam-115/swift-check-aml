@@ -207,4 +207,73 @@ class FrPepGovernmentParserTest {
             return in.readAllBytes();
         }
     }
+
+    /** Panifous (né en 1970-… d'après sa déclaration) devenu ancien membre, fin de fonctions il y a plus de deux ans. */
+    private static void panifousFormer(Path rawDir) throws Exception {
+        FILES.forEach(f -> copy(rawDir, f));
+        Path list = rawDir.resolve("liste.csv");
+        Files.writeString(list, Files.readString(list).replace(";Ministre délégué auprès du Premier ministre",
+                ";Ancien Ministre délégué auprès du Premier ministre"));
+        Path panifous = rawDir.resolve("panifous-laurent-dim34863-gouvernement.xml");
+        Files.writeString(panifous, Files.readString(panifous).replace("<dateFinMandat/>", "<dateFinMandat>01/09/2024</dateFinMandat>"));
+    }
+
+    @Test
+    void aLongHistoryKeepsAFormerMemberWhoIsNotInTheDeathFile(@TempDir Path rawDir) throws Exception {
+        panifousFormer(rawDir);
+        List<String> asked = new java.util.ArrayList<>();
+
+        FrPepGovernmentParser.Report report = new FrPepGovernmentParser().convert(rawDir, TODAY, 1200, List.of(),
+                dataset(), (first, last, birth) -> {
+                    asked.add(first + " " + last + " " + birth);
+                    return false;
+                });
+
+        assertEquals(1, asked.size(), "seul Panifous a une naissance connue");
+        assertTrue(asked.get(0).startsWith("Laurent PANIFOUS "));
+        assertEquals(1, report.current());
+        assertEquals(1, report.former(), "Panifous, sorti il y a plus de 12 mois, est repris");
+        assertEquals(0, report.deceased());
+        assertEquals(1, report.unverified().size(), "Fournier : pas de naissance, donc pas de vérification possible");
+    }
+
+    @Test
+    void aDeceasedFormerMemberIsNeverPublished(@TempDir Path rawDir) throws Exception {
+        panifousFormer(rawDir);
+
+        FrPepGovernmentParser.Report report = new FrPepGovernmentParser().convert(rawDir, TODAY, 1200, List.of(),
+                dataset(), (first, last, birth) -> true);
+
+        assertEquals(0, report.former());
+        assertEquals(1, report.deceased());
+        assertTrue(report.message().contains("1 anciens membres décédés (fichier INSEE) non repris."));
+    }
+
+    @Test
+    void aFormerMemberWhoseDeathCannotBeCheckedIsNotPublished(@TempDir Path rawDir) throws Exception {
+        panifousFormer(rawDir);
+
+        FrPepGovernmentParser.Report report = new FrPepGovernmentParser().convert(rawDir, TODAY, 1200, List.of(),
+                dataset(), (first, last, birth) -> {
+                    throw new java.io.IOException("Contrôle des décès INSEE : HTTP 503");
+                });
+
+        assertEquals(0, report.former());
+        assertTrue(report.unverified().stream().anyMatch(u -> u.contains("HTTP 503")));
+    }
+
+    @Test
+    void aLongHistoryWithoutDeathCheckIsRefused(@TempDir Path rawDir) throws Exception {
+        panifousFormer(rawDir);
+        org.junit.jupiter.api.Assertions.assertThrows(IllegalStateException.class,
+                () -> new FrPepGovernmentParser().convert(rawDir, TODAY, 1200, List.of(), dataset(), null));
+    }
+
+    @Test
+    void readsTheInseeAnswerOfTheDeathSearch() throws Exception {
+        com.fasterxml.jackson.databind.ObjectMapper json = new com.fasterxml.jackson.databind.ObjectMapper();
+        assertTrue(InseeDeaths.deceased(json.readTree(Files.readString(Path.of("src/test/resources/insee/deces-rocard.json")))),
+                "Michel Rocard, né le 23/08/1930, décédé le 02/07/2016");
+        assertEquals(false, InseeDeaths.deceased(json.readTree(Files.readString(Path.of("src/test/resources/insee/deces-macron.json")))));
+    }
 }

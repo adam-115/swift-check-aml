@@ -56,8 +56,16 @@ public class FrPepGovernmentParser implements Iparser {
     static final int DEFAULT_MONTHS_AFTER_END = 12;
 
     /** Bilan de la conversion, pour le message de l'exécution. */
+    /** Au-delà, un ancien membre n'est publié que si le fichier des décès de l'INSEE ne le contient pas. */
+    static final int COOLING_MONTHS = 12;
+
     record Report(int current, int former, int monthsAfterEnd, List<String> tooOld, List<String> withoutDeclaration,
-            List<String> failedDownloads) {
+            List<String> failedDownloads, int deceased, List<String> unverified) {
+
+        Report(int current, int former, int monthsAfterEnd, List<String> tooOld, List<String> withoutDeclaration,
+                List<String> failedDownloads) {
+            this(current, former, monthsAfterEnd, tooOld, withoutDeclaration, failedDownloads, 0, List.of());
+        }
 
         String message() {
             StringBuilder m = new StringBuilder(String.format("%d membres du Gouvernement en fonction, %d anciens membres",
@@ -74,6 +82,13 @@ public class FrPepGovernmentParser implements Iparser {
                 m.append(String.format(" %d déclarations non téléchargées : %s.", failedDownloads.size(),
                         String.join(", ", failedDownloads)));
             }
+            if (deceased > 0) {
+                m.append(String.format(" %d anciens membres décédés (fichier INSEE) non repris.", deceased));
+            }
+            if (!unverified.isEmpty()) {
+                m.append(String.format(" %d anciens membres non repris faute de vérification du décès : %s.",
+                        unverified.size(), String.join(", ", unverified)));
+            }
             return m.toString();
         }
     }
@@ -85,7 +100,17 @@ public class FrPepGovernmentParser implements Iparser {
                 .download(required(p, "listUrl"), required(p, "declarationsUrl"), ctx.rawDir());
 
         FtmDatasetBuilder dataset = new FtmDatasetBuilder(ID_PREFIX, TOPIC);
-        Report report = convert(ctx.rawDir(), LocalDate.now(), monthsAfterEnd(p), failed, dataset);
+        int months = monthsAfterEnd(p);
+        InseeDeaths.Checker deaths = null;
+        if (months > COOLING_MONTHS) {
+            String url = p.getOrDefault("deathCheckUrl", InseeDeaths.DEFAULT_URL).trim();
+            if (url.isBlank()) {
+                throw new IllegalArgumentException("monthsAfterEnd > " + COOLING_MONTHS
+                        + " exige deathCheckUrl : sans contrôle des décès, l'historique n'est pas publié.");
+            }
+            deaths = InseeDeaths.http(url, number(p, "deathDelayMs", 300), p.get("deathCheckToken"));
+        }
+        Report report = convert(ctx.rawDir(), LocalDate.now(), months, failed, dataset, deaths);
         dataset.writeNdjsonFile(ctx.outputFile());
         return dataset.toConversionResult().withMessage(report.message());
     }
@@ -112,6 +137,15 @@ public class FrPepGovernmentParser implements Iparser {
      */
     Report convert(Path rawDir, LocalDate today, int monthsAfterEnd, List<String> failedDownloads,
             FtmDatasetBuilder dataset) throws Exception {
+        return convert(rawDir, today, monthsAfterEnd, failedDownloads, dataset, (first, last, birth) -> false);   // sans contrôle : aperçu et tests
+    }
+
+    /**
+     * @param deaths contrôle des décès, obligatoire dès que {@code monthsAfterEnd} dépasse 12 : un ancien membre sorti
+     *               depuis plus de 12 mois n'est publié que si son décès a été exclu
+     */
+    Report convert(Path rawDir, LocalDate today, int monthsAfterEnd, List<String> failedDownloads,
+            FtmDatasetBuilder dataset, InseeDeaths.Checker deaths) throws Exception {
         Path list = rawDir.resolve(HatvpDownloader.LIST_FILE);
         if (!Files.exists(list)) {
             throw new IllegalStateException("Liste HATVP absente de " + rawDir + " : le téléchargement n'a pas eu lieu.");
@@ -121,6 +155,9 @@ public class FrPepGovernmentParser implements Iparser {
         int former = 0;
         List<String> tooOld = new ArrayList<>();
         List<String> withoutDeclaration = new ArrayList<>();
+        List<String> unverified = new ArrayList<>();
+        int deceased = 0;
+        String coolingLimit = today.minusMonths(COOLING_MONTHS).toString();
         for (Member m : HatvpList.members(list)) {
             String name = joinNonBlank(" ", m.firstName(), m.lastName());
             Facts facts = facts(rawDir, m);
@@ -138,6 +175,26 @@ public class FrPepGovernmentParser implements Iparser {
                 tooOld.add(name);
                 continue;
             }
+            // Sorti depuis plus de 12 mois (ou sans date de fin) : publié seulement s'il n'est pas décédé
+            if (ended && monthsAfterEnd > COOLING_MONTHS
+                    && (facts.endDate() == null || facts.endDate().compareTo(coolingLimit) < 0)) {
+                if (deaths == null) {
+                    throw new IllegalStateException("Contrôle des décès absent alors que monthsAfterEnd = " + monthsAfterEnd);
+                }
+                if (facts.birthDate() == null) {
+                    unverified.add(name + " (naissance inconnue)");
+                    continue;
+                }
+                try {
+                    if (deaths.isDeceased(m.firstName(), m.lastName(), LocalDate.parse(facts.birthDate()))) {
+                        deceased++;
+                        continue;
+                    }
+                } catch (java.io.IOException e) {
+                    unverified.add(name + " (" + e.getMessage() + ")");
+                    continue;
+                }
+            }
             if (ended) {
                 former++;
             } else {
@@ -149,7 +206,8 @@ public class FrPepGovernmentParser implements Iparser {
             throw new IllegalStateException("Aucun membre du Gouvernement en fonction dans la liste HATVP : "
                     + "fichier incomplet ou format changé.");
         }
-        return new Report(current, former, monthsAfterEnd, tooOld, withoutDeclaration, failedDownloads);
+        return new Report(current, former, monthsAfterEnd, tooOld, withoutDeclaration, failedDownloads, deceased,
+                unverified);
     }
 
     private static void write(Member m, String name, Facts facts, boolean ended, FtmDatasetBuilder dataset) {

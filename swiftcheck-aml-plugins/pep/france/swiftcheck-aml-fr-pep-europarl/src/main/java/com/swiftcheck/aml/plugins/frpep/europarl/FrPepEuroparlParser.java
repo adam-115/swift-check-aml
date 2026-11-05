@@ -59,8 +59,16 @@ public class FrPepEuroparlParser implements Iparser {
     private static final String POSITION = "Député au Parlement européen élu en France";
 
     /** Bilan de la conversion, pour le message de l'exécution. */
+    /** Au-delà, un ancien député n'est publié que si le fichier des décès de l'INSEE ne le contient pas. */
+    static final int COOLING_MONTHS = 12;
+
     record Report(int current, int former, int tooOld, int monthsAfterEnd, List<String> withoutDetail,
-            List<String> failedDownloads) {
+            List<String> failedDownloads, int deceased, List<String> unverified) {
+
+        Report(int current, int former, int tooOld, int monthsAfterEnd, List<String> withoutDetail,
+                List<String> failedDownloads) {
+            this(current, former, tooOld, monthsAfterEnd, withoutDetail, failedDownloads, 0, List.of());
+        }
 
         String message() {
             StringBuilder m = new StringBuilder(String.format(
@@ -73,6 +81,12 @@ public class FrPepEuroparlParser implements Iparser {
             if (!failedDownloads.isEmpty()) {
                 m.append(String.format(" %d fiches non téléchargées.", failedDownloads.size()));
             }
+            if (deceased > 0) {
+                m.append(String.format(" %d anciens députés décédés (fichier INSEE) non repris.", deceased));
+            }
+            if (!unverified.isEmpty()) {
+                m.append(String.format(" %d anciens députés non repris faute de vérification du décès.", unverified.size()));
+            }
             return m.toString();
         }
     }
@@ -80,11 +94,23 @@ public class FrPepEuroparlParser implements Iparser {
     @Override
     public ParserResult parse(ParserContext ctx) throws Exception {
         Map<String, String> p = ctx.parameters() == null ? Map.of() : ctx.parameters();
+        int months = monthsAfterEnd(p);
+        List<String> previous = months > COOLING_MONTHS && !p.getOrDefault("previousTermUrls", "").isBlank()
+                ? List.of(p.get("previousTermUrls").trim().split("\\s+")) : List.of();
         List<String> failed = EuroparlApi.download(EuroparlApi.httpFetcher(), required(p, "currentUrl"),
-                required(p, "termUrl"), required(p, "detailUrl"), number(p, "delayMs", DEFAULT_DELAY_MS), ctx.rawDir());
+                required(p, "termUrl"), previous, required(p, "detailUrl"), number(p, "delayMs", DEFAULT_DELAY_MS), ctx.rawDir());
+        InseeDeaths.Checker deaths = null;
+        if (months > COOLING_MONTHS) {
+            String url = p.getOrDefault("deathCheckUrl", InseeDeaths.DEFAULT_URL).trim();
+            if (url.isBlank()) {
+                throw new IllegalArgumentException("monthsAfterEnd > " + COOLING_MONTHS
+                        + " exige deathCheckUrl : sans contrôle des décès, l'historique n'est pas publié.");
+            }
+            deaths = InseeDeaths.http(url, number(p, "deathDelayMs", 300), p.get("deathCheckToken"));
+        }
 
         FtmDatasetBuilder dataset = new FtmDatasetBuilder(ID_PREFIX, TOPIC);
-        Report report = convert(ctx.rawDir(), LocalDate.now(), monthsAfterEnd(p), failed, dataset);
+        Report report = convert(ctx.rawDir(), LocalDate.now(), months, failed, dataset, deaths);
         String photos = addPhotos(dataset, EuroparlApi.meps(ctx.rawDir()).keySet(),
                 WikidataImages.fromParameters(p, USER_AGENT),
                 ctx.rawDir());
@@ -124,6 +150,15 @@ public class FrPepEuroparlParser implements Iparser {
     /** Lit les fichiers de {@code rawDir} et écrit les entités. Séparé de {@link #parse} pour être testé à une date fixe. */
     Report convert(Path rawDir, LocalDate today, int monthsAfterEnd, List<String> failedDownloads,
             FtmDatasetBuilder dataset) throws Exception {
+        return convert(rawDir, today, monthsAfterEnd, failedDownloads, dataset, (first, last, birth) -> false);   // sans contrôle : aperçu et tests
+    }
+
+    /**
+     * @param deaths contrôle des décès, obligatoire dès que {@code monthsAfterEnd} dépasse 12 : un ancien député sorti
+     *               depuis plus de 12 mois n'est publié que si son décès a été exclu
+     */
+    Report convert(Path rawDir, LocalDate today, int monthsAfterEnd, List<String> failedDownloads,
+            FtmDatasetBuilder dataset, InseeDeaths.Checker deaths) throws Exception {
         Map<String, Mep> meps = EuroparlApi.meps(rawDir);
         Set<String> currentIds = new HashSet<>(EuroparlApi.currentIds(rawDir));
         if (currentIds.isEmpty()) {
@@ -134,9 +169,18 @@ public class FrPepEuroparlParser implements Iparser {
         int former = 0;
         int tooOld = 0;
         List<String> withoutDetail = new ArrayList<>();
+        List<String> unverified = new ArrayList<>();
+        int deceased = 0;
+        String coolingLimit = today.minusMonths(COOLING_MONTHS).toString();
+        Set<String> recentIds = EuroparlApi.recentIds(rawDir);
         for (Mep mep : meps.values()) {
             boolean current = currentIds.contains(mep.id());
             Detail detail = EuroparlApi.detail(rawDir, mep.id(), COUNTRY);
+            // Une législature précédente sans fiche : ni dates ni naissance, donc ni durée ni décès vérifiables
+            if (!current && detail == null && monthsAfterEnd > COOLING_MONTHS && !recentIds.contains(mep.id())) {
+                unverified.add(mep.name() + " (fiche non lue)");
+                continue;
+            }
             if (detail == null) {
                 withoutDetail.add(mep.name());
             }
@@ -148,12 +192,33 @@ public class FrPepEuroparlParser implements Iparser {
                 tooOld++;
                 continue;
             }
+            if (!current && detail != null && monthsAfterEnd > COOLING_MONTHS
+                    && mandates.stream().noneMatch(m -> m.end() == null || m.end().compareTo(coolingLimit) >= 0)) {
+                // Sorti depuis plus de 12 mois : publié seulement s'il n'est pas décédé
+                if (deaths == null) {
+                    throw new IllegalStateException("Contrôle des décès absent alors que monthsAfterEnd = " + monthsAfterEnd);
+                }
+                if (detail.birthDate() == null || mep.firstName() == null || mep.lastName() == null) {
+                    unverified.add(mep.name() + " (naissance inconnue)");
+                    continue;
+                }
+                try {
+                    if (deaths.isDeceased(mep.firstName(), mep.lastName(), LocalDate.parse(detail.birthDate()))) {
+                        deceased++;
+                        continue;
+                    }
+                } catch (java.io.IOException e) {
+                    unverified.add(mep.name() + " (" + e.getMessage() + ")");
+                    continue;
+                }
+            }
             if (!current) {
                 former++;
             }
             write(mep, detail, mandates, current, dataset);
         }
-        return new Report(currentIds.size(), former, tooOld, monthsAfterEnd, withoutDetail, failedDownloads);
+        return new Report(currentIds.size(), former, tooOld, monthsAfterEnd, withoutDetail, failedDownloads, deceased,
+                unverified);
     }
 
     private static void write(Mep mep, Detail detail, List<Mandate> mandates, boolean current, FtmDatasetBuilder dataset) {

@@ -1,0 +1,6 @@
+{
+  "regulators": [
+    { "key": "erc", "name": "Entidade Reguladora para a Comunicação Social (ERC)", "acronym": "ERC", "country": "pt",
+      "url": "https://www.erc.pt/pt/a-erc/conselho-regulador/" }
+  ]
+}

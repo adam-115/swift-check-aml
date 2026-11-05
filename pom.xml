@@ -123,6 +123,11 @@
         <module>swiftcheck-aml-plugins/pep/germany/swiftcheck-aml-de-pep-state-enterprises</module>
         <module>swiftcheck-aml-plugins/pep/germany/swiftcheck-aml-de-pep-landtage</module>
         <module>swiftcheck-aml-plugins/pep/germany/swiftcheck-aml-de-pep-local-executives</module>
+        <module>swiftcheck-aml-plugins/pep/portugal/swiftcheck-aml-pt-pep-europarl</module>
+        <module>swiftcheck-aml-plugins/pep/portugal/swiftcheck-aml-pt-pep-eu-commission</module>
+        <module>swiftcheck-aml-plugins/pep/portugal/swiftcheck-aml-pt-pep-president</module>
+        <module>swiftcheck-aml-plugins/pep/portugal/swiftcheck-aml-pt-pep-courts</module>
+        <module>swiftcheck-aml-plugins/pep/portugal/swiftcheck-aml-pt-pep-regulators</module>
     </modules>
 
     <dependencyManagement>

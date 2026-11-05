@@ -62,12 +62,13 @@ public class DePepBundestagParser implements Iparser {
     }
 
     record Mdb(String id, String name, String firstName, String lastName, String birthDate, String birthPlace,
-            String gender, String party, boolean current, String latestEnd, List<Mandate> mandates) {
+            String gender, String party, boolean current, String latestEnd, List<Mandate> mandates,
+            String deathDate) {
     }
 
     record Report(int totalMdb, int current, int formerKept, int formerSkipped) {
         String message() {
-            return String.format("%d fiches MdB analysées : %d députés en fonction, %d sortis depuis moins de 12 mois (%d sortis avant, écartés).",
+            return String.format("%d fiches MdB analysées : %d députés en fonction, %d anciens députés dans la durée retenue (%d écartés : sortis avant ou décédés).",
                     totalMdb, current, formerKept, formerSkipped);
         }
     }
@@ -197,6 +198,8 @@ public class DePepBundestagParser implements Iparser {
                     counts[1]++;
                     currentIds.add(mdb.id());
                     write(mdb, dataset);
+                } else if (mdb.deathDate() != null) {
+                    counts[3]++;                      // décédé : plus une personne à surveiller
                 } else if (mdb.latestEnd() != null && !LocalDate.parse(mdb.latestEnd()).isBefore(cutoff)) {
                     counts[2]++;
                     write(mdb, dataset);
@@ -267,7 +270,8 @@ public class DePepBundestagParser implements Iparser {
             mandates.add(new Mandate(wpNum, start, end, group, constituency));
         }
 
-        return new Mdb(id, name, firstName, lastName, birthDate, birthPlace, gender, party, current, latestEnd, mandates);
+        return new Mdb(id, name, firstName, lastName, birthDate, birthPlace, gender, party, current, latestEnd, mandates,
+                parseDate(bio.childText("STERBEDATUM")));
     }
 
     private static void write(Mdb mdb, FtmDatasetBuilder dataset) {

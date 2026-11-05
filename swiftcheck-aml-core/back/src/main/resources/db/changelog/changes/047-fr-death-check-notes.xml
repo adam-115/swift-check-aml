@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Historique des anciens PEP français (gouvernement, Parlement européen) : le contrôle des décès par le fichier des
+    personnes décédées de l'INSEE est prêt dans les deux plugins, mais l'historique reste désactivé (monthsAfterEnd = 12)
+    tant qu'un jeton du service de recherche n'est pas renseigné : sans jeton, le service limite l'usage anonyme et les
+    anciens non vérifiés ne sont pas publiés. Cette migration ne change que les notes.
+-->
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="047-fr-death-check-notes" author="swiftcheck">
+        <sql><![CDATA[
+            UPDATE parser
+            SET notes = CONCAT(IFNULL(notes, ''), ' Historique long (anciens de plus de 12 mois) : possible avec monthsAfterEnd > 12 et un contrôle des décès par le fichier INSEE (service deces.matchid.io). Renseigner deathCheckToken (jeton du service, dans la configuration du parser, jamais dans le dépôt) ; sans jeton, le quota anonyme s''épuise et les anciens non vérifiés ne sont pas publiés. Liste HATVP : seuls les membres en fonction y figurent, l''historique des ministres vient du Journal officiel (fr_pep_jorf).')
+            WHERE dataset_name = 'fr_pep_government';
+
+            UPDATE parser
+            SET notes = CONCAT(IFNULL(notes, ''), ' Historique long (anciens de plus de 12 mois) : possible avec monthsAfterEnd > 12, previousTermUrls (listes des législatures 9, 8… séparées par des espaces) et un contrôle des décès par le fichier INSEE (service deces.matchid.io). Renseigner deathCheckToken (jeton du service, dans la configuration du parser, jamais dans le dépôt) ; sans jeton, le quota anonyme s''épuise et les anciens non vérifiés ne sont pas publiés. Compter environ 1 appel par ancien député, avec 700 ms entre deux appels au Parlement européen (limite de débit).')
+            WHERE dataset_name = 'fr_pep_europarl';
+        ]]></sql>
+    </changeSet>
+
+</databaseChangeLog>
