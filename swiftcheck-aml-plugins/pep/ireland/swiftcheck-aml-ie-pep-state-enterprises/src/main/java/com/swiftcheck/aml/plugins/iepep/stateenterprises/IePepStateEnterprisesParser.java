@@ -234,17 +234,40 @@ public class IePepStateEnterprisesParser implements Iparser {
     }
 
     private static Fetcher httpFetcher(long delayMs) {
-        HttpClient client = HttpClient.newBuilder().followRedirects(HttpClient.Redirect.NORMAL)
+        HttpClient client = HttpClient.newBuilder().version(HttpClient.Version.HTTP_1_1)
+                .followRedirects(HttpClient.Redirect.NORMAL)
                 .connectTimeout(Duration.ofSeconds(30)).build();
         return url -> {
-            Thread.sleep(delayMs);
-            HttpResponse<String> response = client.send(HttpRequest.newBuilder(URI.create(url))
-                    .timeout(Duration.ofMinutes(2)).header("User-Agent", USER_AGENT).GET().build(),
-                    HttpResponse.BodyHandlers.ofString(StandardCharsets.UTF_8));
-            if (response.statusCode() != 200) {
-                throw new IOException("HTTP " + response.statusCode() + " : " + url);
+            IOException last = null;
+            for (int attempt = 1; attempt <= 3; attempt++) {
+                try {
+                    Thread.sleep(delayMs);
+                    HttpResponse<String> response = client.send(HttpRequest.newBuilder(URI.create(url))
+                            .timeout(Duration.ofSeconds(45))
+                            .header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36")
+                            .header("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8")
+                            .header("Accept-Language", "en-IE,en-GB;q=0.9,en;q=0.8")
+                            .GET().build(),
+                            HttpResponse.BodyHandlers.ofString(StandardCharsets.UTF_8));
+                    if (response.statusCode() == 200) {
+                        return response.body();
+                    }
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                    throw new IOException("Interrompu", e);
+                } catch (IOException e) {
+                    last = e;
+                }
+                try {
+                    String stealth = com.swiftcheck.aml.sdk.StealthBrowserFetcher.fetchHtml(url);
+                    if (stealth != null && !stealth.isBlank()) {
+                        return stealth;
+                    }
+                } catch (Exception ex) {
+                    last = new IOException("Erreur de lecture (" + ex.getMessage() + ")", ex);
+                }
             }
-            return response.body();
+            throw last != null ? last : new IOException("Impossible de télécharger " + url);
         };
     }
 }

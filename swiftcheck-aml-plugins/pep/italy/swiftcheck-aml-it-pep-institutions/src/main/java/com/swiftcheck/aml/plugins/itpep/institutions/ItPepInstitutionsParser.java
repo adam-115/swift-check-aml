@@ -206,16 +206,8 @@ public class ItPepInstitutionsParser implements Iparser {
                     HttpResponse<String> resp = client.send(HttpRequest.newBuilder(URI.create(url))
                             .timeout(Duration.ofSeconds(30)).header("User-Agent", USER_AGENT).GET().build(),
                             HttpResponse.BodyHandlers.ofString(StandardCharsets.UTF_8));
-                                        if (resp.statusCode() == 200) {
+                    if (resp.statusCode() == 200) {
                         return resp.body();
-                    }
-                    try {
-                        return com.swiftcheck.aml.sdk.StealthBrowserFetcher.fetchHtml(url);
-                    } catch (Exception ex) {
-                        last = new IOException("HTTP " + resp.statusCode() + " (" + ex.getMessage() + ")");
-                    }
-                    if (resp.statusCode() < 500 && resp.statusCode() != 429) {
-                        break;
                     }
                 } catch (InterruptedException e) {
                     Thread.currentThread().interrupt();
@@ -223,8 +215,16 @@ public class ItPepInstitutionsParser implements Iparser {
                 } catch (IOException e) {
                     last = e;
                 }
+                try {
+                    String stealthHtml = com.swiftcheck.aml.sdk.StealthBrowserFetcher.fetchHtml(url);
+                    if (stealthHtml != null && !stealthHtml.isBlank()) {
+                        return stealthHtml;
+                    }
+                } catch (Exception ex) {
+                    last = new IOException("Fetch error (" + ex.getMessage() + ")", ex);
+                }
             }
-            throw last;
+            throw last != null ? last : new IOException("Impossible de récupérer " + url);
         };
     }
 }

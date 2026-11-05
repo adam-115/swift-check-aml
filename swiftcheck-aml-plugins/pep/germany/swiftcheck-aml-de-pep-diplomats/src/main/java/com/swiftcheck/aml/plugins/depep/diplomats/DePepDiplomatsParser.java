@@ -1,5 +1,6 @@
 package com.swiftcheck.aml.plugins.depep.diplomats;
 
+import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.net.URI;
 import java.net.http.HttpClient;
@@ -10,11 +11,14 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.Duration;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.apache.pdfbox.pdmodel.PDDocument;
+import org.apache.pdfbox.text.PDFTextStripper;
 import org.pf4j.Extension;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,7 +34,7 @@ import com.swiftcheck.aml.sdk.FtmEntity;
  * <b>de_pep_diplomats</b> – Ambassadeurs, représentants permanents et chargés d'affaires de la République fédérale d'Allemagne.
  * <p>
  * Catégorie <b>DE-g</b> (§ 1 (12) g) GwG ; liste JO C/2023/724).
- * Source : Auswärtiges Amt et représentations diplomatiques (diplo.de).
+ * Source officielle : Auswärtiges Amt (dtauslandsvertretungenliste-data.pdf / diplo.de).
  */
 @Extension
 public class DePepDiplomatsParser implements Iparser {
@@ -41,8 +45,14 @@ public class DePepDiplomatsParser implements Iparser {
     static final String TOPIC = "role.pep";
     static final String TOPIC_DIPLO = "role.diplo";
 
+    public static final String DEFAULT_URL =
+            "https://www.auswaertiges-amt.de/resource/blob/199314/a29ab590846468fabe65e1e9a9d5522c/dtauslandsvertretungenliste-data.pdf";
+
     private static final Pattern ACADEMIC_TITLE = Pattern.compile(
             "^(?:(?:Prof\\.?\\s+Dr\\.?|Prof\\.?|Dr\\.?|h\\.c\\.)\\s+)+");
+
+    private static final Pattern CIVILITY_PREFIX = Pattern.compile(
+            "^(?:(?:Frau|Herr)\\s+)+", Pattern.CASE_INSENSITIVE);
 
     /** Format ligne: "Frankreich | Paris | Botschafter | François Delattre" ou "USA : Washington : Botschafterin : ..." */
     private static final Pattern LINE_PATTERN = Pattern.compile(
@@ -68,8 +78,8 @@ public class DePepDiplomatsParser implements Iparser {
 
     @Override
     public ParserResult parse(ParserContext ctx) throws Exception {
-        String content = loadContent(ctx);
-        List<Diplomat> diplomats = extractDiplomats(content);
+        byte[] rawBytes = loadBytes(ctx);
+        List<Diplomat> diplomats = extractDiplomats(rawBytes);
 
         if (diplomats.isEmpty()) {
             throw new IllegalStateException("Aucun diplomate extrait de la source.");
@@ -85,8 +95,8 @@ public class DePepDiplomatsParser implements Iparser {
 
     @Override
     public List<SourceRecord> readSourceRecords(ParserContext ctx) throws Exception {
-        String content = loadContent(ctx);
-        List<Diplomat> diplomats = extractDiplomats(content);
+        byte[] rawBytes = loadBytes(ctx);
+        List<Diplomat> diplomats = extractDiplomats(rawBytes);
         FtmDatasetBuilder ids = new FtmDatasetBuilder(ID_PREFIX);
         List<SourceRecord> records = new ArrayList<>();
         for (Diplomat d : diplomats) {
@@ -100,56 +110,153 @@ public class DePepDiplomatsParser implements Iparser {
         return records;
     }
 
-    static final String DEFAULT_URL = "https://www.auswaertiges-amt.de/de/aussenpolitik/laender";
-
-    private String loadContent(ParserContext ctx) throws Exception {
+    private byte[] loadBytes(ParserContext ctx) throws Exception {
         if (ctx.inputFile() != null && Files.isRegularFile(ctx.inputFile())) {
-            return Files.readString(ctx.inputFile(), StandardCharsets.UTF_8);
+            return Files.readAllBytes(ctx.inputFile());
         }
         Map<String, String> p = ctx.parameters() == null ? Map.of() : ctx.parameters();
         boolean allowCrawl = !"false".equalsIgnoreCase(p.get("crawl"));
-        if (allowCrawl && ctx.rawDir() != null) {
-            String url = p.getOrDefault("url", DEFAULT_URL).trim();
-            Path rawHtml = ctx.rawDir().resolve("diplomats.html");
-            String html = crawl(url, "SwiftCheck-AML/1.0 (liste PEP Allemagne - Diplomates)");
-            if (html != null && !html.isBlank()) {
-                Files.createDirectories(ctx.rawDir());
-                Files.writeString(rawHtml, html, StandardCharsets.UTF_8);
-                List<Diplomat> crawled = extractDiplomats(html);
-                if (!crawled.isEmpty()) {
-                    return html;
+        String url = p.getOrDefault("url", DEFAULT_URL).trim();
+
+        if (allowCrawl) {
+            byte[] downloaded = download(url, "SwiftCheck-AML/1.0 (liste PEP Allemagne - Diplomates)");
+            if (downloaded != null && downloaded.length > 0) {
+                if (ctx.rawDir() != null) {
+                    Files.createDirectories(ctx.rawDir());
+                    String ext = isPdf(downloaded) ? ".pdf" : ".html";
+                    Files.write(ctx.rawDir().resolve("diplomats" + ext), downloaded);
                 }
+                return downloaded;
             }
         }
 
-        // Aucune liste de secours : le plugin ne publie que ce qu'il lit en ligne à chaque exécution.
-        throw new IllegalStateException("Aucune liste d'ambassadeurs lisible en ligne (" + p.getOrDefault("url", DEFAULT_URL)
-                + ") : le site du ministère des Affaires étrangères ne publie pas de liste nominative exploitable.");
+        throw new IllegalStateException("Impossible de télécharger la liste officielle des ambassadeurs depuis " + url);
     }
 
-    static String crawl(String url, String userAgent) {
-        try {
-            HttpClient client = HttpClient.newBuilder()
-                    .connectTimeout(Duration.ofSeconds(2))
-                    .followRedirects(HttpClient.Redirect.NORMAL)
-                    .build();
-            HttpRequest request = HttpRequest.newBuilder()
-                    .uri(URI.create(url))
-                    .timeout(Duration.ofSeconds(3))
-                    .header("User-Agent", userAgent)
-                    .GET()
-                    .build();
-            HttpResponse<String> resp = client.send(request, HttpResponse.BodyHandlers.ofString(StandardCharsets.UTF_8));
-            if (resp.statusCode() == 200) {
-                return resp.body();
+    private static boolean isPdf(byte[] data) {
+        return data != null && data.length >= 4 &&
+                data[0] == '%' && data[1] == 'P' && data[2] == 'D' && data[3] == 'F';
+    }
+
+    static List<Diplomat> extractDiplomats(byte[] data) {
+        if (isPdf(data)) {
+            return extractFromPdf(data);
+        }
+        String text = new String(data, StandardCharsets.UTF_8);
+        return extractFromText(text);
+    }
+
+    static List<Diplomat> extractFromPdf(byte[] pdfBytes) {
+        List<Diplomat> list = new ArrayList<>();
+        Map<String, Diplomat> unique = new LinkedHashMap<>();
+
+        try (PDDocument doc = PDDocument.load(pdfBytes)) {
+            PDFTextStripper stripper = new PDFTextStripper();
+            String fullText = stripper.getText(doc);
+
+            String[] lines = fullText.split("\\r?\\n");
+            for (int i = 0; i < lines.length; i++) {
+                String line = lines[i].trim();
+                if (!line.startsWith("L:")) {
+                    continue;
+                }
+                String contentAfterL = line.substring(2).trim();
+                // Format: <Name>, <Role>
+                int commaIdx = contentAfterL.indexOf(',');
+                if (commaIdx <= 0) {
+                    continue;
+                }
+                String rawName = contentAfterL.substring(0, commaIdx).trim();
+                String rawRole = contentAfterL.substring(commaIdx + 1).trim();
+
+                // Exclude honorary consuls
+                if (rawRole.toLowerCase().contains("honorar") || rawName.toLowerCase().contains("honorar")) {
+                    continue;
+                }
+
+                // Check city (usually line directly before L:)
+                String city = "";
+                for (int c = i - 1; c >= Math.max(0, i - 3); c--) {
+                    String prev = lines[c].trim();
+                    if (!prev.isEmpty() && !prev.startsWith("-") && !prev.startsWith("Gz.:") && !prev.startsWith("Hinweise")) {
+                        city = prev;
+                        break;
+                    }
+                }
+
+                // Check country & URL forward
+                String country = city;
+                String profileUrl = null;
+                for (int j = i + 1; j < Math.min(i + 20, lines.length); j++) {
+                    String forward = lines[j].trim();
+                    if (forward.startsWith("URL:")) {
+                        profileUrl = forward.substring(4).trim().split("[,;\\s]+")[0];
+                        if (profileUrl.startsWith("http://") || profileUrl.startsWith("https://")) {
+                            // ok
+                        } else {
+                            profileUrl = "https://" + profileUrl;
+                        }
+                    }
+                    if (forward.startsWith("Botschaft") || forward.startsWith("Generalkonsulat") || forward.startsWith("Ständige Vertretung")) {
+                        // The line before is often the country
+                        if (j > 0 && !lines[j - 1].trim().isEmpty() && !lines[j - 1].trim().startsWith("PA:") && !lines[j - 1].trim().startsWith("F:")) {
+                            String possibleCountry = lines[j - 1].trim();
+                            if (possibleCountry.length() < 50 && !possibleCountry.contains(":")) {
+                                country = possibleCountry;
+                            }
+                        }
+                    }
+                    if (lines[j].trim().startsWith("L:")) {
+                        break;
+                    }
+                }
+
+                // Clean name and role
+                Matcher civm = CIVILITY_PREFIX.matcher(rawName);
+                if (civm.find()) {
+                    rawName = rawName.substring(civm.end()).trim();
+                }
+
+                String title = null;
+                String cleanName = rawName;
+                Matcher tm = ACADEMIC_TITLE.matcher(rawName);
+                if (tm.find()) {
+                    title = tm.group(0).trim();
+                    cleanName = rawName.substring(tm.end()).trim();
+                }
+
+                if (cleanName.length() < 3 || cleanName.equalsIgnoreCase("N.N.") || cleanName.equalsIgnoreCase("unbesetzt")) {
+                    continue;
+                }
+
+                String role = normalizeRole(rawRole);
+                if (country == null || country.isBlank()) {
+                    country = city;
+                }
+
+                Diplomat d = new Diplomat(country, city, role, rawName, title, cleanName, profileUrl);
+                unique.putIfAbsent(cleanName, d);
             }
         } catch (Exception e) {
-            log.warn("Échec du crawl de {} : {}", url, e.getMessage());
+            log.warn("Erreur d'extraction du PDF Auswärtiges Amt : {}", e.getMessage(), e);
         }
-        return null;
+
+        list.addAll(unique.values());
+        return list;
     }
 
-    static List<Diplomat> extractDiplomats(String content) {
+    private static String normalizeRole(String raw) {
+        String lower = raw.toLowerCase();
+        if (lower.contains("botschafterin")) return "Botschafterin";
+        if (lower.contains("botschafter")) return "Botschafter";
+        if (lower.contains("ständige vertreterin") || lower.contains("ständiger vertreter")) return "Ständiger Vertreter";
+        if (lower.contains("geschäftsträgerin")) return "Geschäftsträgerin a. i.";
+        if (lower.contains("geschäftsträger")) return "Geschäftsträger a. i.";
+        if (lower.contains("generalkonsulin") || lower.contains("generalkonsul")) return "Generalkonsul";
+        return raw;
+    }
+
+    static List<Diplomat> extractFromText(String content) {
         List<Diplomat> list = new ArrayList<>();
 
         // 1. Détection format structuré lignes
@@ -218,6 +325,28 @@ public class DePepDiplomatsParser implements Iparser {
         return list;
     }
 
+    private static byte[] download(String url, String userAgent) {
+        try {
+            HttpClient client = HttpClient.newBuilder()
+                    .connectTimeout(Duration.ofSeconds(15))
+                    .followRedirects(HttpClient.Redirect.NORMAL)
+                    .build();
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(URI.create(url))
+                    .timeout(Duration.ofSeconds(60))
+                    .header("User-Agent", userAgent)
+                    .GET()
+                    .build();
+            HttpResponse<byte[]> resp = client.send(request, HttpResponse.BodyHandlers.ofByteArray());
+            if (resp.statusCode() == 200) {
+                return resp.body();
+            }
+        } catch (Exception e) {
+            log.warn("Échec du téléchargement de {} : {}", url, e.getMessage());
+        }
+        return null;
+    }
+
     private void convert(List<Diplomat> diplomats, FtmDatasetBuilder dataset) {
         for (Diplomat d : diplomats) {
             String posKey = "mission-" + d.country().replaceAll("[^a-zA-Z0-9]+", "-").toLowerCase();
@@ -255,4 +384,3 @@ public class DePepDiplomatsParser implements Iparser {
         }
     }
 }
-

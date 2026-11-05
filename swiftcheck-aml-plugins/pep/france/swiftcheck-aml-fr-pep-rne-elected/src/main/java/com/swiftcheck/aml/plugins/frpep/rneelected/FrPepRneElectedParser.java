@@ -275,15 +275,34 @@ public class FrPepRneElectedParser implements Iparser {
     }
 
     private static Fetcher httpFetcher() {
-        HttpClient client = HttpClient.newBuilder().followRedirects(HttpClient.Redirect.NORMAL)
-                .connectTimeout(Duration.ofSeconds(30)).build();
+        HttpClient client = HttpClient.newBuilder()
+                .version(HttpClient.Version.HTTP_1_1)
+                .followRedirects(HttpClient.Redirect.NORMAL)
+                .connectTimeout(Duration.ofSeconds(60)).build();
         return (url, target) -> {
-            HttpRequest request = HttpRequest.newBuilder(URI.create(url)).timeout(Duration.ofMinutes(10))
-                    .header("User-Agent", USER_AGENT).GET().build();
-            HttpResponse<Path> response = client.send(request, HttpResponse.BodyHandlers.ofFile(target));
-            if (response.statusCode() != 200) {
-                throw new IOException("HTTP " + response.statusCode() + " : " + url);
+            IOException last = null;
+            for (int attempt = 1; attempt <= 3; attempt++) {
+                try {
+                    HttpRequest request = HttpRequest.newBuilder(URI.create(url))
+                            .timeout(Duration.ofMinutes(15))
+                            .header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36")
+                            .header("Accept", "*/*")
+                            .GET().build();
+                    HttpResponse<Path> response = client.send(request, HttpResponse.BodyHandlers.ofFile(target));
+                    if (response.statusCode() == 200) {
+                        return;
+                    }
+                    throw new IOException("HTTP " + response.statusCode() + " : " + url);
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                    throw new IOException("Interrompu", e);
+                } catch (IOException e) {
+                    last = e;
+                    Files.deleteIfExists(target);
+                    try { Thread.sleep(2000); } catch (InterruptedException ignored) {}
+                }
             }
+            throw last != null ? last : new IOException("Impossible de télécharger " + url);
         };
     }
 }

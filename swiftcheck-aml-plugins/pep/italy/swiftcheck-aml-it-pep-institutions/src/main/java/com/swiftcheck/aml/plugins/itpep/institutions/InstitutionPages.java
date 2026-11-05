@@ -151,6 +151,11 @@ final class InstitutionPages {
                 }
             }
         }
+        Pattern inline = Pattern.compile("Capo di Stato maggiore della Difesa,?\\s+(?:Generale|Ammiraglio|Gen\\.|Amm\\.)(?: [A-Za-z.()]+)*\\s+(" + NAME + ")", Pattern.CASE_INSENSITIVE);
+        Matcher im = inline.matcher(html);
+        if (im.find()) {
+            return List.of(person(im.group(1).trim(), "Capo di Stato Maggiore della Difesa", null, null));
+        }
         return List.of();
     }
 

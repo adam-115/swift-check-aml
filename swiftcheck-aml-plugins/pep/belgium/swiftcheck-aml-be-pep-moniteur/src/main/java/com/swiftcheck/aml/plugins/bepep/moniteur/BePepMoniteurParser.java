@@ -177,8 +177,7 @@ public class BePepMoniteurParser implements Iparser {
         persons.values().forEach(dataset::addEntity);
 
         if (persons.isEmpty() && !articleFiles.isEmpty()) {
-            throw new IllegalStateException("Aucune personne PEP extraite des " + articleFiles.size()
-                    + " actes du Moniteur belge.");
+            log.warn("Aucune personne PEP extraite des {} actes du Moniteur belge.", articleFiles.size());
         }
 
         return new Report(articleFiles.size(), totalEvents, events.size(), samples);
