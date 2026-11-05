@@ -154,6 +154,20 @@
         <module>swiftcheck-aml-plugins/pep/italy/swiftcheck-aml-it-pep-parliament</module>
         <module>swiftcheck-aml-plugins/pep/italy/swiftcheck-aml-it-pep-local-administrators</module>
         <module>swiftcheck-aml-plugins/pep/italy/swiftcheck-aml-it-pep-institutions</module>
+        <module>swiftcheck-aml-plugins/pep/spain/swiftcheck-aml-es-pep-boe</module>
+        <module>swiftcheck-aml-plugins/pep/spain/swiftcheck-aml-es-pep-congreso</module>
+        <module>swiftcheck-aml-plugins/pep/spain/swiftcheck-aml-es-pep-bank-of-spain</module>
+        <module>swiftcheck-aml-plugins/pep/spain/swiftcheck-aml-es-pep-europarl</module>
+        <module>swiftcheck-aml-plugins/pep/spain/swiftcheck-aml-es-pep-eu-commission</module>
+        <module>swiftcheck-aml-plugins/pep/spain/swiftcheck-aml-es-pep-rca</module>
+        <module>swiftcheck-aml-plugins/pep/spain/swiftcheck-aml-es-pep-regulators</module>
+        <module>swiftcheck-aml-plugins/pep/spain/swiftcheck-aml-es-pep-senado</module>
+        <module>swiftcheck-aml-plugins/pep/spain/swiftcheck-aml-es-pep-judiciary</module>
+        <module>swiftcheck-aml-plugins/pep/spain/swiftcheck-aml-es-pep-regional-governments</module>
+        <module>swiftcheck-aml-plugins/pep/spain/swiftcheck-aml-es-pep-regional-parliaments</module>
+        <module>swiftcheck-aml-plugins/pep/spain/swiftcheck-aml-es-pep-local-officials</module>
+        <module>swiftcheck-aml-plugins/pep/spain/swiftcheck-aml-es-pep-parties-unions</module>
+        <module>swiftcheck-aml-plugins/pep/spain/swiftcheck-aml-es-pep-state-enterprises</module>
     </modules>
 
     <dependencyManagement>

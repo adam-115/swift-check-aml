@@ -1,0 +1,12 @@
+{
+  "_comment": "Pages des organismes régulateurs à lire. pattern : expression avec les groupes nommés role et name ; ajouter une entrée pour ajouter un organisme (après avoir vérifié la page). Le Tribunal de Cuentas (page dynamique), la CNMC (organigramme sans noms), l'AEPD (HTTP 500) et la CNMV (HTTP 403, non contourné) n'ont pas de page exploitable au 03/11/2026 : leurs nominations viennent du BOE.",
+  "institutions": [
+    {
+      "key": "csn",
+      "organization": "Consejo de Seguridad Nuclear",
+      "url": "https://www.csn.es/el-pleno/miembros-del-pleno",
+      "pattern": "<p class=\"nombre\">\\s*(?<role>[^<]+?)\\s*</p>\\s*<p class=\"responsable\">\\s*(?<name>[^<]+?)\\s*</p>",
+      "topics": ["gov.state", "gov.financial"]
+    }
+  ]
+}

@@ -54,7 +54,7 @@ public class DePepBundestagParser implements Iparser {
     static final String OPENDATA_PAGE = "https://www.bundestag.de/services/opendata";
     static final String DEFAULT_INDEX_URL = "https://www.bundestag.de/xml/v2/mdb/index.xml";
     static final String USER_AGENT = "SwiftCheck-AML/1.0 (liste PEP Allemagne - Bundestag)";
-    static final int DEFAULT_MONTHS_AFTER_END = 12;
+    static final int DEFAULT_MONTHS_AFTER_END = 180;
 
     private static final DateTimeFormatter GERMAN_DATE = DateTimeFormatter.ofPattern("dd.MM.yyyy");
 

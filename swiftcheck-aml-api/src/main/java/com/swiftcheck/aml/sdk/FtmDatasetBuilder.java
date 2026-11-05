@@ -293,6 +293,17 @@ public class FtmDatasetBuilder {
      * on ne peut ni ajouter ni retirer d'entité par ce biais (il faut passer par {@link #addEntity}).
      * Utilisée par les tests pour vérifier le résultat d'un parser.
      */
+    public synchronized boolean removeEntity(String entityId) {
+        if (entityId == null) {
+            return false;
+        }
+        FtmEntity removed = entities.remove(entityId);
+        if (removed != null) {
+            report.decrementEntity(removed.getSchema());
+            return true;
+        }
+        return false;
+    }
     public synchronized Collection<FtmEntity> entities() {
         // Vue en lecture seule : on peut parcourir les entités mais pas en ajouter ni en retirer ici.
         return Collections.unmodifiableCollection(entities.values());

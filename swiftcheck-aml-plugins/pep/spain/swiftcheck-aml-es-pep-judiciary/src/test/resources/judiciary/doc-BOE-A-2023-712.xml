@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<documento fecha_actualizacion="20230112071646">
+  <metadatos>
+    <identificador>BOE-A-2023-712</identificador>
+    <origen_legislativo codigo="1">Estatal</origen_legislativo>
+    <departamento codigo="7723">Jefatura del Estado</departamento>
+    <rango codigo="1340">Real Decreto</rango>
+    <fecha_disposicion>20230111</fecha_disposicion>
+    <numero_oficial>10/2023</numero_oficial>
+    <titulo>Real Decreto 10/2023, de 11 de enero, por el que se nombra Presidente del Tribunal Constitucional a don Cándido Conde-Pumpido Tourón.</titulo>
+    <diario codigo="BOE">Boletín Oficial del Estado</diario>
+    <fecha_publicacion>20230112</fecha_publicacion>
+    <diario_numero>10</diario_numero>
+    <seccion>2</seccion>
+    <subseccion>A</subseccion>
+    <pagina_inicial>4545</pagina_inicial>
+    <pagina_final>4545</pagina_final>
+    <suplemento_pagina_inicial/>
+    <suplemento_pagina_final/>
+    <url_pdf>https://www.boe.es/boe/dias/2023/01/12/pdfs/BOE-A-2023-712.pdf</url_pdf>
+    <url_epub/>
+    <url_pdf_catalan/>
+    <url_pdf_euskera/>
+    <url_pdf_gallego/>
+    <url_pdf_valenciano/>
+    <estatus_legislativo/>
+    <fecha_vigencia/>
+    <estatus_derogacion>N</estatus_derogacion>
+    <fecha_derogacion/>
+    <judicialmente_anulada>N</judicialmente_anulada>
+    <fecha_anulacion/>
+    <vigencia_agotada>N</vigencia_agotada>
+    <estado_consolidacion codigo="0"/>
+    <letra_imagen>A</letra_imagen>
+    <suplemento_letra_imagen/>
+  </metadatos>
+  <analisis>
+    <materias/>
+    <notas/>
+    <referencias>
+      <anteriores/>
+      <posteriores/>
+    </referencias>
+    <alertas>
+      <alerta codigo="139" orden="1">Nombramientos y ceses de altos cargos</alerta>
+    </alertas>
+  </analisis>
+  <texto>
+    <p class="parrafo">De conformidad con lo dispuesto en los artículos 160 de la Constitución, y 9.1 de la Ley Orgánica 2/1979, de 3 de octubre, del Tribunal Constitucional, y a propuesta del mismo Tribunal en Pleno,</p>
+    <p class="parrafo">Vengo en nombrar Presidente del Tribunal Constitucional, a don Cándido Co<span class="no_partir">nde-</span><span class="no_partir">Pum</span>pido Tourón.</p>
+    <p class="parrafo_2">Dado en Madrid, el 11 de enero de 2023.</p>
+    <p class="firma_rey">FELIPE R.</p>
+    <p class="firma_ministro">El Presidente del Gobierno,</p>
+    <p class="firma_ministro">PEDRO SÁNCHEZ PÉREZ-CASTEJÓN</p>
+  </texto>
+</documento>

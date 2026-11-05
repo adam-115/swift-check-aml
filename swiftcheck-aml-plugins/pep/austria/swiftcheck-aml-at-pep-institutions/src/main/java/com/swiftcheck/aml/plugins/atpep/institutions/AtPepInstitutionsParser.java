@@ -204,6 +204,15 @@ public class AtPepInstitutionsParser implements Iparser {
                     if (resp.statusCode() == 200) {
                         return resp.body();
                     }
+                    if (resp.statusCode() == 403 || resp.statusCode() == 503) {
+                        try {
+                            String html = com.swiftcheck.aml.sdk.StealthBrowserFetcher.fetchHtml(url);
+                            if (html != null && !html.isBlank()) {
+                                return html;
+                            }
+                        } catch (Exception ignored) {
+                        }
+                    }
                     last = new IOException("HTTP " + resp.statusCode());
                     if (resp.statusCode() < 500 && resp.statusCode() != 429) {
                         break;

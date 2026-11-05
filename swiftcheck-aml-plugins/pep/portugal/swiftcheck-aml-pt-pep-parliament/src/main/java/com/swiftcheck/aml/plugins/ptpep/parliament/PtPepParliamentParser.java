@@ -105,11 +105,76 @@ public class PtPepParliamentParser implements Iparser {
     @Override
     public ParserResult parse(ParserContext ctx) throws Exception {
         Map<String, String> p = ctx.parameters() == null ? Map.of() : ctx.parameters();
-        String legislature = download(httpFetcher(delayMs(p)), required(p, "pageUrl"), p.get("legislature"), ctx.rawDir());
+        Fetcher fetcher = httpFetcher(delayMs(p));
+        String pageUrl = required(p, "pageUrl");
         FtmDatasetBuilder dataset = new FtmDatasetBuilder(ID_PREFIX, TOPIC);
-        Report report = convert(ctx.rawDir(), legislature, required(p, "pageUrl"), LocalDate.now(), monthsAfterEnd(p), dataset);
+        int months = monthsAfterEnd(p);
+        LocalDate today = LocalDate.now();
+
+        List<String> legs = resolveLegislatures(p);
+        int totalCurrent = 0, totalSuspended = 0, totalFormer = 0, totalOfficers = 0;
+        List<String> processed = new ArrayList<>();
+
+        for (String leg : legs) {
+            try {
+                downloadLegislature(fetcher, pageUrl, leg, ctx.rawDir());
+                Report rep = convert(ctx.rawDir(), leg, pageUrl, today, months, dataset);
+                totalCurrent += rep.current();
+                totalSuspended += rep.suspended();
+                totalFormer += rep.former();
+                totalOfficers += rep.officers();
+                processed.add(leg);
+            } catch (Exception e) {
+                if (processed.isEmpty()) {
+                    throw e;
+                }
+            }
+        }
         dataset.writeNdjsonFile(ctx.outputFile());
-        return dataset.toConversionResult().withMessage(report.message());
+        String msg = String.format("Législatures %s : %d députés en fonction, %d mandats suspendus, %d anciens députés, %d fonctions du bureau.",
+                String.join(", ", processed), totalCurrent, totalSuspended, totalFormer, totalOfficers);
+        return dataset.toConversionResult().withMessage(msg);
+    }
+
+    static List<String> resolveLegislatures(Map<String, String> p) {
+        if (p.containsKey("legislature") && !p.get("legislature").isBlank()) {
+            return List.of(p.get("legislature").trim());
+        }
+        if (p.containsKey("legislatures") && !p.get("legislatures").isBlank()) {
+            return java.util.Arrays.stream(p.get("legislatures").split(","))
+                    .map(String::trim).filter(s -> !s.isEmpty()).toList();
+        }
+        return List.of("XVII", "XVI", "XV", "XIV", "XIII", "XII");
+    }
+
+    static void downloadLegislature(Fetcher fetcher, String pageUrl, String wanted, Path rawDir) throws IOException, InterruptedException {
+        Files.createDirectories(rawDir);
+        Path rootFile = rawDir.resolve(ROOT_PAGE);
+        String root;
+        if (Files.exists(rootFile)) {
+            root = Files.readString(rootFile, StandardCharsets.UTF_8);
+        } else {
+            root = fetcher.get(pageUrl);
+            Files.writeString(rootFile, root, StandardCharsets.UTF_8);
+        }
+        String[] folder = folderLink(root, pageUrl, wanted);
+        String legislature = folder[0];
+        Path legPageFile = rawDir.resolve("legislature-page-" + legislature + ".html");
+        String page;
+        if (Files.exists(legPageFile)) {
+            page = Files.readString(legPageFile, StandardCharsets.UTF_8);
+        } else {
+            page = fetcher.get(folder[1]);
+            Files.writeString(legPageFile, page, StandardCharsets.UTF_8);
+        }
+        String jsonUrl = jsonLink(page, folder[1], legislature);
+        Path jsonFile = rawDir.resolve("composicao_" + legislature + ".json");
+        if (!Files.exists(jsonFile)) {
+            Files.writeString(jsonFile, fetcher.get(jsonUrl), StandardCharsets.UTF_8);
+        }
+        if ("XVII".equals(wanted) || !Files.exists(rawDir.resolve(COMPOSITION))) {
+            Files.copy(jsonFile, rawDir.resolve(COMPOSITION), java.nio.file.StandardCopyOption.REPLACE_EXISTING);
+        }
     }
 
     /** Test du parser : chaque personne gardée, avec l'ID et le nom que Yente doit connaître (sans réseau). */
@@ -189,6 +254,9 @@ public class PtPepParliamentParser implements Iparser {
     Report convert(Path rawDir, String legislature, String pageUrl, LocalDate today, int monthsAfterEnd,
             FtmDatasetBuilder dataset) throws IOException {
         Path file = rawDir.resolve(COMPOSITION);
+        if (!Files.exists(file) && legislature != null) {
+            file = rawDir.resolve("composicao_" + legislature + ".json");
+        }
         if (!Files.exists(file)) {
             throw new IllegalStateException(COMPOSITION + " absent de " + rawDir + " : le téléchargement n'a pas eu lieu.");
         }
@@ -228,7 +296,7 @@ public class PtPepParliamentParser implements Iparser {
             }
             officers += write(member, legislature, pageUrl, start, end, status, note, cutoff, dataset);
         }
-        if (current == 0) {
+        if (current == 0 && ("XVII".equals(legislature) || legislature == null)) {
             throw new IllegalStateException("Aucun député en fonction dans " + COMPOSITION + " : fichier incomplet ou "
                     + "format changé.");
         }
@@ -361,7 +429,7 @@ public class PtPepParliamentParser implements Iparser {
     static int monthsAfterEnd(Map<String, String> p) {
         String v = p.get("monthsAfterEnd");
         if (v == null || v.isBlank()) {
-            return 12;
+            return 180;
         }
         try {
             return Integer.parseInt(v.trim());

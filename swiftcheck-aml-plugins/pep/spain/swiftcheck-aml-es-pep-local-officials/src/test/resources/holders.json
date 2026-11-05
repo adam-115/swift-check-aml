@@ -1,0 +1,2078 @@
+{
+  "head" : {
+    "vars" : [ "pep", "pepLabel", "birth", "birthPrec", "gender", "start", "end", "subj", "subjLabel" ]
+  },
+  "results" : {
+    "bindings" : [ {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q14119009"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1968-09-21T00:00:00Z"
+      },
+      "birthPrec" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "subj" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q8717"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2023-01-01T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "pepLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "José Luis Sanz Ruiz"
+      },
+      "subjLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "Sevilla"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4891079"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1981-03-03T00:00:00Z"
+      },
+      "birthPrec" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "subj" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q8818"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2023-06-17T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581072"
+      },
+      "pepLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "María José Català"
+      },
+      "subjLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "Valencia"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q28872635"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1972-06-17T00:00:00Z"
+      },
+      "birthPrec" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "subj" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q9580"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2023-06-18T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581072"
+      },
+      "pepLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "Cristina Ayala Santamaría"
+      },
+      "subjLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "Burgos"
+      },
+      "end" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2027-01-01T00:00:00Z"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6452315"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1964-03-05T00:00:00Z"
+      },
+      "birthPrec" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "subj" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q8356"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2019-01-01T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "pepLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "Jesús Julio Carnero"
+      },
+      "subjLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "Valladolid"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q97124347"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1979-07-14T00:00:00Z"
+      },
+      "birthPrec" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "subj" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q15682"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2023-06-17T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "pepLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "Bruno García de León"
+      },
+      "subjLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "Cádiz"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q107551094"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1979-04-10T00:00:00Z"
+      },
+      "birthPrec" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "subj" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q46940"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2023-06-17T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581072"
+      },
+      "pepLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "Judit Piquet Flores"
+      },
+      "subjLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "Alcalá de Henares"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q11927262"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1969-09-05T00:00:00Z"
+      },
+      "birthPrec" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "subj" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1492"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2023-06-17T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "pepLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "Jaume Collboni"
+      },
+      "subjLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "Barcelona"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q64767576"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1982-07-11T00:00:00Z"
+      },
+      "birthPrec" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "subj" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q8757"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2019-06-15T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581072"
+      },
+      "pepLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "Inés Rey"
+      },
+      "subjLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "La Coruña"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q64624716"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1977-04-11T00:00:00Z"
+      },
+      "birthPrec" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "subj" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q15681"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2025-01-01T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "pepLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "Julio Millán Muñoz"
+      },
+      "subjLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "Jaén"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q64666632"
+      },
+      "subj" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q824651"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2019-01-01T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "pepLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "Ramón Jurado Rodríguez"
+      },
+      "subjLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "Parla"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q47495950"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1980-06-30T00:00:00Z"
+      },
+      "birthPrec" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "subj" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q181359"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2019-06-15T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581072"
+      },
+      "pepLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "María Agustina García Élez"
+      },
+      "subjLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "Talavera de la Reina"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q59329108"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1979-06-14T00:00:00Z"
+      },
+      "birthPrec" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "subj" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q162615"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2021-06-12T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581072"
+      },
+      "pepLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "Noelia Arroyo"
+      },
+      "subjLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "Cartagena"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q64727919"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1985-06-16T00:00:00Z"
+      },
+      "birthPrec" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "subj" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q203040"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2019-06-15T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "pepLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "Germán Beardo Caro"
+      },
+      "subjLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "El Puerto de Santa María"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q64592726"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1975-01-27T00:00:00Z"
+      },
+      "birthPrec" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "subj" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q11953"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2019-06-15T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "pepLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "Alberto Rojo Blas"
+      },
+      "subjLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "Guadalajara"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q54370221"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1989-02-21T00:00:00Z"
+      },
+      "birthPrec" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "subj" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q10313"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2025-10-29T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "pepLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "Jon Insausti"
+      },
+      "subjLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "San Sebastián"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q119853824"
+      },
+      "subj" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q487786"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2023-06-01T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "pepLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "José Vegara Durá"
+      },
+      "subjLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "Orihuela"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q11923367"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1964-09-25T00:00:00Z"
+      },
+      "birthPrec" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "subj" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q15090"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2023-06-17T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "pepLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "Fèlix Larrosa i Piqué"
+      },
+      "subjLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "Lérida"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q66823391"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1973-08-11T00:00:00Z"
+      },
+      "birthPrec" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "subj" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q487679"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2019-06-15T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "pepLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "Rafael Sánchez Acera"
+      },
+      "subjLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "Alcobendas"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q61854828"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1976-07-08T00:00:00Z"
+      },
+      "birthPrec" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "subj" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q14318"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2023-06-17T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581072"
+      },
+      "pepLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "Maider Etxebarria"
+      },
+      "subjLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "Vitoria"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q110295609"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1973-01-01T00:00:00Z"
+      },
+      "birthPrec" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "9"
+      },
+      "subj" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q15093"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2021-06-18T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581072"
+      },
+      "pepLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "Eva María Masías"
+      },
+      "subjLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "Ciudad Real"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q5687854"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1968-01-06T00:00:00Z"
+      },
+      "birthPrec" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "subj" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q12303"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2023-01-01T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581072"
+      },
+      "pepLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "María José García-Pelayo Jurado"
+      },
+      "subjLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "Jerez de la Frontera"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q20087690"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1962-04-14T00:00:00Z"
+      },
+      "birthPrec" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "subj" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q10282"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2023-12-28T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "pepLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "Joseba Asirón"
+      },
+      "subjLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "Pamplona"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q131742638"
+      },
+      "subj" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q55480"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2023-10-01T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "pepLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "Carlos Blázquez Rodríguez"
+      },
+      "subjLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "Colmenar Viejo"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q118836337"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1976-09-07T00:00:00Z"
+      },
+      "birthPrec" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "subj" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q10305"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2023-06-17T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581072"
+      },
+      "pepLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "Natalia Chueca"
+      },
+      "subjLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "Zaragoza"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q96775269"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1976-09-14T00:00:00Z"
+      },
+      "birthPrec" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "subj" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q10400"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2022-09-02T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581072"
+      },
+      "pepLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "María del Mar Vázquez Agüero"
+      },
+      "subjLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "Almería"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q107222550"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1988-04-12T00:00:00Z"
+      },
+      "birthPrec" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "subj" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q47483"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2019-06-01T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "pepLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "Darío Moreno Lerga"
+      },
+      "subjLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "Sagunto"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q119837554"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1979-08-02T00:00:00Z"
+      },
+      "birthPrec" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "subj" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q15092"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2023-06-17T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581072"
+      },
+      "pepLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "Begoña Carrasco García"
+      },
+      "subjLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "Castellón de la Plana"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6004067"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1968-01-01T00:00:00Z"
+      },
+      "birthPrec" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "9"
+      },
+      "subj" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q486792"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2019-01-01T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581072"
+      },
+      "pepLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "María José Martínez de la Fuente"
+      },
+      "subjLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "Aranjuez"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q14023906"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1975-11-01T00:00:00Z"
+      },
+      "birthPrec" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "subj" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q221749"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2019-06-15T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "pepLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "Eduardo Jorge Dolón Sánchez"
+      },
+      "subjLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "Torrevieja"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q47458546"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1982-08-01T00:00:00Z"
+      },
+      "birthPrec" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "subj" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q15688"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2019-06-15T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "pepLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "Jesús Manuel Sánchez Cabrera"
+      },
+      "subjLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "Ávila"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q64626529"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1977-09-15T00:00:00Z"
+      },
+      "birthPrec" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "subj" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q5818"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2019-06-15T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "pepLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "José María Bellido"
+      },
+      "subjLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "Córdoba"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q5687854"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1968-01-08T00:00:00Z"
+      },
+      "birthPrec" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "subj" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q12303"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2023-01-01T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581072"
+      },
+      "pepLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "María José García-Pelayo Jurado"
+      },
+      "subjLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "Jerez de la Frontera"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q65047446"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1974-07-02T00:00:00Z"
+      },
+      "birthPrec" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "subj" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q492420"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2019-06-15T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581072"
+      },
+      "pepLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "Amaia Agirre Muñoa"
+      },
+      "subjLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "Guecho"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q20087372"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1983-06-26T00:00:00Z"
+      },
+      "birthPrec" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "subj" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q15088"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2023-06-17T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "pepLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "Rubén Viñuales"
+      },
+      "subjLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "Tarragona"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q66823410"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1977-10-11T00:00:00Z"
+      },
+      "birthPrec" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "subj" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1641013"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2019-06-15T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "pepLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "Javier Úbeda Liébana"
+      },
+      "subjLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "Boadilla del Monte"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q64682480"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1988-06-23T00:00:00Z"
+      },
+      "birthPrec" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "subj" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q15678"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2019-06-15T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "pepLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "Luis Salaya"
+      },
+      "subjLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "Cáceres"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q5753193"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1965-11-25T00:00:00Z"
+      },
+      "birthPrec" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "subj" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q11974"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2023-06-17T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581072"
+      },
+      "pepLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "Carolina Darias San Sebastián"
+      },
+      "subjLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "Las Palmas de Gran Canaria"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q116258416"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1967-04-02T00:00:00Z"
+      },
+      "birthPrec" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "subj" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q12246"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2023-01-01T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581072"
+      },
+      "pepLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "Pilar Miranda Plata"
+      },
+      "subjLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "Huelva"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q119985042"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1981-01-01T00:00:00Z"
+      },
+      "birthPrec" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "9"
+      },
+      "subj" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q473914"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2023-06-17T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "pepLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "Rafa Triguero Costa"
+      },
+      "subjLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "Ibiza"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q19997761"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1965-04-02T00:00:00Z"
+      },
+      "birthPrec" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "subj" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q161945"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2023-01-01T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581072"
+      },
+      "pepLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "Amparo Folgado Tonda"
+      },
+      "subjLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "Torrente"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q64657846"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1987-10-19T00:00:00Z"
+      },
+      "birthPrec" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "subj" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q427505"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2019-01-01T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "pepLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "José Luis Álvarez Ustarroz"
+      },
+      "subjLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "Majadahonda"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q61998499"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1971-05-09T00:00:00Z"
+      },
+      "birthPrec" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "subj" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q8826"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2023-06-17T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "pepLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "Jaime Martínez Llabrés"
+      },
+      "subjLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "Palma de Mallorca"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q5783592"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1964-01-01T00:00:00Z"
+      },
+      "birthPrec" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "9"
+      },
+      "subj" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q31917806"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2023-01-01T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "pepLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "Conrado Escobar Las Heras"
+      },
+      "subjLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "Logroño"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q109662395"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1989-05-01T00:00:00Z"
+      },
+      "birthPrec" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "subj" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q33532"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2021-01-01T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "pepLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "José Manuel Prieto Part"
+      },
+      "subjLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "Gandía"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q19763042"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1968-01-01T00:00:00Z"
+      },
+      "birthPrec" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "9"
+      },
+      "subj" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q10372"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2019-06-15T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581072"
+      },
+      "pepLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "Natalia de Andrés"
+      },
+      "subjLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "Alcorcón"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q54437395"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1969-08-02T00:00:00Z"
+      },
+      "birthPrec" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "subj" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q99151"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2019-06-01T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "pepLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "Gonzalo Pérez Jácome"
+      },
+      "subjLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "Orense"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q120503117"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1976-08-04T00:00:00Z"
+      },
+      "birthPrec" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "subj" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q11967"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2023-06-17T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581072"
+      },
+      "pepLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "Lorena Orduna"
+      },
+      "subjLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "Huesca"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q12256843"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1971-10-30T00:00:00Z"
+      },
+      "birthPrec" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "subj" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q10313"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2015-06-13T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "pepLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "Eneko Goya"
+      },
+      "subjLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "San Sebastián"
+      },
+      "end" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2025-10-29T00:00:00Z"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q106560600"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1980-07-24T00:00:00Z"
+      },
+      "birthPrec" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "subj" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q200201"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2023-12-13T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581072"
+      },
+      "pepLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "Cristina Laborda Albolea"
+      },
+      "subjLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "Irún"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q116867996"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1971-02-12T00:00:00Z"
+      },
+      "birthPrec" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "subj" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q12164"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2023-06-17T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "pepLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "Marco Morala"
+      },
+      "subjLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "Ponferrada"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q29636954"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1975-04-17T00:00:00Z"
+      },
+      "birthPrec" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "subj" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2807"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2019-06-15T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "pepLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "José Luis Martínez-Almeida"
+      },
+      "subjLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "Madrid"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q65040640"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1968-09-01T00:00:00Z"
+      },
+      "birthPrec" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "subj" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q15699"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2019-07-05T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "pepLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "José Antonio Diez Díaz"
+      },
+      "subjLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "León"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q20535564"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1978-02-03T00:00:00Z"
+      },
+      "birthPrec" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "subj" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q11125"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2026-05-07T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581072"
+      },
+      "pepLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "Elena Candia"
+      },
+      "subjLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "Lugo"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q60830321"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1977-10-11T00:00:00Z"
+      },
+      "birthPrec" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "subj" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q8810"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2023-06-17T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581072"
+      },
+      "pepLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "Marifrán Carazo"
+      },
+      "subjLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "Granada"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q21127055"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1984-12-31T00:00:00Z"
+      },
+      "birthPrec" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "subj" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q7038"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2023-06-17T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "pepLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "Lluc Salellas i Vilar"
+      },
+      "subjLabel" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "Gerona"
+      }
+    } ]
+  }
+}

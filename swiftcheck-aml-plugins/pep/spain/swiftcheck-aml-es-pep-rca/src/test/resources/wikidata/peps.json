@@ -1,0 +1,133 @@
+{
+ "head": {
+  "vars": [
+   "pep",
+   "pepLabel",
+   "positions"
+  ]
+ },
+ "results": {
+  "bindings": [
+   {
+    "pep": {
+     "type": "uri",
+     "value": "http://www.wikidata.org/entity/Q156799"
+    },
+    "pepLabel": {
+     "xml:lang": "es",
+     "type": "literal",
+     "value": "Felipe González"
+    },
+    "positions": {
+     "type": "literal",
+     "value": "Presidente del Gobierno"
+    }
+   },
+   {
+    "pep": {
+     "type": "uri",
+     "value": "http://www.wikidata.org/entity/Q10819"
+    },
+    "pepLabel": {
+     "xml:lang": "es",
+     "type": "literal",
+     "value": "Mariano Rajoy"
+    },
+    "positions": {
+     "type": "literal",
+     "value": "Presidente del Gobierno"
+    }
+   },
+   {
+    "pep": {
+     "type": "uri",
+     "value": "http://www.wikidata.org/entity/Q6070218"
+    },
+    "pepLabel": {
+     "xml:lang": "es",
+     "type": "literal",
+     "value": "Pedro Sánchez"
+    },
+    "positions": {
+     "type": "literal",
+     "value": "Presidente del Gobierno"
+    }
+   },
+   {
+    "pep": {
+     "type": "uri",
+     "value": "http://www.wikidata.org/entity/Q2614472"
+    },
+    "pepLabel": {
+     "xml:lang": "es",
+     "type": "literal",
+     "value": "Carmen Calvo Poyato"
+    },
+    "positions": {
+     "type": "literal",
+     "value": "Presidente del Gobierno"
+    }
+   },
+   {
+    "pep": {
+     "type": "uri",
+     "value": "http://www.wikidata.org/entity/Q55637"
+    },
+    "pepLabel": {
+     "xml:lang": "es",
+     "type": "literal",
+     "value": "José María Aznar"
+    },
+    "positions": {
+     "type": "literal",
+     "value": "Presidente del Gobierno"
+    }
+   },
+   {
+    "pep": {
+     "type": "uri",
+     "value": "http://www.wikidata.org/entity/Q455748"
+    },
+    "pepLabel": {
+     "xml:lang": "es",
+     "type": "literal",
+     "value": "Rodrigo Rato"
+    },
+    "positions": {
+     "type": "literal",
+     "value": "Presidente del Gobierno"
+    }
+   },
+   {
+    "pep": {
+     "type": "uri",
+     "value": "http://www.wikidata.org/entity/Q41267"
+    },
+    "pepLabel": {
+     "xml:lang": "es",
+     "type": "literal",
+     "value": "Soraya Sáenz de Santamaría"
+    },
+    "positions": {
+     "type": "literal",
+     "value": "Presidente del Gobierno"
+    }
+   },
+   {
+    "pep": {
+     "type": "uri",
+     "value": "http://www.wikidata.org/entity/Q41395"
+    },
+    "pepLabel": {
+     "xml:lang": "es",
+     "type": "literal",
+     "value": "José Luis Rodríguez Zapatero"
+    },
+    "positions": {
+     "type": "literal",
+     "value": "Presidente del Gobierno"
+    }
+   }
+  ]
+ }
+}

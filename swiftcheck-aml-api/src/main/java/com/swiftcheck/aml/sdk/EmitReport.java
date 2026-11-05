@@ -25,6 +25,10 @@ public final class EmitReport {
         entitiesBySchema.merge(schema, 1, Integer::sum);
     }
 
+    synchronized void decrementEntity(String schema) {
+        entitiesBySchema.computeIfPresent(schema, (k, v) -> v > 1 ? v - 1 : null);
+    }
+
     synchronized void countRejectedValue(String schema, String property, String value) {
         rejectedByProperty.merge(schema + "." + property, 1, Integer::sum);
         if (rejectedSamples.size() < MAX_SAMPLES) {
