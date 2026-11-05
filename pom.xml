@@ -132,6 +132,11 @@
         <module>swiftcheck-aml-plugins/pep/ireland/swiftcheck-aml-ie-pep-europarl</module>
         <module>swiftcheck-aml-plugins/pep/ireland/swiftcheck-aml-ie-pep-eu-commission</module>
         <module>swiftcheck-aml-plugins/pep/ireland/swiftcheck-aml-ie-pep-president</module>
+        <module>swiftcheck-aml-plugins/pep/ireland/swiftcheck-aml-ie-pep-councillors</module>
+        <module>swiftcheck-aml-plugins/pep/ireland/swiftcheck-aml-ie-pep-central-bank</module>
+        <module>swiftcheck-aml-plugins/pep/ireland/swiftcheck-aml-ie-pep-courts</module>
+        <module>swiftcheck-aml-plugins/pep/ireland/swiftcheck-aml-ie-pep-state-enterprises</module>
+        <module>swiftcheck-aml-plugins/pep/ireland/swiftcheck-aml-ie-pep-defence-forces</module>
         <module>swiftcheck-aml-plugins/pep/portugal/swiftcheck-aml-pt-pep-eu-commission</module>
         <module>swiftcheck-aml-plugins/pep/portugal/swiftcheck-aml-pt-pep-president</module>
         <module>swiftcheck-aml-plugins/pep/portugal/swiftcheck-aml-pt-pep-courts</module>

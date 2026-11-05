@@ -86,5 +86,7 @@
     <include file="db/changelog/changes/056-pt-parliament-fr-rne-hatvp.xml" />
     <include file="db/changelog/changes/057-pt-government.xml" />
     <include file="db/changelog/changes/058-ie-pep-reference-and-parsers.xml" />
+    <include file="db/changelog/changes/059-ie-lot2.xml" />
+    <include file="db/changelog/changes/060-ie-lot3.xml" />
 
 </databaseChangeLog>

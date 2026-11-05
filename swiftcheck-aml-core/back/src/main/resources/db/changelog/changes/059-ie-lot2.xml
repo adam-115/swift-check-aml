@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Irlande, lot 2 (objectif : dépasser OpenSanctions, qui n'a que 788 membres du Parlement pour l'Irlande), sans Wikidata :
+
+      - ie_pep_parliament_history : même plugin que ie_pep_parliament, historique de 50 ans (monthsAfterEnd = 600) :
+        environ 950 personnes (députés, sénateurs, ministres anciens ou en fonction, décédés écartés quand la date est connue)
+      - ie_pep_courts       : juges de la Supreme Court, de la Court of Appeal et de la High Court (courts.ie/judges)
+      - ie_pep_central_bank : Commission de la Banque centrale d'Irlande (centralbank.ie)
+      - ie_pep_councillors  : conseillers de Dublin City Council et de Dún Laoghaire-Rathdown (open data des conseils),
+        couche étendue hors de la liste de l'article 37
+
+    Non couvert : ambassadeurs (dfa.ie 403), armée, Comptroller and Auditor General, partis, entreprises d'État, autres conseils locaux.
+-->
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="059-ie-amlr-category" author="swiftcheck">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM pep_category WHERE country_iso = 'IE' AND code = 'IE-AMLR'</sqlCheck>
+        </preConditions>
+        <sql>
+            INSERT INTO pep_category (country_iso, code, label, kind, risk_class, sort_order, legal_reference)
+            VALUES ('IE', 'IE-AMLR', 'Conseillers des conseils locaux (couche étendue, règlement (UE) 2024/1624)', 'AMLR', 3, 11,
+                    'Règlement (UE) 2024/1624 (AMLR) ; hors liste de l''article 37 du Criminal Justice Act 2010');
+
+            INSERT INTO pep_function (category_id, label, institution, expected_holders)
+            SELECT c.id, 'Conseiller d''un conseil local (Dublin City, Dún Laoghaire-Rathdown)', 'Local authorities', 103
+            FROM pep_category c WHERE c.country_iso = 'IE' AND c.code = 'IE-AMLR';
+        </sql>
+    </changeSet>
+
+    <changeSet id="059-parser-ie-pep-parliament-history" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Irlande – Oireachtas, historique de 50 ans',
+                'Anciens députés, sénateurs et ministres des 50 dernières années, d''après l''API ouverte de l''Oireachtas (couche étendue de ie_pep_parliament)',
+                'ie_pep_parliament_history', 'PEP', 'https://api.oireachtas.ie/',
+                'ie-pep-parliament', 'D:/test parser 2/plugins/swiftcheck-aml-ie-pep-parliament-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'API',
+                NULL,
+                '{"apiUrl": "https://api.oireachtas.ie/v1", "monthsAfterEnd": "600", "delayMs": "1000"}',
+                720, 12,
+                'Licence Oireachtas (PSI) / Creative Commons Attribution 4.0 : citer la source', 'Houses of the Oireachtas, api.oireachtas.ie',
+                'Même plugin et mêmes identifiants (pId) que ie_pep_parliament : les personnes en fonction y sont aussi. Environ 30 chambres, 45 secondes. Environ 950 personnes pour 788 chez OpenSanctions. Les décès ne sont écartés que si l''API donne la date : des personnes décédées peuvent subsister. Au-delà des 12 mois de vigilance légale : à activer selon l''approche par les risques.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', TRUE,
+                   'Tous les membres de l''Oireachtas des 50 dernières années (Dáil et Seanad) avec dates de mandat, parti, circonscription et fonctions ministérielles.',
+                   'Ni date de naissance ni sexe ; décès non toujours renseignés.'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'IE-b' AND f.label = 'Ancien député ou sénateur' AND p.dataset_name = 'ie_pep_parliament_history';
+        ]]></sql>
+    </changeSet>
+
+    <changeSet id="059-parser-ie-pep-courts" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Irlande – Hautes juridictions',
+                'Juges de la Supreme Court, de la Court of Appeal et de la High Court, d''après la page officielle du Courts Service (catégorie IE-d)',
+                'ie_pep_courts', 'PEP', 'https://www.courts.ie/',
+                'ie-pep-courts', 'D:/test parser 2/plugins/swiftcheck-aml-ie-pep-courts-0.0.1-SNAPSHOT.jar',
+                'HTTP_FILE', 'WEB_PAGE',
+                'https://www.courts.ie/judges',
+                '{"courts": "Supreme Court,Court of Appeal,High Court"}',
+                168, 12,
+                'Site officiel du Courts Service : citer la source', 'Courts Service of Ireland, www.courts.ie',
+                'Page découpée en sections « Judges of the … » ; Chief Justice, présidents de cours et membres de droit repérés. Ni dates ni naissance : seuls les juges en fonction sont nommés (le cœur garde les partis pendant la rétention). Circuit Court et District Court non reprises (paramètre courts pour les ajouter).', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', FALSE,
+                   'Juges en fonction de la Supreme Court, de la Court of Appeal et de la High Court, avec Chief Justice et présidents de cours.',
+                   'Pas de dates ni de naissance ; les anciens juges ne sont pas nommés par la source.'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'IE-d' AND f.label LIKE 'Juge de la Cour suprême%' AND p.dataset_name = 'ie_pep_courts';
+        ]]></sql>
+    </changeSet>
+
+    <changeSet id="059-parser-ie-pep-central-bank" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Irlande – Banque centrale',
+                'Membres de la Commission de la Banque centrale d''Irlande : Governor, Deputy Governors, Secretary General du Department of Finance et membres nommés (catégorie IE-e)',
+                'ie_pep_central_bank', 'PEP', 'https://www.centralbank.ie/',
+                'ie-pep-central-bank', 'D:/test parser 2/plugins/swiftcheck-aml-ie-pep-central-bank-0.0.1-SNAPSHOT.jar',
+                'HTTP_FILE', 'WEB_PAGE',
+                'https://www.centralbank.ie/about/who-we-are/the-commission',
+                NULL,
+                168, 12,
+                'Site officiel de la Banque centrale d''Irlande : citer la source', 'Central Bank of Ireland, www.centralbank.ie',
+                'Dix membres (blocs « spotlight-content »). Le Secretary of the Central Bank n''est pas membre de la Commission et n''est pas repris. Ni dates ni naissance.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'PARTIAL', FALSE,
+                   'Les dix membres de la Commission de la Banque centrale en fonction.',
+                   'Comptroller and Auditor General non couvert (audgen.gov.ie ne répond pas) ; pas de dates ni de naissance.'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'IE-e' AND f.label LIKE 'Comptroller and Auditor General%' AND p.dataset_name = 'ie_pep_central_bank';
+        ]]></sql>
+    </changeSet>
+
+    <changeSet id="059-parser-ie-pep-councillors" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Irlande – Conseillers locaux (Dublin)',
+                'Conseillers de Dublin City Council et de Dún Laoghaire-Rathdown County Council, d''après l''open data des conseils (couche étendue, catégorie IE-AMLR)',
+                'ie_pep_councillors', 'PEP', 'https://data.gov.ie/',
+                'ie-pep-councillors', 'D:/test parser 2/plugins/swiftcheck-aml-ie-pep-councillors-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'OPEN_DATA_FILE',
+                NULL,
+                '{"sources": "Dublin City Council|https://data.smartdublin.ie/dataset/3b96f6f0-3873-4ea9-94a2-646bbd3db113/resource/95e8a95c-4d48-4164-9fb1-e02fc8026893/download/councillor_details_dcc.csv;Dún Laoghaire-Rathdown|https://data.smartdublin.ie/dataset/ddda5519-652c-4cb8-9dd0-66068e727d8d/resource/a03cc5eb-0893-4e0d-bf3c-55fc203a7082/download/councillors_dlr.csv"}',
+                168, 12,
+                'Licences des jeux sur data.gov.ie / Smart Dublin : citer la source', 'Dublin City Council et Dún Laoghaire-Rathdown County Council (Smart Dublin)',
+                '103 conseillers (63 + 40). Fingal et South Dublin ne publient pas de liste d''élus en CSV ; les 27 autres conseils non plus en open data. Hors liste de l''article 37 : à activer selon l''approche par les risques. Un conseil de plus : ajouter « Nom|adresse » au paramètre sources.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'PARTIAL', FALSE,
+                   'Les 103 conseillers de Dublin City Council et de Dún Laoghaire-Rathdown, avec parti et circonscription.',
+                   'Seuls 2 des 31 conseils publient leur liste en CSV ; pas de dates ni de naissance.'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'IE-AMLR' AND f.label LIKE 'Conseiller d''un conseil local%' AND p.dataset_name = 'ie_pep_councillors';
+        ]]></sql>
+    </changeSet>
+
+</databaseChangeLog>
