@@ -161,9 +161,26 @@
         <module>swiftcheck-aml-plugins/pep/estonia/swiftcheck-aml-ee-pep-riigikogu</module>
         <module>swiftcheck-aml-plugins/pep/estonia/swiftcheck-aml-ee-pep-government</module>
         <module>swiftcheck-aml-plugins/pep/estonia/swiftcheck-aml-ee-pep-institutions</module>
+        <module>swiftcheck-aml-plugins/pep/estonia/swiftcheck-aml-ee-pep-europarl</module>
+        <module>swiftcheck-aml-plugins/pep/estonia/swiftcheck-aml-ee-pep-eu-commission</module>
         <module>swiftcheck-aml-plugins/pep/latvia/swiftcheck-aml-lv-pep-saeima</module>
         <module>swiftcheck-aml-plugins/pep/latvia/swiftcheck-aml-lv-pep-government</module>
         <module>swiftcheck-aml-plugins/pep/latvia/swiftcheck-aml-lv-pep-institutions</module>
+        <module>swiftcheck-aml-plugins/pep/latvia/swiftcheck-aml-lv-pep-europarl</module>
+        <module>swiftcheck-aml-plugins/pep/latvia/swiftcheck-aml-lv-pep-eu-commission</module>
+        <module>swiftcheck-aml-plugins/pep/lithuania/swiftcheck-aml-lt-pep-seimas</module>
+        <module>swiftcheck-aml-plugins/pep/lithuania/swiftcheck-aml-lt-pep-europarl</module>
+        <module>swiftcheck-aml-plugins/pep/lithuania/swiftcheck-aml-lt-pep-eu-commission</module>
+        <module>swiftcheck-aml-plugins/pep/czechia/swiftcheck-aml-cz-pep-europarl</module>
+        <module>swiftcheck-aml-plugins/pep/czechia/swiftcheck-aml-cz-pep-eu-commission</module>
+        <module>swiftcheck-aml-plugins/pep/poland/swiftcheck-aml-pl-pep-europarl</module>
+        <module>swiftcheck-aml-plugins/pep/poland/swiftcheck-aml-pl-pep-eu-commission</module>
+        <module>swiftcheck-aml-plugins/pep/finland/swiftcheck-aml-fi-pep-europarl</module>
+        <module>swiftcheck-aml-plugins/pep/finland/swiftcheck-aml-fi-pep-eu-commission</module>
+        <module>swiftcheck-aml-plugins/pep/sweden/swiftcheck-aml-se-pep-europarl</module>
+        <module>swiftcheck-aml-plugins/pep/sweden/swiftcheck-aml-se-pep-eu-commission</module>
+        <module>swiftcheck-aml-plugins/pep/denmark/swiftcheck-aml-dk-pep-europarl</module>
+        <module>swiftcheck-aml-plugins/pep/denmark/swiftcheck-aml-dk-pep-eu-commission</module>
         <module>swiftcheck-aml-plugins/pep/portugal/swiftcheck-aml-pt-pep-eu-commission</module>
         <module>swiftcheck-aml-plugins/pep/portugal/swiftcheck-aml-pt-pep-president</module>
         <module>swiftcheck-aml-plugins/pep/portugal/swiftcheck-aml-pt-pep-courts</module>

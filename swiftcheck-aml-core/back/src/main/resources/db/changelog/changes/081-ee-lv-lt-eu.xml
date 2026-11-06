@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Estonie, Lettonie, Lituanie : députés européens et commissaire européen, d'après l'API du Parlement européen et la fiche
+    officielle du commissaire sur commission.europa.eu (mêmes plugins que nl_pep_europarl et nl_pep_eu_commission, un par pays).
+
+    Les photos de Wikimedia Commons ne sont pas utilisées : wikidataEndpoint est vide (règle : pas de Wikidata).
+
+    Non couvert : les autres fonctions européennes (Cour de justice, Cour des comptes européenne, BCE, SEAE).
+-->
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="081-ee-eu-reference" author="swiftcheck">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM pep_category WHERE code = 'EE-EU'</sqlCheck>
+        </preConditions>
+        <sql>
+            INSERT INTO pep_category (country_iso, code, label, kind, risk_class, sort_order, legal_reference)
+            VALUES ('EE', 'EE-EU', 'Estoniens exerçant une fonction européenne', 'EU', 1, 10, 'Liste de la Commission, JO C/2023/724');
+
+            INSERT INTO pep_function (category_id, label, institution, expected_holders)
+            SELECT c.id, f.label, f.institution, f.expected_holders
+            FROM pep_category c JOIN (
+                SELECT 'EE-EU' AS code, 'Député européen élu en Estonie' AS label, 'Parlement européen' AS institution, 7 AS expected_holders
+                UNION ALL SELECT 'EE-EU', 'Membre estonien de la Commission européenne', 'Commission européenne', 1
+            ) f ON f.code = c.code;
+        </sql>
+    </changeSet>
+
+    <changeSet id="081-parser-ee-pep-europarl" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Estonie – Députés européens',
+                'Les députés au Parlement européen élus en Estonie, en fonction et sortis depuis moins de 12 mois, avec naissance et dates de mandat (catégorie EE-EU)',
+                'ee_pep_europarl', 'PEP', 'https://data.europarl.europa.eu/',
+                'ee-pep-europarl', 'D:/test parser 2/plugins/swiftcheck-aml-ee-pep-europarl-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'API',
+                NULL,
+                '{"currentUrl": "https://data.europarl.europa.eu/api/v2/meps/show-current?country-of-representation=EE&format=application%2Fld%2Bjson", "termUrl": "https://data.europarl.europa.eu/api/v2/meps?country-of-representation=EE&parliamentary-term=10&limit=500&format=application%2Fld%2Bjson", "detailUrl": "https://data.europarl.europa.eu/api/v2/meps/{id}?format=application%2Fld%2Bjson", "delayMs": "400", "monthsAfterEnd": "12", "wikidataEndpoint": ""}',
+                168, 12,
+                'Réutilisation autorisée en citant la source (Parlement européen)', 'Parlement européen, data.europarl.europa.eu',
+                'Reprise de nl_pep_europarl. Mesure du 06/11/2026 : 7 députés en fonction, 7 avec date de naissance. Une fiche par député. L''API limite le débit (HTTP 429) : le plugin attend puis réessaie. Pas de photos (Wikidata non utilisé). termUrl contient le numéro de législature (10) : à changer en 2029.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', TRUE, 'Les 7 députés européens élus en Estonie et ceux sortis depuis moins de 12 mois, avec naissance, genre, groupe et dates de mandat.', NULL
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'EE-EU' AND f.label LIKE 'Député européen%' AND p.dataset_name = 'ee_pep_europarl';
+        ]]></sql>
+    </changeSet>
+
+    <changeSet id="081-parser-ee-pep-eu-commission" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Estonie – Commissaire européen',
+                'Le membre estonien de la Commission européenne, d''après sa fiche officielle (catégorie EE-EU)',
+                'ee_pep_eu_commission', 'PEP', 'https://commission.europa.eu/about/organisation/college-commissioners_en',
+                'ee-pep-eu-commission', 'D:/test parser 2/plugins/swiftcheck-aml-ee-pep-eu-commission-0.0.1-SNAPSHOT.jar',
+                'HTTP_FILE', 'WEB_PAGE',
+                'https://commission.europa.eu/about/organisation/college-commissioners/kaja-kallas_en',
+                NULL,
+                168, 12,
+                'Réutilisation autorisée en citant la source (avis juridique de la Commission européenne)', 'Commission européenne, commission.europa.eu',
+                'Reprise de nl_pep_eu_commission. À chaque nouvelle Commission, remplacer l''adresse par la fiche du commissaire estonien. Une fiche qui ne présente pas un commissaire estonien est refusée.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', FALSE, 'Kaja Kallas, haute représentante de l''Union pour les affaires étrangères et la politique de sécurité et vice-présidente (2024-2029).', 'Ni date ni lieu de naissance sur la fiche.'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'EE-EU' AND f.label LIKE 'Membre estonien de la Commission%' AND p.dataset_name = 'ee_pep_eu_commission';
+        ]]></sql>
+    </changeSet>
+
+    <changeSet id="081-lv-eu-reference" author="swiftcheck">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM pep_category WHERE code = 'LV-EU'</sqlCheck>
+        </preConditions>
+        <sql>
+            INSERT INTO pep_category (country_iso, code, label, kind, risk_class, sort_order, legal_reference)
+            VALUES ('LV', 'LV-EU', 'Lettons exerçant une fonction européenne', 'EU', 1, 10, 'Liste de la Commission, JO C/2023/724');
+
+            INSERT INTO pep_function (category_id, label, institution, expected_holders)
+            SELECT c.id, f.label, f.institution, f.expected_holders
+            FROM pep_category c JOIN (
+                SELECT 'LV-EU' AS code, 'Député européen élu en Lettonie' AS label, 'Parlement européen' AS institution, 9 AS expected_holders
+                UNION ALL SELECT 'LV-EU', 'Membre letton de la Commission européenne', 'Commission européenne', 1
+            ) f ON f.code = c.code;
+        </sql>
+    </changeSet>
+
+    <changeSet id="081-parser-lv-pep-europarl" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Lettonie – Députés européens',
+                'Les députés au Parlement européen élus en Lettonie, en fonction et sortis depuis moins de 12 mois, avec naissance et dates de mandat (catégorie LV-EU)',
+                'lv_pep_europarl', 'PEP', 'https://data.europarl.europa.eu/',
+                'lv-pep-europarl', 'D:/test parser 2/plugins/swiftcheck-aml-lv-pep-europarl-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'API',
+                NULL,
+                '{"currentUrl": "https://data.europarl.europa.eu/api/v2/meps/show-current?country-of-representation=LV&format=application%2Fld%2Bjson", "termUrl": "https://data.europarl.europa.eu/api/v2/meps?country-of-representation=LV&parliamentary-term=10&limit=500&format=application%2Fld%2Bjson", "detailUrl": "https://data.europarl.europa.eu/api/v2/meps/{id}?format=application%2Fld%2Bjson", "delayMs": "400", "monthsAfterEnd": "12", "wikidataEndpoint": ""}',
+                168, 12,
+                'Réutilisation autorisée en citant la source (Parlement européen)', 'Parlement européen, data.europarl.europa.eu',
+                'Reprise de nl_pep_europarl. Mesure du 06/11/2026 : 9 députés en fonction, 8 avec date de naissance. Une fiche par député. L''API limite le débit (HTTP 429) : le plugin attend puis réessaie. Pas de photos (Wikidata non utilisé). termUrl contient le numéro de législature (10) : à changer en 2029.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', TRUE, 'Les 9 députés européens élus en Lettonie et ceux sortis depuis moins de 12 mois, avec naissance, genre, groupe et dates de mandat.', NULL
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'LV-EU' AND f.label LIKE 'Député européen%' AND p.dataset_name = 'lv_pep_europarl';
+        ]]></sql>
+    </changeSet>
+
+    <changeSet id="081-parser-lv-pep-eu-commission" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Lettonie – Commissaire européen',
+                'Le membre letton de la Commission européenne, d''après sa fiche officielle (catégorie LV-EU)',
+                'lv_pep_eu_commission', 'PEP', 'https://commission.europa.eu/about/organisation/college-commissioners_en',
+                'lv-pep-eu-commission', 'D:/test parser 2/plugins/swiftcheck-aml-lv-pep-eu-commission-0.0.1-SNAPSHOT.jar',
+                'HTTP_FILE', 'WEB_PAGE',
+                'https://commission.europa.eu/about/organisation/college-commissioners/valdis-dombrovskis_en',
+                NULL,
+                168, 12,
+                'Réutilisation autorisée en citant la source (avis juridique de la Commission européenne)', 'Commission européenne, commission.europa.eu',
+                'Reprise de nl_pep_eu_commission. À chaque nouvelle Commission, remplacer l''adresse par la fiche du commissaire letton. Une fiche qui ne présente pas un commissaire letton est refusée.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', FALSE, 'Valdis Dombrovskis, commissaire chargé de l''économie, de la productivité, de la mise en œuvre et de la simplification du droit de l''UE (2024-2029).', 'Ni date ni lieu de naissance sur la fiche.'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'LV-EU' AND f.label LIKE 'Membre letton de la Commission%' AND p.dataset_name = 'lv_pep_eu_commission';
+        ]]></sql>
+    </changeSet>
+
+    <changeSet id="081-lt-eu-reference" author="swiftcheck">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM pep_category WHERE code = 'LT-EU'</sqlCheck>
+        </preConditions>
+        <sql>
+            INSERT INTO pep_category (country_iso, code, label, kind, risk_class, sort_order, legal_reference)
+            VALUES ('LT', 'LT-EU', 'Lituaniens exerçant une fonction européenne', 'EU', 1, 10, 'Liste de la Commission, JO C/2023/724');
+
+            INSERT INTO pep_function (category_id, label, institution, expected_holders)
+            SELECT c.id, f.label, f.institution, f.expected_holders
+            FROM pep_category c JOIN (
+                SELECT 'LT-EU' AS code, 'Député européen élu en Lituanie' AS label, 'Parlement européen' AS institution, 11 AS expected_holders
+                UNION ALL SELECT 'LT-EU', 'Membre lituanien de la Commission européenne', 'Commission européenne', 1
+            ) f ON f.code = c.code;
+        </sql>
+    </changeSet>
+
+    <changeSet id="081-parser-lt-pep-europarl" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Lituanie – Députés européens',
+                'Les députés au Parlement européen élus en Lituanie, en fonction et sortis depuis moins de 12 mois, avec naissance et dates de mandat (catégorie LT-EU)',
+                'lt_pep_europarl', 'PEP', 'https://data.europarl.europa.eu/',
+                'lt-pep-europarl', 'D:/test parser 2/plugins/swiftcheck-aml-lt-pep-europarl-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'API',
+                NULL,
+                '{"currentUrl": "https://data.europarl.europa.eu/api/v2/meps/show-current?country-of-representation=LT&format=application%2Fld%2Bjson", "termUrl": "https://data.europarl.europa.eu/api/v2/meps?country-of-representation=LT&parliamentary-term=10&limit=500&format=application%2Fld%2Bjson", "detailUrl": "https://data.europarl.europa.eu/api/v2/meps/{id}?format=application%2Fld%2Bjson", "delayMs": "400", "monthsAfterEnd": "12", "wikidataEndpoint": ""}',
+                168, 12,
+                'Réutilisation autorisée en citant la source (Parlement européen)', 'Parlement européen, data.europarl.europa.eu',
+                'Reprise de nl_pep_europarl. Mesure du 06/11/2026 : 11 députés en fonction, 10 avec date de naissance, 1 sorti avant la fenêtre de 12 mois (écarté). Une fiche par député. L''API limite le débit (HTTP 429) : le plugin attend puis réessaie. Pas de photos (Wikidata non utilisé). termUrl contient le numéro de législature (10) : à changer en 2029.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', TRUE, 'Les 11 députés européens élus en Lituanie et ceux sortis depuis moins de 12 mois, avec naissance, genre, groupe et dates de mandat.', NULL
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'LT-EU' AND f.label LIKE 'Député européen%' AND p.dataset_name = 'lt_pep_europarl';
+        ]]></sql>
+    </changeSet>
+
+    <changeSet id="081-parser-lt-pep-eu-commission" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Lituanie – Commissaire européen',
+                'Le membre lituanien de la Commission européenne, d''après sa fiche officielle (catégorie LT-EU)',
+                'lt_pep_eu_commission', 'PEP', 'https://commission.europa.eu/about/organisation/college-commissioners_en',
+                'lt-pep-eu-commission', 'D:/test parser 2/plugins/swiftcheck-aml-lt-pep-eu-commission-0.0.1-SNAPSHOT.jar',
+                'HTTP_FILE', 'WEB_PAGE',
+                'https://commission.europa.eu/about/organisation/college-commissioners/andrius-kubilius_en',
+                NULL,
+                168, 12,
+                'Réutilisation autorisée en citant la source (avis juridique de la Commission européenne)', 'Commission européenne, commission.europa.eu',
+                'Reprise de nl_pep_eu_commission. À chaque nouvelle Commission, remplacer l''adresse par la fiche du commissaire lituanien. Une fiche qui ne présente pas un commissaire lituanien est refusée.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', FALSE, 'Andrius Kubilius, commissaire chargé de la défense et de l''espace (2024-2029).', 'Ni date ni lieu de naissance sur la fiche.'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'LT-EU' AND f.label LIKE 'Membre lituanien de la Commission%' AND p.dataset_name = 'lt_pep_eu_commission';
+        ]]></sql>
+    </changeSet>
+
+</databaseChangeLog>

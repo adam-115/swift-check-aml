@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Tchéquie : députés européens et commissaire européen, d'après l'API du Parlement européen et la fiche
+    officielle du commissaire sur commission.europa.eu (mêmes plugins que nl_pep_europarl et nl_pep_eu_commission, un par pays).
+
+    Les photos de Wikimedia Commons ne sont pas utilisées : wikidataEndpoint est vide (règle : pas de Wikidata).
+
+    Non couvert : les autres fonctions européennes (Cour de justice, Cour des comptes européenne, BCE, SEAE).
+
+    ATTENTION : ce fichier N'EST PAS inclus dans db.changelog-master.xml sur la branche pep-Estonie : le pays CZ, ses
+    catégories et ses fonctions viennent de 073-cz-pep-reference-and-parsers.xml, qui est sur la branche pep-Tcheque. Après la
+    fusion des deux branches, inclure ce fichier APRÈS 073 et 074 (une catégorie CZ-EU insérée avant 073 ferait ignorer toutes
+    les catégories tchèques par la condition de 073).
+-->
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="083-cz-eu-reference" author="swiftcheck">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM pep_category WHERE code = 'CZ-EU'</sqlCheck>
+        </preConditions>
+        <sql>
+            INSERT INTO pep_category (country_iso, code, label, kind, risk_class, sort_order, legal_reference)
+            VALUES ('CZ', 'CZ-EU', 'Tchèques exerçant une fonction européenne', 'EU', 1, 10, 'Liste de la Commission, JO C/2023/724');
+
+            INSERT INTO pep_function (category_id, label, institution, expected_holders)
+            SELECT c.id, f.label, f.institution, f.expected_holders
+            FROM pep_category c JOIN (
+                SELECT 'CZ-EU' AS code, 'Député européen élu en Tchéquie' AS label, 'Parlement européen' AS institution, 21 AS expected_holders
+                UNION ALL SELECT 'CZ-EU', 'Membre tchèque de la Commission européenne', 'Commission européenne', 1
+            ) f ON f.code = c.code;
+        </sql>
+    </changeSet>
+
+    <changeSet id="083-parser-cz-pep-europarl" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Tchéquie – Députés européens',
+                'Les députés au Parlement européen élus en Tchéquie, en fonction et sortis depuis moins de 12 mois, avec naissance et dates de mandat (catégorie CZ-EU)',
+                'cz_pep_europarl', 'PEP', 'https://data.europarl.europa.eu/',
+                'cz-pep-europarl', 'D:/test parser 2/plugins/swiftcheck-aml-cz-pep-europarl-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'API',
+                NULL,
+                '{"currentUrl": "https://data.europarl.europa.eu/api/v2/meps/show-current?country-of-representation=CZ&format=application%2Fld%2Bjson", "termUrl": "https://data.europarl.europa.eu/api/v2/meps?country-of-representation=CZ&parliamentary-term=10&limit=500&format=application%2Fld%2Bjson", "detailUrl": "https://data.europarl.europa.eu/api/v2/meps/{id}?format=application%2Fld%2Bjson", "delayMs": "400", "monthsAfterEnd": "12", "wikidataEndpoint": ""}',
+                168, 12,
+                'Réutilisation autorisée en citant la source (Parlement européen)', 'Parlement européen, data.europarl.europa.eu',
+                'Reprise de nl_pep_europarl. Mesure du 06/11/2026 : 21 députés publiés, 18 avec date de naissance, 3 sortis avant la fenêtre de 12 mois (écartés). Une fiche par député. L''API limite le débit (HTTP 429) : le plugin attend puis réessaie. Pas de photos (Wikidata non utilisé). termUrl contient le numéro de législature (10) : à changer en 2029.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', TRUE, 'Les 21 députés européens élus en Tchéquie et ceux sortis depuis moins de 12 mois, avec naissance, genre, groupe et dates de mandat.', NULL
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'CZ-EU' AND f.label LIKE 'Député européen%' AND p.dataset_name = 'cz_pep_europarl';
+        ]]></sql>
+    </changeSet>
+
+    <changeSet id="083-parser-cz-pep-eu-commission" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Tchéquie – Commissaire européen',
+                'Le membre tchèque de la Commission européenne, d''après sa fiche officielle (catégorie CZ-EU)',
+                'cz_pep_eu_commission', 'PEP', 'https://commission.europa.eu/about/organisation/college-commissioners_en',
+                'cz-pep-eu-commission', 'D:/test parser 2/plugins/swiftcheck-aml-cz-pep-eu-commission-0.0.1-SNAPSHOT.jar',
+                'HTTP_FILE', 'WEB_PAGE',
+                'https://commission.europa.eu/about/organisation/college-commissioners/jozef-sikela_en',
+                NULL,
+                168, 12,
+                'Réutilisation autorisée en citant la source (avis juridique de la Commission européenne)', 'Commission européenne, commission.europa.eu',
+                'Reprise de nl_pep_eu_commission. À chaque nouvelle Commission, remplacer l''adresse par la fiche du commissaire tchèque. Une fiche qui ne présente pas un commissaire tchèque est refusée.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', FALSE, 'Jozef Síkela, commissaire chargé des partenariats internationaux (2024-2029).', 'Ni date ni lieu de naissance sur la fiche.'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'CZ-EU' AND f.label LIKE 'Membre tchèque de la Commission%' AND p.dataset_name = 'cz_pep_eu_commission';
+        ]]></sql>
+    </changeSet>
+
+</databaseChangeLog>

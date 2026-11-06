@@ -7,7 +7,7 @@ table{border-collapse:collapse;width:100%;margin:10px 0;font-size:10pt}th,td{bor
 th{background:#e8eef5}.ok{color:#14702e;font-weight:600}.ko{color:#a32020;font-weight:600}.note{background:#f4f7fa;border-left:4px solid #0b3d6b;padding:8px 12px}
 </style></head><body>
 <h1>Plan des parsers PEP – Estonie (lots 1 et 2)</h1>
-<p>Date : 6 novembre 2026. Pays de l'Union européenne : les députés européens et le commissaire estonien relèvent des parsers européens existants. Base légale : loi sur la prévention du blanchiment de capitaux et du financement du terrorisme (<i>Rahapesu ja terrorismi rahastamise tõkestamise seadus</i>), personne exerçant une fonction publique importante ; vigilance de douze mois après la fin des fonctions (durée à confirmer sur le texte en vigueur).</p>
+<p>Date : 6 novembre 2026. Pays de l'Union européenne : les députés européens et le commissaire estonien sont couverts par ee_pep_europarl et ee_pep_eu_commission (voir le tableau ci-dessous). Base légale : loi sur la prévention du blanchiment de capitaux et du financement du terrorisme (<i>Rahapesu ja terrorismi rahastamise tõkestamise seadus</i>), personne exerçant une fonction publique importante ; vigilance de douze mois après la fin des fonctions (durée à confirmer sur le texte en vigueur).</p>
 
 <h2>1. Parsers réalisés</h2>
 <table>
@@ -16,8 +16,10 @@ th{background:#e8eef5}.ok{color:#14702e;font-weight:600}.ko{color:#a32020;font-w
 <tr><td>ee_pep_parliament_history</td><td>même API</td><td>Anciens membres depuis 1992 (compositions 7 à 15), vivants uniquement</td><td>525 personnes (181 décédés écartés)</td></tr>
 <tr><td>ee_pep_government</td><td>valitsus.ee (14 pages)</td><td>Premier ministre et ministres en fonction (EE-a)</td><td>13 personnes</td></tr>
 <tr><td>ee_pep_institutions (lot 2)</td><td>president.ee, riigikohus.ee, riigikontroll.ee, eestipank.ee (5 pages)</td><td>Président de la République, juges de la Cour suprême, Auditeur général, directoire et conseil de surveillance de la Banque d'Estonie (EE-a, EE-d, EE-e)</td><td>34 personnes : 1 + 18 + 1 + 3 + 11</td></tr>
+<tr><td>ee_pep_europarl</td><td>API du Parlement européen</td><td>Députés européens élus en Estonie, en fonction ou sortis depuis moins de 12 mois (EE-EU)</td><td>7 personnes</td></tr>
+<tr><td>ee_pep_eu_commission</td><td>commission.europa.eu (fiche du commissaire)</td><td>Membre estonien de la Commission européenne (EE-EU)</td><td>1 personne (Kaja Kallas)</td></tr>
 </table>
-<p>Chaque parser télécharge la source à chaque exécution ; aucune liste de noms n'est embarquée ; Wikidata n'est pas utilisé. Migrations Liquibase 076 (pays EE, catégories, fonctions, 3 parsers) et 077 (lot 2), validées sur une base jetable.</p>
+<p>Chaque parser télécharge la source à chaque exécution ; aucune liste de noms n'est embarquée ; Wikidata n'est pas utilisé. Migrations Liquibase 076 (pays EE, catégories, fonctions, 3 parsers), 077 (lot 2) et 081 (fonctions européennes), validées sur une base jetable.</p>
 
 <h2>2. Points forts</h2>
 <ul><li>Parlement : naissance, sexe, <b>date de décès</b>, dates exactes de chaque mandat, fonction (président, vice-présidents), groupe et circonscription ; identifiant stable d'une composition à l'autre.</li>

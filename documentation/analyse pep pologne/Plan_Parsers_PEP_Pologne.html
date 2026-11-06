@@ -7,7 +7,7 @@ table{border-collapse:collapse;width:100%;margin:10px 0;font-size:10pt}th,td{bor
 th{background:#e8eef5}.ok{color:#14702e;font-weight:600}.ko{color:#a32020;font-weight:600}.note{background:#f4f7fa;border-left:4px solid #0b3d6b;padding:8px 12px}
 </style></head><body>
 <h1>Plan des parsers PEP – Pologne</h1>
-<p>Date : 6 novembre 2026. Pays de l'Union européenne : les députés européens et le commissaire polonais relèvent des parsers européens existants. Base légale : loi du 1er mars 2018 sur la lutte contre le blanchiment et le financement du terrorisme (personne occupant une fonction politique exposée, douze mois après la fin des fonctions).</p>
+<p>Date : 6 novembre 2026. Pays de l'Union européenne : les députés européens et le commissaire polonais sont couverts par pl_pep_europarl et pl_pep_eu_commission (voir le tableau ci-dessous). Base légale : loi du 1er mars 2018 sur la lutte contre le blanchiment et le financement du terrorisme (personne occupant une fonction politique exposée, douze mois après la fin des fonctions).</p>
 
 <h2>1. Parsers réalisés (lots 1 et 2)</h2>
 <table>
@@ -16,6 +16,8 @@ th{background:#e8eef5}.ok{color:#14702e;font-weight:600}.ko{color:#a32020;font-w
 <tr><td>pl_pep_parliament_history</td><td>idem, même plugin (monthsAfterEnd 180)</td><td>Députés des législatures 6 à 10 (15 ans)</td><td>1 204 personnes</td></tr>
 <tr><td>pl_pep_clubs</td><td>idem (/clubs)</td><td>Présidents des groupes parlementaires (PL-c)</td><td>9 personnes</td></tr>
 <tr><td>pl_pep_government</td><td>Page « Skład Rady Ministrów » de gov.pl</td><td>Premier ministre, vice-premiers ministres, ministres (PL-a)</td><td>21 personnes</td></tr>
+<tr><td>pl_pep_europarl</td><td>API du Parlement européen</td><td>Députés européens élus dans le pays, en fonction ou sortis depuis moins de 12 mois (PL-EU)</td><td>53 personnes (42 avec naissance)</td></tr>
+<tr><td>pl_pep_eu_commission</td><td>commission.europa.eu (fiche du commissaire)</td><td>Membre polonais de la Commission européenne (PL-EU)</td><td>1 personne (Piotr Serafin)</td></tr>
 </table>
 <p>Chaque parser télécharge la source à chaque exécution ; aucune liste de noms n'est embarquée ; Wikidata n'est pas utilisé. Un député est reconnu d'une législature à l'autre par prénom, nom et naissance (son identifiant change à chaque législature) : une seule personne pour plusieurs législatures. Migration Liquibase 072 (pays PL, catégories, fonctions, 4 parsers), validée sur une base jetable.</p>
 

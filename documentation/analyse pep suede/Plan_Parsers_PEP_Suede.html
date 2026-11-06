@@ -7,7 +7,7 @@ table{border-collapse:collapse;width:100%;margin:10px 0;font-size:10pt}th,td{bor
 th{background:#e8eef5}.ok{color:#14702e;font-weight:600}.ko{color:#a32020;font-weight:600}.note{background:#f4f7fa;border-left:4px solid #0b3d6b;padding:8px 12px}
 </style></head><body>
 <h1>Plan des parsers PEP – Suède</h1>
-<p>Date : 6 novembre 2026. Pays de l'Union européenne : les députés européens et le commissaire suédois relèvent des parsers européens existants. Base légale : loi (2017:630) sur les mesures contre le blanchiment et le financement du terrorisme (personne politiquement exposée, douze mois après la fin des fonctions).</p>
+<p>Date : 6 novembre 2026. Pays de l'Union européenne : les députés européens et le commissaire suédois sont couverts par se_pep_europarl et se_pep_eu_commission (voir le tableau ci-dessous). Base légale : loi (2017:630) sur les mesures contre le blanchiment et le financement du terrorisme (personne politiquement exposée, douze mois après la fin des fonctions).</p>
 
 <h2>1. Parsers réalisés (lots 1 et 2)</h2>
 <p>Source unique : l'API ouverte du Riksdag, <i>data.riksdagen.se/personlista</i> (un seul appel JSON de 19 Mo, 3 524 personnes avec leurs missions datées). Un seul plugin sert les six jeux, selon le paramètre <i>scope</i>.</p>
@@ -20,6 +20,8 @@ th{background:#e8eef5}.ok{color:#14702e;font-weight:600}.ko{color:#a32020;font-w
 <tr><td>se_pep_parties</td><td>Chefs de parti et porte-parole qui siègent au Riksdag (SE-c)</td><td>10 personnes</td></tr>
 <tr><td>se_pep_oversight</td><td>Riksrevisor et direction de la Riksrevisionen, médiateurs parlementaires JO (SE-e)</td><td>10 personnes</td></tr>
 <tr><td>se_pep_institutions (lot 2)</td><td>Justices de la Cour suprême (16) et de la Cour administrative suprême (16), direction de la Riksbank (5), Roi de Suède (SE-a, SE-d, SE-e)</td><td>38 personnes</td></tr>
+<tr><td>se_pep_europarl</td><td>API du Parlement européen</td><td>Députés européens élus dans le pays, en fonction ou sortis depuis moins de 12 mois (SE-EU)</td><td>21 personnes (19 avec naissance)</td></tr>
+<tr><td>se_pep_eu_commission</td><td>commission.europa.eu (fiche du commissaire)</td><td>Membre suédois de la Commission européenne (SE-EU)</td><td>1 personne (Jessika Roswall)</td></tr>
 </table>
 <p>Le parser télécharge la source à chaque exécution ; aucune liste de noms n'est embarquée ; Wikidata n'est pas utilisé. Migrations Liquibase 068 et 069 (pays SE, catégories, fonctions, 7 parsers), validée sur une base jetable. 209 personnes décédées sont écartées.</p>
 

@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Lituanie : référentiel PEP et parser, sans Wikidata.
+
+    Base légale : loi sur la prévention du blanchiment de capitaux et du financement du terrorisme (Pinigų plovimo ir teroristų
+    finansavimo prevencijos įstatymas) : personne politiquement exposée (politiškai pažeidžiamas asmuo) ; vigilance de douze mois
+    après la fin des fonctions (durée à confirmer sur le texte en vigueur).
+
+    Parser (plugin dans swiftcheck-aml-plugins/pep/lithuania) :
+      - lt_pep_parliament : membres du Seimas, législature 2024-2028 (www.lrs.lt)
+
+    Non couvert à ce jour, avec le motif :
+      - gouvernement (lrv.lt), présidence (lrp.lt), Banque de Lituanie (lb.lt), Cour suprême (lat.lt), Cour constitutionnelle
+        (lrkt.lt), Commission électorale (vrk.lt), ministères (urm.lt, kam.lt), e-seimas.lrs.lt : HTTP 403 (contrôle Cloudflare
+        « Just a moment »), non contournés ; apps.lrs.lt (données ouvertes du Seimas) : connexion impossible depuis notre poste ;
+        Cour des comptes (valstybekontrole.lt) : injoignable ;
+      - législatures antérieures : aucune naissance ni décès exploitable sans lire chaque fiche (20 s par fiche), non repris ;
+      - proches (RCA) : seule source connue = Wikidata, exclue.
+-->
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="080-lt-country" author="swiftcheck">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM country WHERE iso = 'LT'</sqlCheck>
+        </preConditions>
+        <sql>
+            INSERT INTO country (iso, name, eu_member, legal_basis, retention_months)
+            VALUES ('LT', 'Lituanie', TRUE,
+                    'Loi sur la prévention du blanchiment de capitaux et du financement du terrorisme (Pinigų plovimo ir teroristų finansavimo prevencijos įstatymas) : personnes politiquement exposées (politiškai pažeidžiamas asmuo), membres de leur famille et proches associés, douze mois après la fin des fonctions', 12);
+        </sql>
+    </changeSet>
+
+    <changeSet id="080-lt-categories" author="swiftcheck">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM pep_category WHERE country_iso = 'LT'</sqlCheck>
+        </preConditions>
+        <sql>
+            INSERT INTO pep_category (country_iso, code, label, kind, risk_class, sort_order, legal_reference) VALUES
+            ('LT', 'LT-a', 'Chef de l''État, Premier ministre et ministres', 'OFFICIAL', 1, 1, 'Loi sur la prévention du blanchiment'),
+            ('LT', 'LT-b', 'Membres du Seimas', 'OFFICIAL', 1, 2, 'Loi sur la prévention du blanchiment'),
+            ('LT', 'LT-c', 'Organes dirigeants des partis politiques', 'OFFICIAL', 2, 3, 'Loi sur la prévention du blanchiment'),
+            ('LT', 'LT-d', 'Cour suprême et Cour constitutionnelle', 'OFFICIAL', 2, 4, 'Loi sur la prévention du blanchiment'),
+            ('LT', 'LT-e', 'Cour des comptes et Banque de Lituanie', 'OFFICIAL', 2, 5, 'Loi sur la prévention du blanchiment'),
+            ('LT', 'LT-f', 'Ambassadeurs et officiers généraux des forces armées', 'OFFICIAL', 2, 6, 'Loi sur la prévention du blanchiment'),
+            ('LT', 'LT-g', 'Dirigeants des entreprises détenues par l''État', 'OFFICIAL', 3, 7, 'Loi sur la prévention du blanchiment'),
+            ('LT', 'LT-h', 'Dirigeants des organisations internationales', 'OFFICIAL', 3, 8, 'Loi sur la prévention du blanchiment'),
+            ('LT', 'LT-RCA', 'Membres de la famille et proches associés', 'RCA', 2, 9, 'Loi sur la prévention du blanchiment (membres de la famille et personnes connues comme étroitement associées)');
+        </sql>
+    </changeSet>
+
+    <changeSet id="080-lt-functions" author="swiftcheck">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM pep_function f JOIN pep_category c ON c.id = f.category_id WHERE c.country_iso = 'LT'</sqlCheck>
+        </preConditions>
+        <sql>
+            INSERT INTO pep_function (category_id, label, institution, expected_holders)
+            SELECT c.id, f.label, f.institution, f.expected_holders
+            FROM pep_category c JOIN (
+                SELECT 'LT-a' AS code, 'Président de la République' AS label, 'Lietuvos Respublikos Prezidentas' AS institution, 1 AS expected_holders
+                UNION ALL SELECT 'LT-a', 'Premier ministre et ministres', 'Lietuvos Respublikos Vyriausybė', 15
+                UNION ALL SELECT 'LT-a', 'Ancien ministre', 'Lietuvos Respublikos Vyriausybė', NULL
+                UNION ALL SELECT 'LT-b', 'Membre du Seimas', 'Seimas', 141
+                UNION ALL SELECT 'LT-b', 'Ancien membre du Seimas', 'Seimas', NULL
+                UNION ALL SELECT 'LT-c', 'Membre d''un organe dirigeant d''un parti', 'Partis politiques', 30
+                UNION ALL SELECT 'LT-d', 'Juge de la Cour suprême', 'Lietuvos Aukščiausiasis Teismas', 35
+                UNION ALL SELECT 'LT-d', 'Juge de la Cour constitutionnelle', 'Lietuvos Respublikos Konstitucinis Teismas', 9
+                UNION ALL SELECT 'LT-e', 'Auditeur général', 'Valstybės kontrolė', 1
+                UNION ALL SELECT 'LT-e', 'Membre du conseil de la Banque de Lituanie', 'Lietuvos bankas', 5
+                UNION ALL SELECT 'LT-f', 'Ambassadeur', 'Užsienio reikalų ministerija', 40
+                UNION ALL SELECT 'LT-f', 'Officier général des forces armées', 'Lietuvos kariuomenė', 10
+                UNION ALL SELECT 'LT-g', 'Dirigeant d''une entreprise détenue par l''État', 'Entreprises d''État', NULL
+                UNION ALL SELECT 'LT-h', 'Dirigeant d''une organisation internationale', 'Organisations internationales', NULL
+                UNION ALL SELECT 'LT-RCA', 'Membre de la famille d''une PEP lituanienne', NULL, NULL
+                UNION ALL SELECT 'LT-RCA', 'Proche associé d''une PEP lituanienne', NULL, NULL
+            ) f ON f.code = c.code;
+        </sql>
+    </changeSet>
+
+    <changeSet id="080-parser-lt-pep-parliament" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Lituanie – Seimas',
+                'Membres du Seimas (législature 2024-2028), d''après le site officiel www.lrs.lt (catégorie LT-b)',
+                'lt_pep_parliament', 'PEP', 'https://www.lrs.lt/',
+                'lt-pep-seimas', 'D:/test parser 2/plugins/swiftcheck-aml-lt-pep-seimas-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'WEB_PAGE',
+                NULL,
+                '{"listUrl": "https://www.lrs.lt/sip/portal.show?p_r=35299&p_k=1", "details": "true", "delayMs": "20000"}',
+                720, 12,
+                'Site officiel du Seimas : citer la source (conditions de réutilisation à vérifier sur www.lrs.lt)', 'Lietuvos Respublikos Seimas, www.lrs.lt',
+                'La page « Seimo nariai » (1 requête) donne 140 membres avec leur groupe ; la fiche de chaque membre donne la date et le lieu de naissance. Le robots.txt impose 20 secondes entre deux requêtes (plancher imposé dans le code) et interdit /pls/ : avec les fiches, une exécution dure environ 47 minutes ; mettre details = false pour ne lire que la liste (une requête, sans naissance). Pas de dates de mandat ; pas d''anciens membres.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'PARTIAL', FALSE,
+                   'Les 140 membres du Seimas de la législature en cours, avec groupe et, avec les fiches, naissance et lieu de naissance.',
+                   'Anciens membres non couverts ; pas de dates de mandat ; un siège sur 141 non listé.'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'LT-b' AND f.label = 'Membre du Seimas' AND p.dataset_name = 'lt_pep_parliament';
+        ]]></sql>
+    </changeSet>
+
+</databaseChangeLog>

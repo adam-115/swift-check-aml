@@ -7,7 +7,7 @@ table{border-collapse:collapse;width:100%;margin:10px 0;font-size:10pt}th,td{bor
 th{background:#e8eef5}.ok{color:#14702e;font-weight:600}.ko{color:#a32020;font-weight:600}.note{background:#f4f7fa;border-left:4px solid #0b3d6b;padding:8px 12px}
 </style></head><body>
 <h1>Plan des parsers PEP – Finlande</h1>
-<p>Date : 6 novembre 2026. Pays de l'Union européenne : les députés européens et le commissaire finlandais relèvent des parsers européens existants. Base légale : loi 444/2017 sur la prévention du blanchiment et du financement du terrorisme (personne politiquement influente, douze mois après la fin des fonctions).</p>
+<p>Date : 6 novembre 2026. Pays de l'Union européenne : les députés européens et le commissaire finlandais sont couverts par fi_pep_europarl et fi_pep_eu_commission (voir le tableau ci-dessous). Base légale : loi 444/2017 sur la prévention du blanchiment et du financement du terrorisme (personne politiquement influente, douze mois après la fin des fonctions).</p>
 
 <h2>1. Parsers réalisés (lots 1 à 3)</h2>
 <table>
@@ -19,6 +19,8 @@ th{background:#e8eef5}.ok{color:#14702e;font-weight:600}.ko{color:#a32020;font-w
 <tr><td>fi_pep_courts</td><td>Pages officielles de la Cour suprême (korkeinoikeus.fi) et de la Cour administrative suprême (kho.fi)</td><td>Présidents et membres (FI-d), année de naissance, congés signalés</td><td>≈ 20 + 21 personnes</td></tr>
 <tr><td>fi_pep_institutions (lot 2)</td><td>presidentti.fi (CV et anciens présidents), solidium.fi (conseil et équipe)</td><td>Président de la République en fonction et anciens vivants (FI-a) ; conseil et direction de Solidium (FI-g)</td><td>1 + 2 présidents ; 6 administrateurs + 3 dirigeants</td></tr>
 <tr><td>fi_pep_ambassadors (lot 3)</td><td>um.fi (listes et fiches de contact, 20 s entre requêtes)</td><td>Chefs des ambassades, consulats généraux, missions permanentes, ambassadeurs itinérants (FI-f)</td><td>91 personnes sur 93 représentations (≈ 35 min)</td></tr>
+<tr><td>fi_pep_europarl</td><td>API du Parlement européen</td><td>Députés européens élus dans le pays, en fonction ou sortis depuis moins de 12 mois (FI-EU)</td><td>15 personnes (12 avec naissance)</td></tr>
+<tr><td>fi_pep_eu_commission</td><td>commission.europa.eu (fiche du commissaire)</td><td>Membre finlandais de la Commission européenne (FI-EU)</td><td>1 personne (Henna Virkkunen)</td></tr>
 </table>
 <p>Chaque parser télécharge la source à chaque exécution ; aucune liste de noms n'est embarquée ; Wikidata n'est pas utilisé. Un seul plugin sert les quatre jeux parlement et gouvernement (paramètre <i>scope</i>). Migrations Liquibase 065 et 066 (pays FI, catégories, fonctions, 6 parsers), validée sur une base jetable. 1 926 personnes décédées sont écartées de la table.</p>
 

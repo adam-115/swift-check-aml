@@ -7,13 +7,15 @@ table{border-collapse:collapse;width:100%;margin:10px 0;font-size:10pt}th,td{bor
 th{background:#e8eef5}.ok{color:#14702e;font-weight:600}.ko{color:#a32020;font-weight:600}.note{background:#f4f7fa;border-left:4px solid #0b3d6b;padding:8px 12px}
 </style></head><body>
 <h1>Plan des parsers PEP – Lettonie</h1>
-<p>Date : 6 novembre 2026. Pays de l'Union européenne : les députés européens et le commissaire letton relèvent des parsers européens existants. Base légale : loi sur la prévention du blanchiment de capitaux et du financement du terrorisme et de la prolifération (<i>Noziedzīgi iegūtu līdzekļu legalizācijas un terorisma un proliferācijas finansēšanas novēršanas likums</i>), personne politiquement exposée ; vigilance de douze mois après la fin des fonctions (durée à confirmer sur le texte en vigueur).</p>
+<p>Date : 6 novembre 2026. Pays de l'Union européenne : les députés européens et le commissaire letton sont couverts par lv_pep_europarl et lv_pep_eu_commission (voir le tableau ci-dessous). Base légale : loi sur la prévention du blanchiment de capitaux et du financement du terrorisme et de la prolifération (<i>Noziedzīgi iegūtu līdzekļu legalizācijas un terorisma un proliferācijas finansēšanas novēršanas likums</i>), personne politiquement exposée ; vigilance de douze mois après la fin des fonctions (durée à confirmer sur le texte en vigueur).</p>
 
 <h2>1. Parsers réalisés (lot 1)</h2>
 <table>
 <tr><th>Jeu de données</th><th>Source</th><th>Contenu</th><th>Volume mesuré</th></tr>
 <tr><td>lv_pep_parliament</td><td>saeima.lv (pages publiques : 2 législatures et 239 fiches)</td><td>Députés de la 15e législature (depuis le 3 novembre 2026) et de la 14e, en fonction ou sortis depuis moins de 12 mois (LV-b)</td><td>178 personnes</td></tr>
 <tr><td>lv_pep_government</td><td>mk.gov.lv (15 pages)</td><td>Premier ministre et ministres (LV-a)</td><td>14 personnes</td></tr>
+<tr><td>lv_pep_europarl</td><td>API du Parlement européen</td><td>Députés européens élus en Lettonie, en fonction ou sortis depuis moins de 12 mois (LV-EU)</td><td>9 personnes (8 avec naissance)</td></tr>
+<tr><td>lv_pep_eu_commission</td><td>commission.europa.eu (fiche du commissaire)</td><td>Membre letton de la Commission européenne (LV-EU)</td><td>1 personne (Valdis Dombrovskis)</td></tr>
 </table>
 <p>Chaque parser télécharge la source à chaque exécution ; aucune liste de noms n'est embarquée ; Wikidata n'est pas utilisé. Migration Liquibase 078 (pays LV, catégories, fonctions, 2 parsers), validée sur une base jetable.</p>
 

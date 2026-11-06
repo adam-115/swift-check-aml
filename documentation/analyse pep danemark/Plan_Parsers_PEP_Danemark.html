@@ -7,7 +7,7 @@ table{border-collapse:collapse;width:100%;margin:10px 0;font-size:10pt}th,td{bor
 th{background:#e8eef5}.ok{color:#14702e;font-weight:600}.ko{color:#a32020;font-weight:600}.note{background:#f4f7fa;border-left:4px solid #0b3d6b;padding:8px 12px}
 </style></head><body>
 <h1>Plan des parsers PEP – Danemark</h1>
-<p>Date : 6 novembre 2026. Pays de l'Union européenne : les députés européens et le commissaire danois relèvent des parsers européens existants. Base légale : loi sur les mesures préventives contre le blanchiment et le financement du terrorisme (hvidvaskloven), personne politiquement exposée, douze mois après la fin des fonctions.</p>
+<p>Date : 6 novembre 2026. Pays de l'Union européenne : les députés européens et le commissaire danois sont couverts par dk_pep_europarl et dk_pep_eu_commission (voir le tableau ci-dessous). Base légale : loi sur les mesures préventives contre le blanchiment et le financement du terrorisme (hvidvaskloven), personne politiquement exposée, douze mois après la fin des fonctions.</p>
 
 <h2>1. Parsers réalisés (lot 1)</h2>
 <p>Source unique : l'API ouverte du Folketing, <i>oda.ft.dk/api/Aktør</i> (OData, JSON ; environ 3 400 personnes, dont 2 020 avec une fiche biographique XML). Un seul plugin sert les cinq jeux, selon le paramètre <i>scope</i>.</p>
@@ -18,6 +18,8 @@ th{background:#e8eef5}.ok{color:#14702e;font-weight:600}.ko{color:#a32020;font-w
 <tr><td>dk_pep_government</td><td>Premier ministre et ministres avec fonction et dates exactes (DK-a)</td><td>38 personnes (changement de gouvernement le 3 juin 2026)</td></tr>
 <tr><td>dk_pep_government_history</td><td>Anciens ministres des 50 dernières années</td><td>180 personnes</td></tr>
 <tr><td>dk_pep_oversight</td><td>Statsrevisorer, auditeurs d'État élus par le Folketing (DK-e)</td><td>10 personnes (41 sur 50 ans)</td></tr>
+<tr><td>dk_pep_europarl</td><td>API du Parlement européen</td><td>Députés européens élus dans le pays, en fonction ou sortis depuis moins de 12 mois (DK-EU)</td><td>16 personnes (15 avec naissance) : 15 en fonction et 1 sorti depuis moins de 12 mois</td></tr>
+<tr><td>dk_pep_eu_commission</td><td>commission.europa.eu (fiche du commissaire)</td><td>Membre danois de la Commission européenne (DK-EU)</td><td>1 personne (Dan Jørgensen)</td></tr>
 </table>
 <p>Le parser télécharge la source à chaque exécution ; aucune liste de noms n'est embarquée ; Wikidata n'est pas utilisé. Migration Liquibase 070 (pays DK, catégories, fonctions, 5 parsers), validée sur une base jetable. 786 personnes décédées sont écartées.</p>
 
