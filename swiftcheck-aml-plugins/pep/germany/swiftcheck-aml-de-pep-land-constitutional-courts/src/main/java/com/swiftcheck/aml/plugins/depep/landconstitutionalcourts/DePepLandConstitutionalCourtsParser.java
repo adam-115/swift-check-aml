@@ -200,4 +200,45 @@ public class DePepLandConstitutionalCourtsParser implements Iparser {
             throw last;
         };
     }
+
+    /**
+     * Test du parser : relance la lecture de la source vers des dossiers temporaires (la source archivée n'est pas
+     * touchée) et renvoie chaque personne avec l'ID et le nom que Yente doit connaître.
+     */
+    @Override
+    public java.util.List<com.swiftcheck.aml.plugin.SourceRecord> readSourceRecords(ParserContext ctx) throws Exception {
+        java.nio.file.Path tmp = java.nio.file.Files.createTempDirectory("src-records");
+        try {
+            java.nio.file.Path out = tmp.resolve("out.ndjson");
+            java.nio.file.Path raw = java.nio.file.Files.createDirectories(tmp.resolve("raw"));
+            parse(new ParserContext(ctx.datasetName(), ctx.inputFile(), raw, out, ctx.parameters()));
+            java.util.regex.Pattern str = java.util.regex.Pattern.compile("\"((?:[^\"\\\\]|\\\\.)*)\"");
+            java.util.regex.Pattern idPattern = java.util.regex.Pattern.compile("^\\{\"id\":\"((?:[^\"\\\\]|\\\\.)*)\"");
+            java.util.List<com.swiftcheck.aml.plugin.SourceRecord> records = new java.util.ArrayList<>();
+            for (String line : java.nio.file.Files.readAllLines(out, java.nio.charset.StandardCharsets.UTF_8)) {
+                if (!line.contains("\"schema\":\"Person\"")) {
+                    continue;
+                }
+                java.util.regex.Matcher id = idPattern.matcher(line);
+                int n = line.indexOf("\"name\":[");
+                if (!id.find() || n < 0) {
+                    continue;
+                }
+                java.util.regex.Matcher name = str.matcher(line.substring(n + 7));
+                if (name.find()) {
+                    records.add(new com.swiftcheck.aml.plugin.SourceRecord(unescape(id.group(1)), "Person",
+                            unescape(name.group(1)), null));
+                }
+            }
+            return records;
+        } finally {
+            try (var walk = java.nio.file.Files.walk(tmp)) {
+                walk.sorted(java.util.Comparator.reverseOrder()).forEach(p -> p.toFile().delete());
+            }
+        }
+    }
+
+    private static String unescape(String s) {
+        return s.replace("\\\"", "\"").replace("\\\\", "\\").replace("\\n", "\n").replace("\\t", "\t");
+    }
 }

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<representanter_oversikt xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://data.stortinget.no">
+  <respons_dato_tid>2026-11-06T00:36:51.4540744+01:00</respons_dato_tid>
+  <versjon>1.6</versjon>
+  <representanter_liste>
+    <representant>
+      <respons_dato_tid>2026-11-06T00:36:51.4540744+01:00</respons_dato_tid>
+      <versjon>1.6</versjon>
+      <doedsdato>2022-09-28T00:00:00+02:00</doedsdato>
+      <etternavn>Bransdal</etternavn>
+      <foedselsdato>1956-04-10T00:00:00</foedselsdato>
+      <fornavn>Torhild</fornavn>
+      <id>BRA</id>
+      <kjoenn>kvinne</kjoenn>
+      <fylke>
+        <respons_dato_tid>2026-11-05T21:29:02.0506476+01:00</respons_dato_tid>
+        <versjon>1.6</versjon>
+        <historisk_fylke>false</historisk_fylke>
+        <id>VA</id>
+        <navn>Vest-Agder</navn>
+      </fylke>
+      <parti>
+        <respons_dato_tid>2026-11-05T01:00:19.3466305+01:00</respons_dato_tid>
+        <versjon>1.6</versjon>
+        <id>KrF</id>
+        <navn>Kristelig Folkeparti</navn>
+        <representert_parti>true</representert_parti>
+      </parti>
+      <vara_representant>false</vara_representant>
+    </representant>
+<representant>
+      <respons_dato_tid>2026-11-06T00:36:51.4540744+01:00</respons_dato_tid>
+      <versjon>1.6</versjon>
+      <doedsdato i:nil="true" />
+      <etternavn>Lysbakken</etternavn>
+      <foedselsdato>1977-09-30T00:00:00</foedselsdato>
+      <fornavn>Audun</fornavn>
+      <id>ALYS</id>
+      <kjoenn>mann</kjoenn>
+      <fylke>
+        <respons_dato_tid>2026-11-05T21:29:02.0506476+01:00</respons_dato_tid>
+        <versjon>1.6</versjon>
+        <historisk_fylke>false</historisk_fylke>
+        <id>Ho</id>
+        <navn>Hordaland</navn>
+      </fylke>
+      <parti>
+        <respons_dato_tid>2026-11-05T01:00:19.3466305+01:00</respons_dato_tid>
+        <versjon>1.6</versjon>
+        <id>SV</id>
+        <navn>Sosialistisk Venstreparti</navn>
+        <representert_parti>true</representert_parti>
+      </parti>
+      <vara_representant>false</vara_representant>
+    </representant></representanter_liste></representanter_oversikt>

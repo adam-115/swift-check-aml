@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Norvège, lot 2 : gouvernement (Premier ministre et ministres) d'après l'API ouverte du Storting
+    (data.stortinget.no/eksport/regjering), sans passer par regjeringen.no (contrôle Cloudflare, non contourné).
+    Non couvert : secrétaires d'État et anciens ministres (absents de l'API) ; Riksrevisjonen (accès refusé aux robots),
+    Cour suprême (domstol.no en JavaScript), Roi (kongehuset.no, HTTP 429), forces armées (aucune liste publique trouvée).
+-->
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="064-parser-no-pep-government" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Norvège – Gouvernement',
+                'Premier ministre et ministres du gouvernement norvégien en fonction, d''après l''API ouverte du Storting (catégorie NO-a)',
+                'no_pep_government', 'PEP', 'https://data.stortinget.no/',
+                'no-pep-government', 'D:/test parser 2/plugins/swiftcheck-aml-no-pep-government-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'API',
+                NULL,
+                '{"apiUrl": "https://data.stortinget.no/eksport", "delayMs": "500"}',
+                168, 12,
+                'Données ouvertes du Storting : citer la source (conditions d''utilisation à vérifier sur data.stortinget.no)', 'Stortinget, data.stortinget.no',
+                'Un seul appel (/regjering) : 20 membres en fonction avec naissance, genre, département, titre et parti. Pas d''historique ni de secrétaires d''État dans l''API ; regjeringen.no reste inaccessible (Cloudflare).', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'PARTIAL', FALSE,
+                   'Le Premier ministre et les 19 autres ministres en fonction, avec date de naissance.',
+                   'Secrétaires d''État et anciens ministres non couverts (absents de l''API) ; pas de date de début de fonction.'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'NO-a' AND f.label LIKE 'Premier ministre%' AND p.dataset_name = 'no_pep_government';
+        ]]></sql>
+    </changeSet>
+
+</databaseChangeLog>

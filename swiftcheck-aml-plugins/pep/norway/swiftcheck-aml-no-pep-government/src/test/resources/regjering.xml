@@ -1,0 +1,427 @@
+<?xml version="1.0" encoding="utf-8"?>
+<regjeringsmedlemmer_oversikt xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://data.stortinget.no">
+  <respons_dato_tid>2026-11-06T01:06:03.7813626+01:00</respons_dato_tid>
+  <versjon>1.6</versjon>
+  <regjeringsmedlemmer_liste>
+    <regjeringsmedlem>
+      <respons_dato_tid>2026-11-06T01:06:03.812596+01:00</respons_dato_tid>
+      <versjon>1.6</versjon>
+      <doedsdato i:nil="true" />
+      <etternavn>Støre</etternavn>
+      <foedselsdato>1960-08-25T00:00:00</foedselsdato>
+      <fornavn>Jonas Gahr</fornavn>
+      <id>JGS</id>
+      <kjoenn>mann</kjoenn>
+      <departement>Statsministerens kontor</departement>
+      <parti>
+        <respons_dato_tid>2026-11-06T01:00:19.0141273+01:00</respons_dato_tid>
+        <versjon>1.6</versjon>
+        <id>A</id>
+        <navn>Arbeiderpartiet</navn>
+        <representert_parti>true</representert_parti>
+      </parti>
+      <sortering>1</sortering>
+      <tittel>Statsminister</tittel>
+      <verv>Statsminister</verv>
+    </regjeringsmedlem>
+    <regjeringsmedlem>
+      <respons_dato_tid>2026-11-06T01:06:03.812596+01:00</respons_dato_tid>
+      <versjon>1.6</versjon>
+      <doedsdato i:nil="true" />
+      <etternavn>Vestre</etternavn>
+      <foedselsdato>1986-10-09T00:00:00</foedselsdato>
+      <fornavn>Jan Christian</fornavn>
+      <id>JANVES</id>
+      <kjoenn>mann</kjoenn>
+      <departement>Helse- og omsorgsdepartementet</departement>
+      <parti>
+        <respons_dato_tid>2026-11-06T01:00:19.0141273+01:00</respons_dato_tid>
+        <versjon>1.6</versjon>
+        <id>A</id>
+        <navn>Arbeiderpartiet</navn>
+        <representert_parti>true</representert_parti>
+      </parti>
+      <sortering>2</sortering>
+      <tittel>Helse- og omsorgsminister</tittel>
+      <verv>Statsråd</verv>
+    </regjeringsmedlem>
+    <regjeringsmedlem>
+      <respons_dato_tid>2026-11-06T01:06:03.812596+01:00</respons_dato_tid>
+      <versjon>1.6</versjon>
+      <doedsdato i:nil="true" />
+      <etternavn>Stoltenberg</etternavn>
+      <foedselsdato>1959-03-16T00:00:00</foedselsdato>
+      <fornavn>Jens</fornavn>
+      <id>JES</id>
+      <kjoenn>mann</kjoenn>
+      <departement>Finansdepartementet</departement>
+      <parti>
+        <respons_dato_tid>2026-11-06T01:00:19.0141273+01:00</respons_dato_tid>
+        <versjon>1.6</versjon>
+        <id>A</id>
+        <navn>Arbeiderpartiet</navn>
+        <representert_parti>true</representert_parti>
+      </parti>
+      <sortering>3</sortering>
+      <tittel>Finansminister</tittel>
+      <verv>Statsråd</verv>
+    </regjeringsmedlem>
+    <regjeringsmedlem>
+      <respons_dato_tid>2026-11-06T01:06:03.812596+01:00</respons_dato_tid>
+      <versjon>1.6</versjon>
+      <doedsdato i:nil="true" />
+      <etternavn>Eide</etternavn>
+      <foedselsdato>1964-05-01T00:00:00</foedselsdato>
+      <fornavn>Espen Barth</fornavn>
+      <id>EBE</id>
+      <kjoenn>mann</kjoenn>
+      <departement>Utenriksdepartementet</departement>
+      <parti>
+        <respons_dato_tid>2026-11-06T01:00:19.0141273+01:00</respons_dato_tid>
+        <versjon>1.6</versjon>
+        <id>A</id>
+        <navn>Arbeiderpartiet</navn>
+        <representert_parti>true</representert_parti>
+      </parti>
+      <sortering>4</sortering>
+      <tittel>Utenriksminister</tittel>
+      <verv>Utenriksminister</verv>
+    </regjeringsmedlem>
+    <regjeringsmedlem>
+      <respons_dato_tid>2026-11-06T01:06:03.812596+01:00</respons_dato_tid>
+      <versjon>1.6</versjon>
+      <doedsdato i:nil="true" />
+      <etternavn>Aasland</etternavn>
+      <foedselsdato>1965-02-15T00:00:00</foedselsdato>
+      <fornavn>Terje</fornavn>
+      <id>TELA</id>
+      <kjoenn>mann</kjoenn>
+      <departement>Energidepartementet</departement>
+      <parti>
+        <respons_dato_tid>2026-11-06T01:00:19.0141273+01:00</respons_dato_tid>
+        <versjon>1.6</versjon>
+        <id>A</id>
+        <navn>Arbeiderpartiet</navn>
+        <representert_parti>true</representert_parti>
+      </parti>
+      <sortering>5</sortering>
+      <tittel>Energiminister</tittel>
+      <verv>Statsråd</verv>
+    </regjeringsmedlem>
+    <regjeringsmedlem>
+      <respons_dato_tid>2026-11-06T01:06:03.812596+01:00</respons_dato_tid>
+      <versjon>1.6</versjon>
+      <doedsdato i:nil="true" />
+      <etternavn>Jaffery</etternavn>
+      <foedselsdato>1980-04-02T00:00:00</foedselsdato>
+      <fornavn>Lubna Boby</fornavn>
+      <id>LBF</id>
+      <kjoenn>kvinne</kjoenn>
+      <departement>Kultur- og likestillingsdepartementet</departement>
+      <parti>
+        <respons_dato_tid>2026-11-06T01:00:19.0141273+01:00</respons_dato_tid>
+        <versjon>1.6</versjon>
+        <id>A</id>
+        <navn>Arbeiderpartiet</navn>
+        <representert_parti>true</representert_parti>
+      </parti>
+      <sortering>6</sortering>
+      <tittel>Kultur- og likestillingsminister</tittel>
+      <verv>Statsråd</verv>
+    </regjeringsmedlem>
+    <regjeringsmedlem>
+      <respons_dato_tid>2026-11-06T01:06:03.812596+01:00</respons_dato_tid>
+      <versjon>1.6</versjon>
+      <doedsdato i:nil="true" />
+      <etternavn>Skjæran</etternavn>
+      <foedselsdato>1966-05-28T00:00:00</foedselsdato>
+      <fornavn>Bjørnar</fornavn>
+      <id>BJRSKJ</id>
+      <kjoenn>mann</kjoenn>
+      <departement>Kommunal- og distriktsdepartementet</departement>
+      <parti>
+        <respons_dato_tid>2026-11-06T01:00:19.0141273+01:00</respons_dato_tid>
+        <versjon>1.6</versjon>
+        <id>A</id>
+        <navn>Arbeiderpartiet</navn>
+        <representert_parti>true</representert_parti>
+      </parti>
+      <sortering>7</sortering>
+      <tittel>Kommunal- og distriktsminister</tittel>
+      <verv>Statsråd</verv>
+    </regjeringsmedlem>
+    <regjeringsmedlem>
+      <respons_dato_tid>2026-11-06T01:06:03.812596+01:00</respons_dato_tid>
+      <versjon>1.6</versjon>
+      <doedsdato i:nil="true" />
+      <etternavn>Myrseth</etternavn>
+      <foedselsdato>1984-07-27T00:00:00</foedselsdato>
+      <fornavn>Cecilie</fornavn>
+      <id>CTM</id>
+      <kjoenn>kvinne</kjoenn>
+      <departement>Nærings- og fiskeridepartementet</departement>
+      <parti>
+        <respons_dato_tid>2026-11-06T01:00:19.0141273+01:00</respons_dato_tid>
+        <versjon>1.6</versjon>
+        <id>A</id>
+        <navn>Arbeiderpartiet</navn>
+        <representert_parti>true</representert_parti>
+      </parti>
+      <sortering>8</sortering>
+      <tittel>Næringsminister</tittel>
+      <verv>Statsråd</verv>
+    </regjeringsmedlem>
+    <regjeringsmedlem>
+      <respons_dato_tid>2026-11-06T01:06:03.812596+01:00</respons_dato_tid>
+      <versjon>1.6</versjon>
+      <doedsdato i:nil="true" />
+      <etternavn>Nordtun</etternavn>
+      <foedselsdato>1986-06-07T00:00:00</foedselsdato>
+      <fornavn>Kari Nessa</fornavn>
+      <id>KARNOR</id>
+      <kjoenn>kvinne</kjoenn>
+      <departement>Kunnskapsdepartementet</departement>
+      <parti>
+        <respons_dato_tid>2026-11-06T01:00:19.0141273+01:00</respons_dato_tid>
+        <versjon>1.6</versjon>
+        <id>A</id>
+        <navn>Arbeiderpartiet</navn>
+        <representert_parti>true</representert_parti>
+      </parti>
+      <sortering>9</sortering>
+      <tittel>Kunnskapsminister</tittel>
+      <verv>Statsråd</verv>
+    </regjeringsmedlem>
+    <regjeringsmedlem>
+      <respons_dato_tid>2026-11-06T01:06:03.812596+01:00</respons_dato_tid>
+      <versjon>1.6</versjon>
+      <doedsdato i:nil="true" />
+      <etternavn>Næss</etternavn>
+      <foedselsdato>1974-03-28T00:00:00</foedselsdato>
+      <fornavn>Marianne Sivertsen</fornavn>
+      <id>NSSMAR</id>
+      <kjoenn>kvinne</kjoenn>
+      <departement>Nærings- og fiskeridepartementet</departement>
+      <parti>
+        <respons_dato_tid>2026-11-06T01:00:19.0141273+01:00</respons_dato_tid>
+        <versjon>1.6</versjon>
+        <id>A</id>
+        <navn>Arbeiderpartiet</navn>
+        <representert_parti>true</representert_parti>
+      </parti>
+      <sortering>10</sortering>
+      <tittel>Fiskeri- og havminister</tittel>
+      <verv>Statsråd</verv>
+    </regjeringsmedlem>
+    <regjeringsmedlem>
+      <respons_dato_tid>2026-11-06T01:06:03.812596+01:00</respons_dato_tid>
+      <versjon>1.6</versjon>
+      <doedsdato i:nil="true" />
+      <etternavn>Sandvik</etternavn>
+      <foedselsdato>1969-08-31T00:00:00</foedselsdato>
+      <fornavn>Tore Onshuus</fornavn>
+      <id>TORSAN</id>
+      <kjoenn>mann</kjoenn>
+      <departement>Forsvarsdepartementet</departement>
+      <parti>
+        <respons_dato_tid>2026-11-06T01:00:19.0141273+01:00</respons_dato_tid>
+        <versjon>1.6</versjon>
+        <id>A</id>
+        <navn>Arbeiderpartiet</navn>
+        <representert_parti>true</representert_parti>
+      </parti>
+      <sortering>11</sortering>
+      <tittel>Forsvarsminister</tittel>
+      <verv>Statsråd</verv>
+    </regjeringsmedlem>
+    <regjeringsmedlem>
+      <respons_dato_tid>2026-11-06T01:06:03.812596+01:00</respons_dato_tid>
+      <versjon>1.6</versjon>
+      <doedsdato i:nil="true" />
+      <etternavn>Aas-Hansen</etternavn>
+      <foedselsdato>1970-12-16T00:00:00</foedselsdato>
+      <fornavn>Astri</fornavn>
+      <id>ASTAAS</id>
+      <kjoenn>kvinne</kjoenn>
+      <departement>Justis- og beredskapsdepartementet</departement>
+      <parti>
+        <respons_dato_tid>2026-11-06T01:00:19.0141273+01:00</respons_dato_tid>
+        <versjon>1.6</versjon>
+        <id>A</id>
+        <navn>Arbeiderpartiet</navn>
+        <representert_parti>true</representert_parti>
+      </parti>
+      <sortering>12</sortering>
+      <tittel>Justis- og beredskapsminister</tittel>
+      <verv>Statsråd</verv>
+    </regjeringsmedlem>
+    <regjeringsmedlem>
+      <respons_dato_tid>2026-11-06T01:06:03.812596+01:00</respons_dato_tid>
+      <versjon>1.6</versjon>
+      <doedsdato i:nil="true" />
+      <etternavn>Stenseng</etternavn>
+      <foedselsdato>1974-09-04T00:00:00</foedselsdato>
+      <fornavn>Kjersti</fornavn>
+      <id>KJSE</id>
+      <kjoenn>kvinne</kjoenn>
+      <departement>Arbeids- og inkluderingsdepartementet</departement>
+      <parti>
+        <respons_dato_tid>2026-11-06T01:00:19.0141273+01:00</respons_dato_tid>
+        <versjon>1.6</versjon>
+        <id>A</id>
+        <navn>Arbeiderpartiet</navn>
+        <representert_parti>true</representert_parti>
+      </parti>
+      <sortering>13</sortering>
+      <tittel>Arbeids- og inkluderingsminister</tittel>
+      <verv>Statsråd</verv>
+    </regjeringsmedlem>
+    <regjeringsmedlem>
+      <respons_dato_tid>2026-11-06T01:06:03.812596+01:00</respons_dato_tid>
+      <versjon>1.6</versjon>
+      <doedsdato i:nil="true" />
+      <etternavn>Aasland</etternavn>
+      <foedselsdato>1978-02-11T00:00:00</foedselsdato>
+      <fornavn>Sigrun</fornavn>
+      <id>SIGAAS</id>
+      <kjoenn>kvinne</kjoenn>
+      <departement>Klima- og miljødepartementet</departement>
+      <parti>
+        <respons_dato_tid>2026-11-06T01:00:19.0141273+01:00</respons_dato_tid>
+        <versjon>1.6</versjon>
+        <id>A</id>
+        <navn>Arbeiderpartiet</navn>
+        <representert_parti>true</representert_parti>
+      </parti>
+      <sortering>14</sortering>
+      <tittel>Klima- og miljøminister</tittel>
+      <verv>Statsråd</verv>
+    </regjeringsmedlem>
+    <regjeringsmedlem>
+      <respons_dato_tid>2026-11-06T01:06:03.812596+01:00</respons_dato_tid>
+      <versjon>1.6</versjon>
+      <doedsdato i:nil="true" />
+      <etternavn>Aukrust</etternavn>
+      <foedselsdato>1985-02-28T00:00:00</foedselsdato>
+      <fornavn>Åsmund</fornavn>
+      <id>AAUK</id>
+      <kjoenn>mann</kjoenn>
+      <departement>Utenriksdepartementet, utviklingssaker</departement>
+      <parti>
+        <respons_dato_tid>2026-11-06T01:00:19.0141273+01:00</respons_dato_tid>
+        <versjon>1.6</versjon>
+        <id>A</id>
+        <navn>Arbeiderpartiet</navn>
+        <representert_parti>true</representert_parti>
+      </parti>
+      <sortering>15</sortering>
+      <tittel>Utviklingsminister</tittel>
+      <verv>Statsråd</verv>
+    </regjeringsmedlem>
+    <regjeringsmedlem>
+      <respons_dato_tid>2026-11-06T01:06:03.812596+01:00</respons_dato_tid>
+      <versjon>1.6</versjon>
+      <doedsdato i:nil="true" />
+      <etternavn>Vågslid</etternavn>
+      <foedselsdato>1986-03-17T00:00:00</foedselsdato>
+      <fornavn>Lene</fornavn>
+      <id>LVA</id>
+      <kjoenn>kvinne</kjoenn>
+      <departement>Barne- og familiedepartementet</departement>
+      <parti>
+        <respons_dato_tid>2026-11-06T01:00:19.0141273+01:00</respons_dato_tid>
+        <versjon>1.6</versjon>
+        <id>A</id>
+        <navn>Arbeiderpartiet</navn>
+        <representert_parti>true</representert_parti>
+      </parti>
+      <sortering>16</sortering>
+      <tittel>Barne- og familieminister</tittel>
+      <verv>Statsråd</verv>
+    </regjeringsmedlem>
+    <regjeringsmedlem>
+      <respons_dato_tid>2026-11-06T01:06:03.812596+01:00</respons_dato_tid>
+      <versjon>1.6</versjon>
+      <doedsdato i:nil="true" />
+      <etternavn>Sandtrøen</etternavn>
+      <foedselsdato>1989-02-02T00:00:00</foedselsdato>
+      <fornavn>Nils Kristen</fornavn>
+      <id>NKS</id>
+      <kjoenn>mann</kjoenn>
+      <departement>Landbruks- og matdepartementet</departement>
+      <parti>
+        <respons_dato_tid>2026-11-06T01:00:19.0141273+01:00</respons_dato_tid>
+        <versjon>1.6</versjon>
+        <id>A</id>
+        <navn>Arbeiderpartiet</navn>
+        <representert_parti>true</representert_parti>
+      </parti>
+      <sortering>17</sortering>
+      <tittel>Landbruks- og matminister</tittel>
+      <verv>Statsråd</verv>
+    </regjeringsmedlem>
+    <regjeringsmedlem>
+      <respons_dato_tid>2026-11-06T01:06:03.812596+01:00</respons_dato_tid>
+      <versjon>1.6</versjon>
+      <doedsdato i:nil="true" />
+      <etternavn>Fugelsnes</etternavn>
+      <foedselsdato>1970-10-12T00:00:00</foedselsdato>
+      <fornavn>Eileen</fornavn>
+      <id>EILFUG</id>
+      <kjoenn>kvinne</kjoenn>
+      <departement>Kunnskapsdepartementet</departement>
+      <parti>
+        <respons_dato_tid>2026-11-06T01:00:19.0141273+01:00</respons_dato_tid>
+        <versjon>1.6</versjon>
+        <id>A</id>
+        <navn>Arbeiderpartiet</navn>
+        <representert_parti>true</representert_parti>
+      </parti>
+      <sortering>18</sortering>
+      <tittel>Forsknings- og høyere utdanningsminister</tittel>
+      <verv>Statsråd</verv>
+    </regjeringsmedlem>
+    <regjeringsmedlem>
+      <respons_dato_tid>2026-11-06T01:06:03.812596+01:00</respons_dato_tid>
+      <versjon>1.6</versjon>
+      <doedsdato i:nil="true" />
+      <etternavn>Micaelsen</etternavn>
+      <foedselsdato>1979-05-20T00:00:00</foedselsdato>
+      <fornavn>Torgeir</fornavn>
+      <id>TMI</id>
+      <kjoenn>mann</kjoenn>
+      <departement>Digitaliserings- og forvaltningsdepartementet</departement>
+      <parti>
+        <respons_dato_tid>2026-11-06T01:00:19.0141273+01:00</respons_dato_tid>
+        <versjon>1.6</versjon>
+        <id>A</id>
+        <navn>Arbeiderpartiet</navn>
+        <representert_parti>true</representert_parti>
+      </parti>
+      <sortering>19</sortering>
+      <tittel>Digitaliserings- og forvaltningsminister</tittel>
+      <verv>Statsråd</verv>
+    </regjeringsmedlem>
+    <regjeringsmedlem>
+      <respons_dato_tid>2026-11-06T01:06:03.812596+01:00</respons_dato_tid>
+      <versjon>1.6</versjon>
+      <doedsdato i:nil="true" />
+      <etternavn>Gunaratnam</etternavn>
+      <foedselsdato>1988-03-27T00:00:00</foedselsdato>
+      <fornavn>Kamzy</fornavn>
+      <id>KAMGUN</id>
+      <kjoenn>kvinne</kjoenn>
+      <departement>Samferdselsdepartementet</departement>
+      <parti>
+        <respons_dato_tid>2026-11-06T01:00:19.0141273+01:00</respons_dato_tid>
+        <versjon>1.6</versjon>
+        <id>A</id>
+        <navn>Arbeiderpartiet</navn>
+        <representert_parti>true</representert_parti>
+      </parti>
+      <sortering>20</sortering>
+      <tittel>Samferdselsminister</tittel>
+      <verv>Statsråd</verv>
+    </regjeringsmedlem>
+  </regjeringsmedlemmer_liste>
+</regjeringsmedlemmer_oversikt>

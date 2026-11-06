@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="fr"><head><meta charset="utf-8"><title>Plan des parsers PEP – Norvège</title>
+<style>
+body{font-family:Segoe UI,Arial,sans-serif;font-size:11pt;color:#1a1a1a;margin:28px;line-height:1.45}
+h1{color:#0b3d6b;border-bottom:3px solid #0b3d6b;padding-bottom:6px}h2{color:#0b3d6b;margin-top:26px}
+table{border-collapse:collapse;width:100%;margin:10px 0;font-size:10pt}th,td{border:1px solid #bbb;padding:5px 8px;text-align:left;vertical-align:top}
+th{background:#e8eef5}.ok{color:#14702e;font-weight:600}.ko{color:#a32020;font-weight:600}.note{background:#f4f7fa;border-left:4px solid #0b3d6b;padding:8px 12px}
+</style></head><body>
+<h1>Plan des parsers PEP – Norvège</h1>
+<p>Date : 6 novembre 2026. Pays de l'EEE hors Union européenne : pas de députés européens ni de commissaire. Base légale : <i>hvitvaskingsloven</i> (loi du 1er juin 2018, n° 23), vigilance de douze mois après la fin des fonctions.</p>
+
+<h2>1. Parsers réalisés (lots 1 et 2)</h2>
+<table>
+<tr><th>Jeu de données</th><th>Source</th><th>Contenu</th><th>Volume mesuré</th></tr>
+<tr><td>no_pep_parliament</td><td>API ouverte data.stortinget.no</td><td>Représentants en fonction et sortis depuis moins de 12 mois (NO-b)</td><td>169 en fonction + récents</td></tr>
+<tr><td>no_pep_parliament_history</td><td>idem, même plugin (monthsAfterEnd 600)</td><td>Anciens représentants sur 50 ans, vivants uniquement</td><td>≈ 677 personnes (OpenSanctions : 321)</td></tr>
+<tr><td>no_pep_state_enterprises</td><td>Registre de Brønnøysund (data.brreg.no)</td><td>DG, présidents, vice-présidents, membres de conseil ; suppléants en option (NO-g)</td><td>728 entreprises, 1 601 personnes, 2 923 fonctions (≈ 6 min)</td></tr>
+<tr><td>no_pep_norges_bank</td><td>Page « The Executive Board » de Norges Bank</td><td>Gouverneur, sous-gouverneurs, membres externes, représentants du personnel (NO-e)</td><td>11 membres</td></tr>
+<tr><td>no_pep_government (lot 2)</td><td>API ouverte du Storting /regjering</td><td>Premier ministre et ministres en fonction (NO-a)</td><td>20 membres, avec naissance et parti</td></tr>
+</table>
+<p>Chaque parser télécharge la source à chaque exécution ; aucune liste de noms n'est embarquée ; Wikidata n'est pas utilisé. Migration Liquibase 063 (pays NO, catégories, fonctions, 4 parsers, liens fonction-parser), validée sur une base jetable.</p>
+
+<h2>2. Comparaison avec OpenSanctions</h2>
+<table>
+<tr><th>Périmètre</th><th>SwiftCheck</th><th>OpenSanctions</th><th>Lecture</th></tr>
+<tr><td>Storting</td><td class="ok">≈ 677 (avec historique)</td><td>321</td><td class="ok">Dépassé</td></tr>
+<tr><td>Entreprises d'État</td><td>1 601</td><td>4 883</td><td class="ko">Derrière : périmètre d'OpenSanctions plus large et non documenté</td></tr>
+<tr><td>Norges Bank</td><td class="ok">11</td><td>non publié séparément</td><td>Couvert</td></tr>
+<tr><td>Gouvernement (ministres)</td><td class="ok">20 (lot 2, via l API du Storting)</td><td>couvert</td><td class="ok">Couvert ; secrétaires d État et anciens ministres absents de l API</td></tr><tr><td>Roi</td><td class="ko">Non couvert</td><td>couvert</td><td class="ko">Source bloquée</td></tr>
+</table>
+
+<h2>3. Sources bloquées, non contournées</h2>
+<table>
+<tr><th>Source</th><th>Obstacle</th><th>Voie propre</th></tr>
+<tr><td>regjeringen.no</td><td>Contrôle Cloudflare, HTTP 403</td><td>Non utilisé : les ministres sont lus dans l API ouverte du Storting</td></tr><tr><td>riksrevisjonen.no</td><td>Robots refusés (Request blocked)</td><td>Demander un fichier</td></tr>
+<tr><td>kongehuset.no (Roi)</td><td>Contrôle Vercel, HTTP 429</td><td>idem</td></tr>
+<tr><td>domstol.no (Cour suprême)</td><td>Page rendue en JavaScript</td><td>Chercher une source statique ou un export</td></tr>
+<tr><td>Ambassadeurs, officiers généraux, partis</td><td>Non analysés / pas de liste publique exploitable</td><td>À étudier</td></tr>
+</table>
+<p class="note">Les proches (RCA) ne sont pas couverts : la seule source connue est Wikidata, exclue.</p>
+
+<h2>4. Suite proposée</h2>
+<ul><li>Lot 3 possible : Forsvaret, partis, élargissement des entreprises d État (secteur 6100), à condition de trouver des sources publiques ouvertes.</li>
+<li>Autres pays nordiques : Finlande (avoindata.eduskunta.fi), Danemark (oda.ft.dk), Suède (data.riksdagen.se).</li></ul>
+</body></html>

@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<dagensrepresentanter_oversikt xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://data.stortinget.no">
+  <respons_dato_tid>2026-11-05T23:46:11.5769529+01:00</respons_dato_tid>
+  <versjon>1.6</versjon>
+  <dagensrepresentanter_liste>
+    <dagensrepresentant>
+      <respons_dato_tid>2026-11-05T23:46:11.5769529+01:00</respons_dato_tid>
+      <versjon>1.6</versjon>
+      <doedsdato i:nil="true" />
+      <etternavn>Nilsen</etternavn>
+      <foedselsdato>1984-08-14T00:00:00</foedselsdato>
+      <fornavn>Marius Arion</fornavn>
+      <id>MARNIL</id>
+      <kjoenn>mann</kjoenn>
+      <fylke>
+        <respons_dato_tid>2026-11-05T21:29:02.0506476+01:00</respons_dato_tid>
+        <versjon>1.6</versjon>
+        <historisk_fylke>false</historisk_fylke>
+        <id>AA</id>
+        <navn>Aust-Agder</navn>
+      </fylke>
+      <parti>
+        <respons_dato_tid>2026-11-05T01:00:19.3466305+01:00</respons_dato_tid>
+        <versjon>1.6</versjon>
+        <id>FrP</id>
+        <navn>Fremskrittspartiet</navn>
+        <representert_parti>true</representert_parti>
+      </parti>
+      <vara_representant>false</vara_representant>
+      <epost>marius.arion.nilsen@stortinget.no</epost>
+      <fast_vara i:nil="true" />
+      <fast_vara_for i:nil="true" />
+      <komiteer_liste>
+        <komite>
+          <respons_dato_tid>2026-11-05T23:01:43.290507+01:00</respons_dato_tid>
+          <versjon>1.6</versjon>
+          <id>NÆRING</id>
+          <navn>Næringskomiteen</navn>
+        </komite>
+      </komiteer_liste>
+      <vara i:nil="true" />
+      <vara_for i:nil="true" />
+    </dagensrepresentant>
+<dagensrepresentant>
+      <respons_dato_tid>2026-11-05T23:46:11.5769529+01:00</respons_dato_tid>
+      <versjon>1.6</versjon>
+      <doedsdato i:nil="true" />
+      <etternavn>Mørland</etternavn>
+      <foedselsdato>1980-04-21T00:00:00</foedselsdato>
+      <fornavn>Tellef Inge</fornavn>
+      <id>TIM</id>
+      <kjoenn>mann</kjoenn>
+      <fylke>
+        <respons_dato_tid>2026-11-05T21:29:02.0506476+01:00</respons_dato_tid>
+        <versjon>1.6</versjon>
+        <historisk_fylke>false</historisk_fylke>
+        <id>AA</id>
+        <navn>Aust-Agder</navn>
+      </fylke>
+      <parti>
+        <respons_dato_tid>2026-11-05T01:00:19.3466305+01:00</respons_dato_tid>
+        <versjon>1.6</versjon>
+        <id>A</id>
+        <navn>Arbeiderpartiet</navn>
+        <representert_parti>true</representert_parti>
+      </parti>
+      <vara_representant>false</vara_representant>
+      <epost>tellef.inge.morland@stortinget.no</epost>
+      <fast_vara i:nil="true" />
+      <fast_vara_for i:nil="true" />
+      <komiteer_liste>
+        <komite>
+          <respons_dato_tid>2026-11-05T23:01:43.290507+01:00</respons_dato_tid>
+          <versjon>1.6</versjon>
+          <id>UFK</id>
+          <navn>Utenriks- og forsvarskomiteen</navn>
+        </komite>
+      </komiteer_liste>
+      <vara i:nil="true" />
+      <vara_for i:nil="true" />
+    </dagensrepresentant>
+<dagensrepresentant>
+      <respons_dato_tid>2026-11-05T23:46:11.5769529+01:00</respons_dato_tid>
+      <versjon>1.6</versjon>
+      <doedsdato i:nil="true" />
+      <etternavn>Linge</etternavn>
+      <foedselsdato>1997-07-28T00:00:00</foedselsdato>
+      <fornavn>Tobias Hangaard</fornavn>
+      <id>TOBLIN</id>
+      <kjoenn>mann</kjoenn>
+      <fylke>
+        <respons_dato_tid>2026-11-05T21:29:02.0506476+01:00</respons_dato_tid>
+        <versjon>1.6</versjon>
+        <historisk_fylke>false</historisk_fylke>
+        <id>Ak</id>
+        <navn>Akershus</navn>
+      </fylke>
+      <parti>
+        <respons_dato_tid>2026-11-05T01:00:19.3466305+01:00</respons_dato_tid>
+        <versjon>1.6</versjon>
+        <id>A</id>
+        <navn>Arbeiderpartiet</navn>
+        <representert_parti>true</representert_parti>
+      </parti>
+      <vara_representant>true</vara_representant>
+      <epost>tobias.hangaard.linge@stortinget.no</epost>
+      <fast_vara i:nil="true" />
+      <fast_vara_for>
+        <respons_dato_tid>2026-11-05T23:01:34.3663506+01:00</respons_dato_tid>
+        <versjon>1.6</versjon>
+        <doedsdato i:nil="true" />
+        <etternavn>Aukrust</etternavn>
+        <foedselsdato>1985-02-28T00:00:00</foedselsdato>
+        <fornavn>Åsmund</fornavn>
+        <id>AAUK</id>
+        <kjoenn>mann</kjoenn>
+      </fast_vara_for>
+      <komiteer_liste>
+        <komite>
+          <respons_dato_tid>2026-11-05T23:01:43.290507+01:00</respons_dato_tid>
+          <versjon>1.6</versjon>
+          <id>NÆRING</id>
+          <navn>Næringskomiteen</navn>
+        </komite>
+      </komiteer_liste>
+      <vara i:nil="true" />
+      <vara_for i:nil="true" />
+    </dagensrepresentant></dagensrepresentanter_liste></dagensrepresentanter_oversikt>

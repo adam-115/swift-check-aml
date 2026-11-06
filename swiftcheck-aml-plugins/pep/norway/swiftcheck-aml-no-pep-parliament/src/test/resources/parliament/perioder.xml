@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<stortingsperioder_oversikt xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://data.stortinget.no">
+  <respons_dato_tid>2026-11-06T00:08:03.7885317+01:00</respons_dato_tid>
+  <versjon>1.6</versjon>
+  <innevaerende_stortingsperiode>
+    <respons_dato_tid>2026-11-05T23:43:14.038698+01:00</respons_dato_tid>
+    <versjon>1.6</versjon>
+    <fra>2025-10-01T00:00:00</fra>
+    <id>2025-2029</id>
+    <til>2029-09-30T23:59:00</til>
+  </innevaerende_stortingsperiode>
+  <stortingsperioder_liste>
+    <stortingsperiode>
+      <respons_dato_tid>2026-11-06T00:08:03.7885317+01:00</respons_dato_tid>
+      <versjon>1.6</versjon>
+      <fra>2025-10-01T00:00:00</fra>
+      <id>2025-2029</id>
+      <til>2029-09-30T23:59:00</til>
+    </stortingsperiode>
+<stortingsperiode>
+      <respons_dato_tid>2026-11-06T00:08:03.7885317+01:00</respons_dato_tid>
+      <versjon>1.6</versjon>
+      <fra>2021-10-01T00:00:00</fra>
+      <id>2021-2025</id>
+      <til>2025-09-30T23:59:00</til>
+    </stortingsperiode>
+<stortingsperiode>
+      <respons_dato_tid>2026-11-06T00:08:03.7885317+01:00</respons_dato_tid>
+      <versjon>1.6</versjon>
+      <fra>2017-10-01T00:00:00</fra>
+      <id>2017-2021</id>
+      <til>2021-09-30T23:59:00</til>
+    </stortingsperiode></stortingsperioder_liste></stortingsperioder_oversikt>

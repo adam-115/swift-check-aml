@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Norvège : référentiel PEP et parsers, sans Wikidata. Pays de l'EEE hors Union européenne : pas de députés européens ni de
+    commissaire, pas de liste notifiée à la Commission (JO C/2023/724).
+
+    Base légale : hvitvaskingsloven (loi du 1er juin 2018 n° 23 sur les mesures contre le blanchiment et le financement du
+    terrorisme) : définition de la personne politiquement exposée ; vigilance pendant douze mois après la fin des fonctions.
+
+    Parsers (plugins dans swiftcheck-aml-plugins/pep/norway) :
+      - no_pep_parliament          : Storting (API ouverte data.stortinget.no) : représentants en fonction et anciens
+      - no_pep_parliament_history  : même plugin, historique de 50 ans (monthsAfterEnd = 600)
+      - no_pep_state_enterprises   : dirigeants des entreprises d'État (registre de Brønnøysund)
+      - no_pep_norges_bank         : conseil de direction de Norges Bank
+
+    Non couvert, avec le motif :
+      - gouvernement (regjeringen.no : contrôle Cloudflare « Just a moment ») et Roi (kongehuset.no : contrôle Vercel, HTTP 429) :
+        non contournés ; la voie propre est de demander un fichier ;
+      - Cour suprême (domstol.no : page rendue en JavaScript), Riksrevisjonen, ambassadeurs, officiers généraux, partis ;
+      - proches (RCA) : seule source connue = Wikidata, exclue.
+-->
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="063-no-country" author="swiftcheck">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM country WHERE iso = 'NO'</sqlCheck>
+        </preConditions>
+        <sql>
+            INSERT INTO country (iso, name, eu_member, legal_basis, retention_months)
+            VALUES ('NO', 'Norvège', FALSE,
+                    'Hvitvaskingsloven (loi du 1er juin 2018 n° 23) : personnes exerçant ou ayant exercé depuis moins de douze mois une fonction publique importante (politisk eksponert person), leurs proches et associés', 12);
+        </sql>
+    </changeSet>
+
+    <changeSet id="063-no-categories" author="swiftcheck">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM pep_category WHERE country_iso = 'NO'</sqlCheck>
+        </preConditions>
+        <sql>
+            INSERT INTO pep_category (country_iso, code, label, kind, risk_class, sort_order, legal_reference) VALUES
+            ('NO', 'NO-a', 'Chef de l''État, Premier ministre, ministres et secrétaires d''État', 'OFFICIAL', 1, 1, 'Hvitvaskingsloven'),
+            ('NO', 'NO-b', 'Représentants du Storting', 'OFFICIAL', 1, 2, 'Hvitvaskingsloven'),
+            ('NO', 'NO-c', 'Organes dirigeants des partis politiques', 'OFFICIAL', 2, 3, 'Hvitvaskingsloven'),
+            ('NO', 'NO-d', 'Cour suprême et autres hautes juridictions', 'OFFICIAL', 2, 4, 'Hvitvaskingsloven'),
+            ('NO', 'NO-e', 'Riksrevisjonen et Norges Bank', 'OFFICIAL', 2, 5, 'Hvitvaskingsloven'),
+            ('NO', 'NO-f', 'Ambassadeurs et officiers généraux des forces armées', 'OFFICIAL', 2, 6, 'Hvitvaskingsloven'),
+            ('NO', 'NO-g', 'Dirigeants des entreprises détenues par l''État', 'OFFICIAL', 3, 7, 'Hvitvaskingsloven'),
+            ('NO', 'NO-h', 'Dirigeants des organisations internationales', 'OFFICIAL', 3, 8, 'Hvitvaskingsloven'),
+            ('NO', 'NO-RCA', 'Membres de la famille et proches associés', 'RCA', 2, 9, 'Hvitvaskingsloven (membres de la famille et personnes connues comme étroitement associées)');
+        </sql>
+    </changeSet>
+
+    <changeSet id="063-no-functions" author="swiftcheck">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM pep_function f JOIN pep_category c ON c.id = f.category_id WHERE c.country_iso = 'NO'</sqlCheck>
+        </preConditions>
+        <sql>
+            INSERT INTO pep_function (category_id, label, institution, expected_holders)
+            SELECT c.id, f.label, f.institution, f.expected_holders
+            FROM pep_category c JOIN (
+                SELECT 'NO-a' AS code, 'Roi de Norvège' AS label, 'Det kongelige hoff' AS institution, 1 AS expected_holders
+                UNION ALL SELECT 'NO-a', 'Premier ministre, ministre ou secrétaire d''État', 'Regjeringen', 25
+                UNION ALL SELECT 'NO-b', 'Représentant au Storting', 'Stortinget', 169
+                UNION ALL SELECT 'NO-b', 'Ancien représentant au Storting', 'Stortinget', NULL
+                UNION ALL SELECT 'NO-c', 'Membre d''un organe dirigeant d''un parti', 'Partis politiques', 30
+                UNION ALL SELECT 'NO-d', 'Juge de la Cour suprême (Høyesterett)', 'Høyesterett', 20
+                UNION ALL SELECT 'NO-e', 'Riksrevisor et collège de Riksrevisjonen', 'Riksrevisjonen', 5
+                UNION ALL SELECT 'NO-e', 'Membre du conseil de direction de Norges Bank', 'Norges Bank', 11
+                UNION ALL SELECT 'NO-f', 'Ambassadeur', 'Utenriksdepartementet', 100
+                UNION ALL SELECT 'NO-f', 'Officier général des forces armées', 'Forsvaret', 20
+                UNION ALL SELECT 'NO-g', 'Dirigeant d''une entreprise détenue par l''État', 'Entreprises d''État', 1600
+                UNION ALL SELECT 'NO-h', 'Dirigeant d''une organisation internationale', 'Organisations internationales', NULL
+                UNION ALL SELECT 'NO-RCA', 'Membre de la famille d''une PEP norvégienne', NULL, NULL
+                UNION ALL SELECT 'NO-RCA', 'Proche associé d''une PEP norvégienne', NULL, NULL
+            ) f ON f.code = c.code;
+        </sql>
+    </changeSet>
+
+    <changeSet id="063-parser-no-pep-parliament" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Norvège – Storting',
+                'Représentants du Storting en fonction et sortis depuis moins de 12 mois, d''après l''API ouverte data.stortinget.no (catégorie NO-b)',
+                'no_pep_parliament', 'PEP', 'https://data.stortinget.no/',
+                'no-pep-parliament', 'D:/test parser 2/plugins/swiftcheck-aml-no-pep-parliament-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'API',
+                NULL,
+                '{"apiUrl": "https://data.stortinget.no/eksport", "monthsAfterEnd": "12", "delayMs": "500"}',
+                168, 12,
+                'Données ouvertes du Storting : citer la source (conditions d''utilisation à vérifier sur data.stortinget.no)', 'Stortinget, data.stortinget.no',
+                'Environ 5 appels : représentants en fonction, législatures, puis la liste des législatures encore dans la fenêtre. 169 en fonction ; l''API ne donne pas la date de départ d''un représentant : un ancien est publié avec la fin de la législature comme fin de mandat, et un représentant de la législature en cours qui n''est plus en fonction sans date de fin. Suppléants en exercice repris avec une note. Décédés écartés.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', TRUE,
+                   'Les 169 représentants en fonction et ceux sortis depuis moins de 12 mois, avec naissance, genre, comté et parti.',
+                   'Pas de date de départ exacte pour les anciens représentants (fin de la législature).'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'NO-b' AND f.label IN ('Représentant au Storting', 'Ancien représentant au Storting') AND p.dataset_name = 'no_pep_parliament';
+        ]]></sql>
+    </changeSet>
+
+    <changeSet id="063-parser-no-pep-parliament-history" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Norvège – Storting, historique de 50 ans',
+                'Anciens représentants du Storting des 50 dernières années, d''après l''API ouverte (couche étendue de no_pep_parliament)',
+                'no_pep_parliament_history', 'PEP', 'https://data.stortinget.no/',
+                'no-pep-parliament', 'D:/test parser 2/plugins/swiftcheck-aml-no-pep-parliament-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'API',
+                NULL,
+                '{"apiUrl": "https://data.stortinget.no/eksport", "monthsAfterEnd": "600", "delayMs": "500"}',
+                720, 12,
+                'Données ouvertes du Storting : citer la source (conditions d''utilisation à vérifier sur data.stortinget.no)', 'Stortinget, data.stortinget.no',
+                'Même plugin et mêmes identifiants que no_pep_parliament. Environ 680 personnes vivantes (170 en fonction, 510 anciens) contre 321 chez OpenSanctions ; 731 mandats de personnes décédées écartés. Au-delà des 12 mois de vigilance légale : à activer selon l''approche par les risques. Environ 15 appels.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', TRUE,
+                   'Tous les représentants vivants du Storting des 50 dernières années (14 législatures), avec naissance, genre, comté et parti.',
+                   'Pas de date de départ exacte (fin de la législature).'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'NO-b' AND f.label = 'Ancien représentant au Storting' AND p.dataset_name = 'no_pep_parliament_history';
+        ]]></sql>
+    </changeSet>
+
+    <changeSet id="063-parser-no-pep-state-enterprises" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Norvège – Entreprises d''État',
+                'Directeurs généraux, présidents, vice-présidents et membres du conseil des entreprises détenues par l''État, d''après le registre de Brønnøysund (catégorie NO-g)',
+                'no_pep_state_enterprises', 'PEP', 'https://data.brreg.no/enhetsregisteret/',
+                'no-pep-state-enterprises', 'D:/test parser 2/plugins/swiftcheck-aml-no-pep-state-enterprises-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'API',
+                NULL,
+                '{"apiUrl": "https://data.brreg.no/enhetsregisteret/api", "sectors": "1120", "forms": "SF", "includeAlternates": "false", "delayMs": "200"}',
+                168, 12,
+                'Licence norvégienne pour les données publiques ouvertes (NLOD) : citer la source', 'Brønnøysundregistrene, data.brreg.no',
+                '728 entreprises (secteur institutionnel 1120, filiales comprises, plus les statsforetak) : 1 600 personnes et 2 900 fonctions, environ 6 minutes d''exécution (une requête par entreprise). Le registre ne donne pas d''identifiant de personne : nom et date de naissance. includeAlternates = true ajoute 558 suppléants. OpenSanctions publie 4 883 entités sur un périmètre plus large (non documenté) ; Bane NOR, Enova et Gassnova relèvent du secteur 6100 et seule leur forme SF les fait entrer.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'PARTIAL', FALSE,
+                   'Dirigeants en poste des entreprises du secteur 1120 et des statsforetak, avec date de naissance.',
+                   'Entreprises d''État hors secteur 1120 et hors forme SF non couvertes ; suppléants exclus par défaut ; pas de dates de début de fonction.'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'NO-g' AND f.label LIKE 'Dirigeant d''une entreprise détenue par l''État%' AND p.dataset_name = 'no_pep_state_enterprises';
+        ]]></sql>
+    </changeSet>
+
+    <changeSet id="063-parser-no-pep-norges-bank" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Norvège – Norges Bank',
+                'Gouverneur, sous-gouverneurs, membres externes et représentants du personnel du conseil de direction de Norges Bank (catégorie NO-e)',
+                'no_pep_norges_bank', 'PEP', 'https://www.norges-bank.no/',
+                'no-pep-norges-bank', 'D:/test parser 2/plugins/swiftcheck-aml-no-pep-norges-bank-0.0.1-SNAPSHOT.jar',
+                'HTTP_FILE', 'WEB_PAGE',
+                'https://www.norges-bank.no/en/topics/about/Organisation/The-Executive-Board/',
+                NULL,
+                168, 12,
+                'Site officiel de Norges Bank : citer la source', 'Norges Bank, www.norges-bank.no',
+                '11 membres sous « Members of the Executive Board » (nom puis « Appointed … »). Les suppléants des représentants du personnel ne sont pas repris. Pas de date de naissance.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'PARTIAL', FALSE,
+                   'Le gouverneur, les deux sous-gouverneurs, les six membres externes et les deux représentants du personnel de Norges Bank.',
+                   'Riksrevisjonen non couverte (page de direction non trouvée) ; pas de naissance.'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'NO-e' AND f.label = 'Membre du conseil de direction de Norges Bank' AND p.dataset_name = 'no_pep_norges_bank';
+        ]]></sql>
+    </changeSet>
+
+</databaseChangeLog>
