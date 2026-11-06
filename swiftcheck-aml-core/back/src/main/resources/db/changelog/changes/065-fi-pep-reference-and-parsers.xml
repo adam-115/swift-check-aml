@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Finlande : référentiel PEP et parsers, sans Wikidata.
+
+    Base légale : laki rahanpesun ja terrorismin rahoittamisen estämisestä (444/2017), définition de la personne
+    politiquement influente (poliittisesti vaikutusvaltainen henkilö) ; vigilance de douze mois après la fin des fonctions.
+
+    Parsers (plugins dans swiftcheck-aml-plugins/pep/finland) :
+      - fi_pep_parliament / fi_pep_parliament_history : députés de l'Eduskunta (API ouverte, dates exactes de mandat)
+      - fi_pep_government / fi_pep_government_history : ministres (fonctions ministérielles des fiches de députés)
+      - fi_pep_courts                                  : Cour suprême et Cour administrative suprême
+
+    Non couvert, avec le motif :
+      - ministres qui n'ont jamais été députés : valtioneuvosto.fi est protégé par un contrôle Cloudflare (non contourné) ;
+      - Banque de Finlande (contenu de la page rendu côté navigateur), Président de la République, Cour des comptes,
+        ambassadeurs, officiers généraux, partis, entreprises d'État (aucune liste ouverte exploitable trouvée) ;
+      - proches (RCA) : seule source connue = Wikidata, exclue.
+-->
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="065-fi-country" author="swiftcheck">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM country WHERE iso = 'FI'</sqlCheck>
+        </preConditions>
+        <sql>
+            INSERT INTO country (iso, name, eu_member, legal_basis, retention_months)
+            VALUES ('FI', 'Finlande', TRUE,
+                    'Loi 444/2017 sur la prévention du blanchiment et du financement du terrorisme : personnes politiquement influentes (poliittisesti vaikutusvaltainen henkilö), membres de leur famille et proches associés, douze mois après la fin des fonctions', 12);
+        </sql>
+    </changeSet>
+
+    <changeSet id="065-fi-categories" author="swiftcheck">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM pep_category WHERE country_iso = 'FI'</sqlCheck>
+        </preConditions>
+        <sql>
+            INSERT INTO pep_category (country_iso, code, label, kind, risk_class, sort_order, legal_reference) VALUES
+            ('FI', 'FI-a', 'Chef de l''État, Premier ministre et ministres', 'OFFICIAL', 1, 1, 'Loi 444/2017'),
+            ('FI', 'FI-b', 'Députés de l''Eduskunta', 'OFFICIAL', 1, 2, 'Loi 444/2017'),
+            ('FI', 'FI-c', 'Organes dirigeants des partis politiques', 'OFFICIAL', 2, 3, 'Loi 444/2017'),
+            ('FI', 'FI-d', 'Cour suprême et Cour administrative suprême', 'OFFICIAL', 2, 4, 'Loi 444/2017'),
+            ('FI', 'FI-e', 'Cour des comptes et Banque de Finlande', 'OFFICIAL', 2, 5, 'Loi 444/2017'),
+            ('FI', 'FI-f', 'Ambassadeurs et officiers généraux des forces armées', 'OFFICIAL', 2, 6, 'Loi 444/2017'),
+            ('FI', 'FI-g', 'Dirigeants des entreprises détenues par l''État', 'OFFICIAL', 3, 7, 'Loi 444/2017'),
+            ('FI', 'FI-h', 'Dirigeants des organisations internationales', 'OFFICIAL', 3, 8, 'Loi 444/2017'),
+            ('FI', 'FI-RCA', 'Membres de la famille et proches associés', 'RCA', 2, 9, 'Loi 444/2017 (membres de la famille et personnes connues comme étroitement associées)');
+        </sql>
+    </changeSet>
+
+    <changeSet id="065-fi-functions" author="swiftcheck">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM pep_function f JOIN pep_category c ON c.id = f.category_id WHERE c.country_iso = 'FI'</sqlCheck>
+        </preConditions>
+        <sql>
+            INSERT INTO pep_function (category_id, label, institution, expected_holders)
+            SELECT c.id, f.label, f.institution, f.expected_holders
+            FROM pep_category c JOIN (
+                SELECT 'FI-a' AS code, 'Président de la République' AS label, 'Tasavallan presidentti' AS institution, 1 AS expected_holders
+                UNION ALL SELECT 'FI-a', 'Premier ministre, ministre', 'Valtioneuvosto', 19
+                UNION ALL SELECT 'FI-b', 'Député à l''Eduskunta', 'Eduskunta', 200
+                UNION ALL SELECT 'FI-b', 'Ancien député à l''Eduskunta', 'Eduskunta', NULL
+                UNION ALL SELECT 'FI-c', 'Membre d''un organe dirigeant d''un parti', 'Partis politiques', 30
+                UNION ALL SELECT 'FI-d', 'Juge de la Cour suprême (Korkein oikeus)', 'Korkein oikeus', 20
+                UNION ALL SELECT 'FI-d', 'Juge de la Cour administrative suprême (Korkein hallinto-oikeus)', 'Korkein hallinto-oikeus', 21
+                UNION ALL SELECT 'FI-e', 'Membre du conseil de direction de la Banque de Finlande', 'Suomen Pankki', 3
+                UNION ALL SELECT 'FI-e', 'Dirigeant de la Cour des comptes', 'Valtiontalouden tarkastusvirasto', 5
+                UNION ALL SELECT 'FI-f', 'Ambassadeur', 'Ulkoministeriö', 90
+                UNION ALL SELECT 'FI-f', 'Officier général des forces armées', 'Puolustusvoimat', 20
+                UNION ALL SELECT 'FI-g', 'Dirigeant d''une entreprise détenue par l''État', 'Entreprises d''État', NULL
+                UNION ALL SELECT 'FI-h', 'Dirigeant d''une organisation internationale', 'Organisations internationales', NULL
+                UNION ALL SELECT 'FI-RCA', 'Membre de la famille d''une PEP finlandaise', NULL, NULL
+                UNION ALL SELECT 'FI-RCA', 'Proche associé d''une PEP finlandaise', NULL, NULL
+            ) f ON f.code = c.code;
+        </sql>
+    </changeSet>
+
+    <changeSet id="065-parser-fi-pep-parliament" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Finlande – Eduskunta',
+                'Députés de l''Eduskunta en fonction et sortis depuis moins de 12 mois, d''après l''API ouverte avoindata.eduskunta.fi (catégorie FI-b)',
+                'fi_pep_parliament', 'PEP', 'https://avoindata.eduskunta.fi/',
+                'fi-pep-parliament', 'D:/test parser 2/plugins/swiftcheck-aml-fi-pep-parliament-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'API',
+                NULL,
+                '{"apiUrl": "https://avoindata.eduskunta.fi/api/v1", "scope": "parliament", "monthsAfterEnd": "12", "delayMs": "500"}',
+                168, 12,
+                'Données ouvertes de l''Eduskunta (licence CC BY 4.0) : citer la source', 'Eduskunta, avoindata.eduskunta.fi',
+                '27 pages de 100 fiches (tous les députés depuis 1907, environ 2 700), soit environ 30 secondes. Dates exactes de début et de fin de mandat ; naissance : année seulement. 214 personnes gardées (200 sièges, remplaçants compris). Décédés écartés (1 926).', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', TRUE,
+                   'Tous les députés en fonction et ceux sortis depuis moins de 12 mois, avec dates exactes de mandat, année de naissance, sexe et groupe parlementaire.',
+                   'Naissance : année seulement.'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'FI-b' AND f.label IN ('Député à l''Eduskunta', 'Ancien député à l''Eduskunta') AND p.dataset_name = 'fi_pep_parliament';
+        ]]></sql>
+    </changeSet>
+
+    <changeSet id="065-parser-fi-pep-parliament-history" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Finlande – Eduskunta, historique de 50 ans',
+                'Anciens députés de l''Eduskunta des 50 dernières années (couche étendue de fi_pep_parliament)',
+                'fi_pep_parliament_history', 'PEP', 'https://avoindata.eduskunta.fi/',
+                'fi-pep-parliament', 'D:/test parser 2/plugins/swiftcheck-aml-fi-pep-parliament-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'API',
+                NULL,
+                '{"apiUrl": "https://avoindata.eduskunta.fi/api/v1", "scope": "parliament", "monthsAfterEnd": "600", "delayMs": "500"}',
+                720, 12,
+                'Données ouvertes de l''Eduskunta (licence CC BY 4.0) : citer la source', 'Eduskunta, avoindata.eduskunta.fi',
+                'Même plugin et mêmes identifiants que fi_pep_parliament. 736 personnes vivantes (751 vivants dans la table, dont 15 sortis il y a plus de 50 ans). Au-delà des 12 mois de vigilance légale : à activer selon l''approche par les risques.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', TRUE,
+                   'Tous les députés vivants des 50 dernières années, avec dates exactes de mandat.',
+                   'Naissance : année seulement.'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'FI-b' AND f.label = 'Ancien député à l''Eduskunta' AND p.dataset_name = 'fi_pep_parliament_history';
+        ]]></sql>
+    </changeSet>
+
+    <changeSet id="065-parser-fi-pep-government" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Finlande – Gouvernement',
+                'Premier ministre et ministres en fonction ou sortis depuis moins de 12 mois, d''après les fonctions ministérielles des fiches de députés (catégorie FI-a)',
+                'fi_pep_government', 'PEP', 'https://avoindata.eduskunta.fi/',
+                'fi-pep-parliament', 'D:/test parser 2/plugins/swiftcheck-aml-fi-pep-parliament-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'API',
+                NULL,
+                '{"apiUrl": "https://avoindata.eduskunta.fi/api/v1", "scope": "government", "monthsAfterEnd": "12", "delayMs": "500"}',
+                168, 12,
+                'Données ouvertes de l''Eduskunta (licence CC BY 4.0) : citer la source', 'Eduskunta, avoindata.eduskunta.fi',
+                'Même plugin que fi_pep_parliament (paramètre scope = government). 21 personnes. Seuls les ministres qui sont ou ont été députés figurent dans la source : les ministres hors parlement manquent, valtioneuvosto.fi étant protégé par un contrôle anti-robot.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'PARTIAL', TRUE,
+                   'Premier ministre et ministres en fonction ou sortis depuis moins de 12 mois, avec dates exactes et nom du gouvernement.',
+                   'Ministres qui n''ont jamais été députés absents de la source.'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'FI-a' AND f.label = 'Premier ministre, ministre' AND p.dataset_name = 'fi_pep_government';
+        ]]></sql>
+    </changeSet>
+
+    <changeSet id="065-parser-fi-pep-government-history" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Finlande – Gouvernement, historique de 50 ans',
+                'Anciens ministres des 50 dernières années (couche étendue de fi_pep_government)',
+                'fi_pep_government_history', 'PEP', 'https://avoindata.eduskunta.fi/',
+                'fi-pep-parliament', 'D:/test parser 2/plugins/swiftcheck-aml-fi-pep-parliament-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'API',
+                NULL,
+                '{"apiUrl": "https://avoindata.eduskunta.fi/api/v1", "scope": "government", "monthsAfterEnd": "600", "delayMs": "500"}',
+                720, 12,
+                'Données ouvertes de l''Eduskunta (licence CC BY 4.0) : citer la source', 'Eduskunta, avoindata.eduskunta.fi',
+                'Même plugin et mêmes identifiants que fi_pep_government. 169 personnes vivantes ayant été ministres au cours des 50 dernières années. À activer selon l''approche par les risques.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'PARTIAL', TRUE,
+                   'Anciens ministres vivants des 50 dernières années, avec dates exactes.',
+                   'Ministres qui n''ont jamais été députés absents de la source.'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'FI-a' AND f.label = 'Premier ministre, ministre' AND p.dataset_name = 'fi_pep_government_history';
+        ]]></sql>
+    </changeSet>
+
+    <changeSet id="065-parser-fi-pep-courts" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Finlande – Hautes cours',
+                'Présidents et membres de la Cour suprême et de la Cour administrative suprême, d''après leurs pages officielles (catégorie FI-d)',
+                'fi_pep_courts', 'PEP', 'https://www.korkeinoikeus.fi/',
+                'fi-pep-courts', 'D:/test parser 2/plugins/swiftcheck-aml-fi-pep-courts-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'WEB_PAGE',
+                NULL,
+                '{"delayMs": "1500", "courts": "kko,kho"}',
+                168, 12,
+                'Sites officiels des juridictions : citer la source', 'Korkein oikeus, korkeinoikeus.fi ; Korkein hallinto-oikeus, kho.fi',
+                'Deux pages (une par cour). Cour suprême : 20 personnes ; Cour administrative suprême : environ 21. Année de naissance quand elle est publiée ; les membres en congé (vv.) sont repris avec une note.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', FALSE,
+                   'Le président et les membres (oikeusneuvos) de chaque cour suprême, avec année de naissance.',
+                   'Anciens juges non couverts ; naissance absente pour quelques membres.'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'FI-d' AND p.dataset_name = 'fi_pep_courts';
+        ]]></sql>
+    </changeSet>
+
+</databaseChangeLog>

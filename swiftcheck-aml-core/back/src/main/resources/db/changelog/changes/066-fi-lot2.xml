@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Finlande, lot 2 : Président de la République (en fonction et anciens présidents vivants, page officielle de la
+    Présidence) et dirigeants de Solidium (société d'investissement de l'État : conseil d'administration, directeurs
+    général, financier et des investissements).
+
+    Non couvert, avec le motif :
+      - ministères et organes rattachés (valtioneuvosto.fi, defmin.fi, puolustusvoimat.fi, oikeuskansleri.fi,
+        oikeusasiamies.fi) : contrôle Cloudflare, non contourné ;
+      - Cour des comptes (VTV) et Banque de Finlande : listes de personnel chargées dynamiquement, absentes du HTML ;
+      - ambassadeurs (um.fi : délai de 20 s imposé entre deux requêtes par le robots.txt, plus de 90 pages) ;
+      - autres entreprises d'État : aucune liste ouverte exploitable ; les dirigeants de PME du registre du commerce ne
+        sont pas publiés en données ouvertes.
+-->
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="066-parser-fi-pep-institutions" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Finlande – Président et Solidium',
+                'Président de la République (en fonction et anciens présidents vivants) et dirigeants de Solidium, société d''investissement de l''État (catégories FI-a et FI-g)',
+                'fi_pep_institutions', 'PEP', 'https://www.presidentti.fi/',
+                'fi-pep-institutions', 'D:/test parser 2/plugins/swiftcheck-aml-fi-pep-institutions-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'WEB_PAGE',
+                NULL,
+                '{"keys": "president,solidium", "delayMs": "1500"}',
+                168, 12,
+                'Sites officiels de la Présidence de la République et de Solidium : citer la source', 'Tasavallan presidentin kanslia, presidentti.fi ; Solidium Oy, solidium.fi',
+                'Quatre pages. Président en fonction (sans naissance ni date de début sur la page), 2 anciens présidents vivants (Niinistö, Halonen) avec année de naissance et dates de mandat, 6 administrateurs de Solidium avec année de naissance et 3 dirigeants (directeur général, financier, des investissements).', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', TRUE,
+                   'Le Président de la République en fonction et les anciens présidents vivants.',
+                   'Le président en fonction est publié sans naissance ni date de début (absents de la page).'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'FI-a' AND f.label = 'Président de la République' AND p.dataset_name = 'fi_pep_institutions';
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'PARTIAL', FALSE,
+                   'Conseil d''administration et direction générale de Solidium, société d''investissement détenue par l''État.',
+                   'Les autres entreprises d''État ne sont pas couvertes (aucune liste ouverte exploitable).'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'FI-g' AND f.label LIKE 'Dirigeant d''une entreprise détenue par l''État%' AND p.dataset_name = 'fi_pep_institutions';
+        ]]></sql>
+    </changeSet>
+
+</databaseChangeLog>

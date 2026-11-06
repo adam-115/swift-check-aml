@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="fr"><head><meta charset="utf-8"><title>Plan des parsers PEP – Suède</title>
+<style>
+body{font-family:Segoe UI,Arial,sans-serif;font-size:11pt;color:#1a1a1a;margin:28px;line-height:1.45}
+h1{color:#0b3d6b;border-bottom:3px solid #0b3d6b;padding-bottom:6px}h2{color:#0b3d6b;margin-top:26px}
+table{border-collapse:collapse;width:100%;margin:10px 0;font-size:10pt}th,td{border:1px solid #bbb;padding:5px 8px;text-align:left;vertical-align:top}
+th{background:#e8eef5}.ok{color:#14702e;font-weight:600}.ko{color:#a32020;font-weight:600}.note{background:#f4f7fa;border-left:4px solid #0b3d6b;padding:8px 12px}
+</style></head><body>
+<h1>Plan des parsers PEP – Suède</h1>
+<p>Date : 6 novembre 2026. Pays de l'Union européenne : les députés européens et le commissaire suédois relèvent des parsers européens existants. Base légale : loi (2017:630) sur les mesures contre le blanchiment et le financement du terrorisme (personne politiquement exposée, douze mois après la fin des fonctions).</p>
+
+<h2>1. Parsers réalisés (lots 1 et 2)</h2>
+<p>Source unique : l'API ouverte du Riksdag, <i>data.riksdagen.se/personlista</i> (un seul appel JSON de 19 Mo, 3 524 personnes avec leurs missions datées). Un seul plugin sert les six jeux, selon le paramètre <i>scope</i>.</p>
+<table>
+<tr><th>Jeu de données</th><th>Contenu</th><th>Volume mesuré</th></tr>
+<tr><td>se_pep_parliament</td><td>Députés du Riksdag et présidence du Riksdag, en fonction ou sortis depuis moins de 12 mois (SE-b)</td><td>482 personnes</td></tr>
+<tr><td>se_pep_parliament_history</td><td>Anciens députés des 50 dernières années, vivants uniquement</td><td>1 623 personnes</td></tr>
+<tr><td>se_pep_government</td><td>Premier ministre et ministres avec leur département (SE-a)</td><td>24 personnes</td></tr>
+<tr><td>se_pep_government_history</td><td>Anciens ministres des 50 dernières années</td><td>158 personnes</td></tr>
+<tr><td>se_pep_parties</td><td>Chefs de parti et porte-parole qui siègent au Riksdag (SE-c)</td><td>10 personnes</td></tr>
+<tr><td>se_pep_oversight</td><td>Riksrevisor et direction de la Riksrevisionen, médiateurs parlementaires JO (SE-e)</td><td>10 personnes</td></tr>
+<tr><td>se_pep_institutions (lot 2)</td><td>Justices de la Cour suprême (16) et de la Cour administrative suprême (16), direction de la Riksbank (5), Roi de Suède (SE-a, SE-d, SE-e)</td><td>38 personnes</td></tr>
+</table>
+<p>Le parser télécharge la source à chaque exécution ; aucune liste de noms n'est embarquée ; Wikidata n'est pas utilisé. Migrations Liquibase 068 et 069 (pays SE, catégories, fonctions, 7 parsers), validée sur une base jetable. 209 personnes décédées sont écartées.</p>
+
+<h2>2. Points forts</h2>
+<ul><li>Dates exactes de début et de fin de chaque mandat et fonction ministérielle, avec le département du ministre.</li>
+<li>Les périodes de congé d'un député sont signalées (le siège est alors occupé par un remplaçant).</li>
+<li>Un seul téléchargement pour six jeux de données.</li></ul>
+
+<h2>3. Limites et sources non couvertes</h2>
+<table>
+<tr><th>Périmètre</th><th>Situation</th></tr>
+<tr><td>Secrétaires d État</td><td class="ko">Absents de l API du Riksdag et leurs noms ne sont pas publiés sur regeringen.se</td></tr>
+
+<tr><td>Ambassadeurs</td><td class="ko">Fiche de l ambassadeur sans adresse stable sur swedenabroad.se (menu rendu côté navigateur)</td></tr><tr><td>Conseil général de la Riksbank, officiers généraux, entreprises d État</td><td class="ko">Aucune liste ouverte exploitable trouvée</td></tr>
+<tr><td>Directions de parti hors Riksdag</td><td class="ko">Non publiées dans la source</td></tr>
+</table>
+<p class="note">Les proches (RCA) ne sont pas couverts : la seule source connue est Wikidata, exclue. Naissance : année seulement, absente pour les non-députés. Une fin de mission dans le futur (par exemple le 31 décembre 2026 pour le gouvernement) est traitée comme mission en cours.</p>
+
+<h2>4. Suite proposée</h2>
+<ul><li>Lot 3 possible : officiers généraux, entreprises d État, ambassadeurs si une liste stable apparaît.</li>
+<li>Autres pays : Danemark (oda.ft.dk), puis Pologne (api.sejm.gov.pl).</li></ul>
+</body></html>

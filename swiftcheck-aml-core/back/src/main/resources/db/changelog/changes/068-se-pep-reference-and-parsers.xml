@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Suède : référentiel PEP et parsers, sans Wikidata.
+
+    Base légale : lagen (2017:630) om åtgärder mot penningtvätt och finansiering av terrorism (penningtvättslagen) :
+    personne politiquement exponerad ; vigilance de douze mois après la fin des fonctions.
+
+    Parsers (un seul plugin, swiftcheck-aml-plugins/pep/sweden, paramètre scope) sur l'API ouverte du Riksdag :
+      - se_pep_parliament / se_pep_parliament_history : députés et présidence du Riksdag
+      - se_pep_government / se_pep_government_history : Premier ministre et ministres, avec le département
+      - se_pep_parties                               : chefs de parti et porte-parole
+      - se_pep_oversight                             : Riksrevisor (Riksrevisionen) et médiateurs parlementaires (JO)
+
+    Non couvert, avec le motif :
+      - hautes cours, Riksbank (direction), ambassadeurs, officiers généraux, entreprises d'État, Roi : pas de source ouverte
+        trouvée dans ce lot (à étudier) ;
+      - secrétaires d'État : absents de l'API ;
+      - proches (RCA) : seule source connue = Wikidata, exclue.
+-->
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="068-se-country" author="swiftcheck">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM country WHERE iso = 'SE'</sqlCheck>
+        </preConditions>
+        <sql>
+            INSERT INTO country (iso, name, eu_member, legal_basis, retention_months)
+            VALUES ('SE', 'Suède', TRUE,
+                    'Loi (2017:630) sur les mesures contre le blanchiment et le financement du terrorisme : personnes politiquement exposées (person i politiskt utsatt ställning), membres de leur famille et proches associés, douze mois après la fin des fonctions', 12);
+        </sql>
+    </changeSet>
+
+    <changeSet id="068-se-categories" author="swiftcheck">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM pep_category WHERE country_iso = 'SE'</sqlCheck>
+        </preConditions>
+        <sql>
+            INSERT INTO pep_category (country_iso, code, label, kind, risk_class, sort_order, legal_reference) VALUES
+            ('SE', 'SE-a', 'Chef de l''État, Premier ministre, ministres et secrétaires d''État', 'OFFICIAL', 1, 1, 'Loi 2017:630'),
+            ('SE', 'SE-b', 'Députés du Riksdag', 'OFFICIAL', 1, 2, 'Loi 2017:630'),
+            ('SE', 'SE-c', 'Organes dirigeants des partis politiques', 'OFFICIAL', 2, 3, 'Loi 2017:630'),
+            ('SE', 'SE-d', 'Cour suprême et hautes juridictions', 'OFFICIAL', 2, 4, 'Loi 2017:630'),
+            ('SE', 'SE-e', 'Riksrevisionen, médiateurs parlementaires et Riksbank', 'OFFICIAL', 2, 5, 'Loi 2017:630'),
+            ('SE', 'SE-f', 'Ambassadeurs et officiers généraux des forces armées', 'OFFICIAL', 2, 6, 'Loi 2017:630'),
+            ('SE', 'SE-g', 'Dirigeants des entreprises détenues par l''État', 'OFFICIAL', 3, 7, 'Loi 2017:630'),
+            ('SE', 'SE-h', 'Dirigeants des organisations internationales', 'OFFICIAL', 3, 8, 'Loi 2017:630'),
+            ('SE', 'SE-RCA', 'Membres de la famille et proches associés', 'RCA', 2, 9, 'Loi 2017:630 (membres de la famille et personnes connues comme étroitement associées)');
+        </sql>
+    </changeSet>
+
+    <changeSet id="068-se-functions" author="swiftcheck">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM pep_function f JOIN pep_category c ON c.id = f.category_id WHERE c.country_iso = 'SE'</sqlCheck>
+        </preConditions>
+        <sql>
+            INSERT INTO pep_function (category_id, label, institution, expected_holders)
+            SELECT c.id, f.label, f.institution, f.expected_holders
+            FROM pep_category c JOIN (
+                SELECT 'SE-a' AS code, 'Roi de Suède' AS label, 'Kungahuset' AS institution, 1 AS expected_holders
+                UNION ALL SELECT 'SE-a', 'Premier ministre, ministre', 'Regeringen', 24
+                UNION ALL SELECT 'SE-a', 'Secrétaire d''État', 'Regeringskansliet', NULL
+                UNION ALL SELECT 'SE-b', 'Député au Riksdag', 'Riksdagen', 349
+                UNION ALL SELECT 'SE-b', 'Ancien député au Riksdag', 'Riksdagen', NULL
+                UNION ALL SELECT 'SE-c', 'Chef de parti ou porte-parole', 'Partis politiques', 10
+                UNION ALL SELECT 'SE-d', 'Juge de la Cour suprême (Högsta domstolen)', 'Högsta domstolen', 16
+                UNION ALL SELECT 'SE-d', 'Juge de la Cour administrative suprême (Högsta förvaltningsdomstolen)', 'Högsta förvaltningsdomstolen', 16
+                UNION ALL SELECT 'SE-e', 'Riksrevisor et direction de la Riksrevisionen', 'Riksrevisionen', 3
+                UNION ALL SELECT 'SE-e', 'Médiateur parlementaire (JO)', 'Riksdagens ombudsmän', 4
+                UNION ALL SELECT 'SE-e', 'Membre de la direction de la Riksbank', 'Sveriges riksbank', 6
+                UNION ALL SELECT 'SE-f', 'Ambassadeur', 'Utrikesdepartementet', 100
+                UNION ALL SELECT 'SE-f', 'Officier général des forces armées', 'Försvarsmakten', 20
+                UNION ALL SELECT 'SE-g', 'Dirigeant d''une entreprise détenue par l''État', 'Entreprises d''État', NULL
+                UNION ALL SELECT 'SE-h', 'Dirigeant d''une organisation internationale', 'Organisations internationales', NULL
+                UNION ALL SELECT 'SE-RCA', 'Membre de la famille d''une PEP suédoise', NULL, NULL
+                UNION ALL SELECT 'SE-RCA', 'Proche associé d''une PEP suédoise', NULL, NULL
+            ) f ON f.code = c.code;
+        </sql>
+    </changeSet>
+
+    <changeSet id="068-parser-se-pep-parliament" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Suède – Riksdag',
+                'Députés du Riksdag et présidence du Riksdag, en fonction ou sortis depuis moins de 12 mois, d''après l''API ouverte data.riksdagen.se (catégorie SE-b)',
+                'se_pep_parliament', 'PEP', 'https://data.riksdagen.se/',
+                'se-pep-riksdagen', 'D:/test parser 2/plugins/swiftcheck-aml-se-pep-riksdagen-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'API',
+                NULL,
+                '{"apiUrl": "https://data.riksdagen.se", "scope": "parliament", "monthsAfterEnd": "12"}',
+                168, 12,
+                'Données ouvertes du Riksdag : citer la source (conditions de réutilisation à vérifier sur data.riksdagen.se)', 'Sveriges riksdag, data.riksdagen.se',
+                'Un seul appel JSON (environ 19 Mo, 3 524 personnes). Dates exactes de début et de fin de mandat ; naissance : année seulement. 482 personnes gardées (349 sièges plus les remplaçants de l''année). Les périodes de congé sont reprises avec une note. Décédés écartés (209).', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', TRUE,
+                   'Tous les députés en fonction et ceux sortis depuis moins de 12 mois, avec dates exactes, année de naissance et sexe.',
+                   'Naissance : année seulement.'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'SE-b' AND f.label IN ('Député au Riksdag', 'Ancien député au Riksdag') AND p.dataset_name = 'se_pep_parliament';
+        ]]></sql>
+    </changeSet>
+
+    <changeSet id="068-parser-se-pep-parliament-history" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Suède – Riksdag, historique de 50 ans',
+                'Anciens députés du Riksdag des 50 dernières années (couche étendue de se_pep_parliament)',
+                'se_pep_parliament_history', 'PEP', 'https://data.riksdagen.se/',
+                'se-pep-riksdagen', 'D:/test parser 2/plugins/swiftcheck-aml-se-pep-riksdagen-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'API',
+                NULL,
+                '{"apiUrl": "https://data.riksdagen.se", "scope": "parliament", "monthsAfterEnd": "600"}',
+                720, 12,
+                'Données ouvertes du Riksdag : citer la source (conditions de réutilisation à vérifier sur data.riksdagen.se)', 'Sveriges riksdag, data.riksdagen.se',
+                'Même plugin et mêmes identifiants que se_pep_parliament. 1 623 personnes vivantes. Au-delà des 12 mois de vigilance légale : à activer selon l''approche par les risques.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', TRUE,
+                   'Tous les députés vivants des 50 dernières années, avec dates exactes de mandat.',
+                   'Naissance : année seulement.'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'SE-b' AND f.label = 'Ancien député au Riksdag' AND p.dataset_name = 'se_pep_parliament_history';
+        ]]></sql>
+    </changeSet>
+
+    <changeSet id="068-parser-se-pep-government" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Suède – Gouvernement',
+                'Premier ministre et ministres en fonction ou sortis depuis moins de 12 mois, avec leur département, d''après l''API ouverte du Riksdag (catégorie SE-a)',
+                'se_pep_government', 'PEP', 'https://data.riksdagen.se/',
+                'se-pep-riksdagen', 'D:/test parser 2/plugins/swiftcheck-aml-se-pep-riksdagen-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'API',
+                NULL,
+                '{"apiUrl": "https://data.riksdagen.se", "scope": "government", "monthsAfterEnd": "12"}',
+                168, 12,
+                'Données ouvertes du Riksdag : citer la source (conditions de réutilisation à vérifier sur data.riksdagen.se)', 'Sveriges riksdag, data.riksdagen.se',
+                'Même plugin que se_pep_parliament (scope = government). 24 personnes. Secrétaires d''État absents de l''API.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'PARTIAL', TRUE,
+                   'Premier ministre et ministres en fonction ou sortis depuis moins de 12 mois, avec département et dates exactes.',
+                   'Secrétaires d''État non couverts (absents de la source).'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'SE-a' AND f.label = 'Premier ministre, ministre' AND p.dataset_name = 'se_pep_government';
+        ]]></sql>
+    </changeSet>
+
+    <changeSet id="068-parser-se-pep-government-history" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Suède – Gouvernement, historique de 50 ans',
+                'Anciens ministres des 50 dernières années (couche étendue de se_pep_government)',
+                'se_pep_government_history', 'PEP', 'https://data.riksdagen.se/',
+                'se-pep-riksdagen', 'D:/test parser 2/plugins/swiftcheck-aml-se-pep-riksdagen-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'API',
+                NULL,
+                '{"apiUrl": "https://data.riksdagen.se", "scope": "government", "monthsAfterEnd": "600"}',
+                720, 12,
+                'Données ouvertes du Riksdag : citer la source (conditions de réutilisation à vérifier sur data.riksdagen.se)', 'Sveriges riksdag, data.riksdagen.se',
+                'Même plugin et mêmes identifiants que se_pep_government. 158 personnes vivantes. À activer selon l''approche par les risques.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'PARTIAL', TRUE,
+                   'Anciens ministres vivants des 50 dernières années, avec département et dates exactes.',
+                   'Secrétaires d''État non couverts (absents de la source).'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'SE-a' AND f.label = 'Premier ministre, ministre' AND p.dataset_name = 'se_pep_government_history';
+        ]]></sql>
+    </changeSet>
+
+    <changeSet id="068-parser-se-pep-parties" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Suède – Chefs de parti',
+                'Chefs de parti et porte-parole des partis représentés au Riksdag, en fonction ou sortis depuis moins de 12 mois (catégorie SE-c)',
+                'se_pep_parties', 'PEP', 'https://data.riksdagen.se/',
+                'se-pep-riksdagen', 'D:/test parser 2/plugins/swiftcheck-aml-se-pep-riksdagen-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'API',
+                NULL,
+                '{"apiUrl": "https://data.riksdagen.se", "scope": "parties", "monthsAfterEnd": "12"}',
+                168, 12,
+                'Données ouvertes du Riksdag : citer la source (conditions de réutilisation à vérifier sur data.riksdagen.se)', 'Sveriges riksdag, data.riksdagen.se',
+                'Même plugin que se_pep_parliament (scope = parties). 10 personnes. Seuls les chefs qui siègent au Riksdag figurent dans la source ; les autres membres des directions de parti ne sont pas publiés.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'PARTIAL', TRUE,
+                   'Chefs de parti et porte-parole qui siègent ou ont siégé au Riksdag.',
+                   'Chefs de parti hors Riksdag et autres membres des directions non couverts.'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'SE-c' AND p.dataset_name = 'se_pep_parties';
+        ]]></sql>
+    </changeSet>
+
+    <changeSet id="068-parser-se-pep-oversight" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Suède – Riksrevisionen et médiateurs',
+                'Riksrevisor et direction de la Riksrevisionen, médiateurs parlementaires (JO) en fonction ou sortis depuis moins de 12 mois (catégorie SE-e)',
+                'se_pep_oversight', 'PEP', 'https://data.riksdagen.se/',
+                'se-pep-riksdagen', 'D:/test parser 2/plugins/swiftcheck-aml-se-pep-riksdagen-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'API',
+                NULL,
+                '{"apiUrl": "https://data.riksdagen.se", "scope": "oversight", "monthsAfterEnd": "12"}',
+                168, 12,
+                'Données ouvertes du Riksdag : citer la source (conditions de réutilisation à vérifier sur data.riksdagen.se)', 'Sveriges riksdag, data.riksdagen.se',
+                'Même plugin que se_pep_parliament (scope = oversight). 10 personnes. Année de naissance absente pour les non-députés. Direction de la Riksbank absente de l''API.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'PARTIAL', TRUE,
+                   'Riksrevisor, direction de la Riksrevisionen et médiateurs parlementaires (JO).',
+                   'Direction de la Riksbank non couverte ; pas de naissance pour les non-députés.'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'SE-e' AND f.label IN ('Riksrevisor et direction de la Riksrevisionen', 'Médiateur parlementaire (JO)') AND p.dataset_name = 'se_pep_oversight';
+        ]]></sql>
+    </changeSet>
+
+</databaseChangeLog>

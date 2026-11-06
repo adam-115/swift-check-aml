@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Finlande, lot 3 : chefs des missions diplomatiques d'après le site du ministère des Affaires étrangères (um.fi) :
+    ambassadeurs, consuls généraux, représentants permanents, chefs de bureau de représentation et ambassadeurs itinérants.
+
+    Le robots.txt d'um.fi impose un délai de 20 secondes entre deux requêtes : le parser ne descend jamais sous ce délai et
+    une exécution complète (environ 95 pages) dure une trentaine de minutes ; la fréquence de rafraîchissement est donc
+    espacée (une fois par mois). Consulats honoraires exclus (consuls honoraires non rémunérés, hors fonction publique).
+-->
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="067-parser-fi-pep-ambassadors" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Finlande – Ambassadeurs',
+                'Chefs des ambassades, consulats généraux, missions permanentes et bureaux de représentation de la Finlande, plus les ambassadeurs itinérants, d''après le site du ministère des Affaires étrangères (catégorie FI-f)',
+                'fi_pep_ambassadors', 'PEP', 'https://um.fi/missions',
+                'fi-pep-ambassadors', 'D:/test parser 2/plugins/swiftcheck-aml-fi-pep-ambassadors-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'WEB_PAGE',
+                NULL,
+                '{"delayMs": "20000", "maxMissions": "0"}',
+                720, 12,
+                'Site officiel du ministère des Affaires étrangères de Finlande : citer la source', 'Ulkoministeriö, um.fi',
+                'Une page de liste par pays, une pour les organisations internationales, une pour les ambassadeurs itinérants, puis une fiche par représentation (environ 95 pages). Le robots.txt impose 20 secondes entre deux requêtes : exécution d''une trentaine de minutes, à ne pas raccourcir. Seul le chef de mission est repris (pas de naissance publiée). Consulats honoraires exclus.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', FALSE,
+                   'Le chef de chaque ambassade, consulat général, mission permanente et bureau de représentation, et les ambassadeurs itinérants.',
+                   'Pas de date de naissance ni de date de prise de fonctions ; ambassadeurs précédents non couverts ; postes vacants absents.'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'FI-f' AND f.label = 'Ambassadeur' AND p.dataset_name = 'fi_pep_ambassadors';
+        ]]></sql>
+    </changeSet>
+
+</databaseChangeLog>

@@ -10,6 +10,7 @@ const STATUS: Record<ExecutionStatus | TestStatus, { label: string; css: string;
   FAILED:    { label: 'Échec',     css: 'bg-rose-50 text-rose-700 ring-rose-600/20',          title: 'Erreur technique : rien n\'a été publié' },
   RUNNING:   { label: 'En cours',  css: 'bg-blue-50 text-blue-700 ring-blue-600/20',          title: 'En cours' },
   PASSED:    { label: 'Réussi',    css: 'bg-emerald-50 text-emerald-700 ring-emerald-600/20', title: 'Tous les éléments de la source sont dans Yente' },
+  CANCELLED: { label: 'Annulé',    css: 'bg-slate-100 text-slate-600 ring-slate-500/20',      title: 'Test annulé avant la fin' },
 };
 
 /** Pastille de statut d'exécution, utilisée dans les listes et le détail. */

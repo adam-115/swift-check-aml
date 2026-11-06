@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Suède, lot 2 : Cour suprême et Cour administrative suprême (justitieråd), direction de la Riksbank et Roi de Suède,
+    d'après leurs pages officielles (domstol.se, riksbank.se, kungahuset.se).
+
+    Non couvert, avec le motif :
+      - ambassadeurs : la fiche de l'ambassadeur de chaque ambassade (swedenabroad.se) n'a pas d'adresse stable
+        (menu rendu côté navigateur) ; une lecture ambassade par ambassade n'est pas fiable ;
+      - secrétaires d'État : regeringen.se ne publie pas leurs noms sur les pages de département ;
+      - officiers généraux, entreprises d'État : aucune liste ouverte exploitable trouvée dans ce lot.
+-->
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="069-parser-se-pep-institutions" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Suède – Hautes cours, Riksbank et Roi',
+                'Juges de la Cour suprême et de la Cour administrative suprême, direction de la Riksbank et Roi de Suède, d''après leurs pages officielles (catégories SE-a, SE-d et SE-e)',
+                'se_pep_institutions', 'PEP', 'https://www.domstol.se/',
+                'se-pep-institutions', 'D:/test parser 2/plugins/swiftcheck-aml-se-pep-institutions-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'WEB_PAGE',
+                NULL,
+                '{"keys": "hd,hfd,riksbank,king", "delayMs": "1500"}',
+                168, 12,
+                'Sites officiels des juridictions, de la Riksbank et de la Maison royale : citer la source', 'Sveriges domstolar, domstol.se ; Sveriges riksbank, riksbank.se ; Kungl. Hovstaterna, kungahuset.se',
+                'Quatre pages. 16 juges de la Cour suprême et 16 de la Cour administrative suprême avec année d''entrée en fonction et président, 5 membres de la direction de la Riksbank, et le Roi avec date de naissance et d''accession au trône. Pas de naissance pour les juges ni pour la direction de la Riksbank.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', FALSE,
+                   'Les 16 justitieråd de chaque cour suprême, avec année d''entrée en fonction et président.',
+                   'Anciens juges non couverts ; pas de naissance.'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'SE-d' AND p.dataset_name = 'se_pep_institutions';
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'PARTIAL', FALSE,
+                   'Les cinq membres de la direction de la Riksbank (gouverneur et sous-gouverneurs).',
+                   'Conseil général de la Riksbank (riksbanksfullmäktige) non couvert ; pas de naissance.'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'SE-e' AND f.label = 'Membre de la direction de la Riksbank' AND p.dataset_name = 'se_pep_institutions';
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', FALSE,
+                   'Le Roi de Suède, avec date de naissance et date d''accession au trône.',
+                   'Membres de la famille royale non couverts (famille proche de la PEP, catégorie RCA).'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'SE-a' AND f.label = 'Roi de Suède' AND p.dataset_name = 'se_pep_institutions';
+        ]]></sql>
+    </changeSet>
+
+</databaseChangeLog>

@@ -237,7 +237,7 @@ export interface SourceFileDTO {
 export type ChangeType = 'ADDED' | 'REMOVED' | 'MODIFIED';
 
 /** Test d'un parser : chaque élément du fichier source est cherché dans Yente. */
-export type TestStatus = 'RUNNING' | 'PASSED' | 'FAILED';
+export type TestStatus = 'RUNNING' | 'PASSED' | 'FAILED' | 'CANCELLED';
 
 /** Pourquoi un élément de la source n'a pas été retrouvé dans Yente. */
 export type TestFailureReason = 'NOT_CONVERTED' | 'NOT_INDEXED' | 'NOT_MATCHED' | 'YENTE_ERROR';
