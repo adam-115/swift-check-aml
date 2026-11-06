@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Danemark, lot 2 : direction de la Rigsrevisionen (Rigsrevisor et vice-Rigsrevisor), d'après la page officielle
+    rigsrevisionen.dk/om-os/organisation.
+
+    Non couvert, avec le motif : Højesteret (site inaccessible aux requêtes automatiques : refus HTTP 403), Banque nationale
+    (page de la direction introuvable), Roi et Reine (pages sans texte biographique exploitable), ambassadeurs, officiers généraux,
+    entreprises d'État (aucune liste ouverte exploitable trouvée).
+-->
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="071-parser-dk-pep-institutions" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Danemark – Rigsrevisionen',
+                'Rigsrevisor et vice-Rigsrevisor, d''après la page officielle de la Rigsrevisionen (catégorie DK-e)',
+                'dk_pep_institutions', 'PEP', 'https://www.rigsrevisionen.dk/',
+                'dk-pep-institutions', 'D:/test parser 2/plugins/swiftcheck-aml-dk-pep-institutions-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'WEB_PAGE',
+                NULL,
+                '{}',
+                168, 12,
+                'Site officiel de la Rigsrevisionen : citer la source', 'Rigsrevisionen, rigsrevisionen.dk',
+                'Une page, deux personnes (Rigsrevisor et vice-Rigsrevisor). Pas de naissance. Højesteret (HTTP 403), Banque nationale (page introuvable) et Roi non couverts.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'PARTIAL', FALSE,
+                   'Le Rigsrevisor et le vice-Rigsrevisor de la Rigsrevisionen.',
+                   'Anciens dirigeants non couverts ; pas de naissance.'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'DK-e' AND f.label = 'Dirigeant de la Rigsrevisionen' AND p.dataset_name = 'dk_pep_institutions';
+        ]]></sql>
+    </changeSet>
+
+</databaseChangeLog>

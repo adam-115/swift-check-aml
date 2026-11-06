@@ -97,5 +97,8 @@
     <include file="db/changelog/changes/067-fi-ambassadors.xml" />
     <include file="db/changelog/changes/068-se-pep-reference-and-parsers.xml" />
     <include file="db/changelog/changes/069-se-lot2.xml" />
+    <include file="db/changelog/changes/070-dk-pep-reference-and-parsers.xml" />
+    <include file="db/changelog/changes/071-dk-lot2.xml" />
+    <include file="db/changelog/changes/072-pl-pep-reference-and-parsers.xml" />
 
 </databaseChangeLog>

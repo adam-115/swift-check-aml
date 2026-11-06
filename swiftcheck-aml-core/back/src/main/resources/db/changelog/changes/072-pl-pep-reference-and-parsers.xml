@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Pologne : référentiel PEP et parsers, sans Wikidata.
+
+    Base légale : ustawa z dnia 1 marca 2018 r. o przeciwdziałaniu praniu pieniędzy oraz finansowaniu terroryzmu : osoba
+    zajmująca eksponowane stanowisko polityczne (PEP) ; vigilance de douze mois après la fin des fonctions.
+
+    Parsers (plugins dans swiftcheck-aml-plugins/pep/poland) :
+      - pl_pep_parliament / pl_pep_parliament_history : députés de la Diète (API officielle api.sejm.gov.pl)
+      - pl_pep_clubs                                  : présidents des groupes parlementaires (kluby) de la Diète
+      - pl_pep_government                             : Premier ministre, vice-premiers ministres et ministres (gov.pl)
+
+    Non couvert, avec le motif :
+      - Sénat (senat.gov.pl et API des sénateurs : rejet « Request Rejected » du pare-feu), Cour suprême (sn.pl, HTTP 403),
+        Présidence de la République (prezydent.pl, HTTP 403), Banque nationale (nbp.pl, protection Incapsula), Tribunal
+        constitutionnel (site injoignable) : accès automatiques refusés, non contournés ;
+      - NIK, ambassadeurs, officiers généraux, entreprises d'État, partis (hors présidents de clubs) : aucune liste ouverte
+        exploitable trouvée dans ce lot ;
+      - proches (RCA) : seule source connue = Wikidata, exclue.
+-->
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="072-pl-country" author="swiftcheck">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM country WHERE iso = 'PL'</sqlCheck>
+        </preConditions>
+        <sql>
+            INSERT INTO country (iso, name, eu_member, legal_basis, retention_months)
+            VALUES ('PL', 'Pologne', TRUE,
+                    'Loi du 1er mars 2018 sur la lutte contre le blanchiment et le financement du terrorisme : personnes occupant des fonctions politiques exposées (osoba zajmująca eksponowane stanowisko polityczne), membres de leur famille et proches associés, douze mois après la fin des fonctions', 12);
+        </sql>
+    </changeSet>
+
+    <changeSet id="072-pl-categories" author="swiftcheck">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM pep_category WHERE country_iso = 'PL'</sqlCheck>
+        </preConditions>
+        <sql>
+            INSERT INTO pep_category (country_iso, code, label, kind, risk_class, sort_order, legal_reference) VALUES
+            ('PL', 'PL-a', 'Chef de l''État, Premier ministre, ministres et secrétaires d''État', 'OFFICIAL', 1, 1, 'Loi du 1er mars 2018'),
+            ('PL', 'PL-b', 'Députés de la Diète et sénateurs', 'OFFICIAL', 1, 2, 'Loi du 1er mars 2018'),
+            ('PL', 'PL-c', 'Organes dirigeants des partis politiques', 'OFFICIAL', 2, 3, 'Loi du 1er mars 2018'),
+            ('PL', 'PL-d', 'Cour suprême, Tribunal constitutionnel et hautes juridictions', 'OFFICIAL', 2, 4, 'Loi du 1er mars 2018'),
+            ('PL', 'PL-e', 'Cour des comptes (NIK) et Banque nationale de Pologne', 'OFFICIAL', 2, 5, 'Loi du 1er mars 2018'),
+            ('PL', 'PL-f', 'Ambassadeurs et officiers généraux des forces armées', 'OFFICIAL', 2, 6, 'Loi du 1er mars 2018'),
+            ('PL', 'PL-g', 'Dirigeants des entreprises détenues par l''État', 'OFFICIAL', 3, 7, 'Loi du 1er mars 2018'),
+            ('PL', 'PL-h', 'Dirigeants des organisations internationales', 'OFFICIAL', 3, 8, 'Loi du 1er mars 2018'),
+            ('PL', 'PL-RCA', 'Membres de la famille et proches associés', 'RCA', 2, 9, 'Loi du 1er mars 2018 (membres de la famille et personnes connues comme étroitement associées)');
+        </sql>
+    </changeSet>
+
+    <changeSet id="072-pl-functions" author="swiftcheck">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM pep_function f JOIN pep_category c ON c.id = f.category_id WHERE c.country_iso = 'PL'</sqlCheck>
+        </preConditions>
+        <sql>
+            INSERT INTO pep_function (category_id, label, institution, expected_holders)
+            SELECT c.id, f.label, f.institution, f.expected_holders
+            FROM pep_category c JOIN (
+                SELECT 'PL-a' AS code, 'Président de la République' AS label, 'Prezydent RP' AS institution, 1 AS expected_holders
+                UNION ALL SELECT 'PL-a', 'Premier ministre, vice-premier ministre, ministre', 'Rada Ministrów', 21
+                UNION ALL SELECT 'PL-a', 'Secrétaire d''État', 'Ministères', NULL
+                UNION ALL SELECT 'PL-b', 'Député à la Diète (poseł)', 'Sejm', 460
+                UNION ALL SELECT 'PL-b', 'Ancien député à la Diète', 'Sejm', NULL
+                UNION ALL SELECT 'PL-b', 'Sénateur', 'Senat', 100
+                UNION ALL SELECT 'PL-c', 'Président de groupe parlementaire (klub)', 'Sejm', 9
+                UNION ALL SELECT 'PL-c', 'Membre d''un organe dirigeant d''un parti', 'Partis politiques', 30
+                UNION ALL SELECT 'PL-d', 'Juge de la Cour suprême', 'Sąd Najwyższy', 100
+                UNION ALL SELECT 'PL-d', 'Juge du Tribunal constitutionnel', 'Trybunał Konstytucyjny', 15
+                UNION ALL SELECT 'PL-e', 'Dirigeant de la Cour des comptes (NIK)', 'Najwyższa Izba Kontroli', 3
+                UNION ALL SELECT 'PL-e', 'Membre du directoire de la Banque nationale de Pologne', 'Narodowy Bank Polski', 7
+                UNION ALL SELECT 'PL-f', 'Ambassadeur', 'Ministerstwo Spraw Zagranicznych', 90
+                UNION ALL SELECT 'PL-f', 'Officier général des forces armées', 'Siły Zbrojne RP', 100
+                UNION ALL SELECT 'PL-g', 'Dirigeant d''une entreprise détenue par l''État', 'Entreprises d''État', NULL
+                UNION ALL SELECT 'PL-h', 'Dirigeant d''une organisation internationale', 'Organisations internationales', NULL
+                UNION ALL SELECT 'PL-RCA', 'Membre de la famille d''une PEP polonaise', NULL, NULL
+                UNION ALL SELECT 'PL-RCA', 'Proche associé d''une PEP polonaise', NULL, NULL
+            ) f ON f.code = c.code;
+        </sql>
+    </changeSet>
+
+    <changeSet id="072-parser-pl-pep-parliament" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Pologne – Diète (Sejm)',
+                'Députés de la Diète en fonction ou sortis depuis moins de 12 mois, d''après l''API officielle api.sejm.gov.pl (catégorie PL-b)',
+                'pl_pep_parliament', 'PEP', 'https://api.sejm.gov.pl/',
+                'pl-pep-sejm', 'D:/test parser 2/plugins/swiftcheck-aml-pl-pep-sejm-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'API',
+                NULL,
+                '{"apiUrl": "https://api.sejm.gov.pl/sejm", "scope": "parliament", "monthsAfterEnd": "12", "delayMs": "500"}',
+                168, 12,
+                'Données ouvertes de la Diète : citer la source (conditions de réutilisation à vérifier sur api.sejm.gov.pl)', 'Sejm Rzeczypospolitej Polskiej, api.sejm.gov.pl',
+                '4 appels (législatures, députés des législatures dans la fenêtre, groupes). Naissance complète ; fin de mandat exacte pour les mandats interrompus, fin de législature pour les mandats terminés. 460 personnes gardées. Un député est reconnu d''une législature à l''autre par prénom, nom et naissance. Décès enregistrés pendant la législature écartés (3).', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', TRUE,
+                   'Tous les députés en fonction et ceux sortis depuis moins de 12 mois, avec naissance, club, circonscription et dates de mandat.',
+                   'Sénateurs non couverts (accès refusé par le pare-feu du Sénat).'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'PL-b' AND f.label IN ('Député à la Diète (poseł)', 'Ancien député à la Diète') AND p.dataset_name = 'pl_pep_parliament';
+        ]]></sql>
+    </changeSet>
+
+    <changeSet id="072-parser-pl-pep-parliament-history" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Pologne – Diète, historique de 15 ans',
+                'Anciens députés de la Diète des 15 dernières années (couche étendue de pl_pep_parliament)',
+                'pl_pep_parliament_history', 'PEP', 'https://api.sejm.gov.pl/',
+                'pl-pep-sejm', 'D:/test parser 2/plugins/swiftcheck-aml-pl-pep-sejm-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'API',
+                NULL,
+                '{"apiUrl": "https://api.sejm.gov.pl/sejm", "scope": "parliament", "monthsAfterEnd": "180", "delayMs": "500"}',
+                720, 12,
+                'Données ouvertes de la Diète : citer la source (conditions de réutilisation à vérifier sur api.sejm.gov.pl)', 'Sejm Rzeczypospolitej Polskiej, api.sejm.gov.pl',
+                'Même plugin et mêmes identifiants que pl_pep_parliament ; 1 204 personnes (législatures 6 à 10). La source ne publie pas le décès des anciens députés : une partie des personnes listées est décédée, d''où une fenêtre limitée à 15 ans. À activer selon l''approche par les risques.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'PARTIAL', TRUE,
+                   'Députés des législatures 6 à 10 avec dates de mandat.',
+                   'Décès des anciens députés non publié par la source ; législatures antérieures non reprises.'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'PL-b' AND f.label = 'Ancien député à la Diète' AND p.dataset_name = 'pl_pep_parliament_history';
+        ]]></sql>
+    </changeSet>
+
+    <changeSet id="072-parser-pl-pep-clubs" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Pologne – Présidents de groupes parlementaires',
+                'Présidents des groupes parlementaires (kluby) de la Diète, d''après l''API officielle api.sejm.gov.pl (catégorie PL-c)',
+                'pl_pep_clubs', 'PEP', 'https://api.sejm.gov.pl/',
+                'pl-pep-sejm', 'D:/test parser 2/plugins/swiftcheck-aml-pl-pep-sejm-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'API',
+                NULL,
+                '{"apiUrl": "https://api.sejm.gov.pl/sejm", "scope": "clubs", "monthsAfterEnd": "12", "delayMs": "500"}',
+                168, 12,
+                'Données ouvertes de la Diète : citer la source (conditions de réutilisation à vérifier sur api.sejm.gov.pl)', 'Sejm Rzeczypospolitej Polskiej, api.sejm.gov.pl',
+                'Même plugin que pl_pep_parliament (scope = clubs). 9 personnes. Seuls les présidents de groupes siégeant à la Diète ; les directions des partis ne sont pas publiées.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'PARTIAL', FALSE,
+                   'Présidents des groupes parlementaires de la Diète en cours.',
+                   'Directions des partis hors présidents de groupe non couvertes.'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'PL-c' AND f.label = 'Président de groupe parlementaire (klub)' AND p.dataset_name = 'pl_pep_clubs';
+        ]]></sql>
+    </changeSet>
+
+    <changeSet id="072-parser-pl-pep-government" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Pologne – Gouvernement',
+                'Premier ministre, vice-premiers ministres et ministres, d''après la page officielle « Skład Rady Ministrów » de la Chancellerie du Premier ministre (catégorie PL-a)',
+                'pl_pep_government', 'PEP', 'https://www.gov.pl/web/premier/sklad-rady-ministrow',
+                'pl-pep-government', 'D:/test parser 2/plugins/swiftcheck-aml-pl-pep-government-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'WEB_PAGE',
+                NULL,
+                '{}',
+                168, 12,
+                'Site officiel de la Chancellerie du Premier ministre : citer la source', 'Kancelaria Prezesa Rady Ministrów, gov.pl',
+                'Une page, 21 personnes (Premier ministre, 3 vice-premiers ministres, 17 ministres). Pas de naissance ni de dates de nomination. Anciens ministres et secrétaires d''État non couverts.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'PARTIAL', FALSE,
+                   'Le Premier ministre, les vice-premiers ministres et les ministres du Conseil des ministres en fonction.',
+                   'Secrétaires d''État et anciens ministres non couverts ; pas de naissance.'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'PL-a' AND f.label = 'Premier ministre, vice-premier ministre, ministre' AND p.dataset_name = 'pl_pep_government';
+        ]]></sql>
+    </changeSet>
+
+</databaseChangeLog>

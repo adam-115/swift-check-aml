@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="fr"><head><meta charset="utf-8"><title>Plan des parsers PEP – Danemark</title>
+<style>
+body{font-family:Segoe UI,Arial,sans-serif;font-size:11pt;color:#1a1a1a;margin:28px;line-height:1.45}
+h1{color:#0b3d6b;border-bottom:3px solid #0b3d6b;padding-bottom:6px}h2{color:#0b3d6b;margin-top:26px}
+table{border-collapse:collapse;width:100%;margin:10px 0;font-size:10pt}th,td{border:1px solid #bbb;padding:5px 8px;text-align:left;vertical-align:top}
+th{background:#e8eef5}.ok{color:#14702e;font-weight:600}.ko{color:#a32020;font-weight:600}.note{background:#f4f7fa;border-left:4px solid #0b3d6b;padding:8px 12px}
+</style></head><body>
+<h1>Plan des parsers PEP – Danemark</h1>
+<p>Date : 6 novembre 2026. Pays de l'Union européenne : les députés européens et le commissaire danois relèvent des parsers européens existants. Base légale : loi sur les mesures préventives contre le blanchiment et le financement du terrorisme (hvidvaskloven), personne politiquement exposée, douze mois après la fin des fonctions.</p>
+
+<h2>1. Parsers réalisés (lot 1)</h2>
+<p>Source unique : l'API ouverte du Folketing, <i>oda.ft.dk/api/Aktør</i> (OData, JSON ; environ 3 400 personnes, dont 2 020 avec une fiche biographique XML). Un seul plugin sert les cinq jeux, selon le paramètre <i>scope</i>.</p>
+<table>
+<tr><th>Jeu de données</th><th>Contenu</th><th>Volume mesuré</th></tr>
+<tr><td>dk_pep_parliament</td><td>Députés du Folketing et président du Folketing, en fonction ou sortis depuis moins de 12 mois (DK-b)</td><td>255 personnes</td></tr>
+<tr><td>dk_pep_parliament_history</td><td>Anciens députés des 50 dernières années, vivants uniquement</td><td>793 personnes</td></tr>
+<tr><td>dk_pep_government</td><td>Premier ministre et ministres avec fonction et dates exactes (DK-a)</td><td>38 personnes (changement de gouvernement le 3 juin 2026)</td></tr>
+<tr><td>dk_pep_government_history</td><td>Anciens ministres des 50 dernières années</td><td>180 personnes</td></tr>
+<tr><td>dk_pep_oversight</td><td>Statsrevisorer, auditeurs d'État élus par le Folketing (DK-e)</td><td>10 personnes (41 sur 50 ans)</td></tr>
+</table>
+<p>Le parser télécharge la source à chaque exécution ; aucune liste de noms n'est embarquée ; Wikidata n'est pas utilisé. Migration Liquibase 070 (pays DK, catégories, fonctions, 5 parsers), validée sur une base jetable. 786 personnes décédées sont écartées.</p>
+
+<h2>2. Points forts</h2>
+<ul><li>Date de naissance complète (jour, mois, année), contrairement à la Suède et à la Finlande.</li>
+<li>Dates exactes de début et de fin de chaque mandat et fonction ministérielle, lues dans le texte de la carrière.</li>
+<li>Un seul téléchargement de 35 pages (environ 30 secondes) pour cinq jeux de données.</li></ul>
+
+<h2>3. Limites et sources non couvertes</h2>
+<table>
+<tr><th>Périmètre</th><th>Situation</th></tr>
+<tr><td>Chefs de parti</td><td class="ko">Seuls ceux qui siègent figurent, avec des années seulement, mêlés aux présidences de groupe parlementaire : liste trop incomplète pour être publiée</td></tr>
+<tr><td>Ministres sans fiche biographique, suppléants temporaires</td><td class="ko">Non repris</td></tr>
+<tr><td>Cour suprême, Rigsrevisionen, Banque nationale, ambassadeurs, officiers généraux, entreprises d'État, Reine</td><td class="ko">Pas de source ouverte étudiée dans ce lot</td></tr>
+<tr><td>Une fiche biographique sur 2 020</td><td class="ko">Illisible (format inhabituel)</td></tr>
+</table>
+<p class="note">Les proches (RCA) ne sont pas couverts : la seule source connue est Wikidata, exclue.</p>
+
+<h2>4. Suite proposée</h2>
+<ul><li>Lot 2 : Cour suprême (Højesteret), Banque nationale, Rigsrevisionen, Reine, ambassadeurs, si des pages publiques exploitables existent.</li>
+<li>Autre pays : Pologne (api.sejm.gov.pl).</li></ul>
+</body></html>

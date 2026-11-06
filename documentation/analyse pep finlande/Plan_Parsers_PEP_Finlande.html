@@ -9,7 +9,7 @@ th{background:#e8eef5}.ok{color:#14702e;font-weight:600}.ko{color:#a32020;font-w
 <h1>Plan des parsers PEP – Finlande</h1>
 <p>Date : 6 novembre 2026. Pays de l'Union européenne : les députés européens et le commissaire finlandais relèvent des parsers européens existants. Base légale : loi 444/2017 sur la prévention du blanchiment et du financement du terrorisme (personne politiquement influente, douze mois après la fin des fonctions).</p>
 
-<h2>1. Parsers réalisés (lots 1 et 2)</h2>
+<h2>1. Parsers réalisés (lots 1 à 3)</h2>
 <table>
 <tr><th>Jeu de données</th><th>Source</th><th>Contenu</th><th>Volume mesuré</th></tr>
 <tr><td>fi_pep_parliament</td><td>API ouverte avoindata.eduskunta.fi (≈ 2 700 fiches, 27 pages)</td><td>Députés en fonction et sortis depuis moins de 12 mois (FI-b), dates exactes de mandat</td><td>214 personnes</td></tr>
@@ -18,6 +18,7 @@ th{background:#e8eef5}.ok{color:#14702e;font-weight:600}.ko{color:#a32020;font-w
 <tr><td>fi_pep_government_history</td><td>idem (monthsAfterEnd 600)</td><td>Anciens ministres des 50 dernières années</td><td>169 personnes</td></tr>
 <tr><td>fi_pep_courts</td><td>Pages officielles de la Cour suprême (korkeinoikeus.fi) et de la Cour administrative suprême (kho.fi)</td><td>Présidents et membres (FI-d), année de naissance, congés signalés</td><td>≈ 20 + 21 personnes</td></tr>
 <tr><td>fi_pep_institutions (lot 2)</td><td>presidentti.fi (CV et anciens présidents), solidium.fi (conseil et équipe)</td><td>Président de la République en fonction et anciens vivants (FI-a) ; conseil et direction de Solidium (FI-g)</td><td>1 + 2 présidents ; 6 administrateurs + 3 dirigeants</td></tr>
+<tr><td>fi_pep_ambassadors (lot 3)</td><td>um.fi (listes et fiches de contact, 20 s entre requêtes)</td><td>Chefs des ambassades, consulats généraux, missions permanentes, ambassadeurs itinérants (FI-f)</td><td>91 personnes sur 93 représentations (≈ 35 min)</td></tr>
 </table>
 <p>Chaque parser télécharge la source à chaque exécution ; aucune liste de noms n'est embarquée ; Wikidata n'est pas utilisé. Un seul plugin sert les quatre jeux parlement et gouvernement (paramètre <i>scope</i>). Migrations Liquibase 065 et 066 (pays FI, catégories, fonctions, 6 parsers), validée sur une base jetable. 1 926 personnes décédées sont écartées de la table.</p>
 
@@ -31,11 +32,11 @@ th{background:#e8eef5}.ok{color:#14702e;font-weight:600}.ko{color:#a32020;font-w
 <tr><th>Source</th><th>Obstacle</th><th>Conséquence</th></tr>
 <tr><td>valtioneuvosto.fi (gouvernement)</td><td>Contrôle Cloudflare, HTTP 403, non contourné</td><td>Les ministres qui n'ont jamais été députés manquent ; la voie propre est de demander un fichier</td></tr>
 <tr><td>suomenpankki.fi (Banque de Finlande)</td><td>La page du conseil de direction ne contient que le menu côté serveur</td><td>Trois personnes non couvertes</td></tr>
-<tr><td>Ministères et organes rattachés (defmin.fi, puolustusvoimat.fi, oikeuskansleri.fi, oikeusasiamies.fi)</td><td>Contrôle Cloudflare, HTTP 403, non contourné</td><td>Officiers généraux, Chancelier de justice et médiateur non couverts</td></tr><tr><td>vtv.fi (Cour des comptes)</td><td>Liste du personnel chargée dynamiquement</td><td>Directeur général non couvert</td></tr><tr><td>um.fi (ambassadeurs)</td><td>Délai de 20 s entre requêtes (robots.txt), plus de 90 pages</td><td>Non couvert</td></tr><tr><td>Partis, autres entreprises d État</td><td>Aucune liste ouverte exploitable trouvée</td><td>Non couverts</td></tr>
+<tr><td>Ministères et organes rattachés (defmin.fi, puolustusvoimat.fi, oikeuskansleri.fi, oikeusasiamies.fi)</td><td>Contrôle Cloudflare, HTTP 403, non contourné</td><td>Officiers généraux, Chancelier de justice et médiateur non couverts</td></tr><tr><td>vtv.fi (Cour des comptes)</td><td>Liste du personnel chargée dynamiquement</td><td>Directeur général non couvert</td></tr><tr><td>Fiches sans chef de mission</td><td>Kaboul, Rangoun et Islamabad (fermées), Saint-Pétersbourg, Mourmansk, Stockholm, Saint-Siège</td><td>Aucun ambassadeur publié</td></tr><tr><td>Partis, autres entreprises d État</td><td>Aucune liste ouverte exploitable trouvée</td><td>Non couverts</td></tr>
 </table>
 <p class="note">Les proches (RCA) ne sont pas couverts : la seule source connue est Wikidata, exclue. Naissance des députés : année seulement.</p>
 
 <h2>4. Suite proposée</h2>
-<ul><li>Lot 3 possible : ambassadeurs (um.fi, 20 s entre requêtes), partis, autres entreprises d État si une liste ouverte apparaît.</li>
+<ul><li>Lot 4 possible : partis, autres entreprises d État si une liste ouverte apparaît.</li>
 <li>Autres pays nordiques : Danemark (oda.ft.dk), Suède (data.riksdagen.se).</li></ul>
 </body></html>

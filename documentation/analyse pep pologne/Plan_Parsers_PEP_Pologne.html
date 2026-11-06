@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="fr"><head><meta charset="utf-8"><title>Plan des parsers PEP – Pologne</title>
+<style>
+body{font-family:Segoe UI,Arial,sans-serif;font-size:11pt;color:#1a1a1a;margin:28px;line-height:1.45}
+h1{color:#0b3d6b;border-bottom:3px solid #0b3d6b;padding-bottom:6px}h2{color:#0b3d6b;margin-top:26px}
+table{border-collapse:collapse;width:100%;margin:10px 0;font-size:10pt}th,td{border:1px solid #bbb;padding:5px 8px;text-align:left;vertical-align:top}
+th{background:#e8eef5}.ok{color:#14702e;font-weight:600}.ko{color:#a32020;font-weight:600}.note{background:#f4f7fa;border-left:4px solid #0b3d6b;padding:8px 12px}
+</style></head><body>
+<h1>Plan des parsers PEP – Pologne</h1>
+<p>Date : 6 novembre 2026. Pays de l'Union européenne : les députés européens et le commissaire polonais relèvent des parsers européens existants. Base légale : loi du 1er mars 2018 sur la lutte contre le blanchiment et le financement du terrorisme (personne occupant une fonction politique exposée, douze mois après la fin des fonctions).</p>
+
+<h2>1. Parsers réalisés (lots 1 et 2)</h2>
+<table>
+<tr><th>Jeu de données</th><th>Source</th><th>Contenu</th><th>Volume mesuré</th></tr>
+<tr><td>pl_pep_parliament</td><td>API officielle api.sejm.gov.pl</td><td>Députés de la Diète en fonction ou sortis depuis moins de 12 mois (PL-b), naissance complète, club, circonscription, dates de mandat</td><td>460 personnes</td></tr>
+<tr><td>pl_pep_parliament_history</td><td>idem, même plugin (monthsAfterEnd 180)</td><td>Députés des législatures 6 à 10 (15 ans)</td><td>1 204 personnes</td></tr>
+<tr><td>pl_pep_clubs</td><td>idem (/clubs)</td><td>Présidents des groupes parlementaires (PL-c)</td><td>9 personnes</td></tr>
+<tr><td>pl_pep_government</td><td>Page « Skład Rady Ministrów » de gov.pl</td><td>Premier ministre, vice-premiers ministres, ministres (PL-a)</td><td>21 personnes</td></tr>
+</table>
+<p>Chaque parser télécharge la source à chaque exécution ; aucune liste de noms n'est embarquée ; Wikidata n'est pas utilisé. Un député est reconnu d'une législature à l'autre par prénom, nom et naissance (son identifiant change à chaque législature) : une seule personne pour plusieurs législatures. Migration Liquibase 072 (pays PL, catégories, fonctions, 4 parsers), validée sur une base jetable.</p>
+
+<h2>2. Limites et sources non couvertes</h2>
+<table>
+<tr><th>Source</th><th>Obstacle</th><th>Conséquence</th></tr>
+<tr><td>Sénat (senat.gov.pl, API des sénateurs)</td><td>Pare-feu : « Request Rejected »</td><td class="ko">Sénateurs non couverts</td></tr>
+<tr><td>Cour suprême (sn.pl)</td><td>HTTP 403</td><td class="ko">Juges non couverts</td></tr>
+<tr><td>Présidence de la République (prezydent.pl)</td><td>HTTP 403</td><td class="ko">Président non couvert</td></tr>
+<tr><td>Banque nationale (nbp.pl)</td><td>Protection Incapsula</td><td class="ko">Directoire non couvert</td></tr>
+<tr><td>Tribunal constitutionnel (trybunal.gov.pl)</td><td>Site injoignable</td><td class="ko">Juges non couverts</td></tr>
+<tr><td>NIK, ambassadeurs, officiers généraux, entreprises d'État, directions de partis</td><td>Aucune liste ouverte exploitable trouvée</td><td class="ko">Non couverts</td></tr>
+<tr><td>Décès des anciens députés</td><td>Non publié par l'API</td><td class="ko">L'historique de 15 ans peut contenir des personnes décédées</td></tr>
+</table>
+<p class="note">Les accès refusés par un pare-feu ou une protection anti-robot ne sont pas contournés. La voie propre est de demander un fichier aux institutions. Les proches (RCA) ne sont pas couverts : la seule source connue est Wikidata, exclue.</p>
+
+<h2>3. Suite proposée</h2>
+<ul><li>Lot 3 : NIK, ambassadeurs et sénateurs si une source ouverte apparaît, ou demande de fichiers au Sénat, à la Cour suprême et à la Banque nationale.</li>
+<li>Autres pays : Tchéquie (psp.cz, fichier poslanci.zip), Pays baltes, Grèce.</li></ul>
+</body></html>

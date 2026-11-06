@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Danemark : référentiel PEP et parsers, sans Wikidata.
+
+    Base légale : lov om forebyggende foranstaltninger mod hvidvask og finansiering af terrorisme (hvidvaskloven) :
+    politisk eksponeret person (PEP) ; vigilance de douze mois après la fin des fonctions.
+
+    Parsers (un seul plugin, swiftcheck-aml-plugins/pep/denmark, paramètre scope) sur l'API ouverte du Folketing (oda.ft.dk) :
+      - dk_pep_parliament / dk_pep_parliament_history : députés du Folketing et président du Folketing
+      - dk_pep_government / dk_pep_government_history : Premier ministre et ministres, dates exactes
+      - dk_pep_oversight                              : Statsrevisorerne (auditeurs d'État élus par le Folketing)
+
+    Non couvert, avec le motif :
+      - chefs de parti : les fiches ne donnent que ceux qui siègent, avec des années seulement (présidences de groupe
+        parlementaire mêlées) ; liste trop incomplète pour être publiée ;
+      - Cour suprême, Banque nationale, ambassadeurs, officiers généraux, entreprises d'État, Roi : pas de source ouverte
+        étudiée dans ce lot ;
+      - ministres non députés : repris seulement quand une fiche biographique existe ;
+      - proches (RCA) : seule source connue = Wikidata, exclue.
+-->
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="070-dk-country" author="swiftcheck">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM country WHERE iso = 'DK'</sqlCheck>
+        </preConditions>
+        <sql>
+            INSERT INTO country (iso, name, eu_member, legal_basis, retention_months)
+            VALUES ('DK', 'Danemark', TRUE,
+                    'Loi sur les mesures préventives contre le blanchiment et le financement du terrorisme (hvidvaskloven) : personnes politiquement exposées (politisk eksponeret person), membres de leur famille et proches associés, douze mois après la fin des fonctions', 12);
+        </sql>
+    </changeSet>
+
+    <changeSet id="070-dk-categories" author="swiftcheck">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM pep_category WHERE country_iso = 'DK'</sqlCheck>
+        </preConditions>
+        <sql>
+            INSERT INTO pep_category (country_iso, code, label, kind, risk_class, sort_order, legal_reference) VALUES
+            ('DK', 'DK-a', 'Chef de l''État, Premier ministre et ministres', 'OFFICIAL', 1, 1, 'Hvidvaskloven'),
+            ('DK', 'DK-b', 'Députés du Folketing', 'OFFICIAL', 1, 2, 'Hvidvaskloven'),
+            ('DK', 'DK-c', 'Organes dirigeants des partis politiques', 'OFFICIAL', 2, 3, 'Hvidvaskloven'),
+            ('DK', 'DK-d', 'Cour suprême et hautes juridictions', 'OFFICIAL', 2, 4, 'Hvidvaskloven'),
+            ('DK', 'DK-e', 'Statsrevisorerne, Rigsrevisionen et Banque nationale', 'OFFICIAL', 2, 5, 'Hvidvaskloven'),
+            ('DK', 'DK-f', 'Ambassadeurs et officiers généraux des forces armées', 'OFFICIAL', 2, 6, 'Hvidvaskloven'),
+            ('DK', 'DK-g', 'Dirigeants des entreprises détenues par l''État', 'OFFICIAL', 3, 7, 'Hvidvaskloven'),
+            ('DK', 'DK-h', 'Dirigeants des organisations internationales', 'OFFICIAL', 3, 8, 'Hvidvaskloven'),
+            ('DK', 'DK-RCA', 'Membres de la famille et proches associés', 'RCA', 2, 9, 'Hvidvaskloven (membres de la famille et personnes connues comme étroitement associées)');
+        </sql>
+    </changeSet>
+
+    <changeSet id="070-dk-functions" author="swiftcheck">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM pep_function f JOIN pep_category c ON c.id = f.category_id WHERE c.country_iso = 'DK'</sqlCheck>
+        </preConditions>
+        <sql>
+            INSERT INTO pep_function (category_id, label, institution, expected_holders)
+            SELECT c.id, f.label, f.institution, f.expected_holders
+            FROM pep_category c JOIN (
+                SELECT 'DK-a' AS code, 'Reine de Danemark' AS label, 'Kongehuset' AS institution, 1 AS expected_holders
+                UNION ALL SELECT 'DK-a', 'Premier ministre, ministre', 'Regeringen', 20
+                UNION ALL SELECT 'DK-b', 'Député au Folketing', 'Folketinget', 179
+                UNION ALL SELECT 'DK-b', 'Ancien député au Folketing', 'Folketinget', NULL
+                UNION ALL SELECT 'DK-c', 'Membre d''un organe dirigeant d''un parti', 'Partis politiques', 30
+                UNION ALL SELECT 'DK-d', 'Juge de la Cour suprême (Højesteret)', 'Højesteret', 20
+                UNION ALL SELECT 'DK-e', 'Statsrevisor', 'Statsrevisorerne', 6
+                UNION ALL SELECT 'DK-e', 'Dirigeant de la Rigsrevisionen', 'Rigsrevisionen', 3
+                UNION ALL SELECT 'DK-e', 'Membre de la direction de la Banque nationale', 'Danmarks Nationalbank', 3
+                UNION ALL SELECT 'DK-f', 'Ambassadeur', 'Udenrigsministeriet', 90
+                UNION ALL SELECT 'DK-f', 'Officier général des forces armées', 'Forsvaret', 20
+                UNION ALL SELECT 'DK-g', 'Dirigeant d''une entreprise détenue par l''État', 'Entreprises d''État', NULL
+                UNION ALL SELECT 'DK-h', 'Dirigeant d''une organisation internationale', 'Organisations internationales', NULL
+                UNION ALL SELECT 'DK-RCA', 'Membre de la famille d''une PEP danoise', NULL, NULL
+                UNION ALL SELECT 'DK-RCA', 'Proche associé d''une PEP danoise', NULL, NULL
+            ) f ON f.code = c.code;
+        </sql>
+    </changeSet>
+
+    <changeSet id="070-parser-dk-pep-parliament" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Danemark – Folketing',
+                'Députés du Folketing et président du Folketing, en fonction ou sortis depuis moins de 12 mois, d''après l''API ouverte oda.ft.dk (catégorie DK-b)',
+                'dk_pep_parliament', 'PEP', 'https://oda.ft.dk/',
+                'dk-pep-folketing', 'D:/test parser 2/plugins/swiftcheck-aml-dk-pep-folketing-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'API',
+                NULL,
+                '{"apiUrl": "https://oda.ft.dk/api", "scope": "parliament", "monthsAfterEnd": "12", "delayMs": "500"}',
+                168, 12,
+                'Données ouvertes du Folketing : citer la source (conditions de réutilisation à vérifier sur oda.ft.dk)', 'Folketinget, oda.ft.dk',
+                '35 pages de 100 personnes (environ 3 400 entités, 2 020 avec fiche biographique), soit environ 30 secondes. Naissance complète, dates exactes de mandat lues dans le texte de la carrière. 255 personnes gardées. Décédés écartés (786). Une fiche illisible sur 2 020.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', TRUE,
+                   'Tous les députés en fonction et ceux sortis depuis moins de 12 mois, avec naissance complète, sexe, parti et dates exactes ; le président du Folketing.',
+                   'Suppléants temporaires non repris.'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'DK-b' AND f.label IN ('Député au Folketing', 'Ancien député au Folketing') AND p.dataset_name = 'dk_pep_parliament';
+        ]]></sql>
+    </changeSet>
+
+    <changeSet id="070-parser-dk-pep-parliament-history" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Danemark – Folketing, historique de 50 ans',
+                'Anciens députés du Folketing des 50 dernières années (couche étendue de dk_pep_parliament)',
+                'dk_pep_parliament_history', 'PEP', 'https://oda.ft.dk/',
+                'dk-pep-folketing', 'D:/test parser 2/plugins/swiftcheck-aml-dk-pep-folketing-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'API',
+                NULL,
+                '{"apiUrl": "https://oda.ft.dk/api", "scope": "parliament", "monthsAfterEnd": "600", "delayMs": "500"}',
+                720, 12,
+                'Données ouvertes du Folketing : citer la source (conditions de réutilisation à vérifier sur oda.ft.dk)', 'Folketinget, oda.ft.dk',
+                'Même plugin et mêmes identifiants que dk_pep_parliament. 793 personnes vivantes. Au-delà des 12 mois de vigilance légale : à activer selon l''approche par les risques.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', TRUE,
+                   'Tous les députés vivants des 50 dernières années, avec dates exactes de mandat.',
+                   'Suppléants temporaires non repris.'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'DK-b' AND f.label = 'Ancien député au Folketing' AND p.dataset_name = 'dk_pep_parliament_history';
+        ]]></sql>
+    </changeSet>
+
+    <changeSet id="070-parser-dk-pep-government" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Danemark – Gouvernement',
+                'Premier ministre et ministres en fonction ou sortis depuis moins de 12 mois, d''après l''API ouverte du Folketing (catégorie DK-a)',
+                'dk_pep_government', 'PEP', 'https://oda.ft.dk/',
+                'dk-pep-folketing', 'D:/test parser 2/plugins/swiftcheck-aml-dk-pep-folketing-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'API',
+                NULL,
+                '{"apiUrl": "https://oda.ft.dk/api", "scope": "government", "monthsAfterEnd": "12", "delayMs": "500"}',
+                168, 12,
+                'Données ouvertes du Folketing : citer la source (conditions de réutilisation à vérifier sur oda.ft.dk)', 'Folketinget, oda.ft.dk',
+                'Même plugin que dk_pep_parliament (scope = government). 38 personnes (le gouvernement a changé le 3 juin 2026, les sortants récents sont repris). Fonction et dates exactes.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'PARTIAL', TRUE,
+                   'Premier ministre et ministres en fonction ou sortis depuis moins de 12 mois, avec fonction et dates exactes.',
+                   'Ministres sans fiche biographique dans l''API non couverts.'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'DK-a' AND f.label = 'Premier ministre, ministre' AND p.dataset_name = 'dk_pep_government';
+        ]]></sql>
+    </changeSet>
+
+    <changeSet id="070-parser-dk-pep-government-history" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Danemark – Gouvernement, historique de 50 ans',
+                'Anciens ministres des 50 dernières années (couche étendue de dk_pep_government)',
+                'dk_pep_government_history', 'PEP', 'https://oda.ft.dk/',
+                'dk-pep-folketing', 'D:/test parser 2/plugins/swiftcheck-aml-dk-pep-folketing-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'API',
+                NULL,
+                '{"apiUrl": "https://oda.ft.dk/api", "scope": "government", "monthsAfterEnd": "600", "delayMs": "500"}',
+                720, 12,
+                'Données ouvertes du Folketing : citer la source (conditions de réutilisation à vérifier sur oda.ft.dk)', 'Folketinget, oda.ft.dk',
+                'Même plugin et mêmes identifiants que dk_pep_government. 180 personnes vivantes. À activer selon l''approche par les risques.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'PARTIAL', TRUE,
+                   'Anciens ministres vivants des 50 dernières années, avec fonction et dates exactes.',
+                   'Ministres sans fiche biographique dans l''API non couverts.'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'DK-a' AND f.label = 'Premier ministre, ministre' AND p.dataset_name = 'dk_pep_government_history';
+        ]]></sql>
+    </changeSet>
+
+    <changeSet id="070-parser-dk-pep-oversight" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Danemark – Statsrevisorerne',
+                'Statsrevisorer (auditeurs d''État élus par le Folketing) en fonction ou sortis depuis moins de 12 mois (catégorie DK-e)',
+                'dk_pep_oversight', 'PEP', 'https://oda.ft.dk/',
+                'dk-pep-folketing', 'D:/test parser 2/plugins/swiftcheck-aml-dk-pep-folketing-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'API',
+                NULL,
+                '{"apiUrl": "https://oda.ft.dk/api", "scope": "oversight", "monthsAfterEnd": "12", "delayMs": "500"}',
+                168, 12,
+                'Données ouvertes du Folketing : citer la source (conditions de réutilisation à vérifier sur oda.ft.dk)', 'Folketinget, oda.ft.dk',
+                'Même plugin que dk_pep_parliament (scope = oversight). 10 personnes (41 sur 50 ans). Rigsrevisionen et Banque nationale non couvertes.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'PARTIAL', TRUE,
+                   'Statsrevisorer en fonction ou sortis depuis moins de 12 mois, avec naissance et dates exactes.',
+                   'Rigsrevisionen et Banque nationale non couvertes.'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'DK-e' AND f.label = 'Statsrevisor' AND p.dataset_name = 'dk_pep_oversight';
+        ]]></sql>
+    </changeSet>
+
+
+    <!-- Chiffres de l'exécution réelle des ambassadeurs finlandais (6 novembre 2026). Changeset séparé : le changeset 067 déjà
+         appliqué ne doit jamais être modifié (son checksum est contrôlé au démarrage). -->
+    <changeSet id="070-fi-ambassadors-notes" author="swiftcheck">
+        <sql><![CDATA[
+            UPDATE parser SET notes = CONCAT(notes, ' Exécution réelle du 6 novembre 2026 : 93 représentations listées, 91 chefs de mission lus (ambassadeurs itinérants compris), 7 fiches sans chef (Kaboul, Rangoun et Islamabad fermées, consulat général de Saint-Pétersbourg, bureau de Mourmansk, Stockholm, Saint-Siège), environ 35 minutes.')
+            WHERE dataset_name = 'fi_pep_ambassadors' AND notes NOT LIKE '%Exécution réelle du 6 novembre 2026%';
+        ]]></sql>
+    </changeSet>
+
+</databaseChangeLog>
