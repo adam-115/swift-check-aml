@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Lettonie : référentiel PEP et parsers, sans Wikidata.
+
+    Base légale : loi sur la prévention du blanchiment de capitaux et du financement du terrorisme et de la prolifération
+    (Noziedzīgi iegūtu līdzekļu legalizācijas un terorisma un proliferācijas finansēšanas novēršanas likums) : personne
+    politiquement exposée (politiski nozīmīga persona) ; vigilance de douze mois après la fin des fonctions (durée à confirmer sur
+    le texte en vigueur).
+
+    Parsers (plugins dans swiftcheck-aml-plugins/pep/latvia) :
+      - lv_pep_parliament : députés de la Saeima, 15e et 14e législatures (saeima.lv)
+      - lv_pep_government : Premier ministre et ministres (mk.gov.lv)
+
+    Non couvert à ce jour, avec le motif :
+      - Saeima : API (/api/) interdite par le robots.txt de saeima.lv et titania.saeima.lv interdit à tous : seules les pages
+        publiques sont lues ; ni naissance ni décès publiés, donc pas de couche historique (législatures antérieures) : une
+        personne décédée n'y serait pas écartée ;
+      - président de la République, juges de la Cour suprême et de la Cour constitutionnelle, Banque de Lettonie, Cour des comptes
+        (Valsts kontrole), ambassadeurs, officiers généraux, entreprises d'État, partis : pages à étudier au lot 2 ;
+      - anciens ministres : mk.gov.lv ne publie que les membres en fonction ;
+      - proches (RCA) : seule source connue = Wikidata, exclue.
+-->
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="078-lv-country" author="swiftcheck">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM country WHERE iso = 'LV'</sqlCheck>
+        </preConditions>
+        <sql>
+            INSERT INTO country (iso, name, eu_member, legal_basis, retention_months)
+            VALUES ('LV', 'Lettonie', TRUE,
+                    'Loi sur la prévention du blanchiment de capitaux et du financement du terrorisme et de la prolifération (Noziedzīgi iegūtu līdzekļu legalizācijas un terorisma un proliferācijas finansēšanas novēršanas likums) : personnes politiquement exposées (politiski nozīmīga persona), membres de leur famille et proches associés, douze mois après la fin des fonctions', 12);
+        </sql>
+    </changeSet>
+
+    <changeSet id="078-lv-categories" author="swiftcheck">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM pep_category WHERE country_iso = 'LV'</sqlCheck>
+        </preConditions>
+        <sql>
+            INSERT INTO pep_category (country_iso, code, label, kind, risk_class, sort_order, legal_reference) VALUES
+            ('LV', 'LV-a', 'Chef de l''État, Premier ministre et ministres', 'OFFICIAL', 1, 1, 'Loi sur la prévention du blanchiment'),
+            ('LV', 'LV-b', 'Députés de la Saeima', 'OFFICIAL', 1, 2, 'Loi sur la prévention du blanchiment'),
+            ('LV', 'LV-c', 'Organes dirigeants des partis politiques', 'OFFICIAL', 2, 3, 'Loi sur la prévention du blanchiment'),
+            ('LV', 'LV-d', 'Cour suprême et Cour constitutionnelle', 'OFFICIAL', 2, 4, 'Loi sur la prévention du blanchiment'),
+            ('LV', 'LV-e', 'Cour des comptes (Valsts kontrole) et Banque de Lettonie', 'OFFICIAL', 2, 5, 'Loi sur la prévention du blanchiment'),
+            ('LV', 'LV-f', 'Ambassadeurs et officiers généraux des forces armées', 'OFFICIAL', 2, 6, 'Loi sur la prévention du blanchiment'),
+            ('LV', 'LV-g', 'Dirigeants des entreprises détenues par l''État', 'OFFICIAL', 3, 7, 'Loi sur la prévention du blanchiment'),
+            ('LV', 'LV-h', 'Dirigeants des organisations internationales', 'OFFICIAL', 3, 8, 'Loi sur la prévention du blanchiment'),
+            ('LV', 'LV-RCA', 'Membres de la famille et proches associés', 'RCA', 2, 9, 'Loi sur la prévention du blanchiment (membres de la famille et personnes connues comme étroitement associées)');
+        </sql>
+    </changeSet>
+
+    <changeSet id="078-lv-functions" author="swiftcheck">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM pep_function f JOIN pep_category c ON c.id = f.category_id WHERE c.country_iso = 'LV'</sqlCheck>
+        </preConditions>
+        <sql>
+            INSERT INTO pep_function (category_id, label, institution, expected_holders)
+            SELECT c.id, f.label, f.institution, f.expected_holders
+            FROM pep_category c JOIN (
+                SELECT 'LV-a' AS code, 'Président de la République' AS label, 'Valsts prezidents' AS institution, 1 AS expected_holders
+                UNION ALL SELECT 'LV-a', 'Premier ministre et ministres', 'Ministru kabinets', 14
+                UNION ALL SELECT 'LV-a', 'Ancien ministre', 'Ministru kabinets', NULL
+                UNION ALL SELECT 'LV-b', 'Député à la Saeima', 'Saeima', 100
+                UNION ALL SELECT 'LV-b', 'Ancien député à la Saeima', 'Saeima', NULL
+                UNION ALL SELECT 'LV-c', 'Membre d''un organe dirigeant d''un parti', 'Partis politiques', 30
+                UNION ALL SELECT 'LV-d', 'Juge de la Cour suprême', 'Augstākā tiesa', 30
+                UNION ALL SELECT 'LV-d', 'Juge de la Cour constitutionnelle', 'Satversmes tiesa', 7
+                UNION ALL SELECT 'LV-e', 'Auditeur général (Valsts kontrole)', 'Valsts kontrole', 1
+                UNION ALL SELECT 'LV-e', 'Membre du conseil de la Banque de Lettonie', 'Latvijas Banka', 6
+                UNION ALL SELECT 'LV-f', 'Ambassadeur', 'Ārlietu ministrija', 40
+                UNION ALL SELECT 'LV-f', 'Officier général des forces armées', 'Nacionālie bruņotie spēki', 10
+                UNION ALL SELECT 'LV-g', 'Dirigeant d''une entreprise détenue par l''État', 'Entreprises d''État', NULL
+                UNION ALL SELECT 'LV-h', 'Dirigeant d''une organisation internationale', 'Organisations internationales', NULL
+                UNION ALL SELECT 'LV-RCA', 'Membre de la famille d''une PEP lettone', NULL, NULL
+                UNION ALL SELECT 'LV-RCA', 'Proche associé d''une PEP lettone', NULL, NULL
+            ) f ON f.code = c.code;
+        </sql>
+    </changeSet>
+
+    <changeSet id="078-parser-lv-pep-parliament" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Lettonie – Saeima',
+                'Députés de la Saeima (15e et 14e législatures) en fonction ou sortis depuis moins de 12 mois, d''après le site officiel saeima.lv (catégorie LV-b)',
+                'lv_pep_parliament', 'PEP', 'https://www.saeima.lv/',
+                'lv-pep-saeima', 'D:/test parser 2/plugins/swiftcheck-aml-lv-pep-saeima-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'WEB_PAGE',
+                NULL,
+                '{"baseUrl": "https://www.saeima.lv", "compositions": "15,14", "monthsAfterEnd": "12", "delayMs": "1000"}',
+                168, 12,
+                'Site officiel de la Saeima : citer la source (conditions de réutilisation à vérifier sur saeima.lv)', 'Latvijas Republikas Saeima, saeima.lv',
+                'Deux pages de législature puis la fiche de chaque député (239 pages, environ 4 minutes à 1 s par page ; le robots.txt interdit /api/, non utilisé). 178 personnes gardées. Dates de début et de fin de chaque mandat d''après l''historique du mandat (confirmé, déposé, rétabli, terme échu) ; groupe et circonscription. Pas de naissance ni de décès publiés : une personne décédée n''est écartée que si le statut le dit, d''où deux législatures seulement et aucune couche historique. Une personne est reconnue d''une législature à l''autre par son nom.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'PARTIAL', TRUE,
+                   'Tous les députés des 15e et 14e législatures en fonction ou sortis depuis moins de 12 mois, avec groupe, circonscription et dates de mandat.',
+                   'Pas de naissance ; législatures antérieures non reprises (décès non publié).'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'LV-b' AND f.label IN ('Député à la Saeima', 'Ancien député à la Saeima') AND p.dataset_name = 'lv_pep_parliament';
+        ]]></sql>
+    </changeSet>
+
+    <changeSet id="078-parser-lv-pep-government" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Lettonie – Conseil des ministres',
+                'Premier ministre et ministres, d''après la page « Ministru kabineta sastāvs » du Conseil des ministres (catégorie LV-a)',
+                'lv_pep_government', 'PEP', 'https://www.mk.gov.lv/lv/ministru-kabineta-sastavs',
+                'lv-pep-government', 'D:/test parser 2/plugins/swiftcheck-aml-lv-pep-government-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'WEB_PAGE',
+                NULL,
+                '{"compositionUrl": "https://www.mk.gov.lv/lv/ministru-kabineta-sastavs", "delayMs": "2000"}',
+                168, 12,
+                'Site officiel du Conseil des ministres : citer la source', 'Ministru kabinets, mk.gov.lv',
+                'Une page de composition puis une fiche par membre (15 pages, environ 30 s). 14 personnes : Premier ministre et 13 ministres, avec leur fonction. Ni naissance ni dates de fonction ; pas d''anciens ministres. La page publiée reflète le gouvernement en place avant le renouvellement de la Saeima du 3 novembre 2026 : à relire après la formation du nouveau gouvernement.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'PARTIAL', FALSE,
+                   'Le Premier ministre et les ministres du Conseil des ministres tels que publiés sur mk.gov.lv.',
+                   'Anciens ministres non couverts ; pas de naissance ni de dates ; président de la République non couvert (lot 2).'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'LV-a' AND f.label = 'Premier ministre et ministres' AND p.dataset_name = 'lv_pep_government';
+        ]]></sql>
+    </changeSet>
+
+</databaseChangeLog>

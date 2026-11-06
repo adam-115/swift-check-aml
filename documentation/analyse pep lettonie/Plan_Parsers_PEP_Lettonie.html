@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="fr"><head><meta charset="utf-8"><title>Plan des parsers PEP – Lettonie</title>
+<style>
+body{font-family:Segoe UI,Arial,sans-serif;font-size:11pt;color:#1a1a1a;margin:28px;line-height:1.45}
+h1{color:#0b3d6b;border-bottom:3px solid #0b3d6b;padding-bottom:6px}h2{color:#0b3d6b;margin-top:26px}
+table{border-collapse:collapse;width:100%;margin:10px 0;font-size:10pt}th,td{border:1px solid #bbb;padding:5px 8px;text-align:left;vertical-align:top}
+th{background:#e8eef5}.ok{color:#14702e;font-weight:600}.ko{color:#a32020;font-weight:600}.note{background:#f4f7fa;border-left:4px solid #0b3d6b;padding:8px 12px}
+</style></head><body>
+<h1>Plan des parsers PEP – Lettonie</h1>
+<p>Date : 6 novembre 2026. Pays de l'Union européenne : les députés européens et le commissaire letton relèvent des parsers européens existants. Base légale : loi sur la prévention du blanchiment de capitaux et du financement du terrorisme et de la prolifération (<i>Noziedzīgi iegūtu līdzekļu legalizācijas un terorisma un proliferācijas finansēšanas novēršanas likums</i>), personne politiquement exposée ; vigilance de douze mois après la fin des fonctions (durée à confirmer sur le texte en vigueur).</p>
+
+<h2>1. Parsers réalisés (lot 1)</h2>
+<table>
+<tr><th>Jeu de données</th><th>Source</th><th>Contenu</th><th>Volume mesuré</th></tr>
+<tr><td>lv_pep_parliament</td><td>saeima.lv (pages publiques : 2 législatures et 239 fiches)</td><td>Députés de la 15e législature (depuis le 3 novembre 2026) et de la 14e, en fonction ou sortis depuis moins de 12 mois (LV-b)</td><td>178 personnes</td></tr>
+<tr><td>lv_pep_government</td><td>mk.gov.lv (15 pages)</td><td>Premier ministre et ministres (LV-a)</td><td>14 personnes</td></tr>
+</table>
+<p>Chaque parser télécharge la source à chaque exécution ; aucune liste de noms n'est embarquée ; Wikidata n'est pas utilisé. Migration Liquibase 078 (pays LV, catégories, fonctions, 2 parsers), validée sur une base jetable.</p>
+
+<h2>2. Particularités de la source</h2>
+<ul><li>Le <b>robots.txt de saeima.lv interdit /api/</b> et titania.saeima.lv interdit tout : le parser ne lit que les pages publiques, au rythme d'une page par seconde (environ 4 à 5 minutes pour 239 fiches).</li>
+<li>Les dates de mandat viennent de l'<b>historique du mandat</b> de chaque fiche (confirmé, déposé, rétabli, terme échu) : un député devenu ministre voit son mandat interrompu puis rétabli. Les chefs de groupe n'ont pas de ligne « Deputāts » dans l'activité : l'historique du mandat est la seule source de dates fiable (bug trouvé au run réel : 13 députés sans date).</li>
+<li>La page de législature présente chaque député deux fois (liste et galerie) : dédoublonnage avant téléchargement (la première version demandait chaque fiche deux fois).</li></ul>
+
+<h2>3. Limites et sources non couvertes</h2>
+<table>
+<tr><th>Périmètre</th><th>Situation</th></tr>
+<tr><td>Naissance et décès des députés</td><td class="ko">Non publiés : pas de couche historique (une personne décédée n'y serait pas écartée) ; deux législatures seulement</td></tr>
+<tr><td>Conseil des ministres</td><td>La page reflète le gouvernement en place avant le renouvellement de la Saeima du 3 novembre 2026 : à relire après la formation du nouveau gouvernement ; ni naissance ni dates</td></tr>
+<tr><td>Anciens ministres</td><td class="ko">mk.gov.lv ne publie que les membres en fonction</td></tr>
+<tr><td>Président, Cour suprême, Cour constitutionnelle, Banque de Lettonie, Valsts kontrole</td><td>Pages à étudier : lot 2</td></tr>
+<tr><td>Ambassadeurs, officiers généraux, entreprises d'État, partis</td><td class="ko">Aucune liste ouverte vérifiée</td></tr>
+</table>
+<p class="note">Les proches (RCA) ne sont pas couverts : la seule source connue est Wikidata, exclue.</p>
+
+<h2>4. Suite proposée</h2>
+<ul><li>Lot 2 Lettonie : président de la République, juridictions, Banque de Lettonie, Valsts kontrole.</li>
+<li>Autres pays : Lituanie, Grèce.</li></ul>
+</body></html>

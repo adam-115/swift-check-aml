@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Lettonie, lot 2 : président de la République, président et sénateurs de la Cour suprême, juges de la Cour constitutionnelle et
+    conseil de la Banque de Lettonie, d'après leurs pages officielles (president.lv, at.gov.lv, satversmestiesa.lv, bank.lv).
+
+    Non couvert, avec le motif :
+      - Cour des comptes (Valsts kontrole) : lrvk.gov.lv injoignable depuis notre poste (connexion impossible) ;
+      - anciens présidents de la République (Levits, Vējonis, Bērziņš, Zatlers, Vīķe-Freiberga, Ulmanis) : une page par ancien
+        président, non lue dans ce lot ; naissance du président en fonction absente de la page publiée ;
+      - ni naissance ni décès sur ces pages ; anciens sénateurs et anciens juges non couverts ;
+      - ambassadeurs, officiers généraux, entreprises d'État, partis : aucune liste ouverte vérifiée.
+-->
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="079-parser-lv-pep-institutions" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Lettonie – Président, Cour suprême, Cour constitutionnelle et Banque de Lettonie',
+                'Président de la République, président et sénateurs de la Cour suprême, juges de la Cour constitutionnelle, conseil de la Banque de Lettonie, d''après leurs pages officielles (catégories LV-a, LV-d et LV-e)',
+                'lv_pep_institutions', 'PEP', 'https://www.president.lv/en',
+                'lv-pep-institutions', 'D:/test parser 2/plugins/swiftcheck-aml-lv-pep-institutions-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'WEB_PAGE',
+                NULL,
+                '{"keys": "president,supreme-court-president,senators,constitutional-court,bank-of-latvia", "delayMs": "2000"}',
+                168, 12,
+                'Sites officiels de la Présidence, de la Cour suprême, de la Cour constitutionnelle et de la Banque de Lettonie : citer la source', 'Valsts prezidenta kanceleja, Augstākā tiesa, Satversmes tiesa, Latvijas Banka',
+                'Cinq pages, 48 personnes : président de la République (Edgars Rinkēvičs, depuis le 08/07/2023), président de la Cour suprême (depuis le 16/06/2020) et 33 sénateurs des départements civil, pénal et administratif dont les 3 présidents de département, 7 juges de la Cour constitutionnelle, conseil de la Banque de Lettonie (gouverneur, 2 sous-gouverneurs, 3 membres). Ni naissance ni décès sur ces pages ; la page du président ne donne pas sa naissance.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'PARTIAL', FALSE,
+                   'Le président de la République en fonction, avec sa date de prise de fonction.',
+                   'Anciens présidents vivants non couverts ; pas de naissance.'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'LV-a' AND f.label = 'Président de la République' AND p.dataset_name = 'lv_pep_institutions';
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'PARTIAL', FALSE,
+                   'Le président et les sénateurs (juges) des trois départements de la Cour suprême en fonction.',
+                   'Anciens sénateurs non couverts ; pas de naissance ; Tribunal disciplinaire non couvert.'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'LV-d' AND f.label = 'Juge de la Cour suprême' AND p.dataset_name = 'lv_pep_institutions';
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', FALSE,
+                   'Les sept juges de la Cour constitutionnelle en fonction, dont le président et le vice-président.',
+                   'Anciens juges non couverts ; pas de naissance.'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'LV-d' AND f.label = 'Juge de la Cour constitutionnelle' AND p.dataset_name = 'lv_pep_institutions';
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', FALSE,
+                   'Le gouverneur, les sous-gouverneurs et les membres du conseil de la Banque de Lettonie.',
+                   'Anciens membres non couverts ; pas de naissance ; comités et commissions non couverts.'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'LV-e' AND f.label = 'Membre du conseil de la Banque de Lettonie' AND p.dataset_name = 'lv_pep_institutions';
+        ]]></sql>
+    </changeSet>
+
+</databaseChangeLog>
