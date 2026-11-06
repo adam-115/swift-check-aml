@@ -184,6 +184,20 @@
         <module>swiftcheck-aml-plugins/pep/greece/swiftcheck-aml-gr-pep-europarl</module>
         <module>swiftcheck-aml-plugins/pep/greece/swiftcheck-aml-gr-pep-eu-commission</module>
         <module>swiftcheck-aml-plugins/pep/greece/swiftcheck-aml-gr-pep-audit</module>
+        <module>swiftcheck-aml-plugins/pep/slovakia/swiftcheck-aml-sk-pep-europarl</module>
+        <module>swiftcheck-aml-plugins/pep/slovakia/swiftcheck-aml-sk-pep-eu-commission</module>
+        <module>swiftcheck-aml-plugins/pep/slovakia/swiftcheck-aml-sk-pep-government</module>
+        <module>swiftcheck-aml-plugins/pep/slovenia/swiftcheck-aml-si-pep-europarl</module>
+        <module>swiftcheck-aml-plugins/pep/slovenia/swiftcheck-aml-si-pep-eu-commission</module>
+        <module>swiftcheck-aml-plugins/pep/slovenia/swiftcheck-aml-si-pep-government</module>
+        <module>swiftcheck-aml-plugins/pep/croatia/swiftcheck-aml-hr-pep-europarl</module>
+        <module>swiftcheck-aml-plugins/pep/croatia/swiftcheck-aml-hr-pep-eu-commission</module>
+        <module>swiftcheck-aml-plugins/pep/croatia/swiftcheck-aml-hr-pep-sabor</module>
+        <module>swiftcheck-aml-plugins/pep/croatia/swiftcheck-aml-hr-pep-government</module>
+        <module>swiftcheck-aml-plugins/pep/romania/swiftcheck-aml-ro-pep-europarl</module>
+        <module>swiftcheck-aml-plugins/pep/romania/swiftcheck-aml-ro-pep-eu-commission</module>
+        <module>swiftcheck-aml-plugins/pep/romania/swiftcheck-aml-ro-pep-government</module>
+        <module>swiftcheck-aml-plugins/pep/romania/swiftcheck-aml-ro-pep-senate</module>
         <module>swiftcheck-aml-plugins/pep/portugal/swiftcheck-aml-pt-pep-eu-commission</module>
         <module>swiftcheck-aml-plugins/pep/portugal/swiftcheck-aml-pt-pep-president</module>
         <module>swiftcheck-aml-plugins/pep/portugal/swiftcheck-aml-pt-pep-courts</module>

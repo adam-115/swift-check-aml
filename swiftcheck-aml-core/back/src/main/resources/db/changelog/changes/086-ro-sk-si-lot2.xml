@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Roumanie, Slovaquie, Slovénie : Sénat roumain et gouvernements slovaque et slovène (suite de 085).
+
+      - ro_pep_senate     : sénateurs en fonction avec naissance (www.senat.ro/FisaSenatori.aspx)
+      - sk_pep_government : Premier ministre, vice-premiers ministres et ministres slovaques (vlada.gov.sk)
+      - si_pep_government : Premier ministre et ministres slovènes (gov.si, Gouvernement nommé le 4 juin 2026)
+
+    Non couvert : Chambre des députés roumaine (cdep.ro injoignable), Conseil national slovaque (nrsr.sk : détection de robots),
+    Assemblée nationale slovène (dz-rs.si injoignable) ; présidents de la République, juridictions, banques centrales et cours des
+    comptes de ces trois pays (pages à étudier) ; anciens titulaires.
+-->
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="086-parser-ro-pep-senate" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Roumanie – Sénat',
+                'Sénateurs du Sénat de Roumanie en fonction, d''après la page « Parlamentari » de www.senat.ro (catégorie RO-b)',
+                'ro_pep_senate', 'PEP', 'https://www.senat.ro/FisaSenatori.aspx',
+                'ro-pep-senate', 'D:/test parser 2/plugins/swiftcheck-aml-ro-pep-senate-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'WEB_PAGE',
+                NULL,
+                '{"url": "https://www.senat.ro/FisaSenatori.aspx"}',
+                168, 12,
+                'Site officiel du Sénat : citer la source (conditions de réutilisation à vérifier sur senat.ro)', 'Senatul României, www.senat.ro',
+                'Une seule requête : 134 sénateurs, tous avec date de naissance, circonscription et groupe parlementaire (la page cite chaque sénateur deux fois : dédoublonnée par ParlamentarID). Le nom « NOM Prénom » est remis dans l''ordre, l''ordre publié gardé en alias. Pas de date de début de mandat ni d''anciens sénateurs. Chambre des députés : cdep.ro injoignable.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'PARTIAL', FALSE,
+                   'Les 134 sénateurs en fonction, avec naissance, circonscription et groupe parlementaire.',
+                   'Députés non couverts (cdep.ro injoignable) ; anciens sénateurs non couverts ; pas de date de début de mandat.'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'RO-b' AND f.label = 'Parlementaire' AND p.dataset_name = 'ro_pep_senate';
+        ]]></sql>
+    </changeSet>
+
+    <changeSet id="086-parser-sk-pep-government" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Slovaquie – Gouvernement',
+                'Président du gouvernement, vice-présidents et ministres, d''après la page « Členovia vlády » de vlada.gov.sk (catégorie SK-a)',
+                'sk_pep_government', 'PEP', 'https://www.vlada.gov.sk/vlada-sr/clenovia-vlady/',
+                'sk-pep-government', 'D:/test parser 2/plugins/swiftcheck-aml-sk-pep-government-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'WEB_PAGE',
+                NULL,
+                '{"url": "https://www.vlada.gov.sk/vlada-sr/clenovia-vlady/"}',
+                168, 12,
+                'Site officiel de l''Office du gouvernement slovaque : citer la source', 'Úrad vlády Slovenskej republiky, www.vlada.gov.sk',
+                'Une page, 21 personnes. La page porte la mention « Aktualizované 27.01.2026 » (reprise dans le message de chaque exécution) : à vérifier après tout remaniement. Une entrée au nom coupé par le site n''est pas lue (la personne figure déjà plus haut). Ni naissance ni dates de fonction ; pas d''anciens ministres.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'PARTIAL', FALSE,
+                   'Le président du gouvernement, les vice-présidents et les ministres tels que publiés sur vlada.gov.sk.',
+                   'Anciens ministres et secrétaires d''État non couverts ; pas de naissance ; Conseil national et Présidence non couverts (accès refusé).'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'SK-a' AND f.label = 'Premier ministre et ministres' AND p.dataset_name = 'sk_pep_government';
+        ]]></sql>
+    </changeSet>
+
+    <changeSet id="086-parser-si-pep-government" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Slovénie – Gouvernement',
+                'Premier ministre et ministres, d''après la page « O vladi » de gov.si (catégorie SI-a)',
+                'si_pep_government', 'PEP', 'https://www.gov.si/drzavni-organi/vlada/o-vladi/',
+                'si-pep-government', 'D:/test parser 2/plugins/swiftcheck-aml-si-pep-government-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'WEB_PAGE',
+                NULL,
+                '{"url": "https://www.gov.si/drzavni-organi/vlada/o-vladi/"}',
+                168, 12,
+                'Site officiel du Gouvernement slovène : citer la source', 'Vlada Republike Slovenije, www.gov.si',
+                 'Une page, 15 personnes : le Premier ministre (Janez Janša, d''après la phrase de présentation) et 14 ministres (liens vers leur fiche, fonction = ministère de l''adresse). Gouvernement nommé le 04/06/2026 (date reprise comme début de fonction). La page annonce 15 ministres pour 14 liens trouvés : le quinzième n''est pas lu (raison non vérifiée). Ni naissance ; pas d''anciens ministres.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'PARTIAL', FALSE,
+                   'Le Premier ministre et 14 des 15 ministres du Gouvernement nommé le 4 juin 2026.',
+                   'Un ministre sur 15 non lu (14 liens trouvés) ; anciens ministres non couverts ; pas de naissance ; Assemblée nationale non couverte (injoignable).'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'SI-a' AND f.label = 'Premier ministre et ministres' AND p.dataset_name = 'si_pep_government';
+        ]]></sql>
+    </changeSet>
+
+</databaseChangeLog>

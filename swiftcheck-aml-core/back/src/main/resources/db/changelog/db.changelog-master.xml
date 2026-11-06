@@ -109,5 +109,7 @@
     <include file="db/changelog/changes/081-ee-lv-lt-eu.xml" />
     <include file="db/changelog/changes/082-pl-fi-se-dk-eu.xml" />
     <include file="db/changelog/changes/084-gr-pep-reference-and-parsers.xml" />
+    <include file="db/changelog/changes/085-sk-si-hr-ro-reference-and-parsers.xml" />
+    <include file="db/changelog/changes/086-ro-sk-si-lot2.xml" />
 
 </databaseChangeLog>

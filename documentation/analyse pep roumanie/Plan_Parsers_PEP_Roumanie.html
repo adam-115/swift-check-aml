@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="fr"><head><meta charset="utf-8"><title>Plan des parsers PEP – Roumanie</title>
+<style>
+body{font-family:Segoe UI,Arial,sans-serif;font-size:11pt;color:#1a1a1a;margin:28px;line-height:1.45}
+h1{color:#0b3d6b;border-bottom:3px solid #0b3d6b;padding-bottom:6px}h2{color:#0b3d6b;margin-top:26px}
+table{border-collapse:collapse;width:100%;margin:10px 0;font-size:10pt}th,td{border:1px solid #bbb;padding:5px 8px;text-align:left;vertical-align:top}
+th{background:#e8eef5}.ok{color:#14702e;font-weight:600}.ko{color:#a32020;font-weight:600}.note{background:#f4f7fa;border-left:4px solid #0b3d6b;padding:8px 12px}
+</style></head><body>
+<h1>Plan des parsers PEP – Roumanie</h1>
+<p>Date : 7 novembre 2026. Pays de l'Union européenne. Base légale : loi n° 129/2019 (à confirmer) ; vigilance de douze mois après la fin des fonctions (durée à confirmer sur le texte en vigueur).</p>
+
+<h2>1. Parsers réalisés</h2>
+<table>
+<tr><th>Jeu de données</th><th>Source</th><th>Contenu</th><th>Volume mesuré</th></tr>
+<tr><td>ro_pep_government</td><td>gov.ro/ro/guvernul/cabinetul-de-ministri (1 page)</td><td>Premier ministre, vice-premier ministre, ministres et ministres délégués (RO-a)</td><td>19 personnes</td></tr>
+<tr><td>ro_pep_europarl</td><td>API du Parlement européen</td><td>Députés européens élus en Roumanie (RO-EU)</td><td>33 personnes (27 avec naissance ; 1 sorti hors fenêtre)</td></tr>
+<tr><td>ro_pep_eu_commission</td><td>commission.europa.eu</td><td>Membre roumain de la Commission européenne (RO-EU)</td><td>1 personne (Roxana Mînzatu)</td></tr>
+</table>
+<p>Chaque parser télécharge la source à chaque exécution ; Wikidata n'est pas utilisé (pas de photos). Migration Liquibase 085 (pays RO, catégories, fonctions, parsers), validée sur une base jetable.</p>
+
+<h2>2. Sources non couvertes</h2>
+<table>
+<tr><th>Périmètre</th><th>Situation</th></tr>
+<tr><td>Chambre des députés (cdep.ro)</td><td class="ko">Connexion impossible depuis notre poste</td></tr>
+<tr><td>Sénat (senat.ro)</td><td>Site joignable, mais la liste des sénateurs n'a pas été localisée dans ce lot : à étudier</td></tr>
+<tr><td>Présidence, Cour constitutionnelle, Banque nationale, Cour des comptes</td><td>Non vérifiés dans ce lot</td></tr>
+<tr><td>Ambassadeurs, officiers généraux, entreprises d'État, partis</td><td class="ko">Aucune liste ouverte vérifiée</td></tr>
+</table>
+<p class="note">Les proches (RCA) ne sont pas couverts : la seule source connue est Wikidata, exclue. Quand un site refuse les accès automatiques, la voie propre est de demander un accès ou un fichier à l'institution : rien n'a été contourné.</p>
+</body></html>

@@ -1,0 +1,511 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Slovaquie, Slovénie, Croatie, Roumanie : référentiel PEP et parsers, sans Wikidata.
+
+    Parsers (plugins dans swiftcheck-aml-plugins/pep/<pays>) :
+      - xx_pep_europarl / xx_pep_eu_commission : députés européens et commissaire (SK, SI, HR, RO)
+      - hr_pep_parliament  : représentants du Sabor, 11e législature (sabor.hr)
+      - hr_pep_government  : Premier ministre et ministres croates (vlada.gov.hr)
+      - ro_pep_government  : Premier ministre et ministres roumains (gov.ro)
+
+    Non couvert, avec le motif :
+      - Slovaquie : Conseil national (nrsr.sk : « Bot Detection », robots.txt Disallow: / pour les robots), Présidence (prezident.sk :
+        « Request Rejected »), Cour constitutionnelle (ustavnisud.sk injoignable) ; vlada.gov.sk répond mais ne publie pas la liste
+        des membres du gouvernement à une adresse trouvée ;
+      - Slovénie : Assemblée nationale (dz-rs.si : connexion impossible depuis notre poste) ; gov.si ne donne pas les noms des
+        ministres sur les pages trouvées ;
+      - Roumanie : Chambre des députés (cdep.ro : connexion impossible) ; Sénat (senat.ro) répond mais la liste des sénateurs
+        n'a pas été localisée ;
+      - Croatie et Roumanie : anciens membres, président de la République, juridictions, banque centrale, ambassadeurs : pages à
+        étudier dans un lot suivant ;
+      - proches (RCA) : seule source connue = Wikidata, exclue.
+-->
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="085-sk-country" author="swiftcheck">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM country WHERE iso = 'SK'</sqlCheck>
+        </preConditions>
+        <sql>
+            INSERT INTO country (iso, name, eu_member, legal_basis, retention_months)
+            VALUES ('SK', 'Slovaquie', TRUE, 'Loi n° 297/2008 sur la protection contre le blanchiment de capitaux et le financement du terrorisme : personnes politiquement exposées (politicky exponovaná osoba), membres de leur famille et proches associés, douze mois après la fin des fonctions (numéro de loi et durée à confirmer)', 12);
+        </sql>
+    </changeSet>
+
+    <changeSet id="085-sk-categories" author="swiftcheck">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM pep_category WHERE country_iso = 'SK'</sqlCheck>
+        </preConditions>
+        <sql>
+            INSERT INTO pep_category (country_iso, code, label, kind, risk_class, sort_order, legal_reference) VALUES
+            ('SK', 'SK-a', 'Chef de l''État, Premier ministre et ministres', 'OFFICIAL', 1, 1, 'Loi 297/2008'),
+            ('SK', 'SK-b', 'Parlementaires', 'OFFICIAL', 1, 2, 'Loi 297/2008'),
+            ('SK', 'SK-c', 'Organes dirigeants des partis politiques', 'OFFICIAL', 2, 3, 'Loi 297/2008'),
+            ('SK', 'SK-d', 'Cour suprême et Cour constitutionnelle', 'OFFICIAL', 2, 4, 'Loi 297/2008'),
+            ('SK', 'SK-e', 'Cour des comptes et banque centrale', 'OFFICIAL', 2, 5, 'Loi 297/2008'),
+            ('SK', 'SK-f', 'Ambassadeurs et officiers généraux des forces armées', 'OFFICIAL', 2, 6, 'Loi 297/2008'),
+            ('SK', 'SK-g', 'Dirigeants des entreprises détenues par l''État', 'OFFICIAL', 3, 7, 'Loi 297/2008'),
+            ('SK', 'SK-h', 'Dirigeants des organisations internationales', 'OFFICIAL', 3, 8, 'Loi 297/2008'),
+            ('SK', 'SK-RCA', 'Membres de la famille et proches associés', 'RCA', 2, 9, 'Loi 297/2008 (membres de la famille et personnes connues comme étroitement associées)'),
+            ('SK', 'SK-EU', 'Slovaques exerçant une fonction européenne', 'EU', 1, 10, 'Liste de la Commission, JO C/2023/724');
+        </sql>
+    </changeSet>
+
+    <changeSet id="085-sk-functions" author="swiftcheck">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM pep_function f JOIN pep_category c ON c.id = f.category_id WHERE c.country_iso = 'SK'</sqlCheck>
+        </preConditions>
+        <sql>
+            INSERT INTO pep_function (category_id, label, institution, expected_holders)
+            SELECT c.id, f.label, f.institution, f.expected_holders
+            FROM pep_category c JOIN (
+                SELECT 'SK-a' AS code, 'Président de la République' AS label, 'Chef de l''État' AS institution, 1 AS expected_holders
+                UNION ALL SELECT 'SK-a', 'Premier ministre et ministres', 'Gouvernement', 20
+                UNION ALL SELECT 'SK-b', 'Parlementaire', 'Parlement', 100
+                UNION ALL SELECT 'SK-b', 'Ancien parlementaire', 'Parlement', NULL
+                UNION ALL SELECT 'SK-c', 'Membre d''un organe dirigeant d''un parti', 'Partis politiques', 30
+                UNION ALL SELECT 'SK-d', 'Juge de la Cour suprême ou constitutionnelle', 'Juridictions', 30
+                UNION ALL SELECT 'SK-e', 'Membre de la direction de la banque centrale ou de la Cour des comptes', 'Banque centrale, Cour des comptes', 10
+                UNION ALL SELECT 'SK-f', 'Ambassadeur', 'Ministère des Affaires étrangères', 40
+                UNION ALL SELECT 'SK-f', 'Officier général des forces armées', 'Forces armées', 10
+                UNION ALL SELECT 'SK-g', 'Dirigeant d''une entreprise détenue par l''État', 'Entreprises d''État', NULL
+                UNION ALL SELECT 'SK-h', 'Dirigeant d''une organisation internationale', 'Organisations internationales', NULL
+                UNION ALL SELECT 'SK-RCA', 'Membre de la famille d''une PEP', NULL, NULL
+                UNION ALL SELECT 'SK-RCA', 'Proche associé d''une PEP', NULL, NULL
+                UNION ALL SELECT 'SK-EU', 'Député européen élu en Slovaquie', 'Parlement européen', 15
+                UNION ALL SELECT 'SK-EU', 'Membre slovaque de la Commission européenne', 'Commission européenne', 1
+            ) f ON f.code = c.code;
+        </sql>
+    </changeSet>
+
+    <changeSet id="085-parser-sk-pep-europarl" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Slovaquie – Députés européens',
+                'Les députés au Parlement européen élus en Slovaquie, en fonction et sortis depuis moins de 12 mois, avec naissance et dates de mandat (catégorie SK-EU)',
+                'sk_pep_europarl', 'PEP', 'https://data.europarl.europa.eu/',
+                'sk-pep-europarl', 'D:/test parser 2/plugins/swiftcheck-aml-sk-pep-europarl-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'API',
+                NULL,
+                '{"currentUrl": "https://data.europarl.europa.eu/api/v2/meps/show-current?country-of-representation=SK&format=application%2Fld%2Bjson", "termUrl": "https://data.europarl.europa.eu/api/v2/meps?country-of-representation=SK&parliamentary-term=10&limit=500&format=application%2Fld%2Bjson", "detailUrl": "https://data.europarl.europa.eu/api/v2/meps/{id}?format=application%2Fld%2Bjson", "delayMs": "400", "monthsAfterEnd": "12", "wikidataEndpoint": ""}',
+                168, 12,
+                'Réutilisation autorisée en citant la source (Parlement européen)', 'Parlement européen, data.europarl.europa.eu',
+                'Reprise de nl_pep_europarl. Mesure du 07/11/2026 : 15 députés publiés, 13 avec date de naissance (le Parlement ne la publie pas pour les autres). Une fiche par député. L''API limite le débit (HTTP 429) : le plugin attend puis réessaie. Pas de photos (Wikidata non utilisé). termUrl contient le numéro de législature (10) : à changer en 2029.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', TRUE, 'Les 15 députés européens élus en Slovaquie et ceux sortis depuis moins de 12 mois, avec naissance quand elle est publiée, genre, groupe et dates de mandat.', NULL
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'SK-EU' AND f.label LIKE 'Député européen%' AND p.dataset_name = 'sk_pep_europarl';
+        ]]></sql>
+    </changeSet>
+
+    <changeSet id="085-parser-sk-pep-eu-commission" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Slovaquie – Commissaire européen',
+                'Le membre slovaque de la Commission européenne, d''après sa fiche officielle (catégorie SK-EU)',
+                'sk_pep_eu_commission', 'PEP', 'https://commission.europa.eu/about/organisation/college-commissioners_en',
+                'sk-pep-eu-commission', 'D:/test parser 2/plugins/swiftcheck-aml-sk-pep-eu-commission-0.0.1-SNAPSHOT.jar',
+                'HTTP_FILE', 'WEB_PAGE',
+                'https://commission.europa.eu/about/organisation/college-commissioners/maros-sefcovic_en',
+                NULL,
+                168, 12,
+                'Réutilisation autorisée en citant la source (avis juridique de la Commission européenne)', 'Commission européenne, commission.europa.eu',
+                'Reprise de nl_pep_eu_commission. À chaque nouvelle Commission, remplacer l''adresse par la fiche du commissaire slovaque. Une fiche qui ne présente pas un commissaire slovaque est refusée.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', FALSE, 'Maroš Šefčovič, commissaire chargé du commerce et de la sécurité économique, des relations interinstitutionnelles et de la transparence (2024-2029).', 'Ni date ni lieu de naissance sur la fiche.'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'SK-EU' AND f.label LIKE 'Membre slovaque de la Commission%' AND p.dataset_name = 'sk_pep_eu_commission';
+        ]]></sql>
+    </changeSet>
+
+    <changeSet id="085-si-country" author="swiftcheck">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM country WHERE iso = 'SI'</sqlCheck>
+        </preConditions>
+        <sql>
+            INSERT INTO country (iso, name, eu_member, legal_basis, retention_months)
+            VALUES ('SI', 'Slovénie', TRUE, 'Loi sur la prévention du blanchiment de capitaux et du financement du terrorisme (ZPPDFT-2) : personnes politiquement exposées (politično izpostavljena oseba), membres de leur famille et proches associés, douze mois après la fin des fonctions (durée à confirmer)', 12);
+        </sql>
+    </changeSet>
+
+    <changeSet id="085-si-categories" author="swiftcheck">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM pep_category WHERE country_iso = 'SI'</sqlCheck>
+        </preConditions>
+        <sql>
+            INSERT INTO pep_category (country_iso, code, label, kind, risk_class, sort_order, legal_reference) VALUES
+            ('SI', 'SI-a', 'Chef de l''État, Premier ministre et ministres', 'OFFICIAL', 1, 1, 'ZPPDFT-2'),
+            ('SI', 'SI-b', 'Parlementaires', 'OFFICIAL', 1, 2, 'ZPPDFT-2'),
+            ('SI', 'SI-c', 'Organes dirigeants des partis politiques', 'OFFICIAL', 2, 3, 'ZPPDFT-2'),
+            ('SI', 'SI-d', 'Cour suprême et Cour constitutionnelle', 'OFFICIAL', 2, 4, 'ZPPDFT-2'),
+            ('SI', 'SI-e', 'Cour des comptes et banque centrale', 'OFFICIAL', 2, 5, 'ZPPDFT-2'),
+            ('SI', 'SI-f', 'Ambassadeurs et officiers généraux des forces armées', 'OFFICIAL', 2, 6, 'ZPPDFT-2'),
+            ('SI', 'SI-g', 'Dirigeants des entreprises détenues par l''État', 'OFFICIAL', 3, 7, 'ZPPDFT-2'),
+            ('SI', 'SI-h', 'Dirigeants des organisations internationales', 'OFFICIAL', 3, 8, 'ZPPDFT-2'),
+            ('SI', 'SI-RCA', 'Membres de la famille et proches associés', 'RCA', 2, 9, 'ZPPDFT-2 (membres de la famille et personnes connues comme étroitement associées)'),
+            ('SI', 'SI-EU', 'Slovènes exerçant une fonction européenne', 'EU', 1, 10, 'Liste de la Commission, JO C/2023/724');
+        </sql>
+    </changeSet>
+
+    <changeSet id="085-si-functions" author="swiftcheck">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM pep_function f JOIN pep_category c ON c.id = f.category_id WHERE c.country_iso = 'SI'</sqlCheck>
+        </preConditions>
+        <sql>
+            INSERT INTO pep_function (category_id, label, institution, expected_holders)
+            SELECT c.id, f.label, f.institution, f.expected_holders
+            FROM pep_category c JOIN (
+                SELECT 'SI-a' AS code, 'Président de la République' AS label, 'Chef de l''État' AS institution, 1 AS expected_holders
+                UNION ALL SELECT 'SI-a', 'Premier ministre et ministres', 'Gouvernement', 20
+                UNION ALL SELECT 'SI-b', 'Parlementaire', 'Parlement', 100
+                UNION ALL SELECT 'SI-b', 'Ancien parlementaire', 'Parlement', NULL
+                UNION ALL SELECT 'SI-c', 'Membre d''un organe dirigeant d''un parti', 'Partis politiques', 30
+                UNION ALL SELECT 'SI-d', 'Juge de la Cour suprême ou constitutionnelle', 'Juridictions', 30
+                UNION ALL SELECT 'SI-e', 'Membre de la direction de la banque centrale ou de la Cour des comptes', 'Banque centrale, Cour des comptes', 10
+                UNION ALL SELECT 'SI-f', 'Ambassadeur', 'Ministère des Affaires étrangères', 40
+                UNION ALL SELECT 'SI-f', 'Officier général des forces armées', 'Forces armées', 10
+                UNION ALL SELECT 'SI-g', 'Dirigeant d''une entreprise détenue par l''État', 'Entreprises d''État', NULL
+                UNION ALL SELECT 'SI-h', 'Dirigeant d''une organisation internationale', 'Organisations internationales', NULL
+                UNION ALL SELECT 'SI-RCA', 'Membre de la famille d''une PEP', NULL, NULL
+                UNION ALL SELECT 'SI-RCA', 'Proche associé d''une PEP', NULL, NULL
+                UNION ALL SELECT 'SI-EU', 'Député européen élu en Slovénie', 'Parlement européen', 9
+                UNION ALL SELECT 'SI-EU', 'Membre slovène de la Commission européenne', 'Commission européenne', 1
+            ) f ON f.code = c.code;
+        </sql>
+    </changeSet>
+
+    <changeSet id="085-parser-si-pep-europarl" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Slovénie – Députés européens',
+                'Les députés au Parlement européen élus en Slovénie, en fonction et sortis depuis moins de 12 mois, avec naissance et dates de mandat (catégorie SI-EU)',
+                'si_pep_europarl', 'PEP', 'https://data.europarl.europa.eu/',
+                'si-pep-europarl', 'D:/test parser 2/plugins/swiftcheck-aml-si-pep-europarl-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'API',
+                NULL,
+                '{"currentUrl": "https://data.europarl.europa.eu/api/v2/meps/show-current?country-of-representation=SI&format=application%2Fld%2Bjson", "termUrl": "https://data.europarl.europa.eu/api/v2/meps?country-of-representation=SI&parliamentary-term=10&limit=500&format=application%2Fld%2Bjson", "detailUrl": "https://data.europarl.europa.eu/api/v2/meps/{id}?format=application%2Fld%2Bjson", "delayMs": "400", "monthsAfterEnd": "12", "wikidataEndpoint": ""}',
+                168, 12,
+                'Réutilisation autorisée en citant la source (Parlement européen)', 'Parlement européen, data.europarl.europa.eu',
+                'Reprise de nl_pep_europarl. Mesure du 07/11/2026 : 9 députés publiés, 9 avec date de naissance (le Parlement ne la publie pas pour les autres). Une fiche par député. L''API limite le débit (HTTP 429) : le plugin attend puis réessaie. Pas de photos (Wikidata non utilisé). termUrl contient le numéro de législature (10) : à changer en 2029.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', TRUE, 'Les 9 députés européens élus en Slovénie et ceux sortis depuis moins de 12 mois, avec naissance quand elle est publiée, genre, groupe et dates de mandat.', NULL
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'SI-EU' AND f.label LIKE 'Député européen%' AND p.dataset_name = 'si_pep_europarl';
+        ]]></sql>
+    </changeSet>
+
+    <changeSet id="085-parser-si-pep-eu-commission" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Slovénie – Commissaire européen',
+                'Le membre slovène de la Commission européenne, d''après sa fiche officielle (catégorie SI-EU)',
+                'si_pep_eu_commission', 'PEP', 'https://commission.europa.eu/about/organisation/college-commissioners_en',
+                'si-pep-eu-commission', 'D:/test parser 2/plugins/swiftcheck-aml-si-pep-eu-commission-0.0.1-SNAPSHOT.jar',
+                'HTTP_FILE', 'WEB_PAGE',
+                'https://commission.europa.eu/about/organisation/college-commissioners/marta-kos_en',
+                NULL,
+                168, 12,
+                'Réutilisation autorisée en citant la source (avis juridique de la Commission européenne)', 'Commission européenne, commission.europa.eu',
+                'Reprise de nl_pep_eu_commission. À chaque nouvelle Commission, remplacer l''adresse par la fiche du commissaire slovène. Une fiche qui ne présente pas un commissaire slovène est refusée.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', FALSE, 'Marta Kos, commissaire chargée de l''élargissement (2024-2029).', 'Ni date ni lieu de naissance sur la fiche.'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'SI-EU' AND f.label LIKE 'Membre slovène de la Commission%' AND p.dataset_name = 'si_pep_eu_commission';
+        ]]></sql>
+    </changeSet>
+
+    <changeSet id="085-hr-country" author="swiftcheck">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM country WHERE iso = 'HR'</sqlCheck>
+        </preConditions>
+        <sql>
+            INSERT INTO country (iso, name, eu_member, legal_basis, retention_months)
+            VALUES ('HR', 'Croatie', TRUE, 'Loi sur la prévention du blanchiment de capitaux et du financement du terrorisme (Zakon o sprječavanju pranja novca i financiranja terorizma) : personnes politiquement exposées (politički izložena osoba), membres de leur famille et proches associés, douze mois après la fin des fonctions (durée à confirmer)', 12);
+        </sql>
+    </changeSet>
+
+    <changeSet id="085-hr-categories" author="swiftcheck">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM pep_category WHERE country_iso = 'HR'</sqlCheck>
+        </preConditions>
+        <sql>
+            INSERT INTO pep_category (country_iso, code, label, kind, risk_class, sort_order, legal_reference) VALUES
+            ('HR', 'HR-a', 'Chef de l''État, Premier ministre et ministres', 'OFFICIAL', 1, 1, 'Loi croate sur la prévention du blanchiment'),
+            ('HR', 'HR-b', 'Parlementaires', 'OFFICIAL', 1, 2, 'Loi croate sur la prévention du blanchiment'),
+            ('HR', 'HR-c', 'Organes dirigeants des partis politiques', 'OFFICIAL', 2, 3, 'Loi croate sur la prévention du blanchiment'),
+            ('HR', 'HR-d', 'Cour suprême et Cour constitutionnelle', 'OFFICIAL', 2, 4, 'Loi croate sur la prévention du blanchiment'),
+            ('HR', 'HR-e', 'Cour des comptes et banque centrale', 'OFFICIAL', 2, 5, 'Loi croate sur la prévention du blanchiment'),
+            ('HR', 'HR-f', 'Ambassadeurs et officiers généraux des forces armées', 'OFFICIAL', 2, 6, 'Loi croate sur la prévention du blanchiment'),
+            ('HR', 'HR-g', 'Dirigeants des entreprises détenues par l''État', 'OFFICIAL', 3, 7, 'Loi croate sur la prévention du blanchiment'),
+            ('HR', 'HR-h', 'Dirigeants des organisations internationales', 'OFFICIAL', 3, 8, 'Loi croate sur la prévention du blanchiment'),
+            ('HR', 'HR-RCA', 'Membres de la famille et proches associés', 'RCA', 2, 9, 'Loi croate sur la prévention du blanchiment (membres de la famille et personnes connues comme étroitement associées)'),
+            ('HR', 'HR-EU', 'Croates exerçant une fonction européenne', 'EU', 1, 10, 'Liste de la Commission, JO C/2023/724');
+        </sql>
+    </changeSet>
+
+    <changeSet id="085-hr-functions" author="swiftcheck">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM pep_function f JOIN pep_category c ON c.id = f.category_id WHERE c.country_iso = 'HR'</sqlCheck>
+        </preConditions>
+        <sql>
+            INSERT INTO pep_function (category_id, label, institution, expected_holders)
+            SELECT c.id, f.label, f.institution, f.expected_holders
+            FROM pep_category c JOIN (
+                SELECT 'HR-a' AS code, 'Président de la République' AS label, 'Chef de l''État' AS institution, 1 AS expected_holders
+                UNION ALL SELECT 'HR-a', 'Premier ministre et ministres', 'Gouvernement', 20
+                UNION ALL SELECT 'HR-b', 'Parlementaire', 'Parlement', 151
+                UNION ALL SELECT 'HR-b', 'Ancien parlementaire', 'Parlement', NULL
+                UNION ALL SELECT 'HR-c', 'Membre d''un organe dirigeant d''un parti', 'Partis politiques', 30
+                UNION ALL SELECT 'HR-d', 'Juge de la Cour suprême ou constitutionnelle', 'Juridictions', 30
+                UNION ALL SELECT 'HR-e', 'Membre de la direction de la banque centrale ou de la Cour des comptes', 'Banque centrale, Cour des comptes', 10
+                UNION ALL SELECT 'HR-f', 'Ambassadeur', 'Ministère des Affaires étrangères', 40
+                UNION ALL SELECT 'HR-f', 'Officier général des forces armées', 'Forces armées', 10
+                UNION ALL SELECT 'HR-g', 'Dirigeant d''une entreprise détenue par l''État', 'Entreprises d''État', NULL
+                UNION ALL SELECT 'HR-h', 'Dirigeant d''une organisation internationale', 'Organisations internationales', NULL
+                UNION ALL SELECT 'HR-RCA', 'Membre de la famille d''une PEP', NULL, NULL
+                UNION ALL SELECT 'HR-RCA', 'Proche associé d''une PEP', NULL, NULL
+                UNION ALL SELECT 'HR-EU', 'Député européen élu en Croatie', 'Parlement européen', 12
+                UNION ALL SELECT 'HR-EU', 'Membre croate de la Commission européenne', 'Commission européenne', 1
+            ) f ON f.code = c.code;
+        </sql>
+    </changeSet>
+
+    <changeSet id="085-parser-hr-pep-europarl" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Croatie – Députés européens',
+                'Les députés au Parlement européen élus en Croatie, en fonction et sortis depuis moins de 12 mois, avec naissance et dates de mandat (catégorie HR-EU)',
+                'hr_pep_europarl', 'PEP', 'https://data.europarl.europa.eu/',
+                'hr-pep-europarl', 'D:/test parser 2/plugins/swiftcheck-aml-hr-pep-europarl-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'API',
+                NULL,
+                '{"currentUrl": "https://data.europarl.europa.eu/api/v2/meps/show-current?country-of-representation=HR&format=application%2Fld%2Bjson", "termUrl": "https://data.europarl.europa.eu/api/v2/meps?country-of-representation=HR&parliamentary-term=10&limit=500&format=application%2Fld%2Bjson", "detailUrl": "https://data.europarl.europa.eu/api/v2/meps/{id}?format=application%2Fld%2Bjson", "delayMs": "400", "monthsAfterEnd": "12", "wikidataEndpoint": ""}',
+                168, 12,
+                'Réutilisation autorisée en citant la source (Parlement européen)', 'Parlement européen, data.europarl.europa.eu',
+                'Reprise de nl_pep_europarl. Mesure du 07/11/2026 : 12 députés publiés, 8 avec date de naissance (le Parlement ne la publie pas pour les autres), 1 sorti avant la fenêtre de 12 mois (écarté). Une fiche par député. L''API limite le débit (HTTP 429) : le plugin attend puis réessaie. Pas de photos (Wikidata non utilisé). termUrl contient le numéro de législature (10) : à changer en 2029.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', TRUE, 'Les 12 députés européens élus en Croatie et ceux sortis depuis moins de 12 mois, avec naissance quand elle est publiée, genre, groupe et dates de mandat.', NULL
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'HR-EU' AND f.label LIKE 'Député européen%' AND p.dataset_name = 'hr_pep_europarl';
+        ]]></sql>
+    </changeSet>
+
+    <changeSet id="085-parser-hr-pep-eu-commission" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Croatie – Commissaire européen',
+                'Le membre croate de la Commission européenne, d''après sa fiche officielle (catégorie HR-EU)',
+                'hr_pep_eu_commission', 'PEP', 'https://commission.europa.eu/about/organisation/college-commissioners_en',
+                'hr-pep-eu-commission', 'D:/test parser 2/plugins/swiftcheck-aml-hr-pep-eu-commission-0.0.1-SNAPSHOT.jar',
+                'HTTP_FILE', 'WEB_PAGE',
+                'https://commission.europa.eu/about/organisation/college-commissioners/dubravka-suica_en',
+                NULL,
+                168, 12,
+                'Réutilisation autorisée en citant la source (avis juridique de la Commission européenne)', 'Commission européenne, commission.europa.eu',
+                'Reprise de nl_pep_eu_commission. À chaque nouvelle Commission, remplacer l''adresse par la fiche du commissaire croate. Une fiche qui ne présente pas un commissaire croate est refusée.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', FALSE, 'Dubravka Šuica, commissaire chargée de la Méditerranée (2024-2029).', 'Ni date ni lieu de naissance sur la fiche.'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'HR-EU' AND f.label LIKE 'Membre croate de la Commission%' AND p.dataset_name = 'hr_pep_eu_commission';
+        ]]></sql>
+    </changeSet>
+
+    <changeSet id="085-ro-country" author="swiftcheck">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM country WHERE iso = 'RO'</sqlCheck>
+        </preConditions>
+        <sql>
+            INSERT INTO country (iso, name, eu_member, legal_basis, retention_months)
+            VALUES ('RO', 'Roumanie', TRUE, 'Loi n° 129/2019 sur la prévention et la lutte contre le blanchiment de capitaux et le financement du terrorisme : personnes politiquement exposées (persoană expusă public), membres de leur famille et proches associés, douze mois après la fin des fonctions (durée à confirmer)', 12);
+        </sql>
+    </changeSet>
+
+    <changeSet id="085-ro-categories" author="swiftcheck">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM pep_category WHERE country_iso = 'RO'</sqlCheck>
+        </preConditions>
+        <sql>
+            INSERT INTO pep_category (country_iso, code, label, kind, risk_class, sort_order, legal_reference) VALUES
+            ('RO', 'RO-a', 'Chef de l''État, Premier ministre et ministres', 'OFFICIAL', 1, 1, 'Loi 129/2019'),
+            ('RO', 'RO-b', 'Parlementaires', 'OFFICIAL', 1, 2, 'Loi 129/2019'),
+            ('RO', 'RO-c', 'Organes dirigeants des partis politiques', 'OFFICIAL', 2, 3, 'Loi 129/2019'),
+            ('RO', 'RO-d', 'Cour suprême et Cour constitutionnelle', 'OFFICIAL', 2, 4, 'Loi 129/2019'),
+            ('RO', 'RO-e', 'Cour des comptes et banque centrale', 'OFFICIAL', 2, 5, 'Loi 129/2019'),
+            ('RO', 'RO-f', 'Ambassadeurs et officiers généraux des forces armées', 'OFFICIAL', 2, 6, 'Loi 129/2019'),
+            ('RO', 'RO-g', 'Dirigeants des entreprises détenues par l''État', 'OFFICIAL', 3, 7, 'Loi 129/2019'),
+            ('RO', 'RO-h', 'Dirigeants des organisations internationales', 'OFFICIAL', 3, 8, 'Loi 129/2019'),
+            ('RO', 'RO-RCA', 'Membres de la famille et proches associés', 'RCA', 2, 9, 'Loi 129/2019 (membres de la famille et personnes connues comme étroitement associées)'),
+            ('RO', 'RO-EU', 'Roumains exerçant une fonction européenne', 'EU', 1, 10, 'Liste de la Commission, JO C/2023/724');
+        </sql>
+    </changeSet>
+
+    <changeSet id="085-ro-functions" author="swiftcheck">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM pep_function f JOIN pep_category c ON c.id = f.category_id WHERE c.country_iso = 'RO'</sqlCheck>
+        </preConditions>
+        <sql>
+            INSERT INTO pep_function (category_id, label, institution, expected_holders)
+            SELECT c.id, f.label, f.institution, f.expected_holders
+            FROM pep_category c JOIN (
+                SELECT 'RO-a' AS code, 'Président de la République' AS label, 'Chef de l''État' AS institution, 1 AS expected_holders
+                UNION ALL SELECT 'RO-a', 'Premier ministre et ministres', 'Gouvernement', 20
+                UNION ALL SELECT 'RO-b', 'Parlementaire', 'Parlement', 464
+                UNION ALL SELECT 'RO-b', 'Ancien parlementaire', 'Parlement', NULL
+                UNION ALL SELECT 'RO-c', 'Membre d''un organe dirigeant d''un parti', 'Partis politiques', 30
+                UNION ALL SELECT 'RO-d', 'Juge de la Cour suprême ou constitutionnelle', 'Juridictions', 30
+                UNION ALL SELECT 'RO-e', 'Membre de la direction de la banque centrale ou de la Cour des comptes', 'Banque centrale, Cour des comptes', 10
+                UNION ALL SELECT 'RO-f', 'Ambassadeur', 'Ministère des Affaires étrangères', 40
+                UNION ALL SELECT 'RO-f', 'Officier général des forces armées', 'Forces armées', 10
+                UNION ALL SELECT 'RO-g', 'Dirigeant d''une entreprise détenue par l''État', 'Entreprises d''État', NULL
+                UNION ALL SELECT 'RO-h', 'Dirigeant d''une organisation internationale', 'Organisations internationales', NULL
+                UNION ALL SELECT 'RO-RCA', 'Membre de la famille d''une PEP', NULL, NULL
+                UNION ALL SELECT 'RO-RCA', 'Proche associé d''une PEP', NULL, NULL
+                UNION ALL SELECT 'RO-EU', 'Député européen élu en Roumanie', 'Parlement européen', 33
+                UNION ALL SELECT 'RO-EU', 'Membre roumain de la Commission européenne', 'Commission européenne', 1
+            ) f ON f.code = c.code;
+        </sql>
+    </changeSet>
+
+    <changeSet id="085-parser-ro-pep-europarl" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Roumanie – Députés européens',
+                'Les députés au Parlement européen élus en Roumanie, en fonction et sortis depuis moins de 12 mois, avec naissance et dates de mandat (catégorie RO-EU)',
+                'ro_pep_europarl', 'PEP', 'https://data.europarl.europa.eu/',
+                'ro-pep-europarl', 'D:/test parser 2/plugins/swiftcheck-aml-ro-pep-europarl-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'API',
+                NULL,
+                '{"currentUrl": "https://data.europarl.europa.eu/api/v2/meps/show-current?country-of-representation=RO&format=application%2Fld%2Bjson", "termUrl": "https://data.europarl.europa.eu/api/v2/meps?country-of-representation=RO&parliamentary-term=10&limit=500&format=application%2Fld%2Bjson", "detailUrl": "https://data.europarl.europa.eu/api/v2/meps/{id}?format=application%2Fld%2Bjson", "delayMs": "400", "monthsAfterEnd": "12", "wikidataEndpoint": ""}',
+                168, 12,
+                'Réutilisation autorisée en citant la source (Parlement européen)', 'Parlement européen, data.europarl.europa.eu',
+                'Reprise de nl_pep_europarl. Mesure du 07/11/2026 : 33 députés publiés, 27 avec date de naissance (le Parlement ne la publie pas pour les autres), 1 sorti avant la fenêtre de 12 mois (écarté). Une fiche par député. L''API limite le débit (HTTP 429) : le plugin attend puis réessaie. Pas de photos (Wikidata non utilisé). termUrl contient le numéro de législature (10) : à changer en 2029.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', TRUE, 'Les 33 députés européens élus en Roumanie et ceux sortis depuis moins de 12 mois, avec naissance quand elle est publiée, genre, groupe et dates de mandat.', NULL
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'RO-EU' AND f.label LIKE 'Député européen%' AND p.dataset_name = 'ro_pep_europarl';
+        ]]></sql>
+    </changeSet>
+
+    <changeSet id="085-parser-ro-pep-eu-commission" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Roumanie – Commissaire européen',
+                'Le membre roumain de la Commission européenne, d''après sa fiche officielle (catégorie RO-EU)',
+                'ro_pep_eu_commission', 'PEP', 'https://commission.europa.eu/about/organisation/college-commissioners_en',
+                'ro-pep-eu-commission', 'D:/test parser 2/plugins/swiftcheck-aml-ro-pep-eu-commission-0.0.1-SNAPSHOT.jar',
+                'HTTP_FILE', 'WEB_PAGE',
+                'https://commission.europa.eu/about/organisation/college-commissioners/roxana-minzatu_en',
+                NULL,
+                168, 12,
+                'Réutilisation autorisée en citant la source (avis juridique de la Commission européenne)', 'Commission européenne, commission.europa.eu',
+                'Reprise de nl_pep_eu_commission. À chaque nouvelle Commission, remplacer l''adresse par la fiche du commissaire roumain. Une fiche qui ne présente pas un commissaire roumain est refusée.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', FALSE, 'Roxana Mînzatu, commissaire chargée des droits sociaux et des compétences, des emplois de qualité et de la préparation (2024-2029).', 'Ni date ni lieu de naissance sur la fiche.'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'RO-EU' AND f.label LIKE 'Membre roumain de la Commission%' AND p.dataset_name = 'ro_pep_eu_commission';
+        ]]></sql>
+    </changeSet>
+
+    <changeSet id="085-parser-hr-pep-parliament" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Croatie – Sabor',
+                'Représentants du Sabor de la 11e législature, d''après la liste officielle sabor.hr (catégorie HR-b)',
+                'hr_pep_parliament', 'PEP', 'https://www.sabor.hr/hr/zastupnici',
+                'hr-pep-sabor', 'D:/test parser 2/plugins/swiftcheck-aml-hr-pep-sabor-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'WEB_PAGE',
+                NULL,
+                '{"listUrl": "https://www.sabor.hr/hr/zastupnici", "delayMs": "1500"}',
+                168, 12,
+                'Site officiel du Sabor : citer la source (conditions de réutilisation à vérifier sur sabor.hr)', 'Hrvatski sabor, www.sabor.hr',
+                'Tableau paginé de 50 lignes : 3 pages, 150 représentants actifs (11e législature, depuis le 16/05/2024) avec parti, circonscription, statut du mandat. Le nom « Nom, Prénom » est remis dans l''ordre et l''ordre publié gardé en alias. Ni naissance ni décès ; la 10e législature a pris fin le 16/05/2024 (hors fenêtre de 12 mois).', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'PARTIAL', FALSE,
+                   'Les représentants actifs du Sabor (11e législature), avec parti, circonscription et date de début.',
+                   'Pas de naissance ; représentants au mandat en pause ou terminé non listés ; anciens représentants non couverts.'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'HR-b' AND f.label = 'Parlementaire' AND p.dataset_name = 'hr_pep_parliament';
+        ]]></sql>
+    </changeSet>
+
+    <changeSet id="085-parser-hr-pep-government" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Croatie – Gouvernement',
+                'Premier ministre, vice-premiers ministres et ministres, d''après la page « Članovi Vlade » de vlada.gov.hr (catégorie HR-a)',
+                'hr_pep_government', 'PEP', 'https://vlada.gov.hr/clanovi-vlade/128',
+                'hr-pep-government', 'D:/test parser 2/plugins/swiftcheck-aml-hr-pep-government-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'WEB_PAGE',
+                NULL,
+                '{"url": "https://vlada.gov.hr/clanovi-vlade/128"}',
+                168, 12,
+                'Site officiel du Gouvernement croate : citer la source', 'Vlada Republike Hrvatske, vlada.gov.hr',
+                'Une page, 19 personnes (Premier ministre, vice-premiers ministres et ministres). Ni naissance ni dates de fonction ; pas d''anciens ministres.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'PARTIAL', FALSE,
+                   'Le Premier ministre, les vice-premiers ministres et les ministres du Gouvernement en fonction.',
+                   'Anciens ministres et secrétaires d''État non couverts ; pas de naissance ; président de la République non couvert.'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'HR-a' AND f.label = 'Premier ministre et ministres' AND p.dataset_name = 'hr_pep_government';
+        ]]></sql>
+    </changeSet>
+
+    <changeSet id="085-parser-ro-pep-government" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Roumanie – Gouvernement',
+                'Premier ministre, vice-premiers ministres et ministres, d''après la page « Cabinetul de miniștri » de gov.ro (catégorie RO-a)',
+                'ro_pep_government', 'PEP', 'https://gov.ro/ro/guvernul/cabinetul-de-ministri',
+                'ro-pep-government', 'D:/test parser 2/plugins/swiftcheck-aml-ro-pep-government-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'WEB_PAGE',
+                NULL,
+                '{"url": "https://gov.ro/ro/guvernul/cabinetul-de-ministri"}',
+                168, 12,
+                'Site officiel du Gouvernement roumain : citer la source', 'Guvernul României, gov.ro',
+                'Une page, 19 personnes (Premier ministre, vice-premier ministre, ministres et ministres délégués). Ni naissance ni dates de fonction ; pas d''anciens ministres.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'PARTIAL', FALSE,
+                   'Le Premier ministre, le vice-premier ministre, les ministres et les ministres délégués en fonction.',
+                   'Anciens ministres et secrétaires d''État non couverts ; pas de naissance ; Parlement et président de la République non couverts.'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'RO-a' AND f.label = 'Premier ministre et ministres' AND p.dataset_name = 'ro_pep_government';
+        ]]></sql>
+    </changeSet>
+
+</databaseChangeLog>
