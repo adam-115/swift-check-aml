@@ -387,7 +387,7 @@ public class IngestionService {
         // valeurs rejetées,
         // conflits d'identifiants, lignes invalides. Renvoie la liste des problèmes
         // trouvés.
-        List<String> problems = qualityGate.check(produced, result, previousCount);
+        List<String> problems = qualityGate.check(produced, result, previousCount, force);
 
         // Au moins un problème → BLOCKED : la nouvelle version n'est pas publiée et
         // Yente garde la précédente.

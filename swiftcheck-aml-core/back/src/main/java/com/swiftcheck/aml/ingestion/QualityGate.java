@@ -36,6 +36,10 @@ public class QualityGate {
      * @return les problèmes trouvés, en français ; liste vide si tout est correct
      */
     public List<String> check(DatasetFile produced, ParserResult result, int previousCount) {
+        return check(produced, result, previousCount, false);
+    }
+
+    public List<String> check(DatasetFile produced, ParserResult result, int previousCount, boolean force) {
         List<String> problems = new ArrayList<>();
 
         if (!produced.errors().isEmpty()) {
@@ -48,7 +52,7 @@ public class QualityGate {
             return problems;
         }
 
-        if (previousCount > 0) {
+        if (!force && previousCount > 0) {
             double dropPercent = 100.0 * (previousCount - count) / previousCount;
             if (dropPercent > maxDropPercent) {
                 problems.add(String.format("Baisse de %.1f %% du nombre d'entités (%d → %d), seuil %.0f %%.",
