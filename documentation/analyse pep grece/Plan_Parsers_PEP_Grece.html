@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="fr"><head><meta charset="utf-8"><title>Plan des parsers PEP – Grèce</title>
+<style>
+body{font-family:Segoe UI,Arial,sans-serif;font-size:11pt;color:#1a1a1a;margin:28px;line-height:1.45}
+h1{color:#0b3d6b;border-bottom:3px solid #0b3d6b;padding-bottom:6px}h2{color:#0b3d6b;margin-top:26px}
+table{border-collapse:collapse;width:100%;margin:10px 0;font-size:10pt}th,td{border:1px solid #bbb;padding:5px 8px;text-align:left;vertical-align:top}
+th{background:#e8eef5}.ok{color:#14702e;font-weight:600}.ko{color:#a32020;font-weight:600}.note{background:#f4f7fa;border-left:4px solid #0b3d6b;padding:8px 12px}
+</style></head><body>
+<h1>Plan des parsers PEP – Grèce</h1>
+<p>Date : 6 novembre 2026. Base légale : loi 4557/2018 sur la prévention et la répression du blanchiment de capitaux et du financement du terrorisme, personne politiquement exposée (<i>πολιτικά εκτεθειμένο πρόσωπο</i>) ; vigilance de douze mois après la fin des fonctions (numéro de loi et durée à confirmer sur le texte en vigueur).</p>
+
+<h2>1. Parsers réalisés</h2>
+<table>
+<tr><th>Jeu de données</th><th>Source</th><th>Contenu</th><th>Volume mesuré</th></tr>
+<tr><td>gr_pep_europarl</td><td>API du Parlement européen</td><td>Députés européens élus en Grèce, en fonction ou sortis depuis moins de 12 mois (GR-EU)</td><td>21 personnes (9 avec naissance : le Parlement ne la publie pas pour les autres)</td></tr>
+<tr><td>gr_pep_eu_commission</td><td>commission.europa.eu (fiche du commissaire)</td><td>Membre grec de la Commission européenne (GR-EU)</td><td>1 personne (Apostolos Tzitzikostas)</td></tr>
+</table>
+<p>Chaque parser télécharge la source à chaque exécution ; Wikidata n'est pas utilisé (pas de photos). Migration Liquibase 084 (pays GR, catégories, fonctions, 2 parsers), validée sur une base jetable.</p>
+
+<h2>2. Pourquoi la Grèce n'a que les fonctions européennes</h2>
+<p>Presque tous les sites de l'État grec refusent les accès automatiques. Aucun n'a été contourné.</p>
+
+<h2>3. Sources non couvertes</h2>
+<table>
+<tr><th>Périmètre</th><th>Situation</th></tr>
+<tr><td>Parlement hellénique (hellenicparliament.gr)</td><td class="ko">« Access Denied » (HTTP 403, protection Akamai), y compris sur robots.txt</td></tr>
+<tr><td>Gouvernement (government.gov.gr), Premier ministre (primeminister.gr), Présidence de la République (presidency.gr), ministère des Affaires étrangères (mfa.gr)</td><td class="ko">« Access Denied » (HTTP 403, Akamai)</td></tr>
+<tr><td>Banque de Grèce (bankofgreece.gr)</td><td class="ko">« Access Denied » (HTTP 403, Akamai)</td></tr>
+<tr><td>Conseil d'État (ste.gr), Cour de cassation (areiospagos.gr), Médiateur (ombudsman.gr)</td><td class="ko">Injoignables depuis notre poste</td></tr>
+<tr><td>Cour des comptes (elsyn.gr)</td><td class="ko">Page lisible (président et procureur général), mais le serveur présente une chaîne de certificats incomplète que Java refuse. Le plugin gr-pep-audit est codé et testé, mais non déployé : la vérification TLS n'est pas désactivée</td></tr>
+<tr><td>Données ouvertes (data.gov.gr)</td><td class="ko">Les jeux de données exigent un jeton d'API (création de compte : non faite)</td></tr>
+<tr><td>Ambassadeurs, officiers généraux, entreprises d'État, partis</td><td class="ko">Aucune liste ouverte vérifiée</td></tr>
+</table>
+<p class="note">Les proches (RCA) ne sont pas couverts : la seule source connue est Wikidata, exclue. Pour le Parlement, le Gouvernement, la Présidence et la Banque de Grèce, la voie propre est de demander un accès ou un fichier aux institutions.</p>
+
+<h2>4. Suite proposée</h2>
+<ul><li>Demander aux institutions grecques un accès autorisé (liste des députés, composition du Gouvernement).</li>
+<li>Déclarer le parser de la Cour des comptes quand son certificat sera corrigé.</li>
+<li>Autres pays de l'Union européenne non encore traités : Hongrie, Roumanie, Bulgarie, Croatie, Slovénie, Slovaquie, Chypre, Malte.</li></ul>
+</body></html>

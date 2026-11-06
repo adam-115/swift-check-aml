@@ -181,6 +181,9 @@
         <module>swiftcheck-aml-plugins/pep/sweden/swiftcheck-aml-se-pep-eu-commission</module>
         <module>swiftcheck-aml-plugins/pep/denmark/swiftcheck-aml-dk-pep-europarl</module>
         <module>swiftcheck-aml-plugins/pep/denmark/swiftcheck-aml-dk-pep-eu-commission</module>
+        <module>swiftcheck-aml-plugins/pep/greece/swiftcheck-aml-gr-pep-europarl</module>
+        <module>swiftcheck-aml-plugins/pep/greece/swiftcheck-aml-gr-pep-eu-commission</module>
+        <module>swiftcheck-aml-plugins/pep/greece/swiftcheck-aml-gr-pep-audit</module>
         <module>swiftcheck-aml-plugins/pep/portugal/swiftcheck-aml-pt-pep-eu-commission</module>
         <module>swiftcheck-aml-plugins/pep/portugal/swiftcheck-aml-pt-pep-president</module>
         <module>swiftcheck-aml-plugins/pep/portugal/swiftcheck-aml-pt-pep-courts</module>
