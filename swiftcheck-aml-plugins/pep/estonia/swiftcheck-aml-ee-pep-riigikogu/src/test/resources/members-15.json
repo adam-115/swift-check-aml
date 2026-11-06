@@ -1,0 +1,412 @@
+[
+ {
+  "uuid": "64c0141f-371b-4520-8a50-09e65231f775",
+  "fullName": "Lauri Hussar",
+  "lastName": "Hussar",
+  "firstName": "Lauri",
+  "active": true,
+  "electoralDistrictHistory": [
+   {
+    "membership": 15,
+    "electoralDistrict": {
+     "code": "HARJU_VA_TALLINN_JA_RAPLAMAA",
+     "value": "Harju- ja Raplamaa"
+    }
+   }
+  ],
+  "plenaryMembership": {
+   "uuid": "5694e620-b2fd-4bac-9399-7abe61777531",
+   "membershipNumber": 15,
+   "startDate": "2023-04-10",
+   "endDate": null,
+   "role": {
+    "code": "ESIMEES",
+    "value": "esimees"
+   },
+   "jobTitle": {
+    "code": "RIIGIKOGU_ESIMEES",
+    "value": "Riigikogu esimees"
+   }
+  },
+  "factions": [
+   {
+    "name": "Fraktsiooni mittekuuluvad Riigikogu liikmed",
+    "type": {
+     "code": "FRAKTSIOON",
+     "value": "fraktsioon"
+    },
+    "active": true,
+    "membership": {
+     "membershipNumber": 15,
+     "startDate": "2023-04-01",
+     "endDate": "2023-04-11",
+     "role": {
+      "code": "LIIGE",
+      "value": "liige"
+     },
+     "jobTitle": {
+      "code": "RIIGIKOGU_LIIGE",
+      "value": "Riigikogu liige"
+     }
+    }
+   },
+   {
+    "name": "Eesti 200 fraktsioon",
+    "type": {
+     "code": "FRAKTSIOON",
+     "value": "fraktsioon"
+    },
+    "active": true,
+    "membership": {
+     "membershipNumber": 15,
+     "startDate": "2023-04-11",
+     "endDate": null,
+     "role": {
+      "code": "LIIGE",
+      "value": "liige"
+     },
+     "jobTitle": {
+      "code": "RIIGIKOGU_LIIGE",
+      "value": "Riigikogu liige"
+     }
+    }
+   }
+  ],
+  "gender": "MALE",
+  "parliamentSeniority": 1315,
+  "dateOfBirth": "1973-09-04",
+  "dateOfDeath": null
+ },
+ {
+  "uuid": "6b45cfb5-8a17-481c-b674-80fc00c6cf5d",
+  "fullName": "Jaak Aab",
+  "lastName": "Aab",
+  "firstName": "Jaak",
+  "active": true,
+  "electoralDistrictHistory": [
+   {
+    "membership": 14,
+    "electoralDistrict": {
+     "code": "JARVA_JA_VILJANDIMAA",
+     "value": "Järva- ja Viljandimaa"
+    }
+   },
+   {
+    "membership": 9,
+    "electoralDistrict": {
+     "code": "JARVA_JA_VILJANDIMAA",
+     "value": "Järva- ja Viljandimaa"
+    }
+   },
+   {
+    "membership": 15,
+    "electoralDistrict": {
+     "code": "JARVA_JA_VILJANDIMAA",
+     "value": "Järva- ja Viljandimaa"
+    }
+   },
+   {
+    "membership": 11,
+    "electoralDistrict": {
+     "code": "JARVA_JA_VILJANDIMAA",
+     "value": "Järva- ja Viljandimaa"
+    }
+   }
+  ],
+  "plenaryMembership": {
+   "uuid": "5694e620-b2fd-4bac-9399-7abe61777531",
+   "membershipNumber": 15,
+   "startDate": "2023-04-01",
+   "endDate": null,
+   "role": {
+    "code": "LIIGE",
+    "value": "liige"
+   },
+   "jobTitle": {
+    "code": "RIIGIKOGU_LIIGE",
+    "value": "Riigikogu liige"
+   }
+  },
+  "factions": [
+   {
+    "name": "Fraktsiooni mittekuuluvad Riigikogu liikmed",
+    "type": {
+     "code": "FRAKTSIOON",
+     "value": "fraktsioon"
+    },
+    "active": true,
+    "membership": {
+     "membershipNumber": 15,
+     "startDate": "2024-01-05",
+     "endDate": null,
+     "role": {
+      "code": "LIIGE",
+      "value": "liige"
+     },
+     "jobTitle": {
+      "code": "RIIGIKOGU_LIIGE",
+      "value": "Riigikogu liige"
+     }
+    }
+   },
+   {
+    "name": "Eesti Keskerakonna fraktsioon",
+    "type": {
+     "code": "FRAKTSIOON",
+     "value": "fraktsioon"
+    },
+    "active": true,
+    "membership": {
+     "membershipNumber": 15,
+     "startDate": "2023-04-11",
+     "endDate": "2024-01-05",
+     "role": {
+      "code": "LIIGE",
+      "value": "liige"
+     },
+     "jobTitle": {
+      "code": "RIIGIKOGU_LIIGE",
+      "value": "Riigikogu liige"
+     }
+    }
+   },
+   {
+    "name": "Fraktsiooni mittekuuluvad Riigikogu liikmed",
+    "type": {
+     "code": "FRAKTSIOON",
+     "value": "fraktsioon"
+    },
+    "active": true,
+    "membership": {
+     "membershipNumber": 15,
+     "startDate": "2023-04-01",
+     "endDate": "2023-04-11",
+     "role": {
+      "code": "LIIGE",
+      "value": "liige"
+     },
+     "jobTitle": {
+      "code": "RIIGIKOGU_LIIGE",
+      "value": "Riigikogu liige"
+     }
+    }
+   }
+  ],
+  "gender": "MALE",
+  "parliamentSeniority": 3499,
+  "dateOfBirth": "1960-04-09",
+  "dateOfDeath": null
+ },
+ {
+  "uuid": "b29c93a9-f043-4b8f-b069-aa61e524f66b",
+  "fullName": "Hele Everaus",
+  "lastName": "Everaus",
+  "firstName": "Hele",
+  "active": false,
+  "electoralDistrictHistory": [
+   {
+    "membership": 14,
+    "electoralDistrict": {
+     "code": "TARTU_LINN",
+     "value": "Tartu linn"
+    }
+   },
+   {
+    "membership": 15,
+    "electoralDistrict": {
+     "code": "TARTU_LINN",
+     "value": "Tartu linn"
+    }
+   }
+  ],
+  "plenaryMembership": {
+   "uuid": "5694e620-b2fd-4bac-9399-7abe61777531",
+   "membershipNumber": 15,
+   "startDate": "2025-04-08",
+   "endDate": "2025-04-08",
+   "role": {
+    "code": "LIIGE",
+    "value": "liige"
+   },
+   "jobTitle": {
+    "code": "RIIGIKOGU_LIIGE",
+    "value": "Riigikogu liige"
+   }
+  },
+  "factions": [
+   {
+    "name": "Eesti Reformierakonna fraktsioon",
+    "type": {
+     "code": "FRAKTSIOON",
+     "value": "fraktsioon"
+    },
+    "active": true,
+    "membership": {
+     "membershipNumber": 15,
+     "startDate": "2024-07-29",
+     "endDate": "2025-03-25",
+     "role": {
+      "code": "LIIGE",
+      "value": "liige"
+     },
+     "jobTitle": {
+      "code": "RIIGIKOGU_LIIGE",
+      "value": "Riigikogu liige"
+     }
+    }
+   },
+   {
+    "name": "Fraktsiooni mittekuuluvad Riigikogu liikmed",
+    "type": {
+     "code": "FRAKTSIOON",
+     "value": "fraktsioon"
+    },
+    "active": true,
+    "membership": {
+     "membershipNumber": 15,
+     "startDate": "2024-07-24",
+     "endDate": "2024-07-29",
+     "role": {
+      "code": "LIIGE",
+      "value": "liige"
+     },
+     "jobTitle": {
+      "code": "RIIGIKOGU_LIIGE",
+      "value": "Riigikogu liige"
+     }
+    }
+   }
+  ],
+  "gender": "FEMALE",
+  "parliamentSeniority": 1703,
+  "dateOfBirth": "1953-01-05",
+  "dateOfDeath": null
+ },
+ {
+  "uuid": "2f93c282-b7b8-4b52-8065-44a20eee0a64",
+  "fullName": "Maksim Iljin",
+  "lastName": "Iljin",
+  "firstName": "Maksim",
+  "active": false,
+  "electoralDistrictHistory": [],
+  "plenaryMembership": {
+   "uuid": "5694e620-b2fd-4bac-9399-7abe61777531",
+   "membershipNumber": 15,
+   "startDate": "2025-03-25",
+   "endDate": "2025-03-25",
+   "role": {
+    "code": "LIIGE",
+    "value": "liige"
+   },
+   "jobTitle": {
+    "code": "RIIGIKOGU_LIIGE",
+    "value": "Riigikogu liige"
+   }
+  },
+  "factions": [
+   {
+    "name": "Fraktsiooni mittekuuluvad Riigikogu liikmed",
+    "type": {
+     "code": "FRAKTSIOON",
+     "value": "fraktsioon"
+    },
+    "active": true,
+    "membership": {
+     "membershipNumber": 15,
+     "startDate": "2025-03-25",
+     "endDate": "2025-03-25",
+     "role": {
+      "code": "LIIGE",
+      "value": "liige"
+     },
+     "jobTitle": {
+      "code": "RIIGIKOGU_LIIGE",
+      "value": "Riigikogu liige"
+     }
+    }
+   }
+  ],
+  "gender": "MALE",
+  "parliamentSeniority": 0,
+  "dateOfBirth": "1987-04-19",
+  "dateOfDeath": null
+ },
+ {
+  "uuid": "a39c4392-bbc8-4036-b923-0f5f2b3d9766",
+  "fullName": "Arvo Aller",
+  "lastName": "Aller",
+  "firstName": "Arvo",
+  "active": true,
+  "electoralDistrictHistory": [
+   {
+    "membership": 15,
+    "electoralDistrict": {
+     "code": "IDAVIRUMAA",
+     "value": "Ida-Virumaa"
+    }
+   }
+  ],
+  "plenaryMembership": {
+   "uuid": "5694e620-b2fd-4bac-9399-7abe61777531",
+   "membershipNumber": 15,
+   "startDate": "2024-07-15",
+   "endDate": null,
+   "role": {
+    "code": "ASEESIMEES",
+    "value": "aseesimees"
+   },
+   "jobTitle": {
+    "code": "RIIGIKOGU_II_ASEESIMEES",
+    "value": "Riigikogu II aseesimees"
+   }
+  },
+  "factions": [
+   {
+    "name": "Fraktsiooni mittekuuluvad Riigikogu liikmed",
+    "type": {
+     "code": "FRAKTSIOON",
+     "value": "fraktsioon"
+    },
+    "active": true,
+    "membership": {
+     "membershipNumber": 15,
+     "startDate": "2023-04-01",
+     "endDate": "2023-04-10",
+     "role": {
+      "code": "LIIGE",
+      "value": "liige"
+     },
+     "jobTitle": {
+      "code": "RIIGIKOGU_LIIGE",
+      "value": "Riigikogu liige"
+     }
+    }
+   },
+   {
+    "name": "Eesti Konservatiivse Rahvaerakonna fraktsioon",
+    "type": {
+     "code": "FRAKTSIOON",
+     "value": "fraktsioon"
+    },
+    "active": true,
+    "membership": {
+     "membershipNumber": 15,
+     "startDate": "2023-04-10",
+     "endDate": null,
+     "role": {
+      "code": "LIIGE",
+      "value": "liige"
+     },
+     "jobTitle": {
+      "code": "RIIGIKOGU_LIIGE",
+      "value": "Riigikogu liige"
+     }
+    }
+   }
+  ],
+  "gender": "MALE",
+  "parliamentSeniority": 1315,
+  "dateOfBirth": "1973-07-28",
+  "dateOfDeath": null
+ }
+]

@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Estonie : référentiel PEP et parsers, sans Wikidata.
+
+    Base légale : loi sur la prévention du blanchiment de capitaux et du financement du terrorisme (Rahapesu ja terrorismi
+    rahastamise tõkestamise seadus) : personne exerçant une fonction publique importante (avaliku võimu olulist ülesannet
+    täitev isik) ; vigilance de douze mois après la fin des fonctions (durée à confirmer sur le texte en vigueur).
+
+    Parsers (plugins dans swiftcheck-aml-plugins/pep/estonia) :
+      - ee_pep_parliament / ee_pep_parliament_history : membres du Riigikogu (API officielle api.riigikogu.ee)
+      - ee_pep_government                             : Premier ministre et ministres (valitsus.ee)
+
+    Non couvert à ce jour (lot 1), avec le motif :
+      - président de la République (president.ee : protection Cloudflare, redirection), Cour suprême, Banque d'Estonie, Cour des
+        comptes (Riigikontroll), Chancelier de justice : pages à étudier au lot 2 ;
+      - anciens ministres (valitsus.ee ne publie que les membres en fonction) ;
+      - ambassadeurs, officiers généraux, entreprises d'État, partis : aucune liste ouverte vérifiée ;
+      - proches (RCA) : seule source connue = Wikidata, exclue.
+-->
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="076-ee-country" author="swiftcheck">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM country WHERE iso = 'EE'</sqlCheck>
+        </preConditions>
+        <sql>
+            INSERT INTO country (iso, name, eu_member, legal_basis, retention_months)
+            VALUES ('EE', 'Estonie', TRUE,
+                    'Loi sur la prévention du blanchiment de capitaux et du financement du terrorisme (Rahapesu ja terrorismi rahastamise tõkestamise seadus) : personnes exerçant une fonction publique importante (avaliku võimu olulist ülesannet täitev isik), membres de leur famille et proches associés, douze mois après la fin des fonctions', 12);
+        </sql>
+    </changeSet>
+
+    <changeSet id="076-ee-categories" author="swiftcheck">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM pep_category WHERE country_iso = 'EE'</sqlCheck>
+        </preConditions>
+        <sql>
+            INSERT INTO pep_category (country_iso, code, label, kind, risk_class, sort_order, legal_reference) VALUES
+            ('EE', 'EE-a', 'Chef de l''État, Premier ministre et ministres', 'OFFICIAL', 1, 1, 'Loi sur la prévention du blanchiment (RahaPTS)'),
+            ('EE', 'EE-b', 'Membres du Riigikogu', 'OFFICIAL', 1, 2, 'Loi sur la prévention du blanchiment (RahaPTS)'),
+            ('EE', 'EE-c', 'Organes dirigeants des partis politiques', 'OFFICIAL', 2, 3, 'Loi sur la prévention du blanchiment (RahaPTS)'),
+            ('EE', 'EE-d', 'Cour suprême et Cour constitutionnelle', 'OFFICIAL', 2, 4, 'Loi sur la prévention du blanchiment (RahaPTS)'),
+            ('EE', 'EE-e', 'Cour des comptes, Chancelier de justice et Banque d''Estonie', 'OFFICIAL', 2, 5, 'Loi sur la prévention du blanchiment (RahaPTS)'),
+            ('EE', 'EE-f', 'Ambassadeurs et officiers généraux des forces de défense', 'OFFICIAL', 2, 6, 'Loi sur la prévention du blanchiment (RahaPTS)'),
+            ('EE', 'EE-g', 'Dirigeants des entreprises détenues par l''État', 'OFFICIAL', 3, 7, 'Loi sur la prévention du blanchiment (RahaPTS)'),
+            ('EE', 'EE-h', 'Dirigeants des organisations internationales', 'OFFICIAL', 3, 8, 'Loi sur la prévention du blanchiment (RahaPTS)'),
+            ('EE', 'EE-RCA', 'Membres de la famille et proches associés', 'RCA', 2, 9, 'Loi sur la prévention du blanchiment (membres de la famille et personnes connues comme étroitement associées)');
+        </sql>
+    </changeSet>
+
+    <changeSet id="076-ee-functions" author="swiftcheck">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM pep_function f JOIN pep_category c ON c.id = f.category_id WHERE c.country_iso = 'EE'</sqlCheck>
+        </preConditions>
+        <sql>
+            INSERT INTO pep_function (category_id, label, institution, expected_holders)
+            SELECT c.id, f.label, f.institution, f.expected_holders
+            FROM pep_category c JOIN (
+                SELECT 'EE-a' AS code, 'Président de la République' AS label, 'Vabariigi President' AS institution, 1 AS expected_holders
+                UNION ALL SELECT 'EE-a', 'Premier ministre et ministres', 'Vabariigi Valitsus', 13
+                UNION ALL SELECT 'EE-a', 'Ancien ministre', 'Vabariigi Valitsus', NULL
+                UNION ALL SELECT 'EE-b', 'Membre du Riigikogu', 'Riigikogu', 101
+                UNION ALL SELECT 'EE-b', 'Ancien membre du Riigikogu', 'Riigikogu', NULL
+                UNION ALL SELECT 'EE-c', 'Membre d''un organe dirigeant d''un parti', 'Partis politiques', 30
+                UNION ALL SELECT 'EE-d', 'Juge de la Cour suprême', 'Riigikohus', 19
+                UNION ALL SELECT 'EE-e', 'Auditeur général (Riigikontrolör)', 'Riigikontroll', 1
+                UNION ALL SELECT 'EE-e', 'Chancelier de justice', 'Õiguskantsler', 1
+                UNION ALL SELECT 'EE-e', 'Membre du conseil de la Banque d''Estonie', 'Eesti Pank', 6
+                UNION ALL SELECT 'EE-f', 'Ambassadeur', 'Välisministeerium', 45
+                UNION ALL SELECT 'EE-f', 'Officier général des forces de défense', 'Kaitsevägi', 10
+                UNION ALL SELECT 'EE-g', 'Dirigeant d''une entreprise détenue par l''État', 'Entreprises d''État', NULL
+                UNION ALL SELECT 'EE-h', 'Dirigeant d''une organisation internationale', 'Organisations internationales', NULL
+                UNION ALL SELECT 'EE-RCA', 'Membre de la famille d''une PEP estonienne', NULL, NULL
+                UNION ALL SELECT 'EE-RCA', 'Proche associé d''une PEP estonienne', NULL, NULL
+            ) f ON f.code = c.code;
+        </sql>
+    </changeSet>
+
+    <changeSet id="076-parser-ee-pep-parliament" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Estonie – Riigikogu',
+                'Membres du Riigikogu en fonction ou sortis depuis moins de 12 mois, d''après l''API officielle api.riigikogu.ee (catégorie EE-b)',
+                'ee_pep_parliament', 'PEP', 'https://api.riigikogu.ee/',
+                'ee-pep-riigikogu', 'D:/test parser 2/plugins/swiftcheck-aml-ee-pep-riigikogu-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'API',
+                NULL,
+                '{"apiUrl": "https://api.riigikogu.ee/api", "monthsAfterEnd": "12", "delayMs": "6000"}',
+                168, 12,
+                'Données ouvertes du Riigikogu : citer la source (conditions de réutilisation à vérifier sur api.riigikogu.ee)', 'Riigikogu, api.riigikogu.ee',
+                '2 appels (compositions, membres de la 15e composition). 104 personnes gardées sur 138 mandats lus. Naissance, sexe, dates exactes de mandat, fonction (président, vice-présidents), groupe et circonscription. Décès enregistrés écartés. Liste demandée en estonien : en anglais l''API masque le nom des anciens membres. Rythme : 6 s entre appels (robots.txt : 5 s ; l''API répond 429 plus vite).', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', TRUE,
+                   'Tous les membres du Riigikogu en fonction et ceux sortis depuis moins de 12 mois, avec naissance, groupe, circonscription et dates de mandat.',
+                   'Aucune connue pour le Parlement.'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'EE-b' AND f.label IN ('Membre du Riigikogu', 'Ancien membre du Riigikogu') AND p.dataset_name = 'ee_pep_parliament';
+        ]]></sql>
+    </changeSet>
+
+    <changeSet id="076-parser-ee-pep-parliament-history" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Estonie – Riigikogu, historique depuis 1992',
+                'Anciens membres du Riigikogu depuis la 7e composition (1992), vivants uniquement (couche étendue de ee_pep_parliament)',
+                'ee_pep_parliament_history', 'PEP', 'https://api.riigikogu.ee/',
+                'ee-pep-riigikogu', 'D:/test parser 2/plugins/swiftcheck-aml-ee-pep-riigikogu-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'API',
+                NULL,
+                '{"apiUrl": "https://api.riigikogu.ee/api", "monthsAfterEnd": "600", "delayMs": "6000"}',
+                720, 12,
+                'Données ouvertes du Riigikogu : citer la source (conditions de réutilisation à vérifier sur api.riigikogu.ee)', 'Riigikogu, api.riigikogu.ee',
+                'Même plugin et mêmes identifiants que ee_pep_parliament ; 10 appels (environ 70 s), 525 personnes sur 1 248 mandats lus (compositions 7 à 15) ; 181 personnes décédées écartées grâce à la date de décès de la source. À activer selon l''approche par les risques.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', TRUE,
+                   'Membres du Riigikogu des compositions 7 à 15 (depuis 1992), vivants, avec dates de mandat.',
+                   'Compositions antérieures à 1992 non reprises (Riigikogu d''avant l''occupation soviétique).'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'EE-b' AND f.label = 'Ancien membre du Riigikogu' AND p.dataset_name = 'ee_pep_parliament_history';
+        ]]></sql>
+    </changeSet>
+
+    <changeSet id="076-parser-ee-pep-government" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Estonie – Gouvernement',
+                'Premier ministre et ministres en fonction, d''après les fiches officielles du site du Gouvernement (catégorie EE-a)',
+                'ee_pep_government', 'PEP', 'https://valitsus.ee/en',
+                'ee-pep-government', 'D:/test parser 2/plugins/swiftcheck-aml-ee-pep-government-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'WEB_PAGE',
+                NULL,
+                '{"homeUrl": "https://valitsus.ee/en", "delayMs": "2000"}',
+                168, 12,
+                'Site officiel du Gouvernement de la République d''Estonie : citer la source', 'Vabariigi Valitsus, valitsus.ee',
+                'Une page d''accueil puis une fiche par membre (14 pages, environ 30 s). 13 personnes : Premier ministre et 12 ministres, avec fonction, date de prise de fonction, naissance et lieu quand la fiche les donne. Pas d''anciens ministres : le site ne publie que les membres en fonction.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'PARTIAL', FALSE,
+                   'Le Premier ministre et les ministres du Gouvernement en fonction.',
+                   'Anciens ministres non couverts ; président de la République non couvert (lot 2).'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'EE-a' AND f.label = 'Premier ministre et ministres' AND p.dataset_name = 'ee_pep_government';
+        ]]></sql>
+    </changeSet>
+
+</databaseChangeLog>

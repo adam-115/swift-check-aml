@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Estonie, lot 2 : président de la République, juges de la Cour suprême, Auditeur général et organes de la Banque d'Estonie,
+    d'après leurs pages officielles (president.ee, riigikohus.ee, riigikontroll.ee, eestipank.ee).
+
+    Non couvert, avec le motif :
+      - Chancelier de justice : poste vacant depuis l'élection de sa titulaire à la présidence de la République (12 octobre 2026) ;
+        la page n'indique que l'intérim (adjoint et directeur de la chancellerie) : à ajouter à la nomination du successeur ;
+      - anciens présidents de la République, anciens gouverneurs : aucune liste lisible sur ces sites ;
+      - Cour constitutionnelle (chambre de la Cour suprême : ses membres sont déjà dans la liste des juges),
+        ambassadeurs, officiers généraux, entreprises d'État, partis : aucune liste ouverte vérifiée.
+-->
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="077-parser-ee-pep-institutions" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Estonie – Président, Cour suprême, Riigikontroll et Banque d''Estonie',
+                'Président de la République, juges de la Cour suprême, Auditeur général, directoire et conseil de surveillance de la Banque d''Estonie, d''après leurs pages officielles (catégories EE-a, EE-d et EE-e)',
+                'ee_pep_institutions', 'PEP', 'https://president.ee/en',
+                'ee-pep-institutions', 'D:/test parser 2/plugins/swiftcheck-aml-ee-pep-institutions-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'WEB_PAGE',
+                NULL,
+                '{"keys": "president,supreme-court,auditor-general,eesti-pank-executive,eesti-pank-supervisory", "delayMs": "2000"}',
+                168, 12,
+                'Sites officiels de la Présidence, de la Cour suprême, du Riigikontroll et d''Eesti Pank : citer la source', 'Vabariigi President, Riigikohus, Riigikontroll, Eesti Pank',
+                'Cinq pages, 34 personnes : président de la République (Ülle Madise, depuis le 12/10/2026, naissance et lieu), 18 juges de la Cour suprême dont le président et les 3 présidents de chambre (naissance du président seulement ; 19 postes, un vacant), Auditeur général (naissance et lieu), directoire d''Eesti Pank (gouverneur et 2 sous-gouverneurs, mois de prise de fonction) et conseil de surveillance (président, 6 membres du Riigikogu, 4 experts). Chancelier de justice : poste vacant, non repris.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'PARTIAL', FALSE,
+                   'Le président de la République en fonction, avec naissance et date de prise de fonction.',
+                   'Anciens présidents vivants non couverts.'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'EE-a' AND f.label = 'Président de la République' AND p.dataset_name = 'ee_pep_institutions';
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'PARTIAL', FALSE,
+                   'Les juges de la Cour suprême en fonction (18 sur 19 postes), le président et les présidents de chambre.',
+                   'Anciens juges non couverts ; un poste vacant ; naissance seulement pour le président de la Cour.'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'EE-d' AND f.label = 'Juge de la Cour suprême' AND p.dataset_name = 'ee_pep_institutions';
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'PARTIAL', FALSE,
+                   'L''Auditeur général en fonction, avec naissance et lieu de naissance.',
+                   'Anciens titulaires non couverts.'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'EE-e' AND f.label = 'Auditeur général (Riigikontrolör)' AND p.dataset_name = 'ee_pep_institutions';
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'PARTIAL', FALSE,
+                   'Le gouverneur, les sous-gouverneurs et les membres du conseil de surveillance de la Banque d''Estonie.',
+                   'Anciens membres non couverts ; pas de naissance.'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'EE-e' AND f.label = 'Membre du conseil de la Banque d''Estonie' AND p.dataset_name = 'ee_pep_institutions';
+        ]]></sql>
+    </changeSet>
+
+</databaseChangeLog>

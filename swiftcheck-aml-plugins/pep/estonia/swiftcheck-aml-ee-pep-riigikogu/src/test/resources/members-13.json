@@ -1,0 +1,321 @@
+[
+ {
+  "uuid": "01e6473e-8d4d-4b94-9266-0e5082e94942",
+  "fullName": "Andres Ammas",
+  "lastName": "Ammas",
+  "firstName": "Andres",
+  "active": false,
+  "electoralDistrictHistory": [
+   {
+    "membership": 13,
+    "electoralDistrict": {
+     "code": "HIIU_LAANE_JA_SAAREMAA",
+     "value": "Hiiu-, Lääne- ja Saaremaa"
+    }
+   }
+  ],
+  "plenaryMembership": {
+   "uuid": "5694e620-b2fd-4bac-9399-7abe61777531",
+   "membershipNumber": 13,
+   "startDate": "2015-03-24",
+   "endDate": "2018-04-04",
+   "role": {
+    "code": "LIIGE",
+    "value": "liige"
+   },
+   "jobTitle": {
+    "code": "RIIGIKOGU_LIIGE",
+    "value": "Riigikogu liige"
+   }
+  },
+  "factions": [
+   {
+    "name": "Eesti Vabaerakonna fraktsioon",
+    "type": {
+     "code": "FRAKTSIOON",
+     "value": "fraktsioon"
+    },
+    "active": false,
+    "membership": {
+     "membershipNumber": 13,
+     "startDate": "2015-03-30",
+     "endDate": "2018-04-04",
+     "role": {
+      "code": "ASEESIMEES",
+      "value": "aseesimees"
+     },
+     "jobTitle": {
+      "code": "RIIGIKOGU_LIIGE",
+      "value": "Riigikogu liige"
+     }
+    }
+   }
+  ],
+  "gender": "MALE",
+  "parliamentSeniority": 1107,
+  "dateOfBirth": "1962-02-25",
+  "dateOfDeath": "2018-04-04"
+ },
+ {
+  "uuid": "fe748f4d-3f50-4af8-8069-92a460978d2b",
+  "fullName": "Arto Aas",
+  "lastName": "Aas",
+  "firstName": "Arto",
+  "active": false,
+  "electoralDistrictHistory": [
+   {
+    "membership": 13,
+    "electoralDistrict": {
+     "code": "TALLINNA_KESKLINNA_LASNAMAE_JA_PIRITA_LINNAOSA",
+     "value": "Tallinna Kesklinna, Lasnamäe ja Pirita linnaosa"
+    }
+   },
+   {
+    "membership": 12,
+    "electoralDistrict": {
+     "code": "TALLINNA_KESKLINNA_LASNAMAE_JA_PIRITA_LINNAOSA",
+     "value": "Tallinna Kesklinna, Lasnamäe ja Pirita linnaosa"
+    }
+   },
+   {
+    "membership": 14,
+    "electoralDistrict": {
+     "code": "TALLINNA_HAABERSTI_POHJATALLINNA_JA_KRISTIINE_LINNAOSA",
+     "value": "Tallinna Haabersti, Põhja-Tallinna ja Kristiine linnaosa"
+    }
+   }
+  ],
+  "plenaryMembership": {
+   "uuid": "5694e620-b2fd-4bac-9399-7abe61777531",
+   "membershipNumber": 13,
+   "startDate": "2016-11-24",
+   "endDate": "2019-03-30",
+   "role": {
+    "code": "LIIGE",
+    "value": "liige"
+   },
+   "jobTitle": {
+    "code": "RIIGIKOGU_LIIGE",
+    "value": "Riigikogu liige"
+   }
+  },
+  "factions": [
+   {
+    "name": "Eesti Reformierakonna fraktsioon",
+    "type": {
+     "code": "FRAKTSIOON",
+     "value": "fraktsioon"
+    },
+    "active": true,
+    "membership": {
+     "membershipNumber": 13,
+     "startDate": "2016-11-24",
+     "endDate": "2019-03-30",
+     "role": {
+      "code": "LIIGE",
+      "value": "liige"
+     },
+     "jobTitle": {
+      "code": "RIIGIKOGU_LIIGE",
+      "value": "Riigikogu liige"
+     }
+    }
+   },
+   {
+    "name": "Eesti Reformierakonna fraktsioon",
+    "type": {
+     "code": "FRAKTSIOON",
+     "value": "fraktsioon"
+    },
+    "active": true,
+    "membership": {
+     "membershipNumber": 13,
+     "startDate": "2015-03-30",
+     "endDate": "2015-04-09",
+     "role": {
+      "code": "LIIGE",
+      "value": "liige"
+     },
+     "jobTitle": {
+      "code": "RIIGIKOGU_LIIGE",
+      "value": "Riigikogu liige"
+     }
+    }
+   }
+  ],
+  "gender": "MALE",
+  "parliamentSeniority": 2382,
+  "dateOfBirth": "1980-06-09",
+  "dateOfDeath": null
+ },
+ {
+  "uuid": "13938f95-f891-4607-a67e-d11a65dc79a3",
+  "fullName": "Jaak Aaviksoo",
+  "lastName": "Aaviksoo",
+  "firstName": "Jaak",
+  "active": false,
+  "electoralDistrictHistory": [
+   {
+    "membership": 12,
+    "electoralDistrict": {
+     "code": "VORU_VALGA_JA_POLVAMAA",
+     "value": "Võru-, Valga- ja Põlvamaa"
+    }
+   },
+   {
+    "membership": 13,
+    "electoralDistrict": {
+     "code": "TARTUMAA_TARTUTA",
+     "value": "Jõgeva- ja Tartumaa (v.a Tartu linn)"
+    }
+   },
+   {
+    "membership": 11,
+    "electoralDistrict": {
+     "code": "TALLINNA_HAABERSTI_POHJATALLINNA_JA_KRISTIINE_LINNAOSA",
+     "value": "Tallinna Haabersti, Põhja-Tallinna ja Kristiine linnaosa"
+    }
+   }
+  ],
+  "plenaryMembership": {
+   "uuid": "5694e620-b2fd-4bac-9399-7abe61777531",
+   "membershipNumber": 13,
+   "startDate": "2015-03-24",
+   "endDate": "2015-08-31",
+   "role": {
+    "code": "LIIGE",
+    "value": "liige"
+   },
+   "jobTitle": {
+    "code": "RIIGIKOGU_LIIGE",
+    "value": "Riigikogu liige"
+   }
+  },
+  "factions": [
+   {
+    "name": "Isamaa ja Res Publica Liidu fraktsioon",
+    "type": {
+     "code": "FRAKTSIOON",
+     "value": "fraktsioon"
+    },
+    "active": false,
+    "membership": {
+     "membershipNumber": 13,
+     "startDate": "2015-04-02",
+     "endDate": "2015-08-31",
+     "role": {
+      "code": "LIIGE",
+      "value": "liige"
+     },
+     "jobTitle": {
+      "code": "RIIGIKOGU_LIIGE",
+      "value": "Riigikogu liige"
+     }
+    }
+   }
+  ],
+  "gender": "MALE",
+  "parliamentSeniority": 539,
+  "dateOfBirth": "1954-01-11",
+  "dateOfDeath": null
+ },
+ {
+  "uuid": "5bf1116f-2e60-4a46-927a-e6aade9bebf9",
+  "fullName": "Tiina Kangro",
+  "lastName": "Kangro",
+  "firstName": "Tiina",
+  "active": false,
+  "electoralDistrictHistory": [
+   {
+    "membership": 13,
+    "electoralDistrict": {
+     "code": "HARJU_VA_TALLINN_JA_RAPLAMAA",
+     "value": "Harju- ja Raplamaa"
+    }
+   }
+  ],
+  "plenaryMembership": {
+   "uuid": "5694e620-b2fd-4bac-9399-7abe61777531",
+   "membershipNumber": 13,
+   "startDate": "2016-12-16",
+   "endDate": "2019-03-30",
+   "role": {
+    "code": "LIIGE",
+    "value": "liige"
+   },
+   "jobTitle": {
+    "code": "RIIGIKOGU_LIIGE",
+    "value": "Riigikogu liige"
+   }
+  },
+  "factions": [
+   {
+    "name": "Fraktsiooni mittekuuluvad Riigikogu liikmed",
+    "type": {
+     "code": "FRAKTSIOON",
+     "value": "fraktsioon"
+    },
+    "active": true,
+    "membership": {
+     "membershipNumber": 13,
+     "startDate": "2018-10-08",
+     "endDate": "2019-03-30",
+     "role": {
+      "code": "LIIGE",
+      "value": "liige"
+     },
+     "jobTitle": {
+      "code": "RIIGIKOGU_LIIGE",
+      "value": "Riigikogu liige"
+     }
+    }
+   },
+   {
+    "name": "Isamaa fraktsioon",
+    "type": {
+     "code": "FRAKTSIOON",
+     "value": "fraktsioon"
+    },
+    "active": true,
+    "membership": {
+     "membershipNumber": 13,
+     "startDate": "2018-07-31",
+     "endDate": "2018-10-08",
+     "role": {
+      "code": "LIIGE",
+      "value": "liige"
+     },
+     "jobTitle": {
+      "code": "RIIGIKOGU_LIIGE",
+      "value": "Riigikogu liige"
+     }
+    }
+   },
+   {
+    "name": "Isamaa ja Res Publica Liidu fraktsioon",
+    "type": {
+     "code": "FRAKTSIOON",
+     "value": "fraktsioon"
+    },
+    "active": false,
+    "membership": {
+     "membershipNumber": 13,
+     "startDate": "2016-12-19",
+     "endDate": "2018-07-30",
+     "role": {
+      "code": "LIIGE",
+      "value": "liige"
+     },
+     "jobTitle": {
+      "code": "RIIGIKOGU_LIIGE",
+      "value": "Riigikogu liige"
+     }
+    }
+   }
+  ],
+  "gender": "FEMALE",
+  "parliamentSeniority": 834,
+  "dateOfBirth": null,
+  "dateOfDeath": null
+ }
+]

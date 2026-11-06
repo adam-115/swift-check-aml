@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="fr"><head><meta charset="utf-8"><title>Plan des parsers PEP – Estonie (lots 1 et 2)</title>
+<style>
+body{font-family:Segoe UI,Arial,sans-serif;font-size:11pt;color:#1a1a1a;margin:28px;line-height:1.45}
+h1{color:#0b3d6b;border-bottom:3px solid #0b3d6b;padding-bottom:6px}h2{color:#0b3d6b;margin-top:26px}
+table{border-collapse:collapse;width:100%;margin:10px 0;font-size:10pt}th,td{border:1px solid #bbb;padding:5px 8px;text-align:left;vertical-align:top}
+th{background:#e8eef5}.ok{color:#14702e;font-weight:600}.ko{color:#a32020;font-weight:600}.note{background:#f4f7fa;border-left:4px solid #0b3d6b;padding:8px 12px}
+</style></head><body>
+<h1>Plan des parsers PEP – Estonie (lots 1 et 2)</h1>
+<p>Date : 6 novembre 2026. Pays de l'Union européenne : les députés européens et le commissaire estonien relèvent des parsers européens existants. Base légale : loi sur la prévention du blanchiment de capitaux et du financement du terrorisme (<i>Rahapesu ja terrorismi rahastamise tõkestamise seadus</i>), personne exerçant une fonction publique importante ; vigilance de douze mois après la fin des fonctions (durée à confirmer sur le texte en vigueur).</p>
+
+<h2>1. Parsers réalisés</h2>
+<table>
+<tr><th>Jeu de données</th><th>Source</th><th>Contenu</th><th>Volume mesuré</th></tr>
+<tr><td>ee_pep_parliament</td><td>API ouverte du Riigikogu</td><td>Membres en fonction ou sortis depuis moins de 12 mois (EE-b)</td><td>104 personnes</td></tr>
+<tr><td>ee_pep_parliament_history</td><td>même API</td><td>Anciens membres depuis 1992 (compositions 7 à 15), vivants uniquement</td><td>525 personnes (181 décédés écartés)</td></tr>
+<tr><td>ee_pep_government</td><td>valitsus.ee (14 pages)</td><td>Premier ministre et ministres en fonction (EE-a)</td><td>13 personnes</td></tr>
+<tr><td>ee_pep_institutions (lot 2)</td><td>president.ee, riigikohus.ee, riigikontroll.ee, eestipank.ee (5 pages)</td><td>Président de la République, juges de la Cour suprême, Auditeur général, directoire et conseil de surveillance de la Banque d'Estonie (EE-a, EE-d, EE-e)</td><td>34 personnes : 1 + 18 + 1 + 3 + 11</td></tr>
+</table>
+<p>Chaque parser télécharge la source à chaque exécution ; aucune liste de noms n'est embarquée ; Wikidata n'est pas utilisé. Migrations Liquibase 076 (pays EE, catégories, fonctions, 3 parsers) et 077 (lot 2), validées sur une base jetable.</p>
+
+<h2>2. Points forts</h2>
+<ul><li>Parlement : naissance, sexe, <b>date de décès</b>, dates exactes de chaque mandat, fonction (président, vice-présidents), groupe et circonscription ; identifiant stable d'une composition à l'autre.</li>
+<li>Président de la République (Ülle Madise, depuis le 12 octobre 2026) et Auditeur général : naissance, lieu de naissance et date de prise de fonction.</li>
+<li>Cour suprême : 18 juges sur 19 postes (un vacant), avec les trois présidents de chambre et le président de la Cour.</li></ul>
+
+<h2>3. Pièges rencontrés</h2>
+<ul><li>L'API du Riigikogu répond <b>429</b> plus vite que le <i>Crawl-Delay</i> de 5 secondes : délai de 6 secondes, reprise après un 429.</li>
+<li>En anglais, l'API <b>masque le nom des anciens membres</b> (453 entrées sans nom sur 1 248) : la liste est demandée en estonien.</li>
+<li>Pages des institutions : le titre de la page et le fil d'Ariane contiennent aussi « Auditor General » ; la lecture ligne par ligne évite d'avaler le titre dans le nom (bug trouvé au run réel).</li></ul>
+
+<h2>4. Limites et sources non couvertes</h2>
+<table>
+<tr><th>Périmètre</th><th>Situation</th></tr>
+<tr><td>Chancelier de justice</td><td class="ko">Poste vacant : la titulaire est devenue présidente le 12/10/2026 ; la page ne donne que l'intérim (non repris)</td></tr>
+<tr><td>Anciens ministres, anciens présidents, anciens gouverneurs, anciens juges</td><td class="ko">Les sites ne publient que les titulaires en fonction</td></tr>
+<tr><td>Naissance des juges de la Cour suprême</td><td>La page ne la donne que pour le président de la Cour</td></tr>
+<tr><td>Ambassadeurs, officiers généraux, entreprises d'État, partis</td><td class="ko">Aucune liste ouverte vérifiée</td></tr>
+</table>
+<p class="note">Les proches (RCA) ne sont pas couverts : la seule source connue est Wikidata, exclue.</p>
+
+<h2>5. Suite proposée</h2>
+<ul><li>Autres pays : Lettonie, Lituanie, Grèce.</li>
+<li>Estonie : ajouter le Chancelier de justice à la nomination de son successeur.</li></ul>
+</body></html>

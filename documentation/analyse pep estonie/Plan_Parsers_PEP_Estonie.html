@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="fr"><head><meta charset="utf-8"><title>Plan des parsers PEP – Estonie</title>
+<style>
+body{font-family:Segoe UI,Arial,sans-serif;font-size:11pt;color:#1a1a1a;margin:28px;line-height:1.45}
+h1{color:#0b3d6b;border-bottom:3px solid #0b3d6b;padding-bottom:6px}h2{color:#0b3d6b;margin-top:26px}
+table{border-collapse:collapse;width:100%;margin:10px 0;font-size:10pt}th,td{border:1px solid #bbb;padding:5px 8px;text-align:left;vertical-align:top}
+th{background:#e8eef5}.ok{color:#14702e;font-weight:600}.ko{color:#a32020;font-weight:600}.note{background:#f4f7fa;border-left:4px solid #0b3d6b;padding:8px 12px}
+</style></head><body>
+<h1>Plan des parsers PEP – Estonie</h1>
+<p>Date : 6 novembre 2026. Pays de l'Union européenne : les députés européens et le commissaire estonien relèvent des parsers européens existants. Base légale : loi sur la prévention du blanchiment de capitaux et du financement du terrorisme (<i>Rahapesu ja terrorismi rahastamise tõkestamise seadus</i>), personne exerçant une fonction publique importante ; vigilance de douze mois après la fin des fonctions (durée à confirmer sur le texte en vigueur).</p>
+
+<h2>1. Parsers réalisés (lot 1)</h2>
+<table>
+<tr><th>Jeu de données</th><th>Source</th><th>Contenu</th><th>Volume mesuré</th></tr>
+<tr><td>ee_pep_parliament</td><td>API ouverte du Riigikogu (api.riigikogu.ee)</td><td>Membres en fonction ou sortis depuis moins de 12 mois (EE-b)</td><td>104 personnes</td></tr>
+<tr><td>ee_pep_parliament_history</td><td>même API</td><td>Anciens membres depuis 1992 (compositions 7 à 15), vivants uniquement</td><td>525 personnes (181 décédés écartés)</td></tr>
+<tr><td>ee_pep_government</td><td>valitsus.ee (14 pages)</td><td>Premier ministre et ministres en fonction (EE-a)</td><td>13 personnes</td></tr>
+</table>
+<p>Chaque parser télécharge la source à chaque exécution ; aucune liste de noms n'est embarquée ; Wikidata n'est pas utilisé. Migration Liquibase 076 (pays EE, catégories, fonctions, 3 parsers), validée sur une base jetable.</p>
+
+<h2>2. Points forts</h2>
+<ul><li>Parlement : naissance, sexe, <b>date de décès</b>, dates exactes de chaque mandat, fonction (président, vice-présidents), groupe parlementaire et circonscription ; l'identifiant d'un membre est stable d'une composition à l'autre.</li>
+<li>Gouvernement : date de prise de fonction, naissance et lieu de naissance quand la fiche les donne.</li></ul>
+
+<h2>3. Pièges rencontrés</h2>
+<ul><li>L'API répond <b>429</b> quand on l'interroge plus vite que le <i>Crawl-Delay</i> de 5 secondes de riigikogu.ee : le parser attend 6 secondes (plancher de 5) et reprend après un 429. Exécution de la couche historique : environ 70 secondes.</li>
+<li>En anglais, l'API <b>masque le nom des anciens membres</b> (453 entrées sans nom sur 1 248) ; la liste est donc demandée en estonien, où tous les noms sont présents.</li>
+<li>Les fiches du gouvernement emploient trois formulations de la date de prise de fonction (« from », « since », et sans « of the Republic of Estonia ») ; les trois sont lues.</li></ul>
+
+<h2>4. Limites et sources non couvertes</h2>
+<table>
+<tr><th>Périmètre</th><th>Situation</th></tr>
+<tr><td>Président de la République (president.ee)</td><td class="ko">Protection Cloudflare avec redirection : à étudier, non contournée</td></tr>
+<tr><td>Cour suprême, Chancelier de justice</td><td class="ok">Pages accessibles : lot 2</td></tr>
+<tr><td>Banque d'Estonie, Cour des comptes</td><td>Pages à localiser : lot 2</td></tr>
+<tr><td>Anciens ministres</td><td class="ko">valitsus.ee ne publie que les membres en fonction</td></tr>
+<tr><td>Ambassadeurs, officiers généraux, entreprises d'État, partis</td><td class="ko">Aucune liste ouverte vérifiée</td></tr>
+</table>
+<p class="note">Les proches (RCA) ne sont pas couverts : la seule source connue est Wikidata, exclue.</p>
+
+<h2>5. Suite proposée</h2>
+<ul><li>Lot 2 Estonie : Cour suprême, Chancelier de justice, Banque d'Estonie, Cour des comptes, président.</li>
+<li>Autres pays : Lettonie, Lituanie.</li></ul>
+</body></html>
