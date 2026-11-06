@@ -71,38 +71,51 @@ public class YenteLookup {
         ObjectNode body = json.createObjectNode();
         body.set("queries", queries);
 
-        HttpRequest request = HttpRequest.newBuilder(URI.create(trimSlash(yenteUrl) + "/match/" + dataset + MATCH_PARAMS))
-                .timeout(Duration.ofSeconds(60))
-                .header("Content-Type", "application/json; charset=utf-8")
-                .header("Accept", "application/json")
-                .POST(HttpRequest.BodyPublishers.ofString(json.writeValueAsString(body), StandardCharsets.UTF_8))
-                .build();
-        HttpResponse<String> response = http.send(request, HttpResponse.BodyHandlers.ofString());
-        if (response.statusCode() != 200) {
-            throw new IOException("Yente /match a répondu HTTP " + response.statusCode());
-        }
-
-        JsonNode responses = json.readTree(response.body()).path("responses");
-        Map<String, MatchOutcome> outcomes = new HashMap<>();
-        for (int i = 0; i < records.size(); i++) {
-            SourceRecord record = records.get(i);
-            JsonNode results = responses.path("q" + i).path("results");
-            boolean found = false;
-            BestResult best = null;
-            for (JsonNode result : results) {
-                String id = result.path("id").asText();
-                if (best == null) {
-                    best = new BestResult(id, result.path("caption").asText(), result.path("score").asDouble());
+        IOException last = null;
+        for (int attempt = 1; attempt <= 2; attempt++) {
+            try {
+                HttpRequest request = HttpRequest.newBuilder(URI.create(trimSlash(yenteUrl) + "/match/" + dataset + MATCH_PARAMS))
+                        .timeout(Duration.ofSeconds(120))
+                        .header("Content-Type", "application/json; charset=utf-8")
+                        .header("Accept", "application/json")
+                        .POST(HttpRequest.BodyPublishers.ofString(json.writeValueAsString(body), StandardCharsets.UTF_8))
+                        .build();
+                HttpResponse<String> response = http.send(request, HttpResponse.BodyHandlers.ofString());
+                if (response.statusCode() == 200) {
+                    JsonNode responses = json.readTree(response.body()).path("responses");
+                    Map<String, MatchOutcome> outcomes = new HashMap<>();
+                    for (int i = 0; i < records.size(); i++) {
+                        SourceRecord record = records.get(i);
+                        JsonNode results = responses.path("q" + i).path("results");
+                        boolean found = false;
+                        BestResult best = null;
+                        for (JsonNode result : results) {
+                            String id = result.path("id").asText();
+                            if (best == null) {
+                                best = new BestResult(id, result.path("caption").asText(), result.path("score").asDouble());
+                            }
+                            // L'ID attendu, ou une entité fusionnée qui le référence (Yente garde les anciens ID dans "referents").
+                            if (id.equals(record.entityId()) || contains(result.path("referents"), record.entityId())) {
+                                found = true;
+                                break;
+                            }
+                        }
+                        outcomes.put(record.entityId(), new MatchOutcome(found, best));
+                    }
+                    return outcomes;
                 }
-                // L'ID attendu, ou une entité fusionnée qui le référence (Yente garde les anciens ID dans "referents").
-                if (id.equals(record.entityId()) || contains(result.path("referents"), record.entityId())) {
-                    found = true;
+                last = new IOException("Yente /match a répondu HTTP " + response.statusCode());
+                if (response.statusCode() < 500 && response.statusCode() != 429) {
                     break;
                 }
+            } catch (IOException e) {
+                last = e;
             }
-            outcomes.put(record.entityId(), new MatchOutcome(found, best));
+            if (attempt < 2) {
+                Thread.sleep(2000L);
+            }
         }
-        return outcomes;
+        throw last != null ? last : new IOException("Échec après 2 tentatives Yente");
     }
 
     /**
