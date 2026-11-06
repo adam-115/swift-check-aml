@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ActivatedRoute, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 
 import { ParserTestDTO, ParserTestFailureDTO, TestFailureReason } from '../../models/appTypes';
 import { ParserTestService } from '../../services/parser-test.service';
@@ -42,15 +42,47 @@ export class ParserTestDetailComponent implements OnInit {
   totalPages = 0;
   total = 0;
 
-  constructor(private route: ActivatedRoute, private testService: ParserTestService) {}
+  retesting = false;
+
+  constructor(private route: ActivatedRoute, private router: Router, private testService: ParserTestService) {}
 
   ngOnInit(): void {
-    const id = Number(this.route.snapshot.paramMap.get('id'));
-    this.testService.getById(id).subscribe({
-      next: test => (this.test = test),
-      error: err => (this.errorMessage = apiError(err)),
+    // paramMap et non snapshot : un re-test ouvre /tests/:autreId dans le même composant.
+    this.route.paramMap.subscribe(params => {
+      const id = Number(params.get('id'));
+      this.errorMessage = '';
+      this.filter = null;
+      this.page = 0;
+      this.testService.getById(id).subscribe({
+        next: test => (this.test = test),
+        error: err => (this.errorMessage = apiError(err)),
+      });
+      this.loadFailures(id);
     });
-    this.loadFailures(id);
+  }
+
+  /** Revérifier est utile s'il reste des échecs côté Yente (pas seulement des éléments non convertis). */
+  get canRetest(): boolean {
+    const t = this.test;
+    return !!t && t.status !== 'RUNNING' && t.notIndexedCount + t.notMatchedCount + t.errorCount > 0;
+  }
+
+  retest(): void {
+    if (!this.test || this.retesting) {
+      return;
+    }
+    this.retesting = true;
+    this.errorMessage = '';
+    this.testService.retest(this.test.id).subscribe({
+      next: result => {
+        this.retesting = false;
+        this.router.navigate(['/tests', result.id]);
+      },
+      error: err => {
+        this.retesting = false;
+        this.errorMessage = apiError(err);
+      },
+    });
   }
 
   /** Nombre d'éléments pour une raison, affiché sur la carte et le filtre. */

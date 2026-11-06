@@ -22,6 +22,11 @@ export class ParserTestService {
     return this.http.get<ParserTestDTO>(`${this.apiUrl}/${id}`);
   }
 
+  /** Revérifie seulement les échecs d'un test ; renvoie le nouveau test (la requête attend la fin). */
+  retest(id: number): Observable<ParserTestDTO> {
+    return this.http.post<ParserTestDTO>(`${this.apiUrl}/${id}/retest`, null);
+  }
+
   /** Éléments de la source non retrouvés dans Yente, filtrables par raison. */
   getFailures(id: number, reason: TestFailureReason | null, page = 0): Observable<Page<ParserTestFailureDTO>> {
     let params = new HttpParams().set('page', page).set('size', 50);

@@ -14,9 +14,19 @@
           <ng-container *ngIf="test.executionId"> · source de la
             <a [routerLink]="['/executions', test.executionId]" class="underline hover:text-white">publication n° {{ test.executionId }}</a>
           </ng-container>
+          <ng-container *ngIf="test.retestOfId"> · re-test des échecs du
+            <a [routerLink]="['/tests', test.retestOfId]" class="underline hover:text-white">test n° {{ test.retestOfId }}</a>
+          </ng-container>
         </p>
       </div>
-      <a routerLink="/tests" class="inline-flex items-center justify-center rounded-xl bg-white/10 px-3.5 py-2 text-sm font-semibold text-white hover:bg-white/20">← Tous les tests</a>
+      <div class="flex flex-wrap items-center gap-2">
+        <button *ngIf="canRetest" type="button" (click)="retest()" [disabled]="retesting"
+                title="Revérifie dans Yente seulement les éléments non indexés, non retrouvés par le nom ou en erreur, sur la même publication."
+                class="inline-flex items-center justify-center rounded-xl bg-amber-500 px-3.5 py-2 text-sm font-semibold text-slate-900 hover:bg-amber-400 disabled:opacity-60">
+          {{ retesting ? 'Re-test en cours…' : 'Retester les échecs' }}
+        </button>
+        <a routerLink="/tests" class="inline-flex items-center justify-center rounded-xl bg-white/10 px-3.5 py-2 text-sm font-semibold text-white hover:bg-white/20">← Tous les tests</a>
+      </div>
     </div>
 
     <div class="p-4 sm:p-6 bg-slate-50 space-y-5">

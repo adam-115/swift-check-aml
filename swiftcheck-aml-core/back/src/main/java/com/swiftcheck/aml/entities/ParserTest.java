@@ -34,6 +34,9 @@ public class ParserTest {
     /** Publication testée (exécution SUCCESS dont le fichier source archivé a été relu). */
     private Long executionId;
 
+    /** Test dont celui-ci revérifie les échecs ; {@code null} pour un test complet. */
+    private Long retestOfId;
+
     @Enumerated(EnumType.STRING)
     private ParserTestStatus status;
 

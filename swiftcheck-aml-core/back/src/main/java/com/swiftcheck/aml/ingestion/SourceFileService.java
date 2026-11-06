@@ -91,12 +91,15 @@ public class SourceFileService {
     public List<SourceFile> archiveRawFiles(Parser parser, long executionId, Path rawDir,
             ApplicationConfigEntity config) throws IOException {
         List<Path> files;
-        try (Stream<Path> listing = Files.list(rawDir)) {
+        // Récursif : un plugin peut ranger ses réponses dans des sous-dossiers (ex. persons/123.json) ; l'origine est le
+        // chemin relatif, pour que le test du parser retrouve exactement la même arborescence.
+        try (Stream<Path> listing = Files.walk(rawDir)) {
             files = listing.filter(Files::isRegularFile).sorted().toList();
         }
         List<SourceFile> result = new ArrayList<>();
         for (Path file : files) {
-            result.add(archive(parser, executionId, file.getFileName().toString(), file, config));
+            String origin = rawDir.relativize(file).toString().replace('\\', '/');
+            result.add(archive(parser, executionId, origin, file, config));
         }
         return result;
     }

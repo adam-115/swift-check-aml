@@ -1,5 +1,7 @@
 package com.swiftcheck.aml.repositories;
 
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -12,6 +14,8 @@ import com.swiftcheck.aml.entities.TestFailureReason;
 public interface ParserTestFailureRepository extends JpaRepository<ParserTestFailure, Long> {
 
     Page<ParserTestFailure> findByTestIdOrderByIdAsc(long testId, Pageable pageable);
+
+    List<ParserTestFailure> findByTestIdOrderByIdAsc(long testId);
 
     Page<ParserTestFailure> findByTestIdAndReasonOrderByIdAsc(long testId, TestFailureReason reason, Pageable pageable);
 }

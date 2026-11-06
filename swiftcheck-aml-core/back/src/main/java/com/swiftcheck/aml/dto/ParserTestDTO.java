@@ -18,6 +18,8 @@ public class ParserTestDTO {
     private String datasetName;
     /** Publication testée. */
     private Long executionId;
+    /** Test d'origine, si ce test revérifie seulement les échecs d'un autre. */
+    private Long retestOfId;
     private ParserTestStatus status;
     private Instant startedAt;
     private Instant finishedAt;
@@ -55,6 +57,7 @@ public class ParserTestDTO {
         dto.setParserName(test.getParser().getName());
         dto.setDatasetName(test.getParser().getDatasetName());
         dto.setExecutionId(test.getExecutionId());
+        dto.setRetestOfId(test.getRetestOfId());
         dto.setStatus(test.getStatus());
         dto.setStartedAt(test.getStartedAt());
         dto.setFinishedAt(test.getFinishedAt());

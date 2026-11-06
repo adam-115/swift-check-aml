@@ -163,6 +163,83 @@ public class ParserTestService {
         return test;
     }
 
+    /**
+     * Re-test : revérifie dans Yente seulement les éléments en échec d'un test précédent, sur la même publication.
+     * Les éléments déjà retrouvés restent comptés tels quels ; les échecs {@code NOT_CONVERTED} sont repris sans
+     * être revérifiés (le plugin ou la source seuls les corrigent : il faut une nouvelle publication, puis un test
+     * complet). Le résultat est un nouveau test lié à l'ancien, qui garde l'historique de chaque essai.
+     *
+     * @throws IllegalArgumentException si le test n'existe pas
+     * @throws IllegalStateException    si le re-test ne peut pas être lancé (message affiché tel quel)
+     */
+    public ParserTest retest(long previousTestId) {
+        ParserTest previous = testsRepository.findById(previousTestId)
+                .orElseThrow(() -> new IllegalArgumentException("Test introuvable : " + previousTestId));
+        Parser parser = previous.getParser();
+        if (testsRepository.existsByParserIdAndStatus(parser.getId(), ParserTestStatus.RUNNING)) {
+            throw new IllegalStateException("Un test de ce parser est déjà en cours.");
+        }
+        int failed = previous.getNotConvertedCount() + previous.getNotIndexedCount()
+                + previous.getNotMatchedCount() + previous.getErrorCount();
+        if (previous.getSourceCount() == 0 || failed == 0) {
+            throw new IllegalStateException("Ce test n'a aucun échec à revérifier.");
+        }
+        List<ParserTestFailure> saved = failuresRepository.findByTestIdOrderByIdAsc(previousTestId);
+        if (saved.size() < failed) {
+            throw new IllegalStateException("Ce test a plus de " + MAX_SAVED_FAILURES + " échecs et seuls les premiers"
+                    + " sont enregistrés : lancez un test complet.");
+        }
+        if (saved.stream().allMatch(f -> f.getReason() == TestFailureReason.NOT_CONVERTED)) {
+            throw new IllegalStateException("Les échecs de ce test sont tous des éléments non convertis : corrigez le"
+                    + " plugin, relancez le parser, puis lancez un test complet.");
+        }
+
+        ParserTest test = new ParserTest();
+        test.setParser(parser);
+        test.setExecutionId(previous.getExecutionId());
+        test.setRetestOfId(previousTestId);
+        test.setSourceCount(previous.getSourceCount());
+        test.setStatus(ParserTestStatus.RUNNING);
+        test.setStartedAt(Instant.now());
+        test = testsRepository.save(test);
+
+        ApplicationConfigEntity config = configService.current();
+        ExecutorService pool = Executors.newFixedThreadPool(threads);
+        try {
+            List<Outcome> outcomes = new ArrayList<>();
+            List<SourceRecord> withName = new ArrayList<>();
+            List<SourceRecord> withoutName = new ArrayList<>();
+            for (ParserTestFailure f : saved) {
+                SourceRecord record = new SourceRecord(f.getEntityId(), f.getEntitySchema(), f.getName(), f.getSourceRef());
+                if (f.getReason() == TestFailureReason.NOT_CONVERTED) {
+                    outcomes.add(new Outcome(record, TestFailureReason.NOT_CONVERTED, f.getDetail()));
+                } else if (record.name() == null || record.name().isBlank()) {
+                    withoutName.add(record);
+                } else {
+                    withName.add(record);
+                }
+            }
+            int rechecked = withName.size() + withoutName.size();
+            outcomes.addAll(checkInYente(parser.getDatasetName(), config.getYenteUrl(), withName, withoutName, pool));
+            record(test, outcomes, previous.getFoundCount());
+            test.setMessage("Re-test des échecs du test n° " + previousTestId + " (" + rechecked
+                    + " éléments revérifiés dans Yente). " + test.getMessage());
+        } catch (Exception | Error e) {
+            if (e instanceof InterruptedException) {
+                Thread.currentThread().interrupt();
+            }
+            log.error("Re-test {} du parser {} en échec", test.getId(), parser.getDatasetName(), e);
+            test.setStatus(ParserTestStatus.FAILED);
+            test.setMessage(e.getClass().getSimpleName() + " : " + e.getMessage());
+        } finally {
+            pool.shutdownNow();
+            test.setFinishedAt(Instant.now());
+            test = testsRepository.save(test);
+        }
+        log.info("Re-test du parser {} : {} – {}", parser.getDatasetName(), test.getStatus(), test.getMessage());
+        return test;
+    }
+
     private void execute(Parser parser, Iparser plugin, ParserExecution publication, ParserTest test, Path workDir,
             ApplicationConfigEntity config) throws Exception {
         // 1. Le fichier source archivé de la publication, donné au plugin comme lors de la conversion.
@@ -211,7 +288,7 @@ public class ParserTestService {
         } finally {
             pool.shutdownNow();
         }
-        record(test, outcomes);
+        record(test, outcomes, 0);
     }
 
     /**
@@ -227,8 +304,13 @@ public class ParserTestService {
         Path inputFile = null;
         if (parser.getDataSourceType() == DataSourceType.PLUGIN_MANAGED) {
             for (SourceFile source : sources) {
-                Path name = Path.of(source.getOrigin()).getFileName();
-                Files.copy(archived(source), rawDir.resolve(name.toString()), StandardCopyOption.REPLACE_EXISTING);
+                // L'origine est le chemin relatif dans rawDir (sous-dossiers compris) ; refus de tout chemin qui en sort.
+                Path target = rawDir.resolve(source.getOrigin()).normalize();
+                if (!target.startsWith(rawDir.normalize())) {
+                    throw new IllegalStateException("Origine de fichier source invalide : " + source.getOrigin());
+                }
+                Files.createDirectories(target.getParent());
+                Files.copy(archived(source), target, StandardCopyOption.REPLACE_EXISTING);
             }
         } else {
             inputFile = archived(sources.get(0));
@@ -323,9 +405,9 @@ public class ParserTestService {
     }
 
     /** Compteurs, statut, message et liste des éléments non retrouvés (limitée à MAX_SAVED_FAILURES). */
-    private void record(ParserTest test, List<Outcome> outcomes) {
+    private void record(ParserTest test, List<Outcome> outcomes, int alreadyFound) {
         List<ParserTestFailure> failures = new ArrayList<>();
-        int found = 0, notConverted = 0, notIndexed = 0, notMatched = 0, errors = 0;
+        int found = alreadyFound, notConverted = 0, notIndexed = 0, notMatched = 0, errors = 0;
         for (Outcome outcome : outcomes) {
             if (outcome.reason() == null) {
                 found++;

@@ -5,6 +5,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.swiftcheck.aml.dto.ParserTestDTO;
 import com.swiftcheck.aml.dto.ParserTestFailureDTO;
 import com.swiftcheck.aml.entities.TestFailureReason;
+import com.swiftcheck.aml.parsertest.ParserTestService;
 import com.swiftcheck.aml.parsertest.ParserTestViews;
 import com.swiftcheck.aml.repositories.ParserTestFailureRepository;
 import com.swiftcheck.aml.repositories.ParserTestRepository;
@@ -23,6 +25,7 @@ import com.swiftcheck.aml.repositories.ParserTestRepository;
  * GET /api/parser-tests                         tous les tests, du plus récent au plus ancien ; ?parserId= pour un parser
  * GET /api/parser-tests/{id}                    avec la publication testée et son fichier source
  * GET /api/parser-tests/{id}/failures           éléments non retrouvés ; ?reason=NOT_INDEXED pour filtrer
+ * POST /api/parser-tests/{id}/retest             revérifie seulement les échecs de ce test (nouveau test lié)
  * </pre>
  */
 @RestController
@@ -32,11 +35,14 @@ public class ParserTestController {
     private final ParserTestRepository tests;
     private final ParserTestFailureRepository failures;
     private final ParserTestViews views;
+    private final ParserTestService service;
 
-    public ParserTestController(ParserTestRepository tests, ParserTestFailureRepository failures, ParserTestViews views) {
+    public ParserTestController(ParserTestRepository tests, ParserTestFailureRepository failures, ParserTestViews views,
+            ParserTestService service) {
         this.tests = tests;
         this.failures = failures;
         this.views = views;
+        this.service = service;
     }
 
     @GetMapping
@@ -51,6 +57,12 @@ public class ParserTestController {
     public ResponseEntity<ParserTestDTO> getById(@PathVariable long id) {
         return tests.findById(id).map(test -> ResponseEntity.ok(views.toDto(test)))
                 .orElse(ResponseEntity.notFound().build());
+    }
+
+    /** Revérifie dans Yente seulement les échecs de ce test ; crée un nouveau test lié à celui-ci et attend la fin. */
+    @PostMapping("/{id}/retest")
+    public ParserTestDTO retest(@PathVariable long id) {
+        return views.toDto(service.retest(id));
     }
 
     @GetMapping("/{id}/failures")

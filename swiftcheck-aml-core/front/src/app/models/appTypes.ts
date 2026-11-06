@@ -248,6 +248,7 @@ export interface ParserTestDTO {
     parserName: string;
     datasetName: string;
     executionId?: number;               // publication testée
+    retestOfId?: number;                // test d'origine, si ce test ne revérifie que les échecs d'un autre
     status: TestStatus;
     startedAt: string;
     finishedAt?: string;
