@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Tchéquie : référentiel PEP et parsers, sans Wikidata.
+
+    Base légale : zákon č. 253/2008 Sb., o některých opatřeních proti legalizaci výnosů z trestné činnosti a financování
+    terorismu : politicky exponovaná osoba (PEP) ; vigilance de douze mois après la fin des fonctions.
+
+    Parsers (un seul plugin, swiftcheck-aml-plugins/pep/czechia, paramètre scope) sur les données ouvertes de la Chambre des
+    députés (psp.cz, archive poslanci.zip, dates exactes) :
+      - cz_pep_parliament / cz_pep_parliament_history : députés et présidence de la Chambre
+      - cz_pep_government / cz_pep_government_history : Premier ministre, vice-premiers ministres et ministres
+      - cz_pep_president                              : Président de la République (en fonction et anciens vivants)
+      - cz_pep_oversight                              : Cour des comptes (NKÚ) et médiateurs
+
+    Non couvert, avec le motif : Sénat (données ouvertes séparées non étudiées dans ce lot), hautes juridictions, banque
+    centrale, ambassadeurs, officiers généraux, entreprises d'État, partis (aucune fonction de parti dans l'archive) ; proches
+    (RCA) : seule source connue = Wikidata, exclue.
+-->
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="073-cz-country" author="swiftcheck">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM country WHERE iso = 'CZ'</sqlCheck>
+        </preConditions>
+        <sql>
+            INSERT INTO country (iso, name, eu_member, legal_basis, retention_months)
+            VALUES ('CZ', 'Tchéquie', TRUE,
+                    'Loi n° 253/2008 sur certaines mesures contre le blanchiment et le financement du terrorisme : personnes politiquement exposées (politicky exponovaná osoba), membres de leur famille et proches associés, douze mois après la fin des fonctions', 12);
+        </sql>
+    </changeSet>
+
+    <changeSet id="073-cz-categories" author="swiftcheck">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM pep_category WHERE country_iso = 'CZ'</sqlCheck>
+        </preConditions>
+        <sql>
+            INSERT INTO pep_category (country_iso, code, label, kind, risk_class, sort_order, legal_reference) VALUES
+            ('CZ', 'CZ-a', 'Chef de l''État, Premier ministre, ministres et secrétaires d''État', 'OFFICIAL', 1, 1, 'Loi 253/2008'),
+            ('CZ', 'CZ-b', 'Députés et sénateurs', 'OFFICIAL', 1, 2, 'Loi 253/2008'),
+            ('CZ', 'CZ-c', 'Organes dirigeants des partis politiques', 'OFFICIAL', 2, 3, 'Loi 253/2008'),
+            ('CZ', 'CZ-d', 'Cour suprême, Cour constitutionnelle et hautes juridictions', 'OFFICIAL', 2, 4, 'Loi 253/2008'),
+            ('CZ', 'CZ-e', 'Cour des comptes (NKÚ), médiateur et banque centrale', 'OFFICIAL', 2, 5, 'Loi 253/2008'),
+            ('CZ', 'CZ-f', 'Ambassadeurs et officiers généraux des forces armées', 'OFFICIAL', 2, 6, 'Loi 253/2008'),
+            ('CZ', 'CZ-g', 'Dirigeants des entreprises détenues par l''État', 'OFFICIAL', 3, 7, 'Loi 253/2008'),
+            ('CZ', 'CZ-h', 'Dirigeants des organisations internationales', 'OFFICIAL', 3, 8, 'Loi 253/2008'),
+            ('CZ', 'CZ-RCA', 'Membres de la famille et proches associés', 'RCA', 2, 9, 'Loi 253/2008 (membres de la famille et personnes connues comme étroitement associées)');
+        </sql>
+    </changeSet>
+
+    <changeSet id="073-cz-functions" author="swiftcheck">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM pep_function f JOIN pep_category c ON c.id = f.category_id WHERE c.country_iso = 'CZ'</sqlCheck>
+        </preConditions>
+        <sql>
+            INSERT INTO pep_function (category_id, label, institution, expected_holders)
+            SELECT c.id, f.label, f.institution, f.expected_holders
+            FROM pep_category c JOIN (
+                SELECT 'CZ-a' AS code, 'Président de la République' AS label, 'Prezident republiky' AS institution, 1 AS expected_holders
+                UNION ALL SELECT 'CZ-a', 'Premier ministre, vice-premier ministre, ministre', 'Vláda', 20
+                UNION ALL SELECT 'CZ-b', 'Député à la Chambre des députés', 'Poslanecká sněmovna', 200
+                UNION ALL SELECT 'CZ-b', 'Ancien député à la Chambre des députés', 'Poslanecká sněmovna', NULL
+                UNION ALL SELECT 'CZ-b', 'Sénateur', 'Senát', 81
+                UNION ALL SELECT 'CZ-c', 'Membre d''un organe dirigeant d''un parti', 'Partis politiques', 30
+                UNION ALL SELECT 'CZ-d', 'Juge de la Cour constitutionnelle', 'Ústavní soud', 15
+                UNION ALL SELECT 'CZ-d', 'Juge de la Cour suprême', 'Nejvyšší soud', 60
+                UNION ALL SELECT 'CZ-e', 'Dirigeant de la Cour des comptes (NKÚ)', 'Nejvyšší kontrolní úřad', 15
+                UNION ALL SELECT 'CZ-e', 'Médiateur (veřejný ochránce práv) et adjoints', 'Veřejný ochránce práv', 4
+                UNION ALL SELECT 'CZ-e', 'Membre du conseil de la banque centrale', 'Česká národní banka', 7
+                UNION ALL SELECT 'CZ-f', 'Ambassadeur', 'Ministerstvo zahraničních věcí', 90
+                UNION ALL SELECT 'CZ-f', 'Officier général des forces armées', 'Armáda České republiky', 50
+                UNION ALL SELECT 'CZ-g', 'Dirigeant d''une entreprise détenue par l''État', 'Entreprises d''État', NULL
+                UNION ALL SELECT 'CZ-h', 'Dirigeant d''une organisation internationale', 'Organisations internationales', NULL
+                UNION ALL SELECT 'CZ-RCA', 'Membre de la famille d''une PEP tchèque', NULL, NULL
+                UNION ALL SELECT 'CZ-RCA', 'Proche associé d''une PEP tchèque', NULL, NULL
+            ) f ON f.code = c.code;
+        </sql>
+    </changeSet>
+
+    <changeSet id="073-parser-cz-pep-parliament" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Tchéquie – Chambre des députés',
+                'Députés et présidence de la Chambre des députés, en fonction ou sortis depuis moins de 12 mois, d''après les données ouvertes psp.cz (catégorie CZ-b)',
+                'cz_pep_parliament', 'PEP', 'https://www.psp.cz/sqw/hp.sqw?k=1305',
+                'cz-pep-psp', 'D:/test parser 2/plugins/swiftcheck-aml-cz-pep-psp-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'OPEN_DATA_FILE',
+                NULL,
+                '{"url": "https://www.psp.cz/eknih/cdrom/opendata/poslanci.zip", "scope": "parliament", "monthsAfterEnd": "12"}',
+                168, 12,
+                'Données ouvertes de la Chambre des députés : citer la source (conditions de réutilisation à vérifier sur psp.cz)', 'Poslanecká sněmovna Parlamentu České republiky, psp.cz',
+                'Une archive de 420 Ko (une seule requête). Naissance complète, sexe, dates exactes de mandat par législature ; la date 01.01.1900 (inconnue) n''est pas publiée. 203 personnes gardées. Personnes décédées écartées (1 036 dans le fichier).', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', TRUE,
+                   'Tous les députés en fonction et ceux sortis depuis moins de 12 mois, avec naissance, sexe et dates exactes ; président et vice-présidents de la Chambre.',
+                   'Sénateurs non couverts (données ouvertes du Sénat non étudiées).'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'CZ-b' AND f.label IN ('Député à la Chambre des députés', 'Ancien député à la Chambre des députés') AND p.dataset_name = 'cz_pep_parliament';
+        ]]></sql>
+    </changeSet>
+
+    <changeSet id="073-parser-cz-pep-parliament-history" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Tchéquie – Chambre des députés, historique de 50 ans',
+                'Anciens députés des 50 dernières années (couche étendue de cz_pep_parliament)',
+                'cz_pep_parliament_history', 'PEP', 'https://www.psp.cz/sqw/hp.sqw?k=1305',
+                'cz-pep-psp', 'D:/test parser 2/plugins/swiftcheck-aml-cz-pep-psp-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'OPEN_DATA_FILE',
+                NULL,
+                '{"url": "https://www.psp.cz/eknih/cdrom/opendata/poslanci.zip", "scope": "parliament", "monthsAfterEnd": "600"}',
+                720, 12,
+                'Données ouvertes de la Chambre des députés : citer la source (conditions de réutilisation à vérifier sur psp.cz)', 'Poslanecká sněmovna Parlamentu České republiky, psp.cz',
+                'Même plugin et mêmes identifiants que cz_pep_parliament. 1 173 personnes vivantes (depuis 1992). À activer selon l''approche par les risques.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', TRUE,
+                   'Tous les députés vivants depuis 1992, avec dates exactes de mandat.',
+                   'Députés d''avant 1992 non couverts.'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'CZ-b' AND f.label = 'Ancien député à la Chambre des députés' AND p.dataset_name = 'cz_pep_parliament_history';
+        ]]></sql>
+    </changeSet>
+
+    <changeSet id="073-parser-cz-pep-government" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Tchéquie – Gouvernement',
+                'Premier ministre, vice-premiers ministres et ministres en fonction ou sortis depuis moins de 12 mois, d''après les données ouvertes psp.cz (catégorie CZ-a)',
+                'cz_pep_government', 'PEP', 'https://www.psp.cz/sqw/hp.sqw?k=1305',
+                'cz-pep-psp', 'D:/test parser 2/plugins/swiftcheck-aml-cz-pep-psp-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'OPEN_DATA_FILE',
+                NULL,
+                '{"url": "https://www.psp.cz/eknih/cdrom/opendata/poslanci.zip", "scope": "government", "monthsAfterEnd": "12"}',
+                168, 12,
+                'Données ouvertes de la Chambre des députés : citer la source (conditions de réutilisation à vérifier sur psp.cz)', 'Poslanecká sněmovna Parlamentu České republiky, psp.cz',
+                'Même plugin que cz_pep_parliament (scope = government). 34 personnes : gouvernement entré en fonction le 15 décembre 2025 et sortants récents, avec fonction exacte et dates exactes.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', TRUE,
+                   'Premier ministre, vice-premiers ministres et ministres en fonction ou sortis depuis moins de 12 mois, avec fonction exacte et dates.',
+                   'Secrétaires d''État (náměstci) non couverts.'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'CZ-a' AND f.label = 'Premier ministre, vice-premier ministre, ministre' AND p.dataset_name = 'cz_pep_government';
+        ]]></sql>
+    </changeSet>
+
+    <changeSet id="073-parser-cz-pep-government-history" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Tchéquie – Gouvernement, historique de 50 ans',
+                'Anciens ministres des 50 dernières années (couche étendue de cz_pep_government)',
+                'cz_pep_government_history', 'PEP', 'https://www.psp.cz/sqw/hp.sqw?k=1305',
+                'cz-pep-psp', 'D:/test parser 2/plugins/swiftcheck-aml-cz-pep-psp-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'OPEN_DATA_FILE',
+                NULL,
+                '{"url": "https://www.psp.cz/eknih/cdrom/opendata/poslanci.zip", "scope": "government", "monthsAfterEnd": "600"}',
+                720, 12,
+                'Données ouvertes de la Chambre des députés : citer la source (conditions de réutilisation à vérifier sur psp.cz)', 'Poslanecká sněmovna Parlamentu České republiky, psp.cz',
+                'Même plugin et mêmes identifiants que cz_pep_government. 217 personnes vivantes. À activer selon l''approche par les risques.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', TRUE,
+                   'Anciens ministres vivants depuis 1992, avec fonction et dates exactes.',
+                   'Secrétaires d''État non couverts.'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'CZ-a' AND f.label = 'Premier ministre, vice-premier ministre, ministre' AND p.dataset_name = 'cz_pep_government_history';
+        ]]></sql>
+    </changeSet>
+
+    <changeSet id="073-parser-cz-pep-president" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Tchéquie – Président de la République',
+                'Président de la République en fonction et anciens présidents vivants, d''après les données ouvertes psp.cz (catégorie CZ-a)',
+                'cz_pep_president', 'PEP', 'https://www.psp.cz/sqw/hp.sqw?k=1305',
+                'cz-pep-psp', 'D:/test parser 2/plugins/swiftcheck-aml-cz-pep-psp-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'OPEN_DATA_FILE',
+                NULL,
+                '{"url": "https://www.psp.cz/eknih/cdrom/opendata/poslanci.zip", "scope": "president", "monthsAfterEnd": "600"}',
+                168, 12,
+                'Données ouvertes de la Chambre des députés : citer la source (conditions de réutilisation à vérifier sur psp.cz)', 'Poslanecká sněmovna Parlamentu České republiky, psp.cz',
+                'Même plugin que cz_pep_parliament (scope = president). 3 personnes vivantes : Petr Pavel, Miloš Zeman, Václav Klaus. Fenêtre de 50 ans pour garder les anciens présidents.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', TRUE,
+                   'Le Président de la République en fonction et les anciens présidents vivants, avec dates exactes de mandat.',
+                   NULL
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'CZ-a' AND f.label = 'Président de la République' AND p.dataset_name = 'cz_pep_president';
+        ]]></sql>
+    </changeSet>
+
+    <changeSet id="073-parser-cz-pep-oversight" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Tchéquie – Cour des comptes et médiateurs',
+                'Président, vice-président et membres de la Cour des comptes (NKÚ), médiateur, adjoints et défenseur des droits de l''enfant, en fonction ou sortis depuis moins de 12 mois (catégorie CZ-e)',
+                'cz_pep_oversight', 'PEP', 'https://www.psp.cz/sqw/hp.sqw?k=1305',
+                'cz-pep-psp', 'D:/test parser 2/plugins/swiftcheck-aml-cz-pep-psp-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'OPEN_DATA_FILE',
+                NULL,
+                '{"url": "https://www.psp.cz/eknih/cdrom/opendata/poslanci.zip", "scope": "oversight", "monthsAfterEnd": "12"}',
+                168, 12,
+                'Données ouvertes de la Chambre des députés : citer la source (conditions de réutilisation à vérifier sur psp.cz)', 'Poslanecká sněmovna Parlamentu České republiky, psp.cz',
+                'Même plugin que cz_pep_parliament (scope = oversight). 25 personnes (56 sur 50 ans). Banque centrale et juridictions non couvertes.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'PARTIAL', TRUE,
+                   'Dirigeants et membres de la NKÚ, médiateur et adjoints, avec naissance et dates exactes.',
+                   'Banque centrale non couverte.'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'CZ-e' AND f.label IN ('Dirigeant de la Cour des comptes (NKÚ)', 'Médiateur (veřejný ochránce práv) et adjoints') AND p.dataset_name = 'cz_pep_oversight';
+        ]]></sql>
+    </changeSet>
+
+</databaseChangeLog>

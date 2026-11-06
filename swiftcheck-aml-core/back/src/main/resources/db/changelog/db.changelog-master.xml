@@ -100,5 +100,7 @@
     <include file="db/changelog/changes/070-dk-pep-reference-and-parsers.xml" />
     <include file="db/changelog/changes/071-dk-lot2.xml" />
     <include file="db/changelog/changes/072-pl-pep-reference-and-parsers.xml" />
+    <include file="db/changelog/changes/073-cz-pep-reference-and-parsers.xml" />
+    <include file="db/changelog/changes/074-cz-lot2.xml" />
 
 </databaseChangeLog>

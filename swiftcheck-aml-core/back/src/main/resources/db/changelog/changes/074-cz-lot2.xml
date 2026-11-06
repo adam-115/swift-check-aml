@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Tchéquie, lot 2 : conseil de la Banque nationale tchèque (ČNB) et juges de la Cour suprême (Nejvyšší soud), d'après leurs
+    pages officielles (cnb.cz, nsoud.cz).
+
+    Non couvert, avec le motif :
+      - Sénat : le robots.txt de senat.cz interdit tout aux robots (« Disallow: / ») ; la voie propre est de demander un fichier ;
+      - NKÚ (nku.cz : HTTP 403) et Cour constitutionnelle (usoud.cz : site injoignable avec une connexion valide) : non contournés ;
+      - ambassadeurs (mzv.gov.cz : délai de 20 secondes entre requêtes, une page par ambassade, non traité dans ce lot),
+        officiers généraux, entreprises d'État : aucune liste ouverte exploitable trouvée ;
+      - président et vice-présidents de la Cour suprême : la page publie les juges sans fonction.
+-->
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="074-parser-cz-pep-institutions" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Tchéquie – Banque nationale et Cour suprême',
+                'Membres du conseil de la Banque nationale tchèque et juges de la Cour suprême, d''après leurs pages officielles (catégories CZ-d et CZ-e)',
+                'cz_pep_institutions', 'PEP', 'https://www.cnb.cz/',
+                'cz-pep-institutions', 'D:/test parser 2/plugins/swiftcheck-aml-cz-pep-institutions-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'WEB_PAGE',
+                NULL,
+                '{"keys": "cnb,ns-civil,ns-criminal", "delayMs": "1500"}',
+                168, 12,
+                'Sites officiels de la ČNB et de la Cour suprême : citer la source', 'Česká národní banka, cnb.cz ; Nejvyšší soud, nsoud.cz',
+                'Trois pages. Conseil de la ČNB : 7 membres (gouverneur, 2 vice-gouverneurs, 4 membres). Cour suprême : 46 juges du collège civil et commercial et 23 du collège pénal, noms seuls. Pas de naissance ; fonctions de président et vice-présidents de la Cour suprême non publiées sur ces pages.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'PARTIAL', FALSE,
+                   'Le gouverneur, les vice-gouverneurs et les membres du conseil de la banque nationale.',
+                   'Anciens membres non couverts ; pas de naissance.'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'CZ-e' AND f.label = 'Membre du conseil de la banque centrale' AND p.dataset_name = 'cz_pep_institutions';
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'PARTIAL', FALSE,
+                   'Les juges des collèges civil et commercial et pénal de la Cour suprême.',
+                   'Juges stagiaires et anciens juges non couverts ; fonctions de président non publiées ; Cour constitutionnelle non couverte.'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'CZ-d' AND f.label = 'Juge de la Cour suprême' AND p.dataset_name = 'cz_pep_institutions';
+        ]]></sql>
+    </changeSet>
+
+</databaseChangeLog>

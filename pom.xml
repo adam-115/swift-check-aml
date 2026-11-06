@@ -158,6 +158,8 @@
         <module>swiftcheck-aml-plugins/pep/denmark/swiftcheck-aml-dk-pep-institutions</module>
         <module>swiftcheck-aml-plugins/pep/poland/swiftcheck-aml-pl-pep-sejm</module>
         <module>swiftcheck-aml-plugins/pep/poland/swiftcheck-aml-pl-pep-government</module>
+        <module>swiftcheck-aml-plugins/pep/czechia/swiftcheck-aml-cz-pep-psp</module>
+        <module>swiftcheck-aml-plugins/pep/czechia/swiftcheck-aml-cz-pep-institutions</module>
         <module>swiftcheck-aml-plugins/pep/portugal/swiftcheck-aml-pt-pep-eu-commission</module>
         <module>swiftcheck-aml-plugins/pep/portugal/swiftcheck-aml-pt-pep-president</module>
         <module>swiftcheck-aml-plugins/pep/portugal/swiftcheck-aml-pt-pep-courts</module>

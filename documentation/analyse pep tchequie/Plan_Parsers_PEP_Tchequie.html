@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="fr"><head><meta charset="utf-8"><title>Plan des parsers PEP – Tchéquie</title>
+<style>
+body{font-family:Segoe UI,Arial,sans-serif;font-size:11pt;color:#1a1a1a;margin:28px;line-height:1.45}
+h1{color:#0b3d6b;border-bottom:3px solid #0b3d6b;padding-bottom:6px}h2{color:#0b3d6b;margin-top:26px}
+table{border-collapse:collapse;width:100%;margin:10px 0;font-size:10pt}th,td{border:1px solid #bbb;padding:5px 8px;text-align:left;vertical-align:top}
+th{background:#e8eef5}.ok{color:#14702e;font-weight:600}.ko{color:#a32020;font-weight:600}.note{background:#f4f7fa;border-left:4px solid #0b3d6b;padding:8px 12px}
+</style></head><body>
+<h1>Plan des parsers PEP – Tchéquie</h1>
+<p>Date : 6 novembre 2026. Pays de l'Union européenne : les députés européens et le commissaire tchèque relèvent des parsers européens existants. Base légale : loi n° 253/2008 sur certaines mesures contre le blanchiment et le financement du terrorisme (personne politiquement exposée, douze mois après la fin des fonctions).</p>
+
+<h2>1. Parsers réalisés (lots 1 et 2)</h2>
+<p>Source unique : les données ouvertes de la Chambre des députés, archive <i>psp.cz/eknih/cdrom/opendata/poslanci.zip</i> (420 Ko, une seule requête ; fichiers osoby, organy, funkce, zarazeni). Un seul plugin sert les six jeux, selon le paramètre <i>scope</i>.</p>
+<table>
+<tr><th>Jeu de données</th><th>Contenu</th><th>Volume mesuré</th></tr>
+<tr><td>cz_pep_parliament</td><td>Députés et présidence de la Chambre, en fonction ou sortis depuis moins de 12 mois (CZ-b)</td><td>203 personnes</td></tr>
+<tr><td>cz_pep_parliament_history</td><td>Anciens députés depuis 1992, vivants uniquement</td><td>1 173 personnes</td></tr>
+<tr><td>cz_pep_government</td><td>Premier ministre, vice-premiers ministres, ministres avec fonction exacte (CZ-a)</td><td>34 personnes (gouvernement du 15 décembre 2025 et sortants récents)</td></tr>
+<tr><td>cz_pep_government_history</td><td>Anciens ministres depuis 1992</td><td>217 personnes</td></tr>
+<tr><td>cz_pep_president</td><td>Président de la République en fonction et anciens présidents vivants (CZ-a)</td><td>3 personnes (Pavel, Zeman, Klaus)</td></tr>
+<tr><td>cz_pep_oversight</td><td>Cour des comptes (NKÚ), médiateur, adjoints, défenseur des droits de l'enfant (CZ-e)</td><td>25 personnes (56 sur 50 ans)</td></tr>
+<tr><td>cz_pep_institutions (lot 2)</td><td>Conseil de la Banque nationale (ČNB, 7) et juges de la Cour suprême (46 collège civil, 23 collège pénal)</td><td>76 personnes</td></tr>
+</table>
+<p>Le parser télécharge la source à chaque exécution ; aucune liste de noms n'est embarquée ; Wikidata n'est pas utilisé. Migration Liquibase 073 (pays CZ, catégories, fonctions, 7 parsers), validée sur une base jetable. 1 036 personnes décédées du fichier sont écartées.</p>
+
+<h2>2. Points forts</h2>
+<ul><li>La meilleure source du lot nordique et d'Europe centrale : naissance complète, sexe, <b>décès</b> et dates exactes de début et de fin pour chaque mandat et chaque fonction.</li>
+<li>La date « 01.01.1900 » de la source signifie « naissance inconnue » : elle n'est jamais publiée.</li>
+<li>Une seule requête de 420 Ko pour six jeux de données.</li></ul>
+
+<h2>3. Limites et sources non couvertes</h2>
+<table>
+<tr><th>Périmètre</th><th>Situation</th></tr>
+<tr><td>Sénat (senat.cz)</td><td class="ko">Le robots.txt interdit tout aux robots : non utilisé (demander un fichier)</td></tr><tr><td>NKÚ (nku.cz)</td><td class="ko">HTTP 403, non contourné</td></tr>
+<tr><td>Cour constitutionnelle (usoud.cz)</td><td class="ko">Site injoignable avec une connexion valide</td></tr>
+<tr><td>Ambassadeurs (mzv.gov.cz)</td><td class="ko">20 s entre requêtes, une page par ambassade : non traité</td></tr><tr><td>Officiers généraux, entreprises d État, président de la Cour suprême</td><td class="ko">Aucune liste ouverte exploitable ou fonction non publiée</td></tr>
+<tr><td>Directions de parti</td><td class="ko">Aucune fonction de parti dans l'archive</td></tr>
+<tr><td>Secrétaires d'État (náměstci)</td><td class="ko">Absents de l'archive</td></tr>
+</table>
+<p class="note">Les proches (RCA) ne sont pas couverts : la seule source connue est Wikidata, exclue.</p>
+
+<h2>4. Suite proposée</h2>
+<ul><li>Lot 3 possible : Sénat (sur fichier), ambassadeurs, Cour constitutionnelle.</li>
+<li>Autres pays : Pays baltes, Grèce.</li></ul>
+</body></html>
