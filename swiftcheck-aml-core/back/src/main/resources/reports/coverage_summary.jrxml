@@ -1,0 +1,590 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Synthèse par pays de la page de garde du rapport de couverture PEP (généré par un script ; la barre = 20 segments). -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="coverage_summary" pageWidth="792" pageHeight="595" columnWidth="792" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" whenNoDataType="AllSectionsNoDetail">
+    <style name="Base" isDefault="true" fontName="SansSerif" fontSize="9"/>
+    <field name="country" class="java.lang.String"/>
+    <field name="iso" class="java.lang.String"/>
+    <field name="categories" class="java.lang.String"/>
+    <field name="functions" class="java.lang.String"/>
+    <field name="covered" class="java.lang.String"/>
+    <field name="partial" class="java.lang.String"/>
+    <field name="none" class="java.lang.String"/>
+    <field name="persons" class="java.lang.String"/>
+    <field name="bar" class="java.lang.String"/>
+    <columnHeader>
+        <band height="22">
+            <rectangle>
+                <reportElement x="0" y="0" width="792" height="22" backcolor="#0F2A4A"/>
+                <graphicElement><pen lineWidth="0"/></graphicElement>
+            </rectangle>
+            <staticText>
+                <reportElement x="8" y="0" width="160" height="22" forecolor="#FFFFFF"/>
+                <textElement textAlignment="Left" verticalAlignment="Middle"><font size="8" isBold="true"/></textElement>
+                <text><![CDATA[PAYS]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="170" y="0" width="80" height="22" forecolor="#FFFFFF"/>
+                <textElement textAlignment="Center" verticalAlignment="Middle"><font size="8" isBold="true"/></textElement>
+                <text><![CDATA[CATÉGORIES OFF.]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="250" y="0" width="60" height="22" forecolor="#FFFFFF"/>
+                <textElement textAlignment="Center" verticalAlignment="Middle"><font size="8" isBold="true"/></textElement>
+                <text><![CDATA[FONCTIONS]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="310" y="0" width="60" height="22" forecolor="#FFFFFF"/>
+                <textElement textAlignment="Center" verticalAlignment="Middle"><font size="8" isBold="true"/></textElement>
+                <text><![CDATA[COUVERTES]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="370" y="0" width="60" height="22" forecolor="#FFFFFF"/>
+                <textElement textAlignment="Center" verticalAlignment="Middle"><font size="8" isBold="true"/></textElement>
+                <text><![CDATA[PARTIELLES]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="430" y="0" width="70" height="22" forecolor="#FFFFFF"/>
+                <textElement textAlignment="Center" verticalAlignment="Middle"><font size="8" isBold="true"/></textElement>
+                <text><![CDATA[NON COUVERTES]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="500" y="0" width="90" height="22" forecolor="#FFFFFF"/>
+                <textElement textAlignment="Center" verticalAlignment="Middle"><font size="8" isBold="true"/></textElement>
+                <text><![CDATA[PERSONNES]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="600" y="0" width="180" height="22" forecolor="#FFFFFF"/>
+                <textElement textAlignment="Left" verticalAlignment="Middle"><font size="8" isBold="true"/></textElement>
+                <text><![CDATA[RÉPARTITION]]></text>
+            </staticText>
+        </band>
+    </columnHeader>
+    <detail>
+        <band height="21">
+            <rectangle>
+                <reportElement x="0" y="0" width="792" height="21" backcolor="#F1F5F9">
+                    <printWhenExpression><![CDATA[$V{REPORT_COUNT} % 2 == 0]]></printWhenExpression>
+                </reportElement>
+                <graphicElement><pen lineWidth="0"/></graphicElement>
+            </rectangle>
+            <line>
+                <reportElement x="0" y="20" width="792" height="1" forecolor="#E2E8F0"/>
+            </line>
+            <textField isBlankWhenNull="true">
+                <reportElement x="8" y="0" width="160" height="21"/>
+                <textElement verticalAlignment="Middle"><font size="9" isBold="true"/></textElement>
+                <textFieldExpression><![CDATA[$F{country} + "  (" + $F{iso} + ")"]]></textFieldExpression>
+            </textField>
+            <textField isBlankWhenNull="true">
+                <reportElement x="170" y="0" width="80" height="21"/>
+                <textElement textAlignment="Center" verticalAlignment="Middle"><font size="9"/></textElement>
+                <textFieldExpression><![CDATA[$F{categories}]]></textFieldExpression>
+            </textField>
+            <textField isBlankWhenNull="true">
+                <reportElement x="250" y="0" width="60" height="21"/>
+                <textElement textAlignment="Center" verticalAlignment="Middle"><font size="9"/></textElement>
+                <textFieldExpression><![CDATA[$F{functions}]]></textFieldExpression>
+            </textField>
+            <textField isBlankWhenNull="true">
+                <reportElement x="310" y="0" width="60" height="21" forecolor="#047857"/>
+                <textElement textAlignment="Center" verticalAlignment="Middle"><font size="9" isBold="true"/></textElement>
+                <textFieldExpression><![CDATA[$F{covered}]]></textFieldExpression>
+            </textField>
+            <textField isBlankWhenNull="true">
+                <reportElement x="370" y="0" width="60" height="21" forecolor="#B45309"/>
+                <textElement textAlignment="Center" verticalAlignment="Middle"><font size="9" isBold="true"/></textElement>
+                <textFieldExpression><![CDATA[$F{partial}]]></textFieldExpression>
+            </textField>
+            <textField isBlankWhenNull="true">
+                <reportElement x="430" y="0" width="70" height="21" forecolor="#B91C1C"/>
+                <textElement textAlignment="Center" verticalAlignment="Middle"><font size="9" isBold="true"/></textElement>
+                <textFieldExpression><![CDATA[$F{none}]]></textFieldExpression>
+            </textField>
+            <textField isBlankWhenNull="true">
+                <reportElement x="500" y="0" width="90" height="21"/>
+                <textElement textAlignment="Center" verticalAlignment="Middle"><font size="9" isBold="true"/></textElement>
+                <textFieldExpression><![CDATA[$F{persons}]]></textFieldExpression>
+            </textField>
+            <rectangle>
+                <reportElement x="600" y="6" width="8" height="9" backcolor="#10B981">
+                    <printWhenExpression><![CDATA[$F{bar}.charAt(0) == 'C']]></printWhenExpression>
+                </reportElement>
+                <graphicElement><pen lineWidth="0"/></graphicElement>
+            </rectangle>
+            <rectangle>
+                <reportElement x="600" y="6" width="8" height="9" backcolor="#F59E0B">
+                    <printWhenExpression><![CDATA[$F{bar}.charAt(0) == 'P']]></printWhenExpression>
+                </reportElement>
+                <graphicElement><pen lineWidth="0"/></graphicElement>
+            </rectangle>
+            <rectangle>
+                <reportElement x="600" y="6" width="8" height="9" backcolor="#FCA5A5">
+                    <printWhenExpression><![CDATA[$F{bar}.charAt(0) == 'N']]></printWhenExpression>
+                </reportElement>
+                <graphicElement><pen lineWidth="0"/></graphicElement>
+            </rectangle>
+            <rectangle>
+                <reportElement x="600" y="6" width="8" height="9" backcolor="#E2E8F0">
+                    <printWhenExpression><![CDATA[$F{bar}.charAt(0) == 'E']]></printWhenExpression>
+                </reportElement>
+                <graphicElement><pen lineWidth="0"/></graphicElement>
+            </rectangle>
+            <rectangle>
+                <reportElement x="609" y="6" width="8" height="9" backcolor="#10B981">
+                    <printWhenExpression><![CDATA[$F{bar}.charAt(1) == 'C']]></printWhenExpression>
+                </reportElement>
+                <graphicElement><pen lineWidth="0"/></graphicElement>
+            </rectangle>
+            <rectangle>
+                <reportElement x="609" y="6" width="8" height="9" backcolor="#F59E0B">
+                    <printWhenExpression><![CDATA[$F{bar}.charAt(1) == 'P']]></printWhenExpression>
+                </reportElement>
+                <graphicElement><pen lineWidth="0"/></graphicElement>
+            </rectangle>
+            <rectangle>
+                <reportElement x="609" y="6" width="8" height="9" backcolor="#FCA5A5">
+                    <printWhenExpression><![CDATA[$F{bar}.charAt(1) == 'N']]></printWhenExpression>
+                </reportElement>
+                <graphicElement><pen lineWidth="0"/></graphicElement>
+            </rectangle>
+            <rectangle>
+                <reportElement x="609" y="6" width="8" height="9" backcolor="#E2E8F0">
+                    <printWhenExpression><![CDATA[$F{bar}.charAt(1) == 'E']]></printWhenExpression>
+                </reportElement>
+                <graphicElement><pen lineWidth="0"/></graphicElement>
+            </rectangle>
+            <rectangle>
+                <reportElement x="618" y="6" width="8" height="9" backcolor="#10B981">
+                    <printWhenExpression><![CDATA[$F{bar}.charAt(2) == 'C']]></printWhenExpression>
+                </reportElement>
+                <graphicElement><pen lineWidth="0"/></graphicElement>
+            </rectangle>
+            <rectangle>
+                <reportElement x="618" y="6" width="8" height="9" backcolor="#F59E0B">
+                    <printWhenExpression><![CDATA[$F{bar}.charAt(2) == 'P']]></printWhenExpression>
+                </reportElement>
+                <graphicElement><pen lineWidth="0"/></graphicElement>
+            </rectangle>
+            <rectangle>
+                <reportElement x="618" y="6" width="8" height="9" backcolor="#FCA5A5">
+                    <printWhenExpression><![CDATA[$F{bar}.charAt(2) == 'N']]></printWhenExpression>
+                </reportElement>
+                <graphicElement><pen lineWidth="0"/></graphicElement>
+            </rectangle>
+            <rectangle>
+                <reportElement x="618" y="6" width="8" height="9" backcolor="#E2E8F0">
+                    <printWhenExpression><![CDATA[$F{bar}.charAt(2) == 'E']]></printWhenExpression>
+                </reportElement>
+                <graphicElement><pen lineWidth="0"/></graphicElement>
+            </rectangle>
+            <rectangle>
+                <reportElement x="627" y="6" width="8" height="9" backcolor="#10B981">
+                    <printWhenExpression><![CDATA[$F{bar}.charAt(3) == 'C']]></printWhenExpression>
+                </reportElement>
+                <graphicElement><pen lineWidth="0"/></graphicElement>
+            </rectangle>
+            <rectangle>
+                <reportElement x="627" y="6" width="8" height="9" backcolor="#F59E0B">
+                    <printWhenExpression><![CDATA[$F{bar}.charAt(3) == 'P']]></printWhenExpression>
+                </reportElement>
+                <graphicElement><pen lineWidth="0"/></graphicElement>
+            </rectangle>
+            <rectangle>
+                <reportElement x="627" y="6" width="8" height="9" backcolor="#FCA5A5">
+                    <printWhenExpression><![CDATA[$F{bar}.charAt(3) == 'N']]></printWhenExpression>
+                </reportElement>
+                <graphicElement><pen lineWidth="0"/></graphicElement>
+            </rectangle>
+            <rectangle>
+                <reportElement x="627" y="6" width="8" height="9" backcolor="#E2E8F0">
+                    <printWhenExpression><![CDATA[$F{bar}.charAt(3) == 'E']]></printWhenExpression>
+                </reportElement>
+                <graphicElement><pen lineWidth="0"/></graphicElement>
+            </rectangle>
+            <rectangle>
+                <reportElement x="636" y="6" width="8" height="9" backcolor="#10B981">
+                    <printWhenExpression><![CDATA[$F{bar}.charAt(4) == 'C']]></printWhenExpression>
+                </reportElement>
+                <graphicElement><pen lineWidth="0"/></graphicElement>
+            </rectangle>
+            <rectangle>
+                <reportElement x="636" y="6" width="8" height="9" backcolor="#F59E0B">
+                    <printWhenExpression><![CDATA[$F{bar}.charAt(4) == 'P']]></printWhenExpression>
+                </reportElement>
+                <graphicElement><pen lineWidth="0"/></graphicElement>
+            </rectangle>
+            <rectangle>
+                <reportElement x="636" y="6" width="8" height="9" backcolor="#FCA5A5">
+                    <printWhenExpression><![CDATA[$F{bar}.charAt(4) == 'N']]></printWhenExpression>
+                </reportElement>
+                <graphicElement><pen lineWidth="0"/></graphicElement>
+            </rectangle>
+            <rectangle>
+                <reportElement x="636" y="6" width="8" height="9" backcolor="#E2E8F0">
+                    <printWhenExpression><![CDATA[$F{bar}.charAt(4) == 'E']]></printWhenExpression>
+                </reportElement>
+                <graphicElement><pen lineWidth="0"/></graphicElement>
+            </rectangle>
+            <rectangle>
+                <reportElement x="645" y="6" width="8" height="9" backcolor="#10B981">
+                    <printWhenExpression><![CDATA[$F{bar}.charAt(5) == 'C']]></printWhenExpression>
+                </reportElement>
+                <graphicElement><pen lineWidth="0"/></graphicElement>
+            </rectangle>
+            <rectangle>
+                <reportElement x="645" y="6" width="8" height="9" backcolor="#F59E0B">
+                    <printWhenExpression><![CDATA[$F{bar}.charAt(5) == 'P']]></printWhenExpression>
+                </reportElement>
+                <graphicElement><pen lineWidth="0"/></graphicElement>
+            </rectangle>
+            <rectangle>
+                <reportElement x="645" y="6" width="8" height="9" backcolor="#FCA5A5">
+                    <printWhenExpression><![CDATA[$F{bar}.charAt(5) == 'N']]></printWhenExpression>
+                </reportElement>
+                <graphicElement><pen lineWidth="0"/></graphicElement>
+            </rectangle>
+            <rectangle>
+                <reportElement x="645" y="6" width="8" height="9" backcolor="#E2E8F0">
+                    <printWhenExpression><![CDATA[$F{bar}.charAt(5) == 'E']]></printWhenExpression>
+                </reportElement>
+                <graphicElement><pen lineWidth="0"/></graphicElement>
+            </rectangle>
+            <rectangle>
+                <reportElement x="654" y="6" width="8" height="9" backcolor="#10B981">
+                    <printWhenExpression><![CDATA[$F{bar}.charAt(6) == 'C']]></printWhenExpression>
+                </reportElement>
+                <graphicElement><pen lineWidth="0"/></graphicElement>
+            </rectangle>
+            <rectangle>
+                <reportElement x="654" y="6" width="8" height="9" backcolor="#F59E0B">
+                    <printWhenExpression><![CDATA[$F{bar}.charAt(6) == 'P']]></printWhenExpression>
+                </reportElement>
+                <graphicElement><pen lineWidth="0"/></graphicElement>
+            </rectangle>
+            <rectangle>
+                <reportElement x="654" y="6" width="8" height="9" backcolor="#FCA5A5">
+                    <printWhenExpression><![CDATA[$F{bar}.charAt(6) == 'N']]></printWhenExpression>
+                </reportElement>
+                <graphicElement><pen lineWidth="0"/></graphicElement>
+            </rectangle>
+            <rectangle>
+                <reportElement x="654" y="6" width="8" height="9" backcolor="#E2E8F0">
+                    <printWhenExpression><![CDATA[$F{bar}.charAt(6) == 'E']]></printWhenExpression>
+                </reportElement>
+                <graphicElement><pen lineWidth="0"/></graphicElement>
+            </rectangle>
+            <rectangle>
+                <reportElement x="663" y="6" width="8" height="9" backcolor="#10B981">
+                    <printWhenExpression><![CDATA[$F{bar}.charAt(7) == 'C']]></printWhenExpression>
+                </reportElement>
+                <graphicElement><pen lineWidth="0"/></graphicElement>
+            </rectangle>
+            <rectangle>
+                <reportElement x="663" y="6" width="8" height="9" backcolor="#F59E0B">
+                    <printWhenExpression><![CDATA[$F{bar}.charAt(7) == 'P']]></printWhenExpression>
+                </reportElement>
+                <graphicElement><pen lineWidth="0"/></graphicElement>
+            </rectangle>
+            <rectangle>
+                <reportElement x="663" y="6" width="8" height="9" backcolor="#FCA5A5">
+                    <printWhenExpression><![CDATA[$F{bar}.charAt(7) == 'N']]></printWhenExpression>
+                </reportElement>
+                <graphicElement><pen lineWidth="0"/></graphicElement>
+            </rectangle>
+            <rectangle>
+                <reportElement x="663" y="6" width="8" height="9" backcolor="#E2E8F0">
+                    <printWhenExpression><![CDATA[$F{bar}.charAt(7) == 'E']]></printWhenExpression>
+                </reportElement>
+                <graphicElement><pen lineWidth="0"/></graphicElement>
+            </rectangle>
+            <rectangle>
+                <reportElement x="672" y="6" width="8" height="9" backcolor="#10B981">
+                    <printWhenExpression><![CDATA[$F{bar}.charAt(8) == 'C']]></printWhenExpression>
+                </reportElement>
+                <graphicElement><pen lineWidth="0"/></graphicElement>
+            </rectangle>
+            <rectangle>
+                <reportElement x="672" y="6" width="8" height="9" backcolor="#F59E0B">
+                    <printWhenExpression><![CDATA[$F{bar}.charAt(8) == 'P']]></printWhenExpression>
+                </reportElement>
+                <graphicElement><pen lineWidth="0"/></graphicElement>
+            </rectangle>
+            <rectangle>
+                <reportElement x="672" y="6" width="8" height="9" backcolor="#FCA5A5">
+                    <printWhenExpression><![CDATA[$F{bar}.charAt(8) == 'N']]></printWhenExpression>
+                </reportElement>
+                <graphicElement><pen lineWidth="0"/></graphicElement>
+            </rectangle>
+            <rectangle>
+                <reportElement x="672" y="6" width="8" height="9" backcolor="#E2E8F0">
+                    <printWhenExpression><![CDATA[$F{bar}.charAt(8) == 'E']]></printWhenExpression>
+                </reportElement>
+                <graphicElement><pen lineWidth="0"/></graphicElement>
+            </rectangle>
+            <rectangle>
+                <reportElement x="681" y="6" width="8" height="9" backcolor="#10B981">
+                    <printWhenExpression><![CDATA[$F{bar}.charAt(9) == 'C']]></printWhenExpression>
+                </reportElement>
+                <graphicElement><pen lineWidth="0"/></graphicElement>
+            </rectangle>
+            <rectangle>
+                <reportElement x="681" y="6" width="8" height="9" backcolor="#F59E0B">
+                    <printWhenExpression><![CDATA[$F{bar}.charAt(9) == 'P']]></printWhenExpression>
+                </reportElement>
+                <graphicElement><pen lineWidth="0"/></graphicElement>
+            </rectangle>
+            <rectangle>
+                <reportElement x="681" y="6" width="8" height="9" backcolor="#FCA5A5">
+                    <printWhenExpression><![CDATA[$F{bar}.charAt(9) == 'N']]></printWhenExpression>
+                </reportElement>
+                <graphicElement><pen lineWidth="0"/></graphicElement>
+            </rectangle>
+            <rectangle>
+                <reportElement x="681" y="6" width="8" height="9" backcolor="#E2E8F0">
+                    <printWhenExpression><![CDATA[$F{bar}.charAt(9) == 'E']]></printWhenExpression>
+                </reportElement>
+                <graphicElement><pen lineWidth="0"/></graphicElement>
+            </rectangle>
+            <rectangle>
+                <reportElement x="690" y="6" width="8" height="9" backcolor="#10B981">
+                    <printWhenExpression><![CDATA[$F{bar}.charAt(10) == 'C']]></printWhenExpression>
+                </reportElement>
+                <graphicElement><pen lineWidth="0"/></graphicElement>
+            </rectangle>
+            <rectangle>
+                <reportElement x="690" y="6" width="8" height="9" backcolor="#F59E0B">
+                    <printWhenExpression><![CDATA[$F{bar}.charAt(10) == 'P']]></printWhenExpression>
+                </reportElement>
+                <graphicElement><pen lineWidth="0"/></graphicElement>
+            </rectangle>
+            <rectangle>
+                <reportElement x="690" y="6" width="8" height="9" backcolor="#FCA5A5">
+                    <printWhenExpression><![CDATA[$F{bar}.charAt(10) == 'N']]></printWhenExpression>
+                </reportElement>
+                <graphicElement><pen lineWidth="0"/></graphicElement>
+            </rectangle>
+            <rectangle>
+                <reportElement x="690" y="6" width="8" height="9" backcolor="#E2E8F0">
+                    <printWhenExpression><![CDATA[$F{bar}.charAt(10) == 'E']]></printWhenExpression>
+                </reportElement>
+                <graphicElement><pen lineWidth="0"/></graphicElement>
+            </rectangle>
+            <rectangle>
+                <reportElement x="699" y="6" width="8" height="9" backcolor="#10B981">
+                    <printWhenExpression><![CDATA[$F{bar}.charAt(11) == 'C']]></printWhenExpression>
+                </reportElement>
+                <graphicElement><pen lineWidth="0"/></graphicElement>
+            </rectangle>
+            <rectangle>
+                <reportElement x="699" y="6" width="8" height="9" backcolor="#F59E0B">
+                    <printWhenExpression><![CDATA[$F{bar}.charAt(11) == 'P']]></printWhenExpression>
+                </reportElement>
+                <graphicElement><pen lineWidth="0"/></graphicElement>
+            </rectangle>
+            <rectangle>
+                <reportElement x="699" y="6" width="8" height="9" backcolor="#FCA5A5">
+                    <printWhenExpression><![CDATA[$F{bar}.charAt(11) == 'N']]></printWhenExpression>
+                </reportElement>
+                <graphicElement><pen lineWidth="0"/></graphicElement>
+            </rectangle>
+            <rectangle>
+                <reportElement x="699" y="6" width="8" height="9" backcolor="#E2E8F0">
+                    <printWhenExpression><![CDATA[$F{bar}.charAt(11) == 'E']]></printWhenExpression>
+                </reportElement>
+                <graphicElement><pen lineWidth="0"/></graphicElement>
+            </rectangle>
+            <rectangle>
+                <reportElement x="708" y="6" width="8" height="9" backcolor="#10B981">
+                    <printWhenExpression><![CDATA[$F{bar}.charAt(12) == 'C']]></printWhenExpression>
+                </reportElement>
+                <graphicElement><pen lineWidth="0"/></graphicElement>
+            </rectangle>
+            <rectangle>
+                <reportElement x="708" y="6" width="8" height="9" backcolor="#F59E0B">
+                    <printWhenExpression><![CDATA[$F{bar}.charAt(12) == 'P']]></printWhenExpression>
+                </reportElement>
+                <graphicElement><pen lineWidth="0"/></graphicElement>
+            </rectangle>
+            <rectangle>
+                <reportElement x="708" y="6" width="8" height="9" backcolor="#FCA5A5">
+                    <printWhenExpression><![CDATA[$F{bar}.charAt(12) == 'N']]></printWhenExpression>
+                </reportElement>
+                <graphicElement><pen lineWidth="0"/></graphicElement>
+            </rectangle>
+            <rectangle>
+                <reportElement x="708" y="6" width="8" height="9" backcolor="#E2E8F0">
+                    <printWhenExpression><![CDATA[$F{bar}.charAt(12) == 'E']]></printWhenExpression>
+                </reportElement>
+                <graphicElement><pen lineWidth="0"/></graphicElement>
+            </rectangle>
+            <rectangle>
+                <reportElement x="717" y="6" width="8" height="9" backcolor="#10B981">
+                    <printWhenExpression><![CDATA[$F{bar}.charAt(13) == 'C']]></printWhenExpression>
+                </reportElement>
+                <graphicElement><pen lineWidth="0"/></graphicElement>
+            </rectangle>
+            <rectangle>
+                <reportElement x="717" y="6" width="8" height="9" backcolor="#F59E0B">
+                    <printWhenExpression><![CDATA[$F{bar}.charAt(13) == 'P']]></printWhenExpression>
+                </reportElement>
+                <graphicElement><pen lineWidth="0"/></graphicElement>
+            </rectangle>
+            <rectangle>
+                <reportElement x="717" y="6" width="8" height="9" backcolor="#FCA5A5">
+                    <printWhenExpression><![CDATA[$F{bar}.charAt(13) == 'N']]></printWhenExpression>
+                </reportElement>
+                <graphicElement><pen lineWidth="0"/></graphicElement>
+            </rectangle>
+            <rectangle>
+                <reportElement x="717" y="6" width="8" height="9" backcolor="#E2E8F0">
+                    <printWhenExpression><![CDATA[$F{bar}.charAt(13) == 'E']]></printWhenExpression>
+                </reportElement>
+                <graphicElement><pen lineWidth="0"/></graphicElement>
+            </rectangle>
+            <rectangle>
+                <reportElement x="726" y="6" width="8" height="9" backcolor="#10B981">
+                    <printWhenExpression><![CDATA[$F{bar}.charAt(14) == 'C']]></printWhenExpression>
+                </reportElement>
+                <graphicElement><pen lineWidth="0"/></graphicElement>
+            </rectangle>
+            <rectangle>
+                <reportElement x="726" y="6" width="8" height="9" backcolor="#F59E0B">
+                    <printWhenExpression><![CDATA[$F{bar}.charAt(14) == 'P']]></printWhenExpression>
+                </reportElement>
+                <graphicElement><pen lineWidth="0"/></graphicElement>
+            </rectangle>
+            <rectangle>
+                <reportElement x="726" y="6" width="8" height="9" backcolor="#FCA5A5">
+                    <printWhenExpression><![CDATA[$F{bar}.charAt(14) == 'N']]></printWhenExpression>
+                </reportElement>
+                <graphicElement><pen lineWidth="0"/></graphicElement>
+            </rectangle>
+            <rectangle>
+                <reportElement x="726" y="6" width="8" height="9" backcolor="#E2E8F0">
+                    <printWhenExpression><![CDATA[$F{bar}.charAt(14) == 'E']]></printWhenExpression>
+                </reportElement>
+                <graphicElement><pen lineWidth="0"/></graphicElement>
+            </rectangle>
+            <rectangle>
+                <reportElement x="735" y="6" width="8" height="9" backcolor="#10B981">
+                    <printWhenExpression><![CDATA[$F{bar}.charAt(15) == 'C']]></printWhenExpression>
+                </reportElement>
+                <graphicElement><pen lineWidth="0"/></graphicElement>
+            </rectangle>
+            <rectangle>
+                <reportElement x="735" y="6" width="8" height="9" backcolor="#F59E0B">
+                    <printWhenExpression><![CDATA[$F{bar}.charAt(15) == 'P']]></printWhenExpression>
+                </reportElement>
+                <graphicElement><pen lineWidth="0"/></graphicElement>
+            </rectangle>
+            <rectangle>
+                <reportElement x="735" y="6" width="8" height="9" backcolor="#FCA5A5">
+                    <printWhenExpression><![CDATA[$F{bar}.charAt(15) == 'N']]></printWhenExpression>
+                </reportElement>
+                <graphicElement><pen lineWidth="0"/></graphicElement>
+            </rectangle>
+            <rectangle>
+                <reportElement x="735" y="6" width="8" height="9" backcolor="#E2E8F0">
+                    <printWhenExpression><![CDATA[$F{bar}.charAt(15) == 'E']]></printWhenExpression>
+                </reportElement>
+                <graphicElement><pen lineWidth="0"/></graphicElement>
+            </rectangle>
+            <rectangle>
+                <reportElement x="744" y="6" width="8" height="9" backcolor="#10B981">
+                    <printWhenExpression><![CDATA[$F{bar}.charAt(16) == 'C']]></printWhenExpression>
+                </reportElement>
+                <graphicElement><pen lineWidth="0"/></graphicElement>
+            </rectangle>
+            <rectangle>
+                <reportElement x="744" y="6" width="8" height="9" backcolor="#F59E0B">
+                    <printWhenExpression><![CDATA[$F{bar}.charAt(16) == 'P']]></printWhenExpression>
+                </reportElement>
+                <graphicElement><pen lineWidth="0"/></graphicElement>
+            </rectangle>
+            <rectangle>
+                <reportElement x="744" y="6" width="8" height="9" backcolor="#FCA5A5">
+                    <printWhenExpression><![CDATA[$F{bar}.charAt(16) == 'N']]></printWhenExpression>
+                </reportElement>
+                <graphicElement><pen lineWidth="0"/></graphicElement>
+            </rectangle>
+            <rectangle>
+                <reportElement x="744" y="6" width="8" height="9" backcolor="#E2E8F0">
+                    <printWhenExpression><![CDATA[$F{bar}.charAt(16) == 'E']]></printWhenExpression>
+                </reportElement>
+                <graphicElement><pen lineWidth="0"/></graphicElement>
+            </rectangle>
+            <rectangle>
+                <reportElement x="753" y="6" width="8" height="9" backcolor="#10B981">
+                    <printWhenExpression><![CDATA[$F{bar}.charAt(17) == 'C']]></printWhenExpression>
+                </reportElement>
+                <graphicElement><pen lineWidth="0"/></graphicElement>
+            </rectangle>
+            <rectangle>
+                <reportElement x="753" y="6" width="8" height="9" backcolor="#F59E0B">
+                    <printWhenExpression><![CDATA[$F{bar}.charAt(17) == 'P']]></printWhenExpression>
+                </reportElement>
+                <graphicElement><pen lineWidth="0"/></graphicElement>
+            </rectangle>
+            <rectangle>
+                <reportElement x="753" y="6" width="8" height="9" backcolor="#FCA5A5">
+                    <printWhenExpression><![CDATA[$F{bar}.charAt(17) == 'N']]></printWhenExpression>
+                </reportElement>
+                <graphicElement><pen lineWidth="0"/></graphicElement>
+            </rectangle>
+            <rectangle>
+                <reportElement x="753" y="6" width="8" height="9" backcolor="#E2E8F0">
+                    <printWhenExpression><![CDATA[$F{bar}.charAt(17) == 'E']]></printWhenExpression>
+                </reportElement>
+                <graphicElement><pen lineWidth="0"/></graphicElement>
+            </rectangle>
+            <rectangle>
+                <reportElement x="762" y="6" width="8" height="9" backcolor="#10B981">
+                    <printWhenExpression><![CDATA[$F{bar}.charAt(18) == 'C']]></printWhenExpression>
+                </reportElement>
+                <graphicElement><pen lineWidth="0"/></graphicElement>
+            </rectangle>
+            <rectangle>
+                <reportElement x="762" y="6" width="8" height="9" backcolor="#F59E0B">
+                    <printWhenExpression><![CDATA[$F{bar}.charAt(18) == 'P']]></printWhenExpression>
+                </reportElement>
+                <graphicElement><pen lineWidth="0"/></graphicElement>
+            </rectangle>
+            <rectangle>
+                <reportElement x="762" y="6" width="8" height="9" backcolor="#FCA5A5">
+                    <printWhenExpression><![CDATA[$F{bar}.charAt(18) == 'N']]></printWhenExpression>
+                </reportElement>
+                <graphicElement><pen lineWidth="0"/></graphicElement>
+            </rectangle>
+            <rectangle>
+                <reportElement x="762" y="6" width="8" height="9" backcolor="#E2E8F0">
+                    <printWhenExpression><![CDATA[$F{bar}.charAt(18) == 'E']]></printWhenExpression>
+                </reportElement>
+                <graphicElement><pen lineWidth="0"/></graphicElement>
+            </rectangle>
+            <rectangle>
+                <reportElement x="771" y="6" width="8" height="9" backcolor="#10B981">
+                    <printWhenExpression><![CDATA[$F{bar}.charAt(19) == 'C']]></printWhenExpression>
+                </reportElement>
+                <graphicElement><pen lineWidth="0"/></graphicElement>
+            </rectangle>
+            <rectangle>
+                <reportElement x="771" y="6" width="8" height="9" backcolor="#F59E0B">
+                    <printWhenExpression><![CDATA[$F{bar}.charAt(19) == 'P']]></printWhenExpression>
+                </reportElement>
+                <graphicElement><pen lineWidth="0"/></graphicElement>
+            </rectangle>
+            <rectangle>
+                <reportElement x="771" y="6" width="8" height="9" backcolor="#FCA5A5">
+                    <printWhenExpression><![CDATA[$F{bar}.charAt(19) == 'N']]></printWhenExpression>
+                </reportElement>
+                <graphicElement><pen lineWidth="0"/></graphicElement>
+            </rectangle>
+            <rectangle>
+                <reportElement x="771" y="6" width="8" height="9" backcolor="#E2E8F0">
+                    <printWhenExpression><![CDATA[$F{bar}.charAt(19) == 'E']]></printWhenExpression>
+                </reportElement>
+                <graphicElement><pen lineWidth="0"/></graphicElement>
+            </rectangle>
+        </band>
+    </detail>
+</jasperReport>

@@ -72,6 +72,30 @@ export class PepCoverageComponent implements OnInit {
     });
   }
 
+  /** Rapport PDF détaillé en cours de génération (« all » = tous les pays, sinon le pays courant). */
+  reportBusy: 'all' | 'country' | null = null;
+
+  /** Télécharge le rapport PDF détaillé du pays affiché, ou de tous les pays. */
+  downloadReport(all: boolean): void {
+    this.reportBusy = all ? 'all' : 'country';
+    this.errorMessage = '';
+    this.referenceService.coverageReport(all ? undefined : this.countryIso).subscribe({
+      next: blob => {
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = `couverture_pep_${all ? 'tous_pays' : this.countryIso}.pdf`;
+        link.click();
+        URL.revokeObjectURL(url);
+        this.reportBusy = null;
+      },
+      error: () => {
+        this.errorMessage = 'Le rapport n\'a pas pu être généré (voir les journaux du serveur).';
+        this.reportBusy = null;
+      },
+    });
+  }
+
   /** Pourcentage de catégories officielles entièrement couvertes. */
   get officialPercent(): number {
     const c = this.coverage;

@@ -20,6 +20,7 @@ import com.swiftcheck.aml.dto.PepFunctionDTO;
 import com.swiftcheck.aml.entities.Country;
 import com.swiftcheck.aml.entities.PepCategory;
 import com.swiftcheck.aml.entities.PepFunction;
+import com.swiftcheck.aml.service.CoverageReportService;
 import com.swiftcheck.aml.service.CoverageService;
 import com.swiftcheck.aml.service.PepReferenceService;
 
@@ -47,10 +48,13 @@ public class PepReferenceController {
 
     private final PepReferenceService reference;
     private final CoverageService coverage;
+    private final CoverageReportService coverageReport;
 
-    public PepReferenceController(PepReferenceService reference, CoverageService coverage) {
+    public PepReferenceController(PepReferenceService reference, CoverageService coverage,
+            CoverageReportService coverageReport) {
         this.reference = reference;
         this.coverage = coverage;
+        this.coverageReport = coverageReport;
     }
 
     // ------------------------------------------------------------------ pays
@@ -79,6 +83,15 @@ public class PepReferenceController {
     @GetMapping("/countries/{iso}/coverage")
     public CoverageDTO coverage(@PathVariable String iso) {
         return coverage.coverage(iso);
+    }
+
+    /** Rapport PDF détaillé de la couverture ; {@code country} absent = tous les pays. */
+    @GetMapping("/coverage-report")
+    public ResponseEntity<byte[]> coverageReport(@RequestParam(required = false) String country) {
+        byte[] pdf = coverageReport.generate(country);
+        String name = "couverture_pep_" + (country == null || country.isBlank() ? "tous_pays" : country.trim().toUpperCase()) + ".pdf";
+        return ResponseEntity.ok().contentType(org.springframework.http.MediaType.APPLICATION_PDF)
+                .header("Content-Disposition", "attachment; filename=\"" + name + "\"").body(pdf);
     }
 
     // ------------------------------------------------------------------ catégories

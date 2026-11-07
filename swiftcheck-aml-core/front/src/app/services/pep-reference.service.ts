@@ -42,6 +42,12 @@ export class PepReferenceService {
     return this.http.get<PepFunctionDTO[]>(`${this.apiUrl}/functions`, { params });
   }
 
+  /** Rapport PDF détaillé de la couverture : un pays, ou tous les pays sans paramètre. */
+  coverageReport(countryIso?: string): Observable<Blob> {
+    const params = countryIso ? new HttpParams().set('country', countryIso) : new HttpParams();
+    return this.http.get(`${this.apiUrl}/coverage-report`, { params, responseType: 'blob' });
+  }
+
   coverage(countryIso: string): Observable<CoverageDTO> {
     return this.http.get<CoverageDTO>(`${this.apiUrl}/countries/${countryIso}/coverage`);
   }

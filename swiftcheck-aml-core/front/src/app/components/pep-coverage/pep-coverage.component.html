@@ -9,7 +9,17 @@
           et ce que chaque parser couvre (complète ou partielle, avec ou sans les anciens titulaires)
         </p>
       </div>
-      <div class="flex items-center gap-3">
+      <div class="flex flex-wrap items-center gap-3">
+        <button type="button" (click)="downloadReport(false)" [disabled]="reportBusy !== null || !coverage"
+                title="PDF détaillé du pays affiché : catégories, fonctions, parsers, sources et statut"
+                class="rounded-xl bg-emerald-600 px-3 py-2 text-sm font-semibold text-white hover:bg-emerald-500 disabled:opacity-50">
+          {{ reportBusy === 'country' ? 'Génération…' : 'Rapport du pays (PDF)' }}
+        </button>
+        <button type="button" (click)="downloadReport(true)" [disabled]="reportBusy !== null"
+                title="PDF détaillé de tous les pays du référentiel"
+                class="rounded-xl border border-white/30 px-3 py-2 text-sm font-semibold text-white hover:bg-white/10 disabled:opacity-50">
+          {{ reportBusy === 'all' ? 'Génération…' : 'Rapport tous pays (PDF)' }}
+        </button>
         <label for="country" class="text-sm text-slate-300">Pays</label>
         <select id="country" [(ngModel)]="countryIso" (ngModelChange)="load()"
                 class="rounded-xl border-0 bg-white/10 px-3 py-2 text-sm font-semibold text-white focus:ring-2 focus:ring-emerald-500">

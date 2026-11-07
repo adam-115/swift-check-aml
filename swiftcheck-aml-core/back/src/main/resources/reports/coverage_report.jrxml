@@ -1,0 +1,436 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Rapport détaillé de couverture PEP : page de garde (indicateurs, légende, synthèse par pays en sous-rapport),
+    puis une partie par pays > catégorie > fonction > parser. Alimenté par CoverageReportService.
+-->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="coverage_report" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="792" leftMargin="25" rightMargin="25" topMargin="28" bottomMargin="32">
+    <style name="Base" isDefault="true" fontName="SansSerif" fontSize="9"/>
+
+    <style name="BadgeCategory" mode="Opaque" forecolor="#FFFFFF" backcolor="#64748B" isBold="true" fontSize="8" hTextAlign="Center" vTextAlign="Middle">
+        <conditionalStyle><conditionExpression><![CDATA["COVERED".equals($F{categoryStatus})]]></conditionExpression><style backcolor="#059669"/></conditionalStyle>
+        <conditionalStyle><conditionExpression><![CDATA["PARTIAL".equals($F{categoryStatus})]]></conditionExpression><style backcolor="#D97706"/></conditionalStyle>
+        <conditionalStyle><conditionExpression><![CDATA["NONE".equals($F{categoryStatus})]]></conditionExpression><style backcolor="#DC2626"/></conditionalStyle>
+    </style>
+    <style name="BadgeFunction" mode="Opaque" forecolor="#FFFFFF" backcolor="#64748B" isBold="true" fontSize="8" hTextAlign="Center" vTextAlign="Middle">
+        <conditionalStyle><conditionExpression><![CDATA["COVERED".equals($F{functionStatus})]]></conditionExpression><style backcolor="#059669"/></conditionalStyle>
+        <conditionalStyle><conditionExpression><![CDATA["PARTIAL".equals($F{functionStatus})]]></conditionExpression><style backcolor="#D97706"/></conditionalStyle>
+        <conditionalStyle><conditionExpression><![CDATA["NONE".equals($F{functionStatus})]]></conditionExpression><style backcolor="#DC2626"/></conditionalStyle>
+    </style>
+    <style name="BadgeComplete" mode="Opaque" forecolor="#FFFFFF" backcolor="#64748B" isBold="true" fontSize="7" hTextAlign="Center" vTextAlign="Middle">
+        <conditionalStyle><conditionExpression><![CDATA["COMPLETE".equals($F{pCompleteKind})]]></conditionExpression><style backcolor="#059669"/></conditionalStyle>
+        <conditionalStyle><conditionExpression><![CDATA["PARTIAL".equals($F{pCompleteKind})]]></conditionExpression><style backcolor="#D97706"/></conditionalStyle>
+    </style>
+    <style name="BadgeExec" mode="Opaque" forecolor="#FFFFFF" backcolor="#64748B" isBold="true" fontSize="7" hTextAlign="Center" vTextAlign="Middle">
+        <conditionalStyle><conditionExpression><![CDATA["OK".equals($F{pExecKind})]]></conditionExpression><style backcolor="#0F766E"/></conditionalStyle>
+        <conditionalStyle><conditionExpression><![CDATA["WARN".equals($F{pExecKind})]]></conditionExpression><style backcolor="#D97706"/></conditionalStyle>
+        <conditionalStyle><conditionExpression><![CDATA["KO".equals($F{pExecKind})]]></conditionExpression><style backcolor="#DC2626"/></conditionalStyle>
+    </style>
+
+    <parameter name="generatedAt" class="java.lang.String"/>
+    <parameter name="scope" class="java.lang.String"/>
+    <parameter name="kpiCountries" class="java.lang.String"/>
+    <parameter name="kpiParsers" class="java.lang.String"/>
+    <parameter name="kpiFunctions" class="java.lang.String"/>
+    <parameter name="kpiCovered" class="java.lang.String"/>
+    <parameter name="kpiCoveredPct" class="java.lang.String"/>
+    <parameter name="kpiPartial" class="java.lang.String"/>
+    <parameter name="kpiNone" class="java.lang.String"/>
+    <parameter name="kpiPersons" class="java.lang.String"/>
+    <parameter name="logoPath" class="java.io.InputStream"/>
+    <parameter name="summaryReport" class="net.sf.jasperreports.engine.JasperReport"/>
+    <parameter name="summaryData" class="net.sf.jasperreports.engine.JRDataSource"/>
+
+    <field name="countryIso" class="java.lang.String"/>
+    <field name="countryName" class="java.lang.String"/>
+    <field name="countryCode" class="java.lang.String"/>
+    <field name="countryInfo" class="java.lang.String"/>
+    <field name="cFunctions" class="java.lang.String"/>
+    <field name="cCategories" class="java.lang.String"/>
+    <field name="cPartial" class="java.lang.String"/>
+    <field name="cNone" class="java.lang.String"/>
+    <field name="cPersons" class="java.lang.String"/>
+    <field name="categoryCode" class="java.lang.String"/>
+    <field name="categoryTitle" class="java.lang.String"/>
+    <field name="categoryMeta" class="java.lang.String"/>
+    <field name="categoryStatus" class="java.lang.String"/>
+    <field name="categoryStatusLabel" class="java.lang.String"/>
+    <field name="functionKey" class="java.lang.String"/>
+    <field name="functionTitle" class="java.lang.String"/>
+    <field name="functionInstitution" class="java.lang.String"/>
+    <field name="functionHolders" class="java.lang.String"/>
+    <field name="functionStatus" class="java.lang.String"/>
+    <field name="functionStatusLabel" class="java.lang.String"/>
+    <field name="functionReason" class="java.lang.String"/>
+    <field name="pCode" class="java.lang.String"/>
+    <field name="pName" class="java.lang.String"/>
+    <field name="pCompleteness" class="java.lang.String"/>
+    <field name="pCompleteKind" class="java.lang.String"/>
+    <field name="pExec" class="java.lang.String"/>
+    <field name="pExecKind" class="java.lang.String"/>
+    <field name="pCover" class="java.lang.String"/>
+    <field name="pSource" class="java.lang.String"/>
+    <field name="pStatus" class="java.lang.String"/>
+    <field name="pDescription" class="java.lang.String"/>
+        <field name="pTech" class="java.lang.String"/>
+    <field name="pRepeat" class="java.lang.String"/>
+
+    <!-- ============================== PAYS ============================== -->
+    <group name="country" isStartNewPage="true">
+        <groupExpression><![CDATA[$F{countryIso}]]></groupExpression>
+        <groupHeader>
+            <band height="150">
+                <rectangle>
+                    <reportElement x="0" y="0" width="792" height="38" backcolor="#0F2A4A"/>
+                    <graphicElement><pen lineWidth="0"/></graphicElement>
+                </rectangle>
+                <rectangle>
+                    <reportElement x="0" y="38" width="792" height="3" backcolor="#10B981"/>
+                    <graphicElement><pen lineWidth="0"/></graphicElement>
+                </rectangle>
+                <textField isBlankWhenNull="true" bookmarkLevel="1">
+                    <reportElement x="14" y="0" width="470" height="38" forecolor="#FFFFFF"/>
+                    <textElement verticalAlignment="Middle"><font size="18" isBold="true"/></textElement>
+                    <textFieldExpression><![CDATA[$F{countryName}]]></textFieldExpression>
+                </textField>
+                <textField isBlankWhenNull="true">
+                    <reportElement x="484" y="0" width="294" height="38" forecolor="#CBD5E1"/>
+                    <textElement textAlignment="Right" verticalAlignment="Middle"><font size="9"/></textElement>
+                    <textFieldExpression><![CDATA[$F{countryCode}]]></textFieldExpression>
+                </textField>
+
+                <!-- indicateurs du pays -->
+                <rectangle><reportElement x="0" y="52" width="150" height="40" backcolor="#F8FAFC"/><graphicElement><pen lineWidth="0.5" lineColor="#CBD5E1"/></graphicElement></rectangle>
+                <rectangle><reportElement x="0" y="52" width="4" height="40" backcolor="#0F2A4A"/><graphicElement><pen lineWidth="0"/></graphicElement></rectangle>
+                <staticText><reportElement x="12" y="55" width="134" height="11" forecolor="#64748B"/><textElement><font size="6" isBold="true"/></textElement><text><![CDATA[CATÉGORIES OFFICIELLES COUVERTES]]></text></staticText>
+                <textField isBlankWhenNull="true"><reportElement x="12" y="67" width="134" height="22"/><textElement verticalAlignment="Middle"><font size="14" isBold="true"/></textElement><textFieldExpression><![CDATA[$F{cCategories}]]></textFieldExpression></textField>
+
+                <rectangle><reportElement x="160" y="52" width="150" height="40" backcolor="#F8FAFC"/><graphicElement><pen lineWidth="0.5" lineColor="#CBD5E1"/></graphicElement></rectangle>
+                <rectangle><reportElement x="160" y="52" width="4" height="40" backcolor="#059669"/><graphicElement><pen lineWidth="0"/></graphicElement></rectangle>
+                <staticText><reportElement x="172" y="55" width="134" height="11" forecolor="#64748B"/><textElement><font size="6" isBold="true"/></textElement><text><![CDATA[FONCTIONS COUVERTES À 100 %]]></text></staticText>
+                <textField isBlankWhenNull="true"><reportElement x="172" y="67" width="134" height="22" forecolor="#047857"/><textElement verticalAlignment="Middle"><font size="14" isBold="true"/></textElement><textFieldExpression><![CDATA[$F{cFunctions}]]></textFieldExpression></textField>
+
+                <rectangle><reportElement x="320" y="52" width="150" height="40" backcolor="#F8FAFC"/><graphicElement><pen lineWidth="0.5" lineColor="#CBD5E1"/></graphicElement></rectangle>
+                <rectangle><reportElement x="320" y="52" width="4" height="40" backcolor="#D97706"/><graphicElement><pen lineWidth="0"/></graphicElement></rectangle>
+                <staticText><reportElement x="332" y="55" width="134" height="11" forecolor="#64748B"/><textElement><font size="6" isBold="true"/></textElement><text><![CDATA[FONCTIONS PARTIELLES]]></text></staticText>
+                <textField isBlankWhenNull="true"><reportElement x="332" y="67" width="134" height="22" forecolor="#B45309"/><textElement verticalAlignment="Middle"><font size="14" isBold="true"/></textElement><textFieldExpression><![CDATA[$F{cPartial}]]></textFieldExpression></textField>
+
+                <rectangle><reportElement x="480" y="52" width="150" height="40" backcolor="#F8FAFC"/><graphicElement><pen lineWidth="0.5" lineColor="#CBD5E1"/></graphicElement></rectangle>
+                <rectangle><reportElement x="480" y="52" width="4" height="40" backcolor="#DC2626"/><graphicElement><pen lineWidth="0"/></graphicElement></rectangle>
+                <staticText><reportElement x="492" y="55" width="134" height="11" forecolor="#64748B"/><textElement><font size="6" isBold="true"/></textElement><text><![CDATA[FONCTIONS NON COUVERTES]]></text></staticText>
+                <textField isBlankWhenNull="true"><reportElement x="492" y="67" width="134" height="22" forecolor="#B91C1C"/><textElement verticalAlignment="Middle"><font size="14" isBold="true"/></textElement><textFieldExpression><![CDATA[$F{cNone}]]></textFieldExpression></textField>
+
+                <rectangle><reportElement x="640" y="52" width="152" height="40" backcolor="#F8FAFC"/><graphicElement><pen lineWidth="0.5" lineColor="#CBD5E1"/></graphicElement></rectangle>
+                <rectangle><reportElement x="640" y="52" width="4" height="40" backcolor="#1D4ED8"/><graphicElement><pen lineWidth="0"/></graphicElement></rectangle>
+                <staticText><reportElement x="652" y="55" width="136" height="11" forecolor="#64748B"/><textElement><font size="6" isBold="true"/></textElement><text><![CDATA[PERSONNES PUBLIÉES]]></text></staticText>
+                <textField isBlankWhenNull="true"><reportElement x="652" y="67" width="136" height="22" forecolor="#1D4ED8"/><textElement verticalAlignment="Middle"><font size="14" isBold="true"/></textElement><textFieldExpression><![CDATA[$F{cPersons}]]></textFieldExpression></textField>
+
+                <!-- cadre légal -->
+                <textField textAdjust="StretchHeight" isBlankWhenNull="true">
+                    <reportElement positionType="Float" x="0" y="102" width="792" height="40" backcolor="#F8FAFC" mode="Opaque"/>
+                    <box topPadding="5" leftPadding="8" bottomPadding="5" rightPadding="8">
+                        <pen lineWidth="0.5" lineColor="#CBD5E1"/>
+                    </box>
+                    <textElement markup="html"><font size="8"/></textElement>
+                    <textFieldExpression><![CDATA[$F{countryInfo}]]></textFieldExpression>
+                </textField>
+            </band>
+        </groupHeader>
+    </group>
+
+    <!-- ============================== CATÉGORIE ============================== -->
+    <group name="category">
+        <groupExpression><![CDATA[$F{categoryCode}]]></groupExpression>
+        <groupHeader>
+            <band height="52">
+                <textField isBlankWhenNull="true" bookmarkLevel="2">
+                    <reportElement style="BadgeCategory" x="680" y="12" width="112" height="18"/>
+                    <textFieldExpression><![CDATA[$F{categoryStatusLabel}]]></textFieldExpression>
+                </textField>
+                <textField isBlankWhenNull="true" textAdjust="StretchHeight">
+                    <reportElement x="0" y="12" width="676" height="18" forecolor="#0F2A4A" backcolor="#E8EEF7" mode="Opaque"/>
+                    <box topPadding="3" leftPadding="8" bottomPadding="2" rightPadding="6">
+                        <leftPen lineWidth="4" lineColor="#1D4ED8"/>
+                    </box>
+                    <textElement verticalAlignment="Middle"><font size="10.5" isBold="true"/></textElement>
+                    <textFieldExpression><![CDATA[$F{categoryTitle}]]></textFieldExpression>
+                </textField>
+                <textField isBlankWhenNull="true" textAdjust="StretchHeight">
+                    <reportElement positionType="Float" x="0" y="30" width="792" height="20" forecolor="#475569" backcolor="#E8EEF7" mode="Opaque"/>
+                    <box topPadding="1" leftPadding="12" bottomPadding="4" rightPadding="6">
+                        <leftPen lineWidth="4" lineColor="#1D4ED8"/>
+                    </box>
+                    <textElement markup="html"><font size="8"/></textElement>
+                    <textFieldExpression><![CDATA[$F{categoryMeta}]]></textFieldExpression>
+                </textField>
+            </band>
+        </groupHeader>
+    </group>
+
+    <!-- ============================== FONCTION ============================== -->
+    <group name="function">
+        <groupExpression><![CDATA[$F{functionKey}]]></groupExpression>
+        <groupHeader>
+            <band height="46">
+                <printWhenExpression><![CDATA[$F{functionTitle} != null]]></printWhenExpression>
+                <rectangle>
+                    <reportElement x="14" y="6" width="778" height="20" backcolor="#F8FAFC"/>
+                    <graphicElement><pen lineWidth="0"/></graphicElement>
+                </rectangle>
+                <textField isBlankWhenNull="true">
+                    <reportElement style="BadgeFunction" x="688" y="9" width="104" height="14"/>
+                    <textFieldExpression><![CDATA[$F{functionStatusLabel}]]></textFieldExpression>
+                </textField>
+                <textField isBlankWhenNull="true">
+                    <reportElement x="560" y="9" width="122" height="14" forecolor="#64748B"/>
+                    <textElement textAlignment="Right" verticalAlignment="Middle"><font size="7.5"/></textElement>
+                    <textFieldExpression><![CDATA["Titulaires attendus : " + $F{functionHolders}]]></textFieldExpression>
+                </textField>
+                <textField isBlankWhenNull="true" textAdjust="StretchHeight">
+                    <reportElement x="14" y="6" width="540" height="20" forecolor="#0F172A"/>
+                    <box topPadding="4" leftPadding="8" bottomPadding="1" rightPadding="4"/>
+                    <textElement verticalAlignment="Middle"><font size="10" isBold="true"/></textElement>
+                    <textFieldExpression><![CDATA[$F{functionTitle}]]></textFieldExpression>
+                </textField>
+                <textField isBlankWhenNull="true" textAdjust="StretchHeight">
+                    <reportElement positionType="Float" x="14" y="26" width="778" height="16" forecolor="#334155" backcolor="#F8FAFC" mode="Opaque"/>
+                    <box topPadding="1" leftPadding="8" bottomPadding="4" rightPadding="8">
+                        <bottomPen lineWidth="0.5" lineColor="#CBD5E1"/>
+                    </box>
+                    <textElement markup="html"><font size="8"/></textElement>
+                    <textFieldExpression><![CDATA[$F{functionReason}]]></textFieldExpression>
+                </textField>
+            </band>
+        </groupHeader>
+    </group>
+
+    <!-- ============================== PAGE DE GARDE ============================== -->
+    <title>
+        <band height="300">
+            <rectangle>
+                <reportElement x="-25" y="-28" width="842" height="136" backcolor="#0F2A4A"/>
+                <graphicElement><pen lineWidth="0"/></graphicElement>
+            </rectangle>
+            <rectangle>
+                <reportElement x="-25" y="108" width="842" height="4" backcolor="#10B981"/>
+                <graphicElement><pen lineWidth="0"/></graphicElement>
+            </rectangle>
+            <image scaleImage="RetainShape" hAlign="Left" vAlign="Middle" onErrorType="Blank">
+                <reportElement x="0" y="-12" width="120" height="64"/>
+                <imageExpression><![CDATA[$P{logoPath}]]></imageExpression>
+            </image>
+            <staticText>
+                <reportElement x="140" y="2" width="650" height="42" forecolor="#FFFFFF"/>
+                <textElement verticalAlignment="Middle"><font size="28" isBold="true"/></textElement>
+                <text><![CDATA[Rapport de couverture PEP]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="140" y="46" width="650" height="18" forecolor="#94A3B8"/>
+                <textElement verticalAlignment="Middle"><font size="11"/></textElement>
+                <text><![CDATA[Analyse détaillée par pays, catégorie, fonction et parser : sources, périmètre couvert et état actuel]]></text>
+            </staticText>
+            <textField isBlankWhenNull="true">
+                <reportElement x="140" y="72" width="650" height="18" forecolor="#E2E8F0"/>
+                <textElement verticalAlignment="Middle"><font size="10" isBold="true"/></textElement>
+                <textFieldExpression><![CDATA["Périmètre : " + $P{scope} + "   ·   généré le " + $P{generatedAt}]]></textFieldExpression>
+            </textField>
+
+            <!-- six indicateurs -->
+            <rectangle><reportElement x="0" y="126" width="121" height="56" backcolor="#F8FAFC"/><graphicElement><pen lineWidth="0.5" lineColor="#CBD5E1"/></graphicElement></rectangle>
+            <rectangle><reportElement x="0" y="126" width="121" height="4" backcolor="#0F2A4A"/><graphicElement><pen lineWidth="0"/></graphicElement></rectangle>
+            <staticText><reportElement x="8" y="134" width="108" height="11" forecolor="#64748B"/><textElement><font size="6" isBold="true"/></textElement><text><![CDATA[PAYS]]></text></staticText>
+            <textField isBlankWhenNull="true"><reportElement x="8" y="146" width="108" height="26"/><textElement verticalAlignment="Middle"><font size="20" isBold="true"/></textElement><textFieldExpression><![CDATA[$P{kpiCountries}]]></textFieldExpression></textField>
+
+            <rectangle><reportElement x="134" y="126" width="121" height="56" backcolor="#F8FAFC"/><graphicElement><pen lineWidth="0.5" lineColor="#CBD5E1"/></graphicElement></rectangle>
+            <rectangle><reportElement x="134" y="126" width="121" height="4" backcolor="#0F2A4A"/><graphicElement><pen lineWidth="0"/></graphicElement></rectangle>
+            <staticText><reportElement x="142" y="134" width="108" height="11" forecolor="#64748B"/><textElement><font size="6" isBold="true"/></textElement><text><![CDATA[FONCTIONS PEP]]></text></staticText>
+            <textField isBlankWhenNull="true"><reportElement x="142" y="146" width="108" height="26"/><textElement verticalAlignment="Middle"><font size="20" isBold="true"/></textElement><textFieldExpression><![CDATA[$P{kpiFunctions}]]></textFieldExpression></textField>
+
+            <rectangle><reportElement x="268" y="126" width="121" height="56" backcolor="#F8FAFC"/><graphicElement><pen lineWidth="0.5" lineColor="#CBD5E1"/></graphicElement></rectangle>
+            <rectangle><reportElement x="268" y="126" width="121" height="4" backcolor="#059669"/><graphicElement><pen lineWidth="0"/></graphicElement></rectangle>
+            <staticText><reportElement x="276" y="134" width="108" height="11" forecolor="#64748B"/><textElement><font size="6" isBold="true"/></textElement><text><![CDATA[COUVERTES À 100 %]]></text></staticText>
+            <textField isBlankWhenNull="true"><reportElement x="276" y="146" width="108" height="22" forecolor="#047857"/><textElement verticalAlignment="Middle"><font size="20" isBold="true"/></textElement><textFieldExpression><![CDATA[$P{kpiCovered}]]></textFieldExpression></textField>
+            <textField isBlankWhenNull="true"><reportElement x="276" y="168" width="108" height="11" forecolor="#64748B"/><textElement><font size="7"/></textElement><textFieldExpression><![CDATA[$P{kpiCoveredPct}]]></textFieldExpression></textField>
+
+            <rectangle><reportElement x="402" y="126" width="121" height="56" backcolor="#F8FAFC"/><graphicElement><pen lineWidth="0.5" lineColor="#CBD5E1"/></graphicElement></rectangle>
+            <rectangle><reportElement x="402" y="126" width="121" height="4" backcolor="#D97706"/><graphicElement><pen lineWidth="0"/></graphicElement></rectangle>
+            <staticText><reportElement x="410" y="134" width="108" height="11" forecolor="#64748B"/><textElement><font size="6" isBold="true"/></textElement><text><![CDATA[PARTIELLES]]></text></staticText>
+            <textField isBlankWhenNull="true"><reportElement x="410" y="146" width="108" height="26" forecolor="#B45309"/><textElement verticalAlignment="Middle"><font size="20" isBold="true"/></textElement><textFieldExpression><![CDATA[$P{kpiPartial}]]></textFieldExpression></textField>
+
+            <rectangle><reportElement x="536" y="126" width="121" height="56" backcolor="#F8FAFC"/><graphicElement><pen lineWidth="0.5" lineColor="#CBD5E1"/></graphicElement></rectangle>
+            <rectangle><reportElement x="536" y="126" width="121" height="4" backcolor="#DC2626"/><graphicElement><pen lineWidth="0"/></graphicElement></rectangle>
+            <staticText><reportElement x="544" y="134" width="108" height="11" forecolor="#64748B"/><textElement><font size="6" isBold="true"/></textElement><text><![CDATA[NON COUVERTES]]></text></staticText>
+            <textField isBlankWhenNull="true"><reportElement x="544" y="146" width="108" height="26" forecolor="#B91C1C"/><textElement verticalAlignment="Middle"><font size="20" isBold="true"/></textElement><textFieldExpression><![CDATA[$P{kpiNone}]]></textFieldExpression></textField>
+
+            <rectangle><reportElement x="671" y="126" width="121" height="56" backcolor="#F8FAFC"/><graphicElement><pen lineWidth="0.5" lineColor="#CBD5E1"/></graphicElement></rectangle>
+            <rectangle><reportElement x="671" y="126" width="121" height="4" backcolor="#1D4ED8"/><graphicElement><pen lineWidth="0"/></graphicElement></rectangle>
+            <staticText><reportElement x="679" y="134" width="108" height="11" forecolor="#64748B"/><textElement><font size="6" isBold="true"/></textElement><text><![CDATA[PERSONNES PUBLIÉES]]></text></staticText>
+            <textField isBlankWhenNull="true"><reportElement x="679" y="146" width="108" height="22" forecolor="#1D4ED8"/><textElement verticalAlignment="Middle"><font size="20" isBold="true"/></textElement><textFieldExpression><![CDATA[$P{kpiPersons}]]></textFieldExpression></textField>
+            <textField isBlankWhenNull="true"><reportElement x="679" y="168" width="108" height="11" forecolor="#64748B"/><textElement><font size="7"/></textElement><textFieldExpression><![CDATA[$P{kpiParsers} + " parser(s) actif(s)"]]></textFieldExpression></textField>
+
+            <!-- légende -->
+            <staticText>
+                <reportElement x="0" y="196" width="792" height="16" forecolor="#0F2A4A"/>
+                <textElement><font size="10" isBold="true"/></textElement>
+                <text><![CDATA[Comment lire ce rapport]]></text>
+            </staticText>
+            <rectangle><reportElement x="0" y="216" width="10" height="10" backcolor="#059669"/><graphicElement><pen lineWidth="0"/></graphicElement></rectangle>
+            <staticText>
+                <reportElement x="16" y="214" width="776" height="14" forecolor="#334155"/>
+                <textElement verticalAlignment="Middle"><font size="8"/></textElement>
+                <text><![CDATA[COUVERTE : au moins un parser actif qui donne tous les titulaires de la fonction a déjà publié.]]></text>
+            </staticText>
+            <rectangle><reportElement x="0" y="232" width="10" height="10" backcolor="#D97706"/><graphicElement><pen lineWidth="0"/></graphicElement></rectangle>
+            <staticText>
+                <reportElement x="16" y="230" width="776" height="14" forecolor="#334155"/>
+                <textElement verticalAlignment="Middle"><font size="8"/></textElement>
+                <text><![CDATA[PARTIELLE : seuls des parsers qui donnent une partie des titulaires ont publié, ou le parser complet n'a pas encore publié.]]></text>
+            </staticText>
+            <rectangle><reportElement x="0" y="248" width="10" height="10" backcolor="#DC2626"/><graphicElement><pen lineWidth="0"/></graphicElement></rectangle>
+            <staticText>
+                <reportElement x="16" y="246" width="776" height="14" forecolor="#334155"/>
+                <textElement verticalAlignment="Middle"><font size="8"/></textElement>
+                <text><![CDATA[NON COUVERTE : aucun parser déclaré, ou parsers déclarés qui n'ont encore rien publié. Les fiches des parsers précisent la source, le périmètre et ce qui reste à couvrir.]]></text>
+            </staticText>
+
+            <staticText>
+                <reportElement positionType="Float" x="0" y="272" width="792" height="16" forecolor="#0F2A4A"/>
+                <textElement><font size="10" isBold="true"/></textElement>
+                <text><![CDATA[Synthèse par pays]]></text>
+            </staticText>
+            <subreport>
+                <reportElement positionType="Float" x="0" y="290" width="792" height="10"/>
+                <dataSourceExpression><![CDATA[$P{summaryData}]]></dataSourceExpression>
+                <subreportExpression><![CDATA[$P{summaryReport}]]></subreportExpression>
+            </subreport>
+            <break>
+                <reportElement positionType="Float" x="0" y="299" width="792" height="1"/>
+            </break>
+        </band>
+    </title>
+
+    <pageHeader>
+        <band height="24">
+            <printWhenExpression><![CDATA[$V{PAGE_NUMBER} > 1]]></printWhenExpression>
+            <staticText>
+                <reportElement x="0" y="0" width="400" height="14" forecolor="#64748B"/>
+                <textElement verticalAlignment="Middle"><font size="7.5" isBold="true"/></textElement>
+                <text><![CDATA[SWIFTCHECK AML  ·  RAPPORT DE COUVERTURE PEP]]></text>
+            </staticText>
+            <textField isBlankWhenNull="true">
+                <reportElement x="392" y="0" width="400" height="14" forecolor="#64748B"/>
+                <textElement textAlignment="Right" verticalAlignment="Middle"><font size="7.5"/></textElement>
+                <textFieldExpression><![CDATA[$F{countryName} + ("-".equals($F{categoryCode}) ? "" : "  ·  " + $F{categoryCode})]]></textFieldExpression>
+            </textField>
+            <line><reportElement x="0" y="16" width="792" height="1" forecolor="#CBD5E1"/></line>
+        </band>
+    </pageHeader>
+
+    <!-- ============================== PARSER ============================== -->
+    <detail>
+        <band height="136">
+            <printWhenExpression><![CDATA[$F{pCode} != null]]></printWhenExpression>
+            <!-- bandeau du parser -->
+            <textField isBlankWhenNull="true">
+                <reportElement x="28" y="4" width="764" height="20" forecolor="#0F2A4A" backcolor="#E2E8F0" mode="Opaque"/>
+                <box leftPadding="8"/>
+                <textElement verticalAlignment="Middle"><font size="9.5" isBold="true"/></textElement>
+                <textFieldExpression><![CDATA[$F{pCode}]]></textFieldExpression>
+            </textField>
+            <textField isBlankWhenNull="true" textAdjust="CutText">
+                <reportElement x="196" y="4" width="390" height="20" forecolor="#475569"/>
+                <textElement verticalAlignment="Middle"><font size="8.5"/></textElement>
+                <textFieldExpression><![CDATA[$F{pName}]]></textFieldExpression>
+            </textField>
+            <textField isBlankWhenNull="true">
+                <reportElement style="BadgeComplete" x="598" y="7" width="86" height="14"/>
+                <textFieldExpression><![CDATA[$F{pCompleteness}]]></textFieldExpression>
+            </textField>
+            <textField isBlankWhenNull="true">
+                <reportElement style="BadgeExec" x="690" y="7" width="96" height="14"/>
+                <textFieldExpression><![CDATA[$F{pExec}]]></textFieldExpression>
+            </textField>
+
+            <!-- trois colonnes : couverture / source de données / statut -->
+            <frame>
+                <reportElement positionType="Float" x="28" y="24" width="764" height="60"/>
+                <box>
+                    <pen lineWidth="0.5" lineColor="#CBD5E1"/>
+                </box>
+                <textField textAdjust="StretchHeight" isBlankWhenNull="true">
+                    <reportElement stretchType="ContainerHeight" x="0" y="0" width="254" height="60"/>
+                    <box topPadding="5" leftPadding="7" bottomPadding="5" rightPadding="6"/>
+                    <textElement markup="html"><font size="8"/></textElement>
+                    <textFieldExpression><![CDATA[$F{pCover}]]></textFieldExpression>
+                </textField>
+                <textField textAdjust="StretchHeight" isBlankWhenNull="true">
+                    <reportElement stretchType="ContainerHeight" x="254" y="0" width="256" height="60" backcolor="#FAFBFD" mode="Opaque"/>
+                    <box topPadding="5" leftPadding="7" bottomPadding="5" rightPadding="6">
+                        <leftPen lineWidth="0.5" lineColor="#CBD5E1"/>
+                    </box>
+                    <textElement markup="html"><font size="8"/></textElement>
+                    <textFieldExpression><![CDATA[$F{pSource}]]></textFieldExpression>
+                </textField>
+                <textField textAdjust="StretchHeight" isBlankWhenNull="true">
+                    <reportElement stretchType="ContainerHeight" x="510" y="0" width="254" height="60"/>
+                    <box topPadding="5" leftPadding="7" bottomPadding="5" rightPadding="6">
+                        <leftPen lineWidth="0.5" lineColor="#CBD5E1"/>
+                    </box>
+                    <textElement markup="html"><font size="8"/></textElement>
+                    <textFieldExpression><![CDATA[$F{pStatus}]]></textFieldExpression>
+                </textField>
+            </frame>
+
+            <!-- ce que fait le parser -->
+            <textField textAdjust="StretchHeight" isBlankWhenNull="true">
+                <reportElement isRemoveLineWhenBlank="true" positionType="Float" x="28" y="85" width="764" height="14" backcolor="#F8FAFC" mode="Opaque"/>
+                <box topPadding="5" leftPadding="7" bottomPadding="5" rightPadding="7">
+                    <pen lineWidth="0.5" lineColor="#CBD5E1"/>
+                </box>
+                <textElement markup="html"><font size="8"/></textElement>
+                <textFieldExpression><![CDATA[$F{pDescription}]]></textFieldExpression>
+            </textField>
+
+            <!-- fiche technique (première apparition du parser dans le pays) -->
+            <textField textAdjust="StretchHeight" isBlankWhenNull="true">
+                <reportElement isRemoveLineWhenBlank="true" positionType="Float" x="28" y="104" width="764" height="14" forecolor="#334155" backcolor="#F8FAFC" mode="Opaque">
+                    <printWhenExpression><![CDATA[$F{pTech} != null]]></printWhenExpression>
+                </reportElement>
+                <box topPadding="5" leftPadding="8" bottomPadding="5" rightPadding="8">
+                    <leftPen lineWidth="2" lineColor="#94A3B8"/>
+                </box>
+                <textElement markup="html"><font size="7.5"/></textElement>
+                <textFieldExpression><![CDATA[$F{pTech}]]></textFieldExpression>
+            </textField>
+            <textField isBlankWhenNull="true">
+                <reportElement isRemoveLineWhenBlank="true" positionType="Float" x="28" y="122" width="764" height="11" forecolor="#64748B">
+                    <printWhenExpression><![CDATA[$F{pTech} == null && $F{pRepeat} != null]]></printWhenExpression>
+                </reportElement>
+                <box leftPadding="2"/>
+                <textElement><font size="7" isItalic="true"/></textElement>
+                <textFieldExpression><![CDATA[$F{pRepeat}]]></textFieldExpression>
+            </textField>
+        </band>
+    </detail>
+
+    <pageFooter>
+        <band height="20">
+            <line><reportElement x="0" y="2" width="792" height="1" forecolor="#CBD5E1"/></line>
+            <textField>
+                <reportElement x="0" y="6" width="560" height="12" forecolor="#64748B"/>
+                <textElement verticalAlignment="Middle"><font size="7.5"/></textElement>
+                <textFieldExpression><![CDATA["SwiftCheck AML  ·  Couverture PEP  ·  " + $P{scope} + "  ·  généré le " + $P{generatedAt}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="652" y="6" width="100" height="12" forecolor="#64748B"/>
+                <textElement textAlignment="Right" verticalAlignment="Middle"><font size="7.5"/></textElement>
+                <textFieldExpression><![CDATA["Page " + $V{PAGE_NUMBER} + " / "]]></textFieldExpression>
+            </textField>
+            <textField evaluationTime="Report">
+                <reportElement x="752" y="6" width="40" height="12" forecolor="#64748B"/>
+                <box leftPadding="3"/>
+                <textElement verticalAlignment="Middle"><font size="7.5"/></textElement>
+                <textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+            </textField>
+        </band>
+    </pageFooter>
+</jasperReport>
