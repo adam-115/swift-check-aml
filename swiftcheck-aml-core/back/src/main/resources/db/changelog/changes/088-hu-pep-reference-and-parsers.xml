@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Hongrie : référentiel PEP et parsers, sans Wikidata.
+
+    Base légale : loi LIII de 2017 sur la prévention et la répression du blanchiment de capitaux et du financement du terrorisme
+    (2017. évi LIII. törvény, « Pmt. ») : personne politiquement exposée (kiemelt közszereplő) ; vigilance de douze mois après la
+    fin des fonctions (numéro de loi et durée à confirmer sur le texte en vigueur).
+
+    Parsers (plugins dans swiftcheck-aml-plugins/pep/hungary) :
+      - hu_pep_parliament    : députés en fonction et mandats terminés (registre des représentants de l'Office électoral)
+      - hu_pep_government    : Premier ministre et ministres (kormany.hu)
+      - hu_pep_europarl / hu_pep_eu_commission : députés européens et commissaire européen
+
+    Non couvert, avec le motif :
+      - site du Parlement (parlament.hu) : page de CAPTCHA (« CAPTCHA Ellenőrzés ») pour tout accès automatique, non contourné ;
+        le registre de l'Office électoral n'a pas les députés de la législature 2022-2026 (terminée le 8 mai 2026), sauf ceux
+        dont le mandat a pris fin dans la législature en cours ;
+      - président de la République (keh.hu, Sándor-palota) : la page publie les discours mais pas de notice biographique lue ;
+        Banque centrale (mnb.hu), Cour constitutionnelle (mkab.hu), Kúria, Cour des comptes (asz.hu) : sites joignables, pages des
+        titulaires non lues dans ce lot ;
+      - élus locaux (cycle « Önkormányzati » du même registre) : fichiers non lus ;
+      - proches (RCA) : seule source connue = Wikidata, exclue.
+-->
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="088-hu-country" author="swiftcheck">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM country WHERE iso = 'HU'</sqlCheck>
+        </preConditions>
+        <sql>
+            INSERT INTO country (iso, name, eu_member, legal_basis, retention_months)
+            VALUES ('HU', 'Hongrie', TRUE,
+                    'Loi LIII de 2017 sur la prévention et la répression du blanchiment de capitaux et du financement du terrorisme (Pmt.) : personnes politiquement exposées (kiemelt közszereplő), membres de leur famille et proches associés, douze mois après la fin des fonctions', 12);
+        </sql>
+    </changeSet>
+
+    <changeSet id="088-hu-categories" author="swiftcheck">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM pep_category WHERE country_iso = 'HU'</sqlCheck>
+        </preConditions>
+        <sql>
+            INSERT INTO pep_category (country_iso, code, label, kind, risk_class, sort_order, legal_reference) VALUES
+            ('HU', 'HU-a', 'Chef de l''État, Premier ministre et ministres', 'OFFICIAL', 1, 1, 'Loi LIII de 2017 (Pmt.)'),
+            ('HU', 'HU-b', 'Députés de l''Assemblée nationale', 'OFFICIAL', 1, 2, 'Loi LIII de 2017 (Pmt.)'),
+            ('HU', 'HU-c', 'Organes dirigeants des partis politiques', 'OFFICIAL', 2, 3, 'Loi LIII de 2017 (Pmt.)'),
+            ('HU', 'HU-d', 'Kúria et Cour constitutionnelle', 'OFFICIAL', 2, 4, 'Loi LIII de 2017 (Pmt.)'),
+            ('HU', 'HU-e', 'Cour des comptes et Banque nationale de Hongrie', 'OFFICIAL', 2, 5, 'Loi LIII de 2017 (Pmt.)'),
+            ('HU', 'HU-f', 'Ambassadeurs et officiers généraux des forces armées', 'OFFICIAL', 2, 6, 'Loi LIII de 2017 (Pmt.)'),
+            ('HU', 'HU-g', 'Dirigeants des entreprises détenues par l''État', 'OFFICIAL', 3, 7, 'Loi LIII de 2017 (Pmt.)'),
+            ('HU', 'HU-h', 'Dirigeants des organisations internationales', 'OFFICIAL', 3, 8, 'Loi LIII de 2017 (Pmt.)'),
+            ('HU', 'HU-RCA', 'Membres de la famille et proches associés', 'RCA', 2, 9, 'Loi LIII de 2017 (membres de la famille et personnes connues comme étroitement associées)'),
+            ('HU', 'HU-EU', 'Hongrois exerçant une fonction européenne', 'EU', 1, 10, 'Liste de la Commission, JO C/2023/724');
+        </sql>
+    </changeSet>
+
+    <changeSet id="088-hu-functions" author="swiftcheck">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM pep_function f JOIN pep_category c ON c.id = f.category_id WHERE c.country_iso = 'HU'</sqlCheck>
+        </preConditions>
+        <sql>
+            INSERT INTO pep_function (category_id, label, institution, expected_holders)
+            SELECT c.id, f.label, f.institution, f.expected_holders
+            FROM pep_category c JOIN (
+                SELECT 'HU-a' AS code, 'Président de la République' AS label, 'Köztársasági elnök' AS institution, 1 AS expected_holders
+                UNION ALL SELECT 'HU-a', 'Premier ministre et ministres', 'Magyarország Kormánya', 17
+                UNION ALL SELECT 'HU-a', 'Ancien ministre', 'Magyarország Kormánya', NULL
+                UNION ALL SELECT 'HU-b', 'Député de l''Assemblée nationale', 'Országgyűlés', 199
+                UNION ALL SELECT 'HU-b', 'Ancien député de l''Assemblée nationale', 'Országgyűlés', NULL
+                UNION ALL SELECT 'HU-c', 'Membre d''un organe dirigeant d''un parti', 'Partis politiques', 30
+                UNION ALL SELECT 'HU-d', 'Juge de la Kúria ou de la Cour constitutionnelle', 'Juridictions', 40
+                UNION ALL SELECT 'HU-e', 'Membre de la direction de la Banque nationale ou de la Cour des comptes', 'Banque nationale, Cour des comptes', 10
+                UNION ALL SELECT 'HU-f', 'Ambassadeur', 'Külügyminisztérium', 40
+                UNION ALL SELECT 'HU-f', 'Officier général des forces armées', 'Magyar Honvédség', 10
+                UNION ALL SELECT 'HU-g', 'Dirigeant d''une entreprise détenue par l''État', 'Entreprises d''État', NULL
+                UNION ALL SELECT 'HU-h', 'Dirigeant d''une organisation internationale', 'Organisations internationales', NULL
+                UNION ALL SELECT 'HU-RCA', 'Membre de la famille d''une PEP hongroise', NULL, NULL
+                UNION ALL SELECT 'HU-RCA', 'Proche associé d''une PEP hongroise', NULL, NULL
+                UNION ALL SELECT 'HU-EU', 'Député européen élu en Hongrie', 'Parlement européen', 21
+                UNION ALL SELECT 'HU-EU', 'Membre hongrois de la Commission européenne', 'Commission européenne', 1
+            ) f ON f.code = c.code;
+        </sql>
+    </changeSet>
+
+    <changeSet id="088-parser-hu-pep-parliament" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Hongrie – Assemblée nationale',
+                'Députés en fonction et mandats terminés depuis moins de 12 mois, d''après le registre des représentants de l''Office électoral national (catégorie HU-b)',
+                'hu_pep_parliament', 'PEP', 'https://vtr.valasztas.hu/kepviselo',
+                'hu-pep-parliament', 'D:/test parser 2/plugins/swiftcheck-aml-hu-pep-parliament-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'API',
+                NULL,
+                '{"baseUrl": "https://vtr.valasztas.hu/kepviselo/data", "monthsAfterEnd": "12", "delayMs": "1000"}',
+                168, 12,
+                'Données publiques de l''Office électoral national : citer la source (conditions de réutilisation à vérifier sur valasztas.hu)', 'Nemzeti Választási Iroda, vtr.valasztas.hu',
+                'Quatre fichiers JSON publics (cycles, version, députés en fonction, mandats terminés) : 199 députés en fonction et 29 mandats terminés (démissions, etc.), soit 228 personnes. Le cycle parlementaire en cours est choisi par ses dates. L''identifiant szId est celui de la personne. Pas de naissance ; la législature 2022-2026 (terminée le 08/05/2026) n''est pas dans le registre sauf pour ceux qui ont quitté leur siège dans la législature en cours. parlament.hu (CAPTCHA) non utilisé.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'PARTIAL', TRUE,
+                   'Les 199 députés en fonction et les 29 mandats terminés dans la législature en cours (dont des démissionnaires récents), avec parti, circonscription ou liste et dates.',
+                   'Députés de la législature 2022-2026 sortis le 08/05/2026 non couverts ; pas de naissance.'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'HU-b' AND f.label IN ('Député de l''Assemblée nationale', 'Ancien député de l''Assemblée nationale') AND p.dataset_name = 'hu_pep_parliament';
+        ]]></sql>
+    </changeSet>
+
+    <changeSet id="088-parser-hu-pep-government" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Hongrie – Gouvernement',
+                'Premier ministre et ministres, d''après la page « Kormányzat » de kormany.hu (catégorie HU-a)',
+                'hu_pep_government', 'PEP', 'https://kormany.hu/kormanyzat',
+                'hu-pep-government', 'D:/test parser 2/plugins/swiftcheck-aml-hu-pep-government-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'WEB_PAGE',
+                NULL,
+                '{"url": "https://kormany.hu/kormanyzat"}',
+                168, 12,
+                'Site officiel du Gouvernement hongrois : citer la source', 'Magyarország Kormánya, kormany.hu',
+                'Une page, 17 personnes (Premier ministre Magyar Péter et ministres, dont deux vice-premiers ministres). Les porte-parole ne sont pas repris. Ni naissance ni dates de fonction ; pas d''anciens ministres. Nom « Nom Prénom » : ordre inverse en alias.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'PARTIAL', FALSE,
+                   'Le Premier ministre et les ministres du Gouvernement en fonction.',
+                   'Anciens ministres et secrétaires d''État non couverts ; pas de naissance ; président de la République non couvert.'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'HU-a' AND f.label = 'Premier ministre et ministres' AND p.dataset_name = 'hu_pep_government';
+        ]]></sql>
+    </changeSet>
+
+    <changeSet id="088-parser-hu-pep-europarl" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Hongrie – Députés européens',
+                'Les députés au Parlement européen élus en Hongrie, en fonction et sortis depuis moins de 12 mois, avec naissance et dates de mandat (catégorie HU-EU)',
+                'hu_pep_europarl', 'PEP', 'https://data.europarl.europa.eu/',
+                'hu-pep-europarl', 'D:/test parser 2/plugins/swiftcheck-aml-hu-pep-europarl-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'API',
+                NULL,
+                '{"currentUrl": "https://data.europarl.europa.eu/api/v2/meps/show-current?country-of-representation=HU&format=application%2Fld%2Bjson", "termUrl": "https://data.europarl.europa.eu/api/v2/meps?country-of-representation=HU&parliamentary-term=10&limit=500&format=application%2Fld%2Bjson", "detailUrl": "https://data.europarl.europa.eu/api/v2/meps/{id}?format=application%2Fld%2Bjson", "delayMs": "400", "monthsAfterEnd": "12", "wikidataEndpoint": ""}',
+                168, 12,
+                'Réutilisation autorisée en citant la source (Parlement européen)', 'Parlement européen, data.europarl.europa.eu',
+                'Reprise de nl_pep_europarl. Mesure du 07/11/2026 : 24 personnes (21 en fonction et 3 sorties depuis moins de 12 mois, dont Magyar Péter devenu Premier ministre), 16 avec date de naissance ; 1 sorti avant la fenêtre (écarté). L''API limite le débit (HTTP 429) : le plugin attend puis réessaie. Pas de photos (Wikidata non utilisé). termUrl contient le numéro de législature (10) : à changer en 2029.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', TRUE, 'Les 21 députés européens élus en Hongrie et ceux sortis depuis moins de 12 mois, avec naissance quand elle est publiée, genre, groupe et dates de mandat.', NULL
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'HU-EU' AND f.label LIKE 'Député européen%' AND p.dataset_name = 'hu_pep_europarl';
+        ]]></sql>
+    </changeSet>
+
+    <changeSet id="088-parser-hu-pep-eu-commission" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Hongrie – Commissaire européen',
+                'Le membre hongrois de la Commission européenne, d''après sa fiche officielle (catégorie HU-EU)',
+                'hu_pep_eu_commission', 'PEP', 'https://commission.europa.eu/about/organisation/college-commissioners_en',
+                'hu-pep-eu-commission', 'D:/test parser 2/plugins/swiftcheck-aml-hu-pep-eu-commission-0.0.1-SNAPSHOT.jar',
+                'HTTP_FILE', 'WEB_PAGE',
+                'https://commission.europa.eu/about/organisation/college-commissioners/oliver-varhelyi_en',
+                NULL,
+                168, 12,
+                'Réutilisation autorisée en citant la source (avis juridique de la Commission européenne)', 'Commission européenne, commission.europa.eu',
+                'Reprise de nl_pep_eu_commission. À chaque nouvelle Commission, remplacer l''adresse par la fiche du commissaire hongrois. Une fiche qui ne présente pas un commissaire hongrois est refusée.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', FALSE, 'Olivér Várhelyi, commissaire chargé de la santé et du bien-être animal (2024-2029).', 'Ni date ni lieu de naissance sur la fiche.'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'HU-EU' AND f.label LIKE 'Membre hongrois de la Commission%' AND p.dataset_name = 'hu_pep_eu_commission';
+        ]]></sql>
+    </changeSet>
+
+</databaseChangeLog>

@@ -1,0 +1,46 @@
+{
+  "header" : {
+    "generated" : "2026-11-06T08:00:00+01:00"
+  },
+  "list" : [ {
+    "cikl_id" : 90,
+    "tipus_nev" : "Országgyűlési",
+    "cikl_kezd" : "2022-05-03T00:00:00+02:00",
+    "cikl_veg" : "2026-05-08T00:00:00+02:00"
+  }, {
+    "cikl_id" : 120,
+    "tipus_nev" : "Nemzetiségi önkormányzati",
+    "cikl_kezd" : "2024-06-10T00:00:00+02:00",
+    "cikl_veg" : "2029-09-30T00:00:00+02:00"
+  }, {
+    "cikl_id" : 110,
+    "tipus_nev" : "Önkormányzati",
+    "cikl_kezd" : "2024-06-10T00:00:00+02:00",
+    "cikl_veg" : "2029-09-30T00:00:00+02:00"
+  }, {
+    "cikl_id" : 100,
+    "tipus_nev" : "EU parlamenti",
+    "cikl_kezd" : "2024-07-16T00:00:00+02:00",
+    "cikl_veg" : "2029-04-30T00:00:00+02:00"
+  }, {
+    "cikl_id" : 130,
+    "tipus_nev" : "Országgyűlési",
+    "cikl_kezd" : "2026-05-09T00:00:00+02:00",
+    "cikl_veg" : "2030-04-12T00:00:00+02:00"
+  }, {
+    "cikl_id" : 140,
+    "tipus_nev" : "EU parlamenti",
+    "cikl_kezd" : "2029-05-01T00:00:00+02:00",
+    "cikl_veg" : "2034-04-30T00:00:00+02:00"
+  }, {
+    "cikl_id" : 160,
+    "tipus_nev" : "Nemzetiségi önkormányzati",
+    "cikl_kezd" : "2029-10-01T00:00:00+02:00",
+    "cikl_veg" : "2034-09-30T00:00:00+02:00"
+  }, {
+    "cikl_id" : 150,
+    "tipus_nev" : "Önkormányzati",
+    "cikl_kezd" : "2029-10-01T00:00:00+02:00",
+    "cikl_veg" : "2034-09-30T00:00:00+02:00"
+  } ]
+}

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="fr"><head><meta charset="utf-8"><title>Plan des parsers PEP – Hongrie</title>
+<style>
+body{font-family:Segoe UI,Arial,sans-serif;font-size:11pt;color:#1a1a1a;margin:28px;line-height:1.45}
+h1{color:#0b3d6b;border-bottom:3px solid #0b3d6b;padding-bottom:6px}h2{color:#0b3d6b;margin-top:26px}
+table{border-collapse:collapse;width:100%;margin:10px 0;font-size:10pt}th,td{border:1px solid #bbb;padding:5px 8px;text-align:left;vertical-align:top}
+th{background:#e8eef5}.ok{color:#14702e;font-weight:600}.ko{color:#a32020;font-weight:600}.note{background:#f4f7fa;border-left:4px solid #0b3d6b;padding:8px 12px}
+</style></head><body>
+<h1>Plan des parsers PEP – Hongrie</h1>
+<p>Date : 7 novembre 2026. Pays de l'Union européenne. Base légale : loi LIII de 2017 sur la prévention du blanchiment (Pmt., personnes « kiemelt közszereplő ») ; vigilance de douze mois après la fin des fonctions (numéro de loi et durée à confirmer sur le texte en vigueur).</p>
+
+<h2>1. Parsers réalisés</h2>
+<table>
+<tr><th>Jeu de données</th><th>Source</th><th>Contenu</th><th>Volume mesuré</th></tr>
+<tr><td>hu_pep_parliament</td><td>vtr.valasztas.hu/kepviselo/data (4 fichiers JSON publics de l'Office électoral)</td><td>Députés en fonction et mandats terminés depuis moins de 12 mois (HU-b)</td><td>228 personnes : 199 en fonction + 29 mandats terminés ; parti, circonscription, dates, motif de fin ; pas de naissance</td></tr>
+<tr><td>hu_pep_government</td><td>kormany.hu/kormanyzat (1 page)</td><td>Premier ministre et ministres (HU-a)</td><td>17 personnes (Gouvernement de Magyar Péter) ; porte-parole non repris</td></tr>
+<tr><td>hu_pep_europarl</td><td>API du Parlement européen</td><td>Députés européens élus en Hongrie (HU-EU)</td><td>24 personnes : 21 en fonction + 3 sortis depuis moins de 12 mois ; 16 avec naissance ; 1 sorti hors fenêtre</td></tr>
+<tr><td>hu_pep_eu_commission</td><td>commission.europa.eu</td><td>Membre hongrois de la Commission (HU-EU)</td><td>1 personne (Olivér Várhelyi)</td></tr>
+</table>
+<p>Chaque parser télécharge la source à chaque exécution ; Wikidata n'est pas utilisé. Le cycle parlementaire en cours est choisi d'après les dates de la liste des cycles. Les noms hongrois sont écrits « Nom Prénom » : l'ordre inverse est ajouté en alias. Migration Liquibase 088 (pays HU, catégories, fonctions, 4 parsers), validée sur une base jetable.</p>
+
+<h2>2. Sources non couvertes</h2>
+<table>
+<tr><th>Périmètre</th><th>Situation</th></tr>
+<tr><td>Site du Parlement (parlament.hu)</td><td class="ko">Page de CAPTCHA pour tout accès automatique : non contournée. Le registre de l'Office électoral la remplace pour les députés.</td></tr>
+<tr><td>Députés de la législature 2022-2026 (terminée le 8 mai 2026)</td><td class="ko">Absents du registre (cycle 2022 non publié), sauf les 29 mandats terminés dans la législature en cours. Leur sortie date de moins de 12 mois : lacune réelle.</td></tr>
+<tr><td>Président de la République (keh.hu)</td><td>Page joignable mais sans notice biographique lue : à étudier.</td></tr>
+<tr><td>Banque nationale (mnb.hu), Cour constitutionnelle (mkab.hu), Kúria, Cour des comptes (asz.hu)</td><td>Sites joignables, pages des titulaires non lues dans ce lot.</td></tr>
+<tr><td>Élus locaux, ambassadeurs, officiers généraux, dirigeants d'entreprises d'État, partis</td><td>Non traités.</td></tr>
+<tr><td>Proches (RCA)</td><td>Seule source connue : Wikidata, exclue.</td></tr>
+</table>
+
+<h2>3. Limites des données</h2>
+<div class="note">Ni le registre de l'Office électoral ni kormany.hu ne publient de date de naissance : l'appariement repose sur le nom et ses deux ordres. Le Gouvernement n'a ni dates de fonction ni anciens ministres.</div>
+
+<h2>4. Suite possible</h2>
+<ul><li>Lire les pages du président, de la MNB, de la Cour constitutionnelle, de la Kúria et de la Cour des comptes.</li>
+<li>Évaluer le cycle des élus locaux du même registre.</li>
+<li>Bulgarie, Chypre et Malte restent à traiter.</li></ul>
+</body></html>

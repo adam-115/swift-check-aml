@@ -1,0 +1,154 @@
+{
+ "header": {
+  "generated": "2026-11-06T08:00:00+01:00",
+  "cikl_id": 130
+ },
+ "list": [
+  {
+   "id": 165201,
+   "szId": 1863081,
+   "valaltip": "J",
+   "valaltip_nev": "egyéni képviselő választás",
+   "valaltip_nev_en": "Individual Representative Election",
+   "neve": "Tanács Zoltán",
+   "jl_jlcs": 3600,
+   "jcs_nev": "TISZA",
+   "sorszama_listan": 14,
+   "maz": "01",
+   "megye_nev": "Budapest főváros",
+   "megye_nev_en": "Budapest capital",
+   "evk": "01",
+   "evk_nev": "Budapest főváros, 01. OEVK (Budapest 05)",
+   "evk_nev_en": "Individual Constituency No. 01, Budapest capital (Budapest 05)",
+   "mdtip": "1",
+   "mdtip_megnev": "Egyéni választókerületi képviselő",
+   "mdtip_megnev_en": "Individual constituency representative",
+   "mandtol": "2026-04-12T00:00:00+02:00",
+   "mandatum_elozmenyek": [
+    {
+     "id": 10740,
+     "neve": "Rogán Antal",
+     "jcs_nev": "FIDESZ-KDNP",
+     "mandtol": "2014-05-06T00:00:00+02:00",
+     "mandig": "2018-05-08T00:00:00+02:00"
+    }
+   ],
+   "url": "https://vtr.valasztas.hu/ogy2026/egyeni-valasztokeruletek/01/01?tab=eredmenyek"
+  },
+  {
+   "id": 165233,
+   "szId": 1827770,
+   "valaltip": "J",
+   "valaltip_nev": "egyéni képviselő választás",
+   "valaltip_nev_en": "Individual Representative Election",
+   "neve": "Magyar Péter",
+   "jl_jlcs": 3600,
+   "jcs_nev": "TISZA",
+   "sorszama_listan": 1,
+   "maz": "01",
+   "megye_nev": "Budapest főváros",
+   "megye_nev_en": "Budapest capital",
+   "evk": "03",
+   "evk_nev": "Budapest főváros, 03. OEVK (Budapest 12)",
+   "evk_nev_en": "Individual Constituency No. 03, Budapest capital (Budapest 12)",
+   "mdtip": "1",
+   "mdtip_megnev": "Egyéni választókerületi képviselő",
+   "mdtip_megnev_en": "Individual constituency representative",
+   "mandtol": "2026-04-12T00:00:00+02:00",
+   "korabbi_mandatumok": [
+    {
+     "jcs_nev": "TISZA",
+     "mdtip_megnev": "Európai Parlament tagja",
+     "mdtip_megnev_en": "Member of the European Parliament",
+     "mandtol": "2024-07-16T00:00:00+02:00",
+     "mandig": "2026-05-09T00:00:00+02:00"
+    },
+    {
+     "jcs_nev": "TISZA",
+     "mdtip_megnev": "Fővárosi közgyűlés tagja ",
+     "mdtip_megnev_en": "Member of the Capital Assembly",
+     "mandtol": "2024-10-01T00:00:00+02:00",
+     "mandig": "2024-09-23T00:00:00+02:00",
+     "mandtolig_hiba": true
+    }
+   ],
+   "mandatum_elozmenyek": [
+    {
+     "id": 10677,
+     "dr_jelzo": "Dr.",
+     "neve": "Fónagy János Vilmos",
+     "jcs_nev": "FIDESZ-KDNP",
+     "mandtol": "2014-05-06T00:00:00+02:00",
+     "mandig": "2018-05-08T00:00:00+02:00"
+    }
+   ],
+   "url": "https://vtr.valasztas.hu/ogy2026/egyeni-valasztokeruletek/01/03?tab=eredmenyek"
+  },
+  {
+   "id": 165209,
+   "szId": 1863055,
+   "valaltip": "J",
+   "valaltip_nev": "egyéni képviselő választás",
+   "valaltip_nev_en": "Individual Representative Election",
+   "dr_jelzo": "Dr.",
+   "neve": "Koncz Áron",
+   "jl_jlcs": 3600,
+   "jcs_nev": "TISZA",
+   "sorszama_listan": 52,
+   "maz": "01",
+   "megye_nev": "Budapest főváros",
+   "megye_nev_en": "Budapest capital",
+   "evk": "04",
+   "evk_nev": "Budapest főváros, 04. OEVK (Budapest 02)",
+   "evk_nev_en": "Individual Constituency No. 04, Budapest capital (Budapest 02)",
+   "mdtip": "1",
+   "mdtip_megnev": "Egyéni választókerületi képviselő",
+   "mdtip_megnev_en": "Individual constituency representative",
+   "mandtol": "2026-04-12T00:00:00+02:00",
+   "mandatum_elozmenyek": [
+    {
+     "id": 10706,
+     "neve": "Varga Mihály",
+     "jcs_nev": "FIDESZ-KDNP",
+     "mandtol": "2014-05-06T00:00:00+02:00",
+     "mandig": "2018-05-08T00:00:00+02:00"
+    }
+   ],
+   "url": "https://vtr.valasztas.hu/ogy2026/egyeni-valasztokeruletek/01/04?tab=eredmenyek"
+  },
+  {
+   "id": 165238,
+   "szId": 1863060,
+   "valaltip": "J",
+   "valaltip_nev": "egyéni képviselő választás",
+   "valaltip_nev_en": "Individual Representative Election",
+   "dr_jelzo": "Dr.",
+   "neve": "Hallerné Dr. Nagy Anikó",
+   "jl_jlcs": 3600,
+   "jcs_nev": "TISZA",
+   "sorszama_listan": 129,
+   "maz": "08",
+   "megye_nev": "Győr-Moson-Sopron megye",
+   "megye_nev_en": "Győr-Moson-Sopron county",
+   "evk": "04",
+   "evk_nev": "Győr-Moson-Sopron megye, 04. OEVK (Sopron)",
+   "evk_nev_en": "Individual Constituency No. 04, Győr-Moson-Sopron county (Sopron)",
+   "mdtip": "1",
+   "mdtip_megnev": "Egyéni választókerületi képviselő",
+   "mdtip_megnev_en": "Individual constituency representative",
+   "mandtol": "2026-04-12T00:00:00+02:00",
+   "mandatum_elozmenyek": [
+    {
+     "id": 10793,
+     "jcs_nev": "FIDESZ-KDNP",
+     "mandtol": "2014-05-06T00:00:00+02:00",
+     "mandig": "2018-05-08T00:00:00+02:00",
+     "megszunok": "7",
+     "megszunok_megnev": "Megbízatása lejárt",
+     "megszunok_megnev_en": "Expiration of term of office"
+    }
+   ],
+   "url": "https://vtr.valasztas.hu/ogy2026/egyeni-valasztokeruletek/08/04?tab=eredmenyek"
+  }
+ ]
+}
