@@ -46,6 +46,11 @@ public class ParserExecutionService {
     }
 
     /** Dernière exécution d'un parser, pour l'afficher dans la liste des parsers. */
+    /** Dernière exécution de chacun des parsers donnés, en une requête. */
+    public List<ParserExecution> findLastOfParsers(java.util.Collection<Long> parserIds) {
+        return executions.findLastOfParsers(parserIds);
+    }
+
     public Optional<ParserExecution> findLast(long parserId) {
         return executions.findFirstByParserIdOrderByStartedAtDesc(parserId);
     }

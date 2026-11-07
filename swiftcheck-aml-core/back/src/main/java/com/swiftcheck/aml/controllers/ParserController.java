@@ -95,7 +95,16 @@ public class ParserController {
     @GetMapping
     public Page<ParserDTO> getAll(@RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "20") int size) {
-        return parserService.findAll(PageRequest.of(page, size)).map(this::toDto);
+        Page<Parser> parsers = parserService.findAll(PageRequest.of(page, size, org.springframework.data.domain.Sort.by("id")));
+        List<Long> ids = parsers.getContent().stream().map(Parser::getId).toList();
+        // Dernière exécution et dernier test de toute la page en deux requêtes (et non deux par parser)
+        Map<Long, com.swiftcheck.aml.entities.ParserExecution> executions = new HashMap<>();
+        Map<Long, com.swiftcheck.aml.entities.ParserTest> tests = new HashMap<>();
+        if (!ids.isEmpty()) {
+            executionService.findLastOfParsers(ids).forEach(e -> executions.put(e.getParser().getId(), e));
+            testRepository.findLastOfParsers(ids).forEach(t -> tests.put(t.getParser().getId(), t));
+        }
+        return parsers.map(p -> ParserDTO.from(p, executions.get(p.getId())).withLastTest(tests.get(p.getId())));
     }
 
     @GetMapping("/{id}")

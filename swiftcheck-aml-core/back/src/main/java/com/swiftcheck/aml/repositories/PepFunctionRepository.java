@@ -14,6 +14,7 @@ public interface PepFunctionRepository extends JpaRepository<PepFunction, Long> 
     List<PepFunction> findByCategoryCountryIsoOrderByCategorySortOrderAscIdAsc(String countryIso);
 
     /** Fonctions de toutes les catégories, rangées par pays puis par catégorie (formulaire du parser). */
+    @org.springframework.data.jpa.repository.Query("select f from PepFunction f join fetch f.category c join fetch c.country order by c.country.iso, c.sortOrder, f.id")
     List<PepFunction> findAllByOrderByCategoryCountryIsoAscCategorySortOrderAscIdAsc();
 
     boolean existsByCategoryId(long categoryId);

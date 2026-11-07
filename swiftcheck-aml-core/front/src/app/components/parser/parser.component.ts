@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { merge } from 'rxjs';
 import { AbstractControl, FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, ValidationErrors, Validators } from '@angular/forms';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 
@@ -18,6 +19,9 @@ import { ParserTestHistoryComponent } from './parser-test-history.component';
 import { TechnicalDescriptionDialogComponent } from './technical-description-dialog.component';
 import { BulkItem, BulkRun, BulkRunDialogComponent } from './bulk-run-dialog.component';
 import { ParserDetailDialogComponent } from './parser-detail-dialog.component';
+
+/** Taille des pages lues au chargement de la liste : la première s'affiche pendant que les suivantes arrivent. */
+const PARSER_PAGE_SIZE = 100;
 
 /** Libellés des types de source, affichés dans la liste et le formulaire. */
 export const SOURCE_TYPES: { value: DataSourceType; label: string; help: string }[] = [
@@ -303,9 +307,11 @@ export class ParserComponent implements OnInit {
     this.referenceService.functions().subscribe({
       next: functions => {
         this.allFunctions = functions;
+        this.loadingFunctions = false;
         this.refreshFunctionGroups();
         this.applyFilters(false);       // pays des fonctions couvertes, pour le filtre par pays
       },
+      error: () => (this.loadingFunctions = false),
     });
   }
 
@@ -313,18 +319,78 @@ export class ParserComponent implements OnInit {
 
   /** Recharge tous les parsers en gardant la page et les filtres (après une exécution, un test, un enregistrement). */
   loadParsers(): void {
-    this.parserService.getAllForProviders().subscribe({
-      next: page => {
-        this.allParsers = page.content;
-        this.totalElements = page.totalElements;
-        this.applyFilters(false);
-        // Les fenêtres ouvertes suivent la nouvelle version du parser
-        if (this.detailParser) {
-          this.detailParser = this.allParsers.find(p => p.id === this.detailParser!.id) ?? this.detailParser;
+    const token = ++this.loadToken;
+    const firstLoad = this.allParsers.length === 0;
+    if (firstLoad) {
+      this.loadingParsers = true;
+    }
+    // Première page tout de suite (l'écran s'affiche), les suivantes en parallèle derrière
+    this.parserService.getAll(0, PARSER_PAGE_SIZE).subscribe({
+      next: first => {
+        if (token !== this.loadToken) {
+          return;                          // un rechargement plus récent a démarré
         }
+        this.totalElements = first.totalElements;
+        if (firstLoad) {
+          this.setParsers(first.content);
+          this.loadingParsers = false;
+        }
+        if (first.totalPages <= 1) {
+          this.setParsers(first.content);
+          return;
+        }
+        this.loadingMoreParsers = true;
+        const rest = Array.from({ length: first.totalPages - 1 }, (_, i) => this.parserService.getAll(i + 1, PARSER_PAGE_SIZE));
+        let content = [...first.content];
+        // Pages ajoutées dès qu'elles arrivent pour le premier chargement ; remplacement d'un coup pour un rechargement
+        merge(...rest).subscribe({
+          next: page => {
+            if (token !== this.loadToken) {
+              return;
+            }
+            content = [...content, ...page.content].sort((a, b) => a.id! - b.id!);
+            if (firstLoad) {
+              this.setParsers(content);
+            }
+          },
+          error: err => {
+            this.loadingMoreParsers = false;
+            this.errorMessage = apiError(err);
+          },
+          complete: () => {
+            if (token !== this.loadToken) {
+              return;
+            }
+            this.setParsers(content);
+            this.loadingMoreParsers = false;
+          },
+        });
       },
-      error: err => (this.errorMessage = apiError(err)),
+      error: err => {
+        this.loadingParsers = false;
+        this.errorMessage = apiError(err);
+      },
     });
+  }
+
+  private setParsers(parsers: ParserDTO[]): void {
+    this.allParsers = parsers;
+    this.applyFilters(false);
+    // Les fenêtres ouvertes suivent la nouvelle version du parser
+    if (this.detailParser) {
+      this.detailParser = this.allParsers.find(p => p.id === this.detailParser!.id) ?? this.detailParser;
+    }
+  }
+
+  // Chargement progressif : parsers par pages, pays, fonctions et plugins indépendamment les uns des autres
+  loadingParsers = false;
+  loadingMoreParsers = false;
+  loadingFunctions = true;
+  loadingPlugins = true;
+  private loadToken = 0;
+
+  get isBackgroundLoading(): boolean {
+    return !this.loadingParsers && (this.loadingMoreParsers || this.loadingFunctions || this.loadingPlugins);
   }
 
   /**
@@ -1350,10 +1416,14 @@ export class ParserComponent implements OnInit {
     this.pluginService.list().subscribe({
       next: plugins => {
         this.plugins = plugins;
+        this.loadingPlugins = false;
         this.applyFilters(false);       // filtre « plugin non chargé »
         this.loadAvailable();
       },
-      error: err => (this.pluginError = apiError(err)),
+      error: err => {
+        this.loadingPlugins = false;
+        this.pluginError = apiError(err);
+      },
     });
   }
 

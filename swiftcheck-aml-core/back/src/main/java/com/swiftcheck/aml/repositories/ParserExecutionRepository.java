@@ -21,6 +21,10 @@ public interface ParserExecutionRepository extends JpaRepository<ParserExecution
     /** Toutes les exécutions, de la plus récente à la plus ancienne. */
     Page<ParserExecution> findAllByOrderByStartedAtDesc(Pageable pageable);
 
+    /** Dernière exécution de chacun des parsers donnés, en une seule requête (liste des parsers). */
+    @org.springframework.data.jpa.repository.Query("select e from ParserExecution e where e.parser.id in :ids and e.id = (select max(x.id) from ParserExecution x where x.parser.id = e.parser.id)")
+    List<ParserExecution> findLastOfParsers(@org.springframework.data.repository.query.Param("ids") Collection<Long> ids);
+
     /** Dernière exécution d'un parser (quel que soit son statut). */
     Optional<ParserExecution> findFirstByParserIdOrderByStartedAtDesc(long parserId);
 

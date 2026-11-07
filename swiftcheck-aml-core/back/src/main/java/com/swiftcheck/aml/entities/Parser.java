@@ -149,6 +149,7 @@ public class Parser {
      * Vide pour une liste de sanctions. Modifiée par {@link #replaceCoverage}.
      */
     @Setter(AccessLevel.NONE)
+    @org.hibernate.annotations.BatchSize(size = 200)
     @OneToMany(mappedBy = "parser", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private List<PepFunctionParser> coverage = new ArrayList<>();
 

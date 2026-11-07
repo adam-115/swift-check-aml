@@ -18,6 +18,10 @@ public interface ParserTestRepository extends JpaRepository<ParserTest, Long> {
 
     Page<ParserTest> findByParserIdOrderByStartedAtDesc(long parserId, Pageable pageable);
 
+    /** Dernier test de chacun des parsers donnés, en une seule requête (liste des parsers). */
+    @org.springframework.data.jpa.repository.Query("select t from ParserTest t where t.parser.id in :ids and t.id = (select max(x.id) from ParserTest x where x.parser.id = t.parser.id)")
+    List<ParserTest> findLastOfParsers(@org.springframework.data.repository.query.Param("ids") java.util.Collection<Long> ids);
+
     /** Dernier test d'un parser, affiché dans la liste des parsers. */
     Optional<ParserTest> findFirstByParserIdOrderByStartedAtDesc(long parserId);
 
