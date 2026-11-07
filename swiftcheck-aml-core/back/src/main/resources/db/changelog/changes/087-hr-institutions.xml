@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Croatie, institutions : président de la République, direction de la Banque nationale de Croatie et juges de la Cour
+    constitutionnelle, d'après predsjednik.hr, hnb.hr et usud.hr (suite de 085).
+
+    Non couvert, avec le motif :
+      - Cour des comptes (Državni ured za reviziju, revizija.hr) et Cour suprême (vsrh.hr) : sites joignables, pages des titulaires non
+        lues dans ce lot ;
+      - Cour constitutionnelle : 10 juges lus (dont le président) sur les 13 postes : les autres entrées de la page n'ont pas le format
+        « NOM, PRÉNOM (année) » et ne sont pas reprises ;
+      - anciens présidents, anciens gouverneurs (la page « Bivši guverneri » existe), anciens juges : non lus ;
+      - Conseil de la HNB hors direction (membres du conseil) : non publié sur ces pages.
+-->
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="087-parser-hr-pep-institutions" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Croatie – Président, Banque nationale et Cour constitutionnelle',
+                'Président de la République, gouverneur, gouverneure adjointe et vice-gouverneurs de la Banque nationale de Croatie, juges de la Cour constitutionnelle, d''après leurs pages officielles (catégories HR-a, HR-d et HR-e)',
+                'hr_pep_institutions', 'PEP', 'https://www.predsjednik.hr/predsjednik/',
+                'hr-pep-institutions', 'D:/test parser 2/plugins/swiftcheck-aml-hr-pep-institutions-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'WEB_PAGE',
+                NULL,
+                '{"keys": "president,hnb-governor,hnb-deputy,hnb-vice,constitutional-court,constitutional-court-president", "delayMs": "2000"}',
+                168, 12,
+                'Sites officiels de la Présidence, de la HNB et de la Cour constitutionnelle : citer la source', 'Predsjednik Republike Hrvatske, Hrvatska narodna banka, Ustavni sud Republike Hrvatske',
+                'Six pages, 17 personnes, toutes avec naissance : président Zoran Milanović (1966-10-30, première élection 2020), gouverneur Ante Žigman (nommé le 19/06/2026), gouverneure adjointe Sandra Švaljek, 4 vice-gouverneurs, 9 juges de la Cour constitutionnelle et son président (année de naissance seule). Les commentaires HTML de la page du gouverneur sont retirés (elle garde en commentaire la fiche de l''ancien gouverneur).', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'PARTIAL', FALSE,
+                   'Le président de la République en fonction, avec naissance et année de première élection.',
+                   'Anciens présidents non couverts.'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'HR-a' AND f.label = 'Président de la République' AND p.dataset_name = 'hr_pep_institutions';
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'PARTIAL', FALSE,
+                   'Le président et 9 juges de la Cour constitutionnelle (année de naissance).',
+                   'Environ 3 des 13 postes de juges non repris ; Cour suprême non couverte ; anciens juges non couverts.'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'HR-d' AND f.label = 'Juge de la Cour suprême ou constitutionnelle' AND p.dataset_name = 'hr_pep_institutions';
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'PARTIAL', FALSE,
+                   'Le gouverneur, la gouverneure adjointe et les quatre vice-gouverneurs de la Banque nationale, avec naissance et date de nomination.',
+                   'Cour des comptes non couverte ; anciens gouverneurs non couverts.'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'HR-e' AND f.label = 'Membre de la direction de la banque centrale ou de la Cour des comptes' AND p.dataset_name = 'hr_pep_institutions';
+        ]]></sql>
+    </changeSet>
+
+</databaseChangeLog>

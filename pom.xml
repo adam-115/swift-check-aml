@@ -194,6 +194,7 @@
         <module>swiftcheck-aml-plugins/pep/croatia/swiftcheck-aml-hr-pep-eu-commission</module>
         <module>swiftcheck-aml-plugins/pep/croatia/swiftcheck-aml-hr-pep-sabor</module>
         <module>swiftcheck-aml-plugins/pep/croatia/swiftcheck-aml-hr-pep-government</module>
+        <module>swiftcheck-aml-plugins/pep/croatia/swiftcheck-aml-hr-pep-institutions</module>
         <module>swiftcheck-aml-plugins/pep/romania/swiftcheck-aml-ro-pep-europarl</module>
         <module>swiftcheck-aml-plugins/pep/romania/swiftcheck-aml-ro-pep-eu-commission</module>
         <module>swiftcheck-aml-plugins/pep/romania/swiftcheck-aml-ro-pep-government</module>

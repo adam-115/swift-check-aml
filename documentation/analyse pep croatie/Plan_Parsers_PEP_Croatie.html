@@ -16,13 +16,15 @@ th{background:#e8eef5}.ok{color:#14702e;font-weight:600}.ko{color:#a32020;font-w
 <tr><td>hr_pep_government</td><td>vlada.gov.hr (1 page)</td><td>Premier ministre, vice-premiers ministres et ministres (HR-a)</td><td>19 personnes</td></tr>
 <tr><td>hr_pep_europarl</td><td>API du Parlement européen</td><td>Députés européens élus en Croatie (HR-EU)</td><td>12 personnes (8 avec naissance ; 1 sorti hors fenêtre)</td></tr>
 <tr><td>hr_pep_eu_commission</td><td>commission.europa.eu</td><td>Membre croate de la Commission européenne (HR-EU)</td><td>1 personne (Dubravka Šuica)</td></tr>
+<tr><td>hr_pep_institutions</td><td>predsjednik.hr, hnb.hr, usud.hr (6 pages)</td><td>Président de la République, direction de la Banque nationale (gouverneur, adjointe, 4 vice-gouverneurs), juges et président de la Cour constitutionnelle (HR-a, HR-d, HR-e)</td><td>17 personnes, toutes avec naissance (année seule pour les juges)</td></tr>
 </table>
-<p>Chaque parser télécharge la source à chaque exécution ; Wikidata n'est pas utilisé (pas de photos). Migration Liquibase 085 (pays HR, catégories, fonctions, parsers), validée sur une base jetable.</p>
+<p>Chaque parser télécharge la source à chaque exécution ; Wikidata n'est pas utilisé (pas de photos). Migrations Liquibase 085 (pays HR, catégories, fonctions, parsers) et 087 (institutions), validées sur une base jetable.</p>
 
 <h2>2. Sources non couvertes</h2>
 <table>
 <tr><th>Périmètre</th><th>Situation</th></tr>
-<tr><td>Président de la République (predsjednik.hr), banque centrale (hnb.hr), Cour des comptes (revizija.hr, csr.hr)</td><td>Sites joignables : pages à étudier dans un lot suivant</td></tr>
+<tr><td>Cour des comptes (revizija.hr), Cour suprême (vsrh.hr)</td><td>Sites joignables : pages des titulaires non lues dans ce lot</td></tr>
+<tr><td>Cour constitutionnelle</td><td>10 juges lus sur 13 postes : les autres entrées n'ont pas le format « NOM, PRÉNOM (année) »</td></tr>
 <tr><td>Anciens représentants et ministres</td><td class="ko">Les pages ne listent que les titulaires ; ni naissance ni décès publiés</td></tr>
 <tr><td>Ambassadeurs, officiers généraux, entreprises d'État, partis</td><td class="ko">Aucune liste ouverte vérifiée</td></tr>
 </table>
