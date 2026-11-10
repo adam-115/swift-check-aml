@@ -143,5 +143,6 @@
     <include file="db/changelog/changes/116-ro-stage3-enterprises-orgs-rca-finalization.xml" />
     <include file="db/changelog/changes/117-gr-coverage-finalization.xml" />
     <include file="db/changelog/changes/118-downgrade-seed-parsers-to-partial.xml" />
+    <include file="db/changelog/changes/119-fr-coverage-gaps-update.xml" />
 
 </databaseChangeLog>

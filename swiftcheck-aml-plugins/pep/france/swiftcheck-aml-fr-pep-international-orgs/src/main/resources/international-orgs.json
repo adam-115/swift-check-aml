@@ -126,12 +126,61 @@
     { "key": "oif", "name": "Organisation internationale de la Francophonie (OIF)", "pending": "Secrétaire générale, administrateur, cabinet et 18 directeurs : page de l'organigramme introuvable (404)." },
     { "key": "ccnr", "name": "Commission centrale pour la navigation du Rhin (CCNR)", "pending": "Secrétaire générale, adjointe et ingénieur en chef : le secrétariat n'est pas nommé dans les pages lues." },
     { "key": "cicr", "name": "Comité international de la Croix-Rouge (délégation régionale à Paris)", "pending": "Chef de délégation régionale et adjoint : pas de page nominative." },
-    { "key": "icao-eurnat", "name": "Organisation de l'aviation civile internationale, Bureau Europe et Atlantique Nord", "pending": "Directeur régional et adjoint : page du bureau régional introuvable (404)." },
+    {
+      "key": "icao-eurnat",
+      "name": "Organisation de l'aviation civile internationale, Bureau Europe et Atlantique Nord",
+      "pages": [
+        {
+          "url": "https://www.icao.int/EURNAT",
+          "functions": [
+            { "label": "Directeur régional", "pattern": "^{NAME}\\s*\\nEUR/NAT Regional Director$" }
+          ]
+        }
+      ],
+      "pending": "Directeur régional adjoint : non mentionné dans la page principale."
+    },
     { "key": "wfp-france", "name": "Programme alimentaire mondial des Nations unies pour la France et Monaco", "pending": "Directeur et représentant en France : pas de page nominative." },
-    { "key": "iif", "name": "Institut international du froid (IIF)", "pending": "Directeur général et adjoint : la page de l'équipe ne les nomme pas dans son texte." },
+    {
+      "key": "iif",
+      "name": "Institut international du froid (IIF)",
+      "pages": [
+        {
+          "url": "https://iifiir.org/fr/presentation-de-l-iif",
+          "functions": [
+            { "label": "Directeur général", "pattern": "^{NAME}\\s*\\nDirectrice Générale$" }
+          ]
+        }
+      ],
+      "pending": "Directeur général adjoint : la page de l'équipe ne les nomme pas dans son texte."
+    },
     { "key": "beac", "name": "Banque des États de l'Afrique centrale (BEAC)", "pending": "Gouverneur, vice-gouverneur, secrétaire général, directeurs généraux : organigramme en image, page du gouvernement de la banque introuvable." },
-    { "key": "bceao", "name": "Banque centrale des États de l'Afrique de l'Ouest (représentation en France)", "pending": "Adjoint au représentant chargé de l'intérim : pas de page nominative." },
-    { "key": "imf", "name": "Fonds monétaire international (bureaux de Paris et Bruxelles)", "pending": "Directeur et assistant : le site refuse l'accès aux robots (HTTP 403)." },
+    {
+      "key": "bceao",
+      "name": "Banque centrale des États de l'Afrique de l'Ouest (représentation en France)",
+      "pages": [
+        {
+          "url": "https://www.bceao.int/fr/content/le-gouverneur",
+          "photo": "og:image",
+          "functions": [
+            { "label": "Gouverneur", "pattern": "^{NAME}, né le.*?est le Gouverneur de la Banque Centrale" }
+          ]
+        }
+      ],
+      "pending": "Adjoint au représentant chargé de l'intérim : pas de page nominative autonome."
+    },
+    {
+      "key": "imf",
+      "name": "Fonds monétaire international (bureaux de Paris et Bruxelles)",
+      "pages": [
+        {
+          "url": "https://www.imf.org/en/About/senior-officials",
+          "functions": [
+            { "label": "Directeur des bureaux européens", "pattern": "^Offices in Europe Director\\s*\\n{NAME}$" }
+          ]
+        }
+      ],
+      "pending": "Assistant du directeur : non cité comme PPE de premier rang."
+    },
     { "key": "nspa", "name": "Agence OTAN de soutien et d'acquisition", "none": true },
     { "key": "unep", "name": "Programme des Nations unies pour l'environnement", "none": true },
     { "key": "iho", "name": "Organisation hydrographique internationale", "none": true }

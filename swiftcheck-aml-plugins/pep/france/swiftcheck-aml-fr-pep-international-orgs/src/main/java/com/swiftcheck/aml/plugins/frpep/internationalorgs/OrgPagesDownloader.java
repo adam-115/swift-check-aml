@@ -35,8 +35,15 @@ class OrgPagesDownloader {
 
     /** @return les pages qui n'ont pas pu être lues (« clé : raison ») */
     List<String> download(List<Organization> orgs, long delayMs, Path rawDir) throws IOException, InterruptedException {
+        return download(orgs, delayMs, null, rawDir);
+    }
+
+    /** @return les pages qui n'ont pas pu être lues (« clé : raison ») */
+    List<String> download(List<Organization> orgs, long delayMs, String customUserAgent, Path rawDir)
+            throws IOException, InterruptedException {
         Files.createDirectories(rawDir);
         List<String> failed = new ArrayList<>();
+        String userAgent = (customUserAgent != null && !customUserAgent.isBlank()) ? customUserAgent.trim() : USER_AGENT;
         boolean first = true;
         for (Organization org : orgs) {
             for (int i = 0; i < org.pages().size(); i++) {
@@ -47,7 +54,7 @@ class OrgPagesDownloader {
                 first = false;
                 try {
                     HttpRequest request = HttpRequest.newBuilder(URI.create(url)).timeout(Duration.ofSeconds(60))
-                            .header("User-Agent", USER_AGENT).header("Accept-Language", "fr,en;q=0.8").GET().build();
+                            .header("User-Agent", userAgent).header("Accept-Language", "fr,en;q=0.8").GET().build();
                     HttpResponse<String> response = http.send(request,
                             HttpResponse.BodyHandlers.ofString(StandardCharsets.UTF_8));
                     if (response.statusCode() != 200) {

@@ -104,6 +104,8 @@ public class FrPepJorfParser implements Iparser {
                 case GOUVERNEMENT -> governmentMaxYears;
                 // Mandats de cinq ans au directoire et au conseil de surveillance d'un grand port maritime
                 case ENTREPRISE_PUBLIQUE -> enterpriseMaxYears;
+                // Mandats de six ans pour le gouverneur et les membres du Conseil général de la Banque de France
+                case BANQUE_DE_FRANCE -> 6;
                 default -> memberMaxYears;
             };
         }
@@ -146,12 +148,18 @@ public class FrPepJorfParser implements Iparser {
                     role("conseill\\w* referendaire\\w* en service extraordinaire",
                             "Conseiller référendaire en service extraordinaire à la Cour des comptes"),
                     role("conseill\\w* referendaire", "Conseiller référendaire à la Cour des comptes"),
-                    role("auditeur|auditrice", "Auditeur à la Cour des comptes")));
+                    role("auditeur|auditrice", "Auditeur à la Cour des comptes")),
+            Institution.BANQUE_DE_FRANCE, List.of(
+                    role("gouverneur\\w* de la banque de france", "Gouverneur de la Banque de France"),
+                    role("premier\\w* sous-gouverneur\\w* de la banque de france", "Premier sous-gouverneur de la Banque de France"),
+                    role("sous-gouverneur\\w* de la banque de france", "Sous-gouverneur de la Banque de France"),
+                    role("membre du conseil general", "Membre du Conseil général de la Banque de France")));
 
     private static final Map<Institution, String> FALLBACK_LABELS = Map.of(
             Institution.CONSEIL_ETAT, "Membre du Conseil d'État",
             Institution.COUR_CASSATION, "Magistrat de la Cour de cassation",
-            Institution.COUR_COMPTES, "Magistrat de la Cour des comptes");
+            Institution.COUR_COMPTES, "Magistrat de la Cour des comptes",
+            Institution.BANQUE_DE_FRANCE, "Membre du Conseil général de la Banque de France");
 
     private static final Map<Institution, String> POSITION_TOPICS = Map.of(
             Institution.CONSEIL_ETAT, "gov.judicial",
@@ -161,7 +169,8 @@ public class FrPepJorfParser implements Iparser {
             Institution.GOUVERNEMENT, "gov.national",
             Institution.ENTREPRISE_PUBLIQUE, "gov.soe",
             Institution.CHEF_ETAT_MAJOR_MARINE, "gov.national",
-            Institution.SECRETAIRE_GENERAL_CC, "gov.judicial");
+            Institution.SECRETAIRE_GENERAL_CC, "gov.judicial",
+            Institution.BANQUE_DE_FRANCE, "gov.financial");
 
     /** Poste à titulaire unique dans une entreprise publique : la nomination d'un successeur clôt le mandat précédent. */
     private static final Pattern SINGLE_HOLDER = Pattern.compile(
@@ -351,6 +360,19 @@ public class FrPepJorfParser implements Iparser {
                         // désigné.
                         for (Mandate m : mandates) {
                             if (m.open && m.institution == Institution.ENTREPRISE_PUBLIQUE && post.equals(m.post)
+                                    && !m.personKey.equals(person)) {
+                                close(m, e.date());
+                            }
+                        }
+                    }
+                    if (e.institution() == Institution.BANQUE_DE_FRANCE && e.function() != null
+                            && JorfArticles.fold(e.function()).contains("gouverneur")
+                            && !JorfArticles.fold(e.function()).contains("sous-gouverneur")) {
+                        // La nomination d'un nouveau gouverneur clôt le mandat du précédent gouverneur
+                        for (Mandate m : mandates) {
+                            if (m.open && m.institution == Institution.BANQUE_DE_FRANCE
+                                    && m.function != null && JorfArticles.fold(m.function).contains("gouverneur")
+                                    && !JorfArticles.fold(m.function).contains("sous-gouverneur")
                                     && !m.personKey.equals(person)) {
                                 close(m, e.date());
                             }

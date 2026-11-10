@@ -1,11 +1,19 @@
 package com.swiftcheck.aml.plugins.frpep.internationalorgs;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.regex.Pattern;
 
 import com.fasterxml.jackson.databind.JsonNode;
@@ -47,12 +55,61 @@ final class OrgConfig {
     private OrgConfig() {
     }
 
-    static List<Organization> load(String configFile) throws IOException {
+    static List<Organization> load() throws IOException {
+        return loadDefault();
+    }
+
+    static List<Organization> load(Map<String, String> parameters) throws IOException {
+        if (parameters != null) {
+            // 1. JSON brut directement passé dans parameters (ex: configJson ou parameters.config)
+            String configJson = parameters.get("configJson");
+            if (configJson != null && !configJson.isBlank()) {
+                try (InputStream in = new ByteArrayInputStream(configJson.getBytes(StandardCharsets.UTF_8))) {
+                    return parse(in);
+                }
+            }
+            // 2. URL distante où télécharger la configuration dynamique
+            String configUrl = parameters.get("configUrl");
+            if (configUrl != null && !configUrl.isBlank()) {
+                try {
+                    HttpClient client = HttpClient.newBuilder().connectTimeout(Duration.ofSeconds(15)).build();
+                    HttpRequest req = HttpRequest.newBuilder(URI.create(configUrl.trim()))
+                            .timeout(Duration.ofSeconds(20))
+                            .header("Accept", "application/json")
+                            .header("User-Agent", "Mozilla/5.0")
+                            .GET().build();
+                    HttpResponse<String> resp = client.send(req, HttpResponse.BodyHandlers.ofString(StandardCharsets.UTF_8));
+                    if (resp.statusCode() == 200) {
+                        try (InputStream in = new ByteArrayInputStream(resp.body().getBytes(StandardCharsets.UTF_8))) {
+                            return parse(in);
+                        }
+                    }
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                    throw new IOException("Téléchargement interrompu depuis configUrl : " + configUrl, e);
+                }
+            }
+            // 3. Fichier externe si précisé
+            String configFile = parameters.get("configFile");
+            if (configFile != null && !configFile.isBlank()) {
+                try (InputStream in = Files.newInputStream(Path.of(configFile.trim()))) {
+                    return parse(in);
+                }
+            }
+        }
+        return loadDefault();
+    }
+
+    static List<Organization> loadFromFile(String configFile) throws IOException {
         if (configFile != null && !configFile.isBlank()) {
             try (InputStream in = Files.newInputStream(Path.of(configFile.trim()))) {
                 return parse(in);
             }
         }
+        return loadDefault();
+    }
+
+    private static List<Organization> loadDefault() throws IOException {
         try (InputStream in = OrgConfig.class.getResourceAsStream(RESOURCE)) {
             if (in == null) {
                 throw new IOException("Configuration " + RESOURCE + " absente du plugin");

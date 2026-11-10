@@ -62,8 +62,9 @@ public class FrPepInternationalOrgsParser implements Iparser {
     @Override
     public ParserResult parse(ParserContext ctx) throws Exception {
         Map<String, String> p = ctx.parameters();
-        List<Organization> orgs = OrgConfig.load(p.get("configFile"));
-        List<String> failed = new OrgPagesDownloader().download(orgs, integer(p, "delayMs", 1000), ctx.rawDir());
+        List<Organization> orgs = OrgConfig.load(p);
+        String customUserAgent = p != null ? p.get("userAgent") : null;
+        List<String> failed = new OrgPagesDownloader().download(orgs, integer(p, "delayMs", 1000), customUserAgent, ctx.rawDir());
         Files.writeString(ctx.rawDir().resolve(FAILED_FILE), String.join("\n", failed), StandardCharsets.UTF_8);
 
         FtmDatasetBuilder dataset = new FtmDatasetBuilder(ID_PREFIX, TOPIC);
@@ -76,7 +77,7 @@ public class FrPepInternationalOrgsParser implements Iparser {
     @Override
     public List<SourceRecord> readSourceRecords(ParserContext ctx) throws Exception {
         FtmDatasetBuilder dataset = new FtmDatasetBuilder(ID_PREFIX, TOPIC);
-        convert(OrgConfig.load(ctx.parameters().get("configFile")), ctx.rawDir(), dataset);
+        convert(OrgConfig.load(ctx.parameters()), ctx.rawDir(), dataset);
         List<SourceRecord> records = new ArrayList<>();
         for (FtmEntity entity : dataset.entities()) {
             if ("Person".equals(entity.getSchema())) {

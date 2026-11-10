@@ -46,7 +46,8 @@ final class JorfArticles {
                     + "|renouvellement|maintien");
     private static final Pattern TITLE_INSTITUTION = Pattern.compile(
             "conseil d'etat|cour des comptes|cour de cassation|\\(magistrature\\)|ambassad|representante? permanente?"
-                    + "|grand port (?:fluvio-)?maritime|officiers generaux|secretaire generale? du conseil constitutionnel");
+                    + "|grand port (?:fluvio-)?maritime|officiers generaux|secretaire generale? du conseil constitutionnel"
+                    + "|banque de france");
     /** Textes qui citent une haute institution sans concerner ses membres. */
     private static final Pattern TITLE_EXCLUDED = Pattern.compile(
             "cour nationale du droit d'asile|attache|jury|titularisation|ecole nationale de la magistrature"
@@ -63,7 +64,8 @@ final class JorfArticles {
     private static final Pattern CONTENT_INSTITUTION = Pattern.compile(
             "conseil\\w* d'etat|cour des comptes|cour de cassation|ambassad|representante? permanente?"
                     + "|grand port (?:fluvio-)?maritime|chef d'etat-major de la marine"
-                    + "|secretaire generale? du conseil constitutionnel");
+                    + "|secretaire generale? du conseil constitutionnel"
+                    + "|banque de france");
 
     private static final Pattern CONTEXT = Pattern.compile(
             "<TEXTE cid=\"([^\"]*)\" date_publi=\"([^\"]*)\" date_signature=\"([^\"]*)\" nature=\"([^\"]*)\"");

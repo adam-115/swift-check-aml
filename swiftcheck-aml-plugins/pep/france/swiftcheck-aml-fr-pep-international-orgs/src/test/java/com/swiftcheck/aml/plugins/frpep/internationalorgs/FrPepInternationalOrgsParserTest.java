@@ -30,7 +30,7 @@ class FrPepInternationalOrgsParserTest {
     private final FrPepInternationalOrgsParser parser = new FrPepInternationalOrgsParser();
 
     private static List<Organization> config() throws Exception {
-        return OrgConfig.load(null);
+        return OrgConfig.load();
     }
 
     private FtmDatasetBuilder convert() throws Exception {
@@ -86,7 +86,7 @@ class FrPepInternationalOrgsParserTest {
         // 21 organisations de la liste française (JO C/2023/724), dont 3 sans fonction PEP
         assertThat(orgs).hasSize(21);
         assertThat(orgs.stream().filter(Organization::none)).hasSize(3);
-        assertThat(orgs.stream().filter(o -> !o.pages().isEmpty())).hasSize(9);
+        assertThat(orgs.stream().filter(o -> !o.pages().isEmpty())).hasSize(13);
     }
 
     @Test

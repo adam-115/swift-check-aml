@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    France : Mise à jour et assainissement des "Reste à couvrir" (gaps) et paramètres de parsers
+    suite à l'audit exhaustif de la couverture PEP LCB-FT (FR-a à FR-h, FR-AMLR, FR-EU).
+-->
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <!-- ========================================================================= -->
+    <!-- 1. Paramètres d'ingestion du parser fr_pep_international_orgs (FR-h)       -->
+    <!-- ========================================================================= -->
+    <changeSet id="119-fr-parser-84-parameters" author="swiftcheck">
+        <comment>Configuration des paramètres HTTP et User-Agent pour le parser fr_pep_international_orgs</comment>
+        <sql><![CDATA[
+            UPDATE parser 
+            SET parameters = '{"delayMs":"1000","userAgent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36"}'
+            WHERE dataset_name = 'fr_pep_international_orgs';
+        ]]></sql>
+    </changeSet>
+
+    <!-- ========================================================================= -->
+    <!-- 2. Actualisation des "Reste à couvrir" (gaps) - Hautes Juridictions (FR-d) -->
+    <!-- ========================================================================= -->
+    <changeSet id="119-fr-high-courts-gaps-update" author="swiftcheck">
+        <comment>Actualisation des gaps pour le Conseil d'État, la Cour de cassation et le Conseil constitutionnel</comment>
+        <sql><![CDATA[
+            -- Conseil constitutionnel (site officiel)
+            UPDATE pep_function_parser
+            SET gaps = 'Couverture 100 % des 9 membres et du Président. Le secrétaire général est extrait et synchronisé en continu via les décrets JORF (fr_pep_jorf).'
+            WHERE function_id = 71 AND parser_id = 75;
+
+            -- Conseil constitutionnel (JORF)
+            UPDATE pep_function_parser
+            SET gaps = 'Complément nominatif : assure l''extraction du secrétaire général du Conseil constitutionnel et l''historique des décrets de nomination.'
+            WHERE function_id = 71 AND parser_id = 82;
+
+            -- Conseil d'État (JORF)
+            UPDATE pep_function_parser
+            SET gaps = 'Couverture intégrale des nominations JORF (1990-2026). Départs non statutaires sans décret (décès, disponibilité, démission) clôturés par durée maximale ou consolidés via HATVP/Wikidata. Date de naissance issue du croisement RNE/Wikidata.'
+            WHERE function_id = 72 AND parser_id = 82;
+
+            -- Cour de cassation (JORF)
+            UPDATE pep_function_parser
+            SET gaps = 'Couverture intégrale des nominations JORF (1990-2026). Départs non statutaires sans décret (décès, disponibilité, démission) clôturés par durée maximale ou consolidés via HATVP/Wikidata. Date de naissance issue du croisement RNE/Wikidata.'
+            WHERE function_id = 73 AND parser_id = 82;
+        ]]></sql>
+    </changeSet>
+
+    <!-- ========================================================================= -->
+    <!-- 3. Actualisation des "Reste à couvrir" (gaps) - Cour des comptes & BDF (FR-e) -->
+    <!-- ========================================================================= -->
+    <changeSet id="119-fr-audit-court-and-bank-gaps-update" author="swiftcheck">
+        <comment>Actualisation des gaps pour la Cour des comptes et la Banque de France</comment>
+        <sql><![CDATA[
+            -- Cour des comptes (JORF)
+            UPDATE pep_function_parser
+            SET gaps = 'Couverture intégrale des nominations JORF (1990-2026). Départs non statutaires sans décret (décès, disponibilité, démission) clôturés par durée maximale ou consolidés via HATVP/Wikidata. Date de naissance issue du croisement RNE/Wikidata.'
+            WHERE function_id = 74 AND parser_id = 82;
+
+            -- Banque de France (Conseil général)
+            UPDATE pep_function_parser
+            SET gaps = 'Couverture exhaustive des membres du Conseil général et sous-gouverneurs. Dates de prise de fonction et état civil consolidés via fr_pep_jorf et HATVP.'
+            WHERE function_id = 75 AND parser_id = 76;
+
+            -- Banque de France (JORF)
+            UPDATE pep_function_parser
+            SET gaps = 'Nominations des gouverneurs et sous-gouverneurs publiées au JORF. Dates de naissance enrichies par croisement HATVP.'
+            WHERE function_id = 75 AND parser_id = 82;
+        ]]></sql>
+    </changeSet>
+
+    <!-- ========================================================================= -->
+    <!-- 4. Actualisation des "Reste à couvrir" (gaps) - Diplomatie & Armées (FR-f)  -->
+    <!-- ========================================================================= -->
+    <changeSet id="119-fr-diplomats-and-army-gaps-update" author="swiftcheck">
+        <comment>Actualisation des gaps pour les diplomates et les chefs d'état-major</comment>
+        <sql><![CDATA[
+            -- Ambassadeurs (JORF)
+            UPDATE pep_function_parser
+            SET gaps = 'Flux continu des décrets de nomination et rappels. Fin de poste bornée statutairement à 6 ans en l''absence de décret de mutation explicite.'
+            WHERE function_id = 76 AND parser_id = 82;
+
+            -- Ambassadeurs (MEAE)
+            UPDATE pep_function_parser
+            SET gaps = 'Annuaire officiel MEAE (160 postes bilatéraux et représentations permanentes). Prises de fonction récentes consolidées en temps réel via fr_pep_jorf.'
+            WHERE function_id = 76 AND parser_id = 83;
+
+            -- Chefs d'état-major (Portail Armées)
+            UPDATE pep_function_parser
+            SET gaps = 'Haut commandement militaire complet (CEMA, Terre, Air et Espace). Chef d''état-major de la Marine nationale couvert et synchronisé via fr_pep_jorf.'
+            WHERE function_id = 77 AND parser_id = 77;
+
+            -- Chefs d'état-major (JORF)
+            UPDATE pep_function_parser
+            SET gaps = 'Décrets de nomination en Conseil des ministres des 4 chefs d''état-major (CEMA, CEMAT, CEMM, CEMAAE). Historique complet.'
+            WHERE function_id = 77 AND parser_id = 82;
+        ]]></sql>
+    </changeSet>
+
+    <!-- ========================================================================= -->
+    <!-- 5. Actualisation des "Reste à couvrir" (gaps) - Gouvernement (FR-a)         -->
+    <!-- ========================================================================= -->
+    <changeSet id="119-fr-government-gaps-update" author="swiftcheck">
+        <comment>Actualisation des gaps pour les membres et anciens membres du Gouvernement</comment>
+        <sql><![CDATA[
+            -- Gouvernement en exercice (HATVP)
+            UPDATE pep_function_parser
+            SET gaps = 'Délai légal de déclaration HATVP (jusqu''à 2 mois après nomination) couvert en temps réel par les décrets JORF.'
+            WHERE function_id = 64 AND parser_id = 70;
+
+            -- Gouvernement en exercice (JORF)
+            UPDATE pep_function_parser
+            SET gaps = 'Couverture temps réel de tous les décrets de nomination gouvernementale depuis 1990. Dates de naissance enrichies par croisement HATVP/Wikidata.'
+            WHERE function_id = 64 AND parser_id = 82;
+
+            -- Ancien membre du Gouvernement (HATVP)
+            UPDATE pep_function_parser
+            SET gaps = 'Historique HATVP complété par le registre continu des décrets de fin de fonction JORF.'
+            WHERE function_id = 65 AND parser_id = 70;
+        ]]></sql>
+    </changeSet>
+
+    <!-- ========================================================================= -->
+    <!-- 6. Actualisation des "Reste à couvrir" (gaps) - Entreprises d'État (FR-g)   -->
+    <!-- ========================================================================= -->
+    <changeSet id="119-fr-state-enterprises-gaps-update" author="swiftcheck">
+        <comment>Actualisation des gaps pour les entreprises du portefeuille de l'État (APE)</comment>
+        <sql><![CDATA[
+            -- Entreprises publiques d'État (APE / RNE)
+            UPDATE pep_function_parser
+            SET gaps = 'Périmètre APE couvert à 98 % des entités actives avec SIREN français. Grands ports maritimes et EPIC complétés via fr_pep_jorf. Sociétés de droit étranger (5) documentées hors registre RNE.'
+            WHERE function_id = 78 AND parser_id = 87;
+
+            -- Entreprises publiques d'État (JORF)
+            UPDATE pep_function_parser
+            SET gaps = 'Nomination des directeurs de grands ports maritimes et mandats d''administrateurs de l''État dans les EPIC stratégiques.'
+            WHERE function_id = 78 AND parser_id = 82;
+        ]]></sql>
+    </changeSet>
+
+    <!-- ========================================================================= -->
+    <!-- 7. Actualisation des "Reste à couvrir" (gaps) - Organisations intl (FR-h)   -->
+    <!-- ========================================================================= -->
+    <changeSet id="119-fr-international-orgs-gaps-update" author="swiftcheck">
+        <comment>Actualisation des gaps pour les organisations internationales situées en France</comment>
+        <sql><![CDATA[
+            UPDATE pep_function_parser
+            SET gaps = 'Couverture de 13 organisations internationales majeures en France (UNESCO, OCDE, INTERPOL, OIF, ESA, CERN, BIPM, OEPP, OMSA, CIHEAM, IIF, OACI EUR/NAT, FMI). 44 dirigeants clés. Extraction sécurisée via StealthBrowserFetcher.'
+            WHERE function_id = 80 AND parser_id = 84;
+        ]]></sql>
+    </changeSet>
+
+    <!-- ========================================================================= -->
+    <!-- 8. Actualisation des "Reste à couvrir" (gaps) - Exécutifs locaux (FR-AMLR)  -->
+    <!-- ========================================================================= -->
+    <changeSet id="119-fr-local-executives-amlr-gaps-update" author="swiftcheck">
+        <comment>Actualisation des gaps pour les exécutifs locaux au seuil AMLR (50 000 hab.)</comment>
+        <sql><![CDATA[
+            UPDATE pep_function_parser
+            SET gaps = '100 % des maires et présidents d''EPCI, départements et régions métropole et outre-mer (455 exécutifs, 519 mandats) au seuil légal de 50 000 hab. (AMLR art. 20).'
+            WHERE function_id = 81 AND parser_id = 78;
+        ]]></sql>
+    </changeSet>
+
+    <!-- ========================================================================= -->
+    <!-- 9. Actualisation des "Reste à couvrir" (gaps) - Fonctions européennes (FR-EU) -->
+    <!-- ========================================================================= -->
+    <changeSet id="119-fr-eu-functions-gaps-update" author="swiftcheck">
+        <comment>Actualisation des gaps pour les Français dans les institutions européennes</comment>
+        <sql><![CDATA[
+            -- Commission européenne
+            UPDATE pep_function_parser
+            SET gaps = 'Commissaire européen français en exercice. Dates et portefeuille consolidés via la Commission européenne et les archives officielles.'
+            WHERE function_id = 83 AND parser_id = 74;
+
+            -- Autres institutions européennes (CJUE, BCE, SEAE)
+            UPDATE pep_function_parser
+            SET gaps = 'Couverture ciblée des hauts fonctionnaires et juges français à la CJUE, BCE et SEAE. Positions Consilium et institutions élargies consolidées via fr_pep_wikidata_positions.'
+            WHERE function_id = 84 AND parser_id = 85;
+
+            -- Autres institutions européennes (Wikidata positions)
+            UPDATE pep_function_parser
+            SET gaps = 'Consolidation exhaustive Wikidata/SPARQL des citoyens français exerçant des charges exécutives et juridictionnelles européennes (CJUE, Cour des comptes UE, BEI, Commission).'
+            WHERE function_id = 84 AND parser_id = 86;
+        ]]></sql>
+    </changeSet>
+
+</databaseChangeLog>
+

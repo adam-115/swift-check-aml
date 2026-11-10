@@ -69,7 +69,9 @@ final class NominationReader {
         /** Chef d'état-major de la Marine (« M. le vice-amiral d'escadre X est nommé chef d'état-major de la marine »). */
         CHEF_ETAT_MAJOR_MARINE("chef-etat-major-marine", "Chef d'état-major de la Marine"),
         /** Secrétaire général du Conseil constitutionnel, nommé par décret du Président de la République. */
-        SECRETAIRE_GENERAL_CC("secretaire-general-conseil-constitutionnel", "Conseil constitutionnel");
+        SECRETAIRE_GENERAL_CC("secretaire-general-conseil-constitutionnel", "Conseil constitutionnel"),
+        /** Membres du Conseil général de la Banque de France (gouverneur, sous-gouverneurs, membres nommés). */
+        BANQUE_DE_FRANCE("banque-de-france", "Banque de France");
 
         final String key;
         final String label;
@@ -173,7 +175,8 @@ final class NominationReader {
             return readGovernment(article);
         }
         Institution titleInstitution = title.contains("(conseil d'etat)") ? Institution.CONSEIL_ETAT
-                : title.contains("(cour des comptes)") ? Institution.COUR_COMPTES : null;
+                : title.contains("(cour des comptes)") ? Institution.COUR_COMPTES
+                : title.contains("banque de france") ? Institution.BANQUE_DE_FRANCE : null;
         // La DILA écrit 2999-01-01 quand la date du texte est inconnue : date de publication à la place
         LocalDate textDate = parseIsoDate(article.signature());
         if (textDate == null || textDate.getYear() >= 2999) {
@@ -484,6 +487,11 @@ final class NominationReader {
         if (t.matches("^secretaire generale? du conseil constitutionnel\\b.*")) {
             return Institution.SECRETAIRE_GENERAL_CC;
         }
+        if (t.matches(".*\\b(?:gouverneur(?:e)?|sous-gouverneur(?:e)?|conseil general)\\s+(?:de|pres)\\s+(?:la )?banque de france\\b.*")
+                || t.matches("^(?:gouverneur(?:e)?|(?:premier(?:e)? )?sous-gouverneur(?:e)?)\\s+de la banque de france\\b.*")
+                || t.matches(".*membre du conseil general de la banque de france\\b.*")) {
+            return Institution.BANQUE_DE_FRANCE;
+        }
         if (t.contains("cour de cassation")) {
             return Institution.COUR_CASSATION;
         }
@@ -505,7 +513,7 @@ final class NominationReader {
                     + "|avocat\\w* general\\w*)\\b.*");
             case COUR_CASSATION -> t.matches(".*\\b(?:conseill\\w*|auditeur|auditrice|president\\w*|procureur\\w*"
                     + " general\\w*|avocat\\w* general\\w*)\\b.*|.*ladite cour.*");
-            case AMBASSADE, GOUVERNEMENT, ENTREPRISE_PUBLIQUE, CHEF_ETAT_MAJOR_MARINE, SECRETAIRE_GENERAL_CC -> false;
+            case AMBASSADE, GOUVERNEMENT, ENTREPRISE_PUBLIQUE, CHEF_ETAT_MAJOR_MARINE, SECRETAIRE_GENERAL_CC, BANQUE_DE_FRANCE -> false;
         };
         return member ? section : null;
     }

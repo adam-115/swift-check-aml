@@ -355,6 +355,42 @@ class FrPepJorfParserTest {
                 .isEqualTo("Membre du conseil de surveillance du grand port maritime de La Rochelle");
     }
 
+    @Test
+    void readsTheBanqueDeFranceGovernorAppointmentAndSuccession() {
+        Article vdgArticle = article("Décret du 1er novembre 2015 portant nomination du gouverneur de la Banque de France",
+                "Par décret du Président de la République en date du 1er novembre 2015,",
+                "M. François VILLEROY de GALHAU est nommé gouverneur de la Banque de France.");
+        Article moulinArticle = article("Décret du 29 mai 2026 portant nomination du gouverneur de la Banque de France",
+                "Par décret du Président de la République en date du 29 mai 2026,",
+                "M. Emmanuel MOULIN est nommé gouverneur de la Banque de France à compter du 2 juin 2026.");
+
+        List<Event> events = new java.util.ArrayList<>();
+        events.addAll(NominationReader.read(vdgArticle));
+        events.addAll(NominationReader.read(moulinArticle));
+
+        assertThat(events).hasSize(2);
+        assertThat(events.get(0).institution()).isEqualTo(Institution.BANQUE_DE_FRANCE);
+        assertThat(events.get(0).name()).isEqualTo("François VILLEROY de GALHAU");
+        assertThat(events.get(1).institution()).isEqualTo(Institution.BANQUE_DE_FRANCE);
+        assertThat(events.get(1).name()).isEqualTo("Emmanuel MOULIN");
+
+        List<FrPepJorfParser.Mandate> mandates = FrPepJorfParser.buildMandates(events);
+        assertThat(mandates).hasSize(2);
+
+        FrPepJorfParser.Mandate vdg = mandates.stream()
+                .filter(m -> m.name.contains("VILLEROY")).findFirst().orElseThrow();
+        FrPepJorfParser.Mandate moulin = mandates.stream()
+                .filter(m -> m.name.contains("MOULIN")).findFirst().orElseThrow();
+
+        assertThat(vdg.open).isFalse();
+        assertThat(vdg.end).isEqualTo(LocalDate.of(2026, 6, 2));
+        assertThat(FrPepJorfParser.label(vdg)).isEqualTo("Gouverneur de la Banque de France");
+
+        assertThat(moulin.open).isTrue();
+        assertThat(moulin.start).isEqualTo(LocalDate.of(2026, 6, 2));
+        assertThat(FrPepJorfParser.label(moulin)).isEqualTo("Gouverneur de la Banque de France");
+    }
+
     private static Article article(String title, String... lines) {
         return new Article("JORFARTI000000000001", "JORFTEXT000000000001", title, "DECRET", "2000-01-01",
                 "2000-01-01", "1", List.of(lines));
