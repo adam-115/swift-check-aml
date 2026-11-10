@@ -161,7 +161,8 @@ public class AtPepInternationalOrgsParser implements Iparser {
             FtmEntity occupancy = dataset.newEntity("Occupancy", key + "-occ");
             occupancy.addValue("holder", person.getId());
             occupancy.addValue("post", position.getId());
-            occupancy.addValue("role", l.role());
+            occupancy.addValue("description", l.role());
+            occupancy.addValue("status", "current");
             dataset.addEntity(occupancy);
         }
     }

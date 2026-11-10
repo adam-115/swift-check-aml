@@ -1,0 +1,201 @@
+{
+  "country": "gr",
+  "category": "GR-b",
+  "source": "https://www.hellenicparliament.gr/",
+  "institution": "Βουλή των Ελλήνων",
+  "officials": [
+    {
+      "name": "Konstantinos Tasoulas",
+      "originalName": "Κωνσταντίνος Τασούλας",
+      "position": "Président du Parlement hellénique",
+      "startDate": "2019-07-18",
+      "birthDate": "1959-07-17",
+      "party": "Nouvelle Démocratie",
+      "isFormer": false
+    },
+    {
+      "name": "Ioannis Plakiotakis",
+      "originalName": "Ιωάννης Πλακιωτάκης",
+      "position": "Premier vice-président du Parlement hellénique",
+      "startDate": "2023-07-04",
+      "birthDate": "1968-07-10",
+      "party": "Nouvelle Démocratie",
+      "isFormer": false
+    },
+    {
+      "name": "Georgios Georgantas",
+      "originalName": "Γεώργιος Γεωργαντάς",
+      "position": "Deuxième vice-président du Parlement hellénique",
+      "startDate": "2023-07-04",
+      "birthDate": "1967-05-07",
+      "party": "Nouvelle Démocratie",
+      "isFormer": false
+    },
+    {
+      "name": "Athanasios Bouras",
+      "originalName": "Αθανάσιος Μπούρας",
+      "position": "Troisième vice-président du Parlement hellénique",
+      "startDate": "2019-07-18",
+      "birthDate": "1947-11-04",
+      "party": "Nouvelle Démocratie",
+      "isFormer": false
+    },
+    {
+      "name": "Olga Gerovassili",
+      "originalName": "Όλγα Γεροβασίλη",
+      "position": "Quatrième vice-présidente du Parlement hellénique",
+      "startDate": "2023-07-04",
+      "birthDate": "1961-01-16",
+      "party": "SYRIZA",
+      "isFormer": false
+    },
+    {
+      "name": "Odysseas Konstantinopoulos",
+      "originalName": "Οδυσσέας Κωνσταντινόπουλος",
+      "position": "Cinquième vice-président du Parlement hellénique",
+      "startDate": "2019-07-18",
+      "birthDate": "1975-04-29",
+      "party": "PASOK - KINAL",
+      "isFormer": false
+    },
+    {
+      "name": "Georgios Lambroulis",
+      "originalName": "Γεώργιος Λαμπρούλης",
+      "position": "Septième vice-président du Parlement hellénique",
+      "startDate": "2015-10-04",
+      "birthDate": "1967-01-01",
+      "party": "Parti communiste de Grèce (KKE)",
+      "isFormer": false
+    },
+    {
+      "name": "Vasileios Vilardos",
+      "originalName": "Βασίλειος Βιλιάρδος",
+      "position": "Huitième vice-président du Parlement hellénique",
+      "startDate": "2023-07-04",
+      "birthDate": "1956-02-14",
+      "party": "Solution grecque (Elliniki Lysi)",
+      "isFormer": false
+    },
+    {
+      "name": "Nikos Androulakis",
+      "originalName": "Νίκος Ανδρουλάκης",
+      "position": "Député du Parlement hellénique - Président du groupe parlementaire PASOK",
+      "startDate": "2023-06-25",
+      "birthDate": "1979-02-07",
+      "party": "PASOK - KINAL",
+      "isFormer": false
+    },
+    {
+      "name": "Dimitris Koutsoumpas",
+      "originalName": "Δημήτρης Κουτσούμπας",
+      "position": "Député du Parlement hellénique - Secrétaire général du KKE",
+      "startDate": "2015-01-25",
+      "birthDate": "1955-08-10",
+      "party": "Parti communiste de Grèce (KKE)",
+      "isFormer": false
+    },
+    {
+      "name": "Kyriakos Velopoulos",
+      "originalName": "Κυριάκος Βελόπουλος",
+      "position": "Député du Parlement hellénique - Président de Solution grecque",
+      "startDate": "2019-07-07",
+      "birthDate": "1965-10-24",
+      "party": "Solution grecque (Elliniki Lysi)",
+      "isFormer": false
+    },
+    {
+      "name": "Dimitrios Natsios",
+      "originalName": "Δημήτριος Νατσιός",
+      "position": "Député du Parlement hellénique - Président de Niki",
+      "startDate": "2023-06-25",
+      "birthDate": "1965-01-01",
+      "party": "Niki",
+      "isFormer": false
+    },
+    {
+      "name": "Zoi Konstantopoulou",
+      "originalName": "Ζωή Κωνσταντοπούλου",
+      "position": "Députée du Parlement hellénique - Présidente de Cap sur la liberté",
+      "startDate": "2023-06-25",
+      "birthDate": "1976-12-08",
+      "party": "Cap sur la liberté (Plefsi Eleftherias)",
+      "isFormer": false
+    },
+    {
+      "name": "Alexis Charitsis",
+      "originalName": "Αλέξης Χαρίτσης",
+      "position": "Député du Parlement hellénique - Président de Nouvelle Gauche",
+      "startDate": "2019-07-07",
+      "birthDate": "1977-08-10",
+      "party": "Nouvelle Gauche (Nea Aristera)",
+      "isFormer": false
+    },
+    {
+      "name": "Sokratis Famellos",
+      "originalName": "Σωκράτης Φάμελλος",
+      "position": "Député du Parlement hellénique - Chef du groupe parlementaire SYRIZA",
+      "startDate": "2015-01-25",
+      "birthDate": "1966-03-27",
+      "party": "SYRIZA",
+      "isFormer": false
+    },
+    {
+      "name": "Alexis Tsipras",
+      "originalName": "Αλέξης Τσίπρας",
+      "position": "Député du Parlement hellénique (Ancien Premier ministre)",
+      "startDate": "2009-10-04",
+      "birthDate": "1974-07-28",
+      "party": "SYRIZA",
+      "isFormer": false
+    },
+    {
+      "name": "Antonis Samaras",
+      "originalName": "Αντώνης Σαμαράς",
+      "position": "Député du Parlement hellénique (Ancien Premier ministre)",
+      "startDate": "2007-09-16",
+      "birthDate": "1951-05-23",
+      "party": "Indépendant / Ancien ND",
+      "isFormer": false
+    },
+    {
+      "name": "George Papandreou",
+      "originalName": "Γεώργιος Παπανδρέου",
+      "position": "Député du Parlement hellénique (Ancien Premier ministre)",
+      "startDate": "2015-09-20",
+      "birthDate": "1952-06-16",
+      "party": "PASOK - KINAL",
+      "isFormer": false
+    },
+    {
+      "name": "Kostas Karamanlis",
+      "originalName": "Κώστας Καραμανλής",
+      "position": "Ancien député du Parlement hellénique (Ancien Premier ministre)",
+      "startDate": "1989-06-18",
+      "endDate": "2023-05-21",
+      "birthDate": "1956-09-14",
+      "party": "Nouvelle Démocratie",
+      "isFormer": true
+    },
+    {
+      "name": "Evangelos Venizelos",
+      "originalName": "Ευάγγελος Βενιζέλος",
+      "position": "Ancien député du Parlement hellénique (Ancien Vice-Premier ministre)",
+      "startDate": "1993-10-10",
+      "endDate": "2019-06-11",
+      "birthDate": "1957-01-01",
+      "party": "PASOK",
+      "isFormer": true
+    },
+    {
+      "name": "Nikos Voutsis",
+      "originalName": "Νίκος Βούτσης",
+      "position": "Ancien Président du Parlement hellénique",
+      "startDate": "2012-05-06",
+      "endDate": "2023-05-21",
+      "birthDate": "1951-07-02",
+      "party": "SYRIZA / Nouvelle Gauche",
+      "isFormer": true
+    }
+  ]
+}
+

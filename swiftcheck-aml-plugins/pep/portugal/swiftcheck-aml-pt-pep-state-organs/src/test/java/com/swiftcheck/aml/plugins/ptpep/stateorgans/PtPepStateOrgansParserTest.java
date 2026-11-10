@@ -10,7 +10,7 @@ import com.swiftcheck.aml.sdk.FtmDatasetBuilder;
 
 class PtPepStateOrgansParserTest {
 
-    private static final Path RAW = Path.of("src/main/resources/seed/pt-state-organs.json");
+    private static final Path TEST_HTML = Path.of("src/test/resources/conselho-estado.html");
 
     private final PtPepStateOrgansParser parser = new PtPepStateOrgansParser();
 
@@ -20,16 +20,21 @@ class PtPepStateOrgansParserTest {
                 PtPepStateOrgansParser.ID_PREFIX,
                 PtPepStateOrgansParser.TOPIC
         );
-        int count = parser.convert(RAW, dataset);
+        int count = parser.convert(TEST_HTML, dataset);
 
-        assertThat(count).isEqualTo(11);
+        assertThat(count).isEqualTo(19);
         assertThat(dataset.qualityReport().getTotalRejected()).isZero();
 
         long persons = dataset.entities().stream().filter(e -> "Person".equals(e.getSchema())).count();
-        assertThat(persons).isEqualTo(11);
+        assertThat(persons).isEqualTo(19);
 
+        // Verify key officials from live official source
         assertThat(dataset.entities().stream().filter(e -> "Person".equals(e.getSchema())))
-                .anyMatch(p -> p.getValues("name").contains("Maria Lúcia Amaral"))
-                .anyMatch(p -> p.getValues("name").contains("Luís Pais Antunes"));
+                .anyMatch(p -> p.getValues("name").contains("Luísa Neto"))
+                .anyMatch(p -> p.getValues("name").contains("José Pedro Aguiar-Branco"))
+                .anyMatch(p -> p.getValues("name").contains("Luís Montenegro"))
+                .anyMatch(p -> p.getValues("name").contains("Marcelo Rebelo de Sousa"))
+                .anyMatch(p -> p.getValues("name").contains("Leonor Beleza"))
+                .anyMatch(p -> p.getValues("name").contains("André Ventura"));
     }
 }

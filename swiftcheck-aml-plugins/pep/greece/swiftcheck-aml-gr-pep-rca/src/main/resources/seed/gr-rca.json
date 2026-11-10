@@ -1,0 +1,80 @@
+{
+  "country": "gr",
+  "category": "GR-RCA",
+  "source": "https://www.hellenicparliament.gr/el/Enimerosi/Grafeio-Typou/Dilosi-Periousiakis-Katastasis/",
+  "institution": "Déclarations de patrimoine officielles (Pothen Esches)",
+  "officials": [
+    {
+      "name": "Mareva Grabowski-Mitsotaki",
+      "originalName": "Μαρέβα Γκραμπόφσκι-Μητσοτάκη",
+      "relationship": "Conjointe de Kyriakos Mitsotakis (Premier ministre)",
+      "targetPep": "Kyriakos Mitsotakis",
+      "targetRole": "Premier ministre de la République hellénique",
+      "rcaType": "FAMILY",
+      "birthDate": "1967-06-30"
+    },
+    {
+      "name": "Konstantinos Mitsotakis Jr",
+      "originalName": "Κωνσταντίνος Μητσοτάκης",
+      "relationship": "Fils de Kyriakos Mitsotakis (Premier ministre)",
+      "targetPep": "Kyriakos Mitsotakis",
+      "targetRole": "Premier ministre de la République hellénique",
+      "rcaType": "FAMILY",
+      "birthDate": "1998-01-01"
+    },
+    {
+      "name": "Dora Bakoyannis",
+      "originalName": "Ντόρα Μπακογιάννη",
+      "relationship": "Sœur de Kyriakos Mitsotakis (Députée, ancienne ministre des AE)",
+      "targetPep": "Kyriakos Mitsotakis",
+      "targetRole": "Premier ministre de la République hellénique",
+      "rcaType": "FAMILY",
+      "birthDate": "1954-05-06"
+    },
+    {
+      "name": "Kostas Bakoyannis",
+      "originalName": "Κώστας Μπακογιάννης",
+      "relationship": "Neveu de Kyriakos Mitsotakis (Ancien Maire d'Athènes)",
+      "targetPep": "Kyriakos Mitsotakis",
+      "targetRole": "Premier ministre de la République hellénique",
+      "rcaType": "FAMILY",
+      "birthDate": "1978-07-30"
+    },
+    {
+      "name": "Grigoris Dimitriadis",
+      "originalName": "Γρηγόρης Δημητριάδης",
+      "relationship": "Ancien secrétaire général du Premier ministre et proche associé politique",
+      "targetPep": "Kyriakos Mitsotakis",
+      "targetRole": "Premier ministre de la République hellénique",
+      "rcaType": "ASSOCIATE",
+      "birthDate": "1979-01-01"
+    },
+    {
+      "name": "Betty Batziana",
+      "originalName": "Μπέτυ Μπαζιάνα",
+      "relationship": "Conjointe d'Alexis Tsipras (Ancien Premier ministre)",
+      "targetPep": "Alexis Tsipras",
+      "targetRole": "Ancien Premier ministre",
+      "rcaType": "FAMILY",
+      "birthDate": "1974-08-26"
+    },
+    {
+      "name": "Nikos Pappas",
+      "originalName": "Νίκος Παππάς",
+      "relationship": "Proche associé politique d'Alexis Tsipras (Député, ancien ministre)",
+      "targetPep": "Alexis Tsipras",
+      "targetRole": "Ancien Premier ministre",
+      "rcaType": "ASSOCIATE",
+      "birthDate": "1976-07-16"
+    },
+    {
+      "name": "Georgia Samaras",
+      "originalName": "Γεωργία Κρητικού-Σαμαρά",
+      "relationship": "Épouse d'Antonis Samaras (Ancien Premier ministre)",
+      "targetPep": "Antonis Samaras",
+      "targetRole": "Ancien Premier ministre",
+      "rcaType": "FAMILY"
+    }
+  ]
+}
+

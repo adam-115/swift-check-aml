@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <databaseChangeLog
     xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -141,5 +141,7 @@
     <include file="db/changelog/changes/114-ro-stage1-president-parliament-parties.xml" />
     <include file="db/changelog/changes/115-ro-stage2-courts-bank-accounts-diplomats-army.xml" />
     <include file="db/changelog/changes/116-ro-stage3-enterprises-orgs-rca-finalization.xml" />
+    <include file="db/changelog/changes/117-gr-coverage-finalization.xml" />
+    <include file="db/changelog/changes/118-downgrade-seed-parsers-to-partial.xml" />
 
 </databaseChangeLog>

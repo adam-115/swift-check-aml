@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="117-gr-coverage-finalization" author="swiftcheck">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM parser WHERE id = 357</sqlCheck>
+        </preConditions>
+        <comment>Finalisation de la couverture PEP pour la Grèce (GR) : 100% de couverture officielle selon Loi 4557/2018</comment>
+        <sql><![CDATA[
+            -- 1. Présidence de la République (GR-a, fonction 657)
+            INSERT INTO parser (id, name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES (357, 'PEP Grèce – Présidence de la République',
+                'Président de la République hellénique et hauts dirigeants de la Présidence (catégorie GR-a)',
+                'gr_pep_president', 'PEP', 'https://www.presidency.gr/',
+                'gr-pep-president', 'D:/test parser 2/plugins/swiftcheck-aml-gr-pep-president-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'API', NULL, NULL, 168, 12,
+                'Données publiques officielles', 'Présidence de la République hellénique',
+                'Katerina Sakellaropoulou et direction de la Présidence.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            VALUES (657, 357, 'COMPLETE', TRUE, 'Présidente de la République hellénique en exercice et anciens présidents', NULL);
+
+            -- 2. Gouvernement et Ministres (GR-a, fonction 658)
+            INSERT INTO parser (id, name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES (358, 'PEP Grèce – Gouvernement et Ministres',
+                'Premier ministre, ministres, ministres délégués et vice-ministres helléniques (catégorie GR-a)',
+                'gr_pep_government', 'PEP', 'https://primeminister.gr/',
+                'gr-pep-government', 'D:/test parser 2/plugins/swiftcheck-aml-gr-pep-government-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'API', NULL, NULL, 168, 12,
+                'Données publiques officielles', 'Gouvernement de la République hellénique',
+                'Premier ministre Kyriakos Mitsotakis et ensemble des ministres.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            VALUES (658, 358, 'COMPLETE', TRUE, 'Premier ministre, ministres d''État, ministres et vice-ministres', NULL);
+
+            -- 3. Parlement hellénique - Députés et anciens députés (GR-b, fonctions 659 et 660)
+            INSERT INTO parser (id, name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES (359, 'PEP Grèce – Parlement hellénique (Vouli)',
+                'Députés et anciens députés du Parlement hellénique (catégorie GR-b)',
+                'gr_pep_parliament', 'PEP', 'https://www.hellenicparliament.gr/',
+                'gr-pep-parliament', 'D:/test parser 2/plugins/swiftcheck-aml-gr-pep-parliament-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'API', NULL, NULL, 168, 12,
+                'Données publiques officielles', 'Parlement hellénique (Βουλή των Ελλήνων)',
+                'Présidence, vice-présidences, chefs de groupes parlementaires et députés.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            VALUES (659, 359, 'COMPLETE', TRUE, 'Députés et présidium du Parlement hellénique', NULL),
+                   (660, 359, 'COMPLETE', TRUE, 'Anciens députés et anciens présidents du Parlement hellénique', NULL);
+
+            -- 4. Partis Politiques (GR-c, fonction 661)
+            INSERT INTO parser (id, name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES (360, 'PEP Grèce – Partis Politiques',
+                'Membres des organes dirigeants des partis politiques représentés au Parlement (catégorie GR-c)',
+                'gr_pep_political_parties', 'PEP', 'https://www.hellenicparliament.gr/',
+                'gr-pep-political-parties', 'D:/test parser 2/plugins/swiftcheck-aml-gr-pep-political-parties-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'API', NULL, NULL, 168, 12,
+                'Données publiques officielles', 'Partis politiques grecs',
+                'Dirigeants et secrétaires des comités politiques des partis parlementaires.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            VALUES (661, 360, 'COMPLETE', TRUE, 'Organes dirigeants des partis parlementaires (ND, SYRIZA, PASOK, KKE, etc.)', NULL);
+
+            -- 5. Cours Suprêmes (GR-d, fonction 662)
+            INSERT INTO parser (id, name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES (361, 'PEP Grèce – Cours Suprêmes (Areios Pagos et Conseil d''État)',
+                'Juges et magistrats de la Cour de cassation et du Conseil d''État (catégorie GR-d)',
+                'gr_pep_supreme_courts', 'PEP', 'https://areiospagos.gr/',
+                'gr-pep-supreme-courts', 'D:/test parser 2/plugins/swiftcheck-aml-gr-pep-supreme-courts-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'API', NULL, NULL, 168, 12,
+                'Données publiques officielles', 'Cour de cassation (Άρειος Πάγος) et Conseil d''État',
+                'Présidents, procureure générale et vice-présidents des hautes cours.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            VALUES (662, 361, 'COMPLETE', TRUE, 'Hauts magistrats de la Cour de cassation et du Conseil d''État', NULL);
+
+            -- 6. Cour des comptes (GR-e, fonction 663)
+            INSERT INTO parser (id, name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES (362, 'PEP Grèce – Cour des comptes (Elenktiko Synedrio)',
+                'Présidente et procureur général de la Cour des comptes hellénique (catégorie GR-e)',
+                'gr_pep_audit', 'PEP', 'https://www.elsyn.gr/en/judges',
+                'gr-pep-audit', 'D:/test parser 2/plugins/swiftcheck-aml-gr-pep-audit-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'WEB_PAGE', NULL, NULL, 168, 12,
+                'Données publiques officielles', 'Cour des comptes hellénique (Ελεγκτικό Συνέδριο)',
+                'Présidente Sotiria Douni et Procureur général Stamatios Poulis.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            VALUES (663, 362, 'COMPLETE', TRUE, 'Présidente et Procureur général de la Cour des comptes hellénique', NULL);
+
+            -- 7. Banque de Grèce (GR-e, fonction 664)
+            INSERT INTO parser (id, name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES (363, 'PEP Grèce – Banque de Grèce (Trapeza tis Ellados)',
+                'Gouverneur, sous-gouverneurs et conseil général de la Banque de Grèce (catégorie GR-e)',
+                'gr_pep_central_bank', 'PEP', 'https://www.bankofgreece.gr/',
+                'gr-pep-central-bank', 'D:/test parser 2/plugins/swiftcheck-aml-gr-pep-central-bank-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'API', NULL, NULL, 168, 12,
+                'Données publiques officielles', 'Banque de Grèce (Τράπεζα της Ελλάδος)',
+                'Gouverneur Yannis Stournaras et collège de direction.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            VALUES (664, 363, 'COMPLETE', TRUE, 'Gouverneur, sous-gouverneurs et membres du conseil de la Banque de Grèce', NULL);
+
+            -- 8. Ambassadeurs (GR-f, fonction 665)
+            INSERT INTO parser (id, name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES (364, 'PEP Grèce – Ambassadeurs et Diplomates',
+                'Ambassadeurs et représentants permanents de la République hellénique (catégorie GR-f)',
+                'gr_pep_diplomats', 'PEP', 'https://www.mfa.gr/',
+                'gr-pep-diplomats', 'D:/test parser 2/plugins/swiftcheck-aml-gr-pep-diplomats-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'API', NULL, NULL, 168, 12,
+                'Données publiques officielles', 'Ministère des Affaires étrangères hellénique',
+                'Ambassadeurs auprès de l''ONU, de l''UE, des USA, etc.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            VALUES (665, 364, 'COMPLETE', TRUE, 'Ambassadeurs et représentants permanents de la Grèce à l''étranger', NULL);
+
+            -- 9. Forces armées (GR-f, fonction 666)
+            INSERT INTO parser (id, name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES (365, 'PEP Grèce – Forces Armées (GEETHA)',
+                'Officiers généraux des forces armées helléniques (catégorie GR-f)',
+                'gr_pep_armed_forces', 'PEP', 'https://geetha.mil.gr/',
+                'gr-pep-armed-forces', 'D:/test parser 2/plugins/swiftcheck-aml-gr-pep-armed-forces-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'API', NULL, NULL, 168, 12,
+                'Données publiques officielles', 'État-major de la Défense nationale (GEETHA)',
+                'Chef d''état-major de la Défense Dimitrios Houpis et chefs des 3 armées.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            VALUES (666, 365, 'COMPLETE', TRUE, 'Chef d''état-major de la Défense et officiers généraux des forces armées', NULL);
+
+            -- 10. Entreprises détenues par l''État (GR-g, fonction 667)
+            INSERT INTO parser (id, name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES (366, 'PEP Grèce – Entreprises Publiques (DEKO)',
+                'Dirigeants des entreprises publiques et sociétés d''État helléniques (catégorie GR-g)',
+                'gr_pep_state_enterprises', 'PEP', 'https://hcap.gr/',
+                'gr-pep-state-enterprises', 'D:/test parser 2/plugins/swiftcheck-aml-gr-pep-state-enterprises-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'API', NULL, NULL, 168, 12,
+                'Données publiques officielles', 'Fonds souverain HCAP et entreprises d''État',
+                'Dirigeants de PPC, ADMIE, EYDAP, HCAP, etc.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            VALUES (667, 366, 'COMPLETE', TRUE, 'Dirigeants des principales entreprises d''État (énergie, eau, transports, fonds public)', NULL);
+
+            -- 11. Organisations internationales (GR-h, fonction 668)
+            INSERT INTO parser (id, name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES (367, 'PEP Grèce – Organisations Internationales',
+                'Dirigeants d''organisations internationales et agences européennes en Grèce (catégorie GR-h)',
+                'gr_pep_international_orgs', 'PEP', 'https://enisa.europa.eu/',
+                'gr-pep-international-orgs', 'D:/test parser 2/plugins/swiftcheck-aml-gr-pep-international-orgs-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'API', NULL, NULL, 168, 12,
+                'Données publiques officielles', 'Agences européennes et internationales en Grèce',
+                'Dirigeants d''ENISA, Cedefop, BSEC et hauts fonctionnaires internationaux grecs.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            VALUES (668, 367, 'COMPLETE', TRUE, 'Dirigeants d''organisations internationales basées en Grèce ou dirigées par des ressortissants grecs', NULL);
+
+            -- 12. Famille et proches associés (GR-RCA, fonctions 669 et 670)
+            INSERT INTO parser (id, name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES (368, 'PEP Grèce – Membres de la Famille et Proches Associés (RCA)',
+                'Membres de la famille et proches associés de PEP grecques (catégorie GR-RCA)',
+                'gr_pep_rca', 'PEP', 'https://www.hellenicparliament.gr/',
+                'gr-pep-rca', 'D:/test parser 2/plugins/swiftcheck-aml-gr-pep-rca-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'API', NULL, NULL, 168, 12,
+                'Données publiques officielles', 'Déclarations de patrimoine officielles (Pothen Esches)',
+                'Conjoints, descendants, ascendants et proches partenaires de PEP helléniques.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            VALUES (669, 368, 'COMPLETE', TRUE, 'Membres directs de la famille de PEP helléniques', NULL),
+                   (670, 368, 'COMPLETE', TRUE, 'Proches associés connus de PEP helléniques', NULL);
+        ]]></sql>
+    </changeSet>
+
+</databaseChangeLog>

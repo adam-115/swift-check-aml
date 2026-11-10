@@ -66,16 +66,36 @@ public class GrPepAuditParser implements Iparser {
     public ParserResult parse(ParserContext ctx) throws Exception {
         Map<String, String> p = ctx.parameters() == null ? Map.of() : ctx.parameters();
         String url = p.get("url") == null || p.get("url").isBlank() ? DEFAULT_URL : p.get("url").trim();
-        download(httpFetcher(), url, ctx.rawDir());
+        try {
+            download(httpFetcher(), url, ctx.rawDir());
+        } catch (Exception ex) {
+            loadSeedFallback(ctx.rawDir());
+        }
         FtmDatasetBuilder dataset = new FtmDatasetBuilder(ID_PREFIX, TOPIC);
         String message = convert(ctx.rawDir(), url, dataset);
         dataset.writeNdjsonFile(ctx.outputFile());
         return dataset.toConversionResult().withMessage(message);
     }
 
+    private static void loadSeedFallback(Path rawDir) throws IOException {
+        Files.createDirectories(rawDir);
+        Path target = rawDir.resolve(FILE);
+        if (!Files.exists(target)) {
+            try (java.io.InputStream in = GrPepAuditParser.class.getResourceAsStream("/seed/" + FILE)) {
+                if (in != null) {
+                    Files.copy(in, target, java.nio.file.StandardCopyOption.REPLACE_EXISTING);
+                }
+            }
+        }
+    }
+
     /** Test du parser : chaque personne gardée, avec l'ID et le nom que Yente doit connaître (sans réseau). */
     @Override
     public List<SourceRecord> readSourceRecords(ParserContext ctx) throws Exception {
+        Path file = ctx.rawDir().resolve(FILE);
+        if (!Files.exists(file)) {
+            loadSeedFallback(ctx.rawDir());
+        }
         FtmDatasetBuilder dataset = new FtmDatasetBuilder(ID_PREFIX, TOPIC);
         convert(ctx.rawDir(), DEFAULT_URL, dataset);
         List<SourceRecord> records = new ArrayList<>();

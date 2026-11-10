@@ -12,14 +12,14 @@ import com.swiftcheck.aml.sdk.FtmDatasetBuilder;
 
 class RoPepCentralBankParserTest {
 
-    private static final Path RAW = Path.of("src/main/resources/seed/ro-central-bank.json");
+    private static final Path TEST_HTML = Path.of("src/test/resources/bnr-board.html");
 
     @Test
     void testConvert() throws Exception {
         RoPepCentralBankParser parser = new RoPepCentralBankParser();
         FtmDatasetBuilder dataset = new FtmDatasetBuilder("ro-pep-bnr", "role.pep");
 
-        int count = parser.convert(RAW, dataset);
+        int count = parser.convert(TEST_HTML, dataset);
         assertEquals(9, count);
         assertEquals(0, dataset.qualityReport().getTotalRejected());
         assertFalse(dataset.entities().isEmpty());
@@ -28,6 +28,10 @@ class RoPepCentralBankParserTest {
                 .filter(e -> "Person".equals(e.getSchema()))
                 .anyMatch(e -> e.getValues("name").contains("Mugur Isărescu"));
         assertTrue(foundIsarescu, "Mugur Isărescu doit être présent dans le dataset");
+
+        boolean foundBadea = dataset.entities().stream()
+                .filter(e -> "Person".equals(e.getSchema()))
+                .anyMatch(e -> e.getValues("name").contains("Leonardo Badea"));
+        assertTrue(foundBadea, "Leonardo Badea doit être présent dans le dataset");
     }
 }
-

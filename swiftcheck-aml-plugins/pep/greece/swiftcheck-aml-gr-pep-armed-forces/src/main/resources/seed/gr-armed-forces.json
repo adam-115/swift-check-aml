@@ -1,0 +1,45 @@
+{
+  "country": "gr",
+  "category": "GR-f",
+  "source": "https://geetha.mil.gr/",
+  "institution": "Γενικό Επιτελείο Εθνικής Άμυνας (GEETHA)",
+  "officials": [
+    {
+      "name": "Dimitrios Houpis",
+      "originalName": "Δημήτριος Χούπης",
+      "position": "Chef de l'état-major de la Défense nationale (GEETHA) - Général",
+      "startDate": "2024-01-12",
+      "birthDate": "1965-01-01"
+    },
+    {
+      "name": "Konstantinos Floros",
+      "originalName": "Κωνσταντίνος Φλώρος",
+      "position": "Ancien Chef de l'état-major de la Défense nationale - Général",
+      "startDate": "2020-01-17",
+      "endDate": "2024-01-12",
+      "birthDate": "1961-10-06"
+    },
+    {
+      "name": "Georgios Kostidis",
+      "originalName": "Γεώργιος Κωστίδης",
+      "position": "Chef de l'état-major de l'Armée de terre (GES) - Lieutenant-général",
+      "startDate": "2024-01-12",
+      "birthDate": "1965-01-01"
+    },
+    {
+      "name": "Dimitrios-Eleftherios Kataras",
+      "originalName": "Δημήτριος-Ελευθέριος Κατάρας",
+      "position": "Chef de l'état-major de la Marine (GEN) - Vice-amiral",
+      "startDate": "2024-01-12",
+      "birthDate": "1966-01-01"
+    },
+    {
+      "name": "Dimosthenis Grigoriadis",
+      "originalName": "Δημοσθένης Γρηγοριάδης",
+      "position": "Chef de l'état-major de l'Armée de l'air (GEA) - Lieutenant-général d'aviation",
+      "startDate": "2024-01-12",
+      "birthDate": "1965-01-01"
+    }
+  ]
+}
+

@@ -1,0 +1,38 @@
+{
+  "country": "gr",
+  "category": "GR-h",
+  "source": "https://enisa.europa.eu, https://cedefop.europa.eu, https://bsec-organization.org",
+  "institution": "Organisations internationales et agences européennes en Grèce",
+  "officials": [
+    {
+      "name": "Juhan Lepassaar",
+      "position": "Directeur exécutif d'ENISA (Agence de l'Union européenne pour la cybersécurité - Athènes/Héraklion)",
+      "organization": "ENISA (Agence de l'UE pour la cybersécurité)",
+      "startDate": "2019-10-16",
+      "birthDate": "1979-05-13"
+    },
+    {
+      "name": "Jürgen Siebel",
+      "position": "Directeur exécutif de Cedefop (Centre européen pour le développement de la formation professionnelle - Thessalonique)",
+      "organization": "Cedefop (Centre européen)",
+      "startDate": "2019-09-01"
+    },
+    {
+      "name": "Lazar Comanescu",
+      "position": "Secrétaire général de l'Organisation de coopération économique de la mer Noire (BSEC)",
+      "organization": "BSEC PERMIS",
+      "startDate": "2021-07-01",
+      "birthDate": "1949-06-04"
+    },
+    {
+      "name": "Margaritis Schinas",
+      "originalName": "Μαργαρίτης Σχοινάς",
+      "position": "Ancien Vice-président de la Commission européenne (Promotion du mode de vie européen)",
+      "organization": "Commission européenne",
+      "startDate": "2019-12-01",
+      "endDate": "2024-11-30",
+      "birthDate": "1962-07-28"
+    }
+  ]
+}
+

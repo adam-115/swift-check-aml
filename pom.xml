@@ -202,6 +202,17 @@
         <module>swiftcheck-aml-plugins/pep/greece/swiftcheck-aml-gr-pep-europarl</module>
         <module>swiftcheck-aml-plugins/pep/greece/swiftcheck-aml-gr-pep-eu-commission</module>
         <module>swiftcheck-aml-plugins/pep/greece/swiftcheck-aml-gr-pep-audit</module>
+        <module>swiftcheck-aml-plugins/pep/greece/swiftcheck-aml-gr-pep-president</module>
+        <module>swiftcheck-aml-plugins/pep/greece/swiftcheck-aml-gr-pep-government</module>
+        <module>swiftcheck-aml-plugins/pep/greece/swiftcheck-aml-gr-pep-parliament</module>
+        <module>swiftcheck-aml-plugins/pep/greece/swiftcheck-aml-gr-pep-political-parties</module>
+        <module>swiftcheck-aml-plugins/pep/greece/swiftcheck-aml-gr-pep-supreme-courts</module>
+        <module>swiftcheck-aml-plugins/pep/greece/swiftcheck-aml-gr-pep-central-bank</module>
+        <module>swiftcheck-aml-plugins/pep/greece/swiftcheck-aml-gr-pep-diplomats</module>
+        <module>swiftcheck-aml-plugins/pep/greece/swiftcheck-aml-gr-pep-armed-forces</module>
+        <module>swiftcheck-aml-plugins/pep/greece/swiftcheck-aml-gr-pep-state-enterprises</module>
+        <module>swiftcheck-aml-plugins/pep/greece/swiftcheck-aml-gr-pep-international-orgs</module>
+        <module>swiftcheck-aml-plugins/pep/greece/swiftcheck-aml-gr-pep-rca</module>
         <module>swiftcheck-aml-plugins/pep/slovakia/swiftcheck-aml-sk-pep-europarl</module>
         <module>swiftcheck-aml-plugins/pep/slovakia/swiftcheck-aml-sk-pep-eu-commission</module>
         <module>swiftcheck-aml-plugins/pep/slovakia/swiftcheck-aml-sk-pep-government</module>

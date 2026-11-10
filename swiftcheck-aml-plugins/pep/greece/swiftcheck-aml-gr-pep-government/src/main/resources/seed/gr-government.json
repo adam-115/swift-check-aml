@@ -1,0 +1,177 @@
+{
+  "country": "gr",
+  "category": "GR-a",
+  "source": "https://primeminister.gr/",
+  "institution": "Κυβέρνηση της Ελληνικής Δημοκρατίας",
+  "officials": [
+    {
+      "name": "Kyriakos Mitsotakis",
+      "originalName": "Κυριάκος Μητσοτάκης",
+      "position": "Premier ministre de la République hellénique",
+      "startDate": "2019-07-08",
+      "birthDate": "1968-03-04",
+      "notes": "Chef du gouvernement grec."
+    },
+    {
+      "name": "Kostis Chatzidakis",
+      "originalName": "Κωστής Χατζηδάκης",
+      "position": "Ministre de l'Économie nationale et des Finances",
+      "startDate": "2023-06-27",
+      "birthDate": "1965-04-20"
+    },
+    {
+      "name": "Nikos Dendias",
+      "originalName": "Νίκος Δένδιας",
+      "position": "Ministre de la Défense nationale",
+      "startDate": "2023-06-27",
+      "birthDate": "1959-10-07"
+    },
+    {
+      "name": "Giorgos Gerapetritis",
+      "originalName": "Γιώργος Γεραπετρίτης",
+      "position": "Ministre des Affaires étrangères",
+      "startDate": "2023-06-27",
+      "birthDate": "1967-06-26"
+    },
+    {
+      "name": "Niki Kerameus",
+      "originalName": "Νίκη Κεραμέως",
+      "position": "Ministre du Travail et de la Sécurité sociale",
+      "startDate": "2024-06-14",
+      "birthDate": "1980-07-18"
+    },
+    {
+      "name": "Adonis Georgiadis",
+      "originalName": "Άδωνις Γεωργιάδης",
+      "position": "Ministre de la Santé",
+      "startDate": "2024-01-04",
+      "birthDate": "1972-11-06"
+    },
+    {
+      "name": "Kyriakos Pierrakakis",
+      "originalName": "Κυριάκος Πιερρακάκης",
+      "position": "Ministre de l'Éducation, des Affaires religieuses et des Sports",
+      "startDate": "2023-06-27",
+      "birthDate": "1983-08-08"
+    },
+    {
+      "name": "Michalis Chrisochoidis",
+      "originalName": "Μιχάλης Χρυσοχοΐδης",
+      "position": "Ministre de la Protection du citoyen",
+      "startDate": "2024-01-04",
+      "birthDate": "1955-10-31"
+    },
+    {
+      "name": "Georgios Floridis",
+      "originalName": "Γεώργιος Φλωρίδης",
+      "position": "Ministre de la Justice",
+      "startDate": "2023-06-27",
+      "birthDate": "1956-06-04"
+    },
+    {
+      "name": "Thodoros Skylakakis",
+      "originalName": "Θόδωρος Σκυλακάκης",
+      "position": "Ministre de l'Environnement et de l'Énergie",
+      "startDate": "2023-06-27",
+      "birthDate": "1959-08-18"
+    },
+    {
+      "name": "Christos Staikouras",
+      "originalName": "Χρήστος Σταϊκούρας",
+      "position": "Ministre des Infrastructures et des Transports",
+      "startDate": "2023-06-27",
+      "birthDate": "1973-03-07"
+    },
+    {
+      "name": "Dimitris Papastergiou",
+      "originalName": "Δημήτρης Παπαστεργίου",
+      "position": "Ministre de la Gouvernance numérique",
+      "startDate": "2023-06-27",
+      "birthDate": "1973-10-05"
+    },
+    {
+      "name": "Olga Kefalogianni",
+      "originalName": "Όλγα Κεφαλογιάννη",
+      "position": "Ministre du Tourisme",
+      "startDate": "2023-06-27",
+      "birthDate": "1975-04-29"
+    },
+    {
+      "name": "Lina Mendoni",
+      "originalName": "Λίνα Μενδώνη",
+      "position": "Ministre de la Culture",
+      "startDate": "2019-07-09",
+      "birthDate": "1960-04-01"
+    },
+    {
+      "name": "Vassilis Kikilias",
+      "originalName": "Βασίλης Κικίλιας",
+      "position": "Ministre de la Crise climatique et de la Protection civile",
+      "startDate": "2023-06-27",
+      "birthDate": "1974-05-15"
+    },
+    {
+      "name": "Kostas Tsiaras",
+      "originalName": "Κώστας Τσιάρας",
+      "position": "Ministre du Développement rural et de l'Alimentation",
+      "startDate": "2024-06-14",
+      "birthDate": "1966-07-02"
+    },
+    {
+      "name": "Christos Stylianides",
+      "originalName": "Χρήστος Στυλιανίδης",
+      "position": "Ministre des Affaires maritimes et de la Politique insulaire",
+      "startDate": "2023-09-12",
+      "birthDate": "1958-06-26"
+    },
+    {
+      "name": "Sofia Zacharaki",
+      "originalName": "Σοφία Ζαχαράκη",
+      "position": "Ministre de la Cohésion sociale et de la Famille",
+      "startDate": "2023-06-27",
+      "birthDate": "1976-02-13"
+    },
+    {
+      "name": "Akis Skertsos",
+      "originalName": "Άκης Σκέρτσος",
+      "position": "Ministre d'État",
+      "startDate": "2021-08-13",
+      "birthDate": "1976-11-28"
+    },
+    {
+      "name": "Makis Voridis",
+      "originalName": "Μάκης Βορίδης",
+      "position": "Ministre d'État",
+      "startDate": "2023-06-27",
+      "birthDate": "1964-08-23"
+    },
+    {
+      "name": "Pavlos Marinakis",
+      "originalName": "Παύλος Μαρινάκης",
+      "position": "Vice-ministre auprès du Premier ministre et Porte-parole du gouvernement",
+      "startDate": "2024-01-04",
+      "birthDate": "1988-03-12"
+    },
+    {
+      "name": "Thanos Petralias",
+      "originalName": "Θάνος Πετραλιάς",
+      "position": "Vice-ministre de l'Économie nationale et des Finances",
+      "startDate": "2023-06-27",
+      "birthDate": "1979-05-10"
+    },
+    {
+      "name": "Nikos Papathanasis",
+      "originalName": "Νίκος Παπαθανάσης",
+      "position": "Ministre délégué à l'Économie nationale et aux Finances",
+      "startDate": "2023-06-27",
+      "birthDate": "1960-03-24"
+    },
+    {
+      "name": "Alexandra Sdoukou",
+      "originalName": "Αλεξάνδρα Σδούκου",
+      "position": "Vice-ministre de l'Environnement et de l'Énergie",
+      "startDate": "2023-06-27"
+    }
+  ]
+}
+

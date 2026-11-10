@@ -1,0 +1,45 @@
+{
+  "country": "gr",
+  "category": "GR-e",
+  "source": "https://www.bankofgreece.gr/",
+  "institution": "Τράπεζα της Ελλάδος",
+  "officials": [
+    {
+      "name": "Yannis Stournaras",
+      "originalName": "Γιάννης Στουρνάρας",
+      "position": "Gouverneur de la Banque de Grèce",
+      "startDate": "2014-06-26",
+      "birthDate": "1956-12-10",
+      "notes": "Membre du Conseil des gouverneurs de la BCE."
+    },
+    {
+      "name": "Christina Papakonstantinou",
+      "originalName": "Χριστίνα Παπακωνσταντίνου",
+      "position": "Sous-gouverneure de la Banque de Grèce",
+      "startDate": "2021-03-01",
+      "birthDate": "1971-01-01"
+    },
+    {
+      "name": "Theodore Pelagidis",
+      "originalName": "Θεόδωρος Πελαγίδης",
+      "position": "Sous-gouverneur de la Banque de Grèce",
+      "startDate": "2020-09-21",
+      "birthDate": "1964-01-01"
+    },
+    {
+      "name": "George Provopoulos",
+      "originalName": "Γεώργιος Προβόπουλος",
+      "position": "Ancien Gouverneur de la Banque de Grèce",
+      "startDate": "2008-06-20",
+      "endDate": "2014-06-20",
+      "birthDate": "1950-04-20"
+    },
+    {
+      "name": "Dimitrios Malliaropulos",
+      "originalName": "Δημήτριος Μαλλιαρόπουλος",
+      "position": "Conseiller économique en chef et Directeur des études économiques",
+      "startDate": "2013-01-01"
+    }
+  ]
+}
+

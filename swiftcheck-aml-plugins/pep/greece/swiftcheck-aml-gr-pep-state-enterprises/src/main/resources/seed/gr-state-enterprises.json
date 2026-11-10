@@ -1,0 +1,54 @@
+{
+  "country": "gr",
+  "category": "GR-g",
+  "source": "https://dei.gr, https://admie.gr, https://eydap.gr",
+  "institution": "Entreprises détenues par l'État hellénique (ΔΕΚΟ)",
+  "officials": [
+    {
+      "name": "Georgios Stassis",
+      "originalName": "Γεώργιος Στάσσης",
+      "position": "Président et Directeur général de PPC (ΔΕΗ - Entreprise publique d'électricité)",
+      "company": "ΔΕΗ (Public Power Corporation)",
+      "startDate": "2019-08-01",
+      "birthDate": "1973-01-01"
+    },
+    {
+      "name": "Manos Manousakis",
+      "originalName": "Μάνος Μανουσάκης",
+      "position": "Président et Directeur général d'ADMIE (ΑΔΜΗΕ - Gestionnaire du réseau de transport d'électricité)",
+      "company": "ΑΔΜΗΕ (IPTO)",
+      "startDate": "2017-06-20",
+      "birthDate": "1974-01-01"
+    },
+    {
+      "name": "Harry Sachinis",
+      "originalName": "Χάρης Σαχίνης",
+      "position": "Directeur général de l'EYDAP (ΕΥΔΑΠ - Compagnie des eaux d'Athènes)",
+      "company": "ΕΥΔΑΠ (EYDAP)",
+      "startDate": "2019-06-14",
+      "birthDate": "1958-01-01"
+    },
+    {
+      "name": "Gregory D. Dimitriadis",
+      "originalName": "Γρηγόρης Δ. Δημητριάδης",
+      "position": "Directeur général du Fonds souverain HCAP (Υπερταμείο / Growthfund)",
+      "company": "Ελληνική Εταιρεία Συμμετοχών και Περιουσίας (HCAP)",
+      "startDate": "2021-02-15"
+    },
+    {
+      "name": "Grigorios Sklikas",
+      "originalName": "Γρηγόριος Σκλήκας",
+      "position": "Directeur général d'ELTA (Ελληνικά Ταχυδρομεία - Poste hellénique)",
+      "company": "ΕΛΤΑ (Hellenic Post)",
+      "startDate": "2023-01-01"
+    },
+    {
+      "name": "Nikos Kouretas",
+      "originalName": "Νίκος Κουρέτας",
+      "position": "Directeur général de l'Hellenic Metro (Ελληνικό Μετρό)",
+      "company": "Ελληνικό Μετρό (Attiko Metro)",
+      "startDate": "2019-10-01"
+    }
+  ]
+}
+

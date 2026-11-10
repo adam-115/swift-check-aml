@@ -10,7 +10,7 @@ import com.swiftcheck.aml.sdk.FtmDatasetBuilder;
 
 class PtPepConstitutionalCourtParserTest {
 
-    private static final Path RAW = Path.of("src/main/resources/seed/pt-constitutional-court.json");
+    private static final Path TEST_HTML = Path.of("src/test/resources/tc-plenario.html");
 
     private final PtPepConstitutionalCourtParser parser = new PtPepConstitutionalCourtParser();
 
@@ -20,7 +20,7 @@ class PtPepConstitutionalCourtParserTest {
                 PtPepConstitutionalCourtParser.ID_PREFIX,
                 PtPepConstitutionalCourtParser.TOPIC
         );
-        int count = parser.convert(RAW, dataset);
+        int count = parser.convert(TEST_HTML, dataset);
 
         assertThat(count).isEqualTo(13);
         assertThat(dataset.qualityReport().getTotalRejected()).isZero();
@@ -28,8 +28,10 @@ class PtPepConstitutionalCourtParserTest {
         long persons = dataset.entities().stream().filter(e -> "Person".equals(e.getSchema())).count();
         assertThat(persons).isEqualTo(13);
 
+        // Verify current President and Vice-President from live source
         assertThat(dataset.entities().stream().filter(e -> "Person".equals(e.getSchema())))
-                .anyMatch(p -> p.getValues("name").contains("José João Abrantes"))
-                .anyMatch(p -> p.getValues("name").contains("Gonçalo de Almeida Ribeiro"));
+                .anyMatch(p -> p.getValues("name").contains("João Carlos Simões Gonçalves Loureiro"))
+                .anyMatch(p -> p.getValues("name").contains("Rui Rodrigo Firmino Guerra da Fonseca"))
+                .anyMatch(p -> p.getValues("name").contains("Afonso Nunes de Figueiredo Patrão"));
     }
 }

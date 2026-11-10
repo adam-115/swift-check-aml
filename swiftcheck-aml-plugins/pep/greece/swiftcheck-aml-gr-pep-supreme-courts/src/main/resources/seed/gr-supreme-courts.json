@@ -1,0 +1,65 @@
+{
+  "country": "gr",
+  "category": "GR-d",
+  "source": "https://areiospagos.gr, https://adjustice.gr",
+  "institution": "Άρειος Πάγος, Συμβούλιο της Επικρατείας",
+  "officials": [
+    {
+      "name": "Ioanna Klapa-Christodoulea",
+      "originalName": "Ιωάννα Κλάπα-Χριστοδουλέα",
+      "position": "Présidente de la Cour de cassation (Άρειος Πάγος)",
+      "court": "Άρειος Πάγος",
+      "startDate": "2023-07-25",
+      "birthDate": "1957-01-01"
+    },
+    {
+      "name": "Georgia Adeilini",
+      "originalName": "Γεωργία Αδειλίνη",
+      "position": "Procureure générale près la Cour de cassation (Εισαγγελέας του Αρείου Πάγου)",
+      "court": "Άρειος Πάγος",
+      "startDate": "2023-07-25",
+      "birthDate": "1958-01-01"
+    },
+    {
+      "name": "Michail Pikramenos",
+      "originalName": "Μιχαήλ Πικραμένος",
+      "position": "Président du Conseil d'État (Συμβούλιο της Επικρατείας)",
+      "court": "Συμβούλιο της Επικρατείας",
+      "startDate": "2024-07-02",
+      "birthDate": "1960-01-01"
+    },
+    {
+      "name": "Evangelia Nika",
+      "originalName": "Ευαγγελία Νίκα",
+      "position": "Ancienne Présidente du Conseil d'État",
+      "court": "Συμβούλιο της Επικρατείας",
+      "startDate": "2022-07-05",
+      "endDate": "2024-06-30",
+      "birthDate": "1957-01-01"
+    },
+    {
+      "name": "Maria Georgiou",
+      "originalName": "Μαρία Γεωργίου",
+      "position": "Ancienne Présidente de la Cour de cassation",
+      "court": "Άρειος Πάγος",
+      "startDate": "2021-07-02",
+      "endDate": "2023-06-30",
+      "birthDate": "1956-01-01"
+    },
+    {
+      "name": "Nikolaos Salatas",
+      "originalName": "Νικόλαος Σαλάτας",
+      "position": "Vice-président de la Cour de cassation",
+      "court": "Άρειος Πάγος",
+      "startDate": "2022-09-01"
+    },
+    {
+      "name": "Spyrydon Chrysikos",
+      "originalName": "Σπυρίδων Χρυσικός",
+      "position": "Vice-président du Conseil d'État",
+      "court": "Συμβούλιο της Επικρατείας",
+      "startDate": "2022-09-01"
+    }
+  ]
+}
+

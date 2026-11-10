@@ -248,7 +248,8 @@ public class AtPepDiplomatsParser implements Iparser {
             FtmEntity occupancy = dataset.newEntity("Occupancy", personKey + "-ambassador");
             occupancy.addValue("holder", person.getId());
             occupancy.addValue("post", position.getId());
-            occupancy.addValue("role", d.role());
+            occupancy.addValue("description", d.role());
+            occupancy.addValue("status", "current");
             dataset.addEntity(occupancy);
         }
     }

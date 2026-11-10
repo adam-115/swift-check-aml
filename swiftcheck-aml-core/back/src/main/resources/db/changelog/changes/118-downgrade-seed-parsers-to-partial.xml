@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="118-downgrade-seed-parsers-to-partial" author="swiftcheck">
+        <comment>Assainissement Option A : Requalification des parsers à données locales figées en PARTIAL et marquage explicite</comment>
+        <sql><![CDATA[
+            -- Requalification en PARTIAL de tous les parsers à listes locales figées
+            UPDATE pep_function_parser 
+            SET completeness = 'PARTIAL',
+                gaps = 'Données locales figées (seed embarqué) – en cours de remplacement par crawler réseau officiel direct'
+            WHERE parser_id BETWEEN 302 AND 368;
+
+            -- Marquage explicite dans la table parser pour traçabilité et transparence
+            UPDATE parser 
+            SET notes = CONCAT('[DONNÉES LOCALES FIGÉES - À MIGRER VERS CRAWLER RÉSEAU] ', IFNULL(notes, ''))
+            WHERE id BETWEEN 302 AND 368
+              AND (notes NOT LIKE '%[DONNÉES LOCALES FIGÉES%' OR notes IS NULL);
+        ]]></sql>
+    </changeSet>
+
+</databaseChangeLog>
+

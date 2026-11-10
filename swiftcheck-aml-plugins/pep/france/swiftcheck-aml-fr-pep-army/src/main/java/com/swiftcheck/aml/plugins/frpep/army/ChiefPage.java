@@ -7,8 +7,10 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * Lecture de la biographie d'un chef d'état-major sur defense.gouv.fr. Les pages n'ont pas de structure commune ;
+ * Lecture de la biographie d'un chef d'état-major sur defense.gouv.fr. Les
+ * pages n'ont pas de structure commune ;
  * trois tournures du texte, relevées sur les pages réelles, suffisent :
+ * 
  * <pre>
  * « Le général d'armée aérienne Jérôme BELLANGER devient chef d'état-major … »   → grade et nom
  * « Fabien Mandon est né le 19 octobre 1969 à Montmorency (95). »                → naissance
@@ -22,13 +24,14 @@ final class ChiefPage {
     }
 
     /**
-     * Grade suivi du nom : mots à majuscule initiale, avec les particules « de », « du », « d' ». Le nom s'arrête
+     * Grade suivi du nom : mots à majuscule initiale, avec les particules « de », «
+     * du », « d' ». Le nom s'arrête
      * avant un mot de grade ou de fonction (« … BELLANGER Général de division … »).
      */
     private static final Pattern RANK_NAME = Pattern.compile(
             "(?iu)\\b(général d['’]armée(?: aérienne)?|amiral)\\s+"
-            + "((?-i:\\p{Lu}[\\p{L}'’-]+)(?:\\s+(?:(?:de|du|d['’])\\s*)?"
-            + "(?!(?-i:Général|Amiral|Chef|Le|La|Les)\\b)(?-i:\\p{Lu}[\\p{L}'’-]+))*)");
+                    + "((?-i:\\p{Lu}[\\p{L}'’-]+)(?:\\s+(?:(?:de|du|d['’])\\s*)?"
+                    + "(?!(?-i:Général|Amiral|Chef|Le|La|Les)\\b)(?-i:\\p{Lu}[\\p{L}'’-]+))*)");
     private static final Pattern BIRTH = Pattern.compile(
             "(?iu)\\bnée? le (\\d{1,2})(?: ?er)? (\\p{L}+) (\\d{4})(?: (?:à|au|aux) ([^(.,]+?))?\\s*(?:\\(|\\.|,|$)");
     private static final Pattern START = Pattern.compile(
@@ -39,15 +42,25 @@ final class ChiefPage {
             Map.entry("mai", 5), Map.entry("juin", 6), Map.entry("juillet", 7), Map.entry("aout", 8),
             Map.entry("septembre", 9), Map.entry("octobre", 10), Map.entry("novembre", 11), Map.entry("decembre", 12));
 
-    /** Portrait du bloc « autorité » ({@code styles/authority_image}) : armée de Terre, armée de l'Air et de l'Espace. */
+    /**
+     * Portrait du bloc « autorité » ({@code styles/authority_image}) : armée de
+     * Terre, armée de l'Air et de l'Espace.
+     */
     private static final Pattern AUTHORITY_IMAGE = Pattern.compile("\\ssrc=\"([^\"]*/styles/authority_image/[^\"]+)\"");
-    /** Image de partage ; l'état-major des armées y met la « Photo officielle CEMA ». */
-    private static final Pattern OG_IMAGE = Pattern.compile("(?i)<meta[^>]+property=\"og:image\"[^>]+content=\"([^\"]+)\"");
+    /**
+     * Image de partage ; l'état-major des armées y met la « Photo officielle CEMA
+     * ».
+     */
+    private static final Pattern OG_IMAGE = Pattern
+            .compile("(?i)<meta[^>]+property=\"og:image\"[^>]+content=\"([^\"]+)\"");
 
     private ChiefPage() {
     }
 
-    /** Adresse absolue (https) du portrait du chef, ou {@code null} si la page n'en a pas. */
+    /**
+     * Adresse absolue (https) du portrait du chef, ou {@code null} si la page n'en
+     * a pas.
+     */
     static String photo(String html, String pageUrl) {
         Matcher m = AUTHORITY_IMAGE.matcher(html);
         if (!m.find()) {
@@ -65,7 +78,8 @@ final class ChiefPage {
     }
 
     /**
-     * @throws IllegalStateException si aucun grade suivi d'un nom n'est trouvé (page changée ou mauvaise adresse)
+     * @throws IllegalStateException si aucun grade suivi d'un nom n'est trouvé
+     *                               (page changée ou mauvaise adresse)
      */
     static Chief read(String html) {
         String text = Html.text(html.replaceAll("(?si)<(script|style)[^>]*>.*?</\\1>", " "));
@@ -82,12 +96,14 @@ final class ChiefPage {
             birthPlace = birth.group(4) == null ? null : birth.group(4).trim();
         }
         Matcher start = START.matcher(text);
-        return new Chief(name.group(1).toLowerCase(Locale.ROOT).replace('’', '\''), name.group(2).trim(), birthDate, birthPlace,
+        return new Chief(name.group(1).toLowerCase(Locale.ROOT).replace('’', '\''), name.group(2).trim(), birthDate,
+                birthPlace,
                 start.find() ? date(start.group(1), start.group(2), start.group(3)) : null);
     }
 
     private static String date(String day, String month, String year) {
-        Integer m = MONTHS.get(Normalizer.normalize(month, Normalizer.Form.NFD).replaceAll("\\p{M}", "").toLowerCase(Locale.ROOT));
+        Integer m = MONTHS.get(
+                Normalizer.normalize(month, Normalizer.Form.NFD).replaceAll("\\p{M}", "").toLowerCase(Locale.ROOT));
         return m == null ? null : String.format("%s-%02d-%02d", year, m, Integer.parseInt(day));
     }
 }

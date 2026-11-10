@@ -182,7 +182,8 @@ public class AtPepArmyParser implements Iparser {
             FtmEntity occupancy = dataset.newEntity("Occupancy", o.name() + "-officer");
             occupancy.addValue("holder", person.getId());
             occupancy.addValue("post", position.getId());
-            occupancy.addValue("role", o.role());
+            occupancy.addValue("description", o.role());
+            occupancy.addValue("status", "current");
             dataset.addEntity(occupancy);
         }
     }

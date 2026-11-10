@@ -10,7 +10,7 @@ import com.swiftcheck.aml.sdk.FtmDatasetBuilder;
 
 class PtPepSupremeCourtsParserTest {
 
-    private static final Path RAW = Path.of("src/main/resources/seed/pt-supreme-courts.json");
+    private static final Path TEST_HTML = Path.of("src/test/resources/stj-estrutura.html");
 
     private final PtPepSupremeCourtsParser parser = new PtPepSupremeCourtsParser();
 
@@ -20,16 +20,18 @@ class PtPepSupremeCourtsParserTest {
                 PtPepSupremeCourtsParser.ID_PREFIX,
                 PtPepSupremeCourtsParser.TOPIC
         );
-        int count = parser.convert(RAW, dataset);
+        int count = parser.convert(TEST_HTML, dataset);
 
-        assertThat(count).isEqualTo(12);
+        assertThat(count).isGreaterThan(50);
         assertThat(dataset.qualityReport().getTotalRejected()).isZero();
 
         long persons = dataset.entities().stream().filter(e -> "Person".equals(e.getSchema())).count();
-        assertThat(persons).isEqualTo(12);
+        assertThat(persons).isEqualTo(count);
 
+        // Verify key leadership from live STJ portal
         assertThat(dataset.entities().stream().filter(e -> "Person".equals(e.getSchema())))
                 .anyMatch(p -> p.getValues("name").contains("João Cura Mariano"))
-                .anyMatch(p -> p.getValues("name").contains("Dulce Neto"));
+                .anyMatch(p -> p.getValues("name").contains("Nuno António Gonçalves"))
+                .anyMatch(p -> p.getValues("name").contains("Graça Amaral"));
     }
 }
