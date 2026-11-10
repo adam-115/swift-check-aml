@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Réconciliation des liens de couverture PEP pour la France, l'Allemagne et l'Irlande :
+    - Requalification à COMPLETE des liens dont les parsers publient déjà l'intégralité du périmètre officiel.
+    - Création des liens manquants pour les parsers historiques ou positions étatiques (ex. anciens parlementaires en Allemagne).
+-->
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <!-- ========================================================================= -->
+    <!-- 1. FRANCE (FR)                                                            -->
+    <!-- ========================================================================= -->
+
+    <changeSet id="092-fr-courts-complete" author="swiftcheck">
+        <comment>Conseil constitutionnel, Conseil d'État, Cour de cassation et Cour des comptes : qualifiés à COMPLETE</comment>
+        <sql><![CDATA[
+            -- Conseil constitutionnel (membres en fonction)
+            UPDATE pep_function_parser pfp
+            JOIN parser p ON p.id = pfp.parser_id
+            JOIN pep_function f ON f.id = pfp.function_id
+            JOIN pep_category c ON c.id = f.category_id
+            SET pfp.completeness = 'COMPLETE',
+                pfp.covered_scope = 'Membres actuels et président du Conseil constitutionnel'
+            WHERE c.country_iso = 'FR' AND f.label LIKE 'Président, membre ou secrétaire général du Conseil constitutionnel%'
+              AND p.dataset_name = 'fr_pep_constitutional_council';
+
+            -- Conseil d'État, Cour de cassation et Cour des comptes via le JORF
+            UPDATE pep_function_parser pfp
+            JOIN parser p ON p.id = pfp.parser_id
+            JOIN pep_function f ON f.id = pfp.function_id
+            JOIN pep_category c ON c.id = f.category_id
+            SET pfp.completeness = 'COMPLETE',
+                pfp.covered_scope = 'Magistrats et membres nommés au Journal officiel (décrets de nomination)'
+            WHERE c.country_iso = 'FR' 
+              AND (f.label LIKE 'Membre du Conseil d%' OR f.label LIKE 'Membre de la Cour de cassation%' OR f.label LIKE 'Magistrat de la Cour des comptes%')
+              AND p.dataset_name = 'fr_pep_jorf';
+        ]]></sql>
+    </changeSet>
+
+    <changeSet id="092-fr-army-and-enterprises-complete" author="swiftcheck">
+        <comment>Chefs d'état-major et entreprises publiques APE : qualifiés à COMPLETE</comment>
+        <sql><![CDATA[
+            -- Haut commandement militaire
+            UPDATE pep_function_parser pfp
+            JOIN parser p ON p.id = pfp.parser_id
+            JOIN pep_function f ON f.id = pfp.function_id
+            JOIN pep_category c ON c.id = f.category_id
+            SET pfp.completeness = 'COMPLETE',
+                pfp.covered_scope = 'Chefs d''état-major des armées et des armées de terre, mer et air'
+            WHERE c.country_iso = 'FR' AND f.label LIKE 'Chef d''état-major des armées%'
+              AND p.dataset_name IN ('fr_pep_army', 'fr_pep_jorf');
+
+            -- Entreprises publiques d'État (APE)
+            UPDATE pep_function_parser pfp
+            JOIN parser p ON p.id = pfp.parser_id
+            JOIN pep_function f ON f.id = pfp.function_id
+            JOIN pep_category c ON c.id = f.category_id
+            SET pfp.completeness = 'COMPLETE',
+                pfp.covered_scope = 'Dirigeants et représentants de l''État dans les entreprises du portefeuille de l''État (APE)'
+            WHERE c.country_iso = 'FR' AND f.label LIKE 'Dirigeant ou administrateur d''un établissement ou d''une société publique de l''État%'
+              AND p.dataset_name = 'fr_pep_state_enterprises';
+
+            -- Rattachement du parser fr_pep_wikidata_positions aux autres fonctions de l'UE
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', TRUE, 'Français exerçant une fonction institutionnelle internationale ou européenne répertoriée', NULL
+            FROM pep_function f
+            JOIN pep_category c ON c.id = f.category_id
+            JOIN parser p ON p.dataset_name = 'fr_pep_wikidata_positions'
+            WHERE c.country_iso = 'FR' AND f.label LIKE 'Français exerçant une autre fonction PEP dans une institution de l''UE%'
+              AND NOT EXISTS (SELECT 1 FROM pep_function_parser pfp WHERE pfp.function_id = f.id AND pfp.parser_id = p.id);
+        ]]></sql>
+    </changeSet>
+
+    <!-- ========================================================================= -->
+    <!-- 2. ALLEMAGNE (DE)                                                         -->
+    <!-- ========================================================================= -->
+
+    <changeSet id="092-de-parliament-history-link" author="swiftcheck">
+        <comment>Liaison des anciens membres du Bundestag et Bundesrat à de_pep_bundestag et de_pep_bundesrat</comment>
+        <sql><![CDATA[
+            -- Ancien membre du Bundestag ou du Bundesrat (DE-b)
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', TRUE, 'Membres actuels et anciens du Bundestag et du Bundesrat avec historique législatif', NULL
+            FROM pep_function f
+            JOIN pep_category c ON c.id = f.category_id
+            JOIN parser p ON p.dataset_name = 'de_pep_bundestag'
+            WHERE c.country_iso = 'DE' AND f.label LIKE 'Ancien membre du Bundestag ou du Bundesrat%'
+              AND NOT EXISTS (SELECT 1 FROM pep_function_parser pfp WHERE pfp.function_id = f.id AND pfp.parser_id = p.id);
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', TRUE, 'Membres du Bundesrat (titulaires et suppléants)', NULL
+            FROM pep_function f
+            JOIN pep_category c ON c.id = f.category_id
+            JOIN parser p ON p.dataset_name = 'de_pep_bundesrat'
+            WHERE c.country_iso = 'DE' AND f.label LIKE 'Ancien membre du Bundestag ou du Bundesrat%'
+              AND NOT EXISTS (SELECT 1 FROM pep_function_parser pfp WHERE pfp.function_id = f.id AND pfp.parser_id = p.id);
+        ]]></sql>
+    </changeSet>
+
+    <changeSet id="092-de-secretaries-bafin-diplomats-complete" author="swiftcheck">
+        <comment>Secrétaires d'État, BaFin et Diplomates allemands : qualifiés à COMPLETE</comment>
+        <sql><![CDATA[
+            -- Secrétaires d'État fédéraux (71 publiés pour 70 attendus)
+            UPDATE pep_function_parser pfp
+            JOIN parser p ON p.id = pfp.parser_id
+            JOIN pep_function f ON f.id = pfp.function_id
+            JOIN pep_category c ON c.id = f.category_id
+            SET pfp.completeness = 'COMPLETE',
+                pfp.covered_scope = 'Secrétaires d''État parlementaires et secrétaires d''État des ministères fédéraux'
+            WHERE c.country_iso = 'DE' AND f.label LIKE 'Secrétaire d''État parlementaire ou secrétaire d''État%'
+              AND p.dataset_name = 'de_pep_federal_secretaries';
+
+            -- BaFin (Direction exécutive, 7 membres publiés pour 7 attendus)
+            UPDATE pep_function_parser pfp
+            JOIN parser p ON p.id = pfp.parser_id
+            JOIN pep_function f ON f.id = pfp.function_id
+            JOIN pep_category c ON c.id = f.category_id
+            SET pfp.completeness = 'COMPLETE',
+                pfp.covered_scope = 'Président et directeurs exécutifs de la BaFin'
+            WHERE c.country_iso = 'DE' AND f.label LIKE 'Président ou directeur exécutif de la BaFin%'
+              AND p.dataset_name = 'de_pep_bafin';
+
+            -- Ambassadeurs allemands (216 publiés pour 150 attendus)
+            UPDATE pep_function_parser pfp
+            JOIN parser p ON p.id = pfp.parser_id
+            JOIN pep_function f ON f.id = pfp.function_id
+            JOIN pep_category c ON c.id = f.category_id
+            SET pfp.completeness = 'COMPLETE',
+                pfp.covered_scope = 'Chefs de mission diplomatique et ambassadeurs d''Allemagne'
+            WHERE c.country_iso = 'DE' AND f.label LIKE 'Ambassadeur ou chargé d''affaires de la République fédérale d''Allemagne%'
+              AND p.dataset_name = 'de_pep_diplomats';
+        ]]></sql>
+    </changeSet>
+
+    <!-- ========================================================================= -->
+    <!-- 3. IRLANDE (IE)                                                           -->
+    <!-- ========================================================================= -->
+
+    <changeSet id="092-ie-central-bank-and-enterprises-complete" author="swiftcheck">
+        <comment>Banque centrale et entreprises d'État irlandaises : qualifiés à COMPLETE</comment>
+        <sql><![CDATA[
+            -- Banque centrale d'Irlande et Comptroller & Auditor General
+            UPDATE pep_function_parser pfp
+            JOIN parser p ON p.id = pfp.parser_id
+            JOIN pep_function f ON f.id = pfp.function_id
+            JOIN pep_category c ON c.id = f.category_id
+            SET pfp.completeness = 'COMPLETE',
+                pfp.covered_scope = 'Commission de la Banque centrale d''Irlande, gouverneur et directeurs exécutifs'
+            WHERE c.country_iso = 'IE' AND f.label LIKE 'Comptroller and Auditor General ; organes de la Banque centrale d''Irlande%'
+              AND p.dataset_name = 'ie_pep_central_bank';
+
+            -- Entreprises d'État irlandaises
+            UPDATE pep_function_parser pfp
+            JOIN parser p ON p.id = pfp.parser_id
+            JOIN pep_function f ON f.id = pfp.function_id
+            JOIN pep_category c ON c.id = f.category_id
+            SET pfp.completeness = 'COMPLETE',
+                pfp.covered_scope = 'Organes de direction des principales entreprises publiques d''État irlandaises'
+            WHERE c.country_iso = 'IE' AND f.label LIKE 'Organe dirigeant d''une entreprise détenue par l''État%'
+              AND p.dataset_name = 'ie_pep_state_enterprises';
+        ]]></sql>
+    </changeSet>
+
+</databaseChangeLog>

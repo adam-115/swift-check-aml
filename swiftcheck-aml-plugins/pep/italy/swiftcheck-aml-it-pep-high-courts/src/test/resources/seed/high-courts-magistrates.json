@@ -1,0 +1,126 @@
+{
+  "institution": "Alte magistrature della Repubblica Italiana",
+  "country": "it",
+  "magistrates": [
+    {
+      "name": "Margherita Cassano",
+      "court": "Corte Suprema di Cassazione",
+      "role": "Primo Presidente della Corte Suprema di Cassazione",
+      "status": "current",
+      "startDate": "2023-03-01",
+      "birthDate": "1955-09-20",
+      "gender": "female"
+    },
+    {
+      "name": "Luigi Salvato",
+      "court": "Corte Suprema di Cassazione",
+      "role": "Procuratore Generale presso la Corte di Cassazione",
+      "status": "current",
+      "startDate": "2022-06-08",
+      "birthDate": "1956-04-18",
+      "gender": "male"
+    },
+    {
+      "name": "Francesco Antonio Genovese",
+      "court": "Corte Suprema di Cassazione",
+      "role": "Presidente Aggiunto della Corte Suprema di Cassazione",
+      "status": "current",
+      "startDate": "2023-04-20",
+      "birthDate": "1956-11-25",
+      "gender": "male"
+    },
+    {
+      "name": "Pasquale Fimiani",
+      "court": "Corte Suprema di Cassazione",
+      "role": "Procuratore Generale Aggiunto presso la Corte di Cassazione",
+      "status": "current",
+      "startDate": "2023-06-15",
+      "birthDate": "1958-02-12",
+      "gender": "male"
+    },
+    {
+      "name": "Luigi Maruotti",
+      "court": "Consiglio di Stato",
+      "role": "Presidente del Consiglio di Stato",
+      "status": "current",
+      "startDate": "2023-01-16",
+      "birthDate": "1957-01-08",
+      "gender": "male"
+    },
+    {
+      "name": "Carmine Volpe",
+      "court": "Consiglio di Stato",
+      "role": "Presidente Aggiunto del Consiglio di Stato",
+      "status": "current",
+      "startDate": "2023-02-01",
+      "birthDate": "1956-07-22",
+      "gender": "male"
+    },
+    {
+      "name": "Guido Carlino",
+      "court": "Corte dei conti",
+      "role": "Presidente della Corte dei conti",
+      "status": "current",
+      "startDate": "2020-09-15",
+      "birthDate": "1958-05-18",
+      "gender": "male"
+    },
+    {
+      "name": "Tommaso Miele",
+      "court": "Corte dei conti",
+      "role": "Presidente Aggiunto della Corte dei conti",
+      "status": "current",
+      "startDate": "2023-01-20",
+      "birthDate": "1956-10-15",
+      "gender": "male"
+    },
+    {
+      "name": "Pio Silvestri",
+      "court": "Corte dei conti",
+      "role": "Procuratore Generale della Corte dei conti",
+      "status": "current",
+      "startDate": "2023-03-01",
+      "birthDate": "1958-12-04",
+      "gender": "male"
+    },
+    {
+      "name": "Rosa Francaviglia",
+      "court": "Corte dei conti",
+      "role": "Procuratore Generale Aggiunto della Corte dei conti",
+      "status": "current",
+      "startDate": "2023-04-12",
+      "birthDate": "1960-03-10",
+      "gender": "female"
+    },
+    {
+      "name": "Pietro Curzio",
+      "court": "Corte Suprema di Cassazione",
+      "role": "Primo Presidente emerito della Corte Suprema di Cassazione",
+      "status": "ended",
+      "startDate": "2020-07-21",
+      "endDate": "2023-03-01",
+      "birthDate": "1953-03-04",
+      "gender": "male"
+    },
+    {
+      "name": "Giovanni Salvi",
+      "court": "Corte Suprema di Cassazione",
+      "role": "Procuratore Generale emerito presso la Corte di Cassazione",
+      "status": "ended",
+      "startDate": "2019-11-14",
+      "endDate": "2022-06-08",
+      "birthDate": "1952-07-09",
+      "gender": "male"
+    },
+    {
+      "name": "Franco Frattini",
+      "court": "Consiglio di Stato",
+      "role": "Presidente emerito del Consiglio di Stato",
+      "status": "ended",
+      "startDate": "2022-01-14",
+      "endDate": "2022-12-24",
+      "birthDate": "1957-03-14",
+      "gender": "male"
+    }
+  ]
+}

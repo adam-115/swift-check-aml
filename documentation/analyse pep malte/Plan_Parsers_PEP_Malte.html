@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="fr"><head><meta charset="utf-8"><title>Plan des parsers PEP – Malte</title>
+<style>
+body{font-family:Segoe UI,Arial,sans-serif;font-size:11pt;color:#1a1a1a;margin:28px;line-height:1.45}
+h1{color:#0b3d6b;border-bottom:3px solid #0b3d6b;padding-bottom:6px}h2{color:#0b3d6b;margin-top:26px}
+table{border-collapse:collapse;width:100%;margin:10px 0;font-size:10pt}th,td{border:1px solid #bbb;padding:5px 8px;text-align:left;vertical-align:top}
+th{background:#e8eef5}.ok{color:#14702e;font-weight:600}.ko{color:#a32020;font-weight:600}.note{background:#f4f7fa;border-left:4px solid #0b3d6b;padding:8px 12px}
+</style></head><body>
+<h1>Plan des parsers PEP – Malte</h1>
+<p>Date : 9 novembre 2026. Pays de l'Union européenne. Base légale : règlement S.L. 373.01 sur la prévention du blanchiment de capitaux et du financement du terrorisme (PMLFTR) et procédures d'application de la cellule de renseignement financier (FIAU) ; vigilance de douze mois après la fin des fonctions (textes et durée à confirmer sur les versions en vigueur).</p>
+
+<h2>1. Parsers réalisés</h2>
+<table>
+<tr><th>Jeu de données</th><th>Source</th><th>Contenu</th><th>Volume (pages réelles du 9/11/2026)</th></tr>
+<tr><td>mt_pep_parliament</td><td>parlament.mt (3 pages)</td><td>Députés de la 15<sup>e</sup> législature (2026-) et de la 14<sup>e</sup> (2022-2026), président de la Chambre (MT-b)</td><td>102 personnes : 79 + 79 mandats dont 56 réélus (une seule fiche), Premier ministre Robert Abela avec son poste, président de la Chambre Carmelo Abela ; sans naissance</td></tr>
+<tr><td>mt_pep_institutions</td><td>president.gov.mt et nao.gov.mt (2 pages)</td><td>Présidente de la République ; Auditeur général et adjoint (MT-a, MT-e)</td><td>3 personnes : Myriam Spiteri Debono, Charles Deguara, Noel Camilleri ; sans naissance</td></tr>
+<tr><td>mt_pep_europarl</td><td>API du Parlement européen</td><td>Députés européens élus à Malte (MT-EU)</td><td>6 personnes, toutes avec naissance (mesure réelle)</td></tr>
+<tr><td>mt_pep_eu_commission</td><td>commission.europa.eu</td><td>Membre maltais de la Commission (MT-EU)</td><td>1 personne (Glenn Micallef)</td></tr>
+</table>
+<p>Chaque parser télécharge la source à chaque exécution ; Wikidata n'est pas utilisé. Migration Liquibase 091 (pays MT, catégories, fonctions, 4 parsers), validée sur une base jetable. Tests unitaires sur les pages réelles (28 au total avec ceux des plugins européens).</p>
+
+<h2>2. Sources bloquées, intermittentes ou non lues</h2>
+<table>
+<tr><th>Périmètre</th><th>Situation</th></tr>
+<tr><td>Gouvernement (gov.mt), Banque centrale (centralbankmalta.org)</td><td class="ko">Vérification de navigateur Cloudflare (« Just a moment… ») : non contournée. Ministres et secrétaires parlementaires couverts seulement comme députés, sans leur fonction ; Banque centrale non couverte.</td></tr>
+<tr><td>parlament.mt, president.gov.mt, nao.gov.mt</td><td class="ko">Derrière Cloudflare : accessibles par moments, mais réponse 403 à nos essais de la fin de la session (plusieurs dizaines de requêtes de sondage et de test). Les parsers ont été écrits et validés sur les pages réelles lues avant le blocage ; leur exécution complète sur le site n'a pas pu être vérifiée. En production, un 403 fait échouer le parser avec le code HTTP, sans insister ni changer d'identité.</td></tr>
+<tr><td>pmo.gov.mt, Cour constitutionnelle</td><td>Injoignables depuis notre poste.</td></tr>
+<tr><td>Juges, ambassadeurs, officiers, partis, entreprises d'État</td><td>Non lus.</td></tr>
+<tr><td>Naissance des députés</td><td>Les fiches individuelles n'en publient pas.</td></tr>
+<tr><td>Proches (RCA)</td><td>Seule source connue : Wikidata, exclue.</td></tr>
+</table>
+
+<h2>3. Point à vérifier</h2>
+<div class="note">Lancer chaque parser une fois depuis l'application avant de les mettre en planification : si le site répond 403 depuis l'adresse du serveur, il faudra demander à Malte (parlement, présidence, NAO) une autorisation ou un export, plutôt que d'augmenter la fréquence. La fréquence par défaut est d'une fois par semaine.</div>
+
+<h2>4. Union européenne</h2>
+<p>Avec Malte, les 27 États membres ont au moins un parser : de la couverture complète (Luxembourg, Belgique, France, Autriche…) à une couverture réduite aux élus européens (Grèce) ou à la seule législature (Chypre, Malte).</p>
+</body></html>

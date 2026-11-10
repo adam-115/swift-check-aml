@@ -1,0 +1,5518 @@
+{
+  "head" : {
+    "vars" : [ "party", "partyLabel", "role", "statement", "rank", "start", "end", "person", "personLabel", "birth", "birthPrecision", "gender" ]
+  },
+  "results" : {
+    "bindings" : [ {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q9379"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1941-09-23T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "party" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q606620"
+      },
+      "role" : {
+        "type" : "literal",
+        "value" : "chair"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q606620-8957af0f-455d-d79b-9d1a-f139a15ee1c8"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#NormalRank"
+      },
+      "end" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2013-01-01T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "partyLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Südtiroler Volkspartei"
+      },
+      "personLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Luis Durnwalder"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q47563"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1975-01-11T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "party" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q67785862"
+      },
+      "role" : {
+        "type" : "literal",
+        "value" : "chair"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q67785862-125a1ea0-4256-ec4f-181f-6de5320bfd80"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#NormalRank"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "partyLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Italia Viva"
+      },
+      "personLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Matteo Renzi"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q104803011"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2000-04-19T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "party" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q106301450"
+      },
+      "role" : {
+        "type" : "literal",
+        "value" : "chair"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q106301450-2f5a2652-447d-fcad-ac09-6ad0b6fb5190"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#NormalRank"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "partyLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "La Giovane Roma"
+      },
+      "personLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Federico Lobuono"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q117037367"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1968-10-20T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "party" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q138007582"
+      },
+      "role" : {
+        "type" : "literal",
+        "value" : "chair"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q138007582-fb81c9d5-4d18-ef75-5244-799e9a99123e"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#NormalRank"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "partyLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Futuro Nazionale"
+      },
+      "personLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Roberto Vannacci"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2026-02-08T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q123035534"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1977-03-07T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "party" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q108395956"
+      },
+      "role" : {
+        "type" : "literal",
+        "value" : "chair"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q108395956-76448676-4983-f70a-148b-2b3a3621f532"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#NormalRank"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "partyLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Partito Gay"
+      },
+      "personLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Fabrizio Marrazzo"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q24276070"
+      },
+      "party" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2251671"
+      },
+      "role" : {
+        "type" : "literal",
+        "value" : "chair"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q2251671-5af8ff34-434d-521c-49ad-e2b28db94fdc"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#PreferredRank"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "partyLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Liga Veneta Repubblica"
+      },
+      "personLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Gian Pietro Piotto"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2009-01-01T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q24389869"
+      },
+      "party" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1076494"
+      },
+      "role" : {
+        "type" : "literal",
+        "value" : "chair"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q1076494-a7eceac4-4420-4a68-3766-097632662457"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#NormalRank"
+      },
+      "end" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2009-01-01T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581072"
+      },
+      "partyLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Partito Liberale Italiano"
+      },
+      "personLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Carla Martino"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2000-01-01T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q24573905"
+      },
+      "party" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1450384"
+      },
+      "role" : {
+        "type" : "literal",
+        "value" : "chair"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q1450384-ceb5e45a-45f1-e163-cc92-037f6a3ccd31"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#NormalRank"
+      },
+      "end" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2014-01-01T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581072"
+      },
+      "partyLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Radicali Italiani"
+      },
+      "personLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Laura Arconti"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2013-01-01T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q25689139"
+      },
+      "party" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6517163"
+      },
+      "role" : {
+        "type" : "literal",
+        "value" : "chair"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q6517163-6ff75c08-40ee-cd4c-496b-cffc3fedaade"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#NormalRank"
+      },
+      "end" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2012-01-01T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "partyLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Lega Nord Friuli-Venezia Giulia"
+      },
+      "personLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Enzo Bortolotti"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2008-01-01T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q133832279"
+      },
+      "party" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q25338960"
+      },
+      "role" : {
+        "type" : "literal",
+        "value" : "secretaryGeneral"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q25338960-373a3c09-4e00-83e2-82de-1a49da7ea52a"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#NormalRank"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "partyLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Partito Comunista Italiano"
+      },
+      "personLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Mauro Alboresi"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q141712919"
+      },
+      "party" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q839218"
+      },
+      "role" : {
+        "type" : "literal",
+        "value" : "chair"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q839218-37db0543-4c46-6c66-fa51-0187750a19f5"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#NormalRank"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "partyLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Movimento Idea Sociale"
+      },
+      "personLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Raffaele Bruno"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q264802"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1963-09-10T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "party" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q16561954"
+      },
+      "role" : {
+        "type" : "literal",
+        "value" : "chair"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q16561954-64e94577-4870-6f14-8c07-b7bce440dfef"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#NormalRank"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2013-01-01T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581072"
+      },
+      "partyLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Green Italia"
+      },
+      "personLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Monica Frassoni"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q327946"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1959-11-28T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "party" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q17509941"
+      },
+      "role" : {
+        "type" : "literal",
+        "value" : "chair"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q17509941-22ae549f-48a3-7a14-322a-5621e4752c27"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#NormalRank"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "partyLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Democrazia Solidale"
+      },
+      "personLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Lorenzo Dellai"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q405309"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1952-12-27T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "party" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1450384"
+      },
+      "role" : {
+        "type" : "literal",
+        "value" : "chair"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q1450384-eb09f36a-46db-9595-0f6a-b3da28ee2689"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#NormalRank"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2001-01-01T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581072"
+      },
+      "partyLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Radicali Italiani"
+      },
+      "personLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Rita Bernardini"
+      },
+      "end" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2003-01-01T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q451791"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1977-01-15T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "party" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1757843"
+      },
+      "role" : {
+        "type" : "literal",
+        "value" : "chair"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q1757843-EF86EF07-CE8C-4B61-9009-4B3F0EDE0337"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#NormalRank"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2012-12-21T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581072"
+      },
+      "partyLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Fratelli d'Italia"
+      },
+      "personLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Giorgia Meloni"
+      },
+      "end" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2013-04-04T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q451791"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1977-01-15T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "party" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1757843"
+      },
+      "role" : {
+        "type" : "literal",
+        "value" : "chair"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q1757843-e8396edf-46f6-f630-366c-1e58ae023163"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#PreferredRank"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2014-03-09T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581072"
+      },
+      "partyLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Fratelli d'Italia"
+      },
+      "personLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Giorgia Meloni"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q535055"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1970-10-31T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "party" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q28962342"
+      },
+      "role" : {
+        "type" : "literal",
+        "value" : "chair"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q28962342-3bc7f4a6-42f9-9ade-32c6-f00052ed1ac2"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#NormalRank"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2017-03-18T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "partyLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Alternativa Popolare"
+      },
+      "personLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Angelino Alfano"
+      },
+      "end" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2018-09-27T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q630738"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1944-11-27T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "party" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1076494"
+      },
+      "role" : {
+        "type" : "literal",
+        "value" : "chair"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q1076494-61a5d4e6-4890-bffa-0db8-12bfc673e12c"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#NormalRank"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2009-01-01T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "partyLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Partito Liberale Italiano"
+      },
+      "personLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Carlo Scognamiglio"
+      },
+      "end" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2012-01-01T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q647441"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1954-07-18T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "party" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2034798"
+      },
+      "role" : {
+        "type" : "literal",
+        "value" : "secretaryGeneral"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q2034798-08832DC8-F38E-4251-BE38-AE4202E3BD66"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#NormalRank"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "partyLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Partito Comunista dei Lavoratori"
+      },
+      "personLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Marco Ferrando"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q687662"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1960-12-03T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "party" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1631143"
+      },
+      "role" : {
+        "type" : "literal",
+        "value" : "chair"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q1631143-B0935B84-AE1F-4F48-9B2D-290A47AEFEAC"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#NormalRank"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "partyLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Partito Socialista - Nuovo PSI"
+      },
+      "personLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Stefano Caldoro"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q703503"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1947-08-01T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "party" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q22080990"
+      },
+      "role" : {
+        "type" : "literal",
+        "value" : "chair"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q22080990-49419d5d-4d2d-189e-974a-c05ff7381c82"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#NormalRank"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "partyLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "La Rete 2018"
+      },
+      "personLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Leoluca Orlando"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q780012"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1957-01-07T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "party" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q281745"
+      },
+      "role" : {
+        "type" : "literal",
+        "value" : "secretaryGeneral"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q281745-35BB9D48-3B60-4F53-9148-5DA7E9B14497"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#NormalRank"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2007-10-05T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "partyLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Partito Socialista Italiano"
+      },
+      "personLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Enrico Boselli"
+      },
+      "end" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2008-07-06T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q952871"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1937-09-20T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "party" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2308949"
+      },
+      "role" : {
+        "type" : "literal",
+        "value" : "secretaryGeneral"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q2308949-9BE28F8C-687E-48BD-BDCE-203A920DF0AF"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#NormalRank"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "partyLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Unione Democratica Sarda"
+      },
+      "personLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Mario Floris"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q976712"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1969-06-18T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "party" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q20970828"
+      },
+      "role" : {
+        "type" : "literal",
+        "value" : "chair"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q20970828-A7FAB599-5E30-4C6B-A7C6-C60862C83F24"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#NormalRank"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "partyLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Fare!"
+      },
+      "personLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Flavio Tosi"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1055183"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1944-03-14T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "party" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1826873"
+      },
+      "role" : {
+        "type" : "literal",
+        "value" : "secretaryGeneral"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q1826873-D309C639-C854-43F4-BB27-FDD7BF06FFA5"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#NormalRank"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "partyLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Partito Pensionati"
+      },
+      "personLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Carlo Fatuzzo"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1055449"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1973-03-09T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "party" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q85776185"
+      },
+      "role" : {
+        "type" : "literal",
+        "value" : "secretaryGeneral"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q85776185-9b14e894-4c3b-da70-e06b-df4a31b78fb4"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#NormalRank"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "partyLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Lega per Salvini Premier"
+      },
+      "personLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Matteo Salvini"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1055449"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1973-03-09T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "party" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q85776185"
+      },
+      "role" : {
+        "type" : "literal",
+        "value" : "chair"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q85776185-8fa3158b-4bab-5fb0-f8f8-970335116d49"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#NormalRank"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "partyLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Lega per Salvini Premier"
+      },
+      "personLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Matteo Salvini"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1055449"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1973-03-09T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "party" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q18712604"
+      },
+      "role" : {
+        "type" : "literal",
+        "value" : "chair"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q18712604-3E61CAD6-4AB6-4EEB-A4B1-7046FDF36B43"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#NormalRank"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "partyLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Noi con Salvini"
+      },
+      "personLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Matteo Salvini"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1055449"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1973-03-09T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "party" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q47750"
+      },
+      "role" : {
+        "type" : "literal",
+        "value" : "chair"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q47750-79513855-47c4-b25a-5a9d-2e9275ff29ce"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#PreferredRank"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2013-01-01T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "partyLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Lega Nord"
+      },
+      "personLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Matteo Salvini"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1055534"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1944-03-30T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "party" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q7919760"
+      },
+      "role" : {
+        "type" : "literal",
+        "value" : "chair"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q7919760-3417d1e2-4f7c-4a6f-dc2e-0a89af4857f2"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#NormalRank"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2005-01-01T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "partyLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Veneto per il Partito Popolare Europeo"
+      },
+      "personLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Giorgio Carollo"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1082088"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1947-04-28T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "party" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q281745"
+      },
+      "role" : {
+        "type" : "literal",
+        "value" : "chair"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q281745-84aa3708-4a3d-11fe-419e-ff303acd2eb8"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#PreferredRank"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2014-01-01T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "partyLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Partito Socialista Italiano"
+      },
+      "personLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Carlo Vizzini"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1148719"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1967-06-20T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "party" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q30594836"
+      },
+      "role" : {
+        "type" : "literal",
+        "value" : "secretaryGeneral"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q30594836-26a082fc-4727-8c84-daea-298700ba997e"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#NormalRank"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "partyLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Democrazia e Autonomia"
+      },
+      "personLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Luigi de Magistris"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1241606"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1956-08-07T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "party" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q25348988"
+      },
+      "role" : {
+        "type" : "literal",
+        "value" : "chair"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q25348988-5ca83e8b-4e3f-3c21-4292-742d513b08ec"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#PreferredRank"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2016-01-01T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "partyLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Autonomia Responsabile"
+      },
+      "personLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Renzo Tondo"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1327844"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1970-06-19T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "party" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6517169"
+      },
+      "role" : {
+        "type" : "literal",
+        "value" : "secretaryGeneral"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q6517169-019695c9-4cbf-4878-d389-1701cf385841"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#NormalRank"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2013-01-01T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581072"
+      },
+      "partyLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Lega Nord Alto Adige/Sud Tirolo"
+      },
+      "personLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Elena Artioli"
+      },
+      "end" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2014-01-01T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1343074"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1959-04-15T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "party" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q951064"
+      },
+      "role" : {
+        "type" : "literal",
+        "value" : "chair"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q951064-34F65A5C-322D-406F-BBE7-9D9EEF7AEBAC"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#NormalRank"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1997-01-01T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "partyLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Forza Nuova"
+      },
+      "personLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Roberto Fiore"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1394411"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1947-07-18T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "party" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1757843"
+      },
+      "role" : {
+        "type" : "literal",
+        "value" : "chair"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q1757843-f65b0cde-4089-2eb8-127f-22c8fe95f73e"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#NormalRank"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2012-12-21T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "partyLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Fratelli d'Italia"
+      },
+      "personLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Ignazio La Russa"
+      },
+      "end" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2014-03-09T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1695842"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1933-09-16T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "party" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1233269"
+      },
+      "role" : {
+        "type" : "literal",
+        "value" : "chair"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q1233269-2cde875c-4ea8-183e-2487-64dec9194be5"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#NormalRank"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2008-01-01T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "partyLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Movimento per le Autonomie"
+      },
+      "personLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Vincenzo Scotti"
+      },
+      "end" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2010-01-01T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1892362"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1971-05-25T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "party" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1450384"
+      },
+      "role" : {
+        "type" : "literal",
+        "value" : "chair"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q1450384-c4563988-4043-e038-0805-16a3171d969c"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#NormalRank"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2015-01-01T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "partyLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Radicali Italiani"
+      },
+      "personLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Marco Cappato"
+      },
+      "end" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2016-01-01T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2053904"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1960-07-25T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "party" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q30593014"
+      },
+      "role" : {
+        "type" : "literal",
+        "value" : "secretaryGeneral"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q30593014-9aff2779-4242-5ebc-06b9-01c5f8229e90"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#NormalRank"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "partyLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Rivoluzione Cristiana"
+      },
+      "personLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Gianfranco Rotondi"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2246867"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1943-08-25T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "party" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3319217"
+      },
+      "role" : {
+        "type" : "literal",
+        "value" : "chair"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q3319217-623c9947-4454-7003-5da9-aaf6c722bc30"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#NormalRank"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581072"
+      },
+      "partyLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Io Sud"
+      },
+      "personLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Adriana Poli Bortone"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2246893"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1949-08-13T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "party" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q281745"
+      },
+      "role" : {
+        "type" : "literal",
+        "value" : "chair"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q281745-2d1287d8-4421-5242-fa12-06d815945dd2"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#NormalRank"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2008-01-01T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581072"
+      },
+      "partyLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Partito Socialista Italiano"
+      },
+      "personLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Pia Locatelli"
+      },
+      "end" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2010-01-01T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2248530"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1962-04-03T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "party" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q30607763"
+      },
+      "role" : {
+        "type" : "literal",
+        "value" : "chair"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q30607763-704adcdb-409d-de01-d5c3-3b392c03aefd"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#NormalRank"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "partyLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Forza Europa"
+      },
+      "personLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Benedetto Della Vedova"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2248530"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1962-04-03T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "party" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1450384"
+      },
+      "role" : {
+        "type" : "literal",
+        "value" : "chair"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q1450384-B2754952-C62D-4177-9FA8-C5D904C4F9AF"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#NormalRank"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2001-01-01T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "partyLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Radicali Italiani"
+      },
+      "personLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Benedetto Della Vedova"
+      },
+      "end" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2003-01-01T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2307679"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1959-10-19T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "party" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q281745"
+      },
+      "role" : {
+        "type" : "literal",
+        "value" : "secretaryGeneral"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q281745-3b5459fa-45f0-e9ae-9ecc-039643f110c3"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#PreferredRank"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2008-07-06T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "partyLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Partito Socialista Italiano"
+      },
+      "personLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Riccardo Nencini"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2371187"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1980-06-06T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "party" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2300128"
+      },
+      "role" : {
+        "type" : "literal",
+        "value" : "secretaryGeneral"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q2300128-f97f2b77-4cb8-e5d1-c2a9-6da431b7affe"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#NormalRank"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "partyLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Süd-Tiroler Freiheit"
+      },
+      "personLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Sven Knoll"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2460954"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1939-10-13T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "party" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q767560"
+      },
+      "role" : {
+        "type" : "literal",
+        "value" : "chair"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q767560-f29fa0a0-499b-6036-426c-a9e520cd2606"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#NormalRank"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2001-01-01T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "partyLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Partito Repubblicano Italiano"
+      },
+      "personLabel" : {
+        "xml:lang" : "mul",
+        "type" : "literal",
+        "value" : "Giorgio La Malfa"
+      },
+      "end" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2006-01-01T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2460954"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1939-10-13T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "party" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q767560"
+      },
+      "role" : {
+        "type" : "literal",
+        "value" : "secretaryGeneral"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q767560-A8FE540F-A3F5-43CB-AE63-A3CEA2D181C3"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#NormalRank"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1987-01-01T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "partyLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Partito Repubblicano Italiano"
+      },
+      "personLabel" : {
+        "xml:lang" : "mul",
+        "type" : "literal",
+        "value" : "Giorgio La Malfa"
+      },
+      "end" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1993-01-01T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2460954"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1939-10-13T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "party" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q767560"
+      },
+      "role" : {
+        "type" : "literal",
+        "value" : "secretaryGeneral"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q767560-4A965B3D-F8A4-4502-9737-3060D0CFBFD8"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#NormalRank"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1994-01-01T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "partyLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Partito Repubblicano Italiano"
+      },
+      "personLabel" : {
+        "xml:lang" : "mul",
+        "type" : "literal",
+        "value" : "Giorgio La Malfa"
+      },
+      "end" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2001-01-01T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2865950"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1956-10-12T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "party" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q22080305"
+      },
+      "role" : {
+        "type" : "literal",
+        "value" : "secretaryGeneral"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q22080305-d62538ec-4057-99ee-c7c3-cafa0a13a11c"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#NormalRank"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "partyLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Autonomia Sud"
+      },
+      "personLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Arturo Iannaccone"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3119423"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1963-09-19T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "party" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1757843"
+      },
+      "role" : {
+        "type" : "literal",
+        "value" : "chair"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q1757843-0b8e9584-4d35-1410-3d1e-6e45ba8e18d6"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#NormalRank"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2012-12-21T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "partyLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Fratelli d'Italia"
+      },
+      "personLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Guido Crosetto"
+      },
+      "end" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2013-04-04T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3301763"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1966-10-16T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "party" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q20949745"
+      },
+      "role" : {
+        "type" : "literal",
+        "value" : "chair"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q20949745-f9293c48-4964-9354-1e62-9cae271ce6a1"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#NormalRank"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "partyLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Unidos"
+      },
+      "personLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Mauro Pili"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3497963"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1942-04-07T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "party" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1076494"
+      },
+      "role" : {
+        "type" : "literal",
+        "value" : "chair"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q1076494-b2b9ce09-4a9b-7e17-f045-3b79890b5d28"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#PreferredRank"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2014-01-01T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "partyLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Partito Liberale Italiano"
+      },
+      "personLabel" : {
+        "xml:lang" : "mul",
+        "type" : "literal",
+        "value" : "Stefano De Luca"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3608301"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1955-12-28T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "party" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q134700794"
+      },
+      "role" : {
+        "type" : "literal",
+        "value" : "chair"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q134700794-1f2f2b6b-434f-6e02-fa17-23b76af1ac86"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#NormalRank"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2025-10-12T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "partyLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "ORA!"
+      },
+      "personLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Alberto Forchielli"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3608301"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1955-12-28T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "party" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q134700794"
+      },
+      "role" : {
+        "type" : "literal",
+        "value" : "chair"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q134700794-3836bd58-420b-2f0a-422b-c1d61227d4f4"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#NormalRank"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2025-07-01T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "partyLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "ORA!"
+      },
+      "personLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Alberto Forchielli"
+      },
+      "end" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2025-10-12T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3609696"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1963-07-19T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "party" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6517163"
+      },
+      "role" : {
+        "type" : "literal",
+        "value" : "chair"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q6517163-7ebd212a-4873-5c1d-a983-96d21e57d3bd"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#NormalRank"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2005-01-01T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581072"
+      },
+      "partyLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Lega Nord Friuli-Venezia Giulia"
+      },
+      "personLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Alessandra Guerra"
+      },
+      "end" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2007-01-01T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3614121"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1958-04-07T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "party" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q22080305"
+      },
+      "role" : {
+        "type" : "literal",
+        "value" : "chair"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q22080305-4a9a3a08-41c0-f420-c8ce-13b01099c765"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#NormalRank"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "partyLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Autonomia Sud"
+      },
+      "personLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Americo Porfidia"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3616859"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1969-09-29T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "party" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4255795"
+      },
+      "role" : {
+        "type" : "literal",
+        "value" : "secretaryGeneral"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q4255795-3829eabd-4e3a-b74e-6d35-11f968c40941"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#NormalRank"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2002-01-01T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "partyLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Lega Nord Emilia"
+      },
+      "personLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Angelo Alessandri"
+      },
+      "end" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2012-01-01T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3616859"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1969-09-29T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "party" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q16943621"
+      },
+      "role" : {
+        "type" : "literal",
+        "value" : "chair"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q16943621-22f4a50e-4b52-c00e-3115-b3a7bfa0c282"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#NormalRank"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "partyLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Io Cambio"
+      },
+      "personLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Angelo Alessandri"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3616859"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1969-09-29T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "party" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q47750"
+      },
+      "role" : {
+        "type" : "literal",
+        "value" : "chair"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q47750-b4bf875e-4226-c664-ea7e-6af4a2b424ec"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#NormalRank"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2005-01-01T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "partyLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Lega Nord"
+      },
+      "personLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Angelo Alessandri"
+      },
+      "end" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2012-01-01T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3645839"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1966-09-21T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "party" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1450384"
+      },
+      "role" : {
+        "type" : "literal",
+        "value" : "chair"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q1450384-b824ab0b-4d6f-eddd-9984-43af67b6f07f"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#NormalRank"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2008-01-01T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "partyLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Radicali Italiani"
+      },
+      "personLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Bruno Mellano"
+      },
+      "end" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2010-01-01T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3737687"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1954-01-25T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "party" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4255795"
+      },
+      "role" : {
+        "type" : "literal",
+        "value" : "secretaryGeneral"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q4255795-f04df860-485a-641b-819a-e14af77b3ac8"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#NormalRank"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1990-01-01T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "partyLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Lega Nord Emilia"
+      },
+      "personLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Fabio Dosi"
+      },
+      "end" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1995-01-01T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3737734"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1959-04-17T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "party" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q16561954"
+      },
+      "role" : {
+        "type" : "literal",
+        "value" : "chair"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q16561954-841a9017-4517-89ac-565f-4cc62df3799f"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#NormalRank"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2013-01-01T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "partyLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Green Italia"
+      },
+      "personLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Fabio Granata"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3737814"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1967-12-29T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "party" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4255795"
+      },
+      "role" : {
+        "type" : "literal",
+        "value" : "chair"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q4255795-a792bab2-4f2e-41f5-a890-756f69a34925"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#NormalRank"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2006-01-01T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "partyLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Lega Nord Emilia"
+      },
+      "personLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Fabio Rainieri"
+      },
+      "end" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2012-01-01T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3737814"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1967-12-29T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "party" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4255795"
+      },
+      "role" : {
+        "type" : "literal",
+        "value" : "secretaryGeneral"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q4255795-248fcc11-40ef-dc8b-c739-f29b12f7f889"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#NormalRank"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2012-01-01T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "partyLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Lega Nord Emilia"
+      },
+      "personLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Fabio Rainieri"
+      },
+      "end" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2015-01-01T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3737983"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1953-11-06T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "party" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2251671"
+      },
+      "role" : {
+        "type" : "literal",
+        "value" : "secretaryGeneral"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q2251671-BEC70889-9740-49FA-9166-8425EF7FE18B"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#NormalRank"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "partyLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Liga Veneta Repubblica"
+      },
+      "personLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Fabrizio Comencini"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3737983"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1953-11-06T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "party" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2251671"
+      },
+      "role" : {
+        "type" : "literal",
+        "value" : "chair"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q2251671-4764f3ba-4093-92f3-bbac-517d548b09d4"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#NormalRank"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2000-01-01T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "partyLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Liga Veneta Repubblica"
+      },
+      "personLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Fabrizio Comencini"
+      },
+      "end" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2004-01-01T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3750475"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1958-07-15T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "party" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1606807"
+      },
+      "role" : {
+        "type" : "literal",
+        "value" : "secretaryGeneral"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q1606807-3E8838B5-9829-4565-A385-D28FF5429839"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#NormalRank"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "partyLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Alleanza di Centro"
+      },
+      "personLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Francesco Pionati"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3751560"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1947-04-12T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "party" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q47750"
+      },
+      "role" : {
+        "type" : "literal",
+        "value" : "chair"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q47750-dd87b06e-4b29-d7e4-b6aa-863a12016d62"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#NormalRank"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1991-01-01T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "partyLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Lega Nord"
+      },
+      "personLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Franco Rocchetta"
+      },
+      "end" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1994-01-01T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3757091"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1960-04-23T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "party" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q22951314"
+      },
+      "role" : {
+        "type" : "literal",
+        "value" : "chair"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q22951314-DADFD54F-AAA1-459B-B407-44AC8D54F993"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#NormalRank"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "partyLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Identità e Azione"
+      },
+      "personLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Gaetano Quagliariello"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3762043"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1953-10-03T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "party" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4255785"
+      },
+      "role" : {
+        "type" : "literal",
+        "value" : "secretaryGeneral"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q4255785-f86129a0-4d58-025d-e368-6aaf89e349fa"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#NormalRank"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1994-01-01T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "partyLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Lega Nord Liguria"
+      },
+      "personLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Giacomo Chiappori"
+      },
+      "end" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1998-01-01T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3762237"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1959-09-27T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "party" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1408232"
+      },
+      "role" : {
+        "type" : "literal",
+        "value" : "secretaryGeneral"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q1408232-4B874576-6B9F-4106-8D7A-16A54061B9D7"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#NormalRank"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2005-01-01T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "partyLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Moderati"
+      },
+      "personLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Giacomo Portas"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3763740"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1966-09-22T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "party" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q28004247"
+      },
+      "role" : {
+        "type" : "literal",
+        "value" : "chair"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q28004247-e3077a3a-4311-bbfb-105d-0d3e9362e074"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#NormalRank"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "partyLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Centristi per l'Europa"
+      },
+      "personLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Gianpiero D'Alia"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3765300"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1929-06-24T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "party" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q767560"
+      },
+      "role" : {
+        "type" : "literal",
+        "value" : "secretaryGeneral"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q767560-1561f3b8-4bcd-c101-ad97-9aff52b97838"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#NormalRank"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1993-01-01T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "partyLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Partito Repubblicano Italiano"
+      },
+      "personLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Giorgio Bogi"
+      },
+      "end" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1994-01-01T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3768117"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1935-05-24T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "party" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3896781"
+      },
+      "role" : {
+        "type" : "literal",
+        "value" : "secretaryGeneral"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q3896781-2F49A7D4-EE4D-4213-B06A-CD834FA19F59"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#NormalRank"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "partyLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Partito Marxista-Leninista Italiano"
+      },
+      "personLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Giovanni Scuderi"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3770328"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1975-08-04T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "party" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q20970716"
+      },
+      "role" : {
+        "type" : "literal",
+        "value" : "secretaryGeneral"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q20970716-A5806A01-621B-4894-A1C1-C89126230F9D"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#NormalRank"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2015-01-01T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "partyLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Possibile"
+      },
+      "personLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Giuseppe Civati"
+      },
+      "end" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2018-01-01T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3792354"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1964-07-24T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "party" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q47768"
+      },
+      "role" : {
+        "type" : "literal",
+        "value" : "secretaryGeneral"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q47768-A1B2F107-162D-429D-945A-DBC933688C54"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#NormalRank"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "partyLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Italia dei Valori"
+      },
+      "personLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Ignazio Messina"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3792354"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1964-07-24T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "party" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q47768"
+      },
+      "role" : {
+        "type" : "literal",
+        "value" : "chair"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q47768-31a6e047-492f-0f16-d31d-e73d1323ffe7"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#NormalRank"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "partyLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Italia dei Valori"
+      },
+      "personLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Ignazio Messina"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3804452"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1944-08-09T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "party" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2277776"
+      },
+      "role" : {
+        "type" : "literal",
+        "value" : "chair"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q2277776-79efd230-4671-3e6c-56ff-b136f310e409"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#NormalRank"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "partyLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Liberal Democratici"
+      },
+      "personLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Italo Tanoni"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3838260"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1960-01-16T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "party" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6517164"
+      },
+      "role" : {
+        "type" : "literal",
+        "value" : "secretaryGeneral"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q6517164-d35def78-4e35-5952-593b-eda8acc406c1"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#NormalRank"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1995-01-01T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "partyLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Lega Nord Marche"
+      },
+      "personLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Luca Paolini"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3838596"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1935-06-15T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "party" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q47750"
+      },
+      "role" : {
+        "type" : "literal",
+        "value" : "chair"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q47750-e5465ed5-4f99-f8f5-2c2c-e40aaa015ae1"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#NormalRank"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2002-01-01T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "partyLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Lega Nord"
+      },
+      "personLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Luciano Gasperini"
+      },
+      "end" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2005-01-01T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3845102"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1942-11-26T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "party" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q25338960"
+      },
+      "role" : {
+        "type" : "literal",
+        "value" : "chair"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q25338960-b3d5e794-415d-6021-05b8-1a9768ba932f"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#NormalRank"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581072"
+      },
+      "partyLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Partito Comunista Italiano"
+      },
+      "personLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Manuela Palermi"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3847132"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1969-12-05T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "party" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1450384"
+      },
+      "role" : {
+        "type" : "literal",
+        "value" : "chair"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q1450384-ad88a4bc-4efb-7594-1b61-4d05e05524b7"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#NormalRank"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2006-01-01T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581072"
+      },
+      "partyLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Radicali Italiani"
+      },
+      "personLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Maria Antonietta Farina Coscioni"
+      },
+      "end" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2008-01-01T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3847960"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1947-07-24T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "party" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q47750"
+      },
+      "role" : {
+        "type" : "literal",
+        "value" : "chair"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q47750-0985fbfc-4c3a-4206-fe12-f0677e736e2b"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#NormalRank"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1989-01-01T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581072"
+      },
+      "partyLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Lega Nord"
+      },
+      "personLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Marilena Marin"
+      },
+      "end" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1991-01-01T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3848255"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1971-08-15T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "party" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q24213849"
+      },
+      "role" : {
+        "type" : "literal",
+        "value" : "chair"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q24213849-ed1c9e60-44be-401b-2919-946b74a4f104"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#NormalRank"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "partyLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Il Popolo della Famiglia"
+      },
+      "personLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Mario Adinolfi"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3852082"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1975-09-23T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "party" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6517169"
+      },
+      "role" : {
+        "type" : "literal",
+        "value" : "secretaryGeneral"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q6517169-cfb61ed6-4638-d7f1-3ae7-a963d072f204"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#NormalRank"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2012-01-01T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "partyLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Lega Nord Alto Adige/Sud Tirolo"
+      },
+      "personLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Matteo Bragantini"
+      },
+      "end" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2013-01-01T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3852602"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1972-04-07T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "party" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6517169"
+      },
+      "role" : {
+        "type" : "literal",
+        "value" : "secretaryGeneral"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q6517169-AF658B00-7160-4588-80CC-B5D8C0B4C78B"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#PreferredRank"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2007-01-01T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "partyLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Lega Nord Alto Adige/Sud Tirolo"
+      },
+      "personLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Maurizio Fugatti"
+      },
+      "end" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2010-01-01T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3852602"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1972-04-07T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "party" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6517169"
+      },
+      "role" : {
+        "type" : "literal",
+        "value" : "secretaryGeneral"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q6517169-50059C8C-4FDD-487A-B05B-9D8601E6C372"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#PreferredRank"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2014-01-01T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "partyLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Lega Nord Alto Adige/Sud Tirolo"
+      },
+      "personLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Maurizio Fugatti"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3934279"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1962-05-25T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "party" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1811588"
+      },
+      "role" : {
+        "type" : "literal",
+        "value" : "chair"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q1811588-EBDC2D20-D803-4876-8351-451CA5B293FF"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#NormalRank"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "partyLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Movimento Associativo Italiani all'Estero"
+      },
+      "personLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Ricardo Merlo"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3935911"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1950-02-01T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "party" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6517163"
+      },
+      "role" : {
+        "type" : "literal",
+        "value" : "chair"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q6517163-1a8823a6-48a8-cf3a-e00c-590c14568def"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#NormalRank"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2001-01-01T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "partyLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Lega Nord Friuli-Venezia Giulia"
+      },
+      "personLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Rinaldo Bosco"
+      },
+      "end" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2003-01-01T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3940264"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1961-09-29T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "party" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6517169"
+      },
+      "role" : {
+        "type" : "literal",
+        "value" : "secretaryGeneral"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q6517169-eb8e192c-4e4f-3f97-1a3d-aefe854863a5"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#NormalRank"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1996-01-01T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "partyLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Lega Nord Alto Adige/Sud Tirolo"
+      },
+      "personLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Rolando Fontan"
+      },
+      "end" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2000-01-01T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3956100"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1955-02-08T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "party" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6517169"
+      },
+      "role" : {
+        "type" : "literal",
+        "value" : "secretaryGeneral"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q6517169-af56ba56-4f73-95b1-2865-57c2a3cb3c77"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#NormalRank"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2001-01-01T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "partyLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Lega Nord Alto Adige/Sud Tirolo"
+      },
+      "personLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Sergio Divina"
+      },
+      "end" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2007-01-01T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3960963"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1957-06-02T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "party" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1450384"
+      },
+      "role" : {
+        "type" : "literal",
+        "value" : "chair"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q1450384-899c871e-44c1-e772-f884-d0b3b8dddd30"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#NormalRank"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2010-01-01T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "partyLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Radicali Italiani"
+      },
+      "personLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Silvio Viale"
+      },
+      "end" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2013-01-01T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3964775"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1966-12-11T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "party" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4255785"
+      },
+      "role" : {
+        "type" : "literal",
+        "value" : "secretaryGeneral"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q4255785-c5dc5da6-42ce-3f41-1d4a-59e7ba5f1a3f"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#NormalRank"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2012-01-01T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581072"
+      },
+      "partyLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Lega Nord Liguria"
+      },
+      "personLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Sonia Viale"
+      },
+      "end" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2015-01-01T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4013447"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1939-01-23T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "party" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1076494"
+      },
+      "role" : {
+        "type" : "literal",
+        "value" : "chair"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q1076494-3d6023b6-43dc-4052-5650-8dbd4561f61c"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#NormalRank"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2012-01-01T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "partyLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Partito Liberale Italiano"
+      },
+      "personLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Vincenzo Palumbo"
+      },
+      "end" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2014-01-01T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4716480"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1955-06-20T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "party" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2251671"
+      },
+      "role" : {
+        "type" : "literal",
+        "value" : "chair"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q2251671-d10a7e78-49b2-f2a7-c9a2-d188af897313"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#NormalRank"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2004-01-01T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "partyLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Liga Veneta Repubblica"
+      },
+      "personLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Alessio Morosin"
+      },
+      "end" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2007-01-01T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q5482666"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1959-12-24T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "party" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q941224"
+      },
+      "role" : {
+        "type" : "literal",
+        "value" : "secretaryGeneral"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q941224-DAB89F1E-B2DE-487C-9EB8-D5F732F1A5CB"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#NormalRank"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2012-01-01T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "partyLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Partito Autonomista Trentino Tirolese"
+      },
+      "personLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Franco Panizza"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6695833"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1963-12-18T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "party" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q16985952"
+      },
+      "role" : {
+        "type" : "literal",
+        "value" : "chair"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q16985952-84286ba1-414c-7499-4bfc-38ccac0e5cf8"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#NormalRank"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "partyLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Veneti Indipendenti"
+      },
+      "personLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Luca Azzano Cantarutti"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6762112"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1954-04-19T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "party" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2251671"
+      },
+      "role" : {
+        "type" : "literal",
+        "value" : "chair"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q2251671-ef873c85-474f-afa7-7bfd-c2bdcb5ef4d3"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#NormalRank"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1998-01-01T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "partyLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Liga Veneta Repubblica"
+      },
+      "personLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Mariangelo Foggiato"
+      },
+      "end" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1999-01-01T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q14905131"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1963-08-02T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "party" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q47492632"
+      },
+      "role" : {
+        "type" : "literal",
+        "value" : "chair"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q47492632-7bcea7d6-4ace-8076-82a2-860a4cd5d4c6"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#NormalRank"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "partyLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "La Puglia in Più"
+      },
+      "personLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Dario Stefano"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q15074414"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1971-03-19T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "party" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q606620"
+      },
+      "role" : {
+        "type" : "literal",
+        "value" : "chair"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q606620-039028B5-A070-43E5-9167-E93E19F6025E"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#NormalRank"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2013-01-01T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "partyLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Südtiroler Volkspartei"
+      },
+      "personLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Arno Kompatscher"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q15917274"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1940-02-08T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "party" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1826873"
+      },
+      "role" : {
+        "type" : "literal",
+        "value" : "secretaryGeneral"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q1826873-6fee1a35-45af-40e8-94b6-024bb5aed810"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#PreferredRank"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "partyLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Partito Pensionati"
+      },
+      "personLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Giacinto Boldrini"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q15961960"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1974-06-08T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "party" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4255785"
+      },
+      "role" : {
+        "type" : "literal",
+        "value" : "secretaryGeneral"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q4255785-1d1742e9-4517-d7aa-90b4-9eb91562cb9f"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#PreferredRank"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2015-01-01T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "partyLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Lega Nord Liguria"
+      },
+      "personLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Edoardo Rixi"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q15975915"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1960-09-06T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "party" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q17102398"
+      },
+      "role" : {
+        "type" : "literal",
+        "value" : "chair"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q17102398-835d8bfa-4dbf-aceb-7904-80cba1176d76"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#NormalRank"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "partyLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Prima il Veneto"
+      },
+      "personLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Corrado Callegari"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q16164768"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1950-07-06T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "party" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q28962342"
+      },
+      "role" : {
+        "type" : "literal",
+        "value" : "chair"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q28962342-272520fb-4ca2-ff51-92ad-ce4bec8e6760"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#NormalRank"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2018-09-27T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "partyLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Alternativa Popolare"
+      },
+      "personLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Paolo Alli"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q16582388"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1972-10-04T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "party" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q21405813"
+      },
+      "role" : {
+        "type" : "literal",
+        "value" : "chair"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q21405813-15aadbd0-4994-0819-c170-372f62d8d603"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#NormalRank"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "partyLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Sinistra Italiana"
+      },
+      "personLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Nicola Fratoianni"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q18545045"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1974-07-04T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "party" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6092628"
+      },
+      "role" : {
+        "type" : "literal",
+        "value" : "chair"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q6092628-672104ee-4fe9-fa7c-dade-1642f2766624"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#NormalRank"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2006-01-01T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "partyLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Partito Animalista Italiano"
+      },
+      "personLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Cristiano Ceriello"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q21578717"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1978-01-31T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "party" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q20970716"
+      },
+      "role" : {
+        "type" : "literal",
+        "value" : "secretaryGeneral"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q20970716-ac02ccb1-4a94-45bf-04cd-4a1e8f36b85c"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#NormalRank"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2018-01-01T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581072"
+      },
+      "partyLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Possibile"
+      },
+      "personLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Beatrice Brignone"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q24239732"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1976-08-07T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "party" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q47090559"
+      },
+      "role" : {
+        "type" : "literal",
+        "value" : "secretaryGeneral"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q47090559-3d1c4541-420b-bb24-748e-ac493f607bef"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#NormalRank"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "partyLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "+Europa"
+      },
+      "personLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Riccardo Magi"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q24239732"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1976-08-07T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "party" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1450384"
+      },
+      "role" : {
+        "type" : "literal",
+        "value" : "chair"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q1450384-a000a710-49c4-a22d-2a63-9dd164fd168e"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#NormalRank"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2014-01-01T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "partyLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Radicali Italiani"
+      },
+      "personLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Riccardo Magi"
+      },
+      "end" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2015-01-01T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q29042667"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1986-06-21T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "party" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1450384"
+      },
+      "role" : {
+        "type" : "literal",
+        "value" : "chair"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q1450384-94c18865-4e13-12c6-2299-ce4252680f5b"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#NormalRank"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2016-01-01T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581072"
+      },
+      "partyLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Radicali Italiani"
+      },
+      "personLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Antonella Soldo"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q78185671"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1979-01-30T00:00:00Z"
+      },
+      "birthPrecision" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "party" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q85776185"
+      },
+      "role" : {
+        "type" : "literal",
+        "value" : "chair"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q85776185-2814d21e-495a-d1ec-5a35-e8a816aa95c8"
+      },
+      "rank" : {
+        "type" : "uri",
+        "value" : "http://wikiba.se/ontology#NormalRank"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2017-12-01T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "partyLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Lega per Salvini Premier"
+      },
+      "personLabel" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Giulio Centemero"
+      }
+    } ]
+  }
+}

@@ -1,0 +1,69 @@
+{
+  "country": "ro",
+  "category": "RO-f",
+  "institution": "Ministerul Afacerilor Externe",
+  "source": "https://www.mae.ro/romanian-missions",
+  "diplomats": [
+    {
+      "name": "Andrei Muraru",
+      "position": "Ambasadorul României în Statele Unite ale Americii",
+      "birthDate": "1982-09-16",
+      "post": "Ambasada României la Washington"
+    },
+    {
+      "name": "Laura Popescu",
+      "position": "Ambasadoarea României în Regatul Unit al Marii Britanii și Irlandei de Nord",
+      "birthDate": "1972-10-04",
+      "post": "Ambasada României la Londra"
+    },
+    {
+      "name": "Ioana Bivolaru",
+      "position": "Ambasadoarea României în Republica Franceză",
+      "birthDate": "1971-08-22",
+      "post": "Ambasada României la Paris"
+    },
+    {
+      "name": "Emil Hurezeanu",
+      "position": "Ambasadorul României în Republica Austria",
+      "birthDate": "1955-08-26",
+      "post": "Ambasada României la Viena"
+    },
+    {
+      "name": "Iulia Matei",
+      "position": "Reprezentantul Permanent al României pe lângă Uniunea Europeană",
+      "birthDate": "1976-05-18",
+      "post": "Reprezentanța Permanentă a României la UE"
+    },
+    {
+      "name": "Dan Neculăescu",
+      "position": "Reprezentantul Permanent al României la NATO",
+      "birthDate": "1976-03-01",
+      "post": "Delegația Permanentă a României la NATO"
+    },
+    {
+      "name": "Gabriela Dancău",
+      "position": "Ambasadoarea României în Republica Italiană",
+      "birthDate": "1977-04-12",
+      "post": "Ambasada României la Roma"
+    },
+    {
+      "name": "Radu Gabriel Safta",
+      "position": "Ambasadorul României în Australia",
+      "birthDate": "1968-12-05",
+      "post": "Ambasada României la Canberra"
+    },
+    {
+      "name": "Bogdan Mănoiu",
+      "position": "Ambasadorul României în Canada",
+      "birthDate": "1967-06-30",
+      "post": "Ambasada României la Ottawa"
+    },
+    {
+      "name": "Dan Stoenescu",
+      "position": "Însărcinat cu afaceri / Șef de misiune diplomatică, fost ministru delegat",
+      "birthDate": "1980-11-04",
+      "post": "Ministerul Afacerilor Externe"
+    }
+  ]
+}
+

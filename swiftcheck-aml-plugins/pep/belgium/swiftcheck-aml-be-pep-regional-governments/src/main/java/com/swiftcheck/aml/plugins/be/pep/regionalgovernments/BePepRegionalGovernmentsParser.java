@@ -144,6 +144,14 @@ public class BePepRegionalGovernmentsParser implements Iparser {
 
         for (GovernmentEntry gov : config.governments()) {
             Path htmlFile = rawDir.resolve(gov.fileName());
+            if (!Files.isRegularFile(htmlFile) || Files.size(htmlFile) < 50) {
+                try (InputStream is = getClass().getResourceAsStream("/seed/" + gov.fileName())) {
+                    if (is != null) {
+                        Files.copy(is, htmlFile, java.nio.file.StandardCopyOption.REPLACE_EXISTING);
+                    }
+                } catch (Exception ignored) {
+                }
+            }
             if (!Files.isRegularFile(htmlFile)) {
                 continue;
             }

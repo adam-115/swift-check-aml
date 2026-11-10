@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    France : Clôture de la couverture PEP à 100 % (8 / 8 catégories officielles).
+    - Requalification à COMPLETE de la fonction 70 (Dirigeants des partis politiques - loi n° 88-27 du 11 mars 1988) via fr_pep_political_parties.
+    - Requalification à COMPLETE de la fonction 79 (Dirigeants et administrateurs des sociétés locales SEM, SEMOP, SPL, EPIC) via fr_pep_local_enterprises.
+    - Requalification à COMPLETE de la fonction 80 (Dirigeants des organisations internationales en France) via fr_pep_international_orgs.
+-->
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="096-fr-political-parties-complete" author="swiftcheck">
+        <comment>Requalification à COMPLETE des dirigeants des partis politiques français (FR-c)</comment>
+        <sql><![CDATA[
+            UPDATE pep_function_parser pfp
+            JOIN parser p ON p.id = pfp.parser_id
+            JOIN pep_function f ON f.id = pfp.function_id
+            JOIN pep_category c ON c.id = f.category_id
+            SET pfp.completeness = 'COMPLETE',
+                pfp.covered_scope = 'Présidents, secrétaires généraux et membres des organes exécutifs des partis et groupements politiques français (loi n° 88-27 du 11 mars 1988)',
+                pfp.gaps = NULL
+            WHERE c.country_iso = 'FR' AND f.id = 70 AND p.dataset_name = 'fr_pep_political_parties';
+        ]]></sql>
+    </changeSet>
+
+    <changeSet id="096-fr-local-enterprises-complete" author="swiftcheck">
+        <comment>Requalification à COMPLETE des dirigeants et administrateurs de sociétés locales (FR-g)</comment>
+        <sql><![CDATA[
+            UPDATE pep_function_parser pfp
+            JOIN parser p ON p.id = pfp.parser_id
+            JOIN pep_function f ON f.id = pfp.function_id
+            JOIN pep_category c ON c.id = f.category_id
+            SET pfp.completeness = 'COMPLETE',
+                pfp.covered_scope = 'Dirigeants et administrateurs des SEM, SEMOP, SPL et EPIC locaux au registre national des entreprises (RNE / API Recherche d''entreprises DINUM)',
+                pfp.gaps = NULL
+            WHERE c.country_iso = 'FR' AND f.id = 79 AND p.dataset_name = 'fr_pep_local_enterprises';
+        ]]></sql>
+    </changeSet>
+
+    <changeSet id="096-fr-international-orgs-complete" author="swiftcheck">
+        <comment>Requalification à COMPLETE des dirigeants des organisations internationales en France (FR-h)</comment>
+        <sql><![CDATA[
+            UPDATE pep_function_parser pfp
+            JOIN parser p ON p.id = pfp.parser_id
+            JOIN pep_function f ON f.id = pfp.function_id
+            JOIN pep_category c ON c.id = f.category_id
+            SET pfp.completeness = 'COMPLETE',
+                pfp.covered_scope = 'Dirigeants des organisations internationales ayant leur siège ou des bureaux en France notifiées sous l''art. 20 bis de la directive 2015/849 (Unesco, OEPP, OMSA, OFAJ, BIPM, OIML, CIHEAM, CGIAR, IPGRI)',
+                pfp.gaps = NULL
+            WHERE c.country_iso = 'FR' AND f.id = 80 AND p.dataset_name = 'fr_pep_international_orgs';
+        ]]></sql>
+    </changeSet>
+
+</databaseChangeLog>
+

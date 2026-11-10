@@ -1,0 +1,64 @@
+{
+  "country": "ro",
+  "category": "RO-g",
+  "source": "Ministerul Finanțelor Publice & Registrul Comerțului",
+  "executives": [
+    {
+      "name": "Karoly Borbely",
+      "position": "Director General Executiv (CEO) - SPEEH Hidroelectrica S.A.",
+      "company": "SPEEH Hidroelectrica S.A.",
+      "birthDate": "1976-07-26",
+      "sector": "Energie"
+    },
+    {
+      "name": "Răzvan Popescu",
+      "position": "Director General (CEO) - S.N.G.N. Romgaz S.A.",
+      "company": "S.N.G.N. Romgaz S.A.",
+      "birthDate": "1978-11-14",
+      "sector": "Gaze naturale"
+    },
+    {
+      "name": "Cosmin Ghiță",
+      "position": "Director General (CEO) - S.N. Nuclearelectrica S.A.",
+      "company": "S.N. Nuclearelectrica S.A.",
+      "birthDate": "1989-03-29",
+      "sector": "Energie nucleară"
+    },
+    {
+      "name": "Ion Sterian",
+      "position": "Director General (CEO) - S.N.T.G.N. Transgaz S.A.",
+      "company": "S.N.T.G.N. Transgaz S.A.",
+      "birthDate": "1959-10-02",
+      "sector": "Transport gaze"
+    },
+    {
+      "name": "Ștefăniță Munteanu",
+      "position": "Președinte al Directoratului - C.N.T.E.E. Transelectrica S.A.",
+      "company": "C.N.T.E.E. Transelectrica S.A.",
+      "birthDate": "1983-05-18",
+      "sector": "Transport energie electrică"
+    },
+    {
+      "name": "Sorin Radu Păun",
+      "position": "Director General - C.N. Aeroporturi București S.A.",
+      "company": "Compania Națională Aeroporturi București S.A.",
+      "birthDate": "1972-02-17",
+      "sector": "Transport aerian"
+    },
+    {
+      "name": "Traian Preoteasa",
+      "position": "Director General - SNTFC CFR Călători S.A.",
+      "company": "S.N.T.F.C. CFR Călători S.A.",
+      "birthDate": "1967-08-11",
+      "sector": "Transport feroviar"
+    },
+    {
+      "name": "Florin Spătaru",
+      "position": "Președinte al Consiliului de Administrație - C.N. Romarm S.A.",
+      "company": "Compania Națională Romarm S.A.",
+      "birthDate": "1969-12-22",
+      "sector": "Industrie de apărare"
+    }
+  ]
+}
+

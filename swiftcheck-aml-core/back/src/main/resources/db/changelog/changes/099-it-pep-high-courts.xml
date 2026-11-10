@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Italie : Parsers dédiés pour les hautes juridictions (IT-1.4).
+    D.Lgs. 231/2007, art. 1 c.2 lett. dd, point 1.4 ; JO C/2023/724.
+    - it_pep_constitutional_court : 15 juges de la Cour constitutionnelle (fonction 319)
+    - it_pep_high_courts : magistrats de la Cassation, Conseil d'État et Cour des comptes (fonction 320)
+-->
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="099-parsers-it-high-courts" author="swiftcheck">
+        <sql><![CDATA[
+            -- Cour constitutionnelle (fonction 319)
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Italie – Cour constitutionnelle',
+                'Juges de la Cour constitutionnelle italienne (Corte costituzionale), en fonction et sortis depuis moins de 12 mois (catégorie IT-1.4)',
+                'it_pep_constitutional_court', 'PEP', 'https://www.cortecostituzionale.it/',
+                'it-pep-constitutional-court', 'D:/test parser 2/plugins/swiftcheck-aml-it-pep-constitutional-court-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'API',
+                NULL,
+                '{"url": "https://www.cortecostituzionale.it/jsp/consulta/composizione/composizione.do"}',
+                168, 12,
+                'Site officiel de la Cour constitutionnelle : citer la source', 'Corte costituzionale della Repubblica Italiana',
+                'Les 15 juges constitutionnels nommés par le Président de la République, le Parlement et les magistratures suprêmes.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', TRUE,
+                   'Les 15 juges de la Cour constitutionnelle italienne (Corte costituzionale), dont le président et les vice-présidents',
+                   NULL
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.country_iso = 'IT' AND f.id = 319 AND p.dataset_name = 'it_pep_constitutional_court';
+
+            -- Magistratures suprêmes (fonction 320)
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Italie – Hautes magistratures',
+                'Magistrats de la Cour de cassation, du Conseil d''État et de la Cour des comptes (catégorie IT-1.4)',
+                'it_pep_high_courts', 'PEP', 'https://www.giustizia.it/',
+                'it-pep-high-courts', 'D:/test parser 2/plugins/swiftcheck-aml-it-pep-high-courts-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'API',
+                NULL,
+                '{}',
+                168, 12,
+                'Données publiques officielles : citer la source', 'Corte Suprema di Cassazione, Consiglio di Stato, Corte dei conti',
+                'Premiers présidents, procureurs généraux, présidents adjoints et hauts magistrats des trois cours suprêmes italiennes.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', TRUE,
+                   'Premiers présidents, procureurs généraux et magistrats dirigeants de la Cour suprême de cassation, du Conseil d''État et de la Cour des comptes',
+                   NULL
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.country_iso = 'IT' AND f.id = 320 AND p.dataset_name = 'it_pep_high_courts';
+        ]]></sql>
+    </changeSet>
+
+</databaseChangeLog>
+

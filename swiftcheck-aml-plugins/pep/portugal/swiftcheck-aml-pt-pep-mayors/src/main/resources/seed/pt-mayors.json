@@ -1,0 +1,188 @@
+{
+  "source": "Associação Nacional de Municípios Portugueses (ANMP) e Câmaras Municipais",
+  "url": "https://www.anmp.pt/municipios/municipios/",
+  "updated": "2026-11-01",
+  "mayors": [
+    {
+      "name": "Carlos Moedas",
+      "firstName": "Carlos",
+      "lastName": "Moedas",
+      "municipality": "Lisboa",
+      "district": "Lisboa",
+      "position": "Presidente da Câmara Municipal de Lisboa",
+      "since": "2021-10-18"
+    },
+    {
+      "name": "Rui Moreira",
+      "firstName": "Rui",
+      "lastName": "Moreira",
+      "municipality": "Porto",
+      "district": "Porto",
+      "position": "Presidente da Câmara Municipal do Porto",
+      "since": "2013-10-22"
+    },
+    {
+      "name": "Basílio Horta",
+      "firstName": "Basílio",
+      "lastName": "Horta",
+      "municipality": "Sintra",
+      "district": "Lisboa",
+      "position": "Presidente da Câmara Municipal de Sintra",
+      "since": "2013-10-21"
+    },
+    {
+      "name": "Eduardo Vítor Rodrigues",
+      "firstName": "Eduardo Vítor",
+      "lastName": "Rodrigues",
+      "municipality": "Vila Nova de Gaia",
+      "district": "Porto",
+      "position": "Presidente da Câmara Municipal de Vila Nova de Gaia",
+      "since": "2013-10-19"
+    },
+    {
+      "name": "Carlos Carreiras",
+      "firstName": "Carlos",
+      "lastName": "Carreiras",
+      "municipality": "Cascais",
+      "district": "Lisboa",
+      "position": "Presidente da Câmara Municipal de Cascais",
+      "since": "2011-02-01"
+    },
+    {
+      "name": "Ricardo Leão",
+      "firstName": "Ricardo",
+      "lastName": "Leão",
+      "municipality": "Loures",
+      "district": "Lisboa",
+      "position": "Presidente da Câmara Municipal de Loures",
+      "since": "2021-10-08"
+    },
+    {
+      "name": "Ricardo Rio",
+      "firstName": "Ricardo",
+      "lastName": "Rio",
+      "municipality": "Braga",
+      "district": "Braga",
+      "position": "Presidente da Câmara Municipal de Braga",
+      "since": "2013-10-21"
+    },
+    {
+      "name": "Luísa Salgueiro",
+      "firstName": "Luísa",
+      "lastName": "Salgueiro",
+      "municipality": "Matosinhos",
+      "district": "Porto",
+      "position": "Presidente da Câmara Municipal de Matosinhos e Presidente da ANMP",
+      "since": "2017-10-24"
+    },
+    {
+      "name": "Vítor Ferreira",
+      "firstName": "Vítor",
+      "lastName": "Ferreira",
+      "municipality": "Amadora",
+      "district": "Lisboa",
+      "position": "Presidente da Câmara Municipal da Amadora",
+      "since": "2024-07-01"
+    },
+    {
+      "name": "Inês de Medeiros",
+      "firstName": "Inês",
+      "lastName": "de Medeiros",
+      "municipality": "Almada",
+      "district": "Setúbal",
+      "position": "Presidente da Câmara Municipal de Almada",
+      "since": "2017-10-21"
+    },
+    {
+      "name": "José Manuel Silva",
+      "firstName": "José Manuel",
+      "lastName": "Silva",
+      "municipality": "Coimbra",
+      "district": "Coimbra",
+      "position": "Presidente da Câmara Municipal de Coimbra",
+      "since": "2021-10-08"
+    },
+    {
+      "name": "André Martins",
+      "firstName": "André",
+      "lastName": "Martins",
+      "municipality": "Setúbal",
+      "district": "Setúbal",
+      "position": "Presidente da Câmara Municipal de Setúbal",
+      "since": "2021-10-08"
+    },
+    {
+      "name": "Cristina Pedra",
+      "firstName": "Cristina",
+      "lastName": "Pedra",
+      "municipality": "Funchal",
+      "district": "Madeira",
+      "position": "Presidente da Câmara Municipal do Funchal",
+      "since": "2024-01-29"
+    },
+    {
+      "name": "Pedro Nascimento Cabral",
+      "firstName": "Pedro",
+      "lastName": "Nascimento Cabral",
+      "municipality": "Ponta Delgada",
+      "district": "Açores",
+      "position": "Presidente da Câmara Municipal de Ponta Delgada",
+      "since": "2021-10-11"
+    },
+    {
+      "name": "Carlos Pinto de Sá",
+      "firstName": "Carlos",
+      "lastName": "Pinto de Sá",
+      "municipality": "Évora",
+      "district": "Évora",
+      "position": "Presidente da Câmara Municipal de Évora",
+      "since": "2013-10-19"
+    },
+    {
+      "name": "Rogério Bacalhau",
+      "firstName": "Rogério",
+      "lastName": "Bacalhau",
+      "municipality": "Faro",
+      "district": "Faro",
+      "position": "Presidente da Câmara Municipal de Faro",
+      "since": "2013-10-21"
+    },
+    {
+      "name": "Gonçalo Lopes",
+      "firstName": "Gonçalo",
+      "lastName": "Lopes",
+      "municipality": "Leiria",
+      "district": "Leiria",
+      "position": "Presidente da Câmara Municipal de Leiria",
+      "since": "2019-08-23"
+    },
+    {
+      "name": "Fernando Ruas",
+      "firstName": "Fernando",
+      "lastName": "Ruas",
+      "municipality": "Viseu",
+      "district": "Viseu",
+      "position": "Presidente da Câmara Municipal de Viseu",
+      "since": "2021-10-08"
+    },
+    {
+      "name": "Domingos Bragança",
+      "firstName": "Domingos",
+      "lastName": "Bragança",
+      "municipality": "Guimarães",
+      "district": "Braga",
+      "position": "Presidente da Câmara Municipal de Guimarães",
+      "since": "2013-10-15"
+    },
+    {
+      "name": "Ribau Esteves",
+      "firstName": "José",
+      "lastName": "Ribau Esteves",
+      "municipality": "Aveiro",
+      "district": "Aveiro",
+      "position": "Presidente da Câmara Municipal de Aveiro",
+      "since": "2013-10-19"
+    }
+  ]
+}
+

@@ -1,0 +1,92 @@
+{
+  "country": "pl",
+  "category": "PL-g",
+  "source": "Ministerstwo Aktywów Państwowych (MAP) & Spółki Skarbu Państwa",
+  "enterprises": [
+    {
+      "name": "Ireneusz Fąfara",
+      "birthDate": "1959-07-28",
+      "position": "Prezes Zarządu",
+      "enterprise": "ORLEN S.A.",
+      "startDate": "2024-04-11"
+    },
+    {
+      "name": "Wojciech Wrochna",
+      "birthDate": "1978-03-24",
+      "position": "Wiceprezes Zarządu",
+      "enterprise": "ORLEN S.A.",
+      "startDate": "2024-04-16"
+    },
+    {
+      "name": "Dariusz Marzec",
+      "birthDate": "1968-12-09",
+      "position": "Prezes Zarządu",
+      "enterprise": "PGE Polska Grupa Energetyczna S.A.",
+      "startDate": "2024-03-18"
+    },
+    {
+      "name": "Artur Olech",
+      "birthDate": "1970-05-14",
+      "position": "Prezes Zarządu",
+      "enterprise": "PZU S.A. (Powszechny Zakład Ubezpieczeń)",
+      "startDate": "2024-04-12"
+    },
+    {
+      "name": "Andrzej Szydło",
+      "birthDate": "1973-11-20",
+      "position": "Prezes Zarządu",
+      "enterprise": "KGHM Polska Miedź S.A.",
+      "startDate": "2024-03-06"
+    },
+    {
+      "name": "Szymon Midera",
+      "birthDate": "1975-06-16",
+      "position": "Prezes Zarządu",
+      "enterprise": "PKO Bank Polski S.A.",
+      "startDate": "2024-03-26"
+    },
+    {
+      "name": "Alan Beroud",
+      "birthDate": "1985-04-10",
+      "position": "Prezes Zarządu",
+      "enterprise": "PKP S.A. (Polskie Koleje Państwowe)",
+      "startDate": "2024-03-29"
+    },
+    {
+      "name": "Grzegorz Lot",
+      "birthDate": "1976-08-05",
+      "position": "Prezes Zarządu",
+      "enterprise": "TAURON Polska Energia S.A.",
+      "startDate": "2024-03-07"
+    },
+    {
+      "name": "Grzegorz Kinelski",
+      "birthDate": "1971-02-18",
+      "position": "Prezes Zarządu",
+      "enterprise": "Enea S.A.",
+      "startDate": "2024-03-01"
+    },
+    {
+      "name": "Rafał Krzemień",
+      "birthDate": "1974-09-15",
+      "position": "Prezes Zarządu",
+      "enterprise": "Totalizator Sportowy Sp. z o.o.",
+      "startDate": "2024-03-15"
+    },
+    {
+      "name": "Ryszard Janta",
+      "birthDate": "1966-01-30",
+      "position": "Prezes Zarządu",
+      "enterprise": "Jastrzębska Spółka Węglowa S.A. (JSW)",
+      "startDate": "2024-04-30"
+    },
+    {
+      "name": "Daniel Obajtek",
+      "birthDate": "1976-01-02",
+      "position": "Były Prezes Zarządu (2018-2024)",
+      "enterprise": "ORLEN S.A.",
+      "startDate": "2018-02-06"
+    }
+  ]
+}
+

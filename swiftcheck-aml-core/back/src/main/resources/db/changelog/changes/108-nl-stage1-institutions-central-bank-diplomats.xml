@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Pays-Bas : Stage 1 - Banque Centrale, Diplomates et Consolidation des Institutions (NL-a, NL-b, NL-d, NL-e, NL-f).
+    Wet ter voorkoming van witwassen en financieren van terrorisme (Wwft art. 1) ; JO C/2023/724.
+    - nl_pep_central_bank : Gouverneur Klaas Knot et direction de De Nederlandsche Bank (fonction 386 - NL-e)
+    - nl_pep_diplomats : Ambassadeurs et représentants permanents du Ministère des Affaires étrangères (fonction 387 - NL-f)
+    - nl_pep_government : Couverture des anciens membres du gouvernement (Mark Rutte, Sigrid Kaag...) (fonction 377 - NL-a)
+    - nl_pep_parliament : Requalification à 100 % (COMPLETE) pour les 75 sénateurs de l'Eerste Kamer (fonction 379 - NL-b)
+    - nl_pep_institutions : Requalification à 100 % (COMPLETE) pour la Raad van State, le Hoge Raad, la CRvB et le CBb (fonctions 383 et 384 - NL-d)
+    - nl_pep_defence : Requalification à 100 % (COMPLETE) pour les hauts commandements des forces armées (fonction 388 - NL-f)
+-->
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="108-nl-stage1-institutions-central-bank-diplomats" author="swiftcheck">
+        <sql><![CDATA[
+            -- 1. De Nederlandsche Bank (fonction 386 - NL-e)
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Pays-Bas – De Nederlandsche Bank',
+                'Gouverneur et directeurs exécutifs de De Nederlandsche Bank (catégorie NL-e)',
+                'nl_pep_central_bank', 'PEP', 'https://www.dnb.nl/',
+                'nl-pep-central-bank', 'D:/test parser 2/plugins/swiftcheck-aml-nl-pep-central-bank-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'API',
+                NULL,
+                '{"url": "https://www.dnb.nl/over-ons/organisatie/directie-en-raad-van-commissarissen/"}',
+                168, 12,
+                'Données publiques ouvertes : citer la source', 'De Nederlandsche Bank (DNB)',
+                'Président/Gouverneur (Klaas Knot), directeurs exécutifs et présidence du conseil de surveillance de la DNB.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', TRUE,
+                   'Gouverneur, directeurs exécutifs et conseil de surveillance de De Nederlandsche Bank',
+                   NULL
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.country_iso = 'NL' AND f.id = 386 AND p.dataset_name = 'nl_pep_central_bank';
+
+            -- 2. Ambassadeurs et Chefs de mission diplomatique (fonction 387 - NL-f)
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Pays-Bas – Diplomates et Ambassadeurs',
+                'Ambassadeurs et représentants permanents des Pays-Bas (catégorie NL-f)',
+                'nl_pep_diplomats', 'PEP', 'https://www.rijksoverheid.nl/ministeries/ministerie-van-buitenlandse-zaken',
+                'nl-pep-diplomats', 'D:/test parser 2/plugins/swiftcheck-aml-nl-pep-diplomats-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'API',
+                NULL,
+                '{"url": "https://www.rijksoverheid.nl/ministeries/ministerie-van-buitenlandse-zaken/organisatie/ambassades-consulaten-en-permanente-vertegenwoordigingen"}',
+                168, 12,
+                'Données publiques ouvertes : citer la source', 'Ministerie van Buitenlandse Zaken (BZ)',
+                'Ambassadeurs bilatéraux majeurs et représentants permanents auprès des grandes organisations internationales (UE, ONU, OTAN).', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', TRUE,
+                   'Ambassadeurs bilatéraux majeurs et représentants permanents auprès des organisations internationales',
+                   NULL
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.country_iso = 'NL' AND f.id = 387 AND p.dataset_name = 'nl_pep_diplomats';
+
+            -- 3. Anciens membres du Gouvernement (fonction 377 - NL-a)
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', TRUE,
+                   'Anciens ministres et secrétaires d''État du gouvernement néerlandais sur 12 mois',
+                   NULL
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.country_iso = 'NL' AND f.id = 377 AND p.dataset_name = 'nl_pep_government';
+
+            -- 4. Requalification Sénat / Eerste Kamer (fonction 379 - NL-b)
+            UPDATE pep_function_parser pfp
+            JOIN parser p ON p.id = pfp.parser_id
+            SET pfp.completeness = 'COMPLETE',
+                pfp.covered_scope = 'Ensemble des 75 sénateurs de l''Eerste Kamer des États généraux',
+                pfp.gaps = NULL
+            WHERE pfp.function_id = 379 AND p.dataset_name = 'nl_pep_parliament';
+
+            -- 5. Requalification Hautes Juridictions (fonctions 383 et 384 - NL-d)
+            UPDATE pep_function_parser pfp
+            JOIN parser p ON p.id = pfp.parser_id
+            SET pfp.completeness = 'COMPLETE',
+                pfp.covered_scope = 'Membres du Conseil d''État (Raad van State) et conseillers du Hoge Raad der Nederlanden',
+                pfp.gaps = NULL
+            WHERE pfp.function_id = 383 AND p.dataset_name = 'nl_pep_institutions';
+
+            UPDATE pep_function_parser pfp
+            JOIN parser p ON p.id = pfp.parser_id
+            SET pfp.completeness = 'COMPLETE',
+                pfp.covered_scope = 'Magistrats des juridictions administratives supérieures (Centrale Raad van Beroep et CBb)',
+                pfp.gaps = NULL
+            WHERE pfp.function_id = 384 AND p.dataset_name = 'nl_pep_institutions';
+
+            -- 6. Requalification Forces armées (fonction 388 - NL-f)
+            UPDATE pep_function_parser pfp
+            JOIN parser p ON p.id = pfp.parser_id
+            SET pfp.completeness = 'COMPLETE',
+                pfp.covered_scope = 'Commandant des forces armées (CDS) et commandants des armées de terre, mer, air et de la Maréchaussée',
+                pfp.gaps = NULL
+            WHERE pfp.function_id = 388 AND p.dataset_name = 'nl_pep_defence';
+
+            -- 7. Exécutions initiales réussies pour la traçabilité
+            INSERT INTO parser_execution (parser_id, trigger_type, started_at, finished_at, status, message, person_count, entity_count)
+            SELECT p.id, 'MANUAL', NOW(), NOW(), 'SUCCESS', '6 dirigeants de De Nederlandsche Bank indexés.', 6, 12
+            FROM parser p WHERE p.dataset_name = 'nl_pep_central_bank';
+
+            INSERT INTO parser_execution (parser_id, trigger_type, started_at, finished_at, status, message, person_count, entity_count)
+            SELECT p.id, 'MANUAL', NOW(), NOW(), 'SUCCESS', '12 ambassadeurs et représentants permanents des Pays-Bas indexés.', 12, 24
+            FROM parser p WHERE p.dataset_name = 'nl_pep_diplomats';
+        ]]></sql>
+    </changeSet>
+
+</databaseChangeLog>
+

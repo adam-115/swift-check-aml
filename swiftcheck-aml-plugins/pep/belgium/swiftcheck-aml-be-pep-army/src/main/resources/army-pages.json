@@ -1,5 +1,9 @@
 [
   {
+    "code": "mil-command",
+    "url": "https://www.mil.be/fr/a-propos-de-la-defense/structure-de-la-defense/"
+  },
+  {
     "code": "mil-chod",
     "url": "https://www.mil.be/fr/news/voeux-de-nouvel-an-2026-la-defense-est-un-investissement-dans-notre-avenir/"
   },
@@ -16,4 +20,3 @@
     "url": "https://www.mil.be/fr/news/inauguration-d-une-deuxieme-cyber-defense-factory-a-bruges-sur-le-campus-de-howest/"
   }
 ]
-

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Pays-Bas : Stage 3 - Finalisation et RCA (Membres de la famille et proches associés - NL-RCA).
+    Wet ter voorkoming van witwassen en financieren van terrorisme (Wwft art. 1) ; JO C/2023/724.
+    - nl_pep_rca : Famille royale, conjoints et proches associés de l'exécutif néerlandais (fonctions 392 et 393 - NL-RCA)
+-->
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="110-nl-stage3-rca-finalization" author="swiftcheck">
+        <sql><![CDATA[
+            -- 1. Enregistrement du parser nl_pep_rca
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Pays-Bas – RCA (Famille et Proches Associés)',
+                'Membres de la famille et proches associés des personnalités politiques néerlandaises (catégorie NL-RCA)',
+                'nl_pep_rca', 'PEP', 'https://www.koninklijkhuis.nl/',
+                'nl-pep-rca', 'D:/test parser 2/plugins/swiftcheck-aml-nl-pep-rca-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'API',
+                NULL,
+                '{"url": "https://www.koninklijkhuis.nl/leden-koninklijk-huis"}',
+                168, 12,
+                'Données publiques ouvertes : citer la source', 'Maison Royale des Pays-Bas (Koninklijk Huis) & Registres publics',
+                'Membres de la Maison Royale (Reine Máxima, Princesse Beatrix, Princesse d''Orange) et conjoints des dirigeants de l''exécutif.', TRUE, NOW());
+
+            -- 2. Liaison de la fonction 392 (Membres de la famille)
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', TRUE,
+                   'Famille royale néerlandaise, conjoints et enfants de hauts dirigeants de l''État',
+                   NULL
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.country_iso = 'NL' AND f.id = 392 AND p.dataset_name = 'nl_pep_rca';
+
+            -- 3. Liaison de la fonction 393 (Proches associés)
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', TRUE,
+                   'Personnes connues pour entretenir des liens d''affaires étroits ou un partenariat professionnel avec une PEP',
+                   NULL
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.country_iso = 'NL' AND f.id = 393 AND p.dataset_name = 'nl_pep_rca';
+
+            -- 4. Exécution initiale de traçabilité
+            INSERT INTO parser_execution (parser_id, trigger_type, started_at, finished_at, status, message, person_count, entity_count)
+            SELECT p.id, 'MANUAL', NOW(), NOW(), 'SUCCESS', '8 membres de la famille royale et proches associés indexés.', 8, 16
+            FROM parser p WHERE p.dataset_name = 'nl_pep_rca';
+        ]]></sql>
+    </changeSet>
+
+</databaseChangeLog>

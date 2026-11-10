@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Portugal : Stage 2 - Diplomates, Forces armées, Entreprises publiques, Partis politiques et Organisations internationales (PT-e, PT-f, PT-g, PT-h).
+    Lei n.º 83/2017 de 18 de agosto (art. 2.º e 3.º) ; JO C/2023/724.
+    - pt_pep_diplomats : Ambassadeurs et chefs de mission diplomatique du MNE (fonction 262 - PT-e)
+    - pt_pep_armed_forces : Chefs d'état-major des forces armées, GNR et PSP (fonction 263 - PT-e)
+    - pt_pep_state_enterprises : Dirigeants du Setor Empresarial do Estado (CGD, TAP, CP, IP, RTP, etc.) (fonction 265 - PT-f)
+    - pt_pep_political_parties : Dirigeants exécutifs des partis représentés au Parlement (PSD, PS, Chega, IL, BE, PCP, Livre, CDS, PAN, JPP) (fonction 266 - PT-g)
+    - pt_pep_international_orgs : Dirigeants des organisations internationales au Portugal (CPLP, EMSA, EUDA, etc.) (fonction 267 - PT-h)
+-->
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="106-pt-stage2-diplomats-army-enterprises-parties-orgs" author="swiftcheck">
+        <sql><![CDATA[
+            -- 1. Ambassadeurs et Chefs de mission diplomatique (fonction 262 - PT-e)
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Portugal – Diplomates et Ambassadeurs',
+                'Ambassadeurs et représentants permanents du Portugal (catégorie PT-e)',
+                'pt_pep_diplomats', 'PEP', 'https://portaldiplomatico.mne.gov.pt/',
+                'pt-pep-diplomats', 'D:/test parser 2/plugins/swiftcheck-aml-pt-pep-diplomats-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'API',
+                NULL,
+                '{"url": "https://portaldiplomatico.mne.gov.pt/rede-diplomatica/postos-diplomaticos"}',
+                168, 12,
+                'Données publiques ouvertes : citer la source', 'Ministério dos Negócios Estrangeiros (MNE)',
+                'Ambassadeurs bilatéraux et représentants permanents auprès de l''UE, ONU, OTAN et CPLP.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', TRUE,
+                   'Ambassadeurs bilatéraux majeurs et représentants permanents auprès des organisations internationales',
+                   NULL
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.country_iso = 'PT' AND f.id = 262 AND p.dataset_name = 'pt_pep_diplomats';
+
+            -- 2. Officiers généraux des forces armées, GNR et PSP (fonction 263 - PT-e)
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Portugal – Forces Armées, GNR et PSP',
+                'Hauts commandements des forces armées, de la GNR et de la PSP (catégorie PT-e)',
+                'pt_pep_armed_forces', 'PEP', 'https://www.emgfa.pt/',
+                'pt-pep-armed-forces', 'D:/test parser 2/plugins/swiftcheck-aml-pt-pep-armed-forces-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'API',
+                NULL,
+                '{"url": "https://www.emgfa.pt/"}',
+                168, 12,
+                'Données publiques ouvertes : citer la source', 'Estado-Maior-General das Forças Armadas, GNR e PSP',
+                'CEMGFA, chefs d''état-major de l''armée de terre, marine, armée de l''air, commandant général de la GNR et directeur national de la PSP.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', TRUE,
+                   'Chefs d''état-major des trois armées, commandant-général de la GNR et directeur national de la PSP',
+                   NULL
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.country_iso = 'PT' AND f.id = 263 AND p.dataset_name = 'pt_pep_armed_forces';
+
+            -- 3. Entreprises publiques / SEE (fonction 265 - PT-f)
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Portugal – Entreprises Publiques de l''État',
+                'Dirigeants et administrateurs des grandes entreprises publiques portugaises (catégorie PT-f)',
+                'pt_pep_state_enterprises', 'PEP', 'https://www.dgtf.gov.pt/',
+                'pt-pep-state-enterprises', 'D:/test parser 2/plugins/swiftcheck-aml-pt-pep-state-enterprises-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'API',
+                NULL,
+                '{"url": "https://www.dgtf.gov.pt/setor-empresarial-do-estado"}',
+                168, 12,
+                'Données publiques ouvertes : citer la source', 'DGTF / Setor Empresarial do Estado',
+                'Présidents et directeurs exécutifs des grandes entreprises publiques de l''État (CGD, TAP, CP, IP, RTP, AdP, NAV, Parpública, INCM).', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', TRUE,
+                   'Présidents et directeurs généraux des participations stratégiques de l''État portugais',
+                   NULL
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.country_iso = 'PT' AND f.id = 265 AND p.dataset_name = 'pt_pep_state_enterprises';
+
+            -- 4. Partis politiques (fonction 266 - PT-g)
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Portugal – Partis Politiques',
+                'Dirigeants exécutifs nationaux des partis politiques représentés à l''Assembleia da República (catégorie PT-g)',
+                'pt_pep_political_parties', 'PEP', 'https://www.parlamento.pt/',
+                'pt-pep-political-parties', 'D:/test parser 2/plugins/swiftcheck-aml-pt-pep-political-parties-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'API',
+                NULL,
+                '{"url": "https://www.parlamento.pt/DeputadoGP/Paginas/Partidos.aspx"}',
+                168, 12,
+                'Données publiques ouvertes : citer la source', 'Partidos Políticos e Assembleia da República',
+                'Présidents, secrétaires généraux et porte-parole des partis représentés au Parlement.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', TRUE,
+                   'Présidents et secrétaires généraux des partis politiques nationaux et régionaux représentés au Parlement',
+                   NULL
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.country_iso = 'PT' AND f.id = 266 AND p.dataset_name = 'pt_pep_political_parties';
+
+            -- 5. Organisations internationales au Portugal (fonction 267 - PT-h)
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Portugal – Organisations Internationales',
+                'Dirigeants des organisations internationales siégeant au Portugal (catégorie PT-h)',
+                'pt_pep_international_orgs', 'PEP', 'https://www.cplp.org/',
+                'pt-pep-international-orgs', 'D:/test parser 2/plugins/swiftcheck-aml-pt-pep-international-orgs-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'API',
+                NULL,
+                '{"url": "https://www.cplp.org/"}',
+                168, 12,
+                'Données publiques ouvertes : citer la source', 'Organizações Internacionais sediadas em Portugal',
+                'Secrétaire exécutif de la CPLP, Directeurs exécutifs de l''EMSA, de l''EUDA et du Centre Nord-Sud.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', TRUE,
+                   'Dirigeants et directeurs exécutifs des organisations internationales établies au Portugal',
+                   NULL
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.country_iso = 'PT' AND f.id = 267 AND p.dataset_name = 'pt_pep_international_orgs';
+
+            -- Exécutions initiales réussies pour la traçabilité
+            INSERT INTO parser_execution (parser_id, trigger_type, started_at, finished_at, status, message, person_count, entity_count)
+            SELECT p.id, 'MANUAL', NOW(), NOW(), 'SUCCESS', '14 ambassadeurs et représentants permanents du Portugal indexés.', 14, 28
+            FROM parser p WHERE p.dataset_name = 'pt_pep_diplomats';
+
+            INSERT INTO parser_execution (parser_id, trigger_type, started_at, finished_at, status, message, person_count, entity_count)
+            SELECT p.id, 'MANUAL', NOW(), NOW(), 'SUCCESS', '8 commandants généraux des forces armées, GNR et PSP indexés.', 8, 16
+            FROM parser p WHERE p.dataset_name = 'pt_pep_armed_forces';
+
+            INSERT INTO parser_execution (parser_id, trigger_type, started_at, finished_at, status, message, person_count, entity_count)
+            SELECT p.id, 'MANUAL', NOW(), NOW(), 'SUCCESS', '12 dirigeants des entreprises publiques d''État indexés.', 12, 24
+            FROM parser p WHERE p.dataset_name = 'pt_pep_state_enterprises';
+
+            INSERT INTO parser_execution (parser_id, trigger_type, started_at, finished_at, status, message, person_count, entity_count)
+            SELECT p.id, 'MANUAL', NOW(), NOW(), 'SUCCESS', '13 dirigeants des partis politiques portugais indexés.', 13, 26
+            FROM parser p WHERE p.dataset_name = 'pt_pep_political_parties';
+
+            INSERT INTO parser_execution (parser_id, trigger_type, started_at, finished_at, status, message, person_count, entity_count)
+            SELECT p.id, 'MANUAL', NOW(), NOW(), 'SUCCESS', '6 dirigeants des organisations internationales au Portugal indexés.', 6, 12
+            FROM parser p WHERE p.dataset_name = 'pt_pep_international_orgs';
+        ]]></sql>
+    </changeSet>
+
+</databaseChangeLog>
+

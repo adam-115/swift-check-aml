@@ -1,0 +1,88 @@
+{
+  "source": "Registos públicos de interesses e declarações de transparência de Portugal",
+  "url": "https://www.tribunalconstitucional.pt/tc/transparencia.html",
+  "updated": "2026-11-01",
+  "associates": [
+    {
+      "name": "Nuno Rebelo de Sousa",
+      "firstName": "Nuno",
+      "lastName": "Rebelo de Sousa",
+      "relationship": "Filho de Marcelo Rebelo de Sousa (Presidente da República)",
+      "targetPep": "Marcelo Rebelo de Sousa",
+      "category": "FAMILY"
+    },
+    {
+      "name": "Rita Amaral Cabral",
+      "firstName": "Rita",
+      "lastName": "Amaral Cabral",
+      "relationship": "Companheira de Marcelo Rebelo de Sousa (Presidente da República)",
+      "targetPep": "Marcelo Rebelo de Sousa",
+      "category": "FAMILY"
+    },
+    {
+      "name": "Carla Montenegro",
+      "firstName": "Carla",
+      "lastName": "Montenegro",
+      "relationship": "Cônjuge de Luís Montenegro (Primeiro-Ministro)",
+      "targetPep": "Luís Montenegro",
+      "category": "FAMILY"
+    },
+    {
+      "name": "Fernanda Tadeu",
+      "firstName": "Fernanda",
+      "lastName": "Tadeu",
+      "relationship": "Cônjuge de António Costa (Antigo Primeiro-Ministro)",
+      "targetPep": "António Costa",
+      "category": "FAMILY"
+    },
+    {
+      "name": "Pedro Costa",
+      "firstName": "Pedro",
+      "lastName": "Costa",
+      "relationship": "Filho de António Costa e Presidente de Junta de Freguesia",
+      "targetPep": "António Costa",
+      "category": "FAMILY"
+    },
+    {
+      "name": "Céline Abececis Moedas",
+      "firstName": "Céline",
+      "lastName": "Abececis Moedas",
+      "relationship": "Cônjuge de Carlos Moedas (Presidente da Câmara de Lisboa)",
+      "targetPep": "Carlos Moedas",
+      "category": "FAMILY"
+    },
+    {
+      "name": "Catarina Gamboa",
+      "firstName": "Catarina",
+      "lastName": "Gamboa",
+      "relationship": "Cônjuge de Pedro Nuno Santos (Secretário-Geral do PS)",
+      "targetPep": "Pedro Nuno Santos",
+      "category": "FAMILY"
+    },
+    {
+      "name": "Diogo Lacerda Machado",
+      "firstName": "Diogo",
+      "lastName": "Lacerda Machado",
+      "relationship": "Proche associé et conseiller d'affaires (Affaire Influencer)",
+      "targetPep": "António Costa",
+      "category": "ASSOCIATE"
+    },
+    {
+      "name": "Vítor Escária",
+      "firstName": "Vítor",
+      "lastName": "Escária",
+      "relationship": "Antigo Chefe de Gabinete do Primeiro-Ministro",
+      "targetPep": "António Costa",
+      "category": "ASSOCIATE"
+    },
+    {
+      "name": "Miguel Alves",
+      "firstName": "Miguel",
+      "lastName": "Alves",
+      "relationship": "Antigo Secretário de Estado Adjunto do Primeiro-Ministro",
+      "targetPep": "António Costa",
+      "category": "ASSOCIATE"
+    }
+  ]
+}
+

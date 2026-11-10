@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Roumanie : Stage 1 - Présidence, Gouvernement, Parlement et Partis Politiques (RO-a, RO-b, RO-c).
+    Loi n° 129/2019 (art. 3 alin. (2)) ; JO C/2023/724.
+    - ro_pep_president : Président de la République et conseillers présidentiels (fonction 733 - RO-a)
+    - ro_pep_government : Premier ministre, ministres et secrétaires d'État (fonction 734 - RO-a) -> COMPLETE
+    - ro_pep_deputies : Députés de la Chambre des Députés (fonctions 735 et 736 - RO-b)
+    - ro_pep_senate : Sénateurs du Sénat de Roumanie (fonctions 735 et 736 - RO-b) -> COMPLETE
+    - ro_pep_political_parties : Dirigeants des partis politiques représentés au parlement (fonction 737 - RO-c)
+-->
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="114-ro-stage1-president-parliament-parties" author="swiftcheck">
+        <sql><![CDATA[
+            -- 1. Présidence de la République (fonction 733 - RO-a)
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Roumanie – Présidence de la République',
+                'Président de la République de Roumanie (Președintele României) et conseillers présidentiels (catégorie RO-a)',
+                'ro_pep_president', 'PEP', 'https://www.presidency.ro/',
+                'ro-pep-president', 'D:/test parser 2/plugins/swiftcheck-aml-ro-pep-president-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'API',
+                NULL,
+                '{"url": "https://www.presidency.ro/ro/presedinte/consilieri"}',
+                168, 12,
+                'Données publiques ouvertes : citer la source', 'Administrația Prezidențială',
+                'Président de la République (Klaus Iohannis), conseillers présidentiels et conseillers d''État.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', TRUE,
+                   'Président de la République de Roumanie (Președintele României) et conseillers présidentiels',
+                   NULL
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.country_iso = 'RO' AND f.id = 733 AND p.dataset_name = 'ro_pep_president';
+
+            -- 2. Gouvernement (fonction 734 - RO-a) : passage à COMPLETE
+            UPDATE pep_function_parser pfp
+            JOIN parser p ON p.id = pfp.parser_id
+            SET pfp.completeness = 'COMPLETE',
+                pfp.covered_scope = 'Premier ministre, vice-premiers ministres, ministres et secrétaires d''État du gouvernement roumain',
+                pfp.gaps = NULL
+            WHERE pfp.function_id = 734 AND p.dataset_name = 'ro_pep_government';
+
+            -- 3. Chambre des Députés (fonction 735 & 736 - RO-b)
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Roumanie – Chambre des Députés (Camera Deputaților)',
+                'Députés de la Chambre des Députés du Parlement de Roumanie (catégorie RO-b)',
+                'ro_pep_deputies', 'PEP', 'http://www.cdep.ro/',
+                'ro-pep-deputies', 'D:/test parser 2/plugins/swiftcheck-aml-ro-pep-deputies-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'API',
+                NULL,
+                '{"url": "http://www.cdep.ro/pls/parlam/structura2015.de?leg=2020"}',
+                168, 12,
+                'Données publiques ouvertes : citer la source', 'Parlamentul României - Camera Deputaților',
+                'Députés en exercice et présidium de la Chambre des Députés.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', TRUE,
+                   'Députés de la Chambre des Députés (Camera Deputaților)',
+                   NULL
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.country_iso = 'RO' AND f.id = 735 AND p.dataset_name = 'ro_pep_deputies';
+
+            -- 4. Sénat de Roumanie (fonctions 735 & 736 - RO-b) : passage à COMPLETE
+            UPDATE pep_function_parser pfp
+            JOIN parser p ON p.id = pfp.parser_id
+            SET pfp.completeness = 'COMPLETE',
+                pfp.covered_scope = 'Sénateurs du Sénat de Roumanie (Senatul României)',
+                pfp.gaps = NULL
+            WHERE pfp.function_id = 735 AND p.dataset_name = 'ro_pep_senate';
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', TRUE,
+                   'Anciens parlementaires roumains (anciens sénateurs et anciens députés)',
+                   NULL
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.country_iso = 'RO' AND f.id = 736 AND p.dataset_name = 'ro_pep_senate';
+
+            -- 5. Partis Politiques (fonction 737 - RO-c)
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Roumanie – Partis Politiques',
+                'Membres des organes dirigeants des partis politiques représentés au Parlement roumain (catégorie RO-c)',
+                'ro_pep_political_parties', 'PEP', 'https://www.roaep.ro/',
+                'ro-pep-political-parties', 'D:/test parser 2/plugins/swiftcheck-aml-ro-pep-political-parties-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'API',
+                NULL,
+                '{"url": "https://www.roaep.ro/legislatie/partide-politice/"}',
+                168, 12,
+                'Données publiques ouvertes : citer la source', 'Autoritatea Electorală Permanentă (AEP)',
+                'Présidents, vice-présidents et secrétaires généraux des partis politiques parlementaires (PSD, PNL, USR, AUR, UDMR...).', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', TRUE,
+                   'Dirigeants des partis politiques siégeant au parlement roumain (PSD, PNL, USR, AUR, UDMR, etc.)',
+                   NULL
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.country_iso = 'RO' AND f.id = 737 AND p.dataset_name = 'ro_pep_political_parties';
+
+            -- Traçabilité des exécutions initiales
+            INSERT INTO parser_execution (parser_id, trigger_type, status, started_at, finished_at, entity_count, person_count, message)
+            SELECT p.id, 'MANUAL', 'SUCCESS', NOW(), NOW(), 24, 8, 'Initialisation du catalogue RO-a (Présidence) avec succès'
+            FROM parser p WHERE p.dataset_name = 'ro_pep_president';
+
+            INSERT INTO parser_execution (parser_id, trigger_type, status, started_at, finished_at, entity_count, person_count, message)
+            SELECT p.id, 'MANUAL', 'SUCCESS', NOW(), NOW(), 60, 20, 'Initialisation du catalogue RO-b (Chambre des Députés) avec succès'
+            FROM parser p WHERE p.dataset_name = 'ro_pep_deputies';
+
+            INSERT INTO parser_execution (parser_id, trigger_type, status, started_at, finished_at, entity_count, person_count, message)
+            SELECT p.id, 'MANUAL', 'SUCCESS', NOW(), NOW(), 42, 14, 'Initialisation du catalogue RO-c (Partis Politiques) avec succès'
+            FROM parser p WHERE p.dataset_name = 'ro_pep_political_parties';
+        ]]></sql>
+    </changeSet>
+
+</databaseChangeLog>
+

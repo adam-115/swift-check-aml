@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="fr"><head><meta charset="utf-8"><title>Plan des parsers PEP – Bulgarie</title>
+<style>
+body{font-family:Segoe UI,Arial,sans-serif;font-size:11pt;color:#1a1a1a;margin:28px;line-height:1.45}
+h1{color:#0b3d6b;border-bottom:3px solid #0b3d6b;padding-bottom:6px}h2{color:#0b3d6b;margin-top:26px}
+table{border-collapse:collapse;width:100%;margin:10px 0;font-size:10pt}th,td{border:1px solid #bbb;padding:5px 8px;text-align:left;vertical-align:top}
+th{background:#e8eef5}.ok{color:#14702e;font-weight:600}.ko{color:#a32020;font-weight:600}.note{background:#f4f7fa;border-left:4px solid #0b3d6b;padding:8px 12px}
+</style></head><body>
+<h1>Plan des parsers PEP – Bulgarie</h1>
+<p>Date : 9 novembre 2026. Pays de l'Union européenne. Base légale : loi sur les mesures contre le blanchiment d'argent (ЗМИП), personnes occupant ou ayant occupé une haute fonction publique ; vigilance de douze mois après la fin des fonctions (article et durée à confirmer sur le texte en vigueur).</p>
+
+<h2>1. Parsers réalisés</h2>
+<table>
+<tr><th>Jeu de données</th><th>Source</th><th>Contenu</th><th>Volume mesuré</th></tr>
+<tr><td>bg_pep_parliament</td><td>API JSON publique de www.parliament.bg (robots.txt sans restriction)</td><td>Députés en fonction et mandats terminés depuis moins de 12 mois, avec naissance, groupe parlementaire, circonscription et fonction (BG-b)</td><td>417 personnes, toutes avec date de naissance : 240 mandats en cours (52<sup>e</sup> législature) et 268 mandats terminés (51<sup>e</sup> législature dissoute le 30/04/2026, ministres démissionnaires)</td></tr>
+<tr><td>bg_pep_government</td><td>www.government.bg (2 pages)</td><td>Premier ministre, vice-premiers ministres et ministres (BG-a)</td><td>21 personnes (cabinet de Румен Радев) ; naissance du Premier ministre seulement</td></tr>
+<tr><td>bg_pep_institutions</td><td>www.president.bg et www.constcourt.bg (2 pages)</td><td>Présidente de la République et juges de la Cour constitutionnelle (BG-a, BG-d)</td><td>13 personnes, toutes avec date de naissance</td></tr>
+<tr><td>bg_pep_europarl</td><td>API du Parlement européen</td><td>Députés européens élus en Bulgarie (BG-EU)</td><td>17 personnes, 11 avec naissance</td></tr>
+<tr><td>bg_pep_eu_commission</td><td>commission.europa.eu</td><td>Membre bulgare de la Commission européenne (BG-EU)</td><td>1 personne (Ekaterina Zaharieva)</td></tr>
+</table>
+<p>Chaque parser télécharge la source à chaque exécution ; Wikidata n'est pas utilisé. Les noms bulgares sont en cyrillique : l'ordre inverse et la translittération latine officielle (système rationalisé, loi de 2009, avec la variante « -ia » courante) sont ajoutés en alias, pour retrouver « Mihaela Dotsova » comme « Михаела Доцова ». Migration Liquibase 089 (pays BG, catégories, fonctions, 5 parsers), validée sur une base jetable.</p>
+
+<h2>2. Méthode du Parlement</h2>
+<div class="note">Une composition de l'Assemblée n'inclut que ceux qui siègent le jour demandé. Le plugin lit donc la composition actuelle, puis la composition tous les 30 jours sur la fenêtre de 12 mois pour la législature en cours et la précédente, et aux jours de passage entre législatures. L'identifiant d'un député change à chaque législature : une personne réélue est reconnue à son nom et à sa date de naissance (une personne, deux mandats). Les fiches ne sont gardées que pour la naissance : adresse électronique et téléphones ne sont jamais enregistrés. Environ 500 appels à 300 ms.</div>
+
+<h2>3. Sources non couvertes</h2>
+<table>
+<tr><th>Périmètre</th><th>Situation</th></tr>
+<tr><td>Banque nationale de Bulgarie (bnb.bg)</td><td class="ko">Site joignable mais menu généré par script : pages des titulaires non repérées.</td></tr>
+<tr><td>Cour des comptes (bulnao.government.bg)</td><td>Joignable ; biographies sans date de naissance et membres dans des accordéons. Non lue (président, vice-présidents, membres).</td></tr>
+<tr><td>Cours suprêmes (vks.bg)</td><td class="ko">Injoignable depuis notre poste.</td></tr>
+<tr><td>Vice-présidente de la République</td><td>Pas de fiche biographique (fonction vacante depuis le 23/01/2026).</td></tr>
+<tr><td>Vice-ministres, ambassadeurs, officiers généraux, partis, entreprises d'État, élus locaux</td><td>Non traités.</td></tr>
+<tr><td>Anciens ministres et anciens présidents</td><td>Non couverts (Румен Радев est repris comme Premier ministre).</td></tr>
+<tr><td>Proches (RCA)</td><td>Seule source connue : Wikidata, exclue.</td></tr>
+</table>
+
+<h2>4. Points d'attention</h2>
+<ul>
+<li>Une élection présidentielle a eu lieu en octobre-novembre 2026 : à l'entrée en fonction du nouveau président, la page <i>president.bg</i> change et le parser échoue avec un message clair jusqu'à adaptation.</li>
+<li>Les identifiants de personnes du Parlement dépendent du nom et de la naissance : une correction de graphie à la source crée une nouvelle personne.</li>
+</ul>
+
+<h2>5. Suite possible</h2>
+<ul><li>Banque nationale, Cour des comptes (président, vice-présidents, membres), cours suprêmes quand le site répond.</li>
+<li>Vice-ministres et ambassadeurs.</li>
+<li>Chypre et Malte restent à traiter.</li></ul>
+</body></html>

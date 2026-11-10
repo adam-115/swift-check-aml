@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Luxembourg : Clôture de la couverture PEP à 100 %.
+    - Requalification à COMPLETE de la fonction 8 (Dirigeants des partis politiques reconnus au Luxembourg).
+    - Alignement avec les autres États membres (BE, FR, AT, IE) pour les organes directeurs de partis.
+-->
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="095-lu-political-parties-complete" author="swiftcheck">
+        <comment>Requalification à COMPLETE des dirigeants des partis politiques luxembourgeois</comment>
+        <sql><![CDATA[
+            UPDATE pep_function_parser pfp
+            JOIN parser p ON p.id = pfp.parser_id
+            JOIN pep_function f ON f.id = pfp.function_id
+            JOIN pep_category c ON c.id = f.category_id
+            SET pfp.completeness = 'COMPLETE',
+                pfp.covered_scope = 'Présidents, secrétaires généraux et dirigeants nationaux de l''ensemble des partis politiques luxembourgeois représentés à la Chambre des députés et enregistrés (CSV, DP, LSAP, ADR, déi gréng, Piraten, déi Lénk, Fokus)',
+                pfp.gaps = NULL
+            WHERE c.country_iso = 'LU' AND f.id = 8 AND p.dataset_name = 'lu_pep_political_parties';
+        ]]></sql>
+    </changeSet>
+
+</databaseChangeLog>

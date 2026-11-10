@@ -1,0 +1,56 @@
+{
+  "country": "pl",
+  "category": "PL-e",
+  "source": "Najwyższa Izba Kontroli (nik.gov.pl)",
+  "officials": [
+    {
+      "name": "Marian Banaś",
+      "birthDate": "1955-07-13",
+      "position": "Prezes Najwyższej Izby Kontroli (NIK)",
+      "startDate": "2019-08-30"
+    },
+    {
+      "name": "Tadeusz Dziuba",
+      "birthDate": "1948-12-17",
+      "position": "Wiceprezes Najwyższej Izby Kontroli",
+      "startDate": "2019-11-27"
+    },
+    {
+      "name": "Małgorzata Motylow",
+      "birthDate": "1973-04-18",
+      "position": "Wiceprezes Najwyższej Izby Kontroli",
+      "startDate": "2019-11-27"
+    },
+    {
+      "name": "Michał Jędrzejczyk",
+      "birthDate": "1984-02-14",
+      "position": "Wiceprezes Najwyższej Izby Kontroli",
+      "startDate": "2023-10-18"
+    },
+    {
+      "name": "Jacek Kozłowski",
+      "birthDate": "1957-12-15",
+      "position": "Wiceprezes Najwyższej Izby Kontroli",
+      "startDate": "2023-10-18"
+    },
+    {
+      "name": "Tomasz Szymański",
+      "birthDate": "1978-04-24",
+      "position": "Dyrektor Generalny Najwyższej Izby Kontroli",
+      "startDate": "2023-01-01"
+    },
+    {
+      "name": "Sylwester Marciniak",
+      "birthDate": "1957-08-16",
+      "position": "Członek Kolegium NIK, Przewodniczący Państwowej Komisji Wyborczej",
+      "startDate": "2020-02-11"
+    },
+    {
+      "name": "Wojciech Kutyła",
+      "birthDate": "1964-05-02",
+      "position": "Członek Kolegium NIK, Były Wiceprezes NIK",
+      "startDate": "2015-10-01"
+    }
+  ]
+}
+

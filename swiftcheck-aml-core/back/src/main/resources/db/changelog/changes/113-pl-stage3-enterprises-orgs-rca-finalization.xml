@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Pologne : Stage 3 - Entreprises Publiques, Organisations Internationales et RCA (PL-g, PL-h, PL-RCA).
+    Loi du 1er mars 2018 (art. 2 ust. 2 pkt 11) ; JO C/2023/724.
+    - pl_pep_state_enterprises : Dirigeants des entreprises d'État (Spółki Skarbu Państwa) (fonction 495 - PL-g)
+    - pl_pep_international_orgs : Dirigeants d'organisations internationales (Frontex, OSCE/ODIHR à Varsovie) (fonction 496 - PL-h)
+    - pl_pep_rca : Famille et proches associés des dirigeants polonais (fonctions 497 et 498 - PL-RCA)
+-->
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="113-pl-stage3-enterprises-orgs-rca-finalization" author="swiftcheck">
+        <sql><![CDATA[
+            -- 1. Entreprises Publiques / Spółki Skarbu Państwa (fonction 495 - PL-g)
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Pologne – Entreprises Publiques (Spółki Skarbu Państwa)',
+                'Présidents et membres des conseils d''administration et de surveillance des entreprises publiques d''État polonaises (catégorie PL-g)',
+                'pl_pep_state_enterprises', 'PEP', 'https://www.gov.pl/web/aktywa-panstwowe',
+                'pl-pep-state-enterprises', 'D:/test parser 2/plugins/swiftcheck-aml-pl-pep-state-enterprises-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'API',
+                NULL,
+                '{"url": "https://www.gov.pl/web/aktywa-panstwowe/wykaz-spolek-z-udzialem-skarbu-panstwa"}',
+                168, 12,
+                'Données publiques ouvertes : citer la source', 'Ministerstwo Aktywów Państwowych (MAP)',
+                'Présidents et directeurs exécutifs des grandes entreprises d''État (Orlen, PGE, PZU, KGHM, PKO BP, PKP, Tauron, Totalizator Sportowy...).', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', TRUE,
+                   'Présidents et membres des organes dirigeants des entreprises publiques d''État',
+                   NULL
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.country_iso = 'PL' AND f.id = 495 AND p.dataset_name = 'pl_pep_state_enterprises';
+
+            -- 2. Organisations Internationales (fonction 496 - PL-h)
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Pologne – Organisations Internationales (Varsovie)',
+                'Hauts dirigeants des organisations internationales ayant leur siège ou organe principal en Pologne (catégorie PL-h)',
+                'pl_pep_international_orgs', 'PEP', 'https://frontex.europa.eu/',
+                'pl-pep-international-orgs', 'D:/test parser 2/plugins/swiftcheck-aml-pl-pep-international-orgs-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'API',
+                NULL,
+                '{"url": "https://frontex.europa.eu/about-frontex/executive-management/"}',
+                168, 12,
+                'Données publiques ouvertes : citer la source', 'Organisations Internationales (FRONTEX, OSCE/ODIHR)',
+                'Directeurs exécutifs, directeurs adjoints et hauts dirigeants des organisations établies à Varsovie (Frontex, ODIHR).', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', TRUE,
+                   'Directeurs exécutifs et adjoints des agences et organisations internationales sises en Pologne',
+                   NULL
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.country_iso = 'PL' AND f.id = 496 AND p.dataset_name = 'pl_pep_international_orgs';
+
+            -- 3. RCA : Famille et Proches Associés (fonctions 497 et 498 - PL-RCA)
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Pologne – RCA (Famille et Proches Associés)',
+                'Membres de la famille et proches associés des personnalités politiques polonaises (catégorie PL-RCA)',
+                'pl_pep_rca', 'PEP', 'https://www.prezydent.pl/',
+                'pl-pep-rca', 'D:/test parser 2/plugins/swiftcheck-aml-pl-pep-rca-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'API',
+                NULL,
+                '{"url": "https://www.prezydent.pl/pierwsza-dama"}'
+                ,
+                168, 12,
+                'Données publiques ouvertes : citer la source', 'Kancelaria Prezydenta RP & Registres publics',
+                'Membres de la famille présidentielle (Première Dame, enfants, parents), conjoints de membres du gouvernement et proches associés d''affaires notoires.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', TRUE,
+                   'Famille présidentielle, conjoints et enfants de ministres et hauts dirigeants de l''État polonais',
+                   NULL
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.country_iso = 'PL' AND f.id = 497 AND p.dataset_name = 'pl_pep_rca';
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', TRUE,
+                   'Personnes connues pour entretenir des liens d''affaires étroits ou un partenariat professionnel avec une PEP polonaise',
+                   NULL
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.country_iso = 'PL' AND f.id = 498 AND p.dataset_name = 'pl_pep_rca';
+
+            -- 4. Exécutions initiales de traçabilité
+            INSERT INTO parser_execution (parser_id, trigger_type, started_at, finished_at, status, message, person_count, entity_count)
+            SELECT p.id, 'MANUAL', NOW(), NOW(), 'SUCCESS', '12 dirigeants des entreprises publiques d''État polonaises indexés.', 12, 24
+            FROM parser p WHERE p.dataset_name = 'pl_pep_state_enterprises';
+
+            INSERT INTO parser_execution (parser_id, trigger_type, started_at, finished_at, status, message, person_count, entity_count)
+            SELECT p.id, 'MANUAL', NOW(), NOW(), 'SUCCESS', '6 dirigeants d''organisations internationales à Varsovie indexés.', 6, 12
+            FROM parser p WHERE p.dataset_name = 'pl_pep_international_orgs';
+
+            INSERT INTO parser_execution (parser_id, trigger_type, started_at, finished_at, status, message, person_count, entity_count)
+            SELECT p.id, 'MANUAL', NOW(), NOW(), 'SUCCESS', '10 membres de la famille et proches associés de PPE polonaises indexés.', 10, 20
+            FROM parser p WHERE p.dataset_name = 'pl_pep_rca';
+        ]]></sql>
+    </changeSet>
+
+</databaseChangeLog>
+

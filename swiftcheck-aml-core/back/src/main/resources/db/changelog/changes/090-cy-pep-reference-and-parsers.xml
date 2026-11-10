@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Chypre : référentiel PEP et parsers, sans Wikidata.
+
+    Base légale : loi de 2007 sur la prévention et la répression du blanchiment de capitaux et du financement du terrorisme
+    (loi 188(I)/2007, « AML Law ») : personne politiquement exposée, membres de sa famille et proches associés ; vigilance de douze
+    mois après la fin des fonctions (numéro de loi et durée à confirmer sur le texte en vigueur).
+
+    Parsers (plugins dans swiftcheck-aml-plugins/pep/cyprus) :
+      - cy_pep_parliament    : députés de la Chambre des représentants en fonction (liste de www.parliament.cy, une requête)
+      - cy_pep_institutions  : gouverneur et conseil de la Banque centrale de Chypre (www.centralbank.cy)
+      - cy_pep_europarl / cy_pep_eu_commission : députés européens et commissaire européen
+
+    Non couvert, avec le motif :
+      - présidence, gouvernement, service d'information (pio.gov.cy), service d'audit, portail cyprus.gov.cy : pare-feu Azure WAF qui
+        répond 403 à tout accès automatique, non contourné ; ministères (mof.gov.cy) et Cour suprême : injoignables ;
+      - fiches individuelles des députés (naissance, circonscription, parti) : www.parliament.cy affiche une vérification de
+        navigateur Cloudflare dès quelques requêtes successives, non contournée : seule la page de liste est lue ;
+      - députés de la législature 2021-2026 sortis depuis moins de 12 mois : le site ne publie pas encore leur liste ;
+      - proches (RCA) : seule source connue = Wikidata, exclue.
+-->
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="090-cy-country" author="swiftcheck">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM country WHERE iso = 'CY'</sqlCheck>
+        </preConditions>
+        <sql>
+            INSERT INTO country (iso, name, eu_member, legal_basis, retention_months)
+            VALUES ('CY', 'Chypre', TRUE,
+                    'Loi 188(I)/2007 sur la prévention et la répression du blanchiment de capitaux et du financement du terrorisme : personnes politiquement exposées, membres de leur famille et proches associés, douze mois après la fin des fonctions', 12);
+        </sql>
+    </changeSet>
+
+    <changeSet id="090-cy-categories" author="swiftcheck">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM pep_category WHERE country_iso = 'CY'</sqlCheck>
+        </preConditions>
+        <sql>
+            INSERT INTO pep_category (country_iso, code, label, kind, risk_class, sort_order, legal_reference) VALUES
+            ('CY', 'CY-a', 'Chef de l''État, ministres et vice-ministres', 'OFFICIAL', 1, 1, 'Loi 188(I)/2007'),
+            ('CY', 'CY-b', 'Députés de la Chambre des représentants', 'OFFICIAL', 1, 2, 'Loi 188(I)/2007'),
+            ('CY', 'CY-c', 'Organes dirigeants des partis politiques', 'OFFICIAL', 2, 3, 'Loi 188(I)/2007'),
+            ('CY', 'CY-d', 'Cour suprême et hautes juridictions', 'OFFICIAL', 2, 4, 'Loi 188(I)/2007'),
+            ('CY', 'CY-e', 'Service d''audit et Banque centrale de Chypre', 'OFFICIAL', 2, 5, 'Loi 188(I)/2007'),
+            ('CY', 'CY-f', 'Ambassadeurs et officiers généraux de la Garde nationale', 'OFFICIAL', 2, 6, 'Loi 188(I)/2007'),
+            ('CY', 'CY-g', 'Dirigeants des entreprises détenues par l''État', 'OFFICIAL', 3, 7, 'Loi 188(I)/2007'),
+            ('CY', 'CY-h', 'Dirigeants des organisations internationales', 'OFFICIAL', 3, 8, 'Loi 188(I)/2007'),
+            ('CY', 'CY-RCA', 'Membres de la famille et proches associés', 'RCA', 2, 9, 'Loi 188(I)/2007 (membres de la famille et personnes connues comme étroitement associées)'),
+            ('CY', 'CY-EU', 'Chypriotes exerçant une fonction européenne', 'EU', 1, 10, 'Liste de la Commission, JO C/2023/724');
+        </sql>
+    </changeSet>
+
+    <changeSet id="090-cy-functions" author="swiftcheck">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM pep_function f JOIN pep_category c ON c.id = f.category_id WHERE c.country_iso = 'CY'</sqlCheck>
+        </preConditions>
+        <sql>
+            INSERT INTO pep_function (category_id, label, institution, expected_holders)
+            SELECT c.id, f.label, f.institution, f.expected_holders
+            FROM pep_category c JOIN (
+                SELECT 'CY-a' AS code, 'Président de la République' AS label, 'Προεδρία της Δημοκρατίας' AS institution, 1 AS expected_holders
+                UNION ALL SELECT 'CY-a', 'Ministres', 'Υπουργικό Συμβούλιο', 12
+                UNION ALL SELECT 'CY-a', 'Vice-ministres', 'Υπουργικό Συμβούλιο', 12
+                UNION ALL SELECT 'CY-a', 'Ancien ministre', 'Υπουργικό Συμβούλιο', NULL
+                UNION ALL SELECT 'CY-b', 'Député de la Chambre des représentants', 'Βουλή των Αντιπροσώπων', 56
+                UNION ALL SELECT 'CY-b', 'Ancien député de la Chambre des représentants', 'Βουλή των Αντιπροσώπων', NULL
+                UNION ALL SELECT 'CY-c', 'Membre d''un organe dirigeant d''un parti', 'Partis politiques', 30
+                UNION ALL SELECT 'CY-d', 'Juge de la Cour suprême', 'Ανώτατο Δικαστήριο', 13
+                UNION ALL SELECT 'CY-e', 'Membre du Service d''audit', 'Ελεγκτική Υπηρεσία', 5
+                UNION ALL SELECT 'CY-e', 'Gouverneur et membre du conseil de la Banque centrale', 'Κεντρική Τράπεζα της Κύπρου', 8
+                UNION ALL SELECT 'CY-f', 'Ambassadeur', 'Υπουργείο Εξωτερικών', 50
+                UNION ALL SELECT 'CY-f', 'Officier général de la Garde nationale', 'Εθνική Φρουρά', 20
+                UNION ALL SELECT 'CY-g', 'Dirigeant d''une entreprise détenue par l''État', 'Entreprises d''État', NULL
+                UNION ALL SELECT 'CY-h', 'Dirigeant d''une organisation internationale', 'Organisations internationales', NULL
+                UNION ALL SELECT 'CY-RCA', 'Membre de la famille d''une PEP chypriote', NULL, NULL
+                UNION ALL SELECT 'CY-RCA', 'Proche associé d''une PEP chypriote', NULL, NULL
+                UNION ALL SELECT 'CY-EU', 'Député européen élu à Chypre', 'Parlement européen', 6
+                UNION ALL SELECT 'CY-EU', 'Membre chypriote de la Commission européenne', 'Commission européenne', 1
+            ) f ON f.code = c.code;
+        </sql>
+    </changeSet>
+
+    <changeSet id="090-parser-cy-pep-parliament" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Chypre – Chambre des représentants',
+                'Les 56 députés de la Chambre des représentants en fonction, d''après la liste « Members of the House » de www.parliament.cy (catégorie CY-b)',
+                'cy_pep_parliament', 'PEP', 'https://www.parliament.cy/en/general-information/composition/members-of-the-house',
+                'cy-pep-parliament', 'D:/test parser 2/plugins/swiftcheck-aml-cy-pep-parliament-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'WEB_PAGE',
+                NULL,
+                '{"url": "https://www.parliament.cy/en/general-information/composition/members-of-the-house/biographical-notes"}',
+                168, 12,
+                'Site officiel de la Chambre des représentants : citer la source', 'Βουλή των Αντιπροσώπων της Κύπρου, www.parliament.cy',
+                'Une seule requête (robots.txt : tout autorisé). Noms écrits « NOM Prénom » remis en « Prénom Nom », ordre publié en alias. Les fiches individuelles (naissance, circonscription, parti) ne sont PAS lues : le site affiche une vérification de navigateur Cloudflare dès quelques requêtes successives (non contournée). Si la page de liste affiche cette vérification, le parser échoue avec un message clair. Pas de naissance ni d''anciens députés (législature 2021-2026 non publiée).', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'PARTIAL', FALSE,
+                   'Les 56 députés en fonction de la 13e législature, par leur nom (sans naissance, circonscription ni parti).',
+                   'Anciens députés non couverts (législature 2021-2026 non publiée) ; pas de naissance.'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'CY-b' AND f.label = 'Député de la Chambre des représentants' AND p.dataset_name = 'cy_pep_parliament';
+        ]]></sql>
+    </changeSet>
+
+    <changeSet id="090-parser-cy-pep-institutions" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Chypre – Banque centrale',
+                'Gouverneur et membres du conseil d''administration de la Banque centrale de Chypre, d''après www.centralbank.cy (catégorie CY-e)',
+                'cy_pep_institutions', 'PEP', 'https://www.centralbank.cy/en/the-bank/board-of-directors',
+                'cy-pep-institutions', 'D:/test parser 2/plugins/swiftcheck-aml-cy-pep-institutions-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'WEB_PAGE',
+                NULL,
+                '{"url": "https://www.centralbank.cy/en/the-bank/board-of-directors"}',
+                168, 12,
+                'Site officiel de la Banque centrale de Chypre : citer la source', 'Central Bank of Cyprus, www.centralbank.cy',
+                'Une page : le gouverneur Christodoulos Patsalides, 2 membres exécutifs et 5 non exécutifs. Ni naissance ni dates de fonction. robots.txt : seuls /cgi-bin/ et /console sont interdits.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', FALSE,
+                   'Le gouverneur et les sept autres membres du conseil de la Banque centrale en fonction (8 personnes).',
+                   'Anciens membres non couverts ; pas de naissance. Service d''audit non couvert.'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'CY-e' AND f.label = 'Gouverneur et membre du conseil de la Banque centrale' AND p.dataset_name = 'cy_pep_institutions';
+        ]]></sql>
+    </changeSet>
+
+    <changeSet id="090-parser-cy-pep-europarl" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Chypre – Députés européens',
+                'Les députés au Parlement européen élus à Chypre, en fonction et sortis depuis moins de 12 mois, avec naissance et dates de mandat (catégorie CY-EU)',
+                'cy_pep_europarl', 'PEP', 'https://data.europarl.europa.eu/',
+                'cy-pep-europarl', 'D:/test parser 2/plugins/swiftcheck-aml-cy-pep-europarl-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'API',
+                NULL,
+                '{"currentUrl": "https://data.europarl.europa.eu/api/v2/meps/show-current?country-of-representation=CY&format=application%2Fld%2Bjson", "termUrl": "https://data.europarl.europa.eu/api/v2/meps?country-of-representation=CY&parliamentary-term=10&limit=500&format=application%2Fld%2Bjson", "detailUrl": "https://data.europarl.europa.eu/api/v2/meps/{id}?format=application%2Fld%2Bjson", "delayMs": "400", "monthsAfterEnd": "12", "wikidataEndpoint": ""}',
+                168, 12,
+                'Réutilisation autorisée en citant la source (Parlement européen)', 'Parlement européen, data.europarl.europa.eu',
+                'Reprise de nl_pep_europarl. Mesure du 09/11/2026 : 6 personnes en fonction, 4 avec date de naissance. L''API limite le débit (HTTP 429) : le plugin attend puis réessaie. Pas de photos (Wikidata non utilisé). termUrl contient le numéro de législature (10) : à changer en 2029.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', TRUE, 'Les 6 députés européens élus à Chypre et ceux sortis depuis moins de 12 mois, avec naissance quand elle est publiée, genre, groupe et dates de mandat.', NULL
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'CY-EU' AND f.label LIKE 'Député européen%' AND p.dataset_name = 'cy_pep_europarl';
+        ]]></sql>
+    </changeSet>
+
+    <changeSet id="090-parser-cy-pep-eu-commission" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Chypre – Commissaire européen',
+                'Le membre chypriote de la Commission européenne, d''après sa fiche officielle (catégorie CY-EU)',
+                'cy_pep_eu_commission', 'PEP', 'https://commission.europa.eu/about/organisation/college-commissioners_en',
+                'cy-pep-eu-commission', 'D:/test parser 2/plugins/swiftcheck-aml-cy-pep-eu-commission-0.0.1-SNAPSHOT.jar',
+                'HTTP_FILE', 'WEB_PAGE',
+                'https://commission.europa.eu/about/organisation/college-commissioners/costas-kadis_en',
+                NULL,
+                168, 12,
+                'Réutilisation autorisée en citant la source (avis juridique de la Commission européenne)', 'Commission européenne, commission.europa.eu',
+                'Reprise de nl_pep_eu_commission. À chaque nouvelle Commission, remplacer l''adresse par la fiche du commissaire chypriote. Une fiche qui ne présente pas un commissaire chypriote est refusée.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', FALSE, 'Costas Kadis, commissaire chargé de la pêche et des océans (2024-2029).', 'Ni date ni lieu de naissance sur la fiche.'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'CY-EU' AND f.label LIKE 'Membre chypriote de la Commission%' AND p.dataset_name = 'cy_pep_eu_commission';
+        ]]></sql>
+    </changeSet>
+
+</databaseChangeLog>

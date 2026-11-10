@@ -1,0 +1,86 @@
+{
+  "country": "pl",
+  "category": "PL-d",
+  "source": "Trybunał Konstytucyjny (trybunal.gov.pl)",
+  "judges": [
+    {
+      "name": "Julia Przyłębska",
+      "birthDate": "1959-11-16",
+      "position": "Prezes Trybunału Konstytucyjnego",
+      "startDate": "2016-12-21"
+    },
+    {
+      "name": "Bartłomiej Sochański",
+      "birthDate": "1955-02-11",
+      "position": "Wiceprezes Trybunału Konstytucyjnego",
+      "startDate": "2020-04-09"
+    },
+    {
+      "name": "Krystyna Pawłowicz",
+      "birthDate": "1952-04-14",
+      "position": "Sędzia Trybunału Konstytucyjnego",
+      "startDate": "2019-12-05"
+    },
+    {
+      "name": "Stanisław Piotrowicz",
+      "birthDate": "1952-07-19",
+      "position": "Sędzia Trybunału Konstytucyjnego",
+      "startDate": "2019-12-05"
+    },
+    {
+      "name": "Bogdan Święczkowski",
+      "birthDate": "1970-05-22",
+      "position": "Sędzia Trybunału Konstytucyjnego",
+      "startDate": "2022-02-16"
+    },
+    {
+      "name": "Zbigniew Jędrzejewski",
+      "birthDate": "1950-01-08",
+      "position": "Sędzia Trybunału Konstytucyjnego",
+      "startDate": "2016-04-28"
+    },
+    {
+      "name": "Mariusz Muszyński",
+      "birthDate": "1964-10-24",
+      "position": "Sędzia Trybunału Konstytucyjnego",
+      "startDate": "2015-12-02"
+    },
+    {
+      "name": "Jakub Stelina",
+      "birthDate": "1966-07-10",
+      "position": "Sędzia Trybunału Konstytucyjnego",
+      "startDate": "2019-12-05"
+    },
+    {
+      "name": "Andrzej Zielonacki",
+      "birthDate": "1954-05-30",
+      "position": "Sędzia Trybunału Konstytucyjnego",
+      "startDate": "2017-06-28"
+    },
+    {
+      "name": "Rafał Wojciechowski",
+      "birthDate": "1969-09-05",
+      "position": "Sędzia Trybunału Konstytucyjnego",
+      "startDate": "2020-01-07"
+    },
+    {
+      "name": "Wojciech Sych",
+      "birthDate": "1963-06-08",
+      "position": "Sędzia Trybunału Konstytucyjnego",
+      "startDate": "2019-04-08"
+    },
+    {
+      "name": "Jarosław Wyrembak",
+      "birthDate": "1967-08-01",
+      "position": "Sędzia Trybunału Konstytucyjnego",
+      "startDate": "2018-01-30"
+    },
+    {
+      "name": "Justyn Piskorski",
+      "birthDate": "1971-08-08",
+      "position": "Sędzia Trybunału Konstytucyjnego",
+      "startDate": "2017-09-18"
+    }
+  ]
+}
+

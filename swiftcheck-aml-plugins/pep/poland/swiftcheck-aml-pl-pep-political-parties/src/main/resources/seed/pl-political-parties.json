@@ -1,0 +1,98 @@
+{
+  "country": "pl",
+  "category": "PL-c",
+  "source": "Państwowa Komisja Wyborcza (PKW) & Rejestr Partii Politycznych",
+  "parties": [
+    {
+      "name": "Donald Tusk",
+      "birthDate": "1957-04-22",
+      "position": "Przewodniczący Platformy Obywatelskiej",
+      "party": "Platforma Obywatelska (PO)"
+    },
+    {
+      "name": "Rafał Trzaskowski",
+      "birthDate": "1972-01-17",
+      "position": "Wiceprzewodniczący Platformy Obywatelskiej, Prezydent Warszawy",
+      "party": "Platforma Obywatelska (PO)"
+    },
+    {
+      "name": "Jarosław Kaczyński",
+      "birthDate": "1949-06-18",
+      "position": "Prezes Prawa i Sprawiedliwości",
+      "party": "Prawo i Sprawiedliwość (PiS)"
+    },
+    {
+      "name": "Mateusz Morawiecki",
+      "birthDate": "1968-06-20",
+      "position": "Wiceprezes Prawa i Sprawiedliwości, Były Premier",
+      "party": "Prawo i Sprawiedliwość (PiS)"
+    },
+    {
+      "name": "Mariusz Błaszczak",
+      "birthDate": "1969-09-19",
+      "position": "Wiceprezes PiS, Przewodniczący Klubu Parlamentarnego PiS",
+      "party": "Prawo i Sprawiedliwość (PiS)"
+    },
+    {
+      "name": "Władysław Kosiniak-Kamysz",
+      "birthDate": "1981-08-10",
+      "position": "Prezes Polskiego Stronnictwa Ludowego, Wicepremier",
+      "party": "Polskie Stronnictwo Ludowe (PSL)"
+    },
+    {
+      "name": "Piotr Zgorzelski",
+      "birthDate": "1963-09-17",
+      "position": "Sekretarz Rady Naczelnej PSL, Wicemarszałek Sejmu",
+      "party": "Polskie Stronnictwo Ludowe (PSL)"
+    },
+    {
+      "name": "Szymon Hołownia",
+      "birthDate": "1976-09-03",
+      "position": "Przewodniczący Polski 2050, Marszałek Sejmu",
+      "party": "Polska 2050"
+    },
+    {
+      "name": "Michał Kobosko",
+      "birthDate": "1972-04-15",
+      "position": "Wiceprzewodniczący Polski 2050",
+      "party": "Polska 2050"
+    },
+    {
+      "name": "Włodzimierz Czarzasty",
+      "birthDate": "1960-05-03",
+      "position": "Współprzewodniczący Nowej Lewicy, Wicemarszałek Sejmu",
+      "party": "Nowa Lewica"
+    },
+    {
+      "name": "Robert Biedroń",
+      "birthDate": "1976-04-13",
+      "position": "Współprzewodniczący Nowej Lewicy, Poseł do PE",
+      "party": "Nowa Lewica"
+    },
+    {
+      "name": "Sławomir Mentzen",
+      "birthDate": "1986-11-20",
+      "position": "Prezes Nowej Nadziei, Współlider Konfederacji",
+      "party": "Konfederacja Wolność i Niepodległość"
+    },
+    {
+      "name": "Krzysztof Bosak",
+      "birthDate": "1982-06-13",
+      "position": "Prezes Ruchu Narodowego, Wicemarszałek Sejmu",
+      "party": "Konfederacja Wolność i Niepodległość"
+    },
+    {
+      "name": "Adrian Zandberg",
+      "birthDate": "1979-12-04",
+      "position": "Współprzewodniczący Lewicy Razem",
+      "party": "Lewica Razem"
+    },
+    {
+      "name": "Zbigniew Ziobro",
+      "birthDate": "1970-08-18",
+      "position": "Prezes Suwerennej Polski, Były Minister Sprawiedliwości",
+      "party": "Suwerenna Polska"
+    }
+  ]
+}
+

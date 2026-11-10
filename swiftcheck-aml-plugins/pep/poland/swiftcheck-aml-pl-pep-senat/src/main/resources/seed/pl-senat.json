@@ -1,0 +1,121 @@
+{
+  "country": "pl",
+  "category": "PL-b",
+  "source": "Senat Rzeczypospolitej Polskiej (senat.gov.pl)",
+  "term": "XI",
+  "senators": [
+    {
+      "name": "Małgorzata Kidawa-Błońska",
+      "birthDate": "1957-05-05",
+      "position": "Marszałek Senatu RP",
+      "party": "Koalicja Obywatelska",
+      "startDate": "2023-11-13"
+    },
+    {
+      "name": "Magdalena Biejat",
+      "birthDate": "1982-01-11",
+      "position": "Wicemarszałek Senatu RP",
+      "party": "Lewica Razem",
+      "startDate": "2023-11-13"
+    },
+    {
+      "name": "Rafał Grupiński",
+      "birthDate": "1952-11-04",
+      "position": "Wicemarszałek Senatu RP",
+      "party": "Koalicja Obywatelska",
+      "startDate": "2023-11-13"
+    },
+    {
+      "name": "Michał Kamiński",
+      "birthDate": "1972-03-28",
+      "position": "Wicemarszałek Senatu RP",
+      "party": "Trzecia Droga - PSL",
+      "startDate": "2023-11-13"
+    },
+    {
+      "name": "Maciej Żywno",
+      "birthDate": "1976-01-24",
+      "position": "Wicemarszałek Senatu RP",
+      "party": "Polska 2050",
+      "startDate": "2023-11-13"
+    },
+    {
+      "name": "Adam Bodnar",
+      "birthDate": "1977-01-06",
+      "position": "Senator RP, Minister Sprawiedliwości",
+      "party": "Koalicja Obywatelska",
+      "startDate": "2023-11-13"
+    },
+    {
+      "name": "Tomasz Grodzki",
+      "birthDate": "1958-05-13",
+      "position": "Senator RP, Były Marszałek Senatu",
+      "party": "Koalicja Obywatelska",
+      "startDate": "2023-11-13"
+    },
+    {
+      "name": "Bogdan Borusewicz",
+      "birthDate": "1949-01-11",
+      "position": "Senator RP",
+      "party": "Koalicja Obywatelska",
+      "startDate": "2023-11-13"
+    },
+    {
+      "name": "Grzegorz Bierecki",
+      "birthDate": "1963-09-27",
+      "position": "Senator RP",
+      "party": "Prawo i Sprawiedliwość",
+      "startDate": "2023-11-13"
+    },
+    {
+      "name": "Stanisław Karczewski",
+      "birthDate": "1955-11-14",
+      "position": "Senator RP, Były Marszałek Senatu",
+      "party": "Prawo i Sprawiedliwość",
+      "startDate": "2023-11-13"
+    },
+    {
+      "name": "Krzysztof Kwiatkowski",
+      "birthDate": "1971-11-26",
+      "position": "Senator RP",
+      "party": "Koalicja Obywatelska",
+      "startDate": "2023-11-13"
+    },
+    {
+      "name": "Waldemar Pawlak",
+      "birthDate": "1959-09-05",
+      "position": "Senator RP, Były Premier",
+      "party": "Polskie Stronnictwo Ludowe",
+      "startDate": "2023-11-13"
+    },
+    {
+      "name": "Kazimierz Michał Ujazdowski",
+      "birthDate": "1964-07-28",
+      "position": "Senator RP",
+      "party": "Koalicja Obywatelska",
+      "startDate": "2023-11-13"
+    },
+    {
+      "name": "Marek Borowski",
+      "birthDate": "1946-01-04",
+      "position": "Senator RP, Były Marszałek Sejmu",
+      "party": "Koalicja Obywatelska",
+      "startDate": "2023-11-13"
+    },
+    {
+      "name": "Jan Filip Libicki",
+      "birthDate": "1971-01-17",
+      "position": "Senator RP",
+      "party": "Polskie Stronnictwo Ludowe",
+      "startDate": "2023-11-13"
+    },
+    {
+      "name": "Wadim Tyszkiewicz",
+      "birthDate": "1958-11-15",
+      "position": "Senator RP",
+      "party": "Niezależny",
+      "startDate": "2023-11-13"
+    }
+  ]
+}
+

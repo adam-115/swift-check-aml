@@ -15,43 +15,40 @@ import java.util.Objects;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
- * Tests unitaires hors-ligne de {@link BePepCouncilOfStateParser} sur la page
- * officielle {@code raadvst-consetat.be}.
+ * Tests unitaires hors-ligne de {@link BePepCouncilOfStateParser} sur l'annuaire
+ * et les compositions officielles du Conseil d'État de Belgique.
  */
 class BePepCouncilOfStateParserTest {
 
     @Test
-    void parsesJudicialLeadersAndExcludesAdministrativeStaff(@TempDir Path tempDir) throws IOException {
-        Path htmlFile = tempDir.resolve(BePepCouncilOfStateParser.FILE_NAME);
-        copyResource("council-of-state-direction.html", htmlFile);
+    void parsesCouncilMembersAndAuditors(@TempDir Path tempDir) throws IOException {
+        copyResource("council-of-state-direction.html", tempDir.resolve(BePepCouncilOfStateParser.FILE_NAME));
+        copyResource("chambres.pdf", tempDir.resolve(BePepCouncilOfStateParser.CHAMBRES_FILE_NAME));
+        copyResource("auditfr.pdf", tempDir.resolve(BePepCouncilOfStateParser.AUDIT_FILE_NAME));
 
         BePepCouncilOfStateParser parser = new BePepCouncilOfStateParser();
         FtmDatasetBuilder dataset = new FtmDatasetBuilder(
                 BePepCouncilOfStateParser.ID_PREFIX, BePepCouncilOfStateParser.TOPIC);
 
-        List<BePepCouncilOfStateParser.MemberRecord> records = parser.convert(htmlFile, dataset);
-        assertEquals(4, records.size(), "Les 4 chefs de corps / hauts magistrats doivent être extraits");
+        List<BePepCouncilOfStateParser.MemberRecord> records = parser.convert(tempDir, dataset);
+        assertTrue(records.size() >= 50, "Le Conseil d'État complet doit contenir au moins 50 magistrats (obtenu: " + records.size() + ")");
 
-        assertTrue(records.stream().anyMatch(r ->
-                "Wilfried".equals(r.firstName()) && "VAN VAERENBERGH".equals(r.lastName())
-                && "Premier Président".equals(r.function())));
-        assertTrue(records.stream().anyMatch(r ->
-                "Pascale".equals(r.firstName()) && "VANDERNACHT".equals(r.lastName())
-                && "Présidente".equals(r.function())));
-        assertTrue(records.stream().anyMatch(r ->
-                "Luc".equals(r.firstName()) && "VERMEIRE".equals(r.lastName())
-                && "Auditeur général".equals(r.function())));
-        assertTrue(records.stream().anyMatch(r ->
-                "Eric".equals(r.firstName()) && "THIBAUT".equals(r.lastName())
-                && "Auditeur général adjoint".equals(r.function())));
+        // Vérification des présidents et conseillers
+        assertTrue(records.stream().anyMatch(r -> r.displayName().contains("Van Vaerenbergh") || r.displayName().contains("VAN VAERENBERGH")));
+        assertTrue(records.stream().anyMatch(r -> r.displayName().contains("Vandernacht") || r.displayName().contains("VANDERNACHT")));
 
+        // Vérification des auditeurs
+        assertTrue(records.stream().anyMatch(r -> r.displayName().contains("DELGRANGE")));
+        assertTrue(records.stream().anyMatch(r -> r.displayName().contains("TELLIER")));
+
+        // Exclusion des administratifs
         assertFalse(records.stream().anyMatch(r -> r.function().toLowerCase().contains("greffier")));
         assertFalse(records.stream().anyMatch(r -> r.function().toLowerCase().contains("administrateur")));
 
         List<FtmEntity> persons = dataset.entities().stream()
                 .filter(e -> "Person".equals(e.getSchema()))
                 .toList();
-        assertEquals(4, persons.size());
+        assertTrue(persons.size() >= 50);
     }
 
     private static void copyResource(String resourceName, Path target) throws IOException {

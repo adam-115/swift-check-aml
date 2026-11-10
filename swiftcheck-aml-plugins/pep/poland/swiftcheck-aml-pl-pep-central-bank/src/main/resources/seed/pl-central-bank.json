@@ -1,0 +1,106 @@
+{
+  "country": "pl",
+  "category": "PL-e",
+  "source": "Narodowy Bank Polski (nbp.pl)",
+  "officials": [
+    {
+      "name": "Adam Glapiński",
+      "birthDate": "1950-04-09",
+      "position": "Prezes Narodowego Banku Polskiego, Przewodniczący RPP",
+      "org": "Narodowy Bank Polski (Zarząd & RPP)",
+      "startDate": "2016-06-21"
+    },
+    {
+      "name": "Marta Kightley",
+      "birthDate": "1973-09-02",
+      "position": "Wiceprezes NBP - Pierwszy Zastępca Prezesa NBP",
+      "org": "Narodowy Bank Polski (Zarząd)",
+      "startDate": "2020-03-08"
+    },
+    {
+      "name": "Adam Lipiński",
+      "birthDate": "1956-09-11",
+      "position": "Wiceprezes Narodowego Banku Polskiego",
+      "org": "Narodowy Bank Polski (Zarząd)",
+      "startDate": "2020-11-04"
+    },
+    {
+      "name": "Marta Gajęcka",
+      "birthDate": "1975-01-13",
+      "position": "Członek Zarządu NBP",
+      "org": "Narodowy Bank Polski (Zarząd)",
+      "startDate": "2021-01-01"
+    },
+    {
+      "name": "Paweł Szałamacha",
+      "birthDate": "1969-01-24",
+      "position": "Członek Zarządu NBP, Były Minister Finansów",
+      "org": "Narodowy Bank Polski (Zarząd)",
+      "startDate": "2016-10-06"
+    },
+    {
+      "name": "Piotr Pogonowski",
+      "birthDate": "1973-11-05",
+      "position": "Członek Zarządu NBP",
+      "org": "Narodowy Bank Polski (Zarząd)",
+      "startDate": "2020-03-01"
+    },
+    {
+      "name": "Artur Soboń",
+      "birthDate": "1977-03-13",
+      "position": "Członek Zarządu NBP, Były Wiceminister Finansów",
+      "org": "Narodowy Bank Polski (Zarząd)",
+      "startDate": "2023-12-07"
+    },
+    {
+      "name": "Ludwik Kotecki",
+      "birthDate": "1971-11-21",
+      "position": "Członek Rady Polityki Pieniężnej (RPP)",
+      "org": "Rada Polityki Pieniężnej (RPP)",
+      "startDate": "2022-01-26"
+    },
+    {
+      "name": "Przemysław Litwiniuk",
+      "birthDate": "1977-10-14",
+      "position": "Członek Rady Polityki Pieniężnej (RPP)",
+      "org": "Rada Polityki Pieniężnej (RPP)",
+      "startDate": "2022-01-26"
+    },
+    {
+      "name": "Joanna Tyrowicz",
+      "birthDate": "1980-08-01",
+      "position": "Członek Rady Polityki Pieniężnej (RPP)",
+      "org": "Rada Polityki Pieniężnej (RPP)",
+      "startDate": "2022-09-07"
+    },
+    {
+      "name": "Henryk Wnorowski",
+      "birthDate": "1959-04-18",
+      "position": "Członek Rady Polityki Pieniężnej (RPP)",
+      "org": "Rada Polityki Pieniężnej (RPP)",
+      "startDate": "2022-02-18"
+    },
+    {
+      "name": "Cezary Kochalski",
+      "birthDate": "1967-07-28",
+      "position": "Członek Rady Polityki Pieniężnej (RPP)",
+      "org": "Rada Polityki Pieniężnej (RPP)",
+      "startDate": "2019-12-21"
+    },
+    {
+      "name": "Ireneusz Dąbrowski",
+      "birthDate": "1973-10-17",
+      "position": "Członek Rady Polityki Pieniężnej (RPP)",
+      "org": "Rada Polityki Pieniężnej (RPP)",
+      "startDate": "2022-02-18"
+    },
+    {
+      "name": "Wiesław Janczyk",
+      "birthDate": "1964-04-07",
+      "position": "Członek Rady Polityki Pieniężnej (RPP)",
+      "org": "Rada Polityki Pieniężnej (RPP)",
+      "startDate": "2022-02-09"
+    }
+  ]
+}
+

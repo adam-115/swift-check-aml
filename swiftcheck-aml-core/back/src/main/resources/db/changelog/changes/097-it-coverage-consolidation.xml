@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Italie : Consolidation de la couverture existante (IT-1.1, IT-1.2, IT-1.5, IT-1.9).
+    - Requalification à COMPLETE des fonctions 312, 313 et 317 via it_pep_local_administrators (Anagrafe officielle du ministère de l'Intérieur).
+    - Requalification à COMPLETE de la fonction 321 via it_pep_central_bank_authorities (Banque d'Italie et autorités indépendantes).
+    - Requalification à COMPLETE de la fonction 326 via it_pep_international_orgs (organisations internationales basées en Italie : FAO, PAM).
+-->
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="097-it-local-administrators-complete" author="swiftcheck">
+        <comment>Requalification à COMPLETE des élus régionaux et maires de 15 000+ hab (IT-1.1, IT-1.2)</comment>
+        <sql><![CDATA[
+            UPDATE pep_function_parser pfp
+            JOIN parser p ON p.id = pfp.parser_id
+            JOIN pep_function f ON f.id = pfp.function_id
+            JOIN pep_category c ON c.id = f.category_id
+            SET pfp.completeness = 'COMPLETE',
+                pfp.covered_scope = 'Maires des communes de 15 000 habitants ou plus et chefs-lieux, présidents et assesseurs de Région, conseillers régionaux en fonction (Anagrafe degli amministratori locali e regionali, ministère de l''Intérieur)',
+                pfp.gaps = NULL
+            WHERE c.country_iso = 'IT' AND f.id IN (312, 313, 317) AND p.dataset_name = 'it_pep_local_administrators';
+        ]]></sql>
+    </changeSet>
+
+    <changeSet id="097-it-central-bank-authorities-complete" author="swiftcheck">
+        <comment>Requalification à COMPLETE de la Banque d'Italie et des autorités de régulation (IT-1.5)</comment>
+        <sql><![CDATA[
+            UPDATE pep_function_parser pfp
+            JOIN parser p ON p.id = pfp.parser_id
+            JOIN pep_function f ON f.id = pfp.function_id
+            JOIN pep_category c ON c.id = f.category_id
+            SET pfp.completeness = 'COMPLETE',
+                pfp.covered_scope = 'Gouverneur, directoire de la Banque d''Italie, collèges du Garante privacy, AGCM, AGCOM et directoire de l''IVASS',
+                pfp.gaps = NULL
+            WHERE c.country_iso = 'IT' AND f.id = 321 AND p.dataset_name = 'it_pep_central_bank_authorities';
+        ]]></sql>
+    </changeSet>
+
+    <changeSet id="097-it-international-orgs-complete" author="swiftcheck">
+        <comment>Requalification à COMPLETE des dirigeants des organisations internationales à Rome (IT-1.9)</comment>
+        <sql><![CDATA[
+            UPDATE pep_function_parser pfp
+            JOIN parser p ON p.id = pfp.parser_id
+            JOIN pep_function f ON f.id = pfp.function_id
+            JOIN pep_category c ON c.id = f.category_id
+            SET pfp.completeness = 'COMPLETE',
+                pfp.covered_scope = 'Directeur général de la FAO et direction exécutive du Programme alimentaire mondial (PAM / WFP)',
+                pfp.gaps = NULL
+            WHERE c.country_iso = 'IT' AND f.id = 326 AND p.dataset_name = 'it_pep_international_orgs';
+        ]]></sql>
+    </changeSet>
+
+</databaseChangeLog>
+

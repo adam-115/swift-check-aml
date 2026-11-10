@@ -32,7 +32,7 @@ class BePepRegionalGovernmentsParserTest {
                 BePepRegionalGovernmentsParser.ID_PREFIX, BePepRegionalGovernmentsParser.TOPIC);
 
         List<BePepRegionalGovernmentsParser.MinisterRecord> records = parser.convert(tempDir, dataset);
-        assertEquals(19, records.size(), "9 (Flandre) + 6 (FWB) + 4 (Ostbelgien) = 19 ministres attendus");
+        assertEquals(35, records.size(), "35 ministres régionaux attendus (Flandre: 9, FWB: 6, Ostbelgien: 4, Wallonie: 8, Bruxelles: 8)");
 
         assertTrue(records.stream().anyMatch(r ->
                 "Matthias Diependaele".equals(r.fullName())
@@ -49,11 +49,17 @@ class BePepRegionalGovernmentsParserTest {
         assertTrue(records.stream().anyMatch(r ->
                 "Lydia Klinkenberg".equals(r.fullName())
                 && r.roleCategory().startsWith("Ministre – Communauté germanophone")));
+        assertTrue(records.stream().anyMatch(r ->
+                "Adrien Dolimont".equals(r.fullName())
+                && r.roleCategory().startsWith("Ministre-président")));
+        assertTrue(records.stream().anyMatch(r ->
+                "Rudi Vervoort".equals(r.fullName())
+                && r.roleCategory().startsWith("Ministre-président")));
 
         List<FtmEntity> persons = dataset.entities().stream()
                 .filter(e -> "Person".equals(e.getSchema()))
                 .toList();
-        assertEquals(19, persons.size());
+        assertEquals(35, persons.size());
     }
 
     private static void copyResource(String resourceName, Path target) throws IOException {

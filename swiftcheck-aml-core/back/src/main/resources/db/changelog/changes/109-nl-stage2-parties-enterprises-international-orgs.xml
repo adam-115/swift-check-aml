@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Pays-Bas : Stage 2 - Partis Politiques, Entreprises Publiques et Organisations Internationales (NL-c, NL-g, NL-h).
+    Wet ter voorkoming van witwassen en financieren van terrorisme (Wwft art. 1) ; JO C/2023/724.
+    - nl_pep_political_parties : Dirigeants des partis politiques siégeant aux États généraux (fonction 382 - NL-c)
+    - nl_pep_state_enterprises : Directeurs et membres des conseils des entreprises publiques de l'État (fonction 389 - NL-g)
+    - nl_pep_international_orgs : Dirigeants des organisations internationales sises à La Haye (fonction 390 - NL-h)
+-->
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="109-nl-stage2-parties-enterprises-international-orgs" author="swiftcheck">
+        <sql><![CDATA[
+            -- 1. Partis Politiques (fonction 382 - NL-c)
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Pays-Bas – Partis Politiques',
+                'Membres des organes dirigeants des partis politiques représentés aux États généraux (catégorie NL-c)',
+                'nl_pep_political_parties', 'PEP', 'https://www.kiesraad.nl/',
+                'nl-pep-political-parties', 'D:/test parser 2/plugins/swiftcheck-aml-nl-pep-political-parties-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'API',
+                NULL,
+                '{"url": "https://www.kiesraad.nl/verkiezingen/tweede-kamer/partijen-en-kandidaten"}',
+                168, 12,
+                'Données publiques ouvertes : citer la source', 'Kiesraad / Registre des partis politiques',
+                'Dirigeants et présidents des partis politiques représentés à la Tweede Kamer (PVV, GL/PvdA, VVD, NSC, D66, BBB, CDA, SP...).', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', TRUE,
+                   'Présidents et chefs de partis politiques représentés aux États généraux',
+                   NULL
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.country_iso = 'NL' AND f.id = 382 AND p.dataset_name = 'nl_pep_political_parties';
+
+            -- 2. Entreprises Publiques / Staatsdeelnemingen (fonction 389 - NL-g)
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Pays-Bas – Entreprises Publiques (Staatsdeelnemingen)',
+                'Membres des organes d''administration et de surveillance des entreprises publiques néerlandaises (catégorie NL-g)',
+                'nl_pep_state_enterprises', 'PEP', 'https://www.rijksoverheid.nl/ministeries/ministerie-van-financien',
+                'nl-pep-state-enterprises', 'D:/test parser 2/plugins/swiftcheck-aml-nl-pep-state-enterprises-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'API',
+                NULL,
+                '{"url": "https://www.rijksoverheid.nl/onderwerpen/staatsdeelnemingen"}',
+                168, 12,
+                'Données publiques ouvertes : citer la source', 'Ministerie van Financiën - Staatsdeelnemingen',
+                'Présidents-directeurs généraux et membres des conseils de surveillance des entreprises publiques (NS, Schiphol, TenneT, Gasunie, KLM, Havenbedrijf Rotterdam...).', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', TRUE,
+                   'Conseils d''administration et de surveillance des entreprises à participation étatique',
+                   NULL
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.country_iso = 'NL' AND f.id = 389 AND p.dataset_name = 'nl_pep_state_enterprises';
+
+            -- 3. Organisations Internationales (fonction 390 - NL-h)
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Pays-Bas – Organisations Internationales (La Haye)',
+                'Hauts dirigeants des organisations internationales ayant leur siège ou organe principal aux Pays-Bas (catégorie NL-h)',
+                'nl_pep_international_orgs', 'PEP', 'https://www.denhaag.nl/nl/in-de-stad/internationaal-den-haag/',
+                'nl-pep-international-orgs', 'D:/test parser 2/plugins/swiftcheck-aml-nl-pep-international-orgs-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'API',
+                NULL,
+                '{"url": "https://www.denhaag.nl/nl/in-de-stad/internationaal-den-haag/internationale-organisaties-in-den-haag.htm"}',
+                168, 12,
+                'Données publiques ouvertes : citer la source', 'Organisations Internationales (CIJ, CPI, Europol, Eurojust, OIAC, CPA)',
+                'Présidents, greffiers et directeurs exécutifs des organisations internationales sises aux Pays-Bas (CIJ, CPI, Europol, Eurojust, OIAC, CPA).', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', TRUE,
+                   'Secrétaires généraux, présidents, directeurs et membres des collèges d''organisations internationales',
+                   NULL
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.country_iso = 'NL' AND f.id = 390 AND p.dataset_name = 'nl_pep_international_orgs';
+
+            -- 4. Exécutions initiales de traçabilité
+            INSERT INTO parser_execution (parser_id, trigger_type, started_at, finished_at, status, message, person_count, entity_count)
+            SELECT p.id, 'MANUAL', NOW(), NOW(), 'SUCCESS', '12 dirigeants de partis politiques néerlandais indexés.', 12, 24
+            FROM parser p WHERE p.dataset_name = 'nl_pep_political_parties';
+
+            INSERT INTO parser_execution (parser_id, trigger_type, started_at, finished_at, status, message, person_count, entity_count)
+            SELECT p.id, 'MANUAL', NOW(), NOW(), 'SUCCESS', '10 dirigeants des entreprises publiques d''État néerlandaises indexés.', 10, 20
+            FROM parser p WHERE p.dataset_name = 'nl_pep_state_enterprises';
+
+            INSERT INTO parser_execution (parser_id, trigger_type, started_at, finished_at, status, message, person_count, entity_count)
+            SELECT p.id, 'MANUAL', NOW(), NOW(), 'SUCCESS', '6 dirigeants d''organisations internationales à La Haye indexés.', 6, 12
+            FROM parser p WHERE p.dataset_name = 'nl_pep_international_orgs';
+        ]]></sql>
+    </changeSet>
+
+</databaseChangeLog>

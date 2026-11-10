@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Italie : Parser dédié pour les dirigeants des partis politiques (IT-1.3).
+    D.Lgs. 231/2007, art. 1 c.2 lett. dd, point 1.3 ; JO C/2023/724.
+    Couvre la fonction 318 : Membre d'un organe central de direction d'un parti.
+-->
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="098-parser-it-pep-political-parties" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Italie – Dirigeants des partis politiques',
+                'Présidents, secrétaires généraux et dirigeants nationaux des partis politiques italiens actifs (catégorie IT-1.3)',
+                'it_pep_political_parties', 'PEP', 'https://www.wikidata.org',
+                'it-pep-political-parties', 'D:/test parser 2/plugins/swiftcheck-aml-it-pep-political-parties-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'SPARQL',
+                NULL,
+                '{"endpoint": "https://query.wikidata.org/sparql", "country": "Q38", "monthsAfterEnd": "12"}',
+                168, 12,
+                'CC0 (Wikidata)', 'Wikidata, www.wikidata.org',
+                'Présidents, secrétaires généraux et dirigeants nationaux des partis politiques italiens décrits dans Wikidata (D.Lgs. 231/2007, art. 1 c.2 lett. dd, point 1.3).', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', TRUE,
+                   'Présidents, secrétaires généraux et dirigeants nationaux de l''ensemble des partis politiques italiens actifs (Fratelli d''Italia, Partito Democratico, Movimento 5 Stelle, Lega, Forza Italia, etc.)',
+                   NULL
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.country_iso = 'IT' AND f.id = 318 AND p.dataset_name = 'it_pep_political_parties';
+        ]]></sql>
+    </changeSet>
+
+</databaseChangeLog>
+

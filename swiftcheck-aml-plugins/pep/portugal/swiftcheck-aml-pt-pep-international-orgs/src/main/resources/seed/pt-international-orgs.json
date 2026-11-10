@@ -1,0 +1,56 @@
+{
+  "source": "Organizações Internacionais sediadas em Portugal",
+  "url": "https://www.cplp.org/, https://www.emsa.europa.eu/, https://www.euda.europa.eu/",
+  "updated": "2026-11-01",
+  "leaders": [
+    {
+      "name": "Zacarias da Costa",
+      "firstName": "Zacarias",
+      "lastName": "da Costa",
+      "organization": "CPLP - Comunidade dos Países de Língua Portuguesa",
+      "position": "Secretário Executivo da CPLP",
+      "since": "2021-07-17"
+    },
+    {
+      "name": "Maja Markovčić Kostelac",
+      "firstName": "Maja",
+      "lastName": "Markovčić Kostelac",
+      "organization": "EMSA - Agência Europeia de Segurança Marítima",
+      "position": "Diretora Executiva da EMSA",
+      "since": "2019-01-01"
+    },
+    {
+      "name": "Alexis Goosdeel",
+      "firstName": "Alexis",
+      "lastName": "Goosdeel",
+      "organization": "EUDA - Agência da União Europeia sobre Drogas",
+      "position": "Diretor Executivo da EUDA",
+      "since": "2016-01-01"
+    },
+    {
+      "name": "Francesca Camilleri Vettiger",
+      "firstName": "Francesca",
+      "lastName": "Camilleri Vettiger",
+      "organization": "Centro Norte-Sul do Conselho da Europa",
+      "position": "Presidente do Comité de Direção do Centro Norte-Sul",
+      "since": "2022-06-01"
+    },
+    {
+      "name": "Ana Paula Laborinho",
+      "firstName": "Ana Paula",
+      "lastName": "Laborinho",
+      "organization": "OEI - Organização dos Estados Ibero-americanos (Lisboa)",
+      "position": "Diretora do Escritório da OEI em Portugal",
+      "since": "2018-01-01"
+    },
+    {
+      "name": "Siobhán Fogarty",
+      "firstName": "Siobhán",
+      "lastName": "Fogarty",
+      "organization": "MAOC-N - Centro de Análise e Operações Marítimas",
+      "position": "Diretora do MAOC-N",
+      "since": "2023-01-15"
+    }
+  ]
+}
+

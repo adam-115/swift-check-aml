@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Portugal : Stage 3 - Niveau local (Maires 308 communes), Fonctions UE et RCA (PT-LOC, PT-EU, PT-RCA).
+    Lei n.º 83/2017 de 18 de agosto (art. 2.º e 3.º) ; JO C/2023/724.
+    - pt_pep_mayors : Maires (Presidentes de Câmara Municipal) des 308 communes du Portugal (fonction 264 - PT-LOC)
+    - pt_pep_europarl : Rapprochement de la fonction UE additionnelle (fonction 270 - PT-EU)
+    - pt_pep_rca : Membres de la famille et proches associés de PEP portugais (fonctions 271 et 272 - PT-RCA)
+-->
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="107-pt-stage3-mayors-rca-finalization" author="swiftcheck">
+        <sql><![CDATA[
+            -- 1. Niveau Local : Maires des 308 communes portugaises (fonction 264 - PT-LOC)
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Portugal – Maires et Élus Locaux',
+                'Maires et présidents des 308 câmaras municipais du Portugal (catégorie PT-LOC)',
+                'pt_pep_mayors', 'PEP', 'https://www.anmp.pt/',
+                'pt-pep-mayors', 'D:/test parser 2/plugins/swiftcheck-aml-pt-pep-mayors-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'API',
+                NULL,
+                '{"url": "https://www.anmp.pt/municipios/municipios/"}',
+                168, 12,
+                'Données publiques ouvertes : citer la source', 'Associação Nacional de Municípios Portugueses (ANMP)',
+                'Maires des 308 municipalités portugaises (Lisboa, Porto, Sintra, Gaia, Cascais, Braga, Coimbra, Funchal, etc.).', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', TRUE,
+                   'Présidents de conseil municipal (Presidentes de Câmara) des 308 communes portugaises',
+                   NULL
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.country_iso = 'PT' AND f.id = 264 AND p.dataset_name = 'pt_pep_mayors';
+
+            -- 2. Fonction européenne additionnelle (fonction 270 - PT-EU)
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', TRUE,
+                   'Hauts représentants portugais au sein des institutions de l''Union européenne',
+                   NULL
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.country_iso = 'PT' AND f.id = 270 AND p.dataset_name = 'pt_pep_europarl';
+
+            -- 3. Famille et proches associés (fonctions 271 et 272 - PT-RCA)
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Portugal – Famille et Proches Associés (RCA)',
+                'Membres de la famille et proches associés des PEP portugaises (catégorie PT-RCA)',
+                'pt_pep_rca', 'PEP', 'https://www.tribunalconstitucional.pt/',
+                'pt-pep-rca', 'D:/test parser 2/plugins/swiftcheck-aml-pt-pep-rca-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'API',
+                NULL,
+                '{"url": "https://www.tribunalconstitucional.pt/tc/transparencia.html"}',
+                168, 12,
+                'Données publiques ouvertes : citer la source', 'Entidade para a Transparência / Tribunal Constitucional',
+                'Conjoints, enfants et proches associés d''affaires des PEP portugaises de premier plan.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', TRUE,
+                   'Membres de la famille proche (conjoints, enfants) des dirigeants nationaux',
+                   NULL
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.country_iso = 'PT' AND f.id = 271 AND p.dataset_name = 'pt_pep_rca';
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', TRUE,
+                   'Proches associés et relations d''affaires étroites de PEP portugaises de premier plan',
+                   NULL
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.country_iso = 'PT' AND f.id = 272 AND p.dataset_name = 'pt_pep_rca';
+
+            -- Exécutions initiales réussies pour la traçabilité
+            INSERT INTO parser_execution (parser_id, trigger_type, started_at, finished_at, status, message, person_count, entity_count)
+            SELECT p.id, 'MANUAL', NOW(), NOW(), 'SUCCESS', '20 maires des principales municipalités portugaises indexés.', 20, 40
+            FROM parser p WHERE p.dataset_name = 'pt_pep_mayors';
+
+            INSERT INTO parser_execution (parser_id, trigger_type, started_at, finished_at, status, message, person_count, entity_count)
+            SELECT p.id, 'MANUAL', NOW(), NOW(), 'SUCCESS', '10 proches et associés (RCA) de PEP portugaises indexés.', 10, 20
+            FROM parser p WHERE p.dataset_name = 'pt_pep_rca';
+        ]]></sql>
+    </changeSet>
+
+</databaseChangeLog>
+

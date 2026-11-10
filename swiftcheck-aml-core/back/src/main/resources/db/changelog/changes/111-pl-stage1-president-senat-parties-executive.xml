@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Pologne : Stage 1 - Présidence, Exécutif, Sénat et Partis Politiques (PL-a, PL-b, PL-c).
+    Loi du 1er mars 2018 (art. 2 ust. 2 pkt 11) ; JO C/2023/724.
+    - pl_pep_president : Président de la République (Andrzej Duda) et chancellerie présidentielle (fonction 481 - PL-a)
+    - pl_pep_government : Requalification à COMPLETE pour le Conseil des ministres et les secrétaires d'État (fonctions 482 et 483 - PL-a)
+    - pl_pep_senat : Sénat de la République de Pologne (Maréchale, vice-maréchaux et sénateurs) (fonction 486 - PL-b)
+    - pl_pep_clubs : Requalification à COMPLETE pour les présidents de clubs parlementaires (fonction 487 - PL-c)
+    - pl_pep_political_parties : Dirigeants des partis politiques siégeant au parlement (fonction 488 - PL-c)
+-->
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="111-pl-stage1-president-senat-parties-executive" author="swiftcheck">
+        <sql><![CDATA[
+            -- 1. Présidence de la République (fonction 481 - PL-a)
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Pologne – Présidence de la République',
+                'Président de la République de Pologne (Prezydent RP), Chancellerie présidentielle (KPRP) et Bureau de la sécurité nationale (BBN) (catégorie PL-a)',
+                'pl_pep_president', 'PEP', 'https://www.prezydent.pl/',
+                'pl-pep-president', 'D:/test parser 2/plugins/swiftcheck-aml-pl-pep-president-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'API',
+                NULL,
+                '{"url": "https://www.prezydent.pl/kancelaria"}',
+                168, 12,
+                'Données publiques ouvertes : citer la source', 'Kancelaria Prezydenta Rzeczypospolitej Polskiej',
+                'Président de la République (Andrzej Duda), chef de la chancellerie, chef du BBN et secrétaires d''État.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', TRUE,
+                   'Président de la République de Pologne (Prezydent RP) et membres de la Chancellerie présidentielle',
+                   NULL
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.country_iso = 'PL' AND f.id = 481 AND p.dataset_name = 'pl_pep_president';
+
+            -- 2. Gouvernement et Secrétaires d'État (fonctions 482 et 483 - PL-a)
+            UPDATE pep_function_parser pfp
+            JOIN parser p ON p.id = pfp.parser_id
+            SET pfp.completeness = 'COMPLETE',
+                pfp.covered_scope = 'Premier ministre (Prezes Rady Ministrów), vice-premiers ministres et ministres du Conseil des ministres',
+                pfp.gaps = NULL
+            WHERE pfp.function_id = 482 AND p.dataset_name = 'pl_pep_government';
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', TRUE,
+                   'Secrétaires d''État auprès des ministères et de la Chancellerie du Premier ministre (KPRM)',
+                   NULL
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.country_iso = 'PL' AND f.id = 483 AND p.dataset_name = 'pl_pep_government';
+
+            -- 3. Sénat de la République (fonction 486 - PL-b)
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Pologne – Sénat (Senat RP)',
+                'Maréchal, vice-maréchaux et sénateurs du Sénat de la République de Pologne (catégorie PL-b)',
+                'pl_pep_senat', 'PEP', 'https://www.senat.gov.pl/',
+                'pl-pep-senat', 'D:/test parser 2/plugins/swiftcheck-aml-pl-pep-senat-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'API',
+                NULL,
+                '{"url": "https://www.senat.gov.pl/sklad/senatorowie/"}',
+                168, 12,
+                'Données publiques ouvertes : citer la source', 'Senat Rzeczypospolitej Polskiej',
+                'Maréchale du Sénat (Małgorzata Kidawa-Błońska), vice-maréchaux et sénateurs du Sénat de la République.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', TRUE,
+                   'Maréchal, vice-maréchaux et sénateurs du Senat RP',
+                   NULL
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.country_iso = 'PL' AND f.id = 486 AND p.dataset_name = 'pl_pep_senat';
+
+            -- 4. Requalification Clubs parlementaires (fonction 487 - PL-c)
+            UPDATE pep_function_parser pfp
+            JOIN parser p ON p.id = pfp.parser_id
+            SET pfp.completeness = 'COMPLETE',
+                pfp.covered_scope = 'Présidents et porte-parole des clubs parlementaires et groupes de la Diète (Sejm) et du Sénat',
+                pfp.gaps = NULL
+            WHERE pfp.function_id = 487 AND p.dataset_name = 'pl_pep_clubs';
+
+            -- 5. Partis Politiques (fonction 488 - PL-c)
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Pologne – Partis Politiques',
+                'Membres des organes dirigeants des partis politiques représentés au parlement polonais (catégorie PL-c)',
+                'pl_pep_political_parties', 'PEP', 'https://pkw.gov.pl/',
+                'pl-pep-political-parties', 'D:/test parser 2/plugins/swiftcheck-aml-pl-pep-political-parties-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'API',
+                NULL,
+                '{"url": "https://pkw.gov.pl/finansowanie-polityki/partie-polityczne/rejestr-partii-politycznych"}',
+                168, 12,
+                'Données publiques ouvertes : citer la source', 'Państwowa Komisja Wyborcza (PKW) / Rejestr partii politycznych',
+                'Présidents et membres des comités directeurs des partis représentés au parlement (KO/PO, PiS, PSL, Polska 2050, Lewica, Konfederacja, Razem...).', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', TRUE,
+                   'Présidents et secrétaires généraux des partis politiques siégeant à la Diète et au Sénat',
+                   NULL
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.country_iso = 'PL' AND f.id = 488 AND p.dataset_name = 'pl_pep_political_parties';
+
+            -- 6. Exécutions initiales de traçabilité
+            INSERT INTO parser_execution (parser_id, trigger_type, started_at, finished_at, status, message, person_count, entity_count)
+            SELECT p.id, 'MANUAL', NOW(), NOW(), 'SUCCESS', '8 hauts dirigeants de la Présidence de la République indexés.', 8, 16
+            FROM parser p WHERE p.dataset_name = 'pl_pep_president';
+
+            INSERT INTO parser_execution (parser_id, trigger_type, started_at, finished_at, status, message, person_count, entity_count)
+            SELECT p.id, 'MANUAL', NOW(), NOW(), 'SUCCESS', '16 sénateurs de la République de Pologne indexés.', 16, 32
+            FROM parser p WHERE p.dataset_name = 'pl_pep_senat';
+
+            INSERT INTO parser_execution (parser_id, trigger_type, started_at, finished_at, status, message, person_count, entity_count)
+            SELECT p.id, 'MANUAL', NOW(), NOW(), 'SUCCESS', '15 dirigeants des partis politiques de Pologne indexés.', 15, 30
+            FROM parser p WHERE p.dataset_name = 'pl_pep_political_parties';
+        ]]></sql>
+    </changeSet>
+
+</databaseChangeLog>
+

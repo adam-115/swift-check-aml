@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Autriche : nouveaux parsers dédiés pour les fonctions AT-e, AT-f et AT-h.
+    - at_pep_diplomats           : Ambassadeurs et chargés d'affaires (BMEIA)
+    - at_pep_army                : Officiers généraux du Bundesheer (généraux et lieutenants-généraux)
+    - at_pep_land_audit_courts   : Directeurs des cours des comptes des 9 Länder (Landesrechnungshöfe)
+    - at_pep_international_orgs  : Dirigeants des organisations internationales à Vienne (OSCE, ONU, OPEP, CTBTO...)
+-->
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <!-- 1. at_pep_diplomats -->
+    <changeSet id="093-parser-at-pep-diplomats" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Autriche – Diplomates et ambassadeurs',
+                'Ambassadeurs extraordinaires et plénipotentiaires, chargés d''affaires et représentants permanents d''Autriche (catégorie AT-f)',
+                'at_pep_diplomats', 'PEP', 'https://www.bmeia.gv.at/botschaften-konsulate/suche-nach-oesterreichischen-vertretungen',
+                'at-pep-diplomats', 'D:/test parser 2/plugins/swiftcheck-aml-at-pep-diplomats-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'WEB_PAGE',
+                NULL,
+                '{"delayMs": "150"}',
+                168, 12,
+                'Site officiel du BMEIA : citer la source', 'Bundesministerium für europäische und internationale Angelegenheiten (BMEIA)',
+                'Annuaire officiel des représentations autrichiennes à l''étranger. Consuls honoraires exclus conformément aux directives LBC/FT.', TRUE, NOW())
+            ON DUPLICATE KEY UPDATE enabled = TRUE;
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', FALSE, 'Chefs de mission diplomatique, ambassadeurs et chargés d''affaires autrichiens en poste', NULL
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.country_iso = 'AT' AND c.code = 'AT-f' AND f.label LIKE 'Ambassadeur%' AND p.dataset_name = 'at_pep_diplomats'
+            ON DUPLICATE KEY UPDATE completeness = 'COMPLETE';
+        ]]></sql>
+    </changeSet>
+
+    <!-- 2. at_pep_army -->
+    <changeSet id="093-parser-at-pep-army" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Autriche – Bundesheer (Officiers généraux)',
+                'Officiers généraux des forces armées autrichiennes à partir du grade de lieutenant général (généraux et lieutenants-généraux) (catégorie AT-f)',
+                'at_pep_army', 'PEP', 'https://www.bundesheer.at/unser-heer/organisation',
+                'at-pep-army', 'D:/test parser 2/plugins/swiftcheck-aml-at-pep-army-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'WEB_PAGE',
+                NULL,
+                NULL,
+                168, 12,
+                'Site officiel du Bundesheer : citer la source', 'Österreichisches Bundesheer, bundesheer.at',
+                'Haut commandement militaire : Chef du Generalstab, adjoints et commandants généraux.', TRUE, NOW())
+            ON DUPLICATE KEY UPDATE enabled = TRUE;
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', TRUE, 'Généraux et lieutenants-généraux au sommet du commandement du Bundesheer', NULL
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.country_iso = 'AT' AND c.code = 'AT-f' AND f.label LIKE 'Officier g%' AND p.dataset_name = 'at_pep_army'
+            ON DUPLICATE KEY UPDATE completeness = 'COMPLETE';
+        ]]></sql>
+    </changeSet>
+
+    <!-- 3. at_pep_land_audit_courts -->
+    <changeSet id="093-parser-at-pep-land-audit-courts" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Autriche – Cours des comptes des Länder (Landesrechnungshöfe)',
+                'Directeurs et directrices des cours des comptes des 9 Länder autrichiens (catégorie AT-e)',
+                'at_pep_land_audit_courts', 'PEP', 'https://stadtrechnungshof.wien.gv.at/',
+                'at-pep-land-audit-courts', 'D:/test parser 2/plugins/swiftcheck-aml-at-pep-land-audit-courts-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'WEB_PAGE',
+                NULL,
+                NULL,
+                168, 12,
+                'Sites officiels des cours des comptes régionales : citer la source', 'Landesrechnungshöfe der 9 Bundesländer',
+                'Les 9 directeurs des cours régionales (Vienne, NÖ, OÖ, Salzburg, Tirol, Kärnten, Steiermark, Vorarlberg, Burgenland).', TRUE, NOW())
+            ON DUPLICATE KEY UPDATE enabled = TRUE;
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', FALSE, 'Directeurs en fonction des 9 Landesrechnungshöfe autrichiens', NULL
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.country_iso = 'AT' AND c.code = 'AT-e' AND f.label LIKE 'Directeurs des cours des comptes%' AND p.dataset_name = 'at_pep_land_audit_courts'
+            ON DUPLICATE KEY UPDATE completeness = 'COMPLETE';
+        ]]></sql>
+    </changeSet>
+
+    <!-- 4. at_pep_international_orgs -->
+    <changeSet id="093-parser-at-pep-international-orgs" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Autriche – Organisations internationales (Vienne)',
+                'Dirigeants des organisations internationales ayant leur siège ou un établissement principal en Autriche (OSCE, ONU Vienne, OPEP, CTBTO, ONUDI, ICMPD) (catégorie AT-h)',
+                'at_pep_international_orgs', 'PEP', 'https://www.osce.org/leadership',
+                'at-pep-international-orgs', 'D:/test parser 2/plugins/swiftcheck-aml-at-pep-international-orgs-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'WEB_PAGE',
+                NULL,
+                NULL,
+                168, 12,
+                'Sites officiels des organisations internationales : citer la source', 'OSCE, UNOV, OPEC, CTBTO, UNIDO, ICMPD',
+                'Secrétaires généraux, directeurs généraux et hauts représentants des organisations internationales à Vienne.', TRUE, NOW())
+            ON DUPLICATE KEY UPDATE enabled = TRUE;
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', FALSE, 'Dirigeants exécutifs des organisations internationales établies à Vienne', NULL
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.country_iso = 'AT' AND c.code = 'AT-h' AND f.label LIKE 'Dirigeant d%' AND p.dataset_name = 'at_pep_international_orgs'
+            ON DUPLICATE KEY UPDATE completeness = 'COMPLETE';
+        ]]></sql>
+    </changeSet>
+
+</databaseChangeLog>

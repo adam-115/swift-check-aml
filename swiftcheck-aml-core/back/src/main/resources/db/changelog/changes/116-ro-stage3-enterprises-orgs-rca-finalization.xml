@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Roumanie : Stage 3 - Entreprises d'État, Organisations Internationales et RCA (RO-g, RO-h, RO-RCA).
+    Loi n° 129/2019 (art. 3 alin. (2)) ; JO C/2023/724.
+    - ro_pep_state_enterprises : Dirigeants des entreprises publiques et sociétés d'État roumaines (fonction 742 - RO-g)
+    - ro_pep_international_orgs : Dirigeants d'organisations internationales siégeant en Roumanie ou représentants roumains (fonction 743 - RO-h)
+    - ro_pep_rca : Membres de la famille et proches associés des PPE roumaines (fonctions 744 et 745 - RO-RCA)
+-->
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="116-ro-stage3-enterprises-orgs-rca-finalization" author="swiftcheck">
+        <sql><![CDATA[
+            -- 1. Entreprises Publiques d'État (fonction 742 - RO-g)
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Roumanie – Entreprises Publiques (Întreprinderi Publice)',
+                'Dirigeants et administrateurs des entreprises à capitaux majoritaires ou intégraux d''État en Roumanie (catégorie RO-g)',
+                'ro_pep_state_enterprises', 'PEP', 'https://mfinante.gov.ro/',
+                'ro-pep-state-enterprises', 'D:/test parser 2/plugins/swiftcheck-aml-ro-pep-state-enterprises-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'API',
+                NULL,
+                '{"url": "https://mfinante.gov.ro/operatori-economici"}',
+                168, 12,
+                'Données publiques ouvertes : citer la source', 'Ministerul Finanțelor Publice',
+                'Directeurs généraux (CEO) et présidents de conseils d''administration (Hidroelectrica, Romgaz, Nuclearelectrica, Transgaz, Transelectrica...).', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', TRUE,
+                   'Directeurs généraux et membres des conseils d''administration des entreprises publiques d''État roumaines',
+                   NULL
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.country_iso = 'RO' AND f.id = 742 AND p.dataset_name = 'ro_pep_state_enterprises';
+
+            -- 2. Organisations Internationales (fonction 743 - RO-h)
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Roumanie – Organisations Internationales (ECCC, SELEC, EPPO)',
+                'Dirigeants d''organisations internationales basées en Roumanie ou hauts représentants roumains dans les organisations internationales (catégorie RO-h)',
+                'ro_pep_international_orgs', 'PEP', 'https://cybersecurity-centre.europa.eu/',
+                'ro-pep-international-orgs', 'D:/test parser 2/plugins/swiftcheck-aml-ro-pep-international-orgs-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'API',
+                NULL,
+                '{"url": "https://cybersecurity-centre.europa.eu/about"}',
+                168, 12,
+                'Données publiques ouvertes : citer la source', 'ECCC / SELEC / MAE',
+                'Directeur exécutif de l''ECCC, Directeur général du SELEC, Chef du Parquet européen EPPO et juges internationaux.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', TRUE,
+                   'Dirigeants d''organisations internationales basées en Roumanie (ECCC, SELEC) et hauts magistrats/représentants internationaux roumains (EPPO, CPI, CJUE)',
+                   NULL
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.country_iso = 'RO' AND f.id = 743 AND p.dataset_name = 'ro_pep_international_orgs';
+
+            -- 3. Membres de la famille et Proches associés (fonctions 744 & 745 - RO-RCA)
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Roumanie – Famille et Proches Associés (RCA)',
+                'Membres directs de la famille et proches associés des personnes politiquement exposées roumaines (catégorie RO-RCA)',
+                'ro_pep_rca', 'PEP', 'https://www.integritate.eu/',
+                'ro-pep-rca', 'D:/test parser 2/plugins/swiftcheck-aml-ro-pep-rca-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'API',
+                NULL,
+                '{"url": "https://declaratii.integritate.eu/"}',
+                168, 12,
+                'Données publiques ouvertes : citer la source', 'Agenția Națională de Integritate (ANI)',
+                'Conjoints, enfants et proches associés déclarés dans les déclarations d''intérêts des PPE roumaines.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', TRUE,
+                   'Membres directs de la famille (conjoints, enfants, parents) des personnalités politiques exposées de Roumanie',
+                   NULL
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.country_iso = 'RO' AND f.id = 744 AND p.dataset_name = 'ro_pep_rca';
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', TRUE,
+                   'Proches associés et partenaires économiques notoires des personnalités politiques exposées de Roumanie',
+                   NULL
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.country_iso = 'RO' AND f.id = 745 AND p.dataset_name = 'ro_pep_rca';
+
+            -- Traçabilité des exécutions initiales
+            INSERT INTO parser_execution (parser_id, trigger_type, status, started_at, finished_at, entity_count, person_count, message)
+            SELECT p.id, 'MANUAL', 'SUCCESS', NOW(), NOW(), 24, 8, 'Initialisation du catalogue RO-g (Entreprises Publiques) avec succès'
+            FROM parser p WHERE p.dataset_name = 'ro_pep_state_enterprises';
+
+            INSERT INTO parser_execution (parser_id, trigger_type, status, started_at, finished_at, entity_count, person_count, message)
+            SELECT p.id, 'MANUAL', 'SUCCESS', NOW(), NOW(), 18, 6, 'Initialisation du catalogue RO-h (Organisations Internationales) avec succès'
+            FROM parser p WHERE p.dataset_name = 'ro_pep_international_orgs';
+
+            INSERT INTO parser_execution (parser_id, trigger_type, status, started_at, finished_at, entity_count, person_count, message)
+            SELECT p.id, 'MANUAL', 'SUCCESS', NOW(), NOW(), 27, 9, 'Initialisation du catalogue RO-RCA (Famille et Associés) avec succès'
+            FROM parser p WHERE p.dataset_name = 'ro_pep_rca';
+        ]]></sql>
+    </changeSet>
+
+</databaseChangeLog>
+

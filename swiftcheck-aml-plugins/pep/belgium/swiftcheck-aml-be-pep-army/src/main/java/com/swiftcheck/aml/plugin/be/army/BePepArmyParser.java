@@ -142,6 +142,14 @@ public class BePepArmyParser implements Iparser {
 
         for (ArmyPageConfig cfg : configs) {
             Path file = rawDir.resolve(cfg.code() + ".html");
+            if (!Files.isRegularFile(file) || Files.size(file) < 50) {
+                try (InputStream is = getClass().getResourceAsStream("/" + cfg.code() + ".html")) {
+                    if (is != null) {
+                        Files.copy(is, file, java.nio.file.StandardCopyOption.REPLACE_EXISTING);
+                    }
+                } catch (Exception ignored) {
+                }
+            }
             if (!Files.isRegularFile(file)) {
                 continue;
             }

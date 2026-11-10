@@ -1,0 +1,113 @@
+{
+  "country": "ro",
+  "category": "RO-b",
+  "source": "Camera Deputaților a României (cdep.ro)",
+  "deputies": [
+    {
+      "name": "Daniel Suciu",
+      "birthDate": "1980-11-07",
+      "position": "Președintele Camerei Deputaților",
+      "party": "Partidul Social Democrat (PSD)",
+      "startDate": "2024-09-02"
+    },
+    {
+      "name": "Alfred-Robert Simonis",
+      "birthDate": "1985-01-04",
+      "position": "Deputat, Fost Președinte interimar al Camerei Deputaților",
+      "party": "Partidul Social Democrat (PSD)",
+      "startDate": "2020-12-21"
+    },
+    {
+      "name": "Lucian-Nicolae Bode",
+      "birthDate": "1974-10-27",
+      "position": "Vicepreședinte al Camerei Deputaților, Secretar General PNL",
+      "party": "Partidul Național Liberal (PNL)",
+      "startDate": "2020-12-21"
+    },
+    {
+      "name": "Sorin Grindeanu",
+      "birthDate": "1973-12-05",
+      "position": "Deputat, Ministrul Transporturilor, Fost Prim-ministru",
+      "party": "Partidul Social Democrat (PSD)",
+      "startDate": "2020-12-21"
+    },
+    {
+      "name": "George Simion",
+      "birthDate": "1986-09-21",
+      "position": "Deputat, Președintele Alianței pentru Unirea Românilor (AUR)",
+      "party": "Alianța pentru Unirea Românilor (AUR)",
+      "startDate": "2020-12-21"
+    },
+    {
+      "name": "Kelemen Hunor",
+      "birthDate": "1967-10-18",
+      "position": "Deputat, Președintele UDMR, Fost Vicepremier",
+      "party": "Uniunea Democrată Maghiară din România (UDMR)",
+      "startDate": "2020-12-21"
+    },
+    {
+      "name": "Cătălin Drulă",
+      "birthDate": "1981-05-02",
+      "position": "Deputat, Fost Președinte al Uniunii Salvați România (USR)",
+      "party": "Uniunea Salvați România (USR)",
+      "startDate": "2020-12-21"
+    },
+    {
+      "name": "Dan Barna",
+      "birthDate": "1975-07-10",
+      "position": "Deputat, Fost Vicepremier al României",
+      "party": "Uniunea Salvați România (USR)",
+      "startDate": "2020-12-21"
+    },
+    {
+      "name": "Florin Roman",
+      "birthDate": "1974-04-22",
+      "position": "Deputat, Vicepreședinte al Camerei Deputaților",
+      "party": "Partidul Național Liberal (PNL)",
+      "startDate": "2020-12-21"
+    },
+    {
+      "name": "Antonio Andrușceac",
+      "birthDate": "1967-03-24",
+      "position": "Deputat, Chestor al Camerei Deputaților",
+      "party": "Alianța pentru Unirea Românilor (AUR)",
+      "startDate": "2020-12-21"
+    },
+    {
+      "name": "Cristian Seidler",
+      "birthDate": "1981-12-06",
+      "position": "Deputat, Vicelider al grupului USR",
+      "party": "Uniunea Salvați România (USR)",
+      "startDate": "2020-12-21"
+    },
+    {
+      "name": "Csoma Botond",
+      "birthDate": "1975-04-18",
+      "position": "Deputat, Lider al grupului parlamentar UDMR",
+      "party": "Uniunea Democrată Maghiară din România (UDMR)",
+      "startDate": "2020-12-21"
+    },
+    {
+      "name": "Ciprian-Titi Stoica",
+      "birthDate": "1982-05-24",
+      "position": "Deputat, Lider al grupului parlamentar AUR",
+      "party": "Alianța pentru Unirea Românilor (AUR)",
+      "startDate": "2020-12-21"
+    },
+    {
+      "name": "Gabriel Andronache",
+      "birthDate": "1974-09-29",
+      "position": "Deputat, Lider al grupului parlamentar PNL",
+      "party": "Partidul Național Liberal (PNL)",
+      "startDate": "2020-12-21"
+    },
+    {
+      "name": "Ciprian-Constantin Șerban",
+      "birthDate": "1985-05-27",
+      "position": "Deputat, Lider al grupului parlamentar PSD",
+      "party": "Partidul Social Democrat (PSD)",
+      "startDate": "2020-12-21"
+    }
+  ]
+}
+

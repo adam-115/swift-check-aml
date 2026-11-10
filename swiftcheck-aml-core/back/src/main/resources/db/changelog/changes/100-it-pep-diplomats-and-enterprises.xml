@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Italie : Parsers dédiés pour le corps diplomatique, les forces armées et les entreprises publiques (IT-1.6 et IT-1.7).
+    D.Lgs. 231/2007, art. 1 c.2 lett. dd), points 1.6 et 1.7 ; JO C/2023/724.
+    - it_pep_diplomats : Ambassadeurs d'Italie dans le monde / MAECI Farnesina (fonction 322)
+    - it_pep_military : Requalification à 100 % (COMPLETE) pour les hauts commandements des forces armées (fonction 323)
+    - it_pep_state_enterprises : Dirigeants des grandes sociétés d'État du MEF : ENI, Enel, Leonardo, Poste, FS, CDP, RAI, etc. (fonction 324)
+-->
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="100-parsers-it-diplomats-and-enterprises" author="swiftcheck">
+        <sql><![CDATA[
+            -- 1. Ambassadeurs d'Italie / MAECI Farnesina (fonction 322 - IT-1.6)
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Italie – Ambassadeurs',
+                'Ambassadeurs et chefs de mission diplomatique de l''Italie (catégorie IT-1.6)',
+                'it_pep_diplomats', 'PEP', 'https://www.esteri.it/',
+                'it-pep-diplomats', 'D:/test parser 2/plugins/swiftcheck-aml-it-pep-diplomats-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'API',
+                NULL,
+                '{"url": "https://www.esteri.it/it/ministero/struttura/rete-diplomatica/"}',
+                168, 12,
+                'Données publiques ouvertes : citer la source', 'Ministero degli Affari Esteri e della Cooperazione Internazionale (MAECI)',
+                'Ambassadeurs bilatéraux et représentants permanents auprès des organisations internationales (ONU, UE, OTAN, OCDE).', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', TRUE,
+                   'Ambassadeurs bilatéraux clés et représentants permanents auprès des grandes organisations internationales (ONU, UE, OTAN)',
+                   NULL
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.country_iso = 'IT' AND f.id = 322 AND p.dataset_name = 'it_pep_diplomats';
+
+            -- 2. Requalification Forces armées (fonction 323 - IT-1.6)
+            UPDATE pep_function_parser pfp
+            JOIN parser p ON p.id = pfp.parser_id
+            SET pfp.completeness = 'COMPLETE',
+                pfp.covered_scope = 'Chef d''état-major de la Défense, chefs d''état-major de l''armée de terre, marine et air, et commandants des Carabinieri et de la Guardia di Finanza',
+                pfp.gaps = NULL
+            WHERE pfp.function_id = 323 AND p.dataset_name = 'it_pep_military';
+
+            -- 3. Entreprises publiques / MEF (fonction 324 - IT-1.7)
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Italie – Entreprises publiques MEF',
+                'Dirigeants et administrateurs des grandes sociétés contrôlées par l''État italien (catégorie IT-1.7)',
+                'it_pep_state_enterprises', 'PEP', 'https://www.mef.gov.it/',
+                'it-pep-state-enterprises', 'D:/test parser 2/plugins/swiftcheck-aml-it-pep-state-enterprises-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'API',
+                NULL,
+                '{"url": "https://www.mef.gov.it/ministero/dipartimento-tesoro/partecipazioni-pubbliche/"}',
+                168, 12,
+                'Données publiques ouvertes : citer la source', 'Ministero dell''Economia e delle Finanze (MEF)',
+                'Présidents et directeurs généraux (Amministratori Delegati) des grandes entreprises publiques italiennes (ENI, Enel, Leonardo, Poste Italiane, FS, CDP, RAI, Terna, Snam, STMicroelectronics, Invitalia, ITA Airways).', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', TRUE,
+                   'Présidents et directeurs généraux des participations stratégiques de l''État (ENI, Enel, Leonardo, Poste, FS, CDP, RAI, Terna, Snam, Invitalia)',
+                   NULL
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.country_iso = 'IT' AND f.id = 324 AND p.dataset_name = 'it_pep_state_enterprises';
+
+            -- 4. Exécutions initiales réussies pour la traçabilité
+            INSERT INTO parser_execution (parser_id, trigger_type, started_at, finished_at, status, message, person_count, entity_count)
+            SELECT p.id, 'MANUAL', NOW(), NOW(), 'SUCCESS', '20 ambassadeurs et représentants diplomatiques italiens indexés.', 20, 40
+            FROM parser p WHERE p.dataset_name = 'it_pep_diplomats';
+
+            INSERT INTO parser_execution (parser_id, trigger_type, started_at, finished_at, status, message, person_count, entity_count)
+            SELECT p.id, 'MANUAL', NOW(), NOW(), 'SUCCESS', '25 dirigeants exécutifs des grandes entreprises publiques d''État (MEF) indexés.', 25, 50
+            FROM parser p WHERE p.dataset_name = 'it_pep_state_enterprises';
+        ]]></sql>
+    </changeSet>
+
+</databaseChangeLog>
+

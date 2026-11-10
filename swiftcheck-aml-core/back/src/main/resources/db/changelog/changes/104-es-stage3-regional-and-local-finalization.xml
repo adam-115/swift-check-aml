@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Espagne : Étape 3 - Finalisation de la couverture régionale et locale (ES-CCAA, ES-LOC, ES-EU, ES-RCA).
+    Ley 10/2010, art. 14.3 b), c) et 14.4/14.6 ; JO C/2023/724.
+    - Requalification des gouvernements autonomes (fonctions 207, 208, 210 - ES-CCAA) à 100 % via es_pep_regional_governments
+    - Requalification des parlements régionaux (fonction 209 - ES-CCAA) à 100 % via es_pep_regional_parliaments
+    - Requalification des directions régionales de partis (fonction 211 - ES-CCAA) à 100 % via es_pep_political_parties
+    - Requalification des maires et conseillers municipaux (fonctions 212, 213 - ES-LOC) à 100 % via es_pep_local_officials (8 763 élus)
+    - Requalification des directions locales de partis (fonction 214 - ES-LOC) à 100 % via es_pep_political_parties
+    - Finalisation ES-EU (fonction 218) et ES-RCA (fonctions 219, 220)
+-->
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="104-es-stage3-regional-and-local-finalization" author="swiftcheck">
+        <sql><![CDATA[
+            -- 1. Communautés autonomes (ES-CCAA)
+            UPDATE pep_function_parser pfp
+            JOIN parser p ON p.id = pfp.parser_id
+            SET pfp.completeness = 'COMPLETE',
+                pfp.includes_former = TRUE,
+                pfp.covered_scope = 'Présidents des 17 gouvernements des communautés autonomes espagnoles',
+                pfp.gaps = NULL
+            WHERE p.dataset_name = 'es_pep_regional_governments' AND pfp.function_id = 207;
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', TRUE,
+                   'Conseillers (consejeros) et membres des exécutifs des 17 gouvernements autonomes',
+                   NULL
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.country_iso = 'ES' AND f.id = 208 AND p.dataset_name = 'es_pep_regional_governments'
+            ON DUPLICATE KEY UPDATE completeness = 'COMPLETE', includes_former = TRUE, gaps = NULL;
+
+            UPDATE pep_function_parser pfp
+            JOIN parser p ON p.id = pfp.parser_id
+            SET pfp.completeness = 'COMPLETE',
+                pfp.includes_former = TRUE,
+                pfp.covered_scope = 'Députés des 17 parlements et assemblées des communautés autonomes espagnoles',
+                pfp.gaps = NULL
+            WHERE p.dataset_name = 'es_pep_regional_parliaments' AND pfp.function_id = 209;
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', TRUE,
+                   'Hauts cargos de l''administration des communautés autonomes',
+                   NULL
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.country_iso = 'ES' AND f.id = 210 AND p.dataset_name = 'es_pep_regional_governments'
+            ON DUPLICATE KEY UPDATE completeness = 'COMPLETE', includes_former = TRUE, gaps = NULL;
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', TRUE,
+                   'Dirigeants et secrétaires généraux régionaux des partis politiques',
+                   NULL
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.country_iso = 'ES' AND f.id = 211 AND p.dataset_name = 'es_pep_political_parties'
+            ON DUPLICATE KEY UPDATE completeness = 'COMPLETE', includes_former = TRUE, gaps = NULL;
+
+            -- 2. Niveau local (ES-LOC)
+            UPDATE pep_function_parser pfp
+            JOIN parser p ON p.id = pfp.parser_id
+            SET pfp.completeness = 'COMPLETE',
+                pfp.includes_former = TRUE,
+                pfp.covered_scope = 'Maires des 50 chefs-lieux de province et communes de plus de 50 000 habitants',
+                pfp.gaps = NULL
+            WHERE p.dataset_name = 'es_pep_local_officials' AND pfp.function_id = 212;
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', TRUE,
+                   'Conseillers municipaux (concejales) et adjoints des chefs-lieux et communes de plus de 50 000 habitants',
+                   NULL
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.country_iso = 'ES' AND f.id = 213 AND p.dataset_name = 'es_pep_local_officials'
+            ON DUPLICATE KEY UPDATE completeness = 'COMPLETE', includes_former = TRUE, gaps = NULL;
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', TRUE,
+                   'Dirigeants locaux des partis politiques dans les principales municipalités',
+                   NULL
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.country_iso = 'ES' AND f.id = 214 AND p.dataset_name = 'es_pep_political_parties'
+            ON DUPLICATE KEY UPDATE completeness = 'COMPLETE', includes_former = TRUE, gaps = NULL;
+
+            -- 3. Fonctions européennes & RCA (ES-EU, ES-RCA)
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', TRUE,
+                   'Espagnols exerçant une fonction PEP de haut rang au sein des institutions de l''UE',
+                   NULL
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.country_iso = 'ES' AND f.id = 218 AND p.dataset_name = 'es_pep_europarl'
+            ON DUPLICATE KEY UPDATE completeness = 'COMPLETE', includes_former = TRUE, gaps = NULL;
+
+            UPDATE pep_function_parser pfp
+            JOIN parser p ON p.id = pfp.parser_id
+            SET pfp.completeness = 'COMPLETE',
+                pfp.includes_former = TRUE,
+                pfp.covered_scope = 'Conjoints, partenaires, ascendants et descendants directs des PEP espagnoles',
+                pfp.gaps = NULL
+            WHERE p.dataset_name = 'es_pep_rca' AND pfp.function_id = 219;
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', TRUE,
+                   'Personnes notoirement associées et proches partenaires d''affaires de PEP espagnoles',
+                   NULL
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.country_iso = 'ES' AND f.id = 220 AND p.dataset_name = 'es_pep_rca'
+            ON DUPLICATE KEY UPDATE completeness = 'COMPLETE', includes_former = TRUE, gaps = NULL;
+        ]]></sql>
+    </changeSet>
+
+</databaseChangeLog>
+

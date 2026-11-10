@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Belgique : Finalisation de la couverture PEP à 100 %.
+    - Liaison de la fonction 98 (Ancien parlementaire) aux parsers des assemblées et au Moniteur belge.
+    - Requalification à COMPLETE des ministres régionaux (fonction 89) et du Parlement bruxellois (fonction 96).
+    - Requalification à COMPLETE des dirigeants des organisations internationales en Belgique (OTAN, Benelux, OMD) (fonction 109).
+-->
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="094-be-former-parliamentarians-link" author="swiftcheck">
+        <comment>Liaison de la fonction Ancien parlementaire aux assemblées et au Moniteur</comment>
+        <sql><![CDATA[
+            -- Liaison de la fonction Ancien parlementaire (id: 98) à be_pep_moniteur
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', TRUE, 'Anciens parlementaires dont la cessation de fonction est publiée au Moniteur belge', NULL
+            FROM pep_function f
+            JOIN pep_category c ON c.id = f.category_id
+            JOIN parser p ON p.dataset_name = 'be_pep_moniteur'
+            WHERE c.country_iso = 'BE' AND f.id = 98
+            ON DUPLICATE KEY UPDATE completeness = 'COMPLETE', includes_former = TRUE;
+
+            -- Liaison aux parsers parlementaires disposant de l'historique
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', TRUE, 'Membres sortants des assemblées parlementaires', NULL
+            FROM pep_function f
+            JOIN pep_category c ON c.id = f.category_id
+            JOIN parser p ON p.dataset_name IN ('be_pep_chamber', 'be_pep_senate', 'be_pep_flemish_parliament', 'be_pep_walloon_parliament')
+            WHERE c.country_iso = 'BE' AND f.id = 98
+            ON DUPLICATE KEY UPDATE completeness = 'COMPLETE', includes_former = TRUE;
+        ]]></sql>
+    </changeSet>
+
+    <changeSet id="094-be-regional-governments-and-parliaments-complete" author="swiftcheck">
+        <comment>Requalification à COMPLETE des gouvernements régionaux et assemblées régionales</comment>
+        <sql><![CDATA[
+            -- Gouvernements des Régions et Communautés (fonction 89)
+            UPDATE pep_function_parser pfp
+            JOIN parser p ON p.id = pfp.parser_id
+            JOIN pep_function f ON f.id = pfp.function_id
+            JOIN pep_category c ON c.id = f.category_id
+            SET pfp.completeness = 'COMPLETE',
+                pfp.covered_scope = 'Membres des gouvernements régionaux et communautaires (Flandre, Wallonie, Fédération Wallonie-Bruxelles, Bruxelles-Capitale, Communauté germanophone)'
+            WHERE c.country_iso = 'BE' AND f.id = 89 AND p.dataset_name = 'be_pep_regional_governments';
+
+            -- Ajout du lien be_pep_moniteur pour la fonction 89
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', TRUE, 'Nominations et démissions des ministres régionaux publiées aux actes du Moniteur belge', NULL
+            FROM pep_function f
+            JOIN pep_category c ON c.id = f.category_id
+            JOIN parser p ON p.dataset_name = 'be_pep_moniteur'
+            WHERE c.country_iso = 'BE' AND f.id = 89
+            ON DUPLICATE KEY UPDATE completeness = 'COMPLETE';
+
+            -- Parlement de la Région de Bruxelles-Capitale (fonction 96)
+            UPDATE pep_function_parser pfp
+            JOIN parser p ON p.id = pfp.parser_id
+            JOIN pep_function f ON f.id = pfp.function_id
+            JOIN pep_category c ON c.id = f.category_id
+            SET pfp.completeness = 'COMPLETE',
+                pfp.covered_scope = 'Députés régionaux bruxellois et élus francophones siégeant aux assemblées bruxelloises'
+            WHERE c.country_iso = 'BE' AND f.id = 96 AND p.dataset_name = 'be_pep_regional_parliaments';
+        ]]></sql>
+    </changeSet>
+
+    <changeSet id="094-be-international-orgs-complete" author="swiftcheck">
+        <comment>Requalification à COMPLETE des dirigeants des organisations internationales en Belgique</comment>
+        <sql><![CDATA[
+            -- Organisations internationales à Bruxelles (OTAN, Union Benelux, Organisation mondiale des douanes)
+            UPDATE pep_function_parser pfp
+            JOIN parser p ON p.id = pfp.parser_id
+            JOIN pep_function f ON f.id = pfp.function_id
+            JOIN pep_category c ON c.id = f.category_id
+            SET pfp.completeness = 'COMPLETE',
+                pfp.covered_scope = 'Secrétaires généraux, adjoints et hauts dirigeants de l''OTAN, du Secrétariat général du Benelux et de l''Organisation mondiale des douanes (OMD)'
+            WHERE c.country_iso = 'BE' AND f.id = 109 AND p.dataset_name = 'be_pep_international_orgs';
+        ]]></sql>
+    </changeSet>
+
+</databaseChangeLog>
+

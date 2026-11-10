@@ -1,0 +1,80 @@
+{
+  "source": "CMVM, ASF e CNPD de Portugal",
+  "url": "https://www.cmvm.pt/, https://www.asf.com.pt/, https://www.cnpd.pt/",
+  "updated": "2026-11-01",
+  "members": [
+    {
+      "name": "Luís Laginha de Sousa",
+      "firstName": "Luís",
+      "lastName": "Laginha de Sousa",
+      "organization": "CMVM",
+      "position": "Presidente do Conselho de Administração da CMVM",
+      "since": "2022-09-01"
+    },
+    {
+      "name": "Inês Drumond",
+      "firstName": "Inês",
+      "lastName": "Drumond",
+      "organization": "CMVM",
+      "position": "Vice-Presidente do Conselho de Administração da CMVM",
+      "since": "2022-09-01"
+    },
+    {
+      "name": "José Miguel Almeida",
+      "firstName": "José Miguel",
+      "lastName": "Almeida",
+      "organization": "CMVM",
+      "position": "Vogal do Conselho de Administração da CMVM",
+      "since": "2022-09-01"
+    },
+    {
+      "name": "Margarida Corrêa de Aguiar",
+      "firstName": "Margarida",
+      "lastName": "Corrêa de Aguiar",
+      "organization": "ASF",
+      "position": "Presidente do Conselho de Administração da ASF",
+      "since": "2019-09-01"
+    },
+    {
+      "name": "Diogo Alarcão",
+      "firstName": "Diogo",
+      "lastName": "Alarcão",
+      "organization": "ASF",
+      "position": "Vice-Presidente do Conselho de Administração da ASF",
+      "since": "2021-04-01"
+    },
+    {
+      "name": "Adelaide Cavaleiro",
+      "firstName": "Adelaide",
+      "lastName": "Cavaleiro",
+      "organization": "ASF",
+      "position": "Vogal do Conselho de Administração da ASF",
+      "since": "2021-04-01"
+    },
+    {
+      "name": "Paula Meira Lourenço",
+      "firstName": "Paula",
+      "lastName": "Meira Lourenço",
+      "organization": "CNPD",
+      "position": "Presidente da Comissão Nacional de Proteção de Dados (CNPD)",
+      "since": "2023-04-14"
+    },
+    {
+      "name": "Luís Durão",
+      "firstName": "Luís",
+      "lastName": "Durão",
+      "organization": "CNPD",
+      "position": "Vogal da Comissão Nacional de Proteção de Dados (CNPD)",
+      "since": "2023-04-14"
+    },
+    {
+      "name": "Cristina Tomé",
+      "firstName": "Cristina",
+      "lastName": "Tomé",
+      "organization": "CNPD",
+      "position": "Vogal da Comissão Nacional de Proteção de Dados (CNPD)",
+      "since": "2023-04-14"
+    }
+  ]
+}
+

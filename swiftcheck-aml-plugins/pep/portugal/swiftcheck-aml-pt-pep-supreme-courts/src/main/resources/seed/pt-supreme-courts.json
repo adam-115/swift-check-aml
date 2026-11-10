@@ -1,0 +1,104 @@
+{
+  "source": "Supremo Tribunal de Justiça e Supremo Tribunal Administrativo de Portugal",
+  "url": "https://www.stj.pt/ e https://www.tribunais.org.pt/sta/",
+  "updated": "2026-11-01",
+  "members": [
+    {
+      "name": "João Cura Mariano",
+      "firstName": "João",
+      "lastName": "Cura Mariano",
+      "court": "Supremo Tribunal de Justiça",
+      "position": "Presidente do Supremo Tribunal de Justiça",
+      "since": "2024-06-04"
+    },
+    {
+      "name": "Nuno Gonçalves",
+      "firstName": "Nuno",
+      "lastName": "Gonçalves",
+      "court": "Supremo Tribunal de Justiça",
+      "position": "Vice-Presidente do Supremo Tribunal de Justiça",
+      "since": "2021-10-01"
+    },
+    {
+      "name": "Graça Amaral",
+      "firstName": "Graça",
+      "lastName": "Amaral",
+      "court": "Supremo Tribunal de Justiça",
+      "position": "Vice-Presidente do Supremo Tribunal de Justiça",
+      "since": "2021-10-01"
+    },
+    {
+      "name": "António Joaquim Piçarra",
+      "firstName": "António Joaquim",
+      "lastName": "Piçarra",
+      "court": "Supremo Tribunal de Justiça",
+      "position": "Antigo Presidente do Supremo Tribunal de Justiça",
+      "since": "2018-09-12"
+    },
+    {
+      "name": "Henrique Araújo",
+      "firstName": "Henrique",
+      "lastName": "Araújo",
+      "court": "Supremo Tribunal de Justiça",
+      "position": "Antigo Presidente do Supremo Tribunal de Justiça",
+      "since": "2021-06-08"
+    },
+    {
+      "name": "Dulce Neto",
+      "firstName": "Dulce",
+      "lastName": "Neto",
+      "court": "Supremo Tribunal Administrativo",
+      "position": "Presidente do Supremo Tribunal Administrativo",
+      "since": "2019-11-19"
+    },
+    {
+      "name": "Ana Paula Portela",
+      "firstName": "Ana Paula",
+      "lastName": "Portela",
+      "court": "Supremo Tribunal Administrativo",
+      "position": "Vice-Presidente do Supremo Tribunal Administrativo",
+      "since": "2022-01-15"
+    },
+    {
+      "name": "Teresa de Sousa",
+      "firstName": "Teresa",
+      "lastName": "de Sousa",
+      "court": "Supremo Tribunal Administrativo",
+      "position": "Vice-Presidente do Supremo Tribunal Administrativo",
+      "since": "2022-01-15"
+    },
+    {
+      "name": "Jorge Arcanjo",
+      "firstName": "Jorge",
+      "lastName": "Arcanjo",
+      "court": "Supremo Tribunal de Justiça",
+      "position": "Juiz Conselheiro do STJ - Presidente de Secção",
+      "since": "2020-03-01"
+    },
+    {
+      "name": "Ana Paula Boularot",
+      "firstName": "Ana Paula",
+      "lastName": "Boularot",
+      "court": "Supremo Tribunal de Justiça",
+      "position": "Juíza Conselheira do STJ - Presidente de Secção",
+      "since": "2019-01-10"
+    },
+    {
+      "name": "Isabel Marques da Silva",
+      "firstName": "Isabel",
+      "lastName": "Marques da Silva",
+      "court": "Supremo Tribunal Administrativo",
+      "position": "Juíza Conselheira do STA - Presidente de Secção",
+      "since": "2020-05-12"
+    },
+    {
+      "name": "Francisco Rothes",
+      "firstName": "Francisco",
+      "lastName": "Rothes",
+      "court": "Supremo Tribunal Administrativo",
+      "position": "Juiz Conselheiro do STA - Presidente de Secção",
+      "since": "2020-05-12"
+    }
+  ]
+}
+

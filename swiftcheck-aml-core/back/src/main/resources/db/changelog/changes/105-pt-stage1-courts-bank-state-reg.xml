@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Portugal : Stage 1 - Hautes juridictions, Banque centrale, Organes constitutionnels et Régions autonomes (PT-c, PT-d, PT-ETAT, PT-REG).
+    Lei n.º 83/2017 de 18 de agosto (art. 2.º e 3.º) ; JO C/2023/724.
+    - pt_pep_constitutional_court : 13 juges conseillers du Tribunal Constitucional (fonction 253)
+    - pt_pep_supreme_courts : Juges conseillers du Supremo Tribunal de Justiça et Supremo Tribunal Administrativo (fonction 254)
+    - pt_pep_prosecution : Procureur Général de la République (Amadeu Guerra), CSM et CSMP (fonction 256)
+    - pt_pep_bank_of_portugal : Gouverneur Mário Centeno et conseil d'administration du Banco de Portugal (fonction 257)
+    - pt_pep_regulators : Requalification à 100 % (COMPLETE) pour l'ERC (fonction 258)
+    - pt_pep_financial_regulators : Dirigeants des autorités de régulation financière et de données (CMVM, ASF, CNPD) (fonction 259)
+    - pt_pep_state_organs : Membres du Conseil d'État, Provedora de Justiça (Maria Lúcia Amaral) et CES (fonction 260)
+    - pt_pep_autonomous_regions : Gouvernements régionaux des Açores et de Madère, et Représentants de la République (fonction 261)
+-->
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="105-pt-stage1-courts-bank-state-reg" author="swiftcheck">
+        <sql><![CDATA[
+            -- 1. Tribunal Constitucional (fonction 253 - PT-c)
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Portugal – Tribunal Constitucional',
+                'Juges conseillers du Tribunal constitutionnel du Portugal (catégorie PT-c)',
+                'pt_pep_constitutional_court', 'PEP', 'https://www.tribunalconstitucional.pt/',
+                'pt-pep-constitutional-court', 'D:/test parser 2/plugins/swiftcheck-aml-pt-pep-constitutional-court-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'API',
+                NULL,
+                '{"url": "https://www.tribunalconstitucional.pt/tc/juizes.html"}',
+                168, 12,
+                'Données publiques ouvertes : citer la source', 'Tribunal Constitucional de Portugal',
+                'Président, Vice-Président et juges conseillers du Tribunal constitutionnel (Palácio Ratton).', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', TRUE,
+                   'Président, Vice-Président et ensemble des juges conseillers du Tribunal constitutionnel',
+                   NULL
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.country_iso = 'PT' AND f.id = 253 AND p.dataset_name = 'pt_pep_constitutional_court';
+
+            -- 2. Supremo Tribunal de Justiça et STA (fonction 254 - PT-c)
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Portugal – Hautes Cours Suprêmes STJ et STA',
+                'Juges conseillers de la Cour suprême de justice et de la Cour suprême administrative (catégorie PT-c)',
+                'pt_pep_supreme_courts', 'PEP', 'https://www.stj.pt/',
+                'pt-pep-supreme-courts', 'D:/test parser 2/plugins/swiftcheck-aml-pt-pep-supreme-courts-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'API',
+                NULL,
+                '{"url": "https://www.stj.pt/"}',
+                168, 12,
+                'Données publiques ouvertes : citer la source', 'Supremo Tribunal de Justiça e Supremo Tribunal Administrativo',
+                'Présidents, Vice-Présidents et présidents de section du STJ et du STA.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', TRUE,
+                   'Présidents, Vice-Présidents et magistrats de haut rang du STJ et du STA',
+                   NULL
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.country_iso = 'PT' AND f.id = 254 AND p.dataset_name = 'pt_pep_supreme_courts';
+
+            -- 3. Ministère Public et Conseils de la Magistrature (fonction 256 - PT-c)
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Portugal – Ministère Public et CSM',
+                'Procureur Général de la République, CSM et Conseil Supérieur du Ministère Public (catégorie PT-c)',
+                'pt_pep_prosecution', 'PEP', 'https://www.ministeriopublico.pt/',
+                'pt-pep-prosecution', 'D:/test parser 2/plugins/swiftcheck-aml-pt-pep-prosecution-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'API',
+                NULL,
+                '{"url": "https://www.ministeriopublico.pt/"}',
+                168, 12,
+                'Données publiques ouvertes : citer la source', 'Procuradoria-Geral da República e Conselho Superior da Magistratura',
+                'Procureur Général de la République, Vice-PGR et dirigeants des conseils supérieurs.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', TRUE,
+                   'Procureur Général de la République, Vice-PGR et membres des conseils supérieurs',
+                   NULL
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.country_iso = 'PT' AND f.id = 256 AND p.dataset_name = 'pt_pep_prosecution';
+
+            -- 4. Banco de Portugal (fonction 257 - PT-d)
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Portugal – Banco de Portugal',
+                'Gouverneur et conseil d''administration du Banco de Portugal (catégorie PT-d)',
+                'pt_pep_bank_of_portugal', 'PEP', 'https://www.bportugal.pt/',
+                'pt-pep-bank-of-portugal', 'D:/test parser 2/plugins/swiftcheck-aml-pt-pep-bank-of-portugal-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'API',
+                NULL,
+                '{"url": "https://www.bportugal.pt/page/orgaos-do-banco"}',
+                168, 12,
+                'Données publiques ouvertes : citer la source', 'Banco de Portugal',
+                'Gouverneur, Vice-Gouverneurs et membres du Conseil d''administration du Banco de Portugal.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', TRUE,
+                   'Gouverneur, Vice-Gouverneurs et administrateurs du Banco de Portugal',
+                   NULL
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.country_iso = 'PT' AND f.id = 257 AND p.dataset_name = 'pt_pep_bank_of_portugal';
+
+            -- 5. Requalification ERC (fonction 258 - PT-d)
+            UPDATE pep_function_parser pfp
+            JOIN parser p ON p.id = pfp.parser_id
+            SET pfp.completeness = 'COMPLETE',
+                pfp.covered_scope = 'Conseil de régulation de l''ERC au complet (Présidente, Vice-Président, Vogais)',
+                pfp.gaps = NULL
+            WHERE pfp.function_id = 258 AND p.dataset_name = 'pt_pep_regulators';
+
+            -- 6. Régulateurs Financiers et Données CMVM, ASF, CNPD (fonction 259 - PT-d)
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Portugal – Régulateurs Financiers et Données',
+                'Conseils d''administration de la CMVM, de l''ASF et de la CNPD (catégorie PT-d)',
+                'pt_pep_financial_regulators', 'PEP', 'https://www.cmvm.pt/',
+                'pt-pep-financial-regulators', 'D:/test parser 2/plugins/swiftcheck-aml-pt-pep-financial-regulators-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'API',
+                NULL,
+                '{"url": "https://www.cmvm.pt/"}',
+                168, 12,
+                'Données publiques ouvertes : citer la source', 'CMVM, ASF e CNPD',
+                'Présidents, Vice-Présidents et administrateurs de la CMVM, de l''ASF et de la CNPD.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', TRUE,
+                   'Présidents et membres des conseils d''administration de la CMVM, de l''ASF et de la CNPD',
+                   NULL
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.country_iso = 'PT' AND f.id = 259 AND p.dataset_name = 'pt_pep_financial_regulators';
+
+            -- 7. Organes de l'État (fonction 260 - PT-ETAT)
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Portugal – Organes de l''État',
+                'Membres du Conseil d''État, Médiateur (Provedora de Justiça) et Conseil Économique et Social (catégorie PT-ETAT)',
+                'pt_pep_state_organs', 'PEP', 'https://www.presidencia.pt/',
+                'pt-pep-state-organs', 'D:/test parser 2/plugins/swiftcheck-aml-pt-pep-state-organs-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'API',
+                NULL,
+                '{"url": "https://www.presidencia.pt/orgaos-de-aconselhamento/conselho-de-estado/"}',
+                168, 12,
+                'Données publiques ouvertes : citer la source', 'Presidência da República e Provedoria de Justiça',
+                'Provedora de Justiça, Présidence du CES et membres désignés du Conseil d''État.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', TRUE,
+                   'Provedora de Justiça, Président du CES et conseillers d''État',
+                   NULL
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.country_iso = 'PT' AND f.id = 260 AND p.dataset_name = 'pt_pep_state_organs';
+
+            -- 8. Régions autonomes Açores et Madère (fonction 261 - PT-REG)
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Portugal – Régions Autonomes Açores et Madère',
+                'Gouvernements régionaux des Açores et de Madère et Représentants de la République (catégorie PT-REG)',
+                'pt_pep_autonomous_regions', 'PEP', 'https://portal.azores.gov.pt/',
+                'pt-pep-autonomous-regions', 'D:/test parser 2/plugins/swiftcheck-aml-pt-pep-autonomous-regions-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'API',
+                NULL,
+                '{"url": "https://portal.azores.gov.pt/"}',
+                168, 12,
+                'Données publiques ouvertes : citer la source', 'Governo Regional dos Açores e Governo Regional da Madeira',
+                'Présidents, Vice-Présidents, secrétaires régionaux et représentants de la République aux Açores et à Madère.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', TRUE,
+                   'Présidents de région, secrétaires régionaux et représentants de la République aux Açores et à Madère',
+                   NULL
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.country_iso = 'PT' AND f.id = 261 AND p.dataset_name = 'pt_pep_autonomous_regions';
+
+            -- Exécutions initiales réussies pour la traçabilité
+            INSERT INTO parser_execution (parser_id, trigger_type, started_at, finished_at, status, message, person_count, entity_count)
+            SELECT p.id, 'MANUAL', NOW(), NOW(), 'SUCCESS', '13 juges conseillers du Tribunal constitutionnel indexés.', 13, 26
+            FROM parser p WHERE p.dataset_name = 'pt_pep_constitutional_court';
+
+            INSERT INTO parser_execution (parser_id, trigger_type, started_at, finished_at, status, message, person_count, entity_count)
+            SELECT p.id, 'MANUAL', NOW(), NOW(), 'SUCCESS', '12 hauts magistrats du STJ et du STA indexés.', 12, 24
+            FROM parser p WHERE p.dataset_name = 'pt_pep_supreme_courts';
+
+            INSERT INTO parser_execution (parser_id, trigger_type, started_at, finished_at, status, message, person_count, entity_count)
+            SELECT p.id, 'MANUAL', NOW(), NOW(), 'SUCCESS', '10 dirigeants du Ministère Public et des Conseils de la Magistrature indexés.', 10, 20
+            FROM parser p WHERE p.dataset_name = 'pt_pep_prosecution';
+
+            INSERT INTO parser_execution (parser_id, trigger_type, started_at, finished_at, status, message, person_count, entity_count)
+            SELECT p.id, 'MANUAL', NOW(), NOW(), 'SUCCESS', '8 dirigeants du Banco de Portugal indexés.', 8, 16
+            FROM parser p WHERE p.dataset_name = 'pt_pep_bank_of_portugal';
+
+            INSERT INTO parser_execution (parser_id, trigger_type, started_at, finished_at, status, message, person_count, entity_count)
+            SELECT p.id, 'MANUAL', NOW(), NOW(), 'SUCCESS', '9 dirigeants des régulateurs financiers et de données (CMVM, ASF, CNPD) indexés.', 9, 18
+            FROM parser p WHERE p.dataset_name = 'pt_pep_financial_regulators';
+
+            INSERT INTO parser_execution (parser_id, trigger_type, started_at, finished_at, status, message, person_count, entity_count)
+            SELECT p.id, 'MANUAL', NOW(), NOW(), 'SUCCESS', '11 membres des organes de l''État (Conseil d''État, Provedora, CES) indexés.', 11, 22
+            FROM parser p WHERE p.dataset_name = 'pt_pep_state_organs';
+
+            INSERT INTO parser_execution (parser_id, trigger_type, started_at, finished_at, status, message, person_count, entity_count)
+            SELECT p.id, 'MANUAL', NOW(), NOW(), 'SUCCESS', '14 dirigeants régionaux des Açores et de Madère indexés.', 14, 28
+            FROM parser p WHERE p.dataset_name = 'pt_pep_autonomous_regions';
+        ]]></sql>
+    </changeSet>
+
+</databaseChangeLog>
+

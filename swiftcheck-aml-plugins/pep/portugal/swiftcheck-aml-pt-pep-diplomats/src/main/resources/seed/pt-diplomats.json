@@ -1,0 +1,134 @@
+{
+  "source": "Ministério dos Negócios Estrangeiros de Portugal",
+  "url": "https://portaldiplomatico.mne.gov.pt/rede-diplomatica/postos-diplomaticos",
+  "updated": "2026-11-01",
+  "ambassadors": [
+    {
+      "name": "João Mira Gomes",
+      "firstName": "João",
+      "lastName": "Mira Gomes",
+      "country": "es",
+      "post": "Embaixada de Portugal em Madrid",
+      "position": "Embaixador de Portugal em Espanha",
+      "since": "2020-02-05"
+    },
+    {
+      "name": "José Augusto Duarte",
+      "firstName": "José Augusto",
+      "lastName": "Duarte",
+      "country": "fr",
+      "post": "Embaixada de Portugal em Paris",
+      "position": "Embaixador de Portugal em França",
+      "since": "2022-09-01"
+    },
+    {
+      "name": "Nuno Brito",
+      "firstName": "Nuno",
+      "lastName": "Brito",
+      "country": "gb",
+      "post": "Embaixada de Portugal em Londres",
+      "position": "Embaixador de Portugal no Reino Unido",
+      "since": "2021-02-15"
+    },
+    {
+      "name": "Francisco Duarte Lopes",
+      "firstName": "Francisco",
+      "lastName": "Duarte Lopes",
+      "country": "us",
+      "post": "Embaixada de Portugal em Washington",
+      "position": "Embaixador de Portugal nos Estados Unidos",
+      "since": "2022-05-18"
+    },
+    {
+      "name": "Francisco Ribeiro de Menezes",
+      "firstName": "Francisco",
+      "lastName": "Ribeiro de Menezes",
+      "country": "de",
+      "post": "Embaixada de Portugal em Berlim",
+      "position": "Embaixador de Portugal na Alemanha",
+      "since": "2020-02-01"
+    },
+    {
+      "name": "Pedro Lourtie",
+      "firstName": "Pedro",
+      "lastName": "Lourtie",
+      "country": "be",
+      "post": "Representação Permanente de Portugal junto da União Europeia (REPER)",
+      "position": "Representante Permanente de Portugal junto da UE",
+      "since": "2022-02-01"
+    },
+    {
+      "name": "Ana Paula Zacarias",
+      "firstName": "Ana Paula",
+      "lastName": "Zacarias",
+      "country": "us",
+      "post": "Missão Permanente de Portugal junto da ONU em Nova Iorque",
+      "position": "Representante Permanente de Portugal junto da ONU",
+      "since": "2022-05-10"
+    },
+    {
+      "name": "Pedro Costa Pereira",
+      "firstName": "Pedro",
+      "lastName": "Costa Pereira",
+      "country": "be",
+      "post": "Delegação de Portugal junto da OTAN / NATO",
+      "position": "Representante Permanente de Portugal junto da OTAN",
+      "since": "2019-10-01"
+    },
+    {
+      "name": "Luís Faro Ramos",
+      "firstName": "Luís",
+      "lastName": "Faro Ramos",
+      "country": "br",
+      "post": "Embaixada de Portugal em Brasília",
+      "position": "Embaixador de Portugal no Brasil",
+      "since": "2020-12-15"
+    },
+    {
+      "name": "Bernardo Futscher Pereira",
+      "firstName": "Bernardo",
+      "lastName": "Futscher Pereira",
+      "country": "it",
+      "post": "Embaixada de Portugal em Roma",
+      "position": "Embaixador de Portugal em Itália",
+      "since": "2022-03-01"
+    },
+    {
+      "name": "Francisco Alegre Duarte",
+      "firstName": "Francisco",
+      "lastName": "Alegre Duarte",
+      "country": "ao",
+      "post": "Embaixada de Portugal em Luanda",
+      "position": "Embaixador de Portugal em Angola",
+      "since": "2022-03-01"
+    },
+    {
+      "name": "António Costa Moura",
+      "firstName": "António",
+      "lastName": "Costa Moura",
+      "country": "mz",
+      "post": "Embaixada de Portugal em Maputo",
+      "position": "Embaixador de Portugal em Moçambique",
+      "since": "2020-10-01"
+    },
+    {
+      "name": "Paulo Jorge Nascimento",
+      "firstName": "Paulo Jorge",
+      "lastName": "Nascimento",
+      "country": "cn",
+      "post": "Embaixada de Portugal em Pequim",
+      "position": "Embaixador de Portugal na China",
+      "since": "2022-11-01"
+    },
+    {
+      "name": "José Freitas Ferraz",
+      "firstName": "José",
+      "lastName": "Freitas Ferraz",
+      "country": "pt",
+      "post": "Missão de Portugal junto da CPLP",
+      "position": "Representante Permanente de Portugal junto da CPLP",
+      "since": "2021-09-01"
+    }
+  ]
+}
+

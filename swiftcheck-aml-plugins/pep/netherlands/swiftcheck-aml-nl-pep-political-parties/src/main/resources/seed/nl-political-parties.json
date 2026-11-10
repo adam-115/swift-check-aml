@@ -1,0 +1,128 @@
+{
+  "source": "Kiesraad en Tweede Kamer der Staten-Generaal",
+  "url": "https://www.tweedekamer.nl/kamerleden_en_commissies/fracties",
+  "updated": "2026-11-01",
+  "leaders": [
+    {
+      "name": "Geert Wilders",
+      "firstName": "Geert",
+      "lastName": "Wilders",
+      "party": "PVV - Partij voor de Vrijheid",
+      "position": "Partijleider en Fractievoorzitter van de PVV",
+      "since": "2006-02-22"
+    },
+    {
+      "name": "Frans Timmermans",
+      "firstName": "Frans",
+      "lastName": "Timmermans",
+      "party": "GroenLinks-PvdA",
+      "position": "Politiek leider en Fractievoorzitter van GroenLinks-PvdA",
+      "since": "2023-08-22"
+    },
+    {
+      "name": "Jesse Klaver",
+      "firstName": "Jesse",
+      "lastName": "Klaver",
+      "party": "GroenLinks-PvdA",
+      "position": "Vice-fractievoorzitter van GroenLinks-PvdA",
+      "since": "2015-05-12"
+    },
+    {
+      "name": "Dilan Yeşilgöz-Zegerius",
+      "firstName": "Dilan",
+      "lastName": "Yeşilgöz-Zegerius",
+      "party": "VVD - Volkspartij voor Vrijheid en Democratie",
+      "position": "Politiek leider van de VVD",
+      "since": "2023-08-14"
+    },
+    {
+      "name": "Pieter Omtzigt",
+      "firstName": "Pieter",
+      "lastName": "Omtzigt",
+      "party": "NSC - Nieuw Sociaal Contract",
+      "position": "Partijleider van Nieuw Sociaal Contract",
+      "since": "2023-08-19"
+    },
+    {
+      "name": "Nicolien van Vroonhoven",
+      "firstName": "Nicolien",
+      "lastName": "van Vroonhoven",
+      "party": "NSC - Nieuw Sociaal Contract",
+      "position": "Waarnemend partijleider van Nieuw Sociaal Contract",
+      "since": "2024-09-11"
+    },
+    {
+      "name": "Rob Jetten",
+      "firstName": "Rob",
+      "lastName": "Jetten",
+      "party": "D66 - Democraten 66",
+      "position": "Politiek leider van D66",
+      "since": "2023-08-12"
+    },
+    {
+      "name": "Caroline van der Plas",
+      "firstName": "Caroline",
+      "lastName": "van der Plas",
+      "party": "BBB - BoerBurgerBeweging",
+      "position": "Partijleider van de BoerBurgerBeweging",
+      "since": "2019-11-01"
+    },
+    {
+      "name": "Henri Bontenbal",
+      "firstName": "Henri",
+      "lastName": "Bontenbal",
+      "party": "CDA - Christen-Democratisch Appèl",
+      "position": "Partijleider van het CDA",
+      "since": "2023-08-14"
+    },
+    {
+      "name": "Jimmy Dijk",
+      "firstName": "Jimmy",
+      "lastName": "Dijk",
+      "party": "SP - Socialistische Partij",
+      "position": "Partijleider van de Socialistische Partij",
+      "since": "2023-12-13"
+    },
+    {
+      "name": "Stephan van Baarle",
+      "firstName": "Stephan",
+      "lastName": "van Baarle",
+      "party": "Denk",
+      "position": "Partijleider van Denk",
+      "since": "2023-08-02"
+    },
+    {
+      "name": "Esther Ouwehand",
+      "firstName": "Esther",
+      "lastName": "Ouwehand",
+      "party": "PvdD - Partij voor de Dieren",
+      "position": "Partijleider van de Partij voor de Dieren",
+      "since": "2019-10-09"
+    },
+    {
+      "name": "Thierry Baudet",
+      "firstName": "Thierry",
+      "lastName": "Baudet",
+      "party": "FvD - Forum voor Democratie",
+      "position": "Partijleider van Forum voor Democratie",
+      "since": "2016-09-22"
+    },
+    {
+      "name": "Chris Stoffer",
+      "firstName": "Chris",
+      "lastName": "Stoffer",
+      "party": "SGP - Staatkundig Gereformeerde Partij",
+      "position": "Partijleider van de SGP",
+      "since": "2023-08-25"
+    },
+    {
+      "name": "Mirjam Bikker",
+      "firstName": "Mirjam",
+      "lastName": "Bikker",
+      "party": "ChristenUnie",
+      "position": "Partijleider van de ChristenUnie",
+      "since": "2023-01-17"
+    }
+  ]
+}
+

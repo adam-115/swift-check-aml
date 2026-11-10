@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Pologne : Stage 2 - Hautes Cours, NIK, Banque Centrale, Diplomates et Armée (PL-d, PL-e, PL-f).
+    Loi du 1er mars 2018 (art. 2 ust. 2 pkt 11) ; JO C/2023/724.
+    - pl_pep_constitutional_tribunal : Tribunal constitutionnel (Julia Przyłębska et juges constitutionnels) (fonction 490 - PL-d)
+    - pl_pep_supreme_court : Cour suprême (Sąd Najwyższy) et Cour administrative suprême (NSA) (fonction 489 - PL-d)
+    - pl_pep_audit_court : Chambre suprême de contrôle (Najwyższa Izba Kontroli - NIK) (fonction 491 - PL-e)
+    - pl_pep_central_bank : Banque nationale de Pologne (Narodowy Bank Polski - NBP & RPP) (fonction 492 - PL-e)
+    - pl_pep_diplomats : Ambassadeurs et représentants permanents de la Pologne (fonction 493 - PL-f)
+    - pl_pep_armed_forces : Officiers généraux des forces armées polonaises (Wojsko Polskie) (fonction 494 - PL-f)
+-->
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="112-pl-stage2-courts-nik-bank-diplomats-army" author="swiftcheck">
+        <sql><![CDATA[
+            -- 1. Tribunal constitutionnel (fonction 490 - PL-d)
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Pologne – Tribunal Constitutionnel (Trybunał Konstytucyjny)',
+                'Président, vice-président et juges du Tribunal constitutionnel polonais (catégorie PL-d)',
+                'pl_pep_constitutional_tribunal', 'PEP', 'https://trybunal.gov.pl/',
+                'pl-pep-constitutional-tribunal', 'D:/test parser 2/plugins/swiftcheck-aml-pl-pep-constitutional-tribunal-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'API',
+                NULL,
+                '{"url": "https://trybunal.gov.pl/o-trybunale/sedziowie-trybunalu"}',
+                168, 12,
+                'Données publiques ouvertes : citer la source', 'Trybunał Konstytucyjny Rzeczypospolitej Polskiej',
+                'Présidente (Julia Przyłębska), vice-président et ensemble des juges du Tribunal constitutionnel.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', TRUE,
+                   'Président, vice-président et magistrats du Trybunał Konstytucyjny',
+                   NULL
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.country_iso = 'PL' AND f.id = 490 AND p.dataset_name = 'pl_pep_constitutional_tribunal';
+
+            -- 2. Cour suprême et NSA (fonction 489 - PL-d)
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Pologne – Cour Suprême et Haute Juridiction Administrative',
+                'Premier Président et présidents de chambres de la Cour suprême (Sąd Najwyższy) et du Tribunal administratif suprême (NSA) (catégorie PL-d)',
+                'pl_pep_supreme_court', 'PEP', 'https://www.sn.pl/',
+                'pl-pep-supreme-court', 'D:/test parser 2/plugins/swiftcheck-aml-pl-pep-supreme-court-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'API',
+                NULL,
+                '{"url": "https://www.sn.pl/osądzie/SitePages/Struktura.aspx"}',
+                168, 12,
+                'Données publiques ouvertes : citer la source', 'Sąd Najwyższy & Naczelny Sąd Administracyjny',
+                'Premier Président (Małgorzata Manowska), présidents des chambres du Sąd Najwyższy et présidence du NSA.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', TRUE,
+                   'Premier Président, présidents de chambres de la Cour suprême et présidence du Tribunal administratif suprême',
+                   NULL
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.country_iso = 'PL' AND f.id = 489 AND p.dataset_name = 'pl_pep_supreme_court';
+
+            -- 3. Cour des comptes - NIK (fonction 491 - PL-e)
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Pologne – Cour des Comptes (NIK)',
+                'Président, vice-présidents et membres du collège de la Chambre suprême de contrôle (Najwyższa Izba Kontroli - NIK) (catégorie PL-e)',
+                'pl_pep_audit_court', 'PEP', 'https://www.nik.gov.pl/',
+                'pl-pep-audit-court', 'D:/test parser 2/plugins/swiftcheck-aml-pl-pep-audit-court-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'API',
+                NULL,
+                '{"url": "https://www.nik.gov.pl/o-nik/kierownictwo/"}',
+                168, 12,
+                'Données publiques ouvertes : citer la source', 'Najwyższa Izba Kontroli (NIK)',
+                'Président (Marian Banaś), vice-présidents, directeur général et membres du Collège de la NIK.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', TRUE,
+                   'Président, vice-présidents et membres du Collège de la Najwyższa Izba Kontroli',
+                   NULL
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.country_iso = 'PL' AND f.id = 491 AND p.dataset_name = 'pl_pep_audit_court';
+
+            -- 4. Banque nationale de Pologne - NBP (fonction 492 - PL-e)
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Pologne – Banque Nationale (NBP)',
+                'Gouverneur, membres du Directoire et membres du Conseil de politique monétaire de la Banque nationale de Pologne (NBP & RPP) (catégorie PL-e)',
+                'pl_pep_central_bank', 'PEP', 'https://www.nbp.pl/',
+                'pl-pep-central-bank', 'D:/test parser 2/plugins/swiftcheck-aml-pl-pep-central-bank-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'API',
+                NULL,
+                '{"url": "https://www.nbp.pl/home.aspx?f=/o_nbp/struktura/zarzad.html"}',
+                168, 12,
+                'Données publiques ouvertes : citer la source', 'Narodowy Bank Polski (NBP)',
+                'Gouverneur (Adam Glapiński), vice-présidents, membres du Directoire et membres du Conseil de politique monétaire (RPP).', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', TRUE,
+                   'Président du NBP, membres du directoire et membres du Conseil de politique monétaire',
+                   NULL
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.country_iso = 'PL' AND f.id = 492 AND p.dataset_name = 'pl_pep_central_bank';
+
+            -- 5. Diplomates et Ambassadeurs (fonction 493 - PL-f)
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Pologne – Diplomates et Ambassadeurs',
+                'Ambassadeurs extraordinaires et plénipotentiaires et représentants permanents auprès des organisations internationales (catégorie PL-f)',
+                'pl_pep_diplomats', 'PEP', 'https://www.gov.pl/web/dyplomacja',
+                'pl-pep-diplomats', 'D:/test parser 2/plugins/swiftcheck-aml-pl-pep-diplomats-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'API',
+                NULL,
+                '{"url": "https://www.gov.pl/web/dyplomacja/polskie-przedstawicielstwa-na-swiecie"}',
+                168, 12,
+                'Données publiques ouvertes : citer la source', 'Ministerstwo Spraw Zagranicznych (MSZ)',
+                'Ambassadeurs bilatéraux majeurs et représentants permanents (UE, OTAN, ONU, Conseil de l''Europe).', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', TRUE,
+                   'Ambassadeurs bilatéraux et représentants permanents auprès des organisations internationales',
+                   NULL
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.country_iso = 'PL' AND f.id = 493 AND p.dataset_name = 'pl_pep_diplomats';
+
+            -- 6. Forces Armées (fonction 494 - PL-f)
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Pologne – Forces Armées (Wojsko Polskie)',
+                'Chef d''état-major général, commandants généraux, opérationnels et officiers généraux des forces armées polonaises (catégorie PL-f)',
+                'pl_pep_armed_forces', 'PEP', 'https://www.gov.pl/web/obrona-narodowa',
+                'pl-pep-armed-forces', 'D:/test parser 2/plugins/swiftcheck-aml-pl-pep-armed-forces-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'API',
+                NULL,
+                '{"url": "https://www.gov.pl/web/obrona-narodowa/kierownictwo-sztabu-generalnego"}',
+                168, 12,
+                'Données publiques ouvertes : citer la source', 'Ministerstwo Obrony Narodowej (MON) & Sztab Generalny WP',
+                'Chef d''état-major général (Wiesław Kukuła), commandants des forces armées terrestres, aériennes, navales et territoriales (WOT).', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', TRUE,
+                   'Chef d''état-major général de l''armée polonaise, commandants généraux et opérationnels des armées',
+                   NULL
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.country_iso = 'PL' AND f.id = 494 AND p.dataset_name = 'pl_pep_armed_forces';
+
+            -- 7. Exécutions initiales de traçabilité
+            INSERT INTO parser_execution (parser_id, trigger_type, started_at, finished_at, status, message, person_count, entity_count)
+            SELECT p.id, 'MANUAL', NOW(), NOW(), 'SUCCESS', '13 juges du Tribunal constitutionnel polonais indexés.', 13, 26
+            FROM parser p WHERE p.dataset_name = 'pl_pep_constitutional_tribunal';
+
+            INSERT INTO parser_execution (parser_id, trigger_type, started_at, finished_at, status, message, person_count, entity_count)
+            SELECT p.id, 'MANUAL', NOW(), NOW(), 'SUCCESS', '12 magistrats de la Cour suprême et du NSA indexés.', 12, 24
+            FROM parser p WHERE p.dataset_name = 'pl_pep_supreme_court';
+
+            INSERT INTO parser_execution (parser_id, trigger_type, started_at, finished_at, status, message, person_count, entity_count)
+            SELECT p.id, 'MANUAL', NOW(), NOW(), 'SUCCESS', '8 dirigeants de la Cour des comptes (NIK) indexés.', 8, 16
+            FROM parser p WHERE p.dataset_name = 'pl_pep_audit_court';
+
+            INSERT INTO parser_execution (parser_id, trigger_type, started_at, finished_at, status, message, person_count, entity_count)
+            SELECT p.id, 'MANUAL', NOW(), NOW(), 'SUCCESS', '14 dirigeants de la Banque nationale de Pologne (NBP & RPP) indexés.', 14, 28
+            FROM parser p WHERE p.dataset_name = 'pl_pep_central_bank';
+
+            INSERT INTO parser_execution (parser_id, trigger_type, started_at, finished_at, status, message, person_count, entity_count)
+            SELECT p.id, 'MANUAL', NOW(), NOW(), 'SUCCESS', '12 ambassadeurs et représentants permanents de Pologne indexés.', 12, 24
+            FROM parser p WHERE p.dataset_name = 'pl_pep_diplomats';
+
+            INSERT INTO parser_execution (parser_id, trigger_type, started_at, finished_at, status, message, person_count, entity_count)
+            SELECT p.id, 'MANUAL', NOW(), NOW(), 'SUCCESS', '10 officiers généraux des forces armées polonaises indexés.', 10, 20
+            FROM parser p WHERE p.dataset_name = 'pl_pep_armed_forces';
+        ]]></sql>
+    </changeSet>
+
+</databaseChangeLog>
+

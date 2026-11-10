@@ -1,0 +1,99 @@
+{
+  "institution": "Sindicatos y Organizaciones Empresariales de España",
+  "country": "es",
+  "legalBasis": "Ley 10/2010, art. 14.3 d); JO C/2023/724",
+  "leaders": [
+    {
+      "name": "Unai Sordo Calvo",
+      "org": "Comisiones Obreras (CCOO)",
+      "role": "Secretario General",
+      "type": "union",
+      "status": "current",
+      "startDate": "2017-07-01",
+      "birthDate": "1972-10-02",
+      "gender": "male"
+    },
+    {
+      "name": "Josep María Álvarez Suárez",
+      "aliases": ["Pepe Álvarez"],
+      "org": "Unión General de Trabajadoras y Trabajadores (UGT)",
+      "role": "Secretario General",
+      "type": "union",
+      "status": "current",
+      "startDate": "2016-03-12",
+      "birthDate": "1956-03-20",
+      "gender": "male"
+    },
+    {
+      "name": "Antonio Garamendi Lecanda",
+      "org": "Confederación Española de Organizaciones Empresariales (CEOE)",
+      "role": "Presidente",
+      "type": "business_org",
+      "status": "current",
+      "startDate": "2018-11-21",
+      "birthDate": "1958-02-08",
+      "gender": "male"
+    },
+    {
+      "name": "Gerardo Cuerva Valdivia",
+      "org": "Confederación Española de la Pequeña y Mediana Empresa (CEPYME)",
+      "role": "Presidente",
+      "type": "business_org",
+      "status": "current",
+      "startDate": "2019-01-16",
+      "birthDate": "1971-04-12",
+      "gender": "male"
+    },
+    {
+      "name": "Miguel Borra Izquierdo",
+      "org": "Central Sindical Independiente y de Funcionarios (CSIF)",
+      "role": "Presidente Nacional",
+      "type": "union",
+      "status": "current",
+      "startDate": "2011-11-30",
+      "birthDate": "1966-06-15",
+      "gender": "male"
+    },
+    {
+      "name": "Joaquín Pérez da Silva",
+      "org": "Unión Sindical Obrera (USO)",
+      "role": "Secretario General",
+      "type": "union",
+      "status": "current",
+      "startDate": "2017-11-24",
+      "birthDate": "1974-08-20",
+      "gender": "male"
+    },
+    {
+      "name": "Lorenzo Amor Acedo",
+      "org": "Federación Nacional de Asociaciones de Trabajadores Autónomos (ATA)",
+      "role": "Presidente",
+      "type": "business_org",
+      "status": "current",
+      "startDate": "2004-10-01",
+      "birthDate": "1965-03-21",
+      "gender": "male"
+    },
+    {
+      "name": "Mitxel Lakuntza Vicario",
+      "org": "Euskal Langileen Alkartasuna (ELA)",
+      "role": "Secretario General",
+      "type": "union",
+      "status": "current",
+      "startDate": "2019-04-05",
+      "birthDate": "1976-10-14",
+      "gender": "male"
+    },
+    {
+      "name": "Paulo Carril Vázquez",
+      "org": "Confederación Intersindical Galega (CIG)",
+      "role": "Secretario Xeral",
+      "type": "union",
+      "status": "current",
+      "startDate": "2017-06-04",
+      "birthDate": "1971-09-02",
+      "gender": "male"
+    }
+  ]
+}
+

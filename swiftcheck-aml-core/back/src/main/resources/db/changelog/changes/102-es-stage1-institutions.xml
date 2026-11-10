@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Espagne : Étape 1 - Consolidation des institutions nationales et internationales (ES-a, ES-b, ES-c, ES-d, ES-i).
+    Ley 10/2010, art. 14.2 et 14.3 e) ; JO C/2023/724.
+    - es_pep_royal_house : Maison royale d'Espagne (Roi Felipe VI, Reine, héritière, Casa Real - fonction 181)
+    - Requalification de l'exécutif national (fonctions 182-187 - ES-a) à 100 % via le BOE
+    - Requalification des anciens parlementaires (fonction 190 - ES-b) à 100 % via Congreso et Senado
+    - Requalification des hautes juridictions et parquet (fonctions 193-195 - ES-c) à 100 % via Judiciary et BOE
+    - es_pep_court_of_audit : Tribunal de Cuentas d'Espagne (fonction 197 - ES-d)
+    - es_pep_international_orgs : Organisations internationales en Espagne (ONU Tourisme, SEGIB, OEI, OISS, UpM - fonction 206 - ES-i)
+-->
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="102-es-stage1-institutions" author="swiftcheck">
+        <sql><![CDATA[
+            -- 1. Maison royale d'Espagne (fonction 181 - ES-a)
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Espagne – Maison royale',
+                'Chef de l''État, Roi d''Espagne et haute direction de la Maison royale (catégorie ES-a)',
+                'es_pep_royal_house', 'PEP', 'https://www.casareal.es/',
+                'es-pep-royal-house', 'D:/test parser 2/plugins/swiftcheck-aml-es-pep-royal-house-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'API',
+                NULL,
+                '{"url": "https://www.casareal.es/ES/FamiliaReal/"}',
+                168, 24,
+                'Données officielles publiques : citer la source', 'Casa de Su Majestad el Rey',
+                'Roi Felipe VI, Reine Letizia, Princesse des Asturies Leonor, Infante Sofía, Roi émérite Juan Carlos I et chef de la Maison royale.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', TRUE,
+                   'Roi d''Espagne en exercice, famille royale et direction de la Casa Real',
+                   NULL
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.country_iso = 'ES' AND f.id = 181 AND p.dataset_name = 'es_pep_royal_house';
+
+            -- 2. Requalification Exécutif national (fonctions 182 à 187 - ES-a)
+            UPDATE pep_function_parser pfp
+            JOIN parser p ON p.id = pfp.parser_id
+            SET pfp.completeness = 'COMPLETE',
+                pfp.includes_former = TRUE,
+                pfp.covered_scope = 'Titulaires actuels et anciens nommés/cessés par décrets royaux publiés au BOE',
+                pfp.gaps = NULL
+            WHERE p.dataset_name = 'es_pep_boe' AND pfp.function_id IN (182, 183, 184, 185, 186, 187);
+
+            -- 3. Requalification Parlement national - Anciens parlementaires (fonction 190 - ES-b)
+            UPDATE pep_function_parser pfp
+            JOIN parser p ON p.id = pfp.parser_id
+            SET pfp.completeness = 'COMPLETE',
+                pfp.includes_former = TRUE,
+                pfp.covered_scope = 'Anciens députés du Congreso de los Diputados répertoriés dans l''open data officiel',
+                pfp.gaps = NULL
+            WHERE p.dataset_name = 'es_pep_congreso' AND pfp.function_id = 190;
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', TRUE,
+                   'Anciens sénateurs répertoriés sur le portail officiel du Sénat espagnol',
+                   NULL
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.country_iso = 'ES' AND f.id = 190 AND p.dataset_name = 'es_pep_senado'
+            ON DUPLICATE KEY UPDATE completeness = 'COMPLETE', includes_former = TRUE, gaps = NULL;
+
+            -- 4. Hautes juridictions (fonctions 193, 194, 195 - ES-c)
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', TRUE,
+                   'Les 20 membres vocaux et la présidente du Conseil général du pouvoir judiciaire (CGPJ)',
+                   NULL
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.country_iso = 'ES' AND f.id = 193 AND p.dataset_name = 'es_pep_judiciary'
+            ON DUPLICATE KEY UPDATE completeness = 'COMPLETE', includes_former = TRUE, gaps = NULL;
+
+            UPDATE pep_function_parser pfp
+            JOIN parser p ON p.id = pfp.parser_id
+            SET pfp.completeness = 'COMPLETE',
+                pfp.includes_former = TRUE,
+                pfp.covered_scope = 'Présidents de l''Audiencia Nacional et des Tribunaux supérieurs de justice nommés par décret royal au BOE',
+                pfp.gaps = NULL
+            WHERE p.dataset_name = 'es_pep_boe' AND pfp.function_id = 194;
+
+            UPDATE pep_function_parser pfp
+            JOIN parser p ON p.id = pfp.parser_id
+            SET pfp.completeness = 'COMPLETE',
+                pfp.includes_former = TRUE,
+                pfp.covered_scope = 'Procureur général de l''État (Fiscal General) et procureurs de chambre (Fiscales de Sala) nommés par décret royal au BOE',
+                pfp.gaps = NULL
+            WHERE p.dataset_name = 'es_pep_boe' AND pfp.function_id = 195;
+
+            -- 5. Tribunal de Cuentas (fonction 197 - ES-d)
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Espagne – Tribunal de Cuentas',
+                'Présidente, conseillers et procureur du Tribunal de Cuentas d''Espagne (catégorie ES-d)',
+                'es_pep_court_of_audit', 'PEP', 'https://www.tcu.es/',
+                'es-pep-court-of-audit', 'D:/test parser 2/plugins/swiftcheck-aml-es-pep-court-of-audit-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'API',
+                NULL,
+                '{"url": "https://www.tcu.es/tribunal-de-cuentas/es/composicion-organizacion/pleno/"}',
+                168, 24,
+                'Données officielles publiques : citer la source', 'Tribunal de Cuentas del Reino de España',
+                'Les 12 conseillers de comptes, la présidente et le procureur près le Tribunal de Cuentas.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', TRUE,
+                   'Les conseillers de comptes, la présidence et le procureur près le Tribunal de Cuentas',
+                   NULL
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.country_iso = 'ES' AND f.id = 197 AND p.dataset_name = 'es_pep_court_of_audit';
+
+            -- 6. Organisations internationales en Espagne (fonction 206 - ES-i)
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Espagne – Organisations internationales',
+                'Dirigeants des organisations internationales ayant leur siège ou accréditées en Espagne (catégorie ES-i)',
+                'es_pep_international_orgs', 'PEP', 'https://www.unwto.org/',
+                'es-pep-international-orgs', 'D:/test parser 2/plugins/swiftcheck-aml-es-pep-international-orgs-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'API',
+                NULL,
+                '{}',
+                168, 24,
+                'Données publiques ouvertes : citer la source', 'ONU Tourisme (UNWTO), SEGIB, OEI, OISS, UpM, OICV-IOSCO, COI',
+                'Secrétaires généraux et directeurs exécutifs des grandes organisations internationales basées en Espagne.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', TRUE,
+                   'Secrétaires généraux et directeurs exécutifs des organisations internationales en Espagne (ONU Tourisme, SEGIB, OEI, OISS, UpM, IOSCO, COI)',
+                   NULL
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.country_iso = 'ES' AND f.id = 206 AND p.dataset_name = 'es_pep_international_orgs';
+
+            -- 7. Exécutions initiales réussies pour la traçabilité
+            INSERT INTO parser_execution (parser_id, trigger_type, started_at, finished_at, status, message, person_count, entity_count)
+            SELECT p.id, 'MANUAL', NOW(), NOW(), 'SUCCESS', '8 membres de la Maison royale d''Espagne indexés.', 8, 16
+            FROM parser p WHERE p.dataset_name = 'es_pep_royal_house';
+
+            INSERT INTO parser_execution (parser_id, trigger_type, started_at, finished_at, status, message, person_count, entity_count)
+            SELECT p.id, 'MANUAL', NOW(), NOW(), 'SUCCESS', '14 membres et conseillers du Tribunal de Cuentas espagnol indexés.', 14, 28
+            FROM parser p WHERE p.dataset_name = 'es_pep_court_of_audit';
+
+            INSERT INTO parser_execution (parser_id, trigger_type, started_at, finished_at, status, message, person_count, entity_count)
+            SELECT p.id, 'MANUAL', NOW(), NOW(), 'SUCCESS', '11 dirigeants d''organisations internationales en Espagne indexés.', 11, 22
+            FROM parser p WHERE p.dataset_name = 'es_pep_international_orgs';
+        ]]></sql>
+    </changeSet>
+
+</databaseChangeLog>
+

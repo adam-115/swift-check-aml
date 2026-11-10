@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
@@ -30,7 +30,7 @@
         <module>swiftcheck-aml-core</module>
         <!-- Plugins de listes : un JAR PF4J par source (voir swiftcheck-aml-plugins/README.md) -->
         <module>swiftcheck-aml-plugins/swiftcheck-aml-eu</module>
-        <!-- PEP Luxembourg : un plugin par source de données -->
+        <!-- PEP Luxembourg : un plugin par source de donnÃ©es -->
         <module>swiftcheck-aml-plugins/pep/luxembourg/swiftcheck-aml-lu-pep-chamber</module>
         <module>swiftcheck-aml-plugins/pep/luxembourg/swiftcheck-aml-lu-pep-chamber-former</module>
         <module>swiftcheck-aml-plugins/pep/luxembourg/swiftcheck-aml-lu-pep-government</module>
@@ -86,7 +86,7 @@
         <module>swiftcheck-aml-plugins/pep/belgium/swiftcheck-aml-be-pep-walloon-parliament</module>
         <module>swiftcheck-aml-plugins/pep/belgium/swiftcheck-aml-be-pep-king</module>
         <module>swiftcheck-aml-plugins/pep/belgium/swiftcheck-aml-be-pep-federal-government</module>
-        <!-- PEP Belgique – Lot 2 : pages des institutions -->
+        <!-- PEP Belgique â€“ Lot 2 : pages des institutions -->
         <module>swiftcheck-aml-plugins/pep/belgium/swiftcheck-aml-be-pep-regional-governments</module>
         <module>swiftcheck-aml-plugins/pep/belgium/swiftcheck-aml-be-pep-regional-parliaments</module>
         <module>swiftcheck-aml-plugins/pep/belgium/swiftcheck-aml-be-pep-senate</module>
@@ -97,7 +97,7 @@
         <module>swiftcheck-aml-plugins/pep/belgium/swiftcheck-aml-be-pep-diplomats</module>
         <module>swiftcheck-aml-plugins/pep/belgium/swiftcheck-aml-be-pep-army</module>
         <module>swiftcheck-aml-plugins/pep/belgium/swiftcheck-aml-be-pep-international-orgs</module>
-        <!-- PEP Belgique – Lot 3 : volumineux, après étude -->
+        <!-- PEP Belgique â€“ Lot 3 : volumineux, aprÃ¨s Ã©tude -->
         <module>swiftcheck-aml-plugins/pep/belgium/swiftcheck-aml-be-pep-moniteur</module>
         <module>swiftcheck-aml-plugins/pep/belgium/swiftcheck-aml-be-pep-public-enterprises</module>
         <module>swiftcheck-aml-plugins/pep/belgium/swiftcheck-aml-be-pep-political-parties</module>
@@ -144,6 +144,12 @@
         <module>swiftcheck-aml-plugins/pep/netherlands/swiftcheck-aml-nl-pep-king</module>
         <module>swiftcheck-aml-plugins/pep/netherlands/swiftcheck-aml-nl-pep-institutions</module>
         <module>swiftcheck-aml-plugins/pep/netherlands/swiftcheck-aml-nl-pep-defence</module>
+        <module>swiftcheck-aml-plugins/pep/netherlands/swiftcheck-aml-nl-pep-central-bank</module>
+        <module>swiftcheck-aml-plugins/pep/netherlands/swiftcheck-aml-nl-pep-diplomats</module>
+        <module>swiftcheck-aml-plugins/pep/netherlands/swiftcheck-aml-nl-pep-political-parties</module>
+        <module>swiftcheck-aml-plugins/pep/netherlands/swiftcheck-aml-nl-pep-state-enterprises</module>
+        <module>swiftcheck-aml-plugins/pep/netherlands/swiftcheck-aml-nl-pep-international-orgs</module>
+        <module>swiftcheck-aml-plugins/pep/netherlands/swiftcheck-aml-nl-pep-rca</module>
         <module>swiftcheck-aml-plugins/pep/norway/swiftcheck-aml-no-pep-parliament</module>
         <module>swiftcheck-aml-plugins/pep/norway/swiftcheck-aml-no-pep-state-enterprises</module>
         <module>swiftcheck-aml-plugins/pep/norway/swiftcheck-aml-no-pep-norges-bank</module>
@@ -158,6 +164,18 @@
         <module>swiftcheck-aml-plugins/pep/denmark/swiftcheck-aml-dk-pep-institutions</module>
         <module>swiftcheck-aml-plugins/pep/poland/swiftcheck-aml-pl-pep-sejm</module>
         <module>swiftcheck-aml-plugins/pep/poland/swiftcheck-aml-pl-pep-government</module>
+        <module>swiftcheck-aml-plugins/pep/poland/swiftcheck-aml-pl-pep-president</module>
+        <module>swiftcheck-aml-plugins/pep/poland/swiftcheck-aml-pl-pep-senat</module>
+        <module>swiftcheck-aml-plugins/pep/poland/swiftcheck-aml-pl-pep-political-parties</module>
+        <module>swiftcheck-aml-plugins/pep/poland/swiftcheck-aml-pl-pep-constitutional-tribunal</module>
+        <module>swiftcheck-aml-plugins/pep/poland/swiftcheck-aml-pl-pep-supreme-court</module>
+        <module>swiftcheck-aml-plugins/pep/poland/swiftcheck-aml-pl-pep-audit-court</module>
+        <module>swiftcheck-aml-plugins/pep/poland/swiftcheck-aml-pl-pep-central-bank</module>
+        <module>swiftcheck-aml-plugins/pep/poland/swiftcheck-aml-pl-pep-diplomats</module>
+        <module>swiftcheck-aml-plugins/pep/poland/swiftcheck-aml-pl-pep-armed-forces</module>
+        <module>swiftcheck-aml-plugins/pep/poland/swiftcheck-aml-pl-pep-state-enterprises</module>
+        <module>swiftcheck-aml-plugins/pep/poland/swiftcheck-aml-pl-pep-international-orgs</module>
+        <module>swiftcheck-aml-plugins/pep/poland/swiftcheck-aml-pl-pep-rca</module>
         <module>swiftcheck-aml-plugins/pep/estonia/swiftcheck-aml-ee-pep-riigikogu</module>
         <module>swiftcheck-aml-plugins/pep/estonia/swiftcheck-aml-ee-pep-government</module>
         <module>swiftcheck-aml-plugins/pep/estonia/swiftcheck-aml-ee-pep-institutions</module>
@@ -199,27 +217,76 @@
         <module>swiftcheck-aml-plugins/pep/romania/swiftcheck-aml-ro-pep-eu-commission</module>
         <module>swiftcheck-aml-plugins/pep/romania/swiftcheck-aml-ro-pep-government</module>
         <module>swiftcheck-aml-plugins/pep/romania/swiftcheck-aml-ro-pep-senate</module>
+        <module>swiftcheck-aml-plugins/pep/romania/swiftcheck-aml-ro-pep-president</module>
+        <module>swiftcheck-aml-plugins/pep/romania/swiftcheck-aml-ro-pep-deputies</module>
+        <module>swiftcheck-aml-plugins/pep/romania/swiftcheck-aml-ro-pep-political-parties</module>
+        <module>swiftcheck-aml-plugins/pep/romania/swiftcheck-aml-ro-pep-constitutional-court</module>
+        <module>swiftcheck-aml-plugins/pep/romania/swiftcheck-aml-ro-pep-supreme-court</module>
+        <module>swiftcheck-aml-plugins/pep/romania/swiftcheck-aml-ro-pep-central-bank</module>
+        <module>swiftcheck-aml-plugins/pep/romania/swiftcheck-aml-ro-pep-court-of-accounts</module>
+        <module>swiftcheck-aml-plugins/pep/romania/swiftcheck-aml-ro-pep-diplomats</module>
+        <module>swiftcheck-aml-plugins/pep/romania/swiftcheck-aml-ro-pep-armed-forces</module>
+        <module>swiftcheck-aml-plugins/pep/romania/swiftcheck-aml-ro-pep-state-enterprises</module>
+        <module>swiftcheck-aml-plugins/pep/romania/swiftcheck-aml-ro-pep-international-orgs</module>
+        <module>swiftcheck-aml-plugins/pep/romania/swiftcheck-aml-ro-pep-rca</module>
         <module>swiftcheck-aml-plugins/pep/hungary/swiftcheck-aml-hu-pep-europarl</module>
         <module>swiftcheck-aml-plugins/pep/hungary/swiftcheck-aml-hu-pep-eu-commission</module>
         <module>swiftcheck-aml-plugins/pep/hungary/swiftcheck-aml-hu-pep-parliament</module>
         <module>swiftcheck-aml-plugins/pep/hungary/swiftcheck-aml-hu-pep-government</module>
+        <module>swiftcheck-aml-plugins/pep/bulgaria/swiftcheck-aml-bg-pep-europarl</module>
+        <module>swiftcheck-aml-plugins/pep/bulgaria/swiftcheck-aml-bg-pep-eu-commission</module>
+        <module>swiftcheck-aml-plugins/pep/bulgaria/swiftcheck-aml-bg-pep-parliament</module>
+        <module>swiftcheck-aml-plugins/pep/bulgaria/swiftcheck-aml-bg-pep-government</module>
+        <module>swiftcheck-aml-plugins/pep/bulgaria/swiftcheck-aml-bg-pep-institutions</module>
+        <module>swiftcheck-aml-plugins/pep/cyprus/swiftcheck-aml-cy-pep-europarl</module>
+        <module>swiftcheck-aml-plugins/pep/cyprus/swiftcheck-aml-cy-pep-eu-commission</module>
+        <module>swiftcheck-aml-plugins/pep/cyprus/swiftcheck-aml-cy-pep-parliament</module>
+        <module>swiftcheck-aml-plugins/pep/cyprus/swiftcheck-aml-cy-pep-institutions</module>
+        <module>swiftcheck-aml-plugins/pep/malta/swiftcheck-aml-mt-pep-europarl</module>
+        <module>swiftcheck-aml-plugins/pep/malta/swiftcheck-aml-mt-pep-eu-commission</module>
+        <module>swiftcheck-aml-plugins/pep/malta/swiftcheck-aml-mt-pep-parliament</module>
+        <module>swiftcheck-aml-plugins/pep/malta/swiftcheck-aml-mt-pep-institutions</module>
         <module>swiftcheck-aml-plugins/pep/portugal/swiftcheck-aml-pt-pep-eu-commission</module>
         <module>swiftcheck-aml-plugins/pep/portugal/swiftcheck-aml-pt-pep-president</module>
         <module>swiftcheck-aml-plugins/pep/portugal/swiftcheck-aml-pt-pep-courts</module>
         <module>swiftcheck-aml-plugins/pep/portugal/swiftcheck-aml-pt-pep-regulators</module>
+        <module>swiftcheck-aml-plugins/pep/portugal/swiftcheck-aml-pt-pep-constitutional-court</module>
+        <module>swiftcheck-aml-plugins/pep/portugal/swiftcheck-aml-pt-pep-supreme-courts</module>
+        <module>swiftcheck-aml-plugins/pep/portugal/swiftcheck-aml-pt-pep-prosecution</module>
+        <module>swiftcheck-aml-plugins/pep/portugal/swiftcheck-aml-pt-pep-bank-of-portugal</module>
+        <module>swiftcheck-aml-plugins/pep/portugal/swiftcheck-aml-pt-pep-financial-regulators</module>
+        <module>swiftcheck-aml-plugins/pep/portugal/swiftcheck-aml-pt-pep-state-organs</module>
+        <module>swiftcheck-aml-plugins/pep/portugal/swiftcheck-aml-pt-pep-autonomous-regions</module>
+        <module>swiftcheck-aml-plugins/pep/portugal/swiftcheck-aml-pt-pep-diplomats</module>
+        <module>swiftcheck-aml-plugins/pep/portugal/swiftcheck-aml-pt-pep-armed-forces</module>
+        <module>swiftcheck-aml-plugins/pep/portugal/swiftcheck-aml-pt-pep-state-enterprises</module>
+        <module>swiftcheck-aml-plugins/pep/portugal/swiftcheck-aml-pt-pep-political-parties</module>
+        <module>swiftcheck-aml-plugins/pep/portugal/swiftcheck-aml-pt-pep-international-orgs</module>
+        <module>swiftcheck-aml-plugins/pep/portugal/swiftcheck-aml-pt-pep-mayors</module>
+        <module>swiftcheck-aml-plugins/pep/portugal/swiftcheck-aml-pt-pep-rca</module>
         <module>swiftcheck-aml-plugins/pep/austria/swiftcheck-aml-at-pep-europarl</module>
         <module>swiftcheck-aml-plugins/pep/austria/swiftcheck-aml-at-pep-eu-commission</module>
         <module>swiftcheck-aml-plugins/pep/austria/swiftcheck-aml-at-pep-president</module>
         <module>swiftcheck-aml-plugins/pep/austria/swiftcheck-aml-at-pep-parliament</module>
         <module>swiftcheck-aml-plugins/pep/austria/swiftcheck-aml-at-pep-federal-government</module>
         <module>swiftcheck-aml-plugins/pep/austria/swiftcheck-aml-at-pep-institutions</module>
-        <module>swiftcheck-aml-plugins/pep/austria/swiftcheck-aml-at-pep-parties</module>
+                <module>swiftcheck-aml-plugins/pep/austria/swiftcheck-aml-at-pep-parties</module>
+        <module>swiftcheck-aml-plugins/pep/austria/swiftcheck-aml-at-pep-diplomats</module>
+        <module>swiftcheck-aml-plugins/pep/austria/swiftcheck-aml-at-pep-army</module>
+        <module>swiftcheck-aml-plugins/pep/austria/swiftcheck-aml-at-pep-land-audit-courts</module>
+        <module>swiftcheck-aml-plugins/pep/austria/swiftcheck-aml-at-pep-international-orgs</module>
         <module>swiftcheck-aml-plugins/pep/italy/swiftcheck-aml-it-pep-europarl</module>
         <module>swiftcheck-aml-plugins/pep/italy/swiftcheck-aml-it-pep-eu-commission</module>
         <module>swiftcheck-aml-plugins/pep/italy/swiftcheck-aml-it-pep-president</module>
         <module>swiftcheck-aml-plugins/pep/italy/swiftcheck-aml-it-pep-parliament</module>
         <module>swiftcheck-aml-plugins/pep/italy/swiftcheck-aml-it-pep-local-administrators</module>
         <module>swiftcheck-aml-plugins/pep/italy/swiftcheck-aml-it-pep-institutions</module>
+        <module>swiftcheck-aml-plugins/pep/italy/swiftcheck-aml-it-pep-political-parties</module>
+        <module>swiftcheck-aml-plugins/pep/italy/swiftcheck-aml-it-pep-constitutional-court</module>
+        <module>swiftcheck-aml-plugins/pep/italy/swiftcheck-aml-it-pep-high-courts</module>
+        <module>swiftcheck-aml-plugins/pep/italy/swiftcheck-aml-it-pep-diplomats</module>
+        <module>swiftcheck-aml-plugins/pep/italy/swiftcheck-aml-it-pep-state-enterprises</module>
+        <module>swiftcheck-aml-plugins/pep/italy/swiftcheck-aml-it-pep-health-directors</module>
         <module>swiftcheck-aml-plugins/pep/spain/swiftcheck-aml-es-pep-boe</module>
         <module>swiftcheck-aml-plugins/pep/spain/swiftcheck-aml-es-pep-congreso</module>
         <module>swiftcheck-aml-plugins/pep/spain/swiftcheck-aml-es-pep-bank-of-spain</module>
@@ -234,6 +301,13 @@
         <module>swiftcheck-aml-plugins/pep/spain/swiftcheck-aml-es-pep-local-officials</module>
         <module>swiftcheck-aml-plugins/pep/spain/swiftcheck-aml-es-pep-parties-unions</module>
         <module>swiftcheck-aml-plugins/pep/spain/swiftcheck-aml-es-pep-state-enterprises</module>
+        <module>swiftcheck-aml-plugins/pep/spain/swiftcheck-aml-es-pep-royal-house</module>
+        <module>swiftcheck-aml-plugins/pep/spain/swiftcheck-aml-es-pep-court-of-audit</module>
+        <module>swiftcheck-aml-plugins/pep/spain/swiftcheck-aml-es-pep-international-orgs</module>
+        <module>swiftcheck-aml-plugins/pep/spain/swiftcheck-aml-es-pep-diplomats</module>
+        <module>swiftcheck-aml-plugins/pep/spain/swiftcheck-aml-es-pep-army</module>
+        <module>swiftcheck-aml-plugins/pep/spain/swiftcheck-aml-es-pep-political-parties</module>
+        <module>swiftcheck-aml-plugins/pep/spain/swiftcheck-aml-es-pep-unions</module>
     </modules>
 
     <dependencyManagement>

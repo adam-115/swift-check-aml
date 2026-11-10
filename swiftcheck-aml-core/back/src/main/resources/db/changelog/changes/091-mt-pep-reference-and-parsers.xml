@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Malte : référentiel PEP et parsers, sans Wikidata.
+
+    Base légale : règlement sur la prévention du blanchiment de capitaux et du financement du terrorisme (Prevention of Money Laundering
+    and Funding of Terrorism Regulations, S.L. 373.01, « PMLFTR »), complété par les procédures d'application de la cellule de
+    renseignement financier (FIAU) : personne politiquement exposée, membres de sa famille et proches associés ; vigilance de douze mois
+    après la fin des fonctions (textes et durée à confirmer sur les versions en vigueur).
+
+    Parsers (plugins dans swiftcheck-aml-plugins/pep/malta) :
+      - mt_pep_parliament    : députés de la 15e législature et de la 14e (terminée en 2026), président de la Chambre (parlament.mt)
+      - mt_pep_institutions  : président de la République (president.gov.mt) et Auditeur général avec son adjoint (nao.gov.mt)
+      - mt_pep_europarl / mt_pep_eu_commission : députés européens et commissaire européen
+
+    Non couvert, avec le motif :
+      - gouvernement (gov.mt) et Banque centrale (centralbankmalta.org) : vérification de navigateur Cloudflare, non contournée ;
+        pmo.gov.mt et Cour constitutionnelle injoignables ; les ministres sont couverts comme députés mais sans leur fonction ;
+      - parlament.mt, president.gov.mt et nao.gov.mt (Cloudflare) répondent par moments 403 à un accès automatique : le parser échoue
+        alors avec le code HTTP, sans insister ni changer d'identité ;
+      - naissance des députés : les fiches individuelles n'en publient pas ;
+      - proches (RCA) : seule source connue = Wikidata, exclue.
+-->
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="091-mt-country" author="swiftcheck">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM country WHERE iso = 'MT'</sqlCheck>
+        </preConditions>
+        <sql>
+            INSERT INTO country (iso, name, eu_member, legal_basis, retention_months)
+            VALUES ('MT', 'Malte', TRUE,
+                    'Règlement S.L. 373.01 sur la prévention du blanchiment de capitaux et du financement du terrorisme (PMLFTR) et procédures d''application de la FIAU : personnes politiquement exposées, membres de leur famille et proches associés, douze mois après la fin des fonctions', 12);
+        </sql>
+    </changeSet>
+
+    <changeSet id="091-mt-categories" author="swiftcheck">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM pep_category WHERE country_iso = 'MT'</sqlCheck>
+        </preConditions>
+        <sql>
+            INSERT INTO pep_category (country_iso, code, label, kind, risk_class, sort_order, legal_reference) VALUES
+            ('MT', 'MT-a', 'Chef de l''État, Premier ministre et ministres', 'OFFICIAL', 1, 1, 'PMLFTR (S.L. 373.01)'),
+            ('MT', 'MT-b', 'Députés de la Chambre des représentants', 'OFFICIAL', 1, 2, 'PMLFTR (S.L. 373.01)'),
+            ('MT', 'MT-c', 'Organes dirigeants des partis politiques', 'OFFICIAL', 2, 3, 'PMLFTR (S.L. 373.01)'),
+            ('MT', 'MT-d', 'Cour constitutionnelle et hautes juridictions', 'OFFICIAL', 2, 4, 'PMLFTR (S.L. 373.01)'),
+            ('MT', 'MT-e', 'Cour des comptes (Auditeur général) et Banque centrale de Malte', 'OFFICIAL', 2, 5, 'PMLFTR (S.L. 373.01)'),
+            ('MT', 'MT-f', 'Ambassadeurs et officiers généraux des forces armées', 'OFFICIAL', 2, 6, 'PMLFTR (S.L. 373.01)'),
+            ('MT', 'MT-g', 'Dirigeants des entreprises détenues par l''État', 'OFFICIAL', 3, 7, 'PMLFTR (S.L. 373.01)'),
+            ('MT', 'MT-h', 'Dirigeants des organisations internationales', 'OFFICIAL', 3, 8, 'PMLFTR (S.L. 373.01)'),
+            ('MT', 'MT-RCA', 'Membres de la famille et proches associés', 'RCA', 2, 9, 'PMLFTR (membres de la famille et personnes connues comme étroitement associées)'),
+            ('MT', 'MT-EU', 'Maltais exerçant une fonction européenne', 'EU', 1, 10, 'Liste de la Commission, JO C/2023/724');
+        </sql>
+    </changeSet>
+
+    <changeSet id="091-mt-functions" author="swiftcheck">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM pep_function f JOIN pep_category c ON c.id = f.category_id WHERE c.country_iso = 'MT'</sqlCheck>
+        </preConditions>
+        <sql>
+            INSERT INTO pep_function (category_id, label, institution, expected_holders)
+            SELECT c.id, f.label, f.institution, f.expected_holders
+            FROM pep_category c JOIN (
+                SELECT 'MT-a' AS code, 'Président de la République' AS label, 'Office of the President' AS institution, 1 AS expected_holders
+                UNION ALL SELECT 'MT-a', 'Premier ministre et ministres', 'Gouvernement de Malte', 20
+                UNION ALL SELECT 'MT-a', 'Secrétaires parlementaires', 'Gouvernement de Malte', 10
+                UNION ALL SELECT 'MT-a', 'Ancien ministre', 'Gouvernement de Malte', NULL
+                UNION ALL SELECT 'MT-b', 'Député de la Chambre des représentants', 'Parlament ta'' Malta', 79
+                UNION ALL SELECT 'MT-b', 'Ancien député de la Chambre des représentants', 'Parlament ta'' Malta', NULL
+                UNION ALL SELECT 'MT-b', 'Président de la Chambre des représentants', 'Parlament ta'' Malta', 1
+                UNION ALL SELECT 'MT-c', 'Membre d''un organe dirigeant d''un parti', 'Partis politiques', 30
+                UNION ALL SELECT 'MT-d', 'Juge des hautes juridictions', 'Cour constitutionnelle, Cour d''appel', 20
+                UNION ALL SELECT 'MT-e', 'Auditeur général et adjoint', 'National Audit Office', 2
+                UNION ALL SELECT 'MT-e', 'Membre de la direction de la Banque centrale', 'Central Bank of Malta', 8
+                UNION ALL SELECT 'MT-f', 'Ambassadeur', 'Ministère des Affaires étrangères', 30
+                UNION ALL SELECT 'MT-f', 'Officier général des forces armées', 'Armed Forces of Malta', 5
+                UNION ALL SELECT 'MT-g', 'Dirigeant d''une entreprise détenue par l''État', 'Entreprises d''État', NULL
+                UNION ALL SELECT 'MT-h', 'Dirigeant d''une organisation internationale', 'Organisations internationales', NULL
+                UNION ALL SELECT 'MT-RCA', 'Membre de la famille d''une PEP maltaise', NULL, NULL
+                UNION ALL SELECT 'MT-RCA', 'Proche associé d''une PEP maltaise', NULL, NULL
+                UNION ALL SELECT 'MT-EU', 'Député européen élu à Malte', 'Parlement européen', 6
+                UNION ALL SELECT 'MT-EU', 'Membre maltais de la Commission européenne', 'Commission européenne', 1
+            ) f ON f.code = c.code;
+        </sql>
+    </changeSet>
+
+    <changeSet id="091-parser-mt-pep-parliament" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Malte – Chambre des représentants',
+                'Députés en fonction (15e législature), députés de la législature précédente terminée depuis moins de 12 mois et président de la Chambre, d''après parlament.mt (catégorie MT-b)',
+                'mt_pep_parliament', 'PEP', 'https://parlament.mt/en/15th-leg/political-groups/',
+                'mt-pep-parliament', 'D:/test parser 2/plugins/swiftcheck-aml-mt-pep-parliament-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'WEB_PAGE',
+                NULL,
+                '{"currentUrl": "https://parlament.mt/en/15th-leg/political-groups/", "previousUrl": "https://parlament.mt/en/14th-leg/political-groups/", "speakerUrl": "https://parlament.mt/en/15th-leg/political-groups/speaker-abela-carmelo/", "monthsAfterEnd": "12"}',
+                168, 12,
+                'Site officiel du Parlement de Malte : citer la source', 'Parlament ta'' Malta, parlament.mt',
+                'Trois pages (1 seconde entre les appels) : groupes parlementaires de la 15e législature (79 députés) et de la 14e (79, dont 56 réélus), fiche du président de la Chambre. Identifiant = adresse de la fiche, stable d''une législature à l''autre : une personne réélue n''est écrite qu''une fois. Fonctions de la liste (Premier ministre, whips, chef de l''opposition) en description ; le Premier ministre reçoit un poste distinct. Ni naissance ni date de fin (fiches individuelles non lues). La 14e législature est gardée tant que son année de fin (2026) est celle de la fenêtre de rétention ou plus récente. Le site est derrière Cloudflare et répond par moments 403 : le parser échoue alors avec le code HTTP.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'PARTIAL', TRUE,
+                   'Les 79 députés de la 15e législature et les 79 de la 14e (terminée en 2026), par leur nom, avec groupe et fonction au Parlement.',
+                   'Ni naissance ni date de fin de mandat ; législature 2022-2026 gardée à l''année près.'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'MT-b' AND f.label IN ('Député de la Chambre des représentants', 'Ancien député de la Chambre des représentants') AND p.dataset_name = 'mt_pep_parliament';
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', FALSE,
+                   'Le président de la Chambre en fonction (élu le 20/06/2026).',
+                   'Ses prédécesseurs ne sont pas couverts.'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'MT-b' AND f.label = 'Président de la Chambre des représentants' AND p.dataset_name = 'mt_pep_parliament';
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'PARTIAL', FALSE,
+                   'Le Premier ministre Robert Abela (poste distinct) ; les autres ministres figurent comme députés, sans leur fonction ministérielle.',
+                   'Ministres et secrétaires parlementaires non identifiés comme tels : gov.mt est protégé par Cloudflare.'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'MT-a' AND f.label = 'Premier ministre et ministres' AND p.dataset_name = 'mt_pep_parliament';
+        ]]></sql>
+    </changeSet>
+
+    <changeSet id="091-parser-mt-pep-institutions" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Malte – Président et Auditeur général',
+                'Présidente de la République (president.gov.mt) et Auditeur général avec son adjoint (nao.gov.mt) (catégories MT-a et MT-e)',
+                'mt_pep_institutions', 'PEP', 'https://nao.gov.mt/about-us/senior-officials/',
+                'mt-pep-institutions', 'D:/test parser 2/plugins/swiftcheck-aml-mt-pep-institutions-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'WEB_PAGE',
+                NULL,
+                '{"presidentUrl": "https://president.gov.mt/biography/", "auditUrl": "https://nao.gov.mt/about-us/senior-officials/"}',
+                168, 12,
+                'Sites officiels : citer la source', 'Office of the President of Malta ; National Audit Office, Malta',
+                'Deux pages : la biographie de la présidente Myriam Spiteri Debono et la liste des hauts responsables du NAO (Auditeur général Charles Deguara, adjoint Noel Camilleri ; les deux adjoints à l''Auditeur général ne sont pas repris). Ni naissance ni dates de fonction. Les deux sites sont derrière Cloudflare et répondent par moments 403 : le parser échoue alors avec le code HTTP.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', FALSE, 'La présidente de la République en exercice.', 'Les anciens présidents ne sont pas couverts ; pas de naissance.'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'MT-a' AND f.label = 'Président de la République' AND p.dataset_name = 'mt_pep_institutions';
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', FALSE, 'L''Auditeur général et son adjoint en fonction.', 'Les anciens titulaires ne sont pas couverts ; pas de naissance.'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'MT-e' AND f.label = 'Auditeur général et adjoint' AND p.dataset_name = 'mt_pep_institutions';
+        ]]></sql>
+    </changeSet>
+
+    <changeSet id="091-parser-mt-pep-europarl" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Malte – Députés européens',
+                'Les députés au Parlement européen élus à Malte, en fonction et sortis depuis moins de 12 mois, avec naissance et dates de mandat (catégorie MT-EU)',
+                'mt_pep_europarl', 'PEP', 'https://data.europarl.europa.eu/',
+                'mt-pep-europarl', 'D:/test parser 2/plugins/swiftcheck-aml-mt-pep-europarl-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'API',
+                NULL,
+                '{"currentUrl": "https://data.europarl.europa.eu/api/v2/meps/show-current?country-of-representation=MT&format=application%2Fld%2Bjson", "termUrl": "https://data.europarl.europa.eu/api/v2/meps?country-of-representation=MT&parliamentary-term=10&limit=500&format=application%2Fld%2Bjson", "detailUrl": "https://data.europarl.europa.eu/api/v2/meps/{id}?format=application%2Fld%2Bjson", "delayMs": "400", "monthsAfterEnd": "12", "wikidataEndpoint": ""}',
+                168, 12,
+                'Réutilisation autorisée en citant la source (Parlement européen)', 'Parlement européen, data.europarl.europa.eu',
+                'Reprise de nl_pep_europarl. Mesure du 09/11/2026 : 6 personnes en fonction, toutes avec date de naissance. L''API limite le débit (HTTP 429) : le plugin attend puis réessaie. Pas de photos (Wikidata non utilisé). termUrl contient le numéro de législature (10) : à changer en 2029.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', TRUE, 'Les 6 députés européens élus à Malte et ceux sortis depuis moins de 12 mois, avec naissance, genre, groupe et dates de mandat.', NULL
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'MT-EU' AND f.label LIKE 'Député européen%' AND p.dataset_name = 'mt_pep_europarl';
+        ]]></sql>
+    </changeSet>
+
+    <changeSet id="091-parser-mt-pep-eu-commission" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Malte – Commissaire européen',
+                'Le membre maltais de la Commission européenne, d''après sa fiche officielle (catégorie MT-EU)',
+                'mt_pep_eu_commission', 'PEP', 'https://commission.europa.eu/about/organisation/college-commissioners_en',
+                'mt-pep-eu-commission', 'D:/test parser 2/plugins/swiftcheck-aml-mt-pep-eu-commission-0.0.1-SNAPSHOT.jar',
+                'HTTP_FILE', 'WEB_PAGE',
+                'https://commission.europa.eu/about/organisation/college-commissioners/glenn-micallef_en',
+                NULL,
+                168, 12,
+                'Réutilisation autorisée en citant la source (avis juridique de la Commission européenne)', 'Commission européenne, commission.europa.eu',
+                'Reprise de nl_pep_eu_commission. À chaque nouvelle Commission, remplacer l''adresse par la fiche du commissaire maltais. Une fiche qui ne présente pas un commissaire maltais est refusée.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', FALSE, 'Glenn Micallef, commissaire chargé de l''équité intergénérationnelle, de la jeunesse, de la culture et du sport (2024-2029).', 'Ni date ni lieu de naissance sur la fiche.'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'MT-EU' AND f.label LIKE 'Membre maltais de la Commission%' AND p.dataset_name = 'mt_pep_eu_commission';
+        ]]></sql>
+    </changeSet>
+
+</databaseChangeLog>

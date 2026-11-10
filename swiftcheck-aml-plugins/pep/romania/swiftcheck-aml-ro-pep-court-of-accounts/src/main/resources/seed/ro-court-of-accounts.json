@@ -1,0 +1,63 @@
+{
+  "country": "ro",
+  "category": "RO-e",
+  "institution": "Curtea de Conturi a României",
+  "source": "https://www.curteadeconturi.ro/conducere",
+  "members": [
+    {
+      "name": "Mihai Busuioc",
+      "position": "Președintele Curții de Conturi a României",
+      "birthDate": "1968-07-29",
+      "role": "Președinte"
+    },
+    {
+      "name": "Lucian Dan Vlădescu",
+      "position": "Vicepreședinte al Curții de Conturi a României",
+      "birthDate": "1970-11-12",
+      "role": "Vicepreședinte"
+    },
+    {
+      "name": "Ilie Sârbu",
+      "position": "Vicepreședinte al Autorității de Audit din cadrul Curții de Conturi",
+      "birthDate": "1950-05-26",
+      "role": "Vicepreședinte"
+    },
+    {
+      "name": "Florin Tunaru",
+      "position": "Consilier de conturi, Vicepreședinte al Curții de Conturi",
+      "birthDate": "1967-04-18",
+      "role": "Consilier de conturi"
+    },
+    {
+      "name": "Bogdan Nicolae Stan",
+      "position": "Consilier de conturi la Curtea de Conturi a României",
+      "birthDate": "1974-09-03",
+      "role": "Consilier de conturi"
+    },
+    {
+      "name": "Carmen Georgeta Stănescu",
+      "position": "Consilier de conturi la Curtea de Conturi a României",
+      "birthDate": "1962-08-15",
+      "role": "Consilier de conturi"
+    },
+    {
+      "name": "Dan Firțulescu",
+      "position": "Consilier de conturi la Curtea de Conturi a României",
+      "birthDate": "1969-03-21",
+      "role": "Consilier de conturi"
+    },
+    {
+      "name": "Attila Dezso",
+      "position": "Consilier de conturi la Curtea de Conturi a României",
+      "birthDate": "1971-06-11",
+      "role": "Consilier de conturi"
+    },
+    {
+      "name": "Aurel Dumitru",
+      "position": "Consilier de conturi la Curtea de Conturi a României",
+      "birthDate": "1965-10-30",
+      "role": "Consilier de conturi"
+    }
+  ]
+}
+

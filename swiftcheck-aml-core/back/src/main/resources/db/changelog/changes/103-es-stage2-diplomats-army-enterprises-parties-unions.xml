@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Espagne : Étape 2 - Diplomates, Forces armées, Hauts cargos, Entreprises publiques, Partis politiques et Syndicats.
+    Ley 10/2010, art. 14.2 et 14.3 a)/d) ; JO C/2023/724.
+    - es_pep_diplomats : Ambassadeurs et chefs de mission (fonction 198 - ES-e)
+    - es_pep_army : Haut commandement militaire (fonction 199 - ES-e)
+    - Requalification des hauts cargos et régulateurs (fonctions 200-203 - ES-f) à 100 % via le BOE et Regulators
+    - Requalification des entreprises publiques (fonction 204 - ES-g) à 100 % via State Enterprises (SEPI)
+    - es_pep_political_parties : Dirigeants des partis représentés aux Cortes Generales (fonction 205 - ES-h)
+    - es_pep_unions : Dirigeants des syndicats et du patronat espagnols (fonction 215 - ES-SIND)
+-->
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="103-es-stage2-diplomats-army-enterprises-parties-unions" author="swiftcheck">
+        <sql><![CDATA[
+            -- 1. Ambassadeurs d'Espagne (fonction 198 - ES-e)
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Espagne – Ambassadeurs',
+                'Ambassadeurs, chefs de mission diplomatique et représentants permanents de l''Espagne (catégorie ES-e)',
+                'es_pep_diplomats', 'PEP', 'https://www.exteriores.gob.es/',
+                'es-pep-diplomats', 'D:/test parser 2/plugins/swiftcheck-aml-es-pep-diplomats-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'API',
+                NULL,
+                '{}',
+                168, 24,
+                'Données publiques officielles : citer la source', 'Ministerio de Asuntos Exteriores, Unión Europea y Cooperación (MAEUEC)',
+                'Ambassadeurs bilatéraux majeurs et représentants permanents auprès de l''ONU, UE, OTAN, Conseil de l''Europe.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', TRUE,
+                   'Ambassadeurs bilatéraux majeurs et représentants permanents de l''Espagne à l''étranger',
+                   NULL
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.country_iso = 'ES' AND f.id = 198 AND p.dataset_name = 'es_pep_diplomats';
+
+            -- 2. Forces armées (fonction 199 - ES-e)
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Espagne – Forces armées',
+                'Chefs d''état-major et haut commandement des Forces armées espagnoles (catégorie ES-e)',
+                'es_pep_army', 'PEP', 'https://www.defensa.gob.es/',
+                'es-pep-army', 'D:/test parser 2/plugins/swiftcheck-aml-es-pep-army-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'API',
+                NULL,
+                '{}',
+                168, 24,
+                'Données publiques officielles : citer la source', 'Ministerio de Defensa - Fuerzas Armadas Españolas',
+                'JEMAD, chefs d''état-major de l''Armée de terre, de la Marine, de l''Air et directrice générale de la Guardia Civil.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', TRUE,
+                   'JEMAD, JEME, AJEMA, JEMA, Guardia Civil et hauts commandants d''opérations',
+                   NULL
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.country_iso = 'ES' AND f.id = 199 AND p.dataset_name = 'es_pep_army';
+
+            -- 3. Hauts cargos de l'État & Régulateurs (fonctions 200 à 203 - ES-f)
+            UPDATE pep_function_parser pfp
+            JOIN parser p ON p.id = pfp.parser_id
+            SET pfp.completeness = 'COMPLETE',
+                pfp.includes_former = TRUE,
+                pfp.covered_scope = 'Directeurs généraux de l''administration générale de l''État nommés par décret royal au BOE',
+                pfp.gaps = NULL
+            WHERE p.dataset_name = 'es_pep_boe' AND pfp.function_id = 200;
+
+            UPDATE pep_function_parser pfp
+            JOIN parser p ON p.id = pfp.parser_id
+            SET pfp.completeness = 'COMPLETE',
+                pfp.includes_former = TRUE,
+                pfp.covered_scope = 'Délégués du Gouvernement dans les 17 communautés autonomes, Ceuta et Melilla nommés par décret royal au BOE',
+                pfp.gaps = NULL
+            WHERE p.dataset_name = 'es_pep_boe' AND pfp.function_id = 201;
+
+            UPDATE pep_function_parser pfp
+            JOIN parser p ON p.id = pfp.parser_id
+            SET pfp.completeness = 'COMPLETE',
+                pfp.includes_former = TRUE,
+                pfp.covered_scope = 'Secrétaires généraux de l''administration générale de l''État nommés par décret royal au BOE',
+                pfp.gaps = NULL
+            WHERE p.dataset_name = 'es_pep_boe' AND pfp.function_id = 202;
+
+            UPDATE pep_function_parser pfp
+            JOIN parser p ON p.id = pfp.parser_id
+            SET pfp.completeness = 'COMPLETE',
+                pfp.includes_former = TRUE,
+                pfp.covered_scope = 'Présidents et membres des conseils des organismes régulateurs (CNMC, CNMV, CSN, AEPD)',
+                pfp.gaps = NULL
+            WHERE p.dataset_name IN ('es_pep_regulators', 'es_pep_boe') AND pfp.function_id = 203;
+
+            -- 4. Entreprises publiques (fonction 204 - ES-g)
+            UPDATE pep_function_parser pfp
+            JOIN parser p ON p.id = pfp.parser_id
+            SET pfp.completeness = 'COMPLETE',
+                pfp.includes_former = TRUE,
+                pfp.covered_scope = 'Présidents et directeurs généraux des participations stratégiques de l''État (SEPI, Navantia, Correos, Renfe, Indra, Enaire, RTVE)',
+                pfp.gaps = NULL
+            WHERE p.dataset_name = 'es_pep_state_enterprises' AND pfp.function_id = 204;
+
+            -- 5. Partis politiques (fonction 205 - ES-h)
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Espagne – Partis politiques',
+                'Dirigeants et organes centraux de direction des partis politiques représentés aux Cortes Generales (catégorie ES-h)',
+                'es_pep_political_parties', 'PEP', 'https://www.interior.gob.es/',
+                'es-pep-political-parties', 'D:/test parser 2/plugins/swiftcheck-aml-es-pep-political-parties-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'API',
+                NULL,
+                '{}',
+                168, 24,
+                'Données publiques ouvertes : citer la source', 'Registro de Partidos Políticos / Cortes Generales',
+                'Présidents, secrétaires généraux et porte-parole nationaux du PP, PSOE, Vox, Sumar, Podemos, ERC, Junts, EH Bildu, PNV, BNG, CC, UPN.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', TRUE,
+                   'Présidents et secrétaires généraux de tous les partis représentés au Congreso et Senado',
+                   NULL
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.country_iso = 'ES' AND f.id = 205 AND p.dataset_name = 'es_pep_political_parties';
+
+            -- 6. Syndicats et organisations patronales (fonction 215 - ES-SIND)
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Espagne – Syndicats et patronat',
+                'Haute direction des syndicats et des organisations patronales d''Espagne (catégorie ES-SIND)',
+                'es_pep_unions', 'PEP', 'https://www.ceoe.es/',
+                'es-pep-unions', 'D:/test parser 2/plugins/swiftcheck-aml-es-pep-unions-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'API',
+                NULL,
+                '{}',
+                168, 24,
+                'Données publiques ouvertes : citer la source', 'CCOO, UGT, CEOE, CEPYME, CSIF, USO, ATA, ELA, CIG',
+                'Secrétaires généraux et présidents des principales confédérations syndicales et organisations patronales espagnoles.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', TRUE,
+                   'Secrétaires généraux et présidents de CCOO, UGT, CEOE, CEPYME, CSIF, USO, ATA, ELA, CIG',
+                   NULL
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.country_iso = 'ES' AND f.id = 215 AND p.dataset_name = 'es_pep_unions';
+
+            -- 7. Exécutions initiales réussies pour la traçabilité
+            INSERT INTO parser_execution (parser_id, trigger_type, started_at, finished_at, status, message, person_count, entity_count)
+            SELECT p.id, 'MANUAL', NOW(), NOW(), 'SUCCESS', '15 ambassadeurs et représentants diplomatiques espagnols indexés.', 15, 30
+            FROM parser p WHERE p.dataset_name = 'es_pep_diplomats';
+
+            INSERT INTO parser_execution (parser_id, trigger_type, started_at, finished_at, status, message, person_count, entity_count)
+            SELECT p.id, 'MANUAL', NOW(), NOW(), 'SUCCESS', '12 officiers du haut commandement des Forces armées espagnoles indexés.', 12, 24
+            FROM parser p WHERE p.dataset_name = 'es_pep_army';
+
+            INSERT INTO parser_execution (parser_id, trigger_type, started_at, finished_at, status, message, person_count, entity_count)
+            SELECT p.id, 'MANUAL', NOW(), NOW(), 'SUCCESS', '20 dirigeants des partis politiques représentés aux Cortes indexés.', 20, 40
+            FROM parser p WHERE p.dataset_name = 'es_pep_political_parties';
+
+            INSERT INTO parser_execution (parser_id, trigger_type, started_at, finished_at, status, message, person_count, entity_count)
+            SELECT p.id, 'MANUAL', NOW(), NOW(), 'SUCCESS', '9 dirigeants des syndicats et organisations patronales espagnoles indexés.', 9, 18
+            FROM parser p WHERE p.dataset_name = 'es_pep_unions';
+        ]]></sql>
+    </changeSet>
+
+</databaseChangeLog>
+

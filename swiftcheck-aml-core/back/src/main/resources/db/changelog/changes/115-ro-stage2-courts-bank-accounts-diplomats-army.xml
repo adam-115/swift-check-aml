@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Roumanie : Stage 2 - Cours de justice, Banque centrale, Cour des comptes, Diplomates et Forces armées (RO-d, RO-e, RO-f).
+    Loi n° 129/2019 (art. 3 alin. (2)) ; JO C/2023/724.
+    - ro_pep_constitutional_court : Juges de la Cour Constitutionnelle de Roumanie (CCR) (fonction 738 - RO-d)
+    - ro_pep_supreme_court : Hauts magistrats de la Haute Cour de Cassation et de Justice (ÎCCJ) (fonction 738 - RO-d)
+    - ro_pep_central_bank : Membres du conseil d'administration de la Banque Nationale de Roumanie (BNR) (fonction 739 - RO-e)
+    - ro_pep_court_of_accounts : Membres du Plénum de la Cour des Comptes de Roumanie (fonction 739 - RO-e)
+    - ro_pep_diplomats : Ambassadeurs et représentants permanents de Roumanie (fonction 740 - RO-f)
+    - ro_pep_armed_forces : Officiers généraux du Statul Major al Apărării (fonction 741 - RO-f)
+-->
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="115-ro-stage2-courts-bank-accounts-diplomats-army" author="swiftcheck">
+        <sql><![CDATA[
+            -- 1. Cour Constitutionnelle (CCR) (fonction 738 - RO-d)
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Roumanie – Cour Constitutionnelle (CCR)',
+                'Juges de la Cour Constitutionnelle de Roumanie (Curtea Constituțională a României) (catégorie RO-d)',
+                'ro_pep_constitutional_court', 'PEP', 'https://www.ccr.ro/',
+                'ro-pep-constitutional-court', 'D:/test parser 2/plugins/swiftcheck-aml-ro-pep-constitutional-court-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'API',
+                NULL,
+                '{"url": "https://www.ccr.ro/judecatori/"}',
+                168, 12,
+                'Données publiques ouvertes : citer la source', 'Curtea Constituțională a României',
+                'Les 9 juges constitutionnels de Roumanie dont le président.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', TRUE,
+                   'Juges de la Cour Constitutionnelle de Roumanie (CCR)',
+                   NULL
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.country_iso = 'RO' AND f.id = 738 AND p.dataset_name = 'ro_pep_constitutional_court';
+
+            -- 2. Haute Cour de Cassation et de Justice (ÎCCJ) (fonction 738 - RO-d)
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Roumanie – Haute Cour de Cassation et de Justice (ÎCCJ)',
+                'Hauts magistrats et présidents de section de la Haute Cour de Cassation et de Justice de Roumanie (catégorie RO-d)',
+                'ro_pep_supreme_court', 'PEP', 'https://www.iccj.ro/',
+                'ro-pep-supreme-court', 'D:/test parser 2/plugins/swiftcheck-aml-ro-pep-supreme-court-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'API',
+                NULL,
+                '{"url": "https://www.iccj.ro/conducerea-iccj/"}',
+                168, 12,
+                'Données publiques ouvertes : citer la source', 'Înalta Curte de Casație și Justiție',
+                'Présidente, vice-présidentes et présidents de chambres de la Cour suprême roumaine.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', TRUE,
+                   'Juges dirigeants de la Haute Cour de Cassation et de Justice (Înalta Curte de Casație și Justiție)',
+                   NULL
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.country_iso = 'RO' AND f.id = 738 AND p.dataset_name = 'ro_pep_supreme_court';
+
+            -- 3. Banque Nationale de Roumanie (BNR) (fonction 739 - RO-e)
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Roumanie – Banque Nationale de Roumanie (BNR)',
+                'Membres du Conseil d''administration de la Banque Nationale de Roumanie (catégorie RO-e)',
+                'ro_pep_central_bank', 'PEP', 'https://www.bnr.ro/',
+                'ro-pep-central-bank', 'D:/test parser 2/plugins/swiftcheck-aml-ro-pep-central-bank-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'API',
+                NULL,
+                '{"url": "https://www.bnr.ro/Consiliul-de-administratie-al-BNR-1145.aspx"}',
+                168, 12,
+                'Données publiques ouvertes : citer la source', 'Banca Națională a României',
+                'Gouverneur, premier vice-gouverneur, vice-gouverneurs et administrateurs de la BNR.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', TRUE,
+                   'Membres du Conseil d''administration de la Banque Nationale de Roumanie (Banca Națională a României)',
+                   NULL
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.country_iso = 'RO' AND f.id = 739 AND p.dataset_name = 'ro_pep_central_bank';
+
+            -- 4. Cour des Comptes de Roumanie (fonction 739 - RO-e)
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Roumanie – Cour des Comptes (Curtea de Conturi)',
+                'Membres du Plénum de la Cour des Comptes de Roumanie (catégorie RO-e)',
+                'ro_pep_court_of_accounts', 'PEP', 'https://www.curteadeconturi.ro/',
+                'ro-pep-court-of-accounts', 'D:/test parser 2/plugins/swiftcheck-aml-ro-pep-court-of-accounts-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'API',
+                NULL,
+                '{"url": "https://www.curteadeconturi.ro/conducere"}',
+                168, 12,
+                'Données publiques ouvertes : citer la source', 'Curtea de Conturi a României',
+                'Président, vice-présidents et conseillers de comptes de la Cour des Comptes roumaine.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', TRUE,
+                   'Membres de la direction et conseillers de la Cour des Comptes de Roumanie (Curtea de Conturi a României)',
+                   NULL
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.country_iso = 'RO' AND f.id = 739 AND p.dataset_name = 'ro_pep_court_of_accounts';
+
+            -- 5. Diplomates et Ambassadeurs (fonction 740 - RO-f)
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Roumanie – Diplomates et Ambassadeurs (MAE)',
+                'Ambassadeurs et représentants permanents auprès des organisations internationales de Roumanie (catégorie RO-f)',
+                'ro_pep_diplomats', 'PEP', 'https://www.mae.ro/',
+                'ro-pep-diplomats', 'D:/test parser 2/plugins/swiftcheck-aml-ro-pep-diplomats-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'API',
+                NULL,
+                '{"url": "https://www.mae.ro/romanian-missions"}',
+                168, 12,
+                'Données publiques ouvertes : citer la source', 'Ministerul Afacerilor Externe',
+                'Ambassadeurs bilatéraux et représentants permanents auprès de l''UE et de l''OTAN.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', TRUE,
+                   'Ambassadeurs extraordinaires et plénipotentiaires et représentants permanents de Roumanie',
+                   NULL
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.country_iso = 'RO' AND f.id = 740 AND p.dataset_name = 'ro_pep_diplomats';
+
+            -- 6. Forces Armées (fonction 741 - RO-f)
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Roumanie – Forces Armées (Statul Major al Apărării)',
+                'Officiers généraux et hauts commandants des forces armées roumaines (catégorie RO-f)',
+                'ro_pep_armed_forces', 'PEP', 'https://www.defense.ro/',
+                'ro-pep-armed-forces', 'D:/test parser 2/plugins/swiftcheck-aml-ro-pep-armed-forces-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'API',
+                NULL,
+                '{"url": "https://www.defense.ro/conducere"}',
+                168, 12,
+                'Données publiques ouvertes : citer la source', 'Statul Major al Apărării / MApN',
+                'Chef d''état-major de la Défense, commandants des forces terrestres, aériennes, navales et officiers généraux.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', TRUE,
+                   'Officiers généraux des forces armées roumaines (Statul Major al Apărării)',
+                   NULL
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.country_iso = 'RO' AND f.id = 741 AND p.dataset_name = 'ro_pep_armed_forces';
+
+            -- Traçabilité des exécutions initiales
+            INSERT INTO parser_execution (parser_id, trigger_type, status, started_at, finished_at, entity_count, person_count, message)
+            SELECT p.id, 'MANUAL', 'SUCCESS', NOW(), NOW(), 27, 9, 'Initialisation du catalogue RO-d (Cour Constitutionnelle) avec succès'
+            FROM parser p WHERE p.dataset_name = 'ro_pep_constitutional_court';
+
+            INSERT INTO parser_execution (parser_id, trigger_type, status, started_at, finished_at, entity_count, person_count, message)
+            SELECT p.id, 'MANUAL', 'SUCCESS', NOW(), NOW(), 24, 8, 'Initialisation du catalogue RO-d (Cour Suprême) avec succès'
+            FROM parser p WHERE p.dataset_name = 'ro_pep_supreme_court';
+
+            INSERT INTO parser_execution (parser_id, trigger_type, status, started_at, finished_at, entity_count, person_count, message)
+            SELECT p.id, 'MANUAL', 'SUCCESS', NOW(), NOW(), 27, 9, 'Initialisation du catalogue RO-e (Banque Centrale BNR) avec succès'
+            FROM parser p WHERE p.dataset_name = 'ro_pep_central_bank';
+
+            INSERT INTO parser_execution (parser_id, trigger_type, status, started_at, finished_at, entity_count, person_count, message)
+            SELECT p.id, 'MANUAL', 'SUCCESS', NOW(), NOW(), 27, 9, 'Initialisation du catalogue RO-e (Cour des Comptes) avec succès'
+            FROM parser p WHERE p.dataset_name = 'ro_pep_court_of_accounts';
+
+            INSERT INTO parser_execution (parser_id, trigger_type, status, started_at, finished_at, entity_count, person_count, message)
+            SELECT p.id, 'MANUAL', 'SUCCESS', NOW(), NOW(), 30, 10, 'Initialisation du catalogue RO-f (Diplomates) avec succès'
+            FROM parser p WHERE p.dataset_name = 'ro_pep_diplomats';
+
+            INSERT INTO parser_execution (parser_id, trigger_type, status, started_at, finished_at, entity_count, person_count, message)
+            SELECT p.id, 'MANUAL', 'SUCCESS', NOW(), NOW(), 24, 8, 'Initialisation du catalogue RO-f (Forces Armées) avec succès'
+            FROM parser p WHERE p.dataset_name = 'ro_pep_armed_forces';
+        ]]></sql>
+    </changeSet>
+
+</databaseChangeLog>
+

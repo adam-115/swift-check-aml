@@ -1,0 +1,88 @@
+{
+  "source": "Ministerie van Financiën - Staatsdeelnemingen van Nederland",
+  "url": "https://www.rijksoverheid.nl/onderwerpen/staatsdeelnemingen",
+  "updated": "2026-11-01",
+  "executives": [
+    {
+      "name": "Wouter Koolmees",
+      "firstName": "Wouter",
+      "lastName": "Koolmees",
+      "company": "NS - Nederlandse Spoorwegen",
+      "position": "President-directeur en CEO van NS",
+      "since": "2022-11-01"
+    },
+    {
+      "name": "Pieter van Oord",
+      "firstName": "Pieter",
+      "lastName": "van Oord",
+      "company": "Royal Schiphol Group",
+      "position": "President-directeur en CEO van Royal Schiphol Group",
+      "since": "2024-06-01"
+    },
+    {
+      "name": "Manon van Beek",
+      "firstName": "Manon",
+      "lastName": "van Beek",
+      "company": "TenneT Holding B.V.",
+      "position": "Chief Executive Officer (CEO) van TenneT",
+      "since": "2018-09-01"
+    },
+    {
+      "name": "Willemien Terpstra",
+      "firstName": "Willemien",
+      "lastName": "Terpstra",
+      "company": "N.V. Nederlandse Gasunie",
+      "position": "Chief Executive Officer (CEO) van Gasunie",
+      "since": "2024-03-01"
+    },
+    {
+      "name": "Marjan Rintel",
+      "firstName": "Marjan",
+      "lastName": "Rintel",
+      "company": "KLM Royal Dutch Airlines",
+      "position": "President-directeur en CEO van KLM",
+      "since": "2022-07-01"
+    },
+    {
+      "name": "Boudewijn Siemons",
+      "firstName": "Boudewijn",
+      "lastName": "Siemons",
+      "company": "Havenbedrijf Rotterdam",
+      "position": "Chief Executive Officer (CEO) van Havenbedrijf Rotterdam",
+      "since": "2024-02-01"
+    },
+    {
+      "name": "Boris Schucht",
+      "firstName": "Boris",
+      "lastName": "Schucht",
+      "company": "Urenco",
+      "position": "Chief Executive Officer (CEO) van Urenco",
+      "since": "2019-05-01"
+    },
+    {
+      "name": "Petra de Ruiter",
+      "firstName": "Petra",
+      "lastName": "de Ruiter",
+      "company": "Holland Casino",
+      "position": "Chief Executive Officer (CEO) van Holland Casino",
+      "since": "2022-09-01"
+    },
+    {
+      "name": "Gita Salden",
+      "firstName": "Gita",
+      "lastName": "Salden",
+      "company": "BNG Bank",
+      "position": "Voorzitter Raad van Bestuur van BNG Bank",
+      "since": "2018-01-01"
+    },
+    {
+      "name": "Lidwin van Velden",
+      "firstName": "Lidwin",
+      "lastName": "van Velden",
+      "company": "Nederlandse Waterschapsbank (NWB Bank)",
+      "position": "Voorzitter van de directie van NWB Bank",
+      "since": "2018-04-19"
+    }
+  ]
+}
+

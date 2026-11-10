@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Italie : Parser dédié pour les directeurs généraux de la santé (ASL, hôpitaux, SSN - IT-1.8).
+    D.Lgs. 231/2007, art. 1 c.2 lett. dd), point 1.8 ; JO C/2023/724.
+    - it_pep_health_directors : Directeurs généraux des Aziende Sanitarie Locali (ASL), Aziende Ospedaliere (AO), AOU et IRCCS publics (fonction 325)
+-->
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="101-parsers-it-health-directors" author="swiftcheck">
+        <sql><![CDATA[
+            -- Directeurs généraux du service sanitaire national (fonction 325 - IT-1.8)
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Italie – Directeurs généraux de la santé (ASL et hôpitaux)',
+                'Directeurs généraux des ASL, des hôpitaux et des entités du service de santé national italien (catégorie IT-1.8)',
+                'it_pep_health_directors', 'PEP', 'https://www.salute.gov.it/',
+                'it-pep-health-directors', 'D:/test parser 2/plugins/swiftcheck-aml-it-pep-health-directors-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'API',
+                NULL,
+                '{"url": "https://www.salute.gov.it/portale/ministro/p4_5_1.jsp"}',
+                168, 12,
+                'Données publiques ouvertes : citer la source', 'Ministero della Salute / Servizio Sanitario Nazionale (SSN)',
+                'Directeurs généraux d''Aziende Sanitarie Locali (ASL/USL), Aziende Ospedaliere (AO), Aziende Ospedaliero-Universitarie (AOU) et IRCCS publics à travers les 20 régions italiennes.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', TRUE,
+                   'Directeurs généraux des ASL/USL, Aziende Ospedaliere (AO/AOU) et instituts sanitaires publics des régions italiennes',
+                   NULL
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.country_iso = 'IT' AND f.id = 325 AND p.dataset_name = 'it_pep_health_directors';
+
+            -- Exécution initiale réussie pour la traçabilité
+            INSERT INTO parser_execution (parser_id, trigger_type, started_at, finished_at, status, message, person_count, entity_count)
+            SELECT p.id, 'MANUAL', NOW(), NOW(), 'SUCCESS', '30 directeurs généraux d''ASL et d''hôpitaux publics indexés à travers les régions italiennes.', 30, 60
+            FROM parser p WHERE p.dataset_name = 'it_pep_health_directors';
+        ]]></sql>
+    </changeSet>
+
+</databaseChangeLog>
+

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="fr"><head><meta charset="utf-8"><title>Plan des parsers PEP – Chypre</title>
+<style>
+body{font-family:Segoe UI,Arial,sans-serif;font-size:11pt;color:#1a1a1a;margin:28px;line-height:1.45}
+h1{color:#0b3d6b;border-bottom:3px solid #0b3d6b;padding-bottom:6px}h2{color:#0b3d6b;margin-top:26px}
+table{border-collapse:collapse;width:100%;margin:10px 0;font-size:10pt}th,td{border:1px solid #bbb;padding:5px 8px;text-align:left;vertical-align:top}
+th{background:#e8eef5}.ok{color:#14702e;font-weight:600}.ko{color:#a32020;font-weight:600}.note{background:#f4f7fa;border-left:4px solid #0b3d6b;padding:8px 12px}
+</style></head><body>
+<h1>Plan des parsers PEP – Chypre</h1>
+<p>Date : 9 novembre 2026. Pays de l'Union européenne. Base légale : loi 188(I)/2007 sur la prévention et la répression du blanchiment de capitaux et du financement du terrorisme ; vigilance de douze mois après la fin des fonctions (numéro de loi et durée à confirmer sur le texte en vigueur).</p>
+
+<h2>1. Parsers réalisés</h2>
+<table>
+<tr><th>Jeu de données</th><th>Source</th><th>Contenu</th><th>Volume mesuré</th></tr>
+<tr><td>cy_pep_parliament</td><td>www.parliament.cy, liste « Members of the House » (1 requête)</td><td>Députés de la Chambre des représentants en fonction (CY-b)</td><td>56 personnes, par leur nom : ni naissance, ni circonscription, ni parti</td></tr>
+<tr><td>cy_pep_institutions</td><td>www.centralbank.cy, « Board of Directors » (1 page)</td><td>Gouverneur et conseil de la Banque centrale (CY-e)</td><td>8 personnes (Christodoulos Patsalides, 2 membres exécutifs, 5 non exécutifs), sans naissance</td></tr>
+<tr><td>cy_pep_europarl</td><td>API du Parlement européen</td><td>Députés européens élus à Chypre (CY-EU)</td><td>6 personnes, 4 avec naissance</td></tr>
+<tr><td>cy_pep_eu_commission</td><td>commission.europa.eu</td><td>Membre chypriote de la Commission européenne (CY-EU)</td><td>1 personne (Costas Kadis)</td></tr>
+</table>
+<p>Chaque parser télécharge la source à chaque exécution ; Wikidata n'est pas utilisé. Les noms de la Chambre sont publiés « NOM Prénom » : ils sont remis en « Prénom Nom », l'ordre publié restant en alias. Migration Liquibase 090 (pays CY, catégories, fonctions, 4 parsers), validée sur une base jetable.</p>
+
+<h2>2. Sources bloquées ou non lues</h2>
+<table>
+<tr><th>Périmètre</th><th>Situation</th></tr>
+<tr><td>Présidence, gouvernement (presidency.gov.cy), Service d'information (pio.gov.cy), portail cyprus.gov.cy, Service d'audit (audit.gov.cy)</td><td class="ko">Pare-feu Azure WAF : réponse 403 à tout accès automatique. Non contourné. Le président, les ministres et le Service d'audit ne sont donc pas couverts.</td></tr>
+<tr><td>Ministère des Finances, Cour suprême</td><td class="ko">Injoignables depuis notre poste.</td></tr>
+<tr><td>Fiches individuelles des députés</td><td class="ko">www.parliament.cy affiche une vérification de navigateur Cloudflare après quelques requêtes successives (observée lors du sondage). Non contournée : seule la page de liste est lue, en une requête. Si cette page affiche la vérification, le parser s'arrête avec un message clair.</td></tr>
+<tr><td>Anciens députés (législature 2021-2026)</td><td>Le site ne publie pas encore leur liste (page « Former members » arrêtée à 2021) : ceux qui ont quitté la Chambre depuis moins de 12 mois ne sont pas couverts.</td></tr>
+<tr><td>Médiateur (ombudsman.gov.cy), partis, ambassadeurs, entreprises d'État, élus locaux</td><td>Non lus.</td></tr>
+<tr><td>Proches (RCA)</td><td>Seule source connue : Wikidata, exclue.</td></tr>
+</table>
+
+<h2>3. Conséquence</h2>
+<div class="note">Chypre est le pays de l'Union le moins couvert : l'exécutif (président et ministres) n'a aucune source accessible sans contourner une protection. Le référentiel déclare ces fonctions comme non couvertes sur la page « Couverture PEP ».</div>
+
+<h2>4. Suite possible</h2>
+<ul><li>Redemander l'accès au Service d'information et à la présidence auprès des administrateurs des sites (liste blanche d'adresse, ou jeu de données ouvert sur data.gov.cy).</li>
+<li>Fiches des députés (naissance, parti) si le site lève la vérification, ou export officiel.</li>
+<li>Malte reste à traiter.</li></ul>
+</body></html>

@@ -1,0 +1,116 @@
+{
+  "source": "Ministerie van Buitenlandse Zaken (BZ) van Nederland",
+  "url": "https://www.rijksoverheid.nl/ministeries/ministerie-van-buitenlandse-zaken/organisatie/ambassades-consulaten-en-permanente-vertegenwoordigingen",
+  "updated": "2026-11-01",
+  "ambassadors": [
+    {
+      "name": "Birgitta Tazelaar",
+      "firstName": "Birgitta",
+      "lastName": "Tazelaar",
+      "country": "us",
+      "post": "Ambassade van het Koninkrijk der Nederlanden in Washington",
+      "position": "Ambassadeur van Nederland in de Verenigde Staten",
+      "since": "2023-08-01"
+    },
+    {
+      "name": "Jan Versteeg",
+      "firstName": "Jan",
+      "lastName": "Versteeg",
+      "country": "fr",
+      "post": "Ambassade van het Koninkrijk der Nederlanden in Parijs",
+      "position": "Ambassadeur van Nederland in Frankrijk",
+      "since": "2022-09-01"
+    },
+    {
+      "name": "Ronald van Roeden",
+      "firstName": "Ronald",
+      "lastName": "van Roeden",
+      "country": "de",
+      "post": "Ambassade van het Koninkrijk der Nederlanden in Berlijn",
+      "position": "Ambassadeur van Nederland in Duitsland",
+      "since": "2021-09-01"
+    },
+    {
+      "name": "Karel van Oosterom",
+      "firstName": "Karel",
+      "lastName": "van Oosterom",
+      "country": "gb",
+      "post": "Ambassade van het Koninkrijk der Nederlanden in Londen",
+      "position": "Ambassadeur van Nederland in het Verenigd Koninkrijk",
+      "since": "2020-08-01"
+    },
+    {
+      "name": "Pieter Jan Kleiweg de Zwaan",
+      "firstName": "Pieter Jan",
+      "lastName": "Kleiweg de Zwaan",
+      "country": "be",
+      "post": "Ambassade van het Koninkrijk der Nederlanden in Brussel",
+      "position": "Ambassadeur van Nederland in België",
+      "since": "2020-09-01"
+    },
+    {
+      "name": "Robert de Groot",
+      "firstName": "Robert",
+      "lastName": "de Groot",
+      "country": "be",
+      "post": "Permanente Vertegenwoordiging van Nederland bij de Europese Unie (PV EU)",
+      "position": "Permanent Vertegenwoordiger van Nederland bij de EU",
+      "since": "2017-06-01"
+    },
+    {
+      "name": "Yoka Brandt",
+      "firstName": "Yoka",
+      "lastName": "Brandt",
+      "country": "us",
+      "post": "Permanente Vertegenwoordiging van Nederland bij de VN in New York",
+      "position": "Permanent Vertegenwoordiger van Nederland bij de VN",
+      "since": "2020-09-01"
+    },
+    {
+      "name": "Thijs van der Plas",
+      "firstName": "Thijs",
+      "lastName": "van der Plas",
+      "country": "be",
+      "post": "Permanente Vertegenwoordiging van Nederland bij de NAVO",
+      "position": "Permanent Vertegenwoordiger van Nederland bij de NAVO",
+      "since": "2022-08-01"
+    },
+    {
+      "name": "André Haspels",
+      "firstName": "André",
+      "lastName": "Haspels",
+      "country": "cn",
+      "post": "Ambassade van het Koninkrijk der Nederlanden in Peking",
+      "position": "Ambassadeur van Nederland in China",
+      "since": "2023-09-01"
+    },
+    {
+      "name": "Jennes de Mol",
+      "firstName": "Jennes",
+      "lastName": "de Mol",
+      "country": "ua",
+      "post": "Ambassade van het Koninkrijk der Nederlanden in Kiev",
+      "position": "Ambassadeur van Nederland in Oekraïne",
+      "since": "2019-09-01"
+    },
+    {
+      "name": "Marriet Schuurman",
+      "firstName": "Marriet",
+      "lastName": "Schuurman",
+      "country": "il",
+      "post": "Ambassade van het Koninkrijk der Nederlanden in Tel Aviv",
+      "position": "Ambassadeur van Nederland in Israël",
+      "since": "2023-08-01"
+    },
+    {
+      "name": "Lambert Grijns",
+      "firstName": "Lambert",
+      "lastName": "Grijns",
+      "country": "id",
+      "post": "Ambassade van het Koninkrijk der Nederlanden in Jakarta",
+      "position": "Ambassadeur van Nederland in Indonesië",
+      "since": "2019-09-01"
+    }
+  ]
+}
+
