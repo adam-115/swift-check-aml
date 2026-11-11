@@ -36,12 +36,12 @@ import com.swiftcheck.aml.sdk.FtmEntity;
  * fonctions considérées comme PEP (directeur général, secrétaire général, membres du conseil…).
  *
  * <p>Chaque organisation publie ses dirigeants à sa façon : la page à lire et, pour chaque fonction, le motif qui y
- * trouve le nom sont décrits dans {@code international-orgs.json} ({@link OrgConfig}). Les noms sont toujours lus
+ * trouve le nom sont décrits dans le paramètre {@code configJson} du parser ({@link OrgConfig}). Les noms sont toujours lus
  * dans la page officielle, jamais écrits dans le code ou la configuration. Une organisation sans page exploitable y
  * est marquée {@code pending} et citée dans le message de chaque exécution.
  *
- * <p>Paramètres : {@code {"delayMs": "1000", "configFile": ""}} ({@code configFile} : chemin d'une configuration qui
- * remplace celle du plugin, pour corriger un motif sans le reconstruire).
+ * <p>Paramètres : {@code {"delayMs": "1000", "userAgent": "...", "configJson": {"organizations": [...]}}} ;
+ * {@code configJson} (obligatoire) se modifie depuis l'écran du parser ou en base, sans reconstruire le plugin.
  *
  * <p>Pour chaque dirigeant : la personne ({@code Person}, {@code role.pep}), la fonction ({@code Position}, une par
  * organisation et par fonction de la liste) et le mandat en cours ({@code Occupancy}).
@@ -164,7 +164,7 @@ public class FrPepInternationalOrgsParser implements Iparser {
         }
         if (leaders.isEmpty()) {
             throw new IllegalStateException("Aucun dirigeant trouvé dans les pages des organisations internationales :"
-                    + " sites ou motifs de international-orgs.json à revoir. Fonctions non trouvées : " + notFound);
+                    + " sites ou motifs du paramètre configJson à revoir. Fonctions non trouvées : " + notFound);
         }
         Map<String, FtmEntity> persons = new LinkedHashMap<>();
         for (Leader leader : leaders) {

@@ -53,9 +53,9 @@ Ces fonctions sont citées dans le message de **chaque exécution** :
 
 Pour les ajouter, une organisation n'a besoin que d'une entrée dans la configuration, sans code.
 
-## Configuration (`international-orgs.json`)
+## Configuration (paramètre `configJson`)
 
-Fichier livré dans le plugin. Le paramètre `configFile` permet de le remplacer, par exemple pour corriger un motif après un changement de site, sans reconstruire le plugin.
+La liste des organisations et des motifs n'est plus dans le plugin : elle se trouve dans le paramètre `configJson` du parser (objet `{"organizations": [...]}`), modifiable depuis l'écran du parser ou directement en base (colonne `parser.parameters`), sans reconstruire le plugin. Sans ce paramètre, l'exécution échoue avec un message explicite. La configuration initiale est posée par la migration Liquibase 129 ; une copie sert de jeu d'essai dans `src/test/resources/international-orgs.json`.
 
 ```json
 { "key": "ofaj", "name": "Office franco-allemand pour la jeunesse (OFAJ)",
@@ -79,7 +79,7 @@ Fichier livré dans le plugin. Le paramètre `configFile` permet de le remplacer
 | Type de source | `PLUGIN_MANAGED` : le plugin télécharge chaque page |
 | Nature de la source | T5 – Page web |
 | Fréquence | 168 h |
-| Paramètres | `{"delayMs": "1000", "configFile": ""}` |
+| Paramètres | `{"delayMs": "1000", "userAgent": "...", "configJson": {"organizations": [...]}}` |
 
 ### Données brutes archivées
 
@@ -112,5 +112,5 @@ Pas de nationalité ni de date de naissance : les pages ne les donnent pas.
 - chaque organisation et chaque forme de page ;
 - la personne présente dans deux organisations, les titres retirés ;
 - la page en échec, la page modifiée, l'absence de dirigeant ;
-- la configuration remplacée par `configFile` ;
+- la configuration lue dans `configJson` (absente ou invalide : erreur claire) ;
 - le test de l'application (`readSourceRecords`).

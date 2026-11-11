@@ -10,7 +10,7 @@ import com.swiftcheck.aml.sdk.FtmDatasetBuilder;
 
 class EsPepRoyalHouseParserTest {
 
-    private static final Path RAW = Path.of("src/test/resources/seed/royal-house.json");
+    private static final Path RAW = Path.of("src/test/resources/royal-house-wikidata.json");
 
     private final EsPepRoyalHouseParser parser = new EsPepRoyalHouseParser();
 
@@ -36,4 +36,3 @@ class EsPepRoyalHouseParserTest {
                 });
     }
 }
-

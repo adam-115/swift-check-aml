@@ -1,0 +1,280 @@
+{
+    "head":  {
+                 "vars":  [
+                              "person",
+                              "personLabel",
+                              "roleLabel",
+                              "birthDate",
+                              "genderLabel",
+                              "startDate",
+                              "endDate"
+                          ]
+             },
+    "results":  {
+                    "bindings":  [
+                                     {
+                                         "person":  {
+                                                        "type":  "uri",
+                                                        "value":  "http://www.wikidata.org/entity/Q19943"
+                                                    },
+                                         "roleLabel":  {
+                                                           "type":  "literal",
+                                                           "value":  "Rey emérito de España"
+                                                       },
+                                         "startDate":  {
+                                                           "type":  "literal",
+                                                           "value":  "1975-11-22"
+                                                       },
+                                         "endDate":  {
+                                                         "type":  "literal",
+                                                         "value":  "2014-06-18"
+                                                     },
+                                         "birthDate":  {
+                                                           "datatype":  "http://www.w3.org/2001/XMLSchema#dateTime",
+                                                           "type":  "literal",
+                                                           "value":  "1938-01-05T00:00:00Z"
+                                                       },
+                                         "personLabel":  {
+                                                             "xml:lang":  "es",
+                                                             "type":  "literal",
+                                                             "value":  "Juan Carlos I de España"
+                                                         },
+                                         "genderLabel":  {
+                                                             "xml:lang":  "es",
+                                                             "type":  "literal",
+                                                             "value":  "masculino"
+                                                         }
+                                     },
+                                     {
+                                         "person":  {
+                                                        "type":  "uri",
+                                                        "value":  "http://www.wikidata.org/entity/Q156548"
+                                                    },
+                                         "roleLabel":  {
+                                                           "type":  "literal",
+                                                           "value":  "Reina emérita de España"
+                                                       },
+                                         "startDate":  {
+                                                           "type":  "literal",
+                                                           "value":  "1975-11-22"
+                                                       },
+                                         "endDate":  {
+                                                         "type":  "literal",
+                                                         "value":  "2014-06-18"
+                                                     },
+                                         "birthDate":  {
+                                                           "datatype":  "http://www.w3.org/2001/XMLSchema#dateTime",
+                                                           "type":  "literal",
+                                                           "value":  "1938-11-02T00:00:00Z"
+                                                       },
+                                         "personLabel":  {
+                                                             "xml:lang":  "es",
+                                                             "type":  "literal",
+                                                             "value":  "Sofía de Grecia"
+                                                         },
+                                         "genderLabel":  {
+                                                             "xml:lang":  "es",
+                                                             "type":  "literal",
+                                                             "value":  "femenino"
+                                                         }
+                                     },
+                                     {
+                                         "person":  {
+                                                        "type":  "uri",
+                                                        "value":  "http://www.wikidata.org/entity/Q191045"
+                                                    },
+                                         "roleLabel":  {
+                                                           "type":  "literal",
+                                                           "value":  "Rey de España (Jefe del Estado)"
+                                                       },
+                                         "startDate":  {
+                                                           "type":  "literal",
+                                                           "value":  "2014-06-19"
+                                                       },
+                                         "endDate":  {
+                                                         "type":  "literal",
+                                                         "value":  ""
+                                                     },
+                                         "birthDate":  {
+                                                           "datatype":  "http://www.w3.org/2001/XMLSchema#dateTime",
+                                                           "type":  "literal",
+                                                           "value":  "1968-01-30T00:00:00Z"
+                                                       },
+                                         "personLabel":  {
+                                                             "xml:lang":  "es",
+                                                             "type":  "literal",
+                                                             "value":  "Felipe VI de España"
+                                                         },
+                                         "genderLabel":  {
+                                                             "xml:lang":  "es",
+                                                             "type":  "literal",
+                                                             "value":  "masculino"
+                                                         }
+                                     },
+                                     {
+                                         "person":  {
+                                                        "type":  "uri",
+                                                        "value":  "http://www.wikidata.org/entity/Q201589"
+                                                    },
+                                         "roleLabel":  {
+                                                           "type":  "literal",
+                                                           "value":  "Reina consorte de España"
+                                                       },
+                                         "startDate":  {
+                                                           "type":  "literal",
+                                                           "value":  "2014-06-19"
+                                                       },
+                                         "endDate":  {
+                                                         "type":  "literal",
+                                                         "value":  ""
+                                                     },
+                                         "birthDate":  {
+                                                           "datatype":  "http://www.w3.org/2001/XMLSchema#dateTime",
+                                                           "type":  "literal",
+                                                           "value":  "1972-09-15T00:00:00Z"
+                                                       },
+                                         "personLabel":  {
+                                                             "xml:lang":  "es",
+                                                             "type":  "literal",
+                                                             "value":  "Letizia Ortiz"
+                                                         },
+                                         "genderLabel":  {
+                                                             "xml:lang":  "es",
+                                                             "type":  "literal",
+                                                             "value":  "femenino"
+                                                         }
+                                     },
+                                     {
+                                         "person":  {
+                                                        "type":  "uri",
+                                                        "value":  "http://www.wikidata.org/entity/Q214369"
+                                                    },
+                                         "roleLabel":  {
+                                                           "type":  "literal",
+                                                           "value":  "Princesa de Asturias (Heredera de la Corona)"
+                                                       },
+                                         "startDate":  {
+                                                           "type":  "literal",
+                                                           "value":  "2014-06-19"
+                                                       },
+                                         "endDate":  {
+                                                         "type":  "literal",
+                                                         "value":  ""
+                                                     },
+                                         "birthDate":  {
+                                                           "datatype":  "http://www.w3.org/2001/XMLSchema#dateTime",
+                                                           "type":  "literal",
+                                                           "value":  "2005-10-31T00:00:00Z"
+                                                       },
+                                         "personLabel":  {
+                                                             "xml:lang":  "es",
+                                                             "type":  "literal",
+                                                             "value":  "Leonor de Borbón"
+                                                         },
+                                         "genderLabel":  {
+                                                             "xml:lang":  "es",
+                                                             "type":  "literal",
+                                                             "value":  "femenino"
+                                                         }
+                                     },
+                                     {
+                                         "person":  {
+                                                        "type":  "uri",
+                                                        "value":  "http://www.wikidata.org/entity/Q847010"
+                                                    },
+                                         "roleLabel":  {
+                                                           "type":  "literal",
+                                                           "value":  "Infanta de España"
+                                                       },
+                                         "startDate":  {
+                                                           "type":  "literal",
+                                                           "value":  "2014-06-19"
+                                                       },
+                                         "endDate":  {
+                                                         "type":  "literal",
+                                                         "value":  ""
+                                                     },
+                                         "birthDate":  {
+                                                           "datatype":  "http://www.w3.org/2001/XMLSchema#dateTime",
+                                                           "type":  "literal",
+                                                           "value":  "2007-04-29T00:00:00Z"
+                                                       },
+                                         "personLabel":  {
+                                                             "xml:lang":  "es",
+                                                             "type":  "literal",
+                                                             "value":  "Sofía de Borbón"
+                                                         },
+                                         "genderLabel":  {
+                                                             "xml:lang":  "es",
+                                                             "type":  "literal",
+                                                             "value":  "femenino"
+                                                         }
+                                     },
+                                     {
+                                         "person":  {
+                                                        "type":  "uri",
+                                                        "value":  "http://www.wikidata.org/entity/Q18719565"
+                                                    },
+                                         "roleLabel":  {
+                                                           "type":  "literal",
+                                                           "value":  "Jefe de la Casa de Su Majestad el Rey"
+                                                       },
+                                         "startDate":  {
+                                                           "datatype":  "http://www.w3.org/2001/XMLSchema#dateTime",
+                                                           "type":  "literal",
+                                                           "value":  "2014-06-24T00:00:00Z"
+                                                       },
+                                         "endDate":  {
+                                                         "datatype":  "http://www.w3.org/2001/XMLSchema#dateTime",
+                                                         "type":  "literal",
+                                                         "value":  "2024-01-19T00:00:00Z"
+                                                     },
+                                         "birthDate":  {
+                                                           "datatype":  "http://www.w3.org/2001/XMLSchema#dateTime",
+                                                           "type":  "literal",
+                                                           "value":  "1956-08-18T00:00:00Z"
+                                                       },
+                                         "personLabel":  {
+                                                             "xml:lang":  "es",
+                                                             "type":  "literal",
+                                                             "value":  "Jaime Alfonsín"
+                                                         },
+                                         "genderLabel":  {
+                                                             "xml:lang":  "es",
+                                                             "type":  "literal",
+                                                             "value":  "masculino"
+                                                         }
+                                     },
+                                     {
+                                         "person":  {
+                                                        "type":  "uri",
+                                                        "value":  "http://www.wikidata.org/entity/Q124317547"
+                                                    },
+                                         "roleLabel":  {
+                                                           "type":  "literal",
+                                                           "value":  "Jefe de la Casa de Su Majestad el Rey"
+                                                       },
+                                         "startDate":  {
+                                                           "datatype":  "http://www.w3.org/2001/XMLSchema#dateTime",
+                                                           "type":  "literal",
+                                                           "value":  "2024-02-19T00:00:00Z"
+                                                       },
+                                         "birthDate":  {
+                                                           "datatype":  "http://www.w3.org/2001/XMLSchema#dateTime",
+                                                           "type":  "literal",
+                                                           "value":  "1964-04-11T00:00:00Z"
+                                                       },
+                                         "personLabel":  {
+                                                             "xml:lang":  "es",
+                                                             "type":  "literal",
+                                                             "value":  "Camilo Villarino"
+                                                         },
+                                         "genderLabel":  {
+                                                             "xml:lang":  "es",
+                                                             "type":  "literal",
+                                                             "value":  "masculino"
+                                                         }
+                                     }
+                                 ]
+                }
+}

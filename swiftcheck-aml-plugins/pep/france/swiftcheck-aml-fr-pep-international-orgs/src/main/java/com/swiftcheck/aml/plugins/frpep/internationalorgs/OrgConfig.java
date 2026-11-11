@@ -3,25 +3,19 @@ package com.swiftcheck.aml.plugins.frpep.internationalorgs;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.URI;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Pattern;
+import java.util.regex.PatternSyntaxException;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
- * Configuration des organisations lues : {@code international-orgs.json} dans le plugin, ou le fichier du paramètre
- * {@code configFile} (pour corriger un motif sans reconstruire le plugin).
+ * Configuration des organisations lues, fournie par le paramètre {@code configJson} du parser (écran du parser ou
+ * colonne {@code parser.parameters}), sans fichier embarqué dans le plugin.
  *
  * <p>Pour chaque fonction, {@code pattern} est une expression régulière appliquée au texte de la page (une ligne par
  * paragraphe, voir {@link PageText}). Le nom est capturé par le groupe {@code name}, ou par {@code first} et
@@ -29,7 +23,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  */
 final class OrgConfig {
 
-    static final String RESOURCE = "/international-orgs.json";
+    static final String CONFIG_PARAMETER = "configJson";
 
     /** Nom propre : « Khaled El-Enany », « Nico HORN », « Julia Marton-Lefèvre », « H.E. Hailemariam Dessalegn Boshe ». */
     static final String NAME = "(?<name>\\p{Lu}[\\p{L}'’.-]*(?:[ \\t]+(?:\\p{Lu}[\\p{L}'’.-]*|de|da|del|della|di|du|van|von"
@@ -55,67 +49,29 @@ final class OrgConfig {
     private OrgConfig() {
     }
 
-    static List<Organization> load() throws IOException {
-        return loadDefault();
-    }
-
+    /**
+     * Lit la configuration dans le paramètre {@code configJson} du parser (objet JSON {@code {"organizations": [...]}}),
+     * modifiable depuis l'écran du parser ou directement en base. Aucune configuration n'est embarquée dans le plugin :
+     * sans ce paramètre, l'exécution échoue avec un message qui dit quoi faire.
+     */
     static List<Organization> load(Map<String, String> parameters) throws IOException {
-        if (parameters != null) {
-            // 1. JSON brut directement passé dans parameters (ex: configJson ou parameters.config)
-            String configJson = parameters.get("configJson");
-            if (configJson != null && !configJson.isBlank()) {
-                try (InputStream in = new ByteArrayInputStream(configJson.getBytes(StandardCharsets.UTF_8))) {
-                    return parse(in);
-                }
-            }
-            // 2. URL distante où télécharger la configuration dynamique
-            String configUrl = parameters.get("configUrl");
-            if (configUrl != null && !configUrl.isBlank()) {
-                try {
-                    HttpClient client = HttpClient.newBuilder().connectTimeout(Duration.ofSeconds(15)).build();
-                    HttpRequest req = HttpRequest.newBuilder(URI.create(configUrl.trim()))
-                            .timeout(Duration.ofSeconds(20))
-                            .header("Accept", "application/json")
-                            .header("User-Agent", "Mozilla/5.0")
-                            .GET().build();
-                    HttpResponse<String> resp = client.send(req, HttpResponse.BodyHandlers.ofString(StandardCharsets.UTF_8));
-                    if (resp.statusCode() == 200) {
-                        try (InputStream in = new ByteArrayInputStream(resp.body().getBytes(StandardCharsets.UTF_8))) {
-                            return parse(in);
-                        }
-                    }
-                } catch (InterruptedException e) {
-                    Thread.currentThread().interrupt();
-                    throw new IOException("Téléchargement interrompu depuis configUrl : " + configUrl, e);
-                }
-            }
-            // 3. Fichier externe si précisé
-            String configFile = parameters.get("configFile");
-            if (configFile != null && !configFile.isBlank()) {
-                try (InputStream in = Files.newInputStream(Path.of(configFile.trim()))) {
-                    return parse(in);
-                }
-            }
+        String configJson = parameters == null ? null : parameters.get(CONFIG_PARAMETER);
+        if (configJson == null || configJson.isBlank()) {
+            throw new IllegalStateException("Paramètre « " + CONFIG_PARAMETER + " » absent : la liste des organisations"
+                    + " et des motifs de lecture se configure dans les paramètres du parser (écran « Paramètres » ou"
+                    + " colonne parser.parameters).");
         }
-        return loadDefault();
-    }
-
-    static List<Organization> loadFromFile(String configFile) throws IOException {
-        if (configFile != null && !configFile.isBlank()) {
-            try (InputStream in = Files.newInputStream(Path.of(configFile.trim()))) {
-                return parse(in);
-            }
+        List<Organization> orgs;
+        try (InputStream in = new ByteArrayInputStream(configJson.getBytes(StandardCharsets.UTF_8))) {
+            orgs = parse(in);
+        } catch (IOException | PatternSyntaxException e) {
+            throw new IllegalStateException("Paramètre « " + CONFIG_PARAMETER + " » invalide : " + e.getMessage(), e);
         }
-        return loadDefault();
-    }
-
-    private static List<Organization> loadDefault() throws IOException {
-        try (InputStream in = OrgConfig.class.getResourceAsStream(RESOURCE)) {
-            if (in == null) {
-                throw new IOException("Configuration " + RESOURCE + " absente du plugin");
-            }
-            return parse(in);
+        if (orgs.isEmpty()) {
+            throw new IllegalStateException("Paramètre « " + CONFIG_PARAMETER + " » : aucune organisation dans"
+                    + " « organizations ».");
         }
+        return orgs;
     }
 
     static List<Organization> parse(InputStream in) throws IOException {

@@ -58,13 +58,7 @@ class OrgPagesDownloader {
                     HttpResponse<String> response = http.send(request,
                             HttpResponse.BodyHandlers.ofString(StandardCharsets.UTF_8));
                     if (response.statusCode() != 200) {
-                        try {
-                            Path target = rawDir.resolve(OrgConfig.pageFile(org, i));
-                            com.swiftcheck.aml.sdk.StealthBrowserFetcher.fetchToFile(url, target);
-                            continue;
-                        } catch (Exception ex) {
-                            // Repli sur échec standard
-                        }
+                        // Accès refusé (403, anti-robot…) : on le signale, on ne le contourne pas.
                         failed.add(org.key() + " : HTTP " + response.statusCode());
                         continue;
                     }

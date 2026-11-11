@@ -9,7 +9,7 @@ import java.util.regex.Pattern;
 
 /**
  * Portrait d'un dirigeant dans la page officielle de son organisation, selon le mode {@code photo} de la page dans
- * {@code international-orgs.json} :
+ * {@code configJson} :
  * <ul>
  *   <li>{@code card} : une image dont le texte alternatif est le nom ({@code <img alt="Anthony Donnellan">}), sinon
  *       une carte où l'image est suivie du nom en titre, sans autre image entre les deux ;</li>

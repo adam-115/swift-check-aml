@@ -1,11 +1,16 @@
 package com.swiftcheck.aml.plugins.espep.army;
 
 import java.io.IOException;
-import java.io.InputStream;
+import java.net.URI;
+import java.net.URLEncoder;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.StandardCopyOption;
+import java.time.Duration;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -29,7 +34,8 @@ import com.swiftcheck.aml.sdk.FtmEntity;
  * <p>Couvre la catégorie <b>ES-e</b>, fonction <b>Chef d'état-major ou officier général</b>
  * (Ley 10/2010, art. 14.2 ; JO C/2023/724).
  *
- * <p>JEMAD, JEME (Terre), AJEMA (Armada), JEMA (Air et Espace), Guardia Civil, MOPS, JEMACON.
+ * <p>JEMAD, JEME (Terre), AJEMA (Armada), JEMA (Air et Espace), Guardia Civil.
+ * Données extraites dynamiquement via le point SPARQL de Wikidata (CC0) sans aucun fichier figé en interne.
  */
 @Extension
 public class EsPepArmyParser implements Iparser {
@@ -39,16 +45,40 @@ public class EsPepArmyParser implements Iparser {
     static final String ID_PREFIX = "es-pep-army";
     static final String TOPIC = "role.pep";
     static final String COUNTRY = "es";
-    static final String SEED_RESOURCE = "/seed/spanish-military-leaders.json";
-    static final String JSON_FILE = "spanish-military-leaders.json";
+    static final String JSON_FILE = "spanish-military-leaders-wikidata.json";
+    static final String DEFAULT_SPARQL_ENDPOINT = "https://query.wikidata.org/sparql";
+    static final String USER_AGENT = "SwiftCheck-AML/1.0 (liste PEP Espagne - commandement militaire)";
+
+    private static final String SPARQL_QUERY =
+            "SELECT ?office ?officeLabel ?person ?personLabel ?startDate ?endDate ?birthDate ?genderLabel WHERE {\n" +
+            "  VALUES ?office {\n" +
+            "    wd:Q5928975  # JEMAD (Jefe de Estado Mayor de la Defensa)\n" +
+            "    wd:Q30612644 # JEME (Jefe de Estado Mayor del Ejército de Tierra)\n" +
+            "    wd:Q30612645 # AJEMA (Jefe de Estado Mayor de la Armada)\n" +
+            "    wd:Q30612648 # JEMA (Jefe de Estado Mayor del Ejército de Aire y del Espacio)\n" +
+            "    wd:Q36378291 # Director General de la Guardia Civil\n" +
+            "  }\n" +
+            "  ?person p:P39 ?stmt .\n" +
+            "  ?stmt ps:P39 ?office .\n" +
+            "  OPTIONAL { ?stmt pq:P580 ?startDate . }\n" +
+            "  OPTIONAL { ?stmt pq:P582 ?endDate . }\n" +
+            "  OPTIONAL { ?person wdt:P569 ?birthDate . }\n" +
+            "  OPTIONAL { ?person wdt:P21 ?gender . }\n" +
+            "  FILTER(!bound(?endDate) || ?endDate >= \"2020-01-01\"^^xsd:dateTime)\n" +
+            "  SERVICE wikibase:label { bd:serviceParam wikibase:language \"es,en\". }\n" +
+            "}";
 
     private final ObjectMapper json = new ObjectMapper();
+    private final HttpClient http = HttpClient.newBuilder()
+            .connectTimeout(Duration.ofSeconds(15))
+            .followRedirects(HttpClient.Redirect.NORMAL)
+            .build();
 
     @Override
     public ParserResult parse(ParserContext ctx) throws Exception {
         Files.createDirectories(ctx.rawDir());
         Path rawFile = ctx.rawDir().resolve(JSON_FILE);
-        loadResource(rawFile);
+        download(rawFile);
 
         FtmDatasetBuilder dataset = new FtmDatasetBuilder(ID_PREFIX, TOPIC);
         int count = convert(rawFile, dataset);
@@ -63,7 +93,7 @@ public class EsPepArmyParser implements Iparser {
     public List<SourceRecord> readSourceRecords(ParserContext ctx) throws Exception {
         Path rawFile = ctx.rawDir().resolve(JSON_FILE);
         if (!Files.exists(rawFile)) {
-            loadResource(rawFile);
+            download(rawFile);
         }
         FtmDatasetBuilder dataset = new FtmDatasetBuilder(ID_PREFIX, TOPIC);
         convert(rawFile, dataset);
@@ -78,42 +108,55 @@ public class EsPepArmyParser implements Iparser {
         return records;
     }
 
-    private void loadResource(Path rawFile) throws IOException {
-        try (InputStream in = getClass().getResourceAsStream(SEED_RESOURCE)) {
-            if (in == null) {
-                throw new IllegalStateException("Ressource de secours introuvable : " + SEED_RESOURCE);
-            }
-            Files.copy(in, rawFile, StandardCopyOption.REPLACE_EXISTING);
-            log.info("Haut commandement militaire espagnol : données officielles chargées depuis {}", SEED_RESOURCE);
+    void download(Path rawFile) throws IOException, InterruptedException {
+        String body = "query=" + URLEncoder.encode(SPARQL_QUERY, StandardCharsets.UTF_8);
+        HttpRequest req = HttpRequest.newBuilder(URI.create(DEFAULT_SPARQL_ENDPOINT))
+                .header("User-Agent", USER_AGENT)
+                .header("Accept", "application/sparql-results+json")
+                .header("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8")
+                .POST(HttpRequest.BodyPublishers.ofString(body, StandardCharsets.UTF_8))
+                .timeout(Duration.ofSeconds(30))
+                .build();
+
+        HttpResponse<String> resp = http.send(req, HttpResponse.BodyHandlers.ofString(StandardCharsets.UTF_8));
+        if (resp.statusCode() != 200) {
+            throw new IOException("Wikidata SPARQL returned HTTP " + resp.statusCode() + " : " + resp.body());
         }
+        Files.writeString(rawFile, resp.body(), StandardCharsets.UTF_8);
+        log.info("Forces armées espagnoles : données fraîches téléchargées depuis Wikidata SPARQL dans {}", rawFile);
     }
 
     int convert(Path rawFile, FtmDatasetBuilder dataset) throws IOException {
         JsonNode root = json.readTree(Files.readString(rawFile, StandardCharsets.UTF_8));
-        JsonNode commanders = root.path("commanders");
-        if (!commanders.isArray() || commanders.isEmpty()) {
-            throw new IllegalStateException("Aucun officier trouvé dans le fichier : " + rawFile);
+        JsonNode bindings = root.path("results").path("bindings");
+        if (!bindings.isArray() || bindings.isEmpty()) {
+            throw new IllegalStateException("Aucun commandant trouvé dans le résultat Wikidata : " + rawFile);
         }
 
         int count = 0;
-        for (JsonNode c : commanders) {
-            String name = c.path("name").asText("").trim();
-            if (name.isEmpty()) {
+        for (JsonNode b : bindings) {
+            String name = b.path("personLabel").path("value").asText("").trim();
+            if (name.isEmpty() || name.startsWith("http")) {
                 continue;
             }
-            String role = c.path("role").asText("").trim();
-            String rank = c.path("rank").asText("").trim();
-            String branch = c.path("branch").asText("Fuerzas Armadas").trim();
-            String status = c.path("status").asText("current").trim();
-            String birthDate = c.path("birthDate").asText("").trim();
-            String startDate = c.path("startDate").asText("").trim();
-            String endDate = c.path("endDate").asText("").trim();
-            String gender = c.path("gender").asText("").trim();
+            String office = b.path("officeLabel").path("value").asText("").trim();
+            String birthDateFull = b.path("birthDate").path("value").asText("").trim();
+            String birthDate = birthDateFull.length() >= 10 ? birthDateFull.substring(0, 10) : "";
+            String startDateFull = b.path("startDate").path("value").asText("").trim();
+            String startDate = startDateFull.length() >= 10 ? startDateFull.substring(0, 10) : "";
+            String endDateFull = b.path("endDate").path("value").asText("").trim();
+            String endDate = endDateFull.length() >= 10 ? endDateFull.substring(0, 10) : "";
+
+            String genderLabel = b.path("genderLabel").path("value").asText("").trim().toLowerCase(Locale.ROOT);
+            String gender = genderLabel.contains("femenino") || genderLabel.contains("female") ? "female" :
+                    (genderLabel.contains("masculino") || genderLabel.contains("male") ? "male" : "");
+
+            String status = endDate.isEmpty() ? "current" : "former";
 
             FtmEntity person = dataset.newEntity("Person", name);
             person.addValue("name", name);
             person.addValue("country", COUNTRY);
-            person.addValue("position", rank + " – " + role + " (" + branch + ")");
+            person.addValue("position", office);
             if (!birthDate.isEmpty()) {
                 person.addValue("birthDate", birthDate);
             }
@@ -123,11 +166,11 @@ public class EsPepArmyParser implements Iparser {
             person.addValue("sourceUrl", "https://www.defensa.gob.es/");
             dataset.addEntity(person);
 
-            String posSlug = role.toLowerCase(Locale.ROOT).replaceAll("[^a-z0-9]+", "-");
+            String posSlug = office.toLowerCase(Locale.ROOT).replaceAll("[^a-z0-9]+", "-");
             FtmEntity position = dataset.newEntity("Position", posSlug);
-            position.addValue("name", role);
+            position.addValue("name", office);
             position.addValue("country", COUNTRY);
-            position.addValue("organization", branch + " (Ministerio de Defensa)");
+            position.addValue("organization", "Fuerzas Armadas Españolas");
             position.addValue("topics", "gov.national;mil");
             position.addValue("sourceUrl", "https://www.defensa.gob.es/");
             dataset.addEntity(position);
@@ -150,4 +193,3 @@ public class EsPepArmyParser implements Iparser {
         return count;
     }
 }
-

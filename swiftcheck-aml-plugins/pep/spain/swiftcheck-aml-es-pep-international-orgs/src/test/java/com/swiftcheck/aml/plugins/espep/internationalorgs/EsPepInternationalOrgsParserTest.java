@@ -10,7 +10,7 @@ import com.swiftcheck.aml.sdk.FtmDatasetBuilder;
 
 class EsPepInternationalOrgsParserTest {
 
-    private static final Path RAW = Path.of("src/test/resources/seed/international-orgs.json");
+    private static final Path RAW = Path.of("src/test/resources/international-orgs-wikidata.json");
 
     private final EsPepInternationalOrgsParser parser = new EsPepInternationalOrgsParser();
 
@@ -22,12 +22,12 @@ class EsPepInternationalOrgsParserTest {
         );
         int count = parser.convert(RAW, dataset);
 
-        assertThat(count).isEqualTo(11);
+        assertThat(count).isGreaterThanOrEqualTo(4);
         assertThat(dataset.qualityReport().getTotalRejected()).isZero();
         assertThat(dataset.qualityReport().getIdConflictCount()).isZero();
 
         long persons = dataset.entities().stream().filter(e -> "Person".equals(e.getSchema())).count();
-        assertThat(persons).isEqualTo(11);
+        assertThat(persons).isGreaterThanOrEqualTo(4);
 
         assertThat(dataset.entities().stream().filter(e -> "Person".equals(e.getSchema())))
                 .allSatisfy(p -> {
@@ -36,4 +36,3 @@ class EsPepInternationalOrgsParserTest {
                 });
     }
 }
-

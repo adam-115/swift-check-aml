@@ -1,0 +1,161 @@
+{
+    "head":  {
+                 "vars":  [
+                              "person",
+                              "personLabel",
+                              "roleLabel",
+                              "orgLabel",
+                              "orgUrl",
+                              "birthDate",
+                              "genderLabel",
+                              "startDate"
+                          ]
+             },
+    "results":  {
+                    "bindings":  [
+                                     {
+                                         "person":  {
+                                                        "type":  "uri",
+                                                        "value":  "http://www.wikidata.org/entity/Q4760139"
+                                                    },
+                                         "roleLabel":  {
+                                                           "type":  "literal",
+                                                           "value":  "Secretario General Iberoamericano"
+                                                       },
+                                         "orgLabel":  {
+                                                          "type":  "literal",
+                                                          "value":  "Secretaría General Iberoamericana (SEGIB)"
+                                                      },
+                                         "orgUrl":  {
+                                                        "type":  "literal",
+                                                        "value":  "https://www.segib.org/"
+                                                    },
+                                         "startDate":  {
+                                                           "type":  "literal",
+                                                           "value":  "2022-02-08"
+                                                       },
+                                         "birthDate":  {
+                                                           "datatype":  "http://www.w3.org/2001/XMLSchema#dateTime",
+                                                           "type":  "literal",
+                                                           "value":  "1956-02-07T00:00:00Z"
+                                                       },
+                                         "personLabel":  {
+                                                             "xml:lang":  "es",
+                                                             "type":  "literal",
+                                                             "value":  "Andrés Allamand"
+                                                         },
+                                         "genderLabel":  {
+                                                             "xml:lang":  "es",
+                                                             "type":  "literal",
+                                                             "value":  "masculino"
+                                                         }
+                                     },
+                                     {
+                                         "person":  {
+                                                        "type":  "uri",
+                                                        "value":  "http://www.wikidata.org/entity/Q12864810"
+                                                    },
+                                         "roleLabel":  {
+                                                           "type":  "literal",
+                                                           "value":  "Secretario General"
+                                                       },
+                                         "orgLabel":  {
+                                                          "type":  "literal",
+                                                          "value":  "ONU Turismo (UNWTO)"
+                                                      },
+                                         "orgUrl":  {
+                                                        "type":  "literal",
+                                                        "value":  "https://www.unwto.org/"
+                                                    },
+                                         "startDate":  {
+                                                           "type":  "literal",
+                                                           "value":  "2018-01-01"
+                                                       },
+                                         "birthDate":  {
+                                                           "datatype":  "http://www.w3.org/2001/XMLSchema#dateTime",
+                                                           "type":  "literal",
+                                                           "value":  "1977-01-12T00:00:00Z"
+                                                       },
+                                         "personLabel":  {
+                                                             "xml:lang":  "es",
+                                                             "type":  "literal",
+                                                             "value":  "Zurab Pololikashvili"
+                                                         },
+                                         "genderLabel":  {
+                                                             "xml:lang":  "es",
+                                                             "type":  "literal",
+                                                             "value":  "masculino"
+                                                         }
+                                     },
+                                     {
+                                         "person":  {
+                                                        "type":  "uri",
+                                                        "value":  "http://www.wikidata.org/entity/Q19604462"
+                                                    },
+                                         "roleLabel":  {
+                                                           "type":  "literal",
+                                                           "value":  "Secretario General"
+                                                       },
+                                         "orgLabel":  {
+                                                          "type":  "literal",
+                                                          "value":  "Unión por el Mediterráneo (UpM)"
+                                                      },
+                                         "orgUrl":  {
+                                                        "type":  "literal",
+                                                        "value":  "https://ufmsecretariat.org/"
+                                                    },
+                                         "startDate":  {
+                                                           "type":  "literal",
+                                                           "value":  "2018-06-01"
+                                                       },
+                                         "birthDate":  {
+                                                           "datatype":  "http://www.w3.org/2001/XMLSchema#dateTime",
+                                                           "type":  "literal",
+                                                           "value":  "1959-07-01T00:00:00Z"
+                                                       },
+                                         "personLabel":  {
+                                                             "xml:lang":  "es",
+                                                             "type":  "literal",
+                                                             "value":  "Nasser Kamel"
+                                                         },
+                                         "genderLabel":  {
+                                                             "xml:lang":  "es",
+                                                             "type":  "literal",
+                                                             "value":  "masculino"
+                                                         }
+                                     },
+                                     {
+                                         "person":  {
+                                                        "type":  "uri",
+                                                        "value":  "http://www.wikidata.org/entity/Q112305980"
+                                                    },
+                                         "roleLabel":  {
+                                                           "type":  "literal",
+                                                           "value":  "Secretario General"
+                                                       },
+                                         "orgLabel":  {
+                                                          "type":  "literal",
+                                                          "value":  "Organización de Estados Iberoamericanos (OEI)"
+                                                      },
+                                         "orgUrl":  {
+                                                        "type":  "literal",
+                                                        "value":  "https://oei.int/"
+                                                    },
+                                         "startDate":  {
+                                                           "type":  "literal",
+                                                           "value":  "2018-07-01"
+                                                       },
+                                         "personLabel":  {
+                                                             "xml:lang":  "es",
+                                                             "type":  "literal",
+                                                             "value":  "Mariano Jabonero"
+                                                         },
+                                         "genderLabel":  {
+                                                             "xml:lang":  "es",
+                                                             "type":  "literal",
+                                                             "value":  "masculino"
+                                                         }
+                                     }
+                                 ]
+                }
+}

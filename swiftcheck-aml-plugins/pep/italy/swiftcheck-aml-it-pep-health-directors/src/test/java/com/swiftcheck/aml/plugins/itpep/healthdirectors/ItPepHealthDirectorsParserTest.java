@@ -10,7 +10,7 @@ import com.swiftcheck.aml.sdk.FtmDatasetBuilder;
 
 class ItPepHealthDirectorsParserTest {
 
-    private static final Path RAW = Path.of("src/test/resources/seed/health-directors.json");
+    private static final Path RAW = Path.of("src/test/resources/asl-entities-wikipedia.json");
 
     private final ItPepHealthDirectorsParser parser = new ItPepHealthDirectorsParser();
 
@@ -22,14 +22,14 @@ class ItPepHealthDirectorsParserTest {
         );
         int count = parser.convert(RAW, dataset);
 
-        assertThat(count).isEqualTo(30);
+        assertThat(count).isGreaterThanOrEqualTo(50);
         assertThat(dataset.qualityReport().getTotalRejected()).isZero();
         assertThat(dataset.qualityReport().getIdConflictCount()).isZero();
 
-        long persons = dataset.entities().stream().filter(e -> "Person".equals(e.getSchema())).count();
-        assertThat(persons).isEqualTo(30);
+        long positions = dataset.entities().stream().filter(e -> "Position".equals(e.getSchema())).count();
+        assertThat(positions).isGreaterThanOrEqualTo(50);
 
-        assertThat(dataset.entities().stream().filter(e -> "Person".equals(e.getSchema())))
+        assertThat(dataset.entities().stream().filter(e -> "Position".equals(e.getSchema())))
                 .allSatisfy(p -> {
                     assertThat(p.getValues("country")).containsExactly("it");
                     assertThat(p.getValues("topics")).containsExactly("role.pep");

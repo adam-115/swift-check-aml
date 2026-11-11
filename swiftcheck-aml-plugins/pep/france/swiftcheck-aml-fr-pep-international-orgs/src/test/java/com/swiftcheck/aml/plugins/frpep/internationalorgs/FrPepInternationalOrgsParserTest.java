@@ -29,8 +29,14 @@ class FrPepInternationalOrgsParserTest {
 
     private final FrPepInternationalOrgsParser parser = new FrPepInternationalOrgsParser();
 
+    private static final Path CONFIG = Path.of("src/test/resources/international-orgs.json");
+
+    private static Map<String, String> configParameters() throws Exception {
+        return Map.of("configJson", Files.readString(CONFIG, StandardCharsets.UTF_8));
+    }
+
     private static List<Organization> config() throws Exception {
-        return OrgConfig.load();
+        return OrgConfig.load(configParameters());
     }
 
     private FtmDatasetBuilder convert() throws Exception {
@@ -86,7 +92,7 @@ class FrPepInternationalOrgsParserTest {
         // 21 organisations de la liste française (JO C/2023/724), dont 3 sans fonction PEP
         assertThat(orgs).hasSize(21);
         assertThat(orgs.stream().filter(Organization::none)).hasSize(3);
-        assertThat(orgs.stream().filter(o -> !o.pages().isEmpty())).hasSize(13);
+        assertThat(orgs.stream().filter(o -> !o.pages().isEmpty())).hasSize(15);
     }
 
     @Test
@@ -95,10 +101,10 @@ class FrPepInternationalOrgsParserTest {
         FrPepInternationalOrgsParser.Report report = parser.convert(config(), PAGES,
                 new FtmDatasetBuilder(FrPepInternationalOrgsParser.ID_PREFIX));
 
-        assertThat(report.organizationsRead()).isEqualTo(9);
+        assertThat(report.organizationsRead()).isEqualTo(12);
         assertThat(report.functionsNotFound()).isEmpty();
-        // 28 lors de l'exécution réelle (8 organisations) + 12 de la page d'IPGRI (sa présidente est déjà au CGIAR)
-        assertThat(report.leaders()).isEqualTo(40);
+        // 40 (9 organisations) + BEAC (6 dirigeants), OIF (2) et OACI (1) depuis l'ajout de leurs pages
+        assertThat(report.leaders()).isEqualTo(49);
         // 9 organisations non lues et 6 lues en partie (adjoints, conseils) : citées dans le message
         assertThat(report.pending()).hasSize(15);
         assertThat(dataset.qualityReport().getTotalRejected()).as(dataset.qualityReport().toString()).isZero();
@@ -166,7 +172,7 @@ class FrPepInternationalOrgsParserTest {
     }
 
     @Test
-    void configFileCanReplaceBundledConfig(@TempDir Path tmp) throws Exception {
+    void configJsonParameterDrivesTheParser(@TempDir Path tmp) throws Exception {
         String json = "{\"organizations\":[{\"key\":\"x\",\"name\":\"Organisation X\",\"pages\":[{\"url\":"
                 + "\"https://x.int\",\"functions\":[{\"label\":\"Directeur\",\"pattern\":\"^Directeur : {NAME}$\"}]}]}]}";
         List<Organization> orgs = OrgConfig.parse(new ByteArrayInputStream(json.getBytes(StandardCharsets.UTF_8)));
@@ -177,6 +183,15 @@ class FrPepInternationalOrgsParserTest {
     }
 
     @Test
+    void missingOrInvalidConfigParameterIsAClearError() {
+        assertThatThrownBy(() -> OrgConfig.load(Map.of()))
+                .isInstanceOf(IllegalStateException.class).hasMessageContaining("configJson");
+        String badPattern = "{'organizations':[{'key':'x','pages':[{'url':'u','functions':[{'label':'D','pattern':'('}]}]}]}".replace((char) 39, (char) 34); // apostrophes -> guillemets  .replace('\u0027', '"');
+        assertThatThrownBy(() -> OrgConfig.load(Map.of("configJson", badPattern)))
+                .isInstanceOf(IllegalStateException.class).hasMessageContaining("invalide");
+    }
+
+    @Test
     void readSourceRecordsListsLeaders(@TempDir Path tmp) throws Exception {
         try (var files = Files.list(PAGES)) {
             for (Path f : files.toList()) {
@@ -184,7 +199,7 @@ class FrPepInternationalOrgsParserTest {
             }
         }
         List<SourceRecord> records = parser.readSourceRecords(new ParserContext("fr_pep_international_orgs", null,
-                tmp, null, Map.of()));
+                tmp, null, configParameters()));
         assertThat(records).extracting(SourceRecord::name).contains("Khaled El-Enany", "Tobias Bütow");
         assertThat(records).allSatisfy(r -> assertThat(r.sourceRef()).startsWith("https://"));
     }

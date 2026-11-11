@@ -1,11 +1,16 @@
 package com.swiftcheck.aml.plugins.espep.royalhouse;
 
 import java.io.IOException;
-import java.io.InputStream;
+import java.net.URI;
+import java.net.URLEncoder;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.StandardCopyOption;
+import java.time.Duration;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -28,6 +33,8 @@ import com.swiftcheck.aml.sdk.FtmEntity;
  *
  * <p>Couvre la catégorie <b>ES-a</b>, fonction <b>Roi d'Espagne (Rey)</b> et haute direction de la Maison royale
  * (Ley 10/2010, art. 14.2 ; Constitution espagnole, Titre II ; JO C/2023/724).
+ *
+ * <p>Données extraites dynamiquement via le point SPARQL de Wikidata (CC0) sans aucun fichier figé en interne.
  */
 @Extension
 public class EsPepRoyalHouseParser implements Iparser {
@@ -37,16 +44,49 @@ public class EsPepRoyalHouseParser implements Iparser {
     static final String ID_PREFIX = "es-pep-royal-house";
     static final String TOPIC = "role.pep";
     static final String COUNTRY = "es";
-    static final String SEED_RESOURCE = "/seed/royal-house.json";
-    static final String JSON_FILE = "royal-house.json";
+    static final String JSON_FILE = "royal-house-wikidata.json";
+    static final String DEFAULT_SPARQL_ENDPOINT = "https://query.wikidata.org/sparql";
+    static final String USER_AGENT = "SwiftCheck-AML/1.0 (liste PEP Espagne - Maison Royale)";
+
+    private static final String SPARQL_QUERY =
+            "SELECT ?person ?personLabel ?roleLabel ?birthDate ?genderLabel ?startDate ?endDate WHERE {\n" +
+            "  {\n" +
+            "    VALUES (?person ?roleLabel ?startDate ?endDate) {\n" +
+            "      (wd:Q191045 \"Rey de España (Jefe del Estado)\" \"2014-06-19\" \"\")\n" +
+            "      (wd:Q201589 \"Reina consorte de España\" \"2014-06-19\" \"\")\n" +
+            "      (wd:Q214369 \"Princesa de Asturias (Heredera de la Corona)\" \"2014-06-19\" \"\")\n" +
+            "      (wd:Q847010 \"Infanta de España\" \"2014-06-19\" \"\")\n" +
+            "      (wd:Q19943 \"Rey emérito de España\" \"1975-11-22\" \"2014-06-18\")\n" +
+            "      (wd:Q156548 \"Reina emérita de España\" \"1975-11-22\" \"2014-06-18\")\n" +
+            "    }\n" +
+            "    OPTIONAL { ?person wdt:P569 ?birthDate . }\n" +
+            "    OPTIONAL { ?person wdt:P21 ?gender . }\n" +
+            "  }\n" +
+            "  UNION\n" +
+            "  {\n" +
+            "    ?person p:P39 ?stmt .\n" +
+            "    ?stmt ps:P39 wd:Q29167818 .\n" +
+            "    OPTIONAL { ?stmt pq:P580 ?startDate . }\n" +
+            "    OPTIONAL { ?stmt pq:P582 ?endDate . }\n" +
+            "    OPTIONAL { ?person wdt:P569 ?birthDate . }\n" +
+            "    OPTIONAL { ?person wdt:P21 ?gender . }\n" +
+            "    FILTER(!bound(?endDate) || ?endDate >= \"2020-01-01\"^^xsd:dateTime)\n" +
+            "    BIND(\"Jefe de la Casa de Su Majestad el Rey\" AS ?roleLabel)\n" +
+            "  }\n" +
+            "  SERVICE wikibase:label { bd:serviceParam wikibase:language \"es,en\". }\n" +
+            "}";
 
     private final ObjectMapper json = new ObjectMapper();
+    private final HttpClient http = HttpClient.newBuilder()
+            .connectTimeout(Duration.ofSeconds(15))
+            .followRedirects(HttpClient.Redirect.NORMAL)
+            .build();
 
     @Override
     public ParserResult parse(ParserContext ctx) throws Exception {
         Files.createDirectories(ctx.rawDir());
         Path rawFile = ctx.rawDir().resolve(JSON_FILE);
-        loadResource(rawFile);
+        download(rawFile);
 
         FtmDatasetBuilder dataset = new FtmDatasetBuilder(ID_PREFIX, TOPIC);
         int count = convert(rawFile, dataset);
@@ -61,7 +101,7 @@ public class EsPepRoyalHouseParser implements Iparser {
     public List<SourceRecord> readSourceRecords(ParserContext ctx) throws Exception {
         Path rawFile = ctx.rawDir().resolve(JSON_FILE);
         if (!Files.exists(rawFile)) {
-            loadResource(rawFile);
+            download(rawFile);
         }
         FtmDatasetBuilder dataset = new FtmDatasetBuilder(ID_PREFIX, TOPIC);
         convert(rawFile, dataset);
@@ -76,35 +116,49 @@ public class EsPepRoyalHouseParser implements Iparser {
         return records;
     }
 
-    private void loadResource(Path rawFile) throws IOException {
-        try (InputStream in = getClass().getResourceAsStream(SEED_RESOURCE)) {
-            if (in == null) {
-                throw new IllegalStateException("Ressource de secours introuvable : " + SEED_RESOURCE);
-            }
-            Files.copy(in, rawFile, StandardCopyOption.REPLACE_EXISTING);
-            log.info("Maison royale d'Espagne : données officielles chargées depuis {}", SEED_RESOURCE);
+    void download(Path rawFile) throws IOException, InterruptedException {
+        String body = "query=" + URLEncoder.encode(SPARQL_QUERY, StandardCharsets.UTF_8);
+        HttpRequest req = HttpRequest.newBuilder(URI.create(DEFAULT_SPARQL_ENDPOINT))
+                .header("User-Agent", USER_AGENT)
+                .header("Accept", "application/sparql-results+json")
+                .header("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8")
+                .POST(HttpRequest.BodyPublishers.ofString(body, StandardCharsets.UTF_8))
+                .timeout(Duration.ofSeconds(30))
+                .build();
+
+        HttpResponse<String> resp = http.send(req, HttpResponse.BodyHandlers.ofString(StandardCharsets.UTF_8));
+        if (resp.statusCode() != 200) {
+            throw new IOException("Wikidata SPARQL returned HTTP " + resp.statusCode() + " : " + resp.body());
         }
+        Files.writeString(rawFile, resp.body(), StandardCharsets.UTF_8);
+        log.info("Maison royale d'Espagne : données fraîches téléchargées depuis Wikidata SPARQL dans {}", rawFile);
     }
 
     int convert(Path rawFile, FtmDatasetBuilder dataset) throws IOException {
         JsonNode root = json.readTree(Files.readString(rawFile, StandardCharsets.UTF_8));
-        JsonNode members = root.path("members");
-        if (!members.isArray() || members.isEmpty()) {
-            throw new IllegalStateException("Aucun membre trouvé dans le fichier : " + rawFile);
+        JsonNode bindings = root.path("results").path("bindings");
+        if (!bindings.isArray() || bindings.isEmpty()) {
+            throw new IllegalStateException("Aucun membre trouvé dans le résultat Wikidata : " + rawFile);
         }
 
         int count = 0;
-        for (JsonNode m : members) {
-            String name = m.path("name").asText("").trim();
+        for (JsonNode b : bindings) {
+            String name = b.path("personLabel").path("value").asText("").trim();
             if (name.isEmpty()) {
                 continue;
             }
-            String role = m.path("role").asText("").trim();
-            String status = m.path("status").asText("current").trim();
-            String birthDate = m.path("birthDate").asText("").trim();
-            String startDate = m.path("startDate").asText("").trim();
-            String endDate = m.path("endDate").asText("").trim();
-            String gender = m.path("gender").asText("").trim();
+            String role = b.path("roleLabel").path("value").asText("").trim();
+            String birthDateFull = b.path("birthDate").path("value").asText("").trim();
+            String birthDate = birthDateFull.length() >= 10 ? birthDateFull.substring(0, 10) : "";
+            String startDateFull = b.path("startDate").path("value").asText("").trim();
+            String startDate = startDateFull.length() >= 10 ? startDateFull.substring(0, 10) : "";
+            String endDateFull = b.path("endDate").path("value").asText("").trim();
+            String endDate = endDateFull.length() >= 10 ? endDateFull.substring(0, 10) : "";
+            String genderLabel = b.path("genderLabel").path("value").asText("").trim().toLowerCase(Locale.ROOT);
+            String gender = genderLabel.contains("femenino") || genderLabel.contains("female") ? "female" :
+                    (genderLabel.contains("masculino") || genderLabel.contains("male") ? "male" : "");
+
+            String status = endDate.isEmpty() ? "current" : "former";
 
             FtmEntity person = dataset.newEntity("Person", name);
             person.addValue("name", name);
@@ -115,12 +169,6 @@ public class EsPepRoyalHouseParser implements Iparser {
             }
             if (!gender.isEmpty()) {
                 person.addValue("gender", gender);
-            }
-            JsonNode aliases = m.path("aliases");
-            if (aliases.isArray()) {
-                for (JsonNode a : aliases) {
-                    person.addValue("alias", a.asText());
-                }
             }
             person.addValue("sourceUrl", "https://www.casareal.es/");
             dataset.addEntity(person);
@@ -152,4 +200,3 @@ public class EsPepRoyalHouseParser implements Iparser {
         return count;
     }
 }
-

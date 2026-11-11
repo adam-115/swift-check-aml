@@ -1,0 +1,415 @@
+{
+    "head":  {
+                 "vars":  [
+                              "person",
+                              "personLabel",
+                              "roleLabel",
+                              "birthDate",
+                              "genderLabel"
+                          ]
+             },
+    "results":  {
+                    "bindings":  [
+                                     {
+                                         "person":  {
+                                                        "type":  "uri",
+                                                        "value":  "http://www.wikidata.org/entity/Q583533"
+                                                    },
+                                         "roleLabel":  {
+                                                           "type":  "literal",
+                                                           "value":  "Giudice costituzionale"
+                                                       },
+                                         "birthDate":  {
+                                                           "datatype":  "http://www.w3.org/2001/XMLSchema#dateTime",
+                                                           "type":  "literal",
+                                                           "value":  "1956-12-10T00:00:00Z"
+                                                       },
+                                         "personLabel":  {
+                                                             "xml:lang":  "it",
+                                                             "type":  "literal",
+                                                             "value":  "Roberto Cassinelli"
+                                                         },
+                                         "genderLabel":  {
+                                                             "xml:lang":  "it",
+                                                             "type":  "literal",
+                                                             "value":  "maschio"
+                                                         }
+                                     },
+                                     {
+                                         "person":  {
+                                                        "type":  "uri",
+                                                        "value":  "http://www.wikidata.org/entity/Q3071910"
+                                                    },
+                                         "roleLabel":  {
+                                                           "type":  "literal",
+                                                           "value":  "Giudice costituzionale"
+                                                       },
+                                         "birthDate":  {
+                                                           "datatype":  "http://www.w3.org/2001/XMLSchema#dateTime",
+                                                           "type":  "literal",
+                                                           "value":  "1955-08-27T00:00:00Z"
+                                                       },
+                                         "personLabel":  {
+                                                             "xml:lang":  "it",
+                                                             "type":  "literal",
+                                                             "value":  "Filippo Patroni Griffi"
+                                                         },
+                                         "genderLabel":  {
+                                                             "xml:lang":  "it",
+                                                             "type":  "literal",
+                                                             "value":  "maschio"
+                                                         }
+                                     },
+                                     {
+                                         "person":  {
+                                                        "type":  "uri",
+                                                        "value":  "http://www.wikidata.org/entity/Q3767954"
+                                                    },
+                                         "roleLabel":  {
+                                                           "type":  "literal",
+                                                           "value":  "Giudice costituzionale"
+                                                       },
+                                         "birthDate":  {
+                                                           "datatype":  "http://www.w3.org/2001/XMLSchema#dateTime",
+                                                           "type":  "literal",
+                                                           "value":  "1959-07-15T00:00:00Z"
+                                                       },
+                                         "personLabel":  {
+                                                             "xml:lang":  "it",
+                                                             "type":  "literal",
+                                                             "value":  "Giovanni Pitruzzella"
+                                                         },
+                                         "genderLabel":  {
+                                                             "xml:lang":  "it",
+                                                             "type":  "literal",
+                                                             "value":  "maschio"
+                                                         }
+                                     },
+                                     {
+                                         "person":  {
+                                                        "type":  "uri",
+                                                        "value":  "http://www.wikidata.org/entity/Q3847090"
+                                                    },
+                                         "roleLabel":  {
+                                                           "type":  "literal",
+                                                           "value":  "Giudice costituzionale"
+                                                       },
+                                         "birthDate":  {
+                                                           "datatype":  "http://www.w3.org/2001/XMLSchema#dateTime",
+                                                           "type":  "literal",
+                                                           "value":  "1956-10-27T00:00:00Z"
+                                                       },
+                                         "personLabel":  {
+                                                             "xml:lang":  "it",
+                                                             "type":  "literal",
+                                                             "value":  "Maria Alessandra Sandulli"
+                                                         },
+                                         "genderLabel":  {
+                                                             "xml:lang":  "it",
+                                                             "type":  "literal",
+                                                             "value":  "femmina"
+                                                         }
+                                     },
+                                     {
+                                         "person":  {
+                                                        "type":  "uri",
+                                                        "value":  "http://www.wikidata.org/entity/Q7002449"
+                                                    },
+                                         "roleLabel":  {
+                                                           "type":  "literal",
+                                                           "value":  "Giudice costituzionale"
+                                                       },
+                                         "birthDate":  {
+                                                           "datatype":  "http://www.w3.org/2001/XMLSchema#dateTime",
+                                                           "type":  "literal",
+                                                           "value":  "1963-05-27T00:00:00Z"
+                                                       },
+                                         "personLabel":  {
+                                                             "xml:lang":  "it",
+                                                             "type":  "literal",
+                                                             "value":  "Luca Antonini"
+                                                         },
+                                         "genderLabel":  {
+                                                             "xml:lang":  "it",
+                                                             "type":  "literal",
+                                                             "value":  "maschio"
+                                                         }
+                                     },
+                                     {
+                                         "person":  {
+                                                        "type":  "uri",
+                                                        "value":  "http://www.wikidata.org/entity/Q7002773"
+                                                    },
+                                         "roleLabel":  {
+                                                           "type":  "literal",
+                                                           "value":  "Giudice costituzionale"
+                                                       },
+                                         "birthDate":  {
+                                                           "datatype":  "http://www.w3.org/2001/XMLSchema#dateTime",
+                                                           "type":  "literal",
+                                                           "value":  "1973-04-28T00:00:00Z"
+                                                       },
+                                         "personLabel":  {
+                                                             "xml:lang":  "it",
+                                                             "type":  "literal",
+                                                             "value":  "Francesco Saverio Marini"
+                                                         },
+                                         "genderLabel":  {
+                                                             "xml:lang":  "it",
+                                                             "type":  "literal",
+                                                             "value":  "maschio"
+                                                         }
+                                     },
+                                     {
+                                         "person":  {
+                                                        "type":  "uri",
+                                                        "value":  "http://www.wikidata.org/entity/Q43043781"
+                                                    },
+                                         "roleLabel":  {
+                                                           "type":  "literal",
+                                                           "value":  "Presidente della Corte costituzionale"
+                                                       },
+                                         "birthDate":  {
+                                                           "datatype":  "http://www.w3.org/2001/XMLSchema#dateTime",
+                                                           "type":  "literal",
+                                                           "value":  "1949-01-01T00:00:00Z"
+                                                       },
+                                         "personLabel":  {
+                                                             "xml:lang":  "it",
+                                                             "type":  "literal",
+                                                             "value":  "Giovanni Amoroso"
+                                                         },
+                                         "genderLabel":  {
+                                                             "xml:lang":  "it",
+                                                             "type":  "literal",
+                                                             "value":  "maschio"
+                                                         }
+                                     },
+                                     {
+                                         "person":  {
+                                                        "type":  "uri",
+                                                        "value":  "http://www.wikidata.org/entity/Q43043781"
+                                                    },
+                                         "roleLabel":  {
+                                                           "type":  "literal",
+                                                           "value":  "Presidente della Corte costituzionale"
+                                                       },
+                                         "birthDate":  {
+                                                           "datatype":  "http://www.w3.org/2001/XMLSchema#dateTime",
+                                                           "type":  "literal",
+                                                           "value":  "1949-03-30T00:00:00Z"
+                                                       },
+                                         "personLabel":  {
+                                                             "xml:lang":  "it",
+                                                             "type":  "literal",
+                                                             "value":  "Giovanni Amoroso"
+                                                         },
+                                         "genderLabel":  {
+                                                             "xml:lang":  "it",
+                                                             "type":  "literal",
+                                                             "value":  "maschio"
+                                                         }
+                                     },
+                                     {
+                                         "person":  {
+                                                        "type":  "uri",
+                                                        "value":  "http://www.wikidata.org/entity/Q50096130"
+                                                    },
+                                         "roleLabel":  {
+                                                           "type":  "literal",
+                                                           "value":  "Giudice costituzionale"
+                                                       },
+                                         "birthDate":  {
+                                                           "datatype":  "http://www.w3.org/2001/XMLSchema#dateTime",
+                                                           "type":  "literal",
+                                                           "value":  "1966-03-01T00:00:00Z"
+                                                       },
+                                         "personLabel":  {
+                                                             "xml:lang":  "it",
+                                                             "type":  "literal",
+                                                             "value":  "Francesco Viganò"
+                                                         },
+                                         "genderLabel":  {
+                                                             "xml:lang":  "it",
+                                                             "type":  "literal",
+                                                             "value":  "maschio"
+                                                         }
+                                     },
+                                     {
+                                         "person":  {
+                                                        "type":  "uri",
+                                                        "value":  "http://www.wikidata.org/entity/Q76743515"
+                                                    },
+                                         "roleLabel":  {
+                                                           "type":  "literal",
+                                                           "value":  "Giudice costituzionale"
+                                                       },
+                                         "birthDate":  {
+                                                           "datatype":  "http://www.w3.org/2001/XMLSchema#dateTime",
+                                                           "type":  "literal",
+                                                           "value":  "1953-09-02T00:00:00Z"
+                                                       },
+                                         "personLabel":  {
+                                                             "xml:lang":  "it",
+                                                             "type":  "literal",
+                                                             "value":  "Stefano Petitti"
+                                                         },
+                                         "genderLabel":  {
+                                                             "xml:lang":  "it",
+                                                             "type":  "literal",
+                                                             "value":  "maschio"
+                                                         }
+                                     },
+                                     {
+                                         "person":  {
+                                                        "type":  "uri",
+                                                        "value":  "http://www.wikidata.org/entity/Q84603168"
+                                                    },
+                                         "roleLabel":  {
+                                                           "type":  "literal",
+                                                           "value":  "Giudice costituzionale"
+                                                       },
+                                         "birthDate":  {
+                                                           "datatype":  "http://www.w3.org/2001/XMLSchema#dateTime",
+                                                           "type":  "literal",
+                                                           "value":  "1952-02-09T00:00:00Z"
+                                                       },
+                                         "personLabel":  {
+                                                             "xml:lang":  "it",
+                                                             "type":  "literal",
+                                                             "value":  "Angelo Buscema"
+                                                         },
+                                         "genderLabel":  {
+                                                             "xml:lang":  "it",
+                                                             "type":  "literal",
+                                                             "value":  "maschio"
+                                                         }
+                                     },
+                                     {
+                                         "person":  {
+                                                        "type":  "uri",
+                                                        "value":  "http://www.wikidata.org/entity/Q86353014"
+                                                    },
+                                         "roleLabel":  {
+                                                           "type":  "literal",
+                                                           "value":  "Giudice costituzionale"
+                                                       },
+                                         "birthDate":  {
+                                                           "datatype":  "http://www.w3.org/2001/XMLSchema#dateTime",
+                                                           "type":  "literal",
+                                                           "value":  "1948-08-10T00:00:00Z"
+                                                       },
+                                         "personLabel":  {
+                                                             "xml:lang":  "it",
+                                                             "type":  "literal",
+                                                             "value":  "Marco D\u0027Alberti"
+                                                         },
+                                         "genderLabel":  {
+                                                             "xml:lang":  "it",
+                                                             "type":  "literal",
+                                                             "value":  "maschio"
+                                                         }
+                                     },
+                                     {
+                                         "person":  {
+                                                        "type":  "uri",
+                                                        "value":  "http://www.wikidata.org/entity/Q99014823"
+                                                    },
+                                         "roleLabel":  {
+                                                           "type":  "literal",
+                                                           "value":  "Giudice costituzionale"
+                                                       },
+                                         "birthDate":  {
+                                                           "datatype":  "http://www.w3.org/2001/XMLSchema#dateTime",
+                                                           "type":  "literal",
+                                                           "value":  "1966-01-03T00:00:00Z"
+                                                       },
+                                         "personLabel":  {
+                                                             "xml:lang":  "it",
+                                                             "type":  "literal",
+                                                             "value":  "Emanuela Navarretta"
+                                                         },
+                                         "genderLabel":  {
+                                                             "xml:lang":  "it",
+                                                             "type":  "literal",
+                                                             "value":  "femmina"
+                                                         }
+                                     },
+                                     {
+                                         "person":  {
+                                                        "type":  "uri",
+                                                        "value":  "http://www.wikidata.org/entity/Q104245368"
+                                                    },
+                                         "roleLabel":  {
+                                                           "type":  "literal",
+                                                           "value":  "Giudice costituzionale"
+                                                       },
+                                         "birthDate":  {
+                                                           "datatype":  "http://www.w3.org/2001/XMLSchema#dateTime",
+                                                           "type":  "literal",
+                                                           "value":  "1952-07-16T00:00:00Z"
+                                                       },
+                                         "personLabel":  {
+                                                             "xml:lang":  "it",
+                                                             "type":  "literal",
+                                                             "value":  "Maria Rosaria San Giorgio"
+                                                         },
+                                         "genderLabel":  {
+                                                             "xml:lang":  "it",
+                                                             "type":  "literal",
+                                                             "value":  "femmina"
+                                                         }
+                                     },
+                                     {
+                                         "person":  {
+                                                        "type":  "uri",
+                                                        "value":  "http://www.wikidata.org/entity/Q123397518"
+                                                    },
+                                         "roleLabel":  {
+                                                           "type":  "literal",
+                                                           "value":  "Giudice costituzionale"
+                                                       },
+                                         "birthDate":  {
+                                                           "datatype":  "http://www.w3.org/2001/XMLSchema#dateTime",
+                                                           "type":  "literal",
+                                                           "value":  "1965-05-02T00:00:00Z"
+                                                       },
+                                         "personLabel":  {
+                                                             "xml:lang":  "it",
+                                                             "type":  "literal",
+                                                             "value":  "Antonella Sciarrone Alibrandi"
+                                                         },
+                                         "genderLabel":  {
+                                                             "xml:lang":  "it",
+                                                             "type":  "literal",
+                                                             "value":  "femmina"
+                                                         }
+                                     },
+                                     {
+                                         "person":  {
+                                                        "type":  "uri",
+                                                        "value":  "http://www.wikidata.org/entity/Q131748150"
+                                                    },
+                                         "roleLabel":  {
+                                                           "type":  "literal",
+                                                           "value":  "Giudice costituzionale"
+                                                       },
+                                         "birthDate":  {
+                                                           "datatype":  "http://www.w3.org/2001/XMLSchema#dateTime",
+                                                           "type":  "literal",
+                                                           "value":  "1952-07-23T00:00:00Z"
+                                                       },
+                                         "personLabel":  {
+                                                             "xml:lang":  "it",
+                                                             "type":  "literal",
+                                                             "value":  "Massimo Luciani"
+                                                         },
+                                         "genderLabel":  {
+                                                             "xml:lang":  "it",
+                                                             "type":  "literal",
+                                                             "value":  "maschio"
+                                                         }
+                                     }
+                                 ]
+                }
+}

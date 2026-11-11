@@ -1,0 +1,578 @@
+{
+    "head":  {
+                 "vars":  [
+                              "office",
+                              "officeLabel",
+                              "person",
+                              "personLabel",
+                              "startDate",
+                              "endDate",
+                              "birthDate",
+                              "genderLabel"
+                          ]
+             },
+    "results":  {
+                    "bindings":  [
+                                     {
+                                         "office":  {
+                                                        "type":  "uri",
+                                                        "value":  "http://www.wikidata.org/entity/Q36378291"
+                                                    },
+                                         "person":  {
+                                                        "type":  "uri",
+                                                        "value":  "http://www.wikidata.org/entity/Q5872461"
+                                                    },
+                                         "startDate":  {
+                                                           "datatype":  "http://www.w3.org/2001/XMLSchema#dateTime",
+                                                           "type":  "literal",
+                                                           "value":  "2018-06-29T00:00:00Z"
+                                                       },
+                                         "endDate":  {
+                                                         "datatype":  "http://www.w3.org/2001/XMLSchema#dateTime",
+                                                         "type":  "literal",
+                                                         "value":  "2020-01-18T00:00:00Z"
+                                                     },
+                                         "birthDate":  {
+                                                           "datatype":  "http://www.w3.org/2001/XMLSchema#dateTime",
+                                                           "type":  "literal",
+                                                           "value":  "1955-01-22T00:00:00Z"
+                                                       },
+                                         "officeLabel":  {
+                                                             "xml:lang":  "es",
+                                                             "type":  "literal",
+                                                             "value":  "director general de la Guardia Civil"
+                                                         },
+                                         "personLabel":  {
+                                                             "xml:lang":  "es",
+                                                             "type":  "literal",
+                                                             "value":  "Félix Vicente Azón Vilas"
+                                                         },
+                                         "genderLabel":  {
+                                                             "xml:lang":  "es",
+                                                             "type":  "literal",
+                                                             "value":  "masculino"
+                                                         }
+                                     },
+                                     {
+                                         "office":  {
+                                                        "type":  "uri",
+                                                        "value":  "http://www.wikidata.org/entity/Q36378291"
+                                                    },
+                                         "person":  {
+                                                        "type":  "uri",
+                                                        "value":  "http://www.wikidata.org/entity/Q59401104"
+                                                    },
+                                         "startDate":  {
+                                                           "datatype":  "http://www.w3.org/2001/XMLSchema#dateTime",
+                                                           "type":  "literal",
+                                                           "value":  "2023-03-28T00:00:00Z"
+                                                       },
+                                         "endDate":  {
+                                                         "datatype":  "http://www.w3.org/2001/XMLSchema#dateTime",
+                                                         "type":  "literal",
+                                                         "value":  "2023-06-08T00:00:00Z"
+                                                     },
+                                         "birthDate":  {
+                                                           "datatype":  "http://www.w3.org/2001/XMLSchema#dateTime",
+                                                           "type":  "literal",
+                                                           "value":  "1975-06-02T00:00:00Z"
+                                                       },
+                                         "officeLabel":  {
+                                                             "xml:lang":  "es",
+                                                             "type":  "literal",
+                                                             "value":  "director general de la Guardia Civil"
+                                                         },
+                                         "personLabel":  {
+                                                             "xml:lang":  "es",
+                                                             "type":  "literal",
+                                                             "value":  "Mercedes González"
+                                                         },
+                                         "genderLabel":  {
+                                                             "xml:lang":  "es",
+                                                             "type":  "literal",
+                                                             "value":  "femenino"
+                                                         }
+                                     },
+                                     {
+                                         "office":  {
+                                                        "type":  "uri",
+                                                        "value":  "http://www.wikidata.org/entity/Q36378291"
+                                                    },
+                                         "person":  {
+                                                        "type":  "uri",
+                                                        "value":  "http://www.wikidata.org/entity/Q59401104"
+                                                    },
+                                         "startDate":  {
+                                                           "datatype":  "http://www.w3.org/2001/XMLSchema#dateTime",
+                                                           "type":  "literal",
+                                                           "value":  "2024-09-17T00:00:00Z"
+                                                       },
+                                         "birthDate":  {
+                                                           "datatype":  "http://www.w3.org/2001/XMLSchema#dateTime",
+                                                           "type":  "literal",
+                                                           "value":  "1975-06-02T00:00:00Z"
+                                                       },
+                                         "officeLabel":  {
+                                                             "xml:lang":  "es",
+                                                             "type":  "literal",
+                                                             "value":  "director general de la Guardia Civil"
+                                                         },
+                                         "personLabel":  {
+                                                             "xml:lang":  "es",
+                                                             "type":  "literal",
+                                                             "value":  "Mercedes González"
+                                                         },
+                                         "genderLabel":  {
+                                                             "xml:lang":  "es",
+                                                             "type":  "literal",
+                                                             "value":  "femenino"
+                                                         }
+                                     },
+                                     {
+                                         "office":  {
+                                                        "type":  "uri",
+                                                        "value":  "http://www.wikidata.org/entity/Q36378291"
+                                                    },
+                                         "person":  {
+                                                        "type":  "uri",
+                                                        "value":  "http://www.wikidata.org/entity/Q82555741"
+                                                    },
+                                         "startDate":  {
+                                                           "datatype":  "http://www.w3.org/2001/XMLSchema#dateTime",
+                                                           "type":  "literal",
+                                                           "value":  "2020-01-17T00:00:00Z"
+                                                       },
+                                         "endDate":  {
+                                                         "datatype":  "http://www.w3.org/2001/XMLSchema#dateTime",
+                                                         "type":  "literal",
+                                                         "value":  "2023-03-28T00:00:00Z"
+                                                     },
+                                         "birthDate":  {
+                                                           "datatype":  "http://www.w3.org/2001/XMLSchema#dateTime",
+                                                           "type":  "literal",
+                                                           "value":  "1969-01-29T00:00:00Z"
+                                                       },
+                                         "officeLabel":  {
+                                                             "xml:lang":  "es",
+                                                             "type":  "literal",
+                                                             "value":  "director general de la Guardia Civil"
+                                                         },
+                                         "personLabel":  {
+                                                             "xml:lang":  "es",
+                                                             "type":  "literal",
+                                                             "value":  "María Gámez"
+                                                         },
+                                         "genderLabel":  {
+                                                             "xml:lang":  "es",
+                                                             "type":  "literal",
+                                                             "value":  "femenino"
+                                                         }
+                                     },
+                                     {
+                                         "office":  {
+                                                        "type":  "uri",
+                                                        "value":  "http://www.wikidata.org/entity/Q30612648"
+                                                    },
+                                         "person":  {
+                                                        "type":  "uri",
+                                                        "value":  "http://www.wikidata.org/entity/Q5984053"
+                                                    },
+                                         "startDate":  {
+                                                           "datatype":  "http://www.w3.org/2001/XMLSchema#dateTime",
+                                                           "type":  "literal",
+                                                           "value":  "1965-05-31T00:00:00Z"
+                                                       },
+                                         "birthDate":  {
+                                                           "datatype":  "http://www.w3.org/2001/XMLSchema#dateTime",
+                                                           "type":  "literal",
+                                                           "value":  "1904-03-25T00:00:00Z"
+                                                       },
+                                         "officeLabel":  {
+                                                             "xml:lang":  "es",
+                                                             "type":  "literal",
+                                                             "value":  "jefe de Estado Mayor del Ejército de Aire y del Espacio de España"
+                                                         },
+                                         "personLabel":  {
+                                                             "xml:lang":  "es",
+                                                             "type":  "literal",
+                                                             "value":  "Luis Navarro Garnica"
+                                                         },
+                                         "genderLabel":  {
+                                                             "xml:lang":  "es",
+                                                             "type":  "literal",
+                                                             "value":  "masculino"
+                                                         }
+                                     },
+                                     {
+                                         "office":  {
+                                                        "type":  "uri",
+                                                        "value":  "http://www.wikidata.org/entity/Q5928975"
+                                                    },
+                                         "person":  {
+                                                        "type":  "uri",
+                                                        "value":  "http://www.wikidata.org/entity/Q29018615"
+                                                    },
+                                         "startDate":  {
+                                                           "datatype":  "http://www.w3.org/2001/XMLSchema#dateTime",
+                                                           "type":  "literal",
+                                                           "value":  "2017-03-28T00:00:00Z"
+                                                       },
+                                         "endDate":  {
+                                                         "datatype":  "http://www.w3.org/2001/XMLSchema#dateTime",
+                                                         "type":  "literal",
+                                                         "value":  "2020-01-15T00:00:00Z"
+                                                     },
+                                         "birthDate":  {
+                                                           "datatype":  "http://www.w3.org/2001/XMLSchema#dateTime",
+                                                           "type":  "literal",
+                                                           "value":  "1956-05-31T00:00:00Z"
+                                                       },
+                                         "officeLabel":  {
+                                                             "xml:lang":  "es",
+                                                             "type":  "literal",
+                                                             "value":  "jefe de Estado Mayor de la Defensa"
+                                                         },
+                                         "personLabel":  {
+                                                             "xml:lang":  "es",
+                                                             "type":  "literal",
+                                                             "value":  "Fernando Alejandre"
+                                                         },
+                                         "genderLabel":  {
+                                                             "xml:lang":  "es",
+                                                             "type":  "literal",
+                                                             "value":  "masculino"
+                                                         }
+                                     },
+                                     {
+                                         "office":  {
+                                                        "type":  "uri",
+                                                        "value":  "http://www.wikidata.org/entity/Q30612644"
+                                                    },
+                                         "person":  {
+                                                        "type":  "uri",
+                                                        "value":  "http://www.wikidata.org/entity/Q29056808"
+                                                    },
+                                         "startDate":  {
+                                                           "datatype":  "http://www.w3.org/2001/XMLSchema#dateTime",
+                                                           "type":  "literal",
+                                                           "value":  "2017-04-01T00:00:00Z"
+                                                       },
+                                         "endDate":  {
+                                                         "datatype":  "http://www.w3.org/2001/XMLSchema#dateTime",
+                                                         "type":  "literal",
+                                                         "value":  "2021-10-06T00:00:00Z"
+                                                     },
+                                         "birthDate":  {
+                                                           "datatype":  "http://www.w3.org/2001/XMLSchema#dateTime",
+                                                           "type":  "literal",
+                                                           "value":  "1952-08-15T00:00:00Z"
+                                                       },
+                                         "officeLabel":  {
+                                                             "xml:lang":  "es",
+                                                             "type":  "literal",
+                                                             "value":  "jefe del Estado Mayor del Ejército de Tierra"
+                                                         },
+                                         "personLabel":  {
+                                                             "xml:lang":  "es",
+                                                             "type":  "literal",
+                                                             "value":  "Francisco Javier Varela Salas"
+                                                         },
+                                         "genderLabel":  {
+                                                             "xml:lang":  "es",
+                                                             "type":  "literal",
+                                                             "value":  "masculino"
+                                                         }
+                                     },
+                                     {
+                                         "office":  {
+                                                        "type":  "uri",
+                                                        "value":  "http://www.wikidata.org/entity/Q30612645"
+                                                    },
+                                         "person":  {
+                                                        "type":  "uri",
+                                                        "value":  "http://www.wikidata.org/entity/Q29063103"
+                                                    },
+                                         "startDate":  {
+                                                           "datatype":  "http://www.w3.org/2001/XMLSchema#dateTime",
+                                                           "type":  "literal",
+                                                           "value":  "2017-03-31T00:00:00Z"
+                                                       },
+                                         "endDate":  {
+                                                         "datatype":  "http://www.w3.org/2001/XMLSchema#dateTime",
+                                                         "type":  "literal",
+                                                         "value":  "2021-01-27T00:00:00Z"
+                                                     },
+                                         "birthDate":  {
+                                                           "datatype":  "http://www.w3.org/2001/XMLSchema#dateTime",
+                                                           "type":  "literal",
+                                                           "value":  "1954-05-03T00:00:00Z"
+                                                       },
+                                         "officeLabel":  {
+                                                             "xml:lang":  "es",
+                                                             "type":  "literal",
+                                                             "value":  "jefe de Estado Mayor de la Armada Española"
+                                                         },
+                                         "personLabel":  {
+                                                             "xml:lang":  "es",
+                                                             "type":  "literal",
+                                                             "value":  "Teodoro Esteban López Calderón"
+                                                         },
+                                         "genderLabel":  {
+                                                             "xml:lang":  "es",
+                                                             "type":  "literal",
+                                                             "value":  "masculino"
+                                                         }
+                                     },
+                                     {
+                                         "office":  {
+                                                        "type":  "uri",
+                                                        "value":  "http://www.wikidata.org/entity/Q5928975"
+                                                    },
+                                         "person":  {
+                                                        "type":  "uri",
+                                                        "value":  "http://www.wikidata.org/entity/Q29063103"
+                                                    },
+                                         "startDate":  {
+                                                           "datatype":  "http://www.w3.org/2001/XMLSchema#dateTime",
+                                                           "type":  "literal",
+                                                           "value":  "2021-01-27T00:00:00Z"
+                                                       },
+                                         "birthDate":  {
+                                                           "datatype":  "http://www.w3.org/2001/XMLSchema#dateTime",
+                                                           "type":  "literal",
+                                                           "value":  "1954-05-03T00:00:00Z"
+                                                       },
+                                         "officeLabel":  {
+                                                             "xml:lang":  "es",
+                                                             "type":  "literal",
+                                                             "value":  "jefe de Estado Mayor de la Defensa"
+                                                         },
+                                         "personLabel":  {
+                                                             "xml:lang":  "es",
+                                                             "type":  "literal",
+                                                             "value":  "Teodoro Esteban López Calderón"
+                                                         },
+                                         "genderLabel":  {
+                                                             "xml:lang":  "es",
+                                                             "type":  "literal",
+                                                             "value":  "masculino"
+                                                         }
+                                     },
+                                     {
+                                         "office":  {
+                                                        "type":  "uri",
+                                                        "value":  "http://www.wikidata.org/entity/Q30612648"
+                                                    },
+                                         "person":  {
+                                                        "type":  "uri",
+                                                        "value":  "http://www.wikidata.org/entity/Q29073206"
+                                                    },
+                                         "startDate":  {
+                                                           "datatype":  "http://www.w3.org/2001/XMLSchema#dateTime",
+                                                           "type":  "literal",
+                                                           "value":  "2017-03-31T00:00:00Z"
+                                                       },
+                                         "birthDate":  {
+                                                           "datatype":  "http://www.w3.org/2001/XMLSchema#dateTime",
+                                                           "type":  "literal",
+                                                           "value":  "1955-12-15T00:00:00Z"
+                                                       },
+                                         "officeLabel":  {
+                                                             "xml:lang":  "es",
+                                                             "type":  "literal",
+                                                             "value":  "jefe de Estado Mayor del Ejército de Aire y del Espacio de España"
+                                                         },
+                                         "personLabel":  {
+                                                             "xml:lang":  "es",
+                                                             "type":  "literal",
+                                                             "value":  "Javier Salto"
+                                                         },
+                                         "genderLabel":  {
+                                                             "xml:lang":  "es",
+                                                             "type":  "literal",
+                                                             "value":  "masculino"
+                                                         }
+                                     },
+                                     {
+                                         "office":  {
+                                                        "type":  "uri",
+                                                        "value":  "http://www.wikidata.org/entity/Q5928975"
+                                                    },
+                                         "person":  {
+                                                        "type":  "uri",
+                                                        "value":  "http://www.wikidata.org/entity/Q82053806"
+                                                    },
+                                         "startDate":  {
+                                                           "datatype":  "http://www.w3.org/2001/XMLSchema#dateTime",
+                                                           "type":  "literal",
+                                                           "value":  "2020-01-15T00:00:00Z"
+                                                       },
+                                         "endDate":  {
+                                                         "datatype":  "http://www.w3.org/2001/XMLSchema#dateTime",
+                                                         "type":  "literal",
+                                                         "value":  "2021-01-27T00:00:00Z"
+                                                     },
+                                         "birthDate":  {
+                                                           "datatype":  "http://www.w3.org/2001/XMLSchema#dateTime",
+                                                           "type":  "literal",
+                                                           "value":  "1957-05-15T00:00:00Z"
+                                                       },
+                                         "officeLabel":  {
+                                                             "xml:lang":  "es",
+                                                             "type":  "literal",
+                                                             "value":  "jefe de Estado Mayor de la Defensa"
+                                                         },
+                                         "personLabel":  {
+                                                             "xml:lang":  "es",
+                                                             "type":  "literal",
+                                                             "value":  "Miguel Ángel Villarroya"
+                                                         },
+                                         "genderLabel":  {
+                                                             "xml:lang":  "es",
+                                                             "type":  "literal",
+                                                             "value":  "masculino"
+                                                         }
+                                     },
+                                     {
+                                         "office":  {
+                                                        "type":  "uri",
+                                                        "value":  "http://www.wikidata.org/entity/Q30612648"
+                                                    },
+                                         "person":  {
+                                                        "type":  "uri",
+                                                        "value":  "http://www.wikidata.org/entity/Q84729101"
+                                                    },
+                                         "birthDate":  {
+                                                           "datatype":  "http://www.w3.org/2001/XMLSchema#dateTime",
+                                                           "type":  "literal",
+                                                           "value":  "1900-02-08T00:00:00Z"
+                                                       },
+                                         "officeLabel":  {
+                                                             "xml:lang":  "es",
+                                                             "type":  "literal",
+                                                             "value":  "jefe de Estado Mayor del Ejército de Aire y del Espacio de España"
+                                                         },
+                                         "personLabel":  {
+                                                             "xml:lang":  "es",
+                                                             "type":  "literal",
+                                                             "value":  "Francisco Fernández González-Longoria"
+                                                         },
+                                         "genderLabel":  {
+                                                             "xml:lang":  "es",
+                                                             "type":  "literal",
+                                                             "value":  "masculino"
+                                                         }
+                                     },
+                                     {
+                                         "office":  {
+                                                        "type":  "uri",
+                                                        "value":  "http://www.wikidata.org/entity/Q30612645"
+                                                    },
+                                         "person":  {
+                                                        "type":  "uri",
+                                                        "value":  "http://www.wikidata.org/entity/Q105409291"
+                                                    },
+                                         "startDate":  {
+                                                           "datatype":  "http://www.w3.org/2001/XMLSchema#dateTime",
+                                                           "type":  "literal",
+                                                           "value":  "2021-01-01T00:00:00Z"
+                                                       },
+                                         "birthDate":  {
+                                                           "datatype":  "http://www.w3.org/2001/XMLSchema#dateTime",
+                                                           "type":  "literal",
+                                                           "value":  "1960-08-22T00:00:00Z"
+                                                       },
+                                         "officeLabel":  {
+                                                             "xml:lang":  "es",
+                                                             "type":  "literal",
+                                                             "value":  "jefe de Estado Mayor de la Armada Española"
+                                                         },
+                                         "personLabel":  {
+                                                             "xml:lang":  "es",
+                                                             "type":  "literal",
+                                                             "value":  "Antonio Martorell Lacave"
+                                                         },
+                                         "genderLabel":  {
+                                                             "xml:lang":  "es",
+                                                             "type":  "literal",
+                                                             "value":  "masculino"
+                                                         }
+                                     },
+                                     {
+                                         "office":  {
+                                                        "type":  "uri",
+                                                        "value":  "http://www.wikidata.org/entity/Q36378291"
+                                                    },
+                                         "person":  {
+                                                        "type":  "uri",
+                                                        "value":  "http://www.wikidata.org/entity/Q119519156"
+                                                    },
+                                         "startDate":  {
+                                                           "datatype":  "http://www.w3.org/2001/XMLSchema#dateTime",
+                                                           "type":  "literal",
+                                                           "value":  "2023-06-13T00:00:00Z"
+                                                       },
+                                         "endDate":  {
+                                                         "datatype":  "http://www.w3.org/2001/XMLSchema#dateTime",
+                                                         "type":  "literal",
+                                                         "value":  "2024-09-17T00:00:00Z"
+                                                     },
+                                         "birthDate":  {
+                                                           "datatype":  "http://www.w3.org/2001/XMLSchema#dateTime",
+                                                           "type":  "literal",
+                                                           "value":  "1958-01-01T00:00:00Z"
+                                                       },
+                                         "officeLabel":  {
+                                                             "xml:lang":  "es",
+                                                             "type":  "literal",
+                                                             "value":  "director general de la Guardia Civil"
+                                                         },
+                                         "personLabel":  {
+                                                             "xml:lang":  "es",
+                                                             "type":  "literal",
+                                                             "value":  "Leonardo Marcos González"
+                                                         },
+                                         "genderLabel":  {
+                                                             "xml:lang":  "es",
+                                                             "type":  "literal",
+                                                             "value":  "masculino"
+                                                         }
+                                     },
+                                     {
+                                         "office":  {
+                                                        "type":  "uri",
+                                                        "value":  "http://www.wikidata.org/entity/Q30612644"
+                                                    },
+                                         "person":  {
+                                                        "type":  "uri",
+                                                        "value":  "http://www.wikidata.org/entity/Q123214561"
+                                                    },
+                                         "startDate":  {
+                                                           "datatype":  "http://www.w3.org/2001/XMLSchema#dateTime",
+                                                           "type":  "literal",
+                                                           "value":  "2021-10-06T00:00:00Z"
+                                                       },
+                                         "birthDate":  {
+                                                           "datatype":  "http://www.w3.org/2001/XMLSchema#dateTime",
+                                                           "type":  "literal",
+                                                           "value":  "1960-10-25T00:00:00Z"
+                                                       },
+                                         "officeLabel":  {
+                                                             "xml:lang":  "es",
+                                                             "type":  "literal",
+                                                             "value":  "jefe del Estado Mayor del Ejército de Tierra"
+                                                         },
+                                         "personLabel":  {
+                                                             "xml:lang":  "es",
+                                                             "type":  "literal",
+                                                             "value":  "Amador Fernando Enseñat y Berea"
+                                                         },
+                                         "genderLabel":  {
+                                                             "xml:lang":  "es",
+                                                             "type":  "literal",
+                                                             "value":  "masculino"
+                                                         }
+                                     }
+                                 ]
+                }
+}

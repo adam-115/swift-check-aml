@@ -7,7 +7,7 @@ import java.util.regex.Pattern;
 
 /**
  * Texte d'une page HTML, une ligne par paragraphe, titre, cellule ou élément de liste : les motifs de
- * {@code international-orgs.json} s'écrivent sur ce texte (« Nom » puis « Fonction » sur la ligne suivante, par
+ * {@code configJson} s'écrivent sur ce texte (« Nom » puis « Fonction » sur la ligne suivante, par
  * exemple). Le titre de la page ({@code <title>}) est gardé : certaines pages n'y écrivent le nom qu'une fois.
  */
 final class PageText {

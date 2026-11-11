@@ -1,14 +1,20 @@
 package com.swiftcheck.aml.plugins.itpep.diplomats;
 
 import java.io.IOException;
-import java.io.InputStream;
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.StandardCopyOption;
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.pf4j.Extension;
 import org.slf4j.Logger;
@@ -24,12 +30,13 @@ import com.swiftcheck.aml.sdk.FtmDatasetBuilder;
 import com.swiftcheck.aml.sdk.FtmEntity;
 
 /**
- * <b>it_pep_diplomats</b> – Ambassadeurs, chargés d'affaires et représentants permanents de l'Italie.
+ * <b>it_pep_diplomats</b> – Ambassadeurs, chefs de mission et consuls généraux de la République italienne.
  *
- * <p>Couvre la catégorie <b>IT-1.6</b>, fonction <b>Ambassadeur ou chargé d'affaires</b>
- * (D.Lgs. 231/2007, art. 1 c.2 lett. dd), point 1.6 ; liste notifiée, JO C/2023/724).
+ * <p>Couvre la catégorie <b>IT-1.7</b>, fonction <b>Ambassadeur, chargé d'affaires ou chef de mission</b>
+ * (D.Lgs. 231/2007, art. 1 c.2 lett. dd), point 1.7 ; JO C/2023/724).
  *
- * <p>Ambassadeurs bilatéraux et représentants permanents auprès des organisations internationales (ONU, UE, OTAN, etc.).
+ * <p>Données extraites dynamiquement depuis l'API officielle Wikipedia MediaWiki répertoriant les ambassadeurs
+ * et ministres plénipotentiaires en fonction représentant l'Italie dans le monde.
  */
 @Extension
 public class ItPepDiplomatsParser implements Iparser {
@@ -39,23 +46,47 @@ public class ItPepDiplomatsParser implements Iparser {
     static final String ID_PREFIX = "it-pep-diplomats";
     static final String TOPIC = "role.pep";
     static final String COUNTRY = "it";
-    static final String SEED_RESOURCE = "/seed/italian-ambassadors.json";
-    static final String JSON_FILE = "italian-ambassadors.json";
+    static final String JSON_FILE = "italian-ambassadors-wikipedia.json";
+    static final String WIKI_API_URL =
+            "https://it.wikipedia.org/w/api.php?action=parse&page=Ambasciatori_italiani&format=json&prop=wikitext";
+    static final String USER_AGENT = "SwiftCheck-AML/1.0 (liste PEP Italie - diplomates)";
+
+    private static final Pattern WIKI_LINK_PATTERN = Pattern.compile("\\[\\[(?:[^|\\]]+\\|)?([^\\]]+)\\]\\]");
+    private static final Pattern DATE_ITALIAN_PATTERN = Pattern.compile("(\\d{1,2})\\s+([a-záéíóú]+)\\s+(\\d{4})");
+
+    private static final Map<String, String> ITALIAN_MONTHS = Map.ofEntries(
+            Map.entry("gennaio", "01"),
+            Map.entry("febbraio", "02"),
+            Map.entry("marzo", "03"),
+            Map.entry("aprile", "04"),
+            Map.entry("maggio", "05"),
+            Map.entry("giugno", "06"),
+            Map.entry("luglio", "07"),
+            Map.entry("agosto", "08"),
+            Map.entry("settembre", "09"),
+            Map.entry("ottobre", "10"),
+            Map.entry("novembre", "11"),
+            Map.entry("dicembre", "12")
+    );
 
     private final ObjectMapper json = new ObjectMapper();
+    private final HttpClient http = HttpClient.newBuilder()
+            .connectTimeout(Duration.ofSeconds(15))
+            .followRedirects(HttpClient.Redirect.NORMAL)
+            .build();
 
     @Override
     public ParserResult parse(ParserContext ctx) throws Exception {
         Files.createDirectories(ctx.rawDir());
         Path rawFile = ctx.rawDir().resolve(JSON_FILE);
-        loadResource(rawFile);
+        download(rawFile);
 
         FtmDatasetBuilder dataset = new FtmDatasetBuilder(ID_PREFIX, TOPIC);
         int count = convert(rawFile, dataset);
         dataset.writeNdjsonFile(ctx.outputFile());
 
         return dataset.toConversionResult().withMessage(
-                String.format(Locale.ROOT, "%d ambassadeurs et représentants permanents de l'Italie à l'étranger.", count)
+                String.format(Locale.ROOT, "%d ambassadeurs et chefs de mission italiens indexés.", count)
         );
     }
 
@@ -63,7 +94,7 @@ public class ItPepDiplomatsParser implements Iparser {
     public List<SourceRecord> readSourceRecords(ParserContext ctx) throws Exception {
         Path rawFile = ctx.rawDir().resolve(JSON_FILE);
         if (!Files.exists(rawFile)) {
-            loadResource(rawFile);
+            download(rawFile);
         }
         FtmDatasetBuilder dataset = new FtmDatasetBuilder(ID_PREFIX, TOPIC);
         convert(rawFile, dataset);
@@ -72,63 +103,90 @@ public class ItPepDiplomatsParser implements Iparser {
             if ("Person".equals(entity.getSchema())) {
                 records.add(new SourceRecord(entity.getId(), "Person",
                         entity.getValues("name").iterator().next(),
-                        "https://www.esteri.it/"));
+                        "https://it.wikipedia.org/wiki/Ambasciatori_italiani"));
             }
         }
         return records;
     }
 
-    private void loadResource(Path rawFile) throws IOException {
-        try (InputStream in = getClass().getResourceAsStream(SEED_RESOURCE)) {
-            if (in == null) {
-                throw new IllegalStateException("Ressource de secours introuvable : " + SEED_RESOURCE);
-            }
-            Files.copy(in, rawFile, StandardCopyOption.REPLACE_EXISTING);
-            log.info("Diplomates italiens : données officielles chargées depuis {}", SEED_RESOURCE);
+    void download(Path rawFile) throws IOException, InterruptedException {
+        HttpRequest req = HttpRequest.newBuilder(URI.create(WIKI_API_URL))
+                .header("User-Agent", USER_AGENT)
+                .header("Accept", "application/json")
+                .timeout(Duration.ofSeconds(30))
+                .GET()
+                .build();
+
+        HttpResponse<String> resp = http.send(req, HttpResponse.BodyHandlers.ofString(StandardCharsets.UTF_8));
+        if (resp.statusCode() != 200) {
+            throw new IOException("Wikipedia API returned HTTP " + resp.statusCode() + " : " + resp.body());
         }
+        Files.writeString(rawFile, resp.body(), StandardCharsets.UTF_8);
+        log.info("Ambassadeurs d'Italie : données fraîches téléchargées depuis Wikipedia dans {}", rawFile);
     }
 
     int convert(Path rawFile, FtmDatasetBuilder dataset) throws IOException {
         JsonNode root = json.readTree(Files.readString(rawFile, StandardCharsets.UTF_8));
-        JsonNode ambassadors = root.path("ambassadors");
-        if (!ambassadors.isArray() || ambassadors.isEmpty()) {
-            throw new IllegalStateException("Aucun ambassadeur trouvé dans le fichier : " + rawFile);
+        String wikitext = root.path("parse").path("wikitext").path("*").asText("");
+        if (wikitext.isEmpty()) {
+            throw new IllegalStateException("Aucun contenu wikitext trouvé dans : " + rawFile);
         }
 
+        String[] rows = wikitext.split("\\|-");
         int count = 0;
-        for (JsonNode a : ambassadors) {
-            String name = a.path("name").asText("").trim();
-            if (name.isEmpty()) {
+
+        for (String row : rows) {
+            String[] lines = row.split("\\r?\\n");
+            List<String> cells = new ArrayList<>();
+            for (String line : lines) {
+                line = line.trim();
+                if (line.startsWith("|")) {
+                    cells.add(line);
+                }
+            }
+
+            if (cells.size() < 4) {
                 continue;
             }
-            String country = a.path("country").asText("").trim();
-            String city = a.path("city").asText("").trim();
-            String role = a.path("role").asText("Ambasciatore").trim();
-            String status = a.path("status").asText("current").trim();
-            String birthDate = a.path("birthDate").asText("").trim();
-            String startDate = a.path("startDate").asText("").trim();
-            String endDate = a.path("endDate").asText("").trim();
-            String gender = a.path("gender").asText("").trim();
+
+            String nameLine = cells.get(0);
+            String gradeLine = cells.get(1);
+            String missionLine = cells.get(2);
+            String countryLine = cells.get(3);
+            String dateLine = cells.size() >= 5 ? cells.get(4) : "";
+
+            String name = extractCleanText(nameLine);
+            if (name.isEmpty() || name.equalsIgnoreCase("nome") || name.startsWith("align")) {
+                continue;
+            }
+
+            String mission = extractCleanText(missionLine);
+            String countryTarget = extractCleanText(countryLine);
+            String startDate = extractIsoDate(dateLine);
+
+            String role;
+            if (!mission.isEmpty()) {
+                role = "Ambasciatore d'Italia - " + mission;
+            } else if (!countryTarget.isEmpty()) {
+                role = "Ambasciatore d'Italia in " + countryTarget;
+            } else {
+                role = "Ambasciatore d'Italia";
+            }
 
             FtmEntity person = dataset.newEntity("Person", name);
             person.addValue("name", name);
             person.addValue("country", COUNTRY);
-            person.addValue("position", role + " (" + city + ", " + country + ")");
-            if (!birthDate.isEmpty()) {
-                person.addValue("birthDate", birthDate);
-            }
-            if (!gender.isEmpty()) {
-                person.addValue("gender", gender);
-            }
-            person.addValue("sourceUrl", "https://www.esteri.it/");
+            person.addValue("position", role);
+            person.addValue("sourceUrl", "https://it.wikipedia.org/wiki/Ambasciatori_italiani");
             dataset.addEntity(person);
 
-            FtmEntity position = dataset.newEntity("Position", "ambasciata-" + city.toLowerCase(Locale.ROOT), role);
-            position.addValue("name", role + " – " + city);
+            String posSlug = role.toLowerCase(Locale.ROOT).replaceAll("[^a-z0-9]+", "-");
+            FtmEntity position = dataset.newEntity("Position", posSlug);
+            position.addValue("name", role);
             position.addValue("country", COUNTRY);
             position.addValue("organization", "Ministero degli Affari Esteri e della Cooperazione Internazionale");
-            position.addValue("topics", "gov.national;gov.igo");
-            position.addValue("sourceUrl", "https://www.esteri.it/");
+            position.addValue("topics", "gov.national;diplomatic");
+            position.addValue("sourceUrl", "https://it.wikipedia.org/wiki/Ambasciatori_italiani");
             dataset.addEntity(position);
 
             FtmEntity occupancy = dataset.newEntity("Occupancy", person.getId(), position.getId(), startDate);
@@ -137,16 +195,39 @@ public class ItPepDiplomatsParser implements Iparser {
             if (!startDate.isEmpty()) {
                 occupancy.addValue("startDate", startDate);
             }
-            if (!endDate.isEmpty()) {
-                occupancy.addValue("endDate", endDate);
-            }
-            occupancy.addValue("status", status);
-            occupancy.addValue("sourceUrl", "https://www.esteri.it/");
+            occupancy.addValue("status", "current");
+            occupancy.addValue("sourceUrl", "https://it.wikipedia.org/wiki/Ambasciatori_italiani");
             dataset.addEntity(occupancy);
 
             count++;
         }
+
         return count;
     }
-}
 
+    private String extractCleanText(String line) {
+        Matcher m = WIKI_LINK_PATTERN.matcher(line);
+        if (m.find()) {
+            return m.group(1).trim();
+        }
+        String clean = line.replaceFirst("^\\|\\s*", "").trim();
+        clean = clean.replaceAll("<ref.*?>.*?</ref>", "").replaceAll("<ref.*", "").trim();
+        clean = clean.replaceAll("\\{\\{[^\\}]+\\}\\}", "").trim();
+        return clean;
+    }
+
+    private String extractIsoDate(String dateLine) {
+        Matcher m = DATE_ITALIAN_PATTERN.matcher(dateLine.toLowerCase(Locale.ROOT));
+        if (m.find()) {
+            String day = m.group(1);
+            if (day.length() == 1) {
+                day = "0" + day;
+            }
+            String monthName = m.group(2);
+            String month = ITALIAN_MONTHS.getOrDefault(monthName, "01");
+            String year = m.group(3);
+            return String.format(Locale.ROOT, "%s-%s-%s", year, month, day);
+        }
+        return "";
+    }
+}

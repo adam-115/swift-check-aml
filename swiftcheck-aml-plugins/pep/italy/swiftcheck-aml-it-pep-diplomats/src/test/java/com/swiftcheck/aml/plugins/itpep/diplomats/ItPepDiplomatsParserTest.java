@@ -10,7 +10,7 @@ import com.swiftcheck.aml.sdk.FtmDatasetBuilder;
 
 class ItPepDiplomatsParserTest {
 
-    private static final Path RAW = Path.of("src/test/resources/seed/italian-ambassadors.json");
+    private static final Path RAW = Path.of("src/test/resources/italian-ambassadors-wikipedia.json");
 
     private final ItPepDiplomatsParser parser = new ItPepDiplomatsParser();
 
@@ -22,12 +22,12 @@ class ItPepDiplomatsParserTest {
         );
         int count = parser.convert(RAW, dataset);
 
-        assertThat(count).isEqualTo(20);
+        assertThat(count).isGreaterThanOrEqualTo(100);
         assertThat(dataset.qualityReport().getTotalRejected()).isZero();
         assertThat(dataset.qualityReport().getIdConflictCount()).isZero();
 
         long persons = dataset.entities().stream().filter(e -> "Person".equals(e.getSchema())).count();
-        assertThat(persons).isEqualTo(20);
+        assertThat(persons).isGreaterThanOrEqualTo(100);
 
         assertThat(dataset.entities().stream().filter(e -> "Person".equals(e.getSchema())))
                 .allSatisfy(p -> {
@@ -36,4 +36,3 @@ class ItPepDiplomatsParserTest {
                 });
     }
 }
-

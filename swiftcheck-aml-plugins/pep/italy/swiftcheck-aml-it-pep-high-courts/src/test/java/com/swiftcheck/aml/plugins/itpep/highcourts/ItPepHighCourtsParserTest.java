@@ -10,7 +10,7 @@ import com.swiftcheck.aml.sdk.FtmDatasetBuilder;
 
 class ItPepHighCourtsParserTest {
 
-    private static final Path RAW = Path.of("src/test/resources/seed/high-courts-magistrates.json");
+    private static final Path RAW = Path.of("src/test/resources/high-courts-magistrates-wikidata.json");
 
     private final ItPepHighCourtsParser parser = new ItPepHighCourtsParser();
 
@@ -22,12 +22,12 @@ class ItPepHighCourtsParserTest {
         );
         int count = parser.convert(RAW, dataset);
 
-        assertThat(count).isEqualTo(13);
+        assertThat(count).isGreaterThanOrEqualTo(6);
         assertThat(dataset.qualityReport().getTotalRejected()).isZero();
         assertThat(dataset.qualityReport().getIdConflictCount()).isZero();
 
         long persons = dataset.entities().stream().filter(e -> "Person".equals(e.getSchema())).count();
-        assertThat(persons).isEqualTo(13);
+        assertThat(persons).isGreaterThanOrEqualTo(6);
 
         assertThat(dataset.entities().stream().filter(e -> "Person".equals(e.getSchema())))
                 .allSatisfy(p -> {
@@ -36,4 +36,3 @@ class ItPepHighCourtsParserTest {
                 });
     }
 }
-

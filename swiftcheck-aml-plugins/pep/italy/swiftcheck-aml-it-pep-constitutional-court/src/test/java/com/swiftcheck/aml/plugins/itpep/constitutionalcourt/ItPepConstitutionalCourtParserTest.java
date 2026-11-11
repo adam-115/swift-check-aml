@@ -10,7 +10,7 @@ import com.swiftcheck.aml.sdk.FtmDatasetBuilder;
 
 class ItPepConstitutionalCourtParserTest {
 
-    private static final Path RAW = Path.of("src/test/resources/seed/constitutional-judges.json");
+    private static final Path RAW = Path.of("src/test/resources/constitutional-judges-wikidata.json");
 
     private final ItPepConstitutionalCourtParser parser = new ItPepConstitutionalCourtParser();
 
@@ -22,12 +22,12 @@ class ItPepConstitutionalCourtParserTest {
         );
         int count = parser.convert(RAW, dataset);
 
-        assertThat(count).isEqualTo(16);
+        assertThat(count).isEqualTo(15);
         assertThat(dataset.qualityReport().getTotalRejected()).isZero();
         assertThat(dataset.qualityReport().getIdConflictCount()).isZero();
 
         long persons = dataset.entities().stream().filter(e -> "Person".equals(e.getSchema())).count();
-        assertThat(persons).isEqualTo(16);
+        assertThat(persons).isEqualTo(15);
 
         assertThat(dataset.entities().stream().filter(e -> "Person".equals(e.getSchema())))
                 .allSatisfy(p -> {
@@ -36,4 +36,3 @@ class ItPepConstitutionalCourtParserTest {
                 });
     }
 }
-

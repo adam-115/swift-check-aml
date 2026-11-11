@@ -1,0 +1,806 @@
+{
+    "head":  {
+                 "vars":  [
+                              "party",
+                              "partyLabel",
+                              "person",
+                              "personLabel",
+                              "prop",
+                              "startDate",
+                              "endDate"
+                          ]
+             },
+    "results":  {
+                    "bindings":  [
+                                     {
+                                         "party":  {
+                                                       "type":  "uri",
+                                                       "value":  "http://www.wikidata.org/entity/Q1029761"
+                                                   },
+                                         "prop":  {
+                                                      "type":  "uri",
+                                                      "value":  "http://www.wikidata.org/prop/P488"
+                                                  },
+                                         "person":  {
+                                                        "type":  "uri",
+                                                        "value":  "http://www.wikidata.org/entity/Q547356"
+                                                    },
+                                         "partyLabel":  {
+                                                            "xml:lang":  "es",
+                                                            "type":  "literal",
+                                                            "value":  "Euskal Herria Bildu"
+                                                        },
+                                         "personLabel":  {
+                                                             "xml:lang":  "es",
+                                                             "type":  "literal",
+                                                             "value":  "Arnaldo Otegi"
+                                                         },
+                                         "startDate":  {
+                                                           "datatype":  "http://www.w3.org/2001/XMLSchema#dateTime",
+                                                           "type":  "literal",
+                                                           "value":  "2017-01-01T00:00:00Z"
+                                                       }
+                                     },
+                                     {
+                                         "party":  {
+                                                       "type":  "uri",
+                                                       "value":  "http://www.wikidata.org/entity/Q138198"
+                                                   },
+                                         "prop":  {
+                                                      "type":  "uri",
+                                                      "value":  "http://www.wikidata.org/prop/P3975"
+                                                  },
+                                         "person":  {
+                                                        "type":  "uri",
+                                                        "value":  "http://www.wikidata.org/entity/Q6070218"
+                                                    },
+                                         "partyLabel":  {
+                                                            "xml:lang":  "es",
+                                                            "type":  "literal",
+                                                            "value":  "Partido Socialista Obrero Español"
+                                                        },
+                                         "personLabel":  {
+                                                             "xml:lang":  "es",
+                                                             "type":  "literal",
+                                                             "value":  "Pedro Sánchez"
+                                                         },
+                                         "startDate":  {
+                                                           "datatype":  "http://www.w3.org/2001/XMLSchema#dateTime",
+                                                           "type":  "literal",
+                                                           "value":  "2017-06-18T00:00:00Z"
+                                                       }
+                                     },
+                                     {
+                                         "party":  {
+                                                       "type":  "uri",
+                                                       "value":  "http://www.wikidata.org/entity/Q138198"
+                                                   },
+                                         "prop":  {
+                                                      "type":  "uri",
+                                                      "value":  "http://www.wikidata.org/prop/P488"
+                                                  },
+                                         "person":  {
+                                                        "type":  "uri",
+                                                        "value":  "http://www.wikidata.org/entity/Q2984396"
+                                                    },
+                                         "partyLabel":  {
+                                                            "xml:lang":  "es",
+                                                            "type":  "literal",
+                                                            "value":  "Partido Socialista Obrero Español"
+                                                        },
+                                         "personLabel":  {
+                                                             "xml:lang":  "es",
+                                                             "type":  "literal",
+                                                             "value":  "Cristina Narbona"
+                                                         },
+                                         "startDate":  {
+                                                           "datatype":  "http://www.w3.org/2001/XMLSchema#dateTime",
+                                                           "type":  "literal",
+                                                           "value":  "2017-06-18T00:00:00Z"
+                                                       }
+                                     },
+                                     {
+                                         "party":  {
+                                                       "type":  "uri",
+                                                       "value":  "http://www.wikidata.org/entity/Q138198"
+                                                   },
+                                         "prop":  {
+                                                      "type":  "uri",
+                                                      "value":  "http://www.wikidata.org/prop/P488"
+                                                  },
+                                         "person":  {
+                                                        "type":  "uri",
+                                                        "value":  "http://www.wikidata.org/entity/Q6070218"
+                                                    },
+                                         "partyLabel":  {
+                                                            "xml:lang":  "es",
+                                                            "type":  "literal",
+                                                            "value":  "Partido Socialista Obrero Español"
+                                                        },
+                                         "personLabel":  {
+                                                             "xml:lang":  "es",
+                                                             "type":  "literal",
+                                                             "value":  "Pedro Sánchez"
+                                                         }
+                                     },
+                                     {
+                                         "party":  {
+                                                       "type":  "uri",
+                                                       "value":  "http://www.wikidata.org/entity/Q150068"
+                                                   },
+                                         "prop":  {
+                                                      "type":  "uri",
+                                                      "value":  "http://www.wikidata.org/prop/P3975"
+                                                  },
+                                         "person":  {
+                                                        "type":  "uri",
+                                                        "value":  "http://www.wikidata.org/entity/Q42963597"
+                                                    },
+                                         "partyLabel":  {
+                                                            "xml:lang":  "es",
+                                                            "type":  "literal",
+                                                            "value":  "Esquerra Republicana de Catalunya"
+                                                        },
+                                         "personLabel":  {
+                                                             "xml:lang":  "es",
+                                                             "type":  "literal",
+                                                             "value":  "Elisenda Alamany"
+                                                         },
+                                         "startDate":  {
+                                                           "datatype":  "http://www.w3.org/2001/XMLSchema#dateTime",
+                                                           "type":  "literal",
+                                                           "value":  "2024-12-14T00:00:00Z"
+                                                       }
+                                     },
+                                     {
+                                         "party":  {
+                                                       "type":  "uri",
+                                                       "value":  "http://www.wikidata.org/entity/Q150068"
+                                                   },
+                                         "prop":  {
+                                                      "type":  "uri",
+                                                      "value":  "http://www.wikidata.org/prop/P488"
+                                                  },
+                                         "person":  {
+                                                        "type":  "uri",
+                                                        "value":  "http://www.wikidata.org/entity/Q116812"
+                                                    },
+                                         "partyLabel":  {
+                                                            "xml:lang":  "es",
+                                                            "type":  "literal",
+                                                            "value":  "Esquerra Republicana de Catalunya"
+                                                        },
+                                         "personLabel":  {
+                                                             "xml:lang":  "es",
+                                                             "type":  "literal",
+                                                             "value":  "Oriol Junqueras"
+                                                         },
+                                         "startDate":  {
+                                                           "datatype":  "http://www.w3.org/2001/XMLSchema#dateTime",
+                                                           "type":  "literal",
+                                                           "value":  "2011-09-17T00:00:00Z"
+                                                       }
+                                     },
+                                     {
+                                         "party":  {
+                                                       "type":  "uri",
+                                                       "value":  "http://www.wikidata.org/entity/Q150068"
+                                                   },
+                                         "prop":  {
+                                                      "type":  "uri",
+                                                      "value":  "http://www.wikidata.org/prop/P3975"
+                                                  },
+                                         "person":  {
+                                                        "type":  "uri",
+                                                        "value":  "http://www.wikidata.org/entity/Q10745532"
+                                                    },
+                                         "partyLabel":  {
+                                                            "xml:lang":  "es",
+                                                            "type":  "literal",
+                                                            "value":  "Esquerra Republicana de Catalunya"
+                                                        },
+                                         "personLabel":  {
+                                                             "xml:lang":  "es",
+                                                             "type":  "literal",
+                                                             "value":  "Marta Rovira"
+                                                         },
+                                         "startDate":  {
+                                                           "datatype":  "http://www.w3.org/2001/XMLSchema#dateTime",
+                                                           "type":  "literal",
+                                                           "value":  "2011-09-17T00:00:00Z"
+                                                       },
+                                         "endDate":  {
+                                                         "datatype":  "http://www.w3.org/2001/XMLSchema#dateTime",
+                                                         "type":  "literal",
+                                                         "value":  "2024-12-14T00:00:00Z"
+                                                     }
+                                     },
+                                     {
+                                         "party":  {
+                                                       "type":  "uri",
+                                                       "value":  "http://www.wikidata.org/entity/Q15630787"
+                                                   },
+                                         "prop":  {
+                                                      "type":  "uri",
+                                                      "value":  "http://www.wikidata.org/prop/P3975"
+                                                  },
+                                         "person":  {
+                                                        "type":  "uri",
+                                                        "value":  "http://www.wikidata.org/entity/Q50824635"
+                                                    },
+                                         "partyLabel":  {
+                                                            "xml:lang":  "es",
+                                                            "type":  "literal",
+                                                            "value":  "Vox"
+                                                        },
+                                         "personLabel":  {
+                                                             "xml:lang":  "es",
+                                                             "type":  "literal",
+                                                             "value":  "Javier Ortega Smith-Molina"
+                                                         },
+                                         "startDate":  {
+                                                           "datatype":  "http://www.w3.org/2001/XMLSchema#dateTime",
+                                                           "type":  "literal",
+                                                           "value":  "2016-03-05T00:00:00Z"
+                                                       },
+                                         "endDate":  {
+                                                         "datatype":  "http://www.w3.org/2001/XMLSchema#dateTime",
+                                                         "type":  "literal",
+                                                         "value":  "2022-10-06T00:00:00Z"
+                                                     }
+                                     },
+                                     {
+                                         "party":  {
+                                                       "type":  "uri",
+                                                       "value":  "http://www.wikidata.org/entity/Q15630787"
+                                                   },
+                                         "prop":  {
+                                                      "type":  "uri",
+                                                      "value":  "http://www.wikidata.org/prop/P3975"
+                                                  },
+                                         "person":  {
+                                                        "type":  "uri",
+                                                        "value":  "http://www.wikidata.org/entity/Q62585987"
+                                                    },
+                                         "partyLabel":  {
+                                                            "xml:lang":  "es",
+                                                            "type":  "literal",
+                                                            "value":  "Vox"
+                                                        },
+                                         "personLabel":  {
+                                                             "xml:lang":  "es",
+                                                             "type":  "literal",
+                                                             "value":  "Ignacio Garriga De Vaz de Conceição"
+                                                         },
+                                         "startDate":  {
+                                                           "datatype":  "http://www.w3.org/2001/XMLSchema#dateTime",
+                                                           "type":  "literal",
+                                                           "value":  "2022-10-06T00:00:00Z"
+                                                       }
+                                     },
+                                     {
+                                         "party":  {
+                                                       "type":  "uri",
+                                                       "value":  "http://www.wikidata.org/entity/Q15630787"
+                                                   },
+                                         "prop":  {
+                                                      "type":  "uri",
+                                                      "value":  "http://www.wikidata.org/prop/P488"
+                                                  },
+                                         "person":  {
+                                                        "type":  "uri",
+                                                        "value":  "http://www.wikidata.org/entity/Q11703587"
+                                                    },
+                                         "partyLabel":  {
+                                                            "xml:lang":  "es",
+                                                            "type":  "literal",
+                                                            "value":  "Vox"
+                                                        },
+                                         "personLabel":  {
+                                                             "xml:lang":  "en",
+                                                             "type":  "literal",
+                                                             "value":  "Santiago Abascal"
+                                                         },
+                                         "startDate":  {
+                                                           "datatype":  "http://www.w3.org/2001/XMLSchema#dateTime",
+                                                           "type":  "literal",
+                                                           "value":  "2014-09-01T00:00:00Z"
+                                                       }
+                                     },
+                                     {
+                                         "party":  {
+                                                       "type":  "uri",
+                                                       "value":  "http://www.wikidata.org/entity/Q16059622"
+                                                   },
+                                         "prop":  {
+                                                      "type":  "uri",
+                                                      "value":  "http://www.wikidata.org/prop/P3975"
+                                                  },
+                                         "person":  {
+                                                        "type":  "uri",
+                                                        "value":  "http://www.wikidata.org/entity/Q24524789"
+                                                    },
+                                         "partyLabel":  {
+                                                            "xml:lang":  "es",
+                                                            "type":  "literal",
+                                                            "value":  "Podemos"
+                                                        },
+                                         "personLabel":  {
+                                                             "xml:lang":  "es",
+                                                             "type":  "literal",
+                                                             "value":  "Ione Belarra"
+                                                         },
+                                         "startDate":  {
+                                                           "datatype":  "http://www.w3.org/2001/XMLSchema#dateTime",
+                                                           "type":  "literal",
+                                                           "value":  "2021-06-13T00:00:00Z"
+                                                       }
+                                     },
+                                     {
+                                         "party":  {
+                                                       "type":  "uri",
+                                                       "value":  "http://www.wikidata.org/entity/Q16059622"
+                                                   },
+                                         "prop":  {
+                                                      "type":  "uri",
+                                                      "value":  "http://www.wikidata.org/prop/P3975"
+                                                  },
+                                         "person":  {
+                                                        "type":  "uri",
+                                                        "value":  "http://www.wikidata.org/entity/Q13989269"
+                                                    },
+                                         "partyLabel":  {
+                                                            "xml:lang":  "es",
+                                                            "type":  "literal",
+                                                            "value":  "Podemos"
+                                                        },
+                                         "personLabel":  {
+                                                             "xml:lang":  "es",
+                                                             "type":  "literal",
+                                                             "value":  "Pablo Iglesias Turrión"
+                                                         },
+                                         "startDate":  {
+                                                           "datatype":  "http://www.w3.org/2001/XMLSchema#dateTime",
+                                                           "type":  "literal",
+                                                           "value":  "2014-11-15T00:00:00Z"
+                                                       },
+                                         "endDate":  {
+                                                         "datatype":  "http://www.w3.org/2001/XMLSchema#dateTime",
+                                                         "type":  "literal",
+                                                         "value":  "2021-05-04T00:00:00Z"
+                                                     }
+                                     },
+                                     {
+                                         "party":  {
+                                                       "type":  "uri",
+                                                       "value":  "http://www.wikidata.org/entity/Q185088"
+                                                   },
+                                         "prop":  {
+                                                      "type":  "uri",
+                                                      "value":  "http://www.wikidata.org/prop/P488"
+                                                  },
+                                         "person":  {
+                                                        "type":  "uri",
+                                                        "value":  "http://www.wikidata.org/entity/Q2457783"
+                                                    },
+                                         "partyLabel":  {
+                                                            "xml:lang":  "es",
+                                                            "type":  "literal",
+                                                            "value":  "Partido Popular"
+                                                        },
+                                         "personLabel":  {
+                                                             "xml:lang":  "es",
+                                                             "type":  "literal",
+                                                             "value":  "Alberto Núñez Feijóo"
+                                                         },
+                                         "startDate":  {
+                                                           "datatype":  "http://www.w3.org/2001/XMLSchema#dateTime",
+                                                           "type":  "literal",
+                                                           "value":  "2022-04-02T00:00:00Z"
+                                                       }
+                                     },
+                                     {
+                                         "party":  {
+                                                       "type":  "uri",
+                                                       "value":  "http://www.wikidata.org/entity/Q185088"
+                                                   },
+                                         "prop":  {
+                                                      "type":  "uri",
+                                                      "value":  "http://www.wikidata.org/prop/P3975"
+                                                  },
+                                         "person":  {
+                                                        "type":  "uri",
+                                                        "value":  "http://www.wikidata.org/entity/Q2223490"
+                                                    },
+                                         "partyLabel":  {
+                                                            "xml:lang":  "es",
+                                                            "type":  "literal",
+                                                            "value":  "Partido Popular"
+                                                        },
+                                         "personLabel":  {
+                                                             "xml:lang":  "es",
+                                                             "type":  "literal",
+                                                             "value":  "Concepción Gamarra Ruiz-Clavijo"
+                                                         },
+                                         "startDate":  {
+                                                           "datatype":  "http://www.w3.org/2001/XMLSchema#dateTime",
+                                                           "type":  "literal",
+                                                           "value":  "2022-04-02T00:00:00Z"
+                                                       }
+                                     },
+                                     {
+                                         "party":  {
+                                                       "type":  "uri",
+                                                       "value":  "http://www.wikidata.org/entity/Q185088"
+                                                   },
+                                         "prop":  {
+                                                      "type":  "uri",
+                                                      "value":  "http://www.wikidata.org/prop/P3975"
+                                                  },
+                                         "person":  {
+                                                        "type":  "uri",
+                                                        "value":  "http://www.wikidata.org/entity/Q27756136"
+                                                    },
+                                         "partyLabel":  {
+                                                            "xml:lang":  "es",
+                                                            "type":  "literal",
+                                                            "value":  "Partido Popular"
+                                                        },
+                                         "personLabel":  {
+                                                             "xml:lang":  "es",
+                                                             "type":  "literal",
+                                                             "value":  "Teodoro García Egea"
+                                                         },
+                                         "startDate":  {
+                                                           "datatype":  "http://www.w3.org/2001/XMLSchema#dateTime",
+                                                           "type":  "literal",
+                                                           "value":  "2018-07-21T00:00:00Z"
+                                                       },
+                                         "endDate":  {
+                                                         "datatype":  "http://www.w3.org/2001/XMLSchema#dateTime",
+                                                         "type":  "literal",
+                                                         "value":  "2022-02-22T00:00:00Z"
+                                                     }
+                                     },
+                                     {
+                                         "party":  {
+                                                       "type":  "uri",
+                                                       "value":  "http://www.wikidata.org/entity/Q185088"
+                                                   },
+                                         "prop":  {
+                                                      "type":  "uri",
+                                                      "value":  "http://www.wikidata.org/prop/P488"
+                                                  },
+                                         "person":  {
+                                                        "type":  "uri",
+                                                        "value":  "http://www.wikidata.org/entity/Q6055866"
+                                                    },
+                                         "partyLabel":  {
+                                                            "xml:lang":  "es",
+                                                            "type":  "literal",
+                                                            "value":  "Partido Popular"
+                                                        },
+                                         "personLabel":  {
+                                                             "xml:lang":  "es",
+                                                             "type":  "literal",
+                                                             "value":  "Pablo Casado"
+                                                         },
+                                         "startDate":  {
+                                                           "datatype":  "http://www.w3.org/2001/XMLSchema#dateTime",
+                                                           "type":  "literal",
+                                                           "value":  "2018-07-21T00:00:00Z"
+                                                       },
+                                         "endDate":  {
+                                                         "datatype":  "http://www.w3.org/2001/XMLSchema#dateTime",
+                                                         "type":  "literal",
+                                                         "value":  "2022-04-02T00:00:00Z"
+                                                     }
+                                     },
+                                     {
+                                         "party":  {
+                                                       "type":  "uri",
+                                                       "value":  "http://www.wikidata.org/entity/Q2001535"
+                                                   },
+                                         "prop":  {
+                                                      "type":  "uri",
+                                                      "value":  "http://www.wikidata.org/prop/P3975"
+                                                  },
+                                         "person":  {
+                                                        "type":  "uri",
+                                                        "value":  "http://www.wikidata.org/entity/Q12268566"
+                                                    },
+                                         "partyLabel":  {
+                                                            "xml:lang":  "es",
+                                                            "type":  "literal",
+                                                            "value":  "Comisiones Obreras"
+                                                        },
+                                         "personLabel":  {
+                                                             "xml:lang":  "es",
+                                                             "type":  "literal",
+                                                             "value":  "Unai Sordo Calvo"
+                                                         },
+                                         "startDate":  {
+                                                           "datatype":  "http://www.w3.org/2001/XMLSchema#dateTime",
+                                                           "type":  "literal",
+                                                           "value":  "2017-07-01T00:00:00Z"
+                                                       }
+                                     },
+                                     {
+                                         "party":  {
+                                                       "type":  "uri",
+                                                       "value":  "http://www.wikidata.org/entity/Q43093"
+                                                   },
+                                         "prop":  {
+                                                      "type":  "uri",
+                                                      "value":  "http://www.wikidata.org/prop/P488"
+                                                  },
+                                         "person":  {
+                                                        "type":  "uri",
+                                                        "value":  "http://www.wikidata.org/entity/Q5661421"
+                                                    },
+                                         "partyLabel":  {
+                                                            "xml:lang":  "es",
+                                                            "type":  "literal",
+                                                            "value":  "Partido Nacionalista Vasco"
+                                                        },
+                                         "personLabel":  {
+                                                             "xml:lang":  "es",
+                                                             "type":  "literal",
+                                                             "value":  "Aitor Esteban"
+                                                         },
+                                         "startDate":  {
+                                                           "datatype":  "http://www.w3.org/2001/XMLSchema#dateTime",
+                                                           "type":  "literal",
+                                                           "value":  "2025-03-30T00:00:00Z"
+                                                       }
+                                     },
+                                     {
+                                         "party":  {
+                                                       "type":  "uri",
+                                                       "value":  "http://www.wikidata.org/entity/Q43093"
+                                                   },
+                                         "prop":  {
+                                                      "type":  "uri",
+                                                      "value":  "http://www.wikidata.org/prop/P488"
+                                                  },
+                                         "person":  {
+                                                        "type":  "uri",
+                                                        "value":  "http://www.wikidata.org/entity/Q1961896"
+                                                    },
+                                         "partyLabel":  {
+                                                            "xml:lang":  "es",
+                                                            "type":  "literal",
+                                                            "value":  "Partido Nacionalista Vasco"
+                                                        },
+                                         "personLabel":  {
+                                                             "xml:lang":  "es",
+                                                             "type":  "literal",
+                                                             "value":  "Iñigo Urkullu Renteria"
+                                                         }
+                                     },
+                                     {
+                                         "party":  {
+                                                       "type":  "uri",
+                                                       "value":  "http://www.wikidata.org/entity/Q43093"
+                                                   },
+                                         "prop":  {
+                                                      "type":  "uri",
+                                                      "value":  "http://www.wikidata.org/prop/P488"
+                                                  },
+                                         "person":  {
+                                                        "type":  "uri",
+                                                        "value":  "http://www.wikidata.org/entity/Q8198786"
+                                                    },
+                                         "partyLabel":  {
+                                                            "xml:lang":  "es",
+                                                            "type":  "literal",
+                                                            "value":  "Partido Nacionalista Vasco"
+                                                        },
+                                         "personLabel":  {
+                                                             "xml:lang":  "es",
+                                                             "type":  "literal",
+                                                             "value":  "Andoni Ortuzar"
+                                                         },
+                                         "startDate":  {
+                                                           "datatype":  "http://www.w3.org/2001/XMLSchema#dateTime",
+                                                           "type":  "literal",
+                                                           "value":  "2013-01-01T00:00:00Z"
+                                                       },
+                                         "endDate":  {
+                                                         "datatype":  "http://www.w3.org/2001/XMLSchema#dateTime",
+                                                         "type":  "literal",
+                                                         "value":  "2025-03-30T00:00:00Z"
+                                                     }
+                                     },
+                                     {
+                                         "party":  {
+                                                       "type":  "uri",
+                                                       "value":  "http://www.wikidata.org/entity/Q885433"
+                                                   },
+                                         "prop":  {
+                                                      "type":  "uri",
+                                                      "value":  "http://www.wikidata.org/prop/P488"
+                                                  },
+                                         "person":  {
+                                                        "type":  "uri",
+                                                        "value":  "http://www.wikidata.org/entity/Q12382958"
+                                                    },
+                                         "partyLabel":  {
+                                                            "xml:lang":  "en",
+                                                            "type":  "literal",
+                                                            "value":  "Galician Nationalist Bloc"
+                                                        },
+                                         "personLabel":  {
+                                                             "xml:lang":  "es",
+                                                             "type":  "literal",
+                                                             "value":  "Ana Belén Pontón Mondelo"
+                                                         },
+                                         "startDate":  {
+                                                           "datatype":  "http://www.w3.org/2001/XMLSchema#dateTime",
+                                                           "type":  "literal",
+                                                           "value":  "2016-02-01T00:00:00Z"
+                                                       }
+                                     },
+                                     {
+                                         "party":  {
+                                                       "type":  "uri",
+                                                       "value":  "http://www.wikidata.org/entity/Q97155800"
+                                                   },
+                                         "prop":  {
+                                                      "type":  "uri",
+                                                      "value":  "http://www.wikidata.org/prop/P488"
+                                                  },
+                                         "person":  {
+                                                        "type":  "uri",
+                                                        "value":  "http://www.wikidata.org/entity/Q16179626"
+                                                    },
+                                         "partyLabel":  {
+                                                            "xml:lang":  "es",
+                                                            "type":  "literal",
+                                                            "value":  "Junts per Catalunya"
+                                                        },
+                                         "personLabel":  {
+                                                             "xml:lang":  "es",
+                                                             "type":  "literal",
+                                                             "value":  "Laura Borrás Castanyer"
+                                                         },
+                                         "startDate":  {
+                                                           "datatype":  "http://www.w3.org/2001/XMLSchema#dateTime",
+                                                           "type":  "literal",
+                                                           "value":  "2022-06-04T00:00:00Z"
+                                                       },
+                                         "endDate":  {
+                                                         "datatype":  "http://www.w3.org/2001/XMLSchema#dateTime",
+                                                         "type":  "literal",
+                                                         "value":  "2024-10-26T00:00:00Z"
+                                                     }
+                                     },
+                                     {
+                                         "party":  {
+                                                       "type":  "uri",
+                                                       "value":  "http://www.wikidata.org/entity/Q97155800"
+                                                   },
+                                         "prop":  {
+                                                      "type":  "uri",
+                                                      "value":  "http://www.wikidata.org/prop/P488"
+                                                  },
+                                         "person":  {
+                                                        "type":  "uri",
+                                                        "value":  "http://www.wikidata.org/entity/Q4740163"
+                                                    },
+                                         "partyLabel":  {
+                                                            "xml:lang":  "es",
+                                                            "type":  "literal",
+                                                            "value":  "Junts per Catalunya"
+                                                        },
+                                         "personLabel":  {
+                                                             "xml:lang":  "es",
+                                                             "type":  "literal",
+                                                             "value":  "Carles Puigdemont"
+                                                         },
+                                         "startDate":  {
+                                                           "datatype":  "http://www.w3.org/2001/XMLSchema#dateTime",
+                                                           "type":  "literal",
+                                                           "value":  "2020-08-09T00:00:00Z"
+                                                       },
+                                         "endDate":  {
+                                                         "datatype":  "http://www.w3.org/2001/XMLSchema#dateTime",
+                                                         "type":  "literal",
+                                                         "value":  "2022-06-04T00:00:00Z"
+                                                     }
+                                     },
+                                     {
+                                         "party":  {
+                                                       "type":  "uri",
+                                                       "value":  "http://www.wikidata.org/entity/Q97155800"
+                                                   },
+                                         "prop":  {
+                                                      "type":  "uri",
+                                                      "value":  "http://www.wikidata.org/prop/P488"
+                                                  },
+                                         "person":  {
+                                                        "type":  "uri",
+                                                        "value":  "http://www.wikidata.org/entity/Q4740163"
+                                                    },
+                                         "partyLabel":  {
+                                                            "xml:lang":  "es",
+                                                            "type":  "literal",
+                                                            "value":  "Junts per Catalunya"
+                                                        },
+                                         "personLabel":  {
+                                                             "xml:lang":  "es",
+                                                             "type":  "literal",
+                                                             "value":  "Carles Puigdemont"
+                                                         },
+                                         "startDate":  {
+                                                           "datatype":  "http://www.w3.org/2001/XMLSchema#dateTime",
+                                                           "type":  "literal",
+                                                           "value":  "2024-10-26T00:00:00Z"
+                                                       }
+                                     },
+                                     {
+                                         "party":  {
+                                                       "type":  "uri",
+                                                       "value":  "http://www.wikidata.org/entity/Q97155800"
+                                                   },
+                                         "prop":  {
+                                                      "type":  "uri",
+                                                      "value":  "http://www.wikidata.org/prop/P3975"
+                                                  },
+                                         "person":  {
+                                                        "type":  "uri",
+                                                        "value":  "http://www.wikidata.org/entity/Q19928416"
+                                                    },
+                                         "partyLabel":  {
+                                                            "xml:lang":  "es",
+                                                            "type":  "literal",
+                                                            "value":  "Junts per Catalunya"
+                                                        },
+                                         "personLabel":  {
+                                                             "xml:lang":  "es",
+                                                             "type":  "literal",
+                                                             "value":  "Jordi Sànchez i Picanyol"
+                                                         },
+                                         "startDate":  {
+                                                           "datatype":  "http://www.w3.org/2001/XMLSchema#dateTime",
+                                                           "type":  "literal",
+                                                           "value":  "2020-08-09T00:00:00Z"
+                                                       },
+                                         "endDate":  {
+                                                         "datatype":  "http://www.w3.org/2001/XMLSchema#dateTime",
+                                                         "type":  "literal",
+                                                         "value":  "2022-06-04T00:00:00Z"
+                                                     }
+                                     },
+                                     {
+                                         "party":  {
+                                                       "type":  "uri",
+                                                       "value":  "http://www.wikidata.org/entity/Q97155800"
+                                                   },
+                                         "prop":  {
+                                                      "type":  "uri",
+                                                      "value":  "http://www.wikidata.org/prop/P3975"
+                                                  },
+                                         "person":  {
+                                                        "type":  "uri",
+                                                        "value":  "http://www.wikidata.org/entity/Q17037054"
+                                                    },
+                                         "partyLabel":  {
+                                                            "xml:lang":  "es",
+                                                            "type":  "literal",
+                                                            "value":  "Junts per Catalunya"
+                                                        },
+                                         "personLabel":  {
+                                                             "xml:lang":  "es",
+                                                             "type":  "literal",
+                                                             "value":  "Jordi Turull"
+                                                         },
+                                         "startDate":  {
+                                                           "datatype":  "http://www.w3.org/2001/XMLSchema#dateTime",
+                                                           "type":  "literal",
+                                                           "value":  "2022-06-04T00:00:00Z"
+                                                       }
+                                     }
+                                 ]
+                }
+}

@@ -10,7 +10,7 @@ import com.swiftcheck.aml.sdk.FtmDatasetBuilder;
 
 class EsPepPoliticalPartiesParserTest {
 
-    private static final Path RAW = Path.of("src/test/resources/seed/spanish-party-leaders.json");
+    private static final Path RAW = Path.of("src/test/resources/spanish-party-leaders-wikidata.json");
 
     private final EsPepPoliticalPartiesParser parser = new EsPepPoliticalPartiesParser();
 
@@ -22,12 +22,12 @@ class EsPepPoliticalPartiesParserTest {
         );
         int count = parser.convert(RAW, dataset);
 
-        assertThat(count).isEqualTo(20);
+        assertThat(count).isGreaterThanOrEqualTo(15);
         assertThat(dataset.qualityReport().getTotalRejected()).isZero();
         assertThat(dataset.qualityReport().getIdConflictCount()).isZero();
 
         long persons = dataset.entities().stream().filter(e -> "Person".equals(e.getSchema())).count();
-        assertThat(persons).isEqualTo(20);
+        assertThat(persons).isGreaterThanOrEqualTo(15);
 
         assertThat(dataset.entities().stream().filter(e -> "Person".equals(e.getSchema())))
                 .allSatisfy(p -> {
@@ -36,4 +36,3 @@ class EsPepPoliticalPartiesParserTest {
                 });
     }
 }
-

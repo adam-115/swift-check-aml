@@ -1,0 +1,357 @@
+{
+    "head":  {
+                 "vars":  [
+                              "org",
+                              "orgLabel",
+                              "person",
+                              "personLabel",
+                              "prop",
+                              "startDate",
+                              "endDate",
+                              "birthDate",
+                              "genderLabel"
+                          ]
+             },
+    "results":  {
+                    "bindings":  [
+                                     {
+                                         "org":  {
+                                                     "type":  "uri",
+                                                     "value":  "http://www.wikidata.org/entity/Q651222"
+                                                 },
+                                         "person":  {
+                                                        "type":  "uri",
+                                                        "value":  "http://www.wikidata.org/entity/Q1225841"
+                                                    },
+                                         "startDate":  {
+                                                           "type":  "literal",
+                                                           "value":  "2023-05-10"
+                                                       },
+                                         "orgLabel":  {
+                                                          "xml:lang":  "it",
+                                                          "type":  "literal",
+                                                          "value":  "Enel"
+                                                      },
+                                         "personLabel":  {
+                                                             "xml:lang":  "it",
+                                                             "type":  "literal",
+                                                             "value":  "Doce"
+                                                         }
+                                     },
+                                     {
+                                         "org":  {
+                                                     "type":  "uri",
+                                                     "value":  "http://www.wikidata.org/entity/Q565594"
+                                                 },
+                                         "person":  {
+                                                        "type":  "uri",
+                                                        "value":  "http://www.wikidata.org/entity/Q3680295"
+                                                    },
+                                         "startDate":  {
+                                                           "type":  "literal",
+                                                           "value":  "2014-05-09"
+                                                       },
+                                         "orgLabel":  {
+                                                          "xml:lang":  "it",
+                                                          "type":  "literal",
+                                                          "value":  "Eni"
+                                                      },
+                                         "personLabel":  {
+                                                             "type":  "literal",
+                                                             "value":  "Q3680295"
+                                                         }
+                                     },
+                                     {
+                                         "org":  {
+                                                     "type":  "uri",
+                                                     "value":  "http://www.wikidata.org/entity/Q651222"
+                                                 },
+                                         "person":  {
+                                                        "type":  "uri",
+                                                        "value":  "http://www.wikidata.org/entity/Q3746467"
+                                                    },
+                                         "startDate":  {
+                                                           "type":  "literal",
+                                                           "value":  "2023-05-12"
+                                                       },
+                                         "orgLabel":  {
+                                                          "xml:lang":  "it",
+                                                          "type":  "literal",
+                                                          "value":  "Enel"
+                                                      },
+                                         "personLabel":  {
+                                                             "xml:lang":  "it",
+                                                             "type":  "literal",
+                                                             "value":  "Flavio Cianciarulo"
+                                                         },
+                                         "birthDate":  {
+                                                           "datatype":  "http://www.w3.org/2001/XMLSchema#dateTime",
+                                                           "type":  "literal",
+                                                           "value":  "1964-07-26T00:00:00Z"
+                                                       },
+                                         "genderLabel":  {
+                                                             "xml:lang":  "it",
+                                                             "type":  "literal",
+                                                             "value":  "maschio"
+                                                         }
+                                     },
+                                     {
+                                         "org":  {
+                                                     "type":  "uri",
+                                                     "value":  "http://www.wikidata.org/entity/Q1048204"
+                                                 },
+                                         "person":  {
+                                                        "type":  "uri",
+                                                        "value":  "http://www.wikidata.org/entity/Q3767468"
+                                                    },
+                                         "startDate":  {
+                                                           "type":  "literal",
+                                                           "value":  "2019-10-24"
+                                                       },
+                                         "orgLabel":  {
+                                                          "xml:lang":  "it",
+                                                          "type":  "literal",
+                                                          "value":  "Cassa Depositi e Prestiti"
+                                                      },
+                                         "personLabel":  {
+                                                             "xml:lang":  "it",
+                                                             "type":  "literal",
+                                                             "value":  "Giovanni III Visconti"
+                                                         },
+                                         "genderLabel":  {
+                                                             "xml:lang":  "it",
+                                                             "type":  "literal",
+                                                             "value":  "maschio"
+                                                         }
+                                     },
+                                     {
+                                         "org":  {
+                                                     "type":  "uri",
+                                                     "value":  "http://www.wikidata.org/entity/Q83823"
+                                                 },
+                                         "person":  {
+                                                        "type":  "uri",
+                                                        "value":  "http://www.wikidata.org/entity/Q3839627"
+                                                    },
+                                         "startDate":  {
+                                                           "type":  "literal",
+                                                           "value":  "2021-05-31"
+                                                       },
+                                         "orgLabel":  {
+                                                          "xml:lang":  "it",
+                                                          "type":  "literal",
+                                                          "value":  "Ferrovie dello Stato Italiane"
+                                                      },
+                                         "personLabel":  {
+                                                             "xml:lang":  "it",
+                                                             "type":  "literal",
+                                                             "value":  "Luigi Ferraro"
+                                                         }
+                                     },
+                                     {
+                                         "org":  {
+                                                     "type":  "uri",
+                                                     "value":  "http://www.wikidata.org/entity/Q495026"
+                                                 },
+                                         "person":  {
+                                                        "type":  "uri",
+                                                        "value":  "http://www.wikidata.org/entity/Q3852125"
+                                                    },
+                                         "startDate":  {
+                                                           "type":  "literal",
+                                                           "value":  "2017-04-01"
+                                                       },
+                                         "orgLabel":  {
+                                                          "type":  "literal",
+                                                          "value":  "Q495026"
+                                                      },
+                                         "personLabel":  {
+                                                             "xml:lang":  "it",
+                                                             "type":  "literal",
+                                                             "value":  "Matteo Formenti"
+                                                         },
+                                         "birthDate":  {
+                                                           "datatype":  "http://www.w3.org/2001/XMLSchema#dateTime",
+                                                           "type":  "literal",
+                                                           "value":  "1982-04-15T00:00:00Z"
+                                                       },
+                                         "genderLabel":  {
+                                                             "xml:lang":  "it",
+                                                             "type":  "literal",
+                                                             "value":  "maschio"
+                                                         }
+                                     },
+                                     {
+                                         "org":  {
+                                                     "type":  "uri",
+                                                     "value":  "http://www.wikidata.org/entity/Q910379"
+                                                 },
+                                         "person":  {
+                                                        "type":  "uri",
+                                                        "value":  "http://www.wikidata.org/entity/Q3938740"
+                                                    },
+                                         "startDate":  {
+                                                           "type":  "literal",
+                                                           "value":  "2023-05-09"
+                                                       },
+                                         "orgLabel":  {
+                                                          "xml:lang":  "it",
+                                                          "type":  "literal",
+                                                          "value":  "Leonardo"
+                                                      },
+                                         "personLabel":  {
+                                                             "xml:lang":  "it",
+                                                             "type":  "literal",
+                                                             "value":  "Roberto De Feo"
+                                                         },
+                                         "birthDate":  {
+                                                           "datatype":  "http://www.w3.org/2001/XMLSchema#dateTime",
+                                                           "type":  "literal",
+                                                           "value":  "1981-08-08T00:00:00Z"
+                                                       },
+                                         "genderLabel":  {
+                                                             "xml:lang":  "it",
+                                                             "type":  "literal",
+                                                             "value":  "maschio"
+                                                         }
+                                     },
+                                     {
+                                         "org":  {
+                                                     "type":  "uri",
+                                                     "value":  "http://www.wikidata.org/entity/Q1048204"
+                                                 },
+                                         "person":  {
+                                                        "type":  "uri",
+                                                        "value":  "http://www.wikidata.org/entity/Q107080648"
+                                                    },
+                                         "startDate":  {
+                                                           "type":  "literal",
+                                                           "value":  "2021-06-01"
+                                                       },
+                                         "orgLabel":  {
+                                                          "xml:lang":  "it",
+                                                          "type":  "literal",
+                                                          "value":  "Cassa Depositi e Prestiti"
+                                                      },
+                                         "personLabel":  {
+                                                             "type":  "literal",
+                                                             "value":  "Q107080648"
+                                                         }
+                                     },
+                                     {
+                                         "org":  {
+                                                     "type":  "uri",
+                                                     "value":  "http://www.wikidata.org/entity/Q565594"
+                                                 },
+                                         "person":  {
+                                                        "type":  "uri",
+                                                        "value":  "http://www.wikidata.org/entity/Q118279435"
+                                                    },
+                                         "startDate":  {
+                                                           "type":  "literal",
+                                                           "value":  "2023-05-10"
+                                                       },
+                                         "orgLabel":  {
+                                                          "xml:lang":  "it",
+                                                          "type":  "literal",
+                                                          "value":  "Eni"
+                                                      },
+                                         "personLabel":  {
+                                                             "type":  "literal",
+                                                             "value":  "Q118279435"
+                                                         }
+                                     },
+                                     {
+                                         "org":  {
+                                                     "type":  "uri",
+                                                     "value":  "http://www.wikidata.org/entity/Q495026"
+                                                 },
+                                         "person":  {
+                                                        "type":  "uri",
+                                                        "value":  "http://www.wikidata.org/entity/Q118279436"
+                                                    },
+                                         "startDate":  {
+                                                           "type":  "literal",
+                                                           "value":  "2023-05-10"
+                                                       },
+                                         "orgLabel":  {
+                                                          "type":  "literal",
+                                                          "value":  "Q495026"
+                                                      },
+                                         "personLabel":  {
+                                                             "type":  "literal",
+                                                             "value":  "Q118279436"
+                                                         }
+                                     },
+                                     {
+                                         "org":  {
+                                                     "type":  "uri",
+                                                     "value":  "http://www.wikidata.org/entity/Q910379"
+                                                 },
+                                         "person":  {
+                                                        "type":  "uri",
+                                                        "value":  "http://www.wikidata.org/entity/Q118279437"
+                                                    },
+                                         "startDate":  {
+                                                           "type":  "literal",
+                                                           "value":  "2023-05-10"
+                                                       },
+                                         "orgLabel":  {
+                                                          "xml:lang":  "it",
+                                                          "type":  "literal",
+                                                          "value":  "Leonardo"
+                                                      },
+                                         "personLabel":  {
+                                                             "type":  "literal",
+                                                             "value":  "Q118279437"
+                                                         }
+                                     },
+                                     {
+                                         "org":  {
+                                                     "type":  "uri",
+                                                     "value":  "http://www.wikidata.org/entity/Q936325"
+                                                 },
+                                         "person":  {
+                                                        "type":  "uri",
+                                                        "value":  "http://www.wikidata.org/entity/Q118279438"
+                                                    },
+                                         "startDate":  {
+                                                           "type":  "literal",
+                                                           "value":  "2023-05-09"
+                                                       },
+                                         "orgLabel":  {
+                                                          "xml:lang":  "it",
+                                                          "type":  "literal",
+                                                          "value":  "Terna S.p.A."
+                                                      },
+                                         "personLabel":  {
+                                                             "type":  "literal",
+                                                             "value":  "Q118279438"
+                                                         }
+                                     },
+                                     {
+                                         "org":  {
+                                                     "type":  "uri",
+                                                     "value":  "http://www.wikidata.org/entity/Q936325"
+                                                 },
+                                         "person":  {
+                                                        "type":  "uri",
+                                                        "value":  "http://www.wikidata.org/entity/Q118279439"
+                                                    },
+                                         "startDate":  {
+                                                           "type":  "literal",
+                                                           "value":  "2023-05-09"
+                                                       },
+                                         "orgLabel":  {
+                                                          "xml:lang":  "it",
+                                                          "type":  "literal",
+                                                          "value":  "Terna S.p.A."
+                                                      },
+                                         "personLabel":  {
+                                                             "type":  "literal",
+                                                             "value":  "Q118279439"
+                                                         }
+                                     }
+                                 ]
+                }
+}

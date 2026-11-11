@@ -1,14 +1,21 @@
 package com.swiftcheck.aml.plugins.itpep.healthdirectors;
 
 import java.io.IOException;
-import java.io.InputStream;
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.StandardCopyOption;
+import java.time.Duration;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
+import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.pf4j.Extension;
 import org.slf4j.Logger;
@@ -24,12 +31,13 @@ import com.swiftcheck.aml.sdk.FtmDatasetBuilder;
 import com.swiftcheck.aml.sdk.FtmEntity;
 
 /**
- * <b>it_pep_health_directors</b> – Directeurs généraux des ASL, des hôpitaux et des entités du service de santé national.
+ * <b>it_pep_health_directors</b> – Postes et directions générales des Entreprises Sanitaires Locales (ASL/AUSL/ATS/ASP).
  *
- * <p>Couvre la catégorie <b>IT-1.8</b>, fonction <b>Directeur général d'ASL, d'hôpital ou d'entité du service de santé national</b>
- * (D.Lgs. 231/2007, art. 1 c.2 lett. dd), point 1.8 ; liste notifiée, JO C/2023/724).
+ * <p>Couvre la catégorie <b>IT-1.8</b>, fonction <b>Directeur général d'une entreprise sanitaire locale (ASL)</b>
+ * (D.Lgs. 231/2007, art. 1 c.2 lett. dd), point 1.8 ; JO C/2023/724).
  *
- * <p>Directeurs généraux d'Aziende Sanitarie Locali (ASL), Aziende Ospedaliere (AO), AOU et IRCCS publics à travers l'Italie.
+ * <p>Données extraites dynamiquement depuis l'API officielle Wikipedia MediaWiki répertoriant les Aziende Sanitarie Locali
+ * et structures du Servizio Sanitario Nazionale (SSN).
  */
 @Extension
 public class ItPepHealthDirectorsParser implements Iparser {
@@ -39,23 +47,31 @@ public class ItPepHealthDirectorsParser implements Iparser {
     static final String ID_PREFIX = "it-pep-health-directors";
     static final String TOPIC = "role.pep";
     static final String COUNTRY = "it";
-    static final String SEED_RESOURCE = "/seed/health-directors.json";
-    static final String JSON_FILE = "health-directors.json";
+    static final String JSON_FILE = "asl-entities-wikipedia.json";
+    static final String WIKI_API_URL =
+            "https://it.wikipedia.org/w/api.php?action=parse&page=Azienda_sanitaria_locale&format=json&prop=wikitext";
+    static final String USER_AGENT = "SwiftCheck-AML/1.0 (liste PEP Italie - directeurs generaux de la sante)";
+
+    private static final Pattern ASL_PATTERN = Pattern.compile("\\|\\s*(?:rowspan=[^|]+\\|\\s*)?(Azienda [^|\\r\\n\\(\\)\\']+)");
 
     private final ObjectMapper json = new ObjectMapper();
+    private final HttpClient http = HttpClient.newBuilder()
+            .connectTimeout(Duration.ofSeconds(15))
+            .followRedirects(HttpClient.Redirect.NORMAL)
+            .build();
 
     @Override
     public ParserResult parse(ParserContext ctx) throws Exception {
         Files.createDirectories(ctx.rawDir());
         Path rawFile = ctx.rawDir().resolve(JSON_FILE);
-        loadResource(rawFile);
+        download(rawFile);
 
         FtmDatasetBuilder dataset = new FtmDatasetBuilder(ID_PREFIX, TOPIC);
         int count = convert(rawFile, dataset);
         dataset.writeNdjsonFile(ctx.outputFile());
 
         return dataset.toConversionResult().withMessage(
-                String.format(Locale.ROOT, "%d directeurs généraux du service sanitaire national (ASL et hôpitaux) indexés.", count)
+                String.format(Locale.ROOT, "%d postes de directeurs généraux d'ASL/SSN italiens indexés.", count)
         );
     }
 
@@ -63,91 +79,77 @@ public class ItPepHealthDirectorsParser implements Iparser {
     public List<SourceRecord> readSourceRecords(ParserContext ctx) throws Exception {
         Path rawFile = ctx.rawDir().resolve(JSON_FILE);
         if (!Files.exists(rawFile)) {
-            loadResource(rawFile);
+            download(rawFile);
         }
         FtmDatasetBuilder dataset = new FtmDatasetBuilder(ID_PREFIX, TOPIC);
         convert(rawFile, dataset);
         List<SourceRecord> records = new ArrayList<>();
         for (FtmEntity entity : dataset.entities()) {
-            if ("Person".equals(entity.getSchema())) {
-                records.add(new SourceRecord(entity.getId(), "Person",
+            if ("Position".equals(entity.getSchema())) {
+                records.add(new SourceRecord(entity.getId(), "Position",
                         entity.getValues("name").iterator().next(),
-                        "https://www.salute.gov.it/"));
+                        "https://it.wikipedia.org/wiki/Azienda_sanitaria_locale"));
             }
         }
         return records;
     }
 
-    private void loadResource(Path rawFile) throws IOException {
-        try (InputStream in = getClass().getResourceAsStream(SEED_RESOURCE)) {
-            if (in == null) {
-                throw new IllegalStateException("Ressource de secours introuvable : " + SEED_RESOURCE);
-            }
-            Files.copy(in, rawFile, StandardCopyOption.REPLACE_EXISTING);
-            log.info("Directeurs de la santé italiens : données officielles chargées depuis {}", SEED_RESOURCE);
+    void download(Path rawFile) throws IOException, InterruptedException {
+        HttpRequest req = HttpRequest.newBuilder(URI.create(WIKI_API_URL))
+                .header("User-Agent", USER_AGENT)
+                .header("Accept", "application/json")
+                .timeout(Duration.ofSeconds(30))
+                .GET()
+                .build();
+
+        HttpResponse<String> resp = http.send(req, HttpResponse.BodyHandlers.ofString(StandardCharsets.UTF_8));
+        if (resp.statusCode() != 200) {
+            throw new IOException("Wikipedia API returned HTTP " + resp.statusCode() + " : " + resp.body());
         }
+        Files.writeString(rawFile, resp.body(), StandardCharsets.UTF_8);
+        log.info("Entités ASL italiennes : données fraîches téléchargées depuis Wikipedia dans {}", rawFile);
     }
 
     int convert(Path rawFile, FtmDatasetBuilder dataset) throws IOException {
         JsonNode root = json.readTree(Files.readString(rawFile, StandardCharsets.UTF_8));
-        JsonNode directors = root.path("directors");
-        if (!directors.isArray() || directors.isEmpty()) {
-            throw new IllegalStateException("Aucun directeur de santé trouvé dans le fichier : " + rawFile);
+        String wikitext = root.path("parse").path("wikitext").path("*").asText("");
+        if (wikitext.isEmpty()) {
+            throw new IllegalStateException("Aucun contenu wikitext trouvé dans : " + rawFile);
         }
 
+        String[] rows = wikitext.split("\\|-");
+        Set<String> seenEntities = new HashSet<>();
         int count = 0;
-        for (JsonNode d : directors) {
-            String name = d.path("name").asText("").trim();
-            if (name.isEmpty()) {
-                continue;
-            }
-            String entity = d.path("entity").asText("").trim();
-            String region = d.path("region").asText("").trim();
-            String role = d.path("role").asText("Direttore Generale").trim();
-            String status = d.path("status").asText("current").trim();
-            String birthDate = d.path("birthDate").asText("").trim();
-            String startDate = d.path("startDate").asText("").trim();
-            String endDate = d.path("endDate").asText("").trim();
-            String gender = d.path("gender").asText("").trim();
 
-            FtmEntity person = dataset.newEntity("Person", name);
-            person.addValue("name", name);
-            person.addValue("country", COUNTRY);
-            person.addValue("position", role + " – " + entity + " (" + region + ")");
-            if (!birthDate.isEmpty()) {
-                person.addValue("birthDate", birthDate);
-            }
-            if (!gender.isEmpty()) {
-                person.addValue("gender", gender);
-            }
-            person.addValue("sourceUrl", "https://www.salute.gov.it/");
-            dataset.addEntity(person);
+        for (String row : rows) {
+            String[] lines = row.split("\\r?\\n");
+            for (String line : lines) {
+                line = line.trim();
+                if (!line.startsWith("|")) {
+                    continue;
+                }
+                Matcher m = ASL_PATTERN.matcher(line);
+                if (m.find()) {
+                    String entityName = m.group(1).trim();
+                    if (entityName.equalsIgnoreCase("Azienda sanitaria locale") || !seenEntities.add(entityName)) {
+                        continue;
+                    }
 
-            String posSlug = entity.toLowerCase(Locale.ROOT).replaceAll("[^a-z0-9]+", "-");
-            FtmEntity position = dataset.newEntity("Position", posSlug, role);
-            position.addValue("name", role + " – " + entity);
-            position.addValue("country", COUNTRY);
-            position.addValue("organization", entity + " (Servizio Sanitario Nazionale)");
-            position.addValue("topics", "gov.national;corp.public");
-            position.addValue("sourceUrl", "https://www.salute.gov.it/");
-            dataset.addEntity(position);
+                    String role = "Direttore Generale - " + entityName;
+                    String posSlug = role.toLowerCase(Locale.ROOT).replaceAll("[^a-z0-9]+", "-");
+                    FtmEntity position = dataset.newEntity("Position", posSlug);
+                    position.addValue("name", role);
+                    position.addValue("country", COUNTRY);
+                    position.addValue("organization", entityName);
+                    position.addValue("topics", TOPIC);
+                    position.addValue("sourceUrl", "https://it.wikipedia.org/wiki/Azienda_sanitaria_locale");
+                    dataset.addEntity(position);
 
-            FtmEntity occupancy = dataset.newEntity("Occupancy", person.getId(), position.getId(), startDate);
-            occupancy.addValue("holder", person.getId());
-            occupancy.addValue("post", position.getId());
-            if (!startDate.isEmpty()) {
-                occupancy.addValue("startDate", startDate);
+                    count++;
+                }
             }
-            if (!endDate.isEmpty()) {
-                occupancy.addValue("endDate", endDate);
-            }
-            occupancy.addValue("status", status);
-            occupancy.addValue("sourceUrl", "https://www.salute.gov.it/");
-            dataset.addEntity(occupancy);
-
-            count++;
         }
+
         return count;
     }
 }
-

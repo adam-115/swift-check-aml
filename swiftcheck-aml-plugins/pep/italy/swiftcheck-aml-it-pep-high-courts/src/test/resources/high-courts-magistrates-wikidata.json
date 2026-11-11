@@ -1,0 +1,294 @@
+{
+    "head":  {
+                 "vars":  [
+                              "person",
+                              "personLabel",
+                              "roleLabel",
+                              "courtLabel",
+                              "startDate",
+                              "endDate",
+                              "birthDate",
+                              "genderLabel"
+                          ]
+             },
+    "results":  {
+                    "bindings":  [
+                                     {
+                                         "person":  {
+                                                        "type":  "uri",
+                                                        "value":  "http://www.wikidata.org/entity/Q72169"
+                                                    },
+                                         "roleLabel":  {
+                                                           "type":  "literal",
+                                                           "value":  "Presidente del Consiglio Superiore della Magistratura"
+                                                       },
+                                         "courtLabel":  {
+                                                            "type":  "literal",
+                                                            "value":  "Consiglio Superiore della Magistratura"
+                                                        },
+                                         "startDate":  {
+                                                           "type":  "literal",
+                                                           "value":  "2015-02-03"
+                                                       },
+                                         "endDate":  {
+                                                         "type":  "literal",
+                                                         "value":  ""
+                                                     },
+                                         "birthDate":  {
+                                                           "datatype":  "http://www.w3.org/2001/XMLSchema#dateTime",
+                                                           "type":  "literal",
+                                                           "value":  "1983-10-08T00:00:00Z"
+                                                       },
+                                         "personLabel":  {
+                                                             "xml:lang":  "it",
+                                                             "type":  "literal",
+                                                             "value":  "Jochen Schöps"
+                                                         },
+                                         "genderLabel":  {
+                                                             "xml:lang":  "it",
+                                                             "type":  "literal",
+                                                             "value":  "maschio"
+                                                         }
+                                     },
+                                     {
+                                         "person":  {
+                                                        "type":  "uri",
+                                                        "value":  "http://www.wikidata.org/entity/Q1842881"
+                                                    },
+                                         "roleLabel":  {
+                                                           "type":  "literal",
+                                                           "value":  "Primo Presidente emerito della Corte Suprema di Cassazione"
+                                                       },
+                                         "courtLabel":  {
+                                                            "type":  "literal",
+                                                            "value":  "Corte Suprema di Cassazione"
+                                                        },
+                                         "startDate":  {
+                                                           "type":  "literal",
+                                                           "value":  "2020-07-20"
+                                                       },
+                                         "endDate":  {
+                                                         "type":  "literal",
+                                                         "value":  "2023-03-05"
+                                                     },
+                                         "personLabel":  {
+                                                             "xml:lang":  "it",
+                                                             "type":  "literal",
+                                                             "value":  "Fronte Nazionale Siciliano"
+                                                         }
+                                     },
+                                     {
+                                         "person":  {
+                                                        "type":  "uri",
+                                                        "value":  "http://www.wikidata.org/entity/Q3071910"
+                                                    },
+                                         "roleLabel":  {
+                                                           "type":  "literal",
+                                                           "value":  "Presidente emerito del Consiglio di Stato"
+                                                       },
+                                         "courtLabel":  {
+                                                            "type":  "literal",
+                                                            "value":  "Consiglio di Stato"
+                                                        },
+                                         "startDate":  {
+                                                           "type":  "literal",
+                                                           "value":  "2018-09-25"
+                                                       },
+                                         "endDate":  {
+                                                         "type":  "literal",
+                                                         "value":  "2022-01-29"
+                                                     },
+                                         "birthDate":  {
+                                                           "datatype":  "http://www.w3.org/2001/XMLSchema#dateTime",
+                                                           "type":  "literal",
+                                                           "value":  "1955-08-27T00:00:00Z"
+                                                       },
+                                         "personLabel":  {
+                                                             "xml:lang":  "it",
+                                                             "type":  "literal",
+                                                             "value":  "Filippo Patroni Griffi"
+                                                         },
+                                         "genderLabel":  {
+                                                             "xml:lang":  "it",
+                                                             "type":  "literal",
+                                                             "value":  "maschio"
+                                                         }
+                                     },
+                                     {
+                                         "person":  {
+                                                        "type":  "uri",
+                                                        "value":  "http://www.wikidata.org/entity/Q108167713"
+                                                    },
+                                         "roleLabel":  {
+                                                           "type":  "literal",
+                                                           "value":  "Presidente del Consiglio di Stato"
+                                                       },
+                                         "courtLabel":  {
+                                                            "type":  "literal",
+                                                            "value":  "Consiglio di Stato"
+                                                        },
+                                         "startDate":  {
+                                                           "type":  "literal",
+                                                           "value":  "2023-01-16"
+                                                       },
+                                         "endDate":  {
+                                                         "type":  "literal",
+                                                         "value":  ""
+                                                     },
+                                         "birthDate":  {
+                                                           "datatype":  "http://www.w3.org/2001/XMLSchema#dateTime",
+                                                           "type":  "literal",
+                                                           "value":  "1957-04-26T00:00:00Z"
+                                                       },
+                                         "personLabel":  {
+                                                             "xml:lang":  "it",
+                                                             "type":  "literal",
+                                                             "value":  "Luigi Maruotti"
+                                                         },
+                                         "genderLabel":  {
+                                                             "xml:lang":  "it",
+                                                             "type":  "literal",
+                                                             "value":  "maschio"
+                                                         }
+                                     },
+                                     {
+                                         "person":  {
+                                                        "type":  "uri",
+                                                        "value":  "http://www.wikidata.org/entity/Q111086553"
+                                                    },
+                                         "roleLabel":  {
+                                                           "type":  "literal",
+                                                           "value":  "Presidente della Corte dei conti"
+                                                       },
+                                         "courtLabel":  {
+                                                            "type":  "literal",
+                                                            "value":  "Corte dei conti"
+                                                        },
+                                         "startDate":  {
+                                                           "type":  "literal",
+                                                           "value":  "2020-09-15"
+                                                       },
+                                         "endDate":  {
+                                                         "type":  "literal",
+                                                         "value":  ""
+                                                     },
+                                         "birthDate":  {
+                                                           "datatype":  "http://www.w3.org/2001/XMLSchema#dateTime",
+                                                           "type":  "literal",
+                                                           "value":  "1958-12-31T00:00:00Z"
+                                                       },
+                                         "personLabel":  {
+                                                             "xml:lang":  "it",
+                                                             "type":  "literal",
+                                                             "value":  "Guido Carlino"
+                                                         },
+                                         "genderLabel":  {
+                                                             "xml:lang":  "it",
+                                                             "type":  "literal",
+                                                             "value":  "maschio"
+                                                         }
+                                     },
+                                     {
+                                         "person":  {
+                                                        "type":  "uri",
+                                                        "value":  "http://www.wikidata.org/entity/Q116430580"
+                                                    },
+                                         "roleLabel":  {
+                                                           "type":  "literal",
+                                                           "value":  "Vicepresidente del Consiglio Superiore della Magistratura"
+                                                       },
+                                         "courtLabel":  {
+                                                            "type":  "literal",
+                                                            "value":  "Consiglio Superiore della Magistratura"
+                                                        },
+                                         "startDate":  {
+                                                           "type":  "literal",
+                                                           "value":  "2023-01-25"
+                                                       },
+                                         "endDate":  {
+                                                         "type":  "literal",
+                                                         "value":  ""
+                                                     },
+                                         "birthDate":  {
+                                                           "datatype":  "http://www.w3.org/2001/XMLSchema#dateTime",
+                                                           "type":  "literal",
+                                                           "value":  "1966-02-01T00:00:00Z"
+                                                       },
+                                         "personLabel":  {
+                                                             "xml:lang":  "it",
+                                                             "type":  "literal",
+                                                             "value":  "Fabio Pinelli"
+                                                         },
+                                         "genderLabel":  {
+                                                             "xml:lang":  "it",
+                                                             "type":  "literal",
+                                                             "value":  "maschio"
+                                                         }
+                                     },
+                                     {
+                                         "person":  {
+                                                        "type":  "uri",
+                                                        "value":  "http://www.wikidata.org/entity/Q123223992"
+                                                    },
+                                         "roleLabel":  {
+                                                           "type":  "literal",
+                                                           "value":  "Primo Presidente della Corte Suprema di Cassazione"
+                                                       },
+                                         "courtLabel":  {
+                                                            "type":  "literal",
+                                                            "value":  "Corte Suprema di Cassazione"
+                                                        },
+                                         "startDate":  {
+                                                           "type":  "literal",
+                                                           "value":  "2023-03-01"
+                                                       },
+                                         "endDate":  {
+                                                         "type":  "literal",
+                                                         "value":  "2025-09-08"
+                                                     },
+                                         "birthDate":  {
+                                                           "datatype":  "http://www.w3.org/2001/XMLSchema#dateTime",
+                                                           "type":  "literal",
+                                                           "value":  "1955-09-08T00:00:00Z"
+                                                       },
+                                         "personLabel":  {
+                                                             "xml:lang":  "it",
+                                                             "type":  "literal",
+                                                             "value":  "Margherita Cassano"
+                                                         },
+                                         "genderLabel":  {
+                                                             "xml:lang":  "it",
+                                                             "type":  "literal",
+                                                             "value":  "femmina"
+                                                         }
+                                     },
+                                     {
+                                         "person":  {
+                                                        "type":  "uri",
+                                                        "value":  "http://www.wikidata.org/entity/Q140019253"
+                                                    },
+                                         "roleLabel":  {
+                                                           "type":  "literal",
+                                                           "value":  "Primo Presidente della Corte Suprema di Cassazione"
+                                                       },
+                                         "courtLabel":  {
+                                                            "type":  "literal",
+                                                            "value":  "Corte Suprema di Cassazione"
+                                                        },
+                                         "startDate":  {
+                                                           "type":  "literal",
+                                                           "value":  "2025-09-09"
+                                                       },
+                                         "endDate":  {
+                                                         "type":  "literal",
+                                                         "value":  ""
+                                                     },
+                                         "personLabel":  {
+                                                             "xml:lang":  "en",
+                                                             "type":  "literal",
+                                                             "value":  "Nazareth Jardim Emeb"
+                                                         }
+                                     }
+                                 ]
+                }
+}
