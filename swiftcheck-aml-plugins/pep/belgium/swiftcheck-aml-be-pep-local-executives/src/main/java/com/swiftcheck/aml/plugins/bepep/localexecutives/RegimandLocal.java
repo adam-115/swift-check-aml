@@ -19,13 +19,12 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
- * Mandats locaux déclarés à la Cour des comptes (Regimand, {@code https://public.regimand.be}) : échevins, présidents
- * de CPAS et députés provinciaux des communes et provinces retenues. Les bourgmestres et gouverneurs viennent de
- * Wikidata et de LBLOD ; ils ne sont pas repris ici, pour ne pas les publier deux fois.
+ * Mandats locaux déclarés à la Cour des comptes (Regimand, {@code https://public.regimand.be}) : bourgmestres,
+ * gouverneurs, échevins, présidents de CPAS et députés provinciaux des communes et provinces retenues.
  *
  * <p>Regimand ne se télécharge pas en bloc : l'API {@code Statement/PublicSearch} répond à une recherche par nom
- * d'institution (limitée à environ 200 ko). On interroge donc chaque collectivité par son nom, puis on garde les
- * fonctions assujetties ({@code isLiable}) exercées dans cette collectivité.
+ * d'institution. On interroge donc chaque collectivité par son nom, puis on garde les fonctions assujetties
+ * ({@code isLiable}) exercées dans cette collectivité.
  */
 final class RegimandLocal {
 
@@ -34,10 +33,10 @@ final class RegimandLocal {
     private static final String USER_AGENT = "SwiftCheck-AML/1.0 (liste PEP Belgique - mandats locaux Regimand)";
     private static final ObjectMapper JSON = new ObjectMapper();
 
-    /** Fonctions locales retenues (nom français, sans accent, en minuscules). */
+    /** Fonctions locales retenues (nom français ou néerlandais, sans accent, en minuscules). */
     private static final Pattern ROLE = Pattern.compile(
-            "^(echevin|president de cpas|depute provincial|president du college provincial|president du conseil provincial)"
-                    + "(?! de district)");
+            "^(bourgmestre|burgemeester|gouverneur|echevin|echevine|schepen|president de cpas|presidente de cpas|voorzitter van het bijzonder comit[eé]|voorzitter van het ocmw|voorzitter van het vast bureau|depute provincial|deputee provinciale|gedeputeerde|president du college provincial|president du conseil provincial|voorzitter van de provincieraad|voorzitter van het provinciecollege)"
+                    + "(?! de district)", Pattern.CASE_INSENSITIVE | Pattern.UNICODE_CHARACTER_CLASS);
 
     /** Un mandat local déclaré. */
     record Mandate(String profileId, String firstName, String lastName, String role, String institution,
@@ -117,7 +116,8 @@ final class RegimandLocal {
                     continue;
                 }
                 Mandate m = new Mandate(profileId, profile.path("firstName").asText("").trim(),
-                        profile.path("lastName").asText("").trim(), role.replaceAll("\\s*\\(titulaire ou f\\.f\\.\\)", ""),
+                        profile.path("lastName").asText("").trim(),
+                        role.replaceAll("(?i)\\s*\\((titulaire ou f\\.f\\.|titelvoerend of wnd\\.?|titularis of wnd\\.?)\\)", ""),
                         institution.trim(), start, end);
                 if (m.fullName().isBlank() || profileId.isBlank()) {
                     continue;
@@ -152,7 +152,8 @@ final class RegimandLocal {
                 if (inst.matches("^(province|provincie)\\b.*") && inst.contains(bare)) {
                     return true;
                 }
-            } else if (inst.matches("^" + Pattern.quote(key) + "\\s*\\((commune|ville|gemeente|stad)\\b.*")) {
+            } else if (inst.matches("^" + Pattern.quote(key) + "\\s*\\((commune|ville|gemeente|stad)\\b.*")
+                    || inst.matches("^(commune|ville|gemeente|stad)\\s*(de |d'|van )?\\b" + Pattern.quote(key) + "\\b.*")) {
                 return true;
             }
         }
@@ -161,20 +162,24 @@ final class RegimandLocal {
 
     private static String name(JsonNode translations) {
         String fr = null;
+        String nl = null;
         String any = null;
         for (JsonNode t : translations) {
             String n = t.path("name").asText("");
             if (n.isBlank()) {
                 continue;
             }
-            if ("FR".equalsIgnoreCase(t.path("languageCode").asText(""))) {
+            String lang = t.path("languageCode").asText("");
+            if ("FR".equalsIgnoreCase(lang)) {
                 fr = n;
+            } else if ("NL".equalsIgnoreCase(lang)) {
+                nl = n;
             }
             if (any == null) {
                 any = n;
             }
         }
-        return fr != null ? fr : any != null ? any : "";
+        return fr != null ? fr : nl != null ? nl : any != null ? any : "";
     }
 
     private static String date(String raw) {

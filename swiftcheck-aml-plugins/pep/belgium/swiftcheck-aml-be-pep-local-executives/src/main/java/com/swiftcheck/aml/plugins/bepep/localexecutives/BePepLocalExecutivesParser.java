@@ -72,6 +72,55 @@ public class BePepLocalExecutivesParser implements Iparser {
     private static final String MALE = "Q6581097";
     private static final String FEMALE = "Q6581072";
 
+    /**
+     * Les 40 collectivités belges de 50 000 habitants ou plus selon les chiffres officiels de population Statbel
+     * (Arrêté royal annuel) : 10 provinces et 30 communes.
+     */
+    static final List<Area> OFFICIAL_STATBEL_AREAS = List.of(
+            // 10 Provinces
+            new Area("Q1116", "Anvers", "Antwerpen", "province", 1_921_189),
+            new Area("Q1118", "Brabant flamand", "Vlaams-Brabant", "province", 1_204_541),
+            new Area("Q1122", "Brabant wallon", "Waals-Brabant", "province", 415_381),
+            new Area("Q1113", "Flandre-Occidentale", "West-Vlaanderen", "province", 1_231_585),
+            new Area("Q1114", "Flandre-Orientale", "Oost-Vlaanderen", "province", 1_602_532),
+            new Area("Q1129", "Hainaut", "Henegouwen", "province", 1_365_328),
+            new Area("Q1127", "Liège", "Luik", "province", 1_122_925),
+            new Area("Q1095", "Limbourg", "Limburg", "province", 904_919),
+            new Area("Q1126", "Luxembourg", "Luxemburg", "province", 296_008),
+            new Area("Q1125", "Namur", "Namen", "province", 505_348),
+            // 30 Communes >= 50 000 hab.
+            new Area("Q13121", "Alost", "Aalst", "commune", 88_854),
+            new Area("Q12886", "Anderlecht", "Anderlecht", "commune", 120_887),
+            new Area("Q12892", "Anvers", "Antwerpen", "commune", 529_247),
+            new Area("Q12994", "Bruges", "Brugge", "commune", 118_509),
+            new Area("Q239", "Bruxelles", "Brussel", "commune", 195_546),
+            new Area("Q81046", "Charleroi", "Charleroi", "commune", 204_322),
+            new Area("Q12995", "Courtrai", "Kortrijk", "commune", 77_741),
+            new Area("Q72946", "Forest", "Vorst", "commune", 56_581),
+            new Area("Q1296", "Gand", "Gent", "commune", 272_657),
+            new Area("Q189692", "Genk", "Genk", "commune", 66_110),
+            new Area("Q58780", "Hasselt", "Hasselt", "commune", 90_249),
+            new Area("Q208713", "Ixelles", "Elsene", "commune", 87_632),
+            new Area("Q241918", "Jette", "Jette", "commune", 52_728),
+            new Area("Q211572", "La Louvière", "La Louvière", "commune", 80_986),
+            new Area("Q3992", "Liège", "Luik", "commune", 195_278),
+            new Area("Q118958", "Louvain", "Leuven", "commune", 101_032),
+            new Area("Q162022", "Malines", "Mechelen", "commune", 86_921),
+            new Area("Q180775", "Molenbeek-Saint-Jean", "Sint-Jans-Molenbeek", "commune", 97_979),
+            new Area("Q83407", "Mons", "Bergen", "commune", 95_299),
+            new Area("Q220145", "Mouscron", "Moeskroen", "commune", 58_234),
+            new Area("Q134121", "Namur", "Namen", "commune", 115_330),
+            new Area("Q12996", "Ostende", "Oostende", "commune", 71_557),
+            new Area("Q211037", "Roulers", "Roeselare", "commune", 64_495),
+            new Area("Q13127", "Saint-Nicolas", "Sint-Niklaas", "commune", 80_167),
+            new Area("Q12887", "Schaerbeek", "Schaarbeek", "commune", 132_799),
+            new Area("Q194037", "Seraing", "Seraing", "commune", 64_270),
+            new Area("Q173219", "Tournai", "Doornik", "commune", 69_554),
+            new Area("Q203312", "Uccle", "Ukkel", "commune", 83_980),
+            new Area("Q202954", "Verviers", "Verviers", "commune", 55_198),
+            new Area("Q211764", "Woluwe-Saint-Lambert", "Sint-Lambrechts-Woluwe", "commune", 57_712)
+    );
+
     private final ObjectMapper json = new ObjectMapper();
 
     record Area(String qid, String labelFr, String labelNl, String kind, long population) {
@@ -97,10 +146,10 @@ public class BePepLocalExecutivesParser implements Iparser {
 
         String message() {
             String m = String.format(
-                    "Collectivités belges de %d habitants ou plus (%d communes, %d provinces) : %d bourgmestres et %d gouverneurs (dont %d complétés via LBLOD).",
-                    minPopulation, communes, provinces, mayors, governors, lblodAdded);
+                    "Collectivités belges de %d habitants ou plus (%d communes, %d provinces) : %d bourgmestres et %d gouverneurs (sources officielles Cour des comptes et LBLOD).",
+                    minPopulation, communes, provinces, mayors, governors);
             if (regimandMandates > 0) {
-                m += String.format(" %d échevins, présidents de CPAS et députés provinciaux (Cour des comptes, Regimand).", regimandMandates);
+                m += String.format(" %d échevins, présidents de CPAS et députés provinciaux (Cour des comptes / LBLOD).", regimandMandates);
             }
             if (!regimandFailures.isEmpty()) {
                 m += " Regimand non lu pour : " + String.join(", ", regimandFailures) + ".";
@@ -113,14 +162,25 @@ public class BePepLocalExecutivesParser implements Iparser {
     public ParserResult parse(ParserContext ctx) throws Exception {
         Map<String, String> p = ctx.parameters() == null ? Map.of() : ctx.parameters();
         long minPop = minPopulation(p);
-        download(p.getOrDefault("wikidataEndpoint", DEFAULT_WIKIDATA_ENDPOINT).trim(),
-                p.getOrDefault("lblodEndpoint", DEFAULT_LBLOD_ENDPOINT).trim(),
-                minPop, ctx.rawDir());
+        Map<String, Area> targetAreas = resolveAreas(p, ctx.rawDir(), minPop);
+
+        // LBLOD (officiel gouvernement flamand)
+        String lblodEndpoint = p.getOrDefault("lblodEndpoint", DEFAULT_LBLOD_ENDPOINT).trim();
+        if (!lblodEndpoint.isBlank()) {
+            downloadLblod(lblodEndpoint, ctx.rawDir());
+        }
+
+        // Wikidata (optionnel uniquement si explicitement configuré en paramètre)
+        String wikidataEndpoint = p.getOrDefault("wikidataEndpoint", "").trim();
+        if (!wikidataEndpoint.isBlank()) {
+            downloadWikidata(wikidataEndpoint, minPop, ctx.rawDir());
+        }
+
+        // Regimand (Cour des comptes de Belgique)
         String regimandUrl = p.getOrDefault("regimandUrl", RegimandLocal.DEFAULT_URL).trim();
         if (!regimandUrl.isBlank()) {
-            downloadRegimand(RegimandLocal.httpClient(regimandUrl), minPop,
-                    Long.parseLong(p.getOrDefault("regimandDelayMs", String.valueOf(DEFAULT_REGIMAND_DELAY_MS)).trim()),
-                    ctx.rawDir());
+            long delay = Long.parseLong(p.getOrDefault("regimandDelayMs", String.valueOf(DEFAULT_REGIMAND_DELAY_MS)).trim());
+            downloadRegimand(RegimandLocal.httpClient(regimandUrl), targetAreas, delay, ctx.rawDir());
         }
 
         FtmDatasetBuilder dataset = new FtmDatasetBuilder(ID_PREFIX, TOPIC);
@@ -147,40 +207,57 @@ public class BePepLocalExecutivesParser implements Iparser {
     void download(String wikidataEndpoint, String lblodEndpoint, long minPopulation, Path rawDir)
             throws IOException, InterruptedException {
         Files.createDirectories(rawDir);
+        if (wikidataEndpoint != null && !wikidataEndpoint.isBlank()) {
+            downloadWikidata(wikidataEndpoint, minPopulation, rawDir);
+        }
+        if (lblodEndpoint != null && !lblodEndpoint.isBlank()) {
+            downloadLblod(lblodEndpoint, rawDir);
+        }
+    }
+
+    void downloadWikidata(String wikidataEndpoint, long minPopulation, Path rawDir)
+            throws IOException, InterruptedException {
         HttpClient http = HttpClient.newBuilder()
                 .connectTimeout(Duration.ofSeconds(20))
                 .followRedirects(HttpClient.Redirect.NORMAL)
                 .build();
         String wikiJson = postSparql(http, wikidataEndpoint, wikidataQuery(minPopulation));
         Files.writeString(rawDir.resolve(WIKIDATA_FILE), wikiJson, StandardCharsets.UTF_8);
+    }
 
-        if (lblodEndpoint != null && !lblodEndpoint.isBlank()) {
-            try {
-                String lblodJson = postSparql(http, lblodEndpoint, lblodQuery());
-                Files.writeString(rawDir.resolve(LBLOD_FILE), lblodJson, StandardCharsets.UTF_8);
-            } catch (Exception e) {
-                log.warn("LBLOD SPARQL indisponible ({}) : {}", lblodEndpoint, e.getMessage());
-            }
+    void downloadLblod(String lblodEndpoint, Path rawDir) throws IOException, InterruptedException {
+        Files.createDirectories(rawDir);
+        HttpClient http = HttpClient.newBuilder()
+                .connectTimeout(Duration.ofSeconds(20))
+                .followRedirects(HttpClient.Redirect.NORMAL)
+                .build();
+        try {
+            String lblodJson = postSparql(http, lblodEndpoint, lblodQuery());
+            Files.writeString(rawDir.resolve(LBLOD_FILE), lblodJson, StandardCharsets.UTF_8);
+        } catch (Exception e) {
+            log.warn("LBLOD SPARQL indisponible ({}) : {}", lblodEndpoint, e.getMessage());
         }
     }
 
-    /**
-     * Interroge Regimand pour chaque collectivité de la réponse Wikidata, par son nom français puis néerlandais.
-     * Une collectivité en échec est notée dans {@code regimand-echecs.txt}, l'exécution continue ; si toutes échouent, elle s'arrête.
-     */
     void downloadRegimand(RegimandLocal.Client client, long minPopulation, long delayMs, Path rawDir)
             throws IOException, InterruptedException {
-        Path wiki = rawDir.resolve(WIKIDATA_FILE);
-        Map<String, Area> areas = areas(json.readTree(Files.readString(wiki, StandardCharsets.UTF_8)), minPopulation);
+        downloadRegimand(client, resolveAreas(Map.of(), rawDir, minPopulation), delayMs, rawDir);
+    }
+
+    void downloadRegimand(RegimandLocal.Client client, Map<String, Area> areas, long delayMs, Path rawDir)
+            throws IOException, InterruptedException {
+        Files.createDirectories(rawDir);
         List<String> failures = new ArrayList<>();
         for (Area area : areas.values()) {
             Map<String, JsonNode> byId = new LinkedHashMap<>();
             try {
-                for (String label : new LinkedHashSet<>(List.of(area.labelFr(), area.labelNl()))) {
+                for (String label : searchTerms(area)) {
                     for (JsonNode statement : json.readTree(client.search(label))) {
                         byId.putIfAbsent(statement.path("id").asText(), statement);
                     }
-                    Thread.sleep(delayMs);
+                    if (delayMs > 0) {
+                        Thread.sleep(delayMs);
+                    }
                 }
                 Files.writeString(rawDir.resolve(REGIMAND_PREFIX + area.qid() + ".json"),
                         json.writeValueAsString(byId.values()), StandardCharsets.UTF_8);
@@ -192,6 +269,33 @@ public class BePepLocalExecutivesParser implements Iparser {
             throw new IOException("Regimand illisible pour toutes les collectivités : " + failures.get(0));
         }
         Files.writeString(rawDir.resolve(REGIMAND_FAILURES), String.join("\n", failures), StandardCharsets.UTF_8);
+    }
+
+    static Set<String> searchTerms(Area area) {
+        Set<String> terms = new LinkedHashSet<>();
+        terms.add(area.labelFr());
+        if (!area.labelNl().isBlank()) {
+            terms.add(area.labelNl());
+        }
+        return terms;
+    }
+
+    Map<String, Area> resolveAreas(Map<String, String> params, Path rawDir, long minPopulation) {
+        Path wikiPath = rawDir != null ? rawDir.resolve(WIKIDATA_FILE) : null;
+        if (wikiPath != null && Files.exists(wikiPath)) {
+            try {
+                return areas(json.readTree(Files.readString(wikiPath, StandardCharsets.UTF_8)), minPopulation);
+            } catch (Exception e) {
+                log.warn("Lecture {} impossible : {}", WIKIDATA_FILE, e.getMessage());
+            }
+        }
+        Map<String, Area> result = new LinkedHashMap<>();
+        for (Area a : OFFICIAL_STATBEL_AREAS) {
+            if (a.population() >= minPopulation) {
+                result.put(a.qid(), a);
+            }
+        }
+        return result;
     }
 
     /** Collectivités de la réponse Wikidata d'au moins {@code minPopulation} habitants. */
@@ -211,50 +315,60 @@ public class BePepLocalExecutivesParser implements Iparser {
     }
 
     Report convert(Path rawDir, long minPopulation, LocalDate since, FtmDatasetBuilder dataset) throws Exception {
-        Path wikiPath = rawDir.resolve(WIKIDATA_FILE);
-        if (!Files.exists(wikiPath)) {
-            throw new IllegalStateException(WIKIDATA_FILE + " absent de " + rawDir);
-        }
-        JsonNode wikiRoot = json.readTree(Files.readString(wikiPath, StandardCharsets.UTF_8));
         Map<String, Area> areasByQid = new LinkedHashMap<>();
         Map<String, Area> areasByNormalizedName = new LinkedHashMap<>();
         Map<String, WikiStatement> statementsById = new LinkedHashMap<>();
 
-        for (JsonNode b : wikiRoot.path("results").path("bindings")) {
-            long pop = Long.parseLong(text(b, "population").isEmpty() ? "0" : text(b, "population"));
-            if (pop < minPopulation) {
-                continue;
-            }
-            String areaQid = qid(text(b, "area"));
-            String labelFr = text(b, "areaLabel");
-            String labelNl = text(b, "areaLabelNl");
-            String kind = text(b, "kind");
-            Area area = areasByQid.computeIfAbsent(areaQid,
-                    k -> new Area(areaQid, labelFr, labelNl.isBlank() ? labelFr : labelNl, kind, pop));
-            areasByNormalizedName.put(fold(area.labelFr()), area);
-            if (!area.labelNl().isBlank()) {
-                areasByNormalizedName.put(fold(area.labelNl()), area);
-            }
+        Path wikiPath = rawDir.resolve(WIKIDATA_FILE);
+        if (Files.exists(wikiPath)) {
+            JsonNode wikiRoot = json.readTree(Files.readString(wikiPath, StandardCharsets.UTF_8));
+            for (JsonNode b : wikiRoot.path("results").path("bindings")) {
+                long pop = Long.parseLong(text(b, "population").isEmpty() ? "0" : text(b, "population"));
+                if (pop < minPopulation) {
+                    continue;
+                }
+                String areaQid = qid(text(b, "area"));
+                String labelFr = text(b, "areaLabel");
+                String labelNl = text(b, "areaLabelNl");
+                String kind = text(b, "kind");
+                Area area = areasByQid.computeIfAbsent(areaQid,
+                        k -> new Area(areaQid, labelFr, labelNl.isBlank() ? labelFr : labelNl, kind, pop));
+                areasByNormalizedName.put(fold(area.labelFr()), area);
+                if (!area.labelNl().isBlank()) {
+                    areasByNormalizedName.put(fold(area.labelNl()), area);
+                }
 
-            String stmtId = text(b, "statement");
-            String personUri = text(b, "person");
-            String personLabel = text(b, "personLabel");
-            if (!stmtId.isBlank() && !personUri.isBlank() && !personLabel.isBlank()) {
-                String personQid = qid(personUri);
-                if (!personLabel.equals(personQid)) {
-                    WikiStatement s = statementsById.computeIfAbsent(stmtId,
-                            k -> new WikiStatement(stmtId, area, PREFERRED_RANK.equals(text(b, "rank")),
-                                    date(text(b, "start")), date(text(b, "end")), personQid, personLabel,
-                                    new LinkedHashSet<>(), qid(text(b, "gender"))));
-                    String birth = birthDate(text(b, "birth"), text(b, "birthPrecision"));
-                    if (birth != null) {
-                        s.birthDates().add(birth);
+                String stmtId = text(b, "statement");
+                String personUri = text(b, "person");
+                String personLabel = text(b, "personLabel");
+                if (!stmtId.isBlank() && !personUri.isBlank() && !personLabel.isBlank()) {
+                    String personQid = qid(personUri);
+                    if (!personLabel.equals(personQid)) {
+                        WikiStatement s = statementsById.computeIfAbsent(stmtId,
+                                k -> new WikiStatement(stmtId, area, PREFERRED_RANK.equals(text(b, "rank")),
+                                        date(text(b, "start")), date(text(b, "end")), personQid, personLabel,
+                                        new LinkedHashSet<>(), qid(text(b, "gender"))));
+                        String birth = birthDate(text(b, "birth"), text(b, "birthPrecision"));
+                        if (birth != null) {
+                            s.birthDates().add(birth);
+                        }
+                    }
+                }
+            }
+        } else {
+            // Source officielle Statbel : 100% officiel sans dépendre de Wikidata
+            for (Area area : OFFICIAL_STATBEL_AREAS) {
+                if (area.population() >= minPopulation) {
+                    areasByQid.put(area.qid(), area);
+                    areasByNormalizedName.put(fold(area.labelFr()), area);
+                    if (!area.labelNl().isBlank()) {
+                        areasByNormalizedName.put(fold(area.labelNl()), area);
                     }
                 }
             }
         }
 
-        // Sélection par collectivité des mandats actuels et récemment terminés
+        // Sélection par collectivité des mandats actuels et récemment terminés (si Wikidata disponible)
         Map<String, List<WikiStatement>> byArea = new LinkedHashMap<>();
         for (WikiStatement s : statementsById.values()) {
             byArea.computeIfAbsent(s.area().qid(), k -> new ArrayList<>()).add(s);
@@ -281,7 +395,7 @@ public class BePepLocalExecutivesParser implements Iparser {
                     isCurrent = true;
                 }
                 writeWiki(dataset, s, isCurrent);
-                recordedAreaPersonKeys.add(s.area().qid() + "|" + fold(s.personLabel()));
+                recordedAreaPersonKeys.add(s.area().qid() + "|head|" + fold(s.personLabel()));
                 if ("province".equals(s.area().kind())) {
                     governors++;
                 } else {
@@ -290,7 +404,9 @@ public class BePepLocalExecutivesParser implements Iparser {
             }
         }
 
-        int lblodAdded = 0;
+        // LBLOD (Gouvernement flamand)
+        int lblodMayorsGovernorsAdded = 0;
+        int lblodOtherMandates = 0;
         Path lblodPath = rawDir.resolve(LBLOD_FILE);
         if (Files.exists(lblodPath)) {
             JsonNode lblodRoot = json.readTree(Files.readString(lblodPath, StandardCharsets.UTF_8));
@@ -309,20 +425,28 @@ public class BePepLocalExecutivesParser implements Iparser {
                 if (area == null) {
                     continue;
                 }
-                String key = area.qid() + "|" + fold(fullName);
+                boolean isMayorOrGov = isMayorOrGovernor(roleLabel);
+                String cat = isMayorOrGov ? "head" : roleCategory(roleLabel);
+                String key = area.qid() + "|" + cat + "|" + fold(fullName);
                 if (recordedAreaPersonKeys.add(key)) {
-                    writeLblod(dataset, area, firstName, familyName, fullName, start, personUri);
-                    lblodAdded++;
-                    if ("province".equals(area.kind())) {
-                        governors++;
+                    if (isMayorOrGov) {
+                        writeLblod(dataset, area, firstName, familyName, fullName, start, personUri);
+                        lblodMayorsGovernorsAdded++;
+                        if ("province".equals(area.kind())) {
+                            governors++;
+                        } else {
+                            mayors++;
+                        }
                     } else {
-                        mayors++;
+                        writeLblodOther(dataset, area, firstName, familyName, fullName, roleLabel, start, personUri);
+                        lblodOtherMandates++;
                     }
                 }
             }
         }
 
-        int regimandMandates = 0;
+        // Regimand (Cour des comptes de Belgique)
+        int regimandOtherMandates = 0;
         for (Area area : areasByQid.values()) {
             Path file = rawDir.resolve(REGIMAND_PREFIX + area.qid() + ".json");
             if (!Files.exists(file)) {
@@ -330,8 +454,21 @@ public class BePepLocalExecutivesParser implements Iparser {
             }
             for (RegimandLocal.Mandate m : RegimandLocal.select(json.readTree(Files.readString(file, StandardCharsets.UTF_8)),
                     "province".equals(area.kind()), List.of(area.labelFr(), area.labelNl()), since)) {
-                writeRegimand(dataset, area, m, since);
-                regimandMandates++;
+                String cat = roleCategory(m.role());
+                boolean isMayorOrGov = "mayor".equals(cat) || "governor".equals(cat);
+                String key = area.qid() + "|" + (isMayorOrGov ? "head" : cat) + "|" + fold(m.fullName());
+                if (recordedAreaPersonKeys.add(key)) {
+                    writeRegimand(dataset, area, m, since);
+                    if (isMayorOrGov) {
+                        if ("province".equals(area.kind())) {
+                            governors++;
+                        } else {
+                            mayors++;
+                        }
+                    } else {
+                        regimandOtherMandates++;
+                    }
+                }
             }
         }
         List<String> regimandFailures = new ArrayList<>();
@@ -350,8 +487,9 @@ public class BePepLocalExecutivesParser implements Iparser {
 
         int communes = (int) areasByQid.values().stream().filter(a -> "commune".equals(a.kind())).count();
         int provinces = (int) areasByQid.values().stream().filter(a -> "province".equals(a.kind())).count();
-        Report report = new Report(communes, provinces, mayors, governors, lblodAdded, minPopulation,
-                regimandMandates, regimandFailures);
+        int totalOtherMandates = lblodOtherMandates + regimandOtherMandates;
+        Report report = new Report(communes, provinces, mayors, governors, lblodMayorsGovernorsAdded, minPopulation,
+                totalOtherMandates, regimandFailures);
         log.info(report.message());
         return report;
     }
@@ -362,9 +500,10 @@ public class BePepLocalExecutivesParser implements Iparser {
         if (area == null) {
             return null;
         }
-        boolean isGovRole = roleLabel != null && roleLabel.toLowerCase(Locale.ROOT).contains("gouverneur");
-        if (isGovRole && !"province".equals(area.kind())) {
-            // Ex. « Antwerpen » (Gouverneur de la province d'Anvers vs Bourgmestre de la ville d'Anvers)
+        boolean isProvRole = roleLabel != null && (roleLabel.toLowerCase(Locale.ROOT).contains("gouverneur")
+                || roleLabel.toLowerCase(Locale.ROOT).contains("gedeputeerde"));
+        if (isProvRole && !"province".equals(area.kind())) {
+            // Ex. « Antwerpen » (Gouverneur / Gedeputeerde de la province d'Anvers vs Bourgmestre / Schepen de la ville d'Anvers)
             for (Area candidate : byName.values()) {
                 if ("province".equals(candidate.kind())
                         && (fold(candidate.labelNl()).contains(fold(cleaned))
@@ -436,10 +575,68 @@ public class BePepLocalExecutivesParser implements Iparser {
         dataset.addEntity(occupancy);
     }
 
-    /** Échevin, président de CPAS ou député provincial déclaré à la Cour des comptes. */
+    private static void writeLblodOther(FtmDatasetBuilder dataset, Area area, String firstName, String familyName,
+            String fullName, String roleLabel, String start, String personUri) {
+        String title = formatLblodRole(roleLabel, area);
+        FtmEntity person = dataset.newEntity("Person", "lblod-person", area.qid(), fold(fullName));
+        person.addValue("name", fullName);
+        person.addValue("firstName", firstName);
+        person.addValue("lastName", familyName);
+        person.addValue("country", "be");
+        person.addValue("position", title);
+        person.addValue("sourceUrl", personUri.isBlank() ? "https://centrale-vindplaats.lblod.info" : personUri);
+        dataset.addEntity(person);
+
+        FtmEntity position = dataset.newEntity("Position", "lblod-pos", area.qid(), fold(roleLabel));
+        position.addValue("name", title);
+        position.addValue("country", "be");
+        position.addValue("subnationalArea", area.labelFr());
+        position.addValue("description", "Collectivité belge de " + area.population() + " habitants");
+        position.addValue("topics", area.topic());
+        position.addValue("topics", "gov.executive");
+        position.addValue("sourceUrl", "https://centrale-vindplaats.lblod.info");
+        dataset.addEntity(position);
+
+        FtmEntity occupancy = dataset.newEntity("Occupancy", "lblod-occ", area.qid(), fold(fullName), fold(roleLabel),
+                start == null ? "" : start);
+        occupancy.addValue("holder", person.getId());
+        occupancy.addValue("post", position.getId());
+        occupancy.addValue("startDate", start);
+        occupancy.addValue("status", "current");
+        occupancy.addValue("sourceUrl", personUri.isBlank() ? "https://centrale-vindplaats.lblod.info" : personUri);
+        dataset.addEntity(occupancy);
+    }
+
+    static boolean isMayorOrGovernor(String roleLabel) {
+        if (roleLabel == null) {
+            return false;
+        }
+        String r = roleLabel.toLowerCase(Locale.ROOT);
+        return r.contains("burgemeester") || r.contains("gouverneur");
+    }
+
+    static String formatLblodRole(String roleLabel, Area area) {
+        String r = roleLabel.toLowerCase(Locale.ROOT);
+        String label;
+        if (r.contains("gedeputeerde")) {
+            label = "Député provincial (Gedeputeerde)";
+        } else if (r.contains("bijzonder comit") || r.contains("ocmw")) {
+            label = "Président de CPAS (Voorzitter BCSD)";
+        } else if (r.contains("schepen")) {
+            label = "Échevin (Schepen)";
+        } else {
+            label = roleLabel;
+        }
+        return label + " – " + area.labelFr();
+    }
+
+    /** Mandat local (bourgmestre, gouverneur, échevin, président de CPAS ou député provincial) déclaré à la Cour des comptes. */
     private static void writeRegimand(FtmDatasetBuilder dataset, Area area, RegimandLocal.Mandate m, LocalDate since) {
         boolean current = m.end() == null;
-        String title = m.role() + " – " + area.labelFr();
+        String cat = roleCategory(m.role());
+        boolean isMayorOrGov = "mayor".equals(cat) || "governor".equals(cat);
+        String title = isMayorOrGov ? area.functionTitle() : m.role() + " – " + area.labelFr();
+
         FtmEntity person = dataset.newEntity("Person", "regimand", m.profileId());
         person.addValue("name", m.fullName());
         person.addValue("firstName", m.firstName());
@@ -449,15 +646,20 @@ public class BePepLocalExecutivesParser implements Iparser {
         person.addValue("sourceUrl", RegimandLocal.SOURCE_URL);
         dataset.addEntity(person);
 
-        FtmEntity position = dataset.newEntity("Position", "regimand", area.qid(), RegimandLocal.fold(m.role()));
-        position.addValue("name", title);
-        position.addValue("country", "be");
-        position.addValue("subnationalArea", area.labelFr());
-        position.addValue("description", "Collectivité belge de " + area.population() + " habitants");
-        position.addValue("topics", area.topic());
-        position.addValue("topics", "gov.executive");
-        position.addValue("sourceUrl", RegimandLocal.SOURCE_URL);
-        dataset.addEntity(position);
+        FtmEntity position;
+        if (isMayorOrGov) {
+            position = writePosition(dataset, area);
+        } else {
+            position = dataset.newEntity("Position", "regimand", area.qid(), RegimandLocal.fold(m.role()));
+            position.addValue("name", title);
+            position.addValue("country", "be");
+            position.addValue("subnationalArea", area.labelFr());
+            position.addValue("description", "Collectivité belge de " + area.population() + " habitants");
+            position.addValue("topics", area.topic());
+            position.addValue("topics", "gov.executive");
+            position.addValue("sourceUrl", RegimandLocal.SOURCE_URL);
+            dataset.addEntity(position);
+        }
 
         FtmEntity occupancy = dataset.newEntity("Occupancy", "regimand", m.profileId(), area.qid(),
                 RegimandLocal.fold(m.role()), m.start() == null ? "" : m.start());
@@ -468,6 +670,23 @@ public class BePepLocalExecutivesParser implements Iparser {
         occupancy.addValue("status", current ? "current" : "ended");
         occupancy.addValue("sourceUrl", RegimandLocal.SOURCE_URL);
         dataset.addEntity(occupancy);
+    }
+
+    static String roleCategory(String role) {
+        String r = RegimandLocal.fold(role);
+        if (r.contains("bourgmestre") || r.contains("burgemeester")) {
+            return "mayor";
+        }
+        if (r.contains("gouverneur")) {
+            return "governor";
+        }
+        if (r.contains("depute") || r.contains("gedeputeerde")) {
+            return "deputy";
+        }
+        if (r.contains("cpas") || r.contains("bijzonder comit") || r.contains("ocmw")) {
+            return "cpas";
+        }
+        return "alderman";
     }
 
     private static FtmEntity writePosition(FtmDatasetBuilder dataset, Area area) {
@@ -525,9 +744,13 @@ public class BePepLocalExecutivesParser implements Iparser {
 
                 SELECT DISTINCT ?person ?firstName ?familyName ?roleLabel ?unitName ?start ?end WHERE {
                   VALUES ?roleCode {
-                    <http://data.vlaanderen.be/id/concept/BestuursfunctieCode/5ab0e9b8a3b2ca7c5e000013>
-                    <http://data.vlaanderen.be/id/concept/BestuursfunctieCode/7b038cc40bba10bec833ecfe6f15bc7a>
-                    <http://data.vlaanderen.be/id/concept/BestuursfunctieCode/d7c00cd1-baf1-4346-83c0-6796c0bedd85>
+                    <http://data.vlaanderen.be/id/concept/BestuursfunctieCode/5ab0e9b8a3b2ca7c5e000013> # Burgemeester
+                    <http://data.vlaanderen.be/id/concept/BestuursfunctieCode/7b038cc40bba10bec833ecfe6f15bc7a> # Aangewezen burgemeester
+                    <http://data.vlaanderen.be/id/concept/BestuursfunctieCode/d7c00cd1-baf1-4346-83c0-6796c0bedd85> # Gouverneur
+                    <http://data.vlaanderen.be/id/concept/BestuursfunctieCode/5ab0e9b8a3b2ca7c5e000014> # Schepen
+                    <http://data.vlaanderen.be/id/concept/BestuursfunctieCode/59a90e03-4f22-4bb9-8c91-132618db4b38> # Toegevoegde schepen
+                    <http://data.vlaanderen.be/id/concept/BestuursfunctieCode/5ab0e9b8a3b2ca7c5e000020> # Gedeputeerde
+                    <http://data.vlaanderen.be/id/concept/BestuursfunctieCode/5ab0e9b8a3b2ca7c5e00001a> # Voorzitter van het BCSD
                   }
                   ?roleCode skos:prefLabel ?roleLabel .
                   ?mandate org:role ?roleCode ;

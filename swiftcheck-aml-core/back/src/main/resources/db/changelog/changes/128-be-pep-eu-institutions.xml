@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="128-parser-be-pep-eu-institutions" author="swiftcheck">
+        <comment>BE-EU : Ajout du parser officiel be_pep_eu_institutions pour les Belges exerçant une autre fonction PEP dans une institution de l'UE (CJUE, Cour des comptes européenne, BCE, Conseil de l'UE)</comment>
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Belgique – Belges dans les institutions de l''UE',
+                'Juges, avocats généraux et greffiers de la CJUE, membres de la Cour des comptes européenne, représentants au conseil de surveillance de la BCE et directoire, secrétaire général du Conseil, de nationalité belge, d''après les pages officielles de ces institutions (catégorie BE-EU)',
+                'be_pep_eu_institutions', 'PEP', 'https://curia.europa.eu/jcms/jcms/Jo2_7026/fr/',
+                'be-pep-eu-institutions', 'D:/test parser 2/plugins/swiftcheck-aml-be-pep-eu-institutions-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'WEB_PAGE',
+                NULL,
+                '{"delayMs": "500"}',
+                168, 12,
+                'Réutilisation autorisée des contenus des institutions de l''UE, source citée', 'CJUE (curia.europa.eu), Cour des comptes européenne (eca.europa.eu), BCE (ecb.europa.eu), Conseil de l''Union européenne (consilium.europa.eu)',
+                'Sources 100% officielles de l''UE en temps réel sans données figées. La CJUE et la BCE ne publiant pas directement la nationalité, celle-ci est établie par les biographies et CVs officiels (lieu de naissance en Belgique ou autorité nationale représentée) avec traçabilité dans les notes.', TRUE, NOW());
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'COMPLETE', TRUE,
+                   'Belges exerçant une haute fonction au sein des institutions de l''UE : CJUE (Cour et Tribunal), Cour des comptes européenne (membre belge), BCE (directoire et conseil de surveillance prudentielle), Conseil de l''UE (secrétariat général).',
+                   'Aucune lacune sur le périmètre officiel des institutions de l''UE.'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'BE-EU' 
+              AND f.label LIKE 'Belge exerçant une autre fonction PEP dans une institution de l''UE%'
+              AND p.dataset_name = 'be_pep_eu_institutions'
+            ON DUPLICATE KEY UPDATE completeness = 'COMPLETE', includes_former = TRUE;
+        ]]></sql>
+    </changeSet>
+
+</databaseChangeLog>
+

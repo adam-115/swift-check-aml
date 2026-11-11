@@ -88,6 +88,36 @@ class BePepLocalExecutivesParserTest {
     }
 
     @Test
+    void convertsOfficialSourcesWithoutWikidata(@TempDir Path tmp) throws Exception {
+        Files.copy(RAW.resolve(BePepLocalExecutivesParser.LBLOD_FILE),
+                tmp.resolve(BePepLocalExecutivesParser.LBLOD_FILE));
+        Path regimandDir = Path.of("src/test/resources/regimand");
+        Files.copy(regimandDir.resolve("charleroi.json"),
+                tmp.resolve(BePepLocalExecutivesParser.REGIMAND_PREFIX + "Q81046.json"));
+        Files.copy(regimandDir.resolve("province-liege.json"),
+                tmp.resolve(BePepLocalExecutivesParser.REGIMAND_PREFIX + "Q1127.json"));
+
+        FtmDatasetBuilder dataset = new FtmDatasetBuilder(BePepLocalExecutivesParser.ID_PREFIX,
+                BePepLocalExecutivesParser.TOPIC);
+        BePepLocalExecutivesParser.Report report = parser.convert(tmp, 50_000L, SINCE, dataset);
+
+        assertThat(report.communes()).isEqualTo(30);
+        assertThat(report.provinces()).isEqualTo(10);
+        assertThat(report.mayors()).isPositive();
+        assertThat(report.governors()).isPositive();
+        assertThat(report.regimandMandates()).isPositive();
+        assertThat(dataset.qualityReport().getTotalRejected()).as(dataset.qualityReport().toString()).isZero();
+
+        List<String> positions = dataset.entities().stream()
+                .filter(e -> "Position".equals(e.getSchema()))
+                .flatMap(e -> e.getValues("name").stream())
+                .toList();
+        assertThat(positions).anyMatch(p -> p.startsWith("Gouverneur – Liège"));
+        assertThat(positions).anyMatch(p -> p.startsWith("Échevin – Charleroi"));
+        assertThat(positions).anyMatch(p -> p.startsWith("Bourgmestre – Gand"));
+    }
+
+    @Test
     void emptyResponseIsAnError(@TempDir Path tmp) throws Exception {
         Files.writeString(tmp.resolve(BePepLocalExecutivesParser.WIKIDATA_FILE), "{\"results\":{\"bindings\":[]}}");
         assertThatThrownBy(() -> parser.convert(tmp, 50_000L, SINCE,

@@ -1,0 +1,1414 @@
+[
+    {
+        "tenures":  [
+                        {
+                            "isLiable":  false,
+                            "institutionId":  109012,
+                            "functionTypeId":  136208,
+                            "year":  2025,
+                            "startDate":  null,
+                            "endDate":  null,
+                            "remunerationAmount":  122603.00,
+                            "remunerationAmountMax":  150000.00,
+                            "isRemunerated":  true,
+                            "isRemunerationRounded":  true,
+                            "functionType":  {
+                                                 "translations":  [
+                                                                      {
+                                                                          "languageCode":  "FR",
+                                                                          "name":  "Directrice financière"
+                                                                      },
+                                                                      {
+                                                                          "languageCode":  "FF",
+                                                                          "name":  "Directrice financière"
+                                                                      },
+                                                                      {
+                                                                          "languageCode":  "DE",
+                                                                          "name":  "Directrice financière"
+                                                                      },
+                                                                      {
+                                                                          "languageCode":  "NL",
+                                                                          "name":  "Directrice financière"
+                                                                      }
+                                                                  ],
+                                                 "isActive":  false,
+                                                 "id":  136208
+                                             },
+                            "institution":  {
+                                                "priorityWeight":  49,
+                                                "translations":  [
+                                                                     {
+                                                                         "languageCode":  "FR",
+                                                                         "name":  "Enodia - Intercommunale pure de financement, sc"
+                                                                     },
+                                                                     {
+                                                                         "languageCode":  "DE",
+                                                                         "name":  "Enodia - Intercommunale pure de financement, Gennossenschaft"
+                                                                     },
+                                                                     {
+                                                                         "languageCode":  "NL",
+                                                                         "name":  "Enodia - Intercommunale pure de financement, cv"
+                                                                     }
+                                                                 ],
+                                                "languageCode":  null,
+                                                "id":  109012
+                                            },
+                            "statementId":  594575,
+                            "verificationStatus":  0,
+                            "address":  null,
+                            "cityId":  null,
+                            "id":  475016
+                        }
+                    ],
+        "patrimonyDeclaration":  0,
+        "profile":  {
+                        "cityName":  null,
+                        "firstName":  "Layla",
+                        "lastName":  "Bouazza",
+                        "id":  299500
+                    },
+        "year":  2024,
+        "closedDate":  "2025-06-19T12:08:45.93Z",
+        "id":  594575
+    },
+    {
+        "tenures":  [
+                        {
+                            "isLiable":  true,
+                            "institutionId":  109012,
+                            "functionTypeId":  1820,
+                            "year":  2025,
+                            "startDate":  null,
+                            "endDate":  "2024-12-02T00:00:00Z",
+                            "remunerationAmount":  2060.32,
+                            "remunerationAmountMax":  null,
+                            "isRemunerated":  true,
+                            "isRemunerationRounded":  false,
+                            "functionType":  {
+                                                 "translations":  [
+                                                                      {
+                                                                          "languageCode":  "FR",
+                                                                          "name":  "Membre du conseil d\u0027administration"
+                                                                      },
+                                                                      {
+                                                                          "languageCode":  "FF",
+                                                                          "name":  "Membre du conseil d\u0027administration"
+                                                                      },
+                                                                      {
+                                                                          "languageCode":  "DE",
+                                                                          "name":  "Mitglied des Verwaltungsrates"
+                                                                      },
+                                                                      {
+                                                                          "languageCode":  "NL",
+                                                                          "name":  "Lid van de raad van bestuur"
+                                                                      }
+                                                                  ],
+                                                 "isActive":  false,
+                                                 "id":  1820
+                                             },
+                            "institution":  {
+                                                "priorityWeight":  49,
+                                                "translations":  [
+                                                                     {
+                                                                         "languageCode":  "FR",
+                                                                         "name":  "Enodia - Intercommunale pure de financement, sc"
+                                                                     },
+                                                                     {
+                                                                         "languageCode":  "DE",
+                                                                         "name":  "Enodia - Intercommunale pure de financement, Gennossenschaft"
+                                                                     },
+                                                                     {
+                                                                         "languageCode":  "NL",
+                                                                         "name":  "Enodia - Intercommunale pure de financement, cv"
+                                                                     }
+                                                                 ],
+                                                "languageCode":  null,
+                                                "id":  109012
+                                            },
+                            "statementId":  595729,
+                            "verificationStatus":  0,
+                            "address":  null,
+                            "cityId":  null,
+                            "id":  475477
+                        },
+                        {
+                            "isLiable":  true,
+                            "institutionId":  109012,
+                            "functionTypeId":  1821,
+                            "year":  2025,
+                            "startDate":  null,
+                            "endDate":  "2024-12-02T00:00:00Z",
+                            "remunerationAmount":  770.07,
+                            "remunerationAmountMax":  null,
+                            "isRemunerated":  true,
+                            "isRemunerationRounded":  false,
+                            "functionType":  {
+                                                 "translations":  [
+                                                                      {
+                                                                          "languageCode":  "FR",
+                                                                          "name":  "Membre d\u0027un conseil consultatif"
+                                                                      },
+                                                                      {
+                                                                          "languageCode":  "FF",
+                                                                          "name":  "Membre d\u0027un conseil consultatif"
+                                                                      },
+                                                                      {
+                                                                          "languageCode":  "DE",
+                                                                          "name":  "Mitglied eines Beirats"
+                                                                      },
+                                                                      {
+                                                                          "languageCode":  "NL",
+                                                                          "name":  "Lid van een adviesraad"
+                                                                      }
+                                                                  ],
+                                                 "isActive":  false,
+                                                 "id":  1821
+                                             },
+                            "institution":  {
+                                                "priorityWeight":  49,
+                                                "translations":  [
+                                                                     {
+                                                                         "languageCode":  "FR",
+                                                                         "name":  "Enodia - Intercommunale pure de financement, sc"
+                                                                     },
+                                                                     {
+                                                                         "languageCode":  "DE",
+                                                                         "name":  "Enodia - Intercommunale pure de financement, Gennossenschaft"
+                                                                     },
+                                                                     {
+                                                                         "languageCode":  "NL",
+                                                                         "name":  "Enodia - Intercommunale pure de financement, cv"
+                                                                     }
+                                                                 ],
+                                                "languageCode":  null,
+                                                "id":  109012
+                                            },
+                            "statementId":  595729,
+                            "verificationStatus":  0,
+                            "address":  null,
+                            "cityId":  null,
+                            "id":  475478
+                        }
+                    ],
+        "patrimonyDeclaration":  2,
+        "profile":  {
+                        "cityName":  null,
+                        "firstName":  "Laura",
+                        "lastName":  "Crapanzano",
+                        "id":  290528
+                    },
+        "year":  2024,
+        "closedDate":  "2025-06-19T14:13:38.287Z",
+        "id":  595729
+    },
+    {
+        "tenures":  [
+                        {
+                            "isLiable":  true,
+                            "institutionId":  109012,
+                            "functionTypeId":  1820,
+                            "year":  2025,
+                            "startDate":  "2024-10-16T00:00:00Z",
+                            "endDate":  "2024-12-06T00:00:00Z",
+                            "remunerationAmount":  520.18,
+                            "remunerationAmountMax":  null,
+                            "isRemunerated":  true,
+                            "isRemunerationRounded":  false,
+                            "functionType":  {
+                                                 "translations":  [
+                                                                      {
+                                                                          "languageCode":  "FR",
+                                                                          "name":  "Membre du conseil d\u0027administration"
+                                                                      },
+                                                                      {
+                                                                          "languageCode":  "FF",
+                                                                          "name":  "Membre du conseil d\u0027administration"
+                                                                      },
+                                                                      {
+                                                                          "languageCode":  "DE",
+                                                                          "name":  "Mitglied des Verwaltungsrates"
+                                                                      },
+                                                                      {
+                                                                          "languageCode":  "NL",
+                                                                          "name":  "Lid van de raad van bestuur"
+                                                                      }
+                                                                  ],
+                                                 "isActive":  false,
+                                                 "id":  1820
+                                             },
+                            "institution":  {
+                                                "priorityWeight":  49,
+                                                "translations":  [
+                                                                     {
+                                                                         "languageCode":  "FR",
+                                                                         "name":  "Enodia - Intercommunale pure de financement, sc"
+                                                                     },
+                                                                     {
+                                                                         "languageCode":  "DE",
+                                                                         "name":  "Enodia - Intercommunale pure de financement, Gennossenschaft"
+                                                                     },
+                                                                     {
+                                                                         "languageCode":  "NL",
+                                                                         "name":  "Enodia - Intercommunale pure de financement, cv"
+                                                                     }
+                                                                 ],
+                                                "languageCode":  null,
+                                                "id":  109012
+                                            },
+                            "statementId":  599114,
+                            "verificationStatus":  0,
+                            "address":  null,
+                            "cityId":  null,
+                            "id":  484672
+                        }
+                    ],
+        "patrimonyDeclaration":  0,
+        "profile":  {
+                        "cityName":  null,
+                        "firstName":  "Julien",
+                        "lastName":  "Vandeburie",
+                        "id":  296680
+                    },
+        "year":  2024,
+        "closedDate":  "2025-07-04T14:31:02Z",
+        "id":  599114
+    },
+    {
+        "tenures":  [
+                        {
+                            "isLiable":  false,
+                            "institutionId":  109012,
+                            "functionTypeId":  186240,
+                            "year":  2025,
+                            "startDate":  null,
+                            "endDate":  null,
+                            "remunerationAmount":  0.00,
+                            "remunerationAmountMax":  0.00,
+                            "isRemunerated":  false,
+                            "isRemunerationRounded":  false,
+                            "functionType":  {
+                                                 "translations":  [
+                                                                      {
+                                                                          "languageCode":  "FR",
+                                                                          "name":  "Membre d\u0027un conseil consultatif"
+                                                                      },
+                                                                      {
+                                                                          "languageCode":  "FF",
+                                                                          "name":  "Membre d\u0027un conseil consultatif"
+                                                                      },
+                                                                      {
+                                                                          "languageCode":  "DE",
+                                                                          "name":  "Membre d\u0027un conseil consultatif"
+                                                                      },
+                                                                      {
+                                                                          "languageCode":  "NL",
+                                                                          "name":  "Membre d\u0027un conseil consultatif"
+                                                                      }
+                                                                  ],
+                                                 "isActive":  false,
+                                                 "id":  186240
+                                             },
+                            "institution":  {
+                                                "priorityWeight":  49,
+                                                "translations":  [
+                                                                     {
+                                                                         "languageCode":  "FR",
+                                                                         "name":  "Enodia - Intercommunale pure de financement, sc"
+                                                                     },
+                                                                     {
+                                                                         "languageCode":  "DE",
+                                                                         "name":  "Enodia - Intercommunale pure de financement, Gennossenschaft"
+                                                                     },
+                                                                     {
+                                                                         "languageCode":  "NL",
+                                                                         "name":  "Enodia - Intercommunale pure de financement, cv"
+                                                                     }
+                                                                 ],
+                                                "languageCode":  null,
+                                                "id":  109012
+                                            },
+                            "statementId":  604779,
+                            "verificationStatus":  0,
+                            "address":  null,
+                            "cityId":  null,
+                            "id":  485142
+                        }
+                    ],
+        "patrimonyDeclaration":  2,
+        "profile":  {
+                        "cityName":  null,
+                        "firstName":  "Valentino",
+                        "lastName":  "Angelicchio",
+                        "id":  295515
+                    },
+        "year":  2024,
+        "closedDate":  "2025-07-06T14:39:05.833Z",
+        "id":  604779
+    },
+    {
+        "tenures":  [
+                        {
+                            "isLiable":  true,
+                            "institutionId":  109012,
+                            "functionTypeId":  63,
+                            "year":  2025,
+                            "startDate":  null,
+                            "endDate":  null,
+                            "remunerationAmount":  35372.65,
+                            "remunerationAmountMax":  null,
+                            "isRemunerated":  true,
+                            "isRemunerationRounded":  false,
+                            "functionType":  {
+                                                 "translations":  [
+                                                                      {
+                                                                          "languageCode":  "FR",
+                                                                          "name":  "Président du conseil d\u0027administration"
+                                                                      },
+                                                                      {
+                                                                          "languageCode":  "FF",
+                                                                          "name":  "Présidente du conseil d\u0027administration"
+                                                                      },
+                                                                      {
+                                                                          "languageCode":  "DE",
+                                                                          "name":  "Präsident des Verwaltungsrates"
+                                                                      },
+                                                                      {
+                                                                          "languageCode":  "NL",
+                                                                          "name":  "Voorzitter van de raad van bestuur"
+                                                                      }
+                                                                  ],
+                                                 "isActive":  false,
+                                                 "id":  63
+                                             },
+                            "institution":  {
+                                                "priorityWeight":  49,
+                                                "translations":  [
+                                                                     {
+                                                                         "languageCode":  "FR",
+                                                                         "name":  "Enodia - Intercommunale pure de financement, sc"
+                                                                     },
+                                                                     {
+                                                                         "languageCode":  "DE",
+                                                                         "name":  "Enodia - Intercommunale pure de financement, Gennossenschaft"
+                                                                     },
+                                                                     {
+                                                                         "languageCode":  "NL",
+                                                                         "name":  "Enodia - Intercommunale pure de financement, cv"
+                                                                     }
+                                                                 ],
+                                                "languageCode":  null,
+                                                "id":  109012
+                                            },
+                            "statementId":  598272,
+                            "verificationStatus":  0,
+                            "address":  null,
+                            "cityId":  null,
+                            "id":  491956
+                        }
+                    ],
+        "patrimonyDeclaration":  2,
+        "profile":  {
+                        "cityName":  null,
+                        "firstName":  "Julie",
+                        "lastName":  "Fernandez Fernandez",
+                        "id":  285030
+                    },
+        "year":  2024,
+        "closedDate":  "2025-07-26T11:40:16.54Z",
+        "id":  598272
+    },
+    {
+        "tenures":  [
+                        {
+                            "isLiable":  true,
+                            "institutionId":  109012,
+                            "functionTypeId":  66,
+                            "year":  2025,
+                            "startDate":  null,
+                            "endDate":  null,
+                            "remunerationAmount":  26529.45,
+                            "remunerationAmountMax":  null,
+                            "isRemunerated":  true,
+                            "isRemunerationRounded":  false,
+                            "functionType":  {
+                                                 "translations":  [
+                                                                      {
+                                                                          "languageCode":  "FR",
+                                                                          "name":  "Vice-président du conseil d\u0027administration"
+                                                                      },
+                                                                      {
+                                                                          "languageCode":  "FF",
+                                                                          "name":  "Vice-présidente du conseil d\u0027administration"
+                                                                      },
+                                                                      {
+                                                                          "languageCode":  "DE",
+                                                                          "name":  "Vizepräsident des Verwaltungsrates"
+                                                                      },
+                                                                      {
+                                                                          "languageCode":  "NL",
+                                                                          "name":  "Ondervoorzitter van de raad van bestuur"
+                                                                      }
+                                                                  ],
+                                                 "isActive":  false,
+                                                 "id":  66
+                                             },
+                            "institution":  {
+                                                "priorityWeight":  49,
+                                                "translations":  [
+                                                                     {
+                                                                         "languageCode":  "FR",
+                                                                         "name":  "Enodia - Intercommunale pure de financement, sc"
+                                                                     },
+                                                                     {
+                                                                         "languageCode":  "DE",
+                                                                         "name":  "Enodia - Intercommunale pure de financement, Gennossenschaft"
+                                                                     },
+                                                                     {
+                                                                         "languageCode":  "NL",
+                                                                         "name":  "Enodia - Intercommunale pure de financement, cv"
+                                                                     }
+                                                                 ],
+                                                "languageCode":  null,
+                                                "id":  109012
+                                            },
+                            "statementId":  599609,
+                            "verificationStatus":  0,
+                            "address":  null,
+                            "cityId":  null,
+                            "id":  498540
+                        }
+                    ],
+        "patrimonyDeclaration":  0,
+        "profile":  {
+                        "cityName":  null,
+                        "firstName":  "Jean-Claude",
+                        "lastName":  "Jadot",
+                        "id":  280696
+                    },
+        "year":  2024,
+        "closedDate":  "2025-08-07T06:23:57.423Z",
+        "id":  599609
+    },
+    {
+        "tenures":  [
+                        {
+                            "isLiable":  true,
+                            "institutionId":  109012,
+                            "functionTypeId":  1820,
+                            "year":  2025,
+                            "startDate":  null,
+                            "endDate":  null,
+                            "remunerationAmount":  3080.27,
+                            "remunerationAmountMax":  null,
+                            "isRemunerated":  true,
+                            "isRemunerationRounded":  false,
+                            "functionType":  {
+                                                 "translations":  [
+                                                                      {
+                                                                          "languageCode":  "FR",
+                                                                          "name":  "Membre du conseil d\u0027administration"
+                                                                      },
+                                                                      {
+                                                                          "languageCode":  "FF",
+                                                                          "name":  "Membre du conseil d\u0027administration"
+                                                                      },
+                                                                      {
+                                                                          "languageCode":  "DE",
+                                                                          "name":  "Mitglied des Verwaltungsrates"
+                                                                      },
+                                                                      {
+                                                                          "languageCode":  "NL",
+                                                                          "name":  "Lid van de raad van bestuur"
+                                                                      }
+                                                                  ],
+                                                 "isActive":  false,
+                                                 "id":  1820
+                                             },
+                            "institution":  {
+                                                "priorityWeight":  49,
+                                                "translations":  [
+                                                                     {
+                                                                         "languageCode":  "FR",
+                                                                         "name":  "Enodia - Intercommunale pure de financement, sc"
+                                                                     },
+                                                                     {
+                                                                         "languageCode":  "DE",
+                                                                         "name":  "Enodia - Intercommunale pure de financement, Gennossenschaft"
+                                                                     },
+                                                                     {
+                                                                         "languageCode":  "NL",
+                                                                         "name":  "Enodia - Intercommunale pure de financement, cv"
+                                                                     }
+                                                                 ],
+                                                "languageCode":  null,
+                                                "id":  109012
+                                            },
+                            "statementId":  599117,
+                            "verificationStatus":  0,
+                            "address":  null,
+                            "cityId":  null,
+                            "id":  501481
+                        },
+                        {
+                            "isLiable":  false,
+                            "institutionId":  109012,
+                            "functionTypeId":  134677,
+                            "year":  2025,
+                            "startDate":  null,
+                            "endDate":  null,
+                            "remunerationAmount":  0.00,
+                            "remunerationAmountMax":  0.00,
+                            "isRemunerated":  false,
+                            "isRemunerationRounded":  false,
+                            "functionType":  {
+                                                 "translations":  [
+                                                                      {
+                                                                          "languageCode":  "FR",
+                                                                          "name":  "Membre du comité de rémunération"
+                                                                      },
+                                                                      {
+                                                                          "languageCode":  "FF",
+                                                                          "name":  "Membre du comité de rémunération"
+                                                                      },
+                                                                      {
+                                                                          "languageCode":  "DE",
+                                                                          "name":  "Membre du comité de rémunération"
+                                                                      },
+                                                                      {
+                                                                          "languageCode":  "NL",
+                                                                          "name":  "Membre du comité de rémunération"
+                                                                      }
+                                                                  ],
+                                                 "isActive":  false,
+                                                 "id":  134677
+                                             },
+                            "institution":  {
+                                                "priorityWeight":  49,
+                                                "translations":  [
+                                                                     {
+                                                                         "languageCode":  "FR",
+                                                                         "name":  "Enodia - Intercommunale pure de financement, sc"
+                                                                     },
+                                                                     {
+                                                                         "languageCode":  "DE",
+                                                                         "name":  "Enodia - Intercommunale pure de financement, Gennossenschaft"
+                                                                     },
+                                                                     {
+                                                                         "languageCode":  "NL",
+                                                                         "name":  "Enodia - Intercommunale pure de financement, cv"
+                                                                     }
+                                                                 ],
+                                                "languageCode":  null,
+                                                "id":  109012
+                                            },
+                            "statementId":  599117,
+                            "verificationStatus":  0,
+                            "address":  null,
+                            "cityId":  null,
+                            "id":  501491
+                        }
+                    ],
+        "patrimonyDeclaration":  2,
+        "profile":  {
+                        "cityName":  "LIÈGE",
+                        "firstName":  "Luc",
+                        "lastName":  "Gillard",
+                        "id":  294558
+                    },
+        "year":  2024,
+        "closedDate":  "2025-08-18T14:54:52.58Z",
+        "id":  599117
+    },
+    {
+        "tenures":  [
+                        {
+                            "isLiable":  false,
+                            "institutionId":  109012,
+                            "functionTypeId":  172642,
+                            "year":  2025,
+                            "startDate":  null,
+                            "endDate":  null,
+                            "remunerationAmount":  0.00,
+                            "remunerationAmountMax":  0.00,
+                            "isRemunerated":  false,
+                            "isRemunerationRounded":  false,
+                            "functionType":  {
+                                                 "translations":  [
+                                                                      {
+                                                                          "languageCode":  "FR",
+                                                                          "name":  "Représentant communal"
+                                                                      },
+                                                                      {
+                                                                          "languageCode":  "FF",
+                                                                          "name":  "Représentant communal"
+                                                                      },
+                                                                      {
+                                                                          "languageCode":  "DE",
+                                                                          "name":  "Représentant communal"
+                                                                      },
+                                                                      {
+                                                                          "languageCode":  "NL",
+                                                                          "name":  "Représentant communal"
+                                                                      }
+                                                                  ],
+                                                 "isActive":  false,
+                                                 "id":  172642
+                                             },
+                            "institution":  {
+                                                "priorityWeight":  49,
+                                                "translations":  [
+                                                                     {
+                                                                         "languageCode":  "FR",
+                                                                         "name":  "Enodia - Intercommunale pure de financement, sc"
+                                                                     },
+                                                                     {
+                                                                         "languageCode":  "DE",
+                                                                         "name":  "Enodia - Intercommunale pure de financement, Gennossenschaft"
+                                                                     },
+                                                                     {
+                                                                         "languageCode":  "NL",
+                                                                         "name":  "Enodia - Intercommunale pure de financement, cv"
+                                                                     }
+                                                                 ],
+                                                "languageCode":  null,
+                                                "id":  109012
+                                            },
+                            "statementId":  603307,
+                            "verificationStatus":  0,
+                            "address":  null,
+                            "cityId":  null,
+                            "id":  505210
+                        }
+                    ],
+        "patrimonyDeclaration":  2,
+        "profile":  {
+                        "cityName":  null,
+                        "firstName":  "Damien",
+                        "lastName":  "Legras",
+                        "id":  306583
+                    },
+        "year":  2024,
+        "closedDate":  "2025-06-22T11:26:15.773Z",
+        "id":  603307
+    },
+    {
+        "tenures":  [
+                        {
+                            "isLiable":  false,
+                            "institutionId":  109012,
+                            "functionTypeId":  79197,
+                            "year":  2025,
+                            "startDate":  null,
+                            "endDate":  null,
+                            "remunerationAmount":  0.00,
+                            "remunerationAmountMax":  0.00,
+                            "isRemunerated":  false,
+                            "isRemunerationRounded":  false,
+                            "functionType":  {
+                                                 "translations":  [
+                                                                      {
+                                                                          "languageCode":  "FR",
+                                                                          "name":  "Afgevaardigde van de gemeente Voeren"
+                                                                      },
+                                                                      {
+                                                                          "languageCode":  "FF",
+                                                                          "name":  "Afgevaardigde van de gemeente Voeren"
+                                                                      },
+                                                                      {
+                                                                          "languageCode":  "DE",
+                                                                          "name":  "Afgevaardigde van de gemeente Voeren"
+                                                                      },
+                                                                      {
+                                                                          "languageCode":  "NL",
+                                                                          "name":  "Afgevaardigde van de gemeente Voeren"
+                                                                      }
+                                                                  ],
+                                                 "isActive":  false,
+                                                 "id":  79197
+                                             },
+                            "institution":  {
+                                                "priorityWeight":  49,
+                                                "translations":  [
+                                                                     {
+                                                                         "languageCode":  "FR",
+                                                                         "name":  "Enodia - Intercommunale pure de financement, sc"
+                                                                     },
+                                                                     {
+                                                                         "languageCode":  "DE",
+                                                                         "name":  "Enodia - Intercommunale pure de financement, Gennossenschaft"
+                                                                     },
+                                                                     {
+                                                                         "languageCode":  "NL",
+                                                                         "name":  "Enodia - Intercommunale pure de financement, cv"
+                                                                     }
+                                                                 ],
+                                                "languageCode":  null,
+                                                "id":  109012
+                                            },
+                            "statementId":  597236,
+                            "verificationStatus":  0,
+                            "address":  null,
+                            "cityId":  null,
+                            "id":  509940
+                        }
+                    ],
+        "patrimonyDeclaration":  2,
+        "profile":  {
+                        "cityName":  null,
+                        "firstName":  "William",
+                        "lastName":  "Nijssen",
+                        "id":  292284
+                    },
+        "year":  2024,
+        "closedDate":  "2025-09-04T12:37:20.21Z",
+        "id":  597236
+    },
+    {
+        "tenures":  [
+                        {
+                            "isLiable":  true,
+                            "institutionId":  109012,
+                            "functionTypeId":  1820,
+                            "year":  2025,
+                            "startDate":  null,
+                            "endDate":  "2024-12-06T00:00:00Z",
+                            "remunerationAmount":  2320.41,
+                            "remunerationAmountMax":  null,
+                            "isRemunerated":  true,
+                            "isRemunerationRounded":  false,
+                            "functionType":  {
+                                                 "translations":  [
+                                                                      {
+                                                                          "languageCode":  "FR",
+                                                                          "name":  "Membre du conseil d\u0027administration"
+                                                                      },
+                                                                      {
+                                                                          "languageCode":  "FF",
+                                                                          "name":  "Membre du conseil d\u0027administration"
+                                                                      },
+                                                                      {
+                                                                          "languageCode":  "DE",
+                                                                          "name":  "Mitglied des Verwaltungsrates"
+                                                                      },
+                                                                      {
+                                                                          "languageCode":  "NL",
+                                                                          "name":  "Lid van de raad van bestuur"
+                                                                      }
+                                                                  ],
+                                                 "isActive":  false,
+                                                 "id":  1820
+                                             },
+                            "institution":  {
+                                                "priorityWeight":  49,
+                                                "translations":  [
+                                                                     {
+                                                                         "languageCode":  "FR",
+                                                                         "name":  "Enodia - Intercommunale pure de financement, sc"
+                                                                     },
+                                                                     {
+                                                                         "languageCode":  "DE",
+                                                                         "name":  "Enodia - Intercommunale pure de financement, Gennossenschaft"
+                                                                     },
+                                                                     {
+                                                                         "languageCode":  "NL",
+                                                                         "name":  "Enodia - Intercommunale pure de financement, cv"
+                                                                     }
+                                                                 ],
+                                                "languageCode":  null,
+                                                "id":  109012
+                                            },
+                            "statementId":  599610,
+                            "verificationStatus":  0,
+                            "address":  null,
+                            "cityId":  null,
+                            "id":  512417
+                        }
+                    ],
+        "patrimonyDeclaration":  2,
+        "profile":  {
+                        "cityName":  null,
+                        "firstName":  "Alain",
+                        "lastName":  "Decerf",
+                        "id":  278444
+                    },
+        "year":  2024,
+        "closedDate":  "2025-09-10T08:13:10.183Z",
+        "id":  599610
+    },
+    {
+        "tenures":  [
+                        {
+                            "isLiable":  true,
+                            "institutionId":  109012,
+                            "functionTypeId":  1820,
+                            "year":  2025,
+                            "startDate":  null,
+                            "endDate":  null,
+                            "remunerationAmount":  2065.42,
+                            "remunerationAmountMax":  null,
+                            "isRemunerated":  true,
+                            "isRemunerationRounded":  false,
+                            "functionType":  {
+                                                 "translations":  [
+                                                                      {
+                                                                          "languageCode":  "FR",
+                                                                          "name":  "Membre du conseil d\u0027administration"
+                                                                      },
+                                                                      {
+                                                                          "languageCode":  "FF",
+                                                                          "name":  "Membre du conseil d\u0027administration"
+                                                                      },
+                                                                      {
+                                                                          "languageCode":  "DE",
+                                                                          "name":  "Mitglied des Verwaltungsrates"
+                                                                      },
+                                                                      {
+                                                                          "languageCode":  "NL",
+                                                                          "name":  "Lid van de raad van bestuur"
+                                                                      }
+                                                                  ],
+                                                 "isActive":  false,
+                                                 "id":  1820
+                                             },
+                            "institution":  {
+                                                "priorityWeight":  49,
+                                                "translations":  [
+                                                                     {
+                                                                         "languageCode":  "FR",
+                                                                         "name":  "Enodia - Intercommunale pure de financement, sc"
+                                                                     },
+                                                                     {
+                                                                         "languageCode":  "DE",
+                                                                         "name":  "Enodia - Intercommunale pure de financement, Gennossenschaft"
+                                                                     },
+                                                                     {
+                                                                         "languageCode":  "NL",
+                                                                         "name":  "Enodia - Intercommunale pure de financement, cv"
+                                                                     }
+                                                                 ],
+                                                "languageCode":  null,
+                                                "id":  109012
+                                            },
+                            "statementId":  597414,
+                            "verificationStatus":  0,
+                            "address":  null,
+                            "cityId":  null,
+                            "id":  521940
+                        }
+                    ],
+        "patrimonyDeclaration":  2,
+        "profile":  {
+                        "cityName":  null,
+                        "firstName":  "Samuel",
+                        "lastName":  "Moiny",
+                        "id":  303993
+                    },
+        "year":  2024,
+        "closedDate":  "2025-09-26T18:37:48.377Z",
+        "id":  597414
+    },
+    {
+        "tenures":  [
+                        {
+                            "isLiable":  false,
+                            "institutionId":  109012,
+                            "functionTypeId":  122624,
+                            "year":  2025,
+                            "startDate":  null,
+                            "endDate":  null,
+                            "remunerationAmount":  0.00,
+                            "remunerationAmountMax":  0.00,
+                            "isRemunerated":  false,
+                            "isRemunerationRounded":  false,
+                            "functionType":  {
+                                                 "translations":  [
+                                                                      {
+                                                                          "languageCode":  "FR",
+                                                                          "name":  "Observateur au conseil d\u0027administration"
+                                                                      },
+                                                                      {
+                                                                          "languageCode":  "FF",
+                                                                          "name":  "Observateur au conseil d\u0027administration"
+                                                                      },
+                                                                      {
+                                                                          "languageCode":  "DE",
+                                                                          "name":  "Observateur au conseil d\u0027administration"
+                                                                      },
+                                                                      {
+                                                                          "languageCode":  "NL",
+                                                                          "name":  "Observateur au conseil d\u0027administration"
+                                                                      }
+                                                                  ],
+                                                 "isActive":  false,
+                                                 "id":  122624
+                                             },
+                            "institution":  {
+                                                "priorityWeight":  49,
+                                                "translations":  [
+                                                                     {
+                                                                         "languageCode":  "FR",
+                                                                         "name":  "Enodia - Intercommunale pure de financement, sc"
+                                                                     },
+                                                                     {
+                                                                         "languageCode":  "DE",
+                                                                         "name":  "Enodia - Intercommunale pure de financement, Gennossenschaft"
+                                                                     },
+                                                                     {
+                                                                         "languageCode":  "NL",
+                                                                         "name":  "Enodia - Intercommunale pure de financement, cv"
+                                                                     }
+                                                                 ],
+                                                "languageCode":  null,
+                                                "id":  109012
+                                            },
+                            "statementId":  598466,
+                            "verificationStatus":  0,
+                            "address":  null,
+                            "cityId":  null,
+                            "id":  524674
+                        }
+                    ],
+        "patrimonyDeclaration":  2,
+        "profile":  {
+                        "cityName":  null,
+                        "firstName":  "Samuel",
+                        "lastName":  "De Toffol",
+                        "id":  296700
+                    },
+        "year":  2024,
+        "closedDate":  "2025-09-29T16:37:18.44Z",
+        "id":  598466
+    },
+    {
+        "tenures":  [
+                        {
+                            "isLiable":  true,
+                            "institutionId":  109012,
+                            "functionTypeId":  1820,
+                            "year":  2025,
+                            "startDate":  null,
+                            "endDate":  null,
+                            "remunerationAmount":  2557.46,
+                            "remunerationAmountMax":  null,
+                            "isRemunerated":  true,
+                            "isRemunerationRounded":  false,
+                            "functionType":  {
+                                                 "translations":  [
+                                                                      {
+                                                                          "languageCode":  "FR",
+                                                                          "name":  "Membre du conseil d\u0027administration"
+                                                                      },
+                                                                      {
+                                                                          "languageCode":  "FF",
+                                                                          "name":  "Membre du conseil d\u0027administration"
+                                                                      },
+                                                                      {
+                                                                          "languageCode":  "DE",
+                                                                          "name":  "Mitglied des Verwaltungsrates"
+                                                                      },
+                                                                      {
+                                                                          "languageCode":  "NL",
+                                                                          "name":  "Lid van de raad van bestuur"
+                                                                      }
+                                                                  ],
+                                                 "isActive":  false,
+                                                 "id":  1820
+                                             },
+                            "institution":  {
+                                                "priorityWeight":  49,
+                                                "translations":  [
+                                                                     {
+                                                                         "languageCode":  "FR",
+                                                                         "name":  "Enodia - Intercommunale pure de financement, sc"
+                                                                     },
+                                                                     {
+                                                                         "languageCode":  "DE",
+                                                                         "name":  "Enodia - Intercommunale pure de financement, Gennossenschaft"
+                                                                     },
+                                                                     {
+                                                                         "languageCode":  "NL",
+                                                                         "name":  "Enodia - Intercommunale pure de financement, cv"
+                                                                     }
+                                                                 ],
+                                                "languageCode":  null,
+                                                "id":  109012
+                                            },
+                            "statementId":  596469,
+                            "verificationStatus":  0,
+                            "address":  null,
+                            "cityId":  null,
+                            "id":  525501
+                        }
+                    ],
+        "patrimonyDeclaration":  2,
+        "profile":  {
+                        "cityName":  null,
+                        "firstName":  "Maxime",
+                        "lastName":  "Degey",
+                        "id":  289613
+                    },
+        "year":  2024,
+        "closedDate":  "2025-09-30T08:15:18.747Z",
+        "id":  596469
+    },
+    {
+        "tenures":  [
+                        {
+                            "isLiable":  true,
+                            "institutionId":  109012,
+                            "functionTypeId":  1820,
+                            "year":  2025,
+                            "startDate":  null,
+                            "endDate":  null,
+                            "remunerationAmount":  2669.15,
+                            "remunerationAmountMax":  null,
+                            "isRemunerated":  true,
+                            "isRemunerationRounded":  false,
+                            "functionType":  {
+                                                 "translations":  [
+                                                                      {
+                                                                          "languageCode":  "FR",
+                                                                          "name":  "Membre du conseil d\u0027administration"
+                                                                      },
+                                                                      {
+                                                                          "languageCode":  "FF",
+                                                                          "name":  "Membre du conseil d\u0027administration"
+                                                                      },
+                                                                      {
+                                                                          "languageCode":  "DE",
+                                                                          "name":  "Mitglied des Verwaltungsrates"
+                                                                      },
+                                                                      {
+                                                                          "languageCode":  "NL",
+                                                                          "name":  "Lid van de raad van bestuur"
+                                                                      }
+                                                                  ],
+                                                 "isActive":  false,
+                                                 "id":  1820
+                                             },
+                            "institution":  {
+                                                "priorityWeight":  49,
+                                                "translations":  [
+                                                                     {
+                                                                         "languageCode":  "FR",
+                                                                         "name":  "Enodia - Intercommunale pure de financement, sc"
+                                                                     },
+                                                                     {
+                                                                         "languageCode":  "DE",
+                                                                         "name":  "Enodia - Intercommunale pure de financement, Gennossenschaft"
+                                                                     },
+                                                                     {
+                                                                         "languageCode":  "NL",
+                                                                         "name":  "Enodia - Intercommunale pure de financement, cv"
+                                                                     }
+                                                                 ],
+                                                "languageCode":  null,
+                                                "id":  109012
+                                            },
+                            "statementId":  597722,
+                            "verificationStatus":  0,
+                            "address":  null,
+                            "cityId":  null,
+                            "id":  527526
+                        }
+                    ],
+        "patrimonyDeclaration":  2,
+        "profile":  {
+                        "cityName":  null,
+                        "firstName":  "Nathalie",
+                        "lastName":  "Dubois",
+                        "id":  278902
+                    },
+        "year":  2024,
+        "closedDate":  "2025-10-01T19:09:35.84Z",
+        "id":  597722
+    },
+    {
+        "tenures":  [
+                        {
+                            "isLiable":  true,
+                            "institutionId":  109012,
+                            "functionTypeId":  1820,
+                            "year":  2025,
+                            "startDate":  null,
+                            "endDate":  "2024-07-02T00:00:00Z",
+                            "remunerationAmount":  2999.86,
+                            "remunerationAmountMax":  null,
+                            "isRemunerated":  true,
+                            "isRemunerationRounded":  false,
+                            "functionType":  {
+                                                 "translations":  [
+                                                                      {
+                                                                          "languageCode":  "FR",
+                                                                          "name":  "Membre du conseil d\u0027administration"
+                                                                      },
+                                                                      {
+                                                                          "languageCode":  "FF",
+                                                                          "name":  "Membre du conseil d\u0027administration"
+                                                                      },
+                                                                      {
+                                                                          "languageCode":  "DE",
+                                                                          "name":  "Mitglied des Verwaltungsrates"
+                                                                      },
+                                                                      {
+                                                                          "languageCode":  "NL",
+                                                                          "name":  "Lid van de raad van bestuur"
+                                                                      }
+                                                                  ],
+                                                 "isActive":  false,
+                                                 "id":  1820
+                                             },
+                            "institution":  {
+                                                "priorityWeight":  49,
+                                                "translations":  [
+                                                                     {
+                                                                         "languageCode":  "FR",
+                                                                         "name":  "Enodia - Intercommunale pure de financement, sc"
+                                                                     },
+                                                                     {
+                                                                         "languageCode":  "DE",
+                                                                         "name":  "Enodia - Intercommunale pure de financement, Gennossenschaft"
+                                                                     },
+                                                                     {
+                                                                         "languageCode":  "NL",
+                                                                         "name":  "Enodia - Intercommunale pure de financement, cv"
+                                                                     }
+                                                                 ],
+                                                "languageCode":  null,
+                                                "id":  109012
+                                            },
+                            "statementId":  599611,
+                            "verificationStatus":  0,
+                            "address":  null,
+                            "cityId":  null,
+                            "id":  527675
+                        }
+                    ],
+        "patrimonyDeclaration":  2,
+        "profile":  {
+                        "cityName":  null,
+                        "firstName":  "Hajib",
+                        "lastName":  "El Hajjaji",
+                        "id":  288679
+                    },
+        "year":  2024,
+        "closedDate":  "2025-10-02T23:10:17.117Z",
+        "id":  599611
+    },
+    {
+        "tenures":  [
+                        {
+                            "isLiable":  true,
+                            "institutionId":  109012,
+                            "functionTypeId":  1820,
+                            "year":  2025,
+                            "startDate":  null,
+                            "endDate":  null,
+                            "remunerationAmount":  2310.20,
+                            "remunerationAmountMax":  null,
+                            "isRemunerated":  true,
+                            "isRemunerationRounded":  false,
+                            "functionType":  {
+                                                 "translations":  [
+                                                                      {
+                                                                          "languageCode":  "FR",
+                                                                          "name":  "Membre du conseil d\u0027administration"
+                                                                      },
+                                                                      {
+                                                                          "languageCode":  "FF",
+                                                                          "name":  "Membre du conseil d\u0027administration"
+                                                                      },
+                                                                      {
+                                                                          "languageCode":  "DE",
+                                                                          "name":  "Mitglied des Verwaltungsrates"
+                                                                      },
+                                                                      {
+                                                                          "languageCode":  "NL",
+                                                                          "name":  "Lid van de raad van bestuur"
+                                                                      }
+                                                                  ],
+                                                 "isActive":  false,
+                                                 "id":  1820
+                                             },
+                            "institution":  {
+                                                "priorityWeight":  49,
+                                                "translations":  [
+                                                                     {
+                                                                         "languageCode":  "FR",
+                                                                         "name":  "Enodia - Intercommunale pure de financement, sc"
+                                                                     },
+                                                                     {
+                                                                         "languageCode":  "DE",
+                                                                         "name":  "Enodia - Intercommunale pure de financement, Gennossenschaft"
+                                                                     },
+                                                                     {
+                                                                         "languageCode":  "NL",
+                                                                         "name":  "Enodia - Intercommunale pure de financement, cv"
+                                                                     }
+                                                                 ],
+                                                "languageCode":  null,
+                                                "id":  109012
+                                            },
+                            "statementId":  595276,
+                            "verificationStatus":  0,
+                            "address":  null,
+                            "cityId":  null,
+                            "id":  531188
+                        }
+                    ],
+        "patrimonyDeclaration":  2,
+        "profile":  {
+                        "cityName":  null,
+                        "firstName":  "Fabian",
+                        "lastName":  "Culot",
+                        "id":  287324
+                    },
+        "year":  2024,
+        "closedDate":  "2025-10-23T17:01:00.12Z",
+        "id":  595276
+    },
+    {
+        "tenures":  [
+                        {
+                            "isLiable":  true,
+                            "institutionId":  109012,
+                            "functionTypeId":  1820,
+                            "year":  2025,
+                            "startDate":  null,
+                            "endDate":  null,
+                            "remunerationAmount":  3269.57,
+                            "remunerationAmountMax":  null,
+                            "isRemunerated":  true,
+                            "isRemunerationRounded":  false,
+                            "functionType":  {
+                                                 "translations":  [
+                                                                      {
+                                                                          "languageCode":  "FR",
+                                                                          "name":  "Membre du conseil d\u0027administration"
+                                                                      },
+                                                                      {
+                                                                          "languageCode":  "FF",
+                                                                          "name":  "Membre du conseil d\u0027administration"
+                                                                      },
+                                                                      {
+                                                                          "languageCode":  "DE",
+                                                                          "name":  "Mitglied des Verwaltungsrates"
+                                                                      },
+                                                                      {
+                                                                          "languageCode":  "NL",
+                                                                          "name":  "Lid van de raad van bestuur"
+                                                                      }
+                                                                  ],
+                                                 "isActive":  false,
+                                                 "id":  1820
+                                             },
+                            "institution":  {
+                                                "priorityWeight":  49,
+                                                "translations":  [
+                                                                     {
+                                                                         "languageCode":  "FR",
+                                                                         "name":  "Enodia - Intercommunale pure de financement, sc"
+                                                                     },
+                                                                     {
+                                                                         "languageCode":  "DE",
+                                                                         "name":  "Enodia - Intercommunale pure de financement, Gennossenschaft"
+                                                                     },
+                                                                     {
+                                                                         "languageCode":  "NL",
+                                                                         "name":  "Enodia - Intercommunale pure de financement, cv"
+                                                                     }
+                                                                 ],
+                                                "languageCode":  null,
+                                                "id":  109012
+                                            },
+                            "statementId":  599612,
+                            "verificationStatus":  0,
+                            "address":  null,
+                            "cityId":  null,
+                            "id":  533625
+                        }
+                    ],
+        "patrimonyDeclaration":  0,
+        "profile":  {
+                        "cityName":  null,
+                        "firstName":  "Caroline",
+                        "lastName":  "Lebeau",
+                        "id":  298505
+                    },
+        "year":  2024,
+        "closedDate":  "2025-12-02T06:03:57.267Z",
+        "id":  599612
+    },
+    {
+        "tenures":  [
+                        {
+                            "isLiable":  false,
+                            "institutionId":  109012,
+                            "functionTypeId":  124359,
+                            "year":  2025,
+                            "startDate":  null,
+                            "endDate":  "2024-12-02T00:00:00Z",
+                            "remunerationAmount":  0.00,
+                            "remunerationAmountMax":  0.00,
+                            "isRemunerated":  false,
+                            "isRemunerationRounded":  false,
+                            "functionType":  {
+                                                 "translations":  [
+                                                                      {
+                                                                          "languageCode":  "FR",
+                                                                          "name":  "Administrateur"
+                                                                      },
+                                                                      {
+                                                                          "languageCode":  "FF",
+                                                                          "name":  "Administrateur"
+                                                                      },
+                                                                      {
+                                                                          "languageCode":  "DE",
+                                                                          "name":  "Administrateur"
+                                                                      },
+                                                                      {
+                                                                          "languageCode":  "NL",
+                                                                          "name":  "Administrateur"
+                                                                      }
+                                                                  ],
+                                                 "isActive":  false,
+                                                 "id":  124359
+                                             },
+                            "institution":  {
+                                                "priorityWeight":  49,
+                                                "translations":  [
+                                                                     {
+                                                                         "languageCode":  "FR",
+                                                                         "name":  "Enodia - Intercommunale pure de financement, sc"
+                                                                     },
+                                                                     {
+                                                                         "languageCode":  "DE",
+                                                                         "name":  "Enodia - Intercommunale pure de financement, Gennossenschaft"
+                                                                     },
+                                                                     {
+                                                                         "languageCode":  "NL",
+                                                                         "name":  "Enodia - Intercommunale pure de financement, cv"
+                                                                     }
+                                                                 ],
+                                                "languageCode":  null,
+                                                "id":  109012
+                                            },
+                            "statementId":  603364,
+                            "verificationStatus":  0,
+                            "address":  null,
+                            "cityId":  null,
+                            "id":  534007
+                        }
+                    ],
+        "patrimonyDeclaration":  1,
+        "profile":  {
+                        "cityName":  null,
+                        "firstName":  "Jérôme",
+                        "lastName":  "Avril",
+                        "id":  290247
+                    },
+        "year":  2024,
+        "closedDate":  "2026-01-15T09:33:26.49Z",
+        "id":  603364
+    }
+]

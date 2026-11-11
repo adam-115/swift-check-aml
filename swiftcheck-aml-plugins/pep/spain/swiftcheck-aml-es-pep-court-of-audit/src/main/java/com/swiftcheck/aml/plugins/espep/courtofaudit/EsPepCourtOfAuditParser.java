@@ -37,7 +37,6 @@ public class EsPepCourtOfAuditParser implements Iparser {
     static final String ID_PREFIX = "es-pep-court-of-audit";
     static final String TOPIC = "role.pep";
     static final String COUNTRY = "es";
-    static final String SEED_RESOURCE = "/seed/court-of-audit.json";
     static final String JSON_FILE = "court-of-audit.json";
 
     private final ObjectMapper json = new ObjectMapper();
@@ -77,12 +76,56 @@ public class EsPepCourtOfAuditParser implements Iparser {
     }
 
     private void loadResource(Path rawFile) throws IOException {
-        try (InputStream in = getClass().getResourceAsStream(SEED_RESOURCE)) {
-            if (in == null) {
-                throw new IllegalStateException("Ressource de secours introuvable : " + SEED_RESOURCE);
+        List<String[]> found = extract(fetch(SOURCE_URL));
+        if (found.isEmpty()) {
+            throw new IllegalStateException("Aucun membre du Pleno trouvé sur " + SOURCE_URL + " (structure modifiée ?)");
+        }
+        com.fasterxml.jackson.databind.node.ObjectNode root = json.createObjectNode();
+        root.put("country", COUNTRY);
+        com.fasterxml.jackson.databind.node.ArrayNode arr = root.putArray("members");
+        for (String[] f : found) {
+            arr.addObject().put("name", f[0]).put("role", f[1]).put("status", "current");
+        }
+        Files.writeString(rawFile, json.writerWithDefaultPrettyPrinter().writeValueAsString(root), StandardCharsets.UTF_8);
+        log.info("Tribunal de Cuentas : {} membres du Pleno lus sur {}", found.size(), SOURCE_URL);
+    }
+
+    static final String SOURCE_URL = "https://www.tcu.es/es/institucion/organizacion-y-gobernanza/";
+    private static final java.util.regex.Pattern CARD = java.util.regex.Pattern.compile(
+            "<div class=\"nombre\">([^<]+)</div>\\s*<div class=\"cargo\">([^<]+)</div>");
+
+    /** Extrait [nom, fonction] des fiches « Miembros del Pleno » (dédoublonnées). */
+    static List<String[]> extract(String html) {
+        List<String[]> out = new ArrayList<>();
+        java.util.Set<String> seen = new java.util.HashSet<>();
+        java.util.regex.Matcher m = CARD.matcher(html);
+        while (m.find()) {
+            String name = m.group(1).replace("&nbsp;", " ").replaceAll("\\s+", " ").trim();
+            String role = m.group(2).replace("&nbsp;", " ").replaceAll("\\s+", " ").trim();
+            if (!name.isEmpty() && seen.add(name)) {
+                out.add(new String[] {name, role});
             }
-            Files.copy(in, rawFile, StandardCopyOption.REPLACE_EXISTING);
-            log.info("Tribunal de Cuentas espagnol : données officielles chargées depuis {}", SEED_RESOURCE);
+        }
+        return out;
+    }
+
+    private static String fetch(String url) throws IOException {
+        try {
+            java.net.http.HttpClient client = java.net.http.HttpClient.newBuilder()
+                    .followRedirects(java.net.http.HttpClient.Redirect.NORMAL)
+                    .connectTimeout(java.time.Duration.ofSeconds(20)).build();
+            java.net.http.HttpResponse<String> resp = client.send(
+                    java.net.http.HttpRequest.newBuilder(java.net.URI.create(url))
+                            .header("User-Agent", "SwiftCheck-AML/1.0 (PEP screening)")
+                            .timeout(java.time.Duration.ofSeconds(60)).GET().build(),
+                    java.net.http.HttpResponse.BodyHandlers.ofString(StandardCharsets.UTF_8));
+            if (resp.statusCode() != 200) {
+                throw new IOException("HTTP " + resp.statusCode() + " sur " + url + " (source inaccessible, aucun contournement tenté)");
+            }
+            return resp.body();
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+            throw new IOException("Interrompu", e);
         }
     }
 

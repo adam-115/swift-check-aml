@@ -104,6 +104,83 @@
       "name": "ASTRID",
       "keywords": ["astrid"],
       "description": "Société anonyme de droit public – Télécommunications des services de secours et de sécurité"
+    },
+    {
+      "slug": "fluvius",
+      "query": "Fluvius",
+      "name": "Fluvius System Operator",
+      "keywords": ["fluvius"],
+      "description": "Gestionnaire de réseau de distribution d'électricité et de gaz en Flandre (intercommunale)"
+    },
+    {
+      "slug": "ores",
+      "query": "ORES",
+      "name": "ORES (Opérateur des Réseaux Gaz et Électricité)",
+      "keywords": ["ores"],
+      "description": "Principal gestionnaire de réseau de distribution d'énergie en Wallonie (intercommunale)"
+    },
+    {
+      "slug": "sibelga",
+      "query": "Sibelga",
+      "name": "Sibelga",
+      "keywords": ["sibelga"],
+      "description": "Gestionnaire de réseau de distribution d'électricité et de gaz à Bruxelles (intercommunale)"
+    },
+    {
+      "slug": "resa",
+      "query": "RESA",
+      "name": "RESA",
+      "keywords": ["resa"],
+      "description": "Gestionnaire de réseau de distribution de gaz et d'électricité en région liégeoise (intercommunale)"
+    },
+    {
+      "slug": "swde",
+      "query": "SWDE",
+      "name": "SWDE (Société Wallonne des Eaux)",
+      "keywords": ["swde", "société wallonne des eaux"],
+      "description": "Société publique autonome de distribution d'eau potable en Wallonie"
+    },
+    {
+      "slug": "vivaqua",
+      "query": "Vivaqua",
+      "name": "VIVAQUA",
+      "keywords": ["vivaqua"],
+      "description": "Intercommunale de production et distribution d'eau potable à Bruxelles et Wallonie"
+    },
+    {
+      "slug": "de_watergroep",
+      "query": "De Watergroep",
+      "name": "De Watergroep",
+      "keywords": ["watergroep"],
+      "description": "Plus grande entreprise publique intégrée de l'eau en Flandre (intercommunale)"
+    },
+    {
+      "slug": "enodia",
+      "query": "Enodia",
+      "name": "Enodia / Nethys",
+      "keywords": ["enodia", "nethys"],
+      "description": "Holding public intercommunal liégeois actif dans l'énergie et les télécommunications"
+    },
+    {
+      "slug": "port_antwerp",
+      "query": "Port of Antwerp",
+      "name": "Port of Antwerp-Bruges",
+      "keywords": ["port of antwerp", "haven van antwerpen"],
+      "description": "Régie publique autonome et société portuaire d'Anvers et Bruges"
+    },
+    {
+      "slug": "port_bruxelles",
+      "query": "Port de Bruxelles",
+      "name": "Port de Bruxelles",
+      "keywords": ["port de bruxelles", "haven van brussel"],
+      "description": "Société régionale d'exploitation du port intérieur de Bruxelles"
+    },
+    {
+      "slug": "igretec",
+      "query": "Igretec",
+      "name": "IGRETEC",
+      "keywords": ["igretec"],
+      "description": "Intercommunale de développement économique et d'aménagement de la région de Charleroi"
     }
   ]
 }

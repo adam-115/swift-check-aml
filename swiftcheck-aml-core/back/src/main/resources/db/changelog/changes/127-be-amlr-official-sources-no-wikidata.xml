@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="127-be-amlr-official-sources-no-wikidata" author="swiftcheck">
+        <comment>BE-AMLR : Transition intégrale vers sources 100% officielles (LBLOD Mandatendatabank et Cour des comptes Regimand) sans recours à Wikidata</comment>
+        <sql><![CDATA[
+            UPDATE parser
+            SET website_url = 'https://public.regimand.be/',
+                parameters = '{"lblodEndpoint": "https://centrale-vindplaats.lblod.info/sparql", "regimandUrl": "https://public.regimand.be", "regimandDelayMs": "300", "minPopulation": "50000"}',
+                licence = 'Licence Ouverte Flandre (LBLOD Mandatendatabank) et données publiques de la Cour des comptes de Belgique (Regimand)',
+                attribution = 'Cour des comptes de Belgique (public.regimand.be) ; Agentschap Binnenlands Bestuur Vlaanderen (LBLOD Mandatendatabank) ; Statbel (chiffres officiels de population)',
+                notes = 'Sources 100% officielles gouvernementales et constitutionnelles sans données figées : Bourgmestres, échevins et présidents de CPAS / BCSD flamands via LBLOD Mandatendatabank en temps réel ; Bourgmestres, échevins, présidents de CPAS, gouverneurs et députés provinciaux wallons et bruxellois via les déclarations officielles sous serment à la Cour des comptes (Regimand). Périmètre légal AMLR (art. 2(1)(35)) des 40 collectivités belges >= 50 000 habitants (30 communes et 10 provinces basées sur Statbel).'
+            WHERE dataset_name = 'be_pep_local_executives';
+
+            UPDATE pep_function_parser
+            SET completeness = 'COMPLETE',
+                covered_scope = 'Tous les bourgmestres des 30 communes belges de 50 000 habitants ou plus et les 10 gouverneurs de province extraits exclusivement de sources officielles gouvernementales : LBLOD Mandatendatabank pour la Flandre et Cour des comptes (Regimand - déclarations officielles des bourgmestres et gouverneurs) pour la Wallonie et Bruxelles. Mandats terminés inclus pendant la durée de rétention.',
+                gaps = 'Aucune lacune sur le périmètre légal AMLR. Sources 100% officielles et dynamiques sans dépendance collaborative (Wikidata).'
+            WHERE function_id = 110 AND parser_id = (SELECT id FROM parser WHERE dataset_name = 'be_pep_local_executives');
+
+            UPDATE pep_function_parser
+            SET completeness = 'COMPLETE',
+                covered_scope = 'Échevins (Schepenen), présidents de CPAS/BCSD et députés provinciaux (Gedeputeerden) des 30 communes et 10 provinces de 50 000 habitants ou plus extraits en temps réel des sources officielles : LBLOD (Agentschap Binnenlands Bestuur) et Regimand (Cour des comptes de Belgique). Mandats terminés inclus pendant la durée de rétention.',
+                gaps = 'Aucune lacune sur le périmètre légal AMLR. Sources 100% officielles et dynamiques sans dépendance collaborative (Wikidata).'
+            WHERE function_id = 245 AND parser_id = (SELECT id FROM parser WHERE dataset_name = 'be_pep_local_executives');
+        ]]></sql>
+    </changeSet>
+
+</databaseChangeLog>
+

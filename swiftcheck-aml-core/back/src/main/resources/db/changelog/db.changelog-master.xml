@@ -144,5 +144,15 @@
     <include file="db/changelog/changes/117-gr-coverage-finalization.xml" />
     <include file="db/changelog/changes/118-downgrade-seed-parsers-to-partial.xml" />
     <include file="db/changelog/changes/119-fr-coverage-gaps-update.xml" />
+    <include file="db/changelog/changes/120-be-coverage-brussels-parliament.xml" />
+    <include file="db/changelog/changes/121-frozen-parsers-to-live-sources.xml" />
+    <include file="db/changelog/changes/122-es-unions-live-sources.xml" />
+    <include file="db/changelog/changes/122-be-coverage-party-executives.xml" />
+    <include file="db/changelog/changes/123-be-coverage-public-enterprises-intercommunales.xml" />
+    <include file="db/changelog/changes/124-pep-dynamic-parameters-in-db.xml" />
+    <include file="db/changelog/changes/125-be-coverage-international-orgs.xml" />
+    <include file="db/changelog/changes/126-be-coverage-amlr-local-executives.xml" />
+    <include file="db/changelog/changes/127-be-amlr-official-sources-no-wikidata.xml" />
+    <include file="db/changelog/changes/128-be-pep-eu-institutions.xml" />
 
 </databaseChangeLog>

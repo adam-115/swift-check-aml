@@ -80,7 +80,8 @@ public class BePepAssociatedEntitiesParser implements Iparser {
     @Override
     public ParserResult parse(ParserContext ctx) throws Exception {
         Map<String, String> p = ctx.parameters() == null ? Map.of() : ctx.parameters();
-        download(p.getOrDefault("regimandUrl", DEFAULT_REGIMAND_URL).trim(), p.get("year"), ctx.rawDir());
+        List<InstitutionQuery> configs = loadConfig(p.get("institutions"));
+        download(p.getOrDefault("regimandUrl", DEFAULT_REGIMAND_URL).trim(), p.get("year"), ctx.rawDir(), configs);
 
         FtmDatasetBuilder dataset = new FtmDatasetBuilder(ID_PREFIX);
         Report report = convert(ctx.rawDir(), dataset);
@@ -104,6 +105,10 @@ public class BePepAssociatedEntitiesParser implements Iparser {
     }
 
     void download(String regimandBaseUrl, String yearParam, Path rawDir) throws IOException, InterruptedException {
+        download(regimandBaseUrl, yearParam, rawDir, loadConfig());
+    }
+
+    void download(String regimandBaseUrl, String yearParam, Path rawDir, List<InstitutionQuery> configs) throws IOException, InterruptedException {
         Files.createDirectories(rawDir);
         HttpClient http = HttpClient.newBuilder()
                 .connectTimeout(Duration.ofSeconds(20))
@@ -115,7 +120,7 @@ public class BePepAssociatedEntitiesParser implements Iparser {
                 ? Integer.parseInt(yearParam.trim())
                 : fetchLatestYear(http, regimandBaseUrl, token);
 
-        for (InstitutionQuery inst : loadConfig()) {
+        for (InstitutionQuery inst : configs) {
             String body = JSON.writeValueAsString(Map.of("year", year, "institutionName", inst.query()));
             HttpRequest req = HttpRequest.newBuilder(URI.create(regimandBaseUrl + "/api/Statement/PublicSearch"))
                     .timeout(Duration.ofSeconds(60))
@@ -306,12 +311,25 @@ public class BePepAssociatedEntitiesParser implements Iparser {
     }
 
     static List<InstitutionQuery> loadConfig() throws IOException {
+        return loadConfig(null);
+    }
+
+    static List<InstitutionQuery> loadConfig(String institutionsParam) throws IOException {
         List<InstitutionQuery> list = new ArrayList<>();
-        try (InputStream in = BePepAssociatedEntitiesParser.class.getResourceAsStream("/pep-institutions.json")) {
-            if (in == null) {
-                throw new IllegalStateException("pep-institutions.json absent du plugin");
+        JsonNode root;
+        if (institutionsParam != null && !institutionsParam.isBlank()) {
+            root = JSON.readTree(institutionsParam);
+        } else {
+            try (InputStream in = BePepAssociatedEntitiesParser.class.getResourceAsStream("/pep-institutions.json")) {
+                if (in == null) {
+                    throw new IllegalStateException("pep-institutions.json absent du plugin");
+                }
+                root = JSON.readTree(in);
             }
-            for (JsonNode node : JSON.readTree(in).path("institutions")) {
+        }
+        JsonNode institutionsNode = root.has("institutions") ? root.path("institutions") : root;
+        if (institutionsNode.isArray()) {
+            for (JsonNode node : institutionsNode) {
                 list.add(new InstitutionQuery(
                         node.path("slug").asText(),
                         node.path("query").asText(),

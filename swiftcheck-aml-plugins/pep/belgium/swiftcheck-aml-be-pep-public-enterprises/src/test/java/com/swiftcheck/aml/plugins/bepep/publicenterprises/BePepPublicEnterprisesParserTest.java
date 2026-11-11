@@ -79,5 +79,23 @@ class BePepPublicEnterprisesParserTest {
         assertThatThrownBy(() -> parser.convert(tmp, new FtmDatasetBuilder(BePepPublicEnterprisesParser.ID_PREFIX)))
                 .isInstanceOf(IllegalStateException.class);
     }
+
+    @Test
+    void loadsConfigFromParametersOrFallback() throws Exception {
+        // Fallback to resource
+        List<BePepPublicEnterprisesParser.EnterpriseConfig> fromResource = BePepPublicEnterprisesParser.loadConfig(null);
+        assertThat(fromResource).isNotEmpty();
+
+        // Custom config via parameters JSON
+        String customJson = """
+            [
+              {"slug": "test_ent", "query": "Test Ent", "name": "Test Enterprise", "keywords": ["test"], "description": "Desc"}
+            ]
+            """;
+        List<BePepPublicEnterprisesParser.EnterpriseConfig> custom = BePepPublicEnterprisesParser.loadConfig(customJson);
+        assertThat(custom).hasSize(1);
+        assertThat(custom.get(0).slug()).isEqualTo("test_ent");
+        assertThat(custom.get(0).query()).isEqualTo("Test Ent");
+    }
 }
 

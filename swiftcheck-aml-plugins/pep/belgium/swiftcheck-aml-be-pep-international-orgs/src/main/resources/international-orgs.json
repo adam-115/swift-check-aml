@@ -20,7 +20,15 @@
     "acronym": "OMD / WCO",
     "name": "Organisation mondiale des douanes (OMD)",
     "headquarters": "Bruxelles",
-    "url": "https://www.wcoomd.org/fr/about-us/what-is-the-wco/au_secr_general.aspx",
+    "url": "https://www.wcoomd.org/fr/about-us/what-is-the-wco/secretary-general.aspx",
+    "status": "active"
+  },
+  {
+    "code": "eurocontrol",
+    "acronym": "Eurocontrol",
+    "name": "Organisation européenne pour la sécurité de la navigation aérienne (Eurocontrol)",
+    "headquarters": "Bruxelles",
+    "url": "https://www.eurocontrol.int/about-us",
     "status": "active"
   },
   {
@@ -32,20 +40,11 @@
     "status": "pending"
   },
   {
-    "code": "eurocontrol",
-    "acronym": "Eurocontrol",
-    "name": "Organisation européenne pour la sécurité de la navigation aérienne (Eurocontrol)",
-    "headquarters": "Bruxelles",
-    "url": "https://www.eurocontrol.int/about-us",
-    "status": "pending"
-  },
-  {
     "code": "oacps",
     "acronym": "OEACP / OACPS",
     "name": "Organisation des États d'Afrique, des Caraïbes et du Pacifique (OEACP)",
     "headquarters": "Bruxelles",
-    "url": "https://www.oacps.org",
+    "url": "https://www.oacps.org/about-us/",
     "status": "pending"
   }
 ]
-

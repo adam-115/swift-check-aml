@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.20.xsd">
+
+    <changeSet id="125-be-coverage-international-orgs" author="swiftcheck">
+        <comment>Mise a jour BE-h avec activation Eurocontrol et correction URL OMD/WCO</comment>
+        
+        <update tableName="parser">
+            <column name="description" value="Hauts dirigeants des organisations internationales établies en Belgique (OTAN, Union Benelux, Organisation mondiale des douanes, Eurocontrol)"/>
+            <column name="notes" value="Extraction en direct des états-majors et secrétariats généraux depuis les sites officiels : nato.int (Secrétaire général, Deputy SG, Comité militaire), benelux.int (Collège des secrétaires généraux), wcoomd.org (Secrétaire général de l'OMD) et eurocontrol.int (Directeur général et directeurs exécutifs)."/>
+            <column name="parameters"><![CDATA[{"organizations":"{\"value\":[{\"code\":\"nato\",\"acronym\":\"OTAN / NATO\",\"name\":\"Organisation du TraitÃ© de l\\u0027Atlantique Nord (OTAN)\",\"headquarters\":\"Bruxelles\",\"url\":\"https://www.nato.int/en/about-us/organization/who-we-are\",\"status\":\"active\"},{\"code\":\"benelux\",\"acronym\":\"Union Benelux\",\"name\":\"Union Benelux (SecrÃ©tariat gÃ©nÃ©ral)\",\"headquarters\":\"Bruxelles\",\"url\":\"https://www.benelux.int/fr/contact/qui-est-qui-au-secretariat-general-de-lunion-benelux/\",\"status\":\"active\"},{\"code\":\"wco\",\"acronym\":\"OMD / WCO\",\"name\":\"Organisation mondiale des douanes (OMD)\",\"headquarters\":\"Bruxelles\",\"url\":\"https://www.wcoomd.org/fr/about-us/what-is-the-wco/secretary-general.aspx\",\"status\":\"active\"},{\"code\":\"eurocontrol\",\"acronym\":\"Eurocontrol\",\"name\":\"Organisation europÃ©enne pour la sÃ©curitÃ© de la navigation aÃ©rienne (Eurocontrol)\",\"headquarters\":\"Bruxelles\",\"url\":\"https://www.eurocontrol.int/about-us\",\"status\":\"active\"},{\"code\":\"shape\",\"acronym\":\"SHAPE\",\"name\":\"Grand Quartier gÃ©nÃ©ral des puissances alliÃ©es en Europe (SHAPE)\",\"headquarters\":\"Mons (Casteau)\",\"url\":\"https://shape.nato.int/command-group\",\"status\":\"pending\"},{\"code\":\"oacps\",\"acronym\":\"OEACP / OACPS\",\"name\":\"Organisation des Ã‰tats d\\u0027Afrique, des CaraÃ¯bes et du Pacifique (OEACP)\",\"headquarters\":\"Bruxelles\",\"url\":\"https://www.oacps.org/about-us/\",\"status\":\"pending\"}],\"Count\":6}"}]]></column>
+            <where>dataset_name = 'be_pep_international_orgs'</where>
+        </update>
+
+        <update tableName="pep_function_parser">
+            <column name="covered_scope" value="Hauts dirigeants, secrétaires généraux et directeurs généraux des organisations internationales ayant leur siège ou organe exécutif en Belgique : OTAN (Bruxelles), Union Benelux (Bruxelles), OMD / WCO (Bruxelles) et Eurocontrol (Bruxelles)."/>
+            <column name="gaps" value="SHAPE (Mons) et OEACP (Bruxelles) en suivi anti-bot; la Cour Benelux de Justice est rattachée au Secrétariat général Benelux."/>
+            <column name="completeness" value="COMPLETE"/>
+            <where>parser_id = (SELECT id FROM parser WHERE dataset_name = 'be_pep_international_orgs') AND function_id = (SELECT f.id FROM pep_function f JOIN pep_category c ON c.id = f.category_id WHERE c.code = 'BE-h' AND f.label LIKE 'Dirigeant ou membre du conseil d''une organisation internationale%')</where>
+        </update>
+    </changeSet>
+
+</databaseChangeLog>

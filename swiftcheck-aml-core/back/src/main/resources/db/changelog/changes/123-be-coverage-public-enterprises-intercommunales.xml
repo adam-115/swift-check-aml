@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.20.xsd">
+
+    <changeSet id="123-be-coverage-public-enterprises-intercommunales" author="swiftcheck">
+        <comment>Mise a jour de la couverture BE-g (Fonction 108) avec extension aux intercommunales et ports majeurs via Regimand</comment>
+        
+        <update tableName="parser">
+            <column name="description" value="Conseils d’administration, comités de direction et commissaires du gouvernement des entreprises publiques autonomes, participations stratégiques fédérales/régionales, ports et grandes intercommunales (catégorie BE-g via Cour des comptes / Regimand)"/>
+            <column name="notes" value="Interroge en direct l'API Regimand de la Cour des comptes pour 25 entités publiques stratégiques et intercommunales majeures (SNCB, Infrabel, bpost, Proximus, skeyes, Loterie Nationale, SFPI, Credendo, RTBF, VRT, STIB, De Lijn, Belfius, Apetra, ASTRID, Fluvius, ORES, Sibelga, RESA, SWDE, Vivaqua, De Watergroep, Enodia, Port of Antwerp-Bruges, Port de Bruxelles, Igretec)."/>
+            <where>dataset_name = 'be_pep_public_enterprises'</where>
+        </update>
+
+        <update tableName="pep_function_parser">
+            <column name="covered_scope" value="Membres des conseils d’administration, présidents, directeurs généraux et commissaires du gouvernement des entreprises publiques fédérales et régionales, autorités portuaires et intercommunales de distribution d'énergie et d'eau déclarés à la Cour des comptes."/>
+            <column name="gaps" value="Les mandats d'entreprises publiques et intercommunales de niveau purement local non soumises au dépôt obligatoire auprès de la Cour des comptes relèvent de be_pep_associated_entities."/>
+            <column name="completeness" value="COMPLETE"/>
+            <where>parser_id = (SELECT id FROM parser WHERE dataset_name = 'be_pep_public_enterprises') AND function_id = (SELECT f.id FROM pep_function f JOIN pep_category c ON c.id = f.category_id WHERE c.code = 'BE-g' AND f.label LIKE 'Dirigeant, administrateur ou commissaire du gouvernement%')</where>
+        </update>
+    </changeSet>
+
+</databaseChangeLog>
+

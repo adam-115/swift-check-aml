@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <!-- es_pep_unions : lecture directe CEOE (équipe dirigeante) et USO (comité exécutif). CCOO, UGT, CEPYME, CSIF, ELA, CIG, ATA : pages non localisées ou inaccessibles, retirées. -->
+    <changeSet id="122-es-unions-live-sources" author="swiftcheck">
+        <sql><![CDATA[
+            UPDATE parser
+            SET notes = TRIM(REPLACE(IFNULL(notes, ''), '[DONNÉES LOCALES FIGÉES - À MIGRER VERS CRAWLER RÉSEAU]', ''))
+            WHERE dataset_name IN ('es_pep_unions');
+
+            UPDATE parser
+            SET notes = CONCAT('[SOURCE EXTERNE LUE À CHAQUE EXÉCUTION] ', IFNULL(notes, ''))
+            WHERE dataset_name IN ('es_pep_unions');
+
+            UPDATE pep_function_parser
+            SET completeness = 'PARTIAL',
+                gaps = 'Source officielle lue en direct ; la page ne publie qu''une partie des personnes visées (hauts responsables seulement)'
+            WHERE parser_id IN (SELECT id FROM parser
+                                WHERE dataset_name IN ('es_pep_unions'));
+        ]]></sql>
+    </changeSet>
+
+</databaseChangeLog>

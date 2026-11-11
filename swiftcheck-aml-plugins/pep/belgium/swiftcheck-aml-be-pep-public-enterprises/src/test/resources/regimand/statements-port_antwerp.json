@@ -1,0 +1,348 @@
+[
+    {
+        "tenures":  [
+                        {
+                            "isLiable":  false,
+                            "institutionId":  540240,
+                            "functionTypeId":  149049,
+                            "year":  2025,
+                            "startDate":  null,
+                            "endDate":  null,
+                            "remunerationAmount":  61302.00,
+                            "remunerationAmountMax":  122602.00,
+                            "isRemunerated":  true,
+                            "isRemunerationRounded":  false,
+                            "functionType":  {
+                                                 "translations":  [
+                                                                      {
+                                                                          "languageCode":  "FR",
+                                                                          "name":  "Bediende"
+                                                                      },
+                                                                      {
+                                                                          "languageCode":  "FF",
+                                                                          "name":  "Bediende"
+                                                                      },
+                                                                      {
+                                                                          "languageCode":  "DE",
+                                                                          "name":  "Bediende"
+                                                                      },
+                                                                      {
+                                                                          "languageCode":  "NL",
+                                                                          "name":  "Bediende"
+                                                                      }
+                                                                  ],
+                                                 "isActive":  false,
+                                                 "id":  149049
+                                             },
+                            "institution":  {
+                                                "priorityWeight":  0,
+                                                "translations":  [
+                                                                     {
+                                                                         "languageCode":  "FR",
+                                                                         "name":  "Port of Antwerp-Bruges nv van publiek recht"
+                                                                     },
+                                                                     {
+                                                                         "languageCode":  "DE",
+                                                                         "name":  "Port of Antwerp-Bruges nv van publiek recht"
+                                                                     },
+                                                                     {
+                                                                         "languageCode":  "NL",
+                                                                         "name":  "Port of Antwerp-Bruges nv van publiek recht"
+                                                                     }
+                                                                 ],
+                                                "languageCode":  null,
+                                                "id":  540240
+                                            },
+                            "statementId":  594808,
+                            "verificationStatus":  0,
+                            "address":  null,
+                            "cityId":  null,
+                            "id":  514255
+                        }
+                    ],
+        "patrimonyDeclaration":  0,
+        "profile":  {
+                        "cityName":  null,
+                        "firstName":  "Laura",
+                        "lastName":  "Verlaeckt",
+                        "id":  304290
+                    },
+        "year":  2024,
+        "closedDate":  "2025-09-14T16:53:38.353Z",
+        "id":  594808
+    },
+    {
+        "tenures":  [
+                        {
+                            "isLiable":  false,
+                            "institutionId":  536310,
+                            "functionTypeId":  84359,
+                            "year":  2025,
+                            "startDate":  null,
+                            "endDate":  "2024-09-30T00:00:00Z",
+                            "remunerationAmount":  1.00,
+                            "remunerationAmountMax":  6129.00,
+                            "isRemunerated":  true,
+                            "isRemunerationRounded":  false,
+                            "functionType":  {
+                                                 "translations":  [
+                                                                      {
+                                                                          "languageCode":  "FR",
+                                                                          "name":  "Voorzitter van de raad van bestuur"
+                                                                      },
+                                                                      {
+                                                                          "languageCode":  "FF",
+                                                                          "name":  "Voorzitter van de raad van bestuur"
+                                                                      },
+                                                                      {
+                                                                          "languageCode":  "DE",
+                                                                          "name":  "Voorzitter van de raad van bestuur"
+                                                                      },
+                                                                      {
+                                                                          "languageCode":  "NL",
+                                                                          "name":  "Voorzitter van de raad van bestuur"
+                                                                      }
+                                                                  ],
+                                                 "isActive":  false,
+                                                 "id":  84359
+                                             },
+                            "institution":  {
+                                                "priorityWeight":  0,
+                                                "translations":  [
+                                                                     {
+                                                                         "languageCode":  "FR",
+                                                                         "name":  "POAB - Port of Antwerp-Bruges nv"
+                                                                     },
+                                                                     {
+                                                                         "languageCode":  "DE",
+                                                                         "name":  "POAB - Port of Antwerp-Bruges nv"
+                                                                     },
+                                                                     {
+                                                                         "languageCode":  "NL",
+                                                                         "name":  "POAB - Port of Antwerp-Bruges nv"
+                                                                     }
+                                                                 ],
+                                                "languageCode":  null,
+                                                "id":  536310
+                                            },
+                            "statementId":  598326,
+                            "verificationStatus":  0,
+                            "address":  null,
+                            "cityId":  null,
+                            "id":  516516
+                        },
+                        {
+                            "isLiable":  false,
+                            "institutionId":  536311,
+                            "functionTypeId":  84360,
+                            "year":  2025,
+                            "startDate":  null,
+                            "endDate":  "2024-09-30T00:00:00Z",
+                            "remunerationAmount":  1.00,
+                            "remunerationAmountMax":  6129.00,
+                            "isRemunerated":  true,
+                            "isRemunerationRounded":  false,
+                            "functionType":  {
+                                                 "translations":  [
+                                                                      {
+                                                                          "languageCode":  "FR",
+                                                                          "name":  "Lid van de raad van bestuur"
+                                                                      },
+                                                                      {
+                                                                          "languageCode":  "FF",
+                                                                          "name":  "Lid van de raad van bestuur"
+                                                                      },
+                                                                      {
+                                                                          "languageCode":  "DE",
+                                                                          "name":  "Lid van de raad van bestuur"
+                                                                      },
+                                                                      {
+                                                                          "languageCode":  "NL",
+                                                                          "name":  "Lid van de raad van bestuur"
+                                                                      }
+                                                                  ],
+                                                 "isActive":  false,
+                                                 "id":  84360
+                                             },
+                            "institution":  {
+                                                "priorityWeight":  0,
+                                                "translations":  [
+                                                                     {
+                                                                         "languageCode":  "FR",
+                                                                         "name":  "PAI - Port of Antwerp-Bruges International nv"
+                                                                     },
+                                                                     {
+                                                                         "languageCode":  "DE",
+                                                                         "name":  "PAI - Port of Antwerp-Bruges International nv"
+                                                                     },
+                                                                     {
+                                                                         "languageCode":  "NL",
+                                                                         "name":  "PAI - Port of Antwerp-Bruges International nv"
+                                                                     }
+                                                                 ],
+                                                "languageCode":  null,
+                                                "id":  536311
+                                            },
+                            "statementId":  598326,
+                            "verificationStatus":  0,
+                            "address":  null,
+                            "cityId":  null,
+                            "id":  516517
+                        }
+                    ],
+        "patrimonyDeclaration":  2,
+        "profile":  {
+                        "cityName":  null,
+                        "firstName":  "Annick",
+                        "lastName":  "De Ridder",
+                        "id":  279833
+                    },
+        "year":  2024,
+        "closedDate":  "2025-09-18T15:04:00.263Z",
+        "id":  598326
+    },
+    {
+        "tenures":  [
+                        {
+                            "isLiable":  false,
+                            "institutionId":  663652,
+                            "functionTypeId":  159934,
+                            "year":  2025,
+                            "startDate":  null,
+                            "endDate":  null,
+                            "remunerationAmount":  1.00,
+                            "remunerationAmountMax":  6129.00,
+                            "isRemunerated":  true,
+                            "isRemunerationRounded":  false,
+                            "functionType":  {
+                                                 "translations":  [
+                                                                      {
+                                                                          "languageCode":  "FR",
+                                                                          "name":  "Voorzitter van de raad van bestuur"
+                                                                      },
+                                                                      {
+                                                                          "languageCode":  "FF",
+                                                                          "name":  "Voorzitter van de raad van bestuur"
+                                                                      },
+                                                                      {
+                                                                          "languageCode":  "DE",
+                                                                          "name":  "Voorzitter van de raad van bestuur"
+                                                                      },
+                                                                      {
+                                                                          "languageCode":  "NL",
+                                                                          "name":  "Voorzitter van de raad van bestuur"
+                                                                      }
+                                                                  ],
+                                                 "isActive":  false,
+                                                 "id":  159934
+                                             },
+                            "institution":  {
+                                                "priorityWeight":  0,
+                                                "translations":  [
+                                                                     {
+                                                                         "languageCode":  "FR",
+                                                                         "name":  "Port of Antwerp - Bruges International"
+                                                                     },
+                                                                     {
+                                                                         "languageCode":  "DE",
+                                                                         "name":  "Port of Antwerp - Bruges International"
+                                                                     },
+                                                                     {
+                                                                         "languageCode":  "NL",
+                                                                         "name":  "Port of Antwerp - Bruges International"
+                                                                     }
+                                                                 ],
+                                                "languageCode":  null,
+                                                "id":  663652
+                                            },
+                            "statementId":  593803,
+                            "verificationStatus":  0,
+                            "address":  null,
+                            "cityId":  null,
+                            "id":  519585
+                        }
+                    ],
+        "patrimonyDeclaration":  2,
+        "profile":  {
+                        "cityName":  null,
+                        "firstName":  "Dirk",
+                        "lastName":  "De fauw",
+                        "id":  279714
+                    },
+        "year":  2024,
+        "closedDate":  "2025-09-25T12:41:03.343Z",
+        "id":  593803
+    },
+    {
+        "tenures":  [
+                        {
+                            "isLiable":  false,
+                            "institutionId":  798125,
+                            "functionTypeId":  179298,
+                            "year":  2025,
+                            "startDate":  null,
+                            "endDate":  null,
+                            "remunerationAmount":  1.00,
+                            "remunerationAmountMax":  6129.00,
+                            "isRemunerated":  true,
+                            "isRemunerationRounded":  false,
+                            "functionType":  {
+                                                 "translations":  [
+                                                                      {
+                                                                          "languageCode":  "FR",
+                                                                          "name":  "Lid van de algemene vergadering"
+                                                                      },
+                                                                      {
+                                                                          "languageCode":  "FF",
+                                                                          "name":  "Lid van de algemene vergadering"
+                                                                      },
+                                                                      {
+                                                                          "languageCode":  "DE",
+                                                                          "name":  "Lid van de algemene vergadering"
+                                                                      },
+                                                                      {
+                                                                          "languageCode":  "NL",
+                                                                          "name":  "Lid van de algemene vergadering"
+                                                                      }
+                                                                  ],
+                                                 "isActive":  false,
+                                                 "id":  179298
+                                             },
+                            "institution":  {
+                                                "priorityWeight":  0,
+                                                "translations":  [
+                                                                     {
+                                                                         "languageCode":  "FR",
+                                                                         "name":  "Port of Antwerp-Bruges"
+                                                                     },
+                                                                     {
+                                                                         "languageCode":  "DE",
+                                                                         "name":  "Port of Antwerp-Bruges"
+                                                                     },
+                                                                     {
+                                                                         "languageCode":  "NL",
+                                                                         "name":  "Port of Antwerp-Bruges"
+                                                                     }
+                                                                 ],
+                                                "languageCode":  null,
+                                                "id":  798125
+                                            },
+                            "statementId":  602644,
+                            "verificationStatus":  0,
+                            "address":  null,
+                            "cityId":  null,
+                            "id":  526159
+                        }
+                    ],
+        "patrimonyDeclaration":  2,
+        "profile":  {
+                        "cityName":  null,
+                        "firstName":  "Nabilla",
+                        "lastName":  "Ait Daoud",
+                        "id":  291308
+                    },
+        "year":  2024,
+        "closedDate":  "2025-09-15T12:06:42.737Z",
+        "id":  602644
+    }
+]

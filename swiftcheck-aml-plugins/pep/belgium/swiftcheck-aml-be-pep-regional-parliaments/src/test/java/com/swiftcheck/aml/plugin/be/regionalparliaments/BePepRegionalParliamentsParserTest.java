@@ -23,6 +23,7 @@ class BePepRegionalParliamentsParserTest {
     private String pfwbHtml;
     private String pdgMembersHtml;
     private String pdgPraesidiumHtml;
+    private String bruxellesHtml;
 
     @BeforeEach
     void setUp() throws IOException {
@@ -30,6 +31,7 @@ class BePepRegionalParliamentsParserTest {
         pfwbHtml = readResource("/pfwb.html");
         pdgMembersHtml = readResource("/pdg-members.html");
         pdgPraesidiumHtml = readResource("/pdg-praesidium.html");
+        bruxellesHtml = readResource("/bruxelles-members.html");
     }
 
     private String readResource(String path) throws IOException {
@@ -88,5 +90,35 @@ class BePepRegionalParliamentsParserTest {
             assertTrue(entity.getValues("email").isEmpty());
             assertTrue(entity.getValues("phone").isEmpty());
         }
+    }
+
+    @Test
+    @DisplayName("Doit extraire les 89 députés du Parlement de la Région de Bruxelles-Capitale")
+    void shouldExtractBruxellesMembers() throws IOException {
+        Map<String, ParliamentConfig> cfgByCode = parser.loadConfigs().stream()
+                .collect(java.util.stream.Collectors.toMap(ParliamentConfig::code, c -> c));
+
+        List<DeputyRecord> bxlRecords = parser.parseParliamentHtml(cfgByCode.get("bruxelles"), bruxellesHtml, null);
+        assertEquals(89, bxlRecords.size(), "Le Parlement bruxellois doit compter 89 députés");
+
+        assertTrue(bxlRecords.stream().anyMatch(r -> "Loubna Azghoud".equals(r.fullName()) && "MR".equals(r.party())));
+        assertTrue(bxlRecords.stream().anyMatch(r -> "Ahmed Laaouej".equals(r.fullName()) && "PS".equals(r.party())));
+        assertTrue(bxlRecords.stream().anyMatch(r -> "Françoise De Smedt".equals(r.fullName()) && "PTB".equals(r.party())));
+        assertTrue(bxlRecords.stream().anyMatch(r -> "Gladys Kazadi".equals(r.fullName()) && "Les Engagés".equals(r.party())));
+        assertTrue(bxlRecords.stream().anyMatch(r -> "Zakia Khattabi".equals(r.fullName()) && "Ecolo".equals(r.party())));
+        assertTrue(bxlRecords.stream().anyMatch(r -> "Fouad Ahidar".equals(r.fullName()) && "Team Fouad Ahidar".equals(r.party())));
+        assertTrue(bxlRecords.stream().anyMatch(r -> "Benjamin Dalle".equals(r.fullName()) && "CD&V".equals(r.party())));
+        assertTrue(bxlRecords.stream().anyMatch(r -> "Bob De Brabandere".equals(r.fullName()) && "Vlaams Belang".equals(r.party())));
+
+        FtmDatasetBuilder dataset = new FtmDatasetBuilder(
+                BePepRegionalParliamentsParser.ID_PREFIX, BePepRegionalParliamentsParser.TOPIC);
+        for (DeputyRecord record : bxlRecords) {
+            BePepRegionalParliamentsParser.writeRecord(record, dataset);
+        }
+
+        List<FtmEntity> entities = dataset.entities().stream()
+                .filter(e -> "Person".equals(e.getSchema()))
+                .toList();
+        assertEquals(89, entities.size());
     }
 }

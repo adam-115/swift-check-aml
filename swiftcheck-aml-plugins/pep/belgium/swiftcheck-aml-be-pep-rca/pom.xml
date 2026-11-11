@@ -14,8 +14,8 @@
     <artifactId>swiftcheck-aml-be-pep-rca</artifactId>
     <packaging>jar</packaging>
 
-    <name>SwiftCheck AML :: Plugins :: PEP :: France :: Famille des PEP</name>
-    <description>Plugin PEP pour les membres de la famille des PEP français (conjoint ou partenaire, enfants et leurs conjoints, parents) via Wikidata (BE-RCA)</description>
+    <name>SwiftCheck AML :: Plugins :: PEP :: Belgique :: Famille des PEP</name>
+    <description>Plugin PEP pour les membres de la famille des PEP belges (conjoint ou partenaire, enfants et leurs conjoints, parents) via Wikidata (BE-RCA)</description>
 
     <properties>
         <plugin.id>be-pep-rca</plugin.id>

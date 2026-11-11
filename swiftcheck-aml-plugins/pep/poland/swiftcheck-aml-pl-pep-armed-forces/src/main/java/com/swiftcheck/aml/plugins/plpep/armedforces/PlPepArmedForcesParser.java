@@ -1,11 +1,9 @@
 package com.swiftcheck.aml.plugins.plpep.armedforces;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -37,7 +35,7 @@ public class PlPepArmedForcesParser implements Iparser {
     static final String ID_PREFIX = "pl-pep-armed-forces";
     static final String TOPIC = "role.pep";
     static final String COUNTRY = "pl";
-    static final String SEED_RESOURCE = "/seed/pl-armed-forces.json";
+    static final String SOURCE_URL = "https://www.gov.pl/web/obrona-narodowa/kierownictwo";
     static final String JSON_FILE = "pl-armed-forces.json";
 
     private final ObjectMapper json = new ObjectMapper();
@@ -77,12 +75,64 @@ public class PlPepArmedForcesParser implements Iparser {
     }
 
     private void loadResource(Path rawFile) throws IOException {
-        try (InputStream in = getClass().getResourceAsStream(SEED_RESOURCE)) {
-            if (in == null) {
-                throw new IllegalStateException("Ressource introuvable : " + SEED_RESOURCE);
+        String html = fetch(SOURCE_URL);
+        List<String[]> found = extract(html);
+        if (found.isEmpty()) {
+            throw new IllegalStateException("Aucun officier général trouvé sur " + SOURCE_URL + " (structure modifiée ?)");
+        }
+        com.fasterxml.jackson.databind.node.ObjectNode root = json.createObjectNode();
+        com.fasterxml.jackson.databind.node.ArrayNode arr = root.putArray("generals");
+        for (String[] f : found) {
+            com.fasterxml.jackson.databind.node.ObjectNode o = arr.addObject();
+            o.put("name", f[0]);
+            o.put("position", f[1]);
+            o.put("branch", "Sztab Generalny WP");
+        }
+        Files.writeString(rawFile, json.writerWithDefaultPrettyPrinter().writeValueAsString(root), StandardCharsets.UTF_8);
+        log.info("Forces armées polonaises : {} officiers généraux lus sur {}", found.size(), SOURCE_URL);
+    }
+
+    private static final java.util.regex.Pattern ENTRY = java.util.regex.Pattern.compile(
+            "class=\"title\"[^>]*>\\s*<a[^>]*>([^<]+)</a>.*?class=\"position\"[^>]*>([^<]+)<", java.util.regex.Pattern.DOTALL);
+    private static final java.util.regex.Pattern RANK = java.util.regex.Pattern.compile(
+            "^((?:gen|adm|wadm|kadm)\\.(?:\\s+(?:dyw|bryg|broni)\\.?)?)\\s+(.+)$", java.util.regex.Pattern.CASE_INSENSITIVE);
+
+    /** Extrait les officiers généraux (grade « gen. »/« adm. ») de la page Kierownictwo ; retourne [nom, fonction]. */
+    static List<String[]> extract(String html) {
+        List<String[]> out = new ArrayList<>();
+        java.util.regex.Matcher m = ENTRY.matcher(html);
+        while (m.find()) {
+            String name = clean(m.group(1));
+            String position = clean(m.group(2));
+            java.util.regex.Matcher r = RANK.matcher(name);
+            if (r.matches()) {
+                out.add(new String[] {r.group(2).trim(), name.substring(0, name.length() - r.group(2).length()).trim() + ", " + position});
             }
-            Files.copy(in, rawFile, StandardCopyOption.REPLACE_EXISTING);
-            log.info("Forces armées polonaises : données chargées depuis {}", SEED_RESOURCE);
+        }
+        return out;
+    }
+
+    private static String clean(String s) {
+        return s.replace("&nbsp;", " ").replaceAll("\\s+", " ").trim();
+    }
+
+    private static String fetch(String url) throws IOException {
+        try {
+            java.net.http.HttpClient client = java.net.http.HttpClient.newBuilder()
+                    .followRedirects(java.net.http.HttpClient.Redirect.NORMAL)
+                    .connectTimeout(java.time.Duration.ofSeconds(20)).build();
+            java.net.http.HttpResponse<String> resp = client.send(
+                    java.net.http.HttpRequest.newBuilder(java.net.URI.create(url))
+                            .header("User-Agent", "SwiftCheck-AML/1.0 (PEP screening)")
+                            .timeout(java.time.Duration.ofSeconds(60)).GET().build(),
+                    java.net.http.HttpResponse.BodyHandlers.ofString(StandardCharsets.UTF_8));
+            if (resp.statusCode() != 200) {
+                throw new IOException("HTTP " + resp.statusCode() + " sur " + url + " (source inaccessible, aucun contournement tenté)");
+            }
+            return resp.body();
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+            throw new IOException("Interrompu", e);
         }
     }
 

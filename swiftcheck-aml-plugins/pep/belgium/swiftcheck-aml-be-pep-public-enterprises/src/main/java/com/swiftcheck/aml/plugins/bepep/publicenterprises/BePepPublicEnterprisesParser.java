@@ -94,20 +94,23 @@ public class BePepPublicEnterprisesParser implements Iparser {
     @Override
     public ParserResult parse(ParserContext ctx) throws Exception {
         Map<String, String> p = ctx.parameters() == null ? Map.of() : ctx.parameters();
+        List<EnterpriseConfig> configs = loadConfig(p.get("enterprises"));
         download(p.getOrDefault("regimandUrl", DEFAULT_REGIMAND_URL).trim(),
                 p.getOrDefault("sfpiUrl", DEFAULT_SFPI_URL).trim(),
-                p.get("year"), ctx.rawDir());
+                p.get("year"), ctx.rawDir(), configs);
 
         FtmDatasetBuilder dataset = new FtmDatasetBuilder(ID_PREFIX);
-        Report report = convert(ctx.rawDir(), dataset);
+        Report report = convert(ctx.rawDir(), dataset, configs);
         dataset.writeNdjsonFile(ctx.outputFile());
         return dataset.toConversionResult().withMessage(report.message());
     }
 
     @Override
     public List<SourceRecord> readSourceRecords(ParserContext ctx) throws Exception {
+        Map<String, String> p = ctx.parameters() == null ? Map.of() : ctx.parameters();
+        List<EnterpriseConfig> configs = loadConfig(p.get("enterprises"));
         FtmDatasetBuilder dataset = new FtmDatasetBuilder(ID_PREFIX);
-        convert(ctx.rawDir(), dataset);
+        convert(ctx.rawDir(), dataset, configs);
         List<SourceRecord> records = new ArrayList<>();
         for (FtmEntity e : dataset.entities()) {
             if ("Person".equals(e.getSchema())) {
@@ -120,6 +123,11 @@ public class BePepPublicEnterprisesParser implements Iparser {
 
     void download(String regimandBaseUrl, String sfpiUrl, String yearParam, Path rawDir)
             throws IOException, InterruptedException {
+        download(regimandBaseUrl, sfpiUrl, yearParam, rawDir, loadConfig());
+    }
+
+    void download(String regimandBaseUrl, String sfpiUrl, String yearParam, Path rawDir, List<EnterpriseConfig> configs)
+            throws IOException, InterruptedException {
         Files.createDirectories(rawDir);
         HttpClient http = HttpClient.newBuilder()
                 .connectTimeout(Duration.ofSeconds(20))
@@ -131,7 +139,7 @@ public class BePepPublicEnterprisesParser implements Iparser {
                 ? Integer.parseInt(yearParam.trim())
                 : fetchLatestYear(http, regimandBaseUrl, token);
 
-        for (EnterpriseConfig ent : loadConfig()) {
+        for (EnterpriseConfig ent : configs) {
             String body = JSON.writeValueAsString(Map.of("year", year, "institutionName", ent.query()));
             HttpRequest req = HttpRequest.newBuilder(URI.create(regimandBaseUrl + "/api/Statement/PublicSearch"))
                     .timeout(Duration.ofSeconds(60))
@@ -165,7 +173,10 @@ public class BePepPublicEnterprisesParser implements Iparser {
     }
 
     Report convert(Path rawDir, FtmDatasetBuilder dataset) throws IOException {
-        List<EnterpriseConfig> configs = loadConfig();
+        return convert(rawDir, dataset, loadConfig());
+    }
+
+    Report convert(Path rawDir, FtmDatasetBuilder dataset, List<EnterpriseConfig> configs) throws IOException {
         Set<String> activeEnterprises = new LinkedHashSet<>();
         Set<String> persons = new LinkedHashSet<>();
         Set<String> writtenMandates = new LinkedHashSet<>();
@@ -340,12 +351,25 @@ public class BePepPublicEnterprisesParser implements Iparser {
     }
 
     static List<EnterpriseConfig> loadConfig() throws IOException {
+        return loadConfig(null);
+    }
+
+    static List<EnterpriseConfig> loadConfig(String enterprisesParam) throws IOException {
         List<EnterpriseConfig> list = new ArrayList<>();
-        try (InputStream in = BePepPublicEnterprisesParser.class.getResourceAsStream("/public-enterprises.json")) {
-            if (in == null) {
-                throw new IllegalStateException("public-enterprises.json absent du plugin");
+        JsonNode root;
+        if (enterprisesParam != null && !enterprisesParam.isBlank()) {
+            root = JSON.readTree(enterprisesParam);
+        } else {
+            try (InputStream in = BePepPublicEnterprisesParser.class.getResourceAsStream("/public-enterprises.json")) {
+                if (in == null) {
+                    throw new IllegalStateException("public-enterprises.json absent du plugin");
+                }
+                root = JSON.readTree(in);
             }
-            for (JsonNode node : JSON.readTree(in).path("enterprises")) {
+        }
+        JsonNode enterprisesNode = root.has("enterprises") ? root.path("enterprises") : root;
+        if (enterprisesNode.isArray()) {
+            for (JsonNode node : enterprisesNode) {
                 List<String> keywords = new ArrayList<>();
                 node.path("keywords").forEach(k -> keywords.add(k.asText()));
                 list.add(new EnterpriseConfig(

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <!--
+      Parsers convertis de données locales figées vers une lecture de la source officielle à chaque exécution :
+        - pl_pep_armed_forces  : https://www.gov.pl/web/obrona-narodowa/kierownictwo  (chef d'état-major uniquement)
+        - ro_pep_armed_forces  : https://www.defense.ro/conducere (état-major de la Défense)
+        - es_pep_court_of_audit: https://www.tcu.es/es/institucion/organizacion-y-gobernanza/ (Pleno)
+      La complétude reste PARTIAL (ces pages ne listent qu'une partie des personnes visées).
+      Le marquage « DONNÉES LOCALES FIGÉES » posé par la migration 118 (appliquée, non modifiée) est retiré.
+    -->
+    <changeSet id="121-frozen-parsers-to-live-sources" author="swiftcheck">
+        <sql><![CDATA[
+            UPDATE parser
+            SET notes = TRIM(REPLACE(IFNULL(notes, ''), '[DONNÉES LOCALES FIGÉES - À MIGRER VERS CRAWLER RÉSEAU]', ''))
+            WHERE dataset_name IN ('pl_pep_armed_forces', 'ro_pep_armed_forces', 'es_pep_court_of_audit');
+
+            UPDATE parser
+            SET notes = CONCAT('[SOURCE EXTERNE LUE À CHAQUE EXÉCUTION] ', IFNULL(notes, ''))
+            WHERE dataset_name IN ('pl_pep_armed_forces', 'ro_pep_armed_forces', 'es_pep_court_of_audit');
+
+            UPDATE pep_function_parser
+            SET completeness = 'PARTIAL',
+                gaps = 'Source officielle lue en direct ; la page ne publie qu''une partie des personnes visées (hauts responsables seulement)'
+            WHERE parser_id IN (SELECT id FROM parser
+                                WHERE dataset_name IN ('pl_pep_armed_forces', 'ro_pep_armed_forces', 'es_pep_court_of_audit'));
+        ]]></sql>
+    </changeSet>
+
+</databaseChangeLog>

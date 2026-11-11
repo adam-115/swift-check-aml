@@ -1,0 +1,149 @@
+﻿[
+  {
+    "party": "Mouvement Réformateur (MR)",
+    "partyBce": "0869.337.021",
+    "legalName": "MOUVEMENT REFORMATEUR asbl",
+    "board": [
+      { "name": "Georges-Louis Bouchez", "role": "Président", "pepBasis": "Directoire MR" },
+      { "name": "Anne Barzin", "role": "Administratrice", "pepBasis": "Conseil d'administration MR" },
+      { "name": "Valentine Delwart", "role": "Secrétaire générale", "pepBasis": "Direction générale MR" },
+      { "name": "David Clarinval", "role": "Vice-Président / Administrateur", "pepBasis": "Conseil d'administration MR" },
+      { "name": "Willy Borsus", "role": "Administrateur", "pepBasis": "Conseil d'administration MR" },
+      { "name": "Pierre-Yves Jeholet", "role": "Administrateur", "pepBasis": "Conseil d'administration MR" },
+      { "name": "Sophie Wilmès", "role": "Administratrice", "pepBasis": "Conseil d'administration MR" },
+      { "name": "Mathieu Bihet", "role": "Délégué général / Administrateur", "pepBasis": "Conseil d'administration MR" }
+    ]
+  },
+  {
+    "party": "Parti Socialiste (PS)",
+    "partyBce": "0408.069.757",
+    "legalName": "PARTI SOCIALISTE asbl",
+    "board": [
+      { "name": "Paul Magnette", "role": "Président", "pepBasis": "Bureau politique PS" },
+      { "name": "Elio Di Rupo", "role": "Président honoraire / Administrateur", "pepBasis": "Bureau politique PS" },
+      { "name": "Dimitri Peuskens", "role": "Secrétaire général", "pepBasis": "Direction générale PS" },
+      { "name": "Christie Morreale", "role": "Vice-Présidente", "pepBasis": "Bureau politique PS" },
+      { "name": "Thomas Dermine", "role": "Vice-Président", "pepBasis": "Bureau politique PS" },
+      { "name": "Caroline Désir", "role": "Membre du Bureau", "pepBasis": "Bureau politique PS" },
+      { "name": "Ahmed Laaouej", "role": "Président Fédération bruxelloise", "pepBasis": "Bureau politique PS" },
+      { "name": "Philippe Close", "role": "Membre du Bureau", "pepBasis": "Bureau politique PS" }
+    ]
+  },
+  {
+    "party": "Ecolo",
+    "partyBce": "0420.730.096",
+    "legalName": "ECOLO asbl",
+    "board": [
+      { "name": "Marie Lecocq", "role": "Coprésidente", "pepBasis": "Bureau fédéral Ecolo" },
+      { "name": "Samuel Cogolati", "role": "Coprésident", "pepBasis": "Bureau fédéral Ecolo" },
+      { "name": "Hélène Ryckmans", "role": "Administratrice / Trésorière", "pepBasis": "Conseil d'administration Ecolo" },
+      { "name": "Alain Maron", "role": "Membre du Bureau fédéral", "pepBasis": "Bureau fédéral Ecolo" },
+      { "name": "Jean-Marc Nollet", "role": "Ancien coprésident", "pepBasis": "Bureau fédéral sortant" },
+      { "name": "Rajae Maouane", "role": "Ancienne coprésidente", "pepBasis": "Bureau fédéral sortant" }
+    ]
+  },
+  {
+    "party": "N-VA (Nieuw-Vlaamse Alliantie)",
+    "partyBce": "0476.398.924",
+    "legalName": "NIEUW-VLAAMSE ALLIANTIE vzw",
+    "board": [
+      { "name": "Valerie Van Peel", "role": "Voorzitter (Présidente)", "pepBasis": "Partijbestuur N-VA" },
+      { "name": "Bart De Wever", "role": "Uittredend voorzitter / Bestuurder", "pepBasis": "Partijbestuur N-VA" },
+      { "name": "Piet De Zaeger", "role": "Algemeen Directeur", "pepBasis": "Dagelijks Bestuur N-VA" },
+      { "name": "Jan Jambon", "role": "Bestuurder", "pepBasis": "Partijbestuur N-VA" },
+      { "name": "Theo Francken", "role": "Ondervoorzitter", "pepBasis": "Partijbestuur N-VA" },
+      { "name": "Zuhal Demir", "role": "Bestuurder", "pepBasis": "Partijbestuur N-VA" },
+      { "name": "Ben Weyts", "role": "Bestuurder", "pepBasis": "Partijbestuur N-VA" },
+      { "name": "Matthias Diependaele", "role": "Bestuurder", "pepBasis": "Partijbestuur N-VA" }
+    ]
+  },
+  {
+    "party": "Les Engagés",
+    "partyBce": "0408.106.379",
+    "legalName": "LES ENGAGES asbl",
+    "board": [
+      { "name": "Maxime Prévot", "role": "Président", "pepBasis": "Bureau politique Les Engagés" },
+      { "name": "Yvan Verougstraete", "role": "Vice-Président", "pepBasis": "Bureau politique Les Engagés" },
+      { "name": "Benoît Lutgen", "role": "Administrateur", "pepBasis": "Conseil d'administration Les Engagés" },
+      { "name": "Jean-Luc Crucke", "role": "Membre du Bureau", "pepBasis": "Bureau politique Les Engagés" },
+      { "name": "Catherine Fonck", "role": "Administratrice", "pepBasis": "Conseil d'administration Les Engagés" }
+    ]
+  },
+  {
+    "party": "Groen",
+    "partyBce": "0422.502.824",
+    "legalName": "GROEN vzw",
+    "board": [
+      { "name": "Nadia Naji", "role": "Co-voorzitter", "pepBasis": "Partijbestuur Groen" },
+      { "name": "Jeremie Vaneeckhout", "role": "Co-voorzitter", "pepBasis": "Partijbestuur Groen" },
+      { "name": "Petra De Sutter", "role": "Bestuurslid", "pepBasis": "Partijbestuur Groen" },
+      { "name": "Celia Groothedde", "role": "Bestuurslid", "pepBasis": "Partijbestuur Groen" },
+      { "name": "Meyrem Almaci", "role": "Voormalig voorzitter", "pepBasis": "Partijbestuur sortant" }
+    ]
+  },
+  {
+    "party": "Vooruit",
+    "partyBce": "0408.067.777",
+    "legalName": "VOORUIT vzw",
+    "board": [
+      { "name": "Conner Rousseau", "role": "Voorzitter", "pepBasis": "Partijbureau Vooruit" },
+      { "name": "Melissa Depraetere", "role": "Ondervoorzitter", "pepBasis": "Partijbureau Vooruit" },
+      { "name": "Frank Vandenbroucke", "role": "Bestuurslid", "pepBasis": "Partijbureau Vooruit" },
+      { "name": "Caroline Gennez", "role": "Bestuurslid", "pepBasis": "Partijbureau Vooruit" }
+    ]
+  },
+  {
+    "party": "CD&V",
+    "partyBce": "0408.066.886",
+    "legalName": "CHRISTEN-DEMOCRATISCH EN VLAAMS vzw",
+    "board": [
+      { "name": "Sammy Mahdi", "role": "Voorzitter", "pepBasis": "Partijbureau CD&V" },
+      { "name": "Vincent Van Peteghem", "role": "Bestuurslid", "pepBasis": "Partijbureau CD&V" },
+      { "name": "Hilde Crevits", "role": "Bestuurslid", "pepBasis": "Partijbureau CD&V" },
+      { "name": "Wouter Beke", "role": "Voormalig voorzitter", "pepBasis": "Partijbureau sortant" }
+    ]
+  },
+  {
+    "party": "Open VLD",
+    "partyBce": "0411.026.577",
+    "legalName": "OPEN VLAAMSE LIBERALEN EN DEMOCRATEN vzw",
+    "board": [
+      { "name": "Frédéric De Gucht", "role": "Voorzitter", "pepBasis": "Partijbestuur Open VLD" },
+      { "name": "Tom Ongena", "role": "Voormalig voorzitter", "pepBasis": "Partijbestuur sortant" },
+      { "name": "Alexander De Croo", "role": "Bestuurslid", "pepBasis": "Partijbestuur Open VLD" },
+      { "name": "Gwendolyn Rutten", "role": "Voormalig voorzitter", "pepBasis": "Partijbestuur sortant" }
+    ]
+  },
+  {
+    "party": "PTB-PVDA",
+    "partyBce": "0417.818.156",
+    "legalName": "PARTI DU TRAVAIL DE BELGIQUE asbl",
+    "board": [
+      { "name": "Raoul Hedebouw", "role": "Président / Voorzitter", "pepBasis": "Bureau national PTB-PVDA" },
+      { "name": "Peter Mertens", "role": "Secrétaire général / Secretaris-generaal", "pepBasis": "Bureau national PTB-PVDA" },
+      { "name": "David Pestieau", "role": "Directeur politique", "pepBasis": "Bureau national PTB-PVDA" },
+      { "name": "Sofie Merckx", "role": "Membre de la direction", "pepBasis": "Bureau national PTB-PVDA" }
+    ]
+  },
+  {
+    "party": "Vlaams Belang",
+    "partyBce": "0869.658.012",
+    "legalName": "VLAAMS BELANG vzw",
+    "board": [
+      { "name": "Tom Van Grieken", "role": "Voorzitter", "pepBasis": "Partijbestuur Vlaams Belang" },
+      { "name": "Barbara Pas", "role": "Ondervoorzitter", "pepBasis": "Partijbestuur Vlaams Belang" },
+      { "name": "Gerolf Annemans", "role": "Bestuurslid", "pepBasis": "Partijbestuur Vlaams Belang" },
+      { "name": "Chris Janssens", "role": "Ondervoorzitter", "pepBasis": "Partijbestuur Vlaams Belang" }
+    ]
+  },
+  {
+    "party": "DéFI",
+    "partyBce": "0411.036.079",
+    "legalName": "DEFI asbl",
+    "board": [
+      { "name": "Sophie Rohonyi", "role": "Présidente", "pepBasis": "Comité de direction DéFI" },
+      { "name": "Olivier Maingain", "role": "Président honoraire", "pepBasis": "Conseil politique DéFI" },
+      { "name": "François De Smet", "role": "Ancien président", "pepBasis": "Direction sortante DéFI" }
+    ]
+  }
+]

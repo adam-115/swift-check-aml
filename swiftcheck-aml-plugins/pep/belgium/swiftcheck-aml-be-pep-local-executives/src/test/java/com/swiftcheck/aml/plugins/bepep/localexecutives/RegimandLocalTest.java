@@ -25,27 +25,26 @@ class RegimandLocalTest {
     private static final LocalDate SINCE = LocalDate.of(2024, 11, 1);
 
     @Test
-    void keepsAldermenAndCpasPresidentsOfTheCityButNotItsMayor() throws IOException {
+    void keepsMayorsAldermenAndCpasPresidentsOfTheCity() throws IOException {
         List<RegimandLocal.Mandate> mandates = RegimandLocal.select(read("charleroi.json"), false,
                 List.of("Charleroi"), LocalDate.of(2000, 1, 1));
 
         assertThat(mandates).isNotEmpty();
         assertThat(mandates).allSatisfy(m -> {
             assertThat(m.institution()).startsWith("Charleroi (ville de)");
-            assertThat(m.role()).matches("(?i)(Échevin|Président de CPAS).*");
+            assertThat(m.role()).matches("(?i)(Bourgmestre|Échevin|Président de CPAS).*");
             assertThat(m.fullName()).isNotBlank();
         });
         assertThat(mandates).extracting(RegimandLocal.Mandate::role).contains("Échevin", "Président de CPAS");
-        assertThat(mandates).extracting(RegimandLocal.Mandate::role).noneMatch(r -> r.toLowerCase().contains("bourgmestre"));
     }
 
     @Test
-    void keepsProvincialDeputiesButNotTheGovernor() throws IOException {
+    void keepsGovernorAndProvincialDeputies() throws IOException {
         List<RegimandLocal.Mandate> mandates = RegimandLocal.select(read("province-liege.json"), true,
                 List.of("Liège", "Luik"), LocalDate.of(2000, 1, 1));
 
         assertThat(mandates).isNotEmpty();
-        assertThat(mandates).extracting(RegimandLocal.Mandate::role).containsOnly("Député provincial");
+        assertThat(mandates).extracting(RegimandLocal.Mandate::role).contains("Gouverneur", "Député provincial");
         assertThat(mandates).allSatisfy(m -> assertThat(m.institution()).isEqualTo("Province de Liège"));
     }
 
@@ -55,8 +54,11 @@ class RegimandLocalTest {
                 List.of("Charleroi"))).isFalse();
         assertThat(RegimandLocal.matches(RegimandLocal.fold("Charleroi (ville de)"), false, List.of("Charleroi"))).isTrue();
         assertThat(RegimandLocal.matches(RegimandLocal.fold("Gent (Ville de)"), false, List.of("Gand", "Gent"))).isTrue();
+        assertThat(RegimandLocal.matches(RegimandLocal.fold("Gent (Stad)"), false, List.of("Gand", "Gent"))).isTrue();
+        assertThat(RegimandLocal.matches(RegimandLocal.fold("Stad Antwerpen"), false, List.of("Anvers", "Antwerpen"))).isTrue();
         assertThat(RegimandLocal.matches(RegimandLocal.fold("Anderlecht (commune d')"), false, List.of("Anderlecht"))).isTrue();
         assertThat(RegimandLocal.matches(RegimandLocal.fold("Province de Namur"), true, List.of("province de Namur"))).isTrue();
+        assertThat(RegimandLocal.matches(RegimandLocal.fold("Provincie Antwerpen"), true, List.of("province d'Anvers", "provincie Antwerpen"))).isTrue();
         assertThat(RegimandLocal.matches(RegimandLocal.fold("BEP - Bureau économique de la province de Namur, sc"), true,
                 List.of("province de Namur"))).isFalse();
     }

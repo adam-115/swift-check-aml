@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Belgique : Finalisation de la couverture du Parlement de la Région de Bruxelles-Capitale (BE-b).
+    - Intégration du parseur spécifique pour les 89 députés bruxellois (Législature 2024-2029).
+    - Clôture du gap sur la fonction 96 dans pep_function_parser.
+-->
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="120-be-brussels-parliament-complete" author="swiftcheck">
+        <comment>Finalisation de la couverture des 89 députés du Parlement de la Région de Bruxelles-Capitale</comment>
+        <sql><![CDATA[
+            UPDATE pep_function_parser
+            SET completeness = 'COMPLETE',
+                covered_scope = 'Les 89 députés du Parlement de la Région de Bruxelles-Capitale (72 francophones et 17 néerlandophones), avec parti politique et groupe linguistique.',
+                gaps = '100 % des 89 députés de la législature 2024-2029 couverts (groupes francophone et néerlandophone). Repli automatisé sécurisé en cas de timeout réseau sur parlement.brussels.'
+            WHERE function_id = 96 AND parser_id = 98;
+        ]]></sql>
+    </changeSet>
+
+</databaseChangeLog>
+

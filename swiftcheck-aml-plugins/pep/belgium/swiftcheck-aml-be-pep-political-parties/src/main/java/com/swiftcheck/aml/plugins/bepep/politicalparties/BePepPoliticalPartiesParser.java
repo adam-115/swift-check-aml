@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
@@ -70,7 +71,7 @@ public class BePepPoliticalPartiesParser implements Iparser {
                 p.getOrDefault("country", DEFAULT_COUNTRY).trim(), ctx.rawDir());
 
         FtmDatasetBuilder dataset = new FtmDatasetBuilder(ID_PREFIX, TOPIC);
-        Report report = convert(ctx.rawDir(), LocalDate.now().minusMonths(monthsAfterEnd(p)), dataset);
+        Report report = convert(ctx.rawDir(), LocalDate.now().minusMonths(monthsAfterEnd(p)), dataset, p.get("partyExecutives"));
         String photos = WikidataImages.addPhotos(dataset, WikidataImages.QID, WikidataImages.personIdSuffixes(dataset),
                 WikidataImages.httpFetcher(p.getOrDefault("endpoint", DEFAULT_ENDPOINT).trim(), WikidataImages.DEFAULT_USER_AGENT),
                 ctx.rawDir().resolve(WikidataImages.PHOTOS_FILE));
@@ -82,7 +83,7 @@ public class BePepPoliticalPartiesParser implements Iparser {
     public List<SourceRecord> readSourceRecords(ParserContext ctx) throws Exception {
         Map<String, String> p = ctx.parameters() == null ? Map.of() : ctx.parameters();
         FtmDatasetBuilder dataset = new FtmDatasetBuilder(ID_PREFIX, TOPIC);
-        convert(ctx.rawDir(), LocalDate.now().minusMonths(monthsAfterEnd(p)), dataset);
+        convert(ctx.rawDir(), LocalDate.now().minusMonths(monthsAfterEnd(p)), dataset, p.get("partyExecutives"));
         List<SourceRecord> records = new ArrayList<>();
         for (FtmEntity entity : dataset.entities()) {
             if ("Person".equals(entity.getSchema())) {
@@ -111,7 +112,13 @@ public class BePepPoliticalPartiesParser implements Iparser {
         }
     }
 
+    static final String SEED_EXECUTIVES_RESOURCE = "/seed/bce/party_executives.json";
+
     Report convert(Path rawDir, LocalDate since, FtmDatasetBuilder dataset) throws Exception {
+        return convert(rawDir, since, dataset, null);
+    }
+
+    Report convert(Path rawDir, LocalDate since, FtmDatasetBuilder dataset, String partyExecutivesParam) throws Exception {
         JsonNode response = json.readTree(Files.readString(rawDir.resolve(WikidataPartiesDownloader.LEADERS_FILE)));
         List<Statement> statements = new ArrayList<>();
         int unnamed = 0;
@@ -140,10 +147,101 @@ public class BePepPoliticalPartiesParser implements Iparser {
             parties.add(s.partyQid());
             persons.add(s.personQid());
         }
-        Report report = new Report(parties.size(), persons.size(), selection.current().size(),
+
+        // Intégration des organes dirigeants et bureaux politiques élargis (ASBL / BCE)
+        int seedCount = loadPartyExecutives(dataset, parties, persons, partyExecutivesParam);
+
+        Report report = new Report(parties.size(), persons.size(), selection.current().size() + seedCount,
                 selection.former().size(), selection.superseded(), selection.endedLongAgo(), unnamed);
-        log.info(report.message());
+        log.info(report.message() + (seedCount > 0 ? " [" + seedCount + " membres des organes dirigeants/bureaux politiques intégrés via BCE/ASBL]" : ""));
         return report;
+    }
+
+    private int loadPartyExecutives(FtmDatasetBuilder dataset, Set<String> parties, Set<String> persons) {
+        return loadPartyExecutives(dataset, parties, persons, null);
+    }
+
+    private int loadPartyExecutives(FtmDatasetBuilder dataset, Set<String> parties, Set<String> persons, String partyExecutivesParam) {
+        JsonNode root;
+        if (partyExecutivesParam != null && !partyExecutivesParam.isBlank()) {
+            try {
+                root = json.readTree(partyExecutivesParam);
+            } catch (Exception e) {
+                log.warn("Erreur lecture partyExecutives depuis parameters : {}", e.getMessage());
+                return 0;
+            }
+        } else {
+            try (var in = getClass().getResourceAsStream(SEED_EXECUTIVES_RESOURCE)) {
+                if (in == null) {
+                    return 0;
+                }
+                root = json.readTree(in);
+            } catch (Exception e) {
+                log.warn("Erreur lecture " + SEED_EXECUTIVES_RESOURCE + " : {}", e.getMessage());
+                return 0;
+            }
+        }
+        if (!root.isArray()) {
+            return 0;
+        }
+            int added = 0;
+            for (JsonNode partyNode : root) {
+                String partyName = partyNode.path("party").asText();
+                String partyBce = partyNode.path("partyBce").asText();
+                String legalName = partyNode.path("legalName").asText(partyName);
+                String partySlug = partyBce.replaceAll("[^0-9]", "");
+                parties.add("bce-" + partySlug);
+
+                FtmEntity org = dataset.newEntity("Organization", "bce", partySlug);
+                org.addValue("name", legalName);
+                org.addValue("country", "be");
+                org.addValue("registrationNumber", partyBce);
+                org.addValue("topics", "role.pep");
+                dataset.addEntity(org);
+
+                JsonNode board = partyNode.path("board");
+                if (board.isArray()) {
+                    for (JsonNode member : board) {
+                        String name = member.path("name").asText().trim();
+                        String role = member.path("role").asText().trim();
+                        String basis = member.path("pepBasis").asText("Organe dirigeant");
+                        if (name.isEmpty()) {
+                            continue;
+                        }
+                        String personSlug = normaliseSlug(name);
+                        persons.add("bce-" + partySlug + "-" + personSlug);
+
+                        FtmEntity person = dataset.newEntity("Person", "bce", partySlug, personSlug);
+                        person.addValue("name", name);
+                        person.addValue("country", "be");
+                        person.addValue("political", partyName);
+                        person.addValue("position", role + " – " + partyName + " (" + basis + ")");
+                        person.addValue("sourceUrl", "https://kbopub.economie.fgov.be/kbopub/toononderneming.html?ondernemingsnummer=" + partySlug);
+                        dataset.addEntity(person);
+
+                        FtmEntity occupancy = dataset.newEntity("Occupancy", "bce", partySlug, personSlug, normaliseSlug(role));
+                        occupancy.addValue("holder", person.getId());
+                        occupancy.addValue("post", org.getId());
+                        occupancy.addValue("description", role + " – " + basis);
+                        occupancy.addValue("status", "current");
+                        dataset.addEntity(occupancy);
+                        added++;
+                    }
+                }
+            }
+            return added;
+    }
+
+    private static String normaliseSlug(String text) {
+        return text.toLowerCase(Locale.ROOT)
+                .replaceAll("[àáâãäå]", "a")
+                .replaceAll("[èéêë]", "e")
+                .replaceAll("[ìíîï]", "i")
+                .replaceAll("[òóôõö]", "o")
+                .replaceAll("[ùúûü]", "u")
+                .replaceAll("[ç]", "c")
+                .replaceAll("[^a-z0-9]+", "-")
+                .replaceAll("^-+|-+$", "");
     }
 
     static List<Statement> statements(JsonNode response) {

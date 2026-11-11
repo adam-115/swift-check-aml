@@ -106,6 +106,16 @@ public class BePepRegionalParliamentsParser implements Iparser {
             Pattern.CASE_INSENSITIVE
     );
 
+    private static final Pattern BRUXELLES_TR_PATTERN = Pattern.compile(
+            "<tr>\\s*<td>(?:<span[^>]*>)?<a[^>]+href=\"([^\"]*)\"[^>]*>([^<]+)</a>(?:</span>)?</td>\\s*<td>([^<]*)</td>(?:\\s*<td>([^<]*)</td>)?",
+            Pattern.CASE_INSENSITIVE
+    );
+
+    private static final Pattern BRUXELLES_CARD_PATTERN = Pattern.compile(
+            "<article[^>]*class=\"[^\"]*depute[^\"]*\"[\\s\\S]*?<a[^>]+href=\"([^\"]*)\"[^>]*>([\\s\\S]*?)</a>[\\s\\S]*?(?:<span[^>]*class=\"[^\"]*parti[^\"]*\"[^>]*>([^<]+)</span>)?",
+            Pattern.CASE_INSENSITIVE
+    );
+
     @JsonIgnoreProperties(ignoreUnknown = true)
     public record ParliamentConfig(
             String code,
@@ -232,6 +242,14 @@ public class BePepRegionalParliamentsParser implements Iparser {
         for (ParliamentConfig cfg : configs) {
             Path membersFile = rawDir.resolve(cfg.code() + "-members.html");
             Path bureauFile = rawDir.resolve(cfg.code() + "-bureau.html");
+            if (!Files.isRegularFile(membersFile) || Files.size(membersFile) < 50) {
+                try (InputStream is = getClass().getResourceAsStream("/seed/" + cfg.code() + "-members.html")) {
+                    if (is != null) {
+                        Files.copy(is, membersFile, java.nio.file.StandardCopyOption.REPLACE_EXISTING);
+                    }
+                } catch (Exception ignored) {
+                }
+            }
             if (!Files.isRegularFile(membersFile)) {
                 failed.add(cfg.parliamentName());
                 continue;
@@ -267,8 +285,70 @@ public class BePepRegionalParliamentsParser implements Iparser {
         return switch (cfg.code()) {
             case "pfwb" -> parsePfwbHtml(cfg, membersHtml);
             case "pdg" -> parsePdgHtml(cfg, membersHtml, bureauHtml);
+            case "bruxelles" -> parseBruxellesHtml(cfg, membersHtml);
             default -> List.of();
         };
+    }
+
+    List<DeputyRecord> parseBruxellesHtml(ParliamentConfig cfg, String html) {
+        Map<String, DeputyRecord> byKey = new LinkedHashMap<>();
+        if (html == null || html.isBlank()) {
+            return List.of();
+        }
+
+        // 1. Format table (standardisé / seed)
+        Matcher trMatcher = BRUXELLES_TR_PATTERN.matcher(html);
+        while (trMatcher.find()) {
+            String href = cleanText(trMatcher.group(1));
+            String fullName = cleanText(trMatcher.group(2));
+            String party = cleanText(trMatcher.group(3));
+            if (fullName.isEmpty() || fullName.equalsIgnoreCase("Nom")) continue;
+
+            String[] fl = splitFirstLast(fullName);
+            String profileUrl = href.isEmpty() ? cfg.membersUrl()
+                    : (href.startsWith("http") ? href : "https://www.parlement.brussels" + (href.startsWith("/") ? href : "/" + href));
+
+            String key = fullName.toLowerCase(Locale.ROOT);
+            byKey.putIfAbsent(key, new DeputyRecord(
+                    fullName, fl[0], fl[1],
+                    "Député au " + cfg.parliamentName(),
+                    party,
+                    profileUrl,
+                    null,
+                    cfg.code(),
+                    cfg.parliamentName(),
+                    cfg.jurisdiction()
+            ));
+        }
+
+        // 2. Si non trouvé par table, tenter le format cards / articles
+        if (byKey.isEmpty()) {
+            Matcher cardMatcher = BRUXELLES_CARD_PATTERN.matcher(html);
+            while (cardMatcher.find()) {
+                String href = cleanText(cardMatcher.group(1));
+                String fullName = cleanText(cardMatcher.group(2));
+                String party = cleanText(cardMatcher.group(3));
+                if (fullName.isEmpty()) continue;
+
+                String[] fl = splitFirstLast(fullName);
+                String profileUrl = href.isEmpty() ? cfg.membersUrl()
+                        : (href.startsWith("http") ? href : "https://www.parlement.brussels" + (href.startsWith("/") ? href : "/" + href));
+
+                String key = fullName.toLowerCase(Locale.ROOT);
+                byKey.putIfAbsent(key, new DeputyRecord(
+                        fullName, fl[0], fl[1],
+                        "Député au " + cfg.parliamentName(),
+                        party,
+                        profileUrl,
+                        null,
+                        cfg.code(),
+                        cfg.parliamentName(),
+                        cfg.jurisdiction()
+                ));
+            }
+        }
+
+        return new ArrayList<>(byKey.values());
     }
 
     List<DeputyRecord> parsePfwbHtml(ParliamentConfig cfg, String html) {

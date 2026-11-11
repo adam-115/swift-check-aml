@@ -78,6 +78,15 @@ public class BePepArmyParser implements Iparser {
     ) {}
 
     public List<ArmyPageConfig> loadConfigs() throws IOException {
+        return loadConfigs(null);
+    }
+
+    public List<ArmyPageConfig> loadConfigs(String pagesParam) throws IOException {
+        if (pagesParam != null && !pagesParam.isBlank()) {
+            com.fasterxml.jackson.databind.JsonNode root = MAPPER.readTree(pagesParam);
+            com.fasterxml.jackson.databind.JsonNode pagesNode = root.has("pages") ? root.path("pages") : root;
+            return MAPPER.readValue(pagesNode.traverse(), new TypeReference<List<ArmyPageConfig>>() {});
+        }
         try (InputStream is = getClass().getResourceAsStream(CONFIG_RESOURCE)) {
             if (is == null) {
                 throw new IOException("Ressource introuvable : " + CONFIG_RESOURCE);
@@ -89,7 +98,8 @@ public class BePepArmyParser implements Iparser {
     @Override
     public ParserResult parse(ParserContext ctx) throws Exception {
         Files.createDirectories(ctx.rawDir());
-        List<ArmyPageConfig> configs = loadConfigs();
+        Map<String, String> p = ctx.parameters() == null ? Map.of() : ctx.parameters();
+        List<ArmyPageConfig> configs = loadConfigs(p.get("armyPages"));
 
         HttpClient client = HttpClient.newBuilder()
                 .connectTimeout(Duration.ofSeconds(15))
@@ -116,7 +126,7 @@ public class BePepArmyParser implements Iparser {
         }
 
         FtmDatasetBuilder dataset = new FtmDatasetBuilder(ID_PREFIX, TOPIC);
-        List<OfficerRecord> officers = convert(ctx.rawDir(), dataset);
+        List<OfficerRecord> officers = convert(ctx.rawDir(), dataset, configs);
         dataset.writeNdjsonFile(ctx.outputFile());
         return dataset.toConversionResult().withMessage(
                 officers.size() + " officiers généraux extraits depuis mil.be.");
@@ -124,8 +134,10 @@ public class BePepArmyParser implements Iparser {
 
     @Override
     public List<SourceRecord> readSourceRecords(ParserContext ctx) throws Exception {
+        Map<String, String> p = ctx.parameters() == null ? Map.of() : ctx.parameters();
+        List<ArmyPageConfig> configs = loadConfigs(p.get("armyPages"));
         FtmDatasetBuilder dataset = new FtmDatasetBuilder(ID_PREFIX, TOPIC);
-        convert(ctx.rawDir(), dataset);
+        convert(ctx.rawDir(), dataset, configs);
         List<SourceRecord> records = new ArrayList<>();
         for (FtmEntity e : dataset.entities()) {
             if ("Person".equals(e.getSchema())) {
@@ -137,7 +149,10 @@ public class BePepArmyParser implements Iparser {
     }
 
     List<OfficerRecord> convert(Path rawDir, FtmDatasetBuilder dataset) throws IOException {
-        List<ArmyPageConfig> configs = loadConfigs();
+        return convert(rawDir, dataset, loadConfigs());
+    }
+
+    List<OfficerRecord> convert(Path rawDir, FtmDatasetBuilder dataset, List<ArmyPageConfig> configs) throws IOException {
         Map<String, OfficerRecord> byKey = new LinkedHashMap<>();
 
         for (ArmyPageConfig cfg : configs) {

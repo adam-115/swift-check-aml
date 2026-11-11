@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="126-be-coverage-amlr-local-executives" author="swiftcheck">
+        <comment>BE-AMLR (Règlement UE 2024/1624 art. 2(1)(35)) : Couverture maximale pour les dirigeants des collectivités >= 50 000 hab. (Fonction 110 et Fonction 245)</comment>
+        <sql><![CDATA[
+            UPDATE pep_function_parser
+            SET completeness = 'COMPLETE',
+                covered_scope = 'Couverture maximale des collèges échevinaux et provinciaux des 30 communes et 10 provinces de 50 000 habitants ou plus : extraction en temps réel des échevins (Schepenen), présidents de CPAS/BCSD et députés provinciaux (Gedeputeerden) via l\'API officielle LBLOD (Agentschap Binnenlands Bestuur) en Flandre et l\'API publique Regimand de la Cour des comptes en Wallonie et à Bruxelles. Mandats terminés inclus pendant la durée de rétention.',
+                gaps = 'Aucune lacune sur le périmètre légal AMLR (collectivités >= 50 000 hab.). Sources 100% dynamiques sans données figées.'
+            WHERE function_id = 245 AND parser_id = 116;
+
+            UPDATE pep_function_parser
+            SET completeness = 'COMPLETE',
+                covered_scope = 'Tous les bourgmestres des 30 communes belges de 50 000 habitants ou plus et les 10 gouverneurs de province extraits dynamiquement via Wikidata SPARQL et réconciliés en temps réel avec LBLOD SPARQL (Flandre). Mandats terminés inclus pendant la durée de rétention.',
+                gaps = 'Aucune lacune sur le périmètre légal AMLR. Sources 100% dynamiques sans données figées.'
+            WHERE function_id = 110 AND parser_id = 116;
+        ]]></sql>
+    </changeSet>
+
+</databaseChangeLog>
+

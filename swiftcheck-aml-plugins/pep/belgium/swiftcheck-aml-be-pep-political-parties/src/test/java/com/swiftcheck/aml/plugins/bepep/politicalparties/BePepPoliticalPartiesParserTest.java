@@ -92,6 +92,15 @@ class BePepPoliticalPartiesParserTest {
         // CD&V : Sammy Mahdi
         assertThat(person(dataset, "Q75807853").getValues("position"))
                 .contains("Président ou présidente – Christen-Democratisch en Vlaams");
+
+        // Organes dirigeants ASBL / BCE : Ecolo (Marie Lecocq, Samuel Cogolati), MR (David Clarinval), PS (Christie Morreale)
+        List<FtmEntity> bcePersons = dataset.entities().stream()
+                .filter(e -> "Person".equals(e.getSchema()) && e.getId().startsWith("be-pep-political-parties-bce-"))
+                .toList();
+        assertThat(bcePersons).hasSize(63);
+        assertThat(bcePersons).extracting(e -> e.getValues("name").iterator().next())
+                .contains("Marie Lecocq", "Samuel Cogolati", "David Clarinval", "Anne Barzin", "Christie Morreale",
+                        "Elio Di Rupo", "Jan Jambon", "Theo Francken", "Barbara Pas", "Peter Mertens", "Sophie Rohonyi");
     }
 
     @Test
@@ -102,7 +111,7 @@ class BePepPoliticalPartiesParserTest {
         assertThat(records).isNotEmpty().allSatisfy(r -> {
             assertThat(r.schema()).isEqualTo("Person");
             assertThat(r.name()).isNotBlank().doesNotMatch("Q\\d+");
-            assertThat(r.sourceRef()).startsWith("https://www.wikidata.org/wiki/Q");
+            assertThat(r.sourceRef()).matches("https://(www\\.wikidata\\.org/wiki/Q|kbopub\\.economie\\.fgov\\.be/).*");
         });
         assertThat(records).extracting(SourceRecord::name)
                 .contains("Georges-Louis Bouchez", "Paul Magnette", "Raoul Hedebouw", "Tom Van Grieken", "Sammy Mahdi");

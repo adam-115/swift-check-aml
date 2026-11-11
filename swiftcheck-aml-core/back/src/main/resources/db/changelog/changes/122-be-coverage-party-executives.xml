@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.20.xsd">
+
+    <changeSet id="122-be-coverage-party-executives-asbl" author="swiftcheck">
+        <comment>Mise a jour de la couverture BE-c (Fonction 99) avec integration des organes dirigeants des partis (BCE / ASBL)</comment>
+        
+        <update tableName="parser">
+            <column name="description" value="Dirigeants nationaux, présidents, secrétaires généraux et membres des organes dirigeants des partis politiques belges (catégorie BE-c, croisement Wikidata et registre des personnes morales BCE / ASBL)"/>
+            <column name="notes" value="Combine la collecte SPARQL Wikidata (présidents, secrétaires généraux) avec le référentiel officiel des ASBL/BCE pour les conseils d'administration et bureaux politiques des 12 partis majeurs (MR, PS, Ecolo, Groen, N-VA, Les Engagés, Vooruit, CD&amp;V, Open VLD, PTB-PVDA, Vlaams Belang, DéFI)."/>
+            <where>dataset_name = 'be_pep_political_parties'</where>
+        </update>
+
+        <update tableName="pep_function_parser">
+            <column name="covered_scope" value="Présidents, coprésidents, secrétaires généraux, directeurs généraux et membres des organes dirigeants / bureaux politiques des partis politiques belges enregistrés comme ASBL auprès de la BCE (MR, PS, Ecolo, Groen, N-VA, Les Engagés, Vooruit, CD&amp;V, Open VLD, PTB-PVDA, Vlaams Belang, DéFI, CSP, PFF)."/>
+            <column name="gaps" value="Couverture nominative directe des présidents et membres des bureaux politiques majeurs. Les membres supplémentaires de comités locaux/fédéraux non administrateurs légaux relèvent des mandats électifs BE-a ou BE-b."/>
+            <column name="completeness" value="COMPLETE"/>
+            <where>parser_id = (SELECT id FROM parser WHERE dataset_name = 'be_pep_political_parties') AND function_id = (SELECT f.id FROM pep_function f JOIN pep_category c ON c.id = f.category_id WHERE c.code = 'BE-c' AND f.label LIKE 'Membre de la direction, du conseil politique%')</where>
+        </update>
+    </changeSet>
+
+</databaseChangeLog>

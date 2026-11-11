@@ -90,6 +90,11 @@ public class BePepInternationalOrgsParser implements Iparser {
             Pattern.CASE_INSENSITIVE | Pattern.UNICODE_CASE
     );
 
+    private static final Pattern EUROCONTROL_CARD_PATTERN = Pattern.compile(
+            "<h3[^>]*>\\s*<a[^>]+href=\"([^\"]+)\"[^>]*>([^<]+)</a>\\s*</h3>\\s*</div>\\s*<div class=\"layout--onecol__content\">\\s*<div class=\"field--position[^\"]*\">([^<]+)</div>",
+            Pattern.CASE_INSENSITIVE
+    );
+
     @JsonIgnoreProperties(ignoreUnknown = true)
     public record OrgConfig(
             String code,
@@ -117,6 +122,15 @@ public class BePepInternationalOrgsParser implements Iparser {
     ) {}
 
     public List<OrgConfig> loadConfigs() throws IOException {
+        return loadConfigs(null);
+    }
+
+    public List<OrgConfig> loadConfigs(String orgsParam) throws IOException {
+        if (orgsParam != null && !orgsParam.isBlank()) {
+            com.fasterxml.jackson.databind.JsonNode root = MAPPER.readTree(orgsParam);
+            com.fasterxml.jackson.databind.JsonNode orgsNode = root.has("organizations") ? root.path("organizations") : root;
+            return MAPPER.readValue(orgsNode.traverse(), new TypeReference<List<OrgConfig>>() {});
+        }
         try (InputStream is = getClass().getResourceAsStream(CONFIG_RESOURCE)) {
             if (is == null) {
                 throw new IOException("Ressource introuvable : " + CONFIG_RESOURCE);
@@ -128,7 +142,8 @@ public class BePepInternationalOrgsParser implements Iparser {
     @Override
     public ParserResult parse(ParserContext ctx) throws Exception {
         Files.createDirectories(ctx.rawDir());
-        List<OrgConfig> configs = loadConfigs();
+        Map<String, String> p = ctx.parameters() == null ? Map.of() : ctx.parameters();
+        List<OrgConfig> configs = loadConfigs(p.get("organizations"));
 
         HttpClient client = HttpClient.newBuilder()
                 .connectTimeout(Duration.ofSeconds(15))
@@ -148,7 +163,7 @@ public class BePepInternationalOrgsParser implements Iparser {
                         .GET()
                         .build();
                 HttpResponse<String> resp = client.send(req, HttpResponse.BodyHandlers.ofString(StandardCharsets.UTF_8));
-                                if (resp.statusCode() == 200) {
+                if (resp.statusCode() == 200) {
                     Files.writeString(ctx.rawDir().resolve(org.code() + ".html"), resp.body(), StandardCharsets.UTF_8);
                 } else {
                     try {
@@ -168,7 +183,7 @@ public class BePepInternationalOrgsParser implements Iparser {
         List<String> active = new ArrayList<>();
         List<String> pending = new ArrayList<>();
         List<String> failed = new ArrayList<>();
-        List<LeaderRecord> leaders = convert(ctx.rawDir(), dataset, active, pending, failed);
+        List<LeaderRecord> leaders = convert(ctx.rawDir(), dataset, active, pending, failed, configs);
         dataset.writeNdjsonFile(ctx.outputFile());
 
         StringBuilder msg = new StringBuilder(leaders.size() + " dirigeants d'organisations internationales extraits");
@@ -187,8 +202,10 @@ public class BePepInternationalOrgsParser implements Iparser {
 
     @Override
     public List<SourceRecord> readSourceRecords(ParserContext ctx) throws Exception {
+        Map<String, String> p = ctx.parameters() == null ? Map.of() : ctx.parameters();
+        List<OrgConfig> configs = loadConfigs(p.get("organizations"));
         FtmDatasetBuilder dataset = new FtmDatasetBuilder(ID_PREFIX, TOPIC);
-        convert(ctx.rawDir(), dataset, new ArrayList<>(), new ArrayList<>(), new ArrayList<>());
+        convert(ctx.rawDir(), dataset, new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), configs);
         List<SourceRecord> records = new ArrayList<>();
         for (FtmEntity e : dataset.entities()) {
             if ("Person".equals(e.getSchema())) {
@@ -206,7 +223,17 @@ public class BePepInternationalOrgsParser implements Iparser {
             List<String> pending,
             List<String> failed
     ) throws IOException {
-        List<OrgConfig> configs = loadConfigs();
+        return convert(rawDir, dataset, active, pending, failed, loadConfigs());
+    }
+
+    List<LeaderRecord> convert(
+            Path rawDir,
+            FtmDatasetBuilder dataset,
+            List<String> active,
+            List<String> pending,
+            List<String> failed,
+            List<OrgConfig> configs
+    ) throws IOException {
         List<LeaderRecord> all = new ArrayList<>();
 
         for (OrgConfig org : configs) {
@@ -247,6 +274,7 @@ public class BePepInternationalOrgsParser implements Iparser {
             case "nato" -> parseNatoHtml(org, html);
             case "benelux" -> parseBeneluxHtml(org, html);
             case "wco" -> parseWcoHtml(org, html);
+            case "eurocontrol" -> parseEurocontrolHtml(org, html);
             default -> List.of();
         };
     }
@@ -342,6 +370,29 @@ public class BePepInternationalOrgsParser implements Iparser {
             String[] fl = splitFirstLast(fullName);
             byKey.putIfAbsent(fullName.toLowerCase(Locale.ROOT), new LeaderRecord(
                     fullName, fl[0], fl[1], position, org.url(),
+                    org.code(), org.acronym(), org.name(), org.headquarters()
+            ));
+        }
+
+        return new ArrayList<>(byKey.values());
+    }
+
+    List<LeaderRecord> parseEurocontrolHtml(OrgConfig org, String html) {
+        Map<String, LeaderRecord> byKey = new LinkedHashMap<>();
+        Matcher m = EUROCONTROL_CARD_PATTERN.matcher(html);
+
+        while (m.find()) {
+            String href = cleanText(m.group(1));
+            String fullName = cleanText(m.group(2));
+            String role = cleanText(m.group(3));
+            if (fullName.isBlank()) {
+                continue;
+            }
+            String profileUrl = href.startsWith("http") ? href : "https://www.eurocontrol.int" + href;
+            String position = role + " – " + org.name();
+            String[] fl = splitFirstLast(fullName);
+            byKey.putIfAbsent(fullName.toLowerCase(Locale.ROOT), new LeaderRecord(
+                    fullName, fl[0], fl[1], position, profileUrl,
                     org.code(), org.acronym(), org.name(), org.headquarters()
             ));
         }

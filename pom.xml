@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
@@ -30,7 +30,7 @@
         <module>swiftcheck-aml-core</module>
         <!-- Plugins de listes : un JAR PF4J par source (voir swiftcheck-aml-plugins/README.md) -->
         <module>swiftcheck-aml-plugins/swiftcheck-aml-eu</module>
-        <!-- PEP Luxembourg : un plugin par source de donnÃ©es -->
+        <!-- PEP Luxembourg : un plugin par source de données -->
         <module>swiftcheck-aml-plugins/pep/luxembourg/swiftcheck-aml-lu-pep-chamber</module>
         <module>swiftcheck-aml-plugins/pep/luxembourg/swiftcheck-aml-lu-pep-chamber-former</module>
         <module>swiftcheck-aml-plugins/pep/luxembourg/swiftcheck-aml-lu-pep-government</module>
@@ -80,13 +80,14 @@
         <module>swiftcheck-aml-plugins/pep/france/swiftcheck-aml-fr-pep-local-enterprises</module>
         <module>swiftcheck-aml-plugins/pep/belgium/swiftcheck-aml-be-pep-europarl</module>
         <module>swiftcheck-aml-plugins/pep/belgium/swiftcheck-aml-be-pep-eu-commission</module>
+        <module>swiftcheck-aml-plugins/pep/belgium/swiftcheck-aml-be-pep-eu-institutions</module>
         <module>swiftcheck-aml-plugins/pep/belgium/swiftcheck-aml-be-pep-rca</module>
         <module>swiftcheck-aml-plugins/pep/belgium/swiftcheck-aml-be-pep-chamber</module>
         <module>swiftcheck-aml-plugins/pep/belgium/swiftcheck-aml-be-pep-flemish-parliament</module>
         <module>swiftcheck-aml-plugins/pep/belgium/swiftcheck-aml-be-pep-walloon-parliament</module>
         <module>swiftcheck-aml-plugins/pep/belgium/swiftcheck-aml-be-pep-king</module>
         <module>swiftcheck-aml-plugins/pep/belgium/swiftcheck-aml-be-pep-federal-government</module>
-        <!-- PEP Belgique â€“ Lot 2 : pages des institutions -->
+        <!-- PEP Belgique – Lot 2 : pages des institutions -->
         <module>swiftcheck-aml-plugins/pep/belgium/swiftcheck-aml-be-pep-regional-governments</module>
         <module>swiftcheck-aml-plugins/pep/belgium/swiftcheck-aml-be-pep-regional-parliaments</module>
         <module>swiftcheck-aml-plugins/pep/belgium/swiftcheck-aml-be-pep-senate</module>
@@ -97,7 +98,7 @@
         <module>swiftcheck-aml-plugins/pep/belgium/swiftcheck-aml-be-pep-diplomats</module>
         <module>swiftcheck-aml-plugins/pep/belgium/swiftcheck-aml-be-pep-army</module>
         <module>swiftcheck-aml-plugins/pep/belgium/swiftcheck-aml-be-pep-international-orgs</module>
-        <!-- PEP Belgique â€“ Lot 3 : volumineux, aprÃ¨s Ã©tude -->
+        <!-- PEP Belgique – Lot 3 : volumineux, après étude -->
         <module>swiftcheck-aml-plugins/pep/belgium/swiftcheck-aml-be-pep-moniteur</module>
         <module>swiftcheck-aml-plugins/pep/belgium/swiftcheck-aml-be-pep-public-enterprises</module>
         <module>swiftcheck-aml-plugins/pep/belgium/swiftcheck-aml-be-pep-political-parties</module>
