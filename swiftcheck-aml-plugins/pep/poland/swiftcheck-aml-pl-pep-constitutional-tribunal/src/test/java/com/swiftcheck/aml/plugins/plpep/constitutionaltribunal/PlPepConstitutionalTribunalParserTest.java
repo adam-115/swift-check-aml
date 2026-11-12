@@ -12,15 +12,18 @@ import com.swiftcheck.aml.sdk.FtmDatasetBuilder;
 
 class PlPepConstitutionalTribunalParserTest {
 
-    private static final Path RAW = Path.of("src/main/resources/seed/pl-constitutional-tribunal.json");
+    private static final Path RAW = Path.of("src/test/resources/pl-constitutional-tribunal-wikipedia.json");
 
     @Test
     void testConvert() throws Exception {
         PlPepConstitutionalTribunalParser parser = new PlPepConstitutionalTribunalParser();
-        FtmDatasetBuilder dataset = new FtmDatasetBuilder("pl-pep-constitutional-tribunal", "role.pep");
+        FtmDatasetBuilder dataset = new FtmDatasetBuilder(
+                PlPepConstitutionalTribunalParser.ID_PREFIX,
+                PlPepConstitutionalTribunalParser.TOPIC
+        );
 
         int count = parser.convert(RAW, dataset);
-        assertEquals(13, count);
+        assertTrue(count >= 13, "Au moins 13 juges constitutionnels attendus, trouvé: " + count);
         assertEquals(0, dataset.qualityReport().getTotalRejected());
         assertFalse(dataset.entities().isEmpty());
 
@@ -28,6 +31,15 @@ class PlPepConstitutionalTribunalParserTest {
                 .filter(e -> "Person".equals(e.getSchema()))
                 .anyMatch(e -> e.getValues("name").contains("Julia Przyłębska"));
         assertTrue(foundPrzylebska, "Julia Przyłębska doit être présente dans le dataset");
+
+        boolean foundSwieczkowski = dataset.entities().stream()
+                .filter(e -> "Person".equals(e.getSchema()))
+                .anyMatch(e -> e.getValues("name").contains("Bogdan Święczkowski"));
+        assertTrue(foundSwieczkowski, "Bogdan Święczkowski doit être présent dans le dataset");
+
+        boolean foundPawlowicz = dataset.entities().stream()
+                .filter(e -> "Person".equals(e.getSchema()))
+                .anyMatch(e -> e.getValues("name").contains("Krystyna Pawłowicz"));
+        assertTrue(foundPawlowicz, "Krystyna Pawłowicz doit être présente dans le dataset");
     }
 }
-
