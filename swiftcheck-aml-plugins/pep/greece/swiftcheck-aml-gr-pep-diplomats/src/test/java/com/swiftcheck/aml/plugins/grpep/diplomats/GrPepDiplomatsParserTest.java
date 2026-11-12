@@ -12,7 +12,7 @@ import com.swiftcheck.aml.sdk.FtmDatasetBuilder;
 
 class GrPepDiplomatsParserTest {
 
-    private static final Path RAW = Path.of("src/main/resources/seed/gr-diplomats.json");
+    private static final Path RAW = Path.of("src/test/resources/gr-diplomats-wikidata.json");
 
     @Test
     void testConvert() throws Exception {
@@ -20,13 +20,13 @@ class GrPepDiplomatsParserTest {
         FtmDatasetBuilder dataset = new FtmDatasetBuilder(GrPepDiplomatsParser.ID_PREFIX, GrPepDiplomatsParser.TOPIC);
 
         int count = parser.convert(RAW, dataset);
-        assertTrue(count >= 5);
+        assertTrue(count >= 10, "Au moins 10 diplomates attendus, obtenu : " + count);
         assertEquals(0, dataset.qualityReport().getTotalRejected());
         assertFalse(dataset.entities().isEmpty());
 
         boolean foundAmbassador = dataset.entities().stream()
                 .filter(e -> "Person".equals(e.getSchema()))
-                .anyMatch(e -> e.getValues("name").contains("Evangelos Sekeris"));
-        assertTrue(foundAmbassador, "Evangelos Sekeris doit être présent dans le dataset");
+                .anyMatch(e -> e.getValues("name").contains("Alexandra Papadopoulou"));
+        assertTrue(foundAmbassador, "Alexandra Papadopoulou doit être présente dans le dataset");
     }
 }

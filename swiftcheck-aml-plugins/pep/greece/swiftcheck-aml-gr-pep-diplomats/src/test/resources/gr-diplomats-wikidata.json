@@ -1,0 +1,2723 @@
+{
+  "head" : {
+    "vars" : [ "person", "personLabel", "personLabelEl", "pos", "posLabel", "startDate", "endDate", "birthDate" ]
+  },
+  "results" : {
+    "bindings" : [ {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q718976"
+      },
+      "personLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Stavros Lambrinidis"
+      },
+      "personLabelEl" : {
+        "xml:lang" : "el",
+        "type" : "literal",
+        "value" : "Σταύρος Λαμπρινίδης"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q123663472"
+      },
+      "posLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "ambassador of the European Union to the United Nations"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2024-01-15T00:00:00Z"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1962-02-06T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q125369639"
+      },
+      "personLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "George Pagoulatos"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q30161199"
+      },
+      "posLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "ambassador of Greece"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2023-05-22T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q123137969"
+      },
+      "personLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Nikolaos Papageorgiou"
+      },
+      "personLabelEl" : {
+        "xml:lang" : "el",
+        "type" : "literal",
+        "value" : "Νικόλαος Παπαγεωργίου"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q30161199"
+      },
+      "posLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "ambassador of Greece"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2022-12-04T00:00:00Z"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1963-01-01T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q96103192"
+      },
+      "personLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Dimitris Caramitzos-Tziras"
+      },
+      "personLabelEl" : {
+        "xml:lang" : "el",
+        "type" : "literal",
+        "value" : "Δημήτριος Καραμήτσος-Τζιράς"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q65971275"
+      },
+      "posLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "ambassador of Greece to Japan"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2022-01-01T00:00:00Z"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1958-09-07T00:00:00Z"
+      },
+      "endDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2024-01-01T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q113633592"
+      },
+      "personLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Alexandra Papadopoulou"
+      },
+      "personLabelEl" : {
+        "xml:lang" : "el",
+        "type" : "literal",
+        "value" : "Αλεξάνδρα Παπαδοπούλου"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q67365660"
+      },
+      "posLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "ambassador of Greece to the United States"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2020-02-01T00:00:00Z"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1957-04-10T00:00:00Z"
+      },
+      "endDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2023-04-27T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q110009993"
+      },
+      "personLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Ioannis Raptakis"
+      },
+      "personLabelEl" : {
+        "xml:lang" : "el",
+        "type" : "literal",
+        "value" : "Ιωάννης Ραπτάκης"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q96103228"
+      },
+      "posLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "ambassador of Greece to the United Kingdom"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2020-01-01T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q98079389"
+      },
+      "personLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Tasia Athanasiou"
+      },
+      "personLabelEl" : {
+        "xml:lang" : "el",
+        "type" : "literal",
+        "value" : "Τασία Αθανασίου"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q65971104"
+      },
+      "posLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "ambassador of Greece to  Russia"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2019-04-01T00:00:00Z"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1960-09-01T00:00:00Z"
+      },
+      "endDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2019-08-01T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q718976"
+      },
+      "personLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Stavros Lambrinidis"
+      },
+      "personLabelEl" : {
+        "xml:lang" : "el",
+        "type" : "literal",
+        "value" : "Σταύρος Λαμπρινίδης"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q108915009"
+      },
+      "posLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "ambassador of the European Union to the United States"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2019-03-04T00:00:00Z"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1962-02-06T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q109525115"
+      },
+      "personLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Constantin Cakioussis"
+      },
+      "personLabelEl" : {
+        "xml:lang" : "el",
+        "type" : "literal",
+        "value" : "Κωνσταντίνος Κακιούσης"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q65971275"
+      },
+      "posLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "ambassador of Greece to Japan"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2018-01-01T00:00:00Z"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1956-01-08T00:00:00Z"
+      },
+      "endDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2021-01-01T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q16331443"
+      },
+      "personLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Konstantinos Bikas"
+      },
+      "personLabelEl" : {
+        "xml:lang" : "el",
+        "type" : "literal",
+        "value" : "Κωνσταντίνος Μπίκας"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q96241063"
+      },
+      "posLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "ambassador of Greece to Israel"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2016-01-01T00:00:00Z"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1955-03-14T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q96103192"
+      },
+      "personLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Dimitris Caramitzos-Tziras"
+      },
+      "personLabelEl" : {
+        "xml:lang" : "el",
+        "type" : "literal",
+        "value" : "Δημήτριος Καραμήτσος-Τζιράς"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q96103228"
+      },
+      "posLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "ambassador of Greece to the United Kingdom"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2016-01-01T00:00:00Z"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1958-09-07T00:00:00Z"
+      },
+      "endDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2020-01-01T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q140562906"
+      },
+      "personLabel" : {
+        "type" : "literal",
+        "value" : "Q140562906"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q33132880"
+      },
+      "posLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "ambassador of Greece to France"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2013-01-01T00:00:00Z"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1957-01-01T00:00:00Z"
+      },
+      "endDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2015-01-01T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q98079389"
+      },
+      "personLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Tasia Athanasiou"
+      },
+      "personLabelEl" : {
+        "xml:lang" : "el",
+        "type" : "literal",
+        "value" : "Τασία Αθανασίου"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q122577715"
+      },
+      "posLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "ambassador of Greece to Poland"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2012-01-01T00:00:00Z"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1960-09-01T00:00:00Z"
+      },
+      "endDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2017-01-01T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q98079389"
+      },
+      "personLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Tasia Athanasiou"
+      },
+      "personLabelEl" : {
+        "xml:lang" : "el",
+        "type" : "literal",
+        "value" : "Τασία Αθανασίου"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q122577628"
+      },
+      "posLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "ambassador of Greece to Syria"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2009-01-01T00:00:00Z"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1960-09-01T00:00:00Z"
+      },
+      "endDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2012-01-01T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q19561436"
+      },
+      "personLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Petros Mavroidis"
+      },
+      "personLabelEl" : {
+        "xml:lang" : "el",
+        "type" : "literal",
+        "value" : "Πέτρος Μαυροειδής"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q66969669"
+      },
+      "posLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "ambassador of Greece to Pakistan"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2007-01-01T00:00:00Z"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1954-01-01T00:00:00Z"
+      },
+      "endDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2014-01-01T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q55422895"
+      },
+      "personLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Kyriakos Rodoussakis"
+      },
+      "personLabelEl" : {
+        "xml:lang" : "el",
+        "type" : "literal",
+        "value" : "Κυριάκος Ροδουσάκης"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q65971275"
+      },
+      "posLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "ambassador of Greece to Japan"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2002-01-01T00:00:00Z"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1945-01-01T00:00:00Z"
+      },
+      "endDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2006-01-01T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q55422895"
+      },
+      "personLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Kyriakos Rodoussakis"
+      },
+      "personLabelEl" : {
+        "xml:lang" : "el",
+        "type" : "literal",
+        "value" : "Κυριάκος Ροδουσάκης"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q65971332"
+      },
+      "posLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "ambassador of Greece to Cyprus"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1997-01-01T00:00:00Z"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1945-01-01T00:00:00Z"
+      },
+      "endDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2000-01-01T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q140167112"
+      },
+      "personLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Dimitrios Kypreos"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q65971104"
+      },
+      "posLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "ambassador of Greece to  Russia"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1997-01-01T00:00:00Z"
+      },
+      "birthDate" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/.well-known/genid/d764bea019de365913115f98edde3c78"
+      },
+      "endDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2002-01-01T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1362809"
+      },
+      "personLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Vassilis Vassilikos"
+      },
+      "personLabelEl" : {
+        "xml:lang" : "el",
+        "type" : "literal",
+        "value" : "Βασίλης Βασιλικός"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q121998"
+      },
+      "posLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "ambassador"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1996-01-01T00:00:00Z"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1934-01-01T00:00:00Z"
+      },
+      "endDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2004-01-01T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1362809"
+      },
+      "personLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Vassilis Vassilikos"
+      },
+      "personLabelEl" : {
+        "xml:lang" : "el",
+        "type" : "literal",
+        "value" : "Βασίλης Βασιλικός"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q121998"
+      },
+      "posLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "ambassador"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1996-01-01T00:00:00Z"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1933-11-18T00:00:00Z"
+      },
+      "endDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2004-01-01T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q55422895"
+      },
+      "personLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Kyriakos Rodoussakis"
+      },
+      "personLabelEl" : {
+        "xml:lang" : "el",
+        "type" : "literal",
+        "value" : "Κυριάκος Ροδουσάκης"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q65971104"
+      },
+      "posLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "ambassador of Greece to  Russia"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1994-01-01T00:00:00Z"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1945-01-01T00:00:00Z"
+      },
+      "endDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1997-01-01T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2475138"
+      },
+      "personLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Georgios Papoulias"
+      },
+      "personLabelEl" : {
+        "xml:lang" : "el",
+        "type" : "literal",
+        "value" : "Γεώργιος Παπούλιας"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q96103228"
+      },
+      "posLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "ambassador of Greece to the United Kingdom"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1990-01-01T00:00:00Z"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1927-05-19T00:00:00Z"
+      },
+      "endDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1993-01-01T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q140889671"
+      },
+      "personLabel" : {
+        "type" : "literal",
+        "value" : "Q140889671"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q65971104"
+      },
+      "posLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "ambassador of Greece to  Russia"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1989-01-01T00:00:00Z"
+      },
+      "birthDate" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/.well-known/genid/f79f93011ff109f193ec9eaaedcf9f90"
+      },
+      "endDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1993-01-01T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q16512385"
+      },
+      "personLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Konstantinos Ailianos"
+      },
+      "personLabelEl" : {
+        "xml:lang" : "el",
+        "type" : "literal",
+        "value" : "Κωνσταντίνος Αιλιανός"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q122577715"
+      },
+      "posLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "ambassador of Greece to Poland"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1987-01-01T00:00:00Z"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1943-01-01T00:00:00Z"
+      },
+      "endDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1990-01-01T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q17759773"
+      },
+      "personLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Giorgos Lianis"
+      },
+      "personLabelEl" : {
+        "xml:lang" : "el",
+        "type" : "literal",
+        "value" : "Γιώργος Λιάνης"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q65971275"
+      },
+      "posLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "ambassador of Greece to Japan"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1985-01-01T00:00:00Z"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1926-05-20T00:00:00Z"
+      },
+      "endDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1990-01-01T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q67365613"
+      },
+      "personLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Constantine Panayotacos"
+      },
+      "personLabelEl" : {
+        "xml:lang" : "el",
+        "type" : "literal",
+        "value" : "Κωνσταντίνος Παναγιωτάκος"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q65971332"
+      },
+      "posLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "ambassador of Greece to Cyprus"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1970-01-01T00:00:00Z"
+      },
+      "endDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1972-01-01T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q16512455"
+      },
+      "personLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Alexis Liatis"
+      },
+      "personLabelEl" : {
+        "xml:lang" : "el",
+        "type" : "literal",
+        "value" : "Αλέξης Λιάτης"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q65971275"
+      },
+      "posLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "ambassador of Greece to Japan"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1962-01-01T00:00:00Z"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1908-03-18T00:00:00Z"
+      },
+      "endDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1965-01-01T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q16332465"
+      },
+      "personLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Georgios Melas"
+      },
+      "personLabelEl" : {
+        "xml:lang" : "el",
+        "type" : "literal",
+        "value" : "Γεώργιος Β. Μελάς"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q90879938"
+      },
+      "posLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "ambassador of Greece to Mexico"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1956-01-01T00:00:00Z"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1894-01-01T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q16332465"
+      },
+      "personLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Georgios Melas"
+      },
+      "personLabelEl" : {
+        "xml:lang" : "el",
+        "type" : "literal",
+        "value" : "Γεώργιος Β. Μελάς"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q90879947"
+      },
+      "posLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "ambassador of Greece to Cuba"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1955-01-01T00:00:00Z"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1894-01-01T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q16332465"
+      },
+      "personLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Georgios Melas"
+      },
+      "personLabelEl" : {
+        "xml:lang" : "el",
+        "type" : "literal",
+        "value" : "Γεώργιος Β. Μελάς"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q67365660"
+      },
+      "posLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "ambassador of Greece to the United States"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1954-01-01T00:00:00Z"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1894-01-01T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q124959123"
+      },
+      "personLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Dimitrios K. Nikolopoulos"
+      },
+      "personLabelEl" : {
+        "xml:lang" : "el",
+        "type" : "literal",
+        "value" : "Δημήτριος Κ. Νικολόπουλος"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q65971104"
+      },
+      "posLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "ambassador of Greece to  Russia"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1938-01-01T00:00:00Z"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1892-01-01T00:00:00Z"
+      },
+      "endDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1938-04-01T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1230002"
+      },
+      "personLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Nikolaos Politis"
+      },
+      "personLabelEl" : {
+        "xml:lang" : "el",
+        "type" : "literal",
+        "value" : "Νικόλαος Πολίτης"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q33132880"
+      },
+      "posLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "ambassador of Greece to France"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1927-01-01T00:00:00Z"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1872-01-01T00:00:00Z"
+      },
+      "endDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1940-01-01T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1230002"
+      },
+      "personLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Nikolaos Politis"
+      },
+      "personLabelEl" : {
+        "xml:lang" : "el",
+        "type" : "literal",
+        "value" : "Νικόλαος Πολίτης"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q33132880"
+      },
+      "posLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "ambassador of Greece to France"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1924-01-01T00:00:00Z"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1872-01-01T00:00:00Z"
+      },
+      "endDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1925-01-01T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4753172"
+      },
+      "personLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Kostas Ouranis"
+      },
+      "personLabelEl" : {
+        "xml:lang" : "el",
+        "type" : "literal",
+        "value" : "Κώστας Ουράνης"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q121998"
+      },
+      "posLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "ambassador"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1920-01-01T00:00:00Z"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1890-02-12T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4753172"
+      },
+      "personLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Kostas Ouranis"
+      },
+      "personLabelEl" : {
+        "xml:lang" : "el",
+        "type" : "literal",
+        "value" : "Κώστας Ουράνης"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q121998"
+      },
+      "posLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "ambassador"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1920-01-01T00:00:00Z"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1890-01-01T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q387161"
+      },
+      "personLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Nikolaos Deligiannis"
+      },
+      "personLabelEl" : {
+        "xml:lang" : "el",
+        "type" : "literal",
+        "value" : "Νικόλαος Δηλιγιάννης του Πέτρου"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q33132880"
+      },
+      "posLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "ambassador of Greece to France"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1885-01-01T00:00:00Z"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1845-01-01T00:00:00Z"
+      },
+      "endDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1893-01-01T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q387161"
+      },
+      "personLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Nikolaos Deligiannis"
+      },
+      "personLabelEl" : {
+        "xml:lang" : "el",
+        "type" : "literal",
+        "value" : "Νικόλαος Δηλιγιάννης του Πέτρου"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q112729717"
+      },
+      "posLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "ambassador of Greece to Serbia"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1881-01-01T00:00:00Z"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1845-01-01T00:00:00Z"
+      },
+      "endDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1885-01-01T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1389266"
+      },
+      "personLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Alexandros Rizos Rangavis"
+      },
+      "personLabelEl" : {
+        "xml:lang" : "el",
+        "type" : "literal",
+        "value" : "Αλέξανδρος Ρίζος Ραγκαβής"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q33132880"
+      },
+      "posLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "ambassador of Greece to France"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1868-01-01T00:00:00Z"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1809-12-27T00:00:00Z"
+      },
+      "endDate" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/.well-known/genid/4350058eecbb3f2179be792b83ec0b04"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1389266"
+      },
+      "personLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Alexandros Rizos Rangavis"
+      },
+      "personLabelEl" : {
+        "xml:lang" : "el",
+        "type" : "literal",
+        "value" : "Αλέξανδρος Ρίζος Ραγκαβής"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q67365660"
+      },
+      "posLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "ambassador of Greece to the United States"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1867-01-01T00:00:00Z"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1809-12-27T00:00:00Z"
+      },
+      "endDate" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/.well-known/genid/f2a58f1532b5f9d5a1e0e6abf1f1d326"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q471319"
+      },
+      "personLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Theodoros Deligiannis"
+      },
+      "personLabelEl" : {
+        "xml:lang" : "el",
+        "type" : "literal",
+        "value" : "Θεόδωρος Δηλιγιάννης"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q33132880"
+      },
+      "posLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "ambassador of Greece to France"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1867-01-01T00:00:00Z"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1820-01-14T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q708041"
+      },
+      "personLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Dimitrios Kallergis"
+      },
+      "personLabelEl" : {
+        "xml:lang" : "el",
+        "type" : "literal",
+        "value" : "Δημήτριος Καλλέργης"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q67365660"
+      },
+      "posLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "ambassador of Greece to the United States"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1867-01-01T00:00:00Z"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1803-01-01T00:00:00Z"
+      },
+      "endDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1867-04-08T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q367672"
+      },
+      "personLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Georgios Streit"
+      },
+      "personLabelEl" : {
+        "xml:lang" : "el",
+        "type" : "literal",
+        "value" : "Γεώργιος Στρέιτ"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q121998"
+      },
+      "posLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "ambassador"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1868-10-07T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q390410"
+      },
+      "personLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Agamemnon Schliemann"
+      },
+      "personLabelEl" : {
+        "xml:lang" : "el",
+        "type" : "literal",
+        "value" : "Αγαμέμνων Σλήμαν"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q67365660"
+      },
+      "posLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "ambassador of Greece to the United States"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1878-03-16T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q165823"
+      },
+      "personLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Giorgos Seferis"
+      },
+      "personLabelEl" : {
+        "xml:lang" : "el",
+        "type" : "literal",
+        "value" : "Γιώργος Σεφέρης"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q121998"
+      },
+      "posLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "ambassador"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1900-03-13T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q959554"
+      },
+      "personLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Stefanos Skouloudis"
+      },
+      "personLabelEl" : {
+        "xml:lang" : "el",
+        "type" : "literal",
+        "value" : "Στέφανος Σκουλούδης"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q121998"
+      },
+      "posLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "ambassador"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1838-11-23T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q960748"
+      },
+      "personLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Pavlos Apostolidis"
+      },
+      "personLabelEl" : {
+        "xml:lang" : "el",
+        "type" : "literal",
+        "value" : "Παύλος Αποστολίδης"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q65971434"
+      },
+      "posLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "ambassador of Greece to Yemen"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1942-01-01T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q960748"
+      },
+      "personLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Pavlos Apostolidis"
+      },
+      "personLabelEl" : {
+        "xml:lang" : "el",
+        "type" : "literal",
+        "value" : "Παύλος Αποστολίδης"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q65971414"
+      },
+      "posLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "ambassador of Greece to Saudi Arabia"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1942-01-01T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q960748"
+      },
+      "personLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Pavlos Apostolidis"
+      },
+      "personLabelEl" : {
+        "xml:lang" : "el",
+        "type" : "literal",
+        "value" : "Παύλος Αποστολίδης"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q65971332"
+      },
+      "posLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "ambassador of Greece to Cyprus"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1942-01-01T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q960748"
+      },
+      "personLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Pavlos Apostolidis"
+      },
+      "personLabelEl" : {
+        "xml:lang" : "el",
+        "type" : "literal",
+        "value" : "Παύλος Αποστολίδης"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q65971453"
+      },
+      "posLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "ambassador of Greece to Oman"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1942-01-01T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q974438"
+      },
+      "personLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Thrasyvoulos Tsakalotos"
+      },
+      "personLabelEl" : {
+        "xml:lang" : "el",
+        "type" : "literal",
+        "value" : "Θρασύβουλος Τσακαλώτος"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q121998"
+      },
+      "posLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "ambassador"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1897-04-03T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1230002"
+      },
+      "personLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Nikolaos Politis"
+      },
+      "personLabelEl" : {
+        "xml:lang" : "el",
+        "type" : "literal",
+        "value" : "Νικόλαος Πολίτης"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q112729891"
+      },
+      "posLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "ambassador of Greece to Belgium"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1872-01-01T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q12277611"
+      },
+      "personLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Danae-Magdalini Koumanakou"
+      },
+      "personLabelEl" : {
+        "xml:lang" : "el",
+        "type" : "literal",
+        "value" : "Δανάη Μαγδαληνή Κουμανάκου"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q125498121"
+      },
+      "posLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "ambassador of Greece to Bulgaria"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1954-01-01T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q12277611"
+      },
+      "personLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Danae-Magdalini Koumanakou"
+      },
+      "personLabelEl" : {
+        "xml:lang" : "el",
+        "type" : "literal",
+        "value" : "Δανάη Μαγδαληνή Κουμανάκου"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q65971104"
+      },
+      "posLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "ambassador of Greece to  Russia"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1954-01-01T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q12885200"
+      },
+      "personLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Tatsis Magginas"
+      },
+      "personLabelEl" : {
+        "xml:lang" : "el",
+        "type" : "literal",
+        "value" : "Τάτσης Μαγγίνας"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q121998"
+      },
+      "posLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "ambassador"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1792-01-01T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q16301859"
+      },
+      "personLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Georgios Papadopoulos"
+      },
+      "personLabelEl" : {
+        "xml:lang" : "el",
+        "type" : "literal",
+        "value" : "Γεώργιος Παπαδόπουλος"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q121998"
+      },
+      "posLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "ambassador"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1954-01-01T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q16332665"
+      },
+      "personLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Periklis Skeferis"
+      },
+      "personLabelEl" : {
+        "xml:lang" : "el",
+        "type" : "literal",
+        "value" : "Περικλής Σκέφερις"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q29971890"
+      },
+      "posLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "ambassador to Albania"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1884-03-13T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q16332665"
+      },
+      "personLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Periklis Skeferis"
+      },
+      "personLabelEl" : {
+        "xml:lang" : "el",
+        "type" : "literal",
+        "value" : "Περικλής Σκέφερις"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q30056302"
+      },
+      "posLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "ambassador to Egypt"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1884-03-13T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q16332665"
+      },
+      "personLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Periklis Skeferis"
+      },
+      "personLabelEl" : {
+        "xml:lang" : "el",
+        "type" : "literal",
+        "value" : "Περικλής Σκέφερις"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q30056294"
+      },
+      "posLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "ambassador to Romania"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1884-03-13T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q16332665"
+      },
+      "personLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Periklis Skeferis"
+      },
+      "personLabelEl" : {
+        "xml:lang" : "el",
+        "type" : "literal",
+        "value" : "Περικλής Σκέφερις"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q28038722"
+      },
+      "posLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "ambassador to Turkey"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1884-03-13T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q16512455"
+      },
+      "personLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Alexis Liatis"
+      },
+      "personLabelEl" : {
+        "xml:lang" : "el",
+        "type" : "literal",
+        "value" : "Αλέξης Λιάτης"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q67365660"
+      },
+      "posLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "ambassador of Greece to the United States"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1908-03-18T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q16669469"
+      },
+      "personLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Peppo Mallah"
+      },
+      "personLabelEl" : {
+        "xml:lang" : "el",
+        "type" : "literal",
+        "value" : "Ιωσήφ Μαλλάχ"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q96241063"
+      },
+      "posLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "ambassador of Greece to Israel"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1889-03-12T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q19822809"
+      },
+      "personLabel" : {
+        "xml:lang" : "el",
+        "type" : "literal",
+        "value" : "Φαίδων Άννινος Καβαλιεράτος"
+      },
+      "personLabelEl" : {
+        "xml:lang" : "el",
+        "type" : "literal",
+        "value" : "Φαίδων Άννινος Καβαλιεράτος"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q33132880"
+      },
+      "posLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "ambassador of Greece to France"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1912-03-20T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q30608019"
+      },
+      "personLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Iakovos Argyropoulos"
+      },
+      "personLabelEl" : {
+        "xml:lang" : "el",
+        "type" : "literal",
+        "value" : "Ιάκωβος Αργυρόπουλος"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q112729717"
+      },
+      "posLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "ambassador of Greece to Serbia"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1845-01-01T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q67256585"
+      },
+      "personLabel" : {
+        "xml:lang" : "el",
+        "type" : "literal",
+        "value" : "Γεώργιος Χριστόπουλος"
+      },
+      "personLabelEl" : {
+        "xml:lang" : "el",
+        "type" : "literal",
+        "value" : "Γεώργιος Χριστόπουλος"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q65971104"
+      },
+      "posLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "ambassador of Greece to  Russia"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q67256585"
+      },
+      "personLabel" : {
+        "xml:lang" : "el",
+        "type" : "literal",
+        "value" : "Γεώργιος Χριστόπουλος"
+      },
+      "personLabelEl" : {
+        "xml:lang" : "el",
+        "type" : "literal",
+        "value" : "Γεώργιος Χριστόπουλος"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q67257307"
+      },
+      "posLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "ambassador of Greece to Turkey"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q67256585"
+      },
+      "personLabel" : {
+        "xml:lang" : "el",
+        "type" : "literal",
+        "value" : "Γεώργιος Χριστόπουλος"
+      },
+      "personLabelEl" : {
+        "xml:lang" : "el",
+        "type" : "literal",
+        "value" : "Γεώργιος Χριστόπουλος"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q33132880"
+      },
+      "posLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "ambassador of Greece to France"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q189139"
+      },
+      "personLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Ioannis Metaxas"
+      },
+      "personLabelEl" : {
+        "xml:lang" : "el",
+        "type" : "literal",
+        "value" : "Ιωάννης Μεταξάς"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q121998"
+      },
+      "posLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "ambassador"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1871-04-12T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q220430"
+      },
+      "personLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Ioannis Kapodistrias"
+      },
+      "personLabelEl" : {
+        "xml:lang" : "el",
+        "type" : "literal",
+        "value" : "Ιωάννης Α. Καποδίστριας"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q110634640"
+      },
+      "posLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "ambassador of the Russian Empire"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1776-02-10T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q499559"
+      },
+      "personLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Andreas Metaxas"
+      },
+      "personLabelEl" : {
+        "xml:lang" : "el",
+        "type" : "literal",
+        "value" : "Ανδρέας Π. Μεταξάς"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q121998"
+      },
+      "posLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "ambassador"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1790-01-01T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q499559"
+      },
+      "personLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Andreas Metaxas"
+      },
+      "personLabelEl" : {
+        "xml:lang" : "el",
+        "type" : "literal",
+        "value" : "Ανδρέας Π. Μεταξάς"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q121998"
+      },
+      "posLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "ambassador"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1786-01-01T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q708041"
+      },
+      "personLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Dimitrios Kallergis"
+      },
+      "personLabelEl" : {
+        "xml:lang" : "el",
+        "type" : "literal",
+        "value" : "Δημήτριος Καλλέργης"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q33132880"
+      },
+      "posLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "ambassador of Greece to France"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1803-01-01T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q140562906"
+      },
+      "personLabel" : {
+        "type" : "literal",
+        "value" : "Q140562906"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q98822266"
+      },
+      "posLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "ambassador of Greece to Italy"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1957-01-01T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q140625157"
+      },
+      "personLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Antonis Alexandridis"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q33132880"
+      },
+      "posLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "ambassador of Greece to France"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1969-09-15T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q140625157"
+      },
+      "personLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Antonis Alexandridis"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q67365660"
+      },
+      "posLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "ambassador of Greece to the United States"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1969-09-15T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q140628574"
+      },
+      "personLabel" : {
+        "type" : "literal",
+        "value" : "Q140628574"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q67365660"
+      },
+      "posLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "ambassador of Greece to the United States"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1954-01-01T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q140889671"
+      },
+      "personLabel" : {
+        "type" : "literal",
+        "value" : "Q140889671"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q96103228"
+      },
+      "posLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "ambassador of Greece to the United Kingdom"
+      },
+      "birthDate" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/.well-known/genid/f79f93011ff109f193ec9eaaedcf9f90"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q67365613"
+      },
+      "personLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Constantine Panayotacos"
+      },
+      "personLabelEl" : {
+        "xml:lang" : "el",
+        "type" : "literal",
+        "value" : "Κωνσταντίνος Παναγιωτάκος"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q67365660"
+      },
+      "posLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "ambassador of Greece to the United States"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q118691997"
+      },
+      "personLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Vasilis Kaskarelis"
+      },
+      "personLabelEl" : {
+        "xml:lang" : "el",
+        "type" : "literal",
+        "value" : "Βασίλης Κασκαρέλης"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q67365660"
+      },
+      "posLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "ambassador of Greece to the United States"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q123475067"
+      },
+      "personLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Christos Kapodistrias"
+      },
+      "personLabelEl" : {
+        "xml:lang" : "el",
+        "type" : "literal",
+        "value" : "Χρηστοσ Καποδιστριασ"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q30161199"
+      },
+      "posLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "ambassador of Greece"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1965-03-15T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q131940878"
+      },
+      "personLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Pantelis Alexandros Dimitrakopoulos"
+      },
+      "personLabelEl" : {
+        "xml:lang" : "el",
+        "type" : "literal",
+        "value" : "Παντελής Αλέξανδρος Δημητρακόπουλος"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q29917636"
+      },
+      "posLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "ambassador to Ukraine"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1972-02-21T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q131940878"
+      },
+      "personLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Pantelis Alexandros Dimitrakopoulos"
+      },
+      "personLabelEl" : {
+        "xml:lang" : "el",
+        "type" : "literal",
+        "value" : "Παντελής Αλέξανδρος Δημητρακόπουλος"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q30161199"
+      },
+      "posLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "ambassador of Greece"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1972-02-21T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q134888481"
+      },
+      "personLabel" : {
+        "xml:lang" : "el",
+        "type" : "literal",
+        "value" : "Μιχάλης Δούντας"
+      },
+      "personLabelEl" : {
+        "xml:lang" : "el",
+        "type" : "literal",
+        "value" : "Μιχάλης Δούντας"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q134888500"
+      },
+      "posLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "ambassador of Greece to Norway"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1932-12-04T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q134888481"
+      },
+      "personLabel" : {
+        "xml:lang" : "el",
+        "type" : "literal",
+        "value" : "Μιχάλης Δούντας"
+      },
+      "personLabelEl" : {
+        "xml:lang" : "el",
+        "type" : "literal",
+        "value" : "Μιχάλης Δούντας"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q65971332"
+      },
+      "posLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "ambassador of Greece to Cyprus"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1932-12-04T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q134888481"
+      },
+      "personLabel" : {
+        "xml:lang" : "el",
+        "type" : "literal",
+        "value" : "Μιχάλης Δούντας"
+      },
+      "personLabelEl" : {
+        "xml:lang" : "el",
+        "type" : "literal",
+        "value" : "Μιχάλης Δούντας"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q7888495"
+      },
+      "posLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Permanent Representative to the United Nations"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1932-12-04T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q141181104"
+      },
+      "personLabel" : {
+        "xml:lang" : "el",
+        "type" : "literal",
+        "value" : "Μιχάλης Ρόκας"
+      },
+      "personLabelEl" : {
+        "xml:lang" : "el",
+        "type" : "literal",
+        "value" : "Μιχάλης Ρόκας"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2092585"
+      },
+      "posLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "ambassador of the European Union"
+      }
+    } ]
+  }
+}
