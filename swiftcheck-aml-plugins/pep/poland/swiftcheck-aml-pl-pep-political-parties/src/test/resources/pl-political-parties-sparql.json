@@ -1,0 +1,455 @@
+{
+  "head" : {
+    "vars" : [ "party", "partyLabel", "leader", "leaderLabel", "birth", "gender", "start", "end" ]
+  },
+  "results" : {
+    "bindings" : [ {
+      "party" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q61568052"
+      },
+      "leader" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q5423758"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1982-06-13T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "partyLabel" : {
+        "xml:lang" : "pl",
+        "type" : "literal",
+        "value" : "Konfederacja Wolność i Niepodległość"
+      },
+      "leaderLabel" : {
+        "xml:lang" : "pl",
+        "type" : "literal",
+        "value" : "Krzysztof Bosak"
+      }
+    }, {
+      "party" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q107418166"
+      },
+      "leader" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q174491"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1976-04-13T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "partyLabel" : {
+        "xml:lang" : "pl",
+        "type" : "literal",
+        "value" : "Nowa Lewica"
+      },
+      "leaderLabel" : {
+        "xml:lang" : "pl",
+        "type" : "literal",
+        "value" : "Robert Biedroń"
+      }
+    }, {
+      "party" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q107418166"
+      },
+      "leader" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q9382607"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1960-05-03T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "partyLabel" : {
+        "xml:lang" : "pl",
+        "type" : "literal",
+        "value" : "Nowa Lewica"
+      },
+      "leaderLabel" : {
+        "xml:lang" : "pl",
+        "type" : "literal",
+        "value" : "Włodzimierz Czarzasty"
+      }
+    }, {
+      "party" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q61568052"
+      },
+      "leader" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q64686653"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1986-11-20T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "partyLabel" : {
+        "xml:lang" : "pl",
+        "type" : "literal",
+        "value" : "Konfederacja Wolność i Niepodległość"
+      },
+      "leaderLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Sławomir Mentzen"
+      }
+    }, {
+      "party" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q16597751"
+      },
+      "leader" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q19269610"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1985-07-18T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "partyLabel" : {
+        "xml:lang" : "pl",
+        "type" : "literal",
+        "value" : "Ruch Narodowy"
+      },
+      "leaderLabel" : {
+        "xml:lang" : "pl",
+        "type" : "literal",
+        "value" : "Robert Winnicki"
+      }
+    }, {
+      "party" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q100979832"
+      },
+      "leader" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q11778888"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1968-04-15T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "partyLabel" : {
+        "xml:lang" : "pl",
+        "type" : "literal",
+        "value" : "Polska 2050"
+      },
+      "leaderLabel" : {
+        "xml:lang" : "pl",
+        "type" : "literal",
+        "value" : "Michał Kobosko"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2020-01-01T00:00:00Z"
+      }
+    }, {
+      "party" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1337891"
+      },
+      "leader" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q11813593"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1985-05-11T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "partyLabel" : {
+        "xml:lang" : "pl",
+        "type" : "literal",
+        "value" : "Suwerenna Polska"
+      },
+      "leaderLabel" : {
+        "xml:lang" : "pl",
+        "type" : "literal",
+        "value" : "Patryk Jaki"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2023-01-01T00:00:00Z"
+      },
+      "end" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2024-01-01T00:00:00Z"
+      }
+    }, {
+      "party" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1337891"
+      },
+      "leader" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q159472"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1970-08-18T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "partyLabel" : {
+        "xml:lang" : "pl",
+        "type" : "literal",
+        "value" : "Suwerenna Polska"
+      },
+      "leaderLabel" : {
+        "xml:lang" : "pl",
+        "type" : "literal",
+        "value" : "Zbigniew Ziobro"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2012-01-01T00:00:00Z"
+      },
+      "end" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2023-01-01T00:00:00Z"
+      }
+    }, {
+      "party" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q21006495"
+      },
+      "leader" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q131380037"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1992-06-25T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581072"
+      },
+      "partyLabel" : {
+        "xml:lang" : "pl",
+        "type" : "literal",
+        "value" : "Partia Razem"
+      },
+      "leaderLabel" : {
+        "xml:lang" : "pl",
+        "type" : "literal",
+        "value" : "Aleksandra Owca"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2024-12-03T00:00:00Z"
+      }
+    }, {
+      "party" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q21006495"
+      },
+      "leader" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q21157896"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1979-12-04T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "partyLabel" : {
+        "xml:lang" : "pl",
+        "type" : "literal",
+        "value" : "Partia Razem"
+      },
+      "leaderLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Adrian Zandberg"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2022-11-27T00:00:00Z"
+      }
+    }, {
+      "party" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q156874"
+      },
+      "leader" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q55917"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1949-06-18T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "partyLabel" : {
+        "xml:lang" : "pl",
+        "type" : "literal",
+        "value" : "Prawo i Sprawiedliwość"
+      },
+      "leaderLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Jarosław Kaczyński"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2003-01-18T00:00:00Z"
+      }
+    }, {
+      "party" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q156868"
+      },
+      "leader" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q946"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1957-04-22T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "partyLabel" : {
+        "xml:lang" : "pl",
+        "type" : "literal",
+        "value" : "Platforma Obywatelska"
+      },
+      "leaderLabel" : {
+        "xml:lang" : "pl",
+        "type" : "literal",
+        "value" : "Donald Tusk"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2021-07-03T00:00:00Z"
+      }
+    }, {
+      "party" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q100979832"
+      },
+      "leader" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q9352644"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1976-09-03T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "partyLabel" : {
+        "xml:lang" : "pl",
+        "type" : "literal",
+        "value" : "Polska 2050"
+      },
+      "leaderLabel" : {
+        "xml:lang" : "pl",
+        "type" : "literal",
+        "value" : "Szymon Hołownia"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2020-01-01T00:00:00Z"
+      }
+    }, {
+      "party" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q218477"
+      },
+      "leader" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1374797"
+      },
+      "birth" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1981-08-10T00:00:00Z"
+      },
+      "gender" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6581097"
+      },
+      "partyLabel" : {
+        "xml:lang" : "pl",
+        "type" : "literal",
+        "value" : "Polskie Stronnictwo Ludowe"
+      },
+      "leaderLabel" : {
+        "xml:lang" : "pl",
+        "type" : "literal",
+        "value" : "Władysław Kosiniak-Kamysz"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2015-11-07T00:00:00Z"
+      }
+    } ]
+  }
+}
