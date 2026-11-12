@@ -1,0 +1,744 @@
+{
+  "head" : {
+    "vars" : [ "person", "personLabel", "personLabelEl", "pos", "posLabel", "startDate", "endDate", "birthDate" ]
+  },
+  "results" : {
+    "bindings" : [ {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q20995518"
+      },
+      "personLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Konstantinos Tasoulas"
+      },
+      "personLabelEl" : {
+        "xml:lang" : "el",
+        "type" : "literal",
+        "value" : "Κωνσταντίνος Τασούλας"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3409203"
+      },
+      "posLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "President of Greece"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2025-03-13T00:00:00Z"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1959-07-17T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q57415743"
+      },
+      "personLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Katerina Sakellaropoulou"
+      },
+      "personLabelEl" : {
+        "xml:lang" : "el",
+        "type" : "literal",
+        "value" : "Κατερίνα Σακελλαροπούλου"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3409203"
+      },
+      "posLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "President of Greece"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2020-03-13T00:00:00Z"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1956-05-30T00:00:00Z"
+      },
+      "endDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2025-03-13T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3407316"
+      },
+      "personLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Prokopis Pavlopoulos"
+      },
+      "personLabelEl" : {
+        "xml:lang" : "el",
+        "type" : "literal",
+        "value" : "Προκόπης Παυλόπουλος"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3409203"
+      },
+      "posLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "President of Greece"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2015-03-13T00:00:00Z"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1950-07-10T00:00:00Z"
+      },
+      "endDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2020-03-13T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q57303"
+      },
+      "personLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Karolos Papoulias"
+      },
+      "personLabelEl" : {
+        "xml:lang" : "el",
+        "type" : "literal",
+        "value" : "Κάρολος Παπούλιας"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3409203"
+      },
+      "posLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "President of Greece"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2005-03-21T00:00:00Z"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1929-06-04T00:00:00Z"
+      },
+      "endDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2015-03-13T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q206421"
+      },
+      "personLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Konstantinos Stephanopoulos"
+      },
+      "personLabelEl" : {
+        "xml:lang" : "el",
+        "type" : "literal",
+        "value" : "Κωστής Στεφανόπουλος"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3409203"
+      },
+      "posLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "President of Greece"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1995-03-10T00:00:00Z"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1926-08-15T00:00:00Z"
+      },
+      "endDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2005-03-12T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q156806"
+      },
+      "personLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Konstantinos Karamanlis"
+      },
+      "personLabelEl" : {
+        "xml:lang" : "el",
+        "type" : "literal",
+        "value" : "Κωνσταντίνος Καραμανλής"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3409203"
+      },
+      "posLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "President of Greece"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1990-05-05T00:00:00Z"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1907-03-21T00:00:00Z"
+      },
+      "endDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1995-03-10T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q344729"
+      },
+      "personLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Christos Sartzetakis"
+      },
+      "personLabelEl" : {
+        "xml:lang" : "el",
+        "type" : "literal",
+        "value" : "Χρήστος Σαρτζετάκης"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3409203"
+      },
+      "posLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "President of Greece"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1985-03-29T00:00:00Z"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1929-04-06T00:00:00Z"
+      },
+      "endDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1990-05-05T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q156806"
+      },
+      "personLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Konstantinos Karamanlis"
+      },
+      "personLabelEl" : {
+        "xml:lang" : "el",
+        "type" : "literal",
+        "value" : "Κωνσταντίνος Καραμανλής"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3409203"
+      },
+      "posLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "President of Greece"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1980-05-10T00:00:00Z"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1907-03-21T00:00:00Z"
+      },
+      "endDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1985-03-10T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q365209"
+      },
+      "personLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Konstantinos Tsatsos"
+      },
+      "personLabelEl" : {
+        "xml:lang" : "el",
+        "type" : "literal",
+        "value" : "Κωνσταντίνος Τσάτσος"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3409203"
+      },
+      "posLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "President of Greece"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1975-07-19T00:00:00Z"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1899-07-13T00:00:00Z"
+      },
+      "endDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1980-05-10T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q365209"
+      },
+      "personLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Konstantinos Tsatsos"
+      },
+      "personLabelEl" : {
+        "xml:lang" : "el",
+        "type" : "literal",
+        "value" : "Κωνσταντίνος Τσάτσος"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3409203"
+      },
+      "posLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "President of Greece"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1975-06-20T00:00:00Z"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1899-07-13T00:00:00Z"
+      },
+      "endDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1980-05-15T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q373532"
+      },
+      "personLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Michael Stasinopoulos"
+      },
+      "personLabelEl" : {
+        "xml:lang" : "el",
+        "type" : "literal",
+        "value" : "Μιχαήλ Στασινόπουλος"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3409203"
+      },
+      "posLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "President of Greece"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1974-12-18T00:00:00Z"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1903-08-09T00:00:00Z"
+      },
+      "endDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1975-07-19T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q365196"
+      },
+      "personLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Phaedon Gizikis"
+      },
+      "personLabelEl" : {
+        "xml:lang" : "el",
+        "type" : "literal",
+        "value" : "Φαίδων Γκιζίκης"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3409203"
+      },
+      "posLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "President of Greece"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1973-11-25T00:00:00Z"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1917-06-16T00:00:00Z"
+      },
+      "endDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1974-12-17T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q156505"
+      },
+      "personLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Georgios Papadopoulos"
+      },
+      "personLabelEl" : {
+        "xml:lang" : "el",
+        "type" : "literal",
+        "value" : "Γεώργιος Παπαδόπουλος"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3409203"
+      },
+      "posLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "President of Greece"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1973-06-01T00:00:00Z"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1919-05-05T00:00:00Z"
+      },
+      "endDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1973-11-25T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q332096"
+      },
+      "personLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Alexandros Zaimis"
+      },
+      "personLabelEl" : {
+        "xml:lang" : "el",
+        "type" : "literal",
+        "value" : "Αλέξανδρος Ζαΐμης"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3409203"
+      },
+      "posLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "President of Greece"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1929-01-01T00:00:00Z"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1855-11-21T00:00:00Z"
+      },
+      "endDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1935-01-01T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q374655"
+      },
+      "personLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Pavlos Kountouriotis"
+      },
+      "personLabelEl" : {
+        "xml:lang" : "el",
+        "type" : "literal",
+        "value" : "Παύλος Κουντουριώτης"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3409203"
+      },
+      "posLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "President of Greece"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1926-08-22T00:00:00Z"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1855-04-21T00:00:00Z"
+      },
+      "endDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1929-12-10T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q374655"
+      },
+      "personLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Pavlos Kountouriotis"
+      },
+      "personLabelEl" : {
+        "xml:lang" : "el",
+        "type" : "literal",
+        "value" : "Παύλος Κουντουριώτης"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3409203"
+      },
+      "posLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "President of Greece"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1926-08-22T00:00:00Z"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1854-01-01T00:00:00Z"
+      },
+      "endDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1929-12-10T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q515693"
+      },
+      "personLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Theodoros Pangalos"
+      },
+      "personLabelEl" : {
+        "xml:lang" : "el",
+        "type" : "literal",
+        "value" : "Θεόδωρος Δ. Πάγκαλος"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3409203"
+      },
+      "posLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "President of Greece"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1926-07-19T00:00:00Z"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1878-01-11T00:00:00Z"
+      },
+      "endDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1926-08-22T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q374655"
+      },
+      "personLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Pavlos Kountouriotis"
+      },
+      "personLabelEl" : {
+        "xml:lang" : "el",
+        "type" : "literal",
+        "value" : "Παύλος Κουντουριώτης"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3409203"
+      },
+      "posLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "President of Greece"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1924-03-25T00:00:00Z"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1855-04-21T00:00:00Z"
+      },
+      "endDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1926-04-06T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q374655"
+      },
+      "personLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Pavlos Kountouriotis"
+      },
+      "personLabelEl" : {
+        "xml:lang" : "el",
+        "type" : "literal",
+        "value" : "Παύλος Κουντουριώτης"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3409203"
+      },
+      "posLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "President of Greece"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1924-03-25T00:00:00Z"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1854-01-01T00:00:00Z"
+      },
+      "endDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1926-04-06T00:00:00Z"
+      }
+    } ]
+  }
+}
