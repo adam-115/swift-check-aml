@@ -26,6 +26,8 @@ class BePepRegionalGovernmentsParserTest {
         copyResource("vlaanderen.html", tempDir.resolve("vlaanderen.html"));
         copyResource("cfwb.html", tempDir.resolve("cfwb.html"));
         copyResource("ostbelgien.html", tempDir.resolve("ostbelgien.html"));
+        copyResource("wallonie.html", tempDir.resolve("wallonie.html"));
+        copyResource("bruxelles.html", tempDir.resolve("bruxelles.html"));
 
         BePepRegionalGovernmentsParser parser = new BePepRegionalGovernmentsParser();
         FtmDatasetBuilder dataset = new FtmDatasetBuilder(
