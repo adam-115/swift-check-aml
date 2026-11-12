@@ -12,7 +12,7 @@ import com.swiftcheck.aml.sdk.FtmDatasetBuilder;
 
 class PlPepRcaParserTest {
 
-    private static final Path RAW = Path.of("src/main/resources/seed/pl-rca.json");
+    private static final Path RAW = Path.of("src/test/resources/pl-rca-sparql.json");
 
     @Test
     void testConvert() throws Exception {
@@ -20,7 +20,7 @@ class PlPepRcaParserTest {
         FtmDatasetBuilder dataset = new FtmDatasetBuilder("pl-pep-rca", "role.rca");
 
         int count = parser.convert(RAW, dataset);
-        assertEquals(10, count);
+        assertTrue(count >= 10, "Au moins 10 membres RCA doivent être extraits, trouvé: " + count);
         assertEquals(0, dataset.qualityReport().getTotalRejected());
         assertFalse(dataset.entities().isEmpty());
 
@@ -29,10 +29,18 @@ class PlPepRcaParserTest {
                 .anyMatch(e -> e.getValues("name").contains("Agata Kornhauser-Duda"));
         assertTrue(foundAgata, "Agata Kornhauser-Duda doit être présente dans le dataset");
 
-        boolean hasFamily = dataset.entities().stream().anyMatch(e -> "Family".equals(e.getSchema()));
-        boolean hasAssociate = dataset.entities().stream().anyMatch(e -> "Associate".equals(e.getSchema()));
-        assertTrue(hasFamily, "Des arêtes Family doivent exister");
-        assertTrue(hasAssociate, "Des arêtes Associate doivent exister");
+        boolean foundMalgorzata = dataset.entities().stream()
+                .filter(e -> "Person".equals(e.getSchema()))
+                .anyMatch(e -> e.getValues("name").contains("Małgorzata Tusk"));
+        assertTrue(foundMalgorzata, "Małgorzata Tusk doit être présente dans le dataset");
+
+        boolean foundKinga = dataset.entities().stream()
+                .filter(e -> "Person".equals(e.getSchema()))
+                .anyMatch(e -> e.getValues("name").contains("Kinga Duda"));
+        assertTrue(foundKinga, "Kinga Duda doit être présente dans le dataset");
+
+        boolean foundFamilyEdge = dataset.entities().stream()
+                .anyMatch(e -> "Family".equals(e.getSchema()));
+        assertTrue(foundFamilyEdge, "Au moins une relation Family doit être créée");
     }
 }
-

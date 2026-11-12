@@ -1,0 +1,900 @@
+{
+  "head" : {
+    "vars" : [ "pep", "pepLabel", "rca", "rcaLabel", "rel", "birthDate" ]
+  },
+  "results" : {
+    "bindings" : [ {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q9151911"
+      },
+      "pepLabel" : {
+        "xml:lang" : "mul",
+        "type" : "literal",
+        "value" : "Andrzej Duda"
+      },
+      "rca" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q28371905"
+      },
+      "rcaLabel" : {
+        "xml:lang" : "pl",
+        "type" : "literal",
+        "value" : "Kinga Duda"
+      },
+      "rel" : {
+        "type" : "literal",
+        "value" : "child"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1995-11-21T00:00:00Z"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q9151911"
+      },
+      "pepLabel" : {
+        "xml:lang" : "mul",
+        "type" : "literal",
+        "value" : "Andrzej Duda"
+      },
+      "rca" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q20021230"
+      },
+      "rcaLabel" : {
+        "xml:lang" : "pl",
+        "type" : "literal",
+        "value" : "Jan Duda"
+      },
+      "rel" : {
+        "type" : "literal",
+        "value" : "father"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1949-04-29T00:00:00Z"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q9151911"
+      },
+      "pepLabel" : {
+        "xml:lang" : "mul",
+        "type" : "literal",
+        "value" : "Andrzej Duda"
+      },
+      "rca" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q20021200"
+      },
+      "rcaLabel" : {
+        "xml:lang" : "pl",
+        "type" : "literal",
+        "value" : "Janina Milewska-Duda"
+      },
+      "rel" : {
+        "type" : "literal",
+        "value" : "mother"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1949-01-01T00:00:00Z"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q9151911"
+      },
+      "pepLabel" : {
+        "xml:lang" : "mul",
+        "type" : "literal",
+        "value" : "Andrzej Duda"
+      },
+      "rca" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q19991536"
+      },
+      "rcaLabel" : {
+        "xml:lang" : "pl",
+        "type" : "literal",
+        "value" : "Agata Kornhauser-Duda"
+      },
+      "rel" : {
+        "type" : "literal",
+        "value" : "spouse"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1972-04-02T00:00:00Z"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q55917"
+      },
+      "pepLabel" : {
+        "xml:lang" : "mul",
+        "type" : "literal",
+        "value" : "Jarosław Kaczyński"
+      },
+      "rca" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q328667"
+      },
+      "rcaLabel" : {
+        "xml:lang" : "pl",
+        "type" : "literal",
+        "value" : "Rajmund Kaczyński"
+      },
+      "rel" : {
+        "type" : "literal",
+        "value" : "father"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1922-09-01T00:00:00Z"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q55917"
+      },
+      "pepLabel" : {
+        "xml:lang" : "mul",
+        "type" : "literal",
+        "value" : "Jarosław Kaczyński"
+      },
+      "rca" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3266318"
+      },
+      "rcaLabel" : {
+        "xml:lang" : "pl",
+        "type" : "literal",
+        "value" : "Jadwiga Kaczyńska"
+      },
+      "rel" : {
+        "type" : "literal",
+        "value" : "mother"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1926-12-31T00:00:00Z"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q55917"
+      },
+      "pepLabel" : {
+        "xml:lang" : "mul",
+        "type" : "literal",
+        "value" : "Jarosław Kaczyński"
+      },
+      "rca" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2757"
+      },
+      "rcaLabel" : {
+        "xml:lang" : "pl",
+        "type" : "literal",
+        "value" : "Lech Kaczyński"
+      },
+      "rel" : {
+        "type" : "literal",
+        "value" : "sibling"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1949-06-18T00:00:00Z"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q55758"
+      },
+      "pepLabel" : {
+        "xml:lang" : "pl",
+        "type" : "literal",
+        "value" : "Aleksander Kwaśniewski"
+      },
+      "rca" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q9146598"
+      },
+      "rcaLabel" : {
+        "xml:lang" : "pl",
+        "type" : "literal",
+        "value" : "Aleksandra Kwaśniewska"
+      },
+      "rel" : {
+        "type" : "literal",
+        "value" : "child"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1981-02-16T00:00:00Z"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q55758"
+      },
+      "pepLabel" : {
+        "xml:lang" : "pl",
+        "type" : "literal",
+        "value" : "Aleksander Kwaśniewski"
+      },
+      "rca" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q55756"
+      },
+      "rcaLabel" : {
+        "xml:lang" : "mul",
+        "type" : "literal",
+        "value" : "Jolanta Kwaśniewska"
+      },
+      "rel" : {
+        "type" : "literal",
+        "value" : "spouse"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1955-06-03T00:00:00Z"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q946"
+      },
+      "pepLabel" : {
+        "xml:lang" : "pl",
+        "type" : "literal",
+        "value" : "Donald Tusk"
+      },
+      "rca" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q17278150"
+      },
+      "rcaLabel" : {
+        "xml:lang" : "pl",
+        "type" : "literal",
+        "value" : "Katarzyna Tusk"
+      },
+      "rel" : {
+        "type" : "literal",
+        "value" : "child"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1987-10-16T00:00:00Z"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q946"
+      },
+      "pepLabel" : {
+        "xml:lang" : "pl",
+        "type" : "literal",
+        "value" : "Donald Tusk"
+      },
+      "rca" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q17278148"
+      },
+      "rcaLabel" : {
+        "xml:lang" : "pl",
+        "type" : "literal",
+        "value" : "Michał Tusk"
+      },
+      "rel" : {
+        "type" : "literal",
+        "value" : "child"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1982-01-01T00:00:00Z"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q946"
+      },
+      "pepLabel" : {
+        "xml:lang" : "pl",
+        "type" : "literal",
+        "value" : "Donald Tusk"
+      },
+      "rca" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q17278182"
+      },
+      "rcaLabel" : {
+        "xml:lang" : "pl",
+        "type" : "literal",
+        "value" : "Donald Tusk"
+      },
+      "rel" : {
+        "type" : "literal",
+        "value" : "father"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1930-01-01T00:00:00Z"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q946"
+      },
+      "pepLabel" : {
+        "xml:lang" : "pl",
+        "type" : "literal",
+        "value" : "Donald Tusk"
+      },
+      "rca" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q17278183"
+      },
+      "rcaLabel" : {
+        "xml:lang" : "pl",
+        "type" : "literal",
+        "value" : "Ewa Tusk"
+      },
+      "rel" : {
+        "type" : "literal",
+        "value" : "mother"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1934-01-01T00:00:00Z"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q946"
+      },
+      "pepLabel" : {
+        "xml:lang" : "pl",
+        "type" : "literal",
+        "value" : "Donald Tusk"
+      },
+      "rca" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q9179919"
+      },
+      "rcaLabel" : {
+        "xml:lang" : "pl",
+        "type" : "literal",
+        "value" : "Bronisław Tusk"
+      },
+      "rel" : {
+        "type" : "literal",
+        "value" : "relative"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1935-05-23T00:00:00Z"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q946"
+      },
+      "pepLabel" : {
+        "xml:lang" : "pl",
+        "type" : "literal",
+        "value" : "Donald Tusk"
+      },
+      "rca" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q11731545"
+      },
+      "rcaLabel" : {
+        "xml:lang" : "pl",
+        "type" : "literal",
+        "value" : "Józef Tusk"
+      },
+      "rel" : {
+        "type" : "literal",
+        "value" : "relative"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1907-03-23T00:00:00Z"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q946"
+      },
+      "pepLabel" : {
+        "xml:lang" : "pl",
+        "type" : "literal",
+        "value" : "Donald Tusk"
+      },
+      "rca" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q17278133"
+      },
+      "rcaLabel" : {
+        "xml:lang" : "pl",
+        "type" : "literal",
+        "value" : "Małgorzata Tusk"
+      },
+      "rel" : {
+        "type" : "literal",
+        "value" : "spouse"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1957-01-01T00:00:00Z"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q17704749"
+      },
+      "pepLabel" : {
+        "xml:lang" : "pl",
+        "type" : "literal",
+        "value" : "Karol Nawrocki"
+      },
+      "rca" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q134728682"
+      },
+      "rcaLabel" : {
+        "xml:lang" : "pl",
+        "type" : "literal",
+        "value" : "Marta Nawrocka"
+      },
+      "rel" : {
+        "type" : "literal",
+        "value" : "spouse"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1986-03-07T00:00:00Z"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q444"
+      },
+      "pepLabel" : {
+        "xml:lang" : "pl",
+        "type" : "literal",
+        "value" : "Lech Wałęsa"
+      },
+      "rca" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q136806559"
+      },
+      "rcaLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Anna Wałęsa"
+      },
+      "rel" : {
+        "type" : "literal",
+        "value" : "child"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q444"
+      },
+      "pepLabel" : {
+        "xml:lang" : "pl",
+        "type" : "literal",
+        "value" : "Lech Wałęsa"
+      },
+      "rca" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q136806544"
+      },
+      "rcaLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Bogdan Wałęsa"
+      },
+      "rel" : {
+        "type" : "literal",
+        "value" : "child"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q444"
+      },
+      "pepLabel" : {
+        "xml:lang" : "pl",
+        "type" : "literal",
+        "value" : "Lech Wałęsa"
+      },
+      "rca" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q136806548"
+      },
+      "rcaLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Brygida Wałęsa"
+      },
+      "rel" : {
+        "type" : "literal",
+        "value" : "child"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q444"
+      },
+      "pepLabel" : {
+        "xml:lang" : "pl",
+        "type" : "literal",
+        "value" : "Lech Wałęsa"
+      },
+      "rca" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q136806566"
+      },
+      "rcaLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Magdalena Wałęsa"
+      },
+      "rel" : {
+        "type" : "literal",
+        "value" : "child"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q444"
+      },
+      "pepLabel" : {
+        "xml:lang" : "pl",
+        "type" : "literal",
+        "value" : "Lech Wałęsa"
+      },
+      "rca" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q136806552"
+      },
+      "rcaLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Maria Wiktoria Wałęsa"
+      },
+      "rel" : {
+        "type" : "literal",
+        "value" : "child"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q444"
+      },
+      "pepLabel" : {
+        "xml:lang" : "pl",
+        "type" : "literal",
+        "value" : "Lech Wałęsa"
+      },
+      "rca" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q136806511"
+      },
+      "rcaLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Przemysław Wałęsa"
+      },
+      "rel" : {
+        "type" : "literal",
+        "value" : "child"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q444"
+      },
+      "pepLabel" : {
+        "xml:lang" : "pl",
+        "type" : "literal",
+        "value" : "Lech Wałęsa"
+      },
+      "rca" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q134291869"
+      },
+      "rcaLabel" : {
+        "xml:lang" : "mul",
+        "type" : "literal",
+        "value" : "Sławomir Wałęsa"
+      },
+      "rel" : {
+        "type" : "literal",
+        "value" : "child"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1972-01-01T00:00:00Z"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q444"
+      },
+      "pepLabel" : {
+        "xml:lang" : "pl",
+        "type" : "literal",
+        "value" : "Lech Wałęsa"
+      },
+      "rca" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1392390"
+      },
+      "rcaLabel" : {
+        "xml:lang" : "pl",
+        "type" : "literal",
+        "value" : "Jarosław Wałęsa"
+      },
+      "rel" : {
+        "type" : "literal",
+        "value" : "child"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1976-09-13T00:00:00Z"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q444"
+      },
+      "pepLabel" : {
+        "xml:lang" : "pl",
+        "type" : "literal",
+        "value" : "Lech Wałęsa"
+      },
+      "rca" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q468844"
+      },
+      "rcaLabel" : {
+        "xml:lang" : "pl",
+        "type" : "literal",
+        "value" : "Danuta Wałęsa"
+      },
+      "rel" : {
+        "type" : "literal",
+        "value" : "spouse"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1949-02-25T00:00:00Z"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q11771436"
+      },
+      "pepLabel" : {
+        "xml:lang" : "pl",
+        "type" : "literal",
+        "value" : "Mateusz Morawiecki"
+      },
+      "rca" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q105627506"
+      },
+      "rcaLabel" : {
+        "xml:lang" : "mul",
+        "type" : "literal",
+        "value" : "Aleksandra Morawiecka"
+      },
+      "rel" : {
+        "type" : "literal",
+        "value" : "child"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q11771436"
+      },
+      "pepLabel" : {
+        "xml:lang" : "pl",
+        "type" : "literal",
+        "value" : "Mateusz Morawiecki"
+      },
+      "rca" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q105627563"
+      },
+      "rcaLabel" : {
+        "xml:lang" : "mul",
+        "type" : "literal",
+        "value" : "Ignacy Morawiecki"
+      },
+      "rel" : {
+        "type" : "literal",
+        "value" : "child"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q11771436"
+      },
+      "pepLabel" : {
+        "xml:lang" : "pl",
+        "type" : "literal",
+        "value" : "Mateusz Morawiecki"
+      },
+      "rca" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q105627554"
+      },
+      "rcaLabel" : {
+        "xml:lang" : "mul",
+        "type" : "literal",
+        "value" : "Jeremiah Morawiecki"
+      },
+      "rel" : {
+        "type" : "literal",
+        "value" : "child"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q11771436"
+      },
+      "pepLabel" : {
+        "xml:lang" : "pl",
+        "type" : "literal",
+        "value" : "Mateusz Morawiecki"
+      },
+      "rca" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q105627560"
+      },
+      "rcaLabel" : {
+        "xml:lang" : "mul",
+        "type" : "literal",
+        "value" : "Magdalena Morawiecka"
+      },
+      "rel" : {
+        "type" : "literal",
+        "value" : "child"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q11771436"
+      },
+      "pepLabel" : {
+        "xml:lang" : "pl",
+        "type" : "literal",
+        "value" : "Mateusz Morawiecki"
+      },
+      "rca" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q548306"
+      },
+      "rcaLabel" : {
+        "xml:lang" : "pl",
+        "type" : "literal",
+        "value" : "Kornel Morawiecki"
+      },
+      "rel" : {
+        "type" : "literal",
+        "value" : "father"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1941-05-03T00:00:00Z"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q11771436"
+      },
+      "pepLabel" : {
+        "xml:lang" : "pl",
+        "type" : "literal",
+        "value" : "Mateusz Morawiecki"
+      },
+      "rca" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q105627500"
+      },
+      "rcaLabel" : {
+        "xml:lang" : "pl",
+        "type" : "literal",
+        "value" : "Jadwiga Morawiecka"
+      },
+      "rel" : {
+        "type" : "literal",
+        "value" : "mother"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1930-05-22T00:00:00Z"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q11771436"
+      },
+      "pepLabel" : {
+        "xml:lang" : "pl",
+        "type" : "literal",
+        "value" : "Mateusz Morawiecki"
+      },
+      "rca" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q105627516"
+      },
+      "rcaLabel" : {
+        "xml:lang" : "pl",
+        "type" : "literal",
+        "value" : "Anna Morawiecka"
+      },
+      "rel" : {
+        "type" : "literal",
+        "value" : "sibling"
+      }
+    }, {
+      "pep" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q11771436"
+      },
+      "pepLabel" : {
+        "xml:lang" : "pl",
+        "type" : "literal",
+        "value" : "Mateusz Morawiecki"
+      },
+      "rca" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q45034900"
+      },
+      "rcaLabel" : {
+        "xml:lang" : "pl",
+        "type" : "literal",
+        "value" : "Iwona Morawiecka"
+      },
+      "rel" : {
+        "type" : "literal",
+        "value" : "spouse"
+      }
+    } ]
+  }
+}
