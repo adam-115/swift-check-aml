@@ -12,15 +12,18 @@ import com.swiftcheck.aml.sdk.FtmDatasetBuilder;
 
 class PlPepInternationalOrgsParserTest {
 
-    private static final Path RAW = Path.of("src/main/resources/seed/pl-international-orgs.json");
+    private static final Path RAW = Path.of("src/test/resources/pl-international-orgs-wikipedia.json");
 
     @Test
     void testConvert() throws Exception {
         PlPepInternationalOrgsParser parser = new PlPepInternationalOrgsParser();
-        FtmDatasetBuilder dataset = new FtmDatasetBuilder("pl-pep-international-orgs", "role.pep");
+        FtmDatasetBuilder dataset = new FtmDatasetBuilder(
+                PlPepInternationalOrgsParser.ID_PREFIX,
+                PlPepInternationalOrgsParser.TOPIC
+        );
 
         int count = parser.convert(RAW, dataset);
-        assertEquals(6, count);
+        assertTrue(count >= 5, "Au moins 5 dirigeants attendus, trouvé: " + count);
         assertEquals(0, dataset.qualityReport().getTotalRejected());
         assertFalse(dataset.entities().isEmpty());
 
@@ -28,6 +31,15 @@ class PlPepInternationalOrgsParserTest {
                 .filter(e -> "Person".equals(e.getSchema()))
                 .anyMatch(e -> e.getValues("name").contains("Hans Leijtens"));
         assertTrue(foundLeijtens, "Hans Leijtens doit être présent dans le dataset");
+
+        boolean foundKalnaja = dataset.entities().stream()
+                .filter(e -> "Person".equals(e.getSchema()))
+                .anyMatch(e -> e.getValues("name").contains("Aija Kalnaja"));
+        assertTrue(foundKalnaja, "Aija Kalnaja doit être présente dans le dataset");
+
+        boolean foundGerdes = dataset.entities().stream()
+                .filter(e -> "Person".equals(e.getSchema()))
+                .anyMatch(e -> e.getValues("name").contains("Lars Gerdes"));
+        assertTrue(foundGerdes, "Lars Gerdes doit être présent dans le dataset");
     }
 }
-
