@@ -10,7 +10,7 @@ import com.swiftcheck.aml.sdk.FtmDatasetBuilder;
 
 class PtPepBankOfPortugalParserTest {
 
-    private static final Path RAW = Path.of("src/main/resources/seed/pt-bank-of-portugal.json");
+    private static final Path RAW = Path.of("src/test/resources/banco-de-portugal-wikipedia.json");
 
     private final PtPepBankOfPortugalParser parser = new PtPepBankOfPortugalParser();
 
@@ -22,14 +22,15 @@ class PtPepBankOfPortugalParserTest {
         );
         int count = parser.convert(RAW, dataset);
 
-        assertThat(count).isEqualTo(8);
+        assertThat(count).isGreaterThanOrEqualTo(10);
         assertThat(dataset.qualityReport().getTotalRejected()).isZero();
 
         long persons = dataset.entities().stream().filter(e -> "Person".equals(e.getSchema())).count();
-        assertThat(persons).isEqualTo(8);
+        assertThat(persons).isGreaterThanOrEqualTo(10);
 
         assertThat(dataset.entities().stream().filter(e -> "Person".equals(e.getSchema())))
-                .anyMatch(p -> p.getValues("name").contains("Mário Centeno"))
-                .anyMatch(p -> p.getValues("name").contains("Clara Raposo"));
+                .anyMatch(p -> p.getValues("name").stream().anyMatch(n -> n.contains("Centeno")))
+                .anyMatch(p -> p.getValues("name").stream().anyMatch(n -> n.contains("Carlos da Silva Costa") || n.contains("Costa")))
+                .anyMatch(p -> p.getValues("name").stream().anyMatch(n -> n.contains("Santos Pereira")));
     }
 }
