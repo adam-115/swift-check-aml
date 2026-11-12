@@ -12,7 +12,7 @@ import com.swiftcheck.aml.sdk.FtmDatasetBuilder;
 
 class GrPepArmedForcesParserTest {
 
-    private static final Path RAW = Path.of("src/main/resources/seed/gr-armed-forces.json");
+    private static final Path RAW = Path.of("src/test/resources/gr-armed-forces-wikipedia.json");
 
     @Test
     void testConvert() throws Exception {
@@ -20,13 +20,13 @@ class GrPepArmedForcesParserTest {
         FtmDatasetBuilder dataset = new FtmDatasetBuilder(GrPepArmedForcesParser.ID_PREFIX, GrPepArmedForcesParser.TOPIC);
 
         int count = parser.convert(RAW, dataset);
-        assertTrue(count >= 4);
+        assertTrue(count >= 4, "Au moins 4 officiers généraux doivent être extraits, trouvé: " + count);
         assertEquals(0, dataset.qualityReport().getTotalRejected());
         assertFalse(dataset.entities().isEmpty());
 
         boolean foundGeneral = dataset.entities().stream()
                 .filter(e -> "Person".equals(e.getSchema()))
-                .anyMatch(e -> e.getValues("name").contains("Dimitrios Houpis"));
+                .anyMatch(e -> e.getValues("name").contains("Dimitrios Houpis") || e.getValues("name").contains("Δημήτριος Χούπης"));
         assertTrue(foundGeneral, "Dimitrios Houpis doit être présent dans le dataset");
     }
 }
