@@ -12,7 +12,7 @@ import com.swiftcheck.aml.sdk.FtmDatasetBuilder;
 
 class GrPepInternationalOrgsParserTest {
 
-    private static final Path RAW = Path.of("src/main/resources/seed/gr-international-orgs.json");
+    private static final Path RAW = Path.of("src/test/resources/gr-international-orgs-wikipedia.json");
 
     @Test
     void testConvert() throws Exception {
@@ -20,7 +20,7 @@ class GrPepInternationalOrgsParserTest {
         FtmDatasetBuilder dataset = new FtmDatasetBuilder(GrPepInternationalOrgsParser.ID_PREFIX, GrPepInternationalOrgsParser.TOPIC);
 
         int count = parser.convert(RAW, dataset);
-        assertTrue(count >= 3);
+        assertTrue(count >= 3, "Au moins 3 dirigeants attendus, obtenu : " + count);
         assertEquals(0, dataset.qualityReport().getTotalRejected());
         assertFalse(dataset.entities().isEmpty());
 
