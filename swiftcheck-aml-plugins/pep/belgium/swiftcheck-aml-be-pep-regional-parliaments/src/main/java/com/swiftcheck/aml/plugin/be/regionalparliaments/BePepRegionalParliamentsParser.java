@@ -242,14 +242,6 @@ public class BePepRegionalParliamentsParser implements Iparser {
         for (ParliamentConfig cfg : configs) {
             Path membersFile = rawDir.resolve(cfg.code() + "-members.html");
             Path bureauFile = rawDir.resolve(cfg.code() + "-bureau.html");
-            if (!Files.isRegularFile(membersFile) || Files.size(membersFile) < 50) {
-                try (InputStream is = getClass().getResourceAsStream("/seed/" + cfg.code() + "-members.html")) {
-                    if (is != null) {
-                        Files.copy(is, membersFile, java.nio.file.StandardCopyOption.REPLACE_EXISTING);
-                    }
-                } catch (Exception ignored) {
-                }
-            }
             if (!Files.isRegularFile(membersFile)) {
                 failed.add(cfg.parliamentName());
                 continue;
