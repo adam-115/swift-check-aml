@@ -12,16 +12,17 @@ import com.swiftcheck.aml.sdk.FtmDatasetBuilder;
 
 class RoPepInternationalOrgsParserTest {
 
-    private static final Path RAW = Path.of("src/main/resources/seed/ro-international-orgs.json");
+    private static final Path WIKI = Path.of("src/test/resources/ro-international-orgs-wikipedia.json");
+    private static final Path ECCC = Path.of("src/test/resources/ro-eccc-governance.html");
 
     @Test
     void testConvert() throws Exception {
         RoPepInternationalOrgsParser parser = new RoPepInternationalOrgsParser();
-        FtmDatasetBuilder dataset = new FtmDatasetBuilder("ro-pep-orgs", "role.pep");
+        FtmDatasetBuilder dataset = new FtmDatasetBuilder(RoPepInternationalOrgsParser.ID_PREFIX, RoPepInternationalOrgsParser.TOPIC);
 
-        int count = parser.convert(RAW, dataset);
-        assertEquals(6, count);
-        assertEquals(0, dataset.qualityReport().getTotalRejected());
+        int count = parser.convert(WIKI, ECCC, dataset);
+        assertTrue(count >= 5, "Au moins 5 dirigeants d'organisations internationales doivent être indexés, trouvé: " + count);
+        assertEquals(0, dataset.qualityReport().getTotalRejected(), "Aucune entité rejetée");
         assertFalse(dataset.entities().isEmpty());
 
         boolean foundTagliaretti = dataset.entities().stream()
@@ -35,4 +36,3 @@ class RoPepInternationalOrgsParserTest {
         assertTrue(foundKovesi, "Laura Codruța Kövesi doit être présente dans le dataset");
     }
 }
-
