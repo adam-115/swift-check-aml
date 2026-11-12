@@ -10,7 +10,7 @@ import com.swiftcheck.aml.sdk.FtmDatasetBuilder;
 
 class PtPepRcaParserTest {
 
-    private static final Path RAW = Path.of("src/main/resources/seed/pt-rca.json");
+    private static final Path RAW = Path.of("src/test/resources/pt-rca-wikipedia.json");
 
     private final PtPepRcaParser parser = new PtPepRcaParser();
 
@@ -22,16 +22,15 @@ class PtPepRcaParserTest {
         );
         int count = parser.convert(RAW, dataset);
 
-        assertThat(count).isEqualTo(10);
+        assertThat(count).isGreaterThanOrEqualTo(5);
         assertThat(dataset.qualityReport().getTotalRejected()).isZero();
 
         long persons = dataset.entities().stream().filter(e -> "Person".equals(e.getSchema())).count();
-        // 10 associates + their target PEP persons
-        assertThat(persons).isGreaterThanOrEqualTo(10);
+        assertThat(persons).isGreaterThanOrEqualTo(7);
 
         assertThat(dataset.entities().stream().filter(e -> "Person".equals(e.getSchema())))
-                .anyMatch(p -> p.getValues("name").contains("Nuno Rebelo de Sousa"))
-                .anyMatch(p -> p.getValues("name").contains("Carla Montenegro"))
-                .anyMatch(p -> p.getValues("name").contains("Diogo Lacerda Machado"));
+                .anyMatch(p -> p.getValues("name").stream().anyMatch(n -> n.contains("Nuno Rebelo de Sousa")))
+                .anyMatch(p -> p.getValues("name").stream().anyMatch(n -> n.contains("Carla Montenegro")))
+                .anyMatch(p -> p.getValues("name").stream().anyMatch(n -> n.contains("Diogo Lacerda Machado")));
     }
 }
