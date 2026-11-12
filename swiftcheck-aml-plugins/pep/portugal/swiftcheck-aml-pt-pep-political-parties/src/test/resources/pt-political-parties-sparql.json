@@ -1,0 +1,660 @@
+{
+  "head" : {
+    "vars" : [ "party", "partyLabel", "person", "personLabel", "prop", "propLabel", "startDate", "endDate" ]
+  },
+  "results" : {
+    "bindings" : [ {
+      "party" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q884840"
+      },
+      "partyLabel" : {
+        "xml:lang" : "pt",
+        "type" : "literal",
+        "value" : "Bloco de Esquerda"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q612666"
+      },
+      "personLabel" : {
+        "xml:lang" : "pt",
+        "type" : "literal",
+        "value" : "Catarina Martins"
+      },
+      "prop" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q82563249"
+      },
+      "propLabel" : {
+        "xml:lang" : "pt",
+        "type" : "literal",
+        "value" : "Coordenador Nacional do Bloco de Esquerda"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2012-11-11T00:00:00Z"
+      },
+      "endDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2023-05-28T00:00:00Z"
+      }
+    }, {
+      "party" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q884840"
+      },
+      "partyLabel" : {
+        "xml:lang" : "pt",
+        "type" : "literal",
+        "value" : "Bloco de Esquerda"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1442096"
+      },
+      "personLabel" : {
+        "xml:lang" : "pt",
+        "type" : "literal",
+        "value" : "Francisco LouÃ§Ã£"
+      },
+      "prop" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q82563249"
+      },
+      "propLabel" : {
+        "xml:lang" : "pt",
+        "type" : "literal",
+        "value" : "Coordenador Nacional do Bloco de Esquerda"
+      }
+    }, {
+      "party" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q884840"
+      },
+      "partyLabel" : {
+        "xml:lang" : "pt",
+        "type" : "literal",
+        "value" : "Bloco de Esquerda"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q10309889"
+      },
+      "personLabel" : {
+        "xml:lang" : "pt",
+        "type" : "literal",
+        "value" : "JosÃ© Manuel Pureza"
+      },
+      "prop" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q82563249"
+      },
+      "propLabel" : {
+        "xml:lang" : "pt",
+        "type" : "literal",
+        "value" : "Coordenador Nacional do Bloco de Esquerda"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2025-11-30T00:00:00Z"
+      }
+    }, {
+      "party" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q884840"
+      },
+      "partyLabel" : {
+        "xml:lang" : "pt",
+        "type" : "literal",
+        "value" : "Bloco de Esquerda"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q655391"
+      },
+      "personLabel" : {
+        "xml:lang" : "pt",
+        "type" : "literal",
+        "value" : "JoÃ£o Semedo"
+      },
+      "prop" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q82563249"
+      },
+      "propLabel" : {
+        "xml:lang" : "pt",
+        "type" : "literal",
+        "value" : "Coordenador Nacional do Bloco de Esquerda"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2012-01-01T00:00:00Z"
+      }
+    }, {
+      "party" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q884840"
+      },
+      "partyLabel" : {
+        "xml:lang" : "pt",
+        "type" : "literal",
+        "value" : "Bloco de Esquerda"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q17496474"
+      },
+      "personLabel" : {
+        "xml:lang" : "pt",
+        "type" : "literal",
+        "value" : "Mariana MortÃ¡gua"
+      },
+      "prop" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q82563249"
+      },
+      "propLabel" : {
+        "xml:lang" : "pt",
+        "type" : "literal",
+        "value" : "Coordenador Nacional do Bloco de Esquerda"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2023-05-28T00:00:00Z"
+      },
+      "endDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2025-11-30T00:00:00Z"
+      }
+    }, {
+      "party" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1054298"
+      },
+      "partyLabel" : {
+        "xml:lang" : "pt",
+        "type" : "literal",
+        "value" : "CDS - Partido Popular"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q10338219"
+      },
+      "personLabel" : {
+        "xml:lang" : "pt",
+        "type" : "literal",
+        "value" : "Nuno Melo"
+      },
+      "prop" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/P488"
+      },
+      "propLabel" : {
+        "xml:lang" : "pt",
+        "type" : "literal",
+        "value" : "presidente"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2022-01-26T00:00:00Z"
+      }
+    }, {
+      "party" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q63645885"
+      },
+      "partyLabel" : {
+        "xml:lang" : "pt",
+        "type" : "literal",
+        "value" : "CHEGA"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q69935603"
+      },
+      "personLabel" : {
+        "xml:lang" : "pt",
+        "type" : "literal",
+        "value" : "AndrÃ© Ventura"
+      },
+      "prop" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/P488"
+      },
+      "propLabel" : {
+        "xml:lang" : "pt",
+        "type" : "literal",
+        "value" : "presidente"
+      }
+    }, {
+      "party" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q46122950"
+      },
+      "partyLabel" : {
+        "xml:lang" : "pt",
+        "type" : "literal",
+        "value" : "Iniciativa Liberal"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q112790931"
+      },
+      "personLabel" : {
+        "xml:lang" : "mul",
+        "type" : "literal",
+        "value" : "Rui Rocha"
+      },
+      "prop" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/P488"
+      },
+      "propLabel" : {
+        "xml:lang" : "pt",
+        "type" : "literal",
+        "value" : "presidente"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2023-01-22T00:00:00Z"
+      },
+      "endDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2025-05-31T00:00:00Z"
+      }
+    }, {
+      "party" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q46122950"
+      },
+      "partyLabel" : {
+        "xml:lang" : "pt",
+        "type" : "literal",
+        "value" : "Iniciativa Liberal"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q72310730"
+      },
+      "personLabel" : {
+        "xml:lang" : "pt",
+        "type" : "literal",
+        "value" : "JoÃ£o Cotrim de Figueiredo"
+      },
+      "prop" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/P488"
+      },
+      "propLabel" : {
+        "xml:lang" : "pt",
+        "type" : "literal",
+        "value" : "presidente"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2019-12-08T00:00:00Z"
+      },
+      "endDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2023-01-22T00:00:00Z"
+      }
+    }, {
+      "party" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q46122950"
+      },
+      "partyLabel" : {
+        "xml:lang" : "pt",
+        "type" : "literal",
+        "value" : "Iniciativa Liberal"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q125448766"
+      },
+      "personLabel" : {
+        "xml:lang" : "pt",
+        "type" : "literal",
+        "value" : "Mariana LeitÃ£o"
+      },
+      "prop" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/P488"
+      },
+      "propLabel" : {
+        "xml:lang" : "pt",
+        "type" : "literal",
+        "value" : "presidente"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2025-07-19T00:00:00Z"
+      }
+    }, {
+      "party" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q769829"
+      },
+      "partyLabel" : {
+        "xml:lang" : "pt",
+        "type" : "literal",
+        "value" : "Partido Comunista PortuguÃªs"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q115099118"
+      },
+      "personLabel" : {
+        "xml:lang" : "mul",
+        "type" : "literal",
+        "value" : "Paulo Raimundo"
+      },
+      "prop" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/P3975"
+      },
+      "propLabel" : {
+        "xml:lang" : "pt",
+        "type" : "literal",
+        "value" : "secretÃ¡rio-geral"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2022-01-01T00:00:00Z"
+      }
+    }, {
+      "party" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q769829"
+      },
+      "partyLabel" : {
+        "xml:lang" : "pt",
+        "type" : "literal",
+        "value" : "Partido Comunista PortuguÃªs"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1688029"
+      },
+      "personLabel" : {
+        "xml:lang" : "pt",
+        "type" : "literal",
+        "value" : "JerÃ³nimo de Sousa"
+      },
+      "prop" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/P3975"
+      },
+      "propLabel" : {
+        "xml:lang" : "pt",
+        "type" : "literal",
+        "value" : "secretÃ¡rio-geral"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2004-01-01T00:00:00Z"
+      },
+      "endDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2022-01-01T00:00:00Z"
+      }
+    }, {
+      "party" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q595575"
+      },
+      "partyLabel" : {
+        "xml:lang" : "pt",
+        "type" : "literal",
+        "value" : "Partido Social Democrata"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q103998211"
+      },
+      "personLabel" : {
+        "xml:lang" : "pt",
+        "type" : "literal",
+        "value" : "JosÃ© Silvano"
+      },
+      "prop" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/P3975"
+      },
+      "propLabel" : {
+        "xml:lang" : "pt",
+        "type" : "literal",
+        "value" : "secretÃ¡rio-geral"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2018-03-19T00:00:00Z"
+      }
+    }, {
+      "party" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q595575"
+      },
+      "partyLabel" : {
+        "xml:lang" : "pt",
+        "type" : "literal",
+        "value" : "Partido Social Democrata"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q11764394"
+      },
+      "personLabel" : {
+        "xml:lang" : "pt",
+        "type" : "literal",
+        "value" : "LuÃ­s Montenegro"
+      },
+      "prop" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/P488"
+      },
+      "propLabel" : {
+        "xml:lang" : "pt",
+        "type" : "literal",
+        "value" : "presidente"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2022-07-01T00:00:00Z"
+      }
+    }, {
+      "party" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q595575"
+      },
+      "partyLabel" : {
+        "xml:lang" : "pt",
+        "type" : "literal",
+        "value" : "Partido Social Democrata"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q7378729"
+      },
+      "personLabel" : {
+        "xml:lang" : "pt",
+        "type" : "literal",
+        "value" : "Rui Rio"
+      },
+      "prop" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/P488"
+      },
+      "propLabel" : {
+        "xml:lang" : "pt",
+        "type" : "literal",
+        "value" : "presidente"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2018-01-13T00:00:00Z"
+      },
+      "endDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2022-07-01T00:00:00Z"
+      }
+    }, {
+      "party" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q847263"
+      },
+      "partyLabel" : {
+        "xml:lang" : "pt",
+        "type" : "literal",
+        "value" : "Partido Socialista"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q610788"
+      },
+      "personLabel" : {
+        "xml:lang" : "pt",
+        "type" : "literal",
+        "value" : "AntÃ³nio Costa"
+      },
+      "prop" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/P3975"
+      },
+      "propLabel" : {
+        "xml:lang" : "pt",
+        "type" : "literal",
+        "value" : "secretÃ¡rio-geral"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2015-11-22T00:00:00Z"
+      },
+      "endDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2023-12-16T00:00:00Z"
+      }
+    }, {
+      "party" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q847263"
+      },
+      "partyLabel" : {
+        "xml:lang" : "pt",
+        "type" : "literal",
+        "value" : "Partido Socialista"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2571494"
+      },
+      "personLabel" : {
+        "xml:lang" : "pt",
+        "type" : "literal",
+        "value" : "Carlos CÃ©sar"
+      },
+      "prop" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/P488"
+      },
+      "propLabel" : {
+        "xml:lang" : "pt",
+        "type" : "literal",
+        "value" : "presidente"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2014-01-01T00:00:00Z"
+      }
+    }, {
+      "party" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q847263"
+      },
+      "partyLabel" : {
+        "xml:lang" : "pt",
+        "type" : "literal",
+        "value" : "Partido Socialista"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q10347660"
+      },
+      "personLabel" : {
+        "xml:lang" : "pt",
+        "type" : "literal",
+        "value" : "Pedro Nuno Santos"
+      },
+      "prop" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/P3975"
+      },
+      "propLabel" : {
+        "xml:lang" : "pt",
+        "type" : "literal",
+        "value" : "secretÃ¡rio-geral"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2023-12-16T00:00:00Z"
+      }
+    }, {
+      "party" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2054840"
+      },
+      "partyLabel" : {
+        "xml:lang" : "pt",
+        "type" : "literal",
+        "value" : "Pessoasâ€“Animaisâ€“Natureza"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q84171272"
+      },
+      "personLabel" : {
+        "xml:lang" : "mul",
+        "type" : "literal",
+        "value" : "InÃªs Sousa Real"
+      },
+      "prop" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/P488"
+      },
+      "propLabel" : {
+        "xml:lang" : "pt",
+        "type" : "literal",
+        "value" : "presidente"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2021-06-06T00:00:00Z"
+      }
+    } ]
+  }
+}
