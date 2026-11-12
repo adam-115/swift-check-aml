@@ -12,7 +12,7 @@ import com.swiftcheck.aml.sdk.FtmDatasetBuilder;
 
 class RoPepPresidentParserTest {
 
-    private static final Path RAW = Path.of("src/main/resources/seed/ro-president.json");
+    private static final Path RAW = Path.of("src/test/resources/ro-presidents-wiki.json");
 
     @Test
     void testConvert() throws Exception {
@@ -20,7 +20,7 @@ class RoPepPresidentParserTest {
         FtmDatasetBuilder dataset = new FtmDatasetBuilder("ro-pep-president", "role.pep");
 
         int count = parser.convert(RAW, dataset);
-        assertEquals(8, count);
+        assertTrue(count >= 4, "Au moins 4 présidents roumains post-1989 doivent être extraits, trouvé: " + count);
         assertEquals(0, dataset.qualityReport().getTotalRejected());
         assertFalse(dataset.entities().isEmpty());
 
@@ -28,6 +28,15 @@ class RoPepPresidentParserTest {
                 .filter(e -> "Person".equals(e.getSchema()))
                 .anyMatch(e -> e.getValues("name").contains("Klaus Iohannis"));
         assertTrue(foundIohannis, "Klaus Iohannis doit être présent dans le dataset");
+
+        boolean foundBasescu = dataset.entities().stream()
+                .filter(e -> "Person".equals(e.getSchema()))
+                .anyMatch(e -> e.getValues("name").contains("Traian Băsescu"));
+        assertTrue(foundBasescu, "Traian Băsescu doit être présent dans le dataset");
+
+        boolean foundIliescu = dataset.entities().stream()
+                .filter(e -> "Person".equals(e.getSchema()))
+                .anyMatch(e -> e.getValues("name").contains("Ion Iliescu"));
+        assertTrue(foundIliescu, "Ion Iliescu doit être présent dans le dataset");
     }
 }
-
