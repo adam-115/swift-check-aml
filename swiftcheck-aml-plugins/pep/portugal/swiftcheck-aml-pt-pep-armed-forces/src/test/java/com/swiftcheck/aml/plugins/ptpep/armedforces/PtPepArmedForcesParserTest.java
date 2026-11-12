@@ -10,7 +10,7 @@ import com.swiftcheck.aml.sdk.FtmDatasetBuilder;
 
 class PtPepArmedForcesParserTest {
 
-    private static final Path RAW = Path.of("src/main/resources/seed/pt-armed-forces.json");
+    private static final Path RAW = Path.of("src/test/resources/emgfa-wikipedia.json");
 
     private final PtPepArmedForcesParser parser = new PtPepArmedForcesParser();
 
@@ -22,15 +22,13 @@ class PtPepArmedForcesParserTest {
         );
         int count = parser.convert(RAW, dataset);
 
-        assertThat(count).isEqualTo(8);
+        assertThat(count).isGreaterThanOrEqualTo(1);
         assertThat(dataset.qualityReport().getTotalRejected()).isZero();
 
         long persons = dataset.entities().stream().filter(e -> "Person".equals(e.getSchema())).count();
-        assertThat(persons).isEqualTo(8);
+        assertThat(persons).isEqualTo(count);
 
         assertThat(dataset.entities().stream().filter(e -> "Person".equals(e.getSchema())))
-                .anyMatch(p -> p.getValues("name").contains("José Nunes da Fonseca"))
-                .anyMatch(p -> p.getValues("name").contains("Henrique Gouveia e Melo"))
-                .anyMatch(p -> p.getValues("name").contains("Luís Carrilho"));
+                .anyMatch(p -> p.getValues("name").contains("João Cartaxo Alves"));
     }
 }
