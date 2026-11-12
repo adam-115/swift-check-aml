@@ -1,14 +1,19 @@
 package com.swiftcheck.aml.plugins.grpep.centralbank;
 
 import java.io.IOException;
-import java.io.InputStream;
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.StandardCopyOption;
+import java.time.Duration;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 import org.pf4j.Extension;
 import org.slf4j.Logger;
@@ -28,6 +33,8 @@ import com.swiftcheck.aml.sdk.FtmEntity;
  *
  * <p>Couvre la catégorie <b>GR-e</b>, fonction <b>Membre du conseil de la Banque de Grèce</b> (fonction 664)
  * (Loi 4557/2018, art. 3; JO C/2023/724).
+ *
+ * <p>Alimentation dynamique en direct via Wikidata SPARQL.
  */
 @Extension
 public class GrPepCentralBankParser implements Iparser {
@@ -37,16 +44,60 @@ public class GrPepCentralBankParser implements Iparser {
     static final String ID_PREFIX = "gr-pep-central-bank";
     static final String TOPIC = "role.pep";
     static final String COUNTRY = "gr";
-    static final String SEED_RESOURCE = "/seed/gr-central-bank.json";
-    static final String JSON_FILE = "gr-central-bank.json";
+    static final String JSON_FILE = "gr-central-bank-sparql.json";
+
+    static final String DEFAULT_SPARQL = """
+            SELECT DISTINCT ?person ?personLabel ?personLabelEl ?role ?roleLabel ?startDate ?endDate ?birthDate WHERE {
+              {
+                wd:Q806700 p:P1037 ?st . # director/manager
+                ?st ps:P1037 ?person .
+                BIND("Governor of the Bank of Greece" AS ?role)
+              } UNION {
+                wd:Q806700 p:P169 ?st . # chief executive officer
+                ?st ps:P169 ?person .
+                BIND("Governor of the Bank of Greece" AS ?role)
+              } UNION {
+                wd:Q806700 p:P488 ?st . # chairperson
+                ?st ps:P488 ?person .
+                BIND("Governor of the Bank of Greece" AS ?role)
+              } UNION {
+                ?person p:P39 ?st .
+                ?st ps:P39 wd:Q16327315 . # position: Governor of Bank of Greece
+                BIND("Governor of the Bank of Greece" AS ?role)
+              } UNION {
+                ?person p:P108 ?st . # employer Bank of Greece
+                ?st ps:P108 wd:Q806700 .
+                OPTIONAL { ?st pq:P39 ?pos . }
+                BIND("Member of the General Council of the Bank of Greece" AS ?role)
+              }
+              OPTIONAL { ?st pq:P580 ?startDate . }
+              OPTIONAL { ?st pq:P582 ?endDate . }
+              OPTIONAL { ?person wdt:P569 ?birthDate . }
+              OPTIONAL { ?person rdfs:label ?personLabelEl . FILTER(LANG(?personLabelEl) = "el") }
+              SERVICE wikibase:label { bd:serviceParam wikibase:language "en,el". }
+            }
+            ORDER BY ?role DESC(?startDate)
+            """;
 
     private final ObjectMapper json = new ObjectMapper();
+    private final HttpClient httpClient;
+
+    public GrPepCentralBankParser() {
+        this(HttpClient.newBuilder()
+                .connectTimeout(Duration.ofSeconds(20))
+                .followRedirects(HttpClient.Redirect.NORMAL)
+                .build());
+    }
+
+    GrPepCentralBankParser(HttpClient httpClient) {
+        this.httpClient = httpClient;
+    }
 
     @Override
     public ParserResult parse(ParserContext ctx) throws Exception {
         Files.createDirectories(ctx.rawDir());
         Path rawFile = ctx.rawDir().resolve(JSON_FILE);
-        loadResource(rawFile);
+        fetchLive(rawFile, ctx);
 
         FtmDatasetBuilder dataset = new FtmDatasetBuilder(ID_PREFIX, TOPIC);
         int count = convert(rawFile, dataset);
@@ -61,7 +112,7 @@ public class GrPepCentralBankParser implements Iparser {
     public List<SourceRecord> readSourceRecords(ParserContext ctx) throws Exception {
         Path rawFile = ctx.rawDir().resolve(JSON_FILE);
         if (!Files.exists(rawFile)) {
-            loadResource(rawFile);
+            fetchLive(rawFile, ctx);
         }
         FtmDatasetBuilder dataset = new FtmDatasetBuilder(ID_PREFIX, TOPIC);
         convert(rawFile, dataset);
@@ -76,83 +127,130 @@ public class GrPepCentralBankParser implements Iparser {
         return records;
     }
 
-    private void loadResource(Path rawFile) throws IOException {
-        try (InputStream in = getClass().getResourceAsStream(SEED_RESOURCE)) {
-            if (in == null) {
-                throw new IllegalStateException("Ressource introuvable : " + SEED_RESOURCE);
-            }
-            Files.copy(in, rawFile, StandardCopyOption.REPLACE_EXISTING);
-            log.info("Banque de Grèce : données chargées depuis {}", SEED_RESOURCE);
+    private void fetchLive(Path rawFile, ParserContext ctx) throws IOException, InterruptedException {
+        String sparql = ctx.parameters().getOrDefault("sparql_query", DEFAULT_SPARQL);
+        String endpoint = ctx.parameters().getOrDefault("sparql_endpoint", "https://query.wikidata.org/sparql");
+        String uri = endpoint + "?query=" + java.net.URLEncoder.encode(sparql, StandardCharsets.UTF_8) + "&format=json";
+
+        log.info("Interrogation SPARQL Wikidata pour Banque de Grèce : {}", endpoint);
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create(uri))
+                .timeout(Duration.ofSeconds(45))
+                .header("User-Agent", "SwiftCheckAml/1.0 (PEP Parser; https://swiftcheck.com; info@swiftcheck.com)")
+                .header("Accept", "application/sparql-results+json, application/json")
+                .GET()
+                .build();
+
+        HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString(StandardCharsets.UTF_8));
+        if (response.statusCode() != 200) {
+            throw new IOException("Échec requête SPARQL (" + response.statusCode() + ") : " + response.body());
         }
+
+        Files.writeString(rawFile, response.body(), StandardCharsets.UTF_8);
     }
 
     int convert(Path rawFile, FtmDatasetBuilder dataset) throws IOException {
         JsonNode root = json.readTree(Files.readString(rawFile, StandardCharsets.UTF_8));
-        JsonNode officials = root.path("officials");
-        if (!officials.isArray() || officials.isEmpty()) {
+        JsonNode bindings = root.path("results").path("bindings");
+        if (!bindings.isArray() || bindings.isEmpty()) {
             throw new IllegalStateException("Aucun membre trouvé dans : " + rawFile);
         }
 
-        int count = 0;
-        for (JsonNode o : officials) {
-            String name = o.path("name").asText("").trim();
-            if (name.isEmpty()) {
-                continue;
+        Map<String, BankOfficial> officials = new LinkedHashMap<>();
+
+        for (JsonNode b : bindings) {
+            String name = b.path("personLabel").path("value").asText("").trim();
+            String nameEl = b.path("personLabelEl").path("value").asText("").trim();
+            String role = b.path("role").path("value").asText("Member of the General Council of the Bank of Greece").trim();
+            String startDate = b.path("startDate").path("value").asText("").trim();
+            String endDate = b.path("endDate").path("value").asText("").trim();
+            String birthDate = b.path("birthDate").path("value").asText("").trim();
+
+            if (name.isEmpty() || name.startsWith("Q") && name.matches("Q\\d+")) {
+                if (!nameEl.isEmpty()) {
+                    name = nameEl;
+                } else {
+                    continue;
+                }
             }
 
-            String originalName = o.path("originalName").asText("").trim();
-            String birthDate = o.path("birthDate").asText("").trim();
-            String position = o.path("position").asText("").trim();
-            String startDate = o.path("startDate").asText("").trim();
-            String endDate = o.path("endDate").asText("").trim();
-            String notes = o.path("notes").asText("").trim();
+            if (startDate.contains("T")) {
+                startDate = startDate.substring(0, startDate.indexOf("T"));
+            }
+            if (endDate.contains("T")) {
+                endDate = endDate.substring(0, endDate.indexOf("T"));
+            }
+            if (birthDate.contains("T")) {
+                birthDate = birthDate.substring(0, birthDate.indexOf("T"));
+            }
 
-            FtmEntity person = dataset.newEntity("Person", name);
-            person.addValue("name", name);
-            if (!originalName.isEmpty()) {
-                person.addValue("alias", originalName);
+            officials.putIfAbsent(name, new BankOfficial(name, nameEl, role, startDate, endDate, birthDate));
+        }
+
+        if (officials.isEmpty()) {
+            throw new IllegalStateException("Aucun dirigeant extrait depuis " + rawFile);
+        }
+
+        int count = 0;
+        for (BankOfficial off : officials.values()) {
+            FtmEntity person = dataset.newEntity("Person", off.name);
+            person.addValue("name", off.name);
+            if (!off.nameEl.isEmpty()) {
+                person.addValue("name", off.nameEl);
+                person.addValue("alias", off.nameEl);
             }
             person.addValue("country", COUNTRY);
             person.addValue("nationality", COUNTRY);
-            if (!birthDate.isEmpty()) {
-                person.addValue("birthDate", birthDate);
+            if (!off.birthDate.isEmpty()) {
+                person.addValue("birthDate", off.birthDate);
             }
-            if (!position.isEmpty()) {
-                person.addValue("position", position);
-            }
-            if (!notes.isEmpty()) {
-                person.addValue("notes", notes);
-            }
+            person.addValue("position", off.role);
             person.addValue("sourceUrl", "https://www.bankofgreece.gr/");
             dataset.addEntity(person);
 
-            if (!position.isEmpty()) {
-                String posSlug = position.toLowerCase(Locale.ROOT).replaceAll("[^a-z0-9]+", "-");
-                FtmEntity pos = dataset.newEntity("Position", posSlug);
-                pos.addValue("name", position);
-                pos.addValue("country", COUNTRY);
-                pos.addValue("organization", "Τράπεζα της Ελλάδος (Banque de Grèce)");
-                pos.addValue("sourceUrl", "https://www.bankofgreece.gr/");
-                dataset.addEntity(pos);
+            String posSlug = off.role.toLowerCase(Locale.ROOT).replaceAll("[^a-z0-9]+", "-");
+            FtmEntity pos = dataset.newEntity("Position", posSlug);
+            pos.addValue("name", off.role);
+            pos.addValue("country", COUNTRY);
+            pos.addValue("organization", "Τράπεζα της Ελλάδος (Banque de Grèce)");
+            pos.addValue("sourceUrl", "https://www.bankofgreece.gr/");
+            dataset.addEntity(pos);
 
-                FtmEntity occupancy = dataset.newEntity("Occupancy", "occ-" + person.getId());
-                occupancy.addValue("holder", person.getId());
-                occupancy.addValue("post", pos.getId());
-                if (!startDate.isEmpty()) {
-                    occupancy.addValue("startDate", startDate);
-                }
-                if (!endDate.isEmpty()) {
-                    occupancy.addValue("endDate", endDate);
-                    occupancy.addValue("status", "ended");
-                } else {
-                    occupancy.addValue("status", "current");
-                }
-                dataset.addEntity(occupancy);
+            FtmEntity occupancy = dataset.newEntity("Occupancy", "occ-" + person.getId());
+            occupancy.addValue("holder", person.getId());
+            occupancy.addValue("post", pos.getId());
+            if (!off.startDate.isEmpty()) {
+                occupancy.addValue("startDate", off.startDate);
             }
+            if (!off.endDate.isEmpty()) {
+                occupancy.addValue("endDate", off.endDate);
+                occupancy.addValue("status", "ended");
+            } else {
+                occupancy.addValue("status", "current");
+            }
+            dataset.addEntity(occupancy);
 
             count++;
         }
+
         return count;
     }
-}
 
+    private static class BankOfficial {
+        final String name;
+        final String nameEl;
+        final String role;
+        final String startDate;
+        final String endDate;
+        final String birthDate;
+
+        BankOfficial(String name, String nameEl, String role, String startDate, String endDate, String birthDate) {
+            this.name = name;
+            this.nameEl = nameEl;
+            this.role = role;
+            this.startDate = startDate;
+            this.endDate = endDate;
+            this.birthDate = birthDate;
+        }
+    }
+}
