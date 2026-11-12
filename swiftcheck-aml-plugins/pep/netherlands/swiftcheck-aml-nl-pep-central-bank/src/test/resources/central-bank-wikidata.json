@@ -1,0 +1,148 @@
+{
+  "head" : {
+    "vars" : [ "person", "personLabel", "roleLabel", "startDate", "endDate", "birthDate" ]
+  },
+  "results" : {
+    "bindings" : [ {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q134962979"
+      },
+      "roleLabel" : {
+        "xml:lang" : "nl",
+        "type" : "literal",
+        "value" : "President van De Nederlandsche Bank"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2025-07-01T00:00:00Z"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1970-08-10T00:00:00Z"
+      },
+      "personLabel" : {
+        "xml:lang" : "nl",
+        "type" : "literal",
+        "value" : "Olaf Sleijpen"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1947252"
+      },
+      "roleLabel" : {
+        "xml:lang" : "nl",
+        "type" : "literal",
+        "value" : "President van De Nederlandsche Bank"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1997-01-01T00:00:00Z"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1943-08-27T00:00:00Z"
+      },
+      "personLabel" : {
+        "xml:lang" : "nl",
+        "type" : "literal",
+        "value" : "Nout Wellink"
+      },
+      "endDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2011-01-01T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q631864"
+      },
+      "roleLabel" : {
+        "xml:lang" : "nl",
+        "type" : "literal",
+        "value" : "President van De Nederlandsche Bank"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2011-07-01T00:00:00Z"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1967-04-14T00:00:00Z"
+      },
+      "personLabel" : {
+        "xml:lang" : "nl",
+        "type" : "literal",
+        "value" : "Klaas Knot"
+      },
+      "endDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2025-06-30T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q102178084"
+      },
+      "roleLabel" : {
+        "xml:lang" : "nl",
+        "type" : "literal",
+        "value" : "Directeur van De Nederlandsche Bank"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2011-07-01T00:00:00Z"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1970-05-18T00:00:00Z"
+      },
+      "personLabel" : {
+        "xml:lang" : "nl",
+        "type" : "literal",
+        "value" : "Frank Elderson"
+      },
+      "endDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2020-01-01T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q27305420"
+      },
+      "roleLabel" : {
+        "xml:lang" : "nl",
+        "type" : "literal",
+        "value" : "Directeur Toezicht van De Nederlandsche Bank"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2021-04-01T00:00:00Z"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1964-02-03T00:00:00Z"
+      },
+      "personLabel" : {
+        "xml:lang" : "nl",
+        "type" : "literal",
+        "value" : "Steven Maijoor"
+      }
+    } ]
+  }
+}

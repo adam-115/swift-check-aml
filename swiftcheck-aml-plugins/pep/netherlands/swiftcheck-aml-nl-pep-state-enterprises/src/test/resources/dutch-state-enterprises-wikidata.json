@@ -1,0 +1,167 @@
+{
+    "head":  {
+                 "vars":  [
+                              "org",
+                              "orgLabel",
+                              "person",
+                              "personLabel",
+                              "roleLabel",
+                              "startDate",
+                              "endDate"
+                          ]
+             },
+    "results":  {
+                    "bindings":  [
+                                     {
+                                         "org":  {
+                                                     "type":  "uri",
+                                                     "value":  "http://www.wikidata.org/entity/Q181912"
+                                                 },
+                                         "person":  {
+                                                        "type":  "uri",
+                                                        "value":  "http://www.wikidata.org/entity/Q101627126"
+                                                    },
+                                         "roleLabel":  {
+                                                           "xml:lang":  "nl",
+                                                           "type":  "literal",
+                                                           "value":  "President-directeur en CEO van KLM"
+                                                       },
+                                         "startDate":  {
+                                                           "datatype":  "http://www.w3.org/2001/XMLSchema#dateTime",
+                                                           "type":  "literal",
+                                                           "value":  "2022-07-01T00:00:00Z"
+                                                       },
+                                         "orgLabel":  {
+                                                          "xml:lang":  "nl",
+                                                          "type":  "literal",
+                                                          "value":  "Koninklijke Luchtvaart Maatschappij"
+                                                      },
+                                         "personLabel":  {
+                                                             "xml:lang":  "nl",
+                                                             "type":  "literal",
+                                                             "value":  "Marjan Rintel"
+                                                         }
+                                     },
+                                     {
+                                         "org":  {
+                                                     "type":  "uri",
+                                                     "value":  "http://www.wikidata.org/entity/Q2187039"
+                                                 },
+                                         "person":  {
+                                                        "type":  "uri",
+                                                        "value":  "http://www.wikidata.org/entity/Q141553001"
+                                                    },
+                                         "roleLabel":  {
+                                                           "xml:lang":  "nl",
+                                                           "type":  "literal",
+                                                           "value":  "CEO van Havenbedrijf Rotterdam"
+                                                       },
+                                         "startDate":  {
+                                                           "datatype":  "http://www.w3.org/2001/XMLSchema#dateTime",
+                                                           "type":  "literal",
+                                                           "value":  "2024-02-01T00:00:00Z"
+                                                       },
+                                         "orgLabel":  {
+                                                          "xml:lang":  "nl",
+                                                          "type":  "literal",
+                                                          "value":  "Havenbedrijf Rotterdam"
+                                                      },
+                                         "personLabel":  {
+                                                             "xml:lang":  "mul",
+                                                             "type":  "literal",
+                                                             "value":  "Boudewijn Siemons"
+                                                         }
+                                     },
+                                     {
+                                         "org":  {
+                                                     "type":  "uri",
+                                                     "value":  "http://www.wikidata.org/entity/Q4290932"
+                                                 },
+                                         "person":  {
+                                                        "type":  "uri",
+                                                        "value":  "http://www.wikidata.org/entity/Q131986203"
+                                                    },
+                                         "roleLabel":  {
+                                                           "xml:lang":  "nl",
+                                                           "type":  "literal",
+                                                           "value":  "President-directeur en CEO van Royal Schiphol Group"
+                                                       },
+                                         "startDate":  {
+                                                           "datatype":  "http://www.w3.org/2001/XMLSchema#dateTime",
+                                                           "type":  "literal",
+                                                           "value":  "2024-06-01T00:00:00Z"
+                                                       },
+                                         "orgLabel":  {
+                                                          "xml:lang":  "nl",
+                                                          "type":  "literal",
+                                                          "value":  "Royal Schiphol Group"
+                                                      },
+                                         "personLabel":  {
+                                                             "xml:lang":  "nl",
+                                                             "type":  "literal",
+                                                             "value":  "Pieter van Oord"
+                                                         }
+                                     },
+                                     {
+                                         "org":  {
+                                                     "type":  "uri",
+                                                     "value":  "http://www.wikidata.org/entity/Q1127569"
+                                                 },
+                                         "person":  {
+                                                        "type":  "uri",
+                                                        "value":  "http://www.wikidata.org/entity/Q108483360"
+                                                    },
+                                         "roleLabel":  {
+                                                           "xml:lang":  "nl",
+                                                           "type":  "literal",
+                                                           "value":  "CEO van TenneT"
+                                                       },
+                                         "startDate":  {
+                                                           "datatype":  "http://www.w3.org/2001/XMLSchema#dateTime",
+                                                           "type":  "literal",
+                                                           "value":  "2018-09-01T00:00:00Z"
+                                                       },
+                                         "orgLabel":  {
+                                                          "xml:lang":  "nl",
+                                                          "type":  "literal",
+                                                          "value":  "TenneT"
+                                                      },
+                                         "personLabel":  {
+                                                             "xml:lang":  "nl",
+                                                             "type":  "literal",
+                                                             "value":  "Manon van Beek"
+                                                         }
+                                     },
+                                     {
+                                         "org":  {
+                                                     "type":  "uri",
+                                                     "value":  "http://www.wikidata.org/entity/Q23076"
+                                                 },
+                                         "person":  {
+                                                        "type":  "uri",
+                                                        "value":  "http://www.wikidata.org/entity/Q2595414"
+                                                    },
+                                         "roleLabel":  {
+                                                           "xml:lang":  "nl",
+                                                           "type":  "literal",
+                                                           "value":  "President-directeur en CEO van NS"
+                                                       },
+                                         "startDate":  {
+                                                           "datatype":  "http://www.w3.org/2001/XMLSchema#dateTime",
+                                                           "type":  "literal",
+                                                           "value":  "2022-11-01T00:00:00Z"
+                                                       },
+                                         "orgLabel":  {
+                                                          "xml:lang":  "nl",
+                                                          "type":  "literal",
+                                                          "value":  "Nederlandse Spoorwegen"
+                                                      },
+                                         "personLabel":  {
+                                                             "xml:lang":  "mul",
+                                                             "type":  "literal",
+                                                             "value":  "Wouter Koolmees"
+                                                         }
+                                     }
+                                 ]
+                }
+}

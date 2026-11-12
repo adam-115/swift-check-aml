@@ -1,0 +1,183 @@
+{
+    "head":  {
+                 "vars":  [
+                              "person",
+                              "personLabel",
+                              "prop",
+                              "propLabel",
+                              "birthDate"
+                          ]
+             },
+    "results":  {
+                    "bindings":  [
+                                     {
+                                         "prop":  {
+                                                      "type":  "uri",
+                                                      "value":  "http://www.wikidata.org/prop/direct/P25"
+                                                  },
+                                         "person":  {
+                                                        "type":  "uri",
+                                                        "value":  "http://www.wikidata.org/entity/Q29574"
+                                                    },
+                                         "birthDate":  {
+                                                           "datatype":  "http://www.w3.org/2001/XMLSchema#dateTime",
+                                                           "type":  "literal",
+                                                           "value":  "1938-01-31T00:00:00Z"
+                                                       },
+                                         "personLabel":  {
+                                                             "xml:lang":  "nl",
+                                                             "type":  "literal",
+                                                             "value":  "Beatrix der Nederlanden"
+                                                         },
+                                         "propLabel":  {
+                                                           "type":  "literal",
+                                                           "value":  "http://www.wikidata.org/prop/direct/P25"
+                                                       }
+                                     },
+                                     {
+                                         "prop":  {
+                                                      "type":  "uri",
+                                                      "value":  "http://www.wikidata.org/prop/direct/P40"
+                                                  },
+                                         "person":  {
+                                                        "type":  "uri",
+                                                        "value":  "http://www.wikidata.org/entity/Q1076063"
+                                                    },
+                                         "birthDate":  {
+                                                           "datatype":  "http://www.w3.org/2001/XMLSchema#dateTime",
+                                                           "type":  "literal",
+                                                           "value":  "2007-04-10T00:00:00Z"
+                                                       },
+                                         "personLabel":  {
+                                                             "xml:lang":  "nl",
+                                                             "type":  "literal",
+                                                             "value":  "Ariane der Nederlanden"
+                                                         },
+                                         "propLabel":  {
+                                                           "type":  "literal",
+                                                           "value":  "http://www.wikidata.org/prop/direct/P40"
+                                                       }
+                                     },
+                                     {
+                                         "prop":  {
+                                                      "type":  "uri",
+                                                      "value":  "http://www.wikidata.org/prop/direct/P40"
+                                                  },
+                                         "person":  {
+                                                        "type":  "uri",
+                                                        "value":  "http://www.wikidata.org/entity/Q1061685"
+                                                    },
+                                         "birthDate":  {
+                                                           "datatype":  "http://www.w3.org/2001/XMLSchema#dateTime",
+                                                           "type":  "literal",
+                                                           "value":  "2005-06-26T00:00:00Z"
+                                                       },
+                                         "personLabel":  {
+                                                             "xml:lang":  "nl",
+                                                             "type":  "literal",
+                                                             "value":  "Alexia der Nederlanden"
+                                                         },
+                                         "propLabel":  {
+                                                           "type":  "literal",
+                                                           "value":  "http://www.wikidata.org/prop/direct/P40"
+                                                       }
+                                     },
+                                     {
+                                         "prop":  {
+                                                      "type":  "uri",
+                                                      "value":  "http://www.wikidata.org/prop/direct/P3373"
+                                                  },
+                                         "person":  {
+                                                        "type":  "uri",
+                                                        "value":  "http://www.wikidata.org/entity/Q355254"
+                                                    },
+                                         "birthDate":  {
+                                                           "datatype":  "http://www.w3.org/2001/XMLSchema#dateTime",
+                                                           "type":  "literal",
+                                                           "value":  "1969-10-11T00:00:00Z"
+                                                       },
+                                         "personLabel":  {
+                                                             "xml:lang":  "nl",
+                                                             "type":  "literal",
+                                                             "value":  "Constantijn der Nederlanden"
+                                                         },
+                                         "propLabel":  {
+                                                           "type":  "literal",
+                                                           "value":  "http://www.wikidata.org/prop/direct/P3373"
+                                                       }
+                                     },
+                                     {
+                                         "prop":  {
+                                                      "type":  "uri",
+                                                      "value":  "http://www.wikidata.org/prop/direct/P3373"
+                                                  },
+                                         "person":  {
+                                                        "type":  "uri",
+                                                        "value":  "http://www.wikidata.org/entity/Q352981"
+                                                    },
+                                         "birthDate":  {
+                                                           "datatype":  "http://www.w3.org/2001/XMLSchema#dateTime",
+                                                           "type":  "literal",
+                                                           "value":  "1968-09-25T00:00:00Z"
+                                                       },
+                                         "personLabel":  {
+                                                             "xml:lang":  "nl",
+                                                             "type":  "literal",
+                                                             "value":  "Johan Friso van Oranje-Nassau van Amsberg"
+                                                         },
+                                         "propLabel":  {
+                                                           "type":  "literal",
+                                                           "value":  "http://www.wikidata.org/prop/direct/P3373"
+                                                       }
+                                     },
+                                     {
+                                         "prop":  {
+                                                      "type":  "uri",
+                                                      "value":  "http://www.wikidata.org/prop/direct/P26"
+                                                  },
+                                         "person":  {
+                                                        "type":  "uri",
+                                                        "value":  "http://www.wikidata.org/entity/Q460960"
+                                                    },
+                                         "birthDate":  {
+                                                           "datatype":  "http://www.w3.org/2001/XMLSchema#dateTime",
+                                                           "type":  "literal",
+                                                           "value":  "1971-05-17T00:00:00Z"
+                                                       },
+                                         "personLabel":  {
+                                                             "xml:lang":  "nl",
+                                                             "type":  "literal",
+                                                             "value":  "Máxima Zorreguieta"
+                                                         },
+                                         "propLabel":  {
+                                                           "type":  "literal",
+                                                           "value":  "http://www.wikidata.org/prop/direct/P26"
+                                                       }
+                                     },
+                                     {
+                                         "prop":  {
+                                                      "type":  "uri",
+                                                      "value":  "http://www.wikidata.org/prop/direct/P40"
+                                                  },
+                                         "person":  {
+                                                        "type":  "uri",
+                                                        "value":  "http://www.wikidata.org/entity/Q855749"
+                                                    },
+                                         "birthDate":  {
+                                                           "datatype":  "http://www.w3.org/2001/XMLSchema#dateTime",
+                                                           "type":  "literal",
+                                                           "value":  "2003-12-07T00:00:00Z"
+                                                       },
+                                         "personLabel":  {
+                                                             "xml:lang":  "nl",
+                                                             "type":  "literal",
+                                                             "value":  "Catharina-Amalia der Nederlanden"
+                                                         },
+                                         "propLabel":  {
+                                                           "type":  "literal",
+                                                           "value":  "http://www.wikidata.org/prop/direct/P40"
+                                                       }
+                                     }
+                                 ]
+                }
+}

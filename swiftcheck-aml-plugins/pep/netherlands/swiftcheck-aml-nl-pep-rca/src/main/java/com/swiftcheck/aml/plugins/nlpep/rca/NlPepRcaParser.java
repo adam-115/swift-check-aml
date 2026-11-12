@@ -1,14 +1,19 @@
 package com.swiftcheck.aml.plugins.nlpep.rca;
 
 import java.io.IOException;
-import java.io.InputStream;
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.StandardCopyOption;
+import java.time.Duration;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
+import java.util.Set;
 
 import org.pf4j.Extension;
 import org.slf4j.Logger;
@@ -29,6 +34,8 @@ import com.swiftcheck.aml.sdk.FtmEntity;
  * <p>Couvre la catégorie <b>NL-RCA</b>, fonctions <b>Membre de la famille d'une PEP néerlandaise</b> (fonction 392)
  * et <b>Proche associé d'une PEP néerlandaise</b> (fonction 393)
  * (Wwft art. 1 ; JO C/2023/724).
+ *
+ * <p>Alimentation dynamique en direct via l'API SPARQL de Wikidata.
  */
 @Extension
 public class NlPepRcaParser implements Iparser {
@@ -38,16 +45,38 @@ public class NlPepRcaParser implements Iparser {
     static final String ID_PREFIX = "nl-pep-rca";
     static final String TOPIC = "role.rca";
     static final String COUNTRY = "nl";
-    static final String SEED_RESOURCE = "/seed/nl-rca.json";
     static final String JSON_FILE = "nl-rca.json";
 
+    static final String WIKIDATA_SPARQL_URL = "https://query.wikidata.org/sparql";
+
+    static final String SPARQL_QUERY =
+            "SELECT DISTINCT ?person ?personLabel ?prop ?propLabel ?birthDate WHERE {\n" +
+            "  VALUES ?king { wd:Q154952 } # Willem-Alexander\n" +
+            "  VALUES ?prop { wdt:P26 wdt:P40 wdt:P25 wdt:P3373 } # spouse, children, mother, siblings\n" +
+            "  ?king ?prop ?person .\n" +
+            "  OPTIONAL { ?person wdt:P569 ?birthDate . }\n" +
+            "  SERVICE wikibase:label { bd:serviceParam wikibase:language \"nl,en\". }\n" +
+            "}";
+
     private final ObjectMapper json = new ObjectMapper();
+    private final HttpClient httpClient;
+
+    public NlPepRcaParser() {
+        this(HttpClient.newBuilder()
+                .connectTimeout(Duration.ofSeconds(20))
+                .followRedirects(HttpClient.Redirect.NORMAL)
+                .build());
+    }
+
+    NlPepRcaParser(HttpClient httpClient) {
+        this.httpClient = httpClient;
+    }
 
     @Override
     public ParserResult parse(ParserContext ctx) throws Exception {
         Files.createDirectories(ctx.rawDir());
         Path rawFile = ctx.rawDir().resolve(JSON_FILE);
-        loadResource(rawFile);
+        fetchLive(rawFile);
 
         FtmDatasetBuilder dataset = new FtmDatasetBuilder(ID_PREFIX, TOPIC);
         int count = convert(rawFile, dataset);
@@ -62,7 +91,7 @@ public class NlPepRcaParser implements Iparser {
     public List<SourceRecord> readSourceRecords(ParserContext ctx) throws Exception {
         Path rawFile = ctx.rawDir().resolve(JSON_FILE);
         if (!Files.exists(rawFile)) {
-            loadResource(rawFile);
+            fetchLive(rawFile);
         }
         FtmDatasetBuilder dataset = new FtmDatasetBuilder(ID_PREFIX, TOPIC);
         convert(rawFile, dataset);
@@ -77,71 +106,77 @@ public class NlPepRcaParser implements Iparser {
         return records;
     }
 
-    private void loadResource(Path rawFile) throws IOException {
-        try (InputStream in = getClass().getResourceAsStream(SEED_RESOURCE)) {
-            if (in == null) {
-                throw new IllegalStateException("Ressource introuvable : " + SEED_RESOURCE);
-            }
-            Files.copy(in, rawFile, StandardCopyOption.REPLACE_EXISTING);
-            log.info("RCA Pays-Bas : données chargées depuis {}", SEED_RESOURCE);
+    private void fetchLive(Path target) throws IOException, InterruptedException {
+        String endpoint = WIKIDATA_SPARQL_URL + "?format=json&query=" +
+                java.net.URLEncoder.encode(SPARQL_QUERY, StandardCharsets.UTF_8);
+
+        HttpRequest req = HttpRequest.newBuilder()
+                .uri(URI.create(endpoint))
+                .header("User-Agent", "SwiftCheckAml/1.0 (PEP Parser; https://swiftcheck.com; info@swiftcheck.com)")
+                .header("Accept", "application/sparql-results+json, application/json")
+                .timeout(Duration.ofSeconds(30))
+                .GET()
+                .build();
+
+        log.info("Interrogation de Wikidata SPARQL pour la famille royale néerlandaise : {}", endpoint);
+        HttpResponse<Path> resp = httpClient.send(req, HttpResponse.BodyHandlers.ofFile(target));
+        if (resp.statusCode() != 200) {
+            throw new IOException("Échec requête SPARQL Wikidata (HTTP " + resp.statusCode() + ")");
         }
     }
 
     int convert(Path rawFile, FtmDatasetBuilder dataset) throws IOException {
         JsonNode root = json.readTree(Files.readString(rawFile, StandardCharsets.UTF_8));
-        JsonNode associates = root.path("associates");
-        if (!associates.isArray() || associates.isEmpty()) {
-            throw new IllegalStateException("Aucun associé trouvé dans : " + rawFile);
+        JsonNode bindings = root.path("results").path("bindings");
+        if (!bindings.isArray() || bindings.isEmpty()) {
+            throw new IllegalStateException("Aucun membre de la famille royale trouvé dans : " + rawFile);
         }
 
+        Set<String> seen = new HashSet<>();
         int count = 0;
-        for (JsonNode a : associates) {
-            String name = a.path("name").asText("").trim();
-            if (name.isEmpty()) {
+        for (JsonNode b : bindings) {
+            String personUri = b.path("person").path("value").asText("");
+            String name = b.path("personLabel").path("value").asText("").trim();
+            String propUri = b.path("prop").path("value").asText("");
+            String birthDate = b.path("birthDate").path("value").asText("");
+
+            if (birthDate.length() >= 10) birthDate = birthDate.substring(0, 10);
+
+            if (name.isEmpty() || name.startsWith("Q") || !seen.add(personUri)) {
                 continue;
             }
-            String firstName = a.path("firstName").asText("");
-            String lastName = a.path("lastName").asText("");
-            String relationship = a.path("relationship").asText("Familie/Geassocieerde");
-            String targetPep = a.path("targetPep").asText("");
-            String category = a.path("category").asText("FAMILY");
+
+            String relDesc;
+            if (propUri.endsWith("P26")) {
+                relDesc = "Echtgenote van Koning Willem-Alexander";
+            } else if (propUri.endsWith("P40")) {
+                relDesc = "Kind van Koning Willem-Alexander";
+            } else if (propUri.endsWith("P25")) {
+                relDesc = "Moeder van Koning Willem-Alexander (Voormalig Staatshoofd)";
+            } else if (propUri.endsWith("P3373")) {
+                relDesc = "Broer van Koning Willem-Alexander";
+            } else {
+                relDesc = "Familielid van Koning Willem-Alexander";
+            }
 
             FtmEntity person = dataset.newEntity("Person", name);
             person.addValue("name", name);
-            if (!firstName.isEmpty()) {
-                person.addValue("firstName", firstName);
-            }
-            if (!lastName.isEmpty()) {
-                person.addValue("lastName", lastName);
+            if (!birthDate.isEmpty()) {
+                person.addValue("birthDate", birthDate);
             }
             person.addValue("country", COUNTRY);
             person.addValue("nationality", COUNTRY);
-            person.addValue("summary", relationship);
-            person.addValue("sourceUrl", "https://www.koninklijkhuis.nl/");
+            person.addValue("position", relDesc);
+            person.addValue("sourceUrl", personUri.isEmpty() ? "https://www.koninklijkhuis.nl/" : personUri);
             dataset.addEntity(person);
 
-            FtmEntity target = dataset.newEntity("Person", targetPep);
-            target.addValue("name", targetPep);
-            target.addValue("country", COUNTRY);
-            dataset.addEntity(target);
-
-            if ("FAMILY".equalsIgnoreCase(category)) {
-                FtmEntity edge = dataset.newEntity("Family", "rel-" + person.getId() + "-" + target.getId());
-                edge.addValue("person", target.getId());
-                edge.addValue("relative", person.getId());
-                edge.addValue("relationship", relationship);
-                dataset.addEntity(edge);
-            } else {
-                FtmEntity edge = dataset.newEntity("Associate", "rel-" + person.getId() + "-" + target.getId());
-                edge.addValue("person", target.getId());
-                edge.addValue("associate", person.getId());
-                edge.addValue("relationship", relationship);
-                dataset.addEntity(edge);
-            }
+            FtmEntity rel = dataset.newEntity("Family", "rel-" + person.getId());
+            rel.addValue("person", person.getId());
+            rel.addValue("relationship", relDesc);
+            dataset.addEntity(rel);
 
             count++;
         }
         return count;
     }
 }
-

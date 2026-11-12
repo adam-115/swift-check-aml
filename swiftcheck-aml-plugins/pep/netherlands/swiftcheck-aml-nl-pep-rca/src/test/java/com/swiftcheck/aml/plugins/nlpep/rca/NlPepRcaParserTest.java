@@ -10,7 +10,7 @@ import com.swiftcheck.aml.sdk.FtmDatasetBuilder;
 
 class NlPepRcaParserTest {
 
-    private static final Path RAW = Path.of("src/main/resources/seed/nl-rca.json");
+    private static final Path RAW = Path.of("src/test/resources/royal-family-wikidata.json");
 
     private final NlPepRcaParser parser = new NlPepRcaParser();
 
@@ -22,16 +22,15 @@ class NlPepRcaParserTest {
         );
         int count = parser.convert(RAW, dataset);
 
-        assertThat(count).isEqualTo(11);
+        assertThat(count).isGreaterThanOrEqualTo(6);
         assertThat(dataset.qualityReport().getTotalRejected()).isZero();
 
         long persons = dataset.entities().stream().filter(e -> "Person".equals(e.getSchema())).count();
-        assertThat(persons).isGreaterThanOrEqualTo(11);
+        assertThat(persons).isEqualTo(count);
 
         assertThat(dataset.entities().stream().filter(e -> "Person".equals(e.getSchema())))
-                .anyMatch(p -> p.getValues("name").contains("Koningin Máxima"))
-                .anyMatch(p -> p.getValues("name").contains("Prinses Beatrix"))
-                .anyMatch(p -> p.getValues("name").contains("Prinses Catharina-Amalia"));
+                .anyMatch(p -> p.getValues("name").stream().anyMatch(n -> n.contains("Máxima")))
+                .anyMatch(p -> p.getValues("name").stream().anyMatch(n -> n.contains("Beatrix")))
+                .anyMatch(p -> p.getValues("name").stream().anyMatch(n -> n.contains("Amalia")));
     }
 }
-

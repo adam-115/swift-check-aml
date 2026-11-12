@@ -1,0 +1,687 @@
+{
+    "head":  {
+                 "vars":  [
+                              "party",
+                              "partyLabel",
+                              "person",
+                              "personLabel",
+                              "roleLabel",
+                              "startDate",
+                              "endDate"
+                          ]
+             },
+    "results":  {
+                    "bindings":  [
+                                     {
+                                         "party":  {
+                                                       "type":  "uri",
+                                                       "value":  "http://www.wikidata.org/entity/Q121705847"
+                                                   },
+                                         "person":  {
+                                                        "type":  "uri",
+                                                        "value":  "http://www.wikidata.org/entity/Q7192814"
+                                                    },
+                                         "roleLabel":  {
+                                                           "xml:lang":  "nl",
+                                                           "type":  "literal",
+                                                           "value":  "Partijleider van Nieuw Sociaal Contract"
+                                                       },
+                                         "startDate":  {
+                                                           "datatype":  "http://www.w3.org/2001/XMLSchema#dateTime",
+                                                           "type":  "literal",
+                                                           "value":  "2023-08-19T00:00:00Z"
+                                                       },
+                                         "partyLabel":  {
+                                                            "xml:lang":  "nl",
+                                                            "type":  "literal",
+                                                            "value":  "Nieuw Sociaal Contract"
+                                                        },
+                                         "personLabel":  {
+                                                             "xml:lang":  "nl",
+                                                             "type":  "literal",
+                                                             "value":  "Pieter Omtzigt"
+                                                         }
+                                     },
+                                     {
+                                         "party":  {
+                                                       "type":  "uri",
+                                                       "value":  "http://www.wikidata.org/entity/Q849580"
+                                                   },
+                                         "person":  {
+                                                        "type":  "uri",
+                                                        "value":  "http://www.wikidata.org/entity/Q28861260"
+                                                    },
+                                         "roleLabel":  {
+                                                           "xml:lang":  "nl",
+                                                           "type":  "literal",
+                                                           "value":  "Fractievoorzitter van de SP"
+                                                       },
+                                         "startDate":  {
+                                                           "datatype":  "http://www.w3.org/2001/XMLSchema#dateTime",
+                                                           "type":  "literal",
+                                                           "value":  "2023-12-13T00:00:00Z"
+                                                       },
+                                         "partyLabel":  {
+                                                            "xml:lang":  "nl",
+                                                            "type":  "literal",
+                                                            "value":  "Socialistische Partij"
+                                                        },
+                                         "personLabel":  {
+                                                             "xml:lang":  "nl",
+                                                             "type":  "literal",
+                                                             "value":  "Jimmy Dijk"
+                                                         }
+                                     },
+                                     {
+                                         "party":  {
+                                                       "type":  "uri",
+                                                       "value":  "http://www.wikidata.org/entity/Q110853869"
+                                                   },
+                                         "person":  {
+                                                        "type":  "uri",
+                                                        "value":  "http://www.wikidata.org/entity/Q32681"
+                                                    },
+                                         "roleLabel":  {
+                                                           "xml:lang":  "nl",
+                                                           "type":  "literal",
+                                                           "value":  "Politiek leider van GroenLinks-PvdA"
+                                                       },
+                                         "startDate":  {
+                                                           "datatype":  "http://www.w3.org/2001/XMLSchema#dateTime",
+                                                           "type":  "literal",
+                                                           "value":  "2023-08-22T00:00:00Z"
+                                                       },
+                                         "partyLabel":  {
+                                                            "xml:lang":  "nl",
+                                                            "type":  "literal",
+                                                            "value":  "GroenLinks-PvdA"
+                                                        },
+                                         "personLabel":  {
+                                                             "xml:lang":  "nl",
+                                                             "type":  "literal",
+                                                             "value":  "Frans Timmermans"
+                                                         }
+                                     },
+                                     {
+                                         "party":  {
+                                                       "type":  "uri",
+                                                       "value":  "http://www.wikidata.org/entity/Q60172"
+                                                   },
+                                         "person":  {
+                                                        "type":  "uri",
+                                                        "value":  "http://www.wikidata.org/entity/Q51796208"
+                                                    },
+                                         "roleLabel":  {
+                                                           "xml:lang":  "nl",
+                                                           "type":  "literal",
+                                                           "value":  "Partijleider van de SGP"
+                                                       },
+                                         "startDate":  {
+                                                           "datatype":  "http://www.w3.org/2001/XMLSchema#dateTime",
+                                                           "type":  "literal",
+                                                           "value":  "2023-08-25T00:00:00Z"
+                                                       },
+                                         "partyLabel":  {
+                                                            "xml:lang":  "nl",
+                                                            "type":  "literal",
+                                                            "value":  "Staatkundig Gereformeerde Partij"
+                                                        },
+                                         "personLabel":  {
+                                                             "xml:lang":  "nl",
+                                                             "type":  "literal",
+                                                             "value":  "Chris Stoffer"
+                                                         }
+                                     },
+                                     {
+                                         "party":  {
+                                                       "type":  "uri",
+                                                       "value":  "http://www.wikidata.org/entity/Q663535"
+                                                   },
+                                         "person":  {
+                                                        "type":  "uri",
+                                                        "value":  "http://www.wikidata.org/entity/Q434842"
+                                                    },
+                                         "roleLabel":  {
+                                                           "xml:lang":  "nl",
+                                                           "type":  "literal",
+                                                           "value":  "Partijleider van Partij voor de Dieren"
+                                                       },
+                                         "startDate":  {
+                                                           "datatype":  "http://www.w3.org/2001/XMLSchema#dateTime",
+                                                           "type":  "literal",
+                                                           "value":  "2019-10-08T00:00:00Z"
+                                                       },
+                                         "partyLabel":  {
+                                                            "xml:lang":  "nl",
+                                                            "type":  "literal",
+                                                            "value":  "Partij voor de Dieren"
+                                                        },
+                                         "personLabel":  {
+                                                             "xml:lang":  "nl",
+                                                             "type":  "literal",
+                                                             "value":  "Esther Ouwehand"
+                                                         }
+                                     },
+                                     {
+                                         "party":  {
+                                                       "type":  "uri",
+                                                       "value":  "http://www.wikidata.org/entity/Q121705847"
+                                                   },
+                                         "person":  {
+                                                        "type":  "uri",
+                                                        "value":  "http://www.wikidata.org/entity/Q2353344"
+                                                    },
+                                         "roleLabel":  {
+                                                           "xml:lang":  "nl",
+                                                           "type":  "literal",
+                                                           "value":  "Fractievoorzitter van Nieuw Sociaal Contract"
+                                                       },
+                                         "startDate":  {
+                                                           "datatype":  "http://www.w3.org/2001/XMLSchema#dateTime",
+                                                           "type":  "literal",
+                                                           "value":  "2024-09-01T00:00:00Z"
+                                                       },
+                                         "partyLabel":  {
+                                                            "xml:lang":  "nl",
+                                                            "type":  "literal",
+                                                            "value":  "Nieuw Sociaal Contract"
+                                                        },
+                                         "personLabel":  {
+                                                             "xml:lang":  "nl",
+                                                             "type":  "literal",
+                                                             "value":  "Nicolien van Vroonhoven"
+                                                         }
+                                     },
+                                     {
+                                         "party":  {
+                                                       "type":  "uri",
+                                                       "value":  "http://www.wikidata.org/entity/Q332739"
+                                                   },
+                                         "person":  {
+                                                        "type":  "uri",
+                                                        "value":  "http://www.wikidata.org/entity/Q105338"
+                                                    },
+                                         "roleLabel":  {
+                                                           "xml:lang":  "nl",
+                                                           "type":  "literal",
+                                                           "value":  "Partijvoorzitter"
+                                                       },
+                                         "startDate":  {
+                                                           "datatype":  "http://www.w3.org/2001/XMLSchema#dateTime",
+                                                           "type":  "literal",
+                                                           "value":  "2006-02-22T00:00:00Z"
+                                                       },
+                                         "partyLabel":  {
+                                                            "xml:lang":  "nl",
+                                                            "type":  "literal",
+                                                            "value":  "Partij voor de Vrijheid"
+                                                        },
+                                         "personLabel":  {
+                                                             "xml:lang":  "nl",
+                                                             "type":  "literal",
+                                                             "value":  "Geert Wilders"
+                                                         }
+                                     },
+                                     {
+                                         "party":  {
+                                                       "type":  "uri",
+                                                       "value":  "http://www.wikidata.org/entity/Q104244010"
+                                                   },
+                                         "person":  {
+                                                        "type":  "uri",
+                                                        "value":  "http://www.wikidata.org/entity/Q2350960"
+                                                    },
+                                         "roleLabel":  {
+                                                           "xml:lang":  "nl",
+                                                           "type":  "literal",
+                                                           "value":  "Partijvoorzitter"
+                                                       },
+                                         "partyLabel":  {
+                                                            "xml:lang":  "nl",
+                                                            "type":  "literal",
+                                                            "value":  "JA21"
+                                                        },
+                                         "personLabel":  {
+                                                             "xml:lang":  "nl",
+                                                             "type":  "literal",
+                                                             "value":  "Joost Eerdmans"
+                                                         }
+                                     },
+                                     {
+                                         "party":  {
+                                                       "type":  "uri",
+                                                       "value":  "http://www.wikidata.org/entity/Q60172"
+                                                   },
+                                         "person":  {
+                                                        "type":  "uri",
+                                                        "value":  "http://www.wikidata.org/entity/Q105779914"
+                                                    },
+                                         "roleLabel":  {
+                                                           "xml:lang":  "nl",
+                                                           "type":  "literal",
+                                                           "value":  "Partijvoorzitter"
+                                                       },
+                                         "startDate":  {
+                                                           "datatype":  "http://www.w3.org/2001/XMLSchema#dateTime",
+                                                           "type":  "literal",
+                                                           "value":  "2021-01-16T00:00:00Z"
+                                                       },
+                                         "partyLabel":  {
+                                                            "xml:lang":  "nl",
+                                                            "type":  "literal",
+                                                            "value":  "Staatkundig Gereformeerde Partij"
+                                                        },
+                                         "personLabel":  {
+                                                             "xml:lang":  "nl",
+                                                             "type":  "literal",
+                                                             "value":  "Dick van Meeuwen"
+                                                         }
+                                     },
+                                     {
+                                         "party":  {
+                                                       "type":  "uri",
+                                                       "value":  "http://www.wikidata.org/entity/Q101083924"
+                                                   },
+                                         "person":  {
+                                                        "type":  "uri",
+                                                        "value":  "http://www.wikidata.org/entity/Q122169435"
+                                                    },
+                                         "roleLabel":  {
+                                                           "xml:lang":  "nl",
+                                                           "type":  "literal",
+                                                           "value":  "Partijvoorzitter"
+                                                       },
+                                         "partyLabel":  {
+                                                            "xml:lang":  "nl",
+                                                            "type":  "literal",
+                                                            "value":  "BoerBurgerBeweging"
+                                                        },
+                                         "personLabel":  {
+                                                             "xml:lang":  "nl",
+                                                             "type":  "literal",
+                                                             "value":  "Henk Vermeer"
+                                                         }
+                                     },
+                                     {
+                                         "party":  {
+                                                       "type":  "uri",
+                                                       "value":  "http://www.wikidata.org/entity/Q849580"
+                                                   },
+                                         "person":  {
+                                                        "type":  "uri",
+                                                        "value":  "http://www.wikidata.org/entity/Q28382130"
+                                                    },
+                                         "roleLabel":  {
+                                                           "xml:lang":  "nl",
+                                                           "type":  "literal",
+                                                           "value":  "Partijvoorzitter"
+                                                       },
+                                         "startDate":  {
+                                                           "datatype":  "http://www.w3.org/2001/XMLSchema#dateTime",
+                                                           "type":  "literal",
+                                                           "value":  "2024-03-02T00:00:00Z"
+                                                       },
+                                         "partyLabel":  {
+                                                            "xml:lang":  "nl",
+                                                            "type":  "literal",
+                                                            "value":  "Socialistische Partij"
+                                                        },
+                                         "personLabel":  {
+                                                             "xml:lang":  "nl",
+                                                             "type":  "literal",
+                                                             "value":  "Lieke van Rossum"
+                                                         }
+                                     },
+                                     {
+                                         "party":  {
+                                                       "type":  "uri",
+                                                       "value":  "http://www.wikidata.org/entity/Q849580"
+                                                   },
+                                         "person":  {
+                                                        "type":  "uri",
+                                                        "value":  "http://www.wikidata.org/entity/Q2349831"
+                                                    },
+                                         "roleLabel":  {
+                                                           "xml:lang":  "nl",
+                                                           "type":  "literal",
+                                                           "value":  "Partijvoorzitter"
+                                                       },
+                                         "startDate":  {
+                                                           "datatype":  "http://www.w3.org/2001/XMLSchema#dateTime",
+                                                           "type":  "literal",
+                                                           "value":  "2019-12-14T00:00:00Z"
+                                                       },
+                                         "partyLabel":  {
+                                                            "xml:lang":  "nl",
+                                                            "type":  "literal",
+                                                            "value":  "Socialistische Partij"
+                                                        },
+                                         "personLabel":  {
+                                                             "xml:lang":  "nl",
+                                                             "type":  "literal",
+                                                             "value":  "Jannie Visscher"
+                                                         },
+                                         "endDate":  {
+                                                         "datatype":  "http://www.w3.org/2001/XMLSchema#dateTime",
+                                                         "type":  "literal",
+                                                         "value":  "2024-03-02T00:00:00Z"
+                                                     }
+                                     },
+                                     {
+                                         "party":  {
+                                                       "type":  "uri",
+                                                       "value":  "http://www.wikidata.org/entity/Q239333"
+                                                   },
+                                         "person":  {
+                                                        "type":  "uri",
+                                                        "value":  "http://www.wikidata.org/entity/Q28861002"
+                                                    },
+                                         "roleLabel":  {
+                                                           "xml:lang":  "nl",
+                                                           "type":  "literal",
+                                                           "value":  "Partijvoorzitter"
+                                                       },
+                                         "partyLabel":  {
+                                                            "xml:lang":  "nl",
+                                                            "type":  "literal",
+                                                            "value":  "Volkspartij voor Vrijheid en Democratie"
+                                                        },
+                                         "personLabel":  {
+                                                             "xml:lang":  "nl",
+                                                             "type":  "literal",
+                                                             "value":  "Dilan Yeşilgöz"
+                                                         }
+                                     },
+                                     {
+                                         "party":  {
+                                                       "type":  "uri",
+                                                       "value":  "http://www.wikidata.org/entity/Q239333"
+                                                   },
+                                         "person":  {
+                                                        "type":  "uri",
+                                                        "value":  "http://www.wikidata.org/entity/Q704120"
+                                                    },
+                                         "roleLabel":  {
+                                                           "xml:lang":  "nl",
+                                                           "type":  "literal",
+                                                           "value":  "Partijvoorzitter"
+                                                       },
+                                         "startDate":  {
+                                                           "datatype":  "http://www.w3.org/2001/XMLSchema#dateTime",
+                                                           "type":  "literal",
+                                                           "value":  "2021-12-30T00:00:00Z"
+                                                       },
+                                         "partyLabel":  {
+                                                            "xml:lang":  "nl",
+                                                            "type":  "literal",
+                                                            "value":  "Volkspartij voor Vrijheid en Democratie"
+                                                        },
+                                         "personLabel":  {
+                                                             "xml:lang":  "nl",
+                                                             "type":  "literal",
+                                                             "value":  "Onno Hoes"
+                                                         }
+                                     },
+                                     {
+                                         "party":  {
+                                                       "type":  "uri",
+                                                       "value":  "http://www.wikidata.org/entity/Q239539"
+                                                   },
+                                         "person":  {
+                                                        "type":  "uri",
+                                                        "value":  "http://www.wikidata.org/entity/Q2688310"
+                                                    },
+                                         "roleLabel":  {
+                                                           "xml:lang":  "nl",
+                                                           "type":  "literal",
+                                                           "value":  "Partijvoorzitter"
+                                                       },
+                                         "startDate":  {
+                                                           "datatype":  "http://www.w3.org/2001/XMLSchema#dateTime",
+                                                           "type":  "literal",
+                                                           "value":  "2013-04-13T00:00:00Z"
+                                                       },
+                                         "partyLabel":  {
+                                                            "xml:lang":  "nl",
+                                                            "type":  "literal",
+                                                            "value":  "ChristenUnie"
+                                                        },
+                                         "personLabel":  {
+                                                             "xml:lang":  "nl",
+                                                             "type":  "literal",
+                                                             "value":  "Piet Adema"
+                                                         }
+                                     },
+                                     {
+                                         "party":  {
+                                                       "type":  "uri",
+                                                       "value":  "http://www.wikidata.org/entity/Q747910"
+                                                   },
+                                         "person":  {
+                                                        "type":  "uri",
+                                                        "value":  "http://www.wikidata.org/entity/Q28860866"
+                                                    },
+                                         "roleLabel":  {
+                                                           "xml:lang":  "nl",
+                                                           "type":  "literal",
+                                                           "value":  "Partijvoorzitter"
+                                                       },
+                                         "startDate":  {
+                                                           "datatype":  "http://www.w3.org/2001/XMLSchema#dateTime",
+                                                           "type":  "literal",
+                                                           "value":  "2023-08-11T00:00:00Z"
+                                                       },
+                                         "partyLabel":  {
+                                                            "xml:lang":  "nl",
+                                                            "type":  "literal",
+                                                            "value":  "Democraten 66"
+                                                        },
+                                         "personLabel":  {
+                                                             "xml:lang":  "nl",
+                                                             "type":  "literal",
+                                                             "value":  "Rob Jetten"
+                                                         }
+                                     },
+                                     {
+                                         "party":  {
+                                                       "type":  "uri",
+                                                       "value":  "http://www.wikidata.org/entity/Q105412880"
+                                                   },
+                                         "person":  {
+                                                        "type":  "uri",
+                                                        "value":  "http://www.wikidata.org/entity/Q105703729"
+                                                    },
+                                         "roleLabel":  {
+                                                           "xml:lang":  "nl",
+                                                           "type":  "literal",
+                                                           "value":  "Partijvoorzitter"
+                                                       },
+                                         "startDate":  {
+                                                           "datatype":  "http://www.w3.org/2001/XMLSchema#dateTime",
+                                                           "type":  "literal",
+                                                           "value":  "2018-01-01T00:00:00Z"
+                                                       },
+                                         "partyLabel":  {
+                                                            "xml:lang":  "nl",
+                                                            "type":  "literal",
+                                                            "value":  "Volt Nederland"
+                                                        },
+                                         "personLabel":  {
+                                                             "xml:lang":  "nl",
+                                                             "type":  "literal",
+                                                             "value":  "Laurens Dassen"
+                                                         }
+                                     },
+                                     {
+                                         "party":  {
+                                                       "type":  "uri",
+                                                       "value":  "http://www.wikidata.org/entity/Q28163962"
+                                                   },
+                                         "person":  {
+                                                        "type":  "uri",
+                                                        "value":  "http://www.wikidata.org/entity/Q4462875"
+                                                    },
+                                         "roleLabel":  {
+                                                           "xml:lang":  "nl",
+                                                           "type":  "literal",
+                                                           "value":  "Partijvoorzitter"
+                                                       },
+                                         "startDate":  {
+                                                           "datatype":  "http://www.w3.org/2001/XMLSchema#dateTime",
+                                                           "type":  "literal",
+                                                           "value":  "2020-12-05T00:00:00Z"
+                                                       },
+                                         "partyLabel":  {
+                                                            "xml:lang":  "nl",
+                                                            "type":  "literal",
+                                                            "value":  "Forum voor Democratie"
+                                                        },
+                                         "personLabel":  {
+                                                             "xml:lang":  "nl",
+                                                             "type":  "literal",
+                                                             "value":  "Thierry Baudet"
+                                                         }
+                                     },
+                                     {
+                                         "party":  {
+                                                       "type":  "uri",
+                                                       "value":  "http://www.wikidata.org/entity/Q110853869"
+                                                   },
+                                         "person":  {
+                                                        "type":  "uri",
+                                                        "value":  "http://www.wikidata.org/entity/Q2354753"
+                                                    },
+                                         "roleLabel":  {
+                                                           "xml:lang":  "nl",
+                                                           "type":  "literal",
+                                                           "value":  "Partijvoorzitter"
+                                                       },
+                                         "partyLabel":  {
+                                                            "xml:lang":  "nl",
+                                                            "type":  "literal",
+                                                            "value":  "GroenLinks-PvdA"
+                                                        },
+                                         "personLabel":  {
+                                                             "xml:lang":  "nl",
+                                                             "type":  "literal",
+                                                             "value":  "Jesse Klaver"
+                                                         }
+                                     },
+                                     {
+                                         "party":  {
+                                                       "type":  "uri",
+                                                       "value":  "http://www.wikidata.org/entity/Q273749"
+                                                   },
+                                         "person":  {
+                                                        "type":  "uri",
+                                                        "value":  "http://www.wikidata.org/entity/Q106975619"
+                                                    },
+                                         "roleLabel":  {
+                                                           "xml:lang":  "nl",
+                                                           "type":  "literal",
+                                                           "value":  "Partijvoorzitter"
+                                                       },
+                                         "partyLabel":  {
+                                                            "xml:lang":  "nl",
+                                                            "type":  "literal",
+                                                            "value":  "Christen-Democratisch Appèl"
+                                                        },
+                                         "personLabel":  {
+                                                             "xml:lang":  "nl",
+                                                             "type":  "literal",
+                                                             "value":  "Henri Bontenbal"
+                                                         }
+                                     },
+                                     {
+                                         "party":  {
+                                                       "type":  "uri",
+                                                       "value":  "http://www.wikidata.org/entity/Q273749"
+                                                   },
+                                         "person":  {
+                                                        "type":  "uri",
+                                                        "value":  "http://www.wikidata.org/entity/Q2703673"
+                                                    },
+                                         "roleLabel":  {
+                                                           "xml:lang":  "nl",
+                                                           "type":  "literal",
+                                                           "value":  "Partijvoorzitter"
+                                                       },
+                                         "startDate":  {
+                                                           "datatype":  "http://www.w3.org/2001/XMLSchema#dateTime",
+                                                           "type":  "literal",
+                                                           "value":  "2021-12-11T00:00:00Z"
+                                                       },
+                                         "partyLabel":  {
+                                                            "xml:lang":  "nl",
+                                                            "type":  "literal",
+                                                            "value":  "Christen-Democratisch Appèl"
+                                                        },
+                                         "personLabel":  {
+                                                             "xml:lang":  "nl",
+                                                             "type":  "literal",
+                                                             "value":  "Hans Huibers"
+                                                         }
+                                     },
+                                     {
+                                         "party":  {
+                                                       "type":  "uri",
+                                                       "value":  "http://www.wikidata.org/entity/Q747910"
+                                                   },
+                                         "person":  {
+                                                        "type":  "uri",
+                                                        "value":  "http://www.wikidata.org/entity/Q15077856"
+                                                    },
+                                         "roleLabel":  {
+                                                           "xml:lang":  "nl",
+                                                           "type":  "literal",
+                                                           "value":  "Partijvoorzitter"
+                                                       },
+                                         "startDate":  {
+                                                           "datatype":  "http://www.w3.org/2001/XMLSchema#dateTime",
+                                                           "type":  "literal",
+                                                           "value":  "2020-09-04T00:00:00Z"
+                                                       },
+                                         "partyLabel":  {
+                                                            "xml:lang":  "nl",
+                                                            "type":  "literal",
+                                                            "value":  "Democraten 66"
+                                                        },
+                                         "personLabel":  {
+                                                             "xml:lang":  "nl",
+                                                             "type":  "literal",
+                                                             "value":  "Sigrid Kaag"
+                                                         },
+                                         "endDate":  {
+                                                         "datatype":  "http://www.w3.org/2001/XMLSchema#dateTime",
+                                                         "type":  "literal",
+                                                         "value":  "2023-01-01T00:00:00Z"
+                                                     }
+                                     },
+                                     {
+                                         "party":  {
+                                                       "type":  "uri",
+                                                       "value":  "http://www.wikidata.org/entity/Q239539"
+                                                   },
+                                         "person":  {
+                                                        "type":  "uri",
+                                                        "value":  "http://www.wikidata.org/entity/Q20100030"
+                                                    },
+                                         "roleLabel":  {
+                                                           "xml:lang":  "nl",
+                                                           "type":  "literal",
+                                                           "value":  "Partijvoorzitter"
+                                                       },
+                                         "partyLabel":  {
+                                                            "xml:lang":  "nl",
+                                                            "type":  "literal",
+                                                            "value":  "ChristenUnie"
+                                                        },
+                                         "personLabel":  {
+                                                             "xml:lang":  "nl",
+                                                             "type":  "literal",
+                                                             "value":  "Mirjam Bikker"
+                                                         }
+                                     }
+                                 ]
+                }
+}

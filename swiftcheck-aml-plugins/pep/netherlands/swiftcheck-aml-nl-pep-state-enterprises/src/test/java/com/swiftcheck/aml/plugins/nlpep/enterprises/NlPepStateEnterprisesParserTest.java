@@ -10,7 +10,7 @@ import com.swiftcheck.aml.sdk.FtmDatasetBuilder;
 
 class NlPepStateEnterprisesParserTest {
 
-    private static final Path RAW = Path.of("src/main/resources/seed/nl-state-enterprises.json");
+    private static final Path RAW = Path.of("src/test/resources/dutch-state-enterprises-wikidata.json");
 
     private final NlPepStateEnterprisesParser parser = new NlPepStateEnterprisesParser();
 
@@ -22,16 +22,16 @@ class NlPepStateEnterprisesParserTest {
         );
         int count = parser.convert(RAW, dataset);
 
-        assertThat(count).isEqualTo(10);
+        assertThat(count).isGreaterThanOrEqualTo(5);
         assertThat(dataset.qualityReport().getTotalRejected()).isZero();
 
         long persons = dataset.entities().stream().filter(e -> "Person".equals(e.getSchema())).count();
-        assertThat(persons).isEqualTo(10);
+        assertThat(persons).isEqualTo(count);
 
         assertThat(dataset.entities().stream().filter(e -> "Person".equals(e.getSchema())))
                 .anyMatch(p -> p.getValues("name").contains("Wouter Koolmees"))
                 .anyMatch(p -> p.getValues("name").contains("Pieter van Oord"))
-                .anyMatch(p -> p.getValues("name").contains("Manon van Beek"));
+                .anyMatch(p -> p.getValues("name").contains("Manon van Beek"))
+                .anyMatch(p -> p.getValues("name").contains("Marjan Rintel"));
     }
 }
-

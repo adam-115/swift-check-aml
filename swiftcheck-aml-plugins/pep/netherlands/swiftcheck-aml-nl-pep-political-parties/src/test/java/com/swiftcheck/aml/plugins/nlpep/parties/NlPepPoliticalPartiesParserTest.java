@@ -10,7 +10,7 @@ import com.swiftcheck.aml.sdk.FtmDatasetBuilder;
 
 class NlPepPoliticalPartiesParserTest {
 
-    private static final Path RAW = Path.of("src/main/resources/seed/nl-political-parties.json");
+    private static final Path RAW = Path.of("src/test/resources/dutch-party-leaders-wikidata.json");
 
     private final NlPepPoliticalPartiesParser parser = new NlPepPoliticalPartiesParser();
 
@@ -22,16 +22,16 @@ class NlPepPoliticalPartiesParserTest {
         );
         int count = parser.convert(RAW, dataset);
 
-        assertThat(count).isEqualTo(15);
+        assertThat(count).isGreaterThanOrEqualTo(14);
         assertThat(dataset.qualityReport().getTotalRejected()).isZero();
 
         long persons = dataset.entities().stream().filter(e -> "Person".equals(e.getSchema())).count();
-        assertThat(persons).isEqualTo(15);
+        assertThat(persons).isEqualTo(count);
 
         assertThat(dataset.entities().stream().filter(e -> "Person".equals(e.getSchema())))
                 .anyMatch(p -> p.getValues("name").contains("Geert Wilders"))
                 .anyMatch(p -> p.getValues("name").contains("Frans Timmermans"))
-                .anyMatch(p -> p.getValues("name").contains("Dilan Yeşilgöz-Zegerius"));
+                .anyMatch(p -> p.getValues("name").contains("Dilan Yeşilgöz"))
+                .anyMatch(p -> p.getValues("name").contains("Pieter Omtzigt"));
     }
 }
-

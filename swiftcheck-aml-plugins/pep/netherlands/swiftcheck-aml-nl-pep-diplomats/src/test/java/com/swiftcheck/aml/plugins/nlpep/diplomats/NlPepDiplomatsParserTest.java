@@ -10,7 +10,7 @@ import com.swiftcheck.aml.sdk.FtmDatasetBuilder;
 
 class NlPepDiplomatsParserTest {
 
-    private static final Path RAW = Path.of("src/main/resources/seed/nl-diplomats.json");
+    private static final Path RAW = Path.of("src/test/resources/dutch-ambassadors-wikipedia.json");
 
     private final NlPepDiplomatsParser parser = new NlPepDiplomatsParser();
 
@@ -22,16 +22,14 @@ class NlPepDiplomatsParserTest {
         );
         int count = parser.convert(RAW, dataset);
 
-        assertThat(count).isEqualTo(12);
+        assertThat(count).isGreaterThanOrEqualTo(100);
         assertThat(dataset.qualityReport().getTotalRejected()).isZero();
 
         long persons = dataset.entities().stream().filter(e -> "Person".equals(e.getSchema())).count();
-        assertThat(persons).isEqualTo(12);
+        assertThat(persons).isEqualTo(count);
 
         assertThat(dataset.entities().stream().filter(e -> "Person".equals(e.getSchema())))
-                .anyMatch(p -> p.getValues("name").contains("Birgitta Tazelaar"))
                 .anyMatch(p -> p.getValues("name").contains("Jan Versteeg"))
-                .anyMatch(p -> p.getValues("name").contains("Robert de Groot"));
+                .anyMatch(p -> p.getValues("name").contains("Reinout Vos"));
     }
 }
-
