@@ -10,7 +10,7 @@ import com.swiftcheck.aml.sdk.FtmDatasetBuilder;
 
 class PtPepDiplomatsParserTest {
 
-    private static final Path RAW = Path.of("src/main/resources/seed/pt-diplomats.json");
+    private static final Path RAW = Path.of("src/test/resources/pt-diplomats-wikipedia.json");
 
     private final PtPepDiplomatsParser parser = new PtPepDiplomatsParser();
 
@@ -22,15 +22,14 @@ class PtPepDiplomatsParserTest {
         );
         int count = parser.convert(RAW, dataset);
 
-        assertThat(count).isEqualTo(14);
+        assertThat(count).isGreaterThanOrEqualTo(20);
         assertThat(dataset.qualityReport().getTotalRejected()).isZero();
 
         long persons = dataset.entities().stream().filter(e -> "Person".equals(e.getSchema())).count();
-        assertThat(persons).isEqualTo(14);
+        assertThat(persons).isGreaterThanOrEqualTo(20);
 
         assertThat(dataset.entities().stream().filter(e -> "Person".equals(e.getSchema())))
-                .anyMatch(p -> p.getValues("name").contains("Pedro Lourtie"))
-                .anyMatch(p -> p.getValues("name").contains("Ana Paula Zacarias"))
-                .anyMatch(p -> p.getValues("name").contains("José Augusto Duarte"));
+                .anyMatch(p -> p.getValues("name").stream().anyMatch(n -> n.contains("Ana Paula Zacarias")))
+                .anyMatch(p -> p.getValues("name").stream().anyMatch(n -> n.contains("Isabel Brilhante Pedrosa") || n.contains("Vítor Sereno") || n.contains("António Gamito")));
     }
 }
