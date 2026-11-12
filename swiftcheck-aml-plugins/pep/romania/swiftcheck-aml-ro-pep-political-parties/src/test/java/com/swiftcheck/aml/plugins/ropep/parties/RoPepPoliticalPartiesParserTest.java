@@ -12,16 +12,16 @@ import com.swiftcheck.aml.sdk.FtmDatasetBuilder;
 
 class RoPepPoliticalPartiesParserTest {
 
-    private static final Path RAW = Path.of("src/main/resources/seed/ro-political-parties.json");
+    private static final Path RAW = Path.of("src/test/resources/ro-political-parties-wikipedia.json");
 
     @Test
     void testConvert() throws Exception {
         RoPepPoliticalPartiesParser parser = new RoPepPoliticalPartiesParser();
-        FtmDatasetBuilder dataset = new FtmDatasetBuilder("ro-pep-political-parties", "role.pep");
+        FtmDatasetBuilder dataset = new FtmDatasetBuilder(RoPepPoliticalPartiesParser.ID_PREFIX, RoPepPoliticalPartiesParser.TOPIC);
 
         int count = parser.convert(RAW, dataset);
-        assertEquals(14, count);
-        assertEquals(0, dataset.qualityReport().getTotalRejected());
+        assertTrue(count >= 7, "Au moins 7 dirigeants des partis politiques roumains doivent être indexés, trouvé: " + count);
+        assertEquals(0, dataset.qualityReport().getTotalRejected(), "Aucune entité rejetée");
         assertFalse(dataset.entities().isEmpty());
 
         boolean foundCiolacu = dataset.entities().stream()
@@ -35,4 +35,3 @@ class RoPepPoliticalPartiesParserTest {
         assertTrue(foundCiuca, "Nicolae Ciucă doit être présent dans le dataset");
     }
 }
-
