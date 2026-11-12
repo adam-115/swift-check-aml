@@ -1,0 +1,4707 @@
+{
+  "head" : {
+    "vars" : [ "person", "personLabel", "pos", "posLabel", "startDate", "endDate", "birthDate" ]
+  },
+  "results" : {
+    "bindings" : [ {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q141548814"
+      },
+      "personLabel" : {
+        "type" : "literal",
+        "value" : "Q141548814"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q85792841"
+      },
+      "posLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Permanent Observer of the Holy See to the Council of Europe"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2026-09-24T00:00:00Z"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1978-11-13T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q141453224"
+      },
+      "personLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "George-Gabriel Bologan"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q64689478"
+      },
+      "posLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "ambasador al României în Vatican"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2024-10-01T00:00:00Z"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1974-09-07T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q126061714"
+      },
+      "personLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "Sebastian Mitrache"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q64691479"
+      },
+      "posLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "ambasador al României în Arabia Saudită"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2024-05-01T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q124302621"
+      },
+      "personLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Florin Bulgariu"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q64699516"
+      },
+      "posLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "ambasador al României în Palestina"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2024-01-16T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q12730290"
+      },
+      "personLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "Carmen-Ileana Mihălcescu"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q64698623"
+      },
+      "posLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "ambasador al României în Grecia"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2024-01-01T00:00:00Z"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1970-05-14T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q123876287"
+      },
+      "personLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "Daniel Ioniță"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q64699562"
+      },
+      "posLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "ambasador al României în Suedia"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2022-08-01T00:00:00Z"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1968-02-02T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q12730882"
+      },
+      "personLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "Ion Jinga"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q57421531"
+      },
+      "posLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Permanent Representative to the Council of Europe"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2022-07-02T00:00:00Z"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1961-09-01T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q111600189"
+      },
+      "personLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "Florin-Marius Tacu"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q64699517"
+      },
+      "posLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "ambasador al României în Oman"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2022-04-14T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q111600200"
+      },
+      "personLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "Daniel Tănase"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q64699518"
+      },
+      "posLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "ambasador al României în Qatar"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2022-04-14T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q72691233"
+      },
+      "personLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "Gabriela Dancău"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q64698742"
+      },
+      "posLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "ambasador al României în Malta"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2022-04-14T00:00:00Z"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1977-07-05T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q72691233"
+      },
+      "personLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "Gabriela Dancău"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q64698652"
+      },
+      "posLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "ambasador al României în Italia"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2022-04-14T00:00:00Z"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1977-07-05T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q111600168"
+      },
+      "personLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "Ion Naval"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q64699578"
+      },
+      "posLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "ambasador al României în Turkmenistan"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2022-04-14T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q111600205"
+      },
+      "personLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "Octavian-Bogdan Bădică"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q64698587"
+      },
+      "posLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "ambasador al României în Emiratele Arabe Unite"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2022-04-14T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q72691233"
+      },
+      "personLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "Gabriela Dancău"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q64699553"
+      },
+      "posLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "ambasador al României în San Marino"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2022-04-14T00:00:00Z"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1977-07-05T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q108393452"
+      },
+      "personLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "Theodora-Magdalena Mircea"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q64699548"
+      },
+      "posLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "ambasador al României în Sfânta Lucia"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2022-04-14T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q108393452"
+      },
+      "personLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "Theodora-Magdalena Mircea"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q64698702"
+      },
+      "posLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "ambasador al României în Jamaica"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2022-04-14T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q108393452"
+      },
+      "personLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "Theodora-Magdalena Mircea"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q64698467"
+      },
+      "posLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "ambasador al României în Bahamas"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2022-04-14T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q131716490"
+      },
+      "personLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Iulia Matei"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q64711966"
+      },
+      "posLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "reprezentant permanent al României la Uniunea Europeană"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2022-01-01T00:00:00Z"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1978-08-23T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q141453224"
+      },
+      "personLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "George-Gabriel Bologan"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q64699561"
+      },
+      "posLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "ambasador al României în Spania"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2022-01-01T00:00:00Z"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1974-09-07T00:00:00Z"
+      },
+      "endDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2024-01-01T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q108393278"
+      },
+      "personLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "Nicolae Năstase"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q64698490"
+      },
+      "posLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "ambasador al României în Coasta de Fildeș"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2021-09-03T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q108393466"
+      },
+      "personLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "Gruia-Otiliu Jacotă"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q64691473"
+      },
+      "posLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "ambasador al României în Algeria"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2021-09-03T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q108393278"
+      },
+      "personLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "Nicolae Năstase"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q64698465"
+      },
+      "posLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "ambasador al României în Burkina Faso"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2021-09-03T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q108393461"
+      },
+      "personLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "Mădălina Lupu"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q64698705"
+      },
+      "posLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "ambasador al României în Kazahstan"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2021-09-03T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q108393452"
+      },
+      "personLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "Theodora-Magdalena Mircea"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q64698498"
+      },
+      "posLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "ambasador al României în Cuba"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2021-09-03T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q108393461"
+      },
+      "personLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "Mădălina Lupu"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q64698704"
+      },
+      "posLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "ambasador al României în Kârgâzstan"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2021-09-03T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q108393278"
+      },
+      "personLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "Nicolae Năstase"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q64699555"
+      },
+      "posLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "ambasador al României în Senegal"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2021-09-03T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q108393466"
+      },
+      "personLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "Gruia-Otiliu Jacotă"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q64698761"
+      },
+      "posLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "ambasador al României în Niger"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2021-09-03T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q108393442"
+      },
+      "personLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "Dan-Adrian Bălănescu"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q64698696"
+      },
+      "posLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "ambasador al României în Indonezia"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2021-09-03T00:00:00Z"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1974-03-14T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q108393461"
+      },
+      "personLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "Mădălina Lupu"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q64699577"
+      },
+      "posLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "ambasador al României în Tadjikistan"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2021-09-03T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q108393278"
+      },
+      "personLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "Nicolae Năstase"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q64698625"
+      },
+      "posLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "ambasador al României în Gambia"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2021-09-03T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q108393442"
+      },
+      "personLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "Dan-Adrian Bălănescu"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q64698600"
+      },
+      "posLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "ambasador al României în Timorul de Est"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2021-09-03T00:00:00Z"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1974-03-14T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q108393452"
+      },
+      "personLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "Theodora-Magdalena Mircea"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q64699547"
+      },
+      "posLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "ambasador al României în Sfântul Vincențiu și Grenadine"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2021-09-03T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q108393452"
+      },
+      "personLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "Theodora-Magdalena Mircea"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q64699546"
+      },
+      "posLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "ambasador al României în Sfântul Cristofor și Nevis"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2021-09-03T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q108393278"
+      },
+      "personLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "Nicolae Năstase"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q64698487"
+      },
+      "posLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "ambasador al României în Capul Verde"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2021-09-03T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q108393452"
+      },
+      "personLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "Theodora-Magdalena Mircea"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q64691475"
+      },
+      "posLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "ambasador al României în Antigua și Barbuda"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2021-09-03T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q108393452"
+      },
+      "personLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "Theodora-Magdalena Mircea"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q64698508"
+      },
+      "posLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "ambasador al României în Dominica"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2021-09-03T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q19707772"
+      },
+      "personLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "Andrei Muraru"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q121998"
+      },
+      "posLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "ambasador"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2021-07-07T00:00:00Z"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1982-01-01T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q19707772"
+      },
+      "personLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "Andrei Muraru"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q121998"
+      },
+      "posLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "ambasador"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2021-07-07T00:00:00Z"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1982-05-20T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q5542064"
+      },
+      "personLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "George Maior"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q64698653"
+      },
+      "posLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "ambasador al României în Iordania"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2021-05-14T00:00:00Z"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1967-11-16T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6765963"
+      },
+      "personLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "Marius Lazurca"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q64698752"
+      },
+      "posLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "ambasador al României în Mexic"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2021-03-01T00:00:00Z"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1971-03-15T00:00:00Z"
+      },
+      "endDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2025-09-01T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q7520204"
+      },
+      "personLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "Simona Miculescu"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q78345362"
+      },
+      "posLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "reprezentant permanent al României la UNESCO"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2021-01-09T00:00:00Z"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1959-07-04T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q130757763"
+      },
+      "personLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "Cristian Istrate"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q64699538"
+      },
+      "posLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "ambasador al României în Rusia"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2021-01-01T00:00:00Z"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1964-01-01T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1336281"
+      },
+      "personLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "Emil Hurezeanu"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q64691471"
+      },
+      "posLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "ambasador al României în Austria"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2021-01-01T00:00:00Z"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1955-08-26T00:00:00Z"
+      },
+      "endDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2023-01-01T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q105080724"
+      },
+      "personLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "Gabriel-Cătălin Șopandă"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q63607921"
+      },
+      "posLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "ambasador al României în Ungaria"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2021-01-01T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q141734660"
+      },
+      "personLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "Lucian Fătu"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q64682703"
+      },
+      "posLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "ambasador al României în Țările de Jos"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2020-01-01T00:00:00Z"
+      },
+      "endDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2024-01-01T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q79052295"
+      },
+      "personLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "Adrian Zuckerman"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2912338"
+      },
+      "posLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "ambasador al Statelor Unite ale Americii în România"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2019-12-17T00:00:00Z"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1956-09-22T00:00:00Z"
+      },
+      "endDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2021-01-20T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q28470540"
+      },
+      "personLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "Andreea Păstârnac"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q64683191"
+      },
+      "posLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "ambasador al României în Belgia"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2019-07-12T00:00:00Z"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1967-01-01T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q17641551"
+      },
+      "personLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "George Ciamba"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q64698623"
+      },
+      "posLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "ambasador al României în Grecia"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2019-01-01T00:00:00Z"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1966-02-20T00:00:00Z"
+      },
+      "endDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2021-01-01T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q97393722"
+      },
+      "personLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "Vasilică Constantinescu"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q64698502"
+      },
+      "posLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "ambasador al României în China"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2017-10-26T00:00:00Z"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1969-05-02T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q105080724"
+      },
+      "personLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "Gabriel-Cătălin Șopandă"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q64699567"
+      },
+      "posLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "ambasador al României în Turcia"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2016-09-01T00:00:00Z"
+      },
+      "endDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2020-12-01T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q123876287"
+      },
+      "personLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "Daniel Ioniță"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q64667162"
+      },
+      "posLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "ambasador al României în Republica Moldova"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2016-07-07T00:00:00Z"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1968-02-02T00:00:00Z"
+      },
+      "endDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2022-05-05T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q347466"
+      },
+      "personLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "Sorin Dan Mihalache"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q64682711"
+      },
+      "posLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "ambasador al României în Regatul Unit"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2016-06-08T00:00:00Z"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1971-05-18T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q121140873"
+      },
+      "personLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "Luca Niculescu"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q64698743"
+      },
+      "posLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "ambasador al României în Monaco"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2016-04-21T00:00:00Z"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1971-04-25T00:00:00Z"
+      },
+      "endDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2022-08-01T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q121140873"
+      },
+      "personLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "Luca Niculescu"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q64691470"
+      },
+      "posLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "ambasador al României în Andorra"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2016-04-14T00:00:00Z"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1971-04-25T00:00:00Z"
+      },
+      "endDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2022-08-01T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q121140873"
+      },
+      "personLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "Luca Niculescu"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q64698602"
+      },
+      "posLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "ambasador al României în Franța"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2016-01-08T00:00:00Z"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1971-04-25T00:00:00Z"
+      },
+      "endDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2022-08-01T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6063401"
+      },
+      "personLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "Ion Vîlcu"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q64698752"
+      },
+      "posLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "ambasador al României în Mexic"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2016-01-01T00:00:00Z"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1966-05-12T00:00:00Z"
+      },
+      "endDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2018-01-01T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q141453224"
+      },
+      "personLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "George-Gabriel Bologan"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q64698652"
+      },
+      "posLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "ambasador al României în Italia"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2016-01-01T00:00:00Z"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1974-09-07T00:00:00Z"
+      },
+      "endDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2022-01-01T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q72691233"
+      },
+      "personLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "Gabriela Dancău"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q64699561"
+      },
+      "posLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "ambasador al României în Spania"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2016-01-01T00:00:00Z"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1977-07-05T00:00:00Z"
+      },
+      "endDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2021-01-01T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q18549357"
+      },
+      "personLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "Liviu Zăpârțan"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q64689478"
+      },
+      "posLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "ambasador al României în Vatican"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2016-01-01T00:00:00Z"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1947-07-11T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q141453197"
+      },
+      "personLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "Liviu-Petru Zăpârțan"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q64689478"
+      },
+      "posLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "ambasador al României în Vatican"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2016-01-01T00:00:00Z"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1947-07-11T00:00:00Z"
+      },
+      "endDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2021-01-01T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6063401"
+      },
+      "personLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "Ion Vîlcu"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q64698649"
+      },
+      "posLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "ambasador al României în Honduras"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2016-01-01T00:00:00Z"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1966-05-12T00:00:00Z"
+      },
+      "endDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2018-01-01T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6063401"
+      },
+      "personLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "Ion Vîlcu"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q64698631"
+      },
+      "posLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "ambasador al României în Guatemala"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2016-01-01T00:00:00Z"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1966-05-12T00:00:00Z"
+      },
+      "endDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2018-01-01T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6063401"
+      },
+      "personLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "Ion Vîlcu"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q64698497"
+      },
+      "posLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "ambasador al României în Costa Rica"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2016-01-01T00:00:00Z"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1966-05-12T00:00:00Z"
+      },
+      "endDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2018-01-01T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6063401"
+      },
+      "personLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "Ion Vîlcu"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q64698586"
+      },
+      "posLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "ambasador al României în El Salvador"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2016-01-01T00:00:00Z"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1966-05-12T00:00:00Z"
+      },
+      "endDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2018-01-01T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6063401"
+      },
+      "personLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "Ion Vîlcu"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q64698765"
+      },
+      "posLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "ambasador al României în Nicaragua"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2016-01-01T00:00:00Z"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1966-05-12T00:00:00Z"
+      },
+      "endDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2018-01-01T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6765963"
+      },
+      "personLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "Marius Lazurca"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q63607921"
+      },
+      "posLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "ambasador al României în Ungaria"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2016-01-01T00:00:00Z"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1971-03-15T00:00:00Z"
+      },
+      "endDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2020-09-01T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q5542064"
+      },
+      "personLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "George Maior"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q64699549"
+      },
+      "posLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "ambasador al României în Statele Unite ale Americii"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2015-09-17T00:00:00Z"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1967-11-16T00:00:00Z"
+      },
+      "endDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2021-01-01T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6845299"
+      },
+      "personLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "Mihnea Motoc"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q64682711"
+      },
+      "posLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "ambasador al României în Regatul Unit"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2015-09-11T00:00:00Z"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1966-11-11T00:00:00Z"
+      },
+      "endDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2015-11-17T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q64712013"
+      },
+      "personLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "Luminița Odobescu"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q64711966"
+      },
+      "posLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "reprezentant permanent al României la Uniunea Europeană"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2015-09-01T00:00:00Z"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1969-05-03T00:00:00Z"
+      },
+      "endDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2021-11-01T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q372760"
+      },
+      "personLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "Adrian Cioroianu"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q78345362"
+      },
+      "posLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "reprezentant permanent al României la UNESCO"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2015-09-01T00:00:00Z"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1967-01-05T00:00:00Z"
+      },
+      "endDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2020-12-01T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q12730882"
+      },
+      "personLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "Ion Jinga"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q64683164"
+      },
+      "posLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "reprezentant permanent al României la Organizația Națiunilor Unite în New York"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2015-08-04T00:00:00Z"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1961-09-01T00:00:00Z"
+      },
+      "endDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2022-07-01T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1336281"
+      },
+      "personLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "Emil Hurezeanu"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q64698621"
+      },
+      "posLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "ambasador al României în Germania"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2015-05-05T00:00:00Z"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1955-08-26T00:00:00Z"
+      },
+      "endDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2021-01-01T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q18540433"
+      },
+      "personLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "Valeriu Gheorghe"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q64699518"
+      },
+      "posLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "ambasador al României în Qatar"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2014-01-01T00:00:00Z"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1951-08-26T00:00:00Z"
+      },
+      "endDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2019-01-01T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q7916636"
+      },
+      "personLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "Vasile Soare"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q64699538"
+      },
+      "posLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "ambasador al României în Rusia"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2014-01-01T00:00:00Z"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1971-07-13T00:00:00Z"
+      },
+      "endDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2020-01-01T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q18538370"
+      },
+      "personLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "Iulian Buga"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q64699549"
+      },
+      "posLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "ambasador al României în Statele Unite ale Americii"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2013-12-04T00:00:00Z"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1957-08-31T00:00:00Z"
+      },
+      "endDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2015-01-01T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q141734660"
+      },
+      "personLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "Lucian Fătu"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q64698623"
+      },
+      "posLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "ambasador al României în Grecia"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2013-01-01T00:00:00Z"
+      },
+      "endDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2019-01-01T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q12731175"
+      },
+      "personLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "Iulia Pataki"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q64699539"
+      },
+      "posLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "ambasador al României în Rwanda"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2012-05-01T00:00:00Z"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1963-05-16T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q12731175"
+      },
+      "personLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "Iulia Pataki"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q64699572"
+      },
+      "posLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "ambasador al României în Uganda"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2012-05-01T00:00:00Z"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1963-05-16T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q12731175"
+      },
+      "personLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "Iulia Pataki"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q64698706"
+      },
+      "posLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "ambasador al României în Kenya"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2012-05-01T00:00:00Z"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1963-05-16T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q12731175"
+      },
+      "personLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "Iulia Pataki"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q64699569"
+      },
+      "posLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "ambasador al României în Tanzania"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2012-05-01T00:00:00Z"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1963-05-16T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q12731175"
+      },
+      "personLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "Iulia Pataki"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q64698466"
+      },
+      "posLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "ambasador al României în Burundi"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2012-05-01T00:00:00Z"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1963-05-16T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q5299031"
+      },
+      "personLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "Doru Romulus Costea"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q64698502"
+      },
+      "posLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "ambasador al României în China"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2012-03-01T00:00:00Z"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1953-09-22T00:00:00Z"
+      },
+      "endDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2017-10-26T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q123876287"
+      },
+      "personLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "Daniel Ioniță"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q64698759"
+      },
+      "posLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "ambasador al României în Norvegia"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2011-10-01T00:00:00Z"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1968-02-02T00:00:00Z"
+      },
+      "endDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2015-01-01T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6063401"
+      },
+      "personLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "Ion Vîlcu"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q64699561"
+      },
+      "posLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "ambasador al României în Spania"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2011-01-01T00:00:00Z"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1966-05-12T00:00:00Z"
+      },
+      "endDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2016-01-01T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q12743237"
+      },
+      "personLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "Vasile Popovici"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q64699512"
+      },
+      "posLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "ambasador al României în Portugalia"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2011-01-01T00:00:00Z"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1956-01-01T00:00:00Z"
+      },
+      "endDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2016-01-01T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q12743237"
+      },
+      "personLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "Vasile Popovici"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q64699512"
+      },
+      "posLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "ambasador al României în Portugalia"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2011-01-01T00:00:00Z"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1956-05-13T00:00:00Z"
+      },
+      "endDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2016-01-01T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6765963"
+      },
+      "personLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "Marius Lazurca"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q64667162"
+      },
+      "posLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "ambasador al României în Republica Moldova"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2010-03-01T00:00:00Z"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1971-03-15T00:00:00Z"
+      },
+      "endDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2016-01-01T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4937451"
+      },
+      "personLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "Bogdan Mazuru"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q64698602"
+      },
+      "posLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "ambasador al României în Franța"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2010-01-01T00:00:00Z"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1962-03-26T00:00:00Z"
+      },
+      "endDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2015-01-01T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q18548457"
+      },
+      "personLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "Bogdan Tătaru-Cazaban"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q64689478"
+      },
+      "posLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "ambasador al României în Vatican"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2010-01-01T00:00:00Z"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1977-05-01T00:00:00Z"
+      },
+      "endDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2016-01-01T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q921306"
+      },
+      "personLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "Lazăr Comănescu"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q64698621"
+      },
+      "posLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "ambasador al României în Germania"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2009-01-01T00:00:00Z"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1949-06-04T00:00:00Z"
+      },
+      "endDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2015-01-01T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q18538370"
+      },
+      "personLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "Iulian Buga"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q64698650"
+      },
+      "posLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "ambasador al României în Irlanda"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2009-01-01T00:00:00Z"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1957-08-31T00:00:00Z"
+      },
+      "endDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2013-01-01T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q7520204"
+      },
+      "personLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "Simona Miculescu"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q64683164"
+      },
+      "posLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "reprezentant permanent al României la Organizația Națiunilor Unite în New York"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2008-04-01T00:00:00Z"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1959-07-04T00:00:00Z"
+      },
+      "endDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2015-07-19T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6845299"
+      },
+      "personLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "Mihnea Motoc"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q64711966"
+      },
+      "posLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "reprezentant permanent al României la Uniunea Europeană"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2008-04-01T00:00:00Z"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1966-11-11T00:00:00Z"
+      },
+      "endDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2015-04-30T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q12730882"
+      },
+      "personLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "Ion Jinga"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q64682711"
+      },
+      "posLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "ambasador al României în Regatul Unit"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2008-03-07T00:00:00Z"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1961-09-01T00:00:00Z"
+      },
+      "endDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2015-08-04T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3518225"
+      },
+      "personLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "Teodor Baconschi"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q64691470"
+      },
+      "posLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "ambasador al României în Andorra"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2008-03-04T00:00:00Z"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1963-02-14T00:00:00Z"
+      },
+      "endDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2009-01-01T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q5163731"
+      },
+      "personLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "Constantin Grigorie"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q64699538"
+      },
+      "posLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "ambasador al României în Rusia"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2008-01-01T00:00:00Z"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1950-06-01T00:00:00Z"
+      },
+      "endDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2013-01-01T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3518225"
+      },
+      "personLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "Teodor Baconschi"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q64698602"
+      },
+      "posLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "ambasador al României în Franța"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2007-08-02T00:00:00Z"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1963-02-14T00:00:00Z"
+      },
+      "endDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2009-01-01T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q67332868"
+      },
+      "personLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "Cornel Feruță"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q57542435"
+      },
+      "posLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Permanent Representative to the International Atomic Energy Agency"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2007-01-01T00:00:00Z"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1975-08-21T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6063401"
+      },
+      "personLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "Ion Vîlcu"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q64691476"
+      },
+      "posLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "ambasador al României în Argentina"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2007-01-01T00:00:00Z"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1966-05-12T00:00:00Z"
+      },
+      "endDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2011-01-01T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q18540433"
+      },
+      "personLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "Valeriu Gheorghe"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q64698604"
+      },
+      "posLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "ambasador al României în Filipine"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2007-01-01T00:00:00Z"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1951-08-26T00:00:00Z"
+      },
+      "endDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2013-01-01T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6063401"
+      },
+      "personLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "Ion Vîlcu"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q64699514"
+      },
+      "posLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "ambasador al României în Paraguay"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2007-01-01T00:00:00Z"
+      },
+      "endDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2011-01-01T00:00:00Z"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1966-05-12T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q535151"
+      },
+      "personLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "Nicolae Manolescu"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q78345362"
+      },
+      "posLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "reprezentant permanent al României la UNESCO"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2006-11-01T00:00:00Z"
+      },
+      "endDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2015-08-01T00:00:00Z"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1939-11-27T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q12743606"
+      },
+      "personLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "Vlad Alexandrescu"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q64699625"
+      },
+      "posLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "ambasador al României în Luxemburg"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2006-03-01T00:00:00Z"
+      },
+      "endDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2011-08-01T00:00:00Z"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1965-06-22T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4937451"
+      },
+      "personLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "Bogdan Mazuru"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q64698621"
+      },
+      "posLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "ambasador al României în Germania"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2006-01-01T00:00:00Z"
+      },
+      "endDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2009-01-01T00:00:00Z"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1962-03-26T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6765963"
+      },
+      "personLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "Marius Lazurca"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q64689478"
+      },
+      "posLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "ambasador al României în Vatican"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2006-01-01T00:00:00Z"
+      },
+      "endDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2010-01-01T00:00:00Z"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1971-03-15T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q12743237"
+      },
+      "personLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "Vasile Popovici"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q64698748"
+      },
+      "posLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "ambasador al României în Maroc"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2005-01-01T00:00:00Z"
+      },
+      "endDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2011-01-01T00:00:00Z"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1956-01-01T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q12743237"
+      },
+      "personLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "Vasile Popovici"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q64698748"
+      },
+      "posLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "ambasador al României în Maroc"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2005-01-01T00:00:00Z"
+      },
+      "endDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2011-01-01T00:00:00Z"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1956-05-13T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q17641551"
+      },
+      "personLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "George Ciamba"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q64698623"
+      },
+      "posLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "ambasador al României în Grecia"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2005-01-01T00:00:00Z"
+      },
+      "endDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2012-01-01T00:00:00Z"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1966-02-20T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q132674216"
+      },
+      "personLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "Ioan Donca"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q64699538"
+      },
+      "posLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "ambasador al României în Rusia"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2005-01-01T00:00:00Z"
+      },
+      "endDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2008-01-01T00:00:00Z"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1940-03-14T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3523675"
+      },
+      "personLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "Theodor Paleologu"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q64698506"
+      },
+      "posLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "ambasador al României în Danemarca"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2005-01-01T00:00:00Z"
+      },
+      "endDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2008-01-01T00:00:00Z"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1973-07-15T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3523675"
+      },
+      "personLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "Theodor Paleologu"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q64698651"
+      },
+      "posLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "ambasador al României în Islanda"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2005-01-01T00:00:00Z"
+      },
+      "endDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2008-01-01T00:00:00Z"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1973-07-15T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q112447502"
+      },
+      "personLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "Gabriel Gafița"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q64699512"
+      },
+      "posLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "ambasador al României în Portugalia"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2005-01-01T00:00:00Z"
+      },
+      "endDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2006-01-01T00:00:00Z"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1952-01-01T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q18549786"
+      },
+      "personLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "Gheorghe Tokay"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q64699624"
+      },
+      "posLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "ambasador al României în Lituania"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2005-01-01T00:00:00Z"
+      },
+      "endDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2009-01-01T00:00:00Z"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1939-03-27T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q446692"
+      },
+      "personLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "Dumitru Prunariu"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q64699538"
+      },
+      "posLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "ambasador al României în Rusia"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2004-05-01T00:00:00Z"
+      },
+      "endDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2005-05-24T00:00:00Z"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1952-09-27T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4118381"
+      },
+      "personLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "Tasin Gemil"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q64699578"
+      },
+      "posLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "ambasador al României în Turkmenistan"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2004-01-01T00:00:00Z"
+      },
+      "endDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2007-01-01T00:00:00Z"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1943-09-21T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q12730655"
+      },
+      "personLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "Ioan Leș"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q64699576"
+      },
+      "posLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "ambasador al României în Venezuela"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2004-01-01T00:00:00Z"
+      },
+      "endDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2006-01-01T00:00:00Z"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1947-09-01T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q18547558"
+      },
+      "personLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "Mihail Roșianu"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q64698462"
+      },
+      "posLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "ambasador al României în Bulgaria"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2004-01-01T00:00:00Z"
+      },
+      "endDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2009-01-01T00:00:00Z"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1900-10-20T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q12725593"
+      },
+      "personLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "Constantin Simirad"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q64698498"
+      },
+      "posLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "ambasador al României în Cuba"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2003-11-28T00:00:00Z"
+      },
+      "endDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2006-12-01T00:00:00Z"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1941-05-13T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q12730882"
+      },
+      "personLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "Ion Jinga"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q64683191"
+      },
+      "posLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "ambasador al României în Belgia"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2003-04-09T00:00:00Z"
+      },
+      "endDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2008-03-07T00:00:00Z"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1961-09-01T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6845299"
+      },
+      "personLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "Mihnea Motoc"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q64683164"
+      },
+      "posLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "reprezentant permanent al României la Organizația Națiunilor Unite în New York"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2003-01-01T00:00:00Z"
+      },
+      "endDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2008-04-01T00:00:00Z"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1966-11-11T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q5299031"
+      },
+      "personLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "Doru Romulus Costea"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q66587416"
+      },
+      "posLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "reprezentant permanent al României la Organizația Națiunilor Unite în Geneva"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2003-01-01T00:00:00Z"
+      },
+      "endDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2009-01-01T00:00:00Z"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1953-09-22T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q5448524"
+      },
+      "personLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "Filip Teodorescu"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q64667162"
+      },
+      "posLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "ambasador al României în Republica Moldova"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2003-01-01T00:00:00Z"
+      },
+      "endDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2009-01-01T00:00:00Z"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1951-12-26T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q18544042"
+      },
+      "personLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "Dan Ghibernea"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q64682711"
+      },
+      "posLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "ambasador al României în Regatul Unit"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2002-11-29T00:00:00Z"
+      },
+      "endDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2006-07-18T00:00:00Z"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1954-09-15T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3518225"
+      },
+      "personLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "Teodor Baconschi"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q64699512"
+      },
+      "posLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "ambasador al României în Portugalia"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2002-11-01T00:00:00Z"
+      },
+      "endDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2005-01-01T00:00:00Z"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1963-02-14T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q12721212"
+      },
+      "personLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "Aurel-Constantin Ilie"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q64699538"
+      },
+      "posLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "ambasador al României în Rusia"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2002-01-01T00:00:00Z"
+      },
+      "endDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2004-01-01T00:00:00Z"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1946-05-19T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q18540338"
+      },
+      "personLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "Vlad-Vladimir Galin-Corini"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q64698465"
+      },
+      "posLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "ambasador al României în Burkina Faso"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2002-01-01T00:00:00Z"
+      },
+      "endDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2006-01-01T00:00:00Z"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1941-07-25T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q110069069"
+      },
+      "personLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "Mihail Dobre"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q64698742"
+      },
+      "posLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "ambasador al României în Malta"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2002-01-01T00:00:00Z"
+      },
+      "endDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2006-01-01T00:00:00Z"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1960-10-15T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q18540338"
+      },
+      "personLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "Vlad-Vladimir Galin-Corini"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q64699555"
+      },
+      "posLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "ambasador al României în Senegal"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2002-01-01T00:00:00Z"
+      },
+      "endDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2006-01-01T00:00:00Z"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1941-07-25T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q18541634"
+      },
+      "personLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "Liviu Maior"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q64698494"
+      },
+      "posLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "ambasador al României în Canada"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2002-01-01T00:00:00Z"
+      },
+      "endDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2003-01-01T00:00:00Z"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1940-10-02T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q18540338"
+      },
+      "personLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "Vlad-Vladimir Galin-Corini"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q64698749"
+      },
+      "posLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "ambasador al României în Mauritania"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2002-01-01T00:00:00Z"
+      },
+      "endDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2006-01-01T00:00:00Z"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1941-07-25T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q18540338"
+      },
+      "personLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "Vlad-Vladimir Galin-Corini"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q64698627"
+      },
+      "posLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "ambasador al României în Guineea"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2002-01-01T00:00:00Z"
+      },
+      "endDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2006-01-01T00:00:00Z"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1941-07-25T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q18540338"
+      },
+      "personLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "Vlad-Vladimir Galin-Corini"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q64698747"
+      },
+      "posLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "ambasador al României în Mali"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2002-01-01T00:00:00Z"
+      },
+      "endDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2006-01-01T00:00:00Z"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1941-07-25T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q12738998"
+      },
+      "personLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "Radu Homescu"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q64698604"
+      },
+      "posLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "ambasador al României în Filipine"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2001-11-15T00:00:00Z"
+      },
+      "endDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2006-10-26T00:00:00Z"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1941-01-16T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q12737148"
+      },
+      "personLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "Oliviu Gherman"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q64698602"
+      },
+      "posLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "ambasador al României în Franța"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2001-09-04T00:00:00Z"
+      },
+      "endDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2004-01-01T00:00:00Z"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1930-04-26T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q12728407"
+      },
+      "personLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "Florin Bucur Vasilescu"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q64699571"
+      },
+      "posLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "ambasador al României în Tunisia"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2001-08-17T00:00:00Z"
+      },
+      "endDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2006-01-01T00:00:00Z"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1936-03-10T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q12728874"
+      },
+      "personLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "Gelu Voican Voiculescu"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q64698748"
+      },
+      "posLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "ambasador al României în Maroc"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2001-07-06T00:00:00Z"
+      },
+      "endDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2005-01-01T00:00:00Z"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1941-02-08T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q107377990"
+      },
+      "personLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "Radu Onofrei"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q64682711"
+      },
+      "posLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "ambasador al României în Regatul Unit"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2001-06-13T00:00:00Z"
+      },
+      "endDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2002-01-01T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q12725834"
+      },
+      "personLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "Costin Georgescu"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q64698484"
+      },
+      "posLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "ambasador al României în Cipru"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2001-01-12T00:00:00Z"
+      },
+      "endDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2004-08-24T00:00:00Z"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1942-02-22T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4937451"
+      },
+      "personLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "Bogdan Mazuru"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q98138075"
+      },
+      "posLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "reprezentant permanent al României la NATO"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2001-01-01T00:00:00Z"
+      },
+      "endDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2006-01-01T00:00:00Z"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1962-03-26T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q12723270"
+      },
+      "personLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "Caius-Traian Dragomir"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q64698623"
+      },
+      "posLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "ambasador al României în Grecia"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2001-01-01T00:00:00Z"
+      },
+      "endDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2005-01-01T00:00:00Z"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1939-07-16T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q18538370"
+      },
+      "personLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "Iulian Buga"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q64682703"
+      },
+      "posLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "ambasador al României în Țările de Jos"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2001-01-01T00:00:00Z"
+      },
+      "endDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2007-01-01T00:00:00Z"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1957-08-31T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q12735112"
+      },
+      "personLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "Marțian Dan"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q64699512"
+      },
+      "posLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "ambasador al României în Portugalia"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2001-01-01T00:00:00Z"
+      },
+      "endDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2002-03-08T00:00:00Z"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1935-11-23T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q349018"
+      },
+      "personLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "Eugen Mihăescu"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q78345362"
+      },
+      "posLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "reprezentant permanent al României la UNESCO"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2001-01-01T00:00:00Z"
+      },
+      "endDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2004-01-01T00:00:00Z"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1937-08-24T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3315915"
+      },
+      "personLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "Mircea Criste"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q64698741"
+      },
+      "posLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "ambasador al României în Macedonia de Nord"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2001-01-01T00:00:00Z"
+      },
+      "endDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2004-01-01T00:00:00Z"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1957-08-27T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q18150863"
+      },
+      "personLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "Sorin Ducaru"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q64683164"
+      },
+      "posLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "reprezentant permanent al României la Organizația Națiunilor Unite în New York"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2000-01-01T00:00:00Z"
+      },
+      "endDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2001-01-01T00:00:00Z"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1964-06-22T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6063401"
+      },
+      "personLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "Ion Vîlcu"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q64698495"
+      },
+      "posLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "ambasador al României în Chile"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2000-01-01T00:00:00Z"
+      },
+      "endDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2005-01-01T00:00:00Z"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1966-05-12T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q18545345"
+      },
+      "personLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "Silvia Petrovici"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q64699584"
+      },
+      "posLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "ambasador al României în Thailanda"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2000-01-01T00:00:00Z"
+      },
+      "endDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2001-01-01T00:00:00Z"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1949-01-29T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q12734963"
+      },
+      "personLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "Mariana Stoica"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q64506345"
+      },
+      "posLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "ambasador al României în Israel"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2000-01-01T00:00:00Z"
+      },
+      "endDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2006-01-01T00:00:00Z"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1945-08-29T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q132674216"
+      },
+      "personLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "Ioan Donca"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q64698756"
+      },
+      "posLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "ambasador al României în Mongolia"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2000-01-01T00:00:00Z"
+      },
+      "endDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2002-01-01T00:00:00Z"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1940-03-14T00:00:00Z"
+      }
+    }, {
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q18544048"
+      },
+      "personLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "Ștefan Glăvan"
+      },
+      "pos" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q64699554"
+      },
+      "posLabel" : {
+        "xml:lang" : "ro",
+        "type" : "literal",
+        "value" : "ambasador al României în Serbia"
+      },
+      "startDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2000-01-01T00:00:00Z"
+      },
+      "endDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2004-01-01T00:00:00Z"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1939-12-20T00:00:00Z"
+      }
+    } ]
+  }
+}

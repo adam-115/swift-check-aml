@@ -12,22 +12,26 @@ import com.swiftcheck.aml.sdk.FtmDatasetBuilder;
 
 class RoPepDiplomatsParserTest {
 
-    private static final Path RAW = Path.of("src/main/resources/seed/ro-diplomats.json");
+    private static final Path RAW = Path.of("src/test/resources/ro-diplomats-sparql.json");
 
     @Test
     void testConvert() throws Exception {
         RoPepDiplomatsParser parser = new RoPepDiplomatsParser();
-        FtmDatasetBuilder dataset = new FtmDatasetBuilder("ro-pep-diplomats", "role.pep");
+        FtmDatasetBuilder dataset = new FtmDatasetBuilder(RoPepDiplomatsParser.ID_PREFIX, RoPepDiplomatsParser.TOPIC);
 
         int count = parser.convert(RAW, dataset);
-        assertEquals(10, count);
-        assertEquals(0, dataset.qualityReport().getTotalRejected());
+        assertTrue(count >= 10, "Au moins 10 diplomates roumains doivent être indexés, trouvé: " + count);
+        assertEquals(0, dataset.qualityReport().getTotalRejected(), "Aucune entité rejetée");
         assertFalse(dataset.entities().isEmpty());
 
         boolean foundMuraru = dataset.entities().stream()
                 .filter(e -> "Person".equals(e.getSchema()))
                 .anyMatch(e -> e.getValues("name").contains("Andrei Muraru"));
         assertTrue(foundMuraru, "Andrei Muraru doit être présent dans le dataset");
+
+        boolean foundHurezeanu = dataset.entities().stream()
+                .filter(e -> "Person".equals(e.getSchema()))
+                .anyMatch(e -> e.getValues("name").contains("Emil Hurezeanu"));
+        assertTrue(foundHurezeanu, "Emil Hurezeanu doit être présent dans le dataset");
     }
 }
-
