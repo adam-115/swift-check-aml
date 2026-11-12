@@ -112,7 +112,7 @@ public class BePepPoliticalPartiesParser implements Iparser {
         }
     }
 
-    static final String SEED_EXECUTIVES_RESOURCE = "/seed/bce/party_executives.json";
+    static final String TEST_EXECUTIVES_RESOURCE = "/party_executives.json";
 
     Report convert(Path rawDir, LocalDate since, FtmDatasetBuilder dataset) throws Exception {
         return convert(rawDir, since, dataset, null);
@@ -171,13 +171,14 @@ public class BePepPoliticalPartiesParser implements Iparser {
                 return 0;
             }
         } else {
-            try (var in = getClass().getResourceAsStream(SEED_EXECUTIVES_RESOURCE)) {
+            // Lecture des données de test si disponibles
+            try (var in = getClass().getResourceAsStream(TEST_EXECUTIVES_RESOURCE)) {
                 if (in == null) {
                     return 0;
                 }
                 root = json.readTree(in);
             } catch (Exception e) {
-                log.warn("Erreur lecture " + SEED_EXECUTIVES_RESOURCE + " : {}", e.getMessage());
+                log.warn("Erreur lecture " + TEST_EXECUTIVES_RESOURCE + " : {}", e.getMessage());
                 return 0;
             }
         }
