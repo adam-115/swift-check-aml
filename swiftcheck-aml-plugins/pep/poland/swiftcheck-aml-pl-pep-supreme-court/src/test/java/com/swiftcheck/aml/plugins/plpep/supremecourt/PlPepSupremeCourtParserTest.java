@@ -12,7 +12,7 @@ import com.swiftcheck.aml.sdk.FtmDatasetBuilder;
 
 class PlPepSupremeCourtParserTest {
 
-    private static final Path RAW = Path.of("src/main/resources/seed/pl-supreme-court.json");
+    private static final Path RAW = Path.of("src/test/resources/pl-supreme-court-wikipedia.json");
 
     @Test
     void testConvert() throws Exception {
@@ -20,7 +20,7 @@ class PlPepSupremeCourtParserTest {
         FtmDatasetBuilder dataset = new FtmDatasetBuilder("pl-pep-supreme-court", "role.pep");
 
         int count = parser.convert(RAW, dataset);
-        assertEquals(12, count);
+        assertTrue(count >= 20, "Au moins 20 magistrats doivent être extraits, trouvé: " + count);
         assertEquals(0, dataset.qualityReport().getTotalRejected());
         assertFalse(dataset.entities().isEmpty());
 
@@ -33,6 +33,10 @@ class PlPepSupremeCourtParserTest {
                 .filter(e -> "Person".equals(e.getSchema()))
                 .anyMatch(e -> e.getValues("name").contains("Jacek Chlebny"));
         assertTrue(foundChlebny, "Jacek Chlebny doit être présent dans le dataset");
+
+        boolean foundLemanska = dataset.entities().stream()
+                .filter(e -> "Person".equals(e.getSchema()))
+                .anyMatch(e -> e.getValues("name").contains("Joanna Lemańska"));
+        assertTrue(foundLemanska, "Joanna Lemańska doit être présente dans le dataset");
     }
 }
-
