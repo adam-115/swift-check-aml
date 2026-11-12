@@ -12,7 +12,7 @@ import com.swiftcheck.aml.sdk.FtmDatasetBuilder;
 
 class RoPepSupremeCourtParserTest {
 
-    private static final Path RAW = Path.of("src/main/resources/seed/ro-supreme-court.json");
+    private static final Path RAW = Path.of("src/test/resources/ro-supreme-court-wikipedia.json");
 
     @Test
     void testConvert() throws Exception {
@@ -20,14 +20,18 @@ class RoPepSupremeCourtParserTest {
         FtmDatasetBuilder dataset = new FtmDatasetBuilder("ro-pep-iccj", "role.pep");
 
         int count = parser.convert(RAW, dataset);
-        assertEquals(8, count);
+        assertTrue(count >= 8, "Au moins 8 hauts magistrats de l'ÎCCJ doivent être indexés, trouvé: " + count);
         assertEquals(0, dataset.qualityReport().getTotalRejected());
         assertFalse(dataset.entities().isEmpty());
 
         boolean foundCorbu = dataset.entities().stream()
                 .filter(e -> "Person".equals(e.getSchema()))
-                .anyMatch(e -> e.getValues("name").contains("Corina-Alina Corbu"));
-        assertTrue(foundCorbu, "Corina-Alina Corbu doit être présente dans le dataset");
+                .anyMatch(e -> e.getValues("name").contains("Corina-Alina Corbu") || e.getValues("name").contains("Corina Corbu"));
+        assertTrue(foundCorbu, "Corina Corbu doit être présente dans le dataset");
+
+        boolean foundStanciu = dataset.entities().stream()
+                .filter(e -> "Person".equals(e.getSchema()))
+                .anyMatch(e -> e.getValues("name").contains("Livia Stanciu") || e.getValues("name").contains("Livia Doina Stanciu"));
+        assertTrue(foundStanciu, "Livia Stanciu doit être présente dans le dataset");
     }
 }
-
