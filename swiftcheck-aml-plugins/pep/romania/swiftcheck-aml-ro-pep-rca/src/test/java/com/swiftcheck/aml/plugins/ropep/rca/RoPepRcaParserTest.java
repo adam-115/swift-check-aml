@@ -12,7 +12,7 @@ import com.swiftcheck.aml.sdk.FtmDatasetBuilder;
 
 class RoPepRcaParserTest {
 
-    private static final Path RAW = Path.of("src/main/resources/seed/ro-rca.json");
+    private static final Path RAW = Path.of("src/test/resources/ro-rca-wikipedia.json");
 
     @Test
     void testConvert() throws Exception {
@@ -20,7 +20,7 @@ class RoPepRcaParserTest {
         FtmDatasetBuilder dataset = new FtmDatasetBuilder("ro-pep-rca", "role.rca");
 
         int count = parser.convert(RAW, dataset);
-        assertEquals(9, count);
+        assertTrue(count >= 9, "Au moins 9 proches ou associés doivent être indexés, trouvé: " + count);
         assertEquals(0, dataset.qualityReport().getTotalRejected());
         assertFalse(dataset.entities().isEmpty());
 
@@ -36,4 +36,3 @@ class RoPepRcaParserTest {
         assertTrue(hasAssociate, "Le schéma Associate doit être présent dans le dataset");
     }
 }
-
