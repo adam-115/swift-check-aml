@@ -1,0 +1,2517 @@
+{
+  "head" : {
+    "vars" : [ "leader", "leaderLabel", "person", "personLabel", "personLabelEl", "rel", "birthDate" ]
+  },
+  "results" : {
+    "bindings" : [ {
+      "leader" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q312015"
+      },
+      "leaderLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Alexis Tsipras"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q20487832"
+      },
+      "personLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Peristera Baziana"
+      },
+      "personLabelEl" : {
+        "xml:lang" : "el",
+        "type" : "literal",
+        "value" : "Περιστέρα Μπαζιάνα"
+      },
+      "rel" : {
+        "type" : "literal",
+        "value" : "partner"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1974-08-26T00:00:00Z"
+      }
+    }, {
+      "leader" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q219256"
+      },
+      "leaderLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Andreas Papandreou"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q151917"
+      },
+      "personLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Giorgos Papandreou"
+      },
+      "personLabelEl" : {
+        "xml:lang" : "el",
+        "type" : "literal",
+        "value" : "Γιώργος Α. Παπανδρέου"
+      },
+      "rel" : {
+        "type" : "literal",
+        "value" : "child"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1952-06-16T00:00:00Z"
+      }
+    }, {
+      "leader" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q219256"
+      },
+      "leaderLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Andreas Papandreou"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q12873619"
+      },
+      "personLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Andreas Papandreou"
+      },
+      "personLabelEl" : {
+        "xml:lang" : "el",
+        "type" : "literal",
+        "value" : "Ανδρέας Α. Παπανδρέου"
+      },
+      "rel" : {
+        "type" : "literal",
+        "value" : "child"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1959-01-01T00:00:00Z"
+      }
+    }, {
+      "leader" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q219256"
+      },
+      "leaderLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Andreas Papandreou"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q13360480"
+      },
+      "personLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Níkos Papandréou"
+      },
+      "personLabelEl" : {
+        "xml:lang" : "el",
+        "type" : "literal",
+        "value" : "Νίκος Παπανδρέου"
+      },
+      "rel" : {
+        "type" : "literal",
+        "value" : "child"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1956-09-29T00:00:00Z"
+      }
+    }, {
+      "leader" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q219256"
+      },
+      "leaderLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Andreas Papandreou"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q16946630"
+      },
+      "personLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Sofia Papandreou"
+      },
+      "personLabelEl" : {
+        "xml:lang" : "el",
+        "type" : "literal",
+        "value" : "Σοφία Παπανδρέου"
+      },
+      "rel" : {
+        "type" : "literal",
+        "value" : "child"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1954-01-01T00:00:00Z"
+      }
+    }, {
+      "leader" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q219256"
+      },
+      "leaderLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Andreas Papandreou"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q16946731"
+      },
+      "personLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Emilia Nyblom"
+      },
+      "personLabelEl" : {
+        "xml:lang" : "el",
+        "type" : "literal",
+        "value" : "Αιμιλία Νίμπλουμ"
+      },
+      "rel" : {
+        "type" : "literal",
+        "value" : "child"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1969-04-21T00:00:00Z"
+      }
+    }, {
+      "leader" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q219256"
+      },
+      "leaderLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Andreas Papandreou"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q311207"
+      },
+      "personLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Georgios Papandreou"
+      },
+      "personLabelEl" : {
+        "xml:lang" : "el",
+        "type" : "literal",
+        "value" : "Γεώργιος Παπανδρέου"
+      },
+      "rel" : {
+        "type" : "literal",
+        "value" : "parent"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1888-02-13T00:00:00Z"
+      }
+    }, {
+      "leader" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q219256"
+      },
+      "leaderLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Andreas Papandreou"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q12884567"
+      },
+      "personLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Sofia Mineyko"
+      },
+      "personLabelEl" : {
+        "xml:lang" : "el",
+        "type" : "literal",
+        "value" : "Σοφία Μινέικο"
+      },
+      "rel" : {
+        "type" : "literal",
+        "value" : "parent"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1887-01-01T00:00:00Z"
+      }
+    }, {
+      "leader" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q219256"
+      },
+      "leaderLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Andreas Papandreou"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4989391"
+      },
+      "personLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Ragna Nyblom"
+      },
+      "personLabelEl" : {
+        "xml:lang" : "el",
+        "type" : "literal",
+        "value" : "Ράνια Νίμπλουμ"
+      },
+      "rel" : {
+        "type" : "literal",
+        "value" : "partner"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1930-03-21T00:00:00Z"
+      }
+    }, {
+      "leader" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q219256"
+      },
+      "leaderLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Andreas Papandreou"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q16946063"
+      },
+      "personLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Georgios G. Papandreou"
+      },
+      "personLabelEl" : {
+        "xml:lang" : "el",
+        "type" : "literal",
+        "value" : "Γιώργος Γ. Παπανδρέου"
+      },
+      "rel" : {
+        "type" : "literal",
+        "value" : "sibling"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1928-01-01T00:00:00Z"
+      }
+    }, {
+      "leader" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q219256"
+      },
+      "leaderLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Andreas Papandreou"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q536252"
+      },
+      "personLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Dimitra Liani"
+      },
+      "personLabelEl" : {
+        "xml:lang" : "el",
+        "type" : "literal",
+        "value" : "Δήμητρα Λιάνη-Παπανδρέου"
+      },
+      "rel" : {
+        "type" : "literal",
+        "value" : "spouse"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1955-04-30T00:00:00Z"
+      }
+    }, {
+      "leader" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q219256"
+      },
+      "leaderLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Andreas Papandreou"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q12880750"
+      },
+      "personLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Margaret Papandreou"
+      },
+      "personLabelEl" : {
+        "xml:lang" : "el",
+        "type" : "literal",
+        "value" : "Μαργαρίτα Παπανδρέου"
+      },
+      "rel" : {
+        "type" : "literal",
+        "value" : "spouse"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1923-09-30T00:00:00Z"
+      }
+    }, {
+      "leader" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q219256"
+      },
+      "leaderLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Andreas Papandreou"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q140685195"
+      },
+      "personLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Christina Rassia"
+      },
+      "personLabelEl" : {
+        "xml:lang" : "el",
+        "type" : "literal",
+        "value" : "Χριστίνα Ρασσιά"
+      },
+      "rel" : {
+        "type" : "literal",
+        "value" : "spouse"
+      }
+    }, {
+      "leader" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q57806"
+      },
+      "leaderLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Antonis Samaras"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q135669175"
+      },
+      "personLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Lena Samara"
+      },
+      "personLabelEl" : {
+        "xml:lang" : "el",
+        "type" : "literal",
+        "value" : "Λένα Σαμαρά"
+      },
+      "rel" : {
+        "type" : "literal",
+        "value" : "child"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1990-11-10T00:00:00Z"
+      }
+    }, {
+      "leader" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q57806"
+      },
+      "leaderLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Antonis Samaras"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q135669217"
+      },
+      "personLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Kostas Samaras"
+      },
+      "personLabelEl" : {
+        "xml:lang" : "el",
+        "type" : "literal",
+        "value" : "Κώστας Σαμαράς"
+      },
+      "rel" : {
+        "type" : "literal",
+        "value" : "child"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1997-01-01T00:00:00Z"
+      }
+    }, {
+      "leader" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q57806"
+      },
+      "leaderLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Antonis Samaras"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q21004364"
+      },
+      "personLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Lena Zannas"
+      },
+      "personLabelEl" : {
+        "xml:lang" : "el",
+        "type" : "literal",
+        "value" : "Λένα Ζάννα"
+      },
+      "rel" : {
+        "type" : "literal",
+        "value" : "parent"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1921-01-01T00:00:00Z"
+      }
+    }, {
+      "leader" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q57806"
+      },
+      "leaderLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Antonis Samaras"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q21004372"
+      },
+      "personLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Konstantinos Samaras"
+      },
+      "personLabelEl" : {
+        "xml:lang" : "el",
+        "type" : "literal",
+        "value" : "Κωνσταντίνος Σαμαράς"
+      },
+      "rel" : {
+        "type" : "literal",
+        "value" : "parent"
+      }
+    }, {
+      "leader" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q57806"
+      },
+      "leaderLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Antonis Samaras"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q229606"
+      },
+      "personLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Anna Vissi"
+      },
+      "personLabelEl" : {
+        "xml:lang" : "el",
+        "type" : "literal",
+        "value" : "Άννα Βίσση"
+      },
+      "rel" : {
+        "type" : "literal",
+        "value" : "partner"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1957-12-20T00:00:00Z"
+      }
+    }, {
+      "leader" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q57806"
+      },
+      "leaderLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Antonis Samaras"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q21004377"
+      },
+      "personLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Alexandros Samaras"
+      },
+      "personLabelEl" : {
+        "xml:lang" : "el",
+        "type" : "literal",
+        "value" : "Αλέξανδρος Σαμαράς"
+      },
+      "rel" : {
+        "type" : "literal",
+        "value" : "sibling"
+      }
+    }, {
+      "leader" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q57806"
+      },
+      "leaderLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Antonis Samaras"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q135669141"
+      },
+      "personLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Georgia  Kritikou"
+      },
+      "personLabelEl" : {
+        "xml:lang" : "el",
+        "type" : "literal",
+        "value" : "Γεωργία Κρητικού"
+      },
+      "rel" : {
+        "type" : "literal",
+        "value" : "spouse"
+      }
+    }, {
+      "leader" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q155390"
+      },
+      "leaderLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Costas Simitis"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q12875161"
+      },
+      "personLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Georgios Simitis"
+      },
+      "personLabelEl" : {
+        "xml:lang" : "el",
+        "type" : "literal",
+        "value" : "Γεώργιος Σημίτης"
+      },
+      "rel" : {
+        "type" : "literal",
+        "value" : "parent"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1899-01-01T00:00:00Z"
+      }
+    }, {
+      "leader" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q155390"
+      },
+      "leaderLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Costas Simitis"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2311195"
+      },
+      "personLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Spiros Simitis"
+      },
+      "personLabelEl" : {
+        "xml:lang" : "el",
+        "type" : "literal",
+        "value" : "Σπύρος Σημίτης"
+      },
+      "rel" : {
+        "type" : "literal",
+        "value" : "sibling"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1934-10-19T00:00:00Z"
+      }
+    }, {
+      "leader" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q155390"
+      },
+      "leaderLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Costas Simitis"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q18071269"
+      },
+      "personLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Daphni Simitis"
+      },
+      "personLabelEl" : {
+        "xml:lang" : "el",
+        "type" : "literal",
+        "value" : "Δάφνη Σημίτη"
+      },
+      "rel" : {
+        "type" : "literal",
+        "value" : "spouse"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1938-01-01T00:00:00Z"
+      }
+    }, {
+      "leader" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q252657"
+      },
+      "leaderLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Georgios Rallis"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q26720202"
+      },
+      "personLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Zaira Papaligoura"
+      },
+      "personLabelEl" : {
+        "xml:lang" : "el",
+        "type" : "literal",
+        "value" : "Ζαΐρα Παπαληγούρα"
+      },
+      "rel" : {
+        "type" : "literal",
+        "value" : "child"
+      }
+    }, {
+      "leader" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q252657"
+      },
+      "leaderLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Georgios Rallis"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q130547367"
+      },
+      "personLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Ioanna Ralli"
+      },
+      "personLabelEl" : {
+        "xml:lang" : "el",
+        "type" : "literal",
+        "value" : "Ιωάννα Ράλλη"
+      },
+      "rel" : {
+        "type" : "literal",
+        "value" : "child"
+      }
+    }, {
+      "leader" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q252657"
+      },
+      "leaderLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Georgios Rallis"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q26720193"
+      },
+      "personLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Zaera Theotokis-Ralli"
+      },
+      "personLabelEl" : {
+        "xml:lang" : "el",
+        "type" : "literal",
+        "value" : "Ζαΐρα Θεοτόκη-Ράλλη"
+      },
+      "rel" : {
+        "type" : "literal",
+        "value" : "parent"
+      }
+    }, {
+      "leader" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q252657"
+      },
+      "leaderLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Georgios Rallis"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q707184"
+      },
+      "personLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Ioannis Rallis"
+      },
+      "personLabelEl" : {
+        "xml:lang" : "el",
+        "type" : "literal",
+        "value" : "Ιωάννης Ράλλης"
+      },
+      "rel" : {
+        "type" : "literal",
+        "value" : "parent"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1878-01-01T00:00:00Z"
+      }
+    }, {
+      "leader" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q252657"
+      },
+      "leaderLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Georgios Rallis"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q28058737"
+      },
+      "personLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Lena Ralli"
+      },
+      "personLabelEl" : {
+        "xml:lang" : "el",
+        "type" : "literal",
+        "value" : "Λένα Ράλλη"
+      },
+      "rel" : {
+        "type" : "literal",
+        "value" : "spouse"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1928-01-01T00:00:00Z"
+      }
+    }, {
+      "leader" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q151917"
+      },
+      "leaderLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Giorgos Papandreou"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q219256"
+      },
+      "personLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Andreas Papandreou"
+      },
+      "personLabelEl" : {
+        "xml:lang" : "el",
+        "type" : "literal",
+        "value" : "Ανδρέας Παπανδρέου"
+      },
+      "rel" : {
+        "type" : "literal",
+        "value" : "parent"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1919-02-05T00:00:00Z"
+      }
+    }, {
+      "leader" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q151917"
+      },
+      "leaderLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Giorgos Papandreou"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q12880750"
+      },
+      "personLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Margaret Papandreou"
+      },
+      "personLabelEl" : {
+        "xml:lang" : "el",
+        "type" : "literal",
+        "value" : "Μαργαρίτα Παπανδρέου"
+      },
+      "rel" : {
+        "type" : "literal",
+        "value" : "parent"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1923-09-30T00:00:00Z"
+      }
+    }, {
+      "leader" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q151917"
+      },
+      "leaderLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Giorgos Papandreou"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q12873619"
+      },
+      "personLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Andreas Papandreou"
+      },
+      "personLabelEl" : {
+        "xml:lang" : "el",
+        "type" : "literal",
+        "value" : "Ανδρέας Α. Παπανδρέου"
+      },
+      "rel" : {
+        "type" : "literal",
+        "value" : "sibling"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1959-01-01T00:00:00Z"
+      }
+    }, {
+      "leader" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q151917"
+      },
+      "leaderLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Giorgos Papandreou"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q13360480"
+      },
+      "personLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Níkos Papandréou"
+      },
+      "personLabelEl" : {
+        "xml:lang" : "el",
+        "type" : "literal",
+        "value" : "Νίκος Παπανδρέου"
+      },
+      "rel" : {
+        "type" : "literal",
+        "value" : "sibling"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1956-09-29T00:00:00Z"
+      }
+    }, {
+      "leader" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q151917"
+      },
+      "leaderLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Giorgos Papandreou"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q16946630"
+      },
+      "personLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Sofia Papandreou"
+      },
+      "personLabelEl" : {
+        "xml:lang" : "el",
+        "type" : "literal",
+        "value" : "Σοφία Παπανδρέου"
+      },
+      "rel" : {
+        "type" : "literal",
+        "value" : "sibling"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1954-01-01T00:00:00Z"
+      }
+    }, {
+      "leader" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q151917"
+      },
+      "leaderLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Giorgos Papandreou"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q16946731"
+      },
+      "personLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Emilia Nyblom"
+      },
+      "personLabelEl" : {
+        "xml:lang" : "el",
+        "type" : "literal",
+        "value" : "Αιμιλία Νίμπλουμ"
+      },
+      "rel" : {
+        "type" : "literal",
+        "value" : "sibling"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1969-04-21T00:00:00Z"
+      }
+    }, {
+      "leader" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q156806"
+      },
+      "leaderLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Konstantinos Karamanlis"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q12276850"
+      },
+      "personLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Georgios Karamanlis"
+      },
+      "personLabelEl" : {
+        "xml:lang" : "el",
+        "type" : "literal",
+        "value" : "Γεώργιος Καραμανλής"
+      },
+      "rel" : {
+        "type" : "literal",
+        "value" : "parent"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1880-01-01T00:00:00Z"
+      }
+    }, {
+      "leader" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q156806"
+      },
+      "leaderLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Konstantinos Karamanlis"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q125535946"
+      },
+      "personLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Foteini Dologlou"
+      },
+      "personLabelEl" : {
+        "xml:lang" : "el",
+        "type" : "literal",
+        "value" : "Φωτεινή Δολόγλου"
+      },
+      "rel" : {
+        "type" : "literal",
+        "value" : "parent"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1888-01-01T00:00:00Z"
+      }
+    }, {
+      "leader" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q156806"
+      },
+      "leaderLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Konstantinos Karamanlis"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q12272770"
+      },
+      "personLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Achilleas Karamanlis"
+      },
+      "personLabelEl" : {
+        "xml:lang" : "el",
+        "type" : "literal",
+        "value" : "Αχιλλέας Καραμανλής"
+      },
+      "rel" : {
+        "type" : "literal",
+        "value" : "sibling"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1929-12-27T00:00:00Z"
+      }
+    }, {
+      "leader" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q156806"
+      },
+      "leaderLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Konstantinos Karamanlis"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q20655991"
+      },
+      "personLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Gramménos Karamanlís"
+      },
+      "personLabelEl" : {
+        "xml:lang" : "el",
+        "type" : "literal",
+        "value" : "Γραμμένος Καραμανλής"
+      },
+      "rel" : {
+        "type" : "literal",
+        "value" : "sibling"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1925-01-01T00:00:00Z"
+      }
+    }, {
+      "leader" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q156806"
+      },
+      "leaderLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Konstantinos Karamanlis"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q20655989"
+      },
+      "personLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Athena Karamanlis"
+      },
+      "personLabelEl" : {
+        "xml:lang" : "el",
+        "type" : "literal",
+        "value" : "Αθηνά Καραμανλή"
+      },
+      "rel" : {
+        "type" : "literal",
+        "value" : "sibling"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1916-12-22T00:00:00Z"
+      }
+    }, {
+      "leader" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q156806"
+      },
+      "leaderLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Konstantinos Karamanlis"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q20655987"
+      },
+      "personLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Olga Karamanlis"
+      },
+      "personLabelEl" : {
+        "xml:lang" : "el",
+        "type" : "literal",
+        "value" : "Όλγα Καραμανλή"
+      },
+      "rel" : {
+        "type" : "literal",
+        "value" : "sibling"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1911-01-01T00:00:00Z"
+      }
+    }, {
+      "leader" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q156806"
+      },
+      "leaderLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Konstantinos Karamanlis"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q125535859"
+      },
+      "personLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Alekos Karamanlis"
+      },
+      "personLabelEl" : {
+        "xml:lang" : "el",
+        "type" : "literal",
+        "value" : "Αλέκος Καραμανλής"
+      },
+      "rel" : {
+        "type" : "literal",
+        "value" : "sibling"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1913-01-01T00:00:00Z"
+      }
+    }, {
+      "leader" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q156806"
+      },
+      "leaderLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Konstantinos Karamanlis"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q125535888"
+      },
+      "personLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Antigone Karamanlis"
+      },
+      "personLabelEl" : {
+        "xml:lang" : "el",
+        "type" : "literal",
+        "value" : "Αντιγόνη Καραμανλή"
+      },
+      "rel" : {
+        "type" : "literal",
+        "value" : "sibling"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1921-01-01T00:00:00Z"
+      }
+    }, {
+      "leader" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q156806"
+      },
+      "leaderLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Konstantinos Karamanlis"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q141969170"
+      },
+      "personLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Athina Karamanli"
+      },
+      "personLabelEl" : {
+        "xml:lang" : "el",
+        "type" : "literal",
+        "value" : "Αθηνά Καραμανλή"
+      },
+      "rel" : {
+        "type" : "literal",
+        "value" : "sibling"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1909-01-01T00:00:00Z"
+      }
+    }, {
+      "leader" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q156806"
+      },
+      "leaderLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Konstantinos Karamanlis"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q13548351"
+      },
+      "personLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Amalia Megapanou"
+      },
+      "personLabelEl" : {
+        "xml:lang" : "el",
+        "type" : "literal",
+        "value" : "Αμαλία Μεγαπάνου"
+      },
+      "rel" : {
+        "type" : "literal",
+        "value" : "spouse"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1929-12-03T00:00:00Z"
+      }
+    }, {
+      "leader" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q312013"
+      },
+      "leaderLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Konstantinos Mitsotakis"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q464862"
+      },
+      "personLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Dora Bakoyannis"
+      },
+      "personLabelEl" : {
+        "xml:lang" : "el",
+        "type" : "literal",
+        "value" : "Ντόρα Μπακογιάννη"
+      },
+      "rel" : {
+        "type" : "literal",
+        "value" : "child"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1954-05-06T00:00:00Z"
+      }
+    }, {
+      "leader" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q312013"
+      },
+      "leaderLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Konstantinos Mitsotakis"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q552751"
+      },
+      "personLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Kyriakos Mitsotakis"
+      },
+      "personLabelEl" : {
+        "xml:lang" : "el",
+        "type" : "literal",
+        "value" : "Κυριάκος Μητσοτάκης"
+      },
+      "rel" : {
+        "type" : "literal",
+        "value" : "child"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1968-03-04T00:00:00Z"
+      }
+    }, {
+      "leader" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q312013"
+      },
+      "leaderLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Konstantinos Mitsotakis"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q23887886"
+      },
+      "personLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Alexandra Mitsotakis"
+      },
+      "personLabelEl" : {
+        "xml:lang" : "el",
+        "type" : "literal",
+        "value" : "Αλεξάνδρα Μητσοτάκη"
+      },
+      "rel" : {
+        "type" : "literal",
+        "value" : "child"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1956-01-01T00:00:00Z"
+      }
+    }, {
+      "leader" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q312013"
+      },
+      "leaderLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Konstantinos Mitsotakis"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q65130680"
+      },
+      "personLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Katerina Mitsotakis"
+      },
+      "personLabelEl" : {
+        "xml:lang" : "el",
+        "type" : "literal",
+        "value" : "Κατερίνα Μητσοτάκη"
+      },
+      "rel" : {
+        "type" : "literal",
+        "value" : "child"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1959-01-01T00:00:00Z"
+      }
+    }, {
+      "leader" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q312013"
+      },
+      "leaderLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Konstantinos Mitsotakis"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q14928422"
+      },
+      "personLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Kyriakos Κ. Mitsotakis"
+      },
+      "personLabelEl" : {
+        "xml:lang" : "el",
+        "type" : "literal",
+        "value" : "Κυριάκος Κ. Μητσοτάκης"
+      },
+      "rel" : {
+        "type" : "literal",
+        "value" : "parent"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1883-01-01T00:00:00Z"
+      }
+    }, {
+      "leader" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q312013"
+      },
+      "leaderLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Konstantinos Mitsotakis"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q117802613"
+      },
+      "personLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Stavroula Ploumidakis"
+      },
+      "personLabelEl" : {
+        "xml:lang" : "el",
+        "type" : "literal",
+        "value" : "Σταυρούλα Πλουμιδάκη"
+      },
+      "rel" : {
+        "type" : "literal",
+        "value" : "parent"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1896-01-01T00:00:00Z"
+      }
+    }, {
+      "leader" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q312013"
+      },
+      "leaderLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Konstantinos Mitsotakis"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q117802532"
+      },
+      "personLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Artemisia Lymberaki"
+      },
+      "personLabelEl" : {
+        "xml:lang" : "el",
+        "type" : "literal",
+        "value" : "Αρτεμισία Λυμπεράκη"
+      },
+      "rel" : {
+        "type" : "literal",
+        "value" : "sibling"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1932-01-01T00:00:00Z"
+      }
+    }, {
+      "leader" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q312013"
+      },
+      "leaderLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Konstantinos Mitsotakis"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q117802562"
+      },
+      "personLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Eleftherios Mitsotakis"
+      },
+      "personLabelEl" : {
+        "xml:lang" : "el",
+        "type" : "literal",
+        "value" : "Ελευθέριος Μητσοτάκης"
+      },
+      "rel" : {
+        "type" : "literal",
+        "value" : "sibling"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1922-01-01T00:00:00Z"
+      }
+    }, {
+      "leader" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q312013"
+      },
+      "leaderLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Konstantinos Mitsotakis"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q117802573"
+      },
+      "personLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Charalambos Mitsotakis"
+      },
+      "personLabelEl" : {
+        "xml:lang" : "el",
+        "type" : "literal",
+        "value" : "Χαράλαμπος Μητσοτάκης"
+      },
+      "rel" : {
+        "type" : "literal",
+        "value" : "sibling"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1920-01-01T00:00:00Z"
+      }
+    }, {
+      "leader" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q312013"
+      },
+      "leaderLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Konstantinos Mitsotakis"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q117802580"
+      },
+      "personLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Aikaterini Virvidaki"
+      },
+      "personLabelEl" : {
+        "xml:lang" : "el",
+        "type" : "literal",
+        "value" : "Αικατερίνη Βιρβιδάκη"
+      },
+      "rel" : {
+        "type" : "literal",
+        "value" : "sibling"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1917-01-01T00:00:00Z"
+      }
+    }, {
+      "leader" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q312013"
+      },
+      "leaderLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Konstantinos Mitsotakis"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q12880739"
+      },
+      "personLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Marika Mitsotakis"
+      },
+      "personLabelEl" : {
+        "xml:lang" : "el",
+        "type" : "literal",
+        "value" : "Μαρίκα Μητσοτάκη"
+      },
+      "rel" : {
+        "type" : "literal",
+        "value" : "spouse"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1930-11-29T00:00:00Z"
+      }
+    }, {
+      "leader" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q206421"
+      },
+      "leaderLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Konstantinos Stephanopoulos"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q16327514"
+      },
+      "personLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Stephanopoulos Dimitrios"
+      },
+      "personLabelEl" : {
+        "xml:lang" : "el",
+        "type" : "literal",
+        "value" : "Δημήτριος Στεφανόπουλος"
+      },
+      "rel" : {
+        "type" : "literal",
+        "value" : "parent"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1885-01-01T00:00:00Z"
+      }
+    }, {
+      "leader" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q206421"
+      },
+      "leaderLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Konstantinos Stephanopoulos"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q21004314"
+      },
+      "personLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Briseida Filopoulou"
+      },
+      "personLabelEl" : {
+        "xml:lang" : "el",
+        "type" : "literal",
+        "value" : "Βρισηίδα Φιλοπούλου"
+      },
+      "rel" : {
+        "type" : "literal",
+        "value" : "parent"
+      }
+    }, {
+      "leader" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q365209"
+      },
+      "leaderLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Konstantinos Tsatsos"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q12881988"
+      },
+      "personLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Ntora Tsatsou"
+      },
+      "personLabelEl" : {
+        "xml:lang" : "el",
+        "type" : "literal",
+        "value" : "Ντόρα Τσάτσου"
+      },
+      "rel" : {
+        "type" : "literal",
+        "value" : "child"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1932-01-01T00:00:00Z"
+      }
+    }, {
+      "leader" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q365209"
+      },
+      "leaderLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Konstantinos Tsatsos"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q12875989"
+      },
+      "personLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Dimitrios I. Tsatsos"
+      },
+      "personLabelEl" : {
+        "xml:lang" : "el",
+        "type" : "literal",
+        "value" : "Δημήτριος Ι. Τσάτσος"
+      },
+      "rel" : {
+        "type" : "literal",
+        "value" : "parent"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1859-12-29T00:00:00Z"
+      }
+    }, {
+      "leader" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q365209"
+      },
+      "leaderLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Konstantinos Tsatsos"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q12877837"
+      },
+      "personLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Themistokles Tsatsos"
+      },
+      "personLabelEl" : {
+        "xml:lang" : "el",
+        "type" : "literal",
+        "value" : "Θεμιστοκλής Τσάτσος"
+      },
+      "rel" : {
+        "type" : "literal",
+        "value" : "sibling"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1906-07-17T00:00:00Z"
+      }
+    }, {
+      "leader" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q365209"
+      },
+      "leaderLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Konstantinos Tsatsos"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q16328608"
+      },
+      "personLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Ioanna Tsatsos"
+      },
+      "personLabelEl" : {
+        "xml:lang" : "el",
+        "type" : "literal",
+        "value" : "Ιωάννα Τσάτσου"
+      },
+      "rel" : {
+        "type" : "literal",
+        "value" : "spouse"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1904-01-01T00:00:00Z"
+      }
+    }, {
+      "leader" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q188978"
+      },
+      "leaderLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Kostas Karamanlis"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q125146853"
+      },
+      "personLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Alexandros Karamanlis"
+      },
+      "rel" : {
+        "type" : "literal",
+        "value" : "child"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2003-01-01T00:00:00Z"
+      }
+    }, {
+      "leader" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q188978"
+      },
+      "leaderLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Kostas Karamanlis"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q125146885"
+      },
+      "personLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Aliki Karamanlis"
+      },
+      "rel" : {
+        "type" : "literal",
+        "value" : "child"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2003-01-01T00:00:00Z"
+      }
+    }, {
+      "leader" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q188978"
+      },
+      "leaderLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Kostas Karamanlis"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q125535859"
+      },
+      "personLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Alekos Karamanlis"
+      },
+      "personLabelEl" : {
+        "xml:lang" : "el",
+        "type" : "literal",
+        "value" : "Αλέκος Καραμανλής"
+      },
+      "rel" : {
+        "type" : "literal",
+        "value" : "parent"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1913-01-01T00:00:00Z"
+      }
+    }, {
+      "leader" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q188978"
+      },
+      "leaderLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Kostas Karamanlis"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q125536268"
+      },
+      "personLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Aliki Karamanli"
+      },
+      "personLabelEl" : {
+        "xml:lang" : "el",
+        "type" : "literal",
+        "value" : "Αλίκη Καραμανλή"
+      },
+      "rel" : {
+        "type" : "literal",
+        "value" : "parent"
+      }
+    }, {
+      "leader" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q188978"
+      },
+      "leaderLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Kostas Karamanlis"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q125536262"
+      },
+      "personLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "George Karamanlis"
+      },
+      "personLabelEl" : {
+        "xml:lang" : "el",
+        "type" : "literal",
+        "value" : "Γιώργος Καραμανλής"
+      },
+      "rel" : {
+        "type" : "literal",
+        "value" : "sibling"
+      }
+    }, {
+      "leader" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q188978"
+      },
+      "leaderLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Kostas Karamanlis"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3337135"
+      },
+      "personLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Natasa Pazaïti"
+      },
+      "personLabelEl" : {
+        "xml:lang" : "el",
+        "type" : "literal",
+        "value" : "Νατάσα Καραμανλή"
+      },
+      "rel" : {
+        "type" : "literal",
+        "value" : "spouse"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1966-04-14T00:00:00Z"
+      }
+    }, {
+      "leader" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q552751"
+      },
+      "leaderLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Kyriakos Mitsotakis"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q64211972"
+      },
+      "personLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Sofia Mitsotakis"
+      },
+      "personLabelEl" : {
+        "xml:lang" : "el",
+        "type" : "literal",
+        "value" : "Σοφία Μητσοτάκη"
+      },
+      "rel" : {
+        "type" : "literal",
+        "value" : "child"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1997-01-01T00:00:00Z"
+      }
+    }, {
+      "leader" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q552751"
+      },
+      "leaderLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Kyriakos Mitsotakis"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q64211977"
+      },
+      "personLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Konstantinos Mitsotakis"
+      },
+      "personLabelEl" : {
+        "xml:lang" : "el",
+        "type" : "literal",
+        "value" : "Κωνσταντίνος Μητσοτάκης"
+      },
+      "rel" : {
+        "type" : "literal",
+        "value" : "child"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1998-01-01T00:00:00Z"
+      }
+    }, {
+      "leader" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q552751"
+      },
+      "leaderLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Kyriakos Mitsotakis"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q64211984"
+      },
+      "personLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Dafne Mitsotakis"
+      },
+      "personLabelEl" : {
+        "xml:lang" : "el",
+        "type" : "literal",
+        "value" : "Δάφνη Μητσοτάκη"
+      },
+      "rel" : {
+        "type" : "literal",
+        "value" : "child"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2003-01-01T00:00:00Z"
+      }
+    }, {
+      "leader" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q552751"
+      },
+      "leaderLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Kyriakos Mitsotakis"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q12880739"
+      },
+      "personLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Marika Mitsotakis"
+      },
+      "personLabelEl" : {
+        "xml:lang" : "el",
+        "type" : "literal",
+        "value" : "Μαρίκα Μητσοτάκη"
+      },
+      "rel" : {
+        "type" : "literal",
+        "value" : "parent"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1930-11-29T00:00:00Z"
+      }
+    }, {
+      "leader" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q552751"
+      },
+      "leaderLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Kyriakos Mitsotakis"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q312013"
+      },
+      "personLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Konstantinos Mitsotakis"
+      },
+      "personLabelEl" : {
+        "xml:lang" : "el",
+        "type" : "literal",
+        "value" : "Κωνσταντίνος Μητσοτάκης"
+      },
+      "rel" : {
+        "type" : "literal",
+        "value" : "parent"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1918-10-18T00:00:00Z"
+      }
+    }, {
+      "leader" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q552751"
+      },
+      "leaderLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Kyriakos Mitsotakis"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q464862"
+      },
+      "personLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Dora Bakoyannis"
+      },
+      "personLabelEl" : {
+        "xml:lang" : "el",
+        "type" : "literal",
+        "value" : "Ντόρα Μπακογιάννη"
+      },
+      "rel" : {
+        "type" : "literal",
+        "value" : "sibling"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1954-05-06T00:00:00Z"
+      }
+    }, {
+      "leader" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q552751"
+      },
+      "leaderLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Kyriakos Mitsotakis"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q23887886"
+      },
+      "personLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Alexandra Mitsotakis"
+      },
+      "personLabelEl" : {
+        "xml:lang" : "el",
+        "type" : "literal",
+        "value" : "Αλεξάνδρα Μητσοτάκη"
+      },
+      "rel" : {
+        "type" : "literal",
+        "value" : "sibling"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1956-01-01T00:00:00Z"
+      }
+    }, {
+      "leader" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q552751"
+      },
+      "leaderLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Kyriakos Mitsotakis"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q65130680"
+      },
+      "personLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Katerina Mitsotakis"
+      },
+      "personLabelEl" : {
+        "xml:lang" : "el",
+        "type" : "literal",
+        "value" : "Κατερίνα Μητσοτάκη"
+      },
+      "rel" : {
+        "type" : "literal",
+        "value" : "sibling"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1959-01-01T00:00:00Z"
+      }
+    }, {
+      "leader" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q552751"
+      },
+      "leaderLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Kyriakos Mitsotakis"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q64211928"
+      },
+      "personLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Mareva Grabowski–Mitsotakis"
+      },
+      "personLabelEl" : {
+        "xml:lang" : "el",
+        "type" : "literal",
+        "value" : "Μαρέβα Γκραμπόφσκι - Μητσοτάκη"
+      },
+      "rel" : {
+        "type" : "literal",
+        "value" : "spouse"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1967-06-30T00:00:00Z"
+      }
+    }, {
+      "leader" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q316235"
+      },
+      "leaderLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Tzannis Tzannetakis"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q42308725"
+      },
+      "personLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Panagiotis Tzannetakis"
+      },
+      "personLabelEl" : {
+        "xml:lang" : "el",
+        "type" : "literal",
+        "value" : "Παναγιώτης Τζαννετάκης"
+      },
+      "rel" : {
+        "type" : "literal",
+        "value" : "sibling"
+      },
+      "birthDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1923-01-01T00:00:00Z"
+      }
+    }, {
+      "leader" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q20855548"
+      },
+      "leaderLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Vasiliki Thanou"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q20882600"
+      },
+      "personLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Giorgos Christophilos"
+      },
+      "personLabelEl" : {
+        "xml:lang" : "el",
+        "type" : "literal",
+        "value" : "Γιώργος Χριστόφιλος"
+      },
+      "rel" : {
+        "type" : "literal",
+        "value" : "spouse"
+      }
+    } ]
+  }
+}
