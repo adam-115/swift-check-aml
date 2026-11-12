@@ -464,6 +464,24 @@ class FrPepJorfParserTest {
     }
 
     @Test
+    void theCurrentVicePresidentOfTheCouncilOfStateIsCurrentAndClosesHisPredecessor() throws IOException {
+        List<Event> events = new java.util.ArrayList<>(readPost("vp-ce-nomination-2026-05-06.xml"));
+        events.addAll(readPost("vp-ce-retraite-2026-01-23.xml"));
+
+        List<FrPepJorfParser.Mandate> mandates = FrPepJorfParser.buildMandates(events);
+
+        FrPepJorfParser.Mandate guillaume = mandates.stream().filter(m -> m.name.contains("GUILLAUME")).findFirst().orElseThrow();
+        FrPepJorfParser.Mandate tabuteau = mandates.stream().filter(m -> m.name.contains("TABUTEAU")).findFirst().orElseThrow();
+        assertThat(guillaume.institution).isEqualTo(Institution.CONSEIL_ETAT);
+        assertThat(guillaume.start).isEqualTo(LocalDate.of(2026, 5, 21));
+        assertThat(guillaume.end).isNull();
+        assertThat(tabuteau.end).isEqualTo(LocalDate.of(2026, 5, 21));
+        assertThat(FrPepJorfParser.isSingleRole(guillaume.institution, guillaume.function)).isTrue();
+        assertThat(FrPepJorfParser.isSingleRole(Institution.CONSEIL_ETAT, "conseiller d'Etat")).isFalse();
+        assertThat(FrPepJorfParser.isSingleRole(Institution.COUR_CASSATION, "vice-président")).isFalse();
+    }
+
+    @Test
     void aMilitaryRankIsNotPartOfTheName() throws IOException {
         List<Event> events = readPost("cemm-nomination-2026-06-24.xml");
         assertThat(events.get(0).name()).doesNotContainIgnoringCase("amiral");

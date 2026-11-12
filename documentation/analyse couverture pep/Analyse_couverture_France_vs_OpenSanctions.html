@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="fr"><head><meta charset="utf-8">
+<title>Couverture PEP France – réelle, fiabilité des sources, comparaison OpenSanctions</title>
+<style>
+@page{size:A4;margin:16mm 14mm}
+body{font-family:Segoe UI,Arial,sans-serif;font-size:10.5pt;color:#1e293b;line-height:1.45}
+h1{font-size:20pt;margin:0 0 4px;color:#0f172a} h2{font-size:14pt;margin:22px 0 8px;color:#0f172a;border-bottom:2px solid #0f766e;padding-bottom:3px}
+h3{font-size:11.5pt;margin:14px 0 4px;color:#0f766e}
+.sub{color:#64748b;margin-bottom:14px}
+.kpis{display:flex;gap:10px;margin:12px 0}.kpi{flex:1;border:1px solid #cbd5e1;border-radius:8px;padding:9px 11px}
+.kpi b{display:block;font-size:19pt;color:#0f766e}.kpi span{font-size:9pt;color:#475569}
+table{border-collapse:collapse;width:100%;margin:8px 0;font-size:9pt}th{background:#0f172a;color:#fff;text-align:left;padding:5px 6px}
+td{border-bottom:1px solid #e2e8f0;padding:4px 6px;vertical-align:top}tr{page-break-inside:avoid}
+.ok{background:#dcfce7;color:#166534}.mid{background:#fef9c3;color:#854d0e}.ko{background:#fee2e2;color:#991b1b}.nm{background:#e2e8f0;color:#334155}
+.tag{display:inline-block;padding:1px 7px;border-radius:9px;font-size:8.5pt;font-weight:600}
+.warn{border-left:4px solid #dc2626;background:#fef2f2;padding:8px 12px;margin:10px 0}
+.note{border-left:4px solid #0f766e;background:#f0fdfa;padding:8px 12px;margin:10px 0}
+small{color:#64748b}
+</style></head><body>
+
+<h1>Couverture PEP de la France : taux réel, fiabilité des sources, comparaison avec OpenSanctions</h1>
+<div class="sub">SwiftCheck AML – analyse du 11 novembre 2026, <b>mise à jour après la relance des parsers (JORF terminé à 19 h 15)</b> · base <b>swift_check_2</b> lue en lecture seule (dernière exécution réussie de chaque parser) et fichier publié du JORF · OpenSanctions : page pays consultée le même jour</div>
+
+<div class="kpis">
+<div class="kpi"><b>27</b><span>fonctions PEP françaises suivies (FR-a à FR-h, AMLR, UE, RCA)</span></div>
+<div class="kpi"><b>19 / 27</b><span>fonctions couvertes de façon <b>vérifiable et fiable</b> (taux moyen mesuré : <b>97 %</b>)</span></div>
+<div class="kpi"><b>4 / 27</b><span>fonctions publiées mais <b>non mesurables</b> (pas d'effectif attendu en base)</span></div>
+<div class="kpi"><b>4 / 27</b><span>fonctions <b>fragiles</b> (Wikidata ou contournement anti-robot)</span></div>
+</div>
+
+<div class="note"><b>En bref.</b> La couverture française est large et, sur le cœur légal (gouvernement, Parlement, élus locaux, HATVP, institutions européennes), elle repose sur des données ouvertes officielles : c'est solide. Trois zones restent à fiabiliser : (1) les hautes juridictions et la Cour des comptes : le JORF, relancé et terminé, publie désormais assez de noms (243 au Conseil d'État sur 300 attendus, 471 à la Cour de cassation, 457 à la Cour des comptes), mais seuls 2, 26 et 12 y sont confirmés en poste, tous les autres ont un statut « inconnu » ; (2) les organisations internationales, lues avec un module qui contourne les protections anti-robot ; (3) les dirigeants de partis et les proches, issus de Wikidata. Face à OpenSanctions, nous gagnons sur les fonctions judiciaires, financières et publiques ; il garde l'avantage de l'historique et du monde entier.</div>
+
+<h2>1. Méthode et limites</h2>
+<p>Le taux « réel » ne se lit pas dans le statut COMPLETE déclaré par les parsers : celui-ci est une déclaration, pas une mesure. J'ai donc recoupé, fonction par fonction : (a) l'effectif attendu enregistré en base, (b) le nombre de personnes publiées à la dernière exécution réussie, (c) la nature de la source. Une fonction est dite <b>mesurée</b> quand les deux effectifs existent, <b>non mesurable</b> sinon. Les pourcentages sont plafonnés à 100 %.</p>
+<p><small>Limite : le nombre de personnes publiées n'est connu que par parser, pas par fonction. Pour les parsers qui servent plusieurs fonctions (JORF), je n'invente pas de répartition.</small></p>
+
+<h2>2. Couverture par catégorie</h2>
+<table>
+<tr><th>Cat.</th><th>Fonction</th><th>Parser(s)</th><th>Attendu</th><th>Publié</th><th>Taux</th><th>Fiabilité source</th></tr>
+<tr><td>FR-a</td><td>Président de la République</td><td>fr_pep_president (elysee.fr)</td><td>1</td><td>1</td><td><span class="tag ok">100 %</span></td><td>Officielle (page)</td></tr>
+<tr><td>FR-a</td><td>Premier ministre, ministres</td><td>fr_pep_government (HATVP), fr_pep_jorf</td><td>35</td><td>36</td><td><span class="tag ok">100 %</span></td><td>Officielle (open data)</td></tr>
+<tr><td>FR-a</td><td>Anciens membres du Gouvernement</td><td>fr_pep_government, fr_pep_jorf</td><td>–</td><td>–</td><td><span class="tag nm">non mesurable</span></td><td>Officielle ; dépend du JORF</td></tr>
+<tr><td>FR-b</td><td>Députés et anciens députés</td><td>fr_pep_national_assembly</td><td>577</td><td>627</td><td><span class="tag ok">100 %</span></td><td>Officielle (open data)</td></tr>
+<tr><td>FR-b</td><td>Sénateurs et anciens sénateurs</td><td>fr_pep_senate</td><td>348</td><td>421</td><td><span class="tag ok">100 %</span></td><td>Officielle (open data)</td></tr>
+<tr><td>FR-c</td><td>Dirigeants de partis politiques</td><td>fr_pep_political_parties</td><td>–</td><td>137 (121 partis)</td><td><span class="tag mid">fragile</span></td><td>Wikidata (collaboratif) ; aucun registre officiel</td></tr>
+<tr><td>FR-d</td><td>Conseil constitutionnel</td><td>fr_pep_constitutional_council, JORF</td><td>10</td><td>9</td><td><span class="tag ok">90 %</span></td><td>Officielle (page)</td></tr>
+<tr><td>FR-d</td><td>Conseil d'État</td><td>fr_pep_jorf</td><td>300</td><td>243 (2 en poste confirmés)</td><td><span class="tag mid">81 %</span></td><td>Officielle (décrets) ; un seul parser</td></tr>
+<tr><td>FR-d</td><td>Cour de cassation</td><td>fr_pep_jorf</td><td>400</td><td>471 (26 en poste confirmés)</td><td><span class="tag ok">100 %</span></td><td>Officielle (décrets) ; un seul parser</td></tr>
+<tr><td>FR-e</td><td>Magistrats de la Cour des comptes</td><td>fr_pep_jorf</td><td>300</td><td>457 (12 en poste confirmés)</td><td><span class="tag ok">100 %</span></td><td>Officielle (décrets) ; un seul parser</td></tr>
+<tr><td>FR-e</td><td>Conseil général de la Banque de France</td><td>fr_pep_banque_de_france</td><td>11</td><td>11</td><td><span class="tag ok">100 %</span></td><td>Officielle (page)</td></tr>
+<tr><td>FR-f</td><td>Ambassadeurs</td><td>fr_pep_diplomats (PDF MEAE)</td><td>160</td><td>194</td><td><span class="tag ok">100 %</span></td><td>Officielle (PDF)</td></tr>
+<tr><td>FR-f</td><td>Chefs d'état-major</td><td>fr_pep_army</td><td>4</td><td>3</td><td><span class="tag mid">75 %</span></td><td>Officielle (page)</td></tr>
+<tr><td>FR-g</td><td>Établissements publics / entreprises de l'État</td><td>fr_pep_state_enterprises</td><td>–</td><td>1 578</td><td><span class="tag nm">non mesurable</span></td><td>Officielle (APE, API) ; repli anti-robot présent dans le code</td></tr>
+<tr><td>FR-g</td><td>Sociétés locales (&gt; 50 M€)</td><td>fr_pep_local_enterprises (API)</td><td>–</td><td>2 451</td><td><span class="tag nm">non mesurable</span></td><td>Officielle (API) ; relancée aujourd'hui (+877 entités)</td></tr>
+<tr><td>FR-h</td><td>Organisations internationales en France</td><td>fr_pep_international_orgs</td><td>70</td><td>41 (9 orgs)</td><td><span class="tag ko">59 %</span></td><td>Pages officielles, 6 organisations non lues ; module de contournement présent dans le code (§ 4)</td></tr>
+<tr><td>AMLR</td><td>Maires / présidents d'intercommunalité ≥ 50 000 hab.</td><td>fr_pep_local_executives</td><td>500</td><td>455</td><td><span class="tag ok">91 %</span></td><td>Officielle (data.gouv.fr)</td></tr>
+<tr><td>AMLR</td><td>Maires de collectivités de moins de 50 000 hab.</td><td>fr_pep_local_executives_all</td><td>–</td><td>35 097</td><td><span class="tag nm">non mesurable</span></td><td>Officielle ; hors champ légal actuel</td></tr>
+<tr><td>AMLR</td><td>Adjoints, vice-présidents</td><td>fr_pep_rne_elected</td><td>135 000</td><td>131 788</td><td><span class="tag ok">98 %</span></td><td>Officielle (data.gouv.fr)</td></tr>
+<tr><td>AMLR</td><td>Personnes assujetties à la HATVP</td><td>fr_pep_hatvp</td><td>7 100</td><td>7 085</td><td><span class="tag ok">100 %</span></td><td>Officielle (open data)</td></tr>
+<tr><td>UE</td><td>Députés européens français</td><td>fr_pep_europarl</td><td>81</td><td>82</td><td><span class="tag ok">100 %</span></td><td>Officielle (API)</td></tr>
+<tr><td>UE</td><td>Membre français de la Commission</td><td>fr_pep_eu_commission</td><td>1</td><td>1</td><td><span class="tag ok">100 %</span></td><td>Officielle (page)</td></tr>
+<tr><td>UE</td><td>Autres fonctions UE (CJUE, BCE, SEAE…)</td><td>fr_pep_eu_institutions, fr_pep_wikidata_positions</td><td>10</td><td>11</td><td><span class="tag ok">100 %</span></td><td>Officielle (pages) + un peu de Wikidata</td></tr>
+<tr><td>RCA</td><td>Famille d'une PEP</td><td>fr_pep_rca</td><td>–</td><td>241</td><td><span class="tag mid">fragile</span></td><td>Wikidata ; la HATVP masque les conjoints</td></tr>
+<tr><td>RCA</td><td>Proches associés</td><td>fr_pep_associated_entities (HATVP)</td><td>–</td><td>387 organisations</td><td><span class="tag mid">partiel</span></td><td>Officielle (déclarations) ; pas de personnes physiques</td></tr>
+</table>
+
+<h3>Lecture des taux</h3>
+<ul>
+<li><b>19 fonctions mesurées et fiables, taux moyen 97 %.</b> Les écarts sont réels mais petits : le Conseil d'État (243 sur 300 attendus, 81 %), un membre du Conseil constitutionnel (9 sur 10), 3 chefs d'état-major sur 4 (celui de la Marine n'a pas d'adresse configurée), 455 exécutifs locaux sur 500 attendus.</li>
+<li><b>JORF relancé, et c'est lui qui a rendu mesurables trois fonctions.</b> L'exécution du 11 novembre (24 minutes, 6 nouveaux fichiers de la DILA) publie 1 677 personnes. En lisant son fichier publié, je compte par institution : 457 à la Cour des comptes, 243 au Conseil d'État, 471 à la Cour de cassation. Les noms y sont donc, mais le <b>statut est le point faible</b> : sur 1 748 mandats, 79 sont « en poste », 151 « terminés » et <b>1 518 « inconnus »</b> (une nomination au JORF sans décret de fin). Seuls 2 conseillers d'État, 26 magistrats de la Cour de cassation et 12 de la Cour des comptes sont confirmés en poste. Pour un criblage, c'est acceptable (on préfère trop de noms que trop peu) ; pour dire « en fonction », c'est insuffisant.</li>
+<li><b>4 fonctions restent non mesurables</b> : anciens ministres, établissements publics, sociétés locales, maires de communes de moins de 50 000 habitants. Aucun effectif attendu n'est renseigné en base.</li>
+<li><b>Sénat corrigé.</b> Le parser publie 421 personnes (348 en poste et les sortants récents), contre 964 à l'analyse précédente. Je n'ai pas vérifié la cause (probablement un changement dans la rétention des anciens sénateurs) ; le chiffre actuel est cohérent avec les 348 attendus.</li>
+<li><b>Chiffres de l'audit du 10 novembre à relativiser.</b> Le document <i>Audit_Complet_PEP_France</i> annonce 100 % sur les fonctions régaliennes, 3 450 mandataires d'entreprises d'État à 98 % et 542 dirigeants de sociétés locales à 95 %. La base contient 1 578 et 2 451 personnes pour ces deux parsers, et aucun effectif attendu n'y est renseigné : ces pourcentages ne peuvent pas être recoupés avec la base.</li>
+</ul>
+
+<h2>3. Fiabilité des sources</h2>
+<table>
+<tr><th>Niveau</th><th>Parsers</th><th>Source</th><th>Appréciation</th></tr>
+<tr><td><span class="tag ok">A – Données ouvertes officielles</span></td><td>national_assembly, senate, hatvp, government, associated_entities, jorf, europarl, local_executives (3), local_enterprises, state_enterprises</td><td>data.assemblee-nationale.fr, data.senat.fr, hatvp.fr/open-data, DILA (JORF), data.gouv.fr (RNE), data.europarl, API recherche-entreprises</td><td>Fichiers structurés, mis à jour et publiés par l'État ou l'UE, avec licence ouverte. Source de confiance. À surveiller : les entités « disparues de la source » sont conservées 12 mois (par exemple 4 485 pour l'Assemblée), ce qui explique des effectifs publiés supérieurs aux effectifs en poste.</td></tr>
+<tr><td><span class="tag ok">B – Pages officielles</span></td><td>president, constitutional_council, banque_de_france, army, diplomats, eu_commission, eu_institutions</td><td>elysee.fr, conseil-constitutionnel.fr, banque-france.fr, defense.gouv.fr, diplomatie.gouv.fr (PDF), commission.europa.eu, curia.europa.eu</td><td>Sources officielles, mais lues en extrayant du HTML ou un PDF : sensibles à un changement de mise en page. Volumes faibles, donc risque limité, mais le test de non-régression doit rester en place.</td></tr>
+<tr><td><span class="tag mid">C – Wikidata</span></td><td>political_parties, rca, wikidata_positions</td><td>wikidata.org (SPARQL)</td><td>Collaboratif, non officiel, sans garantie d'exhaustivité ni de date. Acceptable faute de registre officiel des partis, mais à signaler comme « données à contrôler » dans la page de couverture.</td></tr>
+<tr><td><span class="tag ko">D – Contournement anti-robot</span></td><td>international_orgs (et repli dans state_enterprises, eu_institutions)</td><td>sites d'organisations protégés par un WAF</td><td>Non conforme à notre règle : voir § 4.</td></tr>
+</table>
+
+<h2>4. Point de vigilance : le module « Stealth »</h2>
+<div class="warn"><b>Le code contient <code>StealthBrowserFetcher</code>, un module qui contourne les protections anti-robot</b> (Cloudflare, Akamai, DataDome…) en pilotant un navigateur déguisé ou via un sidecar. Il est appelé par <code>fr_pep_international_orgs</code> (OrgPagesDownloader), <code>fr_pep_state_enterprises</code>, <code>fr_pep_eu_institutions</code> et, en repli automatique sur un 403, par le téléchargeur du core (<code>HttpDownloader</code>). L'audit du 10 novembre s'en félicite pour les organisations internationales (« déblocage » du FMI et de l'OACI).</div>
+<p>Dans la dernière exécution de <code>fr_pep_international_orgs</code> (11 nov.), le FMI est signalé « refuse l'accès aux robots (HTTP 403) » et le bureau de l'OACI « introuvable (404) » : le contournement n'a donc pas joué ce jour-là, mais le code est là, actif dès que le sidecar ou le script Node est présent. Je ne l'ai pas écrit et je ne l'ai pas modifié. Sur le fond, c'est une faiblesse de conformité et de fiabilité : les conditions d'utilisation de ces sites interdisent le plus souvent l'extraction automatisée ; une donnée obtenue par contournement ne peut pas être défendue devant un auditeur ; elle disparaît au prochain durcissement du site. Pour une plateforme destinée à des assujettis LCB-FT, c'est un risque commercial. Ma recommandation : retirer ce repli, accepter que ces cinq à neuf organisations ne soient pas couvertes automatiquement, et demander l'accès par la voie officielle (contact, flux, partenariat).</p>
+
+<h2>5. Comparaison avec OpenSanctions (France)</h2>
+<p>OpenSanctions affiche aujourd'hui <b>109 424 entités PEP</b> pour la France. Sa page liste sept jeux de données liés à la France : maires du ministère de l'Intérieur (68 720), Assemblée nationale (3 155), Sénat (522), HATVP (3 883), plus deux jeux de l'AMF et le gel des avoirs, qui sont des sanctions et non des PEP. Le détail catégorie par catégorie vient de notre comparaison du 3 novembre.</p>
+<table>
+<tr><th>Fonction</th><th>SwiftCheck AML</th><th>OpenSanctions</th><th>Avantage</th></tr>
+<tr><td>Gouvernement</td><td>36 (HATVP + JORF)</td><td>CIA, Wikidata, HATVP</td><td>Équivalent</td></tr>
+<tr><td>Députés, sénateurs</td><td>627 et 421 (officiel, anciens compris)</td><td>3 155 et 522 (historique profond)</td><td>OpenSanctions pour l'historique</td></tr>
+<tr><td>Dirigeants de partis</td><td>137 (Wikidata)</td><td>aucun</td><td>SwiftCheck</td></tr>
+<tr><td>Conseil constitutionnel, Conseil d'État, Cassation</td><td>9 + JORF</td><td>quasi absent</td><td>SwiftCheck</td></tr>
+<tr><td>Cour des comptes, Banque de France</td><td>11 + JORF</td><td>gouverneur et sous-gouverneurs</td><td>SwiftCheck</td></tr>
+<tr><td>Ambassadeurs</td><td>194 en poste (officiel)</td><td>surtout d'anciens ambassadeurs (Wikidata)</td><td>SwiftCheck</td></tr>
+<tr><td>Chefs d'état-major</td><td>3</td><td>bien couvert</td><td>OpenSanctions</td></tr>
+<tr><td>Entreprises publiques</td><td>1 578 + 2 451</td><td>quelques dirigeants via la HATVP</td><td>SwiftCheck</td></tr>
+<tr><td>Organisations internationales</td><td>41 (contournement anti-robot)</td><td>onglet intergouvernemental, sans détail</td><td>Équivalent, avec un risque pour nous</td></tr>
+<tr><td>Élus locaux</td><td>455 (≥ 50 000 hab.) + 35 097 + 131 788</td><td>68 720 maires</td><td>SwiftCheck (périmètre plus large)</td></tr>
+<tr><td>HATVP</td><td>7 085</td><td>3 883</td><td>SwiftCheck</td></tr>
+<tr><td>Famille, proches</td><td>241 + 387 organisations</td><td>1 070 proches (Wikidata)</td><td>OpenSanctions pour les personnes</td></tr>
+<tr><td>Monde entier</td><td>pas de couverture hors UE</td><td>environ 200 pays</td><td>OpenSanctions</td></tr>
+</table>
+<p><b>Ce que cela veut dire.</b> Le total d'OpenSanctions (109 424) est composé à 63 % de maires (68 720), souvent de communes très petites, et d'anciens titulaires. Ce n'est pas un critère de qualité. En revanche : (1) pour un assujetti français, notre couverture des fonctions que la loi cite expressément (juridictions, comptes, banque centrale, entreprises publiques, ambassadeurs en poste) est meilleure ; (2) pour la famille et les proches, OpenSanctions est plus riche en personnes ; (3) sa licence CC BY-NC 4.0 interdit l'usage commercial sans contrat payant, alors que nos sources officielles sont réutilisables.</p>
+<p><small>Les chiffres OpenSanctions sont ceux de sa page pays du 11 novembre, sans date de mise à jour affichée, et de notre comparaison du 3 novembre pour le détail. Je n'ai pas pu vérifier quels jeux de données alimentent précisément ses PEP français.</small></p>
+
+<h2>6. Actions pour monter la couverture réelle</h2>
+<table>
+<tr><th>#</th><th>Action</th><th>Effet attendu</th></tr>
+<tr><td>1</td><td><b>Résoudre les 1 518 mandats « inconnus » du JORF</b> : croiser avec les sources officielles des juridictions (annuaires, rapports annuels) ou, à défaut, appliquer une règle d'ancienneté documentée pour distinguer « en poste » de « sorti »</td><td>Rend « en fonction » vérifiable pour Conseil d'État, Cassation, Cour des comptes</td></tr>
+<tr><td>2</td><td>Conseil d'État : 243 noms sur 300 attendus, vérifier les 57 manquants (membres en service ordinaire non nommés par décret récent)</td><td>FR-d à 100 %</td></tr>
+<tr><td>3</td><td>Supprimer le repli <b>Stealth</b> ; marquer FR-h comme « non couvert automatiquement » pour les organisations bloquées</td><td>Conformité et défendabilité auditeur</td></tr>
+<tr><td>4</td><td>Chef d'état-major de la Marine : le parser signale « pas d'adresse configurée » ; ajouter l'adresse de sa page officielle (3 chefs sur 4)</td><td>FR-f à 100 %</td></tr>
+<tr><td>5</td><td>Compléter les 45 exécutifs locaux manquants (455 sur 500)</td><td>AMLR à 100 %</td></tr>
+<tr><td>6</td><td>Afficher « source Wikidata, à contrôler » pour FR-c et FR-RCA dans la page de couverture</td><td>Transparence</td></tr>
+<tr><td>7</td><td>Renseigner l'effectif attendu pour FR-g et les élus locaux de moins de 50 000 habitants</td><td>Taux mesurables</td></tr>
+</table>
+</body></html>

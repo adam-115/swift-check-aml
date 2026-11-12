@@ -29,9 +29,22 @@
               "pattern": "^(?:Acting )?Director-General\\n{NAME}$"
             }
           ]
+        },
+        {
+          "url": "https://www.eppo.int/ABOUT_EPPO/eppo_bodies",
+          "functions": [
+            {
+              "label": "Président",
+              "pattern": "^(?:Mr|Mrs|Ms|Dr)\\.?\\s+{NAME}\\nChair of EPPO$"
+            },
+            {
+              "label": "Vice-président",
+              "pattern": "^(?:Mr|Mrs|Ms|Dr)\\.?\\s+{NAME}\\nVice-Chair of EPPO$"
+            }
+          ]
         }
       ],
-      "pending": "Président, vice-président et directeur adjoint : la page des organes de l'OEPP ne les nomme pas dans son texte."
+      "pending": "Directeur général adjoint : la page du secrétariat ne le nomme pas."
     },
     {
       "key": "woah",
@@ -161,9 +174,17 @@
               "pattern": "^(?<first>\\p{Lu}[\\p{L}'’-]+)\\n(?<last>\\p{Lu}[\\p{Lu}'’ -]+)\\nDirecteur$"
             }
           ]
+        },
+        {
+          "url": "https://www.oiml.org/fr/structure/ciml/presidence",
+          "functions": [
+            {
+              "label": "Président du comité international de métrologie légale (CIML)",
+              "pattern": "^(?:M|Mme)\\.?\\s+(?<first>\\p{Lu}[\\p{L}'’-]+)\\n(?<last>\\p{Lu}[\\p{L}'’ -]+)\\nPrésident\\ndu CIML$"
+            }
+          ]
         }
-      ],
-      "pending": "Président du comité international de métrologie légale (CIML) : la page de la présidence ne le nomme pas dans son texte."
+      ]
     },
     {
       "key": "oif",

@@ -269,8 +269,8 @@ public class FrPepJorfParser implements Iparser {
             }
             // Toute fin de fonctions au Gouvernement passe par un décret : un mandat ouvert est en cours
             // Un poste à titulaire unique change aussi par décret : le titulaire sans fin est en cours
-            String status = (m.institution == Institution.GOUVERNEMENT || isSinglePost(m.institution)) && m.end == null
-                    ? "current" : status(m.end, today);
+            String status = (m.institution == Institution.GOUVERNEMENT || isSinglePost(m.institution)
+                    || isSingleRole(m.institution, m.function)) && m.end == null ? "current" : status(m.end, today);
             switch (status) {
                 case "current" -> current++;
                 case "ended" -> ended++;
@@ -349,6 +349,14 @@ public class FrPepJorfParser implements Iparser {
                         // La nomination d'un successeur clôt le mandat du précédent titulaire
                         for (Mandate m : mandates) {
                             if (m.open && m.institution == e.institution() && !m.personKey.equals(person)) {
+                                close(m, e.date());
+                            }
+                        }
+                    }
+                    if (isSingleRole(e.institution(), e.function())) {
+                        // Vice-président du Conseil d'État : un seul titulaire, nommé par décret ; son successeur clôt son mandat
+                        for (Mandate m : mandates) {
+                            if (m.open && isSingleRole(m.institution, m.function) && !m.personKey.equals(person)) {
                                 close(m, e.date());
                             }
                         }
@@ -460,6 +468,15 @@ public class FrPepJorfParser implements Iparser {
     private static void close(Mandate m, LocalDate date) {
         m.end = date;
         m.open = false;
+    }
+
+    /**
+     * Fonction à titulaire unique au sein d'une institution qui en compte beaucoup d'autres : le vice-président du Conseil
+     * d'État est nommé et remplacé par décret, donc sans fin connue il est en cours (les autres membres restent {@code unknown}).
+     */
+    static boolean isSingleRole(Institution institution, String function) {
+        return institution == Institution.CONSEIL_ETAT && function != null
+                && JorfArticles.fold(function).startsWith("vice-president");
     }
 
     /** Poste occupé par une seule personne à la fois, nommée par décret. */

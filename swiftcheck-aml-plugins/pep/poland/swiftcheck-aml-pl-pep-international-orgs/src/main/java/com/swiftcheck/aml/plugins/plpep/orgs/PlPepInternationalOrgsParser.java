@@ -34,12 +34,18 @@ import com.swiftcheck.aml.sdk.FtmDatasetBuilder;
 import com.swiftcheck.aml.sdk.FtmEntity;
 
 /**
- * <b>pl_pep_international_orgs</b> – Hauts dirigeants des organisations internationales ayant leur siège ou bureau principal en Pologne (Frontex, OSCE/ODIHR, CBSS).
+ * <b>pl_pep_international_orgs</b> – Hauts dirigeants des organisations
+ * internationales ayant leur siège ou bureau principal en Pologne (Frontex,
+ * OSCE/ODIHR, CBSS).
  *
- * <p>Couvre la catégorie <b>PL-h</b>, fonction <b>Dirigeant d'une organisation internationale</b> (fonction 496)
+ * <p>
+ * Couvre la catégorie <b>PL-h</b>, fonction <b>Dirigeant d'une organisation
+ * internationale</b> (fonction 496)
  * (Loi du 1er mars 2018, art. 2 ust. 2 pkt 11 ; JO C/2023/724).
  *
- * <p>Alimentation dynamique en direct via l'API MediaWiki (Wikipedia organisations internationales).
+ * <p>
+ * Alimentation dynamique en direct via l'API MediaWiki (Wikipedia organisations
+ * internationales).
  */
 @Extension
 public class PlPepInternationalOrgsParser implements Iparser {
@@ -84,8 +90,8 @@ public class PlPepInternationalOrgsParser implements Iparser {
         dataset.writeNdjsonFile(ctx.outputFile());
 
         return dataset.toConversionResult().withMessage(
-                String.format(Locale.ROOT, "%d hauts dirigeants des organisations internationales \u00e0 Varsovie index\u00e9s.", count)
-        );
+                String.format(Locale.ROOT,
+                        "%d hauts dirigeants des organisations internationales \u00e0 Varsovie index\u00e9s.", count));
     }
 
     @Override
@@ -157,7 +163,8 @@ public class PlPepInternationalOrgsParser implements Iparser {
             }
 
             String orgName = cleanOrgName(title);
-            String pageUrl = "https://en.wikipedia.org/wiki/" + URLEncoder.encode(title.replace(' ', '_'), StandardCharsets.UTF_8);
+            String pageUrl = "https://en.wikipedia.org/wiki/"
+                    + URLEncoder.encode(title.replace(' ', '_'), StandardCharsets.UTF_8);
 
             Map<String, String> infobox = parseInfobox(wikitext);
             List<RawOfficial> officials = extractOfficials(infobox, orgName);
@@ -227,7 +234,8 @@ public class PlPepInternationalOrgsParser implements Iparser {
         return title;
     }
 
-    record RawOfficial(String name, String position) {}
+    record RawOfficial(String name, String position) {
+    }
 
     private static List<RawOfficial> extractOfficials(Map<String, String> infobox, String orgName) {
         List<RawOfficial> list = new ArrayList<>();
@@ -256,7 +264,8 @@ public class PlPepInternationalOrgsParser implements Iparser {
                 String pos = infobox.getOrDefault(posKey, "Leader of " + orgName);
                 String name = cleanName(rawName);
                 // Exclude country names like [[Estonia]]
-                if (!name.isEmpty() && !name.equalsIgnoreCase("vacant") && !name.equalsIgnoreCase("Estonia") && !name.equalsIgnoreCase("Poland")) {
+                if (!name.isEmpty() && !name.equalsIgnoreCase("vacant") && !name.equalsIgnoreCase("Estonia")
+                        && !name.equalsIgnoreCase("Poland")) {
                     list.add(new RawOfficial(name, cleanName(pos)));
                 }
             }
@@ -294,8 +303,8 @@ public class PlPepInternationalOrgsParser implements Iparser {
     private static String[] splitName(String fullName) {
         String[] parts = fullName.split("\\s+");
         if (parts.length == 1) {
-            return new String[]{parts[0], ""};
+            return new String[] { parts[0], "" };
         }
-        return new String[]{parts[0], parts[parts.length - 1]};
+        return new String[] { parts[0], parts[parts.length - 1] };
     }
 }

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <!--
+      FR-d, « Membre du Conseil d'État » : l'effectif attendu passe de 300 à 230.
+      Source : la page « Organisation » de conseil-etat.fr indique « Les 230 conseillers d'État (« membres ») » (page lue le
+      12 novembre 2026). Le chiffre de 300 n'était pas sourcé ; avec lui, la couverture s'affichait à 81 % (243 sur 300).
+      Précision : les 243 personnes publiées par fr_pep_jorf pour cette fonction sont toutes les nominations lues depuis 1990, pas
+      les seuls membres en poste ; seuls quelques-uns sont confirmés « en cours » (statut unknown pour les autres, voir le
+      parser). Cette migration corrige le dénominateur, elle ne prétend pas que 243 personnes sont en fonction.
+      La fonction est retrouvée par son pays, sa catégorie et son libellé (joker sur l'apostrophe et les accents), et seulement
+      si l'ancien effectif de 300 est encore là.
+    -->
+    <changeSet id="136-fr-council-of-state-expected-holders" author="swiftcheck">
+        <sql><![CDATA[
+            UPDATE pep_function f
+            JOIN pep_category c ON c.id = f.category_id
+            SET f.expected_holders = 230
+            WHERE c.country_iso = 'FR'
+              AND c.code = 'FR-d'
+              AND f.label LIKE 'Membre du Conseil d%'
+              AND f.expected_holders = 300;
+        ]]></sql>
+    </changeSet>
+
+</databaseChangeLog>

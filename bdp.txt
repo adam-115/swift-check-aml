@@ -1,0 +1,149 @@
+﻿{{Info/banco central
+| nome            = Banco de Portugal
+| logo            = Banco de Portugal Letters.png
+| imagem          = Banco de Portugal - Sede.jpg
+| legenda         = Sede do Banco de Portugal, na Rua Áurea (Rua do Ouro), na [[Baixa de Lisboa]]
+| sede            = {{PORb}} [[Lisboa]], [[Portugal]]
+| coordenadas     = 
+| estabelecido    = {{dtlink|19|11|1846|idade}}
+| título_líder    = [[Governador]]
+| executivo       = [[Álvaro Santos Pereira]]
+| banco_central   = [[Portugal]]
+| gênero          = e
+| moeda           = [[Euro]]<br>EUR ([[ISO 4217]])
+| reservas        = 4577 milhões de [[Dólar dos Estados Unidos|dólares]]<ref>{{Citar web|url=https://www.ceicdata.com/en/indicator/russia/foreign-exchange-reserves|titulo=Russia Foreign Exchange Reserves, 1994 – 2025 {{!}} CEIC Data|acessodata=2025-09-12|website=www.ceicdata.com|lingua=en}}</ref>
+| website         = {{URL|http://www.bportugal.pt/}}
+}}
+
+[[Ficheiro:Coimbra-LargoPortagem2.jpg|thumb|Agência do Banco de Portugal em [[Coimbra]]]]
+O '''Banco de Portugal''' <small>[[Ordem Militar de Nosso Senhor Jesus Cristo|GCC]]</small> é o [[banco central]] da [[República Portuguesa]]. É o membro português do [[Eurosistema]].
+
+== História ==
+Foi fundado em [[19 de Novembro|19 de novembro]] de [[1846]], em [[Lisboa]], onde é a sua sede. Surgiu da fusão do [[Banco de Lisboa]] e da Companhia Confiança Nacional. Fundado com o estatuto de sociedade anónima, até à sua nacionalização, em [[1974]], era maioritariamente privado.<ref>{{Citar web|url=https://www.bportugal.pt/en/page/history|titulo=History {{!}} Banco de Portugal|acessodata=2025-09-15|website=www.bportugal.pt|lingua=en}}</ref>
+
+Em 1932, foi constituída a [[Biblioteca do Banco de Portugal]].<ref>{{Citar web|url=https://www.bnportugal.gov.pt/index.php?option=com_content&view=article&id=526&Itemid=574|titulo=Lista de Bibliotecas|acessodata=2025-09-15|website=www.bnportugal.gov.pt}}</ref>
+
+A 23 de novembro de 1946 foi agraciado com a Grã-Cruz da [[Ordem Militar de Nosso Senhor Jesus Cristo]].<ref name="OHn">{{citar web|url=http://www.ordens.presidencia.pt/?idc=153|título=Cidadãos Nacionais Agraciados com Ordens Portuguesas|data=|acessodata=2014-11-20|publicado=Presidência da República Portuguesa|autor=|notas=Resultado da busca de "Banco de Portugal".}}</ref>
+
+É o banco emissor de notas denominadas na moeda nacional - o [[Real (moeda portuguesa)|real]] até [[1911]], o [[Escudo (moeda portuguesa)|escudo]] de [[1911]] até [[1998]] e o [[euro]] desde [[1999]].<ref>{{Citar web|url=https://www.britannica.com/topic/escudo|titulo=Escudo {{!}} currency {{!}} Britannica|acessodata=2025-09-15|website=www.britannica.com|lingua=en}}</ref> Integra o [[Sistema Europeu de Bancos Centrais]],<ref>{{Citar web|url=https://www.britannica.com/topic/history-of-Portugal|titulo=History of Portugal {{!}} Britannica|acessodata=2025-09-15|website=www.britannica.com|lingua=en}}</ref> que foi fundado em junho de [[1998]]. De acordo com a sua Lei Orgânica, o Banco de Portugal prossegue os objectivos e participa no desempenho das atribuições cometidas ao SEBC.
+
+Compete ao Banco a supervisão prudencial e a supervisão comportamental das [[banco|instituições de crédito]] e das sociedades financeiras<ref>{{Citar web|url=https://www.bportugal.pt/page/comportamental-objetivos?mlid=866|titulo=Objetivos {{!}} Banco de Portugal|acessodata=2023-05-29|website=www.bportugal.pt}}</ref>.
+
+O Banco emite [[notas de euro]] e põe em circulação as moedas metálicas, embora o BCE detenha o direito exclusivo de autorizar a sua emissão.
+
+Compete-lhe ainda regular, fiscalizar e promover o bom funcionamento dos sistemas de pagamentos, gerir as disponibilidades externas do País e agir como intermediário das relações monetárias internacionais do Estado, bem como aconselhar o Governo nos domínios económico e financeiro. Cabe ao Banco a recolha e elaboração das estatísticas monetárias, financeiras, cambiais e da balança de pagamentos. Acresce ainda a supervisão das entidades que operam com ativos virtuais ([[Criptomoedas em Portugal|criptomoedas]] em Portugal).<ref>{{Citar web|url=https://www.bportugal.pt/page/registo-de-entidades-que-exercem-atividades-com-ativos-virtuais|titulo=Registo de entidades que exercem atividades com ativos virtuais {{!}} Banco de Portugal|acessodata=2025-09-15|website=www.bportugal.pt|lingua=pt-pt}}</ref>
+
+== Rede regional ==
+* Sede: [[Lisboa]]
+* Filial: [[Porto]] 
+* Delegações Regionais: [[Ponta Delgada]] ([[Açores]]) e [[Funchal]] ([[Madeira (Portugal)|Madeira]])
+* Agências: [[Braga]], [[Viseu (Portugal)|Viseu]], [[Coimbra]], [[Castelo Branco]], [[Évora]] e [[Faro]]
+* Antigas Agências: [[Aveiro]], [[Beja]], [[Bragança (Portugal)|Bragança]], [[Guarda]], [[Lamego]], [[Santarém (Portugal)|Santarém]], [[Viana do Castelo]], [[Vila Real]]
+
+== Administração ==
+
+=== Governadores precedentes ===
+
+Antes de haver governadores, houve vários Diretores ou Presidentes da Direção, como [[Henrique de Barros Gomes]] (1843-1898) várias vezes, a última das quais em 1887, e [[Libânio Ribeiro da Silva]], 1.º [[Visconde de Ribeiro da Silva]] e 1.º [[Conde de Ribeiro da Silva]] (1824-1895), de 1883 a 1886.
+
+Foram governadores do Banco de Portugal:<ref>{{citar web|URL=http://www.bportugal.pt/pt-PT/OBancoeoEurosistema/Historia/Paginas/Antigosgovernadores.aspx|título=Antigos Governadores do Banco de Portugal|autor=Banco de Portugal|data=|publicado=|acessodata=24 de Novembro de 2014}}</ref>
+{{Limpar}}
+
+{| class="wikitable"
+!N°
+!Governador
+!Mandato
+!N°
+!Governador
+!Mandato
+|-
+|1
+|[[António Augusto Pereira de Miranda]]
+|(1887-1891)
+|11
+|[[Manuel Jacinto Nunes]]
+|(1980-1985)
+|-
+|2
+|[[Pedro Augusto de Carvalho]]
+|(1891-1894)
+|12
+|[[Vítor Constâncio]]
+|(1985-1986)
+|-
+|3
+|Júlio Marques de Vilhena
+|(1895-1907)
+|13
+|[[José Alberto Tavares Moreira]]
+|(1986-1992)
+|-
+|4
+|[[José Adolfo de Melo e Sousa]]
+|(1907-1910)
+|14
+|[[Miguel Beleza]]
+|(1992-1994)
+|-
+|5
+|[[Inocêncio Camacho|Inocêncio Camacho Rodrigues]]
+|(1911-1936)
+|15
+|[[António de Sousa (economista)|António de Sousa]] 
+|(1994-2000)
+|-
+|6
+|[[Rafael Duque|Rafael da Silva Duque]]
+|(1957-1963)
+|16
+|[[Vítor Constâncio]]
+|(2000-2010)
+|-
+|7
+|[[Manuel Jacinto Nunes]] (''interino'')
+|(1963-1966)
+|17
+|[[Carlos Costa (economista)|Carlos da Silva Costa]]
+|(2010-2020)
+|-
+|8
+|[[António Pinto Barbosa]]
+|(1966-1974)
+|18
+|[[Mário Centeno]]<ref>{{Citar web|ultimo=Pellicer|primeiro=Javier Martín del Barrio, Íñigo de Barrón, Lluís|url=https://elpais.com/economia/2020-06-09/mario-centeno-abandona-el-gobierno-portugues.html|titulo=La salida de Centeno abre la puerta a que Calviño presida el Eurogrupo|data=2020-06-09|acessodata=2025-09-15|website=El País|lingua=es}}</ref>
+|(2020-2025)
+|-
+|9
+|[[Manuel Jacinto Nunes]]
+|(1974-1975)
+|19
+|[[Álvaro Santos Pereira]]<ref>{{Citar web|ultimo=|primeiro=|url=https://expresso.pt/economia/sistema-financeiro/2025-10-06-alvaro-santos-pereira-assume-as-redeas-do-banco-de-portugal-de-costas-voltadas-para-centeno-4efb55d8|titulo=Álvaro Santos Pereira assume as rédeas do Banco de Portugal de costas voltadas para Centeno|data=2025-10-06|acessodata=2025-10-06|website=Expresso|lingua=pt}}</ref>
+|(2025-presente)
+|-
+|10
+|[[José da Silva Lopes]]
+|(1975-1980)
+| colspan="3" |
+|}
+
+== Galeria ==
+<center><gallery>
+Ficheiro:Edifício do Banco de Portugal em Braga 18.jpg|Agência em [[Braga]]
+Ficheiro:Banco de Portugal building in Évora 70.jpg|Agência em [[Évora]]
+Ficheiro:Banco de Portugal (Madeira).jpg|Agência no [[Funchal]], [[Região Autónoma da Madeira]]
+Ficheiro:Banco de Portugal, Avenida dos Aliados, Porto.JPG|Filial no [[Porto]], na [[Avenida dos Aliados]]
+Ficheiro:Banco de Portugal - Castelo Branco - Portugal (49246716092) (cropped).jpg|Agência em [[Castelo Branco]]
+</gallery></center>
+{{referências}}
+
+== Ligações externas ==
+{{Commonscat}}
+* {{oficial|http://www.bportugal.pt}}
+
+{{Bancos centrais}}
+{{Portal3|Economia e negócios|Portugal}}{{Controle de autoridade}}{{DEFAULTSORT:Banco Portugal}}
+
+[[Categoria:Banco de Portugal|*]]
+[[Categoria:Entidades reguladoras de Portugal]]
+[[Categoria:Institutos de Portugal]]
+[[Categoria:Grã-Cruzes da Ordem Militar de Cristo]]

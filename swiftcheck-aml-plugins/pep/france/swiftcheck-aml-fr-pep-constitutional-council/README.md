@@ -12,11 +12,11 @@ Mesure du 28/10/2026 : 9 membres (président : Richard Ferrand), tous avec leur 
 |---|---|
 | Pays | France |
 | Catégorie PEP | **FR-d** « Conseil constitutionnel, Conseil d'État et Cour de cassation » (CMF, art. R. 561-18 ; directive (UE) 2015/849, art. 3, point 9 d) |
-| Fonction couverte | Président, membre ou secrétaire général du Conseil constitutionnel : **partielle** (pas le secrétaire général) |
+| Fonction couverte | Président, membre ou secrétaire général du Conseil constitutionnel : **complète avec `fr_pep_jorf`** (ce parser : le président et les 9 membres ; le secrétaire général est lu par `fr_pep_jorf`, soit 10 personnes au total au 12/11/2026) |
 | Classe de risque | 2 |
 | Rétention | 12 mois : un membre qui quitte le Conseil reste publié un an (rétention gérée par le core) |
 
-Le secrétaire général n'est pas nommé sur le site ; il est nommé par décret publié au Journal officiel.
+Le secrétaire général n'est pas nommé sur le site ; il est nommé par décret publié au Journal officiel, que lit le parser `fr_pep_jorf` (au 12/11/2026 : Catherine LEROY, en cours depuis le 16/04/2026, qui a succédé à Aurélie BRETONNEAU).
 
 ## Source
 

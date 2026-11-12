@@ -18,8 +18,7 @@ class PtPepFinancialRegulatorsParserTest {
     void convertsRegulators() throws Exception {
         FtmDatasetBuilder dataset = new FtmDatasetBuilder(
                 PtPepFinancialRegulatorsParser.ID_PREFIX,
-                PtPepFinancialRegulatorsParser.TOPIC
-        );
+                PtPepFinancialRegulatorsParser.TOPIC);
         int count = parser.convert(RAW, dataset);
 
         assertThat(count).isGreaterThanOrEqualTo(4);

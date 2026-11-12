@@ -34,12 +34,17 @@ import com.swiftcheck.aml.sdk.FtmDatasetBuilder;
 import com.swiftcheck.aml.sdk.FtmEntity;
 
 /**
- * <b>pl_pep_constitutional_tribunal</b> – Juges du Tribunal constitutionnel polonais (Trybunał Konstytucyjny).
+ * <b>pl_pep_constitutional_tribunal</b> – Juges du Tribunal constitutionnel
+ * polonais (Trybunał Konstytucyjny).
  *
- * <p>Couvre la catégorie <b>PL-d</b>, fonction <b>Juge du Tribunal constitutionnel</b> (fonction 490)
+ * <p>
+ * Couvre la catégorie <b>PL-d</b>, fonction <b>Juge du Tribunal
+ * constitutionnel</b> (fonction 490)
  * (Loi du 1er mars 2018, art. 2 ust. 2 pkt 11 ; JO C/2023/724).
  *
- * <p>Alimentation dynamique en direct via l'API MediaWiki (Wikipedia Trybunał Konstytucyjny).
+ * <p>
+ * Alimentation dynamique en direct via l'API MediaWiki (Wikipedia Trybunał
+ * Konstytucyjny).
  */
 @Extension
 public class PlPepConstitutionalTribunalParser implements Iparser {
@@ -69,8 +74,7 @@ public class PlPepConstitutionalTribunalParser implements Iparser {
             Map.entry("wrze\u015bnia", "09"),
             Map.entry("pa\u017adziernika", "10"),
             Map.entry("listopada", "11"),
-            Map.entry("grudnia", "12")
-    );
+            Map.entry("grudnia", "12"));
 
     private final ObjectMapper json = new ObjectMapper();
     private final HttpClient httpClient;
@@ -97,8 +101,7 @@ public class PlPepConstitutionalTribunalParser implements Iparser {
         dataset.writeNdjsonFile(ctx.outputFile());
 
         return dataset.toConversionResult().withMessage(
-                String.format(Locale.ROOT, "%d juges du Tribunal constitutionnel de Pologne index\u00e9s.", count)
-        );
+                String.format(Locale.ROOT, "%d juges du Tribunal constitutionnel de Pologne index\u00e9s.", count));
     }
 
     @Override
@@ -157,7 +160,8 @@ public class PlPepConstitutionalTribunalParser implements Iparser {
             if (pages.isObject()) {
                 for (JsonNode p : pages) {
                     wikitext = p.path("revisions").path(0).path("slots").path("main").path("*").asText("");
-                    if (!wikitext.isEmpty()) break;
+                    if (!wikitext.isEmpty())
+                        break;
                 }
             }
         }
@@ -171,8 +175,10 @@ public class PlPepConstitutionalTribunalParser implements Iparser {
         String pageUrl = "https://pl.wikipedia.org/wiki/Trybuna%C5%82_Konstytucyjny_(Polska)";
 
         // Extract judges from the table in section Sędziowie
-        Pattern datePattern = Pattern.compile("(?m)^\\|(?:[^|\\n]*\\|)*\\s*od\\s+(\\d{1,2}\\s+[^\\s\\d<]+\\s+(\\d{4}))(?:\\s+do\\s+\\d{1,2}\\s+[^\\s\\d<]+\\s+(\\d{4}))?");
-        Pattern namePattern = Pattern.compile("(?m)^\\|(?:bgcolor=[^|]*\\|)?\\s*\\[\\[([^|\\]]+)(?:\\|([^\\|\\]]+))?\\]\\]");
+        Pattern datePattern = Pattern.compile(
+                "(?m)^\\|(?:[^|\\n]*\\|)*\\s*od\\s+(\\d{1,2}\\s+[^\\s\\d<]+\\s+(\\d{4}))(?:\\s+do\\s+\\d{1,2}\\s+[^\\s\\d<]+\\s+(\\d{4}))?");
+        Pattern namePattern = Pattern
+                .compile("(?m)^\\|(?:bgcolor=[^|]*\\|)?\\s*\\[\\[([^|\\]]+)(?:\\|([^\\|\\]]+))?\\]\\]");
 
         String[] rows = wikitext.split("(?m)^\\|-");
         for (String r : rows) {
@@ -197,7 +203,8 @@ public class PlPepConstitutionalTribunalParser implements Iparser {
 
             String target = nm.group(1);
             String label = nm.group(2) != null ? nm.group(2) : target;
-            if (target.matches("(?i).*(Sejm|PRL|PZPR|ZSL|SD|Monitor|Dziennik|Koalicja|Trybuna\u0142|Plik:|File:|Kadencja|stan spoczynku).*")) {
+            if (target.matches(
+                    "(?i).*(Sejm|PRL|PZPR|ZSL|SD|Monitor|Dziennik|Koalicja|Trybuna\u0142|Plik:|File:|Kadencja|stan spoczynku).*")) {
                 continue;
             }
 
@@ -258,7 +265,8 @@ public class PlPepConstitutionalTribunalParser implements Iparser {
     }
 
     static String parsePolishDate(String raw) {
-        Pattern p = Pattern.compile("(\\d{1,2})\\s+([a-zA-Z\u0105\u0119\u015b\u0107\u017a\u017c\u00f3\u0142\u0144]+)\\s+(\\d{4})");
+        Pattern p = Pattern
+                .compile("(\\d{1,2})\\s+([a-zA-Z\u0105\u0119\u015b\u0107\u017a\u017c\u00f3\u0142\u0144]+)\\s+(\\d{4})");
         Matcher m = p.matcher(raw);
         if (m.find()) {
             String day = m.group(1);
@@ -288,8 +296,8 @@ public class PlPepConstitutionalTribunalParser implements Iparser {
     private static String[] splitName(String fullName) {
         String[] parts = fullName.split("\\s+");
         if (parts.length == 1) {
-            return new String[]{parts[0], ""};
+            return new String[] { parts[0], "" };
         }
-        return new String[]{parts[0], parts[parts.length - 1]};
+        return new String[] { parts[0], parts[parts.length - 1] };
     }
 }

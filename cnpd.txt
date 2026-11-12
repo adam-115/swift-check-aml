@@ -1,0 +1,15 @@
+﻿A '''Comissão Nacional de Proteção de Dados''' (sigla '''CNPD''') é uma entidade administrativa independente [[Portugal|portuguesa]] com poderes de [[autoridade]], que funciona junto da [[Assembleia da República (Portugal)|Assembleia da República Portuguesa]], cuja função é o controlo e a fiscalização do [[processamento]] de dados pessoais, em rigoroso respeito pelos [[direito]]s do [[homem]] e pelas [[liberdade]]s e garantias consagradas na [[Constituição]] e na [[Lei]].
+
+Com o elevado número de [[instituição|instituições]] a ter acesso a dados pessoais dos clientes, a CNPD foi criada para garantir que as instituições não invadam a [[privacidade]] dos titulares dos dados, certificando-se que apenas utilizam os dados para a finalidade da recolha. Como tal, qualquer empresa que utiliza ou cria um [[sistema de informação]] deve, primeiro que tudo, apresentar o sistema perante esta comissão, para a sua aprovação. 
+
+== Regime Jurídico ==
+A Lei de Organização e Funcionamento da Comissão Nacional de Proteção de Dados, que regula a organização e o funcionamento da Comissão Nacional de Proteção de Dados (CNPD), bem como o estatuto pessoal dos seus membros foi publicada em [[Diário da República]] n.º 194/2004, Série I-A de 2004-08-18, na [https://dre.pt/web/guest/legislacao-consolidada/-/lc/123536792/202007291510/exportPdf/normal/1/cacheLevelPage?_LegislacaoConsolidada_WAR_drefrontofficeportlet_rp=diplomasModificantes Lei n.º 43/2004]. Foi alterada pela [https://dre.pt/application/conteudo/344942 Lei n.º 55-A/2010], que alterou o artigo 20.º e pela [https://dre.pt/application/file/a/123813850 Lei nº58/2019], que revogou o n.º 3 do artigo 15.º e o n.º 2 do artigo 17.º. <ref>[https://dre.pt/web/guest/legislacao-consolidada/-/lc/123536792/202007291410/diplomasModificantes Diário da República]</ref>
+
+{{referências}}
+
+==Ligações externas==
+* [https://www.cnpd.pt/ Sítio oficial da Comissão Nacional de Proteção de Dados (CNPD)]
+
+{{DEFAULTSORT:CNIL}}
+[[Categoria:Privacidade]]
+[[Categoria:Instituições de Portugal]]

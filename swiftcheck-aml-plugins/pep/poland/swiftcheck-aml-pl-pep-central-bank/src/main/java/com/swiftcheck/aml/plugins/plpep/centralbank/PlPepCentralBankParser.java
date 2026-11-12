@@ -34,12 +34,16 @@ import com.swiftcheck.aml.sdk.FtmDatasetBuilder;
 import com.swiftcheck.aml.sdk.FtmEntity;
 
 /**
- * <b>pl_pep_central_bank</b> – Membres du directoire et du Conseil de politique monétaire de la Banque nationale de Pologne (NBP & RPP).
+ * <b>pl_pep_central_bank</b> – Membres du directoire et du Conseil de politique
+ * monétaire de la Banque nationale de Pologne (NBP & RPP).
  *
- * <p>Couvre la catégorie <b>PL-e</b>, fonction <b>Membre du directoire de la Banque nationale de Pologne</b> (fonction 492)
+ * <p>
+ * Couvre la catégorie <b>PL-e</b>, fonction <b>Membre du directoire de la
+ * Banque nationale de Pologne</b> (fonction 492)
  * (Loi du 1er mars 2018, art. 2 ust. 2 pkt 11 ; JO C/2023/724).
  *
- * <p>Alimentation dynamique en direct via l'API MediaWiki (Wikipedia NBP & RPP).
+ * <p>
+ * Alimentation dynamique en direct via l'API MediaWiki (Wikipedia NBP & RPP).
  */
 @Extension
 public class PlPepCentralBankParser implements Iparser {
@@ -76,8 +80,7 @@ public class PlPepCentralBankParser implements Iparser {
             Map.entry("wrze\u015bnia", "09"),
             Map.entry("pa\u017adziernika", "10"),
             Map.entry("listopada", "11"),
-            Map.entry("grudnia", "12")
-    );
+            Map.entry("grudnia", "12"));
 
     private final ObjectMapper json = new ObjectMapper();
     private final HttpClient httpClient;
@@ -104,8 +107,8 @@ public class PlPepCentralBankParser implements Iparser {
         dataset.writeNdjsonFile(ctx.outputFile());
 
         return dataset.toConversionResult().withMessage(
-                String.format(Locale.ROOT, "%d dirigeants de la Banque nationale de Pologne (NBP & RPP) index\u00e9s.", count)
-        );
+                String.format(Locale.ROOT, "%d dirigeants de la Banque nationale de Pologne (NBP & RPP) index\u00e9s.",
+                        count));
     }
 
     @Override
@@ -182,7 +185,8 @@ public class PlPepCentralBankParser implements Iparser {
         // 2. Parser individual Zarząd pages
         for (JsonNode page : pagesNode) {
             String title = page.path("title").asText("");
-            if (title.toLowerCase(Locale.ROOT).contains("polski") || title.toLowerCase(Locale.ROOT).contains("polityki")) {
+            if (title.toLowerCase(Locale.ROOT).contains("polski")
+                    || title.toLowerCase(Locale.ROOT).contains("polityki")) {
                 continue;
             }
             JsonNode revisions = page.path("revisions");
@@ -215,7 +219,8 @@ public class PlPepCentralBankParser implements Iparser {
                 break; // End of kadencja section
             }
 
-            if (l.toLowerCase(Locale.ROOT).contains("prezes nbp") || l.toLowerCase(Locale.ROOT).contains("przewodnicz\u0105cy rady")) {
+            if (l.toLowerCase(Locale.ROOT).contains("prezes nbp")
+                    || l.toLowerCase(Locale.ROOT).contains("przewodnicz\u0105cy rady")) {
                 inCouncilMembers = false;
             } else if (l.toLowerCase(Locale.ROOT).contains("cz\u0142onkowie rady")) {
                 inCouncilMembers = true;
@@ -243,7 +248,8 @@ public class PlPepCentralBankParser implements Iparser {
                         org = "Rada Polityki Pieni\u0119\u017cnej (RPP)";
                     }
 
-                    addOfficial(name, position, org, "", "https://pl.wikipedia.org/wiki/Rada_Polityki_Pieni%C4%99%C5%BCnej", dataset);
+                    addOfficial(name, position, org, "",
+                            "https://pl.wikipedia.org/wiki/Rada_Polityki_Pieni%C4%99%C5%BCnej", dataset);
                     count++;
                 }
             }
@@ -271,12 +277,14 @@ public class PlPepCentralBankParser implements Iparser {
         }
 
         seenPersons.add(name.toLowerCase(Locale.ROOT));
-        String pageUrl = "https://pl.wikipedia.org/wiki/" + URLEncoder.encode(title.replace(' ', '_'), StandardCharsets.UTF_8);
+        String pageUrl = "https://pl.wikipedia.org/wiki/"
+                + URLEncoder.encode(title.replace(' ', '_'), StandardCharsets.UTF_8);
         addOfficial(name, position, "Narodowy Bank Polski (Zarz\u0105d)", birthDate, pageUrl, dataset);
         return 1;
     }
 
-    private void addOfficial(String name, String position, String org, String birthDate, String sourceUrl, FtmDatasetBuilder dataset) {
+    private void addOfficial(String name, String position, String org, String birthDate, String sourceUrl,
+            FtmDatasetBuilder dataset) {
         FtmEntity person = dataset.newEntity("Person", name);
         person.addValue("name", name);
         String[] nameParts = splitName(name);
@@ -338,7 +346,8 @@ public class PlPepCentralBankParser implements Iparser {
         clean = WIKI_LINK_PATTERN.matcher(clean).replaceAll("$1").trim();
 
         // Match format: 11 września 1956
-        Pattern p = Pattern.compile("(\\d{1,2})\\s+([a-zA-Z\u0105\u0119\u015b\u0107\u017a\u017c\u00f3\u0142\u0144]+)\\s+(\\d{4})");
+        Pattern p = Pattern
+                .compile("(\\d{1,2})\\s+([a-zA-Z\u0105\u0119\u015b\u0107\u017a\u017c\u00f3\u0142\u0144]+)\\s+(\\d{4})");
         Matcher m = p.matcher(clean);
         if (m.find()) {
             String day = m.group(1);
@@ -364,8 +373,8 @@ public class PlPepCentralBankParser implements Iparser {
     private static String[] splitName(String fullName) {
         String[] parts = fullName.split("\\s+");
         if (parts.length == 1) {
-            return new String[]{parts[0], ""};
+            return new String[] { parts[0], "" };
         }
-        return new String[]{parts[0], parts[parts.length - 1]};
+        return new String[] { parts[0], parts[parts.length - 1] };
     }
 }

@@ -154,5 +154,13 @@
     <include file="db/changelog/changes/126-be-coverage-amlr-local-executives.xml" />
     <include file="db/changelog/changes/127-be-amlr-official-sources-no-wikidata.xml" />
     <include file="db/changelog/changes/128-be-pep-eu-institutions.xml" />
+    <include file="db/changelog/changes/129-fr-international-orgs-config-in-parameters.xml" />
+    <include file="db/changelog/changes/130-fix-mojibake-in-be-parser-parameters.xml" />
+    <include file="db/changelog/changes/131-fr-army-navy-chief-address.xml" />
+    <include file="db/changelog/changes/132-fr-army-navy-chief-address-reapply.xml" />
+    <include file="db/changelog/changes/133-fr-international-orgs-oiml-eppo-officers.xml" />
+    <include file="db/changelog/changes/134-fr-international-orgs-coverage-description.xml" />
+    <include file="db/changelog/changes/135-fix-mojibake-in-coverage-texts.xml" />
+    <include file="db/changelog/changes/136-fr-council-of-state-expected-holders.xml" />
 
 </databaseChangeLog>

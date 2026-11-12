@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <!--
+      Même défaut d'encodage que la migration 130, mais dans les textes affichés de la couverture : des migrations anciennes
+      ont écrit des caractères doublement encodés (« PrÃ©sidents » au lieu de « Présidents », « siÃ¨ge » au lieu de « siège »).
+      Constaté dans la base : pep_function_parser.covered_scope (63 lignes), parser.description (40) et parser.name (40).
+
+      Réparation : le texte erroné est de l'UTF-8 relu comme du cp1252 (le « latin1 » de MySQL) puis réencodé en UTF-8 ; on fait
+      le trajet inverse. Chaque ligne n'est réparée que si trois contrôles passent :
+        1. elle porte encore la signature de l'erreur (hexadécimal C383C2… ou C3A2E282AC…) ;
+        2. elle ne contient aucun caractère hors cp1252 (sinon le passage par latin1 les détruirait) ;
+        3. le nombre de « ? » est le même avant et après (aucune perte).
+      Les trois requêtes sont exécutées deux fois : certaines valeurs ont été encodées deux fois (4 lignes constatées) et ne sont réparées qu'au second passage. Sans effet sur une ligne déjà propre. parser.notes n'est pas touché : ses textes mélangent encodage
+      correct et incorrect, une conversion globale les abîmerait.
+    -->
+    <changeSet id="135-fix-mojibake-in-coverage-texts" author="swiftcheck">
+        <sql><![CDATA[
+            UPDATE pep_function_parser
+            SET covered_scope = CONVERT(CAST(CONVERT(covered_scope USING latin1) AS BINARY) USING utf8mb4)
+            WHERE (INSTR(HEX(covered_scope), 'C383C2') > 0 OR INSTR(HEX(covered_scope), 'C3A2E282AC') > 0)
+              AND CONVERT(CONVERT(covered_scope USING latin1) USING utf8mb4) = covered_scope
+              AND (LENGTH(CONVERT(CAST(CONVERT(covered_scope USING latin1) AS BINARY) USING utf8mb4))
+                   - LENGTH(REPLACE(CONVERT(CAST(CONVERT(covered_scope USING latin1) AS BINARY) USING utf8mb4), '?', '')))
+                  = (LENGTH(covered_scope) - LENGTH(REPLACE(covered_scope, '?', '')));
+
+            UPDATE parser
+            SET description = CONVERT(CAST(CONVERT(description USING latin1) AS BINARY) USING utf8mb4)
+            WHERE (INSTR(HEX(description), 'C383C2') > 0 OR INSTR(HEX(description), 'C3A2E282AC') > 0)
+              AND CONVERT(CONVERT(description USING latin1) USING utf8mb4) = description
+              AND (LENGTH(CONVERT(CAST(CONVERT(description USING latin1) AS BINARY) USING utf8mb4))
+                   - LENGTH(REPLACE(CONVERT(CAST(CONVERT(description USING latin1) AS BINARY) USING utf8mb4), '?', '')))
+                  = (LENGTH(description) - LENGTH(REPLACE(description, '?', '')));
+
+            UPDATE parser
+            SET name = CONVERT(CAST(CONVERT(name USING latin1) AS BINARY) USING utf8mb4)
+            WHERE (INSTR(HEX(name), 'C383C2') > 0 OR INSTR(HEX(name), 'C3A2E282AC') > 0)
+              AND CONVERT(CONVERT(name USING latin1) USING utf8mb4) = name
+              AND (LENGTH(CONVERT(CAST(CONVERT(name USING latin1) AS BINARY) USING utf8mb4))
+                   - LENGTH(REPLACE(CONVERT(CAST(CONVERT(name USING latin1) AS BINARY) USING utf8mb4), '?', '')))
+                  = (LENGTH(name) - LENGTH(REPLACE(name, '?', '')));
+
+            -- Deuxieme passage pour les valeurs encodees deux fois
+            UPDATE pep_function_parser
+            SET covered_scope = CONVERT(CAST(CONVERT(covered_scope USING latin1) AS BINARY) USING utf8mb4)
+            WHERE (INSTR(HEX(covered_scope), 'C383C2') > 0 OR INSTR(HEX(covered_scope), 'C3A2E282AC') > 0)
+              AND CONVERT(CONVERT(covered_scope USING latin1) USING utf8mb4) = covered_scope
+              AND (LENGTH(CONVERT(CAST(CONVERT(covered_scope USING latin1) AS BINARY) USING utf8mb4))
+                   - LENGTH(REPLACE(CONVERT(CAST(CONVERT(covered_scope USING latin1) AS BINARY) USING utf8mb4), '?', '')))
+                  = (LENGTH(covered_scope) - LENGTH(REPLACE(covered_scope, '?', '')));
+
+            UPDATE parser
+            SET description = CONVERT(CAST(CONVERT(description USING latin1) AS BINARY) USING utf8mb4)
+            WHERE (INSTR(HEX(description), 'C383C2') > 0 OR INSTR(HEX(description), 'C3A2E282AC') > 0)
+              AND CONVERT(CONVERT(description USING latin1) USING utf8mb4) = description
+              AND (LENGTH(CONVERT(CAST(CONVERT(description USING latin1) AS BINARY) USING utf8mb4))
+                   - LENGTH(REPLACE(CONVERT(CAST(CONVERT(description USING latin1) AS BINARY) USING utf8mb4), '?', '')))
+                  = (LENGTH(description) - LENGTH(REPLACE(description, '?', '')));
+
+            UPDATE parser
+            SET name = CONVERT(CAST(CONVERT(name USING latin1) AS BINARY) USING utf8mb4)
+            WHERE (INSTR(HEX(name), 'C383C2') > 0 OR INSTR(HEX(name), 'C3A2E282AC') > 0)
+              AND CONVERT(CONVERT(name USING latin1) USING utf8mb4) = name
+              AND (LENGTH(CONVERT(CAST(CONVERT(name USING latin1) AS BINARY) USING utf8mb4))
+                   - LENGTH(REPLACE(CONVERT(CAST(CONVERT(name USING latin1) AS BINARY) USING utf8mb4), '?', '')))
+                  = (LENGTH(name) - LENGTH(REPLACE(name, '?', '')));
+        ]]></sql>
+    </changeSet>
+
+</databaseChangeLog>

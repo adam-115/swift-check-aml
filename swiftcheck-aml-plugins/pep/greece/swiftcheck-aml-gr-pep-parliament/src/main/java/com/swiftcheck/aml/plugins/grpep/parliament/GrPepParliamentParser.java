@@ -31,16 +31,20 @@ import com.swiftcheck.aml.sdk.FtmDatasetBuilder;
 import com.swiftcheck.aml.sdk.FtmEntity;
 
 /**
- * <b>gr_pep_parliament</b> – Députés et anciens députés du Parlement hellénique (Βουλή των Ελλήνων).
+ * <b>gr_pep_parliament</b> – Députés et anciens députés du Parlement hellénique
+ * (Βουλή των Ελλήνων).
  *
- * <p>Couvre la catégorie <b>GR-b</b>, fonctions:
+ * <p>
+ * Couvre la catégorie <b>GR-b</b>, fonctions:
  * <ul>
- *   <li><b>Député du Parlement hellénique</b> (fonction 659)</li>
- *   <li><b>Ancien député du Parlement hellénique</b> (fonction 660)</li>
+ * <li><b>Député du Parlement hellénique</b> (fonction 659)</li>
+ * <li><b>Ancien député du Parlement hellénique</b> (fonction 660)</li>
  * </ul>
  * (Loi 4557/2018, art. 3; JO C/2023/724).
  *
- * <p>Alimentation dynamique en direct via l'API MediaWiki (List of members of the Hellenic Parliament, June 2023).
+ * <p>
+ * Alimentation dynamique en direct via l'API MediaWiki (List of members of the
+ * Hellenic Parliament, June 2023).
  */
 @Extension
 public class GrPepParliamentParser implements Iparser {
@@ -56,7 +60,8 @@ public class GrPepParliamentParser implements Iparser {
 
     private static final Pattern ROW_PATTERN = Pattern.compile("(?s)<tr[^>]*>(.*?)</tr>");
     private static final Pattern CELL_PATTERN = Pattern.compile("(?s)<td[^>]*>(.*?)</td>");
-    private static final Pattern LINK_PATTERN = Pattern.compile("(?i)<a\\s+[^>]*href=\"(/wiki/[^\"]+|/w/index\\.php\\?title=[^\"&]+)[^\"]*\"[^>]*>([^<]+)</a>");
+    private static final Pattern LINK_PATTERN = Pattern
+            .compile("(?i)<a\\s+[^>]*href=\"(/wiki/[^\"]+|/w/index\\.php\\?title=[^\"&]+)[^\"]*\"[^>]*>([^<]+)</a>");
 
     private final ObjectMapper json = new ObjectMapper();
     private final HttpClient httpClient;
@@ -83,8 +88,7 @@ public class GrPepParliamentParser implements Iparser {
         dataset.writeNdjsonFile(ctx.outputFile());
 
         return dataset.toConversionResult().withMessage(
-                String.format(Locale.ROOT, "%d députés et parlementaires helléniques indexés.", count)
-        );
+                String.format(Locale.ROOT, "%d députés et parlementaires helléniques indexés.", count));
     }
 
     @Override

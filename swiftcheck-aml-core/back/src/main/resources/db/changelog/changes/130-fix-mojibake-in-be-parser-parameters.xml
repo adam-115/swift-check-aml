@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <!--
+      Correction d'un défaut d'encodage de la migration 124 (appliquée, donc non modifiée) : le texte des paramètres de
+      be_pep_international_orgs, be_pep_public_enterprises et be_pep_associated_entities y a été écrit avec des
+      caractères doublement encodés (« SociÃ©tÃ© » au lieu de « Société », « â€“ » au lieu de « – »).
+
+      Réparation : le texte erroné est de l'UTF-8 relu comme du cp1252 (le « latin1 » de MySQL) puis réencodé en UTF-8 ;
+      on fait le trajet inverse. Sûr à rejouer : seules les lignes qui contiennent encore la signature de l'erreur
+      (« Ã » ou « â » suivi d'un caractère de contrôle ou de symbole, en hexadécimal C383C2… ou C3A2E282AC…) sont touchées.
+    -->
+    <changeSet id="130-fix-mojibake-in-be-parser-parameters" author="swiftcheck">
+        <sql><![CDATA[
+            UPDATE parser
+            SET parameters = CONVERT(CAST(CONVERT(parameters USING latin1) AS BINARY) USING utf8mb4)
+            WHERE dataset_name IN ('be_pep_international_orgs', 'be_pep_public_enterprises', 'be_pep_associated_entities')
+              AND (INSTR(HEX(parameters), 'C383C2') > 0 OR INSTR(HEX(parameters), 'C3A2E282AC') > 0);
+        ]]></sql>
+    </changeSet>
+
+</databaseChangeLog>

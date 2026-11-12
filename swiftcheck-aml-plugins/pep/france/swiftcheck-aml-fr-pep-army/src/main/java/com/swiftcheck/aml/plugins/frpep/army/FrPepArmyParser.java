@@ -34,10 +34,12 @@ import com.swiftcheck.aml.sdk.FtmEntity;
  * <pre>{@code
  * {"cemaUrl": "https://www.defense.gouv.fr/ema/chef-detat-major-armees",
  *  "cematUrl": "https://www.defense.gouv.fr/terre/chef-detat-major-larmee-terre/biographie-du-chef-detat-major-larmee-terre",
- *  "cemmUrl": "",
+ *  "cemmUrl": "https://www.defense.gouv.fr/marine/actualites/amiral-nicolas-vaujour-chef-detat-major-marine",
  *  "cemaaeUrl": "https://www.defense.gouv.fr/air/biographie-du-chef-detat-major-larmee-lair-lespace"}
  * }</pre>
- * Le site n'a pas de biographie à jour du chef d'état-major de la Marine (octobre 2026) : {@code cemmUrl} est vide.
+ * Le site n'a pas de biographie du chef d'état-major de la Marine : {@code cemmUrl} pointe l'article officiel de sa prise de
+ * fonction (nom et date de prise de fonction, ni date de naissance ni portrait). Cet article est daté : l'adresse est à
+ * revoir à chaque changement de chef.
  */
 @Extension
 public class FrPepArmyParser implements Iparser {
@@ -125,7 +127,8 @@ public class FrPepArmyParser implements Iparser {
                 throw new IllegalStateException(function.getValue() + " (" + url(p, function.getKey()) + ") : " + e.getMessage(), e);
             }
             write(function.getKey(), function.getValue(), chief, url(p, function.getKey()),
-                    ChiefPage.photo(html, url(p, function.getKey())), dataset);
+                    // La page de la Marine est un article daté : son image de partage n'est pas un portrait du chef.
+                    "cemm".equals(function.getKey()) ? null : ChiefPage.photo(html, url(p, function.getKey())), dataset);
             covered.add(function.getKey());
         }
         return covered;

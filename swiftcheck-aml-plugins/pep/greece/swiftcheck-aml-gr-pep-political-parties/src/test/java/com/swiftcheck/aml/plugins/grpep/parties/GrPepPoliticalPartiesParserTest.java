@@ -17,7 +17,8 @@ class GrPepPoliticalPartiesParserTest {
     @Test
     void testConvert() throws Exception {
         GrPepPoliticalPartiesParser parser = new GrPepPoliticalPartiesParser();
-        FtmDatasetBuilder dataset = new FtmDatasetBuilder(GrPepPoliticalPartiesParser.ID_PREFIX, GrPepPoliticalPartiesParser.TOPIC);
+        FtmDatasetBuilder dataset = new FtmDatasetBuilder(GrPepPoliticalPartiesParser.ID_PREFIX,
+                GrPepPoliticalPartiesParser.TOPIC);
 
         int count = parser.convert(RAW, dataset);
         assertTrue(count >= 7, "Au moins 7 dirigeants attendus, obtenu : " + count);
@@ -26,7 +27,8 @@ class GrPepPoliticalPartiesParserTest {
 
         boolean foundOfficial = dataset.entities().stream()
                 .filter(e -> "Person".equals(e.getSchema()))
-                .anyMatch(e -> e.getValues("name").contains("Maria Syrreggela") || e.getValues("name").contains("Maria Syrengela"));
+                .anyMatch(e -> e.getValues("name").contains("Maria Syrreggela")
+                        || e.getValues("name").contains("Maria Syrengela"));
         assertTrue(foundOfficial, "Maria Syrreggela doit être présente dans le dataset");
     }
 }

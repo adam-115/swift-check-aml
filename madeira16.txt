@@ -1,0 +1,134 @@
+﻿{{Mais fontes|data=março de 2025}}
+{{Info/Governo
+| nome                  = XVI Governo Regional
+| país                  = Madeira
+| brasão                = Coat_of_arms_of_Madeira.svg
+| regime                = 
+| imagem_logo           = Ficheiro:ImagemBioPresidente.png
+| tamanho               = 230px
+| tipo                  = Governo de coligação
+| legislatura           = [[XV Legislatura da Assembleia Legislativa da Região Autónoma da Madeira|XV]]
+| imagem_líder          = 
+| tamanho_líder         = 200px
+| legenda_líder         = 
+| alt2_líder            = 
+| título líder          = Presidente
+| líder                 = [[Miguel Albuquerque]]
+| título vice líder     = 
+| vice líder            = 
+| título presidente     = Representante<br/>da República
+| presidente            = [[Ireneu Barreto]]
+| indigitação           =28 de março de 2025 
+| período               =
+| inicio mandato        = 15 de abril de 2025
+| fim mandato           = 
+| duração               = {{Tempo decorrido |ano=2025 |mês=04 |dia=15}}
+| partido               = [[PPD/PSD]]<br/>[[CDS-PP]]
+| coligação             = 
+| oposição              = [[Juntos Pelo Povo|JPP]]<br/>[[Partido Socialista (Portugal)|PS]]<br/>[[Chega|CH]]<br>[[Iniciativa Liberal|IL]]
+| parlamento            = [[Assembleia Legislativa Regional da Madeira|Assembleia Legislativa]]
+| lugares_ganhos        = 24
+| total_lugares         = 47
+| cor                   = #F68A21
+| eleição               = [[Eleições legislativas regionais na Madeira em 2025|Eleições de 2025]]
+| orçamento             = 
+| website               = [https://www.madeira.gov.pt/ madeira.gov.pt]
+| anterior              = [[XV Governo Regional da Madeira|XV]]
+| seguinte              =
+}}
+
+O '''XVI [[Governo Regional da Madeira]]''' é o atual executivo da [[Região Autónoma da Madeira]], liderado por [[Miguel Albuquerque]] e formado com base na composição da [[Assembleia Legislativa Regional da Madeira|Assembleia Legislativa Regional]] resultante das [[Eleições legislativas regionais na Madeira em 2025|eleições regionais]] de 23 de março de 2025. É formado por membros do [[Partido Social Democrata (Portugal)|PPD/PSD]] e do [[CDS – Partido Popular|CDS-PP]].
+
+Miguel Albuquerque foi indigitado para formar novo governo no dia 28 de março e tomou posse juntamente com os restantes membros no dia 15 de abril de 2025<ref>{{Citar web|ultimo=Paiva|primeiro=Rui Pedro|url=https://www.publico.pt/2025/03/28/politica/noticia/miguel-albuquerque-indigitado-presidente-governo-regional-2127735|titulo=Miguel Albuquerque indigitado presidente do governo regional da Madeira|data=2025-03-28|acessodata=2025-04-15|website=PÚBLICO|lingua=pt}}</ref><ref>{{Citar web|ultimo=Franco|primeiro=Erica|url=https://www.dnoticias.pt/2025/4/15/445272-xvi-governo-regional-da-madeira-toma-hoje-posse/|titulo=XVI Governo Regional da Madeira toma hoje posse|acessodata=2025-04-15|website=DNOTICIAS.PT|lingua=pt}}</ref>.
+
+== Composição ==
+O Governo é composto pelos seguintes membros<ref>{{citar web|url=https://www.jm-madeira.pt/regiao/conheca-um-a-um-os-membros-do-governo-regional-NL17855668|título=Conheça um a um os membros do Governo Regional|publicado=JM-Madeira|autor= David Spranger|data=28 de março de 2025|acessodata= 28 de março de 2025}}</ref><ref>{{citar web|url=https://www.dnoticias.pt/2025/3/28/443465-albuquerque-so-mantem-dois-do-actual-governo/|título=Albuquerque só mantém dois do atual governo|publicado=Diário de Notícias da Madeira|autor=Jorge Freitas Sousa|data=28 de março de 2025|acessodata=28 de março de 2025}}</ref>:
+{| class="wikitable"
+!Retrato
+!Cargo
+!Detentor
+! colspan="2" |Partido
+!Período
+|-
+|[[Ficheiro:Saint Helier - Funchal 2012 13.jpg|semmoldura|110x110px]]
+|[[Lista de presidentes do Governo Regional da Madeira|Presidente do Governo Regional]]
+|[[Miguel Albuquerque]]
+| width="1px" bgcolor="#F68A21" |&nbsp;
+|[[PPD/PSD]]
+|15 de abril de 2025 — presente
+|-
+|[[Ficheiro:Foto secretario pag secretarias.jpg|semmoldura|110x110px]]
+| rowspan="2" |Secretário Regional de Educação, Ciência e Tecnologia
+|[[Jorge Carvalho]]
+| rowspan="2" width="1px" bgcolor="#F68A21" |&nbsp;
+| rowspan="2" |[[PPD/PSD]]
+|15 de abril de 2025 — 15 de setembro de 2025
+|-
+|[[Ficheiro:Elsa Fernandes.jpg|semmoldura|110x110px]]
+|[[Elsa Fernandes]]
+|15 de setembro de 2025 — presente<ref>{{citar web|url=https://www.dnoticias.pt/2025/9/15/462899-elsa-fernandes-assume-educacao-na-madeira/|título=Elsa Fernandes assume Educação na Madeira|publicado=Diário de Notícias da Madeira|autor=Orlando Drumond|data=2025-09-15|acessodata=2025-10-03}}</ref>
+|-
+|[[Ficheiro:ImagemBiosecretarioJesusConj.png|semmoldura|110x110px]]
+|Secretário Regional de Turismo, Ambiente e Cultura
+|[[Eduardo Jesus]]
+|width="1px" bgcolor="#ccccc" |&nbsp;
+|[[Político independente|independente]]
+|15 de abril de 2025 — presente
+|-
+|[[Ficheiro:José Manuel Rodrigues (24.º Congresso Nacional do PS, 2024).png|semmoldura|111x111px]]
+|[[Secretaria Regional da Economia, Turismo e Cultura (Madeira)|Secretário Regional de Economia]]
+|[[José Manuel Rodrigues (político)|José Manuel Rodrigues]]
+| width="1px" bgcolor="#0091DC" |&nbsp;
+|[[CDS-PP]]
+|15 de abril de 2025 — presente
+|-
+|[[Ficheiro:Sin foto.svg|semmoldura|110x110px]]
+|Secretária Regional de Saúde e Proteção Civil
+|Micaela Freitas
+|width="1px" bgcolor="#ccccc" |&nbsp;
+|
+|15 de abril de 2025 — presente
+|-
+|[[Ficheiro:Sin foto.svg|semmoldura|110x110px]]
+|Secretário Regional de Finanças
+|Duarte Freitas
+|width="1px" bgcolor="#ccccc" |&nbsp;
+|
+|15 de abril de 2025 — presente
+|-
+|[[Ficheiro:Sin foto.svg|semmoldura|110x110px]]
+|Secretário Regional de Agricultura e Pescas
+|Nuno Maciel
+|width="1px" bgcolor="#F68A21" |&nbsp;
+|[[PPD/PSD]]
+|15 de abril de 2025 — presente
+|-
+|[[Ficheiro:Sin foto.svg|semmoldura|110x110px]]
+|Secretária Regional de Inclusão, Trabalho e Juventude
+|Paula Margarido
+|width="1px" bgcolor="#F68A21" |&nbsp;
+|[[PPD/PSD]]
+|15 de abril de 2025 — presente
+|-
+|[[Ficheiro:Sin foto.svg|semmoldura|110x110px]]
+|Secretário Regional de Equipamentos e Infraestruturas
+|Pedro Rodrigues
+|width="1px" bgcolor="#ccccc" |&nbsp;
+|
+|15 de abril de 2025 — presente
+|}
+
+{{Referências}}
+
+== Ligações externas ==
+
+* {{link||https://www.madeira.gov.pt/|''Website'' oficial do Governo Regional da Madeira}}
+
+{{XVI Governo Regional da Madeira}}
+{{Governos da Madeira}}
+
+{{Portal3|Política|Madeira|Portugal}}
+
+{{DEFAULTSORT:Governo Regional Madeira 16}}
+[[Categoria:Governos Regionais da Madeira|16]]
+[[Categoria:Fundações em Portugal em 2025]]

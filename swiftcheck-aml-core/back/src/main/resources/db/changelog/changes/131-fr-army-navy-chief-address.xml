@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <!--
+      fr_pep_army : renseigne cemmUrl (jusqu'ici vide) avec l'article officiel de la Marine sur la prise de fonction de
+      l'amiral Nicolas Vaujour, chef d'état-major de la Marine (31 août 2023). defense.gouv.fr n'a pas de biographie de
+      ce chef : l'article donne son nom et sa date de prise de fonction, ni date de naissance ni portrait.
+      Cet article est daté : l'adresse est à revoir à chaque changement de chef d'état-major de la Marine.
+      Seule la clé cemmUrl est modifiée, et seulement si elle est vide ; les trois autres adresses sont conservées.
+    -->
+    <changeSet id="131-fr-army-navy-chief-address" author="swiftcheck">
+        <sql><![CDATA[
+            UPDATE parser
+            SET parameters = JSON_SET(parameters, '$.cemmUrl',
+                'https://www.defense.gouv.fr/marine/actualites/amiral-nicolas-vaujour-chef-detat-major-marine')
+            WHERE dataset_name = 'fr_pep_army'
+              AND JSON_VALID(parameters)
+              AND IFNULL(JSON_UNQUOTE(JSON_EXTRACT(parameters, '$.cemmUrl')), '') = '';
+        ]]></sql>
+    </changeSet>
+
+</databaseChangeLog>

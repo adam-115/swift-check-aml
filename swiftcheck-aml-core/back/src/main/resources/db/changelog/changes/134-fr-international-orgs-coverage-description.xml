@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <!--
+      fr_pep_international_orgs (fonction 80, FR-h) : rend la fiche de couverture conforme à la réalité.
+        - complétude COMPLETE -> PARTIAL : quatre organisations (FMI, CCNR, CICR, PAM France) n'ont aucun dirigeant lu, et
+          plusieurs fonctions de la liste notifiée ne sont pas publiées nominativement ;
+        - périmètre et lacunes réécrits : l'ancien texte annonçait 13 organisations, 44 dirigeants et une « extraction via
+          StealthBrowserFetcher », qui n'est plus utilisé par ce plugin.
+      Les accents sont écrits en références numériques XML pour que le fichier reste en ASCII.
+    -->
+    <changeSet id="134-fr-international-orgs-coverage-description" author="swiftcheck">
+        <update tableName="pep_function_parser">
+            <column name="completeness" value="PARTIAL"/>
+            <column name="covered_scope" value="Dirigeants des organisations internationales ayant leur si&#232;ge ou des bureaux en France, selon la liste notifi&#233;e par la France (JO C/2023/724), lus sur les pages officielles de chaque organisation."/>
+            <column name="gaps" value="Le dirigeant principal de la plupart des organisations de la liste est lu, avec le conseil d'administration pour certaines (CGIAR, Alliance Bioversity-CIAT). Non lues : FMI (acc&#232;s refus&#233; aux robots), CCNR, CICR et PAM France (pas de page nominative accessible). Fonctions de la liste que les organisations ne publient pas nominativement : adjoints, directeurs et d&#233;l&#233;gu&#233;s (OIF, Unesco, OMSA, CIHEAM, OEPP, BIPM, OACI, IIF, BCEAO). Le d&#233;tail de chaque ex&#233;cution figure dans son message."/>
+            <where>function_id = 80 AND parser_id = (SELECT id FROM parser WHERE dataset_name = 'fr_pep_international_orgs')</where>
+        </update>
+    </changeSet>
+
+</databaseChangeLog>

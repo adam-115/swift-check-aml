@@ -22,6 +22,8 @@ import { ParserDetailDialogComponent } from './parser-detail-dialog.component';
 
 /** Taille des pages lues au chargement de la liste : la première s'affiche pendant que les suivantes arrivent. */
 const PARSER_PAGE_SIZE = 100;
+/** Nombre d'exécutions simultanées d'un lot « Exécuter » (les tests restent un par un). */
+const BULK_RUN_CONCURRENCY = 4;
 
 /** Libellés des types de source, affichés dans la liste et le formulaire. */
 export const SOURCE_TYPES: { value: DataSourceType; label: string; help: string }[] = [
@@ -878,9 +880,10 @@ export class ParserComponent implements OnInit {
   stopBulk(): void {
     if (this.bulk?.phase === 'running') {
       this.bulk.stopping = true;
-      const current = this.bulk.items.find(i => i.state === 'running');
-      if (this.bulk.mode === 'run' && current?.parser.id && !this.stopping.has(current.parser.id)) {
-        this.forceStop(current.parser.id);
+      if (this.bulk.mode === 'run') {
+        this.bulk.items
+          .filter(i => i.state === 'running' && i.parser.id && !this.stopping.has(i.parser.id))
+          .forEach(i => this.forceStop(i.parser.id!));
       }
     }
   }
@@ -892,15 +895,33 @@ export class ParserComponent implements OnInit {
     }
   }
 
-  /** Lance le parser suivant du lot ; à la fin, ou après « Arrêter », les parsers restants sont marqués non lancés. */
+  /**
+   * Fenêtre glissante : garde jusqu'à BULK_RUN_CONCURRENCY exécutions en vol (les tests restent un par un, ils
+   * sollicitent Yente). Dès qu'un parser se termine, le suivant démarre. Le lot est fini quand plus rien n'est
+   * en cours ; après « Arrêter », les parsers restants sont marqués non lancés.
+   */
   private nextBulkItem(bulk: BulkRun): void {
-    const item = bulk.items.find(i => i.state === 'pending');
-    if (!item || bulk.stopping) {
+    if (bulk.stopping) {
       bulk.items.filter(i => i.state === 'pending').forEach(i => (i.state = 'skipped'));
+    }
+    const limit = bulk.mode === 'run' ? BULK_RUN_CONCURRENCY : 1;
+    let running = bulk.items.filter(i => i.state === 'running').length;
+    for (const item of bulk.items) {
+      if (running >= limit) {
+        break;
+      }
+      if (item.state === 'pending') {
+        this.startBulkItem(bulk, item);
+        running++;
+      }
+    }
+    if (running === 0) {
       bulk.phase = 'finished';
       this.loadParsers();
-      return;
     }
+  }
+
+  private startBulkItem(bulk: BulkRun, item: BulkItem): void {
     const id = item.parser.id!;
     item.state = 'running';
     const done = (status: BulkItem['status'], message: string | undefined, link: unknown[]) => {

@@ -103,10 +103,10 @@ class FrPepInternationalOrgsParserTest {
 
         assertThat(report.organizationsRead()).isEqualTo(12);
         assertThat(report.functionsNotFound()).isEmpty();
-        // 40 (9 organisations) + BEAC (6 dirigeants), OIF (2) et OACI (1) depuis l'ajout de leurs pages
-        assertThat(report.leaders()).isEqualTo(49);
+        // 40 (9 organisations) + BEAC (6), OIF (2), OACI (1), puis président du CIML (OIML) et président et vice-président de l'OEPP
+        assertThat(report.leaders()).isEqualTo(52);
         // 9 organisations non lues et 6 lues en partie (adjoints, conseils) : citées dans le message
-        assertThat(report.pending()).hasSize(15);
+        assertThat(report.pending()).hasSize(14);
         assertThat(dataset.qualityReport().getTotalRejected()).as(dataset.qualityReport().toString()).isZero();
         assertThat(dataset.qualityReport().getIdConflictCount()).isZero();
     }
@@ -144,6 +144,15 @@ class FrPepInternationalOrgsParserTest {
         // IPGRI : directeur général, ex officio au conseil : pas de doublon « (ex-officio) »
         assertThat(dataset.entities().stream().filter(e -> "Person".equals(e.getSchema())))
                 .noneMatch(p -> p.getValues("name").iterator().next().contains("ex-officio"));
+    }
+
+    @Test
+    void readsTheCimlPresidentAndTheEppoChairs() throws Exception {
+        FtmDatasetBuilder dataset = convert();
+        assertThat(positions(dataset, "Bobjoseph Mathew")).singleElement().asString()
+                .startsWith("Président du comité international de métrologie légale (CIML)");
+        assertThat(positions(dataset, "Lieven VAN HERZELE")).singleElement().asString().startsWith("Président – ");
+        assertThat(positions(dataset, "Sultan-Makhmud SULTANOV")).singleElement().asString().startsWith("Vice-président – ");
     }
 
     @Test

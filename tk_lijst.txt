@@ -1,0 +1,1376 @@
+﻿== Lijst ==
+{| class="wikitable sortable plainrowheaders"
+|-
+! scope="col" | Naam
+! scope="col" colspan="2" | Fractie
+! scope="col" | Begindatum{{efn|''Begindatum'' in deze lijst verwijst naar de datum van beëdiging ''tijdens deze zittingsperiode'', en eventueel ook naar de datum waarop een lid na tijdelijke afwezigheid wegens ziekte- of zwangerschapsverlof terugkeerde in de Tweede Kamer.}}
+! scope="col" | Einddatum
+! scope="col" class="unsortable" | Ref
+
+|-
+! scope="row" | {{SortNaam|Thierry|Aartsen}}
+| style="background-color: #{{Zetelverdeling/Partij|VVD|donker|NL}}"|
+| VVD
+| 12 november 2025
+| 22 februari 2026{{efn|name="kabinet"}}
+| <ref>{{citeer web|url=https://www.parlement.com/biografie/aa-thierry-aartsen |titel=A.A. (Thierry) Aartsen |werk=[[Parlement.com]]|bezochtdatum=2025-11-12}}</ref>
+
+|-
+! scope="row" | {{SortNaam|Ismail El|Abassi|Ismail el Abassi}}
+| style="background-color: #{{Zetelverdeling/Partij|DENK|donker|NL}}"|
+| DENK
+| 12 november 2025
+|
+| <ref>{{citeer web|url=https://www.parlement.com/id/vm6if7tjw0uc/i_ismail_el_abassi |titel=I. (Ismail) el Abassi |werk=[[Parlement.com]]|bezochtdatum=2024-02-08|archiefurl=https://web.archive.org/web/20240116213103/https://www.parlement.com/id/vm6if7tjw0uc/i_ismail_el_abassi|archiefdatum=2024-01-16}}</ref>
+
+|-
+! scope="row" | {{SortNaam|Fatihya|Abdi}}
+| style="background-color: #{{Zetelverdeling/Partij|GL-PvdA|donker|NL}}" |
+| GL-PvdA{{efn|name="glpvda-pro"|De naam van de fractie is op 10 juni 2026 gewijzigd in Progressief Nederland (PRO).}}
+| 12 november 2025
+|
+| <ref>{{citeer web|url=https://www.parlement.com/biografie/f-fatihya-abdi |titel=F. (Fatihya) Abdi |werk=[[Parlement.com]]|bezochtdatum=2025-11-12}}</ref>
+
+|-
+! scope="row" | {{SortNaam|Elles van|Ark}}
+| style="background-color: #{{Zetelverdeling/Partij|CDA|donker|NL}}"|
+| CDA
+| 12 november 2025
+|
+| <ref>{{citeer web|url=https://www.parlement.com/biografie/afj-elles-van-ark |titel=A.F.J. (Elles) van Ark |werk=[[Parlement.com]]|bezochtdatum=2025-11-12}}</ref>
+
+|-
+! scope="row" | {{SortNaam|Etkin|Armut}}
+| style="background-color: #{{Zetelverdeling/Partij|CDA|donker|NL}}"|
+| CDA
+| 12 november 2025
+|
+| <ref>{{citeer web|url=https://www.parlement.com/biografie/e-etkin-armut |titel=E. (Etkin) Armut |werk=[[Parlement.com]]|bezochtdatum=2025-11-12}}</ref>
+
+|-
+! scope="row" | {{SortNaam|Robert van|Asten}}
+| style="background-color: #{{Zetelverdeling/Partij|D66|donker|NL}}"|
+| D66
+| 12 november 2025
+|
+| <ref>{{citeer web|url=https://www.parlement.com/biografie/rj-robert-van-asten |titel=R.J. (Robert) van Asten |werk=[[Parlement.com]]|bezochtdatum=2025-11-12}}</ref>
+
+|-
+! scope="row" | {{SortNaam|Stephan van|Baarle}}
+| style="background-color: #{{Zetelverdeling/Partij|DENK|donker|NL}}"|
+| DENK
+| 12 november 2025
+|
+| <ref>{{citeer web|url=https://www.parlement.com/id/vleseadw4bt8/s_r_t_stephan_van_baarle |titel=S.R.T. (Stephan) van Baarle |werk=[[Parlement.com]]|bezochtdatum=2024-02-08|archiefurl=https://web.archive.org/web/20240305005925/https://www.parlement.com/id/vleseadw4bt8/s_r_t_stephan_van_baarle|archiefdatum=2024-03-05}}</ref>
+
+|-
+! scope="row" | {{SortNaam|Mpanzu|Bamenga}}
+| style="background-color: #{{Zetelverdeling/Partij|D66|donker|NL}}"|
+| D66
+| 12 november 2025
+| 
+| <ref>{{citeer web|url=https://www.parlement.com/id/vm6fi3lewzx5/p_mpanzu_bamenga |titel=P. (Mpanzu) Bamenga |werk=[[Parlement.com]]|bezochtdatum=2024-02-08|archiefurl=https://web.archive.org/web/20240116213034/https://www.parlement.com/id/vm6fi3lewzx5/p_mpanzu_bamenga|archiefdatum=2024-01-16}}</ref>
+
+|-
+! scope="row" | {{SortNaam|Thierry|Baudet}}
+| style="background-color: #{{Zetelverdeling/Partij|FVD|donker|NL}}"|
+| FVD
+| 12 november 2025
+| 11 januari 2026
+| <ref>{{citeer web|url=https://www.parlement.com/id/vjuuhtscjwpn/th_h_ph_thierry_baudet |titel=T.H.P. (Thierry) Baudet |werk=[[Parlement.com]]|bezochtdatum=2024-02-08|archiefurl=https://web.archive.org/web/20231004110037/https://www.parlement.com/id/vjuuhtscjwpn/th_h_ph_thierry_baudet|archiefdatum=2023-10-04}}</ref>
+
+|-
+! scope="row" | {{SortNaam|Bente|Becker}}
+| style="background-color: #{{Zetelverdeling/Partij|VVD|donker|NL}}"|
+| VVD
+| 12 november 2025
+| 
+| <ref>{{citeer web|url=https://www.parlement.com/id/vk8mbisoiesa/b_bente_becker |titel=B. (Bente) Becker |werk=[[Parlement.com]]|bezochtdatum=2024-02-08|archiefurl=https://web.archive.org/web/20240208160058/https://www.parlement.com/id/vk8mbisoiesa/b_bente_becker|archiefdatum=2024-02-08}}</ref>
+
+|-
+! scope="row" | {{SortNaam|Sandra|Beckerman}}
+| style="background-color: #{{Zetelverdeling/Partij|SP|donker|NL}}"|
+| SP
+| 12 november 2025
+|
+| <ref>{{citeer web|url=https://www.parlement.com/id/vk72k4la4afx/s_m_sandra_beckerman |titel=S.M. (Sandra) Beckerman |werk=[[Parlement.com]]|bezochtdatum=2024-02-08|archiefurl=https://web.archive.org/web/20240203214511/https://www.parlement.com/id/vk72k4la4afx/s_m_sandra_beckerman|archiefdatum=2024-02-03}}</ref>
+
+|-
+! scope="row" | {{SortNaam|Martin de|Beer}}
+| style="background-color: #{{Zetelverdeling/Partij|VVD|donker|NL}}"|
+| VVD
+| 25 februari 2026{{efn|name="kabinet2"}}
+| 
+| <ref>{{citeer web|url=https://www.parlement.com/biografie/mee-martin-de-beer |titel=M.E.E. (Martin) de Beer |werk=[[Parlement.com]]|bezochtdatum=2026-02-27}}</ref>
+
+|-
+! scope="row" | {{SortNaam|Fatimazhra|Belhirch}}
+| style="background-color: #{{Zetelverdeling/Partij|D66|donker|NL}}"|
+| D66
+| 12 november 2025
+|
+| <ref>{{citeer web|url=https://www.parlement.com/biografie/mr-f-fatimazhra-belhirch |titel=F. (Fatimazhra) Belhirch |werk=[[Parlement.com]]|bezochtdatum=2025-11-12}}</ref>
+
+|-
+! scope="row" | {{SortNaam|Daniël van den|Berg}}
+| style="background-color: #{{Zetelverdeling/Partij|JA21|donker|NL}}"|
+| JA21
+| 12 november 2025
+|
+| <ref>{{citeer web|url=https://www.parlement.com/biografie/dj-daniel-van-den-berg |titel=D.J. (Daniël) van den Berg |werk=[[Parlement.com]]|bezochtdatum=2025-11-12}}</ref>
+
+|-
+! scope="row" | {{SortNaam|Nathalie van|Berkel}}
+| style="background-color: #{{Zetelverdeling/Partij|D66|donker|NL}}"|
+| D66
+| 12 november 2025
+| 17 februari 2026{{efn|name="berkel"|Afgetreden vanwege een incorrecte beschrijving van haar opleidingen op haar [[curriculum vitae|cv]]}}
+| <ref>{{citeer web|url=https://www.parlement.com/biografie/drs-n-nathalie-van-berkel |titel=N. (Nathalie) van Berkel |werk=[[Parlement.com]]|bezochtdatum=2025-11-12}}</ref>
+
+|-
+! scope="row" | {{SortNaam|Harry|Bevers}}
+| style="background-color: #{{Zetelverdeling/Partij|VVD|donker|NL}}"|
+| VVD
+| 12 november 2025
+| 11 mei 2026{{efn|name="bevers"|Met ziekteverlof van 12 mei 2026 t/m 22 december 2026.}}
+| <ref>{{citeer web|url=https://www.parlement.com/id/vlfociidrrxi/h_harry_bevers |titel=H. (Harry) Bevers |werk=[[Parlement.com]]|bezochtdatum=2026-09-03}}</ref>
+
+|-
+! scope="row" | {{SortNaam|Anouschka|Biekman}}
+| style="background-color: #{{Zetelverdeling/Partij|D66|donker|NL}}"|
+| D66
+| 12 november 2025
+|
+| <ref>{{citeer web|url=https://www.parlement.com/biografie/anouschka-biekman |titel=A.N. (Anouschka) Biekman |werk=[[Parlement.com]]|bezochtdatum=2025-11-12}}</ref>
+
+|-
+! scope="row" | {{SortNaam|Mirjam|Bikker}}
+| style="background-color: #{{Zetelverdeling/Partij|CU|donker|NL}}"|
+| CU
+| 12 november 2025
+|
+| <ref>{{citeer web|url=https://www.parlement.com/id/vjrwexet40gc/m_h_mirjam_bikker |titel=M.H. (Mirjam) Bikker |werk=[[Parlement.com]]|bezochtdatum=2024-02-08|archiefurl=https://web.archive.org/web/20231212073925/https://www.parlement.com/id/vjrwexet40gc/m_h_mirjam_bikker|archiefdatum=2023-12-12}}</ref>
+
+|-
+! scope="row" | {{SortNaam|Bart|Bikkers}}
+| style="background-color: #{{Zetelverdeling/Partij|VVD|donker|NL}}"|
+| VVD
+| 25 februari 2026{{efn|name="kabinet2"}}
+| 
+| <ref>{{citeer web|url=https://www.parlement.com/biografie/drs-bt-bart-bikkers |titel=B.T. (Bart) Bikkers |werk=[[Parlement.com]]|bezochtdatum=2026-02-27}}</ref>
+
+|-
+! scope="row" | {{SortNaam|Iem Al|Biyati|Iem al Biyati}}
+| style="background-color: #{{Zetelverdeling/Partij|FVD|donker|NL}}"|
+| FVD
+| 1 september 2026{{efn|name="biyati"|Vervangt Lidewij de Vos tijdens haar zwangerschapsverlof.}}
+| 
+| <ref>{{citeer web|url=https://www.parlement.com/biografie/i-iem-al-biyati |titel=I. al Biyati |werk=[[Parlement.com]]|bezochtdatum=2026-09-03}}</ref>
+
+|-
+! scope="row" | {{SortNaam|Luciënne|Boelsma-Hoekstra}}
+| style="background-color: #{{Zetelverdeling/Partij|CDA|donker|NL}}"|
+| CDA
+| 12 november 2025
+|
+| <ref>{{citeer web|url=https://www.parlement.com/biografie/l-lucienne-boelsma-hoekstra |titel=L. (Luciënne) Boelsma-Hoekstra |werk=[[Parlement.com]]|bezochtdatum=2025-11-12}}</ref>
+
+|-
+! scope="row" | {{SortNaam|Wimar|Bolhuis}}
+| style="background-color: #{{Zetelverdeling/Partij|GL-PvdA|donker|NL}}" |
+| {{Sort|GL-PvdA|PRO}}
+| 10 juni 2026{{efn|name="bolhuis"|Benoemd in de vacature ontstaan vanwege het aftreden van Esmah Lahlah.}}
+| 
+| <ref>{{citeer web|url=https://www.parlement.com/biografie/dr-wd-wimar-bolhuis |titel=W.D. (Wimar) Bolhuis |werk=[[Parlement.com]]|bezochtdatum=2026-06-10}}</ref>
+
+|-
+! scope="row" | {{SortNaam|Henri|Bontenbal}}
+| style="background-color: #{{Zetelverdeling/Partij|CDA|donker|NL}}"|
+| CDA
+| 12 november 2025
+|
+| <ref>{{citeer web|url=https://www.parlement.com/id/vldacmasw6p0/h_henri_bontenbal |titel=H. (Henri) Bontenbal |werk=[[Parlement.com]]|bezochtdatum=2024-02-08|archiefurl=https://web.archive.org/web/20240127153302/https://www.parlement.com/id/vldacmasw6p0/h_henri_bontenbal|archiefdatum=2024-01-27}}</ref>
+
+|-
+! scope="row" | {{SortNaam|Diederik|Boomsma}}
+| style="background-color: #{{Zetelverdeling/Partij|JA21|donker|NL}}"|
+| JA21
+| 12 november 2025
+|
+| <ref>{{citeer web|url=https://www.parlement.com/biografie/drs-dth-diederik-boomsma |titel=D.T. (Diederik) Boomsma |werk=[[Parlement.com]]|bezochtdatum=2025-11-12}}</ref>
+
+|-
+! scope="row" | {{SortNaam|Maikel|Boon}}
+| style="background-color: #{{Zetelverdeling/Partij|PVV|donker|NL}}"|
+| PVV
+| 12 november 2025
+|
+| <ref>{{citeer web|url=https://www.parlement.com/id/vm8chbfjcoqj/m_c_h_maikel_boon |titel=M.C.H. (Maikel) Boon |werk=[[Parlement.com]]|bezochtdatum=2024-02-08|archiefurl=https://web.archive.org/web/20240225112735/https://www.parlement.com/id/vm8chbfjcoqj/m_c_h_maikel_boon|archiefdatum=2024-02-25}}</ref>
+
+|-
+! scope="row" | {{SortNaam|Martin|Bosma}}
+| style="background-color: #{{Zetelverdeling/Partij|PVV|donker|NL}}"|
+| PVV
+| 12 november 2025
+|
+| <ref>{{citeer web|url=https://www.parlement.com/id/vhfw2rplymlk/m_martin_bosma |titel=M. (Martin) Bosma |werk=[[Parlement.com]]|bezochtdatum=2024-02-08|archiefurl=https://web.archive.org/web/20240116213622/https://www.parlement.com/id/vhfw2rplymlk/m_martin_bosma|archiefdatum=2024-01-16}}</ref>
+
+|-
+! scope="row" | {{SortNaam|Derk|Boswijk}}
+| style="background-color: #{{Zetelverdeling/Partij|CDA|donker|NL}}"|
+| CDA
+| 12 november 2025
+| 22 februari 2026{{efn|name="kabinet"}}
+| <ref>{{citeer web|url=https://www.parlement.com/id/vld9jvppuexx/d_g_derk_boswijk |titel=D.G. (Derk) Boswijk |werk=[[Parlement.com]]|bezochtdatum=2024-02-08|archiefurl=https://web.archive.org/web/20231209044819/https://www.parlement.com/id/vld9jvppuexx/d_g_derk_boswijk|archiefdatum=2023-12-09}}</ref>
+
+|-
+! scope="row" | {{SortNaam|Sarah El|Boujdaini}}
+| style="background-color: #{{Zetelverdeling/Partij|D66|donker|NL}}"|
+| D66
+| 12 november 2025
+|
+| <ref>{{citeer web|url=https://www.parlement.com/biografie/s-sarah-el-boujdaini |titel=S. (Sarah) El Boujdaini |werk=[[Parlement.com]]|bezochtdatum=2025-11-12}}</ref>
+
+|-
+! scope="row" | {{SortNaam|Ruben|Brekelmans}}
+| style="background-color: #{{Zetelverdeling/Partij|VVD|donker|NL}}"|
+| VVD
+| 12 november 2025
+|
+| <ref>{{citeer web|url=https://www.parlement.com/biografie/rp-ruben-brekelmans |titel=R.P. (Ruben) Brekelmans |werk=[[Parlement.com]]|bezochtdatum=2025-11-12}}</ref>
+
+|-
+! scope="row" | {{SortNaam|Corrie van|Brenk-van Barneveld|Corrie van Brenk}}
+| style="background-color: #{{Zetelverdeling/Partij|50PLUS|donker|NL}}"|
+| 50+
+| 12 november 2025
+|
+| <ref>{{citeer web|url=https://www.parlement.com/biografie/cm-corrie-van-brenk |titel=C.M. (Corrie) van Brenk |werk=[[Parlement.com]]|bezochtdatum=2025-11-12}}</ref>
+
+|-
+! scope="row" | {{SortNaam|Bart van den|Brink}}
+| style="background-color: #{{Zetelverdeling/Partij|CDA|donker|NL}}"|
+| CDA
+| 12 november 2025
+| 22 februari 2026{{efn|name="kabinet"}}
+| <ref>{{citeer web|url=https://www.parlement.com/biografie/g-bart-van-den-brink |titel=G. (Bart) van den Brink |werk=[[Parlement.com]]|bezochtdatum=2025-11-12}}</ref>
+
+|-
+! scope="row" | {{SortNaam|Tijs van den|Brink}}
+| style="background-color: #{{Zetelverdeling/Partij|CDA|donker|NL}}"|
+| CDA
+| 12 november 2025
+|
+| <ref>{{citeer web|url=https://www.parlement.com/biografie/ta-tijs-van-den-brink |titel=T.A. (Tijs) van den Brink |werk=[[Parlement.com]]|bezochtdatum=2025-11-12}}</ref>
+
+|-
+! scope="row" | {{SortNaam|Laura|Bromet}}
+| style="background-color: #{{Zetelverdeling/Partij|GL-PvdA|donker|NL}}" |
+| GL-PvdA{{efn|name="glpvda-pro"}}
+| 12 november 2025
+|
+| <ref>{{citeer web|url=https://www.parlement.com/id/vj1fcf1vozzu/l_laura_bromet |titel=L. (Laura) Bromet |werk=[[Parlement.com]]|bezochtdatum=2024-02-08|archiefurl=https://web.archive.org/web/20231211194215/https://www.parlement.com/id/vj1fcf1vozzu/l_laura_bromet|archiefdatum=2023-12-11}}</ref>
+
+|-
+! scope="row" | {{SortNaam|Judith|Bühler}}
+| style="background-color: #{{Zetelverdeling/Partij|CDA|donker|NL}}"|
+| CDA
+| 12 november 2025
+|
+| <ref>{{citeer web|url=https://www.parlement.com/biografie/jglm-judith-buhler |titel=J.G.L.M. (Judith) Bühler |werk=[[Parlement.com]]|bezochtdatum=2025-11-12}}</ref>
+
+|-
+! scope="row" | {{SortNaam|Eric van der|Burg}}
+| style="background-color: #{{Zetelverdeling/Partij|VVD|donker|NL}}"|
+| VVD
+| 12 november 2025
+| 22 februari 2026{{efn|name="kabinet"}}
+| <ref>{{citeer web|url=https://www.parlement.com/id/vkwreswhgn8s/e_eric_van_der_burg |titel=E. (Eric) van der Burg |werk=[[Parlement.com]]|bezochtdatum=2024-02-08|archiefurl=https://web.archive.org/web/20240116213027/https://www.parlement.com/id/vkwreswhgn8s/e_eric_van_der_burg|archiefdatum=2024-01-16}}</ref>
+
+|-
+! scope="row" | {{SortNaam|Julian|Bushoff}}
+| style="background-color: #{{Zetelverdeling/Partij|GL-PvdA|donker|NL}}" |
+| GL-PvdA{{efn|name="glpvda-pro"}}
+| 12 november 2025
+|
+| <ref>{{citeer web|url=https://www.parlement.com/id/vle4c9k4vpsi/t_j_julian_bushoff |titel=T.J. (Julian) Bushoff |werk=[[Parlement.com]]|bezochtdatum=2024-02-08|archiefurl=https://web.archive.org/web/20240208160200/https://www.parlement.com/id/vle4c9k4vpsi/t_j_julian_bushoff|archiefdatum=2024-02-08}}</ref>
+
+|-
+! scope="row" | {{SortNaam|Thom van|Campen}}
+| style="background-color: #{{Zetelverdeling/Partij|VVD|donker|NL}}"|
+| VVD
+| 12 november 2025
+| 
+| <ref>{{citeer web|url=https://www.parlement.com/id/vle9fbvbvota/a_a_h_thom_van_campen |titel=A.A.H. (Thom) van Campen |werk=[[Parlement.com]]|bezochtdatum=2024-02-08|archiefurl=https://web.archive.org/web/20230604101710/https://www.parlement.com/id/vle9fbvbvota/a_a_h_thom_van_campen|archiefdatum=2023-06-04}}</ref>
+
+|-
+! scope="row" | {{SortNaam|Don|Ceder}}
+| style="background-color: #{{Zetelverdeling/Partij|CU|donker|NL}}"|
+| CU
+| 12 november 2025
+|
+| <ref>{{citeer web|url=https://www.parlement.com/id/vk8fd7yghuzt/d_g_m_don_ceder |titel=D.G.M. (Don) Ceder |werk=[[Parlement.com]]|bezochtdatum=2024-02-08|archiefurl=https://web.archive.org/web/20240208160118/https://www.parlement.com/id/vk8fd7yghuzt/d_g_m_don_ceder|archiefdatum=2024-02-08}}</ref>
+
+|-
+! scope="row" | {{SortNaam|Simon|Ceulemans}}
+| style="background-color: #{{Zetelverdeling/Partij|JA21|donker|NL}}"|
+| JA21
+| 12 november 2025
+|
+| <ref>{{citeer web|url=https://www.parlement.com/biografie/s-simon-ceulemans |titel=S. (Simon) Ceulemans |werk=[[Parlement.com]]|bezochtdatum=2025-11-12}}</ref>
+
+|-
+! rowspan="2" scope="rowgroup" | {{SortNaam|René|Claassen}}
+| style="background-color: #{{Zetelverdeling/Partij|PVV|donker|NL}}"|
+| PVV{{efn|name="pvv-mark"|Tot 20 januari 2026}}
+| rowspan="2" | 12 november 2025
+| rowspan="2" | 
+| rowspan="2" | <ref>{{citeer web|url=https://www.parlement.com/id/vm6tc0od86x9/r_a_b_rene_claassen |titel=R.A.B. (René) Claassen |werk=[[Parlement.com]]|bezochtdatum=2024-02-08|archiefurl=https://web.archive.org/web/20240116213311/https://www.parlement.com/id/vm6tc0od86x9/r_a_b_rene_claassen|archiefdatum=2024-01-16}}</ref>
+|-
+| 
+| Groep Markuszower{{efn|name="mark"|Vanaf 20 januari 2026}}
+
+|-
+! scope="row" | {{SortNaam|Ranjith|Clemminck}}
+| style="background-color: #{{Zetelverdeling/Partij|JA21|donker|NL}}"|
+| JA21
+| 12 november 2025
+|
+| <ref>{{citeer web|url=https://www.parlement.com/biografie/drf-ranjith-clemminck-croci |titel=D.R.F. (Ranjith) Clemminck-Croci |werk=[[Parlement.com]]|bezochtdatum=2025-11-12}}</ref>
+
+|-
+! scope="row" | {{SortNaam|Ingrid|Coenradie}}
+| style="background-color: #{{Zetelverdeling/Partij|JA21|donker|NL}}"|
+| JA21
+| 12 november 2025
+|
+| <ref>{{citeer web|url=https://www.parlement.com/biografie/i-ingrid-coenradie |titel=I. (Ingrid) Coenradie |werk=[[Parlement.com]]|bezochtdatum=2025-11-12}}</ref>
+
+|-
+! scope="row" | {{SortNaam|Laurens|Dassen}}
+| style="background-color: #{{Zetelverdeling/Partij|Volt|donker|NL}}"|
+| Volt
+| 12 november 2025
+|
+| <ref>{{citeer web|url=https://www.parlement.com/id/vlgkdczrnwiw/l_a_j_m_laurens_dassen|titel=L.A.J.M. (Laurens) Dassen |werk=[[Parlement.com]]|bezochtdatum=2023-12-06|archiefurl=https://web.archive.org/web/20231001123556/https://www.parlement.com/id/vlgkdczrnwiw/l_a_j_m_laurens_dassen|archiefdatum=2023-10-01}}</ref>
+
+|-
+! scope="row" | {{SortNaam|Ralf|Dekker}}
+| style="background-color: #{{Zetelverdeling/Partij|FVD|donker|NL}}"|
+| FVD
+| 12 november 2025
+| 
+| <ref>{{citeer web|url=https://www.parlement.com/id/vluke18i6hs9/r_j_ralf_dekker |titel=R.J. (Ralf) Dekker |werk=[[Parlement.com]]|bezochtdatum=2024-11-19}}</ref>
+
+|-
+! scope="row" | {{SortNaam|Tony van|Dijck|Teun van Dijck}}
+| style="background-color: #{{Zetelverdeling/Partij|PVV|donker|NL}}"|
+| PVV
+| 12 november 2025
+|
+| <ref>{{citeer web|url=https://www.parlement.com/id/vhfz2w3qpzq7/a_p_c_tony_van_dijck |titel=A.P.C. (Tony) van Dijck |werk=[[Parlement.com]]|bezochtdatum=2024-02-08|archiefurl=https://web.archive.org/web/20231020144805/https://www.parlement.com/id/vhfz2w3qpzq7/a_p_c_tony_van_dijck|archiefdatum=2023-10-20}}</ref>
+
+|-
+! scope="row" | {{SortNaam|Heera|Dijk|Heera Dijk}}
+| style="background-color: #{{Zetelverdeling/Partij|D66|donker|NL}}"|
+| D66
+| 12 november 2025
+|
+| <ref>{{citeer web|url=https://www.parlement.com/biografie/hlo-heera-dijk |titel=H.L.O. (Heera) Dijk |werk=[[Parlement.com]]|bezochtdatum=2025-11-12}}</ref>
+
+|-
+! scope="row" | {{SortNaam|Jimmy|Dijk|Jimmy Dijk|Dijk Jimmy}}
+| style="background-color: #{{Zetelverdeling/Partij|SP|donker|NL}}"|
+| SP
+| 12 november 2025
+|
+| <ref>{{citeer web|url=https://www.parlement.com/id/vlcoalar9kop/j_p_jimmy_dijk |titel=J.P. (Jimmy) Dijk |werk=[[Parlement.com]]|bezochtdatum=2024-02-08|archiefurl=https://web.archive.org/web/20231214115834/https://www.parlement.com/id/vlcoalar9kop/j_p_jimmy_dijk|archiefdatum=2023-12-14}}</ref>
+
+|-
+! scope="row" | {{SortNaam|Diederik van|Dijk|Diederik van Dijk|Dijk van Diederik}}
+| style="background-color: #{{Zetelverdeling/Partij|SGP|donker|NL}}"|
+| SGP
+| 12 november 2025
+|
+| <ref>{{citeer web|url=https://www.parlement.com/id/vjrljfja3dic/d_j_h_diederik_van_dijk |titel=D.J.H. (Diederik) van Dijk |werk=[[Parlement.com]]|bezochtdatum=2024-02-08|archiefurl=https://web.archive.org/web/20231207084900/https://www.parlement.com/id/vjrljfja3dic/d_j_h_diederik_van_dijk|archiefdatum=2023-12-07}}</ref>
+
+|-
+! scope="row" | {{SortNaam|Emiel van|Dijk|Emiel van Dijk (politicus)|Dijk van Emiel}}
+| style="background-color: #{{Zetelverdeling/Partij|PVV|donker|NL}}"|
+| PVV
+| 12 november 2025
+|
+| <ref>{{citeer web|url=https://www.parlement.com/id/vkaqau9blsh3/e_emiel_van_dijk |titel=E. (Emiel) van Dijk |werk=[[Parlement.com]]|bezochtdatum=2024-02-08|archiefurl=https://web.archive.org/web/20240116213035/https://www.parlement.com/id/vkaqau9blsh3/e_emiel_van_dijk|archiefdatum=2024-01-16}}</ref>
+
+|-
+! scope="row" | {{SortNaam|Inge van|Dijk|Inge van Dijk (CDA)|Dijk van Inge}}
+| style="background-color: #{{Zetelverdeling/Partij|CDA|donker|NL}}"|
+| CDA
+| 12 november 2025
+|
+| <ref>{{citeer web|url=https://www.parlement.com/id/vld9gqckd2wx/i_inge_van_dijk |titel=I. (Inge) van Dijk |werk=[[Parlement.com]]|bezochtdatum=2024-02-08|archiefurl=https://web.archive.org/web/20240208160110/https://www.parlement.com/id/vld9gqckd2wx/i_inge_van_dijk|archiefdatum=2024-02-08}}</ref>
+
+|-
+! scope="row" | {{SortNaam|Sarah|Dobbe}}
+| style="background-color: #{{Zetelverdeling/Partij|SP|donker|NL}}"|
+| SP
+| 12 november 2025
+|
+| <ref>{{citeer web|url=https://www.parlement.com/id/vm61jdzjfat0/s_e_m_sarah_dobbe|titel=S.E.M. (Sarah) Dobbe |werk=[[Parlement.com]]|bezochtdatum=2023-12-15|archiefurl=https://web.archive.org/web/20231209125142/https://www.parlement.com/id/vm61jdzjfat0/s_e_m_sarah_dobbe|archiefdatum=2023-12-09}}</ref>
+
+|-
+! scope="row" | {{SortNaam|Peter van|Duijvenvoorde}}
+| style="background-color: #{{Zetelverdeling/Partij|FVD|donker|NL}}"|
+| FVD
+| 12 november 2025
+| 
+| <ref>{{citeer web|url=https://www.parlement.com/biografie/p-peter-van-duijvenvoorde |titel=P. (Peter) van Duijvenvoorde |werk=[[Parlement.com]]|bezochtdatum=2025-11-12}}</ref>
+
+|-
+! scope="row" | {{SortNaam|Joost|Eerdmans}}
+| style="background-color: #{{Zetelverdeling/Partij|JA21|donker|NL}}"|
+| JA21
+| 12 november 2025
+|
+| <ref>{{citeer web|url=https://www.parlement.com/id/vg9fgopy6zxw/b_j_joost_eerdmans |titel=B.J. (Joost) Eerdmans |werk=[[Parlement.com]]|bezochtdatum=2024-02-08|archiefurl=https://web.archive.org/web/20240116213418/https://www.parlement.com/id/vg9fgopy6zxw/b_j_joost_eerdmans|archiefdatum=2024-01-16}}</ref>
+
+|-
+! scope="row" | {{SortNaam|Wendy van|Eijk-Nagel}}
+| style="background-color: #{{Zetelverdeling/Partij|VVD|donker|NL}}"|
+| VVD
+| 12 november 2025
+| 
+| <ref>{{citeer web|url=https://www.parlement.com/id/vm6bhwjpr1y7/w_p_j_wendy_van_eijk |titel=W.P.J. (Wendy) van Eijk |werk=[[Parlement.com]]|bezochtdatum=2024-02-08|archiefurl=https://web.archive.org/web/20240208160108/https://www.parlement.com/id/vm6bhwjpr1y7/w_p_j_wendy_van_eijk|archiefdatum=2024-02-08}}</ref>
+
+|-
+! scope="row" | {{SortNaam|Ulysse|Ellian}}
+| style="background-color: #{{Zetelverdeling/Partij|VVD|donker|NL}}"|
+| VVD
+| 12 november 2025
+| 
+| <ref>{{citeer web|url=https://www.parlement.com/id/vle9gi9kfnyn/u_ulysse_ellian |titel=U. (Ulysse) Ellian  |werk=[[Parlement.com]]|bezochtdatum=2024-02-08|archiefurl=https://web.archive.org/web/20240127153301/https://www.parlement.com/id/vle9gi9kfnyn/u_ulysse_ellian|archiefdatum=2024-01-27}}</ref>
+
+|-
+! scope="row" | {{SortNaam|Doğukan|Ergin}}
+| style="background-color: #{{Zetelverdeling/Partij|DENK|donker|NL}}"|
+| DENK
+| 12 november 2025
+|
+| <ref>{{citeer web|url=https://www.parlement.com/id/vm6ejttim7yy/d_a_dogukan_ergin |titel=D.A. (Dogukan) Ergin |werk=[[Parlement.com]]|bezochtdatum=2024-02-08|archiefurl=https://web.archive.org/web/20240127185815/https://www.parlement.com/id/vm6ejttim7yy/d_a_dogukan_ergin|archiefdatum=2024-01-27}}</ref>
+
+|-
+! scope="row" | {{SortNaam|Silvio|Erkens}}
+| style="background-color: #{{Zetelverdeling/Partij|VVD|donker|NL}}"|
+| VVD
+| 12 november 2025
+| 22 februari 2026{{efn|name="kabinet"}}
+| <ref>{{citeer web|url=https://www.parlement.com/id/vle9fqccebyk/s_p_a_silvio_erkens |titel=S.P.A. (Silvio) Erkens |werk=[[Parlement.com]]|bezochtdatum=2024-02-08|archiefurl=https://web.archive.org/web/20240331100351/https://www.parlement.com/id/vle9fqccebyk/s_p_a_silvio_erkens|archiefdatum=2024-03-31}}</ref>
+
+|-
+! scope="row" | {{SortNaam|Marjolein|Faber}}
+| style="background-color: #{{Zetelverdeling/Partij|PVV|donker|NL}}"|
+| PVV
+| 12 november 2025
+| 
+| <ref>{{citeer web|url=https://www.parlement.com/id/vinxl2kg0azw/m_h_m_marjolein_faber_van_de_klashorst |titel=M.H.M. (Marjolein) Faber-van de Klashorst |werk=[[Parlement.com]]|bezochtdatum=2024-02-08|archiefurl=https://web.archive.org/web/20231203041732/https://www.parlement.com/id/vinxl2kg0azw/m_h_m_marjolein_faber_van_de_klashorst|archiefdatum=2023-12-03}}</ref>
+
+|-
+! scope="row" | {{SortNaam|André|Flach}}
+| style="background-color: #{{Zetelverdeling/Partij|SGP|donker|NL}}"|
+| SGP
+| 12 november 2025
+|
+| <ref>{{citeer web|url=https://www.parlement.com/id/vldmmhtqynxo/a_j_andre_flach |titel=A.J. (André) Flach |werk=[[Parlement.com]]|bezochtdatum=2024-02-08|archiefurl=https://web.archive.org/web/20240116213025/https://www.parlement.com/id/vldmmhtqynxo/a_j_andre_flach|archiefdatum=2024-01-16}}</ref>
+
+|-
+! scope="row" | {{SortNaam|Maarten|Goudzwaard}}
+| style="background-color: #{{Zetelverdeling/Partij|JA21|donker|NL}}"|
+| JA21
+| 12 november 2025
+|
+| <ref>{{citeer web|url=https://www.parlement.com/biografie/m-maarten-goudzwaard |titel=M. (Maarten) Goudzwaard |werk=[[Parlement.com]]|bezochtdatum=2025-11-12}}</ref>
+
+|-
+! scope="row" | {{SortNaam|Dion|Graus}}
+| style="background-color: #{{Zetelverdeling/Partij|PVV|donker|NL}}"|
+| PVV
+| 12 november 2025
+|
+| <ref>{{citeer web|url=https://www.parlement.com/id/vhfw2rplzzmt/d_j_g_dion_graus |titel=D.J.G. (Dion) Graus |werk=[[Parlement.com]]|bezochtdatum=2024-02-08|archiefurl=https://web.archive.org/web/20240116213030/https://www.parlement.com/id/vhfw2rplzzmt/d_j_g_dion_graus|archiefdatum=2024-01-16}}</ref>
+
+|-
+! scope="row" | {{SortNaam|Pieter|Grinwis}}
+| style="background-color: #{{Zetelverdeling/Partij|CU|donker|NL}}"|
+| CU
+| 12 november 2025
+|
+| <ref>{{citeer web|url=https://www.parlement.com/id/vlcvaesjqurd/p_a_pieter_grinwis |titel=P.A. (Pieter) Grinwis |werk=[[Parlement.com]]|bezochtdatum=2024-02-08|archiefurl=https://web.archive.org/web/20240116213107/https://www.parlement.com/id/vlcvaesjqurd/p_a_pieter_grinwis|archiefdatum=2024-01-16}}</ref>
+
+|-
+! scope="row" | {{SortNaam|Dieke van|Groningen}}
+| style="background-color: #{{Zetelverdeling/Partij|VVD|donker|NL}}"|
+| VVD
+| 12 mei 2026{{efn|name="bevers-groningen"|Verving tot 1 september 2026 Harry Bevers tijdens zijn ziekteverlof.}}
+| 31 augustus 2026{{efn|name="bevers-groningen"}}
+| <ref>{{citeer web|url=https://www.parlement.com/biografie/da-dieke-van-groningen |titel=D.A. (Dieke) van Groningen |werk=[[Parlement.com]]|bezochtdatum=2026-09-03}}</ref>
+
+|-
+! scope="row" | {{SortNaam|Peter de|Groot}}
+| style="background-color: #{{Zetelverdeling/Partij|VVD|donker|NL}}"|
+| VVD
+| 12 november 2025
+|
+| <ref>{{citeer web|url=https://www.parlement.com/id/vle9h8m92ryo/p_ch_peter_de_groot |titel=P.C. (Peter) de Groot |werk=[[Parlement.com]]|bezochtdatum=2024-02-08|archiefurl=https://web.archive.org/web/20240116213108/https://www.parlement.com/id/vle9h8m92ryo/p_ch_peter_de_groot|archiefdatum=2024-01-16}}</ref>
+
+|-
+! scope="row" | {{SortNaam|Sarath|Hamstra}}
+| style="background-color: #{{Zetelverdeling/Partij|CDA|donker|NL}}"|
+| CDA
+| 12 november 2025
+|
+| <ref>{{citeer web|url=https://www.parlement.com/biografie/s-sarath-hamstra |titel=S. (Sarath) Hamstra |werk=[[Parlement.com]]|bezochtdatum=2025-11-12}}</ref>
+
+|-
+! scope="row" | {{SortNaam|Eelco|Heinen}}
+| style="background-color: #{{Zetelverdeling/Partij|VVD|donker|NL}}"|
+| VVD
+| 12 november 2025
+| 22 februari 2026{{efn|name="kabinet"}}
+| <ref>{{citeer web|url=https://www.parlement.com/biografie/e-eelco-heinen |titel=E. (Eelco) Heinen |werk=[[Parlement.com]]|bezochtdatum=2025-11-12}}</ref>
+
+|-
+! rowspan="2" scope="rowgroup" | {{SortNaam|Hidde|Heutink}}
+| style="background-color: #{{Zetelverdeling/Partij|PVV|donker|NL}}"|
+| PVV{{efn|name="pvv-mark"}}
+| rowspan="2" | 12 november 2025
+| rowspan="2" | 
+| rowspan="2" | <ref>{{citeer web|url=https://www.parlement.com/id/vm8f92qu66pc/h_hidde_heutink |titel=H. (Hidde) Heutink |werk=[[Parlement.com]]|bezochtdatum=2024-02-08|archiefurl=https://web.archive.org/web/20231207204834/https://www.parlement.com/id/vm8f92qu66pc/h_hidde_heutink|archiefdatum=2023-12-07}}</ref>
+|-
+| 
+| Groep Markuszower{{efn|name="mark"}}
+
+|-
+! scope="row" | {{SortNaam|Renate den|Hollander}}
+| style="background-color: #{{Zetelverdeling/Partij|VVD|donker|NL}}"|
+| VVD
+| 12 november 2025
+|
+| <ref>{{citeer web|url=https://www.parlement.com/biografie/r-renate-den-hollander |titel=R. (Renate) den Hollander |werk=[[Parlement.com]]|bezochtdatum=2025-11-12}}</ref>
+
+|-
+! scope="row" | {{SortNaam|Michiel|Hoogeveen}}
+| style="background-color: #{{Zetelverdeling/Partij|JA21|donker|NL}}"|
+| JA21
+| 12 november 2025
+|
+| <ref>{{citeer web|url=https://www.parlement.com/biografie/mp-michiel-hoogeveen |titel=M.P. (Michiel) Hoogeveen |werk=[[Parlement.com]]|bezochtdatum=2025-11-12}}</ref>
+
+|-
+! scope="row" | {{SortNaam|Habtamu de|Hoop}}
+| style="background-color: #{{Zetelverdeling/Partij|GL-PvdA|donker|NL}}" |
+| GL-PvdA{{efn|name="glpvda-pro"}}
+| 12 november 2025
+|
+| <ref>{{citeer web|url=https://www.parlement.com/id/vle4bgyciggs/h_e_habtamu_de_hoop |titel=H.E. (Habtamu) de Hoop |werk=[[Parlement.com]]|bezochtdatum=2024-02-08|archiefurl=https://web.archive.org/web/20240208160122/https://www.parlement.com/id/vle4bgyciggs/h_e_habtamu_de_hoop|archiefdatum=2024-02-08}}</ref>
+
+|-
+! scope="row" | {{SortNaam|Pepijn van|Houwelingen}}
+| style="background-color: #{{Zetelverdeling/Partij|FVD|donker|NL}}"|
+| FVD
+| 12 november 2025
+| 
+| <ref>{{citeer web|url=https://www.parlement.com/id/vlh6vum440xd/p_pepijn_van_houwelingen |titel=P. (Pepijn) van Houwelingen |werk=[[Parlement.com]]|bezochtdatum=2024-02-08}}</ref>
+
+|-
+! rowspan="2" scope="rowgroup" | {{SortNaam|Tamara ten|Hove}}
+| style="background-color: #{{Zetelverdeling/Partij|PVV|donker|NL}}"|
+| PVV{{efn|name="pvv-mark"}}
+| rowspan="2" | 12 november 2025
+| rowspan="2" | 
+| rowspan="2" | <ref>{{citeer web|url=https://www.parlement.com/biografie/t-tamara-ten-hove |titel=T. (Tamara) ten Hove |werk=[[Parlement.com]]|bezochtdatum=2025-11-12}}</ref>
+|-
+| 
+| Groep Markuszower{{efn|name="mark"}}
+
+|-
+! scope="row" | {{SortNaam|Dion|Huidekooper}}
+| style="background-color: #{{Zetelverdeling/Partij|D66|donker|NL}}"|
+| D66
+| 12 november 2025{{efn|Benoemd in plaats van Koen Castelein die zijn benoeming niet aanvaardde (hij gaf de voorkeur aan voortzetting van zijn wethouderschap van Hattem).}}
+|
+| <ref>{{citeer web|url=https://www.parlement.com/biografie/dj-dion-huidekooper |titel=D.J. (Dion) Huidekooper |werk=[[Parlement.com]]|bezochtdatum=2025-11-12}}</ref>
+
+|-
+! scope="row" | {{SortNaam|Renilde|Huizenga}}
+| style="background-color: #{{Zetelverdeling/Partij|D66|donker|NL}}"|
+| D66
+| 12 november 2025
+|
+| <ref>{{citeer web|url=https://www.parlement.com/biografie/ra-renilde-huizenga |titel=R.A. (Renilde) Huizenga |werk=[[Parlement.com]]|bezochtdatum=2025-11-12}}</ref>
+
+|-
+! scope="row" | {{SortNaam|Michelle|Jagtenberg}}
+| style="background-color: #{{Zetelverdeling/Partij|D66|donker|NL}}"|
+| D66
+| 25 februari 2026{{efn|name="kabinet2"|Benoemd in een vacature ontstaan vanwege de toetreding van een aantal Kamerleden tot het [[kabinet-Jetten]].}}
+| 
+| <ref>{{citeer web|url=https://www.parlement.com/biografie/m-michelle-jagtenberg |titel=M. (Michelle) Jagtenberg |werk=[[Parlement.com]]|bezochtdatum=2026-02-27}}</ref>
+
+|-
+! scope="row" | {{SortNaam|Chris|Jansen}}
+| style="background-color: #{{Zetelverdeling/Partij|PVV|donker|NL}}"|
+| PVV
+| 12 november 2025
+|
+| <ref>{{citeer web|url=https://www.parlement.com/biografie/cha-chris-jansen |titel=C.A. (Chris) Jansen |werk=[[Parlement.com]]|bezochtdatum=2025-11-12}}</ref>
+
+|-
+! scope="row" | {{SortNaam|Freek|Jansen|Freek Jansen (politicus)}}
+| style="background-color: #{{Zetelverdeling/Partij|FVD|donker|NL}}"|
+| FVD
+| 12 november 2025
+| 12 mei 2026
+| <ref>{{citeer web|url=https://www.parlement.com/biografie/fjh-freek-jansen |titel=F.J.H. (Freek) Jansen |werk=[[Parlement.com]]|bezochtdatum=2025-11-12}}</ref>
+
+|-
+! scope="row" | {{SortNaam|Rob|Jetten}}
+| style="background-color: #{{Zetelverdeling/Partij|D66|donker|NL}}"|
+| D66
+| 12 november 2025
+| 22 februari 2026{{efn|name="kabinet"|Afgetreden vanwege zijn/haar benoeming als bewindspersoon in het [[kabinet-Jetten]].}}
+| <ref>{{citeer web|url=https://www.parlement.com/id/vk8zgjjf6kp7/r_a_a_rob_jetten |titel=R.A.A. (Rob) Jetten |werk=[[Parlement.com]]|bezochtdatum=2024-02-08|archiefurl=https://web.archive.org/web/20240127153306/https://www.parlement.com/id/vk8zgjjf6kp7/r_a_a_rob_jetten|archiefdatum=2024-01-27}}</ref>
+
+|-
+! scope="row" | {{SortNaam|Henk|Jumelet}}
+| style="background-color: #{{Zetelverdeling/Partij|CDA|donker|NL}}"|
+| CDA
+| 12 november 2025
+|
+| <ref>{{citeer web|url=https://www.parlement.com/biografie/drs-hg-henk-jumelet |titel=H.G. (Henk) Jumelet |werk=[[Parlement.com]]|bezochtdatum=2025-11-12}}</ref>
+
+|-
+! scope="row" | {{SortNaam|Vincent|Karremans}}
+| style="background-color: #{{Zetelverdeling/Partij|VVD|donker|NL}}"|
+| VVD
+| 12 november 2025
+| 22 februari 2026{{efn|name="kabinet"}}
+| <ref>{{citeer web|url=https://www.parlement.com/biografie/vpg-vincent-karremans |titel=V.P.G. (Vincent) Karremans |werk=[[Parlement.com]]|bezochtdatum=2025-11-12}}</ref>
+
+|-
+! scope="row" | {{SortNaam|Barbara|Kathmann}}
+| style="background-color: #{{Zetelverdeling/Partij|GL-PvdA|donker|NL}}" |
+| GL-PvdA{{efn|name="glpvda-pro"}}
+| 12 november 2025
+|
+| <ref>{{citeer web|url=https://www.parlement.com/id/vle4bdsi1qcy/b_c_barbara_kathmann |titel=B.C. (Barbara) Kathmann |werk=[[Parlement.com]]|bezochtdatum=2024-02-08|archiefurl=https://web.archive.org/web/20240116213316/https://www.parlement.com/id/vle4bdsi1qcy/b_c_barbara_kathmann|archiefdatum=2024-01-16}}</ref>
+
+|-
+! rowspan="2" scope="rowgroup" | {{SortNaam|Mona|Keijzer}}
+| style="background-color: #{{Zetelverdeling/Partij|BBB|donker|NL}}" |
+| BBB{{efn|Tot 23 februari 2026}}
+| rowspan="2" | 12 november 2025
+| rowspan="2" |
+| rowspan="2" | <ref>{{citeer web|url=https://www.parlement.com/id/vizag4ylfmm4/m_c_g_mona_keijzer |titel=M.C.G. (Mona) Keijzer |werk=[[Parlement.com]]|bezochtdatum=2024-02-08}}</ref>
+|-
+| 
+| Lid Keijzer{{efn|Vanaf 23 februari 2026}}
+
+|-
+! scope="row" | {{SortNaam|Arend|Kisteman}}
+| style="background-color: #{{Zetelverdeling/Partij|VVD|donker|NL}}"|
+| VVD
+| 12 november 2025
+|
+| <ref>{{citeer web|url=https://www.parlement.com/id/vm6bj5zywkus/a_arend_kisteman |titel=A. (Arend) Kisteman |werk=[[Parlement.com]]|bezochtdatum=2024-02-08|archiefurl=https://web.archive.org/web/20240208160116/https://www.parlement.com/id/vm6bj5zywkus/a_arend_kisteman|archiefdatum=2024-02-08}}</ref>
+
+|-
+! scope="row" | {{SortNaam|Jesse|Klaver}}
+| style="background-color: #{{Zetelverdeling/Partij|GL-PvdA|donker|NL}}" |
+| GL-PvdA{{efn|name="glpvda-pro"}}
+| 12 november 2025
+|
+| <ref>{{citeer web|url=https://www.parlement.com/id/viehdasn2mxt/j_f_jesse_klaver |titel=J.F. (Jesse) Klaver |werk=[[Parlement.com]]|bezochtdatum=2024-02-08|archiefurl=https://web.archive.org/web/20240116213355/https://www.parlement.com/id/viehdasn2mxt/j_f_jesse_klaver|archiefdatum=2024-01-16}}</ref>
+
+|-
+! scope="row" | {{SortNaam|Felix|Klos}}
+| style="background-color: #{{Zetelverdeling/Partij|D66|donker|NL}}"|
+| D66
+| 12 november 2025
+|
+| <ref>{{citeer web|url=https://www.parlement.com/biografie/fco-felix-klos |titel=F.C.O. (Felix) Klos |werk=[[Parlement.com]]|bezochtdatum=2025-11-12}}</ref>
+
+|-
+! scope="row" | {{SortNaam|Jan Arie|Koorevaar}}
+| style="background-color: #{{Zetelverdeling/Partij|CDA|donker|NL}}"|
+| CDA
+| 12 november 2025
+|
+| <ref>{{citeer web|url=https://www.parlement.com/biografie/jc-jan-arie-koorevaar |titel=J.C. (Jan Arie) Koorevaar |werk=[[Parlement.com]]|bezochtdatum=2025-11-12}}</ref>
+
+|-
+! scope="row" | {{SortNaam|Alexander|Kops}}
+| style="background-color: #{{Zetelverdeling/Partij|PVV|donker|NL}}"|
+| PVV
+| 12 november 2025
+|
+| <ref>{{citeer web|url=https://www.parlement.com/id/vjkybkrveadl/a_alexander_kops |titel=A. (Alexander) Kops |werk=[[Parlement.com]]|bezochtdatum=2024-02-08|archiefurl=https://web.archive.org/web/20240331100509/https://www.parlement.com/id/vjkybkrveadl/a_alexander_kops|archiefdatum=2024-03-31}}</ref>
+
+|-
+! scope="row" | {{SortNaam|Daan de|Kort}}
+| style="background-color: #{{Zetelverdeling/Partij|VVD|donker|NL}}"|
+| VVD
+| 12 november 2025
+|
+| <ref>{{citeer web|url=https://www.parlement.com/id/vle9isq4oxyr/a_h_j_daan_de_kort |titel=A.H.J. (Daan) de Kort |werk=[[Parlement.com]]|bezochtdatum=2024-02-08|archiefurl=https://web.archive.org/web/20230922150329/https://www.parlement.com/id/vle9isq4oxyr/a_h_j_daan_de_kort|archiefdatum=2023-09-22}}</ref>
+
+|-
+! scope="row" | {{SortNaam|Ulaş|Köse}}
+| style="background-color: #{{Zetelverdeling/Partij|D66|donker|NL}}"|
+| D66
+| 12 november 2025
+|
+| <ref>{{citeer web|url=https://www.parlement.com/biografie/ui-ulas-kose |titel=U.I. (Ulaş) Köse |werk=[[Parlement.com]]|bezochtdatum=2025-11-12}}</ref>
+
+|-
+! scope="row" | {{SortNaam|Ines|Kostić}}
+| style="background-color: #{{Zetelverdeling/Partij|PvdD|donker|NL}}"|
+| PvdD
+| 12 november 2025
+|
+| <ref>{{citeer web|url=https://www.parlement.com/id/vm6i9pfk8ku9/i_ines_kostic |titel=I. (Ines) Kostic |werk=[[Parlement.com]]|bezochtdatum=2024-02-08|archiefurl=https://web.archive.org/web/20240116213417/https://www.parlement.com/id/vm6i9pfk8ku9/i_ines_kostic|archiefdatum=2024-01-16}}</ref>
+
+|-
+! scope="row" | {{SortNaam|Suzanne|Kröger}}
+| style="background-color: #{{Zetelverdeling/Partij|GL-PvdA|donker|NL}}" |
+| GL-PvdA{{efn|name="glpvda-pro"}}
+| 12 november 2025
+|
+| <ref>{{citeer web|url=https://www.parlement.com/id/vk9dd8mehvym/s_c_suzanne_kroger |titel=S.C. (Suzanne) Kröger |werk=[[Parlement.com]]|bezochtdatum=2024-02-08|archiefurl=https://web.archive.org/web/20240116213414/https://www.parlement.com/id/vk9dd8mehvym/s_c_suzanne_kroger|archiefdatum=2024-01-16}}</ref>
+
+|-
+! scope="row" | {{SortNaam|Harmen|Krul}}
+| style="background-color: #{{Zetelverdeling/Partij|CDA|donker|NL}}"|
+| CDA
+| 12 november 2025
+|
+| <ref>{{citeer web|url=https://www.parlement.com/id/vldacvrtx9yl/h_m_harmen_krul |titel=H.M. (Harmen) Krul |werk=[[Parlement.com]]|bezochtdatum=2024-02-08|archiefurl=https://web.archive.org/web/20240127153306/https://www.parlement.com/id/vldacvrtx9yl/h_m_harmen_krul|archiefdatum=2024-01-27}}</ref>
+
+|-
+! scope="row" | {{SortNaam|Esmah|Lahlah}}
+| style="background-color: #{{Zetelverdeling/Partij|GL-PvdA|donker|NL}}" |
+| GL-PvdA
+| 12 november 2025
+| 9 juni 2026{{efn|name="lahlah"|Afgetreden vanwege haar benoeming als wethouder van Amsterdam.}}
+| <ref>{{citeer web|url=https://www.parlement.com/id/vm6bl308ifut/a_esmah_lahlah |titel=A. (Esmah) Lahlah |werk=[[Parlement.com]]|bezochtdatum=2024-02-08|archiefurl=https://web.archive.org/web/20240208160122/https://www.parlement.com/id/vm6bl308ifut/a_esmah_lahlah|archiefdatum=2024-02-08}}</ref>
+
+|-
+! rowspan="2" scope="rowgroup" | {{SortNaam|Annelotte|Lammers}}
+| style="background-color: #{{Zetelverdeling/Partij|PVV|donker|NL}}"|
+| PVV{{efn|name="pvv-mark"}}
+| rowspan="2" | 12 november 2025
+| rowspan="2" | 
+| rowspan="2" | <ref>{{citeer web|url=https://www.parlement.com/biografie/annelotte-lammers |titel=A.N. (Annelotte) Lammers |werk=[[Parlement.com]]|bezochtdatum=2025-11-12}}</ref>
+|-
+| 
+| Groep Markuszower{{efn|name="mark"}}
+
+|-
+! scope="row" | {{SortNaam|Maes van|Lanschot}}
+| style="background-color: #{{Zetelverdeling/Partij|CDA|donker|NL}}"|
+| CDA
+| 12 november 2025
+|
+| <ref>{{citeer web|url=https://www.parlement.com/biografie/mrh-maes-van-lanschot |titel=M.R.H. (Maes) van Lanschot |werk=[[Parlement.com]]|bezochtdatum=2025-11-12}}</ref>
+
+|-
+! scope="row" | {{SortNaam|Tom van der|Lee}}
+| style="background-color: #{{Zetelverdeling/Partij|GL-PvdA|donker|NL}}" |
+| GL-PvdA{{efn|name="glpvda-pro"}}
+| 12 november 2025
+|
+| <ref>{{citeer web|url=https://www.parlement.com/id/vk9dd31ztryk/th_m_th_tom_van_der_lee |titel=T.M.T. (Tom) van der Lee |werk=[[Parlement.com]]|bezochtdatum=2024-02-08|archiefurl=https://web.archive.org/web/20240127153306/https://www.parlement.com/id/vk9dd31ztryk/th_m_th_tom_van_der_lee|archiefdatum=2024-01-27}}</ref>
+
+|-
+! scope="row" | {{SortNaam|Robin van|Leijen}}
+| style="background-color: #{{Zetelverdeling/Partij|D66|donker|NL}}"|
+| D66
+| 25 februari 2026{{efn|name="leijen"|Benoemd in de vacature ontstaan vanwege het aftreden van Nathalie van Berkel.}}
+| 
+| <ref>{{citeer web|url=https://www.parlement.com/biografie/r-robin-van-leijen |titel=R. (Robin) van Leijen |werk=[[Parlement.com]]|bezochtdatum=2026-02-27}}</ref>
+
+|-
+! scope="row" | {{SortNaam|Joris|Lohman}}
+| style="background-color: #{{Zetelverdeling/Partij|CDA|donker|NL}}"|
+| CDA
+| 25 februari 2026{{efn|name="kabinet2"}}
+| 
+| <ref>{{citeer web|url=https://www.parlement.com/biografie/jb-joris-lohman |titel=J.B. (Joris) Lohman |werk=[[Parlement.com]]|bezochtdatum=2026-02-27}}</ref>
+
+|-
+! scope="row" | {{SortNaam|Erik van der|Maas}}
+| style="background-color: #{{Zetelverdeling/Partij|VVD|donker|NL}}"|
+| VVD
+| 25 februari 2026{{efn|name="kabinet2"}}
+| 
+| <ref>{{citeer web|url=https://www.parlement.com/biografie/e-erik-van-der-maas |titel=E. (Erik) van der Maas |werk=[[Parlement.com]]|bezochtdatum=2026-02-27}}</ref>
+
+|-
+! scope="row" | {{SortNaam|Vicky|Maeijer}}
+| style="background-color: #{{Zetelverdeling/Partij|PVV|donker|NL}}"|
+| PVV
+| 12 november 2025
+|
+| <ref>{{citeer web|url=https://www.parlement.com/biografie/v-vicky-maeijer |titel=V. (Vicky) Maeijer |werk=[[Parlement.com]]|bezochtdatum=2025-11-12}}</ref>
+
+|-
+! scope="row" | {{SortNaam|Nicole|Maes|Nicole Maes (politica)}}
+| style="background-color: #{{Zetelverdeling/Partij|VVD|donker|NL}}"|
+| VVD
+| 25 februari 2026{{efn|name="kabinet2"}}
+| 
+| <ref>{{citeer web|url=https://www.parlement.com/biografie/n-nicole-maes |titel=N. (Nicole) Maes |werk=[[Parlement.com]]|bezochtdatum=2026-02-27}}</ref>
+
+|-
+! rowspan="2" scope="rowgroup" | {{SortNaam|Gidi|Markuszower}}
+| style="background-color: #{{Zetelverdeling/Partij|PVV|donker|NL}}"|
+| PVV{{efn|name="pvv-mark"}}
+| rowspan="2" | 12 november 2025
+| rowspan="2" | 
+| rowspan="2" | <ref>{{citeer web|url=https://www.parlement.com/id/viqgat15k6a4/g_gidi_markuszower |titel=G. (Gidi) Markuszower |werk=[[Parlement.com]]|bezochtdatum=2024-02-08|archiefurl=https://web.archive.org/web/20240205021916/https://www.parlement.com/id/viqgat15k6a4/g_gidi_markuszower|archiefdatum=2024-02-05}}</ref>
+|-
+| 
+| Groep Markuszower{{efn|name="mark"}}
+
+|-
+! scope="row" | {{SortNaam|Claire|Martens-America|Claire Martens}}
+| style="background-color: #{{Zetelverdeling/Partij|VVD|donker|NL}}"|
+| VVD
+| 12 november 2025
+|
+| <ref>{{citeer web|url=https://www.parlement.com/id/vm6bijxzdgzw/c_claire_martens_america |titel=C. (Claire) Martens-America |werk=[[Parlement.com]]|bezochtdatum=2024-02-08|archiefurl=https://web.archive.org/web/20240203214510/https://www.parlement.com/id/vm6bijxzdgzw/c_claire_martens_america|archiefdatum=2024-02-03}}</ref>
+
+|-
+! scope="row" | {{SortNaam|Mahjoub|Mathlouti}}
+| style="background-color: #{{Zetelverdeling/Partij|D66|donker|NL}}"|
+| D66
+| 25 februari 2026{{efn|name="kabinet2"}}
+| 
+| <ref>{{citeer web|url=https://www.parlement.com/biografie/m-mahjoub-mathlouti |titel=M. (Mahjoub) Mathlouti |werk=[[Parlement.com]]|bezochtdatum=2026-02-27}}</ref>
+
+|-
+! scope="row" | {{SortNaam|Rachel van|Meetelen}}
+| style="background-color: #{{Zetelverdeling/Partij|PVV|donker|NL}}"|
+| PVV
+| 12 november 2025
+|
+| <ref>{{citeer web|url=https://www.parlement.com/id/vm6tbxw5vlx8/r_f_rachel_van_meetelen |titel=R.F. (Rachel) van Meetelen |werk=[[Parlement.com]]|bezochtdatum=2024-02-08|archiefurl=https://web.archive.org/web/20240116213421/https://www.parlement.com/id/vm6tbxw5vlx8/r_f_rachel_van_meetelen|archiefdatum=2024-01-16}}</ref>
+
+|-
+! scope="row" | {{SortNaam|Gideon van|Meijeren}}
+| style="background-color: #{{Zetelverdeling/Partij|FVD|donker|NL}}"|
+| FVD
+| 12 november 2025
+|
+| <ref>{{citeer web|url=https://www.parlement.com/id/vlg0gaw8ywok/g_f_c_gideon_van_meijeren |titel=G.F.C. (Gideon) van Meijeren |werk=[[Parlement.com]]|bezochtdatum=2024-02-08|archiefurl=https://web.archive.org/web/20240127153302/https://www.parlement.com/id/vlg0gaw8ywok/g_f_c_gideon_van_meijeren|archiefdatum=2024-01-27}}</ref>
+
+|-
+! scope="row" | {{SortNaam|Wim|Meulenkamp|Wim Meulenkamp (politicus)}}
+| style="background-color: #{{Zetelverdeling/Partij|VVD|donker|NL}}"|
+| VVD
+| 25 februari 2026{{efn|name="kabinet2"}}
+| 
+| <ref>{{citeer web|url=https://www.parlement.com/biografie/drs-wjh-wim-meulenkamp |titel=W.J.H. (Wim) Meulenkamp |werk=[[Parlement.com]]|bezochtdatum=2026-02-27}}</ref>
+
+|-
+! scope="row" | {{SortNaam|Ingrid|Michon-Derkzen}}
+| style="background-color: #{{Zetelverdeling/Partij|VVD|donker|NL}}"|
+| VVD
+| 12 november 2025
+|
+| <ref>{{citeer web|url=https://www.parlement.com/id/vk8hl49foixb/i_j_m_ingrid_michon_derkzen |titel=I.J.M. (Ingrid) Michon-Derkzen |werk=[[Parlement.com]]|bezochtdatum=2024-02-08|archiefurl=https://web.archive.org/web/20231209045841/https://www.parlement.com/id/vk8hl49foixb/i_j_m_ingrid_michon_derkzen|archiefdatum=2023-12-09}}</ref>
+
+|-
+! scope="row" | {{SortNaam|Mohammed|Mohandis}}
+| style="background-color: #{{Zetelverdeling/Partij|GL-PvdA|donker|NL}}" |
+| GL-PvdA{{efn|name="glpvda-pro"}}
+| 12 november 2025
+|
+| <ref>{{citeer web|url=https://www.parlement.com/id/vier1aav0nzz/m_mohammed_mohandis |titel=M. (Mohammed) Mohandis |werk=[[Parlement.com]]|bezochtdatum=2024-02-08|archiefurl=https://web.archive.org/web/20231206015144/https://www.parlement.com/id/vier1aav0nzz/m_mohammed_mohandis|archiefdatum=2023-12-06}}</ref>
+
+|-
+! rowspan="2" scope="rowgroup" | {{SortNaam|Nicole|Moinat}}
+| style="background-color: #{{Zetelverdeling/Partij|PVV|donker|NL}}"|
+| PVV{{efn|name="pvv-mark"}}
+| rowspan="2" | 12 november 2025
+| rowspan="2" | 
+| rowspan="2" | <ref>{{citeer web|url=https://www.parlement.com/biografie/n-nicole-moinat |titel=N. (Nicole) Moinat |werk=[[Parlement.com]]|bezochtdatum=2025-11-12}}</ref>
+|-
+| 
+| Groep Markuszower{{efn|name="mark"}}
+
+|-
+! scope="row" | {{SortNaam|Jeremy|Mooiman}}
+| style="background-color: #{{Zetelverdeling/Partij|PVV|donker|NL}}"|
+| PVV
+| 12 november 2025
+|
+| <ref>{{citeer web|url=https://www.parlement.com/id/vm8chg3glkwi/j_jeremy_mooiman |titel=J. (Jeremy) Mooiman |werk=[[Parlement.com]]|bezochtdatum=2024-02-08|archiefurl=https://web.archive.org/web/20231210114428/https://www.parlement.com/id/vm8chg3glkwi/j_jeremy_mooiman|archiefdatum=2023-12-10}}</ref>
+
+|-
+! scope="row" | {{SortNaam|Marjolein|Moorman}}
+| style="background-color: #{{Zetelverdeling/Partij|GL-PvdA|donker|NL}}" |
+| GL-PvdA{{efn|name="glpvda-pro"}}
+| 12 november 2025
+|
+| <ref>{{citeer web|url=https://www.parlement.com/biografie/m-marjolein-moorman |titel=M. (Marjolein) Moorman |werk=[[Parlement.com]]|bezochtdatum=2025-11-12}}</ref>
+
+|-
+! scope="row" | {{SortNaam|Edgar|Mulder}}
+| style="background-color: #{{Zetelverdeling/Partij|PVV|donker|NL}}"|
+| PVV
+| 12 november 2025
+|
+| <ref>{{citeer web|url=https://www.parlement.com/id/vkaqaq4im0av/e_edgar_mulder |titel=E. (Edgar) Mulder |werk=[[Parlement.com]]|bezochtdatum=2024-02-08|archiefurl=https://web.archive.org/web/20240208160119/https://www.parlement.com/id/vkaqaq4im0av/e_edgar_mulder|archiefdatum=2024-02-08}}</ref>
+
+|-
+! scope="row" | {{SortNaam|Alisha|Müller}}
+| style="background-color: #{{Zetelverdeling/Partij|VVD|donker|NL}}"|
+| VVD
+| 25 februari 2026{{efn|name="kabinet2"}}
+| 
+| <ref>{{citeer web|url=https://www.parlement.com/biografie/alisha-muller |titel=A.S. (Alisha) Müller |werk=[[Parlement.com]]|bezochtdatum=2026-02-27}}</ref>
+
+|-
+! scope="row" | {{SortNaam|Songül|Mutluer}}
+| style="background-color: #{{Zetelverdeling/Partij|GL-PvdA|donker|NL}}" |
+| GL-PvdA{{efn|name="glpvda-pro"}}
+| 12 november 2025{{efn|Benoemd in plaats van [[Frans Timmermans (politicus)|Frans Timmermans]] die zijn benoeming niet aanvaardde (hij trad vanwege de verkiezingsuitslag af als politiek leider van GroenLinks/PvdA).}}
+|
+| <ref>{{citeer web|url=https://www.parlement.com/biografie/mr-s-songul-mutluer |titel=S. (Songül) Mutluer |werk=[[Parlement.com]]|bezochtdatum=2025-11-12}}</ref>
+
+|-
+! scope="row" | {{SortNaam|Annabel|Nanninga}}
+| style="background-color: #{{Zetelverdeling/Partij|JA21|donker|NL}}"|
+| JA21
+| 12 november 2025
+|
+| <ref>{{citeer web|url=https://www.parlement.com/biografie/annabel-nanninga |titel=A. (Annabel) Nanninga |werk=[[Parlement.com]]|bezochtdatum=2025-11-12}}</ref>
+
+|-
+! scope="row" | {{SortNaam|Stephan|Neijenhuis}}
+| style="background-color: #{{Zetelverdeling/Partij|D66|donker|NL}}"|
+| D66
+| 12 november 2025
+|
+| <ref>{{citeer web|url=https://www.parlement.com/biografie/sj-stephan-neijenhuis |titel=S.J. (Stephan) Neijenhuis |werk=[[Parlement.com]]|bezochtdatum=2025-11-12}}</ref>
+
+|-
+! scope="row" | {{SortNaam|Jurgen|Nobel}}
+| style="background-color: #{{Zetelverdeling/Partij|VVD|donker|NL}}"|
+| VVD
+| 12 november 2025
+|
+| <ref>{{citeer web|url=https://www.parlement.com/biografie/drs-jnj-jurgen-nobel |titel=J.N.J. (Jurgen) Nobel |werk=[[Parlement.com]]|bezochtdatum=2025-11-12}}</ref>
+
+|-
+! scope="row" | {{SortNaam|Sjoukje van|Oosterhout}}
+| style="background-color: #{{Zetelverdeling/Partij|GL-PvdA|donker|NL}}" |
+| GL-PvdA{{efn|name="glpvda-pro"}}
+| 12 november 2025
+| 
+| <ref>{{citeer web|url=https://www.parlement.com/biografie/sjoukje-van-oosterhout |titel=A.S. (Sjoukje) van Oosterhout |werk=[[Parlement.com]]|bezochtdatum=2025-11-12}}</ref> 
+
+|-
+! scope="row" | {{SortNaam|Henk-Jan|Oosterhuis}}
+| style="background-color: #{{Zetelverdeling/Partij|D66|donker|NL}}"|
+| D66
+| 12 november 2025
+|
+| <ref>{{citeer web|url=https://www.parlement.com/biografie/h-henk-jan-oosterhuis |titel=H. (Henk-Jan) Oosterhuis |werk=[[Parlement.com]]|bezochtdatum=2025-11-12}}</ref> 
+
+|-
+! scope="row" | {{SortNaam|Ouafa|Oualhadj}}
+| style="background-color: #{{Zetelverdeling/Partij|D66|donker|NL}}"|
+| D66
+| 12 november 2025
+|
+| <ref>{{citeer web|url=https://www.parlement.com/biografie/ouafa-oualhadj |titel=A. (Ouafa) Oualhadj |werk=[[Parlement.com]]|bezochtdatum=2025-11-12}}</ref> 
+
+|-
+! scope="row" | {{SortNaam|Esther|Ouwehand}}
+| style="background-color: #{{Zetelverdeling/Partij|PvdD|donker|NL}}"|
+| PvdD
+| 12 november 2025
+|
+| <ref>{{citeer web|url=https://www.parlement.com/id/vhfk2riblcwm/e_esther_ouwehand |titel=E. (Esther) Ouwehand |werk=[[Parlement.com]]|bezochtdatum=2024-02-08|archiefurl=https://web.archive.org/web/20240127153308/https://www.parlement.com/id/vhfk2riblcwm/e_esther_ouwehand|archiefdatum=2024-01-27}}</ref>
+
+|-
+! scope="row" | {{SortNaam|Jan|Paternotte}}
+| style="background-color: #{{Zetelverdeling/Partij|D66|donker|NL}}"|
+| D66
+| 12 november 2025
+|
+| <ref>{{citeer web|url=https://www.parlement.com/id/vieq19f0xi1y/j_m_jan_paternotte |titel=J.M. (Jan) Paternotte |werk=[[Parlement.com]]|bezochtdatum=2024-02-08|archiefurl=https://web.archive.org/web/20240208160130/https://www.parlement.com/id/vieq19f0xi1y/j_m_jan_paternotte|archiefdatum=2024-02-08}}</ref>
+
+|-
+! scope="row" | {{SortNaam|Mariëtte|Patijn}}
+| style="background-color: #{{Zetelverdeling/Partij|GL-PvdA|donker|NL}}" |
+| GL-PvdA{{efn|name="glpvda-pro"}}
+| 12 november 2025
+|
+| <ref>{{citeer web|url=https://www.parlement.com/id/vm6bkrdtbjus/m_h_mariette_patijn |titel=M.H. (Mariëtte) Patijn |werk=[[Parlement.com]]|bezochtdatum=2024-02-08|archiefurl=https://web.archive.org/web/20240225112734/https://www.parlement.com/id/vm6bkrdtbjus/m_h_mariette_patijn|archiefdatum=2024-02-25}}</ref>
+
+|-
+! scope="row" | {{SortNaam|Wieke|Paulusma}}
+| style="background-color: #{{Zetelverdeling/Partij|D66|donker|NL}}"|
+| D66
+| 12 november 2025
+|
+| <ref>{{citeer web|url=https://www.parlement.com/id/vldqd2kkneyj/w_wieke_paulusma |titel=W. (Wieke) Paulusma |werk=[[Parlement.com]]|bezochtdatum=2024-02-08|archiefurl=https://web.archive.org/web/20240208160131/https://www.parlement.com/id/vldqd2kkneyj/w_wieke_paulusma|archiefdatum=2024-02-08}}</ref>
+
+|-
+! scope="row" | {{SortNaam|Kati|Piri}}
+| style="background-color: #{{Zetelverdeling/Partij|GL-PvdA|donker|NL}}" |
+| GL-PvdA{{efn|name="glpvda-pro"}}
+| 12 november 2025
+|
+| <ref>{{citeer web|url=https://www.parlement.com/id/vjgpegdrao49/k_p_kati_piri |titel=K.P. (Kati) Piri |werk=[[Parlement.com]]|bezochtdatum=2024-02-08|archiefurl=https://web.archive.org/web/20240208160133/https://www.parlement.com/id/vjgpegdrao49/k_p_kati_piri|archiefdatum=2024-02-08}}</ref>
+
+|-
+! scope="row" | {{SortNaam|Caroline van der|Plas}}
+| style="background-color: #{{Zetelverdeling/Partij|BBB|donker|NL}}" |
+| BBB
+| 12 november 2025
+|
+| <ref>{{citeer web|url=https://www.parlement.com/id/vlh5b5o7a7mw/c_a_m_caroline_van_der_plas |titel=C.A.M. (Caroline) van der Plas |werk=[[Parlement.com]]|bezochtdatum=2024-02-08|archiefurl=https://web.archive.org/web/20240116213411/https://www.parlement.com/id/vlh5b5o7a7mw/c_a_m_caroline_van_der_plas|archiefdatum=2024-01-16}}</ref>
+
+|-
+! scope="row" | {{SortNaam|Anne-Marijke|Podt}}
+| style="background-color: #{{Zetelverdeling/Partij|D66|donker|NL}}"|
+| D66
+| 12 november 2025
+|
+| <ref>{{citeer web|url=https://www.parlement.com/id/vlh6v1xyo3m5/a_m_anne_marijke_podt |titel=A.M. (Anne-Marijke) Podt |werk=[[Parlement.com]]|bezochtdatum=2024-02-08|archiefurl=https://web.archive.org/web/20240208160132/https://www.parlement.com/id/vlh6v1xyo3m5/a_m_anne_marijke_podt|archiefdatum=2024-02-08}}</ref>
+
+|-
+! scope="row" | {{SortNaam|André|Poortman}}
+| style="background-color: #{{Zetelverdeling/Partij|CDA|donker|NL}}"|
+| CDA
+| 25 februari 2026{{efn|name="kabinet2"}}
+| 
+| <ref>{{citeer web|url=https://www.parlement.com/biografie/andre-poortman |titel=A. (André) Poortman |werk=[[Parlement.com]]|bezochtdatum=2026-02-27}}</ref>
+
+|-
+! scope="row" | {{SortNaam|Erwin|Prickaertz}}
+| style="background-color: #{{Zetelverdeling/Partij|PVV|donker|NL}}"|
+| PVV
+| 12 november 2025
+|
+| <ref>{{citeer web|url=https://www.parlement.com/biografie/ec-erwin-prickaertz |titel=E.C. (Erwin) Prickaertz |werk=[[Parlement.com]]|bezochtdatum=2025-11-12}}</ref> 
+
+|-
+! scope="row" | {{SortNaam|Annette|Raijer}}
+| style="background-color: #{{Zetelverdeling/Partij|PVV|donker|NL}}"|
+| PVV
+| 12 november 2025
+|
+| <ref>{{citeer web|url=https://www.parlement.com/biografie/aj-annette-raijer |titel=A.J. (Annette) Raijer |werk=[[Parlement.com]]|bezochtdatum=2025-11-12}}</ref> 
+
+|-
+! rowspan="2" scope="rowgroup" | {{SortNaam|Queeny|Rajkowski}}
+| rowspan="2" style="background-color: #{{Zetelverdeling/Partij|VVD|donker|NL}}"|
+| rowspan="2" | VVD
+| 12 november 2025
+| 31 maart 2026{{efn|name="rajkowski"|Met zwangerschapsverlof van 31 maart 2026 t/m 20 juli 2026.}}
+| rowspan="2" | <ref>{{citeer web|url=https://www.parlement.com/id/vle9d9edt8t8/q_m_queeny_rajkowski |titel=Q.M. (Queeny) Rajkowski |werk=[[Parlement.com]]|bezochtdatum=2024-02-08|archiefurl=https://web.archive.org/web/20221208015224/https://www.parlement.com/id/vle9d9edt8t8/q_m_queeny_rajkowski|archiefdatum=2022-12-08}}</ref>
+|-
+| 21 juli 2026{{efn|name="rajkowski"}}
+|
+
+|-
+! scope="row" | {{SortNaam|Ilana|Rooderkerk}}
+| style="background-color: #{{Zetelverdeling/Partij|D66|donker|NL}}"|
+| D66
+| 12 november 2025
+| 
+| <ref>{{citeer web|url=https://www.parlement.com/id/vm6fgryecqx4/i_ilana_rooderkerk |titel=I. (Ilana) Rooderkerk |werk=[[Parlement.com]]|bezochtdatum=2024-02-08|archiefurl=https://web.archive.org/web/20231212073144/https://www.parlement.com/id/vm6fgryecqx4/i_ilana_rooderkerk|archiefdatum=2023-12-12}}</ref>
+
+|-
+! scope="row" | {{SortNaam|Raymond de|Roon}}
+| style="background-color: #{{Zetelverdeling/Partij|PVV|donker|NL}}"|
+| PVV
+| 12 november 2025
+|
+| <ref>{{citeer web|url=https://www.parlement.com/id/vhfw2rplyrmb/r_raymond_de_roon |titel=R. (Raymond) de Roon |werk=[[Parlement.com]]|bezochtdatum=2024-02-08|archiefurl=https://web.archive.org/web/20240127185816/https://www.parlement.com/id/vhfw2rplyrmb/r_raymond_de_roon|archiefdatum=2024-01-27}}</ref>
+
+|-
+! scope="row" | {{SortNaam|Tom|Russcher}}
+| style="background-color: #{{Zetelverdeling/Partij|FVD|donker|NL}}"|
+| FVD
+| 15 januari 2026{{efn|Benoemd in de vacature ontstaan vanwege het aftreden van Thierry Baudet.}}
+| 
+| <ref>{{citeer web|url=https://www.parlement.com/biografie/t-k-tom-russcher |titel=T. K. (Tom) Russcher |werk=[[Parlement.com]]|bezochtdatum=2026-01-16}}</ref>
+
+|-
+! scope="row" | {{SortNaam|Milan|Schenk}}
+| style="background-color: #{{Zetelverdeling/Partij|FVD|donker|NL}}"|
+| FVD
+| 19 mei 2026{{efn|name="jansen-schenk"|Benoemd in de vacature ontstaan vanwege het aftreden van Freek Jansen.}}
+| 
+| <ref>{{citeer web|url=https://www.parlement.com/biografie/m-milan-schenk |titel=M. (Milan) Schenk |werk=[[Parlement.com]]|bezochtdatum=2026-05-19}}</ref>
+
+|-
+! rowspan="2" scope="rowgroup" | {{SortNaam|Shanna|Schilder}}
+| style="background-color: #{{Zetelverdeling/Partij|PVV|donker|NL}}"|
+| PVV{{efn|name="pvv-mark"}}
+| rowspan="2" | 12 november 2025
+| rowspan="2" | 
+| rowspan="2" | <ref>{{citeer web|url=https://www.parlement.com/biografie/jmm-shanna-schilder |titel=J.M.M. (Shanna) Schilder |werk=[[Parlement.com]]|bezochtdatum=2025-11-12}}</ref>
+|-
+| 
+| Groep Markuszower{{efn|name="mark"}}
+
+|-
+! scope="row" | {{SortNaam|Jan|Schoonis}}
+| style="background-color: #{{Zetelverdeling/Partij|D66|donker|NL}}"|
+| D66
+| 12 november 2025
+|
+| <ref>{{citeer web|url=https://www.parlement.com/biografie/j-jan-schoonis |titel=J. (Jan) Schoonis |werk=[[Parlement.com]]|bezochtdatum=2025-11-12}}</ref> 
+
+|-
+! scope="row" | {{SortNaam|Björn|Schutz}}
+| style="background-color: #{{Zetelverdeling/Partij|VVD|donker|NL}}"|
+| VVD
+| 12 november 2025
+|
+| <ref>{{citeer web|url=https://www.parlement.com/biografie/ba-bjorn-schutz |titel=B.A. (Björn) Schutz |werk=[[Parlement.com]]|bezochtdatum=2025-11-12}}</ref> 
+
+|-
+! scope="row" | {{SortNaam|Joost|Sneller}}
+| style="background-color: #{{Zetelverdeling/Partij|D66|donker|NL}}"|
+| D66
+| 12 november 2025
+|
+| <ref>{{citeer web|url=https://www.parlement.com/id/vk7an8kqjstn/j_c_joost_sneller |titel=J.C. (Joost) Sneller |werk=[[Parlement.com]]|bezochtdatum=2024-02-08|archiefurl=https://web.archive.org/web/20240208160136/https://www.parlement.com/id/vk7an8kqjstn/j_c_joost_sneller|archiefdatum=2024-02-08}}</ref>
+
+|-
+! scope="row" | {{SortNaam|Hanneke|Steen}}
+| style="background-color: #{{Zetelverdeling/Partij|CDA|donker|NL}}"|
+| CDA
+| 12 november 2025
+|
+| <ref>{{citeer web|url=https://www.parlement.com/biografie/mr-hs-hanneke-steen-klok |titel=H.S. (Hanneke) Steen-Klok |werk=[[Parlement.com]]|bezochtdatum=2025-11-12}}</ref> 
+
+|-
+! scope="row" | {{SortNaam|Chris|Stoffer}}
+| style="background-color: #{{Zetelverdeling/Partij|SGP|donker|NL}}"|
+| SGP
+| 12 november 2025
+|
+| <ref>{{citeer web|url=https://www.parlement.com/id/vk7theziieo4/ch_chris_stoffer |titel=C. (Chris) Stoffer |werk=[[Parlement.com]]|bezochtdatum=2024-02-08|archiefurl=https://web.archive.org/web/20240203214510/https://www.parlement.com/id/vk7theziieo4/ch_chris_stoffer|archiefdatum=2024-02-03}}</ref>
+
+|-
+! scope="row" | {{SortNaam|Sebastiaan|Stöteler}}
+| style="background-color: #{{Zetelverdeling/Partij|PVV|donker|NL}}"|
+| PVV
+| 12 november 2025
+|
+| <ref>{{citeer web|url=https://www.parlement.com/biografie/tsm-sebastiaan-stoteler |titel=T.S.M. (Sebastiaan) Stöteler |werk=[[Parlement.com]]|bezochtdatum=2025-11-12}}</ref>
+
+|-
+! scope="row" | {{SortNaam|Jeltje|Straatman}}
+| style="background-color: #{{Zetelverdeling/Partij|CDA|donker|NL}}"|
+| CDA
+| 12 november 2025
+|
+| <ref>{{citeer web|url=https://www.parlement.com/biografie/mr-jcg-jeltje-straatman |titel=J.C.G. (Jeltje) Straatman |werk=[[Parlement.com]]|bezochtdatum=2025-11-12}}</ref>
+
+|-
+! scope="row" | {{SortNaam|Jan|Struijs}}
+| style="background-color: #{{Zetelverdeling/Partij|50PLUS|donker|NL}}"|
+| 50+
+| 12 november 2025
+|
+| <ref>{{citeer web|url=https://www.parlement.com/biografie/ja-jan-struijs |titel=J.A. (Jan) Struijs |werk=[[Parlement.com]]|bezochtdatum=2025-11-12}}</ref>
+
+|-
+! scope="row" | {{SortNaam|Luc|Stultiens}}
+| style="background-color: #{{Zetelverdeling/Partij|GL-PvdA|donker|NL}}" |
+| GL-PvdA{{efn|name="glpvda-pro"}}
+| 12 november 2025
+|
+| <ref>{{citeer web|url=https://www.parlement.com/id/vm6ejqlefgyx/l_c_j_luc_stultiens |titel=L.C.J. (Luc) Stultiens |werk=[[Parlement.com]]|bezochtdatum=2024-02-08|archiefurl=https://web.archive.org/web/20240116213411/https://www.parlement.com/id/vm6ejqlefgyx/l_c_j_luc_stultiens|archiefdatum=2024-01-16}}</ref>
+
+|-
+! scope="row" | {{SortNaam|Marijke|Synhaeve}}
+| style="background-color: #{{Zetelverdeling/Partij|D66|donker|NL}}"|
+| D66
+| 12 november 2025
+|
+| <ref>{{citeer web|url=https://www.parlement.com/biografie/m-marijke-synhaeve |titel=M. (Marijke) Synhaeve |werk=[[Parlement.com]]|bezochtdatum=2025-11-12}}</ref>
+
+|-
+! scope="row" | {{SortNaam|Christine|Teunissen}}
+| style="background-color: #{{Zetelverdeling/Partij|PvdD|donker|NL}}"|
+| PvdD
+| 12 november 2025
+|
+| <ref>{{citeer web|url=https://www.parlement.com/id/vjs9iul0rxj3/ch_christine_teunissen |titel=C. (Christine) Teunissen |werk=[[Parlement.com]]|bezochtdatum=2024-02-08|archiefurl=https://web.archive.org/web/20240225112734/https://www.parlement.com/id/vjs9iul0rxj3/ch_christine_teunissen|archiefdatum=2024-02-25}}</ref>
+
+|-
+! scope="row" | {{SortNaam|Eveline|Tijmstra}}
+| style="background-color: #{{Zetelverdeling/Partij|CDA|donker|NL}}"|
+| CDA
+| 12 november 2025
+|
+| <ref>{{citeer web|url=https://www.parlement.com/biografie/es-eveline-tijmstra |titel=E.S. (Eveline) Tijmstra |werk=[[Parlement.com]]|bezochtdatum=2025-11-12}}</ref>
+
+|-
+! scope="row" | {{SortNaam|Mikal|Tseggai}}
+| style="background-color: #{{Zetelverdeling/Partij|GL-PvdA|donker|NL}}" |
+| GL-PvdA{{efn|name="glpvda-pro"}}
+| 12 november 2025
+|
+| <ref>{{citeer web|url=https://www.parlement.com/id/vm6efvj862ys/m_mikal_tseggai |titel=M. (Mikal) Tseggai |werk=[[Parlement.com]]|bezochtdatum=2024-02-08|archiefurl=https://web.archive.org/web/20231203095159/https://www.parlement.com/id/vm6efvj862ys/m_mikal_tseggai|archiefdatum=2023-12-03}}</ref>
+
+|-
+! scope="row" | {{SortNaam|Marieke|Vellinga-Beemsterboer}}
+| style="background-color: #{{Zetelverdeling/Partij|D66|donker|NL}}"|
+| D66
+| 12 november 2025
+|
+| <ref>{{citeer web|url=https://www.parlement.com/biografie/mca-marieke-vellinga-beemsterboer |titel=M.C.A. (Marieke) Vellinga-Beemsterboer |werk=[[Parlement.com]]|bezochtdatum=2025-11-12}}</ref>
+
+|-
+! scope="rowgroup" rowspan="2" | {{SortNaam|Ruud|Verkuijlen}}
+| rowspan="2" style="background-color: #{{Zetelverdeling/Partij|VVD|donker|NL}}"|
+| rowspan="2" | VVD
+| 31 maart 2026{{efn|name="rajkowski-verkuylen"|Verving Queeny Rajkowski tijdens haar zwangerschapsverlof.}}
+| 20 juli 2026{{efn|name="rajkowski-verkuylen"}}
+| rowspan="2" | <ref>{{citeer web|url=https://www.parlement.com/biografie/r-ruud-verkuijlen |titel=R. (Ruud) Verkuijlen |werk=[[Parlement.com]]|bezochtdatum=2026-09-03}}</ref>
+|-
+| 2 september 2026{{efn|name="bevers-verkuijlen"|Verving vanaf 2 september 2026 Harry Bevers tijdens zijn ziekteverlof.}}
+|
+
+|-
+! scope="row" | {{SortNaam|Henk|Vermeer}}
+| style="background-color: #{{Zetelverdeling/Partij|BBB|donker|NL}}" |
+| BBB
+| 12 november 2025
+|
+| <ref>{{citeer web|url=https://www.parlement.com/id/vm6eai69mftp/h_henk_vermeer |titel=H. (Henk) Vermeer |werk=[[Parlement.com]]|bezochtdatum=2024-02-08|archiefurl=https://web.archive.org/web/20240208160153/https://www.parlement.com/id/vm6eai69mftp/h_henk_vermeer|archiefdatum=2024-02-08}}</ref>
+
+|-
+! scope="row" | {{SortNaam|Marc|Vervuurt}}
+| style="background-color: #{{Zetelverdeling/Partij|D66|donker|NL}}"|
+| D66
+| 12 november 2025
+|
+| <ref>{{citeer web|url=https://www.parlement.com/biografie/m-marc-vervuurt |titel=M. (Marc) Vervuurt |werk=[[Parlement.com]]|bezochtdatum=2025-11-12}}</ref>
+
+|-
+! scope="row" | {{SortNaam|Hans|Vijlbrief}}
+| style="background-color: #{{Zetelverdeling/Partij|D66|donker|NL}}"|
+| D66
+| 12 november 2025
+| 22 februari 2026{{efn|name="kabinet"}}
+| <ref>{{citeer web|url=https://www.parlement.com/id/vl5nasxkt5f4/j_a_hans_vijlbrief |titel= J.A. (Hans) Vijlbrief |werk=[[Parlement.com]]|bezochtdatum=2024-02-08|archiefurl=https://web.archive.org/web/20240116213736/https://www.parlement.com/id/vl5nasxkt5f4/j_a_hans_vijlbrief|archiefdatum=2024-01-16}}</ref>
+
+|-
+! scope="row" | {{SortNaam|Lisa|Vliegenthart}}
+| style="background-color: #{{Zetelverdeling/Partij|GL-PvdA|donker|NL}}" |
+| GL-PvdA{{efn|name="glpvda-pro"}}
+| 12 november 2025
+|
+| <ref>{{citeer web|url=https://www.parlement.com/biografie/l-lisa-vliegenthart |titel=L. (Lisa) Vliegenthart |werk=[[Parlement.com]]|bezochtdatum=2025-11-12}}</ref>
+
+|-
+! scope="row" | {{SortNaam|Elmar|Vlottes}}
+| style="background-color: #{{Zetelverdeling/Partij|PVV|donker|NL}}"|
+| PVV
+| 12 november 2025
+|
+| <ref>{{citeer web|url=https://www.parlement.com/id/vkaqbabop5yb/e_elmar_vlottes |titel=E. (Elmar) Vlottes |werk=[[Parlement.com]]|bezochtdatum=2024-02-08|archiefurl=https://web.archive.org/web/20231209062136/https://www.parlement.com/id/vkaqbabop5yb/e_elmar_vlottes|archiefdatum=2023-12-09}}</ref>
+
+|-
+! scope="row" | {{SortNaam|Marina|Vondeling}}
+| style="background-color: #{{Zetelverdeling/Partij|PVV|donker|NL}}"|
+| PVV
+| 12 november 2025
+|
+| <ref>{{citeer web|url=https://www.parlement.com/id/vm8eufyajyvm/m_marina_vondeling |titel=M. (Marina) Vondeling |werk=[[Parlement.com]]|bezochtdatum=2024-02-08|archiefurl=https://web.archive.org/web/20240116213312/https://www.parlement.com/id/vm8eufyajyvm/m_marina_vondeling|archiefdatum=2024-01-16}}</ref>
+
+|-
+! scope="row" | {{SortNaam|Lidewij de|Vos}}
+| style="background-color: #{{Zetelverdeling/Partij|FVD|donker|NL}}"|
+| FVD
+| 12 november 2025
+| 5 augustus 2026{{efn|name="vos"|Met zwangerschapsverlof vanaf 6 augustus 2026.}}
+| <ref>{{citeer web|url=https://www.parlement.com/id/vmjxmd233yqw/biografie/l_g_lidewij_de_vos |titel=L.G. (Lidewij) de Vos |werk=[[Parlement.com]]|bezochtdatum=2025-01-16}}</ref>
+
+|-
+! scope="row" | {{SortNaam|Hilde|Wendel}}
+| style="background-color: #{{Zetelverdeling/Partij|VVD|donker|NL}}"|
+| VVD
+| 12 november 2025
+|
+| <ref>{{citeer web|url=https://www.parlement.com/biografie/h-hilde-wendel |titel=H. (Hilde) Wendel |werk=[[Parlement.com]]|bezochtdatum=2025-11-12}}</ref>
+
+|-
+! scope="row" | {{SortNaam|Hanneke van der|Werf}}
+| style="background-color: #{{Zetelverdeling/Partij|D66|donker|NL}}"|
+| D66
+| 12 november 2025
+| 
+| <ref>{{citeer web|url=https://www.parlement.com/id/vldqcst01hyh/j_j_hanneke_van_der_werf |titel=J.J. (Hanneke) van der Werf |werk=[[Parlement.com]]|bezochtdatum=2024-02-08|archiefurl=https://web.archive.org/web/20231212073142/https://www.parlement.com/id/vldqcst01hyh/j_j_hanneke_van_der_werf|archiefdatum=2023-12-12}}</ref>
+
+|-
+! scope="row" | {{SortNaam|Lisa|Westerveld}}
+| style="background-color: #{{Zetelverdeling/Partij|GL-PvdA|donker|NL}}" |
+| GL-PvdA{{efn|name="glpvda-pro"}}
+| 12 november 2025
+|
+| <ref>{{citeer web|url=https://www.parlement.com/id/vk9egsjlp3t8/e_m_lisa_westerveld |titel=E.M. (Lisa) Westerveld |werk=[[Parlement.com]]|bezochtdatum=2024-02-08|archiefurl=https://web.archive.org/web/20240127185816/https://www.parlement.com/id/vk9egsjlp3t8/e_m_lisa_westerveld|archiefdatum=2024-01-27}}</ref>
+
+|-
+! scope="row" | {{SortNaam|Femke|Wiersma}}
+| style="background-color: #{{Zetelverdeling/Partij|BBB|donker|NL}}" |
+| BBB
+| 12 november 2025
+|
+| <ref>{{citeer web|url=https://www.parlement.com/biografie/fm-femke-wiersma |titel=F.M. (Femke) Wiersma |werk=[[Parlement.com]]|bezochtdatum=2025-11-12}}</ref>
+
+|-
+! scope="row" | {{SortNaam|Geert|Wilders}}
+| style="background-color: #{{Zetelverdeling/Partij|PVV|donker|NL}}"|
+| PVV
+| 12 november 2025
+|
+| <ref>{{citeer web|url=https://www.parlement.com/id/vg09llkg6xvb/g_geert_wilders |titel=G. (Geert) Wilders |werk=[[Parlement.com]]|bezochtdatum=2024-02-08|archiefurl=https://web.archive.org/web/20231001090544/https://www.parlement.com/id/vg09llkg6xvb/g_geert_wilders|archiefdatum=2023-10-01}}</ref>
+
+|-
+! scope="row" | {{SortNaam|Dilan|Yeşilgöz}}
+| style="background-color: #{{Zetelverdeling/Partij|VVD|donker|NL}}"|
+| VVD
+| 12 november 2025
+| 22 februari 2026{{efn|name="kabinet"}}
+| <ref>{{citeer web|url=https://www.parlement.com/id/vk93lsytn3mr/d_dilan_yesilgoz_zegerius |titel=D. (Dilan) Yeşilgöz-Zegerius |werk=[[Parlement.com]]|bezochtdatum=2024-02-08|archiefurl=https://web.archive.org/web/20240213053621/https://www.parlement.com/id/vk93lsytn3mr/d_dilan_yesilgoz_zegerius|archiefdatum=2024-02-13}}</ref>
+
+|-
+! scope="row" | {{SortNaam|Ani|Zalinyan}}
+| style="background-color: #{{Zetelverdeling/Partij|GL-PvdA|donker|NL}}" |
+| GL-PvdA{{efn|name="glpvda-pro"}}
+| 12 november 2025
+|
+| <ref>{{citeer web|url=https://www.parlement.com/biografie/ani-zalinyan |titel=A. (Ani) Zalinyan |werk=[[Parlement.com]]|bezochtdatum=2025-11-12}}</ref>
+
+|-
+! scope="row" | {{SortNaam|Jantine|Zwinkels}}
+| style="background-color: #{{Zetelverdeling/Partij|CDA|donker|NL}}"|
+| CDA
+| 12 november 2025
+|
+| <ref>{{citeer web|url=https://www.parlement.com/biografie/jm-jantine-zwinkels |titel=J.M. (Jantine) Zwinkels |werk=[[Parlement.com]]|bezochtdatum=2025-11-12}}</ref>
+
+|}

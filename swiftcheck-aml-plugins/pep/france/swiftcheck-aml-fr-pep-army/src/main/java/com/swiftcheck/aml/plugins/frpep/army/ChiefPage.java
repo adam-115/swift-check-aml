@@ -37,6 +37,10 @@ final class ChiefPage {
     private static final Pattern START = Pattern.compile(
             "(?iu)\\ble (\\d{1,2})(?: ?er)? (\\p{L}+) (\\d{4}),[^.]{0,250}?\\b(?:nommée?|devient|prend ses fonctions de) chef");
 
+    /** Article de prise de fonction (Marine) : « Le 31 août 2023 s'est tenue la cérémonie de prise de fonction de … chef d'état-major ». */
+    private static final Pattern START_CEREMONY = Pattern.compile(
+            "(?iu)\\ble (\\d{1,2})(?: ?er)? (\\p{L}+) (\\d{4}) s['’]est tenue la cérémonie de prise de fonctions?[^.]{0,250}?\\bchef d");
+
     private static final Map<String, Integer> MONTHS = Map.ofEntries(
             Map.entry("janvier", 1), Map.entry("fevrier", 2), Map.entry("mars", 3), Map.entry("avril", 4),
             Map.entry("mai", 5), Map.entry("juin", 6), Map.entry("juillet", 7), Map.entry("aout", 8),
@@ -96,9 +100,15 @@ final class ChiefPage {
             birthPlace = birth.group(4) == null ? null : birth.group(4).trim();
         }
         Matcher start = START.matcher(text);
+        if (!start.find()) {
+            start = START_CEREMONY.matcher(text);
+            if (!start.find()) {
+                start = null;
+            }
+        }
         return new Chief(name.group(1).toLowerCase(Locale.ROOT).replace('’', '\''), name.group(2).trim(), birthDate,
                 birthPlace,
-                start.find() ? date(start.group(1), start.group(2), start.group(3)) : null);
+                start != null ? date(start.group(1), start.group(2), start.group(3)) : null);
     }
 
     private static String date(String day, String month, String year) {

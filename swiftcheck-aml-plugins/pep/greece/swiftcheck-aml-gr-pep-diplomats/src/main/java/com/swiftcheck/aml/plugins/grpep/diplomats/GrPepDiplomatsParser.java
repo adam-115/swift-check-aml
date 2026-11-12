@@ -29,12 +29,16 @@ import com.swiftcheck.aml.sdk.FtmDatasetBuilder;
 import com.swiftcheck.aml.sdk.FtmEntity;
 
 /**
- * <b>gr_pep_diplomats</b> – Ambassadeurs et représentants permanents de la Grèce à l'étranger.
+ * <b>gr_pep_diplomats</b> – Ambassadeurs et représentants permanents de la
+ * Grèce à l'étranger.
  *
- * <p>Couvre la catégorie <b>GR-f</b>, fonction <b>Ambassadeur et diplomate de haut rang</b> (fonction 665)
+ * <p>
+ * Couvre la catégorie <b>GR-f</b>, fonction <b>Ambassadeur et diplomate de haut
+ * rang</b> (fonction 665)
  * (Loi 4557/2018, art. 3; JO C/2023/724).
  *
- * <p>Alimentation dynamique en direct via Wikidata SPARQL.
+ * <p>
+ * Alimentation dynamique en direct via Wikidata SPARQL.
  */
 @Extension
 public class GrPepDiplomatsParser implements Iparser {
@@ -94,8 +98,7 @@ public class GrPepDiplomatsParser implements Iparser {
         dataset.writeNdjsonFile(ctx.outputFile());
 
         return dataset.toConversionResult().withMessage(
-                String.format(Locale.ROOT, "%d ambassadeurs et représentants diplomatiques grecs indexés.", count)
-        );
+                String.format(Locale.ROOT, "%d ambassadeurs et représentants diplomatiques grecs indexés.", count));
     }
 
     @Override

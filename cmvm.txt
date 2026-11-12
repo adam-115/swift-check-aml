@@ -1,0 +1,53 @@
+﻿{{Info/Organismo governamental
+|símbolo            = CMVM-Logo¦ütipo-2199PX.jpg
+|natureza jurídica  = pessoa colectiva de direito público
+|atribuições        =
+|dependência1       = [[Governo da República Portuguesa]]
+|dependência2       = [[Ministério das Finanças]]
+|chefe1_nome        = Luís Laginha de Sousa
+|chefe1_título      = <br> Presidente do Conselho de Administração
+|funcionários       =
+|orçamento          =
+|órgão subordinado1 =
+|documento1         = [https://dre.pt/application/file/a/322402 Decreto-Lei n.º 142-A/91, de 10 de abril (criação da CMVM)]
+|jurisdição         = [[Portugal]]
+|sede               = Rua Laura Alves, 4, 1050-138 [[Lisboa]]
+|latd               = |latm=  |lats=  |latNS =
+|longd              = |longm= |longs= |longEW =
+|antecessor1        =
+|criação            = [[10 de maio]] de [[1991]]
+|extinção           =
+|sucessor1          =
+|sítio na internet  = [https://www.cmvm.pt/ www.cmvm.pt]
+|notas de rodapé    =
+|presidente         =
+}}
+A '''Comissão do Mercado de Valores Mobiliários''' ('''CMVM''') é uma entidade reguladora de Portugal criada pelo [[decreto-lei]] n.º 142-A/91, de 10 de abril, considerada constituída decorridos 30 dias sobre a sua publicação, a 10 de maio de 1991. Tem como missão supervisionar e regular os mercados de instrumentos financeiros, assim como os agentes que neles atuam, promovendo a proteção dos investidores.
+
+São também atribuições da CMVM:
+* Sancionar as infrações ao Código dos Valores Mobiliários e legislação complementar; 
+* Assegurar a estabilidade dos mercados financeiros, contribuindo para a identificação e prevenção do risco sistémico; 
+* Contribuir para o desenvolvimento dos mercados de instrumentos financeiros; 
+* Prestar informação e tratar as reclamações dos investidores não qualificados; 
+* Proceder à [[mediação de conflitos]] entre entidades sujeitas à sua supervisão e entre estas e os investidores 
+* Coadjuvar o Governo e o respetivo membro responsável pela área das [[finanças]]; 
+* Desempenhar as demais funções que lhe sejam atribuídas por lei.
+
+A CMVM é uma pessoa coletiva de direito público, dotada de autonomia administrativa e financeira e de património próprio. 
+
+São órgãos da CMVM: 
+
+* O Conselho de Administração;
+* A Comissão de Fiscalização;
+* O Conselho Consultivo;
+* A Comissão de Deontologia
+
+A CMVM integra o Sistema Europeu de Supervisores Financeiros e o Conselho Nacional de Supervisores Financeiros.
+
+== Ligações externas ==
+
+* {{Link||2=http://www.cmvm.pt/ |3=Página oficial}}
+
+{{DEFAULTSORT:Comissao Mercado Valores Mobiliarios}}
+[[Categoria:Mercado de capitais]]
+[[Categoria:Entidades reguladoras de Portugal]]

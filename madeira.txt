@@ -1,0 +1,142 @@
+﻿{{Info/Governo
+| nome                  = XV Governo Regional
+| país                  = Madeira
+| brasão                = Coat_of_arms_of_Madeira.svg
+| regime                = 
+| imagem_logo           = Ficheiro:ImagemBioPresidente.png
+| tamanho               = 230px
+| tipo                  = Governo minoritário
+| legislatura           = [[XIV Legislatura da Assembleia Legislativa da Região Autónoma da Madeira|XIV]]
+| imagem_líder          = 
+| tamanho_líder         = 200px
+| legenda_líder         = 
+| alt2_líder            = 
+| título líder          = Presidente
+| líder                 = [[Miguel Albuquerque]]
+| título vice líder     = 
+| vice líder            = 
+| título presidente     = Representante<br/>da República
+| presidente            = [[Ireneu Barreto]]
+| indigitação           = 29 de maio de 2025
+| período               =
+| inicio mandato        = 6 de junho de 2024
+| fim mandato           = 15 de abril de 2025
+| duração               = {{Tempo decorrido |ano=2024 |mês=6 |dia=6 |ano2=2025 |mês2=4 |dia2=15}}
+| partido               = [[PPD/PSD]]<br/>(com apoio parlamentar do [[CDS-PP]])
+| coligação             = 
+| oposição              = [[Partido Socialista (Portugal)|PS]]<br/>[[Juntos Pelo Povo|JPP]]<br/>[[Chega|CH]]<br>[[Iniciativa Liberal|IL]]<br>[[Pessoas–Animais–Natureza|PAN]]
+| parlamento            = [[Assembleia Legislativa Regional da Madeira|Assembleia Legislativa]]
+| lugares_ganhos        = 19
+| total_lugares         = 47
+| cor                   = #F68A21
+| eleição               = [[Eleições legislativas regionais na Madeira em 2024|Eleições de 2024]]
+| orçamento             = 
+| website               = [https://www.madeira.gov.pt/ madeira.gov.pt]
+| anterior              = [[XIV Governo Regional da Madeira|XIV]]
+| seguinte              = [[XVI Governo Regional da Madeira|XVI]]
+}}
+
+O '''XV [[Governo Regional da Madeira]]''' foi formado com base na composição da [[Assembleia Legislativa Regional da Madeira|Assembleia Legislativa Regional]] resultante das [[Eleições legislativas regionais na Madeira em 2024|eleições regionais]] de 26 de maio de 2024. Foi um [[governo minoritário]] do [[Partido Social Democrata (Portugal)|PPD/PSD]], que ganhou as eleições mas obteve apenas 19 deputados na assembleia regional. O PPD/PSD estabeleceu um acordo de incidência parlamentar com o [[CDS – Partido Popular|CDS-PP]], que obteve 2 deputados.<ref name=":0">{{citar web|url=https://sicnoticias.pt/especiais/eleicoes-na-madeira-2024/2024-05-28-temos-acordo-albuquerque-confirma-acordo-com-cds-para-apoio-parlamentar-12f3d6ee|titulo="Temos acordo": Albuquerque confirma acordo com CDS para apoio parlamentar|data=28 de maio de 2024|acessodata=7 de junho de 2024|website=SIC Notícias|arquivourl=https://web.archive.org/web/20240529101017/https://sicnoticias.pt/especiais/eleicoes-na-madeira-2024/2024-05-28-temos-acordo-albuquerque-confirma-acordo-com-cds-para-apoio-parlamentar-12f3d6ee|arquivodata=29 de maio de 2024}}</ref> O PPD/PSD e o CDS-PP juntos somavam apenas 21 deputados, não atingindo uma maioria absoluta (24 deputados). O governo tomou posse no dia 6 de junho de 2024<ref name=":1">{{citar web|url=https://www.alram.pt/pt/noticias/xiv-legislatura/empossado-o-xv-governo-regional-da-madeira/|titulo=Empossado o XV Governo Regional da Madeira|data=6 de junho de 2024|acessodata=7 de junho de 2024|website=Assembleia Legislativa da Região Autónoma da Madeira|arquivourl=https://web.archive.org/web/20240607133156/https://www.alram.pt/pt/noticias/xiv-legislatura/empossado-o-xv-governo-regional-da-madeira/|arquivodata=7 de junho de 2024}}</ref> e terminou o mandato no dia 15 de abril de 2025.
+
+== História ==
+
+A 24 de janeiro de 2024, o presidente do Governo Regional, Miguel Albuquerque foi constituído arguido e foram detidos o presidente da Câmara Municipal do Funchal, [[Pedro Calado]], e dois empresários madeirenses, por suspeitas de corrupção. A 5 de fevereiro de 2024, Miguel Albuquerque apresentou a demissão ao representante da República, [[Ireneu Barreto]].<ref>{{citar periódico |url=https://www.rtp.pt/noticias/politica/exonerado-demissao-de-miguel-albuquerque-oficializada-com-publicacao-em-diario-da-republica_v1548657 |titulo=Exonerado. Demissão de Miguel Albuquerque oficializada com publicação em Diário da República |data=2024-02-05 |acessodata=2023-02-06 |jornal=RTP |ultimo= |primeiro=}}</ref><ref name="DR">{{Citar web|url=https://diariodarepublica.pt/dr/detalhe/decreto-representante-republica-para-regiao-autonoma-madeira/1-a-2024-840405885|titulo=Decreto do Representante da República para a Região Autónoma da Madeira n.º 1-A/2024, de 5 de fevereiro - Demissão do Governo Regional da Madeira por efeito da apresentação do pedido de exoneração pelo Presidente do Governo Regional|acessodata=2024-02-06|website=Diário da República|lingua=pt}}</ref> A [[Assembleia Legislativa da Madeira]] foi dissolvida pelo Presidente da República em 27 de março de 2024, devido ao facto de não poder ser dissolvida antes de passarem 6 meses desde as [[Eleições legislativas regionais na Madeira em 2023|últimas eleições]], e [[Eleições legislativas regionais na Madeira em 2024|eleições regionais]] marcadas para 26 de maio de 2024.<ref name="DR1">{{Citar web|url=https://diariodarepublica.pt/dr/detalhe/decreto-presidente-republica/40-d-2024-857838666|titulo=Decreto do Presidente da República n.º 40-D/2024, de 27 de março - Dissolve a Assembleia Legislativa da Região Autónoma da Madeira e fixa o dia 26 de maio de 2024 para a eleição dos deputados à Assembleia Legislativa da Região Autónoma da Madeira|acessodata=2024-03-27|website=Diário da República|lingua=pt}}</ref><ref>{{citar periódico |url=https://observador.pt/2024/03/27/marcelo-dissolve-parlamento-da-madeira-e-marca-eleicoes-para-26-de-maio/ |título=Marcelo dissolve parlamento da Madeira e marca eleições para 26 de maio |data=27 de março de 2024 |acessodata=22 de junho de 2024 |periódico=Observador |arquivourl=https://web.archive.org/web/20240525175106/https://observador.pt/2024/03/27/marcelo-dissolve-parlamento-da-madeira-e-marca-eleicoes-para-26-de-maio/ |arquivodata=25 de maio de 2024}}</ref>
+
+Miguel Albuquerque concorreu e foi reeleito novamente para a presidência do [[Partido Social Democrata (Portugal)|Partido Social Democrata]] (PPD/PSD) da Madeira, pelo que, apesar de ter sido constituído arguido por suspeitas de corrupção, encabeçou a lista do PPD/PSD.<ref name=":3" /><ref name=":4" />
+
+Apesar de nas [[Eleições legislativas regionais na Madeira em 2023|eleições anteriores]] terem formado uma coligação, desta vez o PPD/PSD e o CDS-PP concorreram com listas separadas.<ref name=":5" />
+
+Nas eleições regionais de 26 de maio de 2024 o Partido Social Democrata (PPD/PSD) foi o partido mais votado com 36,13% dos votos e elegendo 19 deputados. O [[Partido Socialista (Portugal)|Partido Socialista]] (PS) foi o segundo partido mais votado, com 21,32% e 11 deputados, seguido do [[Juntos pelo Povo|Juntos Pelo Povo]] (JPP) com 16,89% e 9 deputados, do [[Chega]] (CH) com 9,23% e 4 deputados, do [[CDS – Partido Popular|CDS - Partido Popular]] (CDS-PP) com 3,96% e 2 deputados, da [[Iniciativa Liberal]] (IL) com 2,56% e 1 deputado, e do [[Pessoas–Animais–Natureza]] (PAN) com 1,86% e 1 deputado. Os restantes partidos não elegeram qualquer deputado.<ref name=":4">{{citar web|url=https://www.eleicoes.mai.gov.pt/regionais-madeira2024/resultados/territorio-nacional|titulo=Eleições Regionais 2024 - Resultados|acessodata=22 de junho de 2024|publicado=Secretaria Geral do Ministério da Administração Interna}}</ref>
+
+Na noite das eleições Miguel Albuquerque reivindicou vitória e disse estar disponível para negociar com todos os partidos, exceto o PS, para encontrar soluções de governação.<ref>{{citar web|ultimo=Pereira|primeiro=Rita|url=https://sicnoticias.pt/especiais/eleicoes-na-madeira-2024/2024-05-26-video-miguel-albuquerque-a-procura-de-aliados-para-formar-governo-2248d7c0|titulo=Miguel Albuquerque à procura de aliados para formar governo|data=27 de maio de 2024|acessodata=22 de junho de 2024|website=SIC Notícias|arquivourl=https://web.archive.org/web/20240528020905/https://sicnoticias.pt/especiais/eleicoes-na-madeira-2024/2024-05-26-video-miguel-albuquerque-a-procura-de-aliados-para-formar-governo-2248d7c0|arquivodata=28 de maio de 2024}}</ref> No dia seguinte, o PS e o JPP anunciaram terem chegado a acordo para formar governo, estando disponíveis para dialogar com os outros partidos com exceção do PPD/PSD e Chega. Juntos PS e JPP têm 20 deputados, mais um que o PPD/PSD sozinho.<ref name=":3">{{citar web|ultimo=Pereira|primeiro=Rita|ultimo2=Lemos|primeiro2=Ana|url=https://sicnoticias.pt/especiais/eleicoes-na-madeira-2024/2024-05-27-uma-oportunidade-unica-ps-e-jpp-aliam-se-para-formar-governo-na-madeira-38b1cd44|titulo="Uma oportunidade única": PS e JPP aliam-se para formar governo na Madeira|data=27 de maio de 2024|acessodata=22 de junho de 2024|website=SIC Notícias|arquivourl=https://web.archive.org/web/20240528020129/https://sicnoticias.pt/especiais/eleicoes-na-madeira-2024/2024-05-27-uma-oportunidade-unica-ps-e-jpp-aliam-se-para-formar-governo-na-madeira-38b1cd44|arquivodata=28 de maio de 2024}}</ref> A IL rejeitou apoiar a solução PS e JPP.<ref>{{citar web|ultimo=Sousa|primeiro=Jorge|url=https://www.dnoticias.pt/2024/5/27/407112-il-nao-alinha-em-geringalhos-de-populistas-e-socialistas/|titulo=IL não alinha em "geringalhos de populistas e socialistas"|data=27 de maio de 2024|acessodata=22 de junho de 2024|website=DNOTICIAS.PT|arquivourl=https://web.archive.org/web/20240527231022/https://www.dnoticias.pt/2024/5/27/407112-il-nao-alinha-em-geringalhos-de-populistas-e-socialistas/|arquivodata=27 de maio de 2024}}</ref>
+
+No dia 28 de maio, o PPD/PSD chegou a acordo com o CDS-PP para obter apoio parlamentar, somando estes dois partidos 21 deputados.<ref name=":0" /> O PPD/PSD também disse ter garantias informais de que o Chega se iria abster e viabilizar o seu governo.<ref name=":5">{{citar web|ultimo=Hugo|primeiro=Victor|url=https://www.dnoticias.pt/2024/5/28/407272-psd-tem-garantias-da-abstencao-do-chega/|titulo=PSD tem garantias da abstenção do Chega|data=28 de maio de 2024|acessodata=22 de junho de 2024|website=DNOTICIAS.PT|arquivourl=https://web.archive.org/web/20240529064759/https://www.dnoticias.pt/2024/5/28/407272-psd-tem-garantias-da-abstencao-do-chega/|arquivodata=29 de maio de 2024}}</ref> No mesmo dia, 28 de maio, o representante da República, Ireneu Barreto, anunciou que iria indigitar Miguel Albuquerque como presidente do Governo Regional, por considerar que a solução PS e JPP não teria "qualquer hipótese de ter sucesso na Assembleia Legislativa".<ref>{{citar web|url=https://sicnoticias.pt/especiais/eleicoes-na-madeira-2024/2024-05-28-video-representante-da-republica-vai-indigitar-miguel-albuquerque-como-presidente-do-governo-da-madeira-b2292f9d|titulo=Representante da República vai indigitar Miguel Albuquerque como presidente do Governo da Madeira|data=28 de maio de 2024|acessodata=22 de junho de 2024|website=SIC Notícias|arquivourl=https://web.archive.org/web/20240529102045/https://sicnoticias.pt/especiais/eleicoes-na-madeira-2024/2024-05-28-video-representante-da-republica-vai-indigitar-miguel-albuquerque-como-presidente-do-governo-da-madeira-b2292f9d|arquivodata=29 de maio de 2024}}</ref> Miguel Albuquerque foi indigitado no dia seguinte, 29 de maio, e o governo tomou posse em 6 de junho.<ref>{{citar periódico |url=https://observador.pt/2024/05/29/albuquerque-indigitado-presidente-do-executivo-e-confiante-no-cumprimento-da-legislatura/ |título=Albuquerque indigitado presidente do executivo e confiante no cumprimento da legislatura |data=29 de maio de 2024 |acessodata=22 de junho de 2024 |periódico=Observador |arquivourl=https://web.archive.org/web/20240616123952/https://observador.pt/2024/05/29/albuquerque-indigitado-presidente-do-executivo-e-confiante-no-cumprimento-da-legislatura/ |arquivodata=16 de junho de 2024}}</ref><ref name=":1" />
+
+Miguel Albuquerque apresentou o programa do governo no parlamento regional em 14 de junho, para ser discutido entre 18 e 20 de junho e votado neste último dia.<ref>{{citar periódico |url=https://www.publico.pt/2024/06/14/politica/noticia/albuquerque-haver-condicoes-aprovar-programa-governo-madeira-2094017 |título=Albuquerque diz haver condições para aprovar programa do Governo da Madeira |data=14 de junho de 2024 |acessodata=22 de junho de 2024 |periódico=Público |arquivourl=https://web.archive.org/web/20240615152101/https://www.publico.pt/2024/06/14/politica/noticia/albuquerque-haver-condicoes-aprovar-programa-governo-madeira-2094017 |arquivodata=15 de junho de 2024}}</ref> O Chega, apesar de ter dado garantias anteriormente,<ref name=":5" /> anunciou uns dias antes que ia votar contra o programa.<ref>{{citar periódico |url=https://www.publico.pt/2024/06/10/politica/noticia/chegamadeira-vai-votar-programa-governo-psd-2093567 |título=Chega/Madeira vai votar contra o Programa de Governo do PSD |data=10 de junho de 2024 |acessodata=22 de junho de 2024 |periódico=Público |arquivourl=https://web.archive.org/web/20240616072842/https://www.publico.pt/2024/06/10/politica/noticia/chegamadeira-vai-votar-programa-governo-psd-2093567 |arquivodata=16 de junho de 2024}}</ref> O PS também já tinha anunciado o voto contra.<ref>{{citar web|url=https://madeira.rtp.pt/politica/ps-vai-votar-contra-o-programa-de-governo-video/|titulo=PS vai votar contra o programa de governo (vídeo)|data=11 de junho de 2024|acessodata=22 de junho de 2024|website=RTP Madeira|arquivourl=https://web.archive.org/web/20240622051025/https://madeira.rtp.pt/politica/ps-vai-votar-contra-o-programa-de-governo-video/|arquivodata=22 de junho de 2024}}</ref> No dia 15 de junho, o JPP também anunciou o voto contra.<ref>{{citar periódico |url=https://www.publico.pt/2024/06/15/politica/noticia/jpp-vai-votar-programa-governo-madeira-queda-vista-2094152 |título=JPP vai votar contra programa do Governo da Madeira, que tem queda à vista |data=15 de junho de 2024 |acessodata=22 de junho de 2024 |periódico=Público |arquivourl=https://web.archive.org/web/20240617051639/https://www.publico.pt/2024/06/15/politica/noticia/jpp-vai-votar-programa-governo-madeira-queda-vista-2094152 |arquivodata=17 de junho de 2024}}</ref> Estes três partidos juntos têm 24 deputados em 47, pelo que a rejeição do programa estava garantida. Em 19 de junho, um dia antes da votação, Miguel Albuquerque retirou o programa do governo que tinha apresentado, para negociar com os partidos um novo programa.<ref>{{citar web|ultimo=Cabral|primeiro=Gonçalo|url=https://cnnportugal.iol.pt/madeira/governo-madeira/miguel-albuquerque-retira-programa-do-governo-para-negociar-com-partidos/20240619/6673279bd34ebf9bbb3ed305|titulo=Miguel Albuquerque retira Programa do Governo para negociar com partidos|data=19 de junho de 2024|acessodata=22 de junho de 2024|website=CNN Portugal|arquivourl=https://web.archive.org/web/20240619204551/https://cnnportugal.iol.pt/madeira/governo-madeira/miguel-albuquerque-retira-programa-do-governo-para-negociar-com-partidos/20240619/6673279bd34ebf9bbb3ed305|arquivodata=19 de junho de 2024}}</ref> Em 4 de julho, após negociações com os partidos, o parlamento regional aprovou o novo programa do governo com 22 votos a favor (PPD/PSD, CDS-PP e PAN), 21 votos contra (PS, JPP e uma deputada do Chega (Magna Costa)) e 4 abstenções (IL e 3 deputados do Chega).<ref>{{citar periódico |url=https://www.jn.pt/5750917720/aprovado-programa-do-governo-regional-da-madeira/ |título=Aprovado programa do Governo Regional da Madeira |data=4 de julho de 2024 |acessodata=5 de julho de 2024 |periódico=Jornal de Notícias |arquivourl=https://web.archive.org/web/20240704212515/https://www.jn.pt/5750917720/aprovado-programa-do-governo-regional-da-madeira/ |arquivodata=5 de julho de 2024}}</ref>
+
+No dia 19 de julho, o orçamento regional para 2024 e o plano de investimentos foram aprovados com 22 votos a favor (PPD/PSD, CDS-PP e PAN), 21 votos contra (PS, JPP e IL) e 3 abstenções (Chega). A deputada Magna Costa, do Chega, não esteve presente na votação.<ref>{{citar periódico |url=https://observador.pt/2024/07/19/orcamento-e-plano-da-madeira-aprovados-com-22-votos-a-favor-tres-abstencoes-e-21-contra/ |título=Orçamento e Plano da Madeira aprovados com 22 votos a favor, três abstenções e 21 contra |data=19 de julho de 2024 |acessodata=20 de julho de 2024 |periódico=Observador |arquivourl=https://web.archive.org/web/20240720040830/https://observador.pt/2024/07/19/orcamento-e-plano-da-madeira-aprovados-com-22-votos-a-favor-tres-abstencoes-e-21-contra/ |arquivodata=20 de julho de 2024}}</ref>
+
+Em 6 de novembro, o Chega apresentou uma moção de censura ao governo regional.<ref>{{citar web|url=https://observador.pt/2024/11/06/chega-entrega-mocao-de-censura-ao-governo-regional-da-madeira/|titulo=Chega entrega moção de censura ao Governo Regional da Madeira|data=6 de novembro de 2024|acessodata=10 de novembro de 2024|website=Observador|arquivourl=https://web.archive.org/web/20241110211708/https://observador.pt/2024/11/06/chega-entrega-mocao-de-censura-ao-governo-regional-da-madeira/|arquivodata=10 de novembro de 2024}}</ref> O PS e o JPP anunciaram que iam votar a favor da moção.<ref>{{citar web|ultimo=Mesquita|primeiro=Joana|url=https://web.archive.org/web/20241110212933/https://www.publico.pt/2024/11/09/politica/noticia/psmadeira-vai-votar-favoravelmente-mocao-censura-chega-2111245|titulo=PS-Madeira vai mesmo votar favoravelmente moção de censura do Chega|data=9 de novembro de 2024|acessodata=10 de novembro de 2024|website=Público|arquivourl=https://web.archive.org/web/20241110212933/https://www.publico.pt/2024/11/09/politica/noticia/psmadeira-vai-votar-favoravelmente-mocao-censura-chega-2111245|arquivodata=10 de novembro de 2024}}</ref><ref>{{citar web|url=https://www.jn.pt/8505209104/eleicoes-a-vista-na-madeira-apos-apoio-do-jpp-a-mocao-de-censura/|titulo=Eleições à vista na Madeira após apoio do JPP à moção de censura|data=13 de novembro de 2024|acessodata=14 de novembro de 2024|website=Jornal de Notícias}}</ref> A 17 de dezembro de 2024, a moção de censura ao XV Governo Regional foi aprovada com 26 votos a favor - Chega, PS, JPP, PAN e IL - e 21 votos contra - PSD e CDS-PP. Assim, considerando que a aprovação de moção de censura implica a demissão do governo, o XV Governo Regional manteve-se em funções de gestão, [[Governo de gestão|limitado à prática dos atos estritamente necessários para assegurar a gestão dos negócios públicos da Região]], até à posse de novo governo regional, a 15 de abril de 2025.<ref>{{citar periódico|ultimo=|primeiro=|data=2024-02-05|titulo=Aprovada moção de censura na Madeira. E agora?|url=https://www.publico.pt/2024/12/17/politica/noticia/aprovada-mocao-censura-madeira-2115987|jornal=Público|acessodata=2024-12-17}}</ref>
+
+== Composição ==
+A composição do governo é a seguinte:
+{| class="wikitable"
+!Retrato
+!Cargo
+!Detentor
+! colspan="2" |Partido
+!Período
+|-
+|[[Ficheiro:Saint Helier - Funchal 2012 13.jpg|semmoldura|110x110px]]
+|[[Lista de presidentes do Governo Regional da Madeira|Presidente do Governo Regional]]
+|[[Miguel Albuquerque]]
+| width="1px" bgcolor="#F68A21" |&nbsp;
+|[[PPD/PSD]]
+|6 de junho de 2024<ref>https://diariodarepublica.pt/dr/detalhe/decreto-representante-republica-para-regiao-autonoma-madeira/3-2024-868097440 Decreto do Representante da República para a Região Autónoma da Madeira n.º 3/2024, de 6 de junho</ref> — 15 de abril de 2025
+|-
+|[[Ficheiro:Foto secretario pag secretarias.jpg|semmoldura|110x110px]]
+|Secretário Regional de Educação, Ciência e Tecnologia
+|[[Jorge Carvalho]]
+| width="1px" bgcolor="#F68A21" |&nbsp;
+|[[PPD/PSD]]
+|6 de junho de 2024<ref name=":2">[https://diariodarepublica.pt/dr/detalhe/decreto-representante-republica-para-regiao-autonoma-madeira/4-2024-868097441 Decreto do Representante da República para a Região Autónoma da Madeira n.º 4/2024, de 6 de junho]</ref> — 15 de abril de 2025
+|-
+||[[Ficheiro:SecretarioRogerioGouveia.jpeg|centro|110x110px]]
+|Secretário Regional das Finanças
+|Rogério Gouveia
+| width="1px" bgcolor="#F68A21" |&nbsp;
+|[[PPD/PSD]]
+|6 de junho de 2024<ref name=":2" /> — 15 de abril de 2025
+|-
+|[[Ficheiro:ImagemPedroRamosSecretario.jpg|semmoldura|111x111px]]
+|Secretário Regional de Saúde e Proteção Civil
+|[[Pedro Ramos]]
+| width="1px" bgcolor="#cccccc" |&nbsp;
+|[[Político independente|independente]]
+|6 de junho de 2024<ref name=":2" /> — 15 de abril de 2025
+|-
+|[[Ficheiro:ImagemBiosecretarioJesusConj.png|semmoldura|110x110px]]
+|Secretário Regional de Economia, Turismo e Cultura
+|[[Eduardo Jesus]]
+| width="1px" bgcolor="#cccccc" |&nbsp;
+|[[Político independente|independente]]
+|6 de junho de 2024<ref name=":2" /> — 15 de abril de 2025
+|-
+|[[Ficheiro:Rafaela Fernandes na Placa Central, Avenida Arriaga, Funchal - 2023-12-21 - DSCN0373 (cropped).jpg|semmoldura|120x120px]]
+|Secretária Regional de Agricultura, Pescas e Ambiente
+|[[Rafaela Fernandes]]
+| width="1px" bgcolor="#F68A21" |&nbsp;
+|[[PPD/PSD]]
+|6 de junho de 2024<ref name=":2" /> — 15 de abril de 2025
+|-
+|[[Ficheiro:SecretarioPedroFino.jpg|semmoldura|110x110px]]
+|Secretário Regional de Equipamentos e Infraestruturas
+|João Pedro Fino
+| width="1px" bgcolor="#cccccc" |&nbsp;
+|
+|6 de junho de 2024<ref name=":2" /> — 15 de abril de 2025
+|-
+|[[Ficheiro:Sin foto.svg|semmoldura|110x110px]]
+|Secretária Regional de Inclusão, Trabalho e Juventude
+|Ana Maria Freitas
+| width="1px" bgcolor="#F68A21" |&nbsp;
+|[[PPD/PSD]]
+|6 de junho de 2024<ref name=":2" /> — 15 de abril de 2025
+|-
+|}
+
+{{Referências}}
+
+== Ligações externas ==
+
+* {{link||https://www.madeira.gov.pt/|''Website'' oficial do Governo Regional da Madeira}}
+
+{{XV Governo Regional da Madeira}}
+{{Governos da Madeira}}
+
+{{Portal3|Política|Madeira|Portugal}}
+
+{{DEFAULTSORT:Governo Regional Madeira 15}}
+[[Categoria:Governos Regionais da Madeira|15]]
+[[Categoria:Fundações em Portugal em 2024]]
+[[Categoria:Extinções em Portugal em 2025]]

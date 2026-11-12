@@ -1,0 +1,39 @@
+﻿{{Sem fontes|data=novembro de 2020}}
+{{Info/Organismo governamental
+ |nome               = Autoridade de Supervisão de Seguros e Fundos de Pensões
+ |símbolo            = coat of arms of Portugal.svg
+ |natureza jurídica  = Pessoa coletiva de direito público
+ |atribuições        = Supervisão e regulação do setor segurador e dos fundos de pensões
+ |dependência1       = [[Governo de Portugal]]
+ |dependência2       = [[Ministério das Finanças]]
+ |chefe1_nome        = José Figueiredo Almaça
+ |chefe1_título      = Presidente
+ |funcionários       =
+ |orçamento          =
+ |órgão subordinado1 =
+ |documento1         =
+ |jurisdição         = Portugal
+ |sede               = [[Lisboa]]
+ |latd   =  |latm=  |lats=  |latNS =
+ |longd  = |longm= |longs= |longEW =
+ |antecessor1        = Instituto de Seguros de Portugal
+ |criação            = 
+ |extinção           =
+ |sucessor1          =
+ |sítio na internet  = [http://www.asf.com.pt/ asf.com.pt]
+ |notas de rodapé    = 
+}}
+
+A '''Autoridade de Supervisão de Seguros e Fundos de Pensões''' ('''ASF''') é a entidade reguladora e de supervisão, em Portugal, da atividade seguradora, resseguradora, fundos de pensões e mediação de seguros. Até 2015, denominava-se '''Instituto de Seguros de Portugal''' ('''ISP''').
+
+== Ligações externas ==
+*[http://www.asf.com.pt/ Sítio ''web'' oficial]
+
+{{esboço-economia}}
+
+{{Controle de autoridade}}
+
+[[Categoria:Finanças]]
+[[Categoria:Seguros]]
+[[Categoria:Institutos de Portugal]]
+[[Categoria:Entidades reguladoras de Portugal]]

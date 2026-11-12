@@ -31,13 +31,19 @@ import com.swiftcheck.aml.sdk.FtmDatasetBuilder;
 import com.swiftcheck.aml.sdk.FtmEntity;
 
 /**
- * <b>ro_pep_supreme_court</b> – Juges dirigeants de la Haute Cour de Cassation et de Justice de Roumanie (Înalta Curte de Casație și Justiție - ÎCCJ).
+ * <b>ro_pep_supreme_court</b> – Juges dirigeants de la Haute Cour de Cassation
+ * et de Justice de Roumanie (Înalta Curte de Casație și Justiție - ÎCCJ).
  *
- * <p>Couvre la catégorie <b>RO-d</b>, fonction <b>Juge de la Cour suprême ou constitutionnelle</b> (fonction 738)
+ * <p>
+ * Couvre la catégorie <b>RO-d</b>, fonction <b>Juge de la Cour suprême ou
+ * constitutionnelle</b> (fonction 738)
  * (Loi 129/2019, art. 3 alin. (2) ; JO C/2023/724).
  *
- * <p>Alimentation dynamique en direct via l'API MediaWiki (Wikipedia Roumanie) pour les présidents
- * de la Haute Cour de Cassation et de Justice, complétée par les présidents de chambre et membres dirigeants.
+ * <p>
+ * Alimentation dynamique en direct via l'API MediaWiki (Wikipedia Roumanie)
+ * pour les présidents
+ * de la Haute Cour de Cassation et de Justice, complétée par les présidents de
+ * chambre et membres dirigeants.
  */
 @Extension
 public class RoPepSupremeCourtParser implements Iparser {
@@ -50,11 +56,10 @@ public class RoPepSupremeCourtParser implements Iparser {
     static final String JSON_FILE = "ro-supreme-court-wikipedia.json";
 
     public static final String PARAM_URL = "url";
-    public static final String DEFAULT_URL =
-            "https://ro.wikipedia.org/w/api.php?action=parse&page=%C3%8Enalta_Curte_de_Casa%C8%9Bie_%C8%99i_Justi%C8%9Bie&prop=wikitext&format=json";
+    public static final String DEFAULT_URL = "https://ro.wikipedia.org/w/api.php?action=parse&page=%C3%8Enalta_Curte_de_Casa%C8%9Bie_%C8%99i_Justi%C8%9Bie&prop=wikitext&format=json";
 
-    private static final Pattern PRES_LINE_PATTERN =
-            Pattern.compile("\\*\\s*(?:\\[\\[(?:[^|\\]]+\\|)?([^|\\]]+)\\]\\]|([A-ZĂÎÂȘȚ][a-zăîâșț\\-]+(?:\\s+[A-ZĂÎÂȘȚ][a-zăîâșț\\-]+)+))\\s*(?:\\([^)]*\\))?\\s*\\(([^)]+)\\)");
+    private static final Pattern PRES_LINE_PATTERN = Pattern.compile(
+            "\\*\\s*(?:\\[\\[(?:[^|\\]]+\\|)?([^|\\]]+)\\]\\]|([A-ZĂÎÂȘȚ][a-zăîâșț\\-]+(?:\\s+[A-ZĂÎÂȘȚ][a-zăîâșț\\-]+)+))\\s*(?:\\([^)]*\\))?\\s*\\(([^)]+)\\)");
 
     private static final Pattern WIKI_LINK_PATTERN = Pattern.compile("\\[\\[(?:[^|\\]]+\\|)?([^|\\]]+)\\]\\]");
 
@@ -83,8 +88,8 @@ public class RoPepSupremeCourtParser implements Iparser {
         dataset.writeNdjsonFile(ctx.outputFile());
 
         return dataset.toConversionResult().withMessage(
-                String.format(Locale.ROOT, "%d hauts magistrats de la Haute Cour de Cassation et de Justice indexés.", count)
-        );
+                String.format(Locale.ROOT, "%d hauts magistrats de la Haute Cour de Cassation et de Justice indexés.",
+                        count));
     }
 
     @Override
@@ -154,14 +159,24 @@ public class RoPepSupremeCourtParser implements Iparser {
         }
 
         // Incumbent leadership of the High Court of Cassation and Justice (ÎCCJ)
-        count += ensureJudge(dataset, seen, "Corina-Alina Corbu", "Președinta Înaltei Curți de Casație și Justiție", "Conducere", "1972-08-09");
-        count += ensureJudge(dataset, seen, "Rodica Cosma", "Vicepreședintă a Înaltei Curți de Casație și Justiție", "Conducere", "1964-03-24");
-        count += ensureJudge(dataset, seen, "Mariana Constantinescu", "Vicepreședintă a Înaltei Curți de Casație și Justiție", "Conducere", "1966-11-15");
-        count += ensureJudge(dataset, seen, "Laura-Mihaela Ivanovici", "Președinta Secției I civile a ÎCCJ", "Secția I Civilă", "1970-05-19");
-        count += ensureJudge(dataset, seen, "Marian Buda", "Președintele Secției a II-a civile a ÎCCJ", "Secția a II-a Civilă", "1965-02-14");
-        count += ensureJudge(dataset, seen, "Andrei-Claudiu Rus", "Președintele Secției penale a ÎCCJ", "Secția Penală", "1976-07-22");
-        count += ensureJudge(dataset, seen, "Ionel Barbă", "Președintele Secției de contencios administrativ și fiscal a ÎCCJ", "Secția Contencios Administrativ și Fiscal", "1961-09-03");
-        count += ensureJudge(dataset, seen, "Denisa-Angelica Stănișor", "Președinta Consiliului Superior al Magistraturii, Judecător ÎCCJ", "Consiliul Superior al Magistraturii", "1971-01-20");
+        count += ensureJudge(dataset, seen, "Corina-Alina Corbu", "Președinta Înaltei Curți de Casație și Justiție",
+                "Conducere", "1972-08-09");
+        count += ensureJudge(dataset, seen, "Rodica Cosma", "Vicepreședintă a Înaltei Curți de Casație și Justiție",
+                "Conducere", "1964-03-24");
+        count += ensureJudge(dataset, seen, "Mariana Constantinescu",
+                "Vicepreședintă a Înaltei Curți de Casație și Justiție", "Conducere", "1966-11-15");
+        count += ensureJudge(dataset, seen, "Laura-Mihaela Ivanovici", "Președinta Secției I civile a ÎCCJ",
+                "Secția I Civilă", "1970-05-19");
+        count += ensureJudge(dataset, seen, "Marian Buda", "Președintele Secției a II-a civile a ÎCCJ",
+                "Secția a II-a Civilă", "1965-02-14");
+        count += ensureJudge(dataset, seen, "Andrei-Claudiu Rus", "Președintele Secției penale a ÎCCJ", "Secția Penală",
+                "1976-07-22");
+        count += ensureJudge(dataset, seen, "Ionel Barbă",
+                "Președintele Secției de contencios administrativ și fiscal a ÎCCJ",
+                "Secția Contencios Administrativ și Fiscal", "1961-09-03");
+        count += ensureJudge(dataset, seen, "Denisa-Angelica Stănișor",
+                "Președinta Consiliului Superior al Magistraturii, Judecător ÎCCJ",
+                "Consiliul Superior al Magistraturii", "1971-01-20");
 
         // Runtime parameter overrides or additions
         if (ctx != null && ctx.parameters() != null) {
@@ -184,7 +199,8 @@ public class RoPepSupremeCourtParser implements Iparser {
                         }
                     }
                 } catch (Exception e) {
-                    log.warn("Impossible de parser les juges supplémentaires depuis les paramètres : {}", e.getMessage());
+                    log.warn("Impossible de parser les juges supplémentaires depuis les paramètres : {}",
+                            e.getMessage());
                 }
             }
         }
@@ -193,13 +209,15 @@ public class RoPepSupremeCourtParser implements Iparser {
     }
 
     private boolean isValidJudgeName(String name) {
-        if (name.length() < 5 || name.contains(":") || name.contains("http") || name.contains("Consiliul") || name.contains("Curtea")) {
+        if (name.length() < 5 || name.contains(":") || name.contains("http") || name.contains("Consiliul")
+                || name.contains("Curtea")) {
             return false;
         }
         return name.matches("[A-ZĂÎÂȘȚ][a-zăîâșț\\-]+(?:\\s+[A-ZĂÎÂȘȚ][a-zăîâșț\\-]+)+");
     }
 
-    private int ensureJudge(FtmDatasetBuilder dataset, Set<String> seen, String name, String pos, String section, String birthDate) {
+    private int ensureJudge(FtmDatasetBuilder dataset, Set<String> seen, String name, String pos, String section,
+            String birthDate) {
         if (seen.add(name.toLowerCase(Locale.ROOT))) {
             addJudge(dataset, name, pos, section, birthDate);
             return 1;

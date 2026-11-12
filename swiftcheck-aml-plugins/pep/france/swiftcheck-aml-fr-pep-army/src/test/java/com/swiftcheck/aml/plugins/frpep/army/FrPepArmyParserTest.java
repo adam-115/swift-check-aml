@@ -89,6 +89,33 @@ class FrPepArmyParserTest {
     }
 
     @Test
+    void readsTheNavyChiefFromTheOfficialArticle() throws Exception {
+        // Article du 1er septembre 2023 : nom et prise de fonction ; ni naissance ni portrait
+        assertEquals(new ChiefPage.Chief("amiral", "Nicolas Vaujour", null, null, "2023-08-31"),
+                ChiefPage.read(resource("cemm.html")));
+    }
+
+    @Test
+    void coversTheFourChiefsWhenTheNavyAddressIsSet(@TempDir Path rawDir) throws Exception {
+        Map<String, String> params = new java.util.HashMap<>(PARAMS);
+        params.put("cemmUrl", "https://www.defense.gouv.fr/marine/actualites/amiral-nicolas-vaujour-chef-detat-major-marine");
+        FrPepArmyParser.download(url -> resource(url.contains("/ema/") ? "cema.html" : url.contains("/terre/") ? "cemat.html"
+                : url.contains("/marine/") ? "cemm.html" : "cemaae.html"), params, rawDir);
+        FtmDatasetBuilder dataset = new FtmDatasetBuilder(FrPepArmyParser.ID_PREFIX, FrPepArmyParser.TOPIC);
+
+        List<String> covered = new FrPepArmyParser().convert(rawDir, params, dataset);
+
+        assertEquals(List.of("cema", "cemat", "cemm", "cemaae"), covered);
+        assertEquals(4, dataset.qualityReport().getEntities("Person"));
+        assertEquals(0, dataset.qualityReport().getTotalRejected());
+        FtmEntity cemm = dataset.entities().stream().filter(e -> e.getValues("name").contains("Nicolas Vaujour"))
+                .findFirst().orElseThrow();
+        assertEquals(Set.of("Chef d'état-major de la Marine"), cemm.getValues("position"));
+        assertEquals(3, dataset.media().size(), "pas de portrait pour la Marine : l'image de l'article n'est pas un portrait");
+        assertTrue(dataset.media().stream().noneMatch(m -> m.entityId().equals(cemm.getId())));
+    }
+
+    @Test
     void requiresAtLeastOneAddress(@TempDir Path rawDir) {
         IllegalStateException e = assertThrows(IllegalStateException.class,
                 () -> FrPepArmyParser.download(url -> "", Map.of("cemmUrl", ""), rawDir));
