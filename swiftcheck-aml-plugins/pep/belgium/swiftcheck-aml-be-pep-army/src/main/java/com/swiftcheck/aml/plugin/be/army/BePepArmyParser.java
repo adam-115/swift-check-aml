@@ -60,8 +60,9 @@ public class BePepArmyParser implements Iparser {
     private static final Pattern GENERAL_OFFICER_PATTERN = Pattern.compile(
             "(?:(?<preRole>Chief\\s+of\\s+Defence\\s*\\(CHOD\\))\\s*,\\s*le\\s+)?"
                     + "(?<rank>[Ll]ieutenant[- ][Gg]énéral(?:\\s+aviateur)?|[Gg]énéral[- ]major(?:\\s+aviateur)?|[Gg]énéral\\s+aviateur|[Gg]énéral\\s+de\\s+brigade(?:\\s+aviateur)?|[Vv]ice[- ]amiral|[Aa]miral\\s+de\\s+division|[Aa]miral\\s+de\\s+flottille)"
-                    + "\\s+(?<name>[A-ZÀ-ÖØ-Þ][a-zà-öø-ÿ]+(?:\\s+(?:(?:[Vv]an|[Dd]e|[Dd]en|[Dd]er|[Tt]en|[Tt]er)\\s+)?[A-ZÀ-ÖØ-Þ][a-zà-öø-ÿ]+){0,3})"
-                    + "(?:\\s*,\\s*(?<postRole>(?:commandant|directeur\\s+général|chef\\s+de\\s+la\\s+Défense|vice[- ]\\s*Chief\\s+Of\\s+Defence)[^.;\\n]{3,120}))?",
+                    // Chaque mot du nom peut être composé (« Jean-Pol », « Jean-Louis ») : sans cela le nom est coupé au trait d'union.
+                    + "\\s+(?<name>[A-ZÀ-ÖØ-Þ][a-zà-öø-ÿ]+(?:-[A-ZÀ-ÖØ-Þ][a-zà-öø-ÿ]+)*(?:\\s+(?:(?:[Vv]an|[Dd]e|[Dd]en|[Dd]er|[Tt]en|[Tt]er)\\s+)?[A-ZÀ-ÖØ-Þ][a-zà-öø-ÿ]+(?:-[A-ZÀ-ÖØ-Þ][a-zà-öø-ÿ]+)*){0,3})"
+                    + "(?:\\s*,\\s*(?<postRole>(?:commandant|directeur\\s+général|chef\\s+de\\s+la\\s+Défense|vice[- ]\\s*Chief\\s+Of\\s+Defence)[^.;,«\\n]{3,120}))?", // la fonction s'arrête à la virgule (« …Cyber Command, complète : « … »)
             Pattern.UNICODE_CHARACTER_CLASS
     );
 
@@ -174,11 +175,11 @@ public class BePepArmyParser implements Iparser {
             }
         }
 
-        if (byKey.isEmpty()) {
+        List<OfficerRecord> list = dropIncompleteNames(new ArrayList<>(byKey.values()));
+        if (list.isEmpty()) {
             throw new IllegalStateException("Aucun officier général extrait depuis " + rawDir);
         }
 
-        List<OfficerRecord> list = new ArrayList<>(byKey.values());
         for (OfficerRecord rec : list) {
             writeRecord(rec, dataset);
         }
@@ -231,6 +232,38 @@ public class BePepArmyParser implements Iparser {
         }
 
         return new ArrayList<>(byKey.values());
+    }
+
+    /**
+     * Écarte les noms incomplets que les articles produisent quand ils citent un officier une seconde fois :
+     * <ul>
+     *   <li>un seul mot (« le lieutenant-général Goetynck ») : trop pauvre pour le filtrage, et le plus souvent
+     *       un doublon d'une mention complète ailleurs dans la page ;</li>
+     *   <li>un nom sans prénom (« Van Goethem ») quand un autre officier extrait porte ce nom de famille : c'est
+     *       la même personne. Sans fiche complète, il est gardé (seule mention de cet officier).</li>
+     * </ul>
+     */
+    static List<OfficerRecord> dropIncompleteNames(List<OfficerRecord> records) {
+        List<OfficerRecord> kept = new ArrayList<>();
+        for (OfficerRecord rec : records) {
+            String name = rec.fullName().trim();
+            if (!name.contains(" ")) {
+                log.info("[be_pep_army] Nom d'un seul mot écarté : {} ({})", name, rec.position());
+                continue;
+            }
+            if (rec.firstName().isBlank()) {
+                String suffix = " " + name.toLowerCase(Locale.ROOT);
+                boolean duplicate = records.stream().anyMatch(other -> other != rec
+                        && !other.firstName().isBlank()
+                        && other.fullName().toLowerCase(Locale.ROOT).endsWith(suffix));
+                if (duplicate) {
+                    log.info("[be_pep_army] Nom sans prénom écarté (doublon d'une fiche complète) : {}", name);
+                    continue;
+                }
+            }
+            kept.add(rec);
+        }
+        return kept;
     }
 
     public static void writeRecord(OfficerRecord rec, FtmDatasetBuilder dataset) {

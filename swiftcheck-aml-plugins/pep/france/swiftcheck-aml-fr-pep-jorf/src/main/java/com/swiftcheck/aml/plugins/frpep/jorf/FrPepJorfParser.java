@@ -356,7 +356,8 @@ public class FrPepJorfParser implements Iparser {
                     if (isSingleRole(e.institution(), e.function())) {
                         // Vice-président du Conseil d'État : un seul titulaire, nommé par décret ; son successeur clôt son mandat
                         for (Mandate m : mandates) {
-                            if (m.open && isSingleRole(m.institution, m.function) && !m.personKey.equals(person)) {
+                            if (m.open && m.institution == e.institution() && isSingleRole(m.institution, m.function)
+                                    && !m.personKey.equals(person)) {
                                 close(m, e.date());
                             }
                         }
@@ -472,11 +473,18 @@ public class FrPepJorfParser implements Iparser {
 
     /**
      * Fonction à titulaire unique au sein d'une institution qui en compte beaucoup d'autres : le vice-président du Conseil
-     * d'État est nommé et remplacé par décret, donc sans fin connue il est en cours (les autres membres restent {@code unknown}).
+     * d'État et le gouverneur de la Banque de France sont nommés et remplacés par décret, donc sans fin connue ils sont
+     * en cours (les autres membres restent {@code unknown}). Un gouverneur honoraire ou un sous-gouverneur n'est pas
+     * le gouverneur.
      */
     static boolean isSingleRole(Institution institution, String function) {
-        return institution == Institution.CONSEIL_ETAT && function != null
-                && JorfArticles.fold(function).startsWith("vice-president");
+        if (function == null) {
+            return false;
+        }
+        String f = JorfArticles.fold(function);
+        return (institution == Institution.CONSEIL_ETAT && f.startsWith("vice-president"))
+                || (institution == Institution.BANQUE_DE_FRANCE && f.contains("gouverneur")
+                        && !f.contains("sous-gouverneur") && !f.contains("honoraire"));
     }
 
     /** Poste occupé par une seule personne à la fois, nommée par décret. */

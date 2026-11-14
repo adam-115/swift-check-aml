@@ -389,6 +389,59 @@ class FrPepJorfParserTest {
         assertThat(moulin.open).isTrue();
         assertThat(moulin.start).isEqualTo(LocalDate.of(2026, 6, 2));
         assertThat(FrPepJorfParser.label(moulin)).isEqualTo("Gouverneur de la Banque de France");
+
+        // Poste unique : sans fin connue, le gouverneur est en cours ; ni un sous-gouverneur ni un honoraire ne le sont
+        assertThat(FrPepJorfParser.isSingleRole(moulin.institution, moulin.function)).isTrue();
+        assertThat(FrPepJorfParser.isSingleRole(Institution.BANQUE_DE_FRANCE, "sous-gouverneur de la Banque de France"))
+                .isFalse();
+        assertThat(FrPepJorfParser.isSingleRole(Institution.BANQUE_DE_FRANCE, "gouverneur honoraire de la Banque de France"))
+                .isFalse();
+    }
+
+    @Test
+    void aVicePresidentOfTheCouncilOfStateDoesNotCloseTheGovernorOfTheBanqueDeFrance() {
+        Article governor = article("Décret du 29 mai 2026 portant nomination du gouverneur de la Banque de France",
+                "M. Emmanuel MOULIN est nommé gouverneur de la Banque de France à compter du 2 juin 2026.");
+        Article vice = article("Décret du 6 mai 2026 portant nomination du vice-président du Conseil d'Etat",
+                "M. Marc GUILLAUME, conseiller d'Etat, est nommé vice-président du Conseil d'Etat, à compter du 21 juin 2026.");
+        List<Event> events = new java.util.ArrayList<>(NominationReader.read(governor));
+        events.addAll(NominationReader.read(vice));
+
+        FrPepJorfParser.Mandate moulin = FrPepJorfParser.buildMandates(events).stream()
+                .filter(m -> m.name.contains("MOULIN")).findFirst().orElseThrow();
+        assertThat(moulin.open).isTrue();
+        assertThat(moulin.end).isNull();
+    }
+
+    /**
+     * Le JO écrit parfois « Banque de France » avec des espaces insécables : l'article doit quand même être gardé.
+     * Sans cela, le décret du 27 mai 2026 qui nomme Emmanuel MOULIN gouverneur n'entrait pas dans les données.
+     */
+    @Test
+    void keepsTheGovernorDecreeEvenWithNonBreakingSpaces() {
+        String nbsp = String.valueOf((char) 160);
+        String text = "M. Emmanuel MOULIN est nommé Gouverneur de la Banque" + nbsp + "de" + nbsp
+                + "France à compter du 2 juin 2026.";
+        String xml = "<ARTICLE><META><META_COMMUN><ID>JORFARTI000000000009</ID></META_COMMUN><META_SPEC><META_ARTICLE>"
+                + "<NUM>1</NUM></META_ARTICLE></META_SPEC></META><CONTEXTE><TEXTE cid=\"JORFTEXT000000000009\""
+                + " date_publi=\"2026-05-28\" date_signature=\"2026-05-27\" nature=\"DECRET\" nor=\"X\" num=\"\""
+                + " num_parution_jo=\"0123\"><TITRE_TXT c_titre_court=\"Décret du 27 mai 2026\" id_txt=\"JORFTEXT000000000009\">"
+                + "Décret du 27 mai 2026 portant nomination du Gouverneur de la Banque de France - M. MOULIN (Emmanuel)"
+                + "</TITRE_TXT></TEXTE></CONTEXTE><BLOC_TEXTUEL><CONTENU><p><br/>" + text
+                + "</p></CONTENU></BLOC_TEXTUEL></ARTICLE>";
+
+        assertThat(JorfArticles.keep(xml)).isTrue();
+        List<Event> events = NominationReader.read(JorfArticles.parse(xml));
+        assertThat(events).hasSize(1);
+        assertThat(events.get(0).institution()).isEqualTo(Institution.BANQUE_DE_FRANCE);
+        assertThat(events.get(0).date()).isEqualTo(LocalDate.of(2026, 6, 2));
+    }
+
+    @Test
+    void anHonoraryGovernorIsNotAMandate() {
+        Article honorary = article("Décret du 27 mai 2026 portant nomination d'un Gouverneur honoraire de la Banque de France",
+                "M. François VILLEROY de GALHAU est nommé Gouverneur honoraire de la Banque de France.");
+        assertThat(NominationReader.read(honorary)).isEmpty();
     }
 
     private static Article article(String title, String... lines) {

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <!--
+      Belgique : fiches de couverture rendues conformes aux donnees publiees (diagnostic du 12/11/2026,
+      documentation/analyse couverture pep/Diagnostic_couverture_Belgique_2026-11-12.md).
+        - be_pep_moniteur : COMPLETE -> PARTIAL sur toutes ses fonctions. Le parser ne lit que les actes des
+          180 derniers jours (parametre days) : il ne voit que les nominations et departs recents, jamais
+          l'ensemble des titulaires en fonction.
+        - be_pep_political_parties (99) : COMPLETE -> PARTIAL. 20 dirigeants pour 18 partis, lus dans Wikidata
+          (le texte precedent annoncait les bureaux politiques et une source BCE).
+        - be_pep_international_orgs (109) : COMPLETE -> PARTIAL. OTAN et Union Benelux seulement ; SHAPE,
+          Eurocontrol et OEACP bloques par un anti-bot, OMD en echec.
+        - be_pep_eu_institutions (113) : COMPLETE -> PARTIAL. Le parser n'a encore jamais publie.
+        - be_pep_regional_governments (89) : COMPLETE -> PARTIAL. Execution du 12/11/2026 : 15 membres
+          (Flandre, FWB) ; Wallonie et Bruxelles en delai depasse, Communaute germanophone en HTTP 307.
+        - be_pep_regional_parliaments (96, Parlement bruxellois) : COMPLETE -> PARTIAL. parlement.brussels
+          injoignable a chaque execution : aucun depute bruxellois publie par ce parser.
+      245 (echevins, CPAS, deputes provinciaux) reste COMPLETE : 315 titulaires publies le 12/11/2026.
+      Les accents sont ecrits en references numeriques XML pour que le fichier reste en ASCII.
+    -->
+    <changeSet id="137-be-coverage-completeness-review" author="swiftcheck">
+        <update tableName="pep_function_parser">
+            <column name="completeness" value="PARTIAL"/>
+            <column name="gaps" value="Seuls les actes du Moniteur belge des 180 derniers jours sont lus : nominations et d&#233;parts r&#233;cents uniquement, pas l'ensemble des titulaires en fonction. Les personnes publi&#233;es sont gard&#233;es 60 mois apr&#232;s leur disparition de la source."/>
+            <where>function_id IN (89, 90, 98, 101, 102, 103, 106, 107) AND parser_id = (SELECT id FROM parser WHERE dataset_name = 'be_pep_moniteur')</where>
+        </update>
+        <update tableName="pep_function_parser">
+            <column name="completeness" value="PARTIAL"/>
+            <column name="covered_scope" value="Pr&#233;sidents et copr&#233;sidents des partis politiques belges, lus dans Wikidata (18 partis, 20 dirigeants au 05/11/2026)."/>
+            <column name="gaps" value="Source collaborative (Wikidata), pas de source officielle. Les autres membres des organes dirigeants (bureaux politiques, secr&#233;taires g&#233;n&#233;raux) ne sont pas couverts, sauf s'ils exercent un mandat couvert par ailleurs."/>
+            <where>function_id = 99 AND parser_id = (SELECT id FROM parser WHERE dataset_name = 'be_pep_political_parties')</where>
+        </update>
+        <update tableName="pep_function_parser">
+            <column name="completeness" value="PARTIAL"/>
+            <column name="gaps" value="Seuls l'OTAN et l'Union Benelux sont lus. SHAPE (Mons), Eurocontrol et OEACP sont bloqu&#233;s par un anti-bot (non contourn&#233;) ; l'OMD est en &#233;chec. Le d&#233;tail figure dans le message de chaque ex&#233;cution."/>
+            <where>function_id = 109 AND parser_id = (SELECT id FROM parser WHERE dataset_name = 'be_pep_international_orgs')</where>
+        </update>
+        <update tableName="pep_function_parser">
+            <column name="completeness" value="PARTIAL"/>
+            <column name="gaps" value="Parser jamais ex&#233;cut&#233; avec succ&#232;s au 12/11/2026 : aucune personne publi&#233;e. &#192; r&#233;&#233;valuer apr&#232;s la premi&#232;re ex&#233;cution."/>
+            <where>function_id = 113 AND parser_id = (SELECT id FROM parser WHERE dataset_name = 'be_pep_eu_institutions')</where>
+        </update>
+        <update tableName="pep_function_parser">
+            <column name="completeness" value="PARTIAL"/>
+            <column name="gaps" value="Seuls les gouvernements flamand et de la F&#233;d&#233;ration Wallonie-Bruxelles sont lus. Gouvernement wallon et gouvernement bruxellois : sites injoignables (d&#233;lai d&#233;pass&#233;) ; gouvernement de la Communaut&#233; germanophone : redirection HTTP 307 non aboutie. Le d&#233;tail figure dans le message de chaque ex&#233;cution."/>
+            <where>function_id = 89 AND parser_id = (SELECT id FROM parser WHERE dataset_name = 'be_pep_regional_governments')</where>
+        </update>
+        <update tableName="pep_function_parser">
+            <column name="completeness" value="PARTIAL"/>
+            <column name="covered_scope" value="D&#233;put&#233;s du Parlement de la R&#233;gion de Bruxelles-Capitale, lus sur parlement.brussels."/>
+            <column name="gaps" value="parlement.brussels ne r&#233;pond pas (d&#233;lai d&#233;pass&#233;) : aucun des 89 d&#233;put&#233;s n'est publi&#233; par ce parser au 12/11/2026. Les 19 d&#233;put&#233;s bruxellois francophones qui si&#232;gent aussi au Parlement de la F&#233;d&#233;ration Wallonie-Bruxelles sont couverts par la fonction 95."/>
+            <where>function_id = 96 AND parser_id = (SELECT id FROM parser WHERE dataset_name = 'be_pep_regional_parliaments')</where>
+        </update>
+    </changeSet>
+
+</databaseChangeLog>

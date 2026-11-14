@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <!--
+      Le changeSet 124 a ecrit deux listes de configuration dans l'enveloppe produite par ConvertTo-Json de
+      PowerShell : {"value":[...],"Count":n} au lieu d'un tableau JSON. Les parsers attendent un tableau et
+      echouent (be_pep_army le 12/11/2026 : MismatchedInputException ... from Object value).
+        - be_pep_army, cle armyPages ;
+        - be_pep_international_orgs, cle organizations (echouerait de la meme facon a sa prochaine execution).
+      On remplace chaque valeur par le tableau contenu dans "value", sans rien changer d'autre. Le 124 n'est pas
+      modifie (deja applique : checksum). be_pep_political_parties (partyExecutives) a la meme enveloppe, mais
+      le parser l'ignore (il n'accepte qu'un tableau) : laisse tel quel.
+    -->
+    <changeSet id="138-be-unwrap-powershell-json-parameters" author="swiftcheck" dbms="mysql">
+        <sql>
+            UPDATE parser
+               SET parameters = JSON_SET(parameters, '$.armyPages',
+                       CAST(JSON_EXTRACT(CAST(JSON_UNQUOTE(JSON_EXTRACT(parameters, '$.armyPages')) AS JSON), '$.value') AS CHAR))
+             WHERE dataset_name = 'be_pep_army'
+               AND JSON_UNQUOTE(JSON_EXTRACT(parameters, '$.armyPages')) LIKE '{"value":%';
+            UPDATE parser
+               SET parameters = JSON_SET(parameters, '$.organizations',
+                       CAST(JSON_EXTRACT(CAST(JSON_UNQUOTE(JSON_EXTRACT(parameters, '$.organizations')) AS JSON), '$.value') AS CHAR))
+             WHERE dataset_name = 'be_pep_international_orgs'
+               AND JSON_UNQUOTE(JSON_EXTRACT(parameters, '$.organizations')) LIKE '{"value":%';
+        </sql>
+    </changeSet>
+
+</databaseChangeLog>

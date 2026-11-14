@@ -33,8 +33,11 @@ final class JorfArticles {
     /**
      * Version de la sélection : elle entre dans le nom des extraits du cache. La changer force la relecture des
      * archives (qui doivent alors être téléchargées à nouveau).
+     *
+     * <p>Version 5 : les espaces insécables sont reconnus comme des espaces (voir {@link #fold}), ce qui fait entrer
+     * des décrets jusque-là écartés, comme la nomination du gouverneur de la Banque de France.
      */
-    static final int SELECTION_VERSION = 4;
+    static final int SELECTION_VERSION = 5;
 
     /** Fichier brut déposé dans {@code rawDir} : un XML par article gardé. */
     static final String ARTICLES_FILE = "jorf-articles.zip";
@@ -177,8 +180,10 @@ final class JorfArticles {
 
     /** Minuscules sans accents, apostrophe droite : « Conseil d’État » → « conseil d'etat ». */
     static String fold(String s) {
+        // Espaces insécables (U+00A0, U+202F…) : le JO en met dans « Banque de France » ; sans ce remplacement,
+        // les motifs écrits avec des espaces ordinaires ne reconnaissent pas le texte
         return Normalizer.normalize(s.toLowerCase(Locale.FRENCH), Normalizer.Form.NFD).replaceAll("\\p{M}", "")
-                .replace('’', '\'');
+                .replaceAll("\\p{Z}", " ").replace('’', '\'');
     }
 
     /**

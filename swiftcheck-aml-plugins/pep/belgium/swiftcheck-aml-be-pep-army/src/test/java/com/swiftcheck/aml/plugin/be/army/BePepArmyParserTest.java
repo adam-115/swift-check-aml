@@ -84,4 +84,53 @@ class BePepArmyParserTest {
             assertTrue(entity.getValues("country").contains("be"));
         }
     }
+
+    @Test
+    @DisplayName("Les prénoms composés sont lus en entier (« Jean-Pol », « Jean-Louis »), sans fusion des deux officiers")
+    void shouldKeepHyphenatedFirstNames() {
+        String html = "<p>Général-major Jean-Pol Baugnée, commandant de la Composante Terre.</p>"
+                + "<p>Général de brigade Jean-Louis Crucifix, commandant de l'École royale militaire.</p>";
+
+        List<String> names = BePepArmyParser.dropIncompleteNames(parser.parsePageHtml(html, "https://www.mil.be/fr/"))
+                .stream().map(OfficerRecord::fullName).toList();
+
+        assertEquals(List.of("Jean-Pol Baugnée", "Jean-Louis Crucifix"), names);
+    }
+
+    @Test
+    @DisplayName("La fonction s'arrête à la virgule qui suit (pas de citation collée à l'intitulé)")
+    void shouldStopRoleAtComma() {
+        String html = "<p>Le général-major Michel Van Strythem, commandant du Cyber Command, complète : « Nous avons inauguré la première Cyber Defense Factory ».</p>";
+
+        List<OfficerRecord> records = parser.parsePageHtml(html, "https://www.mil.be/fr/");
+
+        assertEquals(1, records.size());
+        assertEquals("Général-major – Commandant du Cyber Command", records.get(0).position());
+    }
+
+    @Test
+    @DisplayName("Les mentions sans prénom d'un officier déjà extrait en entier sont écartées")
+    void shouldDropIncompleteDuplicates() {
+        List<OfficerRecord> records = new ArrayList<>();
+        records.addAll(parser.parsePageHtml(hqHtml, "https://www.mil.be/fr/news/futur-quartier-general-a-evere-la-premiere-pierre-est-posee/"));
+        records.addAll(parser.parsePageHtml(landHtml, "https://www.mil.be/fr/news/pose-de-la-premiere-pierre-des-nouvelles-infrastructures-pour-les-nouveaux-vehicules-de-la-force-terrestre-a-leopoldsburg/"));
+        records.add(new OfficerRecord("Paul Van Goethem", "Paul", "Van Goethem", "Général-major", "Général-major – test", "https://www.mil.be/fr/"));
+
+        List<String> names = BePepArmyParser.dropIncompleteNames(records).stream().map(OfficerRecord::fullName).toList();
+
+        assertTrue(names.contains("Frédéric Goetynck"), names.toString());
+        assertFalse(names.contains("Goetynck"), "Le nom d'un seul mot doit être écarté : " + names);
+        assertTrue(names.contains("Paul Van Goethem"), names.toString());
+        assertFalse(names.contains("Van Goethem"), "Le doublon sans prénom doit être écarté : " + names);
+    }
+
+    @Test
+    @DisplayName("Un nom sans prénom est gardé quand c'est la seule mention de l'officier")
+    void shouldKeepSurnameOnlyWhenAlone() {
+        List<String> names = BePepArmyParser.dropIncompleteNames(
+                        parser.parsePageHtml(landHtml, "https://www.mil.be/fr/"))
+                .stream().map(OfficerRecord::fullName).toList();
+
+        assertTrue(names.contains("Van Goethem"), names.toString());
+    }
 }

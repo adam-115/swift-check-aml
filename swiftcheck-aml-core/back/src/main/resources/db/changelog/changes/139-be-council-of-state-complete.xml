@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <!--
+      Belgique, suite des executions du 13/11/2026.
+        - be_pep_council_of_state (103) : PARTIAL -> COMPLETE. Le parser lit desormais la page de direction et les
+          quatre compositions officielles (chambres FR et NL, auditorat FR et NL) : 169 magistrats publies
+          (execution 1152). Titulaires attendus : 169, soit le total de ces compositions au 16/10/2026.
+        - be_pep_eu_institutions (113) : reste PARTIAL, lacunes reecrites apres la premiere execution
+          (execution 1149 : 5 Belges, CJUE 3, Cour des comptes europeenne 1, BCE 1).
+      Les accents sont ecrits en references numeriques XML pour que le fichier reste en ASCII.
+    -->
+    <changeSet id="139-be-council-of-state-complete" author="swiftcheck">
+        <update tableName="pep_function_parser">
+            <column name="completeness" value="COMPLETE"/>
+            <column name="covered_scope" value="Tous les membres du Conseil d'&#201;tat : premier pr&#233;sident, pr&#233;sident, pr&#233;sidents de chambre, conseillers d'&#201;tat, assesseurs de la section de l&#233;gislation, auditeur g&#233;n&#233;ral et adjoint, premiers auditeurs chefs de section, premiers auditeurs, auditeurs et auditeurs adjoints. Sources : page &#171; Direction et gestion &#187; et compositions officielles des chambres (francophones, bilingue, n&#233;erlandophones) et de l'auditorat (francophone et n&#233;erlandophone), relues &#224; chaque ex&#233;cution."/>
+            <column name="gaps" value="Les compositions du si&#232;ge et de l'auditorat francophone ne donnent que l'initiale du pr&#233;nom (&#171; P. Ronvaux &#187;) ; noms complets pour la direction et l'auditorat n&#233;erlandophone. Pas de date de naissance. Greffiers et personnel administratif exclus (non PEP)."/>
+            <where>function_id = 103 AND parser_id = (SELECT id FROM parser WHERE dataset_name = 'be_pep_council_of_state')</where>
+        </update>
+        <update tableName="pep_function">
+            <column name="expected_holders" valueNumeric="169"/>
+            <where>id = 103</where>
+        </update>
+        <update tableName="pep_function_parser">
+            <column name="gaps" value="5 Belges publi&#233;s le 12/11/2026 : 3 &#224; la Cour de justice de l'UE (Cour et Tribunal), 1 &#224; la Cour des comptes europ&#233;enne, 1 au conseil de surveillance prudentielle de la BCE. Non couverts : autres institutions et organes de l'UE (Commission hors commissaire, Parlement hors d&#233;put&#233;s, agences, BEI, SEAE)."/>
+            <where>function_id = 113 AND parser_id = (SELECT id FROM parser WHERE dataset_name = 'be_pep_eu_institutions')</where>
+        </update>
+    </changeSet>
+
+</databaseChangeLog>
