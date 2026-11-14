@@ -17,8 +17,7 @@
     "code": "bruxelles",
     "parliamentName": "Parlement de la Région de Bruxelles-Capitale",
     "jurisdiction": "Région de Bruxelles-Capitale",
-    "membersUrl": "https://www.parlement.brussels/deputes/",
+    "membersUrl": "https://fr.wikipedia.org/w/api.php?action=parse&page=Liste_des_d%C3%A9put%C3%A9s_bruxellois_(2024-2029)&prop=wikitext&format=json",
     "bureauUrl": ""
   }
 ]
-

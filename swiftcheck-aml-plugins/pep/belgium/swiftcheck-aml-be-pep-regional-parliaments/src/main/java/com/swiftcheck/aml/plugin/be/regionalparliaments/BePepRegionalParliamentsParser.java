@@ -116,6 +116,13 @@ public class BePepRegionalParliamentsParser implements Iparser {
             Pattern.CASE_INSENSITIVE
     );
 
+    private static final Pattern WIKI_PARTY_HEADER_PATTERN = Pattern.compile(
+            "^====\\s*(.+?)\\s*====$"
+    );
+    private static final Pattern WIKI_CELL_LINK_PATTERN = Pattern.compile(
+            "^\\|\\s*\\[\\[([^|\\]]+)(?:\\|([^\\]]+))?\\]\\]"
+    );
+
     @JsonIgnoreProperties(ignoreUnknown = true)
     public record ParliamentConfig(
             String code,
@@ -288,7 +295,23 @@ public class BePepRegionalParliamentsParser implements Iparser {
             return List.of();
         }
 
-        // 1. Format table (standardisé / seed)
+        String trimmed = html.trim();
+        if (trimmed.startsWith("{")) {
+            try {
+                JsonNode root = MAPPER.readTree(trimmed);
+                String wikitext = root.path("parse").path("wikitext").path("*").asText("");
+                if (!wikitext.isEmpty()) {
+                    parseBruxellesWikitext(cfg, wikitext, byKey);
+                    if (!byKey.isEmpty()) {
+                        return new ArrayList<>(byKey.values());
+                    }
+                }
+            } catch (Exception e) {
+                log.warn("[be_pep_regional_parliaments] Erreur lecture JSON MediaWiki Bruxelles : {}", e.getMessage());
+            }
+        }
+
+        // 1. Format table HTML
         Matcher trMatcher = BRUXELLES_TR_PATTERN.matcher(html);
         while (trMatcher.find()) {
             String href = cleanText(trMatcher.group(1));
@@ -341,6 +364,82 @@ public class BePepRegionalParliamentsParser implements Iparser {
         }
 
         return new ArrayList<>(byKey.values());
+    }
+
+    private void parseBruxellesWikitext(ParliamentConfig cfg, String wikitext, Map<String, DeputyRecord> byKey) {
+        int startIdx = wikitext.indexOf("== Liste par groupe au parlement ==");
+        int endIdx = wikitext.indexOf("== Notes et Références ==");
+        String section = startIdx >= 0
+                ? (endIdx > startIdx ? wikitext.substring(startIdx, endIdx) : wikitext.substring(startIdx))
+                : wikitext;
+
+        String[] lines = section.split("\\r?\\n");
+        String currentParty = "";
+        boolean afterRowSep = false;
+
+        for (String line : lines) {
+            String t = line.trim();
+            Matcher pm = WIKI_PARTY_HEADER_PATTERN.matcher(t);
+            if (pm.matches()) {
+                currentParty = normalizeBruxellesParty(pm.group(1));
+                afterRowSep = false;
+                continue;
+            }
+            if ("|-".equals(t) || t.startsWith("|- ")) {
+                afterRowSep = true;
+                continue;
+            }
+            if (afterRowSep && t.startsWith("|") && !t.startsWith("|}")) {
+                afterRowSep = false;
+                Matcher cm = WIKI_CELL_LINK_PATTERN.matcher(t);
+                if (cm.find()) {
+                    String pageTitle = cm.group(1).trim();
+                    String displayLabel = cm.group(2) != null ? cm.group(2).trim() : pageTitle;
+                    String fullName = cleanText(displayLabel);
+                    if (fullName.isEmpty() || fullName.contains("Liste des députés")) {
+                        continue;
+                    }
+                    String[] fl = splitFirstLast(fullName);
+                    String wikiSlug = pageTitle.replace(' ', '_');
+                    String profileUrl = "https://fr.wikipedia.org/wiki/" + wikiSlug;
+                    String position = "Député au " + cfg.parliamentName();
+                    if ("Bertin Mampaka Mankamba".equalsIgnoreCase(fullName)) {
+                        position = "Président du Parlement – " + position;
+                    }
+                    String key = fullName.toLowerCase(Locale.ROOT);
+                    byKey.putIfAbsent(key, new DeputyRecord(
+                            fullName, fl[0], fl[1],
+                            position,
+                            currentParty,
+                            profileUrl,
+                            null,
+                            cfg.code(),
+                            cfg.parliamentName(),
+                            cfg.jurisdiction()
+                    ));
+                }
+            }
+        }
+    }
+
+    private static String normalizeBruxellesParty(String rawHeader) {
+        if (rawHeader == null) return "";
+        String u = rawHeader;
+        if (u.startsWith("MR")) return "MR";
+        if (u.startsWith("PS")) return "PS";
+        if (u.startsWith("PTB")) return "PTB";
+        if (u.contains("Les Engagés")) return "Les Engagés";
+        if (u.contains("Ecolo")) return "Ecolo";
+        if (u.startsWith("DéFI")) return "DéFI";
+        if (u.contains("Groen")) return "Groen";
+        if (u.contains("Fouad Ahidar")) return "Team Fouad Ahidar";
+        if (u.startsWith("N-VA")) return "N-VA";
+        if (u.contains("Anders") || u.contains("Open VLD")) return "Open VLD";
+        if (u.startsWith("VB") || u.contains("Vlaams Belang")) return "Vlaams Belang";
+        if (u.contains("Vooruit")) return "Vooruit";
+        if (u.startsWith("PVDA")) return "PVDA";
+        if (u.startsWith("CD&V")) return "CD&V";
+        return cleanText(rawHeader);
     }
 
     List<DeputyRecord> parsePfwbHtml(ParliamentConfig cfg, String html) {
