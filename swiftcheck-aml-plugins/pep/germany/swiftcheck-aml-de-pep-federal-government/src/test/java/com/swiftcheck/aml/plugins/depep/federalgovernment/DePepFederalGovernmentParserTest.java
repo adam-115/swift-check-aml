@@ -10,16 +10,14 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
 import com.swiftcheck.aml.plugin.ParserContext;
+import com.swiftcheck.aml.plugin.ParserResult;
 import com.swiftcheck.aml.plugin.SourceRecord;
 import com.swiftcheck.aml.plugins.depep.federalgovernment.DePepFederalGovernmentParser.Member;
-import com.swiftcheck.aml.sdk.FtmDatasetBuilder;
-import com.swiftcheck.aml.sdk.FtmEntity;
 
 class DePepFederalGovernmentParserTest {
 
@@ -53,5 +51,42 @@ class DePepFederalGovernmentParserTest {
         List<SourceRecord> records = new DePepFederalGovernmentParser().readSourceRecords(ctx);
         assertEquals(2, records.size());
     }
-}
 
+    @Test
+    void testParseDetailPageExtractsCvAndStartDate() {
+        String detailHtml = """
+            <h1 class="bpa-title">Friedrich Merz</h1>
+            <ul class="bpa-vita-list">
+              <li class="bpa-vita-item"><p>Geboren am 11. November 1955 in Brilon</p></li>
+              <li class="bpa-vita-item"><p><strong>Seit 1986</strong><br/>Rechtsanwalt</p></li>
+              <li class="bpa-vita-item"><p><strong>Seit dem 6. Mai 2025</strong><br/>Bundeskanzler der Bundesrepublik Deutschland</p></li>
+            </ul>
+            """;
+
+        Member detail = DePepFederalGovernmentParser.parseDetailPage(
+                "https://www.bundesregierung.de/breg-de/bundesregierung/bundeskabinett/friedrich-merz-2342660#jumpto-2342648",
+                detailHtml);
+
+        assertNotNull(detail);
+        assertEquals("friedrich-merz-2342660", detail.slug());
+        assertEquals("Friedrich Merz", detail.name());
+        assertEquals("2025-05-06", detail.startDate());
+        assertNotNull(detail.cvSummary());
+        assertTrue(detail.cvSummary().contains("Bundeskanzler der Bundesrepublik Deutschland"));
+        assertTrue(detail.cvSummary().contains("Rechtsanwalt"));
+    }
+
+    @Test
+    void testBrokenSourceHandlingDoesNotCrash(@TempDir Path tempDir) throws Exception {
+        // Simule une URL retournant 404
+        String brokenUrl = "https://www.bundesregierung.de/breg-de/bundesregierung/bundeskabinett/page-introuvable-404";
+        Map<String, String> params = Map.of("urls", "[\"" + brokenUrl + "\"]");
+
+        ParserContext ctx = new ParserContext("de_pep_federal_government", null, tempDir, tempDir.resolve("out.ndjson"), params);
+        ParserResult result = new DePepFederalGovernmentParser().parse(ctx);
+
+        assertNotNull(result);
+        assertTrue(result.message().contains("ALERT SOURCE_BROKEN"));
+        assertTrue(result.message().contains("page-introuvable-404"));
+    }
+}
