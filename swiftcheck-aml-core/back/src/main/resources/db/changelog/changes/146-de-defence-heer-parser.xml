@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <!-- Story 21: BMVg / Bundeswehr - Heer (Armee de terre) - Commandement et divisions (F.1) -->
+
+    <changeSet id="146-register-parser-de-pep-defence-heer" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Allemagne - Armee de terre (Heer / Bundeswehr)',
+                'Commandement du Heer et commandants de divisions et corps d armee (GwG F.1 - Officiers generaux)',
+                'de_pep_defence_heer', 'PEP', 'https://www.bundeswehr.de/de/organisation/heer',
+                'de-pep-defence-heer', 'D:/test parser 2/plugins/swiftcheck-aml-de-pep-defence-heer-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'WEB_PAGE',
+                NULL,
+                '{"kommandoHeerUrl": "https://www.bundeswehr.de/de/organisation/heer/struktur/kommando-heer", "units": "https://www.bundeswehr.de/de/organisation/heer/struktur/10-panzerdivision,https://www.bundeswehr.de/de/organisation/heer/struktur/1-panzerdivision,https://www.bundeswehr.de/de/organisation/heer/struktur/division-schnelle-kraefte,https://www.bundeswehr.de/de/organisation/heer/struktur/heimatschutzdivision,https://www.bundeswehr.de/de/organisation/heer/struktur/amt-fuer-heeresentwicklung,https://www.bundeswehr.de/de/organisation/heer/struktur/1-deutsch-niederlaendisches-korps"}',
+                24, 12,
+                'Citer la source (Bundeswehr - Deutsches Heer)', 'Bundeswehr, www.bundeswehr.de',
+                'Scrape les officiers generaux du commandement du Heer et des divisions operationnelles (GwG F.1). Archive les CVs PDF avec empreinte SHA-256.', TRUE, NOW());
+        ]]></sql>
+    </changeSet>
+
+</databaseChangeLog>
+

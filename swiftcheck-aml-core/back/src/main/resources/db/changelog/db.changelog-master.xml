@@ -171,5 +171,6 @@
     <include file="db/changelog/changes/143-de-lobbyregister-schema.xml" />
     <include file="db/changelog/changes/144-de-defence-parser.xml" />
     <include file="db/changelog/changes/145-de-defence-secretaries-parser.xml" />
+    <include file="db/changelog/changes/146-de-defence-heer-parser.xml" />
 
 </databaseChangeLog>
