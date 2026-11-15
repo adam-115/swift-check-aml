@@ -22,17 +22,12 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 /**
  * API open data du Parlement européen ({@code data.europarl.europa.eu/api/v2}, JSON-LD).
  *
- * <p>Trois appels, déposés dans {@code rawDir} :
- * <ol>
- *   <li>{@value #CURRENT_FILE} : députés en fonction élus dans le pays ({@code meps/show-current}) ;
- * <pre>{"data": [{"identifier": "197420", "label": "Katarina BARLEY", "givenName": "Katarina", "familyName": "Barley",
- *            "api:country-of-representation": "DE", "api:political-group": "S&amp;D"}]}</pre></li>
- *   <li>{@value #TERM_FILE} : tous les députés de la législature en cours, y compris ceux qui l'ont quittée ;</li>
- *   <li>{@code mep-<id>.json} : la fiche de chaque député, avec sa naissance et ses mandats.
- * <pre>{"data": [{"bday": "1968-11-19", "placeOfBirth": "Köln", "hasGender": "…/human-sex/FEMALE",
- *   "hasMembership": [{"role": "def/ep-roles/MEMBER_PARLIAMENT", "organization": "org/ep-10",
- *     "represents": ["…/country/DEU"], "memberDuring": {"startDate": "2024-07-16"}}]}]}</pre></li>
- * </ol>
+ * <p>Conforme aux spécifications de la Story 17 :
+ * <ul>
+ *   <li>{@value #CURRENT_FILE} : députés en fonction élus en Allemagne ({@code meps/show-current?country-of-representation=DE}) ;</li>
+ *   <li>{@value #TERM_FILE} : députés par législature ({@code meps?country-of-representation=DE&parliamentary-term=...}) ;</li>
+ *   <li>{@code mep-<id>.json} : fiche détaillée unitaire avec date de naissance ({@code bday}), genre, mandats et fonctions exécutives au Bureau (H.1).</li>
+ * </ul>
  */
 final class EuroparlApi {
 
@@ -41,7 +36,8 @@ final class EuroparlApi {
     static final String CURRENT_FILE = "current.json";
     static final String TERM_FILE = "term.json";
 
-    private static final String USER_AGENT = "SwiftCheck-AML/1.0 (liste PEP Allemagne - deputes europeens)";
+    /** En-tête User-Agent officiel requis par la Story 17. */
+    static final String USER_AGENT = "SwiftCheck-AML-Ingestion/1.0";
     private static final ObjectMapper JSON = new ObjectMapper();
 
     /** Un député des listes ; {@code group} n'est connu que pour les députés en fonction. */
@@ -52,8 +48,8 @@ final class EuroparlApi {
     record Mandate(String id, String term, String start, String end) {
     }
 
-    /** Fiche d'un député : naissance, genre FtM ({@code male}/{@code female}) et mandats pour le pays. */
-    record Detail(String birthDate, String birthPlace, String gender, List<Mandate> mandates) {
+    /** Fiche d'un député : naissance, genre FtM ({@code male}/{@code female}), mandats et fonction au Bureau (H.1). */
+    record Detail(String birthDate, String birthPlace, String gender, List<Mandate> mandates, String bureauRole) {
     }
 
     /** Lecture d'une adresse ; remplacée dans les tests. */
@@ -65,7 +61,7 @@ final class EuroparlApi {
     }
 
     /**
-     * Télécharge les deux listes, puis la fiche de chaque député.
+     * Télécharge les deux listes, puis la fiche de chaque député avec temporisation anti-saturation.
      *
      * @param detailUrl adresse de la fiche, avec {@code {id}} à la place de l'identifiant
      * @return les adresses des fiches qui n'ont pas pu être lues
@@ -131,21 +127,34 @@ final class EuroparlApi {
         }
         JsonNode d = JSON.readTree(path.toFile()).path("data").path(0);
         List<Mandate> mandates = new ArrayList<>();
+        String bureauRole = null;
+
         for (JsonNode m : d.path("hasMembership")) {
             boolean forCountry = false;
             for (JsonNode r : m.path("represents")) {
                 forCountry |= r.asText().endsWith("/country/" + country);
             }
-            if ("def/ep-roles/MEMBER_PARLIAMENT".equals(text(m.path("role"))) && forCountry) {
+            String role = text(m.path("role"));
+            if ("def/ep-roles/MEMBER_PARLIAMENT".equals(role) && forCountry) {
                 String organization = text(m.path("organization"));
                 mandates.add(new Mandate(text(m.path("identifier")),
                         organization == null ? null : organization.replace("org/ep-", ""),
                         text(m.path("memberDuring").path("startDate")), text(m.path("memberDuring").path("endDate"))));
             }
+            // Détection des fonctions de direction au Bureau du Parlement européen (Classe H.1)
+            if (role != null) {
+                if (role.contains("VICE_PRESIDENT")) {
+                    bureauRole = "Vizepräsidentin/Vizepräsident des Europäischen Parlaments";
+                } else if (role.contains("PRESIDENT")) {
+                    bureauRole = "Präsidentin/Präsident des Europäischen Parlaments";
+                } else if (role.contains("QUAESTOR")) {
+                    bureauRole = "Quästor des Europäischen Parlaments";
+                }
+            }
         }
         String sex = text(d.path("hasGender"));
         String gender = sex == null ? null : sex.endsWith("/FEMALE") ? "female" : sex.endsWith("/MALE") ? "male" : null;
-        return new Detail(text(d.path("bday")), text(d.path("placeOfBirth")), gender, mandates);
+        return new Detail(text(d.path("bday")), text(d.path("placeOfBirth")), gender, mandates, bureauRole);
     }
 
     private static String text(JsonNode node) {
@@ -156,20 +165,38 @@ final class EuroparlApi {
         return s.isEmpty() ? null : s;
     }
 
+    /**
+     * Client HTTP avec User-Agent officiel et Retry exponentiel sur HTTP 429 et 5xx (AC2.3).
+     */
     static Fetcher httpFetcher() {
         HttpClient client = HttpClient.newBuilder()
                 .followRedirects(HttpClient.Redirect.NORMAL)
                 .connectTimeout(Duration.ofSeconds(30))
                 .build();
         return url -> {
-            HttpRequest request = HttpRequest.newBuilder(URI.create(url)).timeout(Duration.ofMinutes(2))
-                    .header("User-Agent", USER_AGENT).GET().build();
-            HttpResponse<byte[]> response = client.send(request, HttpResponse.BodyHandlers.ofByteArray());
-            if (response.statusCode() != 200) {
-                throw new IOException("HTTP " + response.statusCode() + " : " + url);
+            int maxRetries = 3;
+            long waitMs = 1000;
+            for (int attempt = 1; attempt <= maxRetries; attempt++) {
+                HttpRequest request = HttpRequest.newBuilder(URI.create(url))
+                        .timeout(Duration.ofMinutes(2))
+                        .header("User-Agent", USER_AGENT)
+                        .header("Accept", "application/ld+json, application/json")
+                        .GET()
+                        .build();
+                HttpResponse<byte[]> response = client.send(request, HttpResponse.BodyHandlers.ofByteArray());
+                int status = response.statusCode();
+                if (status == 200) {
+                    return response.body();
+                }
+                if ((status == 429 || status >= 500) && attempt < maxRetries) {
+                    log.warn("HTTP {} sur {} - nouvel essai ({}/{}) après {} ms", status, url, attempt, maxRetries, waitMs);
+                    Thread.sleep(waitMs);
+                    waitMs *= 2;
+                    continue;
+                }
+                throw new IOException("HTTP " + status + " : " + url);
             }
-            return response.body();
+            throw new IOException("Echec du téléchargement après " + maxRetries + " essais : " + url);
         };
     }
 }
-

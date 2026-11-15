@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <!-- Story 16 and 18: Lobbyregister des Deutschen Bundestages and RCA Ingestion -->
+
+    <changeSet id="143-create-lobby-tables" author="swiftcheck">
+        <createTable tableName="lobby_entity">
+            <column name="id" type="VARCHAR(64)">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="register_number" type="VARCHAR(32)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="name" type="VARCHAR(512)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="legal_form" type="VARCHAR(256)"/>
+            <column name="register_entry_url" type="VARCHAR(1024)"/>
+            <column name="status" type="VARCHAR(16)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="sha256" type="VARCHAR(64)"/>
+            <column name="first_publication_date" type="VARCHAR(64)"/>
+            <column name="last_update_date" type="VARCHAR(64)"/>
+            <column name="created_at" type="TIMESTAMP" defaultValueComputed="NOW()">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_at" type="TIMESTAMP" defaultValueComputed="NOW()">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <createIndex tableName="lobby_entity" indexName="idx_lobby_entity_reg_no">
+            <column name="register_number"/>
+        </createIndex>
+        <createIndex tableName="lobby_entity" indexName="idx_lobby_entity_status">
+            <column name="status"/>
+        </createIndex>
+
+        <createTable tableName="lobby_person">
+            <column name="id" type="VARCHAR(64)">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="entity_id" type="VARCHAR(64)">
+                <constraints nullable="false" foreignKeyName="fk_lobby_person_entity" references="lobby_entity(id)"/>
+            </column>
+            <column name="first_name" type="VARCHAR(256)"/>
+            <column name="last_name" type="VARCHAR(256)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="academic_degree" type="VARCHAR(128)"/>
+            <column name="normalized_name" type="VARCHAR(512)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="role_type" type="VARCHAR(32)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="function_title" type="VARCHAR(512)"/>
+            <column name="register_entry_url" type="VARCHAR(1024)"/>
+            <column name="former_public_function_present" type="BOOLEAN" defaultValueBoolean="false">
+                <constraints nullable="false"/>
+            </column>
+            <column name="former_function_details" type="TEXT"/>
+            <column name="pep_target_class" type="VARCHAR(16)"/>
+            <column name="status" type="VARCHAR(16)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_at" type="TIMESTAMP" defaultValueComputed="NOW()">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_at" type="TIMESTAMP" defaultValueComputed="NOW()">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <createIndex tableName="lobby_person" indexName="idx_lobby_person_norm_name">
+            <column name="normalized_name"/>
+        </createIndex>
+        <createIndex tableName="lobby_person" indexName="idx_lobby_person_entity">
+            <column name="entity_id"/>
+        </createIndex>
+
+        <createTable tableName="lobby_client">
+            <column name="id" type="VARCHAR(64)">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="entity_id" type="VARCHAR(64)">
+                <constraints nullable="false" foreignKeyName="fk_lobby_client_entity" references="lobby_entity(id)"/>
+            </column>
+            <column name="client_name" type="VARCHAR(512)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="legal_form" type="VARCHAR(256)"/>
+            <column name="created_at" type="TIMESTAMP" defaultValueComputed="NOW()">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <createIndex tableName="lobby_client" indexName="idx_lobby_client_entity">
+            <column name="entity_id"/>
+        </createIndex>
+
+        <createTable tableName="pep_rca_link">
+            <column name="id" type="VARCHAR(64)">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="pep_id" type="VARCHAR(128)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="rca_person_id" type="VARCHAR(64)">
+                <constraints nullable="false" foreignKeyName="fk_pep_rca_person" references="lobby_person(id)"/>
+            </column>
+            <column name="entity_id" type="VARCHAR(64)">
+                <constraints foreignKeyName="fk_pep_rca_entity" references="lobby_entity(id)"/>
+            </column>
+            <column name="relation_type" type="VARCHAR(64)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="audit_justification" type="VARCHAR(1024)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="status" type="VARCHAR(16)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="start_date" type="VARCHAR(32)"/>
+            <column name="end_date" type="VARCHAR(32)"/>
+            <column name="created_at" type="TIMESTAMP" defaultValueComputed="NOW()">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_at" type="TIMESTAMP" defaultValueComputed="NOW()">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <createIndex tableName="pep_rca_link" indexName="idx_pep_rca_pep">
+            <column name="pep_id"/>
+        </createIndex>
+        <createIndex tableName="pep_rca_link" indexName="idx_pep_rca_person">
+            <column name="rca_person_id"/>
+        </createIndex>
+    </changeSet>
+
+    <changeSet id="143-register-parser-de-pep-lobbyregister" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Allemagne - Lobbyregister du Bundestag (RCA GwG Abs. 14)',
+                'Registre des lobbyistes du Bundestag : entites, representants, personnes notoirement proches (RCA.1/RCA.2) et anciens mandats (A.2/B.2)',
+                'de_pep_lobbyregister', 'PEP', 'https://www.lobbyregister.bundestag.de',
+                'de-pep-lobbyregister', 'D:/test parser 2/plugins/swiftcheck-aml-de-pep-lobbyregister-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'API',
+                NULL,
+                '{"url": "https://www.lobbyregister.bundestag.de/sucheDetailJson", "testApiKey": "5bHB2zrUuHR6YdPoZygQhWfg2CBrjUOi", "pageSize": "100"}',
+                24, 12,
+                'Open Data Bundestag (Lobbyregistergesetz - LobbyRG)', 'Deutscher Bundestag, www.lobbyregister.bundestag.de',
+                'Ingere le Lobbyregister du Bundestag et detecte les bekanntermassen nahestehende Personen (RCA GwG Abs. 14) ainsi que les anciens mandats etatiques.', TRUE, NOW());
+        ]]></sql>
+    </changeSet>
+
+</databaseChangeLog>

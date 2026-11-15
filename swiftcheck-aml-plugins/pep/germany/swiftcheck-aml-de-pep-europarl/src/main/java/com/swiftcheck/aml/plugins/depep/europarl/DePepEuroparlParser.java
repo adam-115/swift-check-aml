@@ -23,50 +23,48 @@ import com.swiftcheck.aml.sdk.FtmEntity;
 import com.swiftcheck.aml.sdk.WikidataImages;
 
 /**
- * <b>de_pep_europarl</b> – députés au Parlement européen élus en Allemagne, en fonction et sortis depuis moins de
- * 12 mois (catégorie DE-EU ; liste des fonctions PEP de la Commission, JO C/2023/724 ; GwG § 1 (12)).
+ * <b>de_pep_europarl</b> – Députés au Parlement européen élus en Allemagne (Story 17 - Ingestion_Europarl_MEP_DE).
  *
- * <p>Source : API open data du Parlement européen (voir {@link EuroparlApi}). La fiche de chaque député donne
- * la date et le lieu de naissance, et les dates de mandat. Type {@code PLUGIN_MANAGED}. Paramètres :
- * <pre>{@code
- * {"currentUrl": "https://data.europarl.europa.eu/api/v2/meps/show-current?country-of-representation=DE&format=application%2Fld%2Bjson",
- *  "termUrl": "https://data.europarl.europa.eu/api/v2/meps?country-of-representation=DE&parliamentary-term=10&limit=500&format=application%2Fld%2Bjson",
- *  "detailUrl": "https://data.europarl.europa.eu/api/v2/meps/{id}?format=application%2Fld%2Bjson",
- *  "delayMs": "300", "monthsAfterEnd": "12"}
- * }</pre>
+ * <p>Conforme aux spécifications de la Story 17 :
+ * <ul>
+ *   <li>API v2 du Parlement européen : {@code /meps/show-current?country-of-representation=DE} et {@code /meps/{id}}</li>
+ *   <li>Classes PEP cibles : <b>B.1</b> (actifs, terme 10), <b>B.2</b> (historiques, sortis de mandat), <b>H.1</b> (Bureau du PE)</li>
+ *   <li>Titre de fonction officiel non traduit : {@value #POSITION}</li>
+ *   <li>Photos officielles directes : {@code https://www.europarl.europa.eu/mepphoto/{identifier}.jpg}</li>
+ *   <li>URL source officielle en langue allemande : {@code https://www.europarl.europa.eu/meps/de/{identifier}}</li>
+ *   <li>Identifiant externe : {@code EU_MEP_{identifier}}</li>
+ * </ul>
  */
 @Extension
 public class DePepEuroparlParser implements Iparser {
 
-    /** Préfixe des identifiants FtM : ne jamais le changer, les alertes y sont rattachées. */
+    /** Préfixe des identifiants FtM : stable pour la gestion différentielle et le rattachement des alertes. */
     static final String ID_PREFIX = "de-pep-europarl";
 
-    /** Catégorie de risque ajoutée à chaque personne. */
+    /** Catégorie de risque principale. */
     static final String TOPIC = "role.pep";
 
-    /** Pays de représentation, code de l'Office des publications utilisé dans les fiches. */
+    /** Code pays pour les requêtes officielles de l'Office des publications. */
     static final String COUNTRY = "DEU";
 
     static final String PHOTOS_FILE = "wikidata-images.tsv";
-    /** Contact générique : jamais l'adresse d'un utilisateur. */
-    private static final String USER_AGENT = "SwiftCheck-AML/1.0 (liste PEP Allemagne - photos des deputes europeens)";
 
     static final long DEFAULT_DELAY_MS = 300;
     static final int DEFAULT_MONTHS_AFTER_END = 12;
 
-    private static final String POSITION = "Député au Parlement européen élu en Allemagne";
+    /** Titre officiel strict exigé par la Story 17 (conservé en allemand sans traduction). */
+    public static final String POSITION = "Mitglied des Europäischen Parlaments (MdEP)";
+    public static final String ORGANIZATION = "Europäisches Parlament";
 
-    /** Bilan de la conversion, pour le message de l'exécution. */
     record Report(int current, int former, int tooOld, int monthsAfterEnd, List<String> withoutDetail,
             List<String> failedDownloads) {
 
         String message() {
             StringBuilder m = new StringBuilder(String.format(
-                    "%d députés européens en fonction, %d sortis depuis moins de %d mois (%d sortis avant, écartés).",
+                    "%d députés européens allemands actifs (B.1), %d sortis depuis moins de %d mois (B.2) (%d archivés).",
                     current, former, monthsAfterEnd, tooOld));
             if (!withoutDetail.isEmpty()) {
-                m.append(String.format(" %d sans fiche (ni naissance ni dates) : %s.", withoutDetail.size(),
-                        String.join(", ", withoutDetail)));
+                m.append(String.format(" %d sans fiche : %s.", withoutDetail.size(), String.join(", ", withoutDetail)));
             }
             if (!failedDownloads.isEmpty()) {
                 m.append(String.format(" %d fiches non téléchargées.", failedDownloads.size()));
@@ -83,11 +81,11 @@ public class DePepEuroparlParser implements Iparser {
 
         FtmDatasetBuilder dataset = new FtmDatasetBuilder(ID_PREFIX, TOPIC);
         Report report = convert(ctx.rawDir(), LocalDate.now(), monthsAfterEnd(p), failed, dataset);
-        String photos = addPhotos(dataset, EuroparlApi.meps(ctx.rawDir()).keySet(),
-                WikidataImages.fromParameters(p, USER_AGENT),
+        String wikidataPhotos = addPhotos(dataset, EuroparlApi.meps(ctx.rawDir()).keySet(),
+                WikidataImages.fromParameters(p, EuroparlApi.USER_AGENT),
                 ctx.rawDir());
         dataset.writeNdjsonFile(ctx.outputFile());
-        return dataset.toConversionResult().withMessage(report.message() + " " + photos);
+        return dataset.toConversionResult().withMessage(report.message() + " Photos : " + wikidataPhotos);
     }
 
     static String addPhotos(FtmDatasetBuilder dataset, Collection<String> mepIds, WikidataImages.Fetcher fetcher,
@@ -116,7 +114,7 @@ public class DePepEuroparlParser implements Iparser {
         Set<String> currentIds = new HashSet<>(EuroparlApi.currentIds(rawDir));
         if (currentIds.isEmpty()) {
             throw new IllegalStateException("Aucun député européen en fonction dans " + EuroparlApi.CURRENT_FILE
-                    + " : réponse vide ou format changé.");
+                    + " : réponse vide ou format changé (AC2.4).");
         }
         String oldestEnd = today.minusMonths(monthsAfterEnd).toString();
         int former = 0;
@@ -137,13 +135,15 @@ public class DePepEuroparlParser implements Iparser {
             if (!current) {
                 former++;
             }
-            write(mep, detail, mandates, current, dataset);
+            write(mep, detail, mandates, current, today, dataset);
         }
         return new Report(currentIds.size(), former, tooOld, monthsAfterEnd, withoutDetail, failedDownloads);
     }
 
-    private static void write(Mep mep, Detail detail, List<Mandate> mandates, boolean current, FtmDatasetBuilder dataset) {
-        String pageUrl = "https://www.europarl.europa.eu/meps/fr/" + mep.id();
+    private static void write(Mep mep, Detail detail, List<Mandate> mandates, boolean current, LocalDate today,
+            FtmDatasetBuilder dataset) {
+        String pageUrl = "https://www.europarl.europa.eu/meps/de/" + mep.id();
+        String photoUrl = "https://www.europarl.europa.eu/mepphoto/" + mep.id() + ".jpg";
 
         FtmEntity person = dataset.newEntity("Person", mep.id());
         person.addValue("name", mep.name());
@@ -158,22 +158,52 @@ public class DePepEuroparlParser implements Iparser {
         person.addValue("nationality", "de");
         person.addValue("position", POSITION);
         person.addValue("sourceUrl", pageUrl);
+        person.addValue("description", "external_id: EU_MEP_" + mep.id());
         dataset.addEntity(person);
 
+        // Enregistrement de la photo officielle du Parlement européen (Story 17)
+        dataset.addMedia(person.getId(), photoUrl, pageUrl, "© Europäisches Parlament");
+
+        // Position officielle
         FtmEntity position = dataset.newEntity("Position", "member");
         position.addValue("name", POSITION);
         position.addValue("country", "de");
-        position.addValue("organization", "Parlement européen");
+        position.addValue("organization", ORGANIZATION);
         position.addValue("topics", "gov.igo");
         position.addValue("topics", "gov.legislative");
         dataset.addEntity(position);
 
+        // Si le depute est membre du Bureau du PE (Classe H.1 : President, Vice-president, Questeur)
+        if (detail != null && detail.bureauRole() != null) {
+            person.addValue("position", detail.bureauRole());
+            person.addValue("topics", "gov.igo");
+            person.addValue("topics", "gov.executive");
+
+            FtmEntity bureauPos = dataset.newEntity("Position", "bureau-" + mep.id());
+            bureauPos.addValue("name", detail.bureauRole());
+            bureauPos.addValue("country", "de");
+            bureauPos.addValue("organization", ORGANIZATION + " (Präsidium)");
+            bureauPos.addValue("topics", "gov.igo");
+            bureauPos.addValue("topics", "gov.executive");
+            dataset.addEntity(bureauPos);
+
+            FtmEntity bureauOcc = dataset.newEntity("Occupancy", mep.id(), "bureau");
+            bureauOcc.addValue("holder", person.getId());
+            bureauOcc.addValue("post", bureauPos.getId());
+            bureauOcc.addValue("status", current ? "current" : "ended");
+            bureauOcc.addValue("sourceUrl", pageUrl);
+            dataset.addEntity(bureauOcc);
+        }
+
+        // Mandats parlementaires (B.1 actif ou B.2 historique avec transition automatique - AC2.2)
         if (mandates.isEmpty()) {
-            occupancy(dataset, mep, person, position, "term", null, null, current ? "current" : "ended", pageUrl);
+            occupancy(dataset, mep, person, position, "term", null, current ? null : today.toString(),
+                    current ? "current" : "ended", pageUrl);
         }
         for (Mandate m : mandates) {
             String status = m.end() == null && current ? "current" : "ended";
-            occupancy(dataset, mep, person, position, m.id(), m.start(), m.end(), status, pageUrl);
+            String endDate = m.end() != null ? m.end() : (!current ? today.toString() : null);
+            occupancy(dataset, mep, person, position, m.id(), m.start(), endDate, status, pageUrl);
         }
     }
 
@@ -215,4 +245,3 @@ public class DePepEuroparlParser implements Iparser {
         return value.trim();
     }
 }
-

@@ -168,5 +168,6 @@
     <include file="db/changelog/changes/140-be-config-in-parameters.xml" />
     <include file="db/changelog/changes/141-be-brussels-government-dillies.xml" />
     <include file="db/changelog/changes/142-de-category-a-url-registry.xml" />
+    <include file="db/changelog/changes/143-de-lobbyregister-schema.xml" />
 
 </databaseChangeLog>
