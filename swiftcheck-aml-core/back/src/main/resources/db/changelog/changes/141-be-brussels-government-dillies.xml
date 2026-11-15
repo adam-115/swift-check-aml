@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <!--
+      be_pep_regional_governments, gouvernement de la Region de Bruxelles-Capitale : le changeSet 140 pointe vers la
+      page Wikipedia "Gouvernement Vervoort III", termine le 14/02/2026 (successeur : gouvernement Dillies, Boris
+      Dillies ministre-president). Les ministres sortants etaient publies comme en fonction et le gouvernement
+      actuel manquait. On remplace seulement le titre de la page dans l'adresse ; le reste des parametres ne change pas.
+      Le parser suit desormais aussi le lien "suivant" de l'infobox quand le gouvernement lu a une date de fin,
+      et le signale dans le message d'execution.
+    -->
+    <changeSet id="141-be-brussels-government-dillies" author="swiftcheck" dbms="mysql">
+        <sql>
+            UPDATE parser
+               SET parameters = REPLACE(parameters, 'page=Gouvernement_Vervoort_III', 'page=Gouvernement_Dilli%C3%A8s')
+             WHERE dataset_name = 'be_pep_regional_governments'
+               AND parameters LIKE '%page=Gouvernement_Vervoort_III%';
+        </sql>
+    </changeSet>
+
+</databaseChangeLog>

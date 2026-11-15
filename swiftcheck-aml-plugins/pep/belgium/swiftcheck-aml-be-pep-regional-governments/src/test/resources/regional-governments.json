@@ -37,7 +37,7 @@
       "code": "bruxelles",
       "name": "Gouvernement de la Région de Bruxelles-Capitale",
       "entityName": "Région de Bruxelles-Capitale",
-      "url": "https://fr.wikipedia.org/w/api.php?action=parse&page=Gouvernement_Vervoort_III&prop=wikitext&format=json",
+      "url": "https://fr.wikipedia.org/w/api.php?action=parse&page=Gouvernement_Dilli%C3%A8s&prop=wikitext&format=json",
       "fileName": "bruxelles.html",
       "format": "MEDIAWIKI_TABLE"
     }

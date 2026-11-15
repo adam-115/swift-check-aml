@@ -57,14 +57,38 @@ class BePepRegionalGovernmentsParserTest {
         assertTrue(records.stream().anyMatch(r ->
                 "Adrien Dolimont".equals(r.fullName())
                 && r.roleCategory().startsWith("Ministre-président")));
+        // Gouvernement bruxellois en fonction depuis le 14/02/2026 : Dilliès (et non plus Vervoort III).
         assertTrue(records.stream().anyMatch(r ->
-                "Rudi Vervoort".equals(r.fullName())
-                && r.roleCategory().startsWith("Ministre-président")));
+                "Boris Dilliès".equals(r.fullName())
+                && r.roleCategory().startsWith("Ministre-président")
+                && r.entityName().contains("Bruxelles-Capitale")));
+        assertFalse(records.stream().anyMatch(r -> "Rudi Vervoort".equals(r.fullName())));
 
         List<FtmEntity> persons = dataset.entities().stream()
                 .filter(e -> "Person".equals(e.getSchema()))
                 .toList();
         assertEquals(35, persons.size());
+    }
+
+    @Test
+    void detectsEndedGovernmentAndItsSuccessor() throws IOException {
+        String[] next = BePepRegionalGovernmentsParser.successorOfEndedGovernment(
+                readResourceString("bruxelles-vervoort-iii.json"));
+        assertNotNull(next, "Vervoort III a une date de fin : son successeur doit être suivi");
+        assertEquals("14-02-2026", next[0]);
+        assertEquals("Gouvernement Dilliès", next[1]);
+
+        assertNull(BePepRegionalGovernmentsParser.successorOfEndedGovernment(readResourceString("bruxelles.html")),
+                "Dilliès n'a pas de date de fin : c'est le gouvernement en fonction");
+        assertNull(BePepRegionalGovernmentsParser.successorOfEndedGovernment(readResourceString("wallonie.html")));
+    }
+
+    @Test
+    void replacesPageInMediaWikiUrl() {
+        assertEquals("https://fr.wikipedia.org/w/api.php?action=parse&page=Gouvernement_Dilli%C3%A8s&prop=wikitext&format=json",
+                BePepRegionalGovernmentsParser.withPage(
+                        "https://fr.wikipedia.org/w/api.php?action=parse&page=Gouvernement_Vervoort_III&prop=wikitext&format=json",
+                        "Gouvernement Dilliès"));
     }
 
     @Test

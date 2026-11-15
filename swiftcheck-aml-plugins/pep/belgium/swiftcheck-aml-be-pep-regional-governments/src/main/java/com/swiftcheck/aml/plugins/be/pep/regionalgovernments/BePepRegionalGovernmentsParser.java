@@ -90,6 +90,7 @@ public class BePepRegionalGovernmentsParser implements Iparser {
                 .followRedirects(HttpClient.Redirect.NORMAL)
                 .build();
 
+        List<String> successions = new ArrayList<>();
         boolean first = true;
         for (GovernmentEntry gov : config.governments()) {
             if (!first && config.delayMs() > 0) {
@@ -97,26 +98,30 @@ public class BePepRegionalGovernmentsParser implements Iparser {
             }
             first = false;
 
-            HttpRequest req = HttpRequest.newBuilder(URI.create(gov.url()))
-                    .timeout(Duration.ofSeconds(15))
-                    .header("User-Agent", "SwiftCheck-AML/1.0 (liste PEP Belgique - gouvernements regionaux)")
-                    .header("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8")
-                    .header("Accept-Language", "fr-BE,fr;q=0.9,nl;q=0.8,de;q=0.7")
-                    .GET()
-                    .build();
+            String url = gov.url();
             try {
-                HttpResponse<String> resp = client.send(req, HttpResponse.BodyHandlers.ofString(StandardCharsets.UTF_8));
-                if (resp.statusCode() == 200 && resp.body() != null && !resp.body().isBlank()) {
-                    Files.writeString(ctx.rawDir().resolve(gov.fileName()), resp.body(), StandardCharsets.UTF_8);
-                    log.info("[be_pep_regional_governments] {} téléchargé ({} caractères)",
-                            gov.code(), resp.body().length());
-                } else {
-                    failures.add(gov.code() + " (HTTP " + resp.statusCode() + ")");
-                    log.warn("[be_pep_regional_governments] Échec sur {} : HTTP {}", gov.url(), resp.statusCode());
+                String body = fetch(client, url);
+                // Page Wikipédia d'un gouvernement terminé : on suit « suivant » jusqu'au gouvernement en fonction.
+                if ("MEDIAWIKI_TABLE".equals(gov.format())) {
+                    for (int hop = 0; hop < MAX_SUCCESSION_HOPS; hop++) {
+                        String[] next = successorOfEndedGovernment(body);
+                        if (next == null) {
+                            break;
+                        }
+                        String nextUrl = withPage(url, next[1]);
+                        log.info("[be_pep_regional_governments] {} : {} terminé le {}, lecture du suivant {}",
+                                gov.code(), pageOf(url), next[0], next[1]);
+                        successions.add(gov.code() + " : " + pageOf(url).replace('_', ' ') + " terminé le " + next[0]
+                                + ", remplacé par " + next[1]);
+                        url = nextUrl;
+                        body = fetch(client, url);
+                    }
                 }
+                Files.writeString(ctx.rawDir().resolve(gov.fileName()), body, StandardCharsets.UTF_8);
+                log.info("[be_pep_regional_governments] {} téléchargé ({} caractères)", gov.code(), body.length());
             } catch (Exception e) {
-                failures.add(gov.code() + " (" + e.getClass().getSimpleName() + ")");
-                log.warn("[be_pep_regional_governments] Site injoignable {} : {}", gov.url(), e.getMessage());
+                failures.add(gov.code() + " (" + (e.getMessage() != null ? e.getMessage() : e.getClass().getSimpleName()) + ")");
+                log.warn("[be_pep_regional_governments] Échec sur {} : {}", url, e.getMessage());
             }
         }
 
@@ -125,10 +130,70 @@ public class BePepRegionalGovernmentsParser implements Iparser {
         dataset.writeNdjsonFile(ctx.outputFile());
 
         String msg = records.size() + " membres de gouvernements régionaux/communautaires extraits.";
+        if (!successions.isEmpty()) {
+            msg += " Gouvernement terminé, successeur lu (à reporter dans les paramètres) : " + String.join(" ; ", successions) + ".";
+        }
         if (!failures.isEmpty()) {
             msg += " Exécutifs injoignables : " + String.join(", ", failures) + ".";
         }
         return dataset.toConversionResult().withMessage(msg);
+    }
+
+    /** Nombre maximal de gouvernements successifs suivis à partir de la page configurée. */
+    static final int MAX_SUCCESSION_HOPS = 3;
+
+    private static final Pattern INFOBOX_END = Pattern.compile("(?m)^\\|\\s*fin\\s*=\\s*([^\\n|]*?)\\s*$");
+    private static final Pattern INFOBOX_NEXT = Pattern.compile("(?m)^\\|\\s*suivant\\s*=\\s*\\[\\[([^\\]|#]+)");
+
+    /**
+     * Réponse de l'API MediaWiki (ou wikitexte) d'un gouvernement : si l'infobox donne une date de fin et un
+     * gouvernement « suivant », renvoie {date de fin, titre de la page suivante} ; sinon {@code null}
+     * (gouvernement en fonction).
+     */
+    static String[] successorOfEndedGovernment(String apiResponse) {
+        String wikitext = apiResponse;
+        if (apiResponse != null && apiResponse.trim().startsWith("{")) {
+            try {
+                wikitext = MAPPER.readTree(apiResponse).path("parse").path("wikitext").path("*").asText("");
+            } catch (Exception e) {
+                return null;
+            }
+        }
+        if (wikitext == null) {
+            return null;
+        }
+        Matcher end = INFOBOX_END.matcher(wikitext);
+        Matcher next = INFOBOX_NEXT.matcher(wikitext);
+        if (!end.find() || end.group(1).isBlank() || !next.find()) {
+            return null;
+        }
+        return new String[]{end.group(1).trim(), next.group(1).trim()};
+    }
+
+    /** Même adresse de l'API MediaWiki, avec une autre page ({@code page=…}). */
+    static String withPage(String apiUrl, String pageTitle) {
+        String encoded = java.net.URLEncoder.encode(pageTitle.replace(' ', '_'), StandardCharsets.UTF_8);
+        return apiUrl.replaceFirst("([?&]page=)[^&]*", "$1" + Matcher.quoteReplacement(encoded));
+    }
+
+    private static String pageOf(String apiUrl) {
+        Matcher m = Pattern.compile("[?&]page=([^&]*)").matcher(apiUrl);
+        return m.find() ? java.net.URLDecoder.decode(m.group(1), StandardCharsets.UTF_8) : apiUrl;
+    }
+
+    private static String fetch(HttpClient client, String url) throws IOException, InterruptedException {
+        HttpRequest req = HttpRequest.newBuilder(URI.create(url))
+                .timeout(Duration.ofSeconds(15))
+                .header("User-Agent", "SwiftCheck-AML/1.0 (liste PEP Belgique - gouvernements regionaux)")
+                .header("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8")
+                .header("Accept-Language", "fr-BE,fr;q=0.9,nl;q=0.8,de;q=0.7")
+                .GET()
+                .build();
+        HttpResponse<String> resp = client.send(req, HttpResponse.BodyHandlers.ofString(StandardCharsets.UTF_8));
+        if (resp.statusCode() != 200 || resp.body() == null || resp.body().isBlank()) {
+            throw new IOException("HTTP " + resp.statusCode());
+        }
+        return resp.body();
     }
 
     @Override
