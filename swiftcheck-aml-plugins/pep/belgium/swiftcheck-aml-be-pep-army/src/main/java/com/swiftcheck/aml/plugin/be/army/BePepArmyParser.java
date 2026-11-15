@@ -48,7 +48,6 @@ public class BePepArmyParser implements Iparser {
     static final String COUNTRY = "be";
     static final String SOURCE_URL = "https://www.mil.be/fr/";
     static final String INSTITUTION = "La Défense (Forces armées belges)";
-    static final String CONFIG_RESOURCE = "/army-pages.json";
 
     private static final ObjectMapper MAPPER = new ObjectMapper();
 
@@ -78,22 +77,20 @@ public class BePepArmyParser implements Iparser {
             String sourceUrl
     ) {}
 
-    public List<ArmyPageConfig> loadConfigs() throws IOException {
-        return loadConfigs(null);
-    }
-
     public List<ArmyPageConfig> loadConfigs(String pagesParam) throws IOException {
-        if (pagesParam != null && !pagesParam.isBlank()) {
-            com.fasterxml.jackson.databind.JsonNode root = MAPPER.readTree(pagesParam);
-            com.fasterxml.jackson.databind.JsonNode pagesNode = root.has("pages") ? root.path("pages") : root;
-            return MAPPER.readValue(pagesNode.traverse(), new TypeReference<List<ArmyPageConfig>>() {});
+        if (pagesParam == null || pagesParam.isBlank()) {
+            throw new IllegalStateException(
+                    "Paramètre « armyPages » absent : la liste des pages mil.be se configure dans les paramètres du parser (colonne parser.parameters).");
         }
-        try (InputStream is = getClass().getResourceAsStream(CONFIG_RESOURCE)) {
-            if (is == null) {
-                throw new IOException("Ressource introuvable : " + CONFIG_RESOURCE);
-            }
-            return MAPPER.readValue(is, new TypeReference<List<ArmyPageConfig>>() {});
+        com.fasterxml.jackson.databind.JsonNode root = MAPPER.readTree(pagesParam);
+        com.fasterxml.jackson.databind.JsonNode pagesNode = root.has("pages")
+                ? root.path("pages")
+                : (root.has("value") ? root.path("value") : root);
+        List<ArmyPageConfig> configs = MAPPER.readValue(pagesNode.traverse(), new TypeReference<List<ArmyPageConfig>>() {});
+        if (configs == null || configs.isEmpty()) {
+            throw new IllegalStateException("Aucune page mil.be définie dans le paramètre « armyPages ».");
         }
+        return configs;
     }
 
     @Override
@@ -149,23 +146,11 @@ public class BePepArmyParser implements Iparser {
         return records;
     }
 
-    List<OfficerRecord> convert(Path rawDir, FtmDatasetBuilder dataset) throws IOException {
-        return convert(rawDir, dataset, loadConfigs());
-    }
-
     List<OfficerRecord> convert(Path rawDir, FtmDatasetBuilder dataset, List<ArmyPageConfig> configs) throws IOException {
         Map<String, OfficerRecord> byKey = new LinkedHashMap<>();
 
         for (ArmyPageConfig cfg : configs) {
             Path file = rawDir.resolve(cfg.code() + ".html");
-            if (!Files.isRegularFile(file) || Files.size(file) < 50) {
-                try (InputStream is = getClass().getResourceAsStream("/" + cfg.code() + ".html")) {
-                    if (is != null) {
-                        Files.copy(is, file, java.nio.file.StandardCopyOption.REPLACE_EXISTING);
-                    }
-                } catch (Exception ignored) {
-                }
-            }
             if (!Files.isRegularFile(file)) {
                 continue;
             }

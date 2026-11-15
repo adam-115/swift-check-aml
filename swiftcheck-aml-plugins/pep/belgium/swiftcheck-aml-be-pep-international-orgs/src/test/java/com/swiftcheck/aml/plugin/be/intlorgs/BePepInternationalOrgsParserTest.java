@@ -24,6 +24,8 @@ class BePepInternationalOrgsParserTest {
     private String beneluxHtml;
     private String wcoHtml;
     private String eurocontrolHtml;
+    private String shapeHtml;
+    private String oacpsHtml;
 
     @BeforeEach
     void setUp() throws IOException {
@@ -32,6 +34,8 @@ class BePepInternationalOrgsParserTest {
         beneluxHtml = readResource("/pages/benelux.html");
         wcoHtml = readResource("/pages/wco.html");
         eurocontrolHtml = readResource("/pages/eurocontrol.html");
+        shapeHtml = readResource("/pages/shape.html");
+        oacpsHtml = readResource("/pages/oacps.html");
     }
 
     private String readResource(String path) throws IOException {
@@ -42,26 +46,32 @@ class BePepInternationalOrgsParserTest {
     }
 
     @Test
-    @DisplayName("Doit extraire les dirigeants de l'OTAN, de l'Union Benelux, de l'OMD/WCO et d'Eurocontrol")
+    @DisplayName("Doit extraire les dirigeants de l'OTAN, de l'Union Benelux, de l'OMD/WCO, d'Eurocontrol, du SHAPE et de l'OEACP")
     void shouldExtractInternationalOrgLeaders() throws IOException {
-        Map<String, OrgConfig> cfgByCode = parser.loadConfigs().stream()
+        Map<String, OrgConfig> cfgByCode = parser.loadConfigs(Map.of("organizations", readResource("/international-orgs.json"))).stream()
                 .collect(java.util.stream.Collectors.toMap(OrgConfig::code, c -> c));
 
         List<LeaderRecord> natoRecords = parser.parseOrganisationHtml(cfgByCode.get("nato"), natoHtml);
         List<LeaderRecord> beneluxRecords = parser.parseOrganisationHtml(cfgByCode.get("benelux"), beneluxHtml);
         List<LeaderRecord> wcoRecords = parser.parseOrganisationHtml(cfgByCode.get("wco"), wcoHtml);
         List<LeaderRecord> eurocontrolRecords = parser.parseOrganisationHtml(cfgByCode.get("eurocontrol"), eurocontrolHtml);
+        List<LeaderRecord> shapeRecords = parser.parseOrganisationHtml(cfgByCode.get("shape"), shapeHtml);
+        List<LeaderRecord> oacpsRecords = parser.parseOrganisationHtml(cfgByCode.get("oacps"), oacpsHtml);
 
         assertEquals(4, natoRecords.size(), "L'OTAN doit compter 4 hauts dirigeants sur la page Who we are");
         assertEquals(3, beneluxRecords.size(), "L'Union Benelux doit compter 3 membres du Collège des Secrétaires généraux");
         assertEquals(1, wcoRecords.size(), "L'OMD/WCO doit compter 1 Secrétaire général");
         assertEquals(10, eurocontrolRecords.size(), "Eurocontrol doit compter 10 hauts dirigeants exécutifs");
+        assertEquals(3, shapeRecords.size(), "Le SHAPE doit compter 3 membres du Command Group (SACEUR, DSACEUR, Chief of Staff)");
+        assertEquals(1, oacpsRecords.size(), "L'OEACP/OACPS doit compter 1 Secrétaire général");
 
         List<LeaderRecord> allRecords = new ArrayList<>();
         allRecords.addAll(natoRecords);
         allRecords.addAll(beneluxRecords);
         allRecords.addAll(wcoRecords);
         allRecords.addAll(eurocontrolRecords);
+        allRecords.addAll(shapeRecords);
+        allRecords.addAll(oacpsRecords);
 
         FtmDatasetBuilder dataset = new FtmDatasetBuilder(
                 BePepInternationalOrgsParser.ID_PREFIX, BePepInternationalOrgsParser.TOPIC);
@@ -72,7 +82,7 @@ class BePepInternationalOrgsParserTest {
         List<FtmEntity> entities = dataset.entities().stream()
                 .filter(e -> "Person".equals(e.getSchema()))
                 .toList();
-        assertEquals(18, entities.size());
+        assertEquals(22, entities.size());
 
         // Vérifier Mark Rutte (OTAN)
         assertTrue(entities.stream().anyMatch(e ->
@@ -98,10 +108,37 @@ class BePepInternationalOrgsParserTest {
                                 && e.getValues("position").stream().anyMatch(p -> p.contains("Director General"))),
                 "Doit contenir Raúl Medina (Director General d'Eurocontrol)");
 
+        // Vérifier Alexus Grynkewich (SHAPE SACEUR)
+        assertTrue(entities.stream().anyMatch(e ->
+                        e.getValues("name").contains("Alexus Grynkewich")
+                                && e.getValues("position").stream().anyMatch(p -> p.contains("SACEUR"))),
+                "Doit contenir Alexus Grynkewich (SACEUR - SHAPE)");
+
+        // Vérifier Moussa Saleh Batraki (OEACP/OACPS)
+        assertTrue(entities.stream().anyMatch(e ->
+                        e.getValues("name").contains("Moussa Saleh Batraki")
+                                && e.getValues("position").stream().anyMatch(p -> p.contains("Secretary General"))),
+                "Doit contenir Moussa Saleh Batraki (Secretary General de l'OEACP)");
+
         for (FtmEntity entity : entities) {
             assertEquals("Person", entity.getSchema());
             assertTrue(entity.getValues("topics").contains("role.pep"));
             assertTrue(entity.getValues("country").contains("be"));
         }
+    }
+
+    @Test
+    @DisplayName("Doit supporter la surcharge dynamique via ParserContext.parameters() et lever une erreur si absent")
+    void shouldSupportDynamicParametersAndFailWhenMissing() throws IOException {
+        List<OrgConfig> cfgs = parser.loadConfigs(Map.of(
+                "organizations", readResource("/international-orgs.json"),
+                "shape.headquarters", "Mons (Casteau) - Override"
+        ));
+        assertEquals(6, cfgs.size());
+        OrgConfig shape = cfgs.stream().filter(c -> "shape".equals(c.code())).findFirst().orElseThrow();
+        assertTrue(shape.isActive());
+        assertTrue(shape.url().contains("Supreme_Headquarters_Allied_Powers_Europe"));
+        assertEquals("Mons (Casteau) - Override", shape.headquarters());
+        assertThrows(IllegalStateException.class, () -> parser.loadConfigs(Map.of()));
     }
 }

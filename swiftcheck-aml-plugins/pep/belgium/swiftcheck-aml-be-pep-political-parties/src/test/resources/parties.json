@@ -1,0 +1,83 @@
+{
+  "parties": [
+    {
+      "slug": "mr",
+      "query": "Mouvement Réformateur",
+      "name": "Mouvement Réformateur (MR)",
+      "pattern": "^(MR(\\s*-\\s*Mouvement\\s+r[eé]formateur)?|Mouvement\\s+r[eé]formateur)(\\s*,?\\s*(asbl|vzw))?$"
+    },
+    {
+      "slug": "ps",
+      "query": "Parti Socialiste",
+      "name": "Parti Socialiste (PS)",
+      "pattern": "^(PS(\\s*-\\s*Parti\\s+socialiste)?|Parti\\s+socialiste)(\\s*,?\\s*(asbl|vzw))?$"
+    },
+    {
+      "slug": "nva",
+      "query": "N-VA",
+      "name": "Nieuw-Vlaamse Alliantie (N-VA)",
+      "pattern": "^(N-VA(\\s*-\\s*Nieuw-Vlaamse\\s+Alliantie)?|Nieuw-Vlaamse\\s+Alliantie)(\\s*,?\\s*(asbl|vzw))?$"
+    },
+    {
+      "slug": "ecolo",
+      "query": "Ecolo",
+      "name": "Ecolo",
+      "pattern": "^(Ecolo|Ecodota(\\s*-\\s*Ecolo\\s+f[eé]d[eé]ral)?)(\\s*,?\\s*(asbl|vzw))?$"
+    },
+    {
+      "slug": "engages",
+      "query": "Les Engagés",
+      "name": "Les Engagés",
+      "pattern": "^(Les\\s+Engag[eé]s)(\\s*,?\\s*(asbl|vzw))?$"
+    },
+    {
+      "slug": "groen",
+      "query": "Groen",
+      "name": "Groen",
+      "pattern": "^(Groen(\\s+vzw)?|Groenhuis(\\s+vzw)?)$"
+    },
+    {
+      "slug": "vooruit",
+      "query": "Vooruit",
+      "name": "Vooruit",
+      "pattern": "^(Vooruit|Bureau\\s+van\\s+Vooruit)(\\s*,?\\s*(asbl|vzw))?$"
+    },
+    {
+      "slug": "cdenv",
+      "query": "CD&V",
+      "name": "Christen-Democratisch en Vlaams (CD&V)",
+      "pattern": "^(CD&V|Christen-Democratisch\\s+en\\s+Vlaams)(\\s*,?\\s*(asbl|vzw))?$"
+    },
+    {
+      "slug": "openvld",
+      "query": "Open Vld",
+      "name": "Open Vlaamse Liberalen en Democraten (Open Vld)",
+      "pattern": "^(Open\\s+Vld|Open\\s+Vlaamse\\s+Liberalen\\s+en\\s+Democraten)(\\s*,?\\s*(asbl|vzw))?$"
+    },
+    {
+      "slug": "ptb",
+      "query": "PTB",
+      "name": "Parti du Travail de Belgique (PTB-PVDA)",
+      "pattern": "^(PTB(\\s*/\\s*PVDA)?(\\s*-\\s*Parti\\s+du\\s+travail\\s+de\\s+Belgique)?|PVDA|PVDA-PTB-22)(\\s*,?\\s*(asbl|vzw))?$"
+    },
+    {
+      "slug": "pvda",
+      "query": "PVDA",
+      "name": "Parti du Travail de Belgique (PTB-PVDA)",
+      "pattern": "^(PTB(\\s*/\\s*PVDA)?(\\s*-\\s*Parti\\s+du\\s+travail\\s+de\\s+Belgique)?|PVDA|PVDA-PTB-22)(\\s*,?\\s*(asbl|vzw))?$"
+    },
+    {
+      "slug": "vlaamsbelang",
+      "query": "Vlaams Belang",
+      "name": "Vlaams Belang",
+      "pattern": "^(Vlaams\\s+Belang)(\\s*,?\\s*(asbl|vzw))?$"
+    },
+    {
+      "slug": "defi",
+      "query": "DéFI",
+      "name": "DéFI",
+      "pattern": "^(D[eé]FI(\\s*-\\s*D[eé]mocrate\\s+f[eé]d[eé]raliste\\s+ind[eé]pendant)?|Solidarit[eé]\\s+D[eé]FI)(\\s*,?\\s*(asbl|vzw))?$"
+    }
+  ]
+}
+

@@ -1,7 +1,17 @@
 package com.swiftcheck.aml.plugins.bepep.politicalparties;
 
+import static com.swiftcheck.aml.sdk.TextUtils.joinNonBlank;
+
+import java.io.IOException;
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.text.Normalizer;
+import java.time.Duration;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -10,6 +20,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
+import java.util.regex.Pattern;
 
 import org.pf4j.Extension;
 import org.slf4j.Logger;
@@ -26,19 +37,19 @@ import com.swiftcheck.aml.sdk.FtmEntity;
 import com.swiftcheck.aml.sdk.WikidataImages;
 
 /**
- * <b>be_pep_political_parties</b> – Dirigeants des partis politiques belges, d'après Wikidata.
+ * <b>be_pep_political_parties</b> – Dirigeants et membres des organes dirigeants des partis politiques belges
+ * (catégorie <b>BE-c</b>, loi du 18 septembre 2017, art. 4, 28°, et Annexe IV, point 3 : <i>membre de la direction,
+ * du conseil politique, du comité de direction, de la gestion journalière ou du secrétariat d'un parti</i>).
  *
- * <p>Ce plugin couvre la catégorie <b>BE-c</b>, fonction <b>Membre de la direction, du conseil politique, du comité
- * de direction, de la gestion journalière ou du secrétariat d'un parti</b> (loi du 18 septembre 2017, art. 4, 28°,
- * et Annexe IV, point 3). Wikidata décrit le président (P488), le secrétaire général (P3975) ou le directeur/dirigeant
- * (P1037, P169) des partis politiques belges (Q31) ; la couverture est partielle (les membres des conseils politiques
- * et comités de direction n'y figurent pas intégralement).
- *
- * <p>Source PLUGIN_MANAGED : le plugin interroge lui-même le point SPARQL ({@link WikidataPartiesDownloader}) et
- * dépose la réponse dans {@code rawDir} ; la conversion ne lit ensuite que ce fichier. Paramètres :
- * <pre>{@code
- * {"endpoint": "https://query.wikidata.org/sparql", "country": "Q31", "monthsAfterEnd": "12"}
- * }</pre>
+ * <p>Sources combinées (type {@code PLUGIN_MANAGED}) :
+ * <ul>
+ *   <li>le point SPARQL de <b>Wikidata</b> ({@link WikidataPartiesDownloader}) pour les présidents (P488), secrétaires
+ *       généraux (P3975) et directeurs/dirigeants (P1037, P169) des partis politiques belges (Q31) ;</li>
+ *   <li>le registre officiel des mandats de la <b>Cour des comptes</b> ({@code https://public.regimand.be}), interrogé
+ *       pour chaque parti politique configuré dans le paramètre {@code parties} de {@link ParserContext#parameters()},
+ *       afin d'extraire les vice-présidents, secrétaires généraux, trésoriers, directeurs politiques, administrateurs
+ *       et membres des bureaux politiques, conseils de parti et comités directeurs nationaux.</li>
+ * </ul>
  */
 @Extension
 public class BePepPoliticalPartiesParser implements Iparser {
@@ -49,29 +60,59 @@ public class BePepPoliticalPartiesParser implements Iparser {
     static final String TOPIC = "role.pep";
     static final String DEFAULT_ENDPOINT = "https://query.wikidata.org/sparql";
     static final String DEFAULT_COUNTRY = "Q31";
+    static final String DEFAULT_REGIMAND_URL = "https://public.regimand.be";
+    static final String REGIMAND_SOURCE_URL = "https://public.regimand.be";
     /** Un dirigeant sorti reste PEP pendant 12 mois (loi du 18/09/2017, art. 66, § 3). */
     static final int DEFAULT_MONTHS_AFTER_END = 12;
 
-    /** Rôle de la requête → libellé de la fonction. */
+    private static final String REGIMAND_USER_AGENT = "SwiftCheck-AML/1.0 (liste PEP Belgique - organes dirigeants des partis politiques)";
+
+    /** Rôle de la requête Wikidata → libellé de la fonction. */
     private static final Map<String, String> ROLES = Map.of(
             "chair", "Président ou présidente",
             "secretaryGeneral", "Secrétaire général ou générale",
             "director", "Dirigeant ou dirigeante");
 
+    /** Fonctions dirigeantes nationales de parti politique retenues (Annexe IV, point 3). */
+    private static final Pattern PARTY_GOVERNANCE_ROLE = Pattern.compile(
+            "pr[eé]sident|voorzitter|ondervoorzitter|secr[eé]taire\\s+g[eé]n[eé]ral|algemeen\\s+secretaris"
+                    + "|tr[eé]sorier|penningmeester|administrateur|administratrice|bestuurder|bestuurslid"
+                    + "|bureau|partijbestuur|partijbureau|partijraad|raad\\s+van\\s+bestuur"
+                    + "|conseil\\s+d['’]administration|conseil\\s+politique|conseil\\s+de\\s+f[eé]d[eé]ration"
+                    + "|directeur\\s+politique|politiek\\s+directeur|d[eé]l[eé]gu[eé]\\s+g[eé]n[eé]ral"
+                    + "|gestion\\s+journali[eè]re|dagelijks\\s+bestuur|membre\\s+du\\s+conseil",
+            Pattern.CASE_INSENSITIVE | Pattern.UNICODE_CASE);
+
+    /** Mentions locales, régionales, catégorielles ou salariées explicitement écartées. */
+    private static final Pattern EXCLUDED_PARTY_ROLE = Pattern.compile(
+            "communal|gemeente|lokaal|local|afdeling|section|arrondissement|provinc|r[eé]gional|regio"
+                    + "|wallon|bruxell|flamand|vlaams|antwerpen|deurne|gent|leuven|brugge|limburg"
+                    + "|oost-vlaanderen|west-vlaanderen|vlaams-brabant|brussel|borgerhout|oostende|herstal"
+                    + "|a[iî]n[eé]s|senioren|jongeren|jeunes|femmes|vrouwen"
+                    + "|collaborat|attach[eé]|employ[eé]|bediende|co[oö]rdinator|militant|beroepskamer",
+            Pattern.CASE_INSENSITIVE | Pattern.UNICODE_CASE);
+
     private static final String PREFERRED_RANK = "http://wikiba.se/ontology#PreferredRank";
     private static final String MALE = "Q6581097";
     private static final String FEMALE = "Q6581072";
 
-    private final ObjectMapper json = new ObjectMapper();
+    private static final ObjectMapper JSON = new ObjectMapper();
+
+    record PartyConfig(String slug, String query, String name, Pattern institutionPattern) {
+    }
 
     @Override
     public ParserResult parse(ParserContext ctx) throws Exception {
         Map<String, String> p = ctx.parameters() == null ? Map.of() : ctx.parameters();
+        List<PartyConfig> partyConfigs = loadPartyConfigs(p.get("parties"));
+
         new WikidataPartiesDownloader().download(p.getOrDefault("endpoint", DEFAULT_ENDPOINT).trim(),
                 p.getOrDefault("country", DEFAULT_COUNTRY).trim(), ctx.rawDir());
+        downloadRegimand(p.getOrDefault("regimandUrl", DEFAULT_REGIMAND_URL).trim(),
+                p.get("year"), ctx.rawDir(), partyConfigs);
 
         FtmDatasetBuilder dataset = new FtmDatasetBuilder(ID_PREFIX, TOPIC);
-        Report report = convert(ctx.rawDir(), LocalDate.now().minusMonths(monthsAfterEnd(p)), dataset, p.get("partyExecutives"));
+        Report report = convert(ctx.rawDir(), LocalDate.now().minusMonths(monthsAfterEnd(p)), dataset, partyConfigs);
         String photos = WikidataImages.addPhotos(dataset, WikidataImages.QID, WikidataImages.personIdSuffixes(dataset),
                 WikidataImages.httpFetcher(p.getOrDefault("endpoint", DEFAULT_ENDPOINT).trim(), WikidataImages.DEFAULT_USER_AGENT),
                 ctx.rawDir().resolve(WikidataImages.PHOTOS_FILE));
@@ -82,8 +123,9 @@ public class BePepPoliticalPartiesParser implements Iparser {
     @Override
     public List<SourceRecord> readSourceRecords(ParserContext ctx) throws Exception {
         Map<String, String> p = ctx.parameters() == null ? Map.of() : ctx.parameters();
+        List<PartyConfig> partyConfigs = loadPartyConfigs(p.get("parties"));
         FtmDatasetBuilder dataset = new FtmDatasetBuilder(ID_PREFIX, TOPIC);
-        convert(ctx.rawDir(), LocalDate.now().minusMonths(monthsAfterEnd(p)), dataset, p.get("partyExecutives"));
+        convert(ctx.rawDir(), LocalDate.now().minusMonths(monthsAfterEnd(p)), dataset, partyConfigs);
         List<SourceRecord> records = new ArrayList<>();
         for (FtmEntity entity : dataset.entities()) {
             if ("Person".equals(entity.getSchema())) {
@@ -101,25 +143,81 @@ public class BePepPoliticalPartiesParser implements Iparser {
     record Selection(List<Statement> current, List<Statement> former, int superseded, int endedLongAgo) {
     }
 
-    record Report(int parties, int persons, int current, int former, int superseded, int endedLongAgo, int unnamed) {
+    record Report(int parties, int persons, int current, int former, int regimandMandates, int superseded,
+            int endedLongAgo, int unnamed) {
 
         String message() {
-            String m = String.format("%d partis belges avec des dirigeants dans Wikidata : %d dirigeants, "
-                    + "%d mandats en cours, %d terminés depuis moins de la durée retenue. Écartés : %d mandats "
-                    + "remplacés par un plus récent, %d terminés depuis plus longtemps.",
-                    parties, persons, current, former, superseded, endedLongAgo);
+            String m = String.format(
+                    "%d partis belges couverts (Wikidata + Cour des comptes Regimand) : %d dirigeants et membres d'organes dirigeants, "
+                            + "%d mandats actifs (%d via Regimand), %d terminés depuis moins de la durée retenue. "
+                            + "Écartés : %d mandats remplacés par un plus récent, %d terminés depuis plus longtemps.",
+                    parties, persons, current, regimandMandates, former, superseded, endedLongAgo);
             return unnamed == 0 ? m : m + String.format(" %d dirigeants sans nom dans Wikidata écartés.", unnamed);
         }
     }
 
-    static final String TEST_EXECUTIVES_RESOURCE = "/party_executives.json";
-
-    Report convert(Path rawDir, LocalDate since, FtmDatasetBuilder dataset) throws Exception {
-        return convert(rawDir, since, dataset, null);
+    static List<PartyConfig> loadPartyConfigs(String partiesParam) throws IOException {
+        if (partiesParam == null || partiesParam.isBlank()) {
+            throw new IllegalStateException(
+                    "Paramètre « parties » absent : la liste des partis politiques se configure dans les paramètres du parser (colonne parser.parameters).");
+        }
+        List<PartyConfig> list = new ArrayList<>();
+        JsonNode root = JSON.readTree(partiesParam);
+        JsonNode partiesNode = root.has("parties") ? root.path("parties") : (root.has("value") ? root.path("value") : root);
+        if (partiesNode.isArray()) {
+            for (JsonNode node : partiesNode) {
+                String slug = node.path("slug").asText("").trim();
+                String query = node.path("query").asText("").trim();
+                String name = node.path("name").asText(query).trim();
+                String patternStr = node.path("pattern").asText("").trim();
+                if (!slug.isEmpty() && !query.isEmpty() && !patternStr.isEmpty()) {
+                    list.add(new PartyConfig(
+                            slug,
+                            query,
+                            name,
+                            Pattern.compile(patternStr, Pattern.CASE_INSENSITIVE | Pattern.UNICODE_CASE)));
+                }
+            }
+        }
+        if (list.isEmpty()) {
+            throw new IllegalStateException("Aucun parti politique défini dans le paramètre « parties ».");
+        }
+        return list;
     }
 
-    Report convert(Path rawDir, LocalDate since, FtmDatasetBuilder dataset, String partyExecutivesParam) throws Exception {
-        JsonNode response = json.readTree(Files.readString(rawDir.resolve(WikidataPartiesDownloader.LEADERS_FILE)));
+    void downloadRegimand(String regimandBaseUrl, String yearParam, Path rawDir, List<PartyConfig> partyConfigs)
+            throws IOException, InterruptedException {
+        Files.createDirectories(rawDir);
+        HttpClient http = HttpClient.newBuilder()
+                .connectTimeout(Duration.ofSeconds(20))
+                .followRedirects(HttpClient.Redirect.NORMAL)
+                .build();
+
+        String token = fetchGuestToken(http, regimandBaseUrl);
+        int year = (yearParam != null && !yearParam.isBlank())
+                ? Integer.parseInt(yearParam.trim())
+                : fetchLatestYear(http, regimandBaseUrl, token);
+
+        for (PartyConfig party : partyConfigs) {
+            String body = JSON.writeValueAsString(Map.of("year", year, "institutionName", party.query()));
+            HttpRequest req = HttpRequest.newBuilder(URI.create(regimandBaseUrl + "/api/Statement/PublicSearch"))
+                    .timeout(Duration.ofSeconds(60))
+                    .header("Authorization", "Bearer " + token)
+                    .header("Content-Type", "application/json; charset=utf-8")
+                    .header("Accept", "application/json")
+                    .header("User-Agent", REGIMAND_USER_AGENT)
+                    .POST(HttpRequest.BodyPublishers.ofString(body, StandardCharsets.UTF_8))
+                    .build();
+            HttpResponse<byte[]> res = http.send(req, HttpResponse.BodyHandlers.ofByteArray());
+            if (res.statusCode() != 200) {
+                throw new IOException("Regimand PublicSearch HTTP " + res.statusCode() + " pour " + party.query());
+            }
+            Files.write(rawDir.resolve(regimandFileName(party.slug())), res.body());
+        }
+    }
+
+    Report convert(Path rawDir, LocalDate since, FtmDatasetBuilder dataset, List<PartyConfig> partyConfigs) throws Exception {
+        JsonNode response = JSON.readTree(Files.readString(rawDir.resolve(WikidataPartiesDownloader.LEADERS_FILE), StandardCharsets.UTF_8));
         List<Statement> statements = new ArrayList<>();
         int unnamed = 0;
         for (Statement s : statements(response)) {
@@ -137,112 +235,192 @@ public class BePepPoliticalPartiesParser implements Iparser {
 
         Set<String> parties = new LinkedHashSet<>();
         Set<String> persons = new LinkedHashSet<>();
+        Map<String, FtmEntity> personsByFoldedName = new LinkedHashMap<>();
+
         for (Statement s : selection.current()) {
-            write(dataset, s, true);
+            FtmEntity person = writeWikidata(dataset, s, true);
             parties.add(s.partyQid());
-            persons.add(s.personQid());
+            persons.add(person.getId());
+            personsByFoldedName.putIfAbsent(foldName(s.personLabel()), person);
         }
         for (Statement s : selection.former()) {
-            write(dataset, s, false);
+            FtmEntity person = writeWikidata(dataset, s, false);
             parties.add(s.partyQid());
-            persons.add(s.personQid());
+            persons.add(person.getId());
+            personsByFoldedName.putIfAbsent(foldName(s.personLabel()), person);
         }
 
-        // Intégration des organes dirigeants et bureaux politiques élargis (ASBL / BCE)
-        int seedCount = loadPartyExecutives(dataset, parties, persons, partyExecutivesParam);
+        int regimandMandates = loadRegimandPartyExecutives(
+                rawDir, since, dataset, partyConfigs, parties, persons, personsByFoldedName);
 
-        Report report = new Report(parties.size(), persons.size(), selection.current().size() + seedCount,
-                selection.former().size(), selection.superseded(), selection.endedLongAgo(), unnamed);
-        log.info(report.message() + (seedCount > 0 ? " [" + seedCount + " membres des organes dirigeants/bureaux politiques intégrés via BCE/ASBL]" : ""));
+        Report report = new Report(parties.size(), persons.size(), selection.current().size() + regimandMandates,
+                selection.former().size(), regimandMandates, selection.superseded(), selection.endedLongAgo(), unnamed);
+        log.info(report.message());
         return report;
     }
 
-    private int loadPartyExecutives(FtmDatasetBuilder dataset, Set<String> parties, Set<String> persons) {
-        return loadPartyExecutives(dataset, parties, persons, null);
+    private int loadRegimandPartyExecutives(
+            Path rawDir,
+            LocalDate since,
+            FtmDatasetBuilder dataset,
+            List<PartyConfig> partyConfigs,
+            Set<String> parties,
+            Set<String> persons,
+            Map<String, FtmEntity> personsByFoldedName) throws IOException {
+        Set<String> writtenMandates = new LinkedHashSet<>();
+        String sinceText = since.toString();
+        int addedMandates = 0;
+
+        for (PartyConfig party : partyConfigs) {
+            Path file = rawDir.resolve(regimandFileName(party.slug()));
+            if (!Files.exists(file)) {
+                continue;
+            }
+            JsonNode statements = JSON.readTree(Files.readString(file, StandardCharsets.UTF_8));
+            if (!statements.isArray()) {
+                continue;
+            }
+
+            boolean partyHasMandates = false;
+            for (JsonNode st : statements) {
+                JsonNode profile = st.path("profile");
+                String profileId = profile.path("id").asText("").trim();
+                String firstName = profile.path("firstName").asText("").trim();
+                String lastName = profile.path("lastName").asText("").trim();
+                String fullName = joinNonBlank(" ", firstName, lastName);
+                if (fullName.isBlank()) {
+                    continue;
+                }
+
+                for (JsonNode tenure : st.path("tenures")) {
+                    String instName = translation(tenure.path("institution").path("translations"));
+                    if (!matchesPartyInstitution(instName, party)) {
+                        continue;
+                    }
+                    String role = translation(tenure.path("functionType").path("translations"));
+                    if (!isPartyGovernanceRole(role)) {
+                        continue;
+                    }
+                    String startDate = isoDate(tenure.path("startDate").asText(null));
+                    String endDate = isoDate(tenure.path("endDate").asText(null));
+
+                    String foldedName = foldName(fullName);
+                    String roleSlug = normaliseSlug(role);
+                    String canonicalPartySlug = "pvda".equals(party.slug()) ? "ptb" : party.slug();
+                    String mandateKey = foldedName + "|" + canonicalPartySlug + "|" + roleSlug;
+                    if (!writtenMandates.add(mandateKey)) {
+                        continue;
+                    }
+
+                    partyHasMandates = true;
+                    String title = role + " – " + party.name();
+
+                    FtmEntity person = personsByFoldedName.get(foldedName);
+                    if (person == null) {
+                        String personKey = profileId.isBlank() ? foldedName : profileId;
+                        person = dataset.newEntity("Person", "regimand", personKey);
+                        person.addValue("name", fullName);
+                        person.addValue("firstName", firstName);
+                        person.addValue("lastName", lastName);
+                        person.addValue("country", "be");
+                        person.addValue("political", party.name());
+                        person.addValue("position", title);
+                        person.addValue("topics", TOPIC);
+                        person.addValue("sourceUrl", REGIMAND_SOURCE_URL);
+                        dataset.addEntity(person);
+                        personsByFoldedName.put(foldedName, person);
+                    } else {
+                        person.addValue("political", party.name());
+                        person.addValue("position", title);
+                        person.addValue("sourceUrl", REGIMAND_SOURCE_URL);
+                        dataset.addEntity(person);
+                    }
+                    persons.add(person.getId());
+
+                    FtmEntity position = dataset.newEntity("Position", "regimand-pos", canonicalPartySlug, roleSlug);
+                    position.addValue("name", title);
+                    position.addValue("organization", party.name());
+                    position.addValue("country", "be");
+                    position.addValue("topics", "gov.national");
+                    position.addValue("sourceUrl", REGIMAND_SOURCE_URL);
+                    dataset.addEntity(position);
+
+                    FtmEntity occupancy = dataset.newEntity("Occupancy", "regimand-occ", foldedName,
+                            canonicalPartySlug, roleSlug, startDate == null ? "" : startDate);
+                    occupancy.addValue("holder", person.getId());
+                    occupancy.addValue("post", position.getId());
+                    occupancy.addValue("startDate", startDate);
+                    occupancy.addValue("endDate", endDate);
+                    occupancy.addValue("status", endDate == null ? "current" : "ended");
+                    occupancy.addValue("sourceUrl", REGIMAND_SOURCE_URL);
+                    dataset.addEntity(occupancy);
+
+                    addedMandates++;
+                }
+            }
+
+            if (partyHasMandates) {
+                parties.add("regimand-" + ("pvda".equals(party.slug()) ? "ptb" : party.slug()));
+            }
+        }
+
+        return addedMandates;
     }
 
-    private int loadPartyExecutives(FtmDatasetBuilder dataset, Set<String> parties, Set<String> persons, String partyExecutivesParam) {
-        JsonNode root;
-        if (partyExecutivesParam != null && !partyExecutivesParam.isBlank()) {
-            try {
-                root = json.readTree(partyExecutivesParam);
-            } catch (Exception e) {
-                log.warn("Erreur lecture partyExecutives depuis parameters : {}", e.getMessage());
-                return 0;
-            }
-        } else {
-            // Lecture des données de test si disponibles
-            try (var in = getClass().getResourceAsStream(TEST_EXECUTIVES_RESOURCE)) {
-                if (in == null) {
-                    return 0;
-                }
-                root = json.readTree(in);
-            } catch (Exception e) {
-                log.warn("Erreur lecture " + TEST_EXECUTIVES_RESOURCE + " : {}", e.getMessage());
-                return 0;
-            }
+    static boolean matchesPartyInstitution(String instName, PartyConfig party) {
+        if (instName == null || instName.isBlank()) {
+            return false;
         }
-        if (!root.isArray()) {
-            return 0;
+        return party.institutionPattern().matcher(instName.trim()).matches();
+    }
+
+    static boolean isPartyGovernanceRole(String role) {
+        if (role == null || role.isBlank()) {
+            return false;
         }
-            int added = 0;
-            for (JsonNode partyNode : root) {
-                String partyName = partyNode.path("party").asText();
-                String partyBce = partyNode.path("partyBce").asText();
-                String legalName = partyNode.path("legalName").asText(partyName);
-                String partySlug = partyBce.replaceAll("[^0-9]", "");
-                parties.add("bce-" + partySlug);
+        String trimmed = role.trim();
+        if (EXCLUDED_PARTY_ROLE.matcher(trimmed).find()) {
+            return false;
+        }
+        return PARTY_GOVERNANCE_ROLE.matcher(trimmed).find();
+    }
 
-                FtmEntity org = dataset.newEntity("Organization", "bce", partySlug);
-                org.addValue("name", legalName);
-                org.addValue("country", "be");
-                org.addValue("registrationNumber", partyBce);
-                org.addValue("topics", "role.pep");
-                dataset.addEntity(org);
-
-                JsonNode board = partyNode.path("board");
-                if (board.isArray()) {
-                    for (JsonNode member : board) {
-                        String name = member.path("name").asText().trim();
-                        String role = member.path("role").asText().trim();
-                        String basis = member.path("pepBasis").asText("Organe dirigeant");
-                        if (name.isEmpty()) {
-                            continue;
-                        }
-                        String personSlug = normaliseSlug(name);
-                        persons.add("bce-" + partySlug + "-" + personSlug);
-
-                        FtmEntity person = dataset.newEntity("Person", "bce", partySlug, personSlug);
-                        person.addValue("name", name);
-                        person.addValue("country", "be");
-                        person.addValue("political", partyName);
-                        person.addValue("position", role + " – " + partyName + " (" + basis + ")");
-                        person.addValue("sourceUrl", "https://kbopub.economie.fgov.be/kbopub/toononderneming.html?ondernemingsnummer=" + partySlug);
-                        dataset.addEntity(person);
-
-                        FtmEntity occupancy = dataset.newEntity("Occupancy", "bce", partySlug, personSlug, normaliseSlug(role));
-                        occupancy.addValue("holder", person.getId());
-                        occupancy.addValue("post", org.getId());
-                        occupancy.addValue("description", role + " – " + basis);
-                        occupancy.addValue("status", "current");
-                        dataset.addEntity(occupancy);
-                        added++;
+    static String translation(JsonNode translations) {
+        if (translations == null || !translations.isArray()) {
+            return "";
+        }
+        for (String lang : List.of("FR", "NL", "DE", "FF")) {
+            for (JsonNode t : translations) {
+                if (lang.equalsIgnoreCase(t.path("languageCode").asText(""))) {
+                    String name = t.path("name").asText("").trim();
+                    if (!name.isEmpty()) {
+                        return name;
                     }
                 }
             }
-            return added;
+        }
+        for (JsonNode t : translations) {
+            String name = t.path("name").asText("").trim();
+            if (!name.isEmpty()) {
+                return name;
+            }
+        }
+        return "";
+    }
+
+    static String regimandFileName(String slug) {
+        return "regimand-" + slug + ".json";
+    }
+
+    private static String foldName(String text) {
+        return Normalizer.normalize(text.toLowerCase(Locale.ROOT), Normalizer.Form.NFD)
+                .replaceAll("\\p{M}", "")
+                .replaceAll("[^a-z0-9]+", "-")
+                .replaceAll("^-+|-+$", "");
     }
 
     private static String normaliseSlug(String text) {
-        return text.toLowerCase(Locale.ROOT)
-                .replaceAll("[àáâãäå]", "a")
-                .replaceAll("[èéêë]", "e")
-                .replaceAll("[ìíîï]", "i")
-                .replaceAll("[òóôõö]", "o")
-                .replaceAll("[ùúûü]", "u")
-                .replaceAll("[ç]", "c")
-                .replaceAll("[^a-z0-9]+", "-")
-                .replaceAll("^-+|-+$", "");
+        return foldName(text);
     }
 
     static List<Statement> statements(JsonNode response) {
@@ -299,7 +477,7 @@ public class BePepPoliticalPartiesParser implements Iparser {
                 .anyMatch(o -> o != s && o.start() != null && o.start().compareTo(s.start()) > 0);
     }
 
-    private static void write(FtmDatasetBuilder dataset, Statement s, boolean isCurrent) {
+    private static FtmEntity writeWikidata(FtmDatasetBuilder dataset, Statement s, boolean isCurrent) {
         String function = ROLES.getOrDefault(s.role(), "Dirigeant ou dirigeante") + " – " + s.partyLabel();
 
         FtmEntity person = dataset.newEntity("Person", s.personQid());
@@ -335,6 +513,7 @@ public class BePepPoliticalPartiesParser implements Iparser {
         occupancy.addValue("status", isCurrent ? "current" : "ended");
         occupancy.addValue("sourceUrl", "https://www.wikidata.org/wiki/" + s.partyQid());
         dataset.addEntity(occupancy);
+        return person;
     }
 
     static String birthDate(String value, String precision) {
@@ -348,6 +527,13 @@ public class BePepPoliticalPartiesParser implements Iparser {
             p = 11;
         }
         return p >= 11 ? value.substring(0, 10) : p == 10 ? value.substring(0, 7) : p == 9 ? value.substring(0, 4) : null;
+    }
+
+    private static String isoDate(String raw) {
+        if (raw == null || raw.length() < 10 || raw.startsWith("0001")) {
+            return null;
+        }
+        return raw.substring(0, 10);
     }
 
     private static String date(String value) {
@@ -369,5 +555,37 @@ public class BePepPoliticalPartiesParser implements Iparser {
             return DEFAULT_MONTHS_AFTER_END;
         }
     }
-}
 
+    private static String fetchGuestToken(HttpClient http, String baseUrl) throws IOException, InterruptedException {
+        HttpRequest req = HttpRequest.newBuilder(URI.create(baseUrl + "/api/Token/guest"))
+                .timeout(Duration.ofSeconds(30))
+                .header("User-Agent", REGIMAND_USER_AGENT)
+                .GET().build();
+        HttpResponse<String> res = http.send(req, HttpResponse.BodyHandlers.ofString(StandardCharsets.UTF_8));
+        if (res.statusCode() != 200) {
+            throw new IOException("Regimand Token/guest HTTP " + res.statusCode());
+        }
+        return res.body().replace("\"", "").trim();
+    }
+
+    private static int fetchLatestYear(HttpClient http, String baseUrl, String token)
+            throws IOException, InterruptedException {
+        HttpRequest req = HttpRequest.newBuilder(URI.create(baseUrl + "/api/TenureMandatary/Years"))
+                .timeout(Duration.ofSeconds(30))
+                .header("Authorization", "Bearer " + token)
+                .header("Accept", "application/json")
+                .header("User-Agent", REGIMAND_USER_AGENT)
+                .GET().build();
+        HttpResponse<String> res = http.send(req, HttpResponse.BodyHandlers.ofString(StandardCharsets.UTF_8));
+        if (res.statusCode() != 200) {
+            return 2024;
+        }
+        int max = 2024;
+        for (JsonNode y : JSON.readTree(res.body())) {
+            if (y.isInt() && y.asInt() > max) {
+                max = y.asInt();
+            }
+        }
+        return max;
+    }
+}

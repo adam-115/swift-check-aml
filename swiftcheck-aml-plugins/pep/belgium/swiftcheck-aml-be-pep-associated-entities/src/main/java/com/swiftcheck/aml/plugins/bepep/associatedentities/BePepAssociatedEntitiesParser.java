@@ -104,10 +104,6 @@ public class BePepAssociatedEntitiesParser implements Iparser {
         return records;
     }
 
-    void download(String regimandBaseUrl, String yearParam, Path rawDir) throws IOException, InterruptedException {
-        download(regimandBaseUrl, yearParam, rawDir, loadConfig());
-    }
-
     void download(String regimandBaseUrl, String yearParam, Path rawDir, List<InstitutionQuery> configs) throws IOException, InterruptedException {
         Files.createDirectories(rawDir);
         HttpClient http = HttpClient.newBuilder()
@@ -139,7 +135,6 @@ public class BePepAssociatedEntitiesParser implements Iparser {
     }
 
     Report convert(Path rawDir, FtmDatasetBuilder dataset) throws IOException {
-        List<InstitutionQuery> configs = loadConfig();
         Set<String> seenStatements = new LinkedHashSet<>();
         Set<String> pepsWithLinks = new LinkedHashSet<>();
         Set<String> organizations = new LinkedHashSet<>();
@@ -310,23 +305,13 @@ public class BePepAssociatedEntitiesParser implements Iparser {
         return "statements-" + slug + ".json";
     }
 
-    static List<InstitutionQuery> loadConfig() throws IOException {
-        return loadConfig(null);
-    }
-
     static List<InstitutionQuery> loadConfig(String institutionsParam) throws IOException {
-        List<InstitutionQuery> list = new ArrayList<>();
-        JsonNode root;
-        if (institutionsParam != null && !institutionsParam.isBlank()) {
-            root = JSON.readTree(institutionsParam);
-        } else {
-            try (InputStream in = BePepAssociatedEntitiesParser.class.getResourceAsStream("/pep-institutions.json")) {
-                if (in == null) {
-                    throw new IllegalStateException("pep-institutions.json absent du plugin");
-                }
-                root = JSON.readTree(in);
-            }
+        if (institutionsParam == null || institutionsParam.isBlank()) {
+            throw new IllegalStateException(
+                    "Paramètre « institutions » absent : la liste des institutions se configure dans les paramètres du parser (colonne parser.parameters).");
         }
+        List<InstitutionQuery> list = new ArrayList<>();
+        JsonNode root = JSON.readTree(institutionsParam);
         JsonNode institutionsNode = root.has("institutions") ? root.path("institutions") : root;
         if (institutionsNode.isArray()) {
             for (JsonNode node : institutionsNode) {
@@ -335,6 +320,9 @@ public class BePepAssociatedEntitiesParser implements Iparser {
                         node.path("query").asText(),
                         node.path("label").asText()));
             }
+        }
+        if (list.isEmpty()) {
+            throw new IllegalStateException("Aucune institution définie dans le paramètre « institutions ».");
         }
         return list;
     }

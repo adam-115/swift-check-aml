@@ -121,11 +121,6 @@ public class BePepPublicEnterprisesParser implements Iparser {
         return records;
     }
 
-    void download(String regimandBaseUrl, String sfpiUrl, String yearParam, Path rawDir)
-            throws IOException, InterruptedException {
-        download(regimandBaseUrl, sfpiUrl, yearParam, rawDir, loadConfig());
-    }
-
     void download(String regimandBaseUrl, String sfpiUrl, String yearParam, Path rawDir, List<EnterpriseConfig> configs)
             throws IOException, InterruptedException {
         Files.createDirectories(rawDir);
@@ -170,10 +165,6 @@ public class BePepPublicEnterprisesParser implements Iparser {
                 log.warn("Page SFPI indisponible ({}) : {}", sfpiUrl, e.getMessage());
             }
         }
-    }
-
-    Report convert(Path rawDir, FtmDatasetBuilder dataset) throws IOException {
-        return convert(rawDir, dataset, loadConfig());
     }
 
     Report convert(Path rawDir, FtmDatasetBuilder dataset, List<EnterpriseConfig> configs) throws IOException {
@@ -350,28 +341,27 @@ public class BePepPublicEnterprisesParser implements Iparser {
         return "statements-" + slug + ".json";
     }
 
-    static List<EnterpriseConfig> loadConfig() throws IOException {
-        return loadConfig(null);
-    }
-
     static List<EnterpriseConfig> loadConfig(String enterprisesParam) throws IOException {
-        List<EnterpriseConfig> list = new ArrayList<>();
-        JsonNode root;
-        if (enterprisesParam != null && !enterprisesParam.isBlank()) {
-            root = JSON.readTree(enterprisesParam);
-        } else {
-            try (InputStream in = BePepPublicEnterprisesParser.class.getResourceAsStream("/public-enterprises.json")) {
-                if (in == null) {
-                    throw new IllegalStateException("public-enterprises.json absent du plugin");
-                }
-                root = JSON.readTree(in);
-            }
+        if (enterprisesParam == null || enterprisesParam.isBlank()) {
+            throw new IllegalStateException(
+                    "Paramètre « enterprises » absent : la liste des entreprises publiques se configure dans les paramètres du parser (colonne parser.parameters).");
         }
+        List<EnterpriseConfig> list = new ArrayList<>();
+        JsonNode root = JSON.readTree(enterprisesParam);
         JsonNode enterprisesNode = root.has("enterprises") ? root.path("enterprises") : root;
         if (enterprisesNode.isArray()) {
             for (JsonNode node : enterprisesNode) {
                 List<String> keywords = new ArrayList<>();
-                node.path("keywords").forEach(k -> keywords.add(k.asText()));
+                JsonNode kwNode = node.path("keywords");
+                if (kwNode.isArray()) {
+                    kwNode.forEach(k -> keywords.add(k.asText()));
+                } else if (kwNode.isTextual() && !kwNode.asText().isBlank()) {
+                    for (String token : kwNode.asText().trim().split("\\s+")) {
+                        if (!token.isBlank()) {
+                            keywords.add(token);
+                        }
+                    }
+                }
                 list.add(new EnterpriseConfig(
                         node.path("slug").asText(),
                         node.path("query").asText(),
@@ -379,6 +369,9 @@ public class BePepPublicEnterprisesParser implements Iparser {
                         keywords,
                         node.path("description").asText("")));
             }
+        }
+        if (list.isEmpty()) {
+            throw new IllegalStateException("Aucune entreprise publique définie dans le paramètre « enterprises ».");
         }
         return list;
     }

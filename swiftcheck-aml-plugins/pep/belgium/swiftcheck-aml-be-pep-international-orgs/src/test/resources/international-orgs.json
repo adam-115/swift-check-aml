@@ -36,15 +36,15 @@
     "acronym": "SHAPE",
     "name": "Grand Quartier général des puissances alliées en Europe (SHAPE)",
     "headquarters": "Mons (Casteau)",
-    "url": "https://shape.nato.int/command-group",
-    "status": "pending"
+    "url": "https://en.wikipedia.org/w/api.php?action=parse&page=Supreme_Headquarters_Allied_Powers_Europe&prop=wikitext&format=json",
+    "status": "active"
   },
   {
     "code": "oacps",
     "acronym": "OEACP / OACPS",
     "name": "Organisation des États d'Afrique, des Caraïbes et du Pacifique (OEACP)",
     "headquarters": "Bruxelles",
-    "url": "https://www.oacps.org/about-us/",
-    "status": "pending"
+    "url": "https://en.wikipedia.org/w/api.php?action=parse&page=Organisation_of_African,_Caribbean_and_Pacific_States&prop=wikitext&format=json",
+    "status": "active"
   }
 ]

@@ -201,7 +201,8 @@ final class MoniteurAppointmentReader {
         for (String raw : full.split("\n")) {
             String line = normalize(raw);
             if (!line.isEmpty()) {
-                // Découper sur les puces belges fréquentes : « - entrant en vigueur », « - la désignation »
+                // Découper sur les puces belges fréquentes : « - entrant en vigueur », « - la désignation », « : - Mme X »
+                line = line.replaceAll(":\\s+-\\s+(?=(?:M\\.|Mme|Monsieur|Madame))", ":\n- ");
                 line = line.replaceAll("\\s+-\\s+(?=(?:entrant|la désignation|la nomination|le mandat|M\\.|Mme|Monsieur|Madame|est acceptée))", "\n- ");
                 sb.append(line).append("\n");
             }

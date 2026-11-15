@@ -21,26 +21,25 @@
       "code": "ostbelgien",
       "name": "Gouvernement de la Communauté germanophone (Regierung der Deutschsprachigen Gemeinschaft)",
       "entityName": "Communauté germanophone",
-      "url": "https://ostbelgienlive.be/desktopdefault.aspx/tabid-218/",
+      "url": "https://fr.wikipedia.org/w/api.php?action=parse&page=Gouvernement_Paasch_III&prop=wikitext&format=json",
       "fileName": "ostbelgien.html",
-      "format": "OSTBELGIEN_LIST"
+      "format": "MEDIAWIKI_TABLE"
     },
     {
       "code": "wallonie",
       "name": "Gouvernement wallon",
       "entityName": "Région wallonne",
-      "url": "https://gouvernement.wallonie.be/home/les-ministres.html",
+      "url": "https://fr.wikipedia.org/w/api.php?action=parse&page=Gouvernement_Dolimont&prop=wikitext&format=json",
       "fileName": "wallonie.html",
-      "format": "WALLONIE_CARDS"
+      "format": "MEDIAWIKI_TABLE"
     },
     {
       "code": "bruxelles",
       "name": "Gouvernement de la Région de Bruxelles-Capitale",
       "entityName": "Région de Bruxelles-Capitale",
-      "url": "https://be.brussels/fr/a-propos-de-la-region/structure-et-organisations/le-gouvernement-de-la-region-de-bruxelles-capitale",
+      "url": "https://fr.wikipedia.org/w/api.php?action=parse&page=Gouvernement_Vervoort_III&prop=wikitext&format=json",
       "fileName": "bruxelles.html",
-      "format": "BRUXELLES_CARDS"
+      "format": "MEDIAWIKI_TABLE"
     }
   ]
 }
-

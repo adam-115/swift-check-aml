@@ -165,5 +165,6 @@
     <include file="db/changelog/changes/137-be-coverage-completeness-review.xml" />
     <include file="db/changelog/changes/138-be-unwrap-powershell-json-parameters.xml" />
     <include file="db/changelog/changes/139-be-council-of-state-complete.xml" />
+    <include file="db/changelog/changes/140-be-config-in-parameters.xml" />
 
 </databaseChangeLog>

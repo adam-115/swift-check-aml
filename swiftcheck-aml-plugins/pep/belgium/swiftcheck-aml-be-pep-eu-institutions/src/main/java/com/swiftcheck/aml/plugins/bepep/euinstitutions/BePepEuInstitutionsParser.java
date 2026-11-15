@@ -157,6 +157,13 @@ public class BePepEuInstitutionsParser implements Iparser {
         String key = fold(m.name());
         FtmEntity person = dataset.newEntity("Person", key);
         person.addValue("name", m.name());
+        String[] parts = splitName(m.name());
+        if (parts[0] != null && !parts[0].isBlank()) {
+            person.addValue("firstName", parts[0]);
+        }
+        if (parts[1] != null && !parts[1].isBlank()) {
+            person.addValue("lastName", parts[1]);
+        }
         person.addValue("country", "be");
         person.addValue("nationality", "be");
         person.addValue("position", m.function());
@@ -182,6 +189,25 @@ public class BePepEuInstitutionsParser implements Iparser {
     static String fold(String s) {
         return Normalizer.normalize(s.toLowerCase(Locale.FRENCH), Normalizer.Form.NFD).replaceAll("\\p{M}", "")
                 .replace('’', '\'').replaceAll("\\s+", " ").trim();
+    }
+
+    static String[] splitName(String fullName) {
+        if (fullName == null || fullName.isBlank()) {
+            return new String[] { null, "" };
+        }
+        String[] words = fullName.trim().split("\\s+");
+        if (words.length == 1) {
+            return new String[] { null, words[0] };
+        }
+        String first = words[0];
+        StringBuilder last = new StringBuilder();
+        for (int i = 1; i < words.length; i++) {
+            if (i > 1) {
+                last.append(' ');
+            }
+            last.append(words[i]);
+        }
+        return new String[] { first, last.toString() };
     }
 
     static int integer(Map<String, String> parameters, String name, int defaultValue) {

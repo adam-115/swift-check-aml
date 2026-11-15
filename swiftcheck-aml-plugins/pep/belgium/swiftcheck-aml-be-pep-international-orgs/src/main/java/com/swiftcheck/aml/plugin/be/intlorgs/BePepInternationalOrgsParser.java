@@ -95,6 +95,26 @@ public class BePepInternationalOrgsParser implements Iparser {
             Pattern.CASE_INSENSITIVE
     );
 
+    private static final Pattern WIKI_LINK_PATTERN = Pattern.compile(
+            "\\[\\[([^\\]|#]+)(?:#[^\\]|]*)?(?:\\|([^\\]]+))?\\]\\]"
+    );
+
+    private static final Pattern SHAPE_COMMANDER_PATTERN = Pattern.compile(
+            "(?m)^\\|\\s*commander(\\d+)\\s*=\\s*(.+)$"
+    );
+
+    private static final Pattern SHAPE_LABEL_PATTERN = Pattern.compile(
+            "(?m)^\\|\\s*commander(\\d+)_label\\s*=\\s*(.+)$"
+    );
+
+    private static final Pattern OACPS_LEADER_NAME_PATTERN = Pattern.compile(
+            "(?m)^\\|\\s*leader_name(\\d+)\\s*=\\s*(.+)$"
+    );
+
+    private static final Pattern OACPS_LEADER_TITLE_PATTERN = Pattern.compile(
+            "(?m)^\\|\\s*leader_title(\\d+)\\s*=\\s*(.+)$"
+    );
+
     @JsonIgnoreProperties(ignoreUnknown = true)
     public record OrgConfig(
             String code,
@@ -121,29 +141,42 @@ public class BePepInternationalOrgsParser implements Iparser {
             String headquarters
     ) {}
 
-    public List<OrgConfig> loadConfigs() throws IOException {
-        return loadConfigs(null);
+    public List<OrgConfig> loadConfigs(String orgsParam) throws IOException {
+        return loadConfigs(orgsParam == null || orgsParam.isBlank() ? Map.of() : Map.of("organizations", orgsParam));
     }
 
-    public List<OrgConfig> loadConfigs(String orgsParam) throws IOException {
-        if (orgsParam != null && !orgsParam.isBlank()) {
-            com.fasterxml.jackson.databind.JsonNode root = MAPPER.readTree(orgsParam);
-            com.fasterxml.jackson.databind.JsonNode orgsNode = root.has("organizations") ? root.path("organizations") : root;
-            return MAPPER.readValue(orgsNode.traverse(), new TypeReference<List<OrgConfig>>() {});
+    public List<OrgConfig> loadConfigs(Map<String, String> params) throws IOException {
+        Map<String, String> p = params == null ? Map.of() : params;
+        String orgsParam = p.getOrDefault("organizations", p.get("configJson"));
+        if (orgsParam == null || orgsParam.isBlank()) {
+            throw new IllegalStateException("Paramètre « organizations » absent : la liste des organisations internationales"
+                    + " se configure dans les paramètres du parser (colonne parser.parameters).");
         }
-        try (InputStream is = getClass().getResourceAsStream(CONFIG_RESOURCE)) {
-            if (is == null) {
-                throw new IOException("Ressource introuvable : " + CONFIG_RESOURCE);
-            }
-            return MAPPER.readValue(is, new TypeReference<List<OrgConfig>>() {});
+        com.fasterxml.jackson.databind.JsonNode root = MAPPER.readTree(orgsParam);
+        com.fasterxml.jackson.databind.JsonNode orgsNode = root;
+        if (root.has("organizations")) {
+            orgsNode = root.path("organizations");
+        } else if (root.has("value")) {
+            orgsNode = root.path("value");
         }
+        List<OrgConfig> parsed = MAPPER.readValue(orgsNode.traverse(), new TypeReference<List<OrgConfig>>() {});
+        return parsed.stream()
+                .map(c -> new OrgConfig(
+                        c.code(),
+                        p.getOrDefault(c.code() + ".acronym", c.acronym()),
+                        p.getOrDefault(c.code() + ".name", c.name()),
+                        p.getOrDefault(c.code() + ".headquarters", c.headquarters()),
+                        p.getOrDefault(c.code() + ".url", c.url()),
+                        p.getOrDefault(c.code() + ".status", c.status())
+                ))
+                .toList();
     }
 
     @Override
     public ParserResult parse(ParserContext ctx) throws Exception {
         Files.createDirectories(ctx.rawDir());
         Map<String, String> p = ctx.parameters() == null ? Map.of() : ctx.parameters();
-        List<OrgConfig> configs = loadConfigs(p.get("organizations"));
+        List<OrgConfig> configs = loadConfigs(p);
 
         HttpClient client = HttpClient.newBuilder()
                 .connectTimeout(Duration.ofSeconds(15))
@@ -203,7 +236,7 @@ public class BePepInternationalOrgsParser implements Iparser {
     @Override
     public List<SourceRecord> readSourceRecords(ParserContext ctx) throws Exception {
         Map<String, String> p = ctx.parameters() == null ? Map.of() : ctx.parameters();
-        List<OrgConfig> configs = loadConfigs(p.get("organizations"));
+        List<OrgConfig> configs = loadConfigs(p);
         FtmDatasetBuilder dataset = new FtmDatasetBuilder(ID_PREFIX, TOPIC);
         convert(ctx.rawDir(), dataset, new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), configs);
         List<SourceRecord> records = new ArrayList<>();
@@ -214,16 +247,6 @@ public class BePepInternationalOrgsParser implements Iparser {
             }
         }
         return records;
-    }
-
-    List<LeaderRecord> convert(
-            Path rawDir,
-            FtmDatasetBuilder dataset,
-            List<String> active,
-            List<String> pending,
-            List<String> failed
-    ) throws IOException {
-        return convert(rawDir, dataset, active, pending, failed, loadConfigs());
     }
 
     List<LeaderRecord> convert(
@@ -275,6 +298,8 @@ public class BePepInternationalOrgsParser implements Iparser {
             case "benelux" -> parseBeneluxHtml(org, html);
             case "wco" -> parseWcoHtml(org, html);
             case "eurocontrol" -> parseEurocontrolHtml(org, html);
+            case "shape" -> parseShapeHtml(org, html);
+            case "oacps" -> parseOacpsHtml(org, html);
             default -> List.of();
         };
     }
@@ -398,6 +423,124 @@ public class BePepInternationalOrgsParser implements Iparser {
         }
 
         return new ArrayList<>(byKey.values());
+    }
+
+    List<LeaderRecord> parseShapeHtml(OrgConfig org, String rawContent) {
+        String wikitext = extractWikitext(rawContent);
+        if (wikitext.isBlank()) {
+            return List.of();
+        }
+        Map<String, String> labels = new LinkedHashMap<>();
+        Matcher lm = SHAPE_LABEL_PATTERN.matcher(wikitext);
+        while (lm.find()) {
+            String idx = lm.group(1);
+            String rawLabel = lm.group(2).trim();
+            Matcher link = WIKI_LINK_PATTERN.matcher(rawLabel);
+            if (link.find()) {
+                String label = link.group(2) != null ? link.group(2).trim() : link.group(1).trim();
+                labels.put(idx, cleanText(label));
+            } else {
+                labels.put(idx, cleanText(rawLabel));
+            }
+        }
+
+        Map<String, LeaderRecord> byKey = new LinkedHashMap<>();
+        Matcher cm = SHAPE_COMMANDER_PATTERN.matcher(wikitext);
+        while (cm.find()) {
+            String idx = cm.group(1);
+            String rawValue = cm.group(2).trim();
+            Matcher link = WIKI_LINK_PATTERN.matcher(rawValue);
+            if (!link.find()) {
+                continue;
+            }
+            String target = link.group(1).trim();
+            String label = link.group(2) != null ? link.group(2).trim() : target;
+            String fullName = cleanText(label).replaceFirst("^(?i)Sir\\s+", "").trim();
+            if (fullName.isBlank()) {
+                continue;
+            }
+            String roleLabel = labels.getOrDefault(idx, "Command Group Member");
+            if ("Commander".equalsIgnoreCase(roleLabel)) {
+                roleLabel = "Supreme Allied Commander Europe (SACEUR)";
+            } else if ("Deputy Commander".equalsIgnoreCase(roleLabel)) {
+                roleLabel = "Deputy Supreme Allied Commander Europe (DSACEUR)";
+            }
+            String profileUrl = "https://en.wikipedia.org/wiki/" + target.replace(' ', '_');
+            String position = roleLabel + " – " + org.name();
+            String[] fl = splitFirstLast(fullName);
+            byKey.putIfAbsent(fullName.toLowerCase(Locale.ROOT), new LeaderRecord(
+                    fullName, fl[0], fl[1], position, profileUrl,
+                    org.code(), org.acronym(), org.name(), org.headquarters()
+            ));
+        }
+        return new ArrayList<>(byKey.values());
+    }
+
+    List<LeaderRecord> parseOacpsHtml(OrgConfig org, String rawContent) {
+        String wikitext = extractWikitext(rawContent);
+        if (wikitext.isBlank()) {
+            return List.of();
+        }
+        Map<String, String> titles = new LinkedHashMap<>();
+        Matcher tm = OACPS_LEADER_TITLE_PATTERN.matcher(wikitext);
+        while (tm.find()) {
+            String idx = tm.group(1);
+            String rawTitle = tm.group(2).trim();
+            Matcher link = WIKI_LINK_PATTERN.matcher(rawTitle);
+            if (link.find()) {
+                String label = link.group(2) != null ? link.group(2).trim() : link.group(1).trim();
+                titles.put(idx, cleanText(label));
+            } else if (!rawTitle.isBlank()) {
+                titles.put(idx, cleanText(rawTitle));
+            }
+        }
+
+        Map<String, LeaderRecord> byKey = new LinkedHashMap<>();
+        Matcher nm = OACPS_LEADER_NAME_PATTERN.matcher(wikitext);
+        while (nm.find()) {
+            String idx = nm.group(1);
+            String rawName = nm.group(2).trim();
+            if (rawName.isBlank()) {
+                continue;
+            }
+            Matcher link = WIKI_LINK_PATTERN.matcher(rawName);
+            if (!link.find()) {
+                continue;
+            }
+            String target = link.group(1).trim();
+            String label = link.group(2) != null ? link.group(2).trim() : target;
+            String fullName = cleanText(label);
+            if (fullName.isBlank()) {
+                continue;
+            }
+            String role = titles.getOrDefault(idx, "Secretary General");
+            String profileUrl = "https://en.wikipedia.org/wiki/" + target.replace(' ', '_');
+            String position = role + " – " + org.name();
+            String[] fl = splitFirstLast(fullName);
+            byKey.putIfAbsent(fullName.toLowerCase(Locale.ROOT), new LeaderRecord(
+                    fullName, fl[0], fl[1], position, profileUrl,
+                    org.code(), org.acronym(), org.name(), org.headquarters()
+            ));
+        }
+        return new ArrayList<>(byKey.values());
+    }
+
+    private static String extractWikitext(String rawContent) {
+        if (rawContent == null || rawContent.isBlank()) {
+            return "";
+        }
+        if (rawContent.trim().startsWith("{")) {
+            try {
+                return MAPPER.readTree(rawContent)
+                        .path("parse")
+                        .path("wikitext")
+                        .path("*")
+                        .asText("");
+            } catch (Exception e) {
+                log.warn("[be_pep_international_orgs] JSON MediaWiki invalide : {}", e.getMessage());
+            }
+        }
+        return rawContent;
     }
 
     public static void writeRecord(LeaderRecord rec, FtmDatasetBuilder dataset) {

@@ -65,5 +65,18 @@ class BePepAssociatedEntitiesParserTest {
         assertThatThrownBy(() -> parser.convert(tmp, new FtmDatasetBuilder(BePepAssociatedEntitiesParser.ID_PREFIX)))
                 .isInstanceOf(IllegalStateException.class);
     }
+
+    @Test
+    void loadsConfigStrictlyFromParameters() throws Exception {
+        assertThatThrownBy(() -> BePepAssociatedEntitiesParser.loadConfig(null))
+                .isInstanceOf(IllegalStateException.class)
+                .hasMessageContaining("institutions");
+
+        String json = java.nio.file.Files.readString(
+                Path.of("src/test/resources/pep-institutions.json"),
+                java.nio.charset.StandardCharsets.UTF_8);
+        List<BePepAssociatedEntitiesParser.InstitutionQuery> configs = BePepAssociatedEntitiesParser.loadConfig(json);
+        assertThat(configs).hasSize(14);
+    }
 }
 

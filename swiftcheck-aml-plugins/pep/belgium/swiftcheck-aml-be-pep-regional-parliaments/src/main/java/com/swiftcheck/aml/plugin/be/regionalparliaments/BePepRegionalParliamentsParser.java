@@ -145,19 +145,32 @@ public class BePepRegionalParliamentsParser implements Iparser {
             String jurisdiction
     ) {}
 
-    public List<ParliamentConfig> loadConfigs() throws IOException {
-        try (InputStream is = getClass().getResourceAsStream(CONFIG_RESOURCE)) {
-            if (is == null) {
-                throw new IOException("Ressource introuvable : " + CONFIG_RESOURCE);
-            }
-            return MAPPER.readValue(is, new TypeReference<List<ParliamentConfig>>() {});
+    public List<ParliamentConfig> loadConfigs(Map<String, String> params) throws IOException {
+        Map<String, String> p = params == null ? Map.of() : params;
+        String parliamentsJson = p.getOrDefault("parliaments", p.get("configJson"));
+        if (parliamentsJson == null || parliamentsJson.isBlank()) {
+            throw new IllegalStateException("Paramètre « parliaments » absent : la liste des parlements régionaux"
+                    + " se configure dans les paramètres du parser (colonne parser.parameters).");
         }
+        JsonNode root = MAPPER.readTree(parliamentsJson);
+        JsonNode arrNode = root.has("parliaments") ? root.path("parliaments")
+                : (root.has("value") ? root.path("value") : root);
+        List<ParliamentConfig> parsed = MAPPER.readValue(arrNode.traverse(), new TypeReference<List<ParliamentConfig>>() {});
+        return parsed.stream()
+                .map(cfg -> new ParliamentConfig(
+                        cfg.code(),
+                        p.getOrDefault(cfg.code() + ".parliamentName", cfg.parliamentName()),
+                        p.getOrDefault(cfg.code() + ".jurisdiction", cfg.jurisdiction()),
+                        p.getOrDefault(cfg.code() + ".membersUrl", cfg.membersUrl()),
+                        p.getOrDefault(cfg.code() + ".bureauUrl", cfg.bureauUrl())
+                ))
+                .toList();
     }
 
     @Override
     public ParserResult parse(ParserContext ctx) throws Exception {
         Files.createDirectories(ctx.rawDir());
-        List<ParliamentConfig> configs = loadConfigs();
+        List<ParliamentConfig> configs = loadConfigs(ctx.parameters());
 
         HttpClient client = HttpClient.newBuilder()
                 .connectTimeout(Duration.ofSeconds(12))
@@ -184,7 +197,7 @@ public class BePepRegionalParliamentsParser implements Iparser {
         FtmDatasetBuilder dataset = new FtmDatasetBuilder(ID_PREFIX, TOPIC);
         List<String> active = new ArrayList<>();
         List<String> failed = new ArrayList<>();
-        List<DeputyRecord> deputies = convert(ctx.rawDir(), dataset, active, failed);
+        List<DeputyRecord> deputies = convert(ctx.rawDir(), dataset, active, failed, ctx.parameters());
         dataset.writeNdjsonFile(ctx.outputFile());
 
         StringBuilder msg = new StringBuilder(deputies.size() + " députés des entités fédérées extraits");
@@ -201,7 +214,7 @@ public class BePepRegionalParliamentsParser implements Iparser {
     @Override
     public List<SourceRecord> readSourceRecords(ParserContext ctx) throws Exception {
         FtmDatasetBuilder dataset = new FtmDatasetBuilder(ID_PREFIX, TOPIC);
-        convert(ctx.rawDir(), dataset, new ArrayList<>(), new ArrayList<>());
+        convert(ctx.rawDir(), dataset, new ArrayList<>(), new ArrayList<>(), ctx.parameters());
         List<SourceRecord> records = new ArrayList<>();
         for (FtmEntity e : dataset.entities()) {
             if ("Person".equals(e.getSchema())) {
@@ -243,7 +256,11 @@ public class BePepRegionalParliamentsParser implements Iparser {
     }
 
     List<DeputyRecord> convert(Path rawDir, FtmDatasetBuilder dataset, List<String> active, List<String> failed) throws IOException {
-        List<ParliamentConfig> configs = loadConfigs();
+        return convert(rawDir, dataset, active, failed, Map.of());
+    }
+
+    List<DeputyRecord> convert(Path rawDir, FtmDatasetBuilder dataset, List<String> active, List<String> failed, Map<String, String> params) throws IOException {
+        List<ParliamentConfig> configs = loadConfigs(params);
         List<DeputyRecord> all = new ArrayList<>();
 
         for (ParliamentConfig cfg : configs) {

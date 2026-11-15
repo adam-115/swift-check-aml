@@ -44,7 +44,7 @@ class BePepRegionalParliamentsParserTest {
     @Test
     @DisplayName("Doit extraire les 94 députés du Parlement de la Fédération Wallonie-Bruxelles et les 25 membres du PDG")
     void shouldExtractPfwbAndPdgMembers() throws IOException {
-        Map<String, ParliamentConfig> cfgByCode = parser.loadConfigs().stream()
+        Map<String, ParliamentConfig> cfgByCode = parser.loadConfigs(Map.of("parliaments", readResource("/regional-parliaments.json"))).stream()
                 .collect(java.util.stream.Collectors.toMap(ParliamentConfig::code, c -> c));
 
         List<DeputyRecord> pfwbRecords = parser.parseParliamentHtml(cfgByCode.get("pfwb"), pfwbHtml, null);
@@ -95,7 +95,7 @@ class BePepRegionalParliamentsParserTest {
     @Test
     @DisplayName("Doit extraire les 89 députés du Parlement de la Région de Bruxelles-Capitale")
     void shouldExtractBruxellesMembers() throws IOException {
-        Map<String, ParliamentConfig> cfgByCode = parser.loadConfigs().stream()
+        Map<String, ParliamentConfig> cfgByCode = parser.loadConfigs(Map.of("parliaments", readResource("/regional-parliaments.json"))).stream()
                 .collect(java.util.stream.Collectors.toMap(ParliamentConfig::code, c -> c));
 
         List<DeputyRecord> bxlRecords = parser.parseParliamentHtml(cfgByCode.get("bruxelles"), bruxellesHtml, null);
@@ -120,5 +120,19 @@ class BePepRegionalParliamentsParserTest {
                 .filter(e -> "Person".equals(e.getSchema()))
                 .toList();
         assertEquals(89, entities.size());
+    }
+
+    @Test
+    @DisplayName("Doit permettre la surcharge dynamique des URLs via ParserContext.parameters()")
+    void shouldSupportDynamicParametersOverride() throws IOException {
+        Map<String, String> params = Map.of(
+                "parliaments", readResource("/regional-parliaments.json"),
+                "bruxelles.membersUrl", "https://fr.wikipedia.org/w/api.php?action=parse&page=Test_Bruxelles&prop=wikitext&format=json"
+        );
+        List<ParliamentConfig> cfgs = parser.loadConfigs(params);
+        assertEquals(3, cfgs.size());
+        assertEquals("https://fr.wikipedia.org/w/api.php?action=parse&page=Test_Bruxelles&prop=wikitext&format=json",
+                cfgs.stream().filter(c -> "bruxelles".equals(c.code())).findFirst().orElseThrow().membersUrl());
+        assertThrows(IllegalStateException.class, () -> parser.loadConfigs(Map.of()));
     }
 }

@@ -133,4 +133,15 @@ class BePepArmyParserTest {
 
         assertTrue(names.contains("Van Goethem"), names.toString());
     }
+
+    @Test
+    @DisplayName("La configuration armyPages est chargée exclusivement depuis les paramètres du parser")
+    void shouldLoadConfigsStrictlyFromParameters() throws IOException {
+        assertThrows(IllegalStateException.class, () -> parser.loadConfigs(null));
+        assertThrows(IllegalStateException.class, () -> parser.loadConfigs(""));
+
+        String json = readResource("/army-pages.json");
+        List<BePepArmyParser.ArmyPageConfig> configs = parser.loadConfigs(json);
+        assertEquals(5, configs.size());
+    }
 }

@@ -15,6 +15,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -123,6 +124,39 @@ final class MoniteurDownloader {
             current = current.plusDays(1);
         }
         return allArticles;
+    }
+
+    /**
+     * Télécharge les documents officiels directs de la Cour de cassation et du Collège des cours et tribunaux.
+     */
+    void downloadJudicialSources(Map<String, String> params, Path rawDir) throws IOException {
+        Files.createDirectories(rawDir);
+        Map<String, String> targets = Map.of(
+                JudicialSourcesReader.FILE_CASS_SIEGE,
+                params.getOrDefault("cassationSiegeUrl", JudicialSourcesReader.DEFAULT_CASS_SIEGE_URL),
+                JudicialSourcesReader.FILE_CASS_PARQUET,
+                params.getOrDefault("cassationParquetUrl", JudicialSourcesReader.DEFAULT_CASS_PARQUET_URL),
+                JudicialSourcesReader.FILE_CASS_NEWS_2025,
+                params.getOrDefault("cassationNews2025Url", JudicialSourcesReader.DEFAULT_CASS_NEWS_2025_URL),
+                JudicialSourcesReader.FILE_CASS_NEWS_2026,
+                params.getOrDefault("cassationNews2026Url", JudicialSourcesReader.DEFAULT_CASS_NEWS_2026_URL),
+                JudicialSourcesReader.FILE_COLLEGE,
+                params.getOrDefault("collegeCompositionUrl", JudicialSourcesReader.DEFAULT_COLLEGE_URL));
+
+        for (Map.Entry<String, String> entry : targets.entrySet()) {
+            String fileName = entry.getKey();
+            String url = entry.getValue();
+            if (url == null || url.isBlank()) {
+                continue;
+            }
+            try {
+                byte[] bytes = get(URI.create(url.trim()));
+                Files.write(rawDir.resolve(fileName), bytes);
+                log.info("Source judiciaire {} téléchargée depuis {} ({} octets)", fileName, url, bytes.length);
+            } catch (Exception e) {
+                log.warn("Impossible de télécharger la source judiciaire {} ({}) : {}", fileName, url, e.getMessage());
+            }
+        }
     }
 
     private byte[] get(URI uri) throws IOException, InterruptedException {

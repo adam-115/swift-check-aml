@@ -48,3 +48,8 @@ swift-check-docker/
 Thumbs.db
 /swiftcheck-aml-tools/crawler-stealth/node_modules
 /swiftcheck-aml-tools/crawler-stealth
+check_bxl_page.ps1
+search_bxl.ps1
+test_bxl_conn.ps1
+test_bxl_raw.ps1
+test_bxl_wiki.ps1

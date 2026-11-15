@@ -1,6 +1,7 @@
 package com.swiftcheck.aml.plugins.be.pep.regionalgovernments;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.swiftcheck.aml.plugin.Iparser;
 import com.swiftcheck.aml.plugin.ParserContext;
@@ -72,10 +73,16 @@ public class BePepRegionalGovernmentsParser implements Iparser {
             Pattern.CASE_INSENSITIVE
     );
 
+    private static final Pattern WIKI_LINK_PATTERN = Pattern.compile(
+            "\\[\\[([^\\]|#]+)(?:#[^\\]|]*)?(?:\\|([^\\]]+))?\\]\\]"
+    );
+
+    private static final ObjectMapper MAPPER = new ObjectMapper();
+
     @Override
     public ParserResult parse(ParserContext ctx) throws Exception {
         Files.createDirectories(ctx.rawDir());
-        GovernmentsConfig config = loadConfig();
+        GovernmentsConfig config = loadConfig(ctx.parameters());
         List<String> failures = new ArrayList<>();
 
         HttpClient client = HttpClient.newBuilder()
@@ -114,7 +121,7 @@ public class BePepRegionalGovernmentsParser implements Iparser {
         }
 
         FtmDatasetBuilder dataset = new FtmDatasetBuilder(ID_PREFIX, TOPIC);
-        List<MinisterRecord> records = convert(ctx.rawDir(), dataset);
+        List<MinisterRecord> records = convert(ctx.rawDir(), dataset, ctx.parameters());
         dataset.writeNdjsonFile(ctx.outputFile());
 
         String msg = records.size() + " membres de gouvernements régionaux/communautaires extraits.";
@@ -127,7 +134,7 @@ public class BePepRegionalGovernmentsParser implements Iparser {
     @Override
     public List<SourceRecord> readSourceRecords(ParserContext ctx) throws Exception {
         FtmDatasetBuilder dataset = new FtmDatasetBuilder(ID_PREFIX, TOPIC);
-        convert(ctx.rawDir(), dataset);
+        convert(ctx.rawDir(), dataset, ctx.parameters());
         List<SourceRecord> records = new ArrayList<>();
         for (FtmEntity e : dataset.entities()) {
             if ("Person".equals(e.getSchema())) {
@@ -139,7 +146,11 @@ public class BePepRegionalGovernmentsParser implements Iparser {
     }
 
     List<MinisterRecord> convert(Path rawDir, FtmDatasetBuilder dataset) throws IOException {
-        GovernmentsConfig config = loadConfig();
+        return convert(rawDir, dataset, Map.of());
+    }
+
+    List<MinisterRecord> convert(Path rawDir, FtmDatasetBuilder dataset, Map<String, String> params) throws IOException {
+        GovernmentsConfig config = loadConfig(params);
         Map<String, MinisterRecord> records = new LinkedHashMap<>();
 
         for (GovernmentEntry gov : config.governments()) {
@@ -173,8 +184,118 @@ public class BePepRegionalGovernmentsParser implements Iparser {
             case "VLAANDEREN_SPOTLIGHT" -> parseVlaanderen(gov, html);
             case "CFWB_LIST" -> parseCfwb(gov, html);
             case "OSTBELGIEN_LIST" -> parseOstbelgien(gov, html);
+            case "MEDIAWIKI_TABLE" -> parseMediaWikiTable(gov, html);
             default -> parseGeneric(gov, html);
         };
+    }
+
+    private static List<MinisterRecord> parseMediaWikiTable(GovernmentEntry gov, String rawContent) {
+        String wikitext = rawContent;
+        if (rawContent.trim().startsWith("{")) {
+            try {
+                wikitext = MAPPER.readTree(rawContent)
+                        .path("parse")
+                        .path("wikitext")
+                        .path("*")
+                        .asText("");
+            } catch (Exception e) {
+                log.warn("[be_pep_regional_governments] JSON MediaWiki invalide pour {} : {}",
+                        gov.code(), e.getMessage());
+            }
+        }
+        if (wikitext == null || wikitext.isBlank()) {
+            return List.of();
+        }
+
+        int compIdx = wikitext.indexOf("== Composition");
+        String section = compIdx >= 0 ? wikitext.substring(compIdx) : wikitext;
+        int tableStart = section.indexOf("{|");
+        int tableEnd = tableStart >= 0 ? section.indexOf("|}", tableStart) : -1;
+        if (tableStart < 0 || tableEnd < 0) {
+            return List.of();
+        }
+        String table = section.substring(tableStart, tableEnd);
+
+        List<MinisterRecord> list = new ArrayList<>();
+        String currentPortfolio = "";
+        boolean afterFileCell = false;
+
+        for (String rawLine : table.split("\\r?\\n")) {
+            String line = rawLine.trim();
+            if (line.isEmpty()) {
+                continue;
+            }
+            if (line.startsWith("|-") || line.startsWith("!")) {
+                afterFileCell = false;
+                continue;
+            }
+            if (line.contains("[[Fichier:") || line.contains("[[File:")) {
+                afterFileCell = true;
+                continue;
+            }
+            if (afterFileCell && line.startsWith("|")) {
+                afterFileCell = false;
+                if (line.toLowerCase(Locale.ROOT).contains("jusqu'au")) {
+                    continue;
+                }
+                String strippedCell = line
+                        .replaceAll("<ref[^>]*>[\\s\\S]*?</ref>", "")
+                        .replaceAll("<small>[\\s\\S]*?</small>", "");
+                Matcher linkMatcher = WIKI_LINK_PATTERN.matcher(strippedCell);
+                if (linkMatcher.find()) {
+                    String target = linkMatcher.group(1).trim();
+                    String label = linkMatcher.group(2) != null ? linkMatcher.group(2).trim() : target;
+                    String fullName = cleanWikiText(label);
+                    if (!fullName.isEmpty() && !currentPortfolio.isEmpty()) {
+                        String[] fl = splitFirstLast(fullName);
+                        String roleCategory = classifyRoleCategory(currentPortfolio, gov.entityName());
+                        String profileUrl = "https://fr.wikipedia.org/wiki/" + target.replace(' ', '_');
+                        list.add(new MinisterRecord(
+                                fullName.toLowerCase(Locale.ROOT),
+                                fl[0],
+                                fl[1],
+                                fullName,
+                                roleCategory,
+                                currentPortfolio,
+                                gov.name(),
+                                gov.entityName(),
+                                profileUrl,
+                                null
+                        ));
+                    }
+                }
+                continue;
+            }
+            if (line.startsWith("|") && !line.contains("{{Infobox Parti")) {
+                String cell = line.replaceFirst("^\\|\\s*(?:(?:rowspan|bgcolor)[^|]*\\|\\s*)?", "").trim();
+                if (!cell.startsWith("[[")) {
+                    String cleanedPortfolio = cleanWikiText(cell);
+                    String lower = cleanedPortfolio.toLowerCase(Locale.ROOT);
+                    if (lower.contains("ministre") || lower.contains("secrétaire d'état")) {
+                        currentPortfolio = cleanedPortfolio;
+                    }
+                }
+            }
+        }
+        return list;
+    }
+
+    private static String cleanWikiText(String raw) {
+        if (raw == null || raw.isBlank()) {
+            return "";
+        }
+        String s = raw
+                .replaceAll("<ref[^>]*>[\\s\\S]*?</ref>", "")
+                .replaceAll("<small>[\\s\\S]*?</small>", "")
+                .replaceAll("(?i)<br\\s*/?>", ", ");
+        Matcher m = WIKI_LINK_PATTERN.matcher(s);
+        StringBuilder sb = new StringBuilder();
+        while (m.find()) {
+            String replacement = m.group(2) != null ? m.group(2).trim() : m.group(1).trim();
+            m.appendReplacement(sb, Matcher.quoteReplacement(replacement));
+        }
+        m.appendTail(sb);
+        return cleanText(sb.toString().replace("'''", "").replace("''", ""));
     }
 
     private static List<MinisterRecord> parseVlaanderen(GovernmentEntry gov, String html) {
@@ -295,6 +416,7 @@ public class BePepRegionalGovernmentsParser implements Iparser {
         String lower = rawTitle == null ? "" : rawTitle.toLowerCase(Locale.ROOT);
         if (lower.contains("viceminister-president")
                 || lower.contains("vice-ministre-président")
+                || lower.contains("vice ministre-président")
                 || lower.contains("vice-président")
                 || lower.contains("vice-president")) {
             return "Vice-ministre-président – " + entityName;
@@ -342,13 +464,34 @@ public class BePepRegionalGovernmentsParser implements Iparser {
         dataset.addEntity(occ);
     }
 
-    static GovernmentsConfig loadConfig() throws IOException {
-        try (InputStream in = BePepRegionalGovernmentsParser.class.getResourceAsStream(CONFIG_RESOURCE)) {
-            if (in == null) {
-                throw new IOException("Ressource introuvable : " + CONFIG_RESOURCE);
-            }
-            return new ObjectMapper().readValue(in, GovernmentsConfig.class);
+    static GovernmentsConfig loadConfig(Map<String, String> params) throws IOException {
+        Map<String, String> p = params == null ? Map.of() : params;
+        String govsJson = p.getOrDefault("governments", p.get("configJson"));
+        if (govsJson == null || govsJson.isBlank()) {
+            throw new IllegalStateException("Paramètre « governments » absent : la liste des gouvernements régionaux"
+                    + " se configure dans les paramètres du parser (colonne parser.parameters).");
         }
+        com.fasterxml.jackson.databind.JsonNode root = MAPPER.readTree(govsJson);
+        int delay = root.has("delayMs") ? root.path("delayMs").asInt(1500) : 1500;
+        if (p.containsKey("delayMs") && !p.get("delayMs").isBlank()) {
+            delay = Integer.parseInt(p.get("delayMs").trim());
+        }
+        com.fasterxml.jackson.databind.JsonNode arrNode = root.has("governments") ? root.path("governments")
+                : (root.has("value") ? root.path("value") : root);
+        List<GovernmentEntry> parsed = MAPPER.readValue(
+                arrNode.traverse(),
+                new TypeReference<List<GovernmentEntry>>() {});
+        List<GovernmentEntry> merged = parsed.stream()
+                .map(g -> new GovernmentEntry(
+                        g.code(),
+                        p.getOrDefault(g.code() + ".name", g.name()),
+                        p.getOrDefault(g.code() + ".entityName", g.entityName()),
+                        p.getOrDefault(g.code() + ".url", g.url()),
+                        p.getOrDefault(g.code() + ".fileName", g.fileName()),
+                        p.getOrDefault(g.code() + ".format", g.format())
+                ))
+                .toList();
+        return new GovernmentsConfig(delay, merged);
     }
 
     static String[] splitFirstLast(String rawName) {

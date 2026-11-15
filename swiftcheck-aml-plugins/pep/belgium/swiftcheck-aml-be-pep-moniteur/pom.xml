@@ -45,6 +45,11 @@
             <artifactId>jsoup</artifactId>
             <version>${jsoup.version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.apache.pdfbox</groupId>
+            <artifactId>pdfbox</artifactId>
+            <version>2.0.31</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -78,6 +83,8 @@
                             <artifactSet>
                                 <includes>
                                     <include>org.jsoup:jsoup</include>
+                                    <include>org.apache.pdfbox:*</include>
+                                    <include>commons-logging:commons-logging</include>
                                 </includes>
                             </artifactSet>
                             <filters>
