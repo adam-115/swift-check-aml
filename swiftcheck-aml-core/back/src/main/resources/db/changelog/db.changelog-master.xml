@@ -174,5 +174,6 @@
     <include file="db/changelog/changes/146-de-defence-heer-parser.xml" />
     <include file="db/changelog/changes/147-de-defence-luftwaffe-parser.xml" />
     <include file="db/changelog/changes/148-de-defence-marine-parser.xml" />
+    <include file="db/changelog/changes/149-de-defence-cir-parser.xml" />
 
 </databaseChangeLog>
