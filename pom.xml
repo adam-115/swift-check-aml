@@ -107,6 +107,7 @@
         <!-- PEP Allemagne - Lot 1 : open data et reprises -->
         <module>swiftcheck-aml-plugins/pep/germany/swiftcheck-aml-de-pep-bundestag</module>
         <module>swiftcheck-aml-plugins/pep/germany/swiftcheck-aml-de-pep-bundesrat</module>
+        <module>swiftcheck-aml-plugins/pep/germany/swiftcheck-aml-de-pep-land-governments</module>
         <module>swiftcheck-aml-plugins/pep/germany/swiftcheck-aml-de-pep-federal-government</module>
         <module>swiftcheck-aml-plugins/pep/germany/swiftcheck-aml-de-pep-europarl</module>
         <module>swiftcheck-aml-plugins/pep/germany/swiftcheck-aml-de-pep-eu-commission</module>
