@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <!-- Story 19: BMVg / Bundeswehr - Ministre de la Defense (A.1), Generalinspekteur (F.1), Historique (A.2) -->
+
+    <changeSet id="144-register-parser-de-pep-defence" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Allemagne - Ministere de la Defense et Bundeswehr (BMVg)',
+                'Ministre federal de la Defense (A.1), Generalinspekteur der Bundeswehr (F.1) et anciens ministres (A.2)',
+                'de_pep_defence', 'PEP', 'https://www.bmvg.de',
+                'de-pep-defence', 'D:/test parser 2/plugins/swiftcheck-aml-de-pep-defence-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'WEB_PAGE',
+                NULL,
+                '{"ministerUrl": "https://www.bmvg.de/de/ministerium/verteidigungsminister-boris-pistorius?targetView=asTeaserSlider", "ministerVitaUrl": "https://www.bmvg.de/de/ministerium/verteidigungsminister-boris-pistorius/vita", "generalinspekteurUrl": "https://www.bmvg.de/de/ministerium/der-generalinspekteur-der-bundeswehr?targetView=asTeaserSlider", "formerMinistersUrl": "https://www.bmvg.de/de/ministerium/geschichte-des-verteidigungsministeriums/ehemalige-verteidigungsminister"}',
+                24, 12,
+                'Citer la source (Bundesministerium der Verteidigung - BMVg)', 'Bundesministerium der Verteidigung, www.bmvg.de',
+                'Scrape le ministre de la Defense (A.1), le Generalinspekteur (F.1) et l historique complet des anciens ministres (A.2).', TRUE, NOW());
+        ]]></sql>
+    </changeSet>
+
+</databaseChangeLog>
+
