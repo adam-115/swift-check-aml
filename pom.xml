@@ -129,6 +129,7 @@
         <module>swiftcheck-aml-plugins/pep/germany/swiftcheck-aml-de-pep-local-executives</module>
         <module>swiftcheck-aml-plugins/pep/germany/swiftcheck-aml-de-pep-lobbyregister</module>
         <module>swiftcheck-aml-plugins/pep/germany/swiftcheck-aml-de-pep-defence</module>
+        <module>swiftcheck-aml-plugins/pep/germany/swiftcheck-aml-de-pep-defence-secretaries</module>
         <module>swiftcheck-aml-plugins/pep/portugal/swiftcheck-aml-pt-pep-europarl</module>
         <module>swiftcheck-aml-plugins/pep/portugal/swiftcheck-aml-pt-pep-parliament</module>
         <module>swiftcheck-aml-plugins/pep/portugal/swiftcheck-aml-pt-pep-government</module>
