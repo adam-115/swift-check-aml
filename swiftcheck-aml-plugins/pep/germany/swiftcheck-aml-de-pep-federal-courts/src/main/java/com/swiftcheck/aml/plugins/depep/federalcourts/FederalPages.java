@@ -20,7 +20,10 @@ final class FederalPages {
     }
 
     /** Un titulaire lu sur une page. */
-    record Member(String fullName, String title, String cleanName, String role, LocalDate start, LocalDate end) {
+    record Member(String fullName, String title, String cleanName, String role, LocalDate start, LocalDate end, String cvSummary, String detailUrl) {
+        Member(String fullName, String title, String cleanName, String role, LocalDate start, LocalDate end) {
+            this(fullName, title, cleanName, role, start, end, null, null);
+        }
     }
 
     static final Map<String, Function<List<String>, List<Member>>> EXTRACTORS = new LinkedHashMap<>();
