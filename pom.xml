@@ -131,6 +131,7 @@
         <module>swiftcheck-aml-plugins/pep/germany/swiftcheck-aml-de-pep-defence</module>
         <module>swiftcheck-aml-plugins/pep/germany/swiftcheck-aml-de-pep-defence-secretaries</module>
         <module>swiftcheck-aml-plugins/pep/germany/swiftcheck-aml-de-pep-defence-heer</module>
+        <module>swiftcheck-aml-plugins/pep/germany/swiftcheck-aml-de-pep-defence-luftwaffe</module>
         <module>swiftcheck-aml-plugins/pep/portugal/swiftcheck-aml-pt-pep-europarl</module>
         <module>swiftcheck-aml-plugins/pep/portugal/swiftcheck-aml-pt-pep-parliament</module>
         <module>swiftcheck-aml-plugins/pep/portugal/swiftcheck-aml-pt-pep-government</module>
