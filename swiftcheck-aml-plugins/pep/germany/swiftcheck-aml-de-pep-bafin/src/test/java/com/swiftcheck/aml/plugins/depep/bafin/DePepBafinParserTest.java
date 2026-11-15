@@ -2,6 +2,9 @@ package com.swiftcheck.aml.plugins.depep.bafin;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -16,6 +19,7 @@ import org.junit.jupiter.api.io.TempDir;
 
 import com.swiftcheck.aml.plugin.ParserContext;
 import com.swiftcheck.aml.plugin.ParserResult;
+import com.swiftcheck.aml.plugins.depep.bafin.DePepBafinParser.Member;
 import com.swiftcheck.aml.sdk.FtmDatasetBuilder;
 
 /** Page « Direktorium » de bafin.de relevée le 4 novembre 2026. */
@@ -51,6 +55,45 @@ class DePepBafinParserTest {
         String all = Files.readString(out);
         assertThat(all).contains("\"name\":[\"Mark Branson\"]").contains("role.pep").contains("gov.financial");
         assertThat(all.lines().filter(l -> l.contains("\"schema\":\"Occupancy\"")).count()).isEqualTo(7);
+    }
+
+    @Test
+    void testParseDetailPageExtractsCvAndDate() {
+        String detailHtml = """
+            <!DOCTYPE html>
+            <html>
+            <body>
+              <h1 class="c-headline">Mark Branson</h1>
+              <h2>Lebenslauf (tabellarisch)</h2>
+              <p>geboren in Großbritannien</p>
+              <h3>Seit 1. August 2021</h3>
+              <p>Präsident der Bundesanstalt für Finanzdienstleistungsaufsicht</p>
+            </body>
+            </html>
+            """;
+
+        Member m = DePepBafinParser.parseDetailPage(
+                "https://www.bafin.de/DE/die-bafin/ueber-die-bafin/organisation/direktorium/praesident/praesident_node.html",
+                detailHtml);
+
+        assertNotNull(m);
+        assertEquals("Mark Branson", m.cleanName());
+        assertEquals("2021-08-01", m.startDate());
+        assertNotNull(m.cvSummary());
+        assertTrue(m.cvSummary().contains("Großbritannien"));
+    }
+
+    @Test
+    void testBrokenSourceHandlingDoesNotCrash(@TempDir Path tempDir) throws Exception {
+        String brokenUrl = "https://www.bafin.de/DE/die-bafin/ueber-die-bafin/organisation/direktorium/praesident/inconnu-404.html";
+        Map<String, String> params = Map.of("urls", "[\"" + brokenUrl + "\"]");
+
+        ParserContext ctx = new ParserContext("de_pep_bafin", null, tempDir, tempDir.resolve("out.ndjson"), params);
+        try {
+            new DePepBafinParser().parse(ctx);
+        } catch (IllegalStateException e) {
+            assertTrue(e.getMessage().contains("Aucun membre du Direktorium"));
+        }
     }
 
     @Test
