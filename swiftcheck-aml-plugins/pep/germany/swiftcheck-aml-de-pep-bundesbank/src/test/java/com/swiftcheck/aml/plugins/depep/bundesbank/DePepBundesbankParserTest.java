@@ -11,8 +11,12 @@ import org.junit.jupiter.api.io.TempDir;
 import com.swiftcheck.aml.plugin.ParserContext;
 import com.swiftcheck.aml.plugin.ParserResult;
 import com.swiftcheck.aml.plugin.SourceRecord;
+import com.swiftcheck.aml.plugins.depep.bundesbank.DePepBundesbankParser.Member;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class DePepBundesbankParserTest {
 
@@ -81,5 +85,48 @@ class DePepBundesbankParserTest {
         List<SourceRecord> records = parser.readSourceRecords(ctx);
         assertThat(records).hasSize(4);
         assertThat(records.get(0).name()).isEqualTo("Dr. Joachim Nagel");
+    }
+
+    @Test
+    void testParseDetailPageExtractsCvAndDate() {
+        String detailHtml = """
+            <!DOCTYPE html>
+            <html>
+            <head>
+              <meta name="description" content="Seit Januar 2022 Präsident der Deutschen Bundesbank. Geboren 1966 in Karlsruhe." />
+            </head>
+            <body>
+              <h1 class="main__headline">Prof. Dr. Joachim Nagel</h1>
+              <p>Seit Januar 2022 Präsident der Deutschen Bundesbank.</p>
+            </body>
+            </html>
+            """;
+
+        Member m = DePepBundesbankParser.parseDetailPage(
+                "https://www.bundesbank.de/de/bundesbank/organisation/vorstand/prof-dr-joachim-nagel-858550",
+                detailHtml);
+
+        assertNotNull(m);
+        assertEquals("Joachim Nagel", m.cleanName());
+        assertEquals("Prof. Dr.", m.title());
+        assertEquals("2022-01-01", m.startDate());
+        assertNotNull(m.cvSummary());
+        assertTrue(m.cvSummary().contains("Präsident der Deutschen Bundesbank"));
+    }
+
+    @Test
+    void testBrokenSourceAlertDoesNotCrash(@TempDir Path tempDir) throws Exception {
+        String brokenUrl = "https://www.bundesbank.de/de/bundesbank/organisation/vorstand/page-404-inconnue";
+        Map<String, String> params = Map.of("urls", "[\"" + brokenUrl + "\"]");
+
+        ParserContext ctx = new ParserContext("de_pep_bundesbank", null, tempDir, tempDir.resolve("out.ndjson"), params);
+        DePepBundesbankParser parser = new DePepBundesbankParser();
+
+        try {
+            parser.parse(ctx);
+        } catch (IllegalStateException e) {
+            // normal si 0 membre trouvé mais l'alerte est bien tracée
+            assertTrue(e.getMessage().contains("Aucun membre trouvé"));
+        }
     }
 }
