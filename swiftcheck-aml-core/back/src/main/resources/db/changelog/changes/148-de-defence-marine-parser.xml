@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <!-- Story 23: BMVg / Bundeswehr - Marine (Marine nationale) - Flottilles, ecoles et commandements (F.1) -->
+
+    <changeSet id="148-register-parser-de-pep-defence-marine" author="swiftcheck">
+        <sql><![CDATA[
+            INSERT INTO parser (name, description, dataset_name, list_type, website_url, plugin_id, plugin_url,
+                data_source_type, parser_kind, source_location, parameters, refresh_hours, retention_months,
+                licence, attribution, notes, enabled, created_at)
+            VALUES ('PEP Allemagne - Marine (Deutsche Marine / Bundeswehr)',
+                'Flottilles, ecoles, commandements navals et escadres (GwG F.1 - Amiraux et officiers superieurs)',
+                'de_pep_defence_marine', 'PEP', 'https://www.bundeswehr.de/de/organisation/marine',
+                'de-pep-defence-marine', 'D:/test parser 2/plugins/swiftcheck-aml-de-pep-defence-marine-0.0.1-SNAPSHOT.jar',
+                'PLUGIN_MANAGED', 'WEB_PAGE',
+                NULL,
+                '{"marineKommandoUrl": "https://www.bundeswehr.de/de/organisation/marine/organisation/marinekommando", "units": "https://www.bundeswehr.de/de/organisation/marine/struktur/einsatzflottille-1,https://www.bundeswehr.de/de/organisation/marine/struktur/einsatzflottille-2,https://www.bundeswehr.de/de/organisation/marine/struktur/marinefliegerkommando,https://www.bundeswehr.de/de/organisation/marine/struktur/marineunterstuetzungskommando,https://www.bundeswehr.de/de/organisation/marine/struktur/schifffahrtmedizinisches-institut,https://www.bundeswehr.de/de/organisation/marine/struktur/truppenbesuchszentrum,https://www.bundeswehr.de/de/organisation/marine/struktur/einsatzausbildungszentrum-schadensabwehr,https://www.bundeswehr.de/de/organisation/marine/struktur/marineschule-muerwik,https://www.bundeswehr.de/de/organisation/marine/struktur/marineunteroffizierschule,https://www.bundeswehr.de/de/organisation/marine/struktur/marineoperationsschule,https://www.bundeswehr.de/de/organisation/marine/struktur/marinetechnikschule,https://www.bundeswehr.de/de/organisation/marine/struktur/fuehrungsstab-deu-marfor,https://www.bundeswehr.de/de/organisation/marine/struktur/coe-csw,https://www.bundeswehr.de/de/organisation/marine/struktur/marineschifffahrtleitung,https://www.bundeswehr.de/de/organisation/marine/struktur/einsatzflottille-1/marinestuetzpunktkommandos-kiel-eckernfoerde-warnemuende,https://www.bundeswehr.de/de/organisation/marine/struktur/einsatzflottille-1/1-korvettengeschwader,https://www.bundeswehr.de/de/organisation/marine/struktur/einsatzflottille-1/kommando-spezialkraefte-marine,https://www.bundeswehr.de/de/organisation/marine/struktur/einsatzflottille-1/3-minensuchgeschwader,https://www.bundeswehr.de/de/organisation/marine/struktur/einsatzflottille-1/seebataillon,https://www.bundeswehr.de/de/organisation/marine/struktur/einsatzflottille-1/1-ubootgeschwader,https://www.bundeswehr.de/de/organisation/marine/struktur/einsatzflottille-1/ausbildungszentrum-uboote,https://www.bundeswehr.de/de/organisation/marine/struktur/einsatzflottille-1/unterstuetzungsgeschwader"}',
+                24, 12,
+                'Citer la source (Bundeswehr - Marine)', 'Bundeswehr, www.bundeswehr.de',
+                'Scrape les amiraux et commandants d escadres de la Marine allemande (GwG F.1). Extraction native depuis fiches HTML et CVs PDF.', TRUE, NOW());
+        ]]></sql>
+    </changeSet>
+
+</databaseChangeLog>
+
