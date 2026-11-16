@@ -47,6 +47,7 @@ class DePepLandGovernmentsParserTest {
         ParserResult result = parser.parse(ctx);
 
         assertThat(result.message()).contains("2 membres des exécutifs");
+        assertThat(Files.exists(tempDir.resolve("input.html"))).isTrue();
         List<SourceRecord> records = parser.readSourceRecords(ctx);
         assertThat(records).hasSize(2);
         assertThat(records.get(0).name()).isEqualTo("Winfried Kretschmann");
@@ -65,6 +66,16 @@ class DePepLandGovernmentsParserTest {
         assertNotNull(result);
         assertTrue(result.message().contains("ALERT SOURCE_BROKEN"));
         assertTrue(result.message().contains("schleswig holstein.de"));
+    }
+
+    @Test
+    void testResolveTargetUrlsWithEscapedQuotes() {
+        String rawFromDb = "[\\\"https://www.baden-wuerttemberg.de/de/regierung/ministerpraesident\\\",\\\"https://www.bayern.de/staatsregierung/kabinett/\\\"]";
+        List<String> urls = DePepLandGovernmentsParser.resolveTargetUrls(Map.of("urls", rawFromDb));
+        assertThat(urls).containsExactly(
+                "https://www.baden-wuerttemberg.de/de/regierung/ministerpraesident",
+                "https://www.bayern.de/staatsregierung/kabinett/"
+        );
     }
 
     @Test

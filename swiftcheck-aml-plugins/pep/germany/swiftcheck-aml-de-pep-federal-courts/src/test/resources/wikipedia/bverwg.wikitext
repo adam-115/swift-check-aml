@@ -1,0 +1,2230 @@
+Diese Liste gibt einen Überblick über alle Berufsrichter, die dem deutschen [[Bundesverwaltungsgericht (Deutschland)|Bundesverwaltungsgericht]], das seine Arbeit 1953 aufgenommen hat, angehört haben. Bisher haben 291 Berufsrichter am Bundesverwaltungsgericht Recht gesprochen.
+
+== Richter ==
+Bis zum 30. September 1972 lautete die gesetzliche Bezeichnung für die Richter „Bundesrichter“ und für die Vorsitzenden „Senatspräsidenten beim Bundesverwaltungsgericht“. Aufgrund einer Änderung von § 19a [[Deutsches Richtergesetz|DRiG]] führen die Richter seit dem 1. Oktober 1972 die Amtsbezeichnung „Richter am Bundesverwaltungsgericht“ und die Vorsitzenden die Amtsbezeichnung „Vorsitzender Richter am Bundesverwaltungsgericht“.
+{{TOC}}
+
+{| class="wikitable sortable"
+|-
+! Name (Lebensdaten)
+!data-sort-type="date"| Beginn der Amtszeit
+!data-sort-type="date"| Ende der Amtszeit
+!data-sort-type="date"| Senatsvorsitz ab
+!data-sort-type="date"| Vizepräsident ab
+!data-sort-type="date"| Präsident ab
+|-id="A"
+| {{PersonZelle|Hartmut|Albers}} (* 1943)
+| {{DatumZelle|1989-04-04}}
+| {{DatumZelle|2008-06-30}}
+| {{DatumZelle|2000-06-22}}
+|
+|
+|-
+| {{PersonZelle|Ernst-Wolfram|Amelung}} (1909–1988)
+| {{DatumZelle|1967-10-01}}
+| {{DatumZelle|1977-07-31}}
+| {{DatumZelle|1975-06-13}}
+|
+|
+|-
+| {{PersonZelle|Horst|Arndt|k=Jurist}} (1912–1990)
+| {{DatumZelle|1967-10-01}}
+| {{DatumZelle|1980-11-30}}
+| {{DatumZelle|1971-08-26}}
+|
+|
+|-id="B"
+| {{PersonZelle|Gabriela|Bähr}} (1961–2026)
+| {{DatumZelle|2021-10-01}}
+| {{DatumZelle|2026-01-30}}
+|
+|
+|
+|-
+| {{PersonZelle|Günther|Barbey}} (1923–1988)
+| {{DatumZelle|1973-08-09}}
+| {{DatumZelle|1988-08-01}}
+|
+|
+|
+|-
+| {{PersonZelle|Franz|Bardenhewer}} (* 1945)
+| {{DatumZelle|1987-03-04}}
+| {{DatumZelle|2010-04-30}}
+| {{DatumZelle|2000-09-19}}
+|
+|
+|-
+| {{PersonZelle|Martin|Baring}} (1904–1989)
+| {{DatumZelle|1953-04-23}}
+| {{DatumZelle|1972-11-30}}
+| {{DatumZelle|1959-01-30}}
+|
+|
+|-
+| {{PersonZelle|Detlef|Bayer}} (1951–2007)
+| {{DatumZelle|1995-05-17}}
+| {{DatumZelle|2007-02-27}}
+|
+|
+|
+|-
+| {{PersonZelle|Ilse-Sabine|Beck}} (* 1949)
+| {{DatumZelle|1997-10-21}}
+| {{DatumZelle|2012-04-30}}
+|
+|
+|
+|-
+| {{PersonZelle|Hans-Joachim|Becker|k=Jurist}} (1917–?)
+| {{DatumZelle|1958-03-28}}
+| {{DatumZelle|1983-11-30}}
+| {{DatumZelle|1980-03-10}}
+|
+|
+|-
+| {{PersonZelle|Ulrich|Bender}} (* 1936)
+| {{DatumZelle|1982-12-14}}
+| {{DatumZelle|2000-04-30}}
+|
+|
+|
+|-
+| {{PersonZelle|Jörg|Berkemann}} (* 1937)
+| {{DatumZelle|1983-12-22}}
+| {{DatumZelle|2002-10-31}}
+|
+|
+|
+|-
+| {{PersonZelle|Uwe-Dietmar|Berlit}} (* 1956)
+| {{DatumZelle|2002-07-29}}
+| {{DatumZelle|2022-03-31}}
+| {{DatumZelle|2011-05-02}}
+|
+|
+|-
+| {{PersonZelle|Erich|Bermel}} (1935–2017)
+| {{DatumZelle|1976-08-18}}
+| {{DatumZelle|2000-05-31}}
+| {{DatumZelle|1987-12-22}}
+|
+|
+|-
+| {{PersonZelle|Michael|Bertrams}} (1947–2025)
+| {{DatumZelle|1990-01-23}}
+| {{DatumZelle|1994-06-24}}
+|
+|
+|
+|-
+| {{PersonZelle|Karl August|Bettermann}} (1913–2005)
+| {{DatumZelle|1954-06-01}}
+| {{DatumZelle|1956-07-31}}
+|
+|
+|
+|-
+| {{PersonZelle|Ulrike|Bick}} (* 1959)
+| {{DatumZelle|2012-08-10}}
+| {{DatumZelle|2025-12-31}}
+| {{DatumZelle|2020-12-17}}<ref>{{Internetquelle |url=https://www.bverwg.de/pm/2020/77 |titel=Prof. Dr. Ulrike Bick neue Vorsitzende Richterin am Bundesverwaltungsgericht |abruf=2020-12-31 |werk=Pressemitteilung Nr. 77/2020 |hrsg=Bundesverwaltungsgericht |datum=2020-12-17}}</ref>
+|
+|
+|-
+| {{PersonZelle|Wolfgang|Bier|k=Jurist}} (* 1955)
+| {{DatumZelle|2005-07-01}}
+| {{DatumZelle|2020-11-30}}<ref>{{Internetquelle |autor= |url=https://www.bverwg.de/pm/2020/69 |titel=Vorsitzender Richter am Bundesverwaltungsgericht Dr. Wolfgang Bier im Ruhestand |werk=Pressemitteilung Nr. 69/2020 |hrsg=Bundesverwaltungsgericht |datum=2020-12-01 |abruf=2020-12-01}}</ref>
+| {{DatumZelle|2011-11-11}}
+|
+|
+|-
+| {{PersonZelle|Fritz|Boerckel}} (1898–1980)
+| {{DatumZelle|1957-08-30}}
+| {{DatumZelle|1966-11-30}}
+|
+|
+|
+|-
+| {{PersonZelle|Holger|Böhmann}} (* 1966)
+| {{DatumZelle|2016-06-08}}
+|
+|
+|
+|
+|-
+| {{PersonZelle|Werner|Böhmer}} (1915–2014)
+| {{DatumZelle|1957-08-30}}
+| {{DatumZelle|1965-02-10}}
+|
+|
+|
+|-
+| {{PersonZelle|Heinz Joachim|Bonk}} (1935–2019)
+| {{DatumZelle|1986-08-01}}
+| {{DatumZelle|1998-11-30}}
+|
+|
+|
+|-
+| {{PersonZelle|Hermann|Borgs-Maciejewski}} (1938–2008)
+| {{DatumZelle|1990-07-02}}
+| {{DatumZelle|2003-10-31}}
+|
+|
+|
+|-
+| {{PersonZelle|Dieter|Bosch}} (* 1935)
+| {{DatumZelle|1993-12-01}}
+| {{DatumZelle|1997-06-30}}
+|
+|
+|
+|-
+| {{PersonZelle|Martin|Brandt|k=Jurist}} (* 1958)
+| {{DatumZelle|2010-08-03}}
+| {{DatumZelle|2024-11-30}}
+|
+|
+|
+|-
+| {{PersonZelle|Artur|Breitfeld}} (1899–1967)
+| {{DatumZelle|1956-10-01}}
+| {{DatumZelle|1961-09-30}}
+|
+|
+|
+|-
+| {{PersonZelle|Bernd|Brunn}} (* 1949)
+| {{DatumZelle|1995-05-17}}
+| {{DatumZelle|2010-06-30}}
+|
+|
+|
+|-
+| {{PersonZelle|Elisabeth|Buchberger}} (1950–2022)
+| {{DatumZelle|2006-07-14}}
+| {{DatumZelle|2016-04-30}}
+|
+|
+|
+|-
+| {{PersonZelle|Joachim|Buchheister}} (* 1963)
+| {{DatumZelle|2008-06-02}}
+| {{DatumZelle|2013-11-30}}
+|
+|
+|
+|-
+| {{PersonZelle|Karl|Buchholz|k=Jurist}} (1903–1973)
+| {{DatumZelle|1953-04-23}}
+| {{DatumZelle|1970-07-31}}
+| {{DatumZelle|1959-01-30}}
+|
+|
+|-
+| {{PersonZelle|Joachim|Büge}} (* 1949)
+| {{DatumZelle|1997-10-21}}
+| {{DatumZelle|2014-11-30}}
+|
+|
+|
+|-
+| {{PersonZelle|Ulrike|Bumke}} (1958–2016)
+| {{DatumZelle|2007-07-02}}
+| {{DatumZelle|2016-02-20}}
+|
+|
+|
+|-
+| {{PersonZelle|Günter|Burmeister}} (* 1960)
+| {{DatumZelle|2008-06-02}}
+|
+|
+|
+|
+|-id="C"
+| {{PersonZelle|Edmund de|Chapeaurouge|k=Jurist, 1912}} (1912–2005)
+| {{DatumZelle|1956-04-27}}
+| {{DatumZelle|1979-07-31}}
+|
+|
+|
+|-
+| {{PersonZelle|Josef|Christ|k=Jurist}} (* 1956)
+| {{DatumZelle|2008-08-01}}
+| {{DatumZelle|2017-11-30}}
+|
+| {{DatumZelle|2014-07-01}}
+|
+|-
+| {{PersonZelle|Rolf|Clauß}} (1911–1990)
+| {{DatumZelle|1957-08-30}}
+| {{DatumZelle|1977-03-31}}
+|
+|
+|
+|-
+| {{PersonZelle|Peter|Czapski}} (* 1941)
+| {{DatumZelle|1992-01-21}}
+| {{DatumZelle|2000-03-31}}
+|
+|
+|
+|-id="D"
+| {{PersonZelle|Joachim|David}} (1932–1992)
+| {{DatumZelle|1980-08-01}}
+| {{DatumZelle|1992-09-13}}
+|
+|
+|
+|-
+| {{PersonZelle|Michael|Dawin}} (* 1942)
+| {{DatumZelle|1987-04-01}}
+| {{DatumZelle|2007-08-31}}
+|
+|
+|
+|-
+| {{PersonZelle|Andreas|Decker|k=Jurist}} (* 1960)
+| {{DatumZelle|2012-06-25}}
+|
+|
+|
+|
+|-
+| {{PersonZelle|Dieter|Deiseroth}} (1950–2019)
+| {{DatumZelle|2001-07-04}}
+| {{DatumZelle|2015-09-30}}
+|
+|
+|
+|-
+| {{PersonZelle|Sebastian|Dette}} (* 1958)
+| {{DatumZelle|2003-11-04}}
+| {{DatumZelle|2010-02-01}}
+|
+|
+|
+|-
+| {{PersonZelle|Alfred|Dickersbach}} (1931–2023)
+| {{DatumZelle|1976-05-06}}
+| {{DatumZelle|1996-11-30}}
+| {{DatumZelle|1987-03-04}}
+|
+|
+|-
+| {{PersonZelle|Harald|Dickertmann}} (1909–1994)
+| {{DatumZelle|1967-10-01}}
+| {{DatumZelle|1975-05-31}}
+| {{DatumZelle|1967-10-01}}
+|
+|
+|-
+| {{PersonZelle|Wilhelm|Diefenbach|Wilhelm Diefenbach (Richter)}} (* 1933)
+| {{DatumZelle|1980-06-12}}
+| {{DatumZelle|1998-12-31}}
+| {{DatumZelle|1992-07-28}}
+|
+|
+|-
+| {{PersonZelle|Gunther|Dieterich}} (* 1959)
+| {{DatumZelle|2016-06-08}}
+| {{DatumZelle|2025-07-31}}
+|
+|
+|
+|-
+| {{PersonZelle|Wilhelm|Dodenhoff}} (1920–2022)
+| {{DatumZelle|1963-01-02}}
+| {{DatumZelle|1987-02-28}}
+| {{DatumZelle|1975-10-27}}
+|
+|
+|-
+| {{PersonZelle|Franz Wilhelm|Dollinger}} (* 1962)
+| {{DatumZelle|2014-01-02}}
+|
+|
+|
+|
+|-
+| {{PersonZelle|Ulf|Domgörgen}} (* 1956)
+| {{DatumZelle|2004-09-03}}<ref>[https://www.bverwg.de/de/pm/2004/55 ''Neuer Richter am Bundesverwaltungsgericht''] Pressemitteilung des Bundesverwaltungsgerichts Nr. 55/2004 vom 3.&nbsp;September 2004.</ref>
+| {{DatumZelle|2022-02-28}}
+| {{DatumZelle|2012-07-10}}
+|
+|
+|-
+| {{PersonZelle|Wolfgang|Dörffler}} (1923–2013)
+| {{DatumZelle|1967-05-02}}
+| {{DatumZelle|1975-04-06}}
+|
+|
+|
+|-
+| {{PersonZelle|Harald|Dörig}} (* 1953)
+| {{DatumZelle|2000-01-10}}
+| 31. Aug. 2018
+|
+|
+|
+|-
+| {{PersonZelle|Hans-Joachim|Driehaus}} (* 1940)
+| {{DatumZelle|1981-05-21}}
+| {{DatumZelle|2005-09-30}}
+| {{DatumZelle|1997-02-13}}
+|
+|
+|-id="E"
+| {{PersonZelle|Marion|Eckertz-Höfer}} (* 1948)
+| {{DatumZelle|1993-10-29}}
+| {{DatumZelle|2014-01-31}}
+| {{DatumZelle|2001-09-20}}
+| {{DatumZelle|2002-10-01}}
+| {{DatumZelle|2007-06-01}}
+|-
+| {{PersonZelle|Charlotte|Eckstein}} (1926–2001)
+| {{DatumZelle|1971-07-01}}
+| {{DatumZelle|1991-01-31}}
+| {{DatumZelle|1987-02-03}}
+|
+|
+|-
+| {{PersonZelle|Hans|Egidi}} (1890–1970)
+| {{DatumZelle|1955-04-29}}
+| {{DatumZelle|1958-06-30}}
+|
+|
+| {{DatumZelle|1955-04-29}}
+|-
+| {{PersonZelle|Oskar|Ehrl}} (* 1923)
+| {{DatumZelle|1972-07-28}}
+| {{DatumZelle|1990-03-31}}
+|
+|
+|
+|-
+| {{PersonZelle|Michael|Eichberger}} (* 1953)
+| {{DatumZelle|1998-07-07}}
+| {{DatumZelle|2006-04-25}}
+|
+|
+|
+|-
+| {{PersonZelle|Werner|Elsner}} (1899–1977)
+| {{DatumZelle|1953-04-23}}
+| {{DatumZelle|1967-04-30}}
+| {{DatumZelle|1956-08-24}}
+|
+|
+|-
+| {{PersonZelle|Sigrid|Emmenegger}} (* 1976)
+| {{DatumZelle|2021-01-04}}<ref>{{Internetquelle |url=https://www.bverwg.de/pm/2021/1 |titel=Dr. Sigrid Emmenegger neue Richterin am Bundesverwaltungsgericht |abruf=2021-01-13 |werk=Pressemitteilung Nr. 1/2021 |hrsg=Bundesverwaltungsgericht |datum=2021-01-04}}</ref>
+| {{DatumZelle|2025-10-07}}
+|
+|
+|
+|-
+| {{PersonZelle|Martina|Eppelt}} (* 1969)
+| {{DatumZelle|2010-08-03}}
+|
+|
+|
+|
+|-
+| {{PersonZelle|Werner|Ernst|k=Jurist}} (1910–2002)
+| {{DatumZelle|1953-04-23}}
+| {{DatumZelle|1959-04-03}}
+|
+|
+|
+|-
+| {{PersonZelle|Wolfgang|Ernst|k=Richter}} (1930–2016)
+| {{DatumZelle|1980-06-03}}
+| {{DatumZelle|1995-10-31}}
+|
+|
+|
+|-
+| {{PersonZelle|Erich|Eue}} (1901–1978)
+| {{DatumZelle|1954-06-01}}
+| {{DatumZelle|1969-04-30}}
+|
+|
+|
+|-id="F"
+| {{PersonZelle|Wolfgang|Fandré}} (* 1926)
+| {{DatumZelle|1972-08-31}}
+| {{DatumZelle|1989-04-30}}
+|
+|
+|
+|-
+| {{PersonZelle|Ulrike|Fenzl}} (* 1967)
+| {{DatumZelle|2021-12-01}}
+|
+|
+|
+|
+|-
+| {{PersonZelle|Berthold H.|Fink}} (* 1922)
+| {{DatumZelle|1967-12-01}}
+| {{DatumZelle|1989-09-30}}
+|
+|
+|
+|-
+| {{PersonZelle|Alfred|Fischer|k=Richter}} (1919–2004)
+| {{DatumZelle|1966-10-03}}
+| {{DatumZelle|1987-12-31}}
+| {{DatumZelle|1983-11-02}}
+|
+|
+|-
+| {{PersonZelle|Heinz-Harald|Fischer}} (1903–1983)
+| {{DatumZelle|1956-10-31}}
+| {{DatumZelle|1966-06-30}}
+|
+|
+|
+|-
+| {{PersonZelle|Martin|Fleuß}} (* 1968)
+| {{DatumZelle|2010-11-16}}<ref name="Fleuß">[https://www.bverwg.de/pm/2010/101 ''Dr. Kirsten Kuhlmann und Dr. Martin Fleuß neue Richter am Bundesverwaltungsgericht''] Pressemitteilung des Bundesverwaltungsgerichts Nr. 101/2010 vom 16.&nbsp;November 2010</ref>
+|
+|
+|
+|
+|-
+| {{PersonZelle|Dietrich|Franke|k=Jurist}} (1943–2012)
+| {{DatumZelle|1995-05-17}}
+| {{DatumZelle|2008-06-30}}
+|
+|
+|
+|-
+| {{PersonZelle|Ingeborg|Franke}} (1935–2023)
+| {{DatumZelle|1975-12-18}}
+| {{DatumZelle|2000-05-31}}
+| {{DatumZelle|1990-09-01}}
+| {{DatumZelle|1993-10-01}}
+|
+|-
+| {{PersonZelle|Everhardt|Franßen}} (* 1937)
+| {{DatumZelle|1978-08-07}}<ref>Franßen war vom 16. November 1987 bis zum 30. Juni 1991 Richter des Bundesverfassungsgerichts. Er kehrte ans Bundesverwaltungsgericht zurück, um das Amt des Präsidenten zu übernehmen.</ref>
+| {{DatumZelle|2002-09-30}}
+|
+|
+| {{DatumZelle|1991-07-01}}
+|-
+| {{PersonZelle|Ludwig|Frege}} (1884–1964)
+| {{DatumZelle|1953-03-28}}
+| {{DatumZelle|1954-12-31}}
+|
+|
+| {{DatumZelle|1953-03-28}}
+|-
+| {{PersonZelle|Eva-Christine|Frentz}} (* 1955)
+| {{DatumZelle|2000-09-07}}
+| {{DatumZelle|2018-12-31}}
+|
+|
+|
+|-
+| {{PersonZelle|Anne-Kathrin|Fricke}} (* 1960)
+| {{DatumZelle|2007-07-02}}
+| {{DatumZelle|2021-11-30}}
+|
+|
+|
+|-
+| {{PersonZelle|Walther|Fürst|k=Jurist}} (1912–2009)
+| {{DatumZelle|1953-04-23}}
+| {{DatumZelle|1980-02-29}}
+| {{DatumZelle|1956-10-31}}
+| {{DatumZelle|1971-11-16}}
+| {{DatumZelle|1976-08-19}}
+|-id="G"
+| {{PersonZelle|Günter|Gaentzsch}} (* 1936)
+| {{DatumZelle|1982-07-01}}
+| {{DatumZelle|2001-07-31}}
+| {{DatumZelle|1993-10-20}}
+|
+|
+|-
+| {{PersonZelle|Stephanie|Gamp}} (* 1973)
+| {{DatumZelle|2021-09-01}}
+|
+|
+|
+|
+|-
+| {{PersonZelle|Stephan|Gatz}} (* 1955)
+| {{DatumZelle|1999-11-22}}
+| {{DatumZelle|2020-01-31}}
+|
+|
+|
+|-
+| {{PersonZelle|Karl|Gecks}} (1902–1975)
+| {{DatumZelle|1955-06-30}}
+| {{DatumZelle|1957-11-30}}
+|
+|
+|
+|-
+| {{PersonZelle|Michael|Gerhardt}} (* 1948)
+| {{DatumZelle|1996-07-22}}
+| {{DatumZelle|2003-07-31}}
+|
+|
+|
+|-
+| {{PersonZelle|Peter|Gielen}} (1937–2017)
+| {{DatumZelle|1980-12-02}}
+| {{DatumZelle|2002-09-30}}
+|
+|
+|
+|-
+| {{PersonZelle|Wolfgang|Gille}} (1901–1985)
+| {{DatumZelle|1967-10-01}}
+| {{DatumZelle|1969-11-30}}
+|
+|
+|
+|-
+| {{PersonZelle|Georg-Konrad|Glöckner}} (* 1921)
+| {{DatumZelle|1969-02-01}}
+| {{DatumZelle|1986-04-30}}
+| {{DatumZelle|1972-10-18}}
+|
+|
+|-
+| {{PersonZelle|Christoph|Gödel}} (* 1945)
+| {{DatumZelle|1991-07-16}}
+| {{DatumZelle|2010-09-30}}
+| {{DatumZelle|2004-05-03}}
+|
+|
+|-
+| {{PersonZelle|Hartmut|Golze}} (* 1947)
+| {{DatumZelle|1997-05-02}}
+| {{DatumZelle|2012-03-31}}
+| {{DatumZelle|2006-10-31}}
+|
+|
+|-
+| {{PersonZelle|Kurt|Graulich}} (* 1949)
+| {{DatumZelle|1999-08-17}}
+| {{DatumZelle|2015-02-28}}
+|
+|
+|
+|-
+| {{PersonZelle|Michael|Groepper}} (* 1945)
+| {{DatumZelle|1994-03-25}}
+| {{DatumZelle|2010-07-31}}
+|
+|
+|
+|-
+| {{PersonZelle|Carsten|Günther}} (* 1969)
+| {{DatumZelle|2015-06-03}}
+| {{DatumZelle|2025-08-13}}
+|
+|
+|
+|-
+| {{PersonZelle|Alexander|Gutmann}} (1932–1979)
+| {{DatumZelle|1976-08-19}}
+| {{DatumZelle|1979-01-24}}
+|
+|
+|
+|-
+| {{PersonZelle|Franz|Guttenberger}} (* 1949)
+| {{DatumZelle|2005-11-07}}
+| {{DatumZelle|2014-11-30}}
+|
+|
+|
+|-
+| {{PersonZelle|Horst|Gützkow}} (1920–2007)
+| {{DatumZelle|1959-01-30}}
+| {{DatumZelle|1987-01-31}}
+| {{DatumZelle|1977-08-02}}
+|
+|
+|-id="H"
+| {{PersonZelle|Evelyn|Haas}} (* 1949)
+| {{DatumZelle|1990-09-03}}
+| {{DatumZelle|1994-09-14}}
+|
+|
+|
+|-
+| {{PersonZelle|Helmut|Hacker|k=Jurist}} (* 1929)
+| {{DatumZelle|1980-08-01}}
+| {{DatumZelle|1994-10-31}}
+| {{DatumZelle|1986-05-02}}
+|
+|
+|-
+| {{PersonZelle|Carsten|Hahn}} (* 1965)
+| {{DatumZelle|2011-12-01}}
+|
+|
+|
+|
+|-
+| {{PersonZelle|Dittmar|Hahn}} (* 1943)
+| {{DatumZelle|1992-08-03}}
+| {{DatumZelle|2008-10-31}}
+|
+|
+|
+|-
+| {{PersonZelle|Günter|Halama}} (* 1941)
+| {{DatumZelle|1992-01-21}}
+| {{DatumZelle|2006-06-30}}
+|
+|
+|
+|-
+| {{PersonZelle|Andreas|Hammer|k=Jurist}} (* 1975)
+| {{DatumZelle|2019-11-01}}
+|
+|
+|
+|
+|-
+| {{PersonZelle|Ernst|Hammerschlag}} (1901–1968)
+| {{DatumZelle|1967-10-01}}
+| {{DatumZelle|1968-09-03}}
+|
+|
+|
+|-
+| {{PersonZelle|Daniela|Hampel}} (* 1972)
+| {{DatumZelle|2018-10-04}}<ref>[https://www.bverwg.de/pm/2018/71 ''Daniela Hampel neue Richterin am Bundesverwaltungsgericht''] Pressemitteilung des Bundesverwaltungsgerichts Nr. 71/2018 vom 4.&nbsp;Oktober 2018</ref>
+| 
+|
+|
+|
+|-
+| {{PersonZelle|Günther|Hardraht}} (1909–1975)
+| {{DatumZelle|1967-10-01}}
+| {{DatumZelle|1975-02-01}}
+|
+|
+|
+|-
+| {{PersonZelle|Katharina|Harms}} (* 1961)
+| {{DatumZelle|2014-10-01}}
+|
+|
+|
+|
+|-
+| {{PersonZelle|Werner|Hartmann|k=Richter}} (1932–2004)
+| {{DatumZelle|1977-08-30}}
+| {{DatumZelle|1994-01-31}}
+|
+|
+|
+|-
+| {{PersonZelle|Andreas|Hartung}} (* 1959)
+| {{DatumZelle|2009-12-02}}
+| {{DatumZelle|2025-10-31}}
+|
+|
+|
+|-
+| {{PersonZelle|Susanne|Hauser|k=Juristin}} (* 1950)
+| {{DatumZelle|2004-07-01}}
+| {{DatumZelle|2014-12-31}}
+|
+|
+|
+|-
+| {{PersonZelle|Richard|Häußler}} (* 1962)
+| {{DatumZelle|2010-08-03}}
+| 
+| {{DatumZelle|2017-05-23}}<ref>{{Internetquelle |autor= |url=https://www.bverwg.de/pm/2017/38 |titel=Dr. Richard Häußler neuer Vorsitzender Richter am Bundesverwaltungsgericht |werk=Pressemitteilung Nr. 38/2017 |hrsg=Bundesverwaltungsgericht |datum=23.&nbsp;Mai 2017 |abruf=2020-11-16}}</ref>
+|
+|
+|-
+| {{PersonZelle|Jan|Hecker}} (1967–2021)
+| {{DatumZelle|2011-12-01}}
+| {{DatumZelle|2018-12-31}}
+|
+|
+|
+|-
+| {{PersonZelle|Oswald|Heddaeus}} (1912–2006)
+| {{DatumZelle|1967-04-10}}
+| {{DatumZelle|1978-06-30}}
+|
+|
+|
+|-
+| {{PersonZelle|Helga|Heeren}} (* 1947)
+| {{DatumZelle|1991-08-01}}
+| {{DatumZelle|2007-02-28}}
+|
+|
+|
+|-
+| {{PersonZelle|Sibylle von|Heimburg}} (* 1951)
+| {{DatumZelle|1997-10-21}}
+| {{DatumZelle|2017-04-30}}<ref>[https://www.bverwg.de/pm/2017/30 ''Vorsitzende Richterin am Bundesverwaltungsgericht Dr. Sibylle von Heimburg im Ruhestand''] Pressemitteilung des Bundesverwaltungsgerichts Nr. 30/2017 vom 2.&nbsp;Mai 2017</ref>
+| {{DatumZelle|2012-07-10}}
+|
+|
+|-
+| {{PersonZelle|Herbert|Heinrich|k=Jurist}} (* 1922)
+| {{DatumZelle|1963-01-02}}
+| {{DatumZelle|1989-05-31}}
+| {{DatumZelle|1977-02-07}}
+|
+|
+|-
+| {{PersonZelle|Thomas|Heitz}} (* 1957)
+| {{DatumZelle|2004-08-02}}<ref>{{Internetquelle |autor= |url=https://www.bverwg.de/pm/2004/46 |titel=Dr. Thomas Heitz neuer Richter am Bundesverwaltungsgericht |werk=Pressemitteilung Nr. 46/2004 |hrsg=Bundesverwaltungsgericht |datum=2.&nbsp;August 2004 |abruf=2020-11-17}}</ref>
+| {{DatumZelle|2021-05-31}}
+|
+|
+|
+|-
+| {{PersonZelle|Ulla|Held-Daab}} (* 1962)
+| {{DatumZelle|2009-07-01}}
+|
+| {{DatumZelle|2018-08-07}}
+|
+|
+|-
+| {{PersonZelle|Yvonne|Hellmann}} (* 1975)
+| {{DatumZelle|2021-10-01}}
+|
+|
+|
+|
+|-
+| {{PersonZelle|Angela|Henke}} (* 1978)
+| {{DatumZelle|2019-07-01}}
+|
+|
+|
+|
+|-
+| {{PersonZelle|Joachim|Henkel|k=Jurist}} (* 1940)
+| {{DatumZelle|1991-07-16}}
+| {{DatumZelle|1999-11-11}}
+|
+|
+|
+|-
+| {{PersonZelle|Georg|Herbert}} (* 1947)
+| {{DatumZelle|1993-10-29}}
+| {{DatumZelle|2012-03-31}}
+| {{DatumZelle|2008-08-01}}
+|
+|
+|-
+| {{PersonZelle|Eugen|Hering}} (1906–1997)
+| {{DatumZelle|1954-06-01}}
+| {{DatumZelle|1974-03-31}}
+| {{DatumZelle|1967-05-02}}
+|
+|
+|-
+| {{PersonZelle|Eckart|Hien}} (* 1942)
+| {{DatumZelle|1986-06-02}}
+| {{DatumZelle|2007-05-31}}
+| {{DatumZelle|1999-02-23}}
+| {{DatumZelle|2000-06-22}}
+| {{DatumZelle|2002-10-01}}
+|-
+| {{PersonZelle|Daniel|Hissnauer}} (* 1977)
+| {{DatumZelle|2022-01-18}}
+|
+|
+|
+|
+|-
+| {{PersonZelle|Erich|Hofherr}} (1951–2007)
+| {{DatumZelle|2006-07-10}}
+| {{DatumZelle|2007-07-17}}
+|
+|
+|
+|-
+| {{PersonZelle|Fritz|Holland|k=Jurist}} (1890–1961)
+| {{DatumZelle|1953-04-13}}
+| {{DatumZelle|1958-11-01}}
+| {{DatumZelle|1955-08-14}}
+|
+|
+|-
+| {{PersonZelle|Hans-Jörg|Holtbrügge}} (* 1964)
+| {{DatumZelle|2017-07-04}}<ref>[https://www.bverwg.de/pm/2017/52 ''Hans-Jörg Holtbrügge neuer Richter am Bundesverwaltungsgericht''] Pressemitteilung des Bundesverwaltungsgerichts Nr. 52/2017 vom 4.&nbsp;Juli 2017</ref>
+| 
+| 
+|
+|
+|-
+| {{PersonZelle|Dieter|Hömig}} (1938–2016)
+| {{DatumZelle|1983-12-22}}
+| {{DatumZelle|1995-10-13}}
+| {{DatumZelle|1993-04-29}}
+|
+|
+|-
+| {{PersonZelle|Heinz|Honnacker}} (1936–2023)
+| {{DatumZelle|1991-07-16}}
+| {{DatumZelle|2001-02-28}}
+|
+|
+|
+|-
+| {{PersonZelle|Petra|Hoock}} (* 1965)
+| {{DatumZelle|2014-09-02}}
+|
+|
+|
+|
+|-
+| {{PersonZelle|Pauline|Hopf}} (1914–1972)
+| {{DatumZelle|1967-08-01}}
+| {{DatumZelle|1972-10-18}}
+|
+|
+|
+|-
+| {{PersonZelle|Michael|Hund}} (* 1946)
+| {{DatumZelle|1993-10-29}}
+| {{DatumZelle|2011-10-31}}
+| {{DatumZelle|2007-01-08}}
+| {{DatumZelle|2007-06-01}}
+|
+|-id="I"
+| {{PersonZelle|Walter|Idel}} (1913–1996)
+| {{DatumZelle|1959-01-30}}
+| {{DatumZelle|1980-03-31}}
+|
+|
+|
+|-
+| {{PersonZelle|Walter|Isendahl|k=Richter}} (1914–1993)
+| {{DatumZelle|1963-01-02}}
+| {{DatumZelle|1980-07-31}}
+|
+|
+|
+|-id="J"
+| {{PersonZelle|Hermann|Jager}} (1907–1987)
+| {{DatumZelle|1967-10-01}}
+| {{DatumZelle|1969-01-31}}
+|
+|
+|
+|-
+| {{PersonZelle|Alexander|Jannasch}} (* 1947)
+| {{DatumZelle|1999-12-10}}
+| {{DatumZelle|2012-10-31}}
+|
+|
+|
+|-
+| {{PersonZelle|Werner|Janzen}} (1930–1997)
+| {{DatumZelle|1975-12-04}}
+| {{DatumZelle|1990-12-31}}
+|
+|
+|
+|-id="K"
+| {{PersonZelle|Robert|Keller|k=Jurist}} (* 1967)
+| {{DatumZelle|2014-12-01}}
+|
+| {{DatumZelle|2022-08-02}}
+|
+|
+|-
+| {{PersonZelle|Hugo|Kellner}} (1914–1993)
+| {{DatumZelle|1956-10-01}}
+| {{DatumZelle|1981-09-30}}
+| {{DatumZelle|1974-05-08}}
+|
+|
+|-
+| {{PersonZelle|Gerd-Heinrich|Kemper}} (1938–2024)
+| {{DatumZelle|1981-09-07}}
+| {{DatumZelle|1996-03-19}}
+|
+|
+|
+|-
+| {{PersonZelle|Markus|Kenntner}} (* 1965)
+| {{DatumZelle|2012-04-03}}
+|
+| {{DatumZelle|2022-08-02}}
+|
+|
+|-
+| {{PersonZelle|Peter|Kimmel}} (1938–2021)
+| {{DatumZelle|1993-04-01}}
+| {{DatumZelle|2003-03-31}}
+|
+|
+|
+|-
+| {{PersonZelle|Jürgen|Kipp}} (1946–2026)
+| {{DatumZelle|1992-08-03}}
+| {{DatumZelle|2002-08-01}}
+|
+|
+|
+|-
+| {{PersonZelle|Karl-Wilhelm|Klamroth}} (1922–2019)
+| {{DatumZelle|1970-09-01}}
+| {{DatumZelle|1986-09-30}}
+|
+|
+|
+|-
+| {{PersonZelle|Kurt|Klamroth|k=Jurist}} (1904–1961)
+| {{DatumZelle|1957-08-30}}
+| {{DatumZelle|1961-01-19}}
+|
+|
+|
+|-
+| {{PersonZelle|Karl|Klein|k=Jurist}} (1904–1976)
+| {{DatumZelle|1955-04-29}}
+| {{DatumZelle|1972-03-31}}
+|
+|
+|
+|-
+| {{PersonZelle|Manfred|Kleinvogel}} (1935–2008)
+| {{DatumZelle|1981-01-02}}
+| {{DatumZelle|1997-10-31}}
+| {{DatumZelle|1993-09-01}}
+|
+|
+|-
+| {{PersonZelle|Dieter|Kley|k=Richter}} (* 1950)
+| {{DatumZelle|1991-07-16}}
+| {{DatumZelle|2015-10-31}}
+| {{DatumZelle|2005-11-07}}
+|
+|
+|-
+| {{PersonZelle|Heinrich|Knackstedt}} (1916–?)
+| {{DatumZelle|1971-05-21}}
+| {{DatumZelle|1984-12-31}}
+|
+|
+|
+|-
+| {{PersonZelle|Joachim|Kniesch}} (1907–1991)
+| {{DatumZelle|1953-04-23}}
+| {{DatumZelle|1962-09-01}}
+|
+|
+|
+|-
+| {{PersonZelle|Ernst|Knoll|k=Jurist}} (1889–1965)
+| {{DatumZelle|1953-04-13}}
+| {{DatumZelle|1954-08-31}}
+| {{DatumZelle|1953-04-13}}
+|
+|
+|-
+| {{PersonZelle|Johannes|Knorr|k=Jurist}} (1922–1990)
+| {{DatumZelle|1972-10-18}}
+| {{DatumZelle|1979-06-30}}
+|
+|
+|
+|-
+| {{PersonZelle|Andreas|Koch|k=Jurist}} (* 1968)
+| {{DatumZelle|2023-02-08}}
+|
+|
+|
+|
+|-
+| {{PersonZelle|Ulrich|Kohlbrügge}} (1899–1968)
+| {{DatumZelle|1953-04-23}}
+| {{DatumZelle|1967-11-30}}
+|
+|
+|
+|-
+| {{PersonZelle|Andreas|Korbmacher}} (* 1960)
+| {{DatumZelle|2008-11-06}}
+|
+| {{DatumZelle|2017-05-23}}
+| {{DatumZelle|2019-05-22}}
+| {{DatumZelle|2022-09-08}}
+|-
+| {{PersonZelle|Günter|Korbmacher}} (1926–2015)
+| {{DatumZelle|1967-04-10}}
+| {{DatumZelle|1991-07-31}}
+| {{DatumZelle|1982-09-24}}
+|
+|
+|-
+| {{PersonZelle|Ingo|Kraft}} (* 1961)
+| {{DatumZelle|2007-05-15}}
+|
+| {{DatumZelle|2016-05-23}}
+|
+|
+|-
+| {{PersonZelle|Günter|Krauß}} (* 1951)
+| {{DatumZelle|1996-12-05}}
+| {{DatumZelle|2015-05-31}}
+|
+|
+|
+|-
+| {{PersonZelle|Harald|Kreiling}} (1929–1994)
+| {{DatumZelle|1978-02-02}}
+| {{DatumZelle|1990-12-31}}
+|
+|
+|
+|-
+| {{PersonZelle|Georg|Krönig}} (1901–1982)
+| {{DatumZelle|1967-10-01}}
+| {{DatumZelle|1969-05-31}}
+|
+|
+|
+|-
+| {{PersonZelle|Dieter|Kugele}} (* 1944)
+| {{DatumZelle|1992-08-03}}
+| {{DatumZelle|2009-06-30}}
+|
+|
+|
+|-
+| {{PersonZelle|Jürgen|Kühling|k=Jurist, 1934}} (1934–2019)
+| {{DatumZelle|1979-08-13}}
+| {{DatumZelle|1989-07-12}}
+|
+|
+|
+|-
+| {{PersonZelle|Kirsten|Kuhlmann}} (* 1969)
+| {{DatumZelle|2010-11-16}}<ref name="Fleuß" />
+|
+|
+|
+|
+|-
+| {{PersonZelle|Christoph|Külpmann}} (* 1972)
+| {{DatumZelle|2013-06-07}}
+|
+| {{DatumZelle|2023-11-01}}
+|
+|
+|-
+| {{PersonZelle|Helmut R.|Külz}} (1903–1985)
+| {{DatumZelle|1953-07-07}}
+| {{DatumZelle|1971-07-31}}
+| {{DatumZelle|1953-07-07}}
+| {{DatumZelle|1970-12-23}}
+|
+|-id="L"
+| {{PersonZelle|Hans-Ulrich|Lange}} (1911–1992)
+| {{DatumZelle|1967-10-01}}
+| {{DatumZelle|1979-02-28}}
+|
+|
+|
+|-
+| {{PersonZelle|Stefan|Langer}} (* 1959)
+| {{DatumZelle|2007-05-15}}
+| {{DatumZelle|2025-09-30}}
+|
+|
+|
+|-
+| {{PersonZelle|Bernt|Lemhöfer}} (1933–2025)
+| {{DatumZelle|1979-08-13}}
+| {{DatumZelle|1998-07-31}}
+|
+|
+|
+|-
+| {{PersonZelle|Hans-Peter|Lemmel}} (* 1939)
+| {{DatumZelle|1987-12-21}}
+| {{DatumZelle|2004-03-31}}
+|
+|
+|
+|-
+| {{PersonZelle|Alois|Lentz}} (1900–1965)
+| {{DatumZelle|1953-04-23}}
+| {{DatumZelle|1962-06-30}}
+|
+|
+|
+|-
+| {{PersonZelle|Edgar|Leußer}} (1912–1985)
+| {{DatumZelle|1967-10-01}}
+| {{DatumZelle|1980-07-31}}
+|
+|
+|
+|-
+| {{PersonZelle|Stefan|Liebler}} (* 1958)
+| {{DatumZelle|2003-07-16}}
+| {{DatumZelle|2024-10-31}}
+|
+|
+|
+|-
+| {{PersonZelle|Heinz|Lippold}} (1908–1989)
+| {{DatumZelle|1957-10-01}}
+| {{DatumZelle|1971-03-31}}
+|
+|
+|
+|-
+| {{PersonZelle|Klaus|Löffelbein}} (* 1972)
+| {{DatumZelle|2017-05-09}}<ref>[https://www.bverwg.de/pm/2017/33 ''Dr. Klaus Löffelbein neuer Richter am Bundesverwaltungsgericht''] Pressemitteilung des Bundesverwaltungsgerichts Nr. 33/2017 vom 9.&nbsp;Mai 2017</ref>
+| 
+|
+|
+|
+|-
+| {{PersonZelle|Klaus Werner|Lotz}} (1930–2022)
+| {{DatumZelle|1975-12-04}}
+| {{DatumZelle|1981-01-01}}
+|
+|
+|
+|-
+| {{PersonZelle|Ernst Friedrich|Lullies}} (1903–1980)
+| {{DatumZelle|1955-08-22}}
+| {{DatumZelle|1968-08-31}}
+|
+|
+|
+|-id="M"
+| {{PersonZelle|Bogumil|Maetzel}} (1913–1991)
+| {{DatumZelle|1959-01-30}}
+| {{DatumZelle|1980-12-31}}
+|
+|
+|
+|-
+| {{PersonZelle|Ulrich|Maidowski}} (* 1958)
+| {{DatumZelle|2009-07-01}}
+| {{DatumZelle|2014-07-15}}
+|
+|
+|
+|-
+| {{PersonZelle|Joachim|Maiwald}} (1937–2017)
+| {{DatumZelle|1987-02-03}}
+| {{DatumZelle|2002-06-30}}
+| {{DatumZelle|1997-07-10}}
+|
+|
+|-
+| {{PersonZelle|Otto|Mallmann}} (* 1945)
+| {{DatumZelle|1991-07-16}}
+| {{DatumZelle|2010-09-30}}
+| {{DatumZelle|2007-07-02}}
+|
+|
+|-
+| {{PersonZelle|Peter|Martini}} (* 1965)
+| {{DatumZelle|2016-03-03}}
+|
+|
+|
+|
+|-
+| {{PersonZelle|Dietrich|Mayer}} (* 1940)
+| {{DatumZelle|1993-07-01}}
+| {{DatumZelle|2005-03-31}}
+|
+|
+|
+|-
+| {{PersonZelle|Johannes|Meister|k=Jurist}} (* 1976)
+| {{DatumZelle|2022-01-18}}
+|
+|
+|
+|
+|-
+| {{PersonZelle|Lothar|Messerschmidt}} (1923–2003)
+| {{DatumZelle|1970-08-01}}
+| {{DatumZelle|1990-06-30}}
+|
+|
+|
+|-
+| {{PersonZelle|Hans|Meyer|k=Richter}} (1897–1963)
+| {{DatumZelle|1955-08-09}}
+| {{DatumZelle|1963-03-20}}
+|
+|
+|
+|-
+| {{PersonZelle|Werner|Meyer|k=Jurist}} (* 1935)
+| {{DatumZelle|1976-10-06}}
+| {{DatumZelle|2000-09-30}}
+| {{DatumZelle|1989-05-31}}
+|
+|
+|-
+| {{PersonZelle|Friedrich|Meyer-Westphalen}} (1900–1962)
+| {{DatumZelle|1956-10-31}}
+| {{DatumZelle|1962-08-03}}
+|
+|
+|
+|-
+| {{PersonZelle|Knut|Möller}} (* 1960)
+| {{DatumZelle|2008-11-06}}
+|
+|
+|
+|
+|-
+| {{PersonZelle|Otto|Mühl}} (1911–2006)
+| {{DatumZelle|1961-10-02}}
+| {{DatumZelle|1966-09-30}}
+|
+|
+|
+|-
+| {{PersonZelle|Wolfgang|Mühlenfeld}} (1912–?)
+| {{DatumZelle|1967-10-01}}
+| {{DatumZelle|1978-06-30}}
+|
+|
+|
+|-
+| {{PersonZelle|Hanswerner|Müller}} (1899–1983)
+| {{DatumZelle|1954-05-31}}
+| {{DatumZelle|1967-07-31}}
+|
+|
+|
+|-
+| {{PersonZelle|Hellmuth|Müller|k=Jurist}} (* 1946)
+| {{DatumZelle|1994-02-01}}
+| {{DatumZelle|2011-07-31}}
+|
+|
+|
+|-
+| {{PersonZelle|Oswin|Müller}} (* 1939)
+| {{DatumZelle|1980-06-03}}
+| {{DatumZelle|2004-01-31}}
+| {{DatumZelle|1998-01-08}}
+|
+|
+|-id="N"
+| {{PersonZelle|Rolf|Nast-Kolb}} (1922–2012)
+| {{DatumZelle|1978-08-07}}
+| {{DatumZelle|1987-05-31}}
+|
+|
+|
+|-
+| {{PersonZelle|Kolja|Naumann}} (* 1980)
+| {{DatumZelle|2023-01-12}}
+|
+|
+|
+|
+|-
+| {{PersonZelle|Gerhard|Nehlert}} (1912–1990)
+| {{DatumZelle|1959-01-30}}
+| {{DatumZelle|1978-06-30}}
+|
+|
+|
+|-
+| {{PersonZelle|Hansjürgen|Nettesheim}} (1932–1993)
+| {{DatumZelle|1978-07-07}}
+| {{DatumZelle|1993-05-31}}
+|
+|
+|
+|-
+| {{PersonZelle|Werner|Neumann|k=Richter}} (* 1953)
+| {{DatumZelle|2000-07-04}}
+| {{DatumZelle|2016-04-30}}
+| {{DatumZelle|2010-05-12}}
+|
+|
+|-
+| {{PersonZelle|Franz|Niedermaier}} (1925–1986)
+| {{DatumZelle|1966-07-01}}
+| {{DatumZelle|1983-07-05}}
+| {{DatumZelle|1977-11-04}}
+|
+|
+|-
+| {{PersonZelle|Norbert|Niehues}} (1935–2017)
+| {{DatumZelle|1977-08-30}}
+| {{DatumZelle|2000-08-31}}
+| {{DatumZelle|1991-02-01}}
+|
+|
+|-
+| {{PersonZelle|Josef|Niemeyer}} (1903–1978)
+| {{DatumZelle|1967-10-01}}
+| {{DatumZelle|1971-05-31}}
+| {{DatumZelle|1967-10-01}}
+|
+|
+|-
+| {{PersonZelle|Karl|Niesert}} (1907–1996)
+| {{DatumZelle|1959-01-30}}
+| {{DatumZelle|1971-06-30}}
+|
+|
+|
+|-
+| {{PersonZelle|Herbert|Noack}} (1925–1997)
+| {{DatumZelle|1971-08-26}}
+| {{DatumZelle|1991-02-28}}
+|
+|
+|
+|-
+| {{PersonZelle|Rüdiger|Nolte|k=Jurist}} (* 1951)
+| {{DatumZelle|2003-09-02}}
+| {{DatumZelle|2017-04-30}}<ref>[https://www.bverwg.de/pm/2017/31 ''Vorsitzender Richter am Bundesverwaltungsgericht Dr. Rüdiger Nolte im Ruhestand''] Pressemitteilung des Bundesverwaltungsgerichts Nr. 32/2017 vom 2.&nbsp;Mai 2017</ref>
+| {{DatumZelle|2012-07-10}}
+|
+|
+|-id="O"
+| {{PersonZelle|Johannes|Oppenheimer}} (1918–2007)
+| {{DatumZelle|1963-01-02}}
+| {{DatumZelle|1986-07-31}}
+| {{DatumZelle|1971-08-26}}
+| {{DatumZelle|1980-03-01}}
+|
+|-
+| {{PersonZelle|Heinrich|Oswald|k=Jurist}} (1901–1984)
+| {{DatumZelle|1953-10-08}}
+| {{DatumZelle|1969-03-31}}
+|
+|
+|
+|-
+| {{PersonZelle|Walter|Otto|k=Jurist}} (1907–1998)
+| {{DatumZelle|1955-04-29}}
+| {{DatumZelle|1972-03-31}}
+|
+|
+|
+|-id="P"
+| {{PersonZelle|Stefan|Paetow}} (* 1943)
+| {{DatumZelle|1986-10-01}}
+| {{DatumZelle|2008-09-30}}
+| {{DatumZelle|2000-01-24}}
+|
+|
+|-
+| {{PersonZelle|Martin|Pagenkopf}} (* 1944)
+| {{DatumZelle|1989-06-27}}
+| {{DatumZelle|2009-12-31}}
+|
+|
+|
+|-
+| {{PersonZelle|Ernst Karl|Pakuscher}} (1921–2020)
+| {{DatumZelle|1964-09-01}}
+| {{DatumZelle|1972-10-18}}
+|
+|
+|
+|-
+| {{PersonZelle|Egbert|Paul}} (1918–1998)
+| {{DatumZelle|1964-04-16}}
+| {{DatumZelle|1986-05-31}}
+|
+|
+|
+|-
+| {{PersonZelle|Hans|Pellnitz}} (* 1926)
+| {{DatumZelle|1980-06-12}}
+| {{DatumZelle|1991-03-31}}
+|
+|
+|
+|-
+| {{PersonZelle|Helmut|Petz}} (* 1957)
+| {{DatumZelle|2008-12-01}}
+| {{DatumZelle|2020-04-30}}<ref>[https://www.bverwg.de/pm/2020/20 ''Richter am Bundesverwaltungsgericht Helmut Petz ausgeschieden''] Pressemitteilung des Bundesverwaltungsgerichts Nr. 20/2020 vom 4.&nbsp;Mai 2020</ref>
+|
+|
+|
+|-
+| {{PersonZelle|Renate|Philipp}} (* 1962)
+| {{DatumZelle|2004-06-01}}
+|
+| {{DatumZelle|2016-03-02}}
+|
+|
+|-
+| {{PersonZelle|Rainer|Pietzner}} (* 1943)
+| {{DatumZelle|1988-02-02}}
+| {{DatumZelle|2006-07-31}}
+| {{DatumZelle|2002-08-14}}
+|
+|
+|-
+| {{PersonZelle|Max|Plog}} (* 1976)
+| {{DatumZelle|2025-01-02}}
+|
+|
+|
+|
+|-
+| {{PersonZelle|Rüdiger|Postier}} (* 1944)
+| {{DatumZelle|1998-01-08}}
+| {{DatumZelle|2009-02-28}}
+|
+|
+|
+|-
+| {{PersonZelle|Damian-Markus|Preisner}} (* 1969)
+| {{DatumZelle|2019-10-01}}<ref>[https://www.bverwg.de/pm/2019/70 ''Damian-Markus Preisner neuer Richter am Bundesverwaltungsgericht''] Pressemitteilung des Bundesverwaltungsgerichts Nr. 70/2019 vom 1.&nbsp;Oktober 2019</ref>
+| 
+|
+|
+|
+|-
+| {{PersonZelle|Friedrich|Pütz|k=Jurist}} (1902–1981)
+| {{DatumZelle|1958-03-28}}
+| {{DatumZelle|1964-08-31}}
+|
+|
+|
+|-id="R"
+| {{PersonZelle|Maximilian|Rapp}} (1897–1972)
+| {{DatumZelle|1956-10-01}}
+| {{DatumZelle|1959-01-08}}
+|
+|
+|
+|-
+| {{PersonZelle|Gert|Raschke}} (1914–1975)
+| {{DatumZelle|1959-01-30}}
+| {{DatumZelle|1975-06-11}}
+|
+|
+|
+|-
+| {{PersonZelle|Georg|Reimer|k=Jurist}} (1907–1981)
+| {{DatumZelle|1956-10-31}}
+| {{DatumZelle|1970-08-31}}
+|
+|
+|
+|-
+| {{PersonZelle|Georg|Remak}} (1890–1979)
+| {{DatumZelle|1953-04-13}}
+| {{DatumZelle|1954-04-22}}
+|
+|
+|
+|-
+| {{PersonZelle|Klaus|Rennert}} (* 1955)
+| {{DatumZelle|2003-09-09}}
+| {{DatumZelle|2021-06-30}}
+| {{DatumZelle|2011-05-02}}
+| {{DatumZelle|2012-11-21}}
+| {{DatumZelle|2014-07-01}}
+|-
+| {{PersonZelle|Wolf-Wilhelm|Richter}} (* 1947)
+| {{DatumZelle|1996-04-01}}
+| {{DatumZelle|2012-03-31}}
+|
+|
+|
+|-
+| {{PersonZelle|Wolfgang|Ritgen}} (1897–1984)
+| {{DatumZelle|1954-05-20}}
+| {{DatumZelle|1965-10-31}}
+|
+|
+|
+|-
+| {{PersonZelle|Joachim|Rochlitz}} (1926–2005)
+| {{DatumZelle|1968-12-20}}
+| {{DatumZelle|1991-01-31}}
+|
+|
+|
+|-
+| {{PersonZelle|Willi|Röhrmann}} (1905–1976)
+| {{DatumZelle|1967-10-01}}
+| {{DatumZelle|1973-01-31}}
+|
+|
+|
+|-
+| {{PersonZelle|Ondolf|Rojahn}} (* 1944)
+| {{DatumZelle|1992-01-21}}
+| {{DatumZelle|2009-02-28}}
+|
+|
+|
+|-
+| {{PersonZelle|Wilfried|Rosendahl|k=Jurist}} (1922–1976)
+| {{DatumZelle|1971-08-26}}
+| {{DatumZelle|1976-03-19}}
+|
+|
+|
+|-
+| {{PersonZelle|Harry von|Rosen-von Hoewel}} (1904–2003)
+| {{DatumZelle|1955-04-29}}
+| {{DatumZelle|1956-07-31}}
+| {{DatumZelle|1955-04-29}}
+|
+|
+|-
+| {{PersonZelle|Hans|Rösgen}} (1922–1973)
+| {{DatumZelle|1963-01-02}}
+| {{DatumZelle|1973-05-27}}
+|
+|
+|
+|-
+| {{PersonZelle|Rüdiger|Roth}} (1932–2023)
+| {{DatumZelle|1986-06-02}}
+| {{DatumZelle|1997-09-30}}
+| {{DatumZelle|1994-11-01}}
+|
+|
+|-
+| {{PersonZelle|Till Oliver|Rothfuß}} (* 1963)
+| {{DatumZelle|2011-08-01}}
+|
+|
+|
+|
+|-
+| {{PersonZelle|Ralf|Rothkegel}} (* 1941)
+| {{DatumZelle|1990-09-03}}
+| {{DatumZelle|2006-05-31}}
+|
+|
+|
+|-
+| {{PersonZelle|Hubertus|Rotter}} (* 1929)
+| {{DatumZelle|1973-08-24}}
+| {{DatumZelle|1990-06-30}}
+|
+|
+|
+|-
+| {{PersonZelle|Rüdiger|Rubel}} (* 1954)
+| {{DatumZelle|1996-03-28}}
+| {{DatumZelle|2019-10-31}}
+| {{DatumZelle|2008-11-06}}
+|
+|
+|-
+| {{PersonZelle|Susanne|Rublack}} (* 1962)
+| {{DatumZelle|2015-02-02}}
+|
+|
+| {{DatumZelle|2023-01-31}}
+|
+|-
+| {{PersonZelle|Inge|Rudolph|k=Richterin}} (* 1957)
+| {{DatumZelle|2012-06-19}}
+| {{DatumZelle|2021-12-31}}
+|
+|
+|
+|-id="S"
+| {{PersonZelle|Jürgen|Saalmann|k=Jurist}} (1928–2015)
+| {{DatumZelle|1969-06-09}}
+| {{DatumZelle|1993-11-30}}
+| {{DatumZelle|1972-10-18}}
+|
+|
+|-
+| {{PersonZelle|Horst|Säcker}} (1941–2015)
+| {{DatumZelle|1980-06-03}}
+| {{DatumZelle|2006-11-30}}
+| {{DatumZelle|1996-01-19}}
+|
+|
+|-
+| {{PersonZelle|Wolfgang|Sailer}} (* 1947)
+| {{DatumZelle|1993-01-05}}
+| {{DatumZelle|2012-04-30}}
+| {{DatumZelle|2002-11-18}}
+|
+|
+|-
+| {{PersonZelle|Walter|Schäfer|k=Richter}} (* 1925)
+| {{DatumZelle|1973-08-09}}
+| {{DatumZelle|1989-04-30}}
+|
+|
+|
+|-
+| {{PersonZelle|Fabian|Scheffczyk}} (* 1980)
+| {{DatumZelle|2025-01-02}}
+|
+|
+|
+|
+|-
+| {{PersonZelle|Franz|Schemmer}} (* 1960)
+| {{DatumZelle|2015-06-03}}
+|
+|
+|
+|
+|-
+| {{PersonZelle|Werner|Scherer|k=Jurist}} (1908–1979)
+| {{DatumZelle|1967-10-01}}
+| {{DatumZelle|1972-04-30}}
+| {{DatumZelle|1967-10-01}}
+|
+|
+|-
+| {{PersonZelle|Franz|Scherübl|k=Jurist}} (1904–1999)
+| {{DatumZelle|1967-10-01}}
+| {{DatumZelle|1972-07-31}}
+| {{DatumZelle|1967-10-01}}
+|
+|
+|-
+| {{PersonZelle|Hans-Jürgen van|Schewick}} (* 1943)
+| {{DatumZelle|1989-05-02}}
+| {{DatumZelle|2008-03-31}}
+|
+|
+|
+|-
+| {{PersonZelle|Manfred-Carl|Schinkel}} (1935–2014)
+| {{DatumZelle|1977-10-07}}
+| {{DatumZelle|1989-04-03}}
+|
+|
+|
+|-
+| {{PersonZelle|Kerstin|Schipper}} (* 1964)
+| {{DatumZelle|2008-08-01}}
+|
+| {{DatumZelle|2019-11-13}}
+|
+|
+|-
+| {{PersonZelle|Otto|Schlichter}} (1930–2011)
+| {{DatumZelle|1973-07-24}}
+| {{DatumZelle|1993-09-30}}
+| {{DatumZelle|1986-08-01}}
+| {{DatumZelle|1990-09-01}}
+|
+|-
+| {{PersonZelle|Inga|Schmidt|k=Richterin}} (1928–2001)
+| {{DatumZelle|1975-12-04}}
+| {{DatumZelle|1992-04-30}}
+|
+|
+|
+|-
+| {{PersonZelle|Johann|Schmidt|k=Jurist}} (1922–2010)
+| {{DatumZelle|1961-09-01}}
+| {{DatumZelle|1966-11-30}}
+|
+|
+|
+|-
+| {{PersonZelle|Karl Albrecht|Schmidt|Karl Schmidt (Jurist)}} (1898–1972)
+| {{DatumZelle|1953-04-23}}
+| {{DatumZelle|1966-06-30}}
+|
+|
+|
+|-
+| {{PersonZelle|Peter|Schmidt|k=Jurist}} (* 1943)
+| {{DatumZelle|1989-08-01}}
+| {{DatumZelle|2008-02-29}}
+|
+|
+|
+|-
+| {{PersonZelle|Charlotte|Schmitt|k=Richterin}} (1909–1989)
+| {{DatumZelle|1953-04-23}}
+| {{DatumZelle|1977-09-30}}
+| {{DatumZelle|1958-05-02}}
+|
+|
+|-
+| {{PersonZelle|Hansjörg|Schmutzler}} (* 1951)
+| {{DatumZelle|1995-05-17}}
+| {{DatumZelle|1998-06-01}}
+|
+|
+|
+|-
+| {{PersonZelle|Helga|Scholz-Hoppe}} (1937–2024)
+| {{DatumZelle|1988-12-14}}
+| {{DatumZelle|1994-01-31}}
+|
+|
+|
+|-
+| {{PersonZelle|Sebastian|Schröcker}} (1906–1992)
+| {{DatumZelle|1955-04-29}}
+| {{DatumZelle|1974-08-31}}
+|
+|
+|
+|-
+| {{PersonZelle|Isabel|Schübel-Pfister}} (* 1974)
+| {{DatumZelle|2021-01-04}}<ref>{{Internetquelle |url=https://www.bverwg.de/pm/2021/2 |titel=Prof. Dr. Isabel Schübel-Pfister neue Richterin am Bundesverwaltungsgericht |abruf=2021-01-13 |werk=Pressemitteilung Nr. 2/2021 |hrsg=Bundesverwaltungsgericht |datum=2021-01-04}}</ref>
+|
+|
+|
+|
+|-
+| {{PersonZelle|Eberhard Ulrich|Schwandt}} (1937–2015)
+| {{DatumZelle|1985-05-02}}
+| {{DatumZelle|2002-10-31}}
+|
+|
+|
+|-
+| {{PersonZelle|Paul|Schwarz|k=Jurist}} (* 1928)
+| {{DatumZelle|1970-06-26}}
+| {{DatumZelle|1993-03-31}}
+| {{DatumZelle|1983-12-22}}
+|
+|
+|-
+| {{PersonZelle|Karl|Schweiger}} (1917–?)
+| {{DatumZelle|1967-10-01}}
+| {{DatumZelle|1985-04-30}}
+|
+|
+|
+|-
+| {{PersonZelle|Friedrich|Seebass}} (* 1934)
+| {{DatumZelle|1981-09-07}}
+| {{DatumZelle|1999-12-31}}
+| {{DatumZelle|1991-09-06}}
+|
+|
+|-
+| {{PersonZelle|Robert|Seegmüller}} (* 1969)
+| {{DatumZelle|2015-10-05}}
+|
+|
+|
+|
+|-
+| {{PersonZelle|Gerhard|Seibert}} (* 1935)
+| {{DatumZelle|1981-10-05}}
+| {{DatumZelle|1998-03-31}}
+|
+|
+|
+|-
+| {{PersonZelle|Herbert|Seide}} (1932–2022)
+| {{DatumZelle|1972-08-24}}
+| {{DatumZelle|1997-06-30}}
+| {{DatumZelle|1993-12-01}}
+|
+|
+|-
+| {{PersonZelle|Achim|Seidel|k=Jurist}} (* 1968)
+| {{DatumZelle|2023-01-12}}
+|
+|
+|
+|
+|-
+| {{PersonZelle|Horst|Sendler}} (1925–2006)
+| {{DatumZelle|1966-07-01}}
+| {{DatumZelle|1991-06-30}}
+| {{DatumZelle|1971-08-26}}
+| {{DatumZelle|1976-08-19}}
+| {{DatumZelle|1980-03-01}}
+|-
+| {{PersonZelle|Friedrich|Sieveking|k=Jurist, 1907}} (1907–2002)
+| {{DatumZelle|1956-10-01}}
+| {{DatumZelle|1975-09-30}}
+| {{DatumZelle|1970-08-01}}
+|
+|
+|-
+| {{PersonZelle|Rosanna|Sieveking}} (* 1965)
+| {{DatumZelle|2018-11-01}}
+|
+|
+|
+|
+|-
+| {{PersonZelle|Bernhard|Sigulla}} (1923–2000)
+| {{DatumZelle|1969-05-01}}
+| {{DatumZelle|1982-04-30}}
+|
+|
+|
+|-
+| {{PersonZelle|Peter|Silberkuhl}} (* 1939)
+| {{DatumZelle|1981-09-23}}
+| {{DatumZelle|2004-02-29}}
+| {{DatumZelle|2000-06-22}}
+|
+|
+|-
+| {{PersonZelle|Stefan|Sinner}} (* 1969)
+| {{DatumZelle|2021-08-02}}
+|
+|
+|
+|
+|-
+| {{PersonZelle|Bertold|Sommer}} (* 1937)
+| {{DatumZelle|1979-09-06}}
+| {{DatumZelle|1991-07-12}}
+|
+|
+|
+|-
+| {{PersonZelle|Georg|Sommer|k=Jurist}} (1922–2021)
+| {{DatumZelle|1969-04-01}}
+| {{DatumZelle|1976-09-30}}
+|
+|
+|
+|-
+| {{PersonZelle|Wolf-Eckart|Sommer}} (* 1935)
+| {{DatumZelle|1985-01-03}}
+| {{DatumZelle|1997-04-30}}
+|
+|
+|
+|-
+| {{PersonZelle|Sina|Stamm}} (* 1984)
+| {{DatumZelle|2023-11-01}}
+|
+|
+|
+|
+|-
+| {{PersonZelle|Rupert Freiherr von|Stein}} (1903–1995)
+| {{DatumZelle|1959-08-01}}
+| {{DatumZelle|1962-03-16}}
+|
+|
+|
+|-
+| {{PersonZelle|Elisabeth|Steiner|k=Juristin, 1970}} (* 1970)
+| {{DatumZelle|2018-10-01}}
+|
+|
+|
+|
+|-
+| {{PersonZelle|Martin|Steinkühler|k=Jurist}} (* 1973)
+| {{DatumZelle|2014-08-01}}
+|
+|
+|
+|
+|-
+| {{PersonZelle|Heidi|Stengelhofen-Weiß}} (* 1966)
+| {{DatumZelle|2008-06-02}}
+|
+|
+|
+|
+|-
+| {{PersonZelle|Rainer|Störmer}} (* 1961)
+| {{DatumZelle|2008-07-01}}
+|
+| {{DatumZelle|2019-11-13}}
+|
+|
+|-
+| {{PersonZelle|Ulrich|Storost}} (* 1946)
+| {{DatumZelle|1991-07-16}}
+| {{DatumZelle|2011-09-30}}
+| {{DatumZelle|2004-10-04}}
+|
+|
+|-
+| {{PersonZelle|Carl Ludwig|Sträter}} (1930–2023)
+| {{DatumZelle|1981-09-01}}
+| {{DatumZelle|1993-06-30}}
+|
+|
+|
+|-
+| {{PersonZelle|Hans-Joachim|Strauch}} (1939–2025)
+| {{DatumZelle|1992-01-21}}
+| {{DatumZelle|1994-07-27}}
+|
+|
+|
+|-id="T"
+| {{PersonZelle|Carsten|Tegethoff}} (* 1971)
+| {{DatumZelle|2015-11-05}}
+|
+|
+|
+|
+|-
+| {{PersonZelle|Klaus|Tellenbach}} (1902–1985)
+| {{DatumZelle|1956-10-01}}
+| {{DatumZelle|1957-11-24}}
+|
+|
+|
+|-
+| {{PersonZelle|Maren|Thomsen}} (* 1961)
+| {{DatumZelle|2007-06-01}}
+| {{DatumZelle|2014-01-06}}
+|
+|
+|
+|-
+| {{PersonZelle|Elmar|Thurn}} (1921–2015)
+| {{DatumZelle|1979-07-23}}
+| {{DatumZelle|1986-03-31}}
+|
+|
+|
+|-
+| {{PersonZelle|Kurt Egon Freiherr von|Turegg}} (1904–1956)
+| {{DatumZelle|1953-04-23}}
+| {{DatumZelle|1956-03-31}}
+|
+|
+|
+|-
+| {{PersonZelle|Werner|Türke}} (1923–1982)
+| {{DatumZelle|1966-06-01}}
+| {{DatumZelle|1982-08-03}}
+| {{DatumZelle|1981-09-01}}
+|
+|
+|-id="U"
+| {{PersonZelle|Horst|Uffhausen}} (1909–1999)
+| {{DatumZelle|1959-01-30}}
+| {{DatumZelle|1965-12-31}}
+|
+|
+|
+|-id="V"
+| {{PersonZelle|Willi|Vallendar}} (* 1943)
+| {{DatumZelle|1993-10-29}}
+| {{DatumZelle|2008-07-31}}
+|
+|
+|
+|-
+| {{PersonZelle|Karl Artur|Vierhaus}} (1906–1989)
+| {{DatumZelle|1959-01-30}}
+| {{DatumZelle|1972-09-30}}
+|
+|
+|
+|-
+| {{PersonZelle|Benno|Vogel}} (1902–1988)
+| {{DatumZelle|1967-10-01}}
+| {{DatumZelle|1970-12-31}}
+| {{DatumZelle|1967-10-01}}
+|
+|
+|-
+| {{PersonZelle|Nikolaus|Vogelgesang}} (* 1937)
+| {{DatumZelle|1989-06-01}}
+| {{DatumZelle|2002-04-30}}
+| {{DatumZelle|1997-10-21}}
+|
+|
+|-
+| {{PersonZelle|Jürgen|Vormeier}} (* 1954)
+| {{DatumZelle|1999-09-02}}
+| {{DatumZelle|2019-09-30}}<ref>[https://www.bverwg.de/pm/2019/69 ''Vorsitzender Richter am Bundesverwaltungsgericht Jürgen Vormeier im Ruhestand''] Pressemitteilung des Bundesverwaltungsgerichts Nr. 69/2019 vom 1.&nbsp;Oktober 2019</ref>
+| {{DatumZelle|2011-11-11}}
+|
+|
+|-id="W"
+| {{PersonZelle|Hans-Wolrad|Waitz}} (1912–1984)
+| {{DatumZelle|1957-08-30}}
+| {{DatumZelle|1977-10-31}}
+|
+|
+|
+|-
+| {{PersonZelle|Rudolf|Weber-Lortsch}} (1908–1976)
+| {{DatumZelle|1958-05-02}}
+| {{DatumZelle|1976-04-30}}
+|
+|
+|
+|-
+| {{PersonZelle|Hans-Lothar|Wehrl}} (1930–2020)
+| {{DatumZelle|1987-09-01}}
+| {{DatumZelle|1995-04-30}}
+|
+|
+|
+|-
+| {{PersonZelle|Klaus-Dieter von der|Weiden}} (* 1962)
+| {{DatumZelle|2011-08-15}}
+|
+|
+|
+|
+|-
+| {{PersonZelle|Fritz|Werner|k=Richter}} (1906–1969)
+| {{DatumZelle|1958-07-18}}
+| {{DatumZelle|1969-12-26}}
+|
+|
+| {{DatumZelle|1958-07-18}}
+|-
+| {{PersonZelle|Klaus|Wetzel|k=Jurist}} (1921–1999)
+| {{DatumZelle|1972-08-24}}
+| {{DatumZelle|1979-07-31}}
+|
+|
+|
+|-
+| {{PersonZelle|Felix|Weyreuther}} (1928–1997)
+| {{DatumZelle|1966-06-01}}
+| {{DatumZelle|1993-08-31}}
+| {{DatumZelle|1981-12-01}}
+|
+|
+|-
+| {{PersonZelle|Ernst|Wichert|k=Jurist}} (1897–1988)
+| {{DatumZelle|1953-04-01}}
+| {{DatumZelle|1958-04-30}}
+| {{DatumZelle|1953-04-01}}
+|
+|
+|-
+| {{PersonZelle|Ulrich|Widmaier|k=Jurist}} (* 1943)
+| {{DatumZelle|1990-04-02}}
+| {{DatumZelle|2008-05-31}}
+|
+|
+|
+|-
+| {{PersonZelle|Ariane|Wiedmann}} (* 1976)
+| {{DatumZelle|2023-11-01}}
+|
+|
+|
+|
+|-
+| {{PersonZelle|Friedrich|Willberg}} (1922–1997)
+| {{DatumZelle|1971-08-26}}
+| {{DatumZelle|1987-03-31}}
+|
+|
+|
+|-
+| {{PersonZelle|Egmont|Witten}} (1903–1989)
+| {{DatumZelle|1953-04-23}}
+| {{DatumZelle|1971-05-31}}
+| {{DatumZelle|1957-08-30}}
+|
+|
+|-
+| {{PersonZelle|Silke|Wittkopp}} (* 1972)
+| {{DatumZelle|2016-08-02}}
+|
+|
+|
+|
+|-
+| {{PersonZelle|Holger|Wöckel}} (* 1976)
+| {{DatumZelle|2021-02-01}}<ref>{{Internetquelle |url=https://www.bverwg.de/pm/2021/9 |titel=Dr. Holger Wöckel neuer Richter am Bundesverwaltungsgericht |abruf=2021-02-02 |werk=Pressemitteilung Nr. 9/2021 |hrsg=Bundesverwaltungsgericht |datum=2021-02-01}}</ref>
+| {{DatumZelle|2023-12-21}}
+|
+|
+|
+|-
+| {{PersonZelle|Walter-Dietrich|Wolbring}} (1933–2015)
+| {{DatumZelle|1986-04-01}}
+| {{DatumZelle|1998-08-31}}
+|
+|
+|
+|-
+| {{PersonZelle|Gerhard|Wolf|k=Jurist}} (1903–1969)
+| {{DatumZelle|1957-08-30}}
+| {{DatumZelle|1969-08-01}}
+|
+|
+|
+|-
+| {{PersonZelle|Peter|Wysk}} (* 1955)
+| {{DatumZelle|2009-10-05}}
+| {{DatumZelle|2021-07-31}}
+|
+|
+|
+|-id="Z"
+| {{PersonZelle|Günter|Zehner}} (1923–2002)
+| {{DatumZelle|1966-06-01}}
+| {{DatumZelle|1990-08-31}}
+| {{DatumZelle|1981-10-05}}
+| {{DatumZelle|1986-08-01}}
+|
+|-
+| {{PersonZelle|Wolfgang|Zeidler}} (1924–1987)
+| {{DatumZelle|1970-06-15}}
+| {{DatumZelle|1975-11-07}}
+|
+|
+| {{DatumZelle|1970-06-15}}
+|-
+| {{PersonZelle|Hans-Walter|Zinser}} (1908–1972)
+| {{DatumZelle|1953-04-23}}
+| {{DatumZelle|1972-07-11}}
+|
+|
+|
+|}
+
+== Anmerkungen ==
+<references />
+
+== Literatur ==
+* [[Eberhard Schmidt-Aßmann]], [[Dieter Sellner]], [[Günter Hirsch]], [[Gerd-Heinrich Kemper]], [[Hinrich Lehmann-Grube]] (Hrsg.): ''Festgabe 50 Jahre Bundesverwaltungsgericht.'' Heymann, Köln u.&nbsp;a. 2003, ISBN 978-3-452-24052-1, S. 1143–1177.
+* Deutscher Richterbund (Hrsg.): ''Handbuch der Justiz 2004. Die Träger und Organe der rechtsprechenden Gewalt in der Bundesrepublik Deutschland. 27. Jahrgang.'' R. v. Decker, Heidelberg 2004, ISBN 3-7685-0523-5, S. 13.
+* Deutscher Richterbund (Hrsg.): ''Handbuch der Justiz 2006/2007. Die Träger und Organe der rechtsprechenden Gewalt in der Bundesrepublik Deutschland. 28. Jahrgang.'' R. v. Decker, Heidelberg 2006, ISBN 3-7685-0906-0, S. 13.
+* Deutscher Richterbund (Hrsg.): ''Handbuch der Justiz 2008/2009. Die Träger und Organe der rechtsprechenden Gewalt in der Bundesrepublik Deutschland. 29. Jahrgang.'' R. v. Decker, Heidelberg 2008, ISBN 978-3-7685-0907-7, S. 13.
+* Deutscher Richterbund (Hrsg.): ''Handbuch der Justiz 2010/2011. Die Träger und Organe der rechtsprechenden Gewalt in der Bundesrepublik Deutschland. 30. Jahrgang.'' C.F. Müller Verlag, Heidelberg u.&nbsp;a. 2010, ISBN 978-3-8114-3916-0, S. 14.
+* Deutscher Richterbund (Hrsg.): ''Handbuch der Justiz 2012/2013. Die Träger und Organe der rechtsprechenden Gewalt in der Bundesrepublik Deutschland. 31. Jahrgang.'' C.F. Müller Verlag, Heidelberg u.&nbsp;a. 2012, ISBN 978-3-8114-3631-2, S. 16.
+
+== Weblinks ==
+* [https://www.bverwg.de/aktuelles Pressemitteilungen des Bundesverwaltungsgerichts seit 2001]
+
+[[Kategorie:Richter (Bundesverwaltungsgericht, Deutschland)| ]]
+[[Kategorie:Liste (Richter)|Bundesverwaltungsgericht]]

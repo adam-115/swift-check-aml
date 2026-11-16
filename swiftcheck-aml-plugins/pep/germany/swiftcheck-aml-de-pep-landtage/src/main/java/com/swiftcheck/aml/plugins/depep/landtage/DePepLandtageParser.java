@@ -42,7 +42,9 @@ public class DePepLandtageParser implements Iparser {
 
     static final String ID_PREFIX = "de-pep-landtage";
     static final String TOPIC = "role.pep";
-    static final String USER_AGENT = "SwiftCheck-AML/1.0 (liste PEP Allemagne - Parlements des Länder)";
+    /** Pause avant de relire les parlements refusés par l'API à la première passe. */
+    static final long DEFAULT_RETRY_PAUSE_MS = 60_000;
+    static final String USER_AGENT ="SwiftCheck-AML/1.0 (liste PEP Allemagne - Parlements des Länder)";
 
     private static final Pattern ACADEMIC_TITLE = Pattern.compile(
             "^(?:(?:Prof\\.?\\s+Dr\\.?|Prof\\.?|Dr\\.?|h\\.c\\.)\\s+)+");
@@ -64,8 +66,13 @@ public class DePepLandtageParser implements Iparser {
         }
         Files.createDirectories(ctx.rawDir());
         int months = intParam(p, "monthsAfterEnd", 12);
-        long delay = intParam(p, "delayMs", 300);
-        AbgeordnetenwatchApi.Fetcher fetcher = AbgeordnetenwatchApi.http(USER_AGENT, delay);
+        long delay = intParam(p, "delayMs", 1000);
+        long backoff = intParam(p, "backoffMs", 5000);
+        AbgeordnetenwatchApi.Fetcher fetcher = AbgeordnetenwatchApi.http(USER_AGENT, delay, backoff);
+        if (!p.containsKey("retryPauseMs")) {
+            p = new HashMap<>(p);
+            p.put("retryPauseMs", String.valueOf(DEFAULT_RETRY_PAUSE_MS));
+        }
         LocalDate today = LocalDate.now();
         LiveReport report = live(p, ctx.rawDir(), fetcher, today, months);
 
@@ -103,7 +110,7 @@ public class DePepLandtageParser implements Iparser {
 
         List<AbgeordnetenwatchApi.Mandate> mandates = new ArrayList<>();
         Map<String, Land> lands = new LinkedHashMap<>();
-        List<String> failures = new ArrayList<>();
+        Map<AbgeordnetenwatchApi.Parliament, String> failed = new LinkedHashMap<>();
         int periodCount = 0;
         for (AbgeordnetenwatchApi.Parliament parliament : AbgeordnetenwatchApi.parliaments(parliamentsJson)) {
             if (NOT_LAND.contains(parliament.label())) {
@@ -112,36 +119,30 @@ public class DePepLandtageParser implements Iparser {
             Land land = new Land(slug(parliament.label()), parliament.label(), parliament.longLabel());
             lands.put(land.key(), land);
             try {
-                String periodsJson = fetcher.get(base + "/parliament-periods?parliament=" + parliament.id() + "&range_end=50");
-                Files.writeString(rawDir.resolve("periods-" + land.key() + ".json"), periodsJson, StandardCharsets.UTF_8);
-                for (AbgeordnetenwatchApi.Period period : AbgeordnetenwatchApi.activePeriods(
-                        AbgeordnetenwatchApi.periods(periodsJson), today, months)) {
-                    periodCount++;
-                    int start = 0;
-                    int total = Integer.MAX_VALUE;
-                    int page = 0;
-                    while (start < total) {
-                        String json = fetcher.get(base + "/candidacies-mandates?parliament_period=" + period.id()
-                                + "&type=mandate&range_start=" + start + "&range_end=" + (start + AbgeordnetenwatchApi.PAGE_SIZE));
-                        Files.writeString(rawDir.resolve("mandates-" + land.key() + "-" + period.id() + "-" + page + ".json"),
-                                json, StandardCharsets.UTF_8);
-                        AbgeordnetenwatchApi.Page result = AbgeordnetenwatchApi.mandatePage(json);
-                        total = result.total();
-                        for (JsonNode item : result.items()) {
-                            mandates.add(AbgeordnetenwatchApi.mandate(item, land.key(), period));
-                        }
-                        if (result.items().isEmpty()) {
-                            break;
-                        }
-                        start += AbgeordnetenwatchApi.PAGE_SIZE;
-                        page++;
-                    }
-                }
+                periodCount += readParliament(base, parliament, land, rawDir, fetcher, today, months, mandates);
             } catch (java.io.IOException e) {
-                failures.add(land.state() + " (" + e.getMessage() + ")");
+                failed.put(parliament, e.getMessage());
                 log.warn("Landtag {} non lu : {}", land.state(), e.getMessage());
             }
         }
+        // Seconde passe : l'API refuse par rafales (HTTP 429) ; après une pause, on relit les parlements en échec.
+        int recovered = 0;
+        if (!failed.isEmpty()) {
+            Thread.sleep(intParam(p, "retryPauseMs", 0));
+            for (AbgeordnetenwatchApi.Parliament parliament : new ArrayList<>(failed.keySet())) {
+                Land land = lands.get(slug(parliament.label()));
+                try {
+                    periodCount += readParliament(base, parliament, land, rawDir, fetcher, today, months, mandates);
+                    failed.remove(parliament);
+                    recovered++;
+                } catch (java.io.IOException e) {
+                    failed.put(parliament, e.getMessage());
+                    log.warn("Landtag {} non lu à la seconde passe : {}", land.state(), e.getMessage());
+                }
+            }
+        }
+        List<String> failures = new ArrayList<>();
+        failed.forEach((parliament, error) -> failures.add(parliament.label() + " (" + error + ")"));
         if (mandates.isEmpty()) {
             throw new IllegalStateException("Aucun mandat lu dans l'API abgeordnetenwatch"
                     + (failures.isEmpty() ? "." : " : " + String.join(", ", failures)));
@@ -180,8 +181,49 @@ public class DePepLandtageParser implements Iparser {
                 .filter(id -> births.getOrDefault(id, 0) > 0).count();
         String message = mandates.size() + " mandats lus sur " + periodCount + " législatures de " + perLand.size()
                 + " parlements ; années de naissance connues pour " + known + " personnes."
+                + (recovered == 0 ? "" : " " + recovered + " parlement(s) relu(s) à la seconde passe après refus de l'API.")
                 + (failures.isEmpty() ? "" : " Parlements non lus : " + String.join(", ", failures) + ".");
         return new LiveReport(mandates, lands, births, message);
+    }
+
+    /**
+     * Lit les législatures actives d'un parlement et ajoute ses mandats à {@code mandates} seulement si tout a été lu :
+     * un parlement interrompu au milieu de ses pages n'ajoute rien (pas de doublon à la seconde passe).
+     *
+     * @return le nombre de législatures lues
+     */
+    static int readParliament(String base, AbgeordnetenwatchApi.Parliament parliament, Land land, Path rawDir,
+                              AbgeordnetenwatchApi.Fetcher fetcher, LocalDate today, int months,
+                              List<AbgeordnetenwatchApi.Mandate> mandates) throws java.io.IOException {
+        List<AbgeordnetenwatchApi.Mandate> read = new ArrayList<>();
+        String periodsJson = fetcher.get(base + "/parliament-periods?parliament=" + parliament.id() + "&range_end=50");
+        Files.writeString(rawDir.resolve("periods-" + land.key() + ".json"), periodsJson, StandardCharsets.UTF_8);
+        int periods = 0;
+        for (AbgeordnetenwatchApi.Period period : AbgeordnetenwatchApi.activePeriods(
+                AbgeordnetenwatchApi.periods(periodsJson), today, months)) {
+            periods++;
+            int start = 0;
+            int total = Integer.MAX_VALUE;
+            int page = 0;
+            while (start < total) {
+                String json = fetcher.get(base + "/candidacies-mandates?parliament_period=" + period.id()
+                        + "&type=mandate&range_start=" + start + "&range_end=" + (start + AbgeordnetenwatchApi.PAGE_SIZE));
+                Files.writeString(rawDir.resolve("mandates-" + land.key() + "-" + period.id() + "-" + page + ".json"),
+                        json, StandardCharsets.UTF_8);
+                AbgeordnetenwatchApi.Page result = AbgeordnetenwatchApi.mandatePage(json);
+                total = result.total();
+                for (JsonNode item : result.items()) {
+                    read.add(AbgeordnetenwatchApi.mandate(item, land.key(), period));
+                }
+                if (result.items().isEmpty()) {
+                    break;
+                }
+                start += AbgeordnetenwatchApi.PAGE_SIZE;
+                page++;
+            }
+        }
+        mandates.addAll(read);
+        return periods;
     }
 
     /** Écrit les mandats dans la fenêtre de rétention : en cours, ou terminés depuis moins de {@code months} mois. */

@@ -56,13 +56,34 @@ public class DePepFederalCourtsParser implements Iparser {
     public record CourtConfig(String key, String name, String acronym, String url) {
     }
 
+    /**
+     * Liste Wikipédia des juges d'une cour, avec le plan de répartition officiel qui sert à la confirmer :
+     * {@code planPdfUrl} (adresse fixe) ou {@code planDiscoveryUrl} (page à partir de laquelle on trouve le PDF).
+     */
     @JsonIgnoreProperties(ignoreUnknown = true)
-    public record Config(List<CourtConfig> courts) {
+    public record JudgeListConfig(String key, String name, String acronym, String page, String planPdfUrl,
+                                  String planDiscoveryUrl, Long planDelayMs) {
+    }
+
+    @JsonIgnoreProperties(ignoreUnknown = true)
+    public record Config(List<CourtConfig> courts, List<JudgeListConfig> judgeLists) {
+        public Config(List<CourtConfig> courts) {
+            this(courts, List.of());
+        }
     }
 
     /** Résultat de la lecture d'une cour. */
     record Outcome(CourtConfig court, List<FederalPages.Member> members, String problem) {
     }
+
+    /**
+     * Résultat de la lecture d'une liste Wikipédia : les juges, le texte du plan officiel (null s'il n'a pas pu être
+     * lu) et la raison de l'échec éventuel (liste ou plan).
+     */
+    record JudgeOutcome(JudgeListConfig list, List<WikipediaJudges.Judge> judges, String planText, String problem) {
+    }
+
+    static final long DEFAULT_WIKIPEDIA_DELAY_MS = 5000;
 
     /** Accès HTTP remplaçable dans les tests. */
     interface Fetcher {
@@ -82,10 +103,156 @@ public class DePepFederalCourtsParser implements Iparser {
         Fetcher fetcher = http(delay);
 
         List<Outcome> outcomes = readAll(config, fetcher, ctx.rawDir());
+        List<JudgeOutcome> lists = List.of();
+        if (!"false".equalsIgnoreCase(p.get("judgeLists"))) {
+            // les listes viennent toujours de la configuration embarquée, même si « urls » restreint les pages officielles
+            lists = readJudgeLists(loadConfig().judgeLists(), http(parseLong(p.get("wikipediaDelayMs"), DEFAULT_WIKIPEDIA_DELAY_MS)),
+                    list -> readPlan(list, list.planDelayMs() != null ? list.planDelayMs() : delay), ctx.rawDir());
+        }
         FtmDatasetBuilder dataset = new FtmDatasetBuilder(ID_PREFIX, TOPIC);
-        String message = convert(outcomes, LocalDate.now(), months, dataset);
+        LocalDate today = LocalDate.now();
+        String message = convert(outcomes, today, months, dataset);
+        if (!lists.isEmpty()) {
+            message = message + " " + convertJudges(lists, outcomes, today, months, dataset);
+        }
         dataset.writeNdjsonFile(ctx.outputFile());
         return dataset.toConversionResult().withMessage(message);
+    }
+
+    /** Lecture du texte du plan officiel d'une cour, remplaçable dans les tests. */
+    interface PlanReader {
+        String read(JudgeListConfig list) throws IOException;
+    }
+
+    /**
+     * Lit chaque liste Wikipédia, puis le plan officiel de la cour quand il est configuré. Une liste illisible est
+     * signalée sans interrompre les autres ; un plan illisible laisse la liste publiée, non confirmée.
+     */
+    static List<JudgeOutcome> readJudgeLists(List<JudgeListConfig> lists, Fetcher wikipedia, PlanReader plans, Path rawDir)
+            throws IOException {
+        List<JudgeOutcome> out = new ArrayList<>();
+        if (lists == null) {
+            return out;
+        }
+        for (JudgeListConfig list : lists) {
+            List<WikipediaJudges.Judge> judges;
+            try {
+                String response = wikipedia.get(WikipediaJudges.apiUrl(list.page()));
+                if (rawDir != null) {
+                    Files.writeString(rawDir.resolve("wikipedia-" + list.key() + ".json"), response, StandardCharsets.UTF_8);
+                }
+                judges = WikipediaJudges.parse(WikipediaJudges.wikitext(response));
+                if (judges.isEmpty()) {
+                    out.add(new JudgeOutcome(list, List.of(), null, "ALERT STRUCTURE_CHANGED : liste Wikipédia sans ligne {{PersonZelle}}"));
+                    continue;
+                }
+            } catch (IOException | RuntimeException e) {
+                log.warn("SOURCE_BROKEN: liste Wikipédia {} non lue : {}", list.page(), e.getMessage());
+                out.add(new JudgeOutcome(list, List.of(), null, "ALERT SOURCE_BROKEN : liste Wikipédia : " + e.getMessage()));
+                continue;
+            }
+            String planText = null;
+            String problem = null;
+            if (list.planPdfUrl() != null || list.planDiscoveryUrl() != null) {
+                try {
+                    planText = plans.read(list);
+                    if (rawDir != null) {
+                        Files.writeString(rawDir.resolve("plan-" + list.key() + ".txt"), planText, StandardCharsets.UTF_8);
+                    }
+                } catch (IOException | RuntimeException e) {
+                    log.warn("Plan officiel {} non lu : {}", list.acronym(), e.getMessage());
+                    problem = "plan officiel non lu : " + e.getMessage();
+                }
+            }
+            out.add(new JudgeOutcome(list, judges, planText, problem));
+        }
+        return out;
+    }
+
+    /** Plan officiel en ligne : PDF à adresse fixe, ou découverte du PDF de l'année la plus récente (BGH). */
+    static String readPlan(JudgeListConfig list, long delayMs) throws IOException {
+        Fetcher pages = http(delayMs);
+        String pdfUrl = list.planPdfUrl();
+        if (pdfUrl == null) {
+            String overview = pages.get(list.planDiscoveryUrl());
+            String yearPage = OfficialPlans.latestBghYearPage(overview, list.planDiscoveryUrl());
+            pdfUrl = OfficialPlans.pdfLink(pages.get(yearPage), yearPage);
+        }
+        return OfficialPlans.text(httpBytes(delayMs).get(pdfUrl));
+    }
+
+    /**
+     * Ajoute les juges des listes Wikipédia en fonction (ou sortis depuis moins de {@code months} mois). Une personne
+     * déjà lue sur la page officielle de la cour (président, vice-président) n'est pas reprise. Les juges absents du
+     * plan officiel restent publiés (mieux vaut un juge sorti qu'un juge manquant), avec une note.
+     */
+    static String convertJudges(List<JudgeOutcome> lists, List<Outcome> official, LocalDate today, int months,
+                                FtmDatasetBuilder dataset) {
+        List<String> parts = new ArrayList<>();
+        List<String> failures = new ArrayList<>();
+        int total = 0;
+        for (JudgeOutcome o : lists) {
+            JudgeListConfig list = o.list();
+            if (o.judges().isEmpty()) {
+                failures.add(list.acronym() + " (" + o.problem() + ")");
+                continue;
+            }
+            java.util.Set<String> alreadyRead = new java.util.HashSet<>();
+            for (Outcome off : official) {
+                if (off.court().key().equals(list.key())) {
+                    off.members().forEach(m -> alreadyRead.add(WikipediaJudges.normalizedName(m.cleanName())));
+                }
+            }
+            String sourceUrl = "https://de.wikipedia.org/wiki/" + list.page();
+            FtmEntity position = dataset.newEntity("Position", list.key() + "-judge");
+            position.addValue("name", "Juge ou dirigeant de la cour : " + list.name());
+            position.addValue("country", "de");
+            position.addValue("organization", list.name());
+            position.addValue("topics", "gov.national");
+            position.addValue("topics", "gov.judicial");
+            dataset.addEntity(position);
+            int kept = 0;
+            int confirmed = 0;
+            for (WikipediaJudges.Judge j : o.judges()) {
+                if (!j.keep(today, months) || alreadyRead.contains(WikipediaJudges.normalizedName(j.fullName()))) {
+                    continue;
+                }
+                boolean inPlan = o.planText() != null && WikipediaJudges.inOfficialPlan(j.lastName(), o.planText());
+                String role = j.role(list.name());
+                FtmEntity person = dataset.newEntity("Person", list.key(), j.fullName());
+                person.addValue("name", j.fullName());
+                person.addValue("firstName", j.firstName());
+                person.addValue("lastName", j.lastName());
+                person.addValue("birthDate", j.birthYear() == null ? null : String.valueOf(j.birthYear()));
+                person.addValue("country", "de");
+                person.addValue("position", role);
+                person.addValue("sourceUrl", sourceUrl);
+                person.addValue("notes", o.planText() == null ? "Source : Wikipédia (liste des juges de la cour)."
+                        : inPlan ? "Source : Wikipédia ; nom présent dans le plan de répartition officiel de la cour."
+                        : "Source : Wikipédia ; nom absent du plan de répartition officiel de la cour (départ à vérifier).");
+                dataset.addEntity(person);
+
+                boolean ended = j.end() != null && !j.end().isAfter(today);
+                FtmEntity occ = dataset.newEntity("Occupancy", list.key(), j.fullName(), "wikipedia");
+                occ.addValue("holder", person.getId());
+                occ.addValue("post", position.getId());
+                occ.addValue("startDate", j.start().toString());
+                occ.addValue("endDate", j.end() == null ? null : j.end().toString());
+                occ.addValue("status", ended ? "ended" : "current");
+                occ.addValue("description", role);
+                occ.addValue("sourceUrl", sourceUrl);
+                dataset.addEntity(occ);
+                kept++;
+                if (inPlan) {
+                    confirmed++;
+                }
+            }
+            total += kept;
+            parts.add(list.acronym() + " " + kept + (o.planText() != null ? " (" + confirmed + " confirmés par le plan officiel)" : "")
+                    + (o.problem() != null ? " (" + o.problem() + ")" : ""));
+        }
+        String message = total + " juges lus sur les listes Wikipédia : " + String.join(", ", parts) + ".";
+        return failures.isEmpty() ? message : message + " Listes non lues : " + String.join(" ; ", failures) + ".";
     }
 
     static Config resolveConfig(Map<String, String> parameters) {
@@ -325,6 +492,26 @@ public class DePepFederalCourtsParser implements Iparser {
                 }
             }
             throw last;
+        };
+    }
+
+    /** Téléchargement binaire (PDF des plans de répartition), avec la même politesse que {@link #http(long)}. */
+    static OfficialPlans.BytesFetcher httpBytes(long delayMs) {
+        HttpClient client = HttpClient.newBuilder().version(HttpClient.Version.HTTP_1_1).followRedirects(HttpClient.Redirect.NORMAL)
+                .connectTimeout(Duration.ofSeconds(15)).build();
+        return url -> {
+            try {
+                Thread.sleep(delayMs);
+                HttpResponse<byte[]> resp = client.send(HttpRequest.newBuilder(URI.create(url)).timeout(Duration.ofSeconds(60))
+                        .header("User-Agent", USER_AGENT).GET().build(), HttpResponse.BodyHandlers.ofByteArray());
+                if (resp.statusCode() != 200) {
+                    throw new IOException("HTTP " + resp.statusCode() + " pour " + url);
+                }
+                return resp.body();
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+                throw new IOException("Interrompu", e);
+            }
         };
     }
 

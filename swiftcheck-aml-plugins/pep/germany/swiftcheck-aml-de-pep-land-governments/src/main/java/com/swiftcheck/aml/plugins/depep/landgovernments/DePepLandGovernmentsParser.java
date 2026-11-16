@@ -1,10 +1,13 @@
 package com.swiftcheck.aml.plugins.depep.landgovernments;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.time.Duration;
@@ -15,6 +18,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.zip.GZIPInputStream;
 
 import org.pf4j.Extension;
 import org.slf4j.Logger;
@@ -44,7 +48,7 @@ public class DePepLandGovernmentsParser implements Iparser {
 
     static final String ID_PREFIX = "de-pep-land-governments";
     static final String TOPIC = "role.pep";
-    static final String USER_AGENT = "SwiftCheck-AML/1.0 (liste PEP Allemagne - Gouvernements des Länder)";
+    static final String USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36";
 
     private static final Pattern ACADEMIC_TITLE = Pattern.compile("^(?:(?:Prof\\.?\\s+Dr\\.?|Prof\\.?|Dr\\.?|h\\.c\\.)\\s+)+");
 
@@ -114,15 +118,21 @@ public class DePepLandGovernmentsParser implements Iparser {
         List<String> brokenSources = new ArrayList<>();
         List<String> structureWarnings = new ArrayList<>();
 
-        HttpClient client = HttpClient.newBuilder()
-                .followRedirects(HttpClient.Redirect.NORMAL)
-                .connectTimeout(Duration.ofSeconds(15))
-                .build();
+        if (ctx.rawDir() != null) {
+            try {
+                Files.createDirectories(ctx.rawDir());
+            } catch (IOException e) {
+                log.warn("Impossible de créer rawDir {}: {}", ctx.rawDir(), e.getMessage());
+            }
+        }
 
         // 1. Fichier d'entrée local (tests unitaires ou archive)
         if (ctx.inputFile() != null && Files.exists(ctx.inputFile())) {
             try {
                 String html = Files.readString(ctx.inputFile(), StandardCharsets.UTF_8);
+                if (ctx.rawDir() != null) {
+                    Files.writeString(ctx.rawDir().resolve("input.html"), html, StandardCharsets.UTF_8);
+                }
                 List<Member> list = extractFromHtml("local", "Land", html);
                 for (Member m : list) {
                     membersBySlug.put(m.slug(), m);
@@ -137,8 +147,14 @@ public class DePepLandGovernmentsParser implements Iparser {
         // 2. Traitement des URLs cibles
         List<String> targetUrls = resolveTargetUrls(parameters);
 
+        HttpClient client = HttpClient.newBuilder()
+                .followRedirects(HttpClient.Redirect.NORMAL)
+                .connectTimeout(Duration.ofSeconds(15))
+                .build();
+
+        int index = 0;
         for (String rawUrl : targetUrls) {
-            String cleanUrl = rawUrl.trim();
+            String cleanUrl = cleanUrl(rawUrl);
             if (cleanUrl.isEmpty()) continue;
 
             String html;
@@ -152,6 +168,18 @@ public class DePepLandGovernmentsParser implements Iparser {
                 log.warn("SOURCE_BROKEN sur {}: {}", cleanUrl, e.getMessage());
                 brokenSources.add(cleanUrl);
                 continue;
+            }
+
+            // Toujours enregistrer les réponses brutes dans rawDir pour traçabilité et conformité
+            if (ctx.rawDir() != null) {
+                index++;
+                String landSlug = detectLand(cleanUrl).toLowerCase(Locale.ROOT).replaceAll("[^a-z0-9]+", "-");
+                String fileName = String.format("source_%03d_%s.html", index, landSlug);
+                try {
+                    Files.writeString(ctx.rawDir().resolve(fileName), html, StandardCharsets.UTF_8);
+                } catch (IOException e) {
+                    log.warn("Impossible d'écrire la réponse brute dans rawDir pour {}: {}", cleanUrl, e.getMessage());
+                }
             }
 
             String landName = detectLand(cleanUrl);
@@ -178,46 +206,89 @@ public class DePepLandGovernmentsParser implements Iparser {
         List<String> list = new ArrayList<>();
         String urlsParam = parameters.get("urls");
         if (urlsParam != null && !urlsParam.isBlank()) {
-            if (urlsParam.trim().startsWith("[")) {
-                Matcher m = Pattern.compile("\"([^\"]+)\"").matcher(urlsParam);
-                while (m.find()) {
-                    list.add(m.group(1));
+            String s = urlsParam.trim();
+            if (s.startsWith("[") && s.endsWith("]")) {
+                s = s.substring(1, s.length() - 1).trim();
+            }
+            s = s.replace("\\\"", "\"").replace("\\/", "/");
+
+            Matcher m = Pattern.compile("\"([^\"]+)\"").matcher(s);
+            boolean found = false;
+            while (m.find()) {
+                found = true;
+                String u = cleanUrl(m.group(1));
+                if (!u.isEmpty()) {
+                    list.add(u);
                 }
-            } else {
-                for (String part : urlsParam.split("[\r\n,]+")) {
-                    if (!part.isBlank()) list.add(part.trim());
+            }
+            if (!found) {
+                for (String part : s.split("[\r\n,]+")) {
+                    String u = cleanUrl(part);
+                    if (!u.isEmpty()) list.add(u);
                 }
             }
         }
         return list;
     }
 
-    private String fetchSafe(HttpClient client, String rawUrl) throws IOException, InterruptedException {
-        // Détection précoce des URLs malformées (ex: contenant des espaces non encodés comme 'schleswig holstein.de')
-        if (rawUrl.contains(" ")) {
+    private static String cleanUrl(String raw) {
+        if (raw == null) return "";
+        String s = raw.trim();
+        while (s.startsWith("\"") || s.startsWith("\\")) {
+            s = s.substring(1).trim();
+        }
+        while (s.endsWith("\"") || s.endsWith("\\")) {
+            s = s.substring(0, s.length() - 1).trim();
+        }
+        return s;
+    }
+
+    private String fetchSafe(HttpClient client, String rawUrl) {
+        String cleanUrl = cleanUrl(rawUrl);
+        if (cleanUrl.isEmpty() || cleanUrl.contains(" ")) {
             log.warn("URL malformée avec espaces (SOURCE_BROKEN) : {}", rawUrl);
             return null;
         }
 
         URI uri;
         try {
-            uri = URI.create(rawUrl);
+            uri = URI.create(cleanUrl);
         } catch (IllegalArgumentException e) {
             log.warn("URL malformée (SOURCE_BROKEN) : {}", rawUrl);
             return null;
         }
 
-        HttpRequest req = HttpRequest.newBuilder(uri)
-                .timeout(Duration.ofSeconds(20))
-                .header("User-Agent", USER_AGENT)
-                .GET().build();
+        try {
+            HttpRequest req = HttpRequest.newBuilder(uri)
+                    .timeout(Duration.ofSeconds(20))
+                    .header("User-Agent", USER_AGENT)
+                    .header("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8")
+                    .header("Accept-Encoding", "gzip, deflate")
+                    .GET().build();
 
-        HttpResponse<String> resp = client.send(req, HttpResponse.BodyHandlers.ofString(StandardCharsets.UTF_8));
-        if (resp.statusCode() >= 400) {
-            log.warn("HTTP {} pour {} (SOURCE_BROKEN)", resp.statusCode(), rawUrl);
+            HttpResponse<byte[]> resp = client.send(req, HttpResponse.BodyHandlers.ofByteArray());
+            if (resp.statusCode() >= 400) {
+                log.warn("HTTP {} pour {} (SOURCE_BROKEN)", resp.statusCode(), rawUrl);
+                return null;
+            }
+
+            byte[] body = resp.body();
+            String encoding = resp.headers().firstValue("Content-Encoding").orElse("");
+            String contentType = resp.headers().firstValue("Content-Type").orElse("");
+            Charset charset = contentType.toLowerCase(Locale.ROOT).contains("iso-8859-1")
+                    ? StandardCharsets.ISO_8859_1
+                    : StandardCharsets.UTF_8;
+
+            if ("gzip".equalsIgnoreCase(encoding)) {
+                try (InputStream gz = new GZIPInputStream(new ByteArrayInputStream(body))) {
+                    return new String(gz.readAllBytes(), charset);
+                }
+            }
+            return new String(body, charset);
+        } catch (Exception e) {
+            log.warn("Échec requête sur {}: {}", rawUrl, e.getMessage());
             return null;
         }
-        return resp.body();
     }
 
     static List<Member> extractFromHtml(String url, String landName, String html) {

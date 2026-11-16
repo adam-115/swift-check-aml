@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <!--
+      de_pep_landtage : l'API abgeordnetenwatch repond HTTP 429 par rafales. A chaque execution, trois parlements
+      n'etaient pas lus (15/11/2026 : Bade-Wurtemberg, Rhenanie-du-Nord-Westphalie, Hambourg), avec une pause de
+      100 ms entre deux appels. Le plugin attend desormais de plus en plus longtemps apres un refus (backoffMs,
+      5 s doubles a chaque essai) et relit les parlements refuses apres une pause. On porte la pause entre deux
+      appels a 1 s et on fixe l'attente initiale apres un refus. Ni la source ni les autres parametres ne changent.
+    -->
+    <changeSet id="151-de-landtage-slower-api-calls" author="swiftcheck" dbms="mysql">
+        <sql>
+            UPDATE parser
+               SET parameters = JSON_SET(parameters, '$.delayMs', '1000', '$.backoffMs', '5000')
+             WHERE dataset_name = 'de_pep_landtage';
+        </sql>
+    </changeSet>
+</databaseChangeLog>

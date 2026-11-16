@@ -127,6 +127,53 @@ class AbgeordnetenwatchLiveTest {
     }
 
     @Test
+    void rereadsAParliamentRefusedByTheApiWithoutDuplicatingItsFirstPages(@TempDir Path raw) throws Exception {
+        AbgeordnetenwatchApi.Fetcher server = fake();
+        java.util.concurrent.atomic.AtomicInteger refusals = new java.util.concurrent.atomic.AtomicInteger();
+        // Hessen : la page 1 passe, la page 2 est refusée une fois (429) ; la seconde passe doit tout relire sans doublon
+        AbgeordnetenwatchApi.Fetcher flaky = url -> {
+            if (url.contains("range_start=100") && refusals.getAndIncrement() == 0) {
+                throw new IOException("HTTP 429 pour " + url);
+            }
+            return server.get(url);
+        };
+
+        DePepLandtageParser.LiveReport report = DePepLandtageParser.live(Map.of(), raw, flaky, TODAY, 12);
+
+        assertThat(report.mandates()).hasSize(100);
+        assertThat(report.message()).contains("1 parlement(s) relu(s) à la seconde passe").doesNotContain("non lus");
+    }
+
+    @Test
+    void reportsAParliamentStillRefusedAfterTheSecondPass(@TempDir Path raw) throws Exception {
+        AbgeordnetenwatchApi.Fetcher server = fake();
+        AbgeordnetenwatchApi.Fetcher thueringenDown = url -> {
+            if (url.contains("parliament-periods?parliament=15&")) {
+                throw new IOException("HTTP 429 pour " + url);
+            }
+            return server.get(url);
+        };
+
+        DePepLandtageParser.LiveReport report = DePepLandtageParser.live(Map.of(), raw, thueringenDown, TODAY, 12);
+
+        assertThat(report.mandates()).hasSize(100);
+        assertThat(report.message()).contains("Parlements non lus : ").contains("Thüringen (HTTP 429");
+    }
+
+    @Test
+    void waitsLongerAfterEachRefusalAndHonoursRetryAfter() {
+        assertThat(AbgeordnetenwatchApi.backoffMs(1, null, 5000)).isEqualTo(5000);
+        assertThat(AbgeordnetenwatchApi.backoffMs(2, null, 5000)).isEqualTo(10000);
+        assertThat(AbgeordnetenwatchApi.backoffMs(4, null, 5000)).isEqualTo(40000);
+        assertThat(AbgeordnetenwatchApi.backoffMs(6, null, 5000)).isEqualTo(AbgeordnetenwatchApi.MAX_BACKOFF_MS);
+        assertThat(AbgeordnetenwatchApi.backoffMs(1, "30", 5000)).isEqualTo(30000);
+        assertThat(AbgeordnetenwatchApi.backoffMs(1, "Wed, 21 Oct 2026 07:28:00 GMT", 5000)).isEqualTo(5000);
+        assertThat(AbgeordnetenwatchApi.retryable(429)).isTrue();
+        assertThat(AbgeordnetenwatchApi.retryable(503)).isTrue();
+        assertThat(AbgeordnetenwatchApi.retryable(404)).isFalse();
+    }
+
+    @Test
     void failsWhenNothingIsRead(@TempDir Path raw) {
         AbgeordnetenwatchApi.Fetcher empty = url -> "{\"meta\":{\"status\":\"ok\"},\"data\":[]}";
 

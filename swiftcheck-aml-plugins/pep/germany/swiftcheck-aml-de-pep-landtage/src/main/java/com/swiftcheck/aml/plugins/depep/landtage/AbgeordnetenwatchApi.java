@@ -133,15 +133,40 @@ final class AbgeordnetenwatchApi {
         return n.isTextual() && !n.asText().isBlank() ? LocalDate.parse(n.asText().substring(0, 10)) : null;
     }
 
-    /** Client HTTP poli : User-Agent générique, pause entre deux appels, trois essais sur 429 et 5xx. */
-    static Fetcher http(String userAgent, long delayMs) {
+    /** Nombre d'essais par appel : l'API répond 429 par rafales, sans en-tête de limite. */
+    static final int MAX_ATTEMPTS = 6;
+    /** Attente maximale entre deux essais. */
+    static final long MAX_BACKOFF_MS = 120_000;
+
+    /**
+     * Attente avant l'essai suivant (l'essai {@code attempt} vient d'échouer) : la valeur de Retry-After si le serveur
+     * en donne une (en secondes), sinon {@code baseMs} doublé à chaque échec ; bornée à {@link #MAX_BACKOFF_MS}.
+     */
+    static long backoffMs(int attempt, String retryAfter, long baseMs) {
+        if (retryAfter != null && retryAfter.trim().matches("\\d{1,5}")) {
+            return Math.min(MAX_BACKOFF_MS, Long.parseLong(retryAfter.trim()) * 1000);
+        }
+        return Math.min(MAX_BACKOFF_MS, baseMs * (1L << Math.min(Math.max(attempt - 1, 0), 20)));
+    }
+
+    /** Vrai pour les réponses à réessayer : trop de requêtes, délai dépassé, erreur serveur. */
+    static boolean retryable(int status) {
+        return status == 429 || status == 408 || status >= 500;
+    }
+
+    /**
+     * Client HTTP poli : User-Agent générique, pause de {@code delayMs} avant chaque appel, et jusqu'à
+     * {@link #MAX_ATTEMPTS} essais sur 429, 408 et 5xx, avec une attente qui double à partir de {@code backoffMs}.
+     */
+    static Fetcher http(String userAgent, long delayMs, long backoffMs) {
         HttpClient client = HttpClient.newBuilder().connectTimeout(Duration.ofSeconds(10))
                 .followRedirects(HttpClient.Redirect.NORMAL).build();
         return url -> {
             IOException last = null;
-            for (int attempt = 1; attempt <= 3; attempt++) {
+            long wait = delayMs;
+            for (int attempt = 1; attempt <= MAX_ATTEMPTS; attempt++) {
                 try {
-                    Thread.sleep(delayMs * attempt);
+                    Thread.sleep(wait);
                     HttpRequest request = HttpRequest.newBuilder().uri(URI.create(url)).timeout(Duration.ofSeconds(30))
                             .header("User-Agent", userAgent).header("Accept", "application/json").GET().build();
                     HttpResponse<String> resp = client.send(request, HttpResponse.BodyHandlers.ofString(StandardCharsets.UTF_8));
@@ -149,14 +174,16 @@ final class AbgeordnetenwatchApi {
                         return resp.body();
                     }
                     last = new IOException("HTTP " + resp.statusCode() + " pour " + url);
-                    if (resp.statusCode() < 429 && resp.statusCode() != 408) {
+                    if (!retryable(resp.statusCode())) {
                         break;
                     }
+                    wait = backoffMs(attempt, resp.headers().firstValue("Retry-After").orElse(null), backoffMs);
                 } catch (InterruptedException e) {
                     Thread.currentThread().interrupt();
                     throw new IOException("Interrompu", e);
                 } catch (IOException e) {
                     last = e;
+                    wait = backoffMs(attempt, null, backoffMs);
                 }
             }
             throw last;

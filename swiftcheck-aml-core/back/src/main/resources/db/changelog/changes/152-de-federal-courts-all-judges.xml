@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <!--
+      de_pep_federal_courts lit desormais tous les juges des cinq cours federales supremes (BGH, BVerwG, BFH,
+      BAG, BSG) : les cours ne publient les noms que dans des plans de repartition (noms de famille seuls), le
+      plugin lit donc les listes Wikipedia DE « Liste der Richter am ... » (prenom, nom, annee de naissance, dates)
+      et confirme le BGH et le BVerwG par leur plan officiel (15/11/2026 : 140 sur 164 et 49 sur 54). Les
+      presidents et vice-presidents restent lus sur les pages officielles. Fonctions 132 a 136 : PARTIAL -> COMPLETE.
+    -->
+    <changeSet id="152-de-federal-courts-all-judges" author="swiftcheck" dbms="mysql">
+        <sql>
+            UPDATE pep_function_parser
+               SET completeness = 'COMPLETE',
+                   includes_former = 1,
+                   covered_scope = 'Tous les juges en fonction et sortis depuis moins de 12 mois : listes Wikipedia DE des juges de la cour (prenom, nom, annee de naissance, dates d''entree et de sortie, presidence de chambre) ; president et vice-president lus sur la page officielle de la cour.',
+                   gaps = 'Source collaborative (Wikipedia) : un depart ou une nomination recente peut manquer. BGH et BVerwG recoupes avec le plan de repartition officiel (un juge absent du plan reste publie, avec une note) ; BFH, BAG et BSG sans recoupement.'
+             WHERE parser_id = (SELECT id FROM parser WHERE dataset_name = 'de_pep_federal_courts')
+               AND function_id IN (132, 133, 134, 135, 136);
+        </sql>
+    </changeSet>
+</databaseChangeLog>

@@ -1,0 +1,2022 @@
+Diese Liste gibt einen Überblick über alle Berufsrichter, die dem [[Bundesfinanzhof]], der seine Arbeit am 1. September 1950 aufgenommen hat, angehört haben. Bisher haben 270 Berufsrichter am Bundesfinanzhof Recht gesprochen.
+
+== Richter ==
+Bis zum 10. Januar 1956 lautete die gesetzliche Bezeichnung für die Richter aufgrund von § 3 Abs. 1 des Gesetzes über den Bundesfinanzhof „Bundesfinanzrichter“ und für die Vorsitzenden „Senatspräsidenten beim Bundesfinanzhof“. Durch einen Erlass des [[Bundesministerium der Finanzen|Bundesministeriums der Finanzen]] vom 11. Februar 1956 änderte sich die Bezeichnung für die Richter in „Bundesrichter beim Bundesfinanzhof“. Aufgrund einer Änderung von § 19a [[Deutsches Richtergesetz|DRiG]] führen die Richter seit dem 1. Oktober 1972 die Amtsbezeichnung „Richter am Bundesfinanzhof“ und die Vorsitzenden die Amtsbezeichnung „Vorsitzender Richter am Bundesfinanzhof“.
+{{TOC}}
+{| class="wikitable sortable"
+|-
+! Name (Lebensdaten)
+!data-sort-type="date"| Beginn der Amtszeit
+!data-sort-type="date"| Ende der Amtszeit
+!data-sort-type="date"| Senatsvorsitz ab
+!data-sort-type="date"| Vizepräsident ab
+!data-sort-type="date"| Präsident ab
+!data-sort-type="date"| bis
+|-id="A"
+| {{PersonZelle|Ralf|Adam}} (* 1972)
+| {{DatumZelle|2021-04-29}}
+|
+|
+|
+|
+|-
+| {{PersonZelle|Karin Renate|Ahmann}} (* 1943)
+| {{DatumZelle|1991-11-04}}
+| {{DatumZelle|2008-11-30}}
+|
+|
+|
+|-
+| {{PersonZelle|Christel|Alber}} (* 1939)
+| {{DatumZelle|1996-03-28}}
+| {{DatumZelle|2004-06-30}}
+|
+|
+|
+|-
+| {{PersonZelle|Gerd|Albrecht|k=Jurist}} (* 1934)
+| {{DatumZelle|1990-01-02}}
+| {{DatumZelle|1999-09-30}}
+|
+|
+|
+|-
+| {{PersonZelle|Jeß|Andersen}} (1924–2009)
+| {{DatumZelle|1979-09-01}}
+| {{DatumZelle|1986-03-31}}
+|
+|
+|
+|-
+| {{PersonZelle|Walther|Ansorge}} (1886–1967)
+| {{DatumZelle|1950-10-21}}
+| {{DatumZelle|1956-04-30}}
+| {{DatumZelle|1951-05-01}}
+| {{DatumZelle|1956-02-25}}
+|
+|-id="B"
+| {{PersonZelle|Heinrich|Bachelin}} (1900–1989)
+| {{DatumZelle|1963-04-01}}
+| {{DatumZelle|1968-11-30}}
+|
+|
+|
+|-
+| {{PersonZelle|Sina|Baldauf}} (* 1977)
+| {{DatumZelle|2023-07-01}}
+|
+|
+|
+|
+|-
+| {{PersonZelle|Ulrike|Banniza}} (* 1966)
+| {{DatumZelle|2008-08-14}}
+|
+| {{DatumZelle|2022-03-01}}
+|
+|
+|-
+| {{PersonZelle|Petra|Barche}} (* 1968)
+| {{DatumZelle|2023-10-01}}
+|
+|
+|
+|
+|-
+| {{PersonZelle|Kurt|Barske}} (1907–1986)
+| {{DatumZelle|1957-07-22}}
+| {{DatumZelle|1972-05-31}}
+| {{DatumZelle|1969-01-29}}
+|
+|
+|-
+| {{PersonZelle|Albert|Beermann|k=Richter}} (1933–2020)<ref>[https://trauer.sueddeutsche.de/todesanzeige/albert-beermann ''Traueranzeige''] Süddeutsche Zeitung vom 31.&nbsp;Oktober 2020</ref>
+| {{DatumZelle|1977-12-01}}
+| {{DatumZelle|1998-01-31}}
+| {{DatumZelle|1990-10-01}}
+| {{DatumZelle|1994-10-01}}
+|
+|-
+| {{PersonZelle|Heinrich|Beisse}} (1927–2012)
+| {{DatumZelle|1970-06-18}}
+| {{DatumZelle|1992-04-30}}
+| {{DatumZelle|1983-05-27}}
+|
+|
+|-
+| {{PersonZelle|Emil|Berger|k=Jurist}} (1902–1975)
+| {{DatumZelle|1957-07-31}}
+| {{DatumZelle|1970-03-31}}
+| {{DatumZelle|1968-04-29}}
+|
+|
+|-
+| {{PersonZelle|Winfried|Bergkemper}} (* 1949)
+| {{DatumZelle|2002-10-01}}
+| {{DatumZelle|2014-11-30}}
+|
+|
+|
+|-
+| {{PersonZelle|Wolfram|Birkenfeld}} (* 1939)
+| {{DatumZelle|1986-02-28}}
+| {{DatumZelle|2004-11-30}}
+|
+|
+|
+|-
+| {{PersonZelle|Hans|Birkholz}} (1911–1995)
+| {{DatumZelle|1964-07-01}}
+| {{DatumZelle|1978-09-30}}
+| {{DatumZelle|1974-11-13}}
+|
+|
+|-
+| {{PersonZelle|Albert|Bliemeister}} (1900–1987)
+| {{DatumZelle|1956-01-30}}
+| {{DatumZelle|1962-05-31}}
+|
+|
+|
+|-
+| {{PersonZelle|Walter|Bode|k=Richter}} (* 1957)
+| {{DatumZelle|2007-07-02}}
+| {{DatumZelle|2023-02-28}}
+|
+|
+|
+|-
+| {{PersonZelle|Heide|Boeker}} (* 1945)
+| {{DatumZelle|1988-06-21}}
+| {{DatumZelle|2010-10-31}}
+| {{DatumZelle|2001-11-05}}
+|
+|
+|-
+| {{PersonZelle|Hermann|Bollenhagen}} (1902–1996)
+| {{DatumZelle|1959-06-01}}
+| {{DatumZelle|1967-08-31}}
+|
+|
+|
+|-
+| {{PersonZelle|Arno|Bordewin}} (* 1934)
+| {{DatumZelle|1986-03-04}}
+| {{DatumZelle|1996-11-30}}
+|
+|
+|
+|-
+| {{PersonZelle|Kurt Joachim von|Bornhaupt}} (1928–2009)
+| {{DatumZelle|1974-04-01}}
+| {{DatumZelle|1992-05-31}}
+|
+|
+|
+|-
+| {{PersonZelle|Ernst Paul|Boruttau}} (1886–1979)
+| {{DatumZelle|1950-10-21}}
+| {{DatumZelle|1956-02-29}}
+|
+|
+|
+|-
+| {{PersonZelle|Peter|Brandis}} (* 1959)
+| {{DatumZelle|2005-08-17}}
+| {{DatumZelle|2025-07-31}}
+| {{DatumZelle|2018-11-29}}
+|
+|
+|-
+| {{PersonZelle|Harald|Brandl}} (* 1968)
+| {{DatumZelle|2023-10-01}}
+|
+|
+|
+|
+|-
+|{{PersonZelle|Jürgen|Brandt|k=Jurist}} (* 1953)
+| {{DatumZelle|2000-01-13}}
+| {{DatumZelle|2019-04-30}}
+|
+|
+|
+|-
+| {{PersonZelle|Dieter|Brenner}} (1931–2018)
+| {{DatumZelle|1987-01-20}}
+| {{DatumZelle|1995-05-31}}
+|
+|
+|
+|-
+| {{PersonZelle|Hans Bernhard|Brockmeyer}} (1935–2025)
+| {{DatumZelle|1987-01-20}}
+| {{DatumZelle|2000-11-30}}
+|
+|
+|
+|-
+| {{PersonZelle|Klaus|Buciek}} (1952–2011)
+| {{DatumZelle|1998-04-02}}
+| {{DatumZelle|2011-05-18}}
+|
+|
+|
+|-id="C"
+| {{PersonZelle|Curt Eberhard|Cerutti}} (1896–1968)
+| {{DatumZelle|1951-04-21}}
+| {{DatumZelle|1964-03-31}}
+|
+|
+|
+|-
+| {{PersonZelle|Alfred|Christiansen}} (1942–2021)
+| {{DatumZelle|1992-05-06}}
+| {{DatumZelle|2006-08-31}}
+|
+|
+|
+|-
+| {{PersonZelle|Anton|Conze}} (1903–1987)
+| {{DatumZelle|1950-10-21}}
+| {{DatumZelle|1971-05-31}}
+|
+|
+|
+|-id="D"
+| {{PersonZelle|Wolfgang|Dänzer-Vanotti}} (1926–2016)
+| {{DatumZelle|1974-05-02}}
+| {{DatumZelle|1991-03-31}}
+|
+|
+|
+|-
+| {{PersonZelle|Adolf|Desgranges}} (1911–1965)
+| {{DatumZelle|1965-04-01}}
+| {{DatumZelle|1965-09-21}}
+|
+|
+|
+|-
+| {{PersonZelle|Rudolf|Diederichs}} (1899–1967)
+| {{DatumZelle|1950-10-21}}
+| {{DatumZelle|1967-08-31}}
+| {{DatumZelle|1963-11-01}}
+|
+|
+|-
+| {{PersonZelle|Georg|Döllerer}} (1921–1993)
+| {{DatumZelle|1965-04-01}}
+| {{DatumZelle|1988-05-31}}
+| {{DatumZelle|1978-01-23}}
+|
+|
+|-
+| {{PersonZelle|Bernhard|Dopatka}} (1907–1997)
+| {{DatumZelle|1961-01-01}}
+| {{DatumZelle|1975-05-31}}
+|
+|
+|
+|-
+| {{PersonZelle|Heinrich|Dornemann}} (1902–1991)
+| {{DatumZelle|1958-10-01}}
+| {{DatumZelle|1964-04-30}}
+|
+|
+|
+|-
+| {{PersonZelle|Franz|Dötsch}} (* 1948)
+| {{DatumZelle|1991-07-16}}
+| {{DatumZelle|2014-02-28}}
+| {{DatumZelle|2008-07-01}}
+|
+|
+|-
+| {{PersonZelle|Walter|Drenseck}} (1941–2011)
+| {{DatumZelle|1984-02-13}}
+| {{DatumZelle|2006-09-30}}
+| {{DatumZelle|1998-02-01}}
+|
+|
+|-
+| {{PersonZelle|Ulrich|Dürr}} (* 1944)
+| {{DatumZelle|1993-03-01}}
+| {{DatumZelle|2009-01-31}}
+|
+|
+|
+|-
+| {{PersonZelle|Alfons|Dürschke}} (1894–1970)
+| {{DatumZelle|1950-10-21}}
+| {{DatumZelle|1962-10-31}}
+| {{DatumZelle|1960-05-09}}
+|
+|
+|-id="E"
+| {{PersonZelle|Iris|Ebling}} (* 1940)
+| {{DatumZelle|1984-02-13}}
+| {{DatumZelle|2005-05-31}}
+| {{DatumZelle|1998-05-01}}
+|
+| {{DatumZelle|1999-11-05}}
+|-
+| {{PersonZelle|Klaus|Ebling}} (* 1935)
+| {{DatumZelle|1975-06-16}}
+| {{DatumZelle|1999-10-31}}
+| {{DatumZelle|1990-01-01}}
+| {{DatumZelle|1998-02-01}}
+|
+|-
+| {{PersonZelle|Fritz|Edsperger}} (1911–1989)
+| {{DatumZelle|1966-07-01}}
+| {{DatumZelle|1974-04-30}}
+|
+|
+|
+|-
+| {{PersonZelle|Adolf|Effert}} (1897–1969)
+| {{DatumZelle|1955-02-01}}
+| {{DatumZelle|1964-11-30}}
+|
+|
+|
+|-
+| {{PersonZelle|Hans|Egly}} (1911–2003)
+| {{DatumZelle|1963-04-01}}
+| {{DatumZelle|1979-02-28}}
+| {{DatumZelle|1973-07-30}}
+|
+|
+|-
+| {{PersonZelle|Richard|Ehehalt}} (* 1944)
+| {{DatumZelle|1998-07-07}}
+| {{DatumZelle|2009-06-30}}
+|
+|
+|
+|-
+| {{PersonZelle|Wolfgang von|Eichborn}} (* 1948)
+| {{DatumZelle|1998-05-04}}
+| {{DatumZelle|2013-07-31}}
+|
+|
+|
+|-
+| {{PersonZelle|Anton|Erdweg}} (1923–1986)
+| {{DatumZelle|1971-07-01}}
+| {{DatumZelle|1986-11-21}}
+| {{DatumZelle|1986-03-01}}
+|
+|
+|-
+| {{PersonZelle|Günter|Ernst|k=Jurist}} (1915–1996)
+| {{DatumZelle|1970-08-28}}
+| {{DatumZelle|1980-09-30}}
+|
+|
+|
+|-id="F"
+| {{PersonZelle|Lothar|Fischer|k=Jurist, 1948}} (* 1948)
+| {{DatumZelle|1996-03-28}}
+| {{DatumZelle|2013-08-31}}
+|
+|
+|
+|-
+| {{PersonZelle|Peter|Fischer|k=Jurist}} (* 1942)
+| {{DatumZelle|1987-02-11}}
+| {{DatumZelle|2007-05-31}}
+| {{DatumZelle|2001-01-01}}
+|
+|
+|-
+| {{PersonZelle|Wilhelm|Fließbach}} (1901–1971)
+| {{DatumZelle|1952-04-01}}
+| {{DatumZelle|1968-10-31}}
+|
+|
+|
+|-
+| {{PersonZelle|Karl|Förger}} (1912–1985)
+| {{DatumZelle|1967-08-01}}
+| {{DatumZelle|1980-07-31}}
+|
+|
+|
+|-
+| {{PersonZelle|Jutta|Förster}} (* 1957)
+| {{DatumZelle|2007-07-02}}
+| {{DatumZelle|2023-08-31}}
+| {{DatumZelle|2018-11-29}}
+|
+|
+|-
+| {{PersonZelle|Kurt|Friedlaender}} (1894–1977)
+| {{DatumZelle|1952-01-01}}
+| {{DatumZelle|1962-08-31}}
+|
+|
+|
+|-
+| {{PersonZelle|Reiner|Fu}} (* 1967)
+| {{DatumZelle|2021-04-29}}
+|
+|
+|
+|
+|-
+| {{PersonZelle|Horst-Dieter|Fumi}} (* 1958)
+| {{DatumZelle|2015-10-02}}
+| {{DatumZelle|2023-10-31}}
+|
+|
+|
+|-
+| {{PersonZelle|Bert|Füssenich}} (* 1973)
+| {{DatumZelle|2018-11-01}}
+|
+|
+|
+|
+|-id="G"
+| {{PersonZelle|August|Galleiske}} (1890–1975)
+| {{DatumZelle|1952-01-29}}
+| {{DatumZelle|1958-07-31}}
+|
+|
+|
+|-
+| {{PersonZelle|Rolf|Gantenberg}} (1905–1968)
+| {{DatumZelle|1956-11-28}}
+| {{DatumZelle|1963-09-30}}
+|
+|
+|
+|-
+| {{PersonZelle|Carl|Geiger|k=Jurist}} (1890–1972)
+| {{DatumZelle|1951-04-21}}
+| {{DatumZelle|1958-09-30}}
+|
+|
+|
+|-
+| {{PersonZelle|Ute|Geisenberger}} (* 1976)
+| {{DatumZelle|2023-01-23}}
+|
+|
+|
+|
+|-
+| {{PersonZelle|Michael|Geissler|k=Jurist}} (* 1967)
+| {{DatumZelle|2010-11-01}}
+|
+|
+|
+|
+|-
+| {{PersonZelle|Günter|Geist}} (1925–2011)
+| {{DatumZelle|1974-04-10}}
+| {{DatumZelle|1991-10-31}}
+|
+|
+|
+|-
+| {{PersonZelle|Stephan|Geserich}} (* 1963)
+| {{DatumZelle|2008-11-06}}
+|
+|
+|
+|
+|-
+| {{PersonZelle|Hans|Görbing}} (1907–1990)
+| {{DatumZelle|1965-04-01}}
+| {{DatumZelle|1975-10-31}}
+|
+|
+|
+|-
+| {{PersonZelle|Roger|Görke}} (* 1957)
+| {{DatumZelle|2005-10-04}}
+| {{DatumZelle|2023-04-30}}
+|
+|
+|
+|-
+| {{PersonZelle|Hans-Günther|Gorski}} (* 1937)
+| {{DatumZelle|1987-01-20}}
+| {{DatumZelle|2002-03-31}}
+|
+|
+|
+|-
+| {{PersonZelle|Dietmar|Gosch}} (* 1950)
+| {{DatumZelle|1991-07-16}}
+| {{DatumZelle|2016-01-31}}
+| {{DatumZelle|2005-03-14}}
+|
+|
+|-
+| {{PersonZelle|Friedrich|Gräber}} (1915–1983)
+| {{DatumZelle|1963-10-01}}
+| {{DatumZelle|1983-04-30}}
+| {{DatumZelle|1974-11-13}}
+|
+|
+|-
+| {{PersonZelle|Adolf|Grass}} (1903–1979)
+| {{DatumZelle|1961-01-31}}
+| {{DatumZelle|1971-03-31}}
+|
+|
+|
+|-
+| {{PersonZelle|Christian|Graw}} (* 1975)
+| {{DatumZelle|2019-06-15}}
+|
+|
+|
+|
+|-
+| {{PersonZelle|Walter|Greite|k=Richter}} (* 1946)
+| {{DatumZelle|1998-08-03}}
+| {{DatumZelle|2011-11-30}}
+|
+|
+|
+|-
+| {{PersonZelle|Rudolf|Grieger}} (1905–1996)
+| {{DatumZelle|1955-11-30}}
+| {{DatumZelle|1973-04-30}}
+| {{DatumZelle|1962-10-15}}
+| {{DatumZelle|1964-01-30}}<ref>Grieger amtierte bis zum 16. Januar 1966 als Vizepräsident und war ab 17. Januar 1966 bis zu seinem Ausscheiden aus dem Dienst wieder Senatspräsident bzw. Vorsitzender Richter.</ref>
+|
+|-
+| {{PersonZelle|Claus|Grimm|k=Richter}} (1923–2008)
+| {{DatumZelle|1969-04-01}}
+| {{DatumZelle|1990-10-31}}
+| {{DatumZelle|1981-04-01}}
+| {{DatumZelle|1986-12-01}}
+|
+|-
+| {{PersonZelle|Manfred|Groh|k=Jurist}} (1933–2020)
+| {{DatumZelle|1979-10-16}}
+| {{DatumZelle|1998-03-31}}
+| {{DatumZelle|1991-02-04}}
+|
+|
+|-
+| {{PersonZelle|Rüdiger von|Groll}} (1937–2020)
+| {{DatumZelle|1986-06-30}}
+| {{DatumZelle|2002-02-28}}
+|
+|
+|
+|-
+| {{PersonZelle|Friederike|Grube}} (* 1961)
+| {{DatumZelle|2005-01-06}}
+| {{DatumZelle|2023-05-04}}
+|
+|
+|
+|-
+| {{PersonZelle|Georg|Grube|k=Richter}} (1935–2025)
+| {{DatumZelle|1984-02-13}}
+| {{DatumZelle|2000-12-31}}
+| {{DatumZelle|1995-11-01}}
+|
+|
+|-
+| {{PersonZelle|Hubertus|Gschwendtner}} (* 1940)
+| {{DatumZelle|1991-07-16}}
+| {{DatumZelle|2005-11-30}}
+|
+|
+|
+|-
+| {{PersonZelle|Walter|Günther|k=Jurist}} (1923–2008)
+| {{DatumZelle|1971-06-01}}
+| {{DatumZelle|1990-04-30}}
+|
+|
+|
+|-
+| {{PersonZelle|Lorenz|Gürsching}} (1895–1970)
+| {{DatumZelle|1953-06-01}}
+| {{DatumZelle|1963-04-30}}
+|
+|
+|
+|-id="H"
+| {{PersonZelle|Wilhelm|Hartz}} (1904–1989)
+| {{DatumZelle|1953-08-17}}
+| {{DatumZelle|1968-12-31}}
+| {{DatumZelle|1961-06-01}}
+|
+|
+|-
+| {{PersonZelle|Sabine|Haunhorst}} (* 1966)
+| {{DatumZelle|2015-04-09}}
+|
+|
+|
+|
+|-
+| {{PersonZelle|Erich|Hauter}} (1929–2018)
+| {{DatumZelle|1974-06-01}}
+| {{DatumZelle|1994-02-28}}
+| {{DatumZelle|1989-05-01}}
+|
+|
+|-
+| {{PersonZelle|Karin|Heger}} (* 1953)
+| {{DatumZelle|2000-09-19}}
+| {{DatumZelle|2018-10-31}}
+| {{DatumZelle|2012-04-12}}
+|
+|
+|-
+| {{PersonZelle|Hans-Hermann|Heidner}} (* 1957)
+| {{DatumZelle|2004-08-01}}
+| {{DatumZelle|2023-03-31}}
+| 
+|
+|
+|-
+| {{PersonZelle|Werner|Hein}} (* 1940)
+| {{DatumZelle|1984-02-13}}
+| {{DatumZelle|2005-12-31}}
+| {{DatumZelle|1998-02-01}}
+|
+|
+|-
+| {{PersonZelle|Horst|Heise}} (1925–2015)
+| {{DatumZelle|1971-07-01}}
+| {{DatumZelle|1991-06-30}}
+|
+|
+|
+|-
+| {{PersonZelle|Peter|Hellwig|k=Jurist}} (* 1933)
+| {{DatumZelle|1983-05-02}}
+| {{DatumZelle|1998-04-30}}
+| {{DatumZelle|1993-09-02}}
+|
+|
+|-
+| {{PersonZelle|Christian|Herden}} (* 1943)
+| {{DatumZelle|1985-04-01}}
+| {{DatumZelle|2008-06-30}}
+| {{DatumZelle|2000-06-28}}
+|
+|
+|-
+| {{PersonZelle|Andreas|Herlinghaus}} (* 1965)
+| {{DatumZelle|2009-09-01}}
+|
+|
+|
+|
+|-
+| {{PersonZelle|Horst|Hermstädt}} (1913–2003)
+| {{DatumZelle|1971-06-01}}
+| {{DatumZelle|1981-02-28}}
+|
+|
+|
+|-
+| {{PersonZelle|Hans-Joachim|Herrmann|k=Jurist}} (* 1936)
+| {{DatumZelle|1981-05-21}}
+| {{DatumZelle|2001-05-31}}
+| {{DatumZelle|1994-10-01}}
+|
+|
+|-
+| {{PersonZelle|Ludwig|Heßdörfer}} (1894–1988)
+| {{DatumZelle|1955-03-26}}
+| {{DatumZelle|1962-01-31}}
+|
+|
+| {{DatumZelle|1955-03-26}}
+|-
+| {{PersonZelle|Elvira|Hettler}} (* 1965)
+| {{DatumZelle|2010-11-01}}
+|30. Sep. 2025<ref>Ruhestand. Siehe Geschäftsverteilungsplan des BFH zum 1.10.2025.</ref>
+|
+|
+|
+|-
+| {{PersonZelle|Bernd|Heuermann}} (* 1954)
+| {{DatumZelle|2001-06-06}}
+|{{DatumZelle|2020-07-31}}
+| {{DatumZelle|2013-09-05}}
+|
+|
+|-
+| {{PersonZelle|Fritz|Hoffmann|k=Jurist}} (1895–1975)
+| {{DatumZelle|1950-10-21}}
+| {{DatumZelle|1963-01-31}}
+| {{DatumZelle|1957-01-04}}
+| {{DatumZelle|1960-12-16}}
+|
+|-
+| {{PersonZelle|Ruth|Hofmann|k=Rechtswissenschaftlerin}} (1933–2016)
+| {{DatumZelle|1976-02-02}}
+| {{DatumZelle|1998-01-31}}
+| {{DatumZelle|1991-06-01}}
+|
+|
+|-
+| {{PersonZelle|Ferdinand|Hofmeister}} (* 1940)
+| {{DatumZelle|1989-08-01}}
+| {{DatumZelle|2005-09-30}}
+|
+|
+|
+|-
+| {{PersonZelle|Friedrich|Hohrmann|k=Richter}} (* 1938)
+| {{DatumZelle|1991-07-16}}
+| {{DatumZelle|2003-09-30}}
+|
+|
+|
+|-
+| {{PersonZelle|Wilhelm|Hornstein}} (1893–1974)
+| {{DatumZelle|1956-11-29}}
+| {{DatumZelle|1961-12-31}}
+|
+|
+|
+|-
+| {{PersonZelle|Roberta|Hübner}} (* 1965)
+| {{DatumZelle|2009-09-01}}
+|
+| {{DatumZelle|2023-09-01}}
+|
+|
+|-
+| {{PersonZelle|Walter|Hübschmann}} (1888–1966)
+| {{DatumZelle|1950-10-21}}
+| {{DatumZelle|1956-12-31}}
+| {{DatumZelle|1952-02-15}}
+|
+|
+|-
+| {{PersonZelle|Gerhard|Huhn}} (1911–1962)
+| {{DatumZelle|1962-05-08}}
+| {{DatumZelle|1979-05-31}}
+| {{DatumZelle|1970-12-22}}
+|
+|
+|-
+| {{PersonZelle|Ulrich|Hutter}} (* 1942)
+| {{DatumZelle|1995-05-17}}
+| {{DatumZelle|2006-12-31}}
+|
+|
+|
+|-id="J"
+| {{PersonZelle|Monika|Jachmann-Michel}} (* 1963)
+| {{DatumZelle|2005-01-06}}
+|
+| {{DatumZelle|2016-04-01}}
+|
+|
+|-
+| {{PersonZelle|Adelheid|Jäger}} (* 1952)
+| {{DatumZelle|2002-10-01}}
+| {{DatumZelle|2015-09-15}}
+|
+|
+|
+|-
+| {{PersonZelle|Rudolf|Jansen|k=Jurist}} (1926–2012)
+| {{DatumZelle|1980-10-01}}
+| {{DatumZelle|1989-02-28}}
+|
+|
+|
+|-
+| {{PersonZelle|Harald|Jatzke}} (* 1959)
+| {{DatumZelle|2004-01-01}}
+| {{DatumZelle|2024-09-30}}
+| {{DatumZelle|2017-11-01}}
+|
+|
+|-
+| {{PersonZelle|Roland|Jüptner}} (* 1955)
+| {{DatumZelle|2003-08-01}}
+| {{DatumZelle|2008-12-31}}
+|
+|
+|
+|-id="K"
+| {{PersonZelle|Paul|Kaatz}} (1895–1980)
+| {{DatumZelle|1950-10-21}}
+| {{DatumZelle|1963-10-31}}
+| {{DatumZelle|1959-02-05}}
+|
+|
+|-
+| {{PersonZelle|Hans-Joachim|Kanzler}} (* 1946)
+| {{DatumZelle|1989-03-01}}
+| {{DatumZelle|2011-11-30}}
+| {{DatumZelle|2006-10-02}}
+|
+|
+|-
+| {{PersonZelle|Adelheid|Kaufmann}} (* 1939)
+| {{DatumZelle|1991-07-16}}
+| {{DatumZelle|2002-12-31}}
+|
+|
+|
+|-
+| {{PersonZelle|Michael|Kempermann}} (* 1944)
+| {{DatumZelle|1989-06-08}}
+| {{DatumZelle|2009-02-28}}
+|
+|
+|
+|-
+| {{PersonZelle|Heinrich|Kessel}} (1904–1980)
+| {{DatumZelle|1963-04-01}}
+| {{DatumZelle|1972-03-31}}
+|
+|
+|
+|-
+| {{PersonZelle|Rüdiger|Keßler}} (* 1934)
+| {{DatumZelle|1977-11-04}}
+| {{DatumZelle|1996-12-31}}
+| {{DatumZelle|1990-11-01}}
+|
+|
+|-
+| {{PersonZelle|Karl Rainer|Kilches}} (* 1945)
+| {{DatumZelle|1996-12-05}}
+| {{DatumZelle|2010-03-31}}
+|
+|
+|
+|-
+| {{PersonZelle|Franz|Klein|k=Rechtswissenschaftler}} (1929–2004)
+| {{DatumZelle|1983-04-01}}
+| {{DatumZelle|1994-09-30}}
+|
+|
+| {{DatumZelle|1983-04-01}}
+|-
+| {{PersonZelle|Otto|Klein|k=Jurist}} (1901–1964)
+| {{DatumZelle|1956-04-01}}
+| {{DatumZelle|1964-09-08}}
+|
+|
+|
+|-
+| {{PersonZelle|Friedrich|Klenk}} (* 1941)
+| {{DatumZelle|1990-06-01}}
+| {{DatumZelle|2006-01-31}}
+|
+|
+|
+|-
+| {{PersonZelle|Günther|Knopp}} (1913–1986)
+| {{DatumZelle|1966-07-01}}
+| {{DatumZelle|1981-03-31}}
+| {{DatumZelle|1976-02-01}}
+| {{DatumZelle|1978-05-01}}
+|
+|-
+| {{PersonZelle|Ulrike|Köhler}}
+| {{DatumZelle|2014-02-01}}
+|
+|
+|
+|
+|-
+| {{PersonZelle|Klaus|Köpp}} (* 1943)
+| {{DatumZelle|1991-10-02}}
+| {{DatumZelle|1994-07-31}}
+|
+|
+|
+|-
+| {{PersonZelle|Ludwig|Kronthaler}} (* 1957)
+| {{DatumZelle|2005-09-01}}
+| {{DatumZelle|2007-03-31}}
+|
+|
+|
+|-
+| {{PersonZelle|Roland|Krüger|k=Jurist}} (* 1966)
+| {{DatumZelle|2015-01-19}}
+|
+|
+|
+|
+|-
+| {{PersonZelle|Ulrich|Krüger|k=Jurist, 1953}} (* 1953)
+| {{DatumZelle|2003-09-02}}
+| {{DatumZelle|2018-10-31}}
+| {{DatumZelle|2013-09-05}}
+|
+|
+|-
+| {{PersonZelle|Herbert|Kuehn}} (1883–1968)
+| {{DatumZelle|1950-10-21}}
+| {{DatumZelle|1954-12-31}}
+|
+|
+|
+|-
+| {{PersonZelle|Anette|Kugelmüller-Pugh}} (* 1971)
+| {{DatumZelle|2016-01-11}}
+|
+|
+|
+|
+|-
+| {{PersonZelle|Egmont|Kulosa}} (* 1968)
+| {{DatumZelle|2010-11-01}}
+|
+|
+|
+|
+|-id="L"
+| {{PersonZelle|Walter|Lang|k=Jurist}} (* 1943)
+| {{DatumZelle|1990-11-02}}
+| {{DatumZelle|2008-03-31}}
+|
+|
+|
+|-
+| {{PersonZelle|Hans-Friedrich|Lange}} (* 1952)
+| {{DatumZelle|1997-09-01}}
+| {{DatumZelle|2017-10-31}}
+| {{DatumZelle|2011-10-12}}
+|
+|
+|-
+| {{PersonZelle|Wilhelm|Leingärtner}} (1924–1998)
+| {{DatumZelle|1971-06-01}}
+| {{DatumZelle|1990-09-30}}
+| {{DatumZelle|1986-12-01}}
+|
+|
+|-
+| {{PersonZelle|Axel|Leonard}} (* 1964)
+| {{DatumZelle|2017-09-01}}
+|30. Sept. 2022
+|
+|
+|
+|-
+| {{PersonZelle|Christian|Levedag}} (* 1971)
+| {{DatumZelle|2013-10-01}}
+|
+|
+|
+|
+|-
+| {{PersonZelle|Anton|Linder|k=Jurist}} (1913–2004)
+| {{DatumZelle|1964-06-18}}
+| {{DatumZelle|1980-12-31}}
+|
+|
+|
+|-
+| {{PersonZelle|Heinrich|List|k=Richter}} (1915–2018)
+| {{DatumZelle|1962-06-01}}
+| {{DatumZelle|1983-03-31}}
+| {{DatumZelle|1972-06-02}}
+| {{DatumZelle|1974-10-01}}
+| {{DatumZelle|1978-05-02}}
+|-
+| {{PersonZelle|Eberhard|Littmann}} (1909–1981)
+| {{DatumZelle|1959-06-18}}
+| {{DatumZelle|1974-07-31}}
+| {{DatumZelle|1971-06-02}}
+|
+|
+|-
+| {{PersonZelle|Gerhard|Loose|k=Richter}} (1924–2009)
+| {{DatumZelle|1973-08-09}}
+| {{DatumZelle|1990-05-31}}
+|
+|
+|
+|-
+| {{PersonZelle|Matthias|Loose}} (* 1965)
+| {{DatumZelle|2011-09-05}}
+|
+|
+|
+|
+|-
+| {{PersonZelle|Friedrich|Loschelder}} (* 1968)
+| {{DatumZelle|2016-09-01}}
+|
+|
+|
+|
+|-
+| {{PersonZelle|Walter|Löwe}} (1935–2019)
+| {{DatumZelle|1976-05-01}}
+| {{DatumZelle|1984-01-31}}
+|
+|
+|
+|-id="M"
+| {{PersonZelle|Heinz|Malitzky}} (1903–1995)
+| {{DatumZelle|1959-06-01}}
+| {{DatumZelle|1971-07-31}}
+|
+|
+|
+|-
+| {{PersonZelle|Herbert|Mann|k=Jurist}} (1918–2001)
+| {{DatumZelle|1968-11-01}}
+| {{DatumZelle|1983-12-31}}
+|
+|
+|
+|-
+| {{PersonZelle|Peter|Manz}} (* 1951)
+| {{DatumZelle|2002-10-01}}
+| {{DatumZelle|2016-08-31}}
+|
+|
+|
+|-
+| {{PersonZelle|Alfons|Mark}} (1925–2012)
+| {{DatumZelle|1980-08-01}}
+| {{DatumZelle|1989-07-31}}
+|
+|
+|
+|-
+| {{PersonZelle|Markus|Märtens}} (* 1962)
+| {{DatumZelle|2006-08-01}}
+|
+|
+|
+|
+|-
+| {{PersonZelle|Suse|Martin}} (* 1949)
+| {{DatumZelle|1991-07-16}}
+| {{DatumZelle|2013-08-31}}
+| {{DatumZelle|2008-01-01}}
+|
+|
+|-
+| {{PersonZelle|Ruben|Martini}} (* 1982)
+| {{DatumZelle|2023-04-01}}
+|
+|
+|
+|
+|-
+| {{PersonZelle|Walter|Mathiak}} (1930–2013)
+| {{DatumZelle|1980-06-03}}
+| {{DatumZelle|1995-11-30}}
+|
+|
+|
+|-
+| {{PersonZelle|Gerhard|Mattern}} (1903–1992)
+| {{DatumZelle|1962-05-08}}
+| {{DatumZelle|1971-08-31}}
+|
+|
+|
+|-
+| {{PersonZelle|Rudolf|Mellinghoff}} (* 1954)
+| {{DatumZelle|1997-01-02}}<ref>Mellinghoff war vom 23. Januar 2001 bis zum 31. Oktober 2011 Richter des Bundesverfassungsgerichts und kehrte an den Bundesfinanzhof zurück, um das Amt des Präsidenten zu übernehmen.</ref>
+|{{DatumZelle|2020-07-31}}
+| {{DatumZelle|2011-10-31}}
+|
+| {{DatumZelle|2011-10-31}}
+|-
+| {{PersonZelle|Hans|Mensching}} (1891–1964)
+| {{DatumZelle|1950-10-21}}
+| {{DatumZelle|1955-10-31}}
+|
+|
+|
+|-
+| {{PersonZelle|Wolfgang|Mersmann}} (1902–1973)
+| {{DatumZelle|1962-04-13}}
+| {{DatumZelle|1970-06-30}}
+|
+|
+| {{DatumZelle|1962-04-13}}
+|-
+| {{PersonZelle|Christine|Meßbacher-Hönsch}} (* 1955)
+| {{DatumZelle|2006-10-02}}
+| {{DatumZelle|2020-10-31}}<ref>[https://www.bundesfinanzhof.de/de/presse/pressemeldungen/detail/vizepraesidentin-des-bundesfinanzhofs-christine-messbacher-hoensch-tritt-in-den-ruhestand/ ''Vizepräsidentin des Bundesfinanzhofs Christine Meßbacher-Hönsch tritt in den Ruhestand''] Pressemitteilung des Bundesfinanzhofs Nr. 048/20 vom 29.&nbsp;Oktober 2020</ref>
+| {{DatumZelle|2016-04-01}}
+| {{DatumZelle|2019-04-09}}
+|
+|-
+| {{PersonZelle|Kurt|Meßmer}} (1922–2012)
+| {{DatumZelle|1966-07-01}}
+| {{DatumZelle|1989-04-30}}
+| {{DatumZelle|1978-06-01}}
+|
+|
+|-
+| {{PersonZelle|Gerhard|Michel}} (* 1960)
+| {{DatumZelle|2008-06-02}}
+| {{DatumZelle|2024-01-31}}
+|
+|
+|
+|-
+| {{PersonZelle|Otfried|Michl}} (* 1959)
+| {{DatumZelle|2009-08-03}}
+| {{DatumZelle|2025-07-31}}
+|
+|
+|
+|-
+| {{PersonZelle|Viktor|Morbach}} (1924–2021)
+| {{DatumZelle|1975-12-18}}
+| {{DatumZelle|1984-08-31}}
+|
+|
+|
+|-
+| {{PersonZelle|Joachim|Moritz}} (* 1949)
+| {{DatumZelle|2001-10-01}}
+| {{DatumZelle|2015-02-28}}
+|
+|
+|
+|-
+| {{PersonZelle|Gerhard|Mößlang}} (* 1938)
+| {{DatumZelle|1984-02-13}}
+| {{DatumZelle|2003-01-31}}
+| {{DatumZelle|1997-02-13}}
+|
+|
+|-
+| {{PersonZelle|Hans|Müller|k=Politiker, 1884}} (1884–1961)
+| {{DatumZelle|1951-04-21}}
+| {{DatumZelle|1954-12-31}}
+|
+|
+| {{DatumZelle|1951-04-21}}
+|-
+| {{PersonZelle|Klaus Peter|Müller-Eiselt}} (* 1946)
+| {{DatumZelle|1991-07-26}}
+| {{DatumZelle|2011-04-30}}
+| {{DatumZelle|2006-01-11}}
+|
+|
+|-id="N"
+| {{PersonZelle|Alois Th.|Nacke|Alois Nacke}} (* 1960)
+| {{DatumZelle|2016-01-11}}
+|
+|
+|
+|
+|-
+| {{PersonZelle|Rudolf|Nergert}} (1908–1991)
+| {{DatumZelle|1965-03-29}}
+| {{DatumZelle|1973-09-30}}
+|
+|
+|
+|-
+| {{PersonZelle|Gisela|Niemeyer}} (1923–2012)
+| {{DatumZelle|1972-09-01}}
+| {{DatumZelle|1975-07-31}}
+|
+|
+|
+|-
+| {{PersonZelle|Helmut|Nieuwenhuis}} (* 1952)
+| {{DatumZelle|2007-05-02}}
+| {{DatumZelle|2017-08-31}}<ref>[https://www.bundesfinanzhof.de/de/presse/pressemeldungen/detail/richter-am-bundesfinanzhof-dr-helmut-nieuwenhuis-tritt-in-den-ruhestand/ ''Richter am Bundesfinanzhof Dr. Helmut Nieuwenhuis tritt in den Ruhestand''] Pressemitteilung des Bundesfinanzhofs Nr. 055/17 vom 31.&nbsp;August 2017</ref>
+|
+|
+|
+|-
+| {{PersonZelle|Karl-Heinz|Nissen}} (1918–2000)
+| {{DatumZelle|1969-03-01}}
+| {{DatumZelle|1986-11-30}}
+| {{DatumZelle|1979-03-09}}
+| {{DatumZelle|1981-04-01}}
+|
+|-
+| {{PersonZelle|Gregor|Nöcker}} (* 1967)
+| {{DatumZelle|2012-08-09}}
+|
+|
+|
+|
+|-
+| {{PersonZelle|Reinhard|Nothnagel}} (* 1949)
+| {{DatumZelle|2006-10-02}}
+| {{DatumZelle|2014-11-30}}
+|
+|
+|
+|-id="O"
+| {{PersonZelle|Klaus|Offerhaus}} (1934–2019)
+| {{DatumZelle|1975-12-01}}
+| {{DatumZelle|1999-10-31}}
+| {{DatumZelle|1988-06-01}}
+| {{DatumZelle|1990-11-01}}
+| {{DatumZelle|1994-10-01}}
+|-
+| {{PersonZelle|Frank Florian|Olbertz}} (1932–2009)
+| {{DatumZelle|1984-11-05}}
+| {{DatumZelle|1997-12-31}}
+|
+|
+|
+|-
+| {{PersonZelle|Wilhelm|Otto|k=Jurist}} (1900–1970)
+| {{DatumZelle|1950-10-21}}
+| {{DatumZelle|1968-03-31}}
+| {{DatumZelle|1963-02-16}}
+| {{DatumZelle|1966-01-17}}
+|
+|-id="P"
+| {{PersonZelle|Werner|Paasche}} (1887–1958)
+| {{DatumZelle|1950-10-21}}
+| {{DatumZelle|1956-12-31}}
+| {{DatumZelle|1950-10-21}}
+| {{DatumZelle|1956-05-24}}
+|
+|-
+| {{PersonZelle|Klaus|Padberg}} (1932–2016)
+| {{DatumZelle|1979-08-13}}
+| {{DatumZelle|1997-08-31}}
+|
+|
+|
+|-
+| {{PersonZelle|Armin|Pahlke}} (* 1951)
+| {{DatumZelle|2002-08-14}}
+| {{DatumZelle|2015-12-31}}
+|
+|
+|
+|-
+| {{PersonZelle|Stefan|Paul}} (* 1976)
+| {{DatumZelle|2022-04-01}}
+|
+|
+|
+|
+|-
+| {{PersonZelle|Hans-Ulrich|Penndorf}} (1904–1958)
+| {{DatumZelle|1955-03-26}}
+| {{DatumZelle|1958-10-11}}
+|
+|
+|
+|-
+| {{PersonZelle|Franziska|Peters}} (* 1979)
+| {{DatumZelle|2023-01-01}}
+|
+|
+|
+|
+|-
+| {{PersonZelle|Heinz-Jürgen|Pezzer}} (* 1950)
+| {{DatumZelle|1991-07-26}}
+| {{DatumZelle|2015-11-30}}
+| {{DatumZelle|2009-01-01}}
+|
+|
+|-
+| {{PersonZelle|Hubertus|Pfeiffer}} (1918–2002)
+| {{DatumZelle|1971-12-01}}
+| {{DatumZelle|1986-01-31}}
+|
+|
+|
+|-
+| {{PersonZelle|Thomas|Pfeiffer|k=Jurist, 1940}} (1940–2025)
+| {{DatumZelle|1991-07-16}}
+| {{DatumZelle|1993-05-31}}
+|
+|
+|
+|-
+| {{PersonZelle|Volker|Pfirrmann}} (* 1966)
+| {{DatumZelle|2011-09-05}}
+|
+| {{DatumZelle|2025-03-13}}
+|
+|
+|-
+| {{PersonZelle|Konrad|Plückebaum}} (1895–1970)
+| {{DatumZelle|1953-06-01}}
+| {{DatumZelle|1959-03-31}}
+|
+|
+|
+|-
+| {{PersonZelle|Karl|Prugger}} (1926–2003)
+| {{DatumZelle|1967-10-02}}
+| {{DatumZelle|1991-01-31}}
+|
+|
+|
+|-
+| {{PersonZelle|Hartmut|Pust}} (* 1956)
+| {{DatumZelle|2000-01-13}}
+| {{DatumZelle|2003-03-31}}
+|
+|
+|
+|-id="R"
+| {{PersonZelle|Wolfgang|Rademacher}} (1909–1995)
+| {{DatumZelle|1963-04-01}}
+| {{DatumZelle|1977-11-30}}
+|
+|
+|
+|-
+| {{PersonZelle|Hans-Georg|Rahn}} (1906–1982)
+| {{DatumZelle|1958-08-01}}
+| {{DatumZelle|1974-05-31}}
+| {{DatumZelle|1967-08-01}}
+|
+|
+|-
+| {{PersonZelle|Friedrich|Raps|k=Jurist}} (1889–1964)
+| {{DatumZelle|1950-10-21}}
+| {{DatumZelle|1957-06-30}}
+|
+|
+|
+|-
+| {{PersonZelle|Eckart|Ratschow}} (* 1966)
+| {{DatumZelle|2008-11-06}}
+|
+|
+|
+|
+|-
+| {{PersonZelle|Steffen Gregor|Rauch}} (* 1964)
+| {{DatumZelle|2009-09-01}}
+|
+|
+|
+|
+|-
+| {{PersonZelle|Jens|Reddig}} (* 1975)
+| {{DatumZelle|2018-06-01}}
+|
+|
+|
+|
+|-
+| {{PersonZelle|Erhard|Reinert}} (1909–1973)
+| {{DatumZelle|1967-10-01}}
+| {{DatumZelle|1973-08-01}}
+|
+|
+|
+|-
+| {{PersonZelle|Max|Rid}} (1925–2021)
+| {{DatumZelle|1968-09-01}}
+| {{DatumZelle|1991-05-31}}
+| {{DatumZelle|1979-06-28}}
+|
+|
+|-
+| {{PersonZelle|Karl|Ringleb}} (1908–1988)
+| {{DatumZelle|1956-11-22}}
+| {{DatumZelle|1976-01-31}}
+| {{DatumZelle|1967-09-01}}
+|
+|
+|-
+| {{PersonZelle|Martin|Roederer}} (1893–1968)
+| {{DatumZelle|1950-10-21}}
+| {{DatumZelle|1960-04-30}}
+| {{DatumZelle|1956-05-01}}
+| {{DatumZelle|1957-01-01}}
+|
+|-
+| {{PersonZelle|Klemens|Rogge}} (1895–1980)
+| {{DatumZelle|1957-01-04}}
+| {{DatumZelle|1963-12-31}}
+| {{DatumZelle|1957-01-04}}
+| {{DatumZelle|1963-02-27}}
+|
+|-
+| {{PersonZelle|Katja|Roth}} (* 1974)
+| {{DatumZelle|2015-08-01}}
+|
+|
+|
+|
+|-
+| {{PersonZelle|Reinhild|Ruban}} (* 1944)
+| {{DatumZelle|1986-10-01}}
+| {{DatumZelle|2008-12-31}}
+| {{DatumZelle|2001-06-01}}
+|
+|
+|-
+| {{PersonZelle|Reinhart|Rüsken}} (* 1948)
+| {{DatumZelle|1995-06-02}}
+| {{DatumZelle|2014-01-31}}
+|
+|
+|
+|-
+| {{PersonZelle|Gustav|Ruyter}} (1894–1973)
+| {{DatumZelle|1952-01-24}}
+| {{DatumZelle|1962-10-31}}
+|
+|
+|
+|-id="S"
+| {{PersonZelle|Hans-Joachim|Sack}} (* 1940)
+| {{DatumZelle|1989-05-02}}
+| {{DatumZelle|2003-12-31}}
+|
+|
+|
+|-
+| {{PersonZelle|Ulrich|Schallmoser}} (* 1965)
+| {{DatumZelle|2008-09-01}}
+|
+| {{DatumZelle|2023-01-23}}
+|
+|
+|-
+| {{PersonZelle|Heinz|Schellenberger}} (* 1922)
+| {{DatumZelle|1970-06-18}}
+| {{DatumZelle|1989-12-31}}
+| {{DatumZelle|1984-02-13}}
+|
+|
+|-
+| {{PersonZelle|Karl|Schettler}} (1902–1969)
+| {{DatumZelle|1961-01-01}}
+| {{DatumZelle|1967-07-31}}
+|
+|
+|
+|-
+| {{PersonZelle|Harald|Schießl}} (1974–2022)
+| {{DatumZelle|2015-04-09}}
+| {{DatumZelle|2022-12-01}}
+|
+|
+|
+|-
+| {{PersonZelle|Manfred|Schmid|k=Jurist}} (* 1952)
+| {{DatumZelle|2004-08-01}}
+| {{DatumZelle|2018-05-31}}
+|
+|
+|
+|-
+| {{PersonZelle|Ludwig|Schmidt|k=Rechtswissenschaftler}} (1928–2011)
+| {{DatumZelle|1971-12-01}}
+| {{DatumZelle|1993-08-31}}
+| {{DatumZelle|1987-01-20}}
+|
+|
+|-
+| {{PersonZelle|Heinrich|Schmittmann}} (1878–1956)
+| {{DatumZelle|1950-10-21}}
+| {{DatumZelle|1951-04-30}}
+|
+|
+| {{DatumZelle|1950-10-21}}
+|-
+| {{PersonZelle|Fabian|Schmitz-Herscheidt}} (* 1977)
+| {{DatumZelle|2023-07-01}}
+|
+|
+|
+|
+|-
+|{{PersonZelle|Stefan|Schneider|k=Jurist}} (* 1956)
+| {{DatumZelle|2006-01-01}}
+| {{DatumZelle|2022-09-30}}
+| {{DatumZelle|2016-04-01}}
+|
+|
+|-
+| {{PersonZelle|Rolf-Detlev|Scholtz}} (1925–2013)
+| {{DatumZelle|1981-05-21}}
+| {{DatumZelle|1991-10-31}}
+|
+|
+|
+|-
+| {{PersonZelle|Rüdiger Freiherr von|Schönberg}} (* 1940)
+| {{DatumZelle|1986-12-01}}
+| {{DatumZelle|2005-11-30}}
+|
+|
+|
+|-
+| {{PersonZelle|Hannes|Schönfelder}} (* 1945)
+| {{DatumZelle|2001-09-05}}
+| {{DatumZelle|2010-01-31}}
+|
+|
+|
+|-
+| {{PersonZelle|Theodor|Schulz|k=Jurist}} (1902–1978)
+| {{DatumZelle|1957-07-01}}
+| {{DatumZelle|1967-07-31}}
+| {{DatumZelle|1963-05-27}}
+|
+|
+|-
+| {{PersonZelle|Silvia|Schuster}} (* 1952)
+| {{DatumZelle|2000-09-07}}
+| {{DatumZelle|2018-06-30}}
+| {{DatumZelle|2011-08-24}}
+| {{DatumZelle|2016-04-01}}
+|
+|-
+| {{PersonZelle|Sandy|Schüler-Täsch}} (* 1974)
+| {{DatumZelle|2023-10-01}}
+|
+|
+|
+|
+|-
+| {{PersonZelle|Ludwig|Schütz|k=Jurist}} (1892–1979)
+| {{DatumZelle|1952-02-13}}
+| {{DatumZelle|1960-10-31}}
+|
+|
+|
+|-
+| {{PersonZelle|Friedrich-Karl|Schwakenberg}} (* 1944)
+| {{DatumZelle|1987-09-01}}
+| {{DatumZelle|2007-04-14}}
+| {{DatumZelle|2003-03-10}}
+|
+|
+|-
+| {{PersonZelle|Otfried|Schwarz}} (1912–1999)
+| {{DatumZelle|1967-08-01}}
+| {{DatumZelle|1980-05-31}}
+|
+|
+|
+|-
+| {{PersonZelle|Klaus|Schwendy|k=Richter, Bundesfinanzhof}} (1928–2025)
+| {{DatumZelle|1974-12-19}}
+| {{DatumZelle|1993-02-28}}
+|
+|
+|
+|-
+| {{PersonZelle|Michael|Schwenke|k=Richter}} (* 1966)
+| {{DatumZelle|2009-07-15}}
+|
+|
+|
+|
+|-
+| {{PersonZelle|Wilhelm|Schwetz}} (1897–1981)
+| {{DatumZelle|1957-07-26}}
+| {{DatumZelle|1964-01-31}}
+|
+|
+|
+|-
+| {{PersonZelle|Siegbert|Seeger}} (* 1938)
+| {{DatumZelle|1984-02-13}}
+| {{DatumZelle|1989-06-06}}
+|
+|
+|
+|-
+| {{PersonZelle|Gerhard|Seeliger|k=Jurist}} (1925–1997)
+| {{DatumZelle|1975-12-18}}
+| {{DatumZelle|1991-02-28}}
+|
+|
+|
+|-
+| {{PersonZelle|Johannes|Selder}} (* 1956)
+| {{DatumZelle|2007-06-01}}
+| {{DatumZelle|2022-08-31}}
+|
+|
+|
+|-
+| {{PersonZelle|Ellen|Siegers}} (* 1961)
+| {{DatumZelle|2014-03-01}}
+| {{DatumZelle|2025-03-31}}
+|
+|
+|
+|-
+| {{PersonZelle|Heinrich|Sigloch}} (1920–1998)
+| {{DatumZelle|1964-06-22}}
+| {{DatumZelle|1986-02-28}}
+| {{DatumZelle|1978-10-01}}
+|
+|
+|-
+| {{PersonZelle|August|Sillem}} (1896–1980)
+| {{DatumZelle|1956-05-01}}
+| {{DatumZelle|1964-02-29}}
+|
+|
+|
+|-
+| {{PersonZelle|Werner|Simeon}} (1909–1987)
+| {{DatumZelle|1963-11-01}}
+| {{DatumZelle|1977-10-31}}
+|
+|
+|
+|-
+| {{PersonZelle|Günter|Söffing}} (1927–2008)
+| {{DatumZelle|1980-06-03}}
+| {{DatumZelle|1992-02-28}}
+|
+|
+|
+|-
+| {{PersonZelle|Otto|Sölch}} (1888–1971)
+| {{DatumZelle|1950-10-21}}
+| {{DatumZelle|1956-12-31}}
+| {{DatumZelle|1951-03-29}}
+|
+|
+|-
+| {{PersonZelle|Günter|Sondergeld}} (1948–1994)
+| {{DatumZelle|1992-03-03}}
+| {{DatumZelle|1994-07-26}}
+|
+|
+|
+|-
+| {{PersonZelle|Wolfgang|Spindler|k=Jurist}} (* 1946)
+| {{DatumZelle|1991-07-26}}
+| {{DatumZelle|2011-03-31}}
+|
+| {{DatumZelle|2000-01-28}}
+| {{DatumZelle|2005-06-01}}
+|-
+| {{PersonZelle|Rolf|Steinhardt}} (1909–1987)
+| {{DatumZelle|1963-08-01}}
+| {{DatumZelle|1977-12-31}}
+| {{DatumZelle|1974-11-13}}
+|
+|
+|-
+| {{PersonZelle|Dieter|Steinhauff}} (* 1943)
+| {{DatumZelle|1991-11-04}}
+| {{DatumZelle|2008-10-31}}
+|
+|
+|
+|-
+| {{PersonZelle|Eberhard|Stendel}} (1913–1997)
+| {{DatumZelle|1968-09-01}}
+| {{DatumZelle|1981-01-31}}
+|
+|
+|
+|-
+| {{PersonZelle|Alfons|Stenger}} (1900–1988)
+| {{DatumZelle|1961-01-01}}
+| {{DatumZelle|1968-08-31}}
+|
+|
+|
+|-
+| {{PersonZelle|Henrik|Stutzmann}} (* 1970)
+| {{DatumZelle|2013-12-01}}
+|
+|
+|
+|
+|-
+| {{PersonZelle|Reinhard|Sunder-Plassmann}} (1936–2017)
+| {{DatumZelle|1981-06-16}}
+| {{DatumZelle|2001-10-31}}
+| {{DatumZelle|1994-03-01}}
+|
+|
+|-id="T"
+| {{PersonZelle|Michaela|Teller}} (* 1975)
+| {{DatumZelle|2016-02-01}}
+|
+|
+|
+|
+|-
+| {{PersonZelle|Hans-Josef|Thesling}} (* 1961)
+| {{DatumZelle|2022-01-25}}
+| 
+| {{DatumZelle|2022-01-25}}
+|
+| {{DatumZelle|2022-01-25}}
+|-
+| {{PersonZelle|Michael-Ingo|Thomas}} (* 1943)
+| {{DatumZelle|1987-01-20}}
+| {{DatumZelle|2008-02-29}}
+|
+|
+|
+|-
+| {{PersonZelle|Bernd|Thürmer}} (* 1943)
+| {{DatumZelle|1992-06-01}}
+| {{DatumZelle|2008-10-31}}
+|
+|
+|
+|-
+| {{PersonZelle|Hans|Timm}} (1902–1988)
+| {{DatumZelle|1964-07-01}}
+| {{DatumZelle|1970-01-31}}
+|
+|
+|
+|-
+| {{PersonZelle|Andreas|Treiber}} (* 1971)
+| {{DatumZelle|2013-08-01}}
+|
+|
+|
+|
+|-
+| {{PersonZelle|Nils|Trossen}} (* 1970)
+| {{DatumZelle|2013-10-01}}
+|
+|
+|
+|
+|-
+| {{PersonZelle|Degenhard Freiherr von|Twickel}} (* 1949)
+| {{DatumZelle|2003-08-01}}
+| {{DatumZelle|2013-09-15}}
+|
+|
+|
+|-id="U"
+| {{PersonZelle|Karl|Ullrich|k=Jurist}} (1894–1984)
+| {{DatumZelle|1955-02-01}}
+| {{DatumZelle|1962-04-30}}
+| {{DatumZelle|1958-09-18}}
+|
+|
+|-id="V"
+| {{PersonZelle|Friedrich|Vangerow}} (1889–1976)
+| {{DatumZelle|1952-01-21}}
+| {{DatumZelle|1957-05-31}}
+|
+|
+|
+|-
+| {{PersonZelle|Hermann-Ulrich|Viskorf}} (* 1950)
+| {{DatumZelle|1991-07-26}}
+| {{DatumZelle|2015-07-31}}
+| {{DatumZelle|2007-04-16}}
+| {{DatumZelle|2008-01-08}}
+|
+|-
+| {{PersonZelle|Jochen|Vogler}} (1928–2001)
+| {{DatumZelle|1971-07-01}}
+| {{DatumZelle|1973-02-15}}
+|
+|
+|
+|-
+| {{PersonZelle|Ernst|Voigt|k=Richter}} (1908–1983)
+| {{DatumZelle|1964-01-01}}
+| {{DatumZelle|1976-04-30}}
+|
+|
+|
+|-
+| {{PersonZelle|Monika|Völlmeke}} (1946–2017)
+| {{DatumZelle|1990-10-01}}
+| {{DatumZelle|2011-08-31}}
+| {{DatumZelle|2005-06-01}}
+|
+|
+|-id="W"
+| {{PersonZelle|Dieter|Wachweger}} (1919–1992)
+| {{DatumZelle|1978-07-01}}
+| {{DatumZelle|1986-09-30}}
+|
+|
+|
+|-
+| {{PersonZelle|Roland|Wacker}} (* 1955)
+| {{DatumZelle|1998-01-08}}
+| {{DatumZelle|2020-12-31}}<ref>{{Internetquelle |url=https://www.bundesfinanzhof.de/de/presse/pressemeldungen/detail/prof-dr-roland-wacker-tritt-in-den-ruhestand/ |titel=Prof. Dr. Roland Wacker tritt in den Ruhestand |abruf=2020-12-31 |werk=Pressemitteilung Nr. 061/20 |hrsg=Bundesfinanzhof |datum=2020-12-30}}</ref>
+| {{DatumZelle|2016-04-01}}
+|
+|
+|-
+| {{PersonZelle|Christoph|Wäger}} (* 1965)
+| {{DatumZelle|2007-08-01}}
+|
+| {{DatumZelle|2022-03-01}}
+|
+|
+|-
+| {{PersonZelle|Katharina|Wagner|k=Juristin}} (* 1969)
+| {{DatumZelle|2022-11-01}}
+|
+|
+|
+|
+|-
+| {{PersonZelle|Wilfried|Wagner|k=Jurist}} (* 1942)
+| {{DatumZelle|1985-04-01}}
+| {{DatumZelle|2007-12-31}}
+| {{DatumZelle|1999-12-22}}
+| {{DatumZelle|2005-06-01}}
+|
+|-
+| {{PersonZelle|Anja|Wald}} (* 1971)
+| {{DatumZelle|2023-05-01}}
+|
+|
+|
+|
+|-
+| {{PersonZelle|Hugo von|Wallis}} (1910–1993)
+| {{DatumZelle|1957-07-31}}
+| {{DatumZelle|1978-04-30}}
+| {{DatumZelle|1970-04-13}}
+|
+| {{DatumZelle|1970-07-01}}
+|-
+| {{PersonZelle|Franz|Wassermeyer}} (* 1940)
+| {{DatumZelle|1984-02-13}}
+| {{DatumZelle|2005-02-28}}
+| {{DatumZelle|1998-04-02}}
+|
+|
+|-
+| {{PersonZelle|Günther|Wauer}} (1906–1985)
+| {{DatumZelle|1955-02-01}}
+| {{DatumZelle|1974-05-31}}
+| {{DatumZelle|1964-01-01}}
+| {{DatumZelle|1968-04-24}}
+|
+|-
+| {{PersonZelle|Rudolf|Weber-Fas}} (1933–2014)
+| {{DatumZelle|1974-06-01}}
+| {{DatumZelle|1975-10-22}}
+|
+|
+|
+|-
+| {{PersonZelle|Heinrich|Weber-Grellet}} (* 1948)
+| {{DatumZelle|1990-05-02}}
+| {{DatumZelle|2013-07-31}}
+| {{DatumZelle|2007-06-01}}
+|
+|
+|-
+| {{PersonZelle|Antje|Weihs}} (* 1968)
+| {{DatumZelle|2018-09-10}}
+|
+|
+|
+|
+|-
+| {{PersonZelle|Eberhard|Weiß|k=Jurist}} (* 1928)
+| {{DatumZelle|1972-07-28}}
+| {{DatumZelle|1993-09-30}}
+|
+|
+|
+|-
+| {{PersonZelle|Rainer|Wendl}} (* 1964)
+| {{DatumZelle|2011-09-05}}
+|
+| {{DatumZelle|2023-09-01}}
+|
+|
+|-
+| {{PersonZelle|Michael|Wendt|k=Jurist}} (* 1955)
+| {{DatumZelle|1996-03-28}}
+| {{DatumZelle|2021-08-31}}
+| {{DatumZelle|2010-11-01}}
+|
+|
+|-
+| {{PersonZelle|Hermann|Wennrich}} (1892–1974)
+| {{DatumZelle|1950-10-21}}
+| {{DatumZelle|1960-09-30}}
+| {{DatumZelle|1956-11-01}}
+| {{DatumZelle|1960-05-01}}
+|
+|-
+| {{PersonZelle|Franceska|Werth}} (* 1968)
+| {{DatumZelle|2012-06-18}}
+|
+| {{DatumZelle|2023-01-23}}
+|
+|
+|-
+| {{PersonZelle|Alfons|Wetter}} (1894–1958)
+| {{DatumZelle|1950-10-21}}
+| {{DatumZelle|1958-12-25}}
+| {{DatumZelle|1957-01-04}}
+|
+|
+|-
+| {{PersonZelle|Rüdiger|Wick}} (* 1971)
+| {{DatumZelle|2018-11-01}}
+|
+|
+|
+|
+|-
+| {{PersonZelle|Siegfried|Widmann}} (1935–2023)
+| {{DatumZelle|1981-05-21}}
+| {{DatumZelle|2000-05-31}}
+| {{DatumZelle|1992-05-01}}
+|
+|
+|-
+| {{PersonZelle|Katja|Wiesmann}} (* 1972)
+| {{DatumZelle|2017-11-01}}
+|
+|
+|
+|
+|-
+| {{PersonZelle|Sven-Christian|Witt}} (* 1967)
+| {{DatumZelle|2013-08-01}}
+|
+|
+|
+|
+|-
+| {{PersonZelle|Meinhard|Wittwer}} (* 1961)
+| {{DatumZelle|2006-10-02}}
+|
+| {{DatumZelle|2018-11-29}}
+| {{DatumZelle|2022-11-21}}
+|
+|-
+| {{PersonZelle|Lothar|Woerner}} (1930–2000)
+| {{DatumZelle|1971-06-01}}
+| {{DatumZelle|1995-10-31}}
+| {{DatumZelle|1986-12-22}}
+|
+|
+|-
+| {{PersonZelle|Bernhard|Wolff|k=Richter}} (1886–1966)
+| {{DatumZelle|1950-10-21}}
+| {{DatumZelle|1951-09-06}}
+|
+|
+|
+|-
+| {{PersonZelle|Johannes|Wolff-Diepenbrock}} (* 1937)
+| {{DatumZelle|1987-02-11}}
+| {{DatumZelle|2002-12-31}}
+|
+|
+|
+|-
+| {{PersonZelle|Curt|Wolffheim}} (1890–1974)
+| {{DatumZelle|1951-04-21}}
+| {{DatumZelle|1955-07-31}}
+|
+|
+|
+|-
+| {{PersonZelle|Paul|Wollny}} (1925–2007)
+| {{DatumZelle|1973-07-24}}
+| {{DatumZelle|1991-09-30}}
+|
+|
+|
+|}
+
+<references />
+
+== Literatur ==
+* Bundesfinanzhof (Hrsg.): ''60 Jahre Bundesfinanzhof. Eine Chronik.'' Stollfuß, Bonn 2010, ISBN 978-3-08-470510-8, S. 501–522.
+* [[Deutscher Richterbund]] (Hrsg.): ''Handbuch der Justiz 2012/2013. Die Träger und Organe der rechtsprechenden Gewalt in der Bundesrepublik Deutschland. 31. Jahrgang.'' C.F. Müller Verlag, Heidelberg u.&nbsp;a. 2012, ISBN 978-3-8114-3631-2, S. 14.
+
+== Weblinks ==
+* [https://www.bundesfinanzhof.de/de/presse/pressemitteilungen/ Pressemitteilungen des Bundesfinanzhofs seit 2010]
+
+[[Kategorie:Richter (Bundesfinanzhof)| ]]
+[[Kategorie:Liste (Richter)|Bundesfinanzhof]]
