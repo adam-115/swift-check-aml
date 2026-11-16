@@ -1,6 +1,7 @@
 package com.swiftcheck.aml.plugins.depep.defencemarine;
 
 import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.net.http.HttpClient;
@@ -145,6 +146,14 @@ public class DePepDefenceMarineParser implements Iparser {
         List<String> brokenSources = new ArrayList<>();
         List<String> warnings = new ArrayList<>();
 
+        if (ctx.rawDir() != null) {
+            try {
+                Files.createDirectories(ctx.rawDir());
+            } catch (IOException e) {
+                log.warn("Impossible de créer rawDir {}: {}", ctx.rawDir(), e.getMessage());
+            }
+        }
+
         Path input = ctx.inputFile();
         Path testDir = null;
         if (input != null) {
@@ -159,6 +168,9 @@ public class DePepDefenceMarineParser implements Iparser {
         if (testDir != null && Files.exists(testDir.resolve("einsatzflottille-1.html"))) {
             try {
                 String ef1Html = Files.readString(testDir.resolve("einsatzflottille-1.html"), StandardCharsets.UTF_8);
+                if (ctx.rawDir() != null) {
+                    Files.writeString(ctx.rawDir().resolve("einsatzflottille-1.html"), ef1Html, StandardCharsets.UTF_8);
+                }
                 String sourceUrl = params.getOrDefault("marineKommandoUrl", "https://www.bundeswehr.de/de/organisation/marine/struktur/einsatzflottille-1");
                 List<CommanderProfile> list = parseCommandersFromHtml(
                         ef1Html,
@@ -170,6 +182,9 @@ public class DePepDefenceMarineParser implements Iparser {
                 Path ef2File = testDir.resolve("einsatzflottille-2.html");
                 if (Files.exists(ef2File)) {
                     String ef2Html = Files.readString(ef2File, StandardCharsets.UTF_8);
+                    if (ctx.rawDir() != null) {
+                        Files.writeString(ctx.rawDir().resolve("einsatzflottille-2.html"), ef2Html, StandardCharsets.UTF_8);
+                    }
                     profiles.addAll(parseCommandersFromHtml(
                             ef2Html,
                             "https://www.bundeswehr.de/de/organisation/marine/struktur/einsatzflottille-2",
@@ -180,6 +195,9 @@ public class DePepDefenceMarineParser implements Iparser {
                 Path muerwikFile = testDir.resolve("marineschule-muerwik.html");
                 if (Files.exists(muerwikFile)) {
                     String muerwikHtml = Files.readString(muerwikFile, StandardCharsets.UTF_8);
+                    if (ctx.rawDir() != null) {
+                        Files.writeString(ctx.rawDir().resolve("marineschule-muerwik.html"), muerwikHtml, StandardCharsets.UTF_8);
+                    }
                     profiles.addAll(parseCommandersFromHtml(
                             muerwikHtml,
                             "https://www.bundeswehr.de/de/organisation/marine/struktur/marineschule-muerwik",
@@ -221,6 +239,7 @@ public class DePepDefenceMarineParser implements Iparser {
             }
         }
 
+        int index = 0;
         for (String url : targetUrls) {
             try {
                 Thread.sleep(350); // Politesse HTTP
@@ -229,6 +248,20 @@ public class DePepDefenceMarineParser implements Iparser {
                     brokenSources.add("SOURCE_BROKEN: " + url);
                     continue;
                 }
+
+                if (ctx.rawDir() != null) {
+                    index++;
+                    String safeName = String.format("source_%02d_%s.html", index, url.replaceAll("[^a-zA-Z0-9]+", "_"));
+                    if (safeName.length() > 60) {
+                        safeName = safeName.substring(0, 60) + ".html";
+                    }
+                    try {
+                        Files.writeString(ctx.rawDir().resolve(safeName), html, StandardCharsets.UTF_8);
+                    } catch (IOException e) {
+                        log.warn("Échec écriture rawDir pour {}: {}", url, e.getMessage());
+                    }
+                }
+
                 List<CommanderProfile> list = parseCommandersFromHtml(html, url, null);
                 if (list.isEmpty()) {
                     log.debug("Aucun bloc de commandement détecté sur {}", url);

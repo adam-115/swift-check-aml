@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <!--
+      de_pep_local_executives : la fonction 146 (Landraete) etait declaree complete alors que le plugin ne lisait
+      que les villes (aucun Landrat publie le 15/11/2026) ; Wikidata ne renseigne le chef de l'executif que pour une
+      vingtaine de Landkreise. Le plugin lit desormais les 294 Landkreise dans Wikipedia DE (liste des Landkreise,
+      puis infobox de chaque article). Pour les maires (145), il ne garde plus que le titulaire au debut le plus
+      recent (Wikidata gardait d'anciens maires sans date de fin : 10 pour Goettingen). On decrit les sources et
+      les limites reelles ; la completude reste COMPLETE.
+    -->
+    <changeSet id="153-de-local-executives-landraete" author="swiftcheck" dbms="mysql">
+        <sql>
+            UPDATE pep_function_parser
+               SET covered_scope = 'Oberbuergermeister des villes de 50 000 habitants ou plus (Wikidata, mandat sans date de fin, titulaire au debut le plus recent).',
+                   gaps = 'Wikidata est collaboratif : un maire elu recemment peut manquer tant que sa fiche n''est pas mise a jour ; une ville sans date de debut de mandat peut garder deux titulaires.'
+             WHERE parser_id = (SELECT id FROM parser WHERE dataset_name = 'de_pep_local_executives') AND function_id = 145;
+            UPDATE pep_function_parser
+               SET covered_scope = 'Chefs de l''executif des 294 Landkreise (Landrat, Landraetin ; Staedteregionsrat d''Aachen, Regionspraesident de Hanovre), lus dans l''infobox de l''article Wikipedia DE de chaque Landkreis, avec le parti.',
+                   gaps = 'Source collaborative (Wikipedia) : un changement recent peut manquer. Ni date de naissance ni date de prise de fonctions. Les quelques Landkreise de moins de 50 000 habitants sont inclus.'
+             WHERE parser_id = (SELECT id FROM parser WHERE dataset_name = 'de_pep_local_executives') AND function_id = 146;
+        </sql>
+    </changeSet>
+</databaseChangeLog>

@@ -141,6 +141,14 @@ public class DePepDefenceSecretariesParser implements Iparser {
         List<String> brokenSources = new ArrayList<>();
         List<String> warnings = new ArrayList<>();
 
+        if (ctx.rawDir() != null) {
+            try {
+                Files.createDirectories(ctx.rawDir());
+            } catch (IOException e) {
+                log.warn("Impossible de créer rawDir {}: {}", ctx.rawDir(), e.getMessage());
+            }
+        }
+
         Path input = ctx.inputFile();
         Path testDir = null;
         if (input != null) {
@@ -155,11 +163,17 @@ public class DePepDefenceSecretariesParser implements Iparser {
         if (testDir != null && Files.exists(testDir.resolve("hub.html"))) {
             try {
                 String hubHtml = Files.readString(testDir.resolve("hub.html"), StandardCharsets.UTF_8);
+                if (ctx.rawDir() != null) {
+                    Files.writeString(ctx.rawDir().resolve("hub.html"), hubHtml, StandardCharsets.UTF_8);
+                }
                 Set<String> slugs = extractChildSlugs(hubHtml);
                 for (String slug : slugs) {
                     Path childFile = testDir.resolve(slug + ".html");
                     if (Files.exists(childFile)) {
                         String childHtml = Files.readString(childFile, StandardCharsets.UTF_8);
+                        if (ctx.rawDir() != null) {
+                            Files.writeString(ctx.rawDir().resolve(slug + ".html"), childHtml, StandardCharsets.UTF_8);
+                        }
                         SecretaryProfile profile = parseProfileHtml(slug, childHtml, "https://www.bmvg.de/de/ministerium/staatssekretaere/" + slug);
                         profiles.add(profile);
                     } else {
@@ -186,6 +200,9 @@ public class DePepDefenceSecretariesParser implements Iparser {
                 brokenSources.add("SOURCE_BROKEN: " + hubUrl);
                 return new CrawlResult(profiles, brokenSources, warnings);
             }
+            if (ctx.rawDir() != null) {
+                Files.writeString(ctx.rawDir().resolve("hub.html"), hubHtml, StandardCharsets.UTF_8);
+            }
         } catch (Exception e) {
             brokenSources.add("SOURCE_BROKEN: " + hubUrl + " (" + e.getMessage() + ")");
             return new CrawlResult(profiles, brokenSources, warnings);
@@ -196,6 +213,7 @@ public class DePepDefenceSecretariesParser implements Iparser {
             warnings.add("STRUCTURE_CHANGED: Aucun profil enfant découvert sur " + hubUrl);
         }
 
+        int childIndex = 0;
         for (String childUrl : childUrls) {
             String slug = extractSlugFromUrl(childUrl);
             try {
@@ -205,6 +223,11 @@ public class DePepDefenceSecretariesParser implements Iparser {
                 if (childHtml == null) {
                     brokenSources.add("SOURCE_BROKEN: " + childUrl);
                     continue;
+                }
+                if (ctx.rawDir() != null) {
+                    childIndex++;
+                    String fileName = slug != null ? slug + ".html" : String.format("secretary_%02d.html", childIndex);
+                    Files.writeString(ctx.rawDir().resolve(fileName), childHtml, StandardCharsets.UTF_8);
                 }
                 SecretaryProfile p = parseProfileHtml(slug, childHtml, childUrl);
                 profiles.add(p);

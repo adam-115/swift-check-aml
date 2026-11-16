@@ -199,6 +199,14 @@ public class DePepDefenceParser implements Iparser {
         List<String> broken = new ArrayList<>();
         List<String> warnings = new ArrayList<>();
 
+        if (ctx.rawDir() != null) {
+            try {
+                Files.createDirectories(ctx.rawDir());
+            } catch (IOException e) {
+                log.warn("Impossible de créer rawDir {}: {}", ctx.rawDir(), e.getMessage());
+            }
+        }
+
         // Test mode / Local input files detection
         Path input = ctx.inputFile();
         Path testDir = null;
@@ -218,16 +226,25 @@ public class DePepDefenceParser implements Iparser {
             // Offline / resource test execution
             try {
                 vitaHtml = Files.readString(testDir.resolve("vita.html"), StandardCharsets.UTF_8);
+                if (ctx.rawDir() != null) {
+                    Files.writeString(ctx.rawDir().resolve("vita.html"), vitaHtml, StandardCharsets.UTF_8);
+                }
             } catch (Exception e) {
                 broken.add("vita.html: " + e.getMessage());
             }
             try {
                 generalHtml = Files.readString(testDir.resolve("generalinspekteur.html"), StandardCharsets.UTF_8);
+                if (ctx.rawDir() != null) {
+                    Files.writeString(ctx.rawDir().resolve("generalinspekteur.html"), generalHtml, StandardCharsets.UTF_8);
+                }
             } catch (Exception e) {
                 broken.add("generalinspekteur.html: " + e.getMessage());
             }
             try {
                 ehemHtml = Files.readString(testDir.resolve("ehemalige.html"), StandardCharsets.UTF_8);
+                if (ctx.rawDir() != null) {
+                    Files.writeString(ctx.rawDir().resolve("ehemalige.html"), ehemHtml, StandardCharsets.UTF_8);
+                }
             } catch (Exception e) {
                 broken.add("ehemalige.html: " + e.getMessage());
             }
@@ -247,6 +264,9 @@ public class DePepDefenceParser implements Iparser {
             try {
                 String minHtml = fetchSafe(client, ministerUrl);
                 if (minHtml != null) {
+                    if (ctx.rawDir() != null) {
+                        Files.writeString(ctx.rawDir().resolve("minister.html"), minHtml, StandardCharsets.UTF_8);
+                    }
                     Matcher m = VITA_LINK.matcher(minHtml);
                     if (m.find()) {
                         String discoveredVita = m.group(1);
@@ -262,21 +282,33 @@ public class DePepDefenceParser implements Iparser {
 
             try {
                 vitaHtml = fetchSafe(client, vitaUrl);
-                if (vitaHtml == null) broken.add("SOURCE_BROKEN: " + vitaUrl);
+                if (vitaHtml == null) {
+                    broken.add("SOURCE_BROKEN: " + vitaUrl);
+                } else if (ctx.rawDir() != null) {
+                    Files.writeString(ctx.rawDir().resolve("vita.html"), vitaHtml, StandardCharsets.UTF_8);
+                }
             } catch (Exception e) {
                 broken.add("SOURCE_BROKEN: " + vitaUrl + " (" + e.getMessage() + ")");
             }
 
             try {
                 generalHtml = fetchSafe(client, generalUrl);
-                if (generalHtml == null) broken.add("SOURCE_BROKEN: " + generalUrl);
+                if (generalHtml == null) {
+                    broken.add("SOURCE_BROKEN: " + generalUrl);
+                } else if (ctx.rawDir() != null) {
+                    Files.writeString(ctx.rawDir().resolve("generalinspekteur.html"), generalHtml, StandardCharsets.UTF_8);
+                }
             } catch (Exception e) {
                 broken.add("SOURCE_BROKEN: " + generalUrl + " (" + e.getMessage() + ")");
             }
 
             try {
                 ehemHtml = fetchSafe(client, ehemaligeUrl);
-                if (ehemHtml == null) broken.add("SOURCE_BROKEN: " + ehemaligeUrl);
+                if (ehemHtml == null) {
+                    broken.add("SOURCE_BROKEN: " + ehemaligeUrl);
+                } else if (ctx.rawDir() != null) {
+                    Files.writeString(ctx.rawDir().resolve("ehemalige.html"), ehemHtml, StandardCharsets.UTF_8);
+                }
             } catch (Exception e) {
                 broken.add("SOURCE_BROKEN: " + ehemaligeUrl + " (" + e.getMessage() + ")");
             }

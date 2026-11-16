@@ -1,6 +1,7 @@
 package com.swiftcheck.aml.plugins.depep.defencesupport;
 
 import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.net.http.HttpClient;
@@ -145,6 +146,14 @@ public class DePepDefenceSupportParser implements Iparser {
         List<String> brokenSources = new ArrayList<>();
         List<String> warnings = new ArrayList<>();
 
+        if (ctx.rawDir() != null) {
+            try {
+                Files.createDirectories(ctx.rawDir());
+            } catch (IOException e) {
+                log.warn("Impossible de créer rawDir {}: {}", ctx.rawDir(), e.getMessage());
+            }
+        }
+
         Path input = ctx.inputFile();
         Path testDir = null;
         if (input != null) {
@@ -159,6 +168,9 @@ public class DePepDefenceSupportParser implements Iparser {
         if (testDir != null && Files.exists(testDir.resolve("unterstuetzungskommando.html"))) {
             try {
                 String uskHtml = Files.readString(testDir.resolve("unterstuetzungskommando.html"), StandardCharsets.UTF_8);
+                if (ctx.rawDir() != null) {
+                    Files.writeString(ctx.rawDir().resolve("unterstuetzungskommando.html"), uskHtml, StandardCharsets.UTF_8);
+                }
                 String sourceUrl = params.getOrDefault("supportUrl", "https://www.bundeswehr.de/de/organisation/unterstuetzungsbereich/unterstuetzungskommando-der-bundeswehr");
                 List<CommanderProfile> list = parseCommandersFromHtml(
                         uskHtml,
@@ -170,6 +182,9 @@ public class DePepDefenceSupportParser implements Iparser {
                 Path baainbwFile = testDir.resolve("baainbw.html");
                 if (Files.exists(baainbwFile)) {
                     String baainHtml = Files.readString(baainbwFile, StandardCharsets.UTF_8);
+                    if (ctx.rawDir() != null) {
+                        Files.writeString(ctx.rawDir().resolve("baainbw.html"), baainHtml, StandardCharsets.UTF_8);
+                    }
                     profiles.addAll(parseCommandersFromHtml(
                             baainHtml,
                             "https://www.bundeswehr.de/de/organisation/ausruestung-baainbw/struktur/baainbw",
@@ -180,6 +195,9 @@ public class DePepDefenceSupportParser implements Iparser {
                 Path bamadFile = testDir.resolve("bamad.html");
                 if (Files.exists(bamadFile)) {
                     String bamadHtml = Files.readString(bamadFile, StandardCharsets.UTF_8);
+                    if (ctx.rawDir() != null) {
+                        Files.writeString(ctx.rawDir().resolve("bamad.html"), bamadHtml, StandardCharsets.UTF_8);
+                    }
                     profiles.addAll(parseCommandersFromHtml(
                             bamadHtml,
                             "https://www.bundeswehr.de/de/organisation/mad-bundesamt-fuer-den-militaerischen-abschirmdienst",
@@ -223,6 +241,7 @@ public class DePepDefenceSupportParser implements Iparser {
 
         // Traitement par lots avec politesse HTTP
         int batchSize = 10;
+        int fileIndex = 0;
         for (int i = 0; i < targetUrls.size(); i += batchSize) {
             int end = Math.min(i + batchSize, targetUrls.size());
             List<String> batch = targetUrls.subList(i, end);
@@ -235,6 +254,20 @@ public class DePepDefenceSupportParser implements Iparser {
                         brokenSources.add("SOURCE_BROKEN: " + url);
                         continue;
                     }
+
+                    if (ctx.rawDir() != null) {
+                        fileIndex++;
+                        String safeName = String.format("source_%02d_%s.html", fileIndex, url.replaceAll("[^a-zA-Z0-9]+", "_"));
+                        if (safeName.length() > 60) {
+                            safeName = safeName.substring(0, 60) + ".html";
+                        }
+                        try {
+                            Files.writeString(ctx.rawDir().resolve(safeName), html, StandardCharsets.UTF_8);
+                        } catch (IOException e) {
+                            log.warn("Échec écriture rawDir pour {}: {}", url, e.getMessage());
+                        }
+                    }
+
                     List<CommanderProfile> list = parseCommandersFromHtml(html, url, null);
                     if (list.isEmpty()) {
                         log.debug("Aucun bloc de commandement détecté sur {}", url);

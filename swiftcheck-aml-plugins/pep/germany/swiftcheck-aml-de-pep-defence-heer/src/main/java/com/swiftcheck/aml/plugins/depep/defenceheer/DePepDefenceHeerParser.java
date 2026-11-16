@@ -152,6 +152,14 @@ public class DePepDefenceHeerParser implements Iparser {
         List<String> brokenSources = new ArrayList<>();
         List<String> warnings = new ArrayList<>();
 
+        if (ctx.rawDir() != null) {
+            try {
+                Files.createDirectories(ctx.rawDir());
+            } catch (IOException e) {
+                log.warn("Impossible de créer rawDir {}: {}", ctx.rawDir(), e.getMessage());
+            }
+        }
+
         Path input = ctx.inputFile();
         Path testDir = null;
         if (input != null) {
@@ -166,6 +174,9 @@ public class DePepDefenceHeerParser implements Iparser {
         if (testDir != null && Files.exists(testDir.resolve("kommando-heer.html"))) {
             try {
                 String kdohHtml = Files.readString(testDir.resolve("kommando-heer.html"), StandardCharsets.UTF_8);
+                if (ctx.rawDir() != null) {
+                    Files.writeString(ctx.rawDir().resolve("kommando-heer.html"), kdohHtml, StandardCharsets.UTF_8);
+                }
                 String sourceUrl = params.getOrDefault("kommandoHeerUrl", "https://www.bundeswehr.de/de/organisation/heer/struktur/kommando-heer");
                 List<CommanderProfile> list = parseCommandersFromHtml(
                         kdohHtml,
@@ -177,6 +188,9 @@ public class DePepDefenceHeerParser implements Iparser {
                 Path div10File = testDir.resolve("10-panzerdivision.html");
                 if (Files.exists(div10File)) {
                     String div10Html = Files.readString(div10File, StandardCharsets.UTF_8);
+                    if (ctx.rawDir() != null) {
+                        Files.writeString(ctx.rawDir().resolve("10-panzerdivision.html"), div10Html, StandardCharsets.UTF_8);
+                    }
                     profiles.addAll(parseCommandersFromHtml(
                             div10Html,
                             "https://www.bundeswehr.de/de/organisation/heer/struktur/10-panzerdivision",
@@ -218,6 +232,7 @@ public class DePepDefenceHeerParser implements Iparser {
             }
         }
 
+        int index = 0;
         for (String url : targetUrls) {
             try {
                 Thread.sleep(400); // Politeness delay
@@ -226,6 +241,20 @@ public class DePepDefenceHeerParser implements Iparser {
                     brokenSources.add("SOURCE_BROKEN: " + url);
                     continue;
                 }
+
+                if (ctx.rawDir() != null) {
+                    index++;
+                    String safeName = String.format("source_%02d_%s.html", index, url.replaceAll("[^a-zA-Z0-9]+", "_"));
+                    if (safeName.length() > 60) {
+                        safeName = safeName.substring(0, 60) + ".html";
+                    }
+                    try {
+                        Files.writeString(ctx.rawDir().resolve(safeName), html, StandardCharsets.UTF_8);
+                    } catch (IOException e) {
+                        log.warn("Échec écriture rawDir pour {}: {}", url, e.getMessage());
+                    }
+                }
+
                 List<CommanderProfile> list = parseCommandersFromHtml(html, url, null);
                 if (list.isEmpty()) {
                     log.debug("Aucun bloc de commandement détecté sur {}", url);

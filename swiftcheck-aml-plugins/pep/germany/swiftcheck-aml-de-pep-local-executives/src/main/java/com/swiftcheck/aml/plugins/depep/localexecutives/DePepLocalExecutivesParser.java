@@ -66,7 +66,11 @@ public class DePepLocalExecutivesParser implements Iparser {
         long minPop = p.containsKey("minPopulation") ? Long.parseLong(p.get("minPopulation")) : DEFAULT_MIN_POPULATION;
 
         String content = loadContent(ctx);
-        List<LocalExecutive> executives = parseContent(content, minPop);
+        List<LocalExecutive> executives = new ArrayList<>(parseContent(content, minPop));
+        String districts = "";
+        if (readsDistricts(ctx)) {
+            districts = addDistrictHeads(executives, wikipedia(parseLongParam(p, "wikipediaDelayMs", 3000)), ctx.rawDir());
+        }
 
         if (executives.isEmpty()) {
             throw new IllegalStateException("Aucun exécutif local (Oberbürgermeister / Landrat) extrait.");
@@ -77,7 +81,98 @@ public class DePepLocalExecutivesParser implements Iparser {
         dataset.writeNdjsonFile(ctx.outputFile());
 
         return dataset.toConversionResult().withMessage(
-                executives.size() + " maires et Landräte de collectivités >= " + minPop + " hab. extraits.");
+                executives.size() + " maires et Landräte de collectivités >= " + minPop + " hab. extraits." + districts);
+    }
+
+    /** Les Landräte sont lus en ligne seulement (pas quand un fichier d'entrée est fourni), sauf {@code landraete=false}. */
+    private static boolean readsDistricts(ParserContext ctx) {
+        Map<String, String> p = ctx.parameters() == null ? Map.of() : ctx.parameters();
+        boolean fromFile = ctx.inputFile() != null && Files.isRegularFile(ctx.inputFile());
+        return !fromFile && !"false".equalsIgnoreCase(p.get("crawl")) && !"false".equalsIgnoreCase(p.get("landraete"));
+    }
+
+    /** Accès HTTP texte, remplaçable dans les tests. */
+    interface Fetcher {
+        String get(String url) throws IOException;
+    }
+
+    /**
+     * Ajoute les chefs d'exécutif des Landkreise lus dans Wikipédia (liste, puis infobox des articles par lots de 50).
+     * Une source illisible n'interrompt pas l'exécution : les maires restent publiés et le message le signale.
+     *
+     * @return la partie du message d'exécution qui décrit les Landräte
+     */
+    static String addDistrictHeads(List<LocalExecutive> executives, Fetcher fetcher, Path rawDir) {
+        try {
+            String list = fetcher.get(LandkreisInfoboxes.listUrl());
+            List<String> titles = LandkreisInfoboxes.districtTitles(list);
+            if (titles.isEmpty()) {
+                return " ALERT STRUCTURE_CHANGED : liste Wikipédia des Landkreise sans ligne lisible, Landräte non lus.";
+            }
+            Map<String, String> articles = new java.util.LinkedHashMap<>();
+            for (int i = 0; i < titles.size(); i += LandkreisInfoboxes.BATCH) {
+                String json = fetcher.get(LandkreisInfoboxes.articlesUrl(
+                        titles.subList(i, Math.min(titles.size(), i + LandkreisInfoboxes.BATCH))));
+                if (rawDir != null) {
+                    Files.createDirectories(rawDir);
+                    Files.writeString(rawDir.resolve("landkreise-" + (i / LandkreisInfoboxes.BATCH) + ".json"), json, StandardCharsets.UTF_8);
+                }
+                articles.putAll(LandkreisInfoboxes.articles(json));
+            }
+            List<String> missing = new ArrayList<>();
+            int read = 0;
+            for (Map.Entry<String, String> a : articles.entrySet()) {
+                LandkreisInfoboxes.Head head = LandkreisInfoboxes.head(a.getKey(), a.getValue());
+                if (head == null) {
+                    missing.add(a.getKey());
+                    continue;
+                }
+                addExecutive(executives, head.district(), "Landkreis", 0, head.role(), head.name(), head.party());
+                read++;
+            }
+            return " " + read + " Landräte lus sur " + titles.size() + " Landkreise (Wikipédia)"
+                    + (missing.isEmpty() ? "." : " ; sans chef d'exécutif lisible : " + String.join(", ", missing) + ".");
+        } catch (IOException | RuntimeException e) {
+            log.warn("SOURCE_BROKEN: Landräte non lus : {}", e.toString());
+            return " ALERT SOURCE_BROKEN : Landräte non lus (" + e.getMessage() + ").";
+        }
+    }
+
+    static Fetcher wikipedia(long delayMs) {
+        HttpClient client = HttpClient.newBuilder().version(HttpClient.Version.HTTP_1_1).connectTimeout(Duration.ofSeconds(15))
+                .followRedirects(HttpClient.Redirect.NORMAL).build();
+        return url -> {
+            IOException last = null;
+            for (int attempt = 1; attempt <= 4; attempt++) {
+                try {
+                    Thread.sleep(delayMs * attempt);
+                    HttpResponse<String> resp = client.send(HttpRequest.newBuilder(URI.create(url)).timeout(Duration.ofSeconds(60))
+                            .header("User-Agent", "SwiftCheck-AML/1.0 (liste PEP Allemagne - Exécutifs locaux)").GET().build(),
+                            HttpResponse.BodyHandlers.ofString(StandardCharsets.UTF_8));
+                    if (resp.statusCode() == 200) {
+                        return resp.body();
+                    }
+                    last = new IOException("HTTP " + resp.statusCode() + " pour " + url);
+                    if (resp.statusCode() != 429 && resp.statusCode() < 500) {
+                        break;
+                    }
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                    throw new IOException("Interrompu", e);
+                } catch (IOException e) {
+                    last = e;
+                }
+            }
+            throw last;
+        };
+    }
+
+    private static long parseLongParam(Map<String, String> p, String key, long def) {
+        try {
+            return Long.parseLong(p.getOrDefault(key, "").trim());
+        } catch (NumberFormatException e) {
+            return def;
+        }
     }
 
     @Override
@@ -86,7 +181,10 @@ public class DePepLocalExecutivesParser implements Iparser {
         long minPop = p.containsKey("minPopulation") ? Long.parseLong(p.get("minPopulation")) : DEFAULT_MIN_POPULATION;
 
         String content = loadContent(ctx);
-        List<LocalExecutive> executives = parseContent(content, minPop);
+        List<LocalExecutive> executives = new ArrayList<>(parseContent(content, minPop));
+        if (readsDistricts(ctx)) {
+            addDistrictHeads(executives, wikipedia(parseLongParam(p, "wikipediaDelayMs", 3000)), null);
+        }
         FtmDatasetBuilder ids = new FtmDatasetBuilder(ID_PREFIX);
         List<SourceRecord> records = new ArrayList<>();
         for (LocalExecutive e : executives) {
@@ -139,12 +237,15 @@ public class DePepLocalExecutivesParser implements Iparser {
         return """
                 SELECT ?entity ?entityLabel ?type ?pop ?role ?person ?personLabel ?partyLabel WHERE {
                   {
-                    SELECT DISTINCT ?entity ?pop ?person WHERE {
+                    SELECT DISTINCT ?entity ?pop ?person ?start WHERE {
                       ?entity (wdt:P31/(wdt:P279*)) wd:Q515 ;
                               wdt:P17 wd:Q183 ;
                               wdt:P1082 ?pop ;
-                              wdt:P6 ?person .
+                              p:P6 ?statement .
                       FILTER(?pop >= %d)
+                      ?statement ps:P6 ?person .
+                      FILTER NOT EXISTS { ?statement pq:P582 ?end }
+                      OPTIONAL { ?statement pq:P580 ?start }
                     }
                   }
                   BIND("City" AS ?type)
@@ -209,6 +310,7 @@ public class DePepLocalExecutivesParser implements Iparser {
                         : (root.has("data") ? root.get("data") : null));
 
                 if (items != null && items.isArray()) {
+                    items = currentHolders(items);
                     for (JsonNode item : items) {
                         String name = extractValue(item, "name", "leaderLabel", "personLabel");
                         String entity = extractValue(item, "entityLabel", "city", "areaLabel", "muniLabel", "kreisLabel");
@@ -256,6 +358,38 @@ public class DePepLocalExecutivesParser implements Iparser {
         }
 
         return list;
+    }
+
+    /**
+     * Wikidata garde souvent les anciens maires sans date de fin (10 maires « en cours » pour Göttingen le 15/11/2026).
+     * Pour chaque collectivité, on ne garde que la ou les déclarations au début le plus récent ; une déclaration sans
+     * date de début n'est gardée que si aucune autre n'en a. Les lignes sans {@code start} (autres formats) passent telles quelles.
+     */
+    static JsonNode currentHolders(JsonNode items) {
+        Map<String, String> latest = new java.util.HashMap<>();
+        for (JsonNode item : items) {
+            String entity = extractValue(item, "entity", "entityLabel");
+            String start = extractValue(item, "start");
+            if (entity != null && start != null && start.compareTo(latest.getOrDefault(entity, "")) > 0) {
+                latest.put(entity, start);
+            }
+        }
+        com.fasterxml.jackson.databind.node.ArrayNode out = new ObjectMapper().createArrayNode();
+        java.util.Set<String> seen = new java.util.HashSet<>();
+        for (JsonNode item : items) {
+            String entity = extractValue(item, "entity", "entityLabel");
+            String start = extractValue(item, "start");
+            String best = entity == null ? null : latest.get(entity);
+            if (best != null && !best.equals(start)) {
+                continue; // ancien titulaire, ou titulaire sans date alors qu'un autre en a une
+            }
+            // une même personne peut revenir plusieurs fois (plusieurs partis, plusieurs populations)
+            String key = entity + "|" + extractValue(item, "person", "personLabel", "name");
+            if (seen.add(key)) {
+                out.add(item);
+            }
+        }
+        return out;
     }
 
     private static String extractValue(JsonNode node, String... keys) {
