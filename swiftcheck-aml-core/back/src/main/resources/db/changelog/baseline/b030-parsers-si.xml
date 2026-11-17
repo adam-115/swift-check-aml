@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="baseline-parsers-si" author="swiftcheck-baseline">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM parser WHERE dataset_name IN ('si_pep_europarl', 'si_pep_eu_commission', 'si_pep_government')</sqlCheck>
+        </preConditions>
+        <comment>Parsers « si_* » (3) et leurs liens aux fonctions PEP (3)</comment>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="262"/>
+            <column name="name" value="PEP Slovénie – Députés européens"/>
+            <column name="description"><![CDATA[Les députés au Parlement européen élus en Slovénie, en fonction et sortis depuis moins de 12 mois, avec naissance et dates de mandat (catégorie SI-EU)]]></column>
+            <column name="dataset_name" value="si_pep_europarl"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://data.europarl.europa.eu/"/>
+            <column name="plugin_id" value="si-pep-europarl"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="API"/>
+            <column name="parameters"><![CDATA[{"currentUrl": "https://data.europarl.europa.eu/api/v2/meps/show-current?country-of-representation=SI&format=application%2Fld%2Bjson", "termUrl": "https://data.europarl.europa.eu/api/v2/meps?country-of-representation=SI&parliamentary-term=10&limit=500&format=application%2Fld%2Bjson", "detailUrl": "https://data.europarl.europa.eu/api/v2/meps/{id}?format=application%2Fld%2Bjson", "delayMs": "400", "monthsAfterEnd": "12", "wikidataEndpoint": ""}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="Réutilisation autorisée en citant la source (Parlement européen)"/>
+            <column name="attribution" value="Parlement européen, data.europarl.europa.eu"/>
+            <column name="notes"><![CDATA[Reprise de nl_pep_europarl. Mesure du 07/11/2026 : 9 députés publiés, 9 avec date de naissance (le Parlement ne la publie pas pour les autres). Une fiche par député. L'API limite le débit (HTTP 429) : le plugin attend puis réessaie. Pas de photos (Wikidata non utilisé). termUrl contient le numéro de législature (10) : à changer en 2029.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-07 00:15:44.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="263"/>
+            <column name="name" value="PEP Slovénie – Commissaire européen"/>
+            <column name="description" value="Le membre slovène de la Commission européenne, d'après sa fiche officielle (catégorie SI-EU)"/>
+            <column name="dataset_name" value="si_pep_eu_commission"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://commission.europa.eu/about/organisation/college-commissioners_en"/>
+            <column name="plugin_id" value="si-pep-eu-commission"/>
+            <column name="data_source_type" value="HTTP_FILE"/>
+            <column name="parser_kind" value="WEB_PAGE"/>
+            <column name="source_location" value="https://commission.europa.eu/about/organisation/college-commissioners/marta-kos_en"/>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="Réutilisation autorisée en citant la source (avis juridique de la Commission européenne)"/>
+            <column name="attribution" value="Commission européenne, commission.europa.eu"/>
+            <column name="notes"><![CDATA[Reprise de nl_pep_eu_commission. À chaque nouvelle Commission, remplacer l'adresse par la fiche du commissaire slovène. Une fiche qui ne présente pas un commissaire slovène est refusée.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-07 00:15:44.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="273"/>
+            <column name="name" value="PEP Slovénie – Gouvernement"/>
+            <column name="description" value="Premier ministre et ministres, d'après la page « O vladi » de gov.si (catégorie SI-a)"/>
+            <column name="dataset_name" value="si_pep_government"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://www.gov.si/drzavni-organi/vlada/o-vladi/"/>
+            <column name="plugin_id" value="si-pep-government"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="WEB_PAGE"/>
+            <column name="parameters"><![CDATA[{"url": "https://www.gov.si/drzavni-organi/vlada/o-vladi/"}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="Site officiel du Gouvernement slovène : citer la source"/>
+            <column name="attribution" value="Vlada Republike Slovenije, www.gov.si"/>
+            <column name="notes"><![CDATA[Une page, 15 personnes : le Premier ministre (Janez Janša, d'après la phrase de présentation) et 14 ministres (liens vers leur fiche, fonction = ministère de l'adresse). Gouvernement nommé le 04/06/2026 (date reprise comme début de fonction). La page annonce 15 ministres pour 14 liens trouvés : le quinzième n'est pas lu (raison non vérifiée). Ni naissance ; pas d'anciens ministres.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-07 00:15:45.000000"/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="716"/>
+            <column name="parser_id" valueNumeric="262"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope"><![CDATA[Les 9 députés européens élus en Slovénie et ceux sortis depuis moins de 12 mois, avec naissance quand elle est publiée, genre, groupe et dates de mandat.]]></column>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="717"/>
+            <column name="parser_id" valueNumeric="263"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="0"/>
+            <column name="covered_scope" value="Marta Kos, commissaire chargée de l'élargissement (2024-2029)."/>
+            <column name="gaps" value="Ni date ni lieu de naissance sur la fiche."/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="704"/>
+            <column name="parser_id" valueNumeric="273"/>
+            <column name="completeness" value="PARTIAL"/>
+            <column name="includes_former" valueNumeric="0"/>
+            <column name="covered_scope" value="Le Premier ministre et 14 des 15 ministres du Gouvernement nommé le 4 juin 2026."/>
+            <column name="gaps"><![CDATA[Un ministre sur 15 non lu (14 liens trouvés) ; anciens ministres non couverts ; pas de naissance ; Assemblée nationale non couverte (injoignable).]]></column>
+        </insert>
+    </changeSet>
+</databaseChangeLog>

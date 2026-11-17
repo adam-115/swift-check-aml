@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Ancien master, gardé pour l historique : les fichiers sont dans ce dossier (legacy), il n est plus exécuté. -->
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <!--
+        001 : toutes les tables ; 002 : rÃ©fÃ©rentiel PEP (pays, catÃ©gories, fonctions) ;
+        003 : utilisateurs et configuration ; 004 : parsers et fonctions qu'ils couvrent.
+        005 : catÃ©gorie PEP active ou dÃ©sactivÃ©e.
+        006 : rÃ©fÃ©rentiel PEP de la France (catÃ©gories et fonctions).
+        007 : parsers PEP de la France et fonctions qu'ils couvrent.
+        008 : description technique des parsers (Markdown).
+        009 : accents rÃ©tablis dans les parsers PEP du Luxembourg insÃ©rÃ©s par 004.
+        010 : parser PEP de la France pour les dirigeants des partis politiques (Wikidata).
+        011 : parser PEP de la France pour les hautes fonctions nommÃ©es au Journal officiel (DILA).
+        012 : parser PEP de la France pour les ambassadeurs en poste (diplomatie.gouv.fr).
+        013 : parser PEP de la France pour les dirigeants des organisations internationales situÃ©es en France.
+        014 : parser PEP de la France pour les FranÃ§ais dans les institutions de l'UE (CJUE, CCE, BCE, Conseil).
+        015 : parser PEP de la France pour les fonctions sans source officielle (Wikidata) : chef d'Ã©tat-major de la Marine.
+        016 : fr_pep_jorf couvre aussi les membres du Gouvernement et les anciens membres (dÃ©crets de composition).
+        017 : photos des PEP (pep_media) : photos officielles et photos trouvÃ©es sur internet validÃ©es par un analyste.
+        018 : parser PEP de la France pour les dirigeants des entreprises publiques de l'Ã‰tat (APE, EPIC nationaux).
+        019 : parser PEP de la France pour les dirigeants des sociÃ©tÃ©s contrÃ´lÃ©es par une collectivitÃ© (SEM, SPL, rÃ©gies).
+        020 : fr_pep_jorf couvre aussi les dirigeants des grands ports maritimes (FR-g, sÃ©lection version 3).
+        021 : dÃ©tail de couverture (ce que couvre chaque parser, ce qui manque) sur pep_function_parser, rempli pour la France.
+        022 : dÃ©tail de couverture du Luxembourg.
+        023 : rÃ©fÃ©rentiel PEP de la Belgique (catÃ©gories BE-a Ã  BE-h, BE-AMLR, BE-EU, BE-RCA ; Annexe IV de la loi du 18/09/2017).
+        024 : lot 1 des parsers PEP de la Belgique (Roi, gouvernement fÃ©dÃ©ral, Chambre, parlements flamand et wallon, UE, famille).
+        025 : lot 2 des parsers PEP de la Belgique (pages des institutions : gouvernements et parlements fÃ©dÃ©rÃ©s, SÃ©nat, hautes juridictions, BNB, diplomates, DÃ©fense, organisations internationales).
+        026 : lot 3 des parsers PEP de la Belgique (volumineux, aprÃ¨s Ã©tude : Moniteur belge, entreprises publiques, partis politiques, exÃ©cutifs locaux, entitÃ©s associÃ©es Cour des comptes).
+        027 : rÃ©fÃ©rentiel PEP de l'Allemagne (catÃ©gories DE-a Ã  DE-i, DE-AMLR, DE-EU, DE-RCA ; GwG Â§ 1 (12) et JO C/2023/724).
+        028 : lot 1 des parsers PEP de l'Allemagne (Bundestag, Bundesrat et gouvernements rÃ©gionaux, gouvernement fÃ©dÃ©ral, PrÃ©sident fÃ©dÃ©ral, UE, famille).
+    -->
+    <include file="db/changelog/changes/001-schema.xml" />
+    <include file="db/changelog/changes/002-pep-reference-data.xml" />
+    <include file="db/changelog/changes/003-seed-data.xml" />
+    <include file="db/changelog/changes/004-parsers.xml" />
+    <include file="db/changelog/changes/005-pep-category-active.xml" />
+    <include file="db/changelog/changes/006-fr-pep-reference-data.xml" />
+    <include file="db/changelog/changes/007-fr-parsers.xml" />
+    <include file="db/changelog/changes/008-parser-technical-description.xml" />
+    <include file="db/changelog/changes/009-fix-lu-parser-accents.xml" />
+    <include file="db/changelog/changes/010-fr-pep-political-parties.xml" />
+    <include file="db/changelog/changes/011-fr-pep-jorf.xml" />
+    <include file="db/changelog/changes/012-fr-pep-diplomats.xml" />
+    <include file="db/changelog/changes/013-fr-pep-international-orgs.xml" />
+    <include file="db/changelog/changes/014-fr-pep-eu-institutions.xml" />
+    <include file="db/changelog/changes/015-fr-pep-wikidata-positions.xml" />
+    <include file="db/changelog/changes/016-fr-pep-jorf-government.xml" />
+    <include file="db/changelog/changes/017-pep-media.xml" />
+    <include file="db/changelog/changes/018-fr-pep-state-enterprises.xml" />
+    <include file="db/changelog/changes/019-fr-pep-local-enterprises.xml" />
+    <include file="db/changelog/changes/020-fr-pep-jorf-ports.xml" />
+    <include file="db/changelog/changes/021-coverage-detail.xml" />
+    <include file="db/changelog/changes/022-coverage-detail-lu.xml" />
+    <include file="db/changelog/changes/023-be-pep-reference-data.xml" />
+    <include file="db/changelog/changes/024-be-parsers-lot1.xml" />
+    <include file="db/changelog/changes/025-be-parsers-lot2.xml" />
+    <include file="db/changelog/changes/026-be-parsers-lot3.xml" />
+    <include file="db/changelog/changes/027-de-pep-reference-data.xml" />
+    <include file="db/changelog/changes/028-de-parsers-lot1.xml" />
+    <include file="db/changelog/changes/029-de-parsers-lot2.xml" />
+    <include file="db/changelog/changes/030-de-parsers-lot3.xml" />
+    <include file="db/changelog/changes/031-de-parsers-update-live.xml" />
+    <include file="db/changelog/changes/032-fix-state-enterprises-parser-kind.xml" />
+    <include file="db/changelog/changes/037-de-lot-a-corrections.xml" />
+    <include file="db/changelog/changes/038-de-parsers-lot-b.xml" />
+    <include file="db/changelog/changes/039-de-parsers-federal-secretaries.xml" />
+    <include file="db/changelog/changes/040-lu-parties-wikidata.xml" />
+    <include file="db/changelog/changes/041-de-eu-commission-url.xml" />
+    <include file="db/changelog/changes/042-be-coverage-gaps.xml" />
+    <include file="db/changelog/changes/043-fr-jorf-single-posts.xml" />
+    <include file="db/changelog/changes/044-fr-local-executives-all.xml" />
+    <include file="db/changelog/changes/045-be-local-executives-all.xml" />
+    <include file="db/changelog/changes/046-former-pep-history.xml" />
+    <include file="db/changelog/changes/047-fr-death-check-notes.xml" />
+    <include file="db/changelog/changes/048-pt-pep-reference-and-parsers.xml" />
+    <include file="db/changelog/changes/049-at-pep-reference-and-parsers.xml" />
+    <include file="db/changelog/changes/050-at-parties-and-oebag.xml" />
+    <include file="db/changelog/changes/051-at-land-governments-vienna.xml" />
+    <include file="db/changelog/changes/052-fix-at-parties-parser-kind.xml" />
+    <include file="db/changelog/changes/053-it-pep-reference-and-parsers.xml" />
+    <include file="db/changelog/changes/054-it-institutions.xml" />
+    <include file="db/changelog/changes/055-it-presidents-and-international-orgs.xml" />
+    <include file="db/changelog/changes/056-pt-parliament-fr-rne-hatvp.xml" />
+    <include file="db/changelog/changes/057-pt-government.xml" />
+    <include file="db/changelog/changes/058-ie-pep-reference-and-parsers.xml" />
+    <include file="db/changelog/changes/059-ie-lot2.xml" />
+    <include file="db/changelog/changes/060-ie-lot3.xml" />
+    <include file="db/changelog/changes/061-nl-pep-reference-and-parsers.xml" />
+    <include file="db/changelog/changes/062-nl-lot2.xml" />
+    <include file="db/changelog/changes/063-no-pep-reference-and-parsers.xml" />
+    <include file="db/changelog/changes/064-no-lot2-government.xml" />
+    <include file="db/changelog/changes/065-fi-pep-reference-and-parsers.xml" />
+    <include file="db/changelog/changes/066-fi-lot2.xml" />
+    <include file="db/changelog/changes/067-fi-ambassadors.xml" />
+    <include file="db/changelog/changes/068-se-pep-reference-and-parsers.xml" />
+    <include file="db/changelog/changes/069-se-lot2.xml" />
+    <include file="db/changelog/changes/070-dk-pep-reference-and-parsers.xml" />
+    <include file="db/changelog/changes/071-dk-lot2.xml" />
+    <include file="db/changelog/changes/072-pl-pep-reference-and-parsers.xml" />
+    <include file="db/changelog/changes/075-parser-test-retest.xml" />
+    <include file="db/changelog/changes/076-ee-pep-reference-and-parsers.xml" />
+    <include file="db/changelog/changes/077-ee-lot2.xml" />
+    <include file="db/changelog/changes/078-lv-pep-reference-and-parsers.xml" />
+    <include file="db/changelog/changes/079-lv-lot2.xml" />
+    <include file="db/changelog/changes/080-lt-pep-reference-and-parsers.xml" />
+    <include file="db/changelog/changes/081-ee-lv-lt-eu.xml" />
+    <include file="db/changelog/changes/082-pl-fi-se-dk-eu.xml" />
+    <include file="db/changelog/changes/084-gr-pep-reference-and-parsers.xml" />
+    <include file="db/changelog/changes/085-sk-si-hr-ro-reference-and-parsers.xml" />
+    <include file="db/changelog/changes/086-ro-sk-si-lot2.xml" />
+    <include file="db/changelog/changes/087-hr-institutions.xml" />
+    <include file="db/changelog/changes/088-hu-pep-reference-and-parsers.xml" />
+    <include file="db/changelog/changes/089-bg-pep-reference-and-parsers.xml" />
+    <include file="db/changelog/changes/090-cy-pep-reference-and-parsers.xml" />
+    <include file="db/changelog/changes/091-mt-pep-reference-and-parsers.xml" />
+    <include file="db/changelog/changes/092-coverage-links-reconciliation-fr-de-ie.xml" />
+    <include file="db/changelog/changes/093-at-diplomats-army-courts-orgs.xml" />
+    <include file="db/changelog/changes/094-be-coverage-finalization.xml" />
+    <include file="db/changelog/changes/095-lu-coverage-finalization.xml" />
+    <include file="db/changelog/changes/096-fr-coverage-finalization.xml" />
+    <include file="db/changelog/changes/097-it-coverage-consolidation.xml" />
+    <include file="db/changelog/changes/098-it-pep-political-parties.xml" />
+    <include file="db/changelog/changes/099-it-pep-high-courts.xml" />
+    <include file="db/changelog/changes/100-it-pep-diplomats-and-enterprises.xml" />
+    <include file="db/changelog/changes/101-it-pep-health-directors.xml" />
+    <include file="db/changelog/changes/102-es-stage1-institutions.xml" />
+    <include file="db/changelog/changes/103-es-stage2-diplomats-army-enterprises-parties-unions.xml" />
+    <include file="db/changelog/changes/104-es-stage3-regional-and-local-finalization.xml" />
+    <include file="db/changelog/changes/105-pt-stage1-courts-bank-state-reg.xml" />
+    <include file="db/changelog/changes/106-pt-stage2-diplomats-army-enterprises-parties-orgs.xml" />
+    <include file="db/changelog/changes/107-pt-stage3-mayors-rca-finalization.xml" />
+    <include file="db/changelog/changes/108-nl-stage1-institutions-central-bank-diplomats.xml" />
+    <include file="db/changelog/changes/109-nl-stage2-parties-enterprises-international-orgs.xml" />
+    <include file="db/changelog/changes/110-nl-stage3-rca-finalization.xml" />
+    <include file="db/changelog/changes/111-pl-stage1-president-senat-parties-executive.xml" />
+    <include file="db/changelog/changes/112-pl-stage2-courts-nik-bank-diplomats-army.xml" />
+    <include file="db/changelog/changes/113-pl-stage3-enterprises-orgs-rca-finalization.xml" />
+    <include file="db/changelog/changes/114-ro-stage1-president-parliament-parties.xml" />
+    <include file="db/changelog/changes/115-ro-stage2-courts-bank-accounts-diplomats-army.xml" />
+    <include file="db/changelog/changes/116-ro-stage3-enterprises-orgs-rca-finalization.xml" />
+    <include file="db/changelog/changes/117-gr-coverage-finalization.xml" />
+    <include file="db/changelog/changes/118-downgrade-seed-parsers-to-partial.xml" />
+    <include file="db/changelog/changes/119-fr-coverage-gaps-update.xml" />
+    <include file="db/changelog/changes/120-be-coverage-brussels-parliament.xml" />
+    <include file="db/changelog/changes/121-frozen-parsers-to-live-sources.xml" />
+    <include file="db/changelog/changes/122-es-unions-live-sources.xml" />
+    <include file="db/changelog/changes/122-be-coverage-party-executives.xml" />
+    <include file="db/changelog/changes/123-be-coverage-public-enterprises-intercommunales.xml" />
+    <include file="db/changelog/changes/124-pep-dynamic-parameters-in-db.xml" />
+    <include file="db/changelog/changes/125-be-coverage-international-orgs.xml" />
+    <include file="db/changelog/changes/126-be-coverage-amlr-local-executives.xml" />
+    <include file="db/changelog/changes/127-be-amlr-official-sources-no-wikidata.xml" />
+    <include file="db/changelog/changes/128-be-pep-eu-institutions.xml" />
+    <include file="db/changelog/changes/129-fr-international-orgs-config-in-parameters.xml" />
+    <include file="db/changelog/changes/130-fix-mojibake-in-be-parser-parameters.xml" />
+    <include file="db/changelog/changes/131-fr-army-navy-chief-address.xml" />
+    <include file="db/changelog/changes/132-fr-army-navy-chief-address-reapply.xml" />
+    <include file="db/changelog/changes/133-fr-international-orgs-oiml-eppo-officers.xml" />
+    <include file="db/changelog/changes/134-fr-international-orgs-coverage-description.xml" />
+    <include file="db/changelog/changes/135-fix-mojibake-in-coverage-texts.xml" />
+    <include file="db/changelog/changes/136-fr-council-of-state-expected-holders.xml" />
+    <include file="db/changelog/changes/137-be-coverage-completeness-review.xml" />
+    <include file="db/changelog/changes/138-be-unwrap-powershell-json-parameters.xml" />
+    <include file="db/changelog/changes/139-be-council-of-state-complete.xml" />
+    <include file="db/changelog/changes/140-be-config-in-parameters.xml" />
+    <include file="db/changelog/changes/141-be-brussels-government-dillies.xml" />
+    <include file="db/changelog/changes/142-de-category-a-url-registry.xml" />
+    <include file="db/changelog/changes/143-de-lobbyregister-schema.xml" />
+    <include file="db/changelog/changes/144-de-defence-parser.xml" />
+    <include file="db/changelog/changes/145-de-defence-secretaries-parser.xml" />
+    <include file="db/changelog/changes/146-de-defence-heer-parser.xml" />
+    <include file="db/changelog/changes/147-de-defence-luftwaffe-parser.xml" />
+    <include file="db/changelog/changes/148-de-defence-marine-parser.xml" />
+    <include file="db/changelog/changes/149-de-defence-cir-parser.xml" />
+    <include file="db/changelog/changes/150-de-defence-support-parser.xml" />
+    <include file="db/changelog/changes/151-de-landtage-slower-api-calls.xml" />
+    <include file="db/changelog/changes/152-de-federal-courts-all-judges.xml" />
+    <include file="db/changelog/changes/153-de-local-executives-landraete.xml" />
+    <include file="db/changelog/changes/154-de-defence-general-officers-function.xml" />
+    <include file="db/changelog/changes/155-de-federal-courts-local-executives-official-sources.xml" />
+    <include file="db/changelog/changes/156-register-de-pep-eu-institutions-defence-attaches.xml" />
+
+</databaseChangeLog>

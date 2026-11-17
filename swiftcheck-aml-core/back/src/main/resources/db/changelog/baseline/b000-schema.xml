@@ -1,0 +1,474 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="baseline-schema-aml_search_history" author="swiftcheck-baseline">
+        <preConditions onFail="MARK_RAN">
+            <not><tableExists tableName="aml_search_history"/></not>
+        </preConditions>
+        <comment>Table aml_search_history</comment>
+        <sql><![CDATA[CREATE TABLE `aml_search_history` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `search_date` datetime NOT NULL,
+  `schema_name` varchar(255) NOT NULL,
+  `dataset` varchar(255) DEFAULT NULL,
+  `searched_properties` text,
+  `matches_count` int DEFAULT NULL,
+  `results_json` longtext,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci]]></sql>
+    </changeSet>
+
+    <changeSet id="baseline-schema-app_user" author="swiftcheck-baseline">
+        <preConditions onFail="MARK_RAN">
+            <not><tableExists tableName="app_user"/></not>
+        </preConditions>
+        <comment>Table app_user</comment>
+        <sql><![CDATA[CREATE TABLE `app_user` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `keycloak_id` varchar(255) DEFAULT NULL,
+  `username` varchar(255) NOT NULL,
+  `email` varchar(255) DEFAULT NULL,
+  `first_name` varchar(255) DEFAULT NULL,
+  `last_name` varchar(255) DEFAULT NULL,
+  `enabled` tinyint NOT NULL DEFAULT '1',
+  `created_date` datetime DEFAULT NULL,
+  `last_login_date` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uk_app_user_username` (`username`),
+  UNIQUE KEY `uk_app_user_keycloak_id` (`keycloak_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci]]></sql>
+    </changeSet>
+
+    <changeSet id="baseline-schema-app_user_roles" author="swiftcheck-baseline">
+        <preConditions onFail="MARK_RAN">
+            <not><tableExists tableName="app_user_roles"/></not>
+        </preConditions>
+        <comment>Table app_user_roles</comment>
+        <sql><![CDATA[CREATE TABLE `app_user_roles` (
+  `user_id` bigint NOT NULL,
+  `role` varchar(50) NOT NULL,
+  PRIMARY KEY (`user_id`,`role`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci]]></sql>
+    </changeSet>
+
+    <changeSet id="baseline-schema-application_config" author="swiftcheck-baseline">
+        <preConditions onFail="MARK_RAN">
+            <not><tableExists tableName="application_config"/></not>
+        </preConditions>
+        <comment>Table application_config</comment>
+        <sql><![CDATA[CREATE TABLE `application_config` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `yente_url` varchar(500) DEFAULT NULL,
+  `yente_update_token` varchar(255) DEFAULT NULL,
+  `yente_data_folder` varchar(1024) DEFAULT NULL,
+  `yente_container_data_path` varchar(255) DEFAULT NULL,
+  `yente_manifest_path` varchar(1024) DEFAULT NULL,
+  `archive_folder` varchar(1024) DEFAULT NULL,
+  `work_folder` varchar(1024) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci]]></sql>
+    </changeSet>
+
+    <changeSet id="baseline-schema-country" author="swiftcheck-baseline">
+        <preConditions onFail="MARK_RAN">
+            <not><tableExists tableName="country"/></not>
+        </preConditions>
+        <comment>Table country</comment>
+        <sql><![CDATA[CREATE TABLE `country` (
+  `iso` char(2) NOT NULL,
+  `name` varchar(100) NOT NULL,
+  `eu_member` tinyint NOT NULL DEFAULT '1',
+  `legal_basis` varchar(500) DEFAULT NULL,
+  `retention_months` int NOT NULL DEFAULT '12',
+  `official_list_reference` varchar(255) DEFAULT NULL,
+  `official_list_date` date DEFAULT NULL,
+  `official_list_url` varchar(1024) DEFAULT NULL,
+  PRIMARY KEY (`iso`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci]]></sql>
+    </changeSet>
+
+    <changeSet id="baseline-schema-dataset_change" author="swiftcheck-baseline">
+        <preConditions onFail="MARK_RAN">
+            <not><tableExists tableName="dataset_change"/></not>
+        </preConditions>
+        <comment>Table dataset_change</comment>
+        <sql><![CDATA[CREATE TABLE `dataset_change` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `execution_id` bigint NOT NULL,
+  `entity_id` varchar(255) DEFAULT NULL,
+  `entity_schema` varchar(50) DEFAULT NULL,
+  `caption` varchar(1024) DEFAULT NULL,
+  `change_type` varchar(20) DEFAULT NULL,
+  `changed_properties` text,
+  PRIMARY KEY (`id`),
+  KEY `ix_dataset_change_execution_type` (`execution_id`,`change_type`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci]]></sql>
+    </changeSet>
+
+    <changeSet id="baseline-schema-lobby_client" author="swiftcheck-baseline">
+        <preConditions onFail="MARK_RAN">
+            <not><tableExists tableName="lobby_client"/></not>
+        </preConditions>
+        <comment>Table lobby_client</comment>
+        <sql><![CDATA[CREATE TABLE `lobby_client` (
+  `id` varchar(64) NOT NULL,
+  `entity_id` varchar(64) NOT NULL,
+  `client_name` varchar(512) NOT NULL,
+  `legal_form` varchar(256) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `idx_lobby_client_entity` (`entity_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci]]></sql>
+    </changeSet>
+
+    <changeSet id="baseline-schema-lobby_entity" author="swiftcheck-baseline">
+        <preConditions onFail="MARK_RAN">
+            <not><tableExists tableName="lobby_entity"/></not>
+        </preConditions>
+        <comment>Table lobby_entity</comment>
+        <sql><![CDATA[CREATE TABLE `lobby_entity` (
+  `id` varchar(64) NOT NULL,
+  `register_number` varchar(32) NOT NULL,
+  `name` varchar(512) NOT NULL,
+  `legal_form` varchar(256) DEFAULT NULL,
+  `register_entry_url` varchar(1024) DEFAULT NULL,
+  `status` varchar(16) NOT NULL,
+  `sha256` varchar(64) DEFAULT NULL,
+  `first_publication_date` varchar(64) DEFAULT NULL,
+  `last_update_date` varchar(64) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `idx_lobby_entity_reg_no` (`register_number`),
+  KEY `idx_lobby_entity_status` (`status`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci]]></sql>
+    </changeSet>
+
+    <changeSet id="baseline-schema-lobby_person" author="swiftcheck-baseline">
+        <preConditions onFail="MARK_RAN">
+            <not><tableExists tableName="lobby_person"/></not>
+        </preConditions>
+        <comment>Table lobby_person</comment>
+        <sql><![CDATA[CREATE TABLE `lobby_person` (
+  `id` varchar(64) NOT NULL,
+  `entity_id` varchar(64) NOT NULL,
+  `first_name` varchar(256) DEFAULT NULL,
+  `last_name` varchar(256) NOT NULL,
+  `academic_degree` varchar(128) DEFAULT NULL,
+  `normalized_name` varchar(512) NOT NULL,
+  `role_type` varchar(32) NOT NULL,
+  `function_title` varchar(512) DEFAULT NULL,
+  `register_entry_url` varchar(1024) DEFAULT NULL,
+  `former_public_function_present` tinyint NOT NULL DEFAULT '0',
+  `former_function_details` text,
+  `pep_target_class` varchar(16) DEFAULT NULL,
+  `status` varchar(16) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `idx_lobby_person_norm_name` (`normalized_name`),
+  KEY `idx_lobby_person_entity` (`entity_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci]]></sql>
+    </changeSet>
+
+    <changeSet id="baseline-schema-parser" author="swiftcheck-baseline">
+        <preConditions onFail="MARK_RAN">
+            <not><tableExists tableName="parser"/></not>
+        </preConditions>
+        <comment>Table parser</comment>
+        <sql><![CDATA[CREATE TABLE `parser` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) DEFAULT NULL,
+  `description` varchar(1000) DEFAULT NULL,
+  `dataset_name` varchar(100) NOT NULL,
+  `list_type` varchar(20) NOT NULL,
+  `website_url` varchar(1024) DEFAULT NULL,
+  `plugin_id` varchar(255) DEFAULT NULL,
+  `plugin_url` varchar(1024) DEFAULT NULL,
+  `data_source_type` varchar(30) DEFAULT NULL,
+  `parser_kind` varchar(30) DEFAULT NULL,
+  `source_location` varchar(2048) DEFAULT NULL,
+  `parameters` text,
+  `refresh_hours` int NOT NULL DEFAULT '0',
+  `retention_months` int NOT NULL DEFAULT '0',
+  `licence` varchar(255) DEFAULT NULL,
+  `attribution` varchar(1000) DEFAULT NULL,
+  `notes` text,
+  `enabled` tinyint NOT NULL DEFAULT '1',
+  `created_at` datetime(6) DEFAULT NULL,
+  `updated_at` datetime(6) DEFAULT NULL,
+  `technical_description` mediumtext,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uk_parser_dataset_name` (`dataset_name`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci]]></sql>
+    </changeSet>
+
+    <changeSet id="baseline-schema-parser_alert" author="swiftcheck-baseline">
+        <preConditions onFail="MARK_RAN">
+            <not><tableExists tableName="parser_alert"/></not>
+        </preConditions>
+        <comment>Table parser_alert</comment>
+        <sql><![CDATA[CREATE TABLE `parser_alert` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `parser_id` bigint NOT NULL,
+  `type` varchar(20) NOT NULL,
+  `raised_at` datetime(6) NOT NULL,
+  `resolved_at` datetime(6) DEFAULT NULL,
+  `message` longtext,
+  PRIMARY KEY (`id`),
+  KEY `ix_parser_alert_parser_resolved` (`parser_id`,`resolved_at`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci]]></sql>
+    </changeSet>
+
+    <changeSet id="baseline-schema-parser_execution" author="swiftcheck-baseline">
+        <preConditions onFail="MARK_RAN">
+            <not><tableExists tableName="parser_execution"/></not>
+        </preConditions>
+        <comment>Table parser_execution</comment>
+        <sql><![CDATA[CREATE TABLE `parser_execution` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `parser_id` bigint NOT NULL,
+  `trigger_type` varchar(20) DEFAULT NULL,
+  `status` varchar(20) DEFAULT NULL,
+  `started_at` datetime(6) DEFAULT NULL,
+  `finished_at` datetime(6) DEFAULT NULL,
+  `input_sha256` char(64) DEFAULT NULL,
+  `entity_count` int NOT NULL DEFAULT '0',
+  `person_count` int NOT NULL DEFAULT '0',
+  `retained_count` int NOT NULL DEFAULT '0',
+  `rejected_count` int NOT NULL DEFAULT '0',
+  `added_count` int NOT NULL DEFAULT '0',
+  `removed_count` int NOT NULL DEFAULT '0',
+  `changed_count` int NOT NULL DEFAULT '0',
+  `message` longtext,
+  PRIMARY KEY (`id`),
+  KEY `ix_parser_execution_parser_started` (`parser_id`,`started_at`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci]]></sql>
+    </changeSet>
+
+    <changeSet id="baseline-schema-parser_test" author="swiftcheck-baseline">
+        <preConditions onFail="MARK_RAN">
+            <not><tableExists tableName="parser_test"/></not>
+        </preConditions>
+        <comment>Table parser_test</comment>
+        <sql><![CDATA[CREATE TABLE `parser_test` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `parser_id` bigint NOT NULL,
+  `execution_id` bigint DEFAULT NULL,
+  `status` varchar(20) DEFAULT NULL,
+  `started_at` datetime(6) DEFAULT NULL,
+  `finished_at` datetime(6) DEFAULT NULL,
+  `source_count` int NOT NULL DEFAULT '0',
+  `found_count` int NOT NULL DEFAULT '0',
+  `not_converted_count` int NOT NULL DEFAULT '0',
+  `not_indexed_count` int NOT NULL DEFAULT '0',
+  `not_matched_count` int NOT NULL DEFAULT '0',
+  `error_count` int NOT NULL DEFAULT '0',
+  `message` longtext,
+  `retest_of_id` bigint DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `ix_parser_test_parser_started` (`parser_id`,`started_at`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci]]></sql>
+    </changeSet>
+
+    <changeSet id="baseline-schema-parser_test_failure" author="swiftcheck-baseline">
+        <preConditions onFail="MARK_RAN">
+            <not><tableExists tableName="parser_test_failure"/></not>
+        </preConditions>
+        <comment>Table parser_test_failure</comment>
+        <sql><![CDATA[CREATE TABLE `parser_test_failure` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `test_id` bigint NOT NULL,
+  `entity_id` varchar(255) DEFAULT NULL,
+  `entity_schema` varchar(50) DEFAULT NULL,
+  `name` varchar(1024) DEFAULT NULL,
+  `source_ref` varchar(512) DEFAULT NULL,
+  `reason` varchar(20) DEFAULT NULL,
+  `detail` text,
+  PRIMARY KEY (`id`),
+  KEY `ix_parser_test_failure_test_reason` (`test_id`,`reason`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci]]></sql>
+    </changeSet>
+
+    <changeSet id="baseline-schema-pep_category" author="swiftcheck-baseline">
+        <preConditions onFail="MARK_RAN">
+            <not><tableExists tableName="pep_category"/></not>
+        </preConditions>
+        <comment>Table pep_category</comment>
+        <sql><![CDATA[CREATE TABLE `pep_category` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `country_iso` char(2) NOT NULL,
+  `code` varchar(20) NOT NULL,
+  `label` varchar(500) NOT NULL,
+  `kind` varchar(20) NOT NULL,
+  `risk_class` int NOT NULL DEFAULT '2',
+  `sort_order` int NOT NULL DEFAULT '0',
+  `legal_reference` varchar(500) DEFAULT NULL,
+  `active` tinyint NOT NULL DEFAULT '1',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uk_pep_category_code` (`code`),
+  KEY `fk_pep_category_country` (`country_iso`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci]]></sql>
+    </changeSet>
+
+    <changeSet id="baseline-schema-pep_function" author="swiftcheck-baseline">
+        <preConditions onFail="MARK_RAN">
+            <not><tableExists tableName="pep_function"/></not>
+        </preConditions>
+        <comment>Table pep_function</comment>
+        <sql><![CDATA[CREATE TABLE `pep_function` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `category_id` bigint NOT NULL,
+  `label` varchar(500) NOT NULL,
+  `institution` varchar(255) DEFAULT NULL,
+  `expected_holders` int DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_pep_function_category` (`category_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci]]></sql>
+    </changeSet>
+
+    <changeSet id="baseline-schema-pep_function_parser" author="swiftcheck-baseline">
+        <preConditions onFail="MARK_RAN">
+            <not><tableExists tableName="pep_function_parser"/></not>
+        </preConditions>
+        <comment>Table pep_function_parser</comment>
+        <sql><![CDATA[CREATE TABLE `pep_function_parser` (
+  `function_id` bigint NOT NULL,
+  `parser_id` bigint NOT NULL,
+  `completeness` varchar(20) NOT NULL DEFAULT 'COMPLETE',
+  `includes_former` tinyint NOT NULL DEFAULT '0',
+  `covered_scope` varchar(1000) DEFAULT NULL,
+  `gaps` varchar(2000) DEFAULT NULL,
+  PRIMARY KEY (`function_id`,`parser_id`),
+  KEY `fk_pep_function_parser_parser` (`parser_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci]]></sql>
+    </changeSet>
+
+    <changeSet id="baseline-schema-pep_media" author="swiftcheck-baseline">
+        <preConditions onFail="MARK_RAN">
+            <not><tableExists tableName="pep_media"/></not>
+        </preConditions>
+        <comment>Table pep_media</comment>
+        <sql><![CDATA[CREATE TABLE `pep_media` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `entity_id` varchar(255) NOT NULL,
+  `dataset_name` varchar(100) NOT NULL,
+  `origin` varchar(20) NOT NULL,
+  `image_url` varchar(2048) DEFAULT NULL,
+  `page_url` varchar(2048) DEFAULT NULL,
+  `licence` varchar(1000) DEFAULT NULL,
+  `content_type` varchar(100) DEFAULT NULL,
+  `sha256` char(64) DEFAULT NULL,
+  `size_bytes` bigint DEFAULT NULL,
+  `archive_path` varchar(1024) DEFAULT NULL,
+  `validated_by` varchar(255) DEFAULT NULL,
+  `fetched_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uq_pep_media_dataset_entity_origin` (`dataset_name`,`entity_id`,`origin`),
+  KEY `idx_pep_media_entity` (`entity_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci]]></sql>
+    </changeSet>
+
+    <changeSet id="baseline-schema-pep_rca_link" author="swiftcheck-baseline">
+        <preConditions onFail="MARK_RAN">
+            <not><tableExists tableName="pep_rca_link"/></not>
+        </preConditions>
+        <comment>Table pep_rca_link</comment>
+        <sql><![CDATA[CREATE TABLE `pep_rca_link` (
+  `id` varchar(64) NOT NULL,
+  `pep_id` varchar(128) NOT NULL,
+  `rca_person_id` varchar(64) NOT NULL,
+  `entity_id` varchar(64) DEFAULT NULL,
+  `relation_type` varchar(64) NOT NULL,
+  `audit_justification` varchar(1024) NOT NULL,
+  `status` varchar(16) NOT NULL,
+  `start_date` varchar(32) DEFAULT NULL,
+  `end_date` varchar(32) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `fk_pep_rca_entity` (`entity_id`),
+  KEY `idx_pep_rca_pep` (`pep_id`),
+  KEY `idx_pep_rca_person` (`rca_person_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci]]></sql>
+    </changeSet>
+
+    <changeSet id="baseline-schema-resolution_judgement" author="swiftcheck-baseline">
+        <preConditions onFail="MARK_RAN">
+            <not><tableExists tableName="resolution_judgement"/></not>
+        </preConditions>
+        <comment>Table resolution_judgement</comment>
+        <sql><![CDATA[CREATE TABLE `resolution_judgement` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `left_entity_id` varchar(255) NOT NULL,
+  `right_entity_id` varchar(255) NOT NULL,
+  `judgement` varchar(20) NOT NULL,
+  `decided_by` varchar(255) DEFAULT NULL,
+  `created_at` datetime(6) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uk_resolution_judgement_pair` (`left_entity_id`,`right_entity_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci]]></sql>
+    </changeSet>
+
+    <changeSet id="baseline-schema-retained_entity" author="swiftcheck-baseline">
+        <preConditions onFail="MARK_RAN">
+            <not><tableExists tableName="retained_entity"/></not>
+        </preConditions>
+        <comment>Table retained_entity</comment>
+        <sql><![CDATA[CREATE TABLE `retained_entity` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `parser_id` bigint NOT NULL,
+  `entity_id` varchar(255) NOT NULL,
+  `entity_schema` varchar(50) DEFAULT NULL,
+  `caption` varchar(1024) DEFAULT NULL,
+  `json` longtext NOT NULL,
+  `removed_at` datetime(6) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uk_retained_entity_parser_entity` (`parser_id`,`entity_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci]]></sql>
+    </changeSet>
+
+    <changeSet id="baseline-schema-source_file" author="swiftcheck-baseline">
+        <preConditions onFail="MARK_RAN">
+            <not><tableExists tableName="source_file"/></not>
+        </preConditions>
+        <comment>Table source_file</comment>
+        <sql><![CDATA[CREATE TABLE `source_file` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `execution_id` bigint NOT NULL,
+  `origin` varchar(2048) DEFAULT NULL,
+  `sha256` char(64) DEFAULT NULL,
+  `size_bytes` bigint NOT NULL DEFAULT '0',
+  `archive_path` varchar(1024) DEFAULT NULL,
+  `fetched_at` datetime(6) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_source_file_execution` (`execution_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci]]></sql>
+    </changeSet>
+
+    <changeSet id="baseline-schema-foreign-keys" author="swiftcheck-baseline">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM information_schema.referential_constraints WHERE constraint_schema = DATABASE()</sqlCheck>
+        </preConditions>
+        <comment>Clés étrangères (après toutes les tables)</comment>
+        <sql><![CDATA[ALTER TABLE `app_user_roles` ADD CONSTRAINT `fk_user_roles_user` FOREIGN KEY (`user_id`) REFERENCES `app_user` (`id`);]]></sql>
+        <sql><![CDATA[ALTER TABLE `dataset_change` ADD CONSTRAINT `fk_dataset_change_execution` FOREIGN KEY (`execution_id`) REFERENCES `parser_execution` (`id`);]]></sql>
+        <sql><![CDATA[ALTER TABLE `lobby_client` ADD CONSTRAINT `fk_lobby_client_entity` FOREIGN KEY (`entity_id`) REFERENCES `lobby_entity` (`id`);]]></sql>
+        <sql><![CDATA[ALTER TABLE `lobby_person` ADD CONSTRAINT `fk_lobby_person_entity` FOREIGN KEY (`entity_id`) REFERENCES `lobby_entity` (`id`);]]></sql>
+        <sql><![CDATA[ALTER TABLE `parser_alert` ADD CONSTRAINT `fk_parser_alert_parser` FOREIGN KEY (`parser_id`) REFERENCES `parser` (`id`);]]></sql>
+        <sql><![CDATA[ALTER TABLE `parser_execution` ADD CONSTRAINT `fk_parser_execution_parser` FOREIGN KEY (`parser_id`) REFERENCES `parser` (`id`);]]></sql>
+        <sql><![CDATA[ALTER TABLE `parser_test` ADD CONSTRAINT `fk_parser_test_parser` FOREIGN KEY (`parser_id`) REFERENCES `parser` (`id`);]]></sql>
+        <sql><![CDATA[ALTER TABLE `parser_test_failure` ADD CONSTRAINT `fk_parser_test_failure_test` FOREIGN KEY (`test_id`) REFERENCES `parser_test` (`id`);]]></sql>
+        <sql><![CDATA[ALTER TABLE `pep_category` ADD CONSTRAINT `fk_pep_category_country` FOREIGN KEY (`country_iso`) REFERENCES `country` (`iso`);]]></sql>
+        <sql><![CDATA[ALTER TABLE `pep_function` ADD CONSTRAINT `fk_pep_function_category` FOREIGN KEY (`category_id`) REFERENCES `pep_category` (`id`);]]></sql>
+        <sql><![CDATA[ALTER TABLE `pep_function_parser` ADD CONSTRAINT `fk_pep_function_parser_function` FOREIGN KEY (`function_id`) REFERENCES `pep_function` (`id`);]]></sql>
+        <sql><![CDATA[ALTER TABLE `pep_function_parser` ADD CONSTRAINT `fk_pep_function_parser_parser` FOREIGN KEY (`parser_id`) REFERENCES `parser` (`id`);]]></sql>
+        <sql><![CDATA[ALTER TABLE `pep_rca_link` ADD CONSTRAINT `fk_pep_rca_entity` FOREIGN KEY (`entity_id`) REFERENCES `lobby_entity` (`id`);]]></sql>
+        <sql><![CDATA[ALTER TABLE `pep_rca_link` ADD CONSTRAINT `fk_pep_rca_person` FOREIGN KEY (`rca_person_id`) REFERENCES `lobby_person` (`id`);]]></sql>
+        <sql><![CDATA[ALTER TABLE `retained_entity` ADD CONSTRAINT `fk_retained_entity_parser` FOREIGN KEY (`parser_id`) REFERENCES `parser` (`id`);]]></sql>
+        <sql><![CDATA[ALTER TABLE `source_file` ADD CONSTRAINT `fk_source_file_execution` FOREIGN KEY (`execution_id`) REFERENCES `parser_execution` (`id`);]]></sql>
+    </changeSet>
+</databaseChangeLog>

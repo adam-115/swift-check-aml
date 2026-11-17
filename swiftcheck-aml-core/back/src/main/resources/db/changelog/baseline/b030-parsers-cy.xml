@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="baseline-parsers-cy" author="swiftcheck-baseline">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM parser WHERE dataset_name IN ('cy_pep_parliament', 'cy_pep_institutions', 'cy_pep_europarl', 'cy_pep_eu_commission')</sqlCheck>
+        </preConditions>
+        <comment>Parsers « cy_* » (4) et leurs liens aux fonctions PEP (4)</comment>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="288"/>
+            <column name="name" value="PEP Chypre – Chambre des représentants"/>
+            <column name="description"><![CDATA[Les 56 députés de la Chambre des représentants en fonction, d'après la liste « Members of the House » de www.parliament.cy (catégorie CY-b)]]></column>
+            <column name="dataset_name" value="cy_pep_parliament"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://www.parliament.cy/en/general-information/composition/members-of-the-house"/>
+            <column name="plugin_id" value="cy-pep-parliament"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="WEB_PAGE"/>
+            <column name="parameters"><![CDATA[{"url": "https://www.parliament.cy/en/general-information/composition/members-of-the-house/biographical-notes"}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="Site officiel de la Chambre des représentants : citer la source"/>
+            <column name="attribution" value="Βουλή των Αντιπροσώπων της Κύπρου, www.parliament.cy"/>
+            <column name="notes"><![CDATA[Une seule requête (robots.txt : tout autorisé). Noms écrits « NOM Prénom » remis en « Prénom Nom », ordre publié en alias. Les fiches individuelles (naissance, circonscription, parti) ne sont PAS lues : le site affiche une vérification de navigateur Cloudflare dès quelques requêtes successives (non contournée). Si la page de liste affiche cette vérification, le parser échoue avec un message clair. Pas de naissance ni d'anciens députés (législature 2021-2026 non publiée).]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-09 00:21:52.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="289"/>
+            <column name="name" value="PEP Chypre – Banque centrale"/>
+            <column name="description"><![CDATA[Gouverneur et membres du conseil d'administration de la Banque centrale de Chypre, d'après www.centralbank.cy (catégorie CY-e)]]></column>
+            <column name="dataset_name" value="cy_pep_institutions"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://www.centralbank.cy/en/the-bank/board-of-directors"/>
+            <column name="plugin_id" value="cy-pep-institutions"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="WEB_PAGE"/>
+            <column name="parameters"><![CDATA[{"url": "https://www.centralbank.cy/en/the-bank/board-of-directors"}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="Site officiel de la Banque centrale de Chypre : citer la source"/>
+            <column name="attribution" value="Central Bank of Cyprus, www.centralbank.cy"/>
+            <column name="notes"><![CDATA[Une page : le gouverneur Christodoulos Patsalides, 2 membres exécutifs et 5 non exécutifs. Ni naissance ni dates de fonction. robots.txt : seuls /cgi-bin/ et /console sont interdits.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-09 00:21:52.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="290"/>
+            <column name="name" value="PEP Chypre – Députés européens"/>
+            <column name="description"><![CDATA[Les députés au Parlement européen élus à Chypre, en fonction et sortis depuis moins de 12 mois, avec naissance et dates de mandat (catégorie CY-EU)]]></column>
+            <column name="dataset_name" value="cy_pep_europarl"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://data.europarl.europa.eu/"/>
+            <column name="plugin_id" value="cy-pep-europarl"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="API"/>
+            <column name="parameters"><![CDATA[{"currentUrl": "https://data.europarl.europa.eu/api/v2/meps/show-current?country-of-representation=CY&format=application%2Fld%2Bjson", "termUrl": "https://data.europarl.europa.eu/api/v2/meps?country-of-representation=CY&parliamentary-term=10&limit=500&format=application%2Fld%2Bjson", "detailUrl": "https://data.europarl.europa.eu/api/v2/meps/{id}?format=application%2Fld%2Bjson", "delayMs": "400", "monthsAfterEnd": "12", "wikidataEndpoint": ""}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="Réutilisation autorisée en citant la source (Parlement européen)"/>
+            <column name="attribution" value="Parlement européen, data.europarl.europa.eu"/>
+            <column name="notes"><![CDATA[Reprise de nl_pep_europarl. Mesure du 09/11/2026 : 6 personnes en fonction, 4 avec date de naissance. L'API limite le débit (HTTP 429) : le plugin attend puis réessaie. Pas de photos (Wikidata non utilisé). termUrl contient le numéro de législature (10) : à changer en 2029.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-09 00:21:52.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="291"/>
+            <column name="name" value="PEP Chypre – Commissaire européen"/>
+            <column name="description" value="Le membre chypriote de la Commission européenne, d'après sa fiche officielle (catégorie CY-EU)"/>
+            <column name="dataset_name" value="cy_pep_eu_commission"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://commission.europa.eu/about/organisation/college-commissioners_en"/>
+            <column name="plugin_id" value="cy-pep-eu-commission"/>
+            <column name="data_source_type" value="HTTP_FILE"/>
+            <column name="parser_kind" value="WEB_PAGE"/>
+            <column name="source_location" value="https://commission.europa.eu/about/organisation/college-commissioners/costas-kadis_en"/>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="Réutilisation autorisée en citant la source (avis juridique de la Commission européenne)"/>
+            <column name="attribution" value="Commission européenne, commission.europa.eu"/>
+            <column name="notes"><![CDATA[Reprise de nl_pep_eu_commission. À chaque nouvelle Commission, remplacer l'adresse par la fiche du commissaire chypriote. Une fiche qui ne présente pas un commissaire chypriote est refusée.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-09 00:21:52.000000"/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="814"/>
+            <column name="parser_id" valueNumeric="288"/>
+            <column name="completeness" value="PARTIAL"/>
+            <column name="includes_former" valueNumeric="0"/>
+            <column name="covered_scope" value="Les 56 députés en fonction de la 13e législature, par leur nom (sans naissance, circonscription ni parti)."/>
+            <column name="gaps" value="Anciens députés non couverts (législature 2021-2026 non publiée) ; pas de naissance."/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="819"/>
+            <column name="parser_id" valueNumeric="289"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="0"/>
+            <column name="covered_scope" value="Le gouverneur et les sept autres membres du conseil de la Banque centrale en fonction (8 personnes)."/>
+            <column name="gaps" value="Anciens membres non couverts ; pas de naissance. Service d'audit non couvert."/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="826"/>
+            <column name="parser_id" valueNumeric="290"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope"><![CDATA[Les 6 députés européens élus à Chypre et ceux sortis depuis moins de 12 mois, avec naissance quand elle est publiée, genre, groupe et dates de mandat.]]></column>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="827"/>
+            <column name="parser_id" valueNumeric="291"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="0"/>
+            <column name="covered_scope" value="Costas Kadis, commissaire chargé de la pêche et des océans (2024-2029)."/>
+            <column name="gaps" value="Ni date ni lieu de naissance sur la fiche."/>
+        </insert>
+    </changeSet>
+</databaseChangeLog>

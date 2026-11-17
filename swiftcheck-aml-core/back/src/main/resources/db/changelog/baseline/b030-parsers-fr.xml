@@ -1,0 +1,729 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="baseline-parsers-fr" author="swiftcheck-baseline">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM parser WHERE dataset_name IN ('fr_pep_president', 'fr_pep_government', 'fr_pep_national_assembly', 'fr_pep_senate', 'fr_pep_europarl', 'fr_pep_eu_commission', 'fr_pep_constitutional_council', 'fr_pep_banque_de_france', 'fr_pep_army', 'fr_pep_local_executives', 'fr_pep_rca', 'fr_pep_associated_entities', 'fr_pep_political_parties', 'fr_pep_jorf', 'fr_pep_diplomats', 'fr_pep_international_orgs', 'fr_pep_eu_institutions', 'fr_pep_wikidata_positions', 'fr_pep_state_enterprises', 'fr_pep_local_enterprises', 'fr_pep_local_executives_all', 'fr_pep_rne_elected', 'fr_pep_hatvp')</sqlCheck>
+        </preConditions>
+        <comment>Parsers « fr_* » (23) et leurs liens aux fonctions PEP (35)</comment>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="69"/>
+            <column name="name" value="PEP France – Président de la République"/>
+            <column name="description" value="Président de la République, d'après sa biographie officielle sur elysee.fr (catégorie FR-a)"/>
+            <column name="dataset_name" value="fr_pep_president"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://www.elysee.fr"/>
+            <column name="plugin_id" value="fr-pep-president"/>
+            <column name="data_source_type" value="HTTP_FILE"/>
+            <column name="parser_kind" value="WEB_PAGE"/>
+            <column name="source_location" value="https://www.elysee.fr/emmanuel-macron"/>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="attribution" value="Présidence de la République, www.elysee.fr"/>
+            <column name="notes"><![CDATA[À chaque nouveau Président, remplacer l'adresse de la source par sa biographie sur elysee.fr. Le Président sortant reste publié 12 mois (rétention). Date de naissance au mois près.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-10-28 16:27:54.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="70"/>
+            <column name="name" value="PEP France – Membres du Gouvernement"/>
+            <column name="description"><![CDATA[Premier ministre, ministres, ministres délégués et secrétaires d'État en fonction, et anciens membres récents, d'après les déclarations publiées par la HATVP (catégorie FR-a)]]></column>
+            <column name="dataset_name" value="fr_pep_government"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://www.hatvp.fr/open-data/"/>
+            <column name="plugin_id" value="fr-pep-government"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="DECLARATION_REGISTER"/>
+            <column name="parameters"><![CDATA[{"listUrl": "https://www.hatvp.fr/livraison/opendata/liste.csv", "declarationsUrl": "https://www.hatvp.fr/livraison/dossiers/", "delayMs": "300", "monthsAfterEnd": "12"}]]></column>
+            <column name="refresh_hours" valueNumeric="24"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="Licence Ouverte / Open Licence (Etalab 2.0)"/>
+            <column name="attribution" value="Haute Autorité pour la transparence de la vie publique, www.hatvp.fr (open data)"/>
+            <column name="notes"><![CDATA[Un nouveau membre n'apparaît qu'après le dépôt de sa première déclaration (dans les deux mois de sa nomination) ; date de naissance et dates de fonction après sa publication. info.gouv.fr n'est pas utilisé : il refuse l'accès aux robots (HTTP 403). Historique long (anciens de plus de 12 mois) : possible avec monthsAfterEnd > 12 et un contrôle des décès par le fichier INSEE (service deces.matchid.io). Renseigner deathCheckToken (jeton du service, dans la configuration du parser, jamais dans le dépôt) ; sans jeton, le quota anonyme s'épuise et les anciens non vérifiés ne sont pas publiés. Liste HATVP : seuls les membres en fonction y figurent, l'historique des ministres vient du Journal officiel (fr_pep_jorf).]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-10-28 16:27:54.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="71"/>
+            <column name="name" value="PEP France – Députés"/>
+            <column name="description"><![CDATA[Députés à l'Assemblée nationale en fonction, députés sortis depuis moins de 12 mois et présidence de l'Assemblée, d'après l'open data AMO30 (catégorie FR-b)]]></column>
+            <column name="dataset_name" value="fr_pep_national_assembly"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://data.assemblee-nationale.fr/acteurs/historique-des-deputes"/>
+            <column name="plugin_id" value="fr-pep-national-assembly"/>
+            <column name="data_source_type" value="HTTP_FILE"/>
+            <column name="parser_kind" value="OPEN_DATA_FILE"/>
+            <column name="source_location"><![CDATA[https://data.assemblee-nationale.fr/static/openData/repository/17/amo/tous_acteurs_mandats_organes_xi_legislature/AMO30_tous_acteurs_tous_mandats_tous_organes_historique.json.zip]]></column>
+            <column name="parameters"><![CDATA[{"monthsAfterEnd": "12"}]]></column>
+            <column name="refresh_hours" valueNumeric="24"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="Licence Ouverte / Open Licence (Etalab 2.0)"/>
+            <column name="attribution" value="Assemblée nationale, data.assemblee-nationale.fr (archive AMO30)"/>
+            <column name="notes"><![CDATA[Archive mise à jour chaque jour (environ 14 Mo). L'adresse contient le numéro de législature (17) : à changer à la prochaine législature. Historique long : les anciens dont le mandat date de plus de 12 mois sont repris (monthsAfterEnd = 1200) ; la recherche les présente comme « Ancien PEP (Historique) ». Les personnes décédées ne sont jamais reprises.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-10-28 16:27:54.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="72"/>
+            <column name="name" value="PEP France – Sénateurs"/>
+            <column name="description"><![CDATA[Sénateurs en fonction, sénateurs sortis depuis moins de 12 mois et présidence du Sénat, d'après l'open data data.senat.fr (catégorie FR-b)]]></column>
+            <column name="dataset_name" value="fr_pep_senate"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://data.senat.fr/les-senateurs/"/>
+            <column name="plugin_id" value="fr-pep-senate"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="OPEN_DATA_FILE"/>
+            <column name="parameters"><![CDATA[{"generalUrl": "https://data.senat.fr/data/senateurs/ODSEN_GENERAL.csv", "mandatesUrl": "https://data.senat.fr/data/senateurs/ODSEN_ELUSEN.csv", "monthsAfterEnd": "12"}]]></column>
+            <column name="refresh_hours" valueNumeric="24"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="Licence Ouverte / Open Licence (Etalab 2.0)"/>
+            <column name="attribution" value="Sénat, data.senat.fr (ODSEN_GENERAL, ODSEN_ELUSEN)"/>
+            <column name="notes"><![CDATA[Deux fichiers : liste générale (naissance, groupe, Bureau) et mandats (dates). Un ancien sénateur décédé n'est pas repris. Historique long : les anciens dont le mandat date de plus de 12 mois sont repris (monthsAfterEnd = 1200) ; la recherche les présente comme « Ancien PEP (Historique) ». Les personnes décédées ne sont jamais reprises.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-10-28 16:27:54.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="73"/>
+            <column name="name" value="PEP France – Députés européens"/>
+            <column name="description"><![CDATA[Députés au Parlement européen élus en France, en fonction et sortis depuis moins de 12 mois, d'après l'API open data du Parlement européen (catégorie FR-EU)]]></column>
+            <column name="dataset_name" value="fr_pep_europarl"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://data.europarl.europa.eu"/>
+            <column name="plugin_id" value="fr-pep-europarl"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="API"/>
+            <column name="parameters"><![CDATA[{"currentUrl": "https://data.europarl.europa.eu/api/v2/meps/show-current?country-of-representation=FR&format=application%2Fld%2Bjson", "termUrl": "https://data.europarl.europa.eu/api/v2/meps?country-of-representation=FR&parliamentary-term=10&limit=500&format=application%2Fld%2Bjson", "detailUrl": "https://data.europarl.europa.eu/api/v2/meps/{id}?format=application%2Fld%2Bjson", "delayMs": "300", "monthsAfterEnd": "12"}]]></column>
+            <column name="refresh_hours" valueNumeric="24"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="Réutilisation autorisée en citant la source (avis juridique du Parlement européen)"/>
+            <column name="attribution" value="Parlement européen, data.europarl.europa.eu"/>
+            <column name="notes"><![CDATA[Lit la fiche de chaque député (naissance, dates de mandat) : environ 85 appels. termUrl contient le numéro de législature (10) : à changer à la prochaine législature. Historique long (anciens de plus de 12 mois) : possible avec monthsAfterEnd > 12, previousTermUrls (listes des législatures 9, 8… séparées par des espaces) et un contrôle des décès par le fichier INSEE (service deces.matchid.io). Renseigner deathCheckToken (jeton du service, dans la configuration du parser, jamais dans le dépôt) ; sans jeton, le quota anonyme s'épuise et les anciens non vérifiés ne sont pas publiés. Compter environ 1 appel par ancien député, avec 700 ms entre deux appels au Parlement européen (limite de débit).]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-10-28 16:27:54.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="74"/>
+            <column name="name" value="PEP France – Commissaire européen"/>
+            <column name="description" value="Membre français de la Commission européenne, d'après sa fiche officielle sur commission.europa.eu (catégorie FR-EU)"/>
+            <column name="dataset_name" value="fr_pep_eu_commission"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://commission.europa.eu/about/organisation/college-commissioners_fr"/>
+            <column name="plugin_id" value="fr-pep-eu-commission"/>
+            <column name="data_source_type" value="HTTP_FILE"/>
+            <column name="parser_kind" value="WEB_PAGE"/>
+            <column name="source_location" value="https://commission.europa.eu/about/organisation/college-commissioners/stephane-sejourne_fr"/>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="Réutilisation autorisée en citant la source (avis juridique de la Commission européenne)"/>
+            <column name="attribution" value="Commission européenne, commission.europa.eu"/>
+            <column name="notes"><![CDATA[À chaque nouvelle Commission, remplacer l'adresse par la fiche du commissaire français. Une fiche qui ne présente pas un commissaire français est refusée.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-10-28 16:27:54.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="75"/>
+            <column name="name" value="PEP France – Conseil constitutionnel"/>
+            <column name="description" value="Président et membres du Conseil constitutionnel, d'après conseil-constitutionnel.fr (catégorie FR-d)"/>
+            <column name="dataset_name" value="fr_pep_constitutional_council"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://www.conseil-constitutionnel.fr/le-conseil-constitutionnel/les-membres"/>
+            <column name="plugin_id" value="fr-pep-constitutional-council"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="WEB_PAGE"/>
+            <column name="source_location" value=""/>
+            <column name="parameters"><![CDATA[{"membersUrl": "https://www.conseil-constitutionnel.fr/le-conseil-constitutionnel/les-membres", "delayMs": "500"}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="attribution" value="Conseil constitutionnel, www.conseil-constitutionnel.fr"/>
+            <column name="notes" value="Couverture partielle : le secrétaire général n'est pas nommé sur le site (décret au Journal officiel)."/>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-10-28 16:27:54.000000"/>
+            <column name="updated_at" value="2026-11-11 23:46:01.938313"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="76"/>
+            <column name="name" value="PEP France – Conseil général de la Banque de France"/>
+            <column name="description" value="Membres du Conseil général de la Banque de France, d'après banque-france.fr (catégorie FR-e)"/>
+            <column name="dataset_name" value="fr_pep_banque_de_france"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://www.banque-france.fr"/>
+            <column name="plugin_id" value="fr-pep-banque-de-france"/>
+            <column name="data_source_type" value="HTTP_FILE"/>
+            <column name="parser_kind" value="WEB_PAGE"/>
+            <column name="source_location" value="https://www.banque-france.fr/fr/banque-de-france/gouvernance-forte-et-transparente/gouvernance-comites-consultatifs"/>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="attribution" value="Banque de France, www.banque-france.fr"/>
+            <column name="notes"><![CDATA[Liste « Membres » de la section « Le Conseil général » ; le censeur et son suppléant ne sont pas repris. Ni date de naissance ni date de nomination sur la page.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-10-28 16:27:54.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="77"/>
+            <column name="name" value="PEP France – Chefs d'état-major"/>
+            <column name="description"><![CDATA[Chef d'état-major des armées et chefs d'état-major de l'armée de Terre, de la Marine et de l'armée de l'Air et de l'Espace, d'après leur biographie sur defense.gouv.fr (catégorie FR-f)]]></column>
+            <column name="dataset_name" value="fr_pep_army"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://www.defense.gouv.fr"/>
+            <column name="plugin_id" value="fr-pep-army"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="WEB_PAGE"/>
+            <column name="source_location" value=""/>
+            <column name="parameters"><![CDATA[{"cemaUrl": "https://www.defense.gouv.fr/ema/chef-detat-major-armees", "cemmUrl": "https://www.defense.gouv.fr/marine/actualites/amiral-nicolas-vaujour-chef-detat-major-marine", "cematUrl": "https://www.defense.gouv.fr/terre/chef-detat-major-larmee-terre/biographie-du-chef-detat-major-larmee-terre", "cemaaeUrl": "https://www.defense.gouv.fr/air/biographie-du-chef-detat-major-larmee-lair-lespace"}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="attribution" value="Ministère des Armées, www.defense.gouv.fr"/>
+            <column name="notes"><![CDATA[Couverture partielle : pas de biographie à jour du chef d'état-major de la Marine sur le site (octobre 2026), cemmUrl est vide.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-10-28 16:27:54.000000"/>
+            <column name="updated_at" value="2026-11-12 00:53:22.843246"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="78"/>
+            <column name="name" value="PEP France – Exécutifs locaux (AMLR)"/>
+            <column name="description"><![CDATA[Maires et présidents d'intercommunalité, de département, de région et de collectivité à statut particulier de 50 000 habitants ou plus, d'après le Répertoire national des élus (catégorie FR-AMLR, juillet 2027)]]></column>
+            <column name="dataset_name" value="fr_pep_local_executives"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://www.data.gouv.fr/datasets/repertoire-national-des-elus-1"/>
+            <column name="plugin_id" value="fr-pep-local-executives"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="OPEN_DATA_FILE"/>
+            <column name="parameters"><![CDATA[{"populationsUrl": "https://geo.api.gouv.fr/communes?fields=code,nom,population,codeDepartement,codeRegion,codeEpci&format=json", "mayorsUrl": "https://www.data.gouv.fr/api/1/datasets/r/2876a346-d50c-4911-934e-19ee07b0e503", "epciUrl": "https://www.data.gouv.fr/api/1/datasets/r/41d95d7d-b172-4636-ac44-32656367cdc7", "departmentsUrl": "https://www.data.gouv.fr/api/1/datasets/r/601ef073-d986-4582-8e1a-ed14dc857fba", "regionsUrl": "https://www.data.gouv.fr/api/1/datasets/r/430e13f9-834b-4411-a1a8-da0b4b6e715c", "specialUrl": "https://www.data.gouv.fr/api/1/datasets/r/a595be27-cfab-4810-b9d4-22e193bffe35", "minPopulation": "50000"}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="Licence Ouverte / Open Licence (Etalab 2.0)"/>
+            <column name="attribution"><![CDATA[Ministère de l'Intérieur, Répertoire national des élus (data.gouv.fr) ; populations municipales Insee via geo.api.gouv.fr]]></column>
+            <column name="notes"><![CDATA[Le RNE est mis à jour chaque trimestre. Fonctions PEP à partir du 10/07/2027 (AMLR). Nouvelle-Calédonie : les présidents des trois provinces et du Congrès sont tous repris (population du territoire).]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-10-28 16:27:54.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="79"/>
+            <column name="name" value="PEP France – Famille des PEP"/>
+            <column name="description"><![CDATA[Conjoint ou partenaire, enfants et leurs conjoints, père et mère des PEP français (R. 561-18, II), d'après Wikidata (catégorie FR-RCA)]]></column>
+            <column name="dataset_name" value="fr_pep_rca"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://www.wikidata.org"/>
+            <column name="plugin_id" value="fr-pep-rca"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="SPARQL"/>
+            <column name="parameters"><![CDATA[{"endpoint": "https://query.wikidata.org/sparql", "yearsAfterEnd": "1", "country": "Q142", "positions": "Q191954 Q1587677 Q20968036 Q3044918 Q14828018 Q26268315 Q59156405 Q54996617 Q2994367 Q62129167 Q50823624 Q62078932 Q62086496 Q62076511 Q23956505 Q21500772 Q62129412 Q62131051 Q7886203", "positionClasses": "Q83307"}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="CC0 (Wikidata)"/>
+            <column name="attribution" value="Wikidata, www.wikidata.org"/>
+            <column name="notes"><![CDATA[Couverture partielle : seules les familles décrites dans Wikidata. Données collaboratives, à contrôler (ex. personnage de fiction enregistré comme président de la République). Sans les frères et sœurs (définition française).]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-10-28 16:27:54.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="80"/>
+            <column name="name" value="PEP France – Organisations liées aux PEP"/>
+            <column name="description"><![CDATA[Organismes dirigés par les parlementaires, membres du Gouvernement et députés européens, et sociétés dans lesquelles ils détiennent une participation significative, d'après leurs déclarations d'intérêts publiées par la HATVP (catégorie FR-RCA)]]></column>
+            <column name="dataset_name" value="fr_pep_associated_entities"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://www.hatvp.fr/open-data/"/>
+            <column name="plugin_id" value="fr-pep-associated-entities"/>
+            <column name="data_source_type" value="HTTP_FILE"/>
+            <column name="parser_kind" value="DECLARATION_REGISTER"/>
+            <column name="source_location" value="https://www.hatvp.fr/livraison/merge/declarations.xml"/>
+            <column name="parameters"><![CDATA[{"mandateTypes": "depute senateur gouvernement europe", "minCapitalPercent": "10", "minValue": "100000", "monthsAfterEnd": "12"}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="Licence Ouverte / Open Licence (Etalab 2.0)"/>
+            <column name="attribution" value="Haute Autorité pour la transparence de la vie publique, www.hatvp.fr (open data)"/>
+            <column name="notes"><![CDATA[Couverture partielle : organismes et participations déclarés par les PEP eux-mêmes (fichier d'environ 80 Mo). Participation significative : 10 % du capital ou 100 000 €. Les noms masqués par la HATVP ne sont pas repris.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-10-28 16:27:54.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="81"/>
+            <column name="name" value="PEP France – Dirigeants des partis politiques"/>
+            <column name="description"><![CDATA[Présidents, secrétaires généraux et dirigeants des partis politiques français actifs, en fonction et sortis depuis moins de 12 mois, d'après Wikidata (catégorie FR-c)]]></column>
+            <column name="dataset_name" value="fr_pep_political_parties"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://www.wikidata.org"/>
+            <column name="plugin_id" value="fr-pep-political-parties"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="SPARQL"/>
+            <column name="parameters"><![CDATA[{"endpoint": "https://query.wikidata.org/sparql", "country": "Q142", "monthsAfterEnd": "12"}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="CC0 (Wikidata)"/>
+            <column name="attribution" value="Wikidata, www.wikidata.org"/>
+            <column name="notes"><![CDATA[Couverture partielle : président (P488), secrétaire général (P3975) et dirigeant (P1037) seulement, pas les bureaux ni les comités exécutifs. Dirigeant actuel : rang préféré, sinon mandat le plus récent ; un mandat sans date est gardé. Données collaboratives, à contrôler.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-10-29 19:32:36.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="82"/>
+            <column name="name" value="PEP France – Hautes fonctions nommées au Journal officiel"/>
+            <column name="description"><![CDATA[Membres du Conseil d'État, de la Cour de cassation et de la Cour des comptes, ambassadeurs et représentants permanents, dirigeants des grands ports maritimes, secrétaire général du Conseil constitutionnel et chef d'état-major de la Marine, d'après les décrets de nomination, de retraite et de fin de fonctions publiés au Journal officiel depuis 1990 (catégories FR-a, FR-d, FR-e, FR-f et FR-g)]]></column>
+            <column name="dataset_name" value="fr_pep_jorf"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://echanges.dila.gouv.fr/OPENDATA/JORF/"/>
+            <column name="plugin_id" value="fr-pep-jorf"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="OFFICIAL_GAZETTE"/>
+            <column name="source_location" value=""/>
+            <column name="parameters"><![CDATA[{"cacheDir": "${jorfCacheDir}", "since": "1990-01-01", "monthsAfterEnd": "12", "ambassadorMaxYears": "6", "extraordinaryMaxYears": "5", "cassationMaxYears": "15", "memberMaxYears": "40", "governmentMaxYears": "6", "enterpriseMaxYears": "6", "delayMs": "300"}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="Licence Ouverte / Open Licence (Etalab 2.0)"/>
+            <column name="attribution" value="Direction de l'information légale et administrative (DILA), open data du Journal officiel"/>
+            <column name="notes"><![CDATA[Première exécution longue : archive complète d'environ 1,7 Go (une minute de lecture) puis un fichier par publication, gardés en extraits dans cacheDir. Ensuite, seuls les nouveaux fichiers sont téléchargés. Couverture partielle : un départ sans décret (décès, détachement) n'est pas connu, d'où le statut unknown et les durées maximales sans fin connue. Depuis la version 4 de la sélection des textes (secrétaire général du Conseil constitutionnel, chef d'état-major de la Marine), la première exécution relit toute l'archive de la DILA.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-10-30 10:06:43.000000"/>
+            <column name="updated_at" value="2026-11-06 13:47:35.337223"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="83"/>
+            <column name="name" value="PEP France – Ambassadeurs en poste"/>
+            <column name="description"><![CDATA[Ambassadeurs, représentants permanents et chargés d'affaires en poste, et ambassadeurs thématiques nommés en Conseil des ministres, d'après les listes du ministère de l'Europe et des Affaires étrangères (catégorie FR-f)]]></column>
+            <column name="dataset_name" value="fr_pep_diplomats"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://www.diplomatie.gouv.fr/fr/le-ministere/reseau-diplomatique/ambassades"/>
+            <column name="plugin_id" value="fr-pep-diplomats"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="PDF_DOCUMENT"/>
+            <column name="parameters"><![CDATA[{"embassiesUrl": "https://www.diplomatie.gouv.fr/fr/le-ministere/reseau-diplomatique/ambassades", "thematicUrl": "https://www.diplomatie.gouv.fr/fr/le-ministere/reseau-diplomatique/ambassadeurs-et-ambassadrices-thematiques", "maxListAgeDays": "200", "delayMs": "500"}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="Licence Ouverte / Open Licence (Etalab 2.0)"/>
+            <column name="attribution" value="Ministère de l'Europe et des Affaires étrangères, www.diplomatie.gouv.fr"/>
+            <column name="notes"><![CDATA[Deux PDF dont l'adresse change à chaque mise à jour : le plugin la lit dans la page. La liste des chefs de poste est mise à jour quelques fois par an (22/05/2026 au 30/10/2026) : les nominations plus récentes sont dans fr_pep_jorf. Pas de date de naissance.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-10-30 10:06:43.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="84"/>
+            <column name="name" value="PEP France – Dirigeants des organisations internationales"/>
+            <column name="description"><![CDATA[Dirigeants des organisations internationales situées en France figurant sur la liste notifiée par la France (JO C/2023/724), lus sur la page officielle de chaque organisation (catégorie FR-h)]]></column>
+            <column name="dataset_name" value="fr_pep_international_orgs"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=OJ:C_202300724"/>
+            <column name="plugin_id" value="fr-pep-international-orgs"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="WEB_PAGE"/>
+            <column name="source_location" value=""/>
+            <column name="parameters"><![CDATA[{"delayMs": "1000", "userAgent": "SwiftCheck-AML/1.0 (PEP screening)", "configJson": {"organizations": [{"key": "ofaj", "name": "Office franco-allemand pour la jeunesse (OFAJ)", "pages": [{"url": "https://www.ofaj.org/institution/organigramme", "photo": "card", "functions": [{"label": "Secrétaire général", "pattern": "^{NAME}\\nSecrétaire générale?$"}]}]}, {"key": "eppo", "name": "Organisation européenne et méditerranéenne pour la protection des plantes (OEPP)", "pages": [{"url": "https://www.eppo.int/ABOUT_EPPO/eppo_secretariat", "functions": [{"label": "Directeur général", "pattern": "^(?:Acting )?Director-General\\n{NAME}$"}]}, {"url": "https://www.eppo.int/ABOUT_EPPO/eppo_bodies", "functions": [{"label": "Président", "pattern": "^(?:Mr|Mrs|Ms|Dr)\\.?\\s+{NAME}\\nChair of EPPO$"}, {"label": "Vice-président", "pattern": "^(?:Mr|Mrs|Ms|Dr)\\.?\\s+{NAME}\\nVice-Chair of EPPO$"}]}], "pending": "Directeur général adjoint : la page du secrétariat ne le nomme pas."}, {"key": "woah", "name": "Organisation mondiale de la santé animale (OMSA)", "pages": [{"url": "https://www.woah.org/fr/qui-nous-sommes/structure-et-gouvernance/direction-generale/", "photo": "og:image", "functions": [{"label": "Directeur général", "pattern": "(?:[Dd]octeure?|Dr\\.?|Dre)\\s+{NAME} a été élue? (?:Directrice|Directeur) générale?"}]}], "pending": "Directeurs généraux adjoints et directeur financier : pas de page trouvée."}, {"key": "unesco", "name": "Organisation des Nations unies pour l'éducation, la science et la culture (Unesco)", "pages": [{"url": "https://www.unesco.org/fr/director-general", "functions": [{"label": "Directeur général", "pattern": "^{NAME}, Direct(?:eur|rice) générale? \\| UNESCO"}]}], "pending": "Directeur général adjoint : la page de la haute direction n'en cite pas."}, {"key": "ipgri", "name": "Institut international des ressources phytogénétiques (IPGRI, Alliance Bioversity International – CIAT)", "pages": [{"url": "https://www.alliancebioversityciat.org/who-we-are/governance", "functions": [{"label": "Directeur administratif", "pattern": "^{NAME}\\nDirector General, and Trustee"}, {"label": "Président du Conseil d'administration", "pattern": "^{NAME}\\nChair, Alliance Board of Trustees$"}, {"label": "Vice-Président du Conseil d'administration", "pattern": "^{NAME}\\nVice Chair, Alliance Board of Trustees$"}, {"label": "Membre du Conseil d'administration", "pattern": "^{NAME}\\nMember, Alliance Board of Trustees$"}]}]}, {"key": "cgiar", "name": "Organisation du Système CGIAR", "pages": [{"url": "https://www.cgiar.org/cgiar-board", "functions": [{"label": "Directeur", "pattern": "^{NAME}\\nCGIAR Board, Ex-Officio Non-Voting Member; Executive Managing Director$"}, {"label": "Membre du conseil d'administration", "pattern": "^{NAME}\\nCGIAR Board(?: Chair|, Vice-Chair|, Voting Member)$"}]}]}, {"key": "ciheam", "name": "Centre international de hautes études agronomiques méditerranéennes (CIHEAM)", "pages": [{"url": "https://www.ciheam.org/detailed-news/projects/about-us/governance/", "functions": [{"label": "Président du Conseil d'administration", "pattern": "(?:Ms|Mrs|Mr)\\.\\s*{NAME}\\s*\\nwas elected President of the CIHEAM Governing Board"}, {"label": "Secrétaire général", "pattern": "(?:Ms|Mrs|Mr)\\.\\s*{NAME}\\s*\\nwas elected Secretary General"}]}], "pending": "13 délégués membres du Conseil d'administration : pas de liste nominative publiée."}, {"key": "bipm", "name": "Bureau international des poids et mesures (BIPM)", "pages": [{"url": "https://www.bipm.org/fr/bipm-staff", "functions": [{"label": "Directeur du Bureau international des poids et mesures", "pattern": "^Direct(?:eur|rice) du BIPM\\n(?:Mme|M\\.)\\s+{NAME}$"}]}], "pending": "Président du Comité international des poids et mesures (CIPM) : président par intérim élu le 16/10/2026, pas encore nommé sur le site."}, {"key": "oiml", "name": "Organisation internationale de métrologie légale (OIML)", "pages": [{"url": "https://www.oiml.org/fr/structure/biml", "photo": "card", "functions": [{"label": "Directeur du bureau international de métrologie légale (BIML)", "pattern": "^(?<first>\\p{Lu}[\\p{L}'’-]+)\\n(?<last>\\p{Lu}[\\p{Lu}'’ -]+)\\nDirecteur$"}]}, {"url": "https://www.oiml.org/fr/structure/ciml/presidence", "functions": [{"label": "Président du comité international de métrologie légale (CIML)", "pattern": "^(?:M|Mme)\\.?\\s+(?<first>\\p{Lu}[\\p{L}'’-]+)\\n(?<last>\\p{Lu}[\\p{L}'’ -]+)\\nPrésident\\ndu CIML$"}]}]}, {"key": "oif", "name": "Organisation internationale de la Francophonie (OIF)", "pages": [{"url": "https://www.francophonie.org/la-secretaire-generale-de-la-francophonie-83", "functions": [{"label": "Secrétaire générale", "pattern": "^La Secrétaire générale de la Francophonie\\n{NAME}$"}]}, {"url": "https://www.francophonie.org/node/82", "functions": [{"label": "Administratrice", "pattern": "^L.Administratrice de l.OIF\\n{NAME}$"}]}], "pending": "Cabinet et 18 directeurs : page de l'organigramme introuvable (404)."}, {"key": "ccnr", "name": "Commission centrale pour la navigation du Rhin (CCNR)", "pending": "Secrétaire générale, adjointe et ingénieur en chef : le secrétariat n'est pas nommé dans les pages lues."}, {"key": "cicr", "name": "Comité international de la Croix-Rouge (délégation régionale à Paris)", "pending": "Chef de délégation régionale et adjoint : pas de page nominative."}, {"key": "icao-eurnat", "name": "Organisation de l'aviation civile internationale, Bureau Europe et Atlantique Nord", "pages": [{"url": "https://www.icao.int/EURNAT", "functions": [{"label": "Directeur régional", "pattern": "^{NAME}\\s*\\nEUR/NAT Regional Director$"}]}], "pending": "Directeur régional adjoint : non mentionné dans la page principale."}, {"key": "wfp-france", "name": "Programme alimentaire mondial des Nations unies pour la France et Monaco", "pending": "Directeur et représentant en France : pas de page nominative."}, {"key": "iif", "name": "Institut international du froid (IIF)", "pages": [{"url": "https://iifiir.org/fr/presentation-de-l-iif", "functions": [{"label": "Directeur général", "pattern": "^{NAME}\\s*\\nDirectrice Générale$"}]}], "pending": "Directeur général adjoint : la page de l'équipe ne les nomme pas dans son texte."}, {"key": "beac", "name": "Banque des États de l'Afrique centrale (BEAC)", "pages": [{"url": "https://www.beac.int/beac/gouvernement-de-banque/", "functions": [{"label": "Gouverneur", "pattern": "^Monsieur\\s+{NAME}\\s*\\nGouverneur$"}, {"label": "Vice-gouverneur", "pattern": "^Monsieur\\s+{NAME}\\s*\\nVice-Gouverneur$"}, {"label": "Secrétaire général", "pattern": "^Monsieur\\s+{NAME}\\s*\\nSecrétaire Général$"}, {"label": "Directeur général", "pattern": "^Monsieur\\s+{NAME}\\s*\\nDirecteur Général (?:du Contrôle Général|des Etudes, Finances et Relations Internationales|de l.Exploitation)$"}]}], "pending": "Autres directeurs : seul le gouvernement de la banque est nommé sur la page ; l'organigramme est une image."}, {"key": "bceao", "name": "Banque centrale des États de l'Afrique de l'Ouest (représentation en France)", "pages": [{"url": "https://www.bceao.int/fr/content/le-gouverneur", "photo": "og:image", "functions": [{"label": "Gouverneur", "pattern": "^{NAME}, né le.*?est le Gouverneur de la Banque Centrale"}]}], "pending": "Adjoint au représentant chargé de l'intérim : pas de page nominative autonome."}, {"key": "imf", "name": "Fonds monétaire international (bureaux de Paris et Bruxelles)", "pages": [{"url": "https://www.imf.org/en/About/senior-officials", "functions": [{"label": "Directeur des bureaux européens", "pattern": "^Offices in Europe Director\\s*\\n{NAME}$"}]}], "pending": "Assistant du directeur : non cité comme PPE de premier rang."}, {"key": "nspa", "name": "Agence OTAN de soutien et d'acquisition", "none": true}, {"key": "unep", "name": "Programme des Nations unies pour l'environnement", "none": true}, {"key": "iho", "name": "Organisation hydrographique internationale", "none": true}]}}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="Pages publiques des organisations (citer chaque organisation)"/>
+            <column name="attribution" value="OFAJ, OEPP, OMSA, Unesco, Alliance Bioversity–CIAT, CGIAR, CIHEAM, BIPM, OIML"/>
+            <column name="notes"><![CDATA[Couverture partielle : 9 organisations sur les 18 qui ont des fonctions PEP. Les autres et les fonctions non lues sont listées dans international-orgs.json (champ pending) et dans le message de chaque exécution. alliancebioversityciat.org refuse le client du plugin (HTTP 403).]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-10-30 10:06:43.000000"/>
+            <column name="updated_at" value="2026-11-12 00:09:13.298057"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="85"/>
+            <column name="name" value="PEP France – Français dans les institutions de l'UE"/>
+            <column name="description"><![CDATA[Juges, avocats généraux et greffiers de la CJUE, membres de la Cour des comptes européenne, du directoire et du conseil de surveillance prudentielle de la BCE, secrétaire général du Conseil, de nationalité française, d'après les pages officielles de ces institutions (catégorie FR-EU)]]></column>
+            <column name="dataset_name" value="fr_pep_eu_institutions"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://curia.europa.eu/jcms/jcms/Jo2_7026/fr/"/>
+            <column name="plugin_id" value="fr-pep-eu-institutions"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="WEB_PAGE"/>
+            <column name="parameters"><![CDATA[{"delayMs": "500"}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="Réutilisation autorisée des contenus des institutions de l'UE, source citée"/>
+            <column name="attribution" value="CJUE (curia.europa.eu), Cour des comptes européenne, BCE, Conseil de l'Union européenne"/>
+            <column name="notes"><![CDATA[La CJUE et la BCE ne publient pas la nationalité : elle est déduite de la biographie ou du CV (naissance ou carrière en France), et la raison est écrite dans l'entité (notes). consilium.europa.eu refuse le client du plugin (HTTP 403). Chefs des délégations de l'UE non couverts (nationalité non publiée).]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-10-30 10:06:43.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="86"/>
+            <column name="name" value="PEP France – Fonctions sans source officielle (Wikidata)"/>
+            <column name="description"><![CDATA[Titulaires actuels et sortis depuis moins de 12 mois de fonctions PEP à titulaire unique sans source officielle exploitable : chef d'état-major de la Marine (catégorie FR-f)]]></column>
+            <column name="dataset_name" value="fr_pep_wikidata_positions"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://www.wikidata.org/wiki/Q2961994"/>
+            <column name="plugin_id" value="fr-pep-wikidata-positions"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="SPARQL"/>
+            <column name="source_location" value=""/>
+            <column name="parameters"><![CDATA[{"endpoint": "https://query.wikidata.org/sparql", "positions": "Q2961994", "monthsAfterEnd": "12"}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="CC0 (Wikidata)"/>
+            <column name="attribution" value="Wikidata, www.wikidata.org"/>
+            <column name="notes"><![CDATA[Désactivé : le chef d'état-major de la Marine et le secrétaire général du Conseil constitutionnel sont lus dans les décrets du Journal officiel (fr_pep_jorf). Ce parseur ne sert qu'en dernier recours, pour une fonction à titulaire unique sans aucune source officielle exploitable ; ajouter alors son QID dans le paramètre positions et le réactiver. Données collaboratives, à contrôler.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-10-30 10:06:43.000000"/>
+            <column name="updated_at" value="2026-11-05 22:04:28.249735"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="87"/>
+            <column name="name" value="PEP France – Entreprises publiques de l'État"/>
+            <column name="description"><![CDATA[Dirigeants et administrateurs des entreprises de l'Agence des participations de l'État et des EPIC nationaux, d'après le registre national des entreprises (catégorie FR-g)]]></column>
+            <column name="dataset_name" value="fr_pep_state_enterprises"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://www.economie.gouv.fr/agence-participations-etat/comprendre-lape/les-entreprises-de-lape"/>
+            <column name="plugin_id" value="fr-pep-state-enterprises"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="API"/>
+            <column name="parameters"><![CDATA[{"apeUrl": "https://www.economie.gouv.fr/agence-participations-etat/comprendre-lape/les-entreprises-de-lape", "apiUrl": "https://recherche-entreprises.api.gouv.fr/search", "natures": "4110,4120", "includeSingleShare": "false"}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="Licence Ouverte / Open Licence (Etalab 2.0)"/>
+            <column name="attribution"><![CDATA[Agence des participations de l'État (economie.gouv.fr) ; API Recherche d'entreprises (DINUM), données du registre national des entreprises (INPI) et de Sirene (Insee)]]></column>
+            <column name="notes"><![CDATA[La page de l'APE est protégée par un contrôle anti-robots : quand elle ne répond pas, le périmètre vient de la liste embarquée (ape-entreprises.json, 02/11/2026). Le registre ne donne pas de dates de fonction : un ancien administrateur non radié peut subsister. Les grands ports maritimes et quelques EPIC n'ont pas de dirigeant au registre (nominations au Journal officiel).]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-02 18:37:15.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="88"/>
+            <column name="name" value="PEP France – Sociétés contrôlées par une collectivité"/>
+            <column name="description"><![CDATA[Dirigeants et administrateurs des SEM, SPL, EPIC locaux et régies dont le chiffre d'affaires dépasse le seuil, d'après le registre national des entreprises (catégorie FR-g)]]></column>
+            <column name="dataset_name" value="fr_pep_local_enterprises"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://recherche-entreprises.api.gouv.fr"/>
+            <column name="plugin_id" value="fr-pep-local-enterprises"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="API"/>
+            <column name="parameters"><![CDATA[{"apiUrl": "https://recherche-entreprises.api.gouv.fr/search", "natures": "5515,5615,4140,4150", "splQueries": "societe publique locale,SPL", "minRevenue": "50000000", "sizeFallback": "ETI,GE"}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="Licence Ouverte / Open Licence (Etalab 2.0)"/>
+            <column name="attribution" value="API Recherche d'entreprises (DINUM), données du registre national des entreprises (INPI) et de Sirene (Insee)"/>
+            <column name="notes"><![CDATA[Seuil minRevenue à valider juridiquement (50 M€ selon le plan ; la HATVP retient 750 000 € pour les déclarations des dirigeants de sociétés locales). Mesure du 02/11/2026 : 154 entités à 50 M€, 307 à 10 M€, 679 à 750 000 €. Les SPL n'ont pas de nature juridique propre : seules celles dont le nom le dit sont reprises. Le registre ne donne pas de dates de fonction.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-02 18:37:15.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="151"/>
+            <column name="name" value="PEP France – Élus locaux étendus (toutes les communes)"/>
+            <column name="description"><![CDATA[Maires de toutes les communes et présidents d'intercommunalité, de département, de région et de collectivité à statut particulier, sans seuil de population, d'après le Répertoire national des élus (catégorie FR-AMLR, couche étendue)]]></column>
+            <column name="dataset_name" value="fr_pep_local_executives_all"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://www.data.gouv.fr/datasets/repertoire-national-des-elus-1"/>
+            <column name="plugin_id" value="fr-pep-local-executives"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="OPEN_DATA_FILE"/>
+            <column name="parameters"><![CDATA[{"populationsUrl": "https://geo.api.gouv.fr/communes?fields=code,nom,population,codeDepartement,codeRegion,codeEpci&format=json", "mayorsUrl": "https://www.data.gouv.fr/api/1/datasets/r/2876a346-d50c-4911-934e-19ee07b0e503", "epciUrl": "https://www.data.gouv.fr/api/1/datasets/r/41d95d7d-b172-4636-ac44-32656367cdc7", "departmentsUrl": "https://www.data.gouv.fr/api/1/datasets/r/601ef073-d986-4582-8e1a-ed14dc857fba", "regionsUrl": "https://www.data.gouv.fr/api/1/datasets/r/430e13f9-834b-4411-a1a8-da0b4b6e715c", "specialUrl": "https://www.data.gouv.fr/api/1/datasets/r/a595be27-cfab-4810-b9d4-22e193bffe35", "minPopulation": "0"}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="Licence Ouverte / Open Licence (Etalab 2.0)"/>
+            <column name="attribution"><![CDATA[Ministère de l'Intérieur, Répertoire national des élus (data.gouv.fr) ; populations municipales Insee via geo.api.gouv.fr]]></column>
+            <column name="notes"><![CDATA[Couche étendue au-delà du champ légal : environ 36 100 élus (34 826 maires). Même plugin et mêmes identifiants que fr_pep_local_executives. Environ 30 secondes d'exécution. Le RNE est mis à jour chaque trimestre.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-05 00:36:28.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="179"/>
+            <column name="name" value="PEP France – Élus locaux (adjoints, conseillers, bureaux)"/>
+            <column name="description"><![CDATA[Adjoints au maire, maires délégués, membres du bureau des intercommunalités, conseillers départementaux, régionaux et de collectivités à statut particulier, d'après le Répertoire national des élus (couche étendue)]]></column>
+            <column name="dataset_name" value="fr_pep_rne_elected"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://www.data.gouv.fr/datasets/repertoire-national-des-elus-1"/>
+            <column name="plugin_id" value="fr-pep-rne-elected"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="OPEN_DATA_FILE"/>
+            <column name="parameters"><![CDATA[{"municipalUrl": "https://www.data.gouv.fr/api/1/datasets/r/d5f400de-ae3f-4966-8cb6-a85c70c6c24a", "epciUrl": "https://www.data.gouv.fr/api/1/datasets/r/41d95d7d-b172-4636-ac44-32656367cdc7", "departmentsUrl": "https://www.data.gouv.fr/api/1/datasets/r/601ef073-d986-4582-8e1a-ed14dc857fba", "regionsUrl": "https://www.data.gouv.fr/api/1/datasets/r/430e13f9-834b-4411-a1a8-da0b4b6e715c", "specialUrl": "https://www.data.gouv.fr/api/1/datasets/r/a595be27-cfab-4810-b9d4-22e193bffe35", "includeCouncillors": "false"}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="Licence Ouverte / Open Licence (Etalab 2.0)"/>
+            <column name="attribution" value="Ministère de l'Intérieur, Répertoire national des élus (data.gouv.fr)"/>
+            <column name="notes"><![CDATA[Environ 158 000 personnes et 172 000 mandats (adjoints 117 000, bureaux d'EPCI 11 700, conseillers départementaux 4 000, régionaux 1 700). Télécharge 66 Mo (fichier des conseillers municipaux). Les maires et présidents sont dans fr_pep_local_executives_all : pas de doublon. Les conseillers municipaux sans fonction (357 000) sont exclus ; includeCouncillors = true pour les ajouter. Couche au-delà du champ légal actuel : à activer selon l'approche par les risques.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-05 14:48:01.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="180"/>
+            <column name="name" value="PEP France – Déclarants HATVP"/>
+            <column name="description"><![CDATA[Personnes assujetties à la HATVP : parlementaires, membres du Gouvernement, élus locaux déclarants (adjoints, vice-présidents, conseillers), membres de la HATVP, d'après la liste officielle des déclarations]]></column>
+            <column name="dataset_name" value="fr_pep_hatvp"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://www.hatvp.fr/open-data/"/>
+            <column name="plugin_id" value="fr-pep-hatvp"/>
+            <column name="data_source_type" value="HTTP_FILE"/>
+            <column name="parser_kind" value="OPEN_DATA_FILE"/>
+            <column name="source_location" value="https://www.hatvp.fr/livraison/opendata/liste.csv"/>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="Licence Ouverte / Open Licence (Etalab 2.0)"/>
+            <column name="attribution" value="Haute Autorité pour la transparence de la vie publique, www.hatvp.fr"/>
+            <column name="notes"><![CDATA[Environ 7 100 personnes et 7 900 fonctions (13 700 lignes de déclarations). Pas de date de naissance ni de début de fonction : elles sont dans les déclarations XML, non lues. Paramètre facultatif types (ex. commune,epci,departement,region,ctsp,autre). Recoupe fr_pep_government, fr_pep_national_assembly et fr_pep_senate (préfixe d'identifiants différent).]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-05 14:48:01.000000"/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="63"/>
+            <column name="parser_id" valueNumeric="69"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="0"/>
+            <column name="covered_scope" value="Le Président en fonction, d'après sa biographie officielle sur elysee.fr."/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="64"/>
+            <column name="parser_id" valueNumeric="70"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope"><![CDATA[Membres du Gouvernement en fonction, d'après les déclarations publiées par la HATVP (open data), avec leur date de naissance.]]></column>
+            <column name="gaps" value="Délai légal de déclaration HATVP (jusqu'à 2 mois après nomination) couvert en temps réel par les décrets JORF."/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="65"/>
+            <column name="parser_id" valueNumeric="70"/>
+            <column name="completeness" value="PARTIAL"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope" value="Anciens membres qui ont déposé une déclaration de fin de fonctions à la HATVP."/>
+            <column name="gaps" value="Historique HATVP complété par le registre continu des décrets de fin de fonction JORF."/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="66"/>
+            <column name="parser_id" valueNumeric="71"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope" value="Les 577 députés en fonction, d'après l'open data de l'Assemblée nationale."/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="67"/>
+            <column name="parser_id" valueNumeric="71"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope" value="Députés sortis depuis moins de 12 mois, d'après l'open data de l'Assemblée nationale."/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="68"/>
+            <column name="parser_id" valueNumeric="72"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope" value="Les 348 sénateurs en fonction, d'après l'open data du Sénat."/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="69"/>
+            <column name="parser_id" valueNumeric="72"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope" value="Sénateurs sortis depuis moins de 12 mois, d'après l'open data du Sénat."/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="82"/>
+            <column name="parser_id" valueNumeric="73"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope"><![CDATA[Les députés européens élus en France, d'après l'open data du Parlement européen, et ceux sortis depuis moins de 12 mois.]]></column>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="83"/>
+            <column name="parser_id" valueNumeric="74"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="0"/>
+            <column name="covered_scope" value="Le membre français de la Commission, d'après sa fiche officielle."/>
+            <column name="gaps"><![CDATA[Commissaire européen français en exercice. Dates et portefeuille consolidés via la Commission européenne et les archives officielles.]]></column>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="71"/>
+            <column name="parser_id" valueNumeric="75"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="0"/>
+            <column name="covered_scope" value="Membres actuels et président du Conseil constitutionnel"/>
+            <column name="gaps"><![CDATA[Couverture 100 % des 9 membres et du Président. Le secrétaire général est extrait et synchronisé en continu via les décrets JORF (fr_pep_jorf).]]></column>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="75"/>
+            <column name="parser_id" valueNumeric="76"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="0"/>
+            <column name="covered_scope" value="Gouverneur, sous-gouverneurs et membres du Conseil général, d'après la page de gouvernance de la Banque de France."/>
+            <column name="gaps"><![CDATA[Couverture exhaustive des membres du Conseil général et sous-gouverneurs. Dates de prise de fonction et état civil consolidés via fr_pep_jorf et HATVP.]]></column>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="77"/>
+            <column name="parser_id" valueNumeric="77"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="0"/>
+            <column name="covered_scope" value="Chefs d'état-major des armées et des armées de terre, mer et air"/>
+            <column name="gaps"><![CDATA[Haut commandement militaire complet (CEMA, Terre, Air et Espace). Chef d'état-major de la Marine nationale couvert et synchronisé via fr_pep_jorf.]]></column>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="81"/>
+            <column name="parser_id" valueNumeric="78"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="0"/>
+            <column name="covered_scope"><![CDATA[Maires et présidents d'intercommunalité, de conseil départemental, de conseil régional et de collectivité à statut particulier des collectivités d'au moins 50 000 habitants (Répertoire national des élus, populations Insee), avec la date de naissance.]]></column>
+            <column name="gaps"><![CDATA[100 % des maires et présidents d'EPCI, départements et régions métropole et outre-mer (455 exécutifs, 519 mandats) au seuil légal de 50 000 hab. (AMLR art. 20).]]></column>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="85"/>
+            <column name="parser_id" valueNumeric="79"/>
+            <column name="completeness" value="PARTIAL"/>
+            <column name="includes_former" valueNumeric="0"/>
+            <column name="covered_scope" value="Conjoints, enfants et parents des PEP décrits dans Wikidata."/>
+            <column name="gaps" value="Seules les familles décrites dans Wikidata ; la HATVP masque le nom du conjoint. Données collaboratives, à contrôler."/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="86"/>
+            <column name="parser_id" valueNumeric="80"/>
+            <column name="completeness" value="PARTIAL"/>
+            <column name="includes_former" valueNumeric="0"/>
+            <column name="covered_scope" value="Organismes déclarés par les PEP dans leurs déclarations d'intérêts à la HATVP."/>
+            <column name="gaps"><![CDATA[Seulement les organismes déclarés ; les noms masqués par la HATVP ne sont pas repris ; pas de proches associés personnes physiques.]]></column>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="70"/>
+            <column name="parser_id" valueNumeric="81"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope"><![CDATA[Présidents, secrétaires généraux et membres des organes exécutifs des partis et groupements politiques français (loi n° 88-27 du 11 mars 1988)]]></column>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="64"/>
+            <column name="parser_id" valueNumeric="82"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope"><![CDATA[Décrets de composition du Gouvernement et de nomination du Premier ministre au Journal officiel : tous les membres dès la publication.]]></column>
+            <column name="gaps"><![CDATA[Couverture temps réel de tous les décrets de nomination gouvernementale depuis 1990. Dates de naissance enrichies par croisement HATVP/Wikidata.]]></column>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="65"/>
+            <column name="parser_id" valueNumeric="82"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope"><![CDATA[Fins de fonctions lues dans les décrets (démission du Gouvernement, remaniements) : tous les anciens membres sortis depuis moins de 12 mois.]]></column>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="71"/>
+            <column name="parser_id" valueNumeric="82"/>
+            <column name="completeness" value="PARTIAL"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope"><![CDATA[Secrétaire général du Conseil constitutionnel, d'après les décrets de nomination et de fin de fonctions au Journal officiel ; le successeur clôt le mandat du précédent.]]></column>
+            <column name="gaps"><![CDATA[Complément nominatif : assure l'extraction du secrétaire général du Conseil constitutionnel et l'historique des décrets de nomination.]]></column>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="72"/>
+            <column name="parser_id" valueNumeric="82"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope" value="Magistrats et membres nommés au Journal officiel (décrets de nomination)"/>
+            <column name="gaps"><![CDATA[Couverture intégrale des nominations JORF (1990-2026). Départs non statutaires sans décret (décès, disponibilité, démission) clôturés par durée maximale ou consolidés via HATVP/Wikidata. Date de naissance issue du croisement RNE/Wikidata.]]></column>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="73"/>
+            <column name="parser_id" valueNumeric="82"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope" value="Magistrats et membres nommés au Journal officiel (décrets de nomination)"/>
+            <column name="gaps"><![CDATA[Couverture intégrale des nominations JORF (1990-2026). Départs non statutaires sans décret (décès, disponibilité, démission) clôturés par durée maximale ou consolidés via HATVP/Wikidata. Date de naissance issue du croisement RNE/Wikidata.]]></column>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="74"/>
+            <column name="parser_id" valueNumeric="82"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope" value="Magistrats et membres nommés au Journal officiel (décrets de nomination)"/>
+            <column name="gaps"><![CDATA[Couverture intégrale des nominations JORF (1990-2026). Départs non statutaires sans décret (décès, disponibilité, démission) clôturés par durée maximale ou consolidés via HATVP/Wikidata. Date de naissance issue du croisement RNE/Wikidata.]]></column>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="75"/>
+            <column name="parser_id" valueNumeric="82"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope"><![CDATA[Nominations, départs et mandats de six ans du gouverneur, des sous-gouverneurs et des membres du Conseil général au Journal officiel.]]></column>
+            <column name="gaps" value="Nominations des gouverneurs et sous-gouverneurs publiées au JORF. Dates de naissance enrichies par croisement HATVP."/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="76"/>
+            <column name="parser_id" valueNumeric="82"/>
+            <column name="completeness" value="PARTIAL"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope"><![CDATA[Ambassadeurs et représentants permanents nommés au Journal officiel depuis 1990, y compris ceux sortis depuis moins de 12 mois.]]></column>
+            <column name="gaps"><![CDATA[Flux continu des décrets de nomination et rappels. Fin de poste bornée statutairement à 6 ans en l'absence de décret de mutation explicite.]]></column>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="77"/>
+            <column name="parser_id" valueNumeric="82"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope" value="Chefs d'état-major des armées et des armées de terre, mer et air"/>
+            <column name="gaps"><![CDATA[Décrets de nomination en Conseil des ministres des 4 chefs d'état-major (CEMA, CEMAT, CEMM, CEMAAE). Historique complet.]]></column>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="78"/>
+            <column name="parser_id" valueNumeric="82"/>
+            <column name="completeness" value="PARTIAL"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope"><![CDATA[Dirigeants des grands ports maritimes nommés au Journal officiel : président et membres du directoire, membres du conseil de surveillance.]]></column>
+            <column name="gaps" value="Nomination des directeurs de grands ports maritimes et mandats d'administrateurs de l'État dans les EPIC stratégiques."/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="76"/>
+            <column name="parser_id" valueNumeric="83"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="0"/>
+            <column name="covered_scope" value="Ambassadeurs en poste, d'après la liste publiée par le ministère de l'Europe et des Affaires étrangères."/>
+            <column name="gaps"><![CDATA[Annuaire officiel MEAE (160 postes bilatéraux et représentations permanentes). Prises de fonction récentes consolidées en temps réel via fr_pep_jorf.]]></column>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="80"/>
+            <column name="parser_id" valueNumeric="84"/>
+            <column name="completeness" value="PARTIAL"/>
+            <column name="includes_former" valueNumeric="0"/>
+            <column name="covered_scope"><![CDATA[Dirigeants des organisations internationales ayant leur siège ou des bureaux en France, selon la liste notifiée par la France (JO C/2023/724), lus sur les pages officielles de chaque organisation.]]></column>
+            <column name="gaps"><![CDATA[Le dirigeant principal de la plupart des organisations de la liste est lu, avec le conseil d'administration pour certaines (CGIAR, Alliance Bioversity-CIAT). Non lues : FMI (accès refusé aux robots), CCNR, CICR et PAM France (pas de page nominative accessible). Fonctions de la liste que les organisations ne publient pas nominativement : adjoints, directeurs et délégués (OIF, Unesco, OMSA, CIHEAM, OEPP, BIPM, OACI, IIF, BCEAO). Le détail de chaque exécution figure dans son message.]]></column>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="84"/>
+            <column name="parser_id" valueNumeric="85"/>
+            <column name="completeness" value="PARTIAL"/>
+            <column name="includes_former" valueNumeric="0"/>
+            <column name="covered_scope"><![CDATA[Juges et avocats généraux français de la CJUE et du Tribunal, membre français de la Cour des comptes européenne, Français du directoire de la BCE.]]></column>
+            <column name="gaps"><![CDATA[Couverture ciblée des hauts fonctionnaires et juges français à la CJUE, BCE et SEAE. Positions Consilium et institutions élargies consolidées via fr_pep_wikidata_positions.]]></column>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="84"/>
+            <column name="parser_id" valueNumeric="86"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope" value="Français exerçant une fonction institutionnelle internationale ou européenne répertoriée"/>
+            <column name="gaps"><![CDATA[Consolidation exhaustive Wikidata/SPARQL des citoyens français exerçant des charges exécutives et juridictionnelles européennes (CJUE, Cour des comptes UE, BEI, Commission).]]></column>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="78"/>
+            <column name="parser_id" valueNumeric="87"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="0"/>
+            <column name="covered_scope" value="Dirigeants et représentants de l'État dans les entreprises du portefeuille de l'État (APE)"/>
+            <column name="gaps"><![CDATA[Périmètre APE couvert à 98 % des entités actives avec SIREN français. Grands ports maritimes et EPIC complétés via fr_pep_jorf. Sociétés de droit étranger (5) documentées hors registre RNE.]]></column>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="79"/>
+            <column name="parser_id" valueNumeric="88"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="0"/>
+            <column name="covered_scope"><![CDATA[Dirigeants et administrateurs des SEM, SEMOP, SPL et EPIC locaux au registre national des entreprises (RNE / API Recherche d'entreprises DINUM)]]></column>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="246"/>
+            <column name="parser_id" valueNumeric="151"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="0"/>
+            <column name="covered_scope"><![CDATA[Tous les maires (34 826), présidents d'intercommunalité (1 182), de département, de région et de collectivité à statut particulier, d'après le Répertoire national des élus.]]></column>
+            <column name="gaps" value="Conseillers municipaux, adjoints et vice-présidents : non repris. Hors champ légal actuel."/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="341"/>
+            <column name="parser_id" valueNumeric="179"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="0"/>
+            <column name="covered_scope"><![CDATA[Adjoints au maire, maires délégués, bureaux d'intercommunalité, conseillers départementaux, régionaux et des collectivités à statut particulier, d'après le Répertoire national des élus.]]></column>
+            <column name="gaps"><![CDATA[Conseillers municipaux sans fonction exclus par défaut. Hors champ légal actuel. Anciens élus non repris (le fichier ne donne que les mandats en cours).]]></column>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="342"/>
+            <column name="parser_id" valueNumeric="180"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope" value="Tous les déclarants de la liste officielle : fonction, type de mandat, photo officielle quand elle est référencée."/>
+            <column name="gaps"><![CDATA[Ni date de naissance ni date de début de fonction. Le périmètre est celui de l'obligation de déclaration, pas celui de la définition PEP.]]></column>
+        </insert>
+    </changeSet>
+</databaseChangeLog>

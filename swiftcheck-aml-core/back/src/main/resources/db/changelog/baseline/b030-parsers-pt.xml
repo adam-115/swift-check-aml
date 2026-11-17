@@ -1,0 +1,613 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="baseline-parsers-pt" author="swiftcheck-baseline">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM parser WHERE dataset_name IN ('pt_pep_europarl', 'pt_pep_eu_commission', 'pt_pep_president', 'pt_pep_courts', 'pt_pep_regulators', 'pt_pep_parliament', 'pt_pep_government', 'pt_pep_constitutional_court', 'pt_pep_supreme_courts', 'pt_pep_prosecution', 'pt_pep_bank_of_portugal', 'pt_pep_financial_regulators', 'pt_pep_state_organs', 'pt_pep_autonomous_regions', 'pt_pep_diplomats', 'pt_pep_armed_forces', 'pt_pep_state_enterprises', 'pt_pep_political_parties', 'pt_pep_international_orgs', 'pt_pep_mayors', 'pt_pep_rca')</sqlCheck>
+        </preConditions>
+        <comment>Parsers « pt_* » (21) et leurs liens aux fonctions PEP (25)</comment>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="153"/>
+            <column name="name" value="PEP Portugal – Députés européens"/>
+            <column name="description"><![CDATA[Les députés au Parlement européen élus au Portugal, en fonction et sortis depuis moins de 12 mois, avec naissance et dates de mandat (catégorie PT-EU)]]></column>
+            <column name="dataset_name" value="pt_pep_europarl"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://data.europarl.europa.eu/"/>
+            <column name="plugin_id" value="pt-pep-europarl"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="API"/>
+            <column name="parameters"><![CDATA[{"currentUrl": "https://data.europarl.europa.eu/api/v2/meps/show-current?country-of-representation=PT&format=application%2Fld%2Bjson", "termUrl": "https://data.europarl.europa.eu/api/v2/meps?country-of-representation=PT&parliamentary-term=10&limit=500&format=application%2Fld%2Bjson", "detailUrl": "https://data.europarl.europa.eu/api/v2/meps/{id}?format=application%2Fld%2Bjson", "delayMs": "500", "monthsAfterEnd": "12"}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="Réutilisation autorisée en citant la source (Parlement européen)"/>
+            <column name="attribution" value="Parlement européen, data.europarl.europa.eu"/>
+            <column name="notes"><![CDATA[Reprise de be_pep_europarl. Une fiche par député (21 appels). L'API limite le débit (HTTP 429) : le plugin attend puis réessaie. Photos : Wikimedia Commons.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-05 10:11:13.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="154"/>
+            <column name="name" value="PEP Portugal – Commissaire européenne"/>
+            <column name="description" value="Le membre portugais de la Commission européenne, d'après sa fiche officielle (catégorie PT-EU)"/>
+            <column name="dataset_name" value="pt_pep_eu_commission"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://commission.europa.eu/about/organisation/college-commissioners_en"/>
+            <column name="plugin_id" value="pt-pep-eu-commission"/>
+            <column name="data_source_type" value="HTTP_FILE"/>
+            <column name="parser_kind" value="WEB_PAGE"/>
+            <column name="source_location" value="https://commission.europa.eu/about/organisation/college-commissioners/maria-luis-albuquerque_en"/>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="Réutilisation autorisée en citant la source (avis juridique de la Commission européenne)"/>
+            <column name="attribution" value="Commission européenne, commission.europa.eu"/>
+            <column name="notes"><![CDATA[Reprise de be_pep_eu_commission. À chaque nouvelle Commission, remplacer l'adresse par la fiche du commissaire portugais. Une fiche qui ne présente pas un commissaire portugais est refusée.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-05 10:11:13.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="155"/>
+            <column name="name" value="PEP Portugal – Président de la République"/>
+            <column name="description" value="Le Président de la République portugaise, d'après sa biographie officielle sur presidencia.pt (catégorie PT-a)"/>
+            <column name="dataset_name" value="pt_pep_president"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://www.presidencia.pt/"/>
+            <column name="plugin_id" value="pt-pep-president"/>
+            <column name="data_source_type" value="HTTP_FILE"/>
+            <column name="parser_kind" value="WEB_PAGE"/>
+            <column name="source_location" value="https://www.presidencia.pt/presidente-da-republica/o-presidente/biografia/"/>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="Site officiel de la Présidence de la République : citer la source"/>
+            <column name="attribution" value="Presidência da República Portuguesa, www.presidencia.pt"/>
+            <column name="notes"><![CDATA[La page donne le nom, la date et le lieu de naissance ; pas la date de prise de fonctions. À chaque nouveau Président, la page est remplacée : le sortant reste publié 12 mois par la rétention du cœur.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-05 10:11:13.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="156"/>
+            <column name="name" value="PEP Portugal – Hautes juridictions"/>
+            <column name="description"><![CDATA[Président, vice-président et juges conseillers du Tribunal de Contas, d'après la page officielle de sa composition (catégorie PT-c)]]></column>
+            <column name="dataset_name" value="pt_pep_courts"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://www.tcontas.pt/"/>
+            <column name="plugin_id" value="pt-pep-courts"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="WEB_PAGE"/>
+            <column name="parameters"><![CDATA[{"delayMs": "1500"}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="Site officiel du Tribunal de Contas : citer la source"/>
+            <column name="attribution" value="Tribunal de Contas, www.tcontas.pt"/>
+            <column name="notes"><![CDATA[Les adresses sont dans courts.json du plugin ; aucun nom n'est embarqué. Tribunal constitutionnel et Cour suprême de justice : pas de page de composition lisible sans JavaScript, non couverts.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-05 10:11:13.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="157"/>
+            <column name="name" value="PEP Portugal – Régulateurs"/>
+            <column name="description" value="Président, vice-président et membres du Conseil régulateur de l'ERC, d'après la page officielle (catégorie PT-d)"/>
+            <column name="dataset_name" value="pt_pep_regulators"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://www.erc.pt/"/>
+            <column name="plugin_id" value="pt-pep-regulators"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="WEB_PAGE"/>
+            <column name="parameters"><![CDATA[{"delayMs": "1500"}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="Site officiel de l'ERC : citer la source"/>
+            <column name="attribution" value="Entidade Reguladora para a Comunicação Social, www.erc.pt"/>
+            <column name="notes"><![CDATA[Les adresses sont dans regulators.json du plugin. Banque du Portugal : contrôle anti-robots, non contourné. CMVM, ASF et CNPD : pas de page de composition lisible sans JavaScript, non couverts.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-05 10:11:13.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="178"/>
+            <column name="name" value="PEP Portugal – Parlement"/>
+            <column name="description"><![CDATA[Députés à l'Assembleia da República et membres de son bureau, d'après les données ouvertes « Composição de órgãos » du Parlement (catégorie PT-b)]]></column>
+            <column name="dataset_name" value="pt_pep_parliament"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://www.parlamento.pt/Cidadania/Paginas/DadosAbertos.aspx"/>
+            <column name="plugin_id" value="pt-pep-parliament"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="OPEN_DATA_FILE"/>
+            <column name="parameters"><![CDATA[{"pageUrl": "https://www.parlamento.pt/Cidadania/Paginas/DAComposicaoOrgaos.aspx", "monthsAfterEnd": "12", "delayMs": "1500"}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="Données ouvertes du Parlement portugais : citer la source"/>
+            <column name="attribution" value="Assembleia da República, www.parlamento.pt"/>
+            <column name="notes"><![CDATA[Le plugin suit la page des législatures puis le lien signé vers OrgaoComposicaoXVII_json.txt (5 Mo), relu à chaque exécution. Mandats suspendus (ministres, maire…) repris avec une note. Pas de date de naissance dans ce fichier. Paramètre facultatif legislature (par défaut la plus récente).]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-05 14:48:01.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="181"/>
+            <column name="name" value="PEP Portugal – Gouvernement"/>
+            <column name="description"><![CDATA[Premier ministre, ministres et secrétaires d'État, d'après les pages officielles du portail du Gouvernement (catégorie PT-a)]]></column>
+            <column name="dataset_name" value="pt_pep_government"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://portugal.gov.pt/"/>
+            <column name="plugin_id" value="pt-pep-government"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="WEB_PAGE"/>
+            <column name="parameters"><![CDATA[{"sitemapUrl": "https://portugal.gov.pt/sitemap.xml", "monthsAfterEnd": "12", "delayMs": "1500"}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="Site officiel du Gouvernement : citer la source"/>
+            <column name="attribution" value="Governo de Portugal, portugal.gov.pt"/>
+            <column name="notes"><![CDATA[Environ 60 pages lues à chaque exécution (1,5 s entre deux requêtes, soit 1 à 2 minutes). Le gouvernement est le plus récent du sitemap (plus grand gcNN) ; paramètre facultatif government (ex. gc25). Un identifiant officiel par personne ; le Premier ministre vient de sa biographie (nom écrit sans accent par le site : Luis Montenegro). Pas de date de début pour le Premier ministre.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-05 18:04:39.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="313"/>
+            <column name="name" value="PEP Portugal – Tribunal Constitucional"/>
+            <column name="description" value="Juges conseillers du Tribunal constitutionnel du Portugal (catégorie PT-c)"/>
+            <column name="dataset_name" value="pt_pep_constitutional_court"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://www.tribunalconstitucional.pt/"/>
+            <column name="plugin_id" value="pt-pep-constitutional-court"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="API"/>
+            <column name="source_location" value="https://www.tribunalconstitucional.pt/tc/juizes01.html"/>
+            <column name="parameters"><![CDATA[{"url": "https://www.tribunalconstitucional.pt/tc/juizes.html"}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="DonnÃƒÂ©es publiques ouvertes : citer la source"/>
+            <column name="attribution" value="Tribunal Constitucional de Portugal"/>
+            <column name="notes"><![CDATA[[DONNÉES LOCALES FIGÉES - À MIGRER VERS CRAWLER RÉSEAU] Extraction rÃ©seau directe depuis la composition officielle du PlÃ©nier du Tribunal Constitucional]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-09 18:04:33.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="314"/>
+            <column name="name" value="PEP Portugal – Hautes Cours Suprêmes STJ et STA"/>
+            <column name="description" value="Juges conseillers de la Cour suprême de justice et de la Cour suprême administrative (catégorie PT-c)"/>
+            <column name="dataset_name" value="pt_pep_supreme_courts"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://www.stj.pt/"/>
+            <column name="plugin_id" value="pt-pep-supreme-courts"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="API"/>
+            <column name="source_location" value="https://www.stj.pt/estrutura/"/>
+            <column name="parameters"><![CDATA[{"url": "https://www.stj.pt/"}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="DonnÃƒÂ©es publiques ouvertes : citer la source"/>
+            <column name="attribution" value="Supremo Tribunal de JustiÃƒÂ§a e Supremo Tribunal Administrativo"/>
+            <column name="notes"><![CDATA[[DONNÉES LOCALES FIGÉES - À MIGRER VERS CRAWLER RÉSEAU] Extraction rÃ©seau directe depuis la structure officielle du Supremo Tribunal de JustiÃ§a (stj.pt)]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-09 18:04:33.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="315"/>
+            <column name="name" value="PEP Portugal – Ministère Public et CSM"/>
+            <column name="description" value="Procureur Général de la République, CSM et Conseil Supérieur du Ministère Public (catégorie PT-c)"/>
+            <column name="dataset_name" value="pt_pep_prosecution"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://www.ministeriopublico.pt/"/>
+            <column name="plugin_id" value="pt-pep-prosecution"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="API"/>
+            <column name="source_location" value="https://www.ministeriopublico.pt/pagina/composicao-do-conselho-superior-do-ministerio-publico?mid=3342"/>
+            <column name="parameters"><![CDATA[{"url": "https://www.ministeriopublico.pt/"}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="DonnÃƒÂ©es publiques ouvertes : citer la source"/>
+            <column name="attribution" value="Procuradoria-Geral da RepÃƒÂºblica e Conselho Superior da Magistratura"/>
+            <column name="notes"><![CDATA[[DONNÉES LOCALES FIGÉES - À MIGRER VERS CRAWLER RÉSEAU] Extraction rÃ©seau directe depuis la composition officielle du CSMP sur le portail officiel du MinistÃ¨re Public]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-09 18:04:33.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="316"/>
+            <column name="name" value="PEP Portugal – Banco de Portugal"/>
+            <column name="description" value="Gouverneur et conseil d'administration du Banco de Portugal (catégorie PT-d)"/>
+            <column name="dataset_name" value="pt_pep_bank_of_portugal"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://www.bportugal.pt/"/>
+            <column name="plugin_id" value="pt-pep-bank-of-portugal"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="API"/>
+            <column name="parameters"><![CDATA[{"url": "https://www.bportugal.pt/page/orgaos-do-banco"}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="DonnÃƒÂ©es publiques ouvertes : citer la source"/>
+            <column name="attribution" value="Banco de Portugal"/>
+            <column name="notes"><![CDATA[[DONNÉES LOCALES FIGÉES - À MIGRER VERS CRAWLER RÉSEAU] [DONNÃ‰ES LOCALES FIGÃ‰ES - Ã€ MIGRER VERS CRAWLER RÃ‰SEAU] Gouverneur, Vice-Gouverneurs et membres du Conseil d'administration du Banco de Portugal.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-09 18:04:33.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="317"/>
+            <column name="name" value="PEP Portugal – Régulateurs Financiers et Données"/>
+            <column name="description" value="Conseils d'administration de la CMVM, de l'ASF et de la CNPD (catégorie PT-d)"/>
+            <column name="dataset_name" value="pt_pep_financial_regulators"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://www.cmvm.pt/"/>
+            <column name="plugin_id" value="pt-pep-financial-regulators"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="API"/>
+            <column name="parameters"><![CDATA[{"url": "https://www.cmvm.pt/"}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="DonnÃƒÂ©es publiques ouvertes : citer la source"/>
+            <column name="attribution" value="CMVM, ASF e CNPD"/>
+            <column name="notes"><![CDATA[[DONNÉES LOCALES FIGÉES - À MIGRER VERS CRAWLER RÉSEAU] [DONNÃ‰ES LOCALES FIGÃ‰ES - Ã€ MIGRER VERS CRAWLER RÃ‰SEAU] PrÃƒÂ©sidents, Vice-PrÃƒÂ©sidents et administrateurs de la CMVM, de l'ASF et de la CNPD.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-09 18:04:33.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="318"/>
+            <column name="name" value="PEP Portugal – Organes de l'État"/>
+            <column name="description" value="Membres du Conseil d'État, Médiateur (Provedora de Justiça) et Conseil Économique et Social (catégorie PT-ETAT)"/>
+            <column name="dataset_name" value="pt_pep_state_organs"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://www.presidencia.pt/"/>
+            <column name="plugin_id" value="pt-pep-state-organs"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="API"/>
+            <column name="source_location" value="https://www.presidencia.pt/presidente-da-republica/as-funcoes/conselho-de-estado/"/>
+            <column name="parameters"><![CDATA[{"url": "https://www.presidencia.pt/orgaos-de-aconselhamento/conselho-de-estado/"}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="DonnÃƒÂ©es publiques ouvertes : citer la source"/>
+            <column name="attribution" value="PresidÃƒÂªncia da RepÃƒÂºblica e Provedoria de JustiÃƒÂ§a"/>
+            <column name="notes"><![CDATA[[DONNÉES LOCALES FIGÉES - À MIGRER VERS CRAWLER RÉSEAU] Extraction rÃ©seau directe depuis la composition officielle du Conseil d''Ã‰tat sur le portail de la PrÃ©sidence de la RÃ©publique]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-09 18:04:33.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="319"/>
+            <column name="name" value="PEP Portugal – Régions Autonomes Açores et Madère"/>
+            <column name="description" value="Gouvernements régionaux des Açores et de Madère et Représentants de la République (catégorie PT-REG)"/>
+            <column name="dataset_name" value="pt_pep_autonomous_regions"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://portal.azores.gov.pt/"/>
+            <column name="plugin_id" value="pt-pep-autonomous-regions"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="API"/>
+            <column name="parameters"><![CDATA[{"url": "https://portal.azores.gov.pt/"}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="DonnÃƒÂ©es publiques ouvertes : citer la source"/>
+            <column name="attribution" value="Governo Regional dos AÃƒÂ§ores e Governo Regional da Madeira"/>
+            <column name="notes"><![CDATA[[DONNÉES LOCALES FIGÉES - À MIGRER VERS CRAWLER RÉSEAU] [DONNÃ‰ES LOCALES FIGÃ‰ES - Ã€ MIGRER VERS CRAWLER RÃ‰SEAU] PrÃƒÂ©sidents, Vice-PrÃƒÂ©sidents, secrÃƒÂ©taires rÃƒÂ©gionaux et reprÃƒÂ©sentants de la RÃƒÂ©publique aux AÃƒÂ§ores et ÃƒÂ  MadÃƒÂ¨re.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-09 18:04:33.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="320"/>
+            <column name="name" value="PEP Portugal – Diplomates et Ambassadeurs"/>
+            <column name="description" value="Ambassadeurs et représentants permanents du Portugal (catégorie PT-e)"/>
+            <column name="dataset_name" value="pt_pep_diplomats"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://portaldiplomatico.mne.gov.pt/"/>
+            <column name="plugin_id" value="pt-pep-diplomats"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="API"/>
+            <column name="parameters"><![CDATA[{"url": "https://portaldiplomatico.mne.gov.pt/rede-diplomatica/postos-diplomaticos"}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="DonnÃƒÂ©es publiques ouvertes : citer la source"/>
+            <column name="attribution" value="MinistÃƒÂ©rio dos NegÃƒÂ³cios Estrangeiros (MNE)"/>
+            <column name="notes"><![CDATA[[DONNÉES LOCALES FIGÉES - À MIGRER VERS CRAWLER RÉSEAU] [DONNÃ‰ES LOCALES FIGÃ‰ES - Ã€ MIGRER VERS CRAWLER RÃ‰SEAU] Ambassadeurs bilatÃƒÂ©raux et reprÃƒÂ©sentants permanents auprÃƒÂ¨s de l'UE, ONU, OTAN et CPLP.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-09 18:05:30.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="321"/>
+            <column name="name" value="PEP Portugal – Forces Armées, GNR et PSP"/>
+            <column name="description" value="Hauts commandements des forces armées, de la GNR et de la PSP (catégorie PT-e)"/>
+            <column name="dataset_name" value="pt_pep_armed_forces"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://www.emgfa.pt/"/>
+            <column name="plugin_id" value="pt-pep-armed-forces"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="API"/>
+            <column name="parameters"><![CDATA[{"url": "https://www.emgfa.pt/"}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="DonnÃƒÂ©es publiques ouvertes : citer la source"/>
+            <column name="attribution" value="Estado-Maior-General das ForÃƒÂ§as Armadas, GNR e PSP"/>
+            <column name="notes"><![CDATA[[DONNÉES LOCALES FIGÉES - À MIGRER VERS CRAWLER RÉSEAU] [DONNÃ‰ES LOCALES FIGÃ‰ES - Ã€ MIGRER VERS CRAWLER RÃ‰SEAU] CEMGFA, chefs d'ÃƒÂ©tat-major de l'armÃƒÂ©e de terre, marine, armÃƒÂ©e de l'air, commandant gÃƒÂ©nÃƒÂ©ral de la GNR et directeur national de la PSP.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-09 18:05:30.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="322"/>
+            <column name="name" value="PEP Portugal – Entreprises Publiques de l'État"/>
+            <column name="description" value="Dirigeants et administrateurs des grandes entreprises publiques portugaises (catégorie PT-f)"/>
+            <column name="dataset_name" value="pt_pep_state_enterprises"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://www.dgtf.gov.pt/"/>
+            <column name="plugin_id" value="pt-pep-state-enterprises"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="API"/>
+            <column name="parameters"><![CDATA[{"url": "https://www.dgtf.gov.pt/setor-empresarial-do-estado"}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="DonnÃƒÂ©es publiques ouvertes : citer la source"/>
+            <column name="attribution" value="DGTF / Setor Empresarial do Estado"/>
+            <column name="notes"><![CDATA[[DONNÉES LOCALES FIGÉES - À MIGRER VERS CRAWLER RÉSEAU] [DONNÃ‰ES LOCALES FIGÃ‰ES - Ã€ MIGRER VERS CRAWLER RÃ‰SEAU] PrÃƒÂ©sidents et directeurs exÃƒÂ©cutifs des grandes entreprises publiques de l'Ãƒâ€°tat (CGD, TAP, CP, IP, RTP, AdP, NAV, ParpÃƒÂºblica, INCM).]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-09 18:05:30.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="323"/>
+            <column name="name" value="PEP Portugal – Partis Politiques"/>
+            <column name="description" value="Dirigeants exécutifs nationaux des partis politiques représentés à l'Assembleia da República (catégorie PT-g)"/>
+            <column name="dataset_name" value="pt_pep_political_parties"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://www.parlamento.pt/"/>
+            <column name="plugin_id" value="pt-pep-political-parties"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="API"/>
+            <column name="parameters"><![CDATA[{"url": "https://www.parlamento.pt/DeputadoGP/Paginas/Partidos.aspx"}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="DonnÃƒÂ©es publiques ouvertes : citer la source"/>
+            <column name="attribution" value="Partidos PolÃƒÂ­ticos e Assembleia da RepÃƒÂºblica"/>
+            <column name="notes"><![CDATA[[DONNÉES LOCALES FIGÉES - À MIGRER VERS CRAWLER RÉSEAU] [DONNÃ‰ES LOCALES FIGÃ‰ES - Ã€ MIGRER VERS CRAWLER RÃ‰SEAU] PrÃƒÂ©sidents, secrÃƒÂ©taires gÃƒÂ©nÃƒÂ©raux et porte-parole des partis reprÃƒÂ©sentÃƒÂ©s au Parlement.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-09 18:05:30.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="324"/>
+            <column name="name" value="PEP Portugal – Organisations Internationales"/>
+            <column name="description" value="Dirigeants des organisations internationales siégeant au Portugal (catégorie PT-h)"/>
+            <column name="dataset_name" value="pt_pep_international_orgs"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://www.cplp.org/"/>
+            <column name="plugin_id" value="pt-pep-international-orgs"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="API"/>
+            <column name="parameters"><![CDATA[{"url": "https://www.cplp.org/"}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="DonnÃƒÂ©es publiques ouvertes : citer la source"/>
+            <column name="attribution" value="OrganizaÃƒÂ§ÃƒÂµes Internacionais sediadas em Portugal"/>
+            <column name="notes"><![CDATA[[DONNÉES LOCALES FIGÉES - À MIGRER VERS CRAWLER RÉSEAU] [DONNÃ‰ES LOCALES FIGÃ‰ES - Ã€ MIGRER VERS CRAWLER RÃ‰SEAU] SecrÃƒÂ©taire exÃƒÂ©cutif de la CPLP, Directeurs exÃƒÂ©cutifs de l'EMSA, de l'EUDA et du Centre Nord-Sud.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-09 18:05:30.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="325"/>
+            <column name="name" value="PEP Portugal – Maires et Élus Locaux"/>
+            <column name="description" value="Maires et présidents des 308 câmaras municipais du Portugal (catégorie PT-LOC)"/>
+            <column name="dataset_name" value="pt_pep_mayors"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://www.anmp.pt/"/>
+            <column name="plugin_id" value="pt-pep-mayors"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="API"/>
+            <column name="parameters"><![CDATA[{"url": "https://www.anmp.pt/municipios/municipios/"}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="DonnÃƒÂ©es publiques ouvertes : citer la source"/>
+            <column name="attribution" value="AssociaÃƒÂ§ÃƒÂ£o Nacional de MunicÃƒÂ­pios Portugueses (ANMP)"/>
+            <column name="notes"><![CDATA[[DONNÉES LOCALES FIGÉES - À MIGRER VERS CRAWLER RÉSEAU] [DONNÃ‰ES LOCALES FIGÃ‰ES - Ã€ MIGRER VERS CRAWLER RÃ‰SEAU] Maires des 308 municipalitÃƒÂ©s portugaises (Lisboa, Porto, Sintra, Gaia, Cascais, Braga, Coimbra, Funchal, etc.).]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-09 18:05:30.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="326"/>
+            <column name="name" value="PEP Portugal – Famille et Proches Associés (RCA)"/>
+            <column name="description" value="Membres de la famille et proches associés des PEP portugaises (catégorie PT-RCA)"/>
+            <column name="dataset_name" value="pt_pep_rca"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://www.tribunalconstitucional.pt/"/>
+            <column name="plugin_id" value="pt-pep-rca"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="API"/>
+            <column name="parameters"><![CDATA[{"url": "https://www.tribunalconstitucional.pt/tc/transparencia.html"}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="DonnÃƒÂ©es publiques ouvertes : citer la source"/>
+            <column name="attribution" value="Entidade para a TransparÃƒÂªncia / Tribunal Constitucional"/>
+            <column name="notes"><![CDATA[[DONNÉES LOCALES FIGÉES - À MIGRER VERS CRAWLER RÉSEAU] [DONNÃ‰ES LOCALES FIGÃ‰ES - Ã€ MIGRER VERS CRAWLER RÃ‰SEAU] Conjoints, enfants et proches associÃƒÂ©s d'affaires des PEP portugaises de premier plan.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-09 18:05:30.000000"/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="268"/>
+            <column name="parser_id" valueNumeric="153"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope"><![CDATA[Les 21 députés européens élus au Portugal et ceux sortis depuis moins de 12 mois, avec date et lieu de naissance, genre, groupe et dates de mandat.]]></column>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="270"/>
+            <column name="parser_id" valueNumeric="153"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope" value="Hauts reprÃƒÂ©sentants portugais au sein des institutions de l'Union europÃƒÂ©enne"/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="269"/>
+            <column name="parser_id" valueNumeric="154"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="0"/>
+            <column name="covered_scope"><![CDATA[Maria Luís Albuquerque, commissaire (2024-2029) aux services financiers et à l'Union de l'épargne et des investissements, avec son portrait officiel.]]></column>
+            <column name="gaps" value="Ni date de naissance ni date exacte de prise de fonctions sur la fiche."/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="248"/>
+            <column name="parser_id" valueNumeric="155"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="0"/>
+            <column name="covered_scope" value="Le Président de la République en fonction, avec date et lieu de naissance."/>
+            <column name="gaps" value="Pas de date de prise de fonctions ni de portrait sur la page."/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="255"/>
+            <column name="parser_id" valueNumeric="156"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="0"/>
+            <column name="covered_scope" value="Le président, le vice-président et les juges conseillers du Tribunal de Contas en fonction."/>
+            <column name="gaps" value="Pas de dates de nomination sur la page ; les sortants ne sont pas nommés (le cœur garde un retiré 12 mois)."/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="258"/>
+            <column name="parser_id" valueNumeric="157"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="0"/>
+            <column name="covered_scope" value="Conseil de rÃƒÂ©gulation de l'ERC au complet (PrÃƒÂ©sidente, Vice-PrÃƒÂ©sident, Vogais)"/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="251"/>
+            <column name="parser_id" valueNumeric="178"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope"><![CDATA[Députés en fonction, mandats suspendus et anciens députés depuis moins d'un an, avec groupe parlementaire, cercle électoral et fonctions du bureau.]]></column>
+            <column name="gaps" value="Ni date de naissance ni sexe dans le fichier."/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="252"/>
+            <column name="parser_id" valueNumeric="178"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope"><![CDATA[Députés en fonction, mandats suspendus et anciens députés depuis moins d'un an, avec groupe parlementaire, cercle électoral et fonctions du bureau.]]></column>
+            <column name="gaps" value="Ni date de naissance ni sexe dans le fichier."/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="249"/>
+            <column name="parser_id" valueNumeric="181"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope"><![CDATA[Premier ministre, ministres et secrétaires d'État en fonction, et partis depuis moins d'un an, avec dates de début et de fin.]]></column>
+            <column name="gaps" value="Date de naissance seulement pour le Premier ministre. Pas de date de début pour le Premier ministre."/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="250"/>
+            <column name="parser_id" valueNumeric="181"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope"><![CDATA[Premier ministre, ministres et secrétaires d'État en fonction, et partis depuis moins d'un an, avec dates de début et de fin.]]></column>
+            <column name="gaps" value="Date de naissance seulement pour le Premier ministre. Pas de date de début pour le Premier ministre."/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="253"/>
+            <column name="parser_id" valueNumeric="313"/>
+            <column name="completeness" value="PARTIAL"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope" value="PrÃƒÂ©sident, Vice-PrÃƒÂ©sident et ensemble des juges conseillers du Tribunal constitutionnel"/>
+            <column name="gaps" value="Données locales figées (seed embarqué) – en cours de remplacement par crawler réseau officiel direct"/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="254"/>
+            <column name="parser_id" valueNumeric="314"/>
+            <column name="completeness" value="PARTIAL"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope" value="PrÃƒÂ©sidents, Vice-PrÃƒÂ©sidents et magistrats de haut rang du STJ et du STA"/>
+            <column name="gaps" value="Données locales figées (seed embarqué) – en cours de remplacement par crawler réseau officiel direct"/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="256"/>
+            <column name="parser_id" valueNumeric="315"/>
+            <column name="completeness" value="PARTIAL"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope" value="Procureur GÃƒÂ©nÃƒÂ©ral de la RÃƒÂ©publique, Vice-PGR et membres des conseils supÃƒÂ©rieurs"/>
+            <column name="gaps" value="Données locales figées (seed embarqué) – en cours de remplacement par crawler réseau officiel direct"/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="257"/>
+            <column name="parser_id" valueNumeric="316"/>
+            <column name="completeness" value="PARTIAL"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope" value="Gouverneur, Vice-Gouverneurs et administrateurs du Banco de Portugal"/>
+            <column name="gaps" value="Données locales figées (seed embarqué) – en cours de remplacement par crawler réseau officiel direct"/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="259"/>
+            <column name="parser_id" valueNumeric="317"/>
+            <column name="completeness" value="PARTIAL"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope" value="PrÃƒÂ©sidents et membres des conseils d'administration de la CMVM, de l'ASF et de la CNPD"/>
+            <column name="gaps" value="Données locales figées (seed embarqué) – en cours de remplacement par crawler réseau officiel direct"/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="260"/>
+            <column name="parser_id" valueNumeric="318"/>
+            <column name="completeness" value="PARTIAL"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope" value="Provedora de Justiça, Président du CES et conseillers d'État"/>
+            <column name="gaps" value="Données locales figées (seed embarqué) – en cours de remplacement par crawler réseau officiel direct"/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="261"/>
+            <column name="parser_id" valueNumeric="319"/>
+            <column name="completeness" value="PARTIAL"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope"><![CDATA[PrÃƒÂ©sidents de rÃƒÂ©gion, secrÃƒÂ©taires rÃƒÂ©gionaux et reprÃƒÂ©sentants de la RÃƒÂ©publique aux AÃƒÂ§ores et ÃƒÂ  MadÃƒÂ¨re]]></column>
+            <column name="gaps" value="Données locales figées (seed embarqué) – en cours de remplacement par crawler réseau officiel direct"/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="262"/>
+            <column name="parser_id" valueNumeric="320"/>
+            <column name="completeness" value="PARTIAL"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope" value="Ambassadeurs bilatÃƒÂ©raux majeurs et reprÃƒÂ©sentants permanents auprÃƒÂ¨s des organisations internationales"/>
+            <column name="gaps" value="Données locales figées (seed embarqué) – en cours de remplacement par crawler réseau officiel direct"/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="263"/>
+            <column name="parser_id" valueNumeric="321"/>
+            <column name="completeness" value="PARTIAL"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope" value="Chefs d'ÃƒÂ©tat-major des trois armÃƒÂ©es, commandant-gÃƒÂ©nÃƒÂ©ral de la GNR et directeur national de la PSP"/>
+            <column name="gaps" value="Données locales figées (seed embarqué) – en cours de remplacement par crawler réseau officiel direct"/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="265"/>
+            <column name="parser_id" valueNumeric="322"/>
+            <column name="completeness" value="PARTIAL"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope" value="Présidents et directeurs généraux des participations stratégiques de l'État portugais"/>
+            <column name="gaps" value="Données locales figées (seed embarqué) – en cours de remplacement par crawler réseau officiel direct"/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="266"/>
+            <column name="parser_id" valueNumeric="323"/>
+            <column name="completeness" value="PARTIAL"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope"><![CDATA[PrÃƒÂ©sidents et secrÃƒÂ©taires gÃƒÂ©nÃƒÂ©raux des partis politiques nationaux et rÃƒÂ©gionaux reprÃƒÂ©sentÃƒÂ©s au Parlement]]></column>
+            <column name="gaps" value="Données locales figées (seed embarqué) – en cours de remplacement par crawler réseau officiel direct"/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="267"/>
+            <column name="parser_id" valueNumeric="324"/>
+            <column name="completeness" value="PARTIAL"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope" value="Dirigeants et directeurs exÃƒÂ©cutifs des organisations internationales ÃƒÂ©tablies au Portugal"/>
+            <column name="gaps" value="Données locales figées (seed embarqué) – en cours de remplacement par crawler réseau officiel direct"/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="264"/>
+            <column name="parser_id" valueNumeric="325"/>
+            <column name="completeness" value="PARTIAL"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope" value="PrÃƒÂ©sidents de conseil municipal (Presidentes de CÃƒÂ¢mara) des 308 communes portugaises"/>
+            <column name="gaps" value="Données locales figées (seed embarqué) – en cours de remplacement par crawler réseau officiel direct"/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="271"/>
+            <column name="parser_id" valueNumeric="326"/>
+            <column name="completeness" value="PARTIAL"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope" value="Membres de la famille proche (conjoints, enfants) des dirigeants nationaux"/>
+            <column name="gaps" value="Données locales figées (seed embarqué) – en cours de remplacement par crawler réseau officiel direct"/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="272"/>
+            <column name="parser_id" valueNumeric="326"/>
+            <column name="completeness" value="PARTIAL"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope" value="Proches associÃƒÂ©s et relations d'affaires ÃƒÂ©troites de PEP portugaises de premier plan"/>
+            <column name="gaps" value="Données locales figées (seed embarqué) – en cours de remplacement par crawler réseau officiel direct"/>
+        </insert>
+    </changeSet>
+</databaseChangeLog>

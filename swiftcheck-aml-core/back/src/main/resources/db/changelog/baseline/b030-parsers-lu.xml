@@ -1,0 +1,772 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="baseline-parsers-lu" author="swiftcheck-baseline">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM parser WHERE dataset_name IN ('lu_pep_europarl', 'lu_pep_chamber', 'lu_pep_chamber_former', 'lu_pep_municipal', 'lu_pep_government', 'lu_pep_legilux', 'lu_pep_government_former', 'lu_pep_council_of_state', 'lu_pep_eu_commission', 'lu_pep_europarl_former', 'lu_pep_grand_duke', 'lu_pep_judiciary', 'lu_pep_administrative_courts', 'lu_pep_court_of_auditors', 'lu_pep_central_bank', 'lu_pep_ilr', 'lu_pep_caa', 'lu_pep_cssf', 'lu_pep_army', 'lu_pep_diplomats', 'lu_pep_international_orgs', 'lu_pep_political_parties', 'lu_pep_state_enterprises', 'lu_pep_rca', 'lu_pep_associated_entities')</sqlCheck>
+        </preConditions>
+        <comment>Parsers « lu_* » (25) et leurs liens aux fonctions PEP (38)</comment>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="2"/>
+            <column name="name" value="Eurodéputés élus au Luxembourg"/>
+            <column name="description" value="Députés au Parlement européen élus au Luxembourg"/>
+            <column name="dataset_name" value="lu_pep_europarl"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://data.europarl.europa.eu"/>
+            <column name="plugin_id" value="lu-pep-europarl"/>
+            <column name="data_source_type" value="HTTP_FILE"/>
+            <column name="parser_kind" value="OPEN_DATA_FILE"/>
+            <column name="source_location"><![CDATA[https://data.europarl.europa.eu/api/v2/meps/show-current?country-of-representation=LU&format=application%2Fld%2Bjson]]></column>
+            <column name="refresh_hours" valueNumeric="24"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="attribution" value="© Union européenne, Parlement européen"/>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-10-26 21:15:29.000000"/>
+            <column name="updated_at" value="2026-10-27 17:30:52.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="3"/>
+            <column name="name" value="Députés en fonction (Luxembourg)"/>
+            <column name="description" value="Députés de la Chambre des Députés en fonction"/>
+            <column name="dataset_name" value="lu_pep_chamber"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://www.chd.lu/fr/deputies"/>
+            <column name="plugin_id" value="lu-pep-chamber"/>
+            <column name="data_source_type" value="HTTP_FILE"/>
+            <column name="parser_kind" value="OPEN_DATA_FILE"/>
+            <column name="source_location" value="https://data.public.lu/fr/datasets/r/a5b6e7f9-b488-41a6-9bd1-be913a5c35b5"/>
+            <column name="refresh_hours" valueNumeric="24"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="attribution" value="Chambre des Députés du Grand-Duché de Luxembourg, data.public.lu"/>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-10-26 21:15:29.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="4"/>
+            <column name="name" value="Anciens députés (Luxembourg)"/>
+            <column name="description" value="Anciens députés de la Chambre des Députés"/>
+            <column name="dataset_name" value="lu_pep_chamber_former"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://www.chd.lu/fr/deputies"/>
+            <column name="plugin_id" value="lu-pep-chamber-former"/>
+            <column name="data_source_type" value="HTTP_FILE"/>
+            <column name="parser_kind" value="OPEN_DATA_FILE"/>
+            <column name="source_location" value="https://data.public.lu/fr/datasets/r/8fdbd601-6931-47b5-a027-aacd3b1e47f4"/>
+            <column name="parameters"><![CDATA[{"yearsAfterEnd": "5"}]]></column>
+            <column name="refresh_hours" valueNumeric="24"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="attribution" value="Chambre des Députés du Grand-Duché de Luxembourg, data.public.lu"/>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-10-26 21:15:29.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="5"/>
+            <column name="name" value="Bourgmestres et échevins (Luxembourg)"/>
+            <column name="description" value="Collèges des bourgmestre et échevins depuis les élections communales 2023"/>
+            <column name="dataset_name" value="lu_pep_municipal"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://data.public.lu/fr/datasets/college-des-bourgmestre-et-echevins-depuis-les-elections-communales-2023/"/>
+            <column name="plugin_id" value="lu-pep-municipal"/>
+            <column name="data_source_type" value="HTTP_FILE"/>
+            <column name="parser_kind" value="OPEN_DATA_FILE"/>
+            <column name="source_location" value="https://data.public.lu/fr/datasets/r/067d11cc-29a8-4f0c-bf35-f9d4ac1818ec"/>
+            <column name="parameters"><![CDATA[{"yearsAfterEnd": "5"}]]></column>
+            <column name="refresh_hours" valueNumeric="24"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="attribution" value="Ministère des Affaires intérieures, data.public.lu"/>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-10-26 21:15:29.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="6"/>
+            <column name="name" value="Membres du gouvernement (Luxembourg)"/>
+            <column name="description" value="Premier ministre, ministres et secrétaires d'État en fonction"/>
+            <column name="dataset_name" value="lu_pep_government"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://gouvernement.lu/fr/gouvernement.html"/>
+            <column name="plugin_id" value="lu-pep-government"/>
+            <column name="data_source_type" value="HTTP_FILE"/>
+            <column name="parser_kind" value="WEB_PAGE"/>
+            <column name="source_location" value="https://gouvernement.lu/fr/gouvernement.html"/>
+            <column name="refresh_hours" valueNumeric="24"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="attribution" value="Gouvernement du Grand-Duché de Luxembourg, gouvernement.lu"/>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-10-26 21:15:29.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="7"/>
+            <column name="name" value="Hautes fonctions nommées au Journal officiel (Luxembourg)"/>
+            <column name="description"><![CDATA[Nominations et démissions publiées sur Legilux depuis 2017 : Conseil d'État, hautes juridictions, Cour des comptes, BCL, CSSF, Commissariat aux assurances]]></column>
+            <column name="dataset_name" value="lu_pep_legilux"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://legilux.public.lu"/>
+            <column name="plugin_id" value="lu-pep-legilux"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="SPARQL"/>
+            <column name="parameters"><![CDATA[{"endpoint": "https://data.legilux.public.lu/sparqlendpoint", "since": "2017-01-01", "yearsAfterEnd": "5"}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="attribution" value="Journal officiel du Grand-Duché de Luxembourg, legilux.public.lu"/>
+            <column name="notes"><![CDATA[Publications administratives de nomination et de démission ; texte exploitable depuis 2017. Ne publie plus les ambassadeurs depuis 2016, ni les officiers de l'armée]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-10-26 21:15:29.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="8"/>
+            <column name="name" value="Anciens membres du gouvernement (Luxembourg)"/>
+            <column name="description" value="Anciens Premiers ministres, ministres et secrétaires d'État"/>
+            <column name="dataset_name" value="lu_pep_government_former"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://gouvernement.lu/fr/gouvernement.html"/>
+            <column name="plugin_id" value="lu-pep-government-former"/>
+            <column name="data_source_type" value="HTTP_FILE"/>
+            <column name="parser_kind" value="WEB_PAGE"/>
+            <column name="source_location" value="https://gouvernement.lu/fr/gouvernement/anciens-membres-gouvernement.html"/>
+            <column name="parameters"><![CDATA[{"yearsAfterEnd": "5"}]]></column>
+            <column name="refresh_hours" valueNumeric="24"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="attribution" value="Gouvernement du Grand-Duché de Luxembourg, gouvernement.lu"/>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-10-26 21:15:30.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="9"/>
+            <column name="name" value="Conseil d'État (Luxembourg)"/>
+            <column name="description" value="Conseillers d'État en fonction et anciens membres (mandats de 12 ans)"/>
+            <column name="dataset_name" value="lu_pep_council_of_state"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://conseil-etat.public.lu"/>
+            <column name="plugin_id" value="lu-pep-council-of-state"/>
+            <column name="data_source_type" value="HTTP_FILE"/>
+            <column name="parser_kind" value="WEB_PAGE"/>
+            <column name="source_location" value="https://conseil-etat.public.lu/fr/conseil-d-etat/historique/membresdepuis1857.html"/>
+            <column name="parameters"><![CDATA[{"yearsAfterEnd": "5", "sourceUrl": "https://conseil-etat.public.lu/fr/conseil-d-etat/historique/membresdepuis1857.html"}]]></column>
+            <column name="refresh_hours" valueNumeric="24"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="attribution" value="Conseil d'État du Grand-Duché de Luxembourg, conseil-etat.public.lu"/>
+            <column name="notes" value="Membres en fonction"/>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-10-26 21:15:30.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="10"/>
+            <column name="name" value="Commissaire européen luxembourgeois"/>
+            <column name="description" value="Commissaire européen luxembourgeois en fonction et anciens commissaires récents"/>
+            <column name="dataset_name" value="lu_pep_eu_commission"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://commission.europa.eu"/>
+            <column name="plugin_id" value="lu-pep-eu-commission"/>
+            <column name="data_source_type" value="HTTP_FILE"/>
+            <column name="parser_kind" value="WEB_PAGE"/>
+            <column name="source_location" value="https://commission.europa.eu/about/organisation/college-commissioners_fr"/>
+            <column name="parameters"><![CDATA[{"sourceUrl": "https://commission.europa.eu/about/organisation/college-commissioners_fr", "yearsAfterEnd": "5", "formerCommissionerPages": "https://commissioners.ec.europa.eu/nicolas-schmit_fr"}]]></column>
+            <column name="refresh_hours" valueNumeric="24"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="attribution" value="Commission européenne, commission.europa.eu"/>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-10-26 21:15:30.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="11"/>
+            <column name="name" value="Anciens députés européens élus au Luxembourg"/>
+            <column name="description" value="API open data du Parlement européen – anciens eurodéputés luxembourgeois (législatures précédentes)"/>
+            <column name="dataset_name" value="lu_pep_europarl_former"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://www.europarl.europa.eu/meps/fr/full-list"/>
+            <column name="plugin_id" value="lu-pep-europarl-former"/>
+            <column name="data_source_type" value="HTTP_FILE"/>
+            <column name="parser_kind" value="OPEN_DATA_FILE"/>
+            <column name="source_location"><![CDATA[https://data.europarl.europa.eu/api/v2/meps?country-of-representation=LU&parliamentary-term=9&limit=100&format=application/ld+json]]></column>
+            <column name="parameters"><![CDATA[{"yearsAfterEnd": "5", "sourceUrl": "https://data.europarl.europa.eu/api/v2/meps?country-of-representation=LU&parliamentary-term=9&limit=100&format=application/ld+json"}]]></column>
+            <column name="refresh_hours" valueNumeric="24"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="attribution" value="Parlement européen, data.europarl.europa.eu"/>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-10-26 21:15:30.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="12"/>
+            <column name="name" value="PEP Luxembourg – Grand-Duc (Chef de l'État)"/>
+            <column name="description" value="S.A.R. le Grand-Duc de Luxembourg, Chef de l'État (Maison grand-ducale, catégorie LU-a)"/>
+            <column name="dataset_name" value="lu_pep_grand_duke"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://monarchie.lu"/>
+            <column name="plugin_id" value="lu-pep-grand-duke"/>
+            <column name="data_source_type" value="HTTP_FILE"/>
+            <column name="parser_kind" value="WEB_PAGE"/>
+            <column name="source_location" value="https://monarchie.lu/fr/la-famille-grand-ducale/le-grand-duc"/>
+            <column name="parameters"><![CDATA[{"sourceUrl": "https://monarchie.lu/fr/la-famille-grand-ducale/le-grand-duc", "includeFormer": "false", "yearsAfterEnd": "5"}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="60"/>
+            <column name="licence" value="Données publiques officielles"/>
+            <column name="attribution" value="Maison du Grand-Duc (monarchie.lu)"/>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-10-26 21:15:30.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="13"/>
+            <column name="name" value="PEP Luxembourg – Hautes juridictions judiciaires"/>
+            <column name="description"><![CDATA[Cour constitutionnelle, Cour de cassation, présidence de la Cour supérieure de justice, Parquet général (catégorie LU-d)]]></column>
+            <column name="dataset_name" value="lu_pep_judiciary"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://justice.public.lu"/>
+            <column name="plugin_id" value="lu-pep-judiciary"/>
+            <column name="data_source_type" value="HTTP_FILE"/>
+            <column name="parser_kind" value="WEB_PAGE"/>
+            <column name="source_location" value="https://justice.public.lu/fr/organisation-justice/cour-constitutionnelle.html"/>
+            <column name="parameters"><![CDATA[{"sourceUrl": "https://justice.public.lu/fr/organisation-justice/cour-constitutionnelle.html", "yearsAfterEnd": "5"}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="60"/>
+            <column name="licence" value="Données publiques officielles"/>
+            <column name="attribution" value="Administration judiciaire (justice.public.lu)"/>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-10-26 21:15:30.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="14"/>
+            <column name="name" value="PEP Luxembourg – Juridictions administratives (Cour administrative)"/>
+            <column name="description" value="Membres de la Cour administrative du Luxembourg (catégorie LU-d)"/>
+            <column name="dataset_name" value="lu_pep_administrative_courts"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://ja.public.lu"/>
+            <column name="plugin_id" value="lu-pep-administrative-courts"/>
+            <column name="data_source_type" value="HTTP_FILE"/>
+            <column name="parser_kind" value="WEB_PAGE"/>
+            <column name="source_location" value="https://justice.public.lu/downloads.jurad/Cour.pdf"/>
+            <column name="parameters"><![CDATA[{"sourceUrl": "https://justice.public.lu/downloads.jurad/Cour.pdf", "yearsAfterEnd": "5"}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="60"/>
+            <column name="licence" value="Données publiques officielles"/>
+            <column name="attribution" value="Juridictions administratives (ja.public.lu / justice.public.lu)"/>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-10-26 21:15:30.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="15"/>
+            <column name="name" value="PEP Luxembourg – Cour des comptes"/>
+            <column name="description" value="Membres du Collège de la Cour des comptes du Luxembourg (catégorie LU-e)"/>
+            <column name="dataset_name" value="lu_pep_court_of_auditors"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://cour-des-comptes.public.lu"/>
+            <column name="plugin_id" value="lu-pep-court-of-auditors"/>
+            <column name="data_source_type" value="HTTP_FILE"/>
+            <column name="parser_kind" value="WEB_PAGE"/>
+            <column name="source_location" value="https://cour-des-comptes.public.lu/fr/cour/college.html"/>
+            <column name="parameters"><![CDATA[{"sourceUrl": "https://cour-des-comptes.public.lu/fr/cour/college.html", "yearsAfterEnd": "5"}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="60"/>
+            <column name="licence" value="Données publiques officielles"/>
+            <column name="attribution" value="Cour des comptes du Grand-Duché de Luxembourg (cour-des-comptes.public.lu)"/>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-10-26 21:15:30.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="16"/>
+            <column name="name" value="PEP Luxembourg – Banque centrale du Luxembourg"/>
+            <column name="description" value="Direction et Conseil de la Banque centrale du Luxembourg (catégorie LU-e)"/>
+            <column name="dataset_name" value="lu_pep_central_bank"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://www.bcl.lu"/>
+            <column name="plugin_id" value="lu-pep-central-bank"/>
+            <column name="data_source_type" value="HTTP_FILE"/>
+            <column name="parser_kind" value="WEB_PAGE"/>
+            <column name="source_location" value="https://www.bcl.lu/fr/apropos/organisation/organes_statutaires/"/>
+            <column name="parameters"><![CDATA[{"sourceUrl": "https://www.bcl.lu/fr/apropos/organisation/organes_statutaires/", "yearsAfterEnd": "5"}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="60"/>
+            <column name="licence" value="Données publiques officielles"/>
+            <column name="attribution" value="Banque centrale du Luxembourg (bcl.lu)"/>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-10-26 21:15:30.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="17"/>
+            <column name="name" value="PEP Luxembourg – Institut Luxembourgeois de Régulation"/>
+            <column name="description" value="Direction de l'Institut Luxembourgeois de Régulation (catégorie LU-i)"/>
+            <column name="dataset_name" value="lu_pep_ilr"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://www.ilr.lu"/>
+            <column name="plugin_id" value="lu-pep-ilr"/>
+            <column name="data_source_type" value="HTTP_FILE"/>
+            <column name="parser_kind" value="WEB_PAGE"/>
+            <column name="source_location" value="https://www.ilr.lu/a-propos/equipe/"/>
+            <column name="parameters"><![CDATA[{"sourceUrl": "https://www.ilr.lu/a-propos/equipe/", "yearsAfterEnd": "5"}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="60"/>
+            <column name="licence" value="Données publiques officielles"/>
+            <column name="attribution" value="Institut Luxembourgeois de Régulation (ilr.lu)"/>
+            <column name="notes" value="Pages de direction de chaque autorité"/>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-10-26 21:15:30.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="18"/>
+            <column name="name" value="PEP Luxembourg – Commissariat aux Assurances"/>
+            <column name="description" value="Direction du Commissariat aux Assurances (catégorie LU-i)"/>
+            <column name="dataset_name" value="lu_pep_caa"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://www.caa.lu"/>
+            <column name="plugin_id" value="lu-pep-caa"/>
+            <column name="data_source_type" value="HTTP_FILE"/>
+            <column name="parser_kind" value="WEB_PAGE"/>
+            <column name="source_location" value="https://www.caa.lu/uploads/documents/files/ComiteDeDirectionDuCAA.pdf"/>
+            <column name="parameters"><![CDATA[{"sourceUrl": "https://www.caa.lu/uploads/documents/files/ComiteDeDirectionDuCAA.pdf", "yearsAfterEnd": "5"}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="60"/>
+            <column name="licence" value="Données publiques officielles"/>
+            <column name="attribution" value="Commissariat aux Assurances (caa.lu)"/>
+            <column name="notes" value="Pages de direction de chaque autorité"/>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-10-26 21:15:30.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="19"/>
+            <column name="name" value="PEP Luxembourg – Commission de Surveillance du Secteur Financier"/>
+            <column name="description" value="Direction de la Commission de Surveillance du Secteur Financier (catégorie LU-i)"/>
+            <column name="dataset_name" value="lu_pep_cssf"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://www.cssf.lu"/>
+            <column name="plugin_id" value="lu-pep-cssf"/>
+            <column name="data_source_type" value="HTTP_FILE"/>
+            <column name="parser_kind" value="PDF_DOCUMENT"/>
+            <column name="source_location" value="https://www.cssf.lu/wp-content/uploads/LM_DIRECTION.pdf"/>
+            <column name="parameters"><![CDATA[{"sourceUrl": "https://www.cssf.lu/wp-content/uploads/LM_DIRECTION.pdf", "yearsAfterEnd": "5"}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="60"/>
+            <column name="licence" value="Données publiques officielles"/>
+            <column name="attribution" value="Commission de Surveillance du Secteur Financier (cssf.lu)"/>
+            <column name="notes" value="Pages de direction de chaque autorité"/>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-10-26 21:15:30.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="20"/>
+            <column name="name" value="PEP Luxembourg – Armée luxembourgeoise (État-major)"/>
+            <column name="description" value="Officiers supérieurs de l'Armée (Chef d'état-major, adjoint, commandant des forces - catégorie LU-f)"/>
+            <column name="dataset_name" value="lu_pep_army"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://armee.public.lu"/>
+            <column name="plugin_id" value="lu-pep-army"/>
+            <column name="data_source_type" value="HTTP_FILE"/>
+            <column name="parser_kind" value="WEB_PAGE"/>
+            <column name="source_location" value="https://armee.public.lu/fr/armee-luxembourgeoise/personnel/personnel-cle.html"/>
+            <column name="parameters"><![CDATA[{"sourceUrl": "https://armee.public.lu/fr/armee-luxembourgeoise/personnel/personnel-cle.html", "yearsAfterEnd": "5"}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="60"/>
+            <column name="licence" value="Données publiques officielles"/>
+            <column name="attribution" value="Armée luxembourgeoise (armee.lu)"/>
+            <column name="notes" value="Chef d'état-major, adjoint, chefs de division"/>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-10-26 21:15:30.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="21"/>
+            <column name="name" value="PEP Luxembourg – Missions diplomatiques (Ambassadeurs et chargés d'affaires)"/>
+            <column name="description" value="Ambassadeurs et chargés d'affaires du Luxembourg (catégorie LU-f)"/>
+            <column name="dataset_name" value="lu_pep_diplomats"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://mae.gouvernement.lu"/>
+            <column name="plugin_id" value="lu-pep-diplomats"/>
+            <column name="data_source_type" value="HTTP_FILE"/>
+            <column name="parser_kind" value="WEB_PAGE"/>
+            <column name="source_location" value="https://mae.gouvernement.lu/fr/missions-diplomatiques/missions-diplomatiques-et-consulaires-luxembourgeoises.html"/>
+            <column name="parameters"><![CDATA[{"sourceUrl": "https://mae.gouvernement.lu/fr/missions-diplomatiques/missions-diplomatiques-et-consulaires-luxembourgeoises.html"}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="60"/>
+            <column name="licence" value="Données publiques officielles"/>
+            <column name="attribution" value="Ministère des Affaires étrangères et européennes (mae.gouvernement.lu)"/>
+            <column name="notes" value="Ambassadeurs et chargés d'affaires"/>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-10-26 21:15:30.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="22"/>
+            <column name="name" value="PEP Luxembourg – Organisations internationales (Cour AELE, Eurocontrol, ESO)"/>
+            <column name="description" value="Dirigeants des organisations internationales ayant leur siège au Luxembourg (catégorie LU-h)"/>
+            <column name="dataset_name" value="lu_pep_international_orgs"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://eftacourt.int"/>
+            <column name="plugin_id" value="lu-pep-international-orgs"/>
+            <column name="data_source_type" value="HTTP_FILE"/>
+            <column name="parser_kind" value="WEB_PAGE"/>
+            <column name="source_location" value="https://eftacourt.int/the-court/judges-and-staff/"/>
+            <column name="parameters"><![CDATA[{"sourceUrl": "https://eftacourt.int/the-court/judges-and-staff/"}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="60"/>
+            <column name="licence" value="Données publiques officielles"/>
+            <column name="attribution" value="Cour de justice de l'AELE (eftacourt.int), Eurocontrol, ESO"/>
+            <column name="notes" value="Dirigeants des organisations internationales ayant leur siège ou antenne au Luxembourg (LU-h)"/>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-10-26 21:15:30.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="23"/>
+            <column name="name" value="PEP Luxembourg – Dirigeants des partis politiques"/>
+            <column name="description" value="Membres des organes dirigeants des 7 partis politiques représentés à la Chambre des Députés (catégorie LU-c)"/>
+            <column name="dataset_name" value="lu_pep_political_parties"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://www.wikidata.org"/>
+            <column name="plugin_id" value="lu-pep-political-parties"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="SPARQL"/>
+            <column name="parameters"><![CDATA[{"endpoint": "https://query.wikidata.org/sparql", "country": "Q32", "monthsAfterEnd": "12"}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="CC0 (Wikidata)"/>
+            <column name="attribution" value="Wikidata, www.wikidata.org"/>
+            <column name="notes"><![CDATA[Dirigeants des partis luxembourgeois décrits dans Wikidata (président, secrétaire général, directeur), lus à chaque exécution. Données collaboratives : à contrôler. Plus aucun fichier de dirigeants n'est embarqué dans le plugin.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-10-26 21:15:30.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="24"/>
+            <column name="name" value="PEP Luxembourg – Dirigeants des entreprises publiques"/>
+            <column name="description"><![CDATA[Administrateurs, directeurs généraux et commissaires du gouvernement des entreprises publiques et participations de l'État (catégorie LU-g)]]></column>
+            <column name="dataset_name" value="lu_pep_state_enterprises"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://data.public.lu/fr/datasets/liste-des-participations-de-letat/"/>
+            <column name="plugin_id" value="lu-pep-state-enterprises"/>
+            <column name="data_source_type" value="HTTP_FILE"/>
+            <column name="parser_kind" value="OPEN_DATA_FILE"/>
+            <column name="source_location" value="https://data.public.lu/fr/datasets/r/f3157e5d-7d22-413a-b3d3-39f5d45c3807"/>
+            <column name="parameters"><![CDATA[{"sourceUrl": "https://data.public.lu/fr/datasets/liste-des-participations-de-letat/"}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="60"/>
+            <column name="licence" value="Creative Commons Zero (CC0)"/>
+            <column name="attribution" value="Trésorerie de l'État (Ministère des Finances) via data.public.lu"/>
+            <column name="notes" value="Conseils d'administration et comités de direction des entreprises publiques et participations étatiques (LU-g)"/>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-10-26 21:15:30.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="25"/>
+            <column name="name" value="PEP Luxembourg – Famille des PEP (Wikidata)"/>
+            <column name="description" value="Conjoint, enfants, parents, frères et sœurs vivants des PEP luxembourgeois connus de Wikidata (catégorie LU-RCA)"/>
+            <column name="dataset_name" value="lu_pep_rca"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://www.wikidata.org"/>
+            <column name="plugin_id" value="lu-pep-rca"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="SPARQL"/>
+            <column name="parameters"><![CDATA[{"endpoint": "https://query.wikidata.org/sparql", "yearsAfterEnd": "5", "country": "Q32", "extraPositions": "Q29639349", "excludedPositions": "Q13102207 Q60853309"}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="CC0 1.0 (Wikidata)"/>
+            <column name="attribution" value="Wikidata, www.wikidata.org"/>
+            <column name="notes" value="Couverture partielle : seuls les proches renseignés dans Wikidata. Un mariage sans date de fin est gardé."/>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-10-26 21:15:30.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="26"/>
+            <column name="name" value="PEP Luxembourg – Organisations liées aux députés"/>
+            <column name="description"><![CDATA[Organismes dont un député est administrateur ou membre d'un comité (section E) et sociétés dans lesquelles il détient une participation (section G), d'après les déclarations d'intérêts financiers publiées sur chd.lu (catégorie LU-RCA)]]></column>
+            <column name="dataset_name" value="lu_pep_associated_entities"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://www.chd.lu/fr/deputies"/>
+            <column name="plugin_id" value="lu-pep-associated-entities"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="PDF_DOCUMENT"/>
+            <column name="parameters"><![CDATA[{"deputiesUrl": "https://www.chd.lu/fr/deputies", "delayMs": "500"}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="Documents publics (loi du 29 novembre 2021 sur les données ouvertes) – réutilisation à confirmer auprès de la Chambre"/>
+            <column name="attribution" value="Chambre des Députés du Grand-Duché de Luxembourg, www.chd.lu"/>
+            <column name="notes"><![CDATA[Couverture partielle : députés uniquement ; les déclarations scannées sans texte (environ un tiers) ne sont pas lues, elles sont citées dans le message de l'exécution. Données personnelles (RGPD).]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-10-26 23:11:58.000000"/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="16"/>
+            <column name="parser_id" valueNumeric="2"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="0"/>
+            <column name="covered_scope" value="Les 6 députés européens élus au Luxembourg en fonction, d'après la liste officielle du Parlement européen."/>
+            <column name="gaps" value="Ni date de naissance ni genre dans le fichier."/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="5"/>
+            <column name="parser_id" valueNumeric="3"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="0"/>
+            <column name="covered_scope" value="Les 60 députés en fonction, d'après l'open data de la Chambre des Députés (data.public.lu), avec la date de naissance."/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="6"/>
+            <column name="parser_id" valueNumeric="4"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope"><![CDATA[58 anciens députés dont le mandat a pris fin il y a moins de 5 ans, d'après la liste officielle des anciens députés (depuis 1999).]]></column>
+            <column name="gaps" value="La date de naissance manque pour certains anciens députés : leur ID repose alors sur le nom et le prénom."/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="4"/>
+            <column name="parser_id" valueNumeric="5"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="0"/>
+            <column name="covered_scope"><![CDATA[Bourgmestre et échevins de la Ville de Luxembourg, d'après le fichier des collèges des bourgmestre et échevins (ministère des Affaires intérieures, data.public.lu).]]></column>
+            <column name="gaps" value="Pas de date de naissance : l'ID repose sur le nom, le prénom et la commune."/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="23"/>
+            <column name="parser_id" valueNumeric="5"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="0"/>
+            <column name="covered_scope"><![CDATA[Les bourgmestres des 100 communes, mandats en cours et terminés depuis moins de 5 ans, d'après le fichier des collèges des bourgmestre et échevins (data.public.lu).]]></column>
+            <column name="gaps"><![CDATA[Pas de date de naissance : l'ID repose sur le nom, le prénom et la commune. Seuls les mandats depuis les élections communales de 2023 ; l'adresse du fichier changera après les élections de 2029.]]></column>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="24"/>
+            <column name="parser_id" valueNumeric="5"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="0"/>
+            <column name="covered_scope"><![CDATA[Les échevins des 100 communes, mandats en cours et terminés depuis moins de 5 ans, d'après le fichier des collèges des bourgmestre et échevins (data.public.lu).]]></column>
+            <column name="gaps"><![CDATA[Pas de date de naissance : l'ID repose sur le nom, le prénom et la commune. Seuls les mandats depuis les élections communales de 2023 ; l'adresse du fichier changera après les élections de 2029.]]></column>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="2"/>
+            <column name="parser_id" valueNumeric="6"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="0"/>
+            <column name="covered_scope" value="Les 15 membres du gouvernement en fonction, d'après gouvernement.lu."/>
+            <column name="gaps"><![CDATA[La fonction exacte (Premier ministre, ministre de…, secrétaire d'État) n'est pas lue : tous sont « membre du gouvernement ». Ni date de naissance ni date d'entrée en fonction sur la page.]]></column>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="7"/>
+            <column name="parser_id" valueNumeric="7"/>
+            <column name="completeness" value="PARTIAL"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope"><![CDATA[Nominations, renouvellements et démissions publiés au Journal officiel (Legilux) depuis 2017, avec les anciens titulaires.]]></column>
+            <column name="gaps"><![CDATA[Titulaires nommés avant 2017 absents, sauf renouvellement ou démission depuis. Ni identifiant ni date de naissance dans les actes. Quelques actes à la tournure non reconnue sont cités dans le message de l'exécution.]]></column>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="9"/>
+            <column name="parser_id" valueNumeric="7"/>
+            <column name="completeness" value="PARTIAL"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope"><![CDATA[Nominations, renouvellements et démissions publiés au Journal officiel (Legilux) depuis 2017, avec les anciens titulaires.]]></column>
+            <column name="gaps"><![CDATA[Titulaires nommés avant 2017 absents, sauf renouvellement ou démission depuis. Ni identifiant ni date de naissance dans les actes. Quelques actes à la tournure non reconnue sont cités dans le message de l'exécution.]]></column>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="10"/>
+            <column name="parser_id" valueNumeric="7"/>
+            <column name="completeness" value="PARTIAL"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope"><![CDATA[Nominations, renouvellements et démissions publiés au Journal officiel (Legilux) depuis 2017, avec les anciens titulaires.]]></column>
+            <column name="gaps"><![CDATA[Titulaires nommés avant 2017 absents, sauf renouvellement ou démission depuis. Ni identifiant ni date de naissance dans les actes. Quelques actes à la tournure non reconnue sont cités dans le message de l'exécution.]]></column>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="11"/>
+            <column name="parser_id" valueNumeric="7"/>
+            <column name="completeness" value="PARTIAL"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope"><![CDATA[Nominations, renouvellements et démissions publiés au Journal officiel (Legilux) depuis 2017, avec les anciens titulaires.]]></column>
+            <column name="gaps"><![CDATA[Titulaires nommés avant 2017 absents, sauf renouvellement ou démission depuis. Ni identifiant ni date de naissance dans les actes. Quelques actes à la tournure non reconnue sont cités dans le message de l'exécution.]]></column>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="12"/>
+            <column name="parser_id" valueNumeric="7"/>
+            <column name="completeness" value="PARTIAL"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope"><![CDATA[Nominations, renouvellements et démissions publiés au Journal officiel (Legilux) depuis 2017, avec les anciens titulaires.]]></column>
+            <column name="gaps"><![CDATA[Titulaires nommés avant 2017 absents, sauf renouvellement ou démission depuis. Ni identifiant ni date de naissance dans les actes. Quelques actes à la tournure non reconnue sont cités dans le message de l'exécution.]]></column>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="13"/>
+            <column name="parser_id" valueNumeric="7"/>
+            <column name="completeness" value="PARTIAL"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope"><![CDATA[Nominations, renouvellements et démissions publiés au Journal officiel (Legilux) depuis 2017, avec les anciens titulaires.]]></column>
+            <column name="gaps"><![CDATA[Titulaires nommés avant 2017 absents, sauf renouvellement ou démission depuis. Ni identifiant ni date de naissance dans les actes. Quelques actes à la tournure non reconnue sont cités dans le message de l'exécution.]]></column>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="14"/>
+            <column name="parser_id" valueNumeric="7"/>
+            <column name="completeness" value="PARTIAL"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope"><![CDATA[Nominations, renouvellements et démissions publiés au Journal officiel (Legilux) depuis 2017, avec les anciens titulaires.]]></column>
+            <column name="gaps"><![CDATA[Titulaires nommés avant 2017 absents, sauf renouvellement ou démission depuis. Ni identifiant ni date de naissance dans les actes. Quelques actes à la tournure non reconnue sont cités dans le message de l'exécution.]]></column>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="15"/>
+            <column name="parser_id" valueNumeric="7"/>
+            <column name="completeness" value="PARTIAL"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope"><![CDATA[Nominations, renouvellements et démissions publiés au Journal officiel (Legilux) depuis 2017, avec les anciens titulaires.]]></column>
+            <column name="gaps"><![CDATA[Titulaires nommés avant 2017 absents, sauf renouvellement ou démission depuis. Ni identifiant ni date de naissance dans les actes. Quelques actes à la tournure non reconnue sont cités dans le message de l'exécution.]]></column>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="22"/>
+            <column name="parser_id" valueNumeric="7"/>
+            <column name="completeness" value="PARTIAL"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope"><![CDATA[Nominations, renouvellements et démissions publiés au Journal officiel (Legilux) depuis 2017, avec les anciens titulaires.]]></column>
+            <column name="gaps"><![CDATA[Titulaires nommés avant 2017 absents, sauf renouvellement ou démission depuis. Ni identifiant ni date de naissance dans les actes. Quelques actes à la tournure non reconnue sont cités dans le message de l'exécution. Le conseil d'administration de l'ILR (publié en arrêté) n'est pas lu.]]></column>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="3"/>
+            <column name="parser_id" valueNumeric="8"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope"><![CDATA[34 anciens membres du gouvernement et le détail de leurs mandats, d'après la page officielle des anciens membres (gouvernement.lu).]]></column>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="7"/>
+            <column name="parser_id" valueNumeric="9"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="0"/>
+            <column name="covered_scope"><![CDATA[35 membres du Conseil d'État en fonction ou sortis depuis moins de 5 ans, d'après la liste officielle des membres depuis 1857 (conseil-etat.public.lu).]]></column>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="17"/>
+            <column name="parser_id" valueNumeric="10"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope"><![CDATA[Le membre luxembourgeois de la Commission en fonction (collège des commissaires) et l'ancien commissaire sorti depuis moins de 5 ans.]]></column>
+            <column name="gaps"><![CDATA[L'ancien commissaire est lu sur une page donnée en paramètre (formerCommissionerPages) : à mettre à jour à chaque changement de commissaire.]]></column>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="16"/>
+            <column name="parser_id" valueNumeric="11"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope"><![CDATA[8 anciens députés européens élus au Luxembourg, sortis depuis moins de 5 ans, d'après l'API open data du Parlement européen.]]></column>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="1"/>
+            <column name="parser_id" valueNumeric="12"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="0"/>
+            <column name="covered_scope" value="Le Grand-Duc régnant, d'après sa fiche officielle sur monarchie.lu, avec la date et le lieu de naissance."/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="9"/>
+            <column name="parser_id" valueNumeric="13"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="0"/>
+            <column name="covered_scope" value="Membres de la Cour constitutionnelle, d'après la page officielle de justice.public.lu."/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="10"/>
+            <column name="parser_id" valueNumeric="13"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="0"/>
+            <column name="covered_scope" value="Président et vice-présidents de la Cour supérieure de justice, d'après la page officielle de justice.public.lu."/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="11"/>
+            <column name="parser_id" valueNumeric="13"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="0"/>
+            <column name="covered_scope" value="Membres de la Cour de cassation, d'après la page officielle de justice.public.lu."/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="12"/>
+            <column name="parser_id" valueNumeric="13"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="0"/>
+            <column name="covered_scope" value="Procureur général d'État et procureurs généraux d'État adjoints, d'après la page officielle de justice.public.lu."/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="13"/>
+            <column name="parser_id" valueNumeric="14"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="0"/>
+            <column name="covered_scope"><![CDATA[Magistrats de la Cour administrative, d'après les convocations d'audiences publiées sur justice.public.lu (4 personnes à la dernière exécution).]]></column>
+            <column name="gaps"><![CDATA[La source est la composition des chambres d'audience publiées : un membre qui n'y siège pas n'est pas lu (14 personnes disparues de la source sont gardées par la rétention).]]></column>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="14"/>
+            <column name="parser_id" valueNumeric="15"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="0"/>
+            <column name="covered_scope"><![CDATA[Les 5 membres du Collège (président, vice-président, conseillers), d'après cour-des-comptes.public.lu, avec la date de naissance.]]></column>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="15"/>
+            <column name="parser_id" valueNumeric="16"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="0"/>
+            <column name="covered_scope"><![CDATA[Direction (directeur général, directeurs) et Conseil de la BCL, d'après la page des organes statutaires de bcl.lu : 9 personnes.]]></column>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="22"/>
+            <column name="parser_id" valueNumeric="17"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="0"/>
+            <column name="covered_scope" value="Direction de l'ILR (directeur, directeurs adjoints), d'après la page d'équipe d'ilr.lu : 3 personnes."/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="22"/>
+            <column name="parser_id" valueNumeric="18"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="0"/>
+            <column name="covered_scope" value="Comité de direction du Commissariat aux assurances, d'après caa.lu : 3 personnes."/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="22"/>
+            <column name="parser_id" valueNumeric="19"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="0"/>
+            <column name="covered_scope" value="Direction de la CSSF (directeur général et directeurs), d'après le PDF officiel de la direction : 5 personnes."/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="19"/>
+            <column name="parser_id" valueNumeric="20"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="0"/>
+            <column name="covered_scope"><![CDATA[Chef d'état-major, chef d'état-major adjoint, commandant des forces et autres officiers du personnel-clé de l'Armée (armee.public.lu) : 5 personnes.]]></column>
+            <column name="gaps" value="Seuls les officiers du personnel-clé publié sur le site, pour environ 10 attendus."/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="18"/>
+            <column name="parser_id" valueNumeric="21"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="0"/>
+            <column name="covered_scope"><![CDATA[18 ambassadeurs et chargés d'affaires, d'après le portail des missions diplomatiques du ministère des Affaires étrangères et les pages d'équipe des ambassades.]]></column>
+            <column name="gaps"><![CDATA[18 personnes lues pour environ 40 postes attendus : une mission sans page d'équipe nominative n'est pas couverte. Legilux ne publie plus les nominations d'ambassadeurs depuis 2016.]]></column>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="21"/>
+            <column name="parser_id" valueNumeric="22"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="0"/>
+            <column name="covered_scope"><![CDATA[Juges et greffier de la Cour de l'AELE lus sur eftacourt.int, et dirigeants de l'Office statistique de l'AELE et d'Eurocontrol Luxembourg : 11 personnes.]]></column>
+            <column name="gaps"><![CDATA[Les juges ad hoc de la Cour de l'AELE et les dirigeants de l'Office statistique de l'AELE et d'Eurocontrol sont écrits dans le code du plugin, pas lus dans une source : à vérifier et à mettre à jour à la main.]]></column>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="8"/>
+            <column name="parser_id" valueNumeric="23"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope"><![CDATA[Présidents, secrétaires généraux et dirigeants nationaux de l'ensemble des partis politiques luxembourgeois représentés à la Chambre des députés et enregistrés (CSV, DP, LSAP, ADR, déi gréng, Piraten, déi Lénk, Fokus)]]></column>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="20"/>
+            <column name="parser_id" valueNumeric="24"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="0"/>
+            <column name="covered_scope"><![CDATA[1 050 administrateurs, directeurs et commissaires du gouvernement de 111 entreprises et participations de l'État, d'après la liste officielle des participations (Trésorerie de l'État, data.public.lu).]]></column>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="25"/>
+            <column name="parser_id" valueNumeric="25"/>
+            <column name="completeness" value="PARTIAL"/>
+            <column name="includes_former" valueNumeric="0"/>
+            <column name="covered_scope" value="Conjoints, enfants, parents, frères et sœurs des PEP luxembourgeois décrits dans Wikidata : 55 proches de 30 PEP."/>
+            <column name="gaps" value="Seules les familles décrites dans Wikidata (30 PEP sur 392 connues de Wikidata). Données collaboratives, à contrôler."/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="26"/>
+            <column name="parser_id" valueNumeric="26"/>
+            <column name="completeness" value="PARTIAL"/>
+            <column name="includes_former" valueNumeric="0"/>
+            <column name="covered_scope"><![CDATA[74 organismes liés à 15 députés (mandats et participations), d'après les déclarations d'intérêts financiers publiées sur chd.lu.]]></column>
+            <column name="gaps"><![CDATA[22 déclarations scannées sans texte ne sont pas lues (il faudrait une reconnaissance de caractères). Seuls les députés déclarent. Pas de proches associés personnes physiques.]]></column>
+        </insert>
+    </changeSet>
+</databaseChangeLog>

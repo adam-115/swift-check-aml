@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+    <!-- Baseline générée par swiftcheck-aml-tools/liquibase-baseline/generate-baseline.js : ne pas modifier à la main,
+         ajouter les changements suivants dans db/changelog/changes (après la baseline). -->
+    <include file="db/changelog/baseline/b000-schema.xml"/>
+    <include file="db/changelog/baseline/b010-countries.xml"/>
+    <include file="db/changelog/baseline/b020-pep-categories-functions.xml"/>
+    <include file="db/changelog/baseline/b030-parsers-at.xml"/>
+    <include file="db/changelog/baseline/b030-parsers-be.xml"/>
+    <include file="db/changelog/baseline/b030-parsers-bg.xml"/>
+    <include file="db/changelog/baseline/b030-parsers-cy.xml"/>
+    <include file="db/changelog/baseline/b030-parsers-cz.xml"/>
+    <include file="db/changelog/baseline/b030-parsers-de.xml"/>
+    <include file="db/changelog/baseline/b030-parsers-dk.xml"/>
+    <include file="db/changelog/baseline/b030-parsers-ee.xml"/>
+    <include file="db/changelog/baseline/b030-parsers-es.xml"/>
+    <include file="db/changelog/baseline/b030-parsers-eu.xml"/>
+    <include file="db/changelog/baseline/b030-parsers-fi.xml"/>
+    <include file="db/changelog/baseline/b030-parsers-fr.xml"/>
+    <include file="db/changelog/baseline/b030-parsers-gr.xml"/>
+    <include file="db/changelog/baseline/b030-parsers-hr.xml"/>
+    <include file="db/changelog/baseline/b030-parsers-hu.xml"/>
+    <include file="db/changelog/baseline/b030-parsers-ie.xml"/>
+    <include file="db/changelog/baseline/b030-parsers-it.xml"/>
+    <include file="db/changelog/baseline/b030-parsers-lt.xml"/>
+    <include file="db/changelog/baseline/b030-parsers-lu.xml"/>
+    <include file="db/changelog/baseline/b030-parsers-lv.xml"/>
+    <include file="db/changelog/baseline/b030-parsers-mt.xml"/>
+    <include file="db/changelog/baseline/b030-parsers-nl.xml"/>
+    <include file="db/changelog/baseline/b030-parsers-no.xml"/>
+    <include file="db/changelog/baseline/b030-parsers-pl.xml"/>
+    <include file="db/changelog/baseline/b030-parsers-pt.xml"/>
+    <include file="db/changelog/baseline/b030-parsers-ro.xml"/>
+    <include file="db/changelog/baseline/b030-parsers-se.xml"/>
+    <include file="db/changelog/baseline/b030-parsers-si.xml"/>
+    <include file="db/changelog/baseline/b030-parsers-sk.xml"/>
+    <include file="db/changelog/baseline/b040-application.xml"/>
+</databaseChangeLog>

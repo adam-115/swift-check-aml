@@ -1,0 +1,394 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="baseline-parsers-gr" author="swiftcheck-baseline">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM parser WHERE dataset_name IN ('gr_pep_europarl', 'gr_pep_eu_commission', 'gr_pep_president', 'gr_pep_government', 'gr_pep_parliament', 'gr_pep_political_parties', 'gr_pep_supreme_courts', 'gr_pep_audit', 'gr_pep_central_bank', 'gr_pep_diplomats', 'gr_pep_armed_forces', 'gr_pep_state_enterprises', 'gr_pep_international_orgs', 'gr_pep_rca')</sqlCheck>
+        </preConditions>
+        <comment>Parsers « gr_* » (14) et leurs liens aux fonctions PEP (16)</comment>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="258"/>
+            <column name="name" value="PEP Grèce – Députés européens"/>
+            <column name="description"><![CDATA[Les députés au Parlement européen élus en Grèce, en fonction et sortis depuis moins de 12 mois, avec naissance et dates de mandat (catégorie GR-EU)]]></column>
+            <column name="dataset_name" value="gr_pep_europarl"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://data.europarl.europa.eu/"/>
+            <column name="plugin_id" value="gr-pep-europarl"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="API"/>
+            <column name="parameters"><![CDATA[{"currentUrl": "https://data.europarl.europa.eu/api/v2/meps/show-current?country-of-representation=GR&format=application%2Fld%2Bjson", "termUrl": "https://data.europarl.europa.eu/api/v2/meps?country-of-representation=GR&parliamentary-term=10&limit=500&format=application%2Fld%2Bjson", "detailUrl": "https://data.europarl.europa.eu/api/v2/meps/{id}?format=application%2Fld%2Bjson", "delayMs": "400", "monthsAfterEnd": "12", "wikidataEndpoint": ""}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="Réutilisation autorisée en citant la source (Parlement européen)"/>
+            <column name="attribution" value="Parlement européen, data.europarl.europa.eu"/>
+            <column name="notes"><![CDATA[Reprise de nl_pep_europarl. Mesure du 06/11/2026 : 21 députés en fonction, 9 avec date de naissance (le Parlement ne la publie pas pour les autres). Une fiche par député. L'API limite le débit (HTTP 429) : le plugin attend puis réessaie. Pas de photos (Wikidata non utilisé). termUrl contient le numéro de législature (10) : à changer en 2029.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-07 00:15:44.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="259"/>
+            <column name="name" value="PEP Grèce – Commissaire européen"/>
+            <column name="description" value="Le membre grec de la Commission européenne, d'après sa fiche officielle (catégorie GR-EU)"/>
+            <column name="dataset_name" value="gr_pep_eu_commission"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://commission.europa.eu/about/organisation/college-commissioners_en"/>
+            <column name="plugin_id" value="gr-pep-eu-commission"/>
+            <column name="data_source_type" value="HTTP_FILE"/>
+            <column name="parser_kind" value="WEB_PAGE"/>
+            <column name="source_location" value="https://commission.europa.eu/about/organisation/college-commissioners/apostolos-tzitzikostas_en"/>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="Réutilisation autorisée en citant la source (avis juridique de la Commission européenne)"/>
+            <column name="attribution" value="Commission européenne, commission.europa.eu"/>
+            <column name="notes"><![CDATA[Reprise de nl_pep_eu_commission. À chaque nouvelle Commission, remplacer l'adresse par la fiche du commissaire grec. Une fiche qui ne présente pas un commissaire grec est refusée.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-07 00:15:44.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="357"/>
+            <column name="name" value="PEP Grèce – Présidence de la République"/>
+            <column name="description" value="Président de la République hellénique et hauts dirigeants de la Présidence (catégorie GR-a)"/>
+            <column name="dataset_name" value="gr_pep_president"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://www.presidency.gr/"/>
+            <column name="plugin_id" value="gr-pep-president"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="API"/>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="DonnÃ©es publiques officielles"/>
+            <column name="attribution" value="PrÃ©sidence de la RÃ©publique hellÃ©nique"/>
+            <column name="notes"><![CDATA[[DONNÉES LOCALES FIGÉES - À MIGRER VERS CRAWLER RÉSEAU] [DONNÃ‰ES LOCALES FIGÃ‰ES - Ã€ MIGRER VERS CRAWLER RÃ‰SEAU] Katerina Sakellaropoulou et direction de la PrÃ©sidence.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-10 10:41:04.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="358"/>
+            <column name="name" value="PEP Grèce – Gouvernement et Ministres"/>
+            <column name="description" value="Premier ministre, ministres, ministres délégués et vice-ministres helléniques (catégorie GR-a)"/>
+            <column name="dataset_name" value="gr_pep_government"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://primeminister.gr/"/>
+            <column name="plugin_id" value="gr-pep-government"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="API"/>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="DonnÃ©es publiques officielles"/>
+            <column name="attribution" value="Gouvernement de la RÃ©publique hellÃ©nique"/>
+            <column name="notes"><![CDATA[[DONNÉES LOCALES FIGÉES - À MIGRER VERS CRAWLER RÉSEAU] [DONNÃ‰ES LOCALES FIGÃ‰ES - Ã€ MIGRER VERS CRAWLER RÃ‰SEAU] Premier ministre Kyriakos Mitsotakis et ensemble des ministres.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-10 10:41:04.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="359"/>
+            <column name="name" value="PEP Grèce – Parlement hellénique (Vouli)"/>
+            <column name="description" value="Députés et anciens députés du Parlement hellénique (catégorie GR-b)"/>
+            <column name="dataset_name" value="gr_pep_parliament"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://www.hellenicparliament.gr/"/>
+            <column name="plugin_id" value="gr-pep-parliament"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="API"/>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="DonnÃ©es publiques officielles"/>
+            <column name="attribution" value="Parlement hellÃ©nique (Î’Î¿Ï…Î»Î® Ï„Ï‰Î½ Î•Î»Î»Î®Î½Ï‰Î½)"/>
+            <column name="notes"><![CDATA[[DONNÉES LOCALES FIGÉES - À MIGRER VERS CRAWLER RÉSEAU] [DONNÃ‰ES LOCALES FIGÃ‰ES - Ã€ MIGRER VERS CRAWLER RÃ‰SEAU] PrÃ©sidence, vice-prÃ©sidences, chefs de groupes parlementaires et dÃ©putÃ©s.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-10 10:41:04.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="360"/>
+            <column name="name" value="PEP Grèce – Partis Politiques"/>
+            <column name="description" value="Membres des organes dirigeants des partis politiques représentés au Parlement (catégorie GR-c)"/>
+            <column name="dataset_name" value="gr_pep_political_parties"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://www.hellenicparliament.gr/"/>
+            <column name="plugin_id" value="gr-pep-political-parties"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="API"/>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="DonnÃ©es publiques officielles"/>
+            <column name="attribution" value="Partis politiques grecs"/>
+            <column name="notes"><![CDATA[[DONNÉES LOCALES FIGÉES - À MIGRER VERS CRAWLER RÉSEAU] [DONNÃ‰ES LOCALES FIGÃ‰ES - Ã€ MIGRER VERS CRAWLER RÃ‰SEAU] Dirigeants et secrÃ©taires des comitÃ©s politiques des partis parlementaires.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-10 10:41:04.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="361"/>
+            <column name="name" value="PEP Grèce – Cours Suprêmes (Areios Pagos et Conseil d'État)"/>
+            <column name="description" value="Juges et magistrats de la Cour de cassation et du Conseil d'État (catégorie GR-d)"/>
+            <column name="dataset_name" value="gr_pep_supreme_courts"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://areiospagos.gr/"/>
+            <column name="plugin_id" value="gr-pep-supreme-courts"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="API"/>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="DonnÃ©es publiques officielles"/>
+            <column name="attribution" value="Cour de cassation (Î†ÏÎµÎ¹Î¿Ï‚ Î Î¬Î³Î¿Ï‚) et Conseil d'Ã‰tat"/>
+            <column name="notes"><![CDATA[[DONNÉES LOCALES FIGÉES - À MIGRER VERS CRAWLER RÉSEAU] [DONNÃ‰ES LOCALES FIGÃ‰ES - Ã€ MIGRER VERS CRAWLER RÃ‰SEAU] PrÃ©sidents, procureure gÃ©nÃ©rale et vice-prÃ©sidents des hautes cours.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-10 10:41:04.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="362"/>
+            <column name="name" value="PEP Grèce – Cour des comptes (Elenktiko Synedrio)"/>
+            <column name="description" value="Présidente et procureur général de la Cour des comptes hellénique (catégorie GR-e)"/>
+            <column name="dataset_name" value="gr_pep_audit"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://www.elsyn.gr/en/judges"/>
+            <column name="plugin_id" value="gr-pep-audit"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="WEB_PAGE"/>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="DonnÃ©es publiques officielles"/>
+            <column name="attribution" value="Cour des comptes hellÃ©nique (Î•Î»ÎµÎ³ÎºÏ„Î¹ÎºÏŒ Î£Ï…Î½Î­Î´ÏÎ¹Î¿)"/>
+            <column name="notes"><![CDATA[[DONNÉES LOCALES FIGÉES - À MIGRER VERS CRAWLER RÉSEAU] [DONNÃ‰ES LOCALES FIGÃ‰ES - Ã€ MIGRER VERS CRAWLER RÃ‰SEAU] PrÃ©sidente Sotiria Douni et Procureur gÃ©nÃ©ral Stamatios Poulis.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-10 10:41:04.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="363"/>
+            <column name="name" value="PEP Grèce – Banque de Grèce (Trapeza tis Ellados)"/>
+            <column name="description" value="Gouverneur, sous-gouverneurs et conseil général de la Banque de Grèce (catégorie GR-e)"/>
+            <column name="dataset_name" value="gr_pep_central_bank"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://www.bankofgreece.gr/"/>
+            <column name="plugin_id" value="gr-pep-central-bank"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="API"/>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="DonnÃ©es publiques officielles"/>
+            <column name="attribution" value="Banque de GrÃ¨ce (Î¤ÏÎ¬Ï€ÎµÎ¶Î± Ï„Î·Ï‚ Î•Î»Î»Î¬Î´Î¿Ï‚)"/>
+            <column name="notes"><![CDATA[[DONNÉES LOCALES FIGÉES - À MIGRER VERS CRAWLER RÉSEAU] [DONNÃ‰ES LOCALES FIGÃ‰ES - Ã€ MIGRER VERS CRAWLER RÃ‰SEAU] Gouverneur Yannis Stournaras et collÃ¨ge de direction.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-10 10:41:04.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="364"/>
+            <column name="name" value="PEP Grèce – Ambassadeurs et Diplomates"/>
+            <column name="description" value="Ambassadeurs et représentants permanents de la République hellénique (catégorie GR-f)"/>
+            <column name="dataset_name" value="gr_pep_diplomats"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://www.mfa.gr/"/>
+            <column name="plugin_id" value="gr-pep-diplomats"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="API"/>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="DonnÃ©es publiques officielles"/>
+            <column name="attribution" value="MinistÃ¨re des Affaires Ã©trangÃ¨res hellÃ©nique"/>
+            <column name="notes"><![CDATA[[DONNÉES LOCALES FIGÉES - À MIGRER VERS CRAWLER RÉSEAU] [DONNÃ‰ES LOCALES FIGÃ‰ES - Ã€ MIGRER VERS CRAWLER RÃ‰SEAU] Ambassadeurs auprÃ¨s de l'ONU, de l'UE, des USA, etc.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-10 10:41:04.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="365"/>
+            <column name="name" value="PEP Grèce – Forces Armées (GEETHA)"/>
+            <column name="description" value="Officiers généraux des forces armées helléniques (catégorie GR-f)"/>
+            <column name="dataset_name" value="gr_pep_armed_forces"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://geetha.mil.gr/"/>
+            <column name="plugin_id" value="gr-pep-armed-forces"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="API"/>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="DonnÃ©es publiques officielles"/>
+            <column name="attribution" value="Ã‰tat-major de la DÃ©fense nationale (GEETHA)"/>
+            <column name="notes"><![CDATA[[DONNÉES LOCALES FIGÉES - À MIGRER VERS CRAWLER RÉSEAU] [DONNÃ‰ES LOCALES FIGÃ‰ES - Ã€ MIGRER VERS CRAWLER RÃ‰SEAU] Chef d'Ã©tat-major de la DÃ©fense Dimitrios Houpis et chefs des 3 armÃ©es.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-10 10:41:04.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="366"/>
+            <column name="name" value="PEP Grèce – Entreprises Publiques (DEKO)"/>
+            <column name="description" value="Dirigeants des entreprises publiques et sociétés d'État helléniques (catégorie GR-g)"/>
+            <column name="dataset_name" value="gr_pep_state_enterprises"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://hcap.gr/"/>
+            <column name="plugin_id" value="gr-pep-state-enterprises"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="API"/>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="DonnÃ©es publiques officielles"/>
+            <column name="attribution" value="Fonds souverain HCAP et entreprises d'Ã‰tat"/>
+            <column name="notes"><![CDATA[[DONNÉES LOCALES FIGÉES - À MIGRER VERS CRAWLER RÉSEAU] [DONNÃ‰ES LOCALES FIGÃ‰ES - Ã€ MIGRER VERS CRAWLER RÃ‰SEAU] Dirigeants de PPC, ADMIE, EYDAP, HCAP, etc.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-10 10:41:04.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="367"/>
+            <column name="name" value="PEP Grèce – Organisations Internationales"/>
+            <column name="description" value="Dirigeants d'organisations internationales et agences européennes en Grèce (catégorie GR-h)"/>
+            <column name="dataset_name" value="gr_pep_international_orgs"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://enisa.europa.eu/"/>
+            <column name="plugin_id" value="gr-pep-international-orgs"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="API"/>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="DonnÃ©es publiques officielles"/>
+            <column name="attribution" value="Agences europÃ©ennes et internationales en GrÃ¨ce"/>
+            <column name="notes"><![CDATA[[DONNÉES LOCALES FIGÉES - À MIGRER VERS CRAWLER RÉSEAU] [DONNÃ‰ES LOCALES FIGÃ‰ES - Ã€ MIGRER VERS CRAWLER RÃ‰SEAU] Dirigeants d'ENISA, Cedefop, BSEC et hauts fonctionnaires internationaux grecs.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-10 10:41:04.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="368"/>
+            <column name="name" value="PEP Grèce – Membres de la Famille et Proches Associés (RCA)"/>
+            <column name="description" value="Membres de la famille et proches associés de PEP grecques (catégorie GR-RCA)"/>
+            <column name="dataset_name" value="gr_pep_rca"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://www.hellenicparliament.gr/"/>
+            <column name="plugin_id" value="gr-pep-rca"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="API"/>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="DonnÃ©es publiques officielles"/>
+            <column name="attribution" value="DÃ©clarations de patrimoine officielles (Pothen Esches)"/>
+            <column name="notes"><![CDATA[[DONNÉES LOCALES FIGÉES - À MIGRER VERS CRAWLER RÉSEAU] [DONNÃ‰ES LOCALES FIGÃ‰ES - Ã€ MIGRER VERS CRAWLER RÃ‰SEAU] Conjoints, descendants, ascendants et proches partenaires de PEP hellÃ©niques.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-10 10:41:04.000000"/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="671"/>
+            <column name="parser_id" valueNumeric="258"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope"><![CDATA[Les 21 députés européens élus en Grèce et ceux sortis depuis moins de 12 mois, avec naissance quand elle est publiée, genre, groupe et dates de mandat.]]></column>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="672"/>
+            <column name="parser_id" valueNumeric="259"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="0"/>
+            <column name="covered_scope" value="Apostolos Tzitzikostas, commissaire chargé des transports durables et du tourisme (2024-2029)."/>
+            <column name="gaps" value="Ni date ni lieu de naissance sur la fiche."/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="657"/>
+            <column name="parser_id" valueNumeric="357"/>
+            <column name="completeness" value="PARTIAL"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope" value="Présidente de la République hellénique en exercice et anciens présidents"/>
+            <column name="gaps" value="Données locales figées (seed embarqué) – en cours de remplacement par crawler réseau officiel direct"/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="658"/>
+            <column name="parser_id" valueNumeric="358"/>
+            <column name="completeness" value="PARTIAL"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope" value="Premier ministre, ministres d'Ã‰tat, ministres et vice-ministres"/>
+            <column name="gaps" value="Données locales figées (seed embarqué) – en cours de remplacement par crawler réseau officiel direct"/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="659"/>
+            <column name="parser_id" valueNumeric="359"/>
+            <column name="completeness" value="PARTIAL"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope" value="Députés et présidium du Parlement hellénique"/>
+            <column name="gaps" value="Données locales figées (seed embarqué) – en cours de remplacement par crawler réseau officiel direct"/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="660"/>
+            <column name="parser_id" valueNumeric="359"/>
+            <column name="completeness" value="PARTIAL"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope" value="Anciens députés et anciens présidents du Parlement hellénique"/>
+            <column name="gaps" value="Données locales figées (seed embarqué) – en cours de remplacement par crawler réseau officiel direct"/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="661"/>
+            <column name="parser_id" valueNumeric="360"/>
+            <column name="completeness" value="PARTIAL"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope" value="Organes dirigeants des partis parlementaires (ND, SYRIZA, PASOK, KKE, etc.)"/>
+            <column name="gaps" value="Données locales figées (seed embarqué) – en cours de remplacement par crawler réseau officiel direct"/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="662"/>
+            <column name="parser_id" valueNumeric="361"/>
+            <column name="completeness" value="PARTIAL"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope" value="Hauts magistrats de la Cour de cassation et du Conseil d'Ã‰tat"/>
+            <column name="gaps" value="Données locales figées (seed embarqué) – en cours de remplacement par crawler réseau officiel direct"/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="663"/>
+            <column name="parser_id" valueNumeric="362"/>
+            <column name="completeness" value="PARTIAL"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope" value="Présidente et Procureur général de la Cour des comptes hellénique"/>
+            <column name="gaps" value="Données locales figées (seed embarqué) – en cours de remplacement par crawler réseau officiel direct"/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="664"/>
+            <column name="parser_id" valueNumeric="363"/>
+            <column name="completeness" value="PARTIAL"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope" value="Gouverneur, sous-gouverneurs et membres du conseil de la Banque de Grèce"/>
+            <column name="gaps" value="Données locales figées (seed embarqué) – en cours de remplacement par crawler réseau officiel direct"/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="665"/>
+            <column name="parser_id" valueNumeric="364"/>
+            <column name="completeness" value="PARTIAL"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope" value="Ambassadeurs et représentants permanents de la Grèce à l'étranger"/>
+            <column name="gaps" value="Données locales figées (seed embarqué) – en cours de remplacement par crawler réseau officiel direct"/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="666"/>
+            <column name="parser_id" valueNumeric="365"/>
+            <column name="completeness" value="PARTIAL"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope" value="Chef d'état-major de la Défense et officiers généraux des forces armées"/>
+            <column name="gaps" value="Données locales figées (seed embarqué) – en cours de remplacement par crawler réseau officiel direct"/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="667"/>
+            <column name="parser_id" valueNumeric="366"/>
+            <column name="completeness" value="PARTIAL"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope" value="Dirigeants des principales entreprises d'État (énergie, eau, transports, fonds public)"/>
+            <column name="gaps" value="Données locales figées (seed embarqué) – en cours de remplacement par crawler réseau officiel direct"/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="668"/>
+            <column name="parser_id" valueNumeric="367"/>
+            <column name="completeness" value="PARTIAL"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope" value="Dirigeants d'organisations internationales basées en Grèce ou dirigées par des ressortissants grecs"/>
+            <column name="gaps" value="Données locales figées (seed embarqué) – en cours de remplacement par crawler réseau officiel direct"/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="669"/>
+            <column name="parser_id" valueNumeric="368"/>
+            <column name="completeness" value="PARTIAL"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope" value="Membres directs de la famille de PEP helléniques"/>
+            <column name="gaps" value="Données locales figées (seed embarqué) – en cours de remplacement par crawler réseau officiel direct"/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="670"/>
+            <column name="parser_id" valueNumeric="368"/>
+            <column name="completeness" value="PARTIAL"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope" value="Proches associés connus de PEP helléniques"/>
+            <column name="gaps" value="Données locales figées (seed embarqué) – en cours de remplacement par crawler réseau officiel direct"/>
+        </insert>
+    </changeSet>
+</databaseChangeLog>

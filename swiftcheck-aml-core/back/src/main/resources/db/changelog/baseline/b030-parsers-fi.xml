@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="baseline-parsers-fi" author="swiftcheck-baseline">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM parser WHERE dataset_name IN ('fi_pep_parliament', 'fi_pep_parliament_history', 'fi_pep_government', 'fi_pep_government_history', 'fi_pep_courts', 'fi_pep_institutions', 'fi_pep_ambassadors', 'fi_pep_europarl', 'fi_pep_eu_commission')</sqlCheck>
+        </preConditions>
+        <comment>Parsers « fi_* » (9) et leurs liens aux fonctions PEP (12)</comment>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="205"/>
+            <column name="name" value="PEP Finlande – Eduskunta"/>
+            <column name="description"><![CDATA[Députés de l'Eduskunta en fonction et sortis depuis moins de 12 mois, d'après l'API ouverte avoindata.eduskunta.fi (catégorie FI-b)]]></column>
+            <column name="dataset_name" value="fi_pep_parliament"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://avoindata.eduskunta.fi/"/>
+            <column name="plugin_id" value="fi-pep-parliament"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="API"/>
+            <column name="parameters"><![CDATA[{"apiUrl": "https://avoindata.eduskunta.fi/api/v1", "scope": "parliament", "monthsAfterEnd": "12", "delayMs": "500"}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="Données ouvertes de l'Eduskunta (licence CC BY 4.0) : citer la source"/>
+            <column name="attribution" value="Eduskunta, avoindata.eduskunta.fi"/>
+            <column name="notes"><![CDATA[27 pages de 100 fiches (tous les députés depuis 1907, environ 2 700), soit environ 30 secondes. Dates exactes de début et de fin de mandat ; naissance : année seulement. 214 personnes gardées (200 sièges, remplaçants compris). Décédés écartés (1 926).]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-06 01:03:50.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="206"/>
+            <column name="name" value="PEP Finlande – Eduskunta, historique de 50 ans"/>
+            <column name="description" value="Anciens députés de l'Eduskunta des 50 dernières années (couche étendue de fi_pep_parliament)"/>
+            <column name="dataset_name" value="fi_pep_parliament_history"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://avoindata.eduskunta.fi/"/>
+            <column name="plugin_id" value="fi-pep-parliament"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="API"/>
+            <column name="parameters"><![CDATA[{"apiUrl": "https://avoindata.eduskunta.fi/api/v1", "scope": "parliament", "monthsAfterEnd": "600", "delayMs": "500"}]]></column>
+            <column name="refresh_hours" valueNumeric="720"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="Données ouvertes de l'Eduskunta (licence CC BY 4.0) : citer la source"/>
+            <column name="attribution" value="Eduskunta, avoindata.eduskunta.fi"/>
+            <column name="notes"><![CDATA[Même plugin et mêmes identifiants que fi_pep_parliament. 736 personnes vivantes (751 vivants dans la table, dont 15 sortis il y a plus de 50 ans). Au-delà des 12 mois de vigilance légale : à activer selon l'approche par les risques.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-06 01:03:50.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="207"/>
+            <column name="name" value="PEP Finlande – Gouvernement"/>
+            <column name="description"><![CDATA[Premier ministre et ministres en fonction ou sortis depuis moins de 12 mois, d'après les fonctions ministérielles des fiches de députés (catégorie FI-a)]]></column>
+            <column name="dataset_name" value="fi_pep_government"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://avoindata.eduskunta.fi/"/>
+            <column name="plugin_id" value="fi-pep-parliament"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="API"/>
+            <column name="parameters"><![CDATA[{"apiUrl": "https://avoindata.eduskunta.fi/api/v1", "scope": "government", "monthsAfterEnd": "12", "delayMs": "500"}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="Données ouvertes de l'Eduskunta (licence CC BY 4.0) : citer la source"/>
+            <column name="attribution" value="Eduskunta, avoindata.eduskunta.fi"/>
+            <column name="notes"><![CDATA[Même plugin que fi_pep_parliament (paramètre scope = government). 21 personnes. Seuls les ministres qui sont ou ont été députés figurent dans la source : les ministres hors parlement manquent, valtioneuvosto.fi étant protégé par un contrôle anti-robot.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-06 01:03:50.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="208"/>
+            <column name="name" value="PEP Finlande – Gouvernement, historique de 50 ans"/>
+            <column name="description" value="Anciens ministres des 50 dernières années (couche étendue de fi_pep_government)"/>
+            <column name="dataset_name" value="fi_pep_government_history"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://avoindata.eduskunta.fi/"/>
+            <column name="plugin_id" value="fi-pep-parliament"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="API"/>
+            <column name="parameters"><![CDATA[{"apiUrl": "https://avoindata.eduskunta.fi/api/v1", "scope": "government", "monthsAfterEnd": "600", "delayMs": "500"}]]></column>
+            <column name="refresh_hours" valueNumeric="720"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="Données ouvertes de l'Eduskunta (licence CC BY 4.0) : citer la source"/>
+            <column name="attribution" value="Eduskunta, avoindata.eduskunta.fi"/>
+            <column name="notes"><![CDATA[Même plugin et mêmes identifiants que fi_pep_government. 169 personnes vivantes ayant été ministres au cours des 50 dernières années. À activer selon l'approche par les risques.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-06 01:03:51.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="209"/>
+            <column name="name" value="PEP Finlande – Hautes cours"/>
+            <column name="description"><![CDATA[Présidents et membres de la Cour suprême et de la Cour administrative suprême, d'après leurs pages officielles (catégorie FI-d)]]></column>
+            <column name="dataset_name" value="fi_pep_courts"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://www.korkeinoikeus.fi/"/>
+            <column name="plugin_id" value="fi-pep-courts"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="WEB_PAGE"/>
+            <column name="parameters"><![CDATA[{"delayMs": "1500", "courts": "kko,kho"}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="Sites officiels des juridictions : citer la source"/>
+            <column name="attribution" value="Korkein oikeus, korkeinoikeus.fi ; Korkein hallinto-oikeus, kho.fi"/>
+            <column name="notes"><![CDATA[Deux pages (une par cour). Cour suprême : 20 personnes ; Cour administrative suprême : environ 21. Année de naissance quand elle est publiée ; les membres en congé (vv.) sont repris avec une note.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-06 01:03:51.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="210"/>
+            <column name="name" value="PEP Finlande – Président et Solidium"/>
+            <column name="description"><![CDATA[Président de la République (en fonction et anciens présidents vivants) et dirigeants de Solidium, société d'investissement de l'État (catégories FI-a et FI-g)]]></column>
+            <column name="dataset_name" value="fi_pep_institutions"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://www.presidentti.fi/"/>
+            <column name="plugin_id" value="fi-pep-institutions"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="WEB_PAGE"/>
+            <column name="parameters"><![CDATA[{"keys": "president,solidium", "delayMs": "1500"}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="Sites officiels de la Présidence de la République et de Solidium : citer la source"/>
+            <column name="attribution" value="Tasavallan presidentin kanslia, presidentti.fi ; Solidium Oy, solidium.fi"/>
+            <column name="notes"><![CDATA[Quatre pages. Président en fonction (sans naissance ni date de début sur la page), 2 anciens présidents vivants (Niinistö, Halonen) avec année de naissance et dates de mandat, 6 administrateurs de Solidium avec année de naissance et 3 dirigeants (directeur général, financier, des investissements).]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-06 01:37:33.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="211"/>
+            <column name="name" value="PEP Finlande – Ambassadeurs"/>
+            <column name="description"><![CDATA[Chefs des ambassades, consulats généraux, missions permanentes et bureaux de représentation de la Finlande, plus les ambassadeurs itinérants, d'après le site du ministère des Affaires étrangères (catégorie FI-f)]]></column>
+            <column name="dataset_name" value="fi_pep_ambassadors"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://um.fi/missions"/>
+            <column name="plugin_id" value="fi-pep-ambassadors"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="WEB_PAGE"/>
+            <column name="parameters"><![CDATA[{"delayMs": "20000", "maxMissions": "0"}]]></column>
+            <column name="refresh_hours" valueNumeric="720"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="Site officiel du ministère des Affaires étrangères de Finlande : citer la source"/>
+            <column name="attribution" value="Ulkoministeriö, um.fi"/>
+            <column name="notes"><![CDATA[Une page de liste par pays, une pour les organisations internationales, une pour les ambassadeurs itinérants, puis une fiche par représentation (environ 95 pages). Le robots.txt impose 20 secondes entre deux requêtes : exécution d'une trentaine de minutes, à ne pas raccourcir. Seul le chef de mission est repris (pas de naissance publiée). Consulats honoraires exclus. Exécution réelle du 6 novembre 2026 : 93 représentations listées, 91 chefs de mission lus (ambassadeurs itinérants compris), 7 fiches sans chef (Kaboul, Rangoun et Islamabad fermées, consulat général de Saint-Pétersbourg, bureau de Mourmansk, Stockholm, Saint-Siège), environ 35 minutes.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-06 01:37:33.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="252"/>
+            <column name="name" value="PEP Finlande – Députés européens"/>
+            <column name="description"><![CDATA[Les députés au Parlement européen élus en Finlande, en fonction et sortis depuis moins de 12 mois, avec naissance et dates de mandat (catégorie FI-EU)]]></column>
+            <column name="dataset_name" value="fi_pep_europarl"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://data.europarl.europa.eu/"/>
+            <column name="plugin_id" value="fi-pep-europarl"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="API"/>
+            <column name="parameters"><![CDATA[{"currentUrl": "https://data.europarl.europa.eu/api/v2/meps/show-current?country-of-representation=FI&format=application%2Fld%2Bjson", "termUrl": "https://data.europarl.europa.eu/api/v2/meps?country-of-representation=FI&parliamentary-term=10&limit=500&format=application%2Fld%2Bjson", "detailUrl": "https://data.europarl.europa.eu/api/v2/meps/{id}?format=application%2Fld%2Bjson", "delayMs": "400", "monthsAfterEnd": "12", "wikidataEndpoint": ""}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="Réutilisation autorisée en citant la source (Parlement européen)"/>
+            <column name="attribution" value="Parlement européen, data.europarl.europa.eu"/>
+            <column name="notes"><![CDATA[Reprise de nl_pep_europarl. Mesure du 06/11/2026 : 15 députés publiés, 12 avec date de naissance, 1 sorti avant la fenêtre de 12 mois (écarté). Une fiche par député. L'API limite le débit (HTTP 429) : le plugin attend puis réessaie. Pas de photos (Wikidata non utilisé). termUrl contient le numéro de législature (10) : à changer en 2029.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-07 00:15:43.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="253"/>
+            <column name="name" value="PEP Finlande – Commissaire européen"/>
+            <column name="description" value="Le membre finlandais de la Commission européenne, d'après sa fiche officielle (catégorie FI-EU)"/>
+            <column name="dataset_name" value="fi_pep_eu_commission"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://commission.europa.eu/about/organisation/college-commissioners_en"/>
+            <column name="plugin_id" value="fi-pep-eu-commission"/>
+            <column name="data_source_type" value="HTTP_FILE"/>
+            <column name="parser_kind" value="WEB_PAGE"/>
+            <column name="source_location" value="https://commission.europa.eu/about/organisation/college-commissioners/henna-virkkunen_en"/>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="Réutilisation autorisée en citant la source (avis juridique de la Commission européenne)"/>
+            <column name="attribution" value="Commission européenne, commission.europa.eu"/>
+            <column name="notes"><![CDATA[Reprise de nl_pep_eu_commission. À chaque nouvelle Commission, remplacer l'adresse par la fiche du commissaire finlandais. Une fiche qui ne présente pas un commissaire finlandais est refusée.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-07 00:15:44.000000"/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="422"/>
+            <column name="parser_id" valueNumeric="205"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope"><![CDATA[Tous les députés en fonction et ceux sortis depuis moins de 12 mois, avec dates exactes de mandat, année de naissance, sexe et groupe parlementaire.]]></column>
+            <column name="gaps" value="Naissance : année seulement."/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="423"/>
+            <column name="parser_id" valueNumeric="205"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope"><![CDATA[Tous les députés en fonction et ceux sortis depuis moins de 12 mois, avec dates exactes de mandat, année de naissance, sexe et groupe parlementaire.]]></column>
+            <column name="gaps" value="Naissance : année seulement."/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="423"/>
+            <column name="parser_id" valueNumeric="206"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope" value="Tous les députés vivants des 50 dernières années, avec dates exactes de mandat."/>
+            <column name="gaps" value="Naissance : année seulement."/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="421"/>
+            <column name="parser_id" valueNumeric="207"/>
+            <column name="completeness" value="PARTIAL"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope" value="Premier ministre et ministres en fonction ou sortis depuis moins de 12 mois, avec dates exactes et nom du gouvernement."/>
+            <column name="gaps" value="Ministres qui n'ont jamais été députés absents de la source."/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="421"/>
+            <column name="parser_id" valueNumeric="208"/>
+            <column name="completeness" value="PARTIAL"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope" value="Anciens ministres vivants des 50 dernières années, avec dates exactes."/>
+            <column name="gaps" value="Ministres qui n'ont jamais été députés absents de la source."/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="425"/>
+            <column name="parser_id" valueNumeric="209"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="0"/>
+            <column name="covered_scope" value="Le président et les membres (oikeusneuvos) de chaque cour suprême, avec année de naissance."/>
+            <column name="gaps" value="Anciens juges non couverts ; naissance absente pour quelques membres."/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="426"/>
+            <column name="parser_id" valueNumeric="209"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="0"/>
+            <column name="covered_scope" value="Le président et les membres (oikeusneuvos) de chaque cour suprême, avec année de naissance."/>
+            <column name="gaps" value="Anciens juges non couverts ; naissance absente pour quelques membres."/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="420"/>
+            <column name="parser_id" valueNumeric="210"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope" value="Le Président de la République en fonction et les anciens présidents vivants."/>
+            <column name="gaps" value="Le président en fonction est publié sans naissance ni date de début (absents de la page)."/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="431"/>
+            <column name="parser_id" valueNumeric="210"/>
+            <column name="completeness" value="PARTIAL"/>
+            <column name="includes_former" valueNumeric="0"/>
+            <column name="covered_scope" value="Conseil d'administration et direction générale de Solidium, société d'investissement détenue par l'État."/>
+            <column name="gaps" value="Les autres entreprises d'État ne sont pas couvertes (aucune liste ouverte exploitable)."/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="429"/>
+            <column name="parser_id" valueNumeric="211"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="0"/>
+            <column name="covered_scope"><![CDATA[Le chef de chaque ambassade, consulat général, mission permanente et bureau de représentation, et les ambassadeurs itinérants.]]></column>
+            <column name="gaps"><![CDATA[Pas de date de naissance ni de date de prise de fonctions ; ambassadeurs précédents non couverts ; postes vacants absents.]]></column>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="648"/>
+            <column name="parser_id" valueNumeric="252"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope"><![CDATA[Les 15 députés européens élus en Finlande et ceux sortis depuis moins de 12 mois, avec naissance, genre, groupe et dates de mandat.]]></column>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="649"/>
+            <column name="parser_id" valueNumeric="253"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="0"/>
+            <column name="covered_scope" value="Henna Virkkunen, commissaire chargée de la souveraineté technologique, de la sécurité et de la démocratie (2024-2029)."/>
+            <column name="gaps" value="Ni date ni lieu de naissance sur la fiche."/>
+        </insert>
+    </changeSet>
+</databaseChangeLog>

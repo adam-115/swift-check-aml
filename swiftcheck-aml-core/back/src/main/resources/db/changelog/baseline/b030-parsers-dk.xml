@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="baseline-parsers-dk" author="swiftcheck-baseline">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM parser WHERE dataset_name IN ('dk_pep_parliament', 'dk_pep_parliament_history', 'dk_pep_government', 'dk_pep_government_history', 'dk_pep_oversight', 'dk_pep_institutions', 'dk_pep_europarl', 'dk_pep_eu_commission')</sqlCheck>
+        </preConditions>
+        <comment>Parsers « dk_* » (8) et leurs liens aux fonctions PEP (9)</comment>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="219"/>
+            <column name="name" value="PEP Danemark – Folketing"/>
+            <column name="description"><![CDATA[Députés du Folketing et président du Folketing, en fonction ou sortis depuis moins de 12 mois, d'après l'API ouverte oda.ft.dk (catégorie DK-b)]]></column>
+            <column name="dataset_name" value="dk_pep_parliament"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://oda.ft.dk/"/>
+            <column name="plugin_id" value="dk-pep-folketing"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="API"/>
+            <column name="parameters"><![CDATA[{"apiUrl": "https://oda.ft.dk/api", "scope": "parliament", "monthsAfterEnd": "12", "delayMs": "500"}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="Données ouvertes du Folketing : citer la source (conditions de réutilisation à vérifier sur oda.ft.dk)"/>
+            <column name="attribution" value="Folketinget, oda.ft.dk"/>
+            <column name="notes"><![CDATA[35 pages de 100 personnes (environ 3 400 entités, 2 020 avec fiche biographique), soit environ 30 secondes. Naissance complète, dates exactes de mandat lues dans le texte de la carrière. 255 personnes gardées. Décédés écartés (786). Une fiche illisible sur 2 020.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-06 02:10:15.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="220"/>
+            <column name="name" value="PEP Danemark – Folketing, historique de 50 ans"/>
+            <column name="description" value="Anciens députés du Folketing des 50 dernières années (couche étendue de dk_pep_parliament)"/>
+            <column name="dataset_name" value="dk_pep_parliament_history"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://oda.ft.dk/"/>
+            <column name="plugin_id" value="dk-pep-folketing"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="API"/>
+            <column name="parameters"><![CDATA[{"apiUrl": "https://oda.ft.dk/api", "scope": "parliament", "monthsAfterEnd": "600", "delayMs": "500"}]]></column>
+            <column name="refresh_hours" valueNumeric="720"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="Données ouvertes du Folketing : citer la source (conditions de réutilisation à vérifier sur oda.ft.dk)"/>
+            <column name="attribution" value="Folketinget, oda.ft.dk"/>
+            <column name="notes"><![CDATA[Même plugin et mêmes identifiants que dk_pep_parliament. 793 personnes vivantes. Au-delà des 12 mois de vigilance légale : à activer selon l'approche par les risques.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-06 02:10:15.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="221"/>
+            <column name="name" value="PEP Danemark – Gouvernement"/>
+            <column name="description"><![CDATA[Premier ministre et ministres en fonction ou sortis depuis moins de 12 mois, d'après l'API ouverte du Folketing (catégorie DK-a)]]></column>
+            <column name="dataset_name" value="dk_pep_government"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://oda.ft.dk/"/>
+            <column name="plugin_id" value="dk-pep-folketing"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="API"/>
+            <column name="parameters"><![CDATA[{"apiUrl": "https://oda.ft.dk/api", "scope": "government", "monthsAfterEnd": "12", "delayMs": "500"}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="Données ouvertes du Folketing : citer la source (conditions de réutilisation à vérifier sur oda.ft.dk)"/>
+            <column name="attribution" value="Folketinget, oda.ft.dk"/>
+            <column name="notes"><![CDATA[Même plugin que dk_pep_parliament (scope = government). 38 personnes (le gouvernement a changé le 3 juin 2026, les sortants récents sont repris). Fonction et dates exactes.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-06 02:10:15.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="222"/>
+            <column name="name" value="PEP Danemark – Gouvernement, historique de 50 ans"/>
+            <column name="description" value="Anciens ministres des 50 dernières années (couche étendue de dk_pep_government)"/>
+            <column name="dataset_name" value="dk_pep_government_history"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://oda.ft.dk/"/>
+            <column name="plugin_id" value="dk-pep-folketing"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="API"/>
+            <column name="parameters"><![CDATA[{"apiUrl": "https://oda.ft.dk/api", "scope": "government", "monthsAfterEnd": "600", "delayMs": "500"}]]></column>
+            <column name="refresh_hours" valueNumeric="720"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="Données ouvertes du Folketing : citer la source (conditions de réutilisation à vérifier sur oda.ft.dk)"/>
+            <column name="attribution" value="Folketinget, oda.ft.dk"/>
+            <column name="notes"><![CDATA[Même plugin et mêmes identifiants que dk_pep_government. 180 personnes vivantes. À activer selon l'approche par les risques.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-06 02:10:15.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="223"/>
+            <column name="name" value="PEP Danemark – Statsrevisorerne"/>
+            <column name="description" value="Statsrevisorer (auditeurs d'État élus par le Folketing) en fonction ou sortis depuis moins de 12 mois (catégorie DK-e)"/>
+            <column name="dataset_name" value="dk_pep_oversight"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://oda.ft.dk/"/>
+            <column name="plugin_id" value="dk-pep-folketing"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="API"/>
+            <column name="parameters"><![CDATA[{"apiUrl": "https://oda.ft.dk/api", "scope": "oversight", "monthsAfterEnd": "12", "delayMs": "500"}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="Données ouvertes du Folketing : citer la source (conditions de réutilisation à vérifier sur oda.ft.dk)"/>
+            <column name="attribution" value="Folketinget, oda.ft.dk"/>
+            <column name="notes"><![CDATA[Même plugin que dk_pep_parliament (scope = oversight). 10 personnes (41 sur 50 ans). Rigsrevisionen et Banque nationale non couvertes.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-06 02:10:15.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="224"/>
+            <column name="name" value="PEP Danemark – Rigsrevisionen"/>
+            <column name="description" value="Rigsrevisor et vice-Rigsrevisor, d'après la page officielle de la Rigsrevisionen (catégorie DK-e)"/>
+            <column name="dataset_name" value="dk_pep_institutions"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://www.rigsrevisionen.dk/"/>
+            <column name="plugin_id" value="dk-pep-institutions"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="WEB_PAGE"/>
+            <column name="parameters" value="{}"/>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="Site officiel de la Rigsrevisionen : citer la source"/>
+            <column name="attribution" value="Rigsrevisionen, rigsrevisionen.dk"/>
+            <column name="notes"><![CDATA[Une page, deux personnes (Rigsrevisor et vice-Rigsrevisor). Pas de naissance. Højesteret (HTTP 403), Banque nationale (page introuvable) et Roi non couverts.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-06 10:28:58.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="256"/>
+            <column name="name" value="PEP Danemark – Députés européens"/>
+            <column name="description"><![CDATA[Les députés au Parlement européen élus au Danemark, en fonction et sortis depuis moins de 12 mois, avec naissance et dates de mandat (catégorie DK-EU)]]></column>
+            <column name="dataset_name" value="dk_pep_europarl"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://data.europarl.europa.eu/"/>
+            <column name="plugin_id" value="dk-pep-europarl"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="API"/>
+            <column name="parameters"><![CDATA[{"currentUrl": "https://data.europarl.europa.eu/api/v2/meps/show-current?country-of-representation=DK&format=application%2Fld%2Bjson", "termUrl": "https://data.europarl.europa.eu/api/v2/meps?country-of-representation=DK&parliamentary-term=10&limit=500&format=application%2Fld%2Bjson", "detailUrl": "https://data.europarl.europa.eu/api/v2/meps/{id}?format=application%2Fld%2Bjson", "delayMs": "400", "monthsAfterEnd": "12", "wikidataEndpoint": ""}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="Réutilisation autorisée en citant la source (Parlement européen)"/>
+            <column name="attribution" value="Parlement européen, data.europarl.europa.eu"/>
+            <column name="notes"><![CDATA[Reprise de nl_pep_europarl. Mesure du 06/11/2026 : 16 députés publiés, 15 avec date de naissance, 15 en fonction et 1 sorti depuis moins de 12 mois (gardé). Une fiche par député. L'API limite le débit (HTTP 429) : le plugin attend puis réessaie. Pas de photos (Wikidata non utilisé). termUrl contient le numéro de législature (10) : à changer en 2029.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-07 00:15:44.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="257"/>
+            <column name="name" value="PEP Danemark – Commissaire européen"/>
+            <column name="description" value="Le membre danois de la Commission européenne, d'après sa fiche officielle (catégorie DK-EU)"/>
+            <column name="dataset_name" value="dk_pep_eu_commission"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://commission.europa.eu/about/organisation/college-commissioners_en"/>
+            <column name="plugin_id" value="dk-pep-eu-commission"/>
+            <column name="data_source_type" value="HTTP_FILE"/>
+            <column name="parser_kind" value="WEB_PAGE"/>
+            <column name="source_location" value="https://commission.europa.eu/about/organisation/college-commissioners/dan-jorgensen_en"/>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="Réutilisation autorisée en citant la source (avis juridique de la Commission européenne)"/>
+            <column name="attribution" value="Commission européenne, commission.europa.eu"/>
+            <column name="notes"><![CDATA[Reprise de nl_pep_eu_commission. À chaque nouvelle Commission, remplacer l'adresse par la fiche du commissaire danois. Une fiche qui ne présente pas un commissaire danois est refusée.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-07 00:15:44.000000"/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="468"/>
+            <column name="parser_id" valueNumeric="219"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope"><![CDATA[Tous les députés en fonction et ceux sortis depuis moins de 12 mois, avec naissance complète, sexe, parti et dates exactes ; le président du Folketing.]]></column>
+            <column name="gaps" value="Suppléants temporaires non repris."/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="469"/>
+            <column name="parser_id" valueNumeric="219"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope"><![CDATA[Tous les députés en fonction et ceux sortis depuis moins de 12 mois, avec naissance complète, sexe, parti et dates exactes ; le président du Folketing.]]></column>
+            <column name="gaps" value="Suppléants temporaires non repris."/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="469"/>
+            <column name="parser_id" valueNumeric="220"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope" value="Tous les députés vivants des 50 dernières années, avec dates exactes de mandat."/>
+            <column name="gaps" value="Suppléants temporaires non repris."/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="467"/>
+            <column name="parser_id" valueNumeric="221"/>
+            <column name="completeness" value="PARTIAL"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope" value="Premier ministre et ministres en fonction ou sortis depuis moins de 12 mois, avec fonction et dates exactes."/>
+            <column name="gaps" value="Ministres sans fiche biographique dans l'API non couverts."/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="467"/>
+            <column name="parser_id" valueNumeric="222"/>
+            <column name="completeness" value="PARTIAL"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope" value="Anciens ministres vivants des 50 dernières années, avec fonction et dates exactes."/>
+            <column name="gaps" value="Ministres sans fiche biographique dans l'API non couverts."/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="472"/>
+            <column name="parser_id" valueNumeric="223"/>
+            <column name="completeness" value="PARTIAL"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope" value="Statsrevisorer en fonction ou sortis depuis moins de 12 mois, avec naissance et dates exactes."/>
+            <column name="gaps" value="Rigsrevisionen et Banque nationale non couvertes."/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="473"/>
+            <column name="parser_id" valueNumeric="224"/>
+            <column name="completeness" value="PARTIAL"/>
+            <column name="includes_former" valueNumeric="0"/>
+            <column name="covered_scope" value="Le Rigsrevisor et le vice-Rigsrevisor de la Rigsrevisionen."/>
+            <column name="gaps" value="Anciens dirigeants non couverts ; pas de naissance."/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="654"/>
+            <column name="parser_id" valueNumeric="256"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope"><![CDATA[Les 16 députés européens élus au Danemark et ceux sortis depuis moins de 12 mois, avec naissance, genre, groupe et dates de mandat.]]></column>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="655"/>
+            <column name="parser_id" valueNumeric="257"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="0"/>
+            <column name="covered_scope" value="Dan Jørgensen, commissaire chargé de l'énergie et du logement (2024-2029)."/>
+            <column name="gaps" value="Ni date ni lieu de naissance sur la fiche."/>
+        </insert>
+    </changeSet>
+</databaseChangeLog>

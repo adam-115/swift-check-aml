@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="baseline-parsers-lv" author="swiftcheck-baseline">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM parser WHERE dataset_name IN ('lv_pep_parliament', 'lv_pep_government', 'lv_pep_institutions', 'lv_pep_europarl', 'lv_pep_eu_commission')</sqlCheck>
+        </preConditions>
+        <comment>Parsers « lv_* » (5) et leurs liens aux fonctions PEP (9)</comment>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="240"/>
+            <column name="name" value="PEP Lettonie – Saeima"/>
+            <column name="description"><![CDATA[Députés de la Saeima (15e et 14e législatures) en fonction ou sortis depuis moins de 12 mois, d'après le site officiel saeima.lv (catégorie LV-b)]]></column>
+            <column name="dataset_name" value="lv_pep_parliament"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://www.saeima.lv/"/>
+            <column name="plugin_id" value="lv-pep-saeima"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="WEB_PAGE"/>
+            <column name="parameters"><![CDATA[{"baseUrl": "https://www.saeima.lv", "compositions": "15,14", "monthsAfterEnd": "12", "delayMs": "1000"}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="Site officiel de la Saeima : citer la source (conditions de réutilisation à vérifier sur saeima.lv)"/>
+            <column name="attribution" value="Latvijas Republikas Saeima, saeima.lv"/>
+            <column name="notes"><![CDATA[Deux pages de législature puis la fiche de chaque député (239 pages, environ 4 minutes à 1 s par page ; le robots.txt interdit /api/, non utilisé). 178 personnes gardées. Dates de début et de fin de chaque mandat d'après l'historique du mandat (confirmé, déposé, rétabli, terme échu) ; groupe et circonscription. Pas de naissance ni de décès publiés : une personne décédée n'est écartée que si le statut le dit, d'où deux législatures seulement et aucune couche historique. Une personne est reconnue d'une législature à l'autre par son nom.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-06 16:37:11.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="241"/>
+            <column name="name" value="PEP Lettonie – Conseil des ministres"/>
+            <column name="description" value="Premier ministre et ministres, d'après la page « Ministru kabineta sastāvs » du Conseil des ministres (catégorie LV-a)"/>
+            <column name="dataset_name" value="lv_pep_government"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://www.mk.gov.lv/lv/ministru-kabineta-sastavs"/>
+            <column name="plugin_id" value="lv-pep-government"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="WEB_PAGE"/>
+            <column name="parameters"><![CDATA[{"compositionUrl": "https://www.mk.gov.lv/lv/ministru-kabineta-sastavs", "delayMs": "2000"}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="Site officiel du Conseil des ministres : citer la source"/>
+            <column name="attribution" value="Ministru kabinets, mk.gov.lv"/>
+            <column name="notes"><![CDATA[Une page de composition puis une fiche par membre (15 pages, environ 30 s). 14 personnes : Premier ministre et 13 ministres, avec leur fonction. Ni naissance ni dates de fonction ; pas d'anciens ministres. La page publiée reflète le gouvernement en place avant le renouvellement de la Saeima du 3 novembre 2026 : à relire après la formation du nouveau gouvernement.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-06 16:37:11.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="242"/>
+            <column name="name" value="PEP Lettonie – Président, Cour suprême, Cour constitutionnelle et Banque de Lettonie"/>
+            <column name="description"><![CDATA[Président de la République, président et sénateurs de la Cour suprême, juges de la Cour constitutionnelle, conseil de la Banque de Lettonie, d'après leurs pages officielles (catégories LV-a, LV-d et LV-e)]]></column>
+            <column name="dataset_name" value="lv_pep_institutions"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://www.president.lv/en"/>
+            <column name="plugin_id" value="lv-pep-institutions"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="WEB_PAGE"/>
+            <column name="parameters"><![CDATA[{"keys": "president,supreme-court-president,senators,constitutional-court,bank-of-latvia", "delayMs": "2000"}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence"><![CDATA[Sites officiels de la Présidence, de la Cour suprême, de la Cour constitutionnelle et de la Banque de Lettonie : citer la source]]></column>
+            <column name="attribution" value="Valsts prezidenta kanceleja, Augstākā tiesa, Satversmes tiesa, Latvijas Banka"/>
+            <column name="notes"><![CDATA[Cinq pages, 48 personnes : président de la République (Edgars Rinkēvičs, depuis le 08/07/2023), président de la Cour suprême (depuis le 16/06/2020) et 33 sénateurs des départements civil, pénal et administratif dont les 3 présidents de département, 7 juges de la Cour constitutionnelle, conseil de la Banque de Lettonie (gouverneur, 2 sous-gouverneurs, 3 membres). Ni naissance ni décès sur ces pages ; la page du président ne donne pas sa naissance.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-06 16:37:11.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="246"/>
+            <column name="name" value="PEP Lettonie – Députés européens"/>
+            <column name="description"><![CDATA[Les députés au Parlement européen élus en Lettonie, en fonction et sortis depuis moins de 12 mois, avec naissance et dates de mandat (catégorie LV-EU)]]></column>
+            <column name="dataset_name" value="lv_pep_europarl"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://data.europarl.europa.eu/"/>
+            <column name="plugin_id" value="lv-pep-europarl"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="API"/>
+            <column name="parameters"><![CDATA[{"currentUrl": "https://data.europarl.europa.eu/api/v2/meps/show-current?country-of-representation=LV&format=application%2Fld%2Bjson", "termUrl": "https://data.europarl.europa.eu/api/v2/meps?country-of-representation=LV&parliamentary-term=10&limit=500&format=application%2Fld%2Bjson", "detailUrl": "https://data.europarl.europa.eu/api/v2/meps/{id}?format=application%2Fld%2Bjson", "delayMs": "400", "monthsAfterEnd": "12", "wikidataEndpoint": ""}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="Réutilisation autorisée en citant la source (Parlement européen)"/>
+            <column name="attribution" value="Parlement européen, data.europarl.europa.eu"/>
+            <column name="notes"><![CDATA[Reprise de nl_pep_europarl. Mesure du 06/11/2026 : 9 députés en fonction, 8 avec date de naissance. Une fiche par député. L'API limite le débit (HTTP 429) : le plugin attend puis réessaie. Pas de photos (Wikidata non utilisé). termUrl contient le numéro de législature (10) : à changer en 2029.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-07 00:15:43.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="247"/>
+            <column name="name" value="PEP Lettonie – Commissaire européen"/>
+            <column name="description" value="Le membre letton de la Commission européenne, d'après sa fiche officielle (catégorie LV-EU)"/>
+            <column name="dataset_name" value="lv_pep_eu_commission"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://commission.europa.eu/about/organisation/college-commissioners_en"/>
+            <column name="plugin_id" value="lv-pep-eu-commission"/>
+            <column name="data_source_type" value="HTTP_FILE"/>
+            <column name="parser_kind" value="WEB_PAGE"/>
+            <column name="source_location" value="https://commission.europa.eu/about/organisation/college-commissioners/valdis-dombrovskis_en"/>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="Réutilisation autorisée en citant la source (avis juridique de la Commission européenne)"/>
+            <column name="attribution" value="Commission européenne, commission.europa.eu"/>
+            <column name="notes"><![CDATA[Reprise de nl_pep_eu_commission. À chaque nouvelle Commission, remplacer l'adresse par la fiche du commissaire letton. Une fiche qui ne présente pas un commissaire letton est refusée.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-07 00:15:43.000000"/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="577"/>
+            <column name="parser_id" valueNumeric="240"/>
+            <column name="completeness" value="PARTIAL"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope"><![CDATA[Tous les députés des 15e et 14e législatures en fonction ou sortis depuis moins de 12 mois, avec groupe, circonscription et dates de mandat.]]></column>
+            <column name="gaps" value="Pas de naissance ; législatures antérieures non reprises (décès non publié)."/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="578"/>
+            <column name="parser_id" valueNumeric="240"/>
+            <column name="completeness" value="PARTIAL"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope"><![CDATA[Tous les députés des 15e et 14e législatures en fonction ou sortis depuis moins de 12 mois, avec groupe, circonscription et dates de mandat.]]></column>
+            <column name="gaps" value="Pas de naissance ; législatures antérieures non reprises (décès non publié)."/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="575"/>
+            <column name="parser_id" valueNumeric="241"/>
+            <column name="completeness" value="PARTIAL"/>
+            <column name="includes_former" valueNumeric="0"/>
+            <column name="covered_scope" value="Le Premier ministre et les ministres du Conseil des ministres tels que publiés sur mk.gov.lv."/>
+            <column name="gaps" value="Anciens ministres non couverts ; pas de naissance ni de dates ; président de la République non couvert (lot 2)."/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="574"/>
+            <column name="parser_id" valueNumeric="242"/>
+            <column name="completeness" value="PARTIAL"/>
+            <column name="includes_former" valueNumeric="0"/>
+            <column name="covered_scope" value="Le président de la République en fonction, avec sa date de prise de fonction."/>
+            <column name="gaps" value="Anciens présidents vivants non couverts ; pas de naissance."/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="580"/>
+            <column name="parser_id" valueNumeric="242"/>
+            <column name="completeness" value="PARTIAL"/>
+            <column name="includes_former" valueNumeric="0"/>
+            <column name="covered_scope" value="Le président et les sénateurs (juges) des trois départements de la Cour suprême en fonction."/>
+            <column name="gaps" value="Anciens sénateurs non couverts ; pas de naissance ; Tribunal disciplinaire non couvert."/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="581"/>
+            <column name="parser_id" valueNumeric="242"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="0"/>
+            <column name="covered_scope" value="Les sept juges de la Cour constitutionnelle en fonction, dont le président et le vice-président."/>
+            <column name="gaps" value="Anciens juges non couverts ; pas de naissance."/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="583"/>
+            <column name="parser_id" valueNumeric="242"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="0"/>
+            <column name="covered_scope" value="Le gouverneur, les sous-gouverneurs et les membres du conseil de la Banque de Lettonie."/>
+            <column name="gaps" value="Anciens membres non couverts ; pas de naissance ; comités et commissions non couverts."/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="639"/>
+            <column name="parser_id" valueNumeric="246"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope"><![CDATA[Les 9 députés européens élus en Lettonie et ceux sortis depuis moins de 12 mois, avec naissance, genre, groupe et dates de mandat.]]></column>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="640"/>
+            <column name="parser_id" valueNumeric="247"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="0"/>
+            <column name="covered_scope"><![CDATA[Valdis Dombrovskis, commissaire chargé de l'économie, de la productivité, de la mise en œuvre et de la simplification du droit de l'UE (2024-2029).]]></column>
+            <column name="gaps" value="Ni date ni lieu de naissance sur la fiche."/>
+        </insert>
+    </changeSet>
+</databaseChangeLog>

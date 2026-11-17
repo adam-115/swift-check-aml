@@ -1,0 +1,390 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="baseline-parsers-at" author="swiftcheck-baseline">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM parser WHERE dataset_name IN ('at_pep_europarl', 'at_pep_eu_commission', 'at_pep_president', 'at_pep_federal_government', 'at_pep_parliament', 'at_pep_high_courts', 'at_pep_audit_and_central_bank', 'at_pep_land_governments', 'at_pep_parties', 'at_pep_state_enterprises', 'at_pep_diplomats', 'at_pep_army', 'at_pep_land_audit_courts', 'at_pep_international_orgs')</sqlCheck>
+        </preConditions>
+        <comment>Parsers « at_* » (14) et leurs liens aux fonctions PEP (15)</comment>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="158"/>
+            <column name="name" value="PEP Autriche – Députés européens"/>
+            <column name="description"><![CDATA[Les députés au Parlement européen élus en Autriche, en fonction et sortis depuis moins de 12 mois, avec naissance et dates de mandat (catégorie AT-EU)]]></column>
+            <column name="dataset_name" value="at_pep_europarl"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://data.europarl.europa.eu/"/>
+            <column name="plugin_id" value="at-pep-europarl"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="API"/>
+            <column name="parameters"><![CDATA[{"currentUrl": "https://data.europarl.europa.eu/api/v2/meps/show-current?country-of-representation=AT&format=application%2Fld%2Bjson", "termUrl": "https://data.europarl.europa.eu/api/v2/meps?country-of-representation=AT&parliamentary-term=10&limit=500&format=application%2Fld%2Bjson", "detailUrl": "https://data.europarl.europa.eu/api/v2/meps/{id}?format=application%2Fld%2Bjson", "delayMs": "300", "monthsAfterEnd": "12"}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="Réutilisation autorisée en citant la source (Parlement européen)"/>
+            <column name="attribution" value="Parlement européen, data.europarl.europa.eu"/>
+            <column name="notes"><![CDATA[Reprise de pt_pep_europarl. Une fiche par député. L'API limite le débit (HTTP 429) : le plugin attend puis réessaie. Photos : Wikimedia Commons.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-05 10:54:23.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="159"/>
+            <column name="name" value="PEP Autriche – Commissaire européen"/>
+            <column name="description" value="Le membre autrichien de la Commission européenne, d'après sa fiche officielle (catégorie AT-EU)"/>
+            <column name="dataset_name" value="at_pep_eu_commission"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://commission.europa.eu/about/organisation/college-commissioners_en"/>
+            <column name="plugin_id" value="at-pep-eu-commission"/>
+            <column name="data_source_type" value="HTTP_FILE"/>
+            <column name="parser_kind" value="WEB_PAGE"/>
+            <column name="source_location" value="https://commission.europa.eu/about/organisation/college-commissioners/magnus-brunner_en"/>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="Réutilisation autorisée en citant la source (avis juridique de la Commission européenne)"/>
+            <column name="attribution" value="Commission européenne, commission.europa.eu"/>
+            <column name="notes"><![CDATA[Reprise de pt_pep_eu_commission. À chaque nouvelle Commission, remplacer l'adresse par la fiche du commissaire autrichien. Une fiche qui ne présente pas un commissaire autrichien est refusée.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-05 10:54:23.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="160"/>
+            <column name="name" value="PEP Autriche – Président fédéral"/>
+            <column name="description" value="Le Président fédéral autrichien, d'après son récit de vie officiel sur bundespraesident.at (catégorie AT-a)"/>
+            <column name="dataset_name" value="at_pep_president"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://www.bundespraesident.at/"/>
+            <column name="plugin_id" value="at-pep-president"/>
+            <column name="data_source_type" value="HTTP_FILE"/>
+            <column name="parser_kind" value="WEB_PAGE"/>
+            <column name="source_location" value="https://www.bundespraesident.at/aktuelles/detail/lebenslauf-alexander-van-der-bellen"/>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="Site officiel de la Présidence fédérale : citer la source"/>
+            <column name="attribution" value="Präsidentschaftskanzlei, www.bundespraesident.at"/>
+            <column name="notes"><![CDATA[La page donne le nom, la date et le lieu de naissance ; pas de date de prise de fonctions exploitable. À chaque nouveau Président, remplacer l'adresse par son récit de vie ; le sortant reste publié 12 mois par la rétention du cœur.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-05 10:54:23.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="161"/>
+            <column name="name" value="PEP Autriche – Gouvernement fédéral"/>
+            <column name="description"><![CDATA[Chancelier, vice-chancelier, ministres et secrétaires d'État fédéraux, d'après la page officielle du Bundeskanzleramt (catégorie AT-a)]]></column>
+            <column name="dataset_name" value="at_pep_federal_government"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://www.bundeskanzleramt.gv.at/"/>
+            <column name="plugin_id" value="at-pep-federal-government"/>
+            <column name="data_source_type" value="HTTP_FILE"/>
+            <column name="parser_kind" value="WEB_PAGE"/>
+            <column name="source_location" value="https://www.bundeskanzleramt.gv.at/bundeskanzleramt/die-bundesregierung/bundesministerinnen-und-bundesminister.html"/>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="Site officiel du Bundeskanzleramt : citer la source"/>
+            <column name="attribution" value="Bundeskanzleramt Österreich, www.bundeskanzleramt.gv.at"/>
+            <column name="notes"><![CDATA[La page ne donne ni naissance ni date de prise de fonctions : les membres sont identifiés par leur nom. Un ancien nom (« vormals ») devient un alias. À chaque changement de gouvernement, les sortants restent publiés 12 mois par la rétention du cœur.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-05 10:54:23.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="162"/>
+            <column name="name" value="PEP Autriche – Parlement (Nationalrat et Bundesrat)"/>
+            <column name="description"><![CDATA[Députés du Nationalrat et membres du Bundesrat, en fonction et sortis depuis moins de 20 ans, avec naissance et dates de mandat (catégorie AT-b)]]></column>
+            <column name="dataset_name" value="at_pep_parliament"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://www.parlament.gv.at/recherchieren/open-data/"/>
+            <column name="plugin_id" value="at-pep-parliament"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="API"/>
+            <column name="parameters"><![CDATA[{"listUrl": "https://www.parlament.gv.at/Filter/api/filter/data/409?1=1&showAll=true&export=true", "personUrl": "https://www.parlament.gv.at/person/{id}?json=true", "delayMs": "300", "monthsAfterEnd": "240"}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="CC BY 4.0 (Parlamentsdirektion)"/>
+            <column name="attribution" value="Parlamentsdirektion, Open Data du Parlement autrichien, parlament.gv.at (CC BY 4.0)"/>
+            <column name="notes"><![CDATA[Interface JSON publique du Parlement. Une fiche par personne gardée (environ 900 appels pour 20 ans). Les personnes décédées ne sont pas publiées. Aucune coordonnée personnelle lue. monthsAfterEnd à 12 pour ne garder que le minimum légal.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-05 10:54:23.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="163"/>
+            <column name="name" value="PEP Autriche – Hautes juridictions"/>
+            <column name="description" value="Membres et suppléants du VfGH, juges de l'OGH et du VwGH, d'après les pages officielles des cours (catégorie AT-d)"/>
+            <column name="dataset_name" value="at_pep_high_courts"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://www.vfgh.gv.at/"/>
+            <column name="plugin_id" value="at-pep-institutions"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="WEB_PAGE"/>
+            <column name="parameters"><![CDATA[{"keys": "vfgh,vfgh_substitutes,ogh,vwgh", "delayMs": "1500"}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="Sites officiels des cours : citer la source"/>
+            <column name="attribution" value="VfGH, OGH et VwGH (vfgh.gv.at, ogh.gv.at, vwgh.gv.at)"/>
+            <column name="notes"><![CDATA[Même plugin que at_pep_audit_and_central_bank et at_pep_land_governments ; le paramètre keys choisit les institutions. Adresses dans institutions.json. Aucun nom embarqué.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-05 10:54:23.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="164"/>
+            <column name="name" value="PEP Autriche – Cour des comptes et banque nationale"/>
+            <column name="description"><![CDATA[Président du Rechnungshof et directoire de l'OeNB (gouverneur, vice-gouverneure, directeurs), avec les périodes de fonctions (catégorie AT-e)]]></column>
+            <column name="dataset_name" value="at_pep_audit_and_central_bank"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://www.oenb.at/"/>
+            <column name="plugin_id" value="at-pep-institutions"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="WEB_PAGE"/>
+            <column name="parameters"><![CDATA[{"keys": "oenb,rechnungshof", "delayMs": "1500"}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="Sites officiels : citer la source"/>
+            <column name="attribution" value="Rechnungshof Österreich et Oesterreichische Nationalbank"/>
+            <column name="notes" value="Une fin de période future (ex. 2031) n'est pas publiée comme date de fin. Landesrechnungshöfe non couverts."/>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-05 10:54:23.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="165"/>
+            <column name="name" value="PEP Autriche – Gouvernements des Länder"/>
+            <column name="description"><![CDATA[Landeshauptleute, adjoints et Landesräte de Vienne, Basse-Autriche, Salzbourg, Tyrol, Vorarlberg et Haute-Autriche, d'après les pages officielles (catégorie AT-a)]]></column>
+            <column name="dataset_name" value="at_pep_land_governments"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://www.salzburg.gv.at/politik/landesregierung"/>
+            <column name="plugin_id" value="at-pep-institutions"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="WEB_PAGE"/>
+            <column name="parameters"><![CDATA[{"keys": "land_wien,land_noe,land_salzburg,land_tirol,land_vorarlberg,land_ooe", "delayMs": "1500"}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="Sites officiels des Länder : citer la source"/>
+            <column name="attribution" value="Amt der Landesregierung de chaque Land"/>
+            <column name="notes"><![CDATA[Styrie, Carinthie, Burgenland : non lus (site injoignable ou noms absents du texte de la page). Les adresses sont dans institutions.json ; une page qui change de mise en page est signalée dans le message d'exécution sans arrêter les autres.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-05 10:54:23.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="166"/>
+            <column name="name" value="PEP Autriche – Partis politiques"/>
+            <column name="description"><![CDATA[Représentants déclarés des partis représentés au Nationalrat, d'après le registre des partis du ministère de l'Intérieur (catégorie AT-c)]]></column>
+            <column name="dataset_name" value="at_pep_parties"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://www.bmi.gv.at/"/>
+            <column name="plugin_id" value="at-pep-parties"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="PDF_DOCUMENT"/>
+            <column name="parameters"><![CDATA[{"pdfUrl": "https://citizen.bmi.gv.at/at.gv.bmi.fnsweb-p/par/public/api/ParteienGesamtverzeichnis.pdf", "parties": "500004=ÖVP;500002=SPÖ;500008=FPÖ;500106=GRÜNE;500940=NEOS"}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="Registre officiel des partis : citer la source"/>
+            <column name="attribution" value="Bundesministerium für Inneres, Parteienregister"/>
+            <column name="notes"><![CDATA[Le PDF est téléchargé à chaque exécution. Un parti qui indique « Nicht bekannt gegeben » (NEOS à ce jour) est cité dans le message d'exécution comme non déclaré. Autres partis : ajouter leur numéro de registre au paramètre parties.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-05 10:54:24.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="167"/>
+            <column name="name" value="PEP Autriche – Entreprises publiques (ÖBAG)"/>
+            <column name="description" value="Directoire et conseil de surveillance de l'ÖBAG, société de participations de l'État fédéral (catégorie AT-g)"/>
+            <column name="dataset_name" value="at_pep_state_enterprises"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://oebag.gv.at/"/>
+            <column name="plugin_id" value="at-pep-institutions"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="WEB_PAGE"/>
+            <column name="parameters"><![CDATA[{"keys": "oebag_board,oebag_supervisory", "delayMs": "1500"}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="Site officiel de l'ÖBAG : citer la source"/>
+            <column name="attribution" value="ÖBAG – Österreichische Beteiligungs AG, oebag.gv.at"/>
+            <column name="notes"><![CDATA[Premier maillon de la catégorie AT-g : ÖBAG elle-même. Les organes des sociétés du portefeuille (OMV, Casinos Austria, BIG, Verbund…) restent à ajouter, une page de gouvernance par société, dans institutions.json.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-05 10:54:24.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="279"/>
+            <column name="name" value="PEP Autriche – Diplomates et ambassadeurs"/>
+            <column name="description"><![CDATA[Ambassadeurs extraordinaires et plénipotentiaires, chargés d'affaires et représentants permanents d'Autriche (catégorie AT-f)]]></column>
+            <column name="dataset_name" value="at_pep_diplomats"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://www.bmeia.gv.at/botschaften-konsulate/suche-nach-oesterreichischen-vertretungen"/>
+            <column name="plugin_id" value="at-pep-diplomats"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="WEB_PAGE"/>
+            <column name="parameters"><![CDATA[{"delayMs": "150"}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="Site officiel du BMEIA : citer la source"/>
+            <column name="attribution" value="Bundesministerium fÃƒÂ¼r europÃƒÂ¤ische und internationale Angelegenheiten (BMEIA)"/>
+            <column name="notes"><![CDATA[Annuaire officiel des reprÃƒÂ©sentations autrichiennes ÃƒÂ  l'ÃƒÂ©tranger. Consuls honoraires exclus conformÃƒÂ©ment aux directives LBC/FT.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-09 00:17:46.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="280"/>
+            <column name="name" value="PEP Autriche – Bundesheer (Officiers généraux)"/>
+            <column name="description"><![CDATA[Officiers généraux des forces armées autrichiennes à partir du grade de lieutenant général (généraux et lieutenants-généraux) (catégorie AT-f)]]></column>
+            <column name="dataset_name" value="at_pep_army"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://www.bundesheer.at/unser-heer/organisation"/>
+            <column name="plugin_id" value="at-pep-army"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="WEB_PAGE"/>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="Site officiel du Bundesheer : citer la source"/>
+            <column name="attribution" value="Ãƒâ€“sterreichisches Bundesheer, bundesheer.at"/>
+            <column name="notes" value="Haut commandement militaire : Chef du Generalstab, adjoints et commandants gÃƒÂ©nÃƒÂ©raux."/>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-09 00:17:47.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="281"/>
+            <column name="name" value="PEP Autriche – Cours des comptes des Länder (Landesrechnungshöfe)"/>
+            <column name="description" value="Directeurs et directrices des cours des comptes des 9 Länder autrichiens (catégorie AT-e)"/>
+            <column name="dataset_name" value="at_pep_land_audit_courts"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://stadtrechnungshof.wien.gv.at/"/>
+            <column name="plugin_id" value="at-pep-land-audit-courts"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="WEB_PAGE"/>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="Sites officiels des cours des comptes rÃƒÂ©gionales : citer la source"/>
+            <column name="attribution" value="LandesrechnungshÃƒÂ¶fe der 9 BundeslÃƒÂ¤nder"/>
+            <column name="notes"><![CDATA[Les 9 directeurs des cours rÃƒÂ©gionales (Vienne, NÃƒâ€“, OÃƒâ€“, Salzburg, Tirol, KÃƒÂ¤rnten, Steiermark, Vorarlberg, Burgenland).]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-09 00:17:47.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="282"/>
+            <column name="name" value="PEP Autriche – Organisations internationales (Vienne)"/>
+            <column name="description"><![CDATA[Dirigeants des organisations internationales ayant leur siège ou un établissement principal en Autriche (OSCE, ONU Vienne, OPEP, CTBTO, ONUDI, ICMPD) (catégorie AT-h)]]></column>
+            <column name="dataset_name" value="at_pep_international_orgs"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://www.osce.org/leadership"/>
+            <column name="plugin_id" value="at-pep-international-orgs"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="WEB_PAGE"/>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="Sites officiels des organisations internationales : citer la source"/>
+            <column name="attribution" value="OSCE, UNOV, OPEC, CTBTO, UNIDO, ICMPD"/>
+            <column name="notes"><![CDATA[SecrÃƒÂ©taires gÃƒÂ©nÃƒÂ©raux, directeurs gÃƒÂ©nÃƒÂ©raux et hauts reprÃƒÂ©sentants des organisations internationales ÃƒÂ  Vienne.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-09 00:17:47.000000"/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="292"/>
+            <column name="parser_id" valueNumeric="158"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope"><![CDATA[Les députés européens élus en Autriche et ceux sortis depuis moins de 12 mois, avec date et lieu de naissance, genre, groupe et dates de mandat.]]></column>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="293"/>
+            <column name="parser_id" valueNumeric="159"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="0"/>
+            <column name="covered_scope" value="Magnus Brunner, commissaire (2024-2029) aux affaires intérieures et à la migration."/>
+            <column name="gaps" value="Ni date de naissance ni lieu de naissance sur la fiche."/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="279"/>
+            <column name="parser_id" valueNumeric="160"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="0"/>
+            <column name="covered_scope" value="Le Président fédéral en fonction, avec date et lieu de naissance."/>
+            <column name="gaps" value="Pas de date de prise de fonctions."/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="280"/>
+            <column name="parser_id" valueNumeric="161"/>
+            <column name="completeness" value="PARTIAL"/>
+            <column name="includes_former" valueNumeric="0"/>
+            <column name="covered_scope" value="Le chancelier, le vice-chancelier, les ministres et les secrétaires d'État en fonction."/>
+            <column name="gaps" value="Anciens membres du gouvernement : seulement ceux retirés de la page depuis moins de 12 mois. Pas de date de naissance."/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="282"/>
+            <column name="parser_id" valueNumeric="162"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope"><![CDATA[Tous les députés du Nationalrat et membres du Bundesrat en fonction, et les anciens sortis depuis moins de 20 ans, avec groupe, Land et dates de mandat ; naissance depuis la fiche officielle ; décédés écartés.]]></column>
+            <column name="gaps" value="Les anciens membres sortis il y a plus de 20 ans ne sont pas publiés (paramètre monthsAfterEnd)."/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="284"/>
+            <column name="parser_id" valueNumeric="163"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="0"/>
+            <column name="covered_scope" value="Les 14 membres et 6 suppléants du VfGH en fonction."/>
+            <column name="gaps" value="Pas de dates de nomination sur les pages ; anciens juges non nommés."/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="285"/>
+            <column name="parser_id" valueNumeric="163"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="0"/>
+            <column name="covered_scope" value="Les juges de l'OGH (une soixantaine) et du VwGH (une centaine) en fonction."/>
+            <column name="gaps" value="Pas de dates de nomination sur les pages ; anciens juges non nommés."/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="286"/>
+            <column name="parser_id" valueNumeric="164"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="0"/>
+            <column name="covered_scope"><![CDATA[La présidente du Rechnungshof et les quatre membres du directoire de l'OeNB, avec leurs périodes de fonctions pour l'OeNB.]]></column>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="281"/>
+            <column name="parser_id" valueNumeric="165"/>
+            <column name="completeness" value="PARTIAL"/>
+            <column name="includes_former" valueNumeric="0"/>
+            <column name="covered_scope" value="Les membres en fonction des gouvernements de Vienne, Basse-Autriche, Salzbourg, Tyrol, Vorarlberg et Haute-Autriche."/>
+            <column name="gaps" value="Styrie, Carinthie et Burgenland non couverts ; anciens membres seulement pendant la rétention de 12 mois."/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="283"/>
+            <column name="parser_id" valueNumeric="166"/>
+            <column name="completeness" value="PARTIAL"/>
+            <column name="includes_former" valueNumeric="0"/>
+            <column name="covered_scope"><![CDATA[Les représentants déclarés de l'ÖVP, du SPÖ, du FPÖ et des Grüne au niveau fédéral (président, adjoints, directeurs généraux, trésoriers).]]></column>
+            <column name="gaps" value="NEOS n'a déclaré aucun représentant au registre. Organes régionaux des partis non lus. Anciens dirigeants non nommés."/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="290"/>
+            <column name="parser_id" valueNumeric="167"/>
+            <column name="completeness" value="PARTIAL"/>
+            <column name="includes_former" valueNumeric="0"/>
+            <column name="covered_scope" value="Le directoire et le conseil de surveillance de l'ÖBAG en fonction."/>
+            <column name="gaps"><![CDATA[Les organes des sociétés détenues (OMV, Casinos Austria, BIG, Verbund…) et des autres entreprises publiques fédérales ne sont pas lus. Pas de dates de mandat.]]></column>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="288"/>
+            <column name="parser_id" valueNumeric="279"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="0"/>
+            <column name="covered_scope" value="Chefs de mission diplomatique, ambassadeurs et chargés d'affaires autrichiens en poste"/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="289"/>
+            <column name="parser_id" valueNumeric="280"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope" value="Généraux et lieutenants-généraux au sommet du commandement du Bundesheer"/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="287"/>
+            <column name="parser_id" valueNumeric="281"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="0"/>
+            <column name="covered_scope" value="Directeurs en fonction des 9 Landesrechnungshöfe autrichiens"/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="291"/>
+            <column name="parser_id" valueNumeric="282"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="0"/>
+            <column name="covered_scope" value="Dirigeants exécutifs des organisations internationales établies à Vienne"/>
+        </insert>
+    </changeSet>
+</databaseChangeLog>

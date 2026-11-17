@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="baseline-parsers-cz" author="swiftcheck-baseline">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM parser WHERE dataset_name IN ('cz_pep_parliament', 'cz_pep_parliament_history', 'cz_pep_government', 'cz_pep_government_history', 'cz_pep_president', 'cz_pep_oversight', 'cz_pep_institutions')</sqlCheck>
+        </preConditions>
+        <comment>Parsers « cz_* » (7) et leurs liens aux fonctions PEP (10)</comment>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="229"/>
+            <column name="name" value="PEP Tchéquie – Chambre des députés"/>
+            <column name="description"><![CDATA[Députés et présidence de la Chambre des députés, en fonction ou sortis depuis moins de 12 mois, d'après les données ouvertes psp.cz (catégorie CZ-b)]]></column>
+            <column name="dataset_name" value="cz_pep_parliament"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://www.psp.cz/sqw/hp.sqw?k=1305"/>
+            <column name="plugin_id" value="cz-pep-psp"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="OPEN_DATA_FILE"/>
+            <column name="parameters"><![CDATA[{"url": "https://www.psp.cz/eknih/cdrom/opendata/poslanci.zip", "scope": "parliament", "monthsAfterEnd": "12"}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="Données ouvertes de la Chambre des députés : citer la source (conditions de réutilisation à vérifier sur psp.cz)"/>
+            <column name="attribution" value="Poslanecká sněmovna Parlamentu České republiky, psp.cz"/>
+            <column name="notes"><![CDATA[Une archive de 420 Ko (une seule requête). Naissance complète, sexe, dates exactes de mandat par législature ; la date 01.01.1900 (inconnue) n'est pas publiée. 203 personnes gardées. Personnes décédées écartées (1 036 dans le fichier).]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-06 11:30:44.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="230"/>
+            <column name="name" value="PEP Tchéquie – Chambre des députés, historique de 50 ans"/>
+            <column name="description" value="Anciens députés des 50 dernières années (couche étendue de cz_pep_parliament)"/>
+            <column name="dataset_name" value="cz_pep_parliament_history"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://www.psp.cz/sqw/hp.sqw?k=1305"/>
+            <column name="plugin_id" value="cz-pep-psp"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="OPEN_DATA_FILE"/>
+            <column name="parameters"><![CDATA[{"url": "https://www.psp.cz/eknih/cdrom/opendata/poslanci.zip", "scope": "parliament", "monthsAfterEnd": "600"}]]></column>
+            <column name="refresh_hours" valueNumeric="720"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="Données ouvertes de la Chambre des députés : citer la source (conditions de réutilisation à vérifier sur psp.cz)"/>
+            <column name="attribution" value="Poslanecká sněmovna Parlamentu České republiky, psp.cz"/>
+            <column name="notes"><![CDATA[Même plugin et mêmes identifiants que cz_pep_parliament. 1 173 personnes vivantes (depuis 1992). À activer selon l'approche par les risques.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-06 11:30:45.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="231"/>
+            <column name="name" value="PEP Tchéquie – Gouvernement"/>
+            <column name="description"><![CDATA[Premier ministre, vice-premiers ministres et ministres en fonction ou sortis depuis moins de 12 mois, d'après les données ouvertes psp.cz (catégorie CZ-a)]]></column>
+            <column name="dataset_name" value="cz_pep_government"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://www.psp.cz/sqw/hp.sqw?k=1305"/>
+            <column name="plugin_id" value="cz-pep-psp"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="OPEN_DATA_FILE"/>
+            <column name="parameters"><![CDATA[{"url": "https://www.psp.cz/eknih/cdrom/opendata/poslanci.zip", "scope": "government", "monthsAfterEnd": "12"}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="Données ouvertes de la Chambre des députés : citer la source (conditions de réutilisation à vérifier sur psp.cz)"/>
+            <column name="attribution" value="Poslanecká sněmovna Parlamentu České republiky, psp.cz"/>
+            <column name="notes"><![CDATA[Même plugin que cz_pep_parliament (scope = government). 34 personnes : gouvernement entré en fonction le 15 décembre 2025 et sortants récents, avec fonction exacte et dates exactes.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-06 11:30:45.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="232"/>
+            <column name="name" value="PEP Tchéquie – Gouvernement, historique de 50 ans"/>
+            <column name="description" value="Anciens ministres des 50 dernières années (couche étendue de cz_pep_government)"/>
+            <column name="dataset_name" value="cz_pep_government_history"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://www.psp.cz/sqw/hp.sqw?k=1305"/>
+            <column name="plugin_id" value="cz-pep-psp"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="OPEN_DATA_FILE"/>
+            <column name="parameters"><![CDATA[{"url": "https://www.psp.cz/eknih/cdrom/opendata/poslanci.zip", "scope": "government", "monthsAfterEnd": "600"}]]></column>
+            <column name="refresh_hours" valueNumeric="720"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="Données ouvertes de la Chambre des députés : citer la source (conditions de réutilisation à vérifier sur psp.cz)"/>
+            <column name="attribution" value="Poslanecká sněmovna Parlamentu České republiky, psp.cz"/>
+            <column name="notes"><![CDATA[Même plugin et mêmes identifiants que cz_pep_government. 217 personnes vivantes. À activer selon l'approche par les risques.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-06 11:30:45.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="233"/>
+            <column name="name" value="PEP Tchéquie – Président de la République"/>
+            <column name="description"><![CDATA[Président de la République en fonction et anciens présidents vivants, d'après les données ouvertes psp.cz (catégorie CZ-a)]]></column>
+            <column name="dataset_name" value="cz_pep_president"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://www.psp.cz/sqw/hp.sqw?k=1305"/>
+            <column name="plugin_id" value="cz-pep-psp"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="OPEN_DATA_FILE"/>
+            <column name="parameters"><![CDATA[{"url": "https://www.psp.cz/eknih/cdrom/opendata/poslanci.zip", "scope": "president", "monthsAfterEnd": "600"}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="Données ouvertes de la Chambre des députés : citer la source (conditions de réutilisation à vérifier sur psp.cz)"/>
+            <column name="attribution" value="Poslanecká sněmovna Parlamentu České republiky, psp.cz"/>
+            <column name="notes"><![CDATA[Même plugin que cz_pep_parliament (scope = president). 3 personnes vivantes : Petr Pavel, Miloš Zeman, Václav Klaus. Fenêtre de 50 ans pour garder les anciens présidents.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-06 11:30:45.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="234"/>
+            <column name="name" value="PEP Tchéquie – Cour des comptes et médiateurs"/>
+            <column name="description"><![CDATA[Président, vice-président et membres de la Cour des comptes (NKÚ), médiateur, adjoints et défenseur des droits de l'enfant, en fonction ou sortis depuis moins de 12 mois (catégorie CZ-e)]]></column>
+            <column name="dataset_name" value="cz_pep_oversight"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://www.psp.cz/sqw/hp.sqw?k=1305"/>
+            <column name="plugin_id" value="cz-pep-psp"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="OPEN_DATA_FILE"/>
+            <column name="parameters"><![CDATA[{"url": "https://www.psp.cz/eknih/cdrom/opendata/poslanci.zip", "scope": "oversight", "monthsAfterEnd": "12"}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="Données ouvertes de la Chambre des députés : citer la source (conditions de réutilisation à vérifier sur psp.cz)"/>
+            <column name="attribution" value="Poslanecká sněmovna Parlamentu České republiky, psp.cz"/>
+            <column name="notes"><![CDATA[Même plugin que cz_pep_parliament (scope = oversight). 25 personnes (56 sur 50 ans). Banque centrale et juridictions non couvertes.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-06 11:30:45.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="235"/>
+            <column name="name" value="PEP Tchéquie – Banque nationale et Cour suprême"/>
+            <column name="description"><![CDATA[Membres du conseil de la Banque nationale tchèque et juges de la Cour suprême, d'après leurs pages officielles (catégories CZ-d et CZ-e)]]></column>
+            <column name="dataset_name" value="cz_pep_institutions"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://www.cnb.cz/"/>
+            <column name="plugin_id" value="cz-pep-institutions"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="WEB_PAGE"/>
+            <column name="parameters"><![CDATA[{"keys": "cnb,ns-civil,ns-criminal", "delayMs": "1500"}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="Sites officiels de la ČNB et de la Cour suprême : citer la source"/>
+            <column name="attribution" value="Česká národní banka, cnb.cz ; Nejvyšší soud, nsoud.cz"/>
+            <column name="notes"><![CDATA[Trois pages. Conseil de la ČNB : 7 membres (gouverneur, 2 vice-gouverneurs, 4 membres). Cour suprême : 46 juges du collège civil et commercial et 23 du collège pénal, noms seuls. Pas de naissance ; fonctions de président et vice-présidents de la Cour suprême non publiées sur ces pages.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-06 11:30:45.000000"/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="514"/>
+            <column name="parser_id" valueNumeric="229"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope"><![CDATA[Tous les députés en fonction et ceux sortis depuis moins de 12 mois, avec naissance, sexe et dates exactes ; président et vice-présidents de la Chambre.]]></column>
+            <column name="gaps" value="Sénateurs non couverts (données ouvertes du Sénat non étudiées)."/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="515"/>
+            <column name="parser_id" valueNumeric="229"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope"><![CDATA[Tous les députés en fonction et ceux sortis depuis moins de 12 mois, avec naissance, sexe et dates exactes ; président et vice-présidents de la Chambre.]]></column>
+            <column name="gaps" value="Sénateurs non couverts (données ouvertes du Sénat non étudiées)."/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="515"/>
+            <column name="parser_id" valueNumeric="230"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope" value="Tous les députés vivants depuis 1992, avec dates exactes de mandat."/>
+            <column name="gaps" value="Députés d'avant 1992 non couverts."/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="513"/>
+            <column name="parser_id" valueNumeric="231"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope"><![CDATA[Premier ministre, vice-premiers ministres et ministres en fonction ou sortis depuis moins de 12 mois, avec fonction exacte et dates.]]></column>
+            <column name="gaps" value="Secrétaires d'État (náměstci) non couverts."/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="513"/>
+            <column name="parser_id" valueNumeric="232"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope" value="Anciens ministres vivants depuis 1992, avec fonction et dates exactes."/>
+            <column name="gaps" value="Secrétaires d'État non couverts."/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="512"/>
+            <column name="parser_id" valueNumeric="233"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope" value="Le Président de la République en fonction et les anciens présidents vivants, avec dates exactes de mandat."/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="520"/>
+            <column name="parser_id" valueNumeric="234"/>
+            <column name="completeness" value="PARTIAL"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope" value="Dirigeants et membres de la NKÚ, médiateur et adjoints, avec naissance et dates exactes."/>
+            <column name="gaps" value="Banque centrale non couverte."/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="521"/>
+            <column name="parser_id" valueNumeric="234"/>
+            <column name="completeness" value="PARTIAL"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope" value="Dirigeants et membres de la NKÚ, médiateur et adjoints, avec naissance et dates exactes."/>
+            <column name="gaps" value="Banque centrale non couverte."/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="519"/>
+            <column name="parser_id" valueNumeric="235"/>
+            <column name="completeness" value="PARTIAL"/>
+            <column name="includes_former" valueNumeric="0"/>
+            <column name="covered_scope" value="Les juges des collèges civil et commercial et pénal de la Cour suprême."/>
+            <column name="gaps"><![CDATA[Juges stagiaires et anciens juges non couverts ; fonctions de président non publiées ; Cour constitutionnelle non couverte.]]></column>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="522"/>
+            <column name="parser_id" valueNumeric="235"/>
+            <column name="completeness" value="PARTIAL"/>
+            <column name="includes_former" valueNumeric="0"/>
+            <column name="covered_scope" value="Le gouverneur, les vice-gouverneurs et les membres du conseil de la banque nationale."/>
+            <column name="gaps" value="Anciens membres non couverts ; pas de naissance."/>
+        </insert>
+    </changeSet>
+</databaseChangeLog>

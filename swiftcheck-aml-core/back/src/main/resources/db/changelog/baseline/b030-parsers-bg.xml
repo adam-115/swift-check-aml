@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="baseline-parsers-bg" author="swiftcheck-baseline">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM parser WHERE dataset_name IN ('bg_pep_parliament', 'bg_pep_government', 'bg_pep_institutions', 'bg_pep_europarl', 'bg_pep_eu_commission')</sqlCheck>
+        </preConditions>
+        <comment>Parsers « bg_* » (5) et leurs liens aux fonctions PEP (7)</comment>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="283"/>
+            <column name="name" value="PEP Bulgarie – Assemblée nationale"/>
+            <column name="description"><![CDATA[Députés de l'Assemblée nationale en fonction et ceux dont le mandat s'est terminé depuis moins de 12 mois, avec naissance, groupe parlementaire et circonscription (catégorie BG-b)]]></column>
+            <column name="dataset_name" value="bg_pep_parliament"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://www.parliament.bg/bg/MP"/>
+            <column name="plugin_id" value="bg-pep-parliament"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="API"/>
+            <column name="parameters"><![CDATA[{"baseUrl": "https://www.parliament.bg/api/v1", "monthsAfterEnd": "12", "probeDays": "30", "delayMs": "300"}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="Données publiques du Народно събрание : citer la source (conditions de réutilisation à vérifier sur parliament.bg)"/>
+            <column name="attribution" value="Народно събрание на Република България, www.parliament.bg"/>
+            <column name="notes"><![CDATA[API JSON que le site interroge lui-même (robots.txt sans restriction). Composition actuelle puis composition à un jour donné tous les 30 jours sur la fenêtre de rétention, pour la législature en cours et les précédentes, plus les jours de passage entre législatures : on ne perd ni les remplaçants ni les partants. Une fiche par député gardé, réduite à la naissance (pas de contacts). L'identifiant d'un député change à chaque législature : une personne réélue est reconnue à son nom et sa date de naissance. Noms en cyrillique avec ordres inverses et translittération latine officielle en alias. Environ 500 appels à 300 ms (quelques minutes).]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-09 00:21:51.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="284"/>
+            <column name="name" value="PEP Bulgarie – Gouvernement"/>
+            <column name="description"><![CDATA[Premier ministre, vice-premiers ministres et ministres du Conseil des ministres, d'après le site www.government.bg (catégorie BG-a)]]></column>
+            <column name="dataset_name" value="bg_pep_government"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://www.government.bg/bg/pravitelstvo"/>
+            <column name="plugin_id" value="bg-pep-government"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="WEB_PAGE"/>
+            <column name="parameters"><![CDATA[{"membersUrl": "https://www.government.bg/bg/pravitelstvo/sastav-na-pravitelstvoto", "primeMinisterUrl": "https://www.government.bg/bg/pravitelstvo/ministar-predsedatel"}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="Site officiel du Conseil des ministres : citer la source"/>
+            <column name="attribution" value="Министерски съвет на Република България, www.government.bg"/>
+            <column name="notes"><![CDATA[Deux pages : la liste « Състав на правителството / Биографии » (20 membres, « Nom - fonction ») et la fiche du Premier ministre Румен Радев (naissance 18/06/1963 à Димитровград). Les fiches des ministres ne donnent pas de naissance ni de date de prise de fonction. Ordres inverses et translittération latine officielle en alias.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-09 00:21:51.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="285"/>
+            <column name="name" value="PEP Bulgarie – Président et Cour constitutionnelle"/>
+            <column name="description"><![CDATA[Présidente de la République (www.president.bg) et douze juges de la Cour constitutionnelle (www.constcourt.bg), avec naissance (catégories BG-a et BG-d)]]></column>
+            <column name="dataset_name" value="bg_pep_institutions"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://www.constcourt.bg/bg/judges"/>
+            <column name="plugin_id" value="bg-pep-institutions"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="WEB_PAGE"/>
+            <column name="parameters"><![CDATA[{"presidentUrl": "https://www.president.bg/cat9/Biografia-na-prezidenta/", "judgesUrl": "https://www.constcourt.bg/bg/judges"}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="Sites officiels : citer la source"/>
+            <column name="attribution" value="Президент на Република България ; Конституционен съд на Република България"/>
+            <column name="notes"><![CDATA[Deux pages : la biographie de la présidente Илияна Йотова (naissance 24/10/1964, en fonction depuis le 23/01/2026) et la page « Състав » de la Cour constitutionnelle (12 juges, tous avec date et lieu de naissance). Une élection présidentielle a eu lieu en octobre-novembre 2026 : la page change à l'entrée en fonction du nouveau président (le plugin échoue alors avec un message clair). Banque nationale, Cour des comptes et cours suprêmes non lues.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-09 00:21:51.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="286"/>
+            <column name="name" value="PEP Bulgarie – Députés européens"/>
+            <column name="description"><![CDATA[Les députés au Parlement européen élus en Bulgarie, en fonction et sortis depuis moins de 12 mois, avec naissance et dates de mandat (catégorie BG-EU)]]></column>
+            <column name="dataset_name" value="bg_pep_europarl"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://data.europarl.europa.eu/"/>
+            <column name="plugin_id" value="bg-pep-europarl"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="API"/>
+            <column name="parameters"><![CDATA[{"currentUrl": "https://data.europarl.europa.eu/api/v2/meps/show-current?country-of-representation=BG&format=application%2Fld%2Bjson", "termUrl": "https://data.europarl.europa.eu/api/v2/meps?country-of-representation=BG&parliamentary-term=10&limit=500&format=application%2Fld%2Bjson", "detailUrl": "https://data.europarl.europa.eu/api/v2/meps/{id}?format=application%2Fld%2Bjson", "delayMs": "400", "monthsAfterEnd": "12", "wikidataEndpoint": ""}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="Réutilisation autorisée en citant la source (Parlement européen)"/>
+            <column name="attribution" value="Parlement européen, data.europarl.europa.eu"/>
+            <column name="notes"><![CDATA[Reprise de nl_pep_europarl. Mesure du 08/11/2026 : 17 personnes en fonction, 11 avec date de naissance. L'API limite le débit (HTTP 429) : le plugin attend puis réessaie. Pas de photos (Wikidata non utilisé). termUrl contient le numéro de législature (10) : à changer en 2029.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-09 00:21:51.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="287"/>
+            <column name="name" value="PEP Bulgarie – Commissaire européenne"/>
+            <column name="description" value="Le membre bulgare de la Commission européenne, d'après sa fiche officielle (catégorie BG-EU)"/>
+            <column name="dataset_name" value="bg_pep_eu_commission"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://commission.europa.eu/about/organisation/college-commissioners_en"/>
+            <column name="plugin_id" value="bg-pep-eu-commission"/>
+            <column name="data_source_type" value="HTTP_FILE"/>
+            <column name="parser_kind" value="WEB_PAGE"/>
+            <column name="source_location" value="https://commission.europa.eu/about/organisation/college-commissioners/ekaterina-zaharieva_en"/>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="Réutilisation autorisée en citant la source (avis juridique de la Commission européenne)"/>
+            <column name="attribution" value="Commission européenne, commission.europa.eu"/>
+            <column name="notes"><![CDATA[Reprise de nl_pep_eu_commission. À chaque nouvelle Commission, remplacer l'adresse par la fiche du commissaire bulgare. Une fiche qui ne présente pas un commissaire bulgare est refusée.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-09 00:21:51.000000"/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="783"/>
+            <column name="parser_id" valueNumeric="283"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope"><![CDATA[Les 240 députés de la 52e législature et ceux des législatures précédentes dont le mandat a pris fin depuis moins de 12 mois (dont les ministres démissionnaires), avec naissance, groupe, circonscription et fonction au Parlement.]]></column>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="784"/>
+            <column name="parser_id" valueNumeric="283"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope"><![CDATA[Les 240 députés de la 52e législature et ceux des législatures précédentes dont le mandat a pris fin depuis moins de 12 mois (dont les ministres démissionnaires), avec naissance, groupe, circonscription et fonction au Parlement.]]></column>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="780"/>
+            <column name="parser_id" valueNumeric="284"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="0"/>
+            <column name="covered_scope" value="Le Premier ministre, les quatre vice-premiers ministres et les ministres en fonction (21 personnes)."/>
+            <column name="gaps" value="Pas de naissance sauf pour le Premier ministre ; les anciens ministres ne sont pas couverts."/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="779"/>
+            <column name="parser_id" valueNumeric="285"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="0"/>
+            <column name="covered_scope" value="La présidente de la République en exercice, avec naissance et date de prise de fonction."/>
+            <column name="gaps" value="Les anciens présidents ne sont pas couverts (Румен Радев est repris comme Premier ministre)."/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="786"/>
+            <column name="parser_id" valueNumeric="285"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="0"/>
+            <column name="covered_scope" value="Les 12 juges de la Cour constitutionnelle en fonction, dont la présidente, avec date et lieu de naissance."/>
+            <column name="gaps" value="Les anciens juges (page « previous-judges ») ne sont pas lus."/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="796"/>
+            <column name="parser_id" valueNumeric="286"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope"><![CDATA[Les 17 députés européens élus en Bulgarie et ceux sortis depuis moins de 12 mois, avec naissance quand elle est publiée, genre, groupe et dates de mandat.]]></column>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="797"/>
+            <column name="parser_id" valueNumeric="287"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="0"/>
+            <column name="covered_scope" value="Ekaterina Zaharieva, commissaire chargée des start-up, de la recherche et de l'innovation (2024-2029)."/>
+            <column name="gaps" value="Ni date ni lieu de naissance sur la fiche."/>
+        </insert>
+    </changeSet>
+</databaseChangeLog>

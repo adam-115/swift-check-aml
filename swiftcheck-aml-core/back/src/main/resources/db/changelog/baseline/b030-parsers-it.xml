@@ -1,0 +1,452 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="baseline-parsers-it" author="swiftcheck-baseline">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM parser WHERE dataset_name IN ('it_pep_chamber', 'it_pep_senate', 'it_pep_government', 'it_pep_local_administrators', 'it_pep_europarl', 'it_pep_eu_commission', 'it_pep_president', 'it_pep_central_bank_authorities', 'it_pep_military', 'it_pep_international_orgs', 'it_pep_political_parties', 'it_pep_constitutional_court', 'it_pep_high_courts', 'it_pep_diplomats', 'it_pep_state_enterprises', 'it_pep_health_directors')</sqlCheck>
+        </preConditions>
+        <comment>Parsers « it_* » (16) et leurs liens aux fonctions PEP (18)</comment>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="168"/>
+            <column name="name" value="PEP Italie – Chambre des députés"/>
+            <column name="description"><![CDATA[Députés en fonction et sortis depuis moins de 12 mois, avec naissance et dates de mandat ; décédés écartés (catégorie IT-1.2)]]></column>
+            <column name="dataset_name" value="it_pep_chamber"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://dati.camera.it/"/>
+            <column name="plugin_id" value="it-pep-parliament"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="SPARQL"/>
+            <column name="parameters"><![CDATA[{"body": "chamber", "chamberUrl": "https://dati.camera.it/sparql", "monthsAfterEnd": "12", "pageSize": "2000", "delayMs": "500"}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="Open data de la Chambre des députés : citer la source (licence à vérifier sur dati.camera.it)"/>
+            <column name="attribution" value="Camera dei deputati, dati.camera.it"/>
+            <column name="notes"><![CDATA[Même plugin que it_pep_senate et it_pep_government ; le paramètre body choisit le jeu. Requêtes SPARQL paginées. Quand un mandat n'a pas de fin, la fin de la législature en tient lieu. Un historique plus long : monthsAfterEnd plus grand.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-05 12:10:30.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="169"/>
+            <column name="name" value="PEP Italie – Sénat"/>
+            <column name="description"><![CDATA[Sénateurs en fonction (sénateurs à vie compris) et sortis depuis moins de 12 mois, avec naissance et mandats ; décédés écartés (catégorie IT-1.2)]]></column>
+            <column name="dataset_name" value="it_pep_senate"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://dati.senato.it/"/>
+            <column name="plugin_id" value="it-pep-parliament"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="SPARQL"/>
+            <column name="parameters"><![CDATA[{"body": "senate", "senateUrl": "https://dati.senato.it/sparql", "monthsAfterEnd": "12", "pageSize": "2000", "delayMs": "500"}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="Open data du Sénat : citer la source (licence à vérifier sur dati.senato.it)"/>
+            <column name="attribution" value="Senato della Repubblica, dati.senato.it"/>
+            <column name="notes" value="Un mandat sans date de fin n'est « en cours » que dans la dernière législature (déterminée à chaque exécution)."/>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-05 12:10:31.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="170"/>
+            <column name="name" value="PEP Italie – Gouvernement"/>
+            <column name="description"><![CDATA[Président du Conseil, ministres, vice-ministres et sous-secrétaires en fonction ou sortis depuis moins de 12 mois, avec leurs dates de nomination et de fin (catégorie IT-1.1)]]></column>
+            <column name="dataset_name" value="it_pep_government"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://dati.camera.it/"/>
+            <column name="plugin_id" value="it-pep-parliament"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="SPARQL"/>
+            <column name="parameters"><![CDATA[{"body": "government", "chamberUrl": "https://dati.camera.it/sparql", "monthsAfterEnd": "12", "pageSize": "2000", "delayMs": "500"}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="Open data de la Chambre des députés : citer la source"/>
+            <column name="attribution" value="Camera dei deputati, dati.camera.it"/>
+            <column name="notes"><![CDATA[La Chambre publie les membres du gouvernement depuis 1848 avec les dates : l'historique se règle avec monthsAfterEnd. Une même fonction écrite deux fois (casse) n'est publiée qu'une fois.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-05 12:10:31.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="171"/>
+            <column name="name" value="PEP Italie – Maires et élus régionaux"/>
+            <column name="description"><![CDATA[Maires des communes d'au moins 15 000 habitants, présidents, assesseurs et conseillers des Régions, d'après le CSV de l'Anagrafe des administrateurs du ministère de l'Intérieur (catégories IT-1.1 et IT-1.2)]]></column>
+            <column name="dataset_name" value="it_pep_local_administrators"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://dait.interno.gov.it/"/>
+            <column name="plugin_id" value="it-pep-local-administrators"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="OPEN_DATA_FILE"/>
+            <column name="parameters"><![CDATA[{"communesUrl": "https://dait.interno.gov.it/documenti/ammcom.csv", "regionsUrl": "https://dait.interno.gov.it/documenti/ammreg.csv", "minPopulation": "15000"}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="Données ouvertes du ministère de l'Intérieur : citer la source"/>
+            <column name="attribution" value="Ministero dell'Interno, Anagrafe degli amministratori locali e regionali, dait.interno.gov.it"/>
+            <column name="notes"><![CDATA[Fichier de 31 Mo téléchargé à chaque exécution. Il ne contient que les personnes en fonction : celles qui disparaissent restent publiées 12 mois par la rétention du cœur. Les chefs-lieux de moins de 15 000 habitants s'ajoutent avec le paramètre capoluogoCodes (« province/commune »). Ni diplôme, ni profession, ni liste électorale ne sont repris.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-05 12:10:31.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="172"/>
+            <column name="name" value="PEP Italie – Députés européens"/>
+            <column name="description"><![CDATA[Les députés au Parlement européen élus en Italie, en fonction et sortis depuis moins de 12 mois, avec naissance et dates de mandat (catégorie IT-1.2)]]></column>
+            <column name="dataset_name" value="it_pep_europarl"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://data.europarl.europa.eu/"/>
+            <column name="plugin_id" value="it-pep-europarl"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="API"/>
+            <column name="parameters"><![CDATA[{"currentUrl": "https://data.europarl.europa.eu/api/v2/meps/show-current?country-of-representation=IT&format=application%2Fld%2Bjson", "termUrl": "https://data.europarl.europa.eu/api/v2/meps?country-of-representation=IT&parliamentary-term=10&limit=500&format=application%2Fld%2Bjson", "detailUrl": "https://data.europarl.europa.eu/api/v2/meps/{id}?format=application%2Fld%2Bjson", "delayMs": "400", "monthsAfterEnd": "12"}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="Réutilisation autorisée en citant la source (Parlement européen)"/>
+            <column name="attribution" value="Parlement européen, data.europarl.europa.eu"/>
+            <column name="notes"><![CDATA[Reprise de at_pep_europarl. Une fiche par député (77 appels, environ 4 minutes). L'API limite le débit (HTTP 429) : le plugin attend puis réessaie. Photos : Wikimedia Commons (images seulement).]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-05 12:10:31.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="173"/>
+            <column name="name" value="PEP Italie – Commissaire européen"/>
+            <column name="description" value="Le membre italien de la Commission européenne, d'après sa fiche officielle (catégorie IT-EU)"/>
+            <column name="dataset_name" value="it_pep_eu_commission"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://commission.europa.eu/about/organisation/college-commissioners_en"/>
+            <column name="plugin_id" value="it-pep-eu-commission"/>
+            <column name="data_source_type" value="HTTP_FILE"/>
+            <column name="parser_kind" value="WEB_PAGE"/>
+            <column name="source_location" value="https://commission.europa.eu/about/organisation/college-commissioners/raffaele-fitto_en"/>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="Réutilisation autorisée en citant la source (avis juridique de la Commission européenne)"/>
+            <column name="attribution" value="Commission européenne, commission.europa.eu"/>
+            <column name="notes"><![CDATA[Reprise de at_pep_eu_commission. À chaque nouvelle Commission, remplacer l'adresse par la fiche du commissaire italien. Une fiche qui ne présente pas un commissaire italien est refusée.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-05 12:10:31.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="174"/>
+            <column name="name" value="PEP Italie – Président de la République"/>
+            <column name="description" value="Le Président de la République italienne, d'après sa biographie officielle sur quirinale.it (catégorie IT-1.1)"/>
+            <column name="dataset_name" value="it_pep_president"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://www.quirinale.it/"/>
+            <column name="plugin_id" value="it-pep-president"/>
+            <column name="data_source_type" value="HTTP_FILE"/>
+            <column name="parser_kind" value="WEB_PAGE"/>
+            <column name="source_location" value="https://www.quirinale.it/page/biografia"/>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="Site officiel de la Présidence de la République : citer la source"/>
+            <column name="attribution" value="Presidenza della Repubblica, www.quirinale.it"/>
+            <column name="notes"><![CDATA[Le nom vient du titre de la page, la naissance de la phrase « nato a … il … ». Pas de date de prise de fonctions exploitable. À chaque nouveau Président, la page change : le sortant reste publié 12 mois par la rétention du cœur.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-05 12:10:31.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="175"/>
+            <column name="name" value="PEP Italie – Banque d'Italie et autorités"/>
+            <column name="description"><![CDATA[Direction de la Banque d'Italie, collèges du Garante privacy, de l'AGCM, de l'AGCOM et direction intégrée de l'IVASS, d'après les pages officielles (catégorie IT-1.5)]]></column>
+            <column name="dataset_name" value="it_pep_central_bank_authorities"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://www.bancaditalia.it/"/>
+            <column name="plugin_id" value="it-pep-institutions"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="WEB_PAGE"/>
+            <column name="parameters"><![CDATA[{"keys": "banca_ditalia,garante_privacy,agcm,agcm_president,agcom,agcom_president,ivass", "delayMs": "1500"}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="Sites officiels : citer la source"/>
+            <column name="attribution" value="Banca d'Italia, Garante privacy, AGCM, AGCOM, IVASS"/>
+            <column name="notes"><![CDATA[Adresses dans institutions.json, aucun nom embarqué. Un membre dont la fin de fonctions date de plus de 12 mois n'est pas publié. Les membres de la Banque d'Italie apparaissent aussi à l'IVASS (direction intégrée).]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-05 12:10:31.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="176"/>
+            <column name="name" value="PEP Italie – Forces armées"/>
+            <column name="description" value="Le chef d'état-major de la Défense, d'après la page officielle du ministère de la Défense (catégorie IT-1.6)"/>
+            <column name="dataset_name" value="it_pep_military"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://www.difesa.it/"/>
+            <column name="plugin_id" value="it-pep-institutions"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="WEB_PAGE"/>
+            <column name="parameters"><![CDATA[{"keys": "difesa_smd", "delayMs": "1500"}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="Site officiel du ministère de la Défense : citer la source"/>
+            <column name="attribution" value="Ministero della Difesa, www.difesa.it"/>
+            <column name="notes"><![CDATA[Un seul titulaire pour l'instant. Les chefs d'état-major des armées et les commandants de l'Arma et de la Guardia di Finanza demandent une page par force (sites injoignables ou noms absents du texte lors des tests).]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-05 12:10:31.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="177"/>
+            <column name="name" value="PEP Italie – Organisations internationales"/>
+            <column name="description"><![CDATA[Directeur général de la FAO et direction du Programme alimentaire mondial, d'après leurs pages officielles (catégorie IT-1.9)]]></column>
+            <column name="dataset_name" value="it_pep_international_orgs"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://www.fao.org/"/>
+            <column name="plugin_id" value="it-pep-institutions"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="WEB_PAGE"/>
+            <column name="parameters"><![CDATA[{"keys": "fao,wfp", "delayMs": "1500"}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="Sites officiels des organisations : citer la source"/>
+            <column name="attribution" value="FAO (fao.org) et Programme alimentaire mondial (wfp.org)"/>
+            <column name="notes"><![CDATA[FIDA : extracteur prêt (clé ifad) mais le site répond 403 au client automatique, non contourné. Autres organisations établies en Italie (ESA-ESRIN, IUE, UNICRI, EFSA…) à ajouter une page à la fois.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-05 12:10:31.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="300"/>
+            <column name="name" value="PEP Italie ??? Dirigeants des partis politiques"/>
+            <column name="description" value="Pr??sidents, secr??taires g??n??raux et dirigeants nationaux des partis politiques italiens actifs (cat??gorie IT-1.3)"/>
+            <column name="dataset_name" value="it_pep_political_parties"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://www.wikidata.org"/>
+            <column name="plugin_id" value="it-pep-political-parties"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="SPARQL"/>
+            <column name="parameters"><![CDATA[{"endpoint": "https://query.wikidata.org/sparql", "country": "Q38", "monthsAfterEnd": "12"}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="CC0 (Wikidata)"/>
+            <column name="attribution" value="Wikidata, www.wikidata.org"/>
+            <column name="notes"><![CDATA[Pr??sidents, secr??taires g??n??raux et dirigeants nationaux des partis politiques italiens d??crits dans Wikidata (D.Lgs. 231/2007, art. 1 c.2 lett. dd, point 1.3).]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-09 15:25:09.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="301"/>
+            <column name="name" value="PEP Italie ??? Cour constitutionnelle"/>
+            <column name="description"><![CDATA[Juges de la Cour constitutionnelle italienne (Corte costituzionale), en fonction et sortis depuis moins de 12 mois (cat??gorie IT-1.4)]]></column>
+            <column name="dataset_name" value="it_pep_constitutional_court"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://www.cortecostituzionale.it/"/>
+            <column name="plugin_id" value="it-pep-constitutional-court"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="API"/>
+            <column name="parameters"><![CDATA[{"url": "https://www.cortecostituzionale.it/jsp/consulta/composizione/composizione.do"}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="Site officiel de la Cour constitutionnelle : citer la source"/>
+            <column name="attribution" value="Corte costituzionale della Repubblica Italiana"/>
+            <column name="notes" value="Les 15 juges constitutionnels nomm??s par le Pr??sident de la R??publique, le Parlement et les magistratures supr??mes."/>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-09 15:39:33.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="302"/>
+            <column name="name" value="PEP Italie ??? Hautes magistratures"/>
+            <column name="description" value="Magistrats de la Cour de cassation, du Conseil d'??tat et de la Cour des comptes (cat??gorie IT-1.4)"/>
+            <column name="dataset_name" value="it_pep_high_courts"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://www.giustizia.it/"/>
+            <column name="plugin_id" value="it-pep-high-courts"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="API"/>
+            <column name="parameters" value="{}"/>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="Donn??es publiques officielles : citer la source"/>
+            <column name="attribution" value="Corte Suprema di Cassazione, Consiglio di Stato, Corte dei conti"/>
+            <column name="notes"><![CDATA[[DONNÉES LOCALES FIGÉES - À MIGRER VERS CRAWLER RÉSEAU] [DONNÃ‰ES LOCALES FIGÃ‰ES - Ã€ MIGRER VERS CRAWLER RÃ‰SEAU] Premiers pr??sidents, procureurs g??n??raux, pr??sidents adjoints et hauts magistrats des trois cours supr??mes italiennes.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-09 15:39:33.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="303"/>
+            <column name="name" value="PEP Italie ??? Ambassadeurs"/>
+            <column name="description" value="Ambassadeurs et chefs de mission diplomatique de l'Italie (cat??gorie IT-1.6)"/>
+            <column name="dataset_name" value="it_pep_diplomats"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://www.esteri.it/"/>
+            <column name="plugin_id" value="it-pep-diplomats"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="API"/>
+            <column name="parameters"><![CDATA[{"url": "https://www.esteri.it/it/ministero/struttura/rete-diplomatica/"}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="Donn??es publiques ouvertes : citer la source"/>
+            <column name="attribution" value="Ministero degli Affari Esteri e della Cooperazione Internazionale (MAECI)"/>
+            <column name="notes"><![CDATA[[DONNÉES LOCALES FIGÉES - À MIGRER VERS CRAWLER RÉSEAU] [DONNÃ‰ES LOCALES FIGÃ‰ES - Ã€ MIGRER VERS CRAWLER RÃ‰SEAU] Ambassadeurs bilat??raux et repr??sentants permanents aupr??s des organisations internationales (ONU, UE, OTAN, OCDE).]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-09 15:50:46.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="304"/>
+            <column name="name" value="PEP Italie ??? Entreprises publiques MEF"/>
+            <column name="description" value="Dirigeants et administrateurs des grandes soci??t??s contr??l??es par l'??tat italien (cat??gorie IT-1.7)"/>
+            <column name="dataset_name" value="it_pep_state_enterprises"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://www.mef.gov.it/"/>
+            <column name="plugin_id" value="it-pep-state-enterprises"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="API"/>
+            <column name="parameters"><![CDATA[{"url": "https://www.mef.gov.it/ministero/dipartimento-tesoro/partecipazioni-pubbliche/"}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="Donn??es publiques ouvertes : citer la source"/>
+            <column name="attribution" value="Ministero dell'Economia e delle Finanze (MEF)"/>
+            <column name="notes"><![CDATA[[DONNÉES LOCALES FIGÉES - À MIGRER VERS CRAWLER RÉSEAU] [DONNÃ‰ES LOCALES FIGÃ‰ES - Ã€ MIGRER VERS CRAWLER RÃ‰SEAU] Pr??sidents et directeurs g??n??raux (Amministratori Delegati) des grandes entreprises publiques italiennes (ENI, Enel, Leonardo, Poste Italiane, FS, CDP, RAI, Terna, Snam, STMicroelectronics, Invitalia, ITA Airways).]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-09 15:50:46.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="305"/>
+            <column name="name" value="PEP Italie ??? Directeurs g??n??raux de la sant?? (ASL et h??pitaux)"/>
+            <column name="description" value="Directeurs g??n??raux des ASL, des h??pitaux et des entit??s du service de sant?? national italien (cat??gorie IT-1.8)"/>
+            <column name="dataset_name" value="it_pep_health_directors"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://www.salute.gov.it/"/>
+            <column name="plugin_id" value="it-pep-health-directors"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="API"/>
+            <column name="parameters"><![CDATA[{"url": "https://www.salute.gov.it/portale/ministro/p4_5_1.jsp"}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="Donn??es publiques ouvertes : citer la source"/>
+            <column name="attribution" value="Ministero della Salute / Servizio Sanitario Nazionale (SSN)"/>
+            <column name="notes"><![CDATA[[DONNÉES LOCALES FIGÉES - À MIGRER VERS CRAWLER RÉSEAU] [DONNÃ‰ES LOCALES FIGÃ‰ES - Ã€ MIGRER VERS CRAWLER RÃ‰SEAU] Directeurs g??n??raux d'Aziende Sanitarie Locali (ASL/USL), Aziende Ospedaliere (AO), Aziende Ospedaliero-Universitarie (AOU) et IRCCS publics ?? travers les 20 r??gions italiennes.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-09 15:55:29.000000"/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="314"/>
+            <column name="parser_id" valueNumeric="168"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope"><![CDATA[Tous les députés en fonction et ceux sortis depuis moins de 12 mois, avec date et lieu de naissance ; les décédés (Umberto Bossi à ce jour) ne sont pas publiés.]]></column>
+            <column name="gaps" value="Historique réglable (monthsAfterEnd) mais limité à 12 mois par défaut."/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="315"/>
+            <column name="parser_id" valueNumeric="169"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope"><![CDATA[Tous les sénateurs en fonction et ceux sortis depuis moins de 12 mois, avec date et lieu de naissance ; décédés écartés.]]></column>
+            <column name="gaps" value="Historique limité à 12 mois par défaut."/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="311"/>
+            <column name="parser_id" valueNumeric="170"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope"><![CDATA[Le président du Conseil, les ministres, vice-ministres et sous-secrétaires en fonction et ceux sortis depuis moins de 12 mois, avec dates et naissance.]]></column>
+            <column name="gaps" value="Aucune ; historique limité à 12 mois par défaut (disponible depuis 1848)."/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="312"/>
+            <column name="parser_id" valueNumeric="171"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="0"/>
+            <column name="covered_scope"><![CDATA[Maires des communes de 15 000 habitants ou plus et chefs-lieux, présidents et assesseurs de Région, conseillers régionaux en fonction (Anagrafe degli amministratori locali e regionali, ministère de l'Intérieur)]]></column>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="313"/>
+            <column name="parser_id" valueNumeric="171"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="0"/>
+            <column name="covered_scope"><![CDATA[Maires des communes de 15 000 habitants ou plus et chefs-lieux, présidents et assesseurs de Région, conseillers régionaux en fonction (Anagrafe degli amministratori locali e regionali, ministère de l'Intérieur)]]></column>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="317"/>
+            <column name="parser_id" valueNumeric="171"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="0"/>
+            <column name="covered_scope"><![CDATA[Maires des communes de 15 000 habitants ou plus et chefs-lieux, présidents et assesseurs de Région, conseillers régionaux en fonction (Anagrafe degli amministratori locali e regionali, ministère de l'Intérieur)]]></column>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="316"/>
+            <column name="parser_id" valueNumeric="172"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope"><![CDATA[Les 76 députés européens élus en Italie et ceux sortis depuis moins de 12 mois (Antonio Decaro à ce jour), avec naissance, genre, groupe et dates de mandat.]]></column>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="327"/>
+            <column name="parser_id" valueNumeric="173"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="0"/>
+            <column name="covered_scope" value="Raffaele Fitto, vice-président exécutif (2024-2029) chargé de la cohésion et des réformes."/>
+            <column name="gaps" value="Ni date ni lieu de naissance sur la fiche."/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="310"/>
+            <column name="parser_id" valueNumeric="174"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="0"/>
+            <column name="covered_scope" value="Le Président de la République en fonction, avec date et lieu de naissance."/>
+            <column name="gaps" value="Pas de date de prise de fonctions."/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="321"/>
+            <column name="parser_id" valueNumeric="175"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope" value="Gouverneur, directoire de la Banque d'Italie, collèges du Garante privacy, AGCM, AGCOM et directoire de l'IVASS"/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="323"/>
+            <column name="parser_id" valueNumeric="176"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="0"/>
+            <column name="covered_scope"><![CDATA[Chef d'??tat-major de la D??fense, chefs d'??tat-major de l'arm??e de terre, marine et air, et commandants des Carabinieri et de la Guardia di Finanza]]></column>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="326"/>
+            <column name="parser_id" valueNumeric="177"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="0"/>
+            <column name="covered_scope" value="Directeur général de la FAO et direction exécutive du Programme alimentaire mondial (PAM / WFP)"/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="318"/>
+            <column name="parser_id" valueNumeric="300"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope"><![CDATA[Pr??sidents, secr??taires g??n??raux et dirigeants nationaux de l'ensemble des partis politiques italiens actifs (Fratelli d'Italia, Partito Democratico, Movimento 5 Stelle, Lega, Forza Italia, etc.)]]></column>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="319"/>
+            <column name="parser_id" valueNumeric="301"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope" value="Les 15 juges de la Cour constitutionnelle italienne (Corte costituzionale), dont le pr??sident et les vice-pr??sidents"/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="320"/>
+            <column name="parser_id" valueNumeric="302"/>
+            <column name="completeness" value="PARTIAL"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope"><![CDATA[Premiers pr??sidents, procureurs g??n??raux et magistrats dirigeants de la Cour supr??me de cassation, du Conseil d'??tat et de la Cour des comptes]]></column>
+            <column name="gaps" value="Données locales figées (seed embarqué) – en cours de remplacement par crawler réseau officiel direct"/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="322"/>
+            <column name="parser_id" valueNumeric="303"/>
+            <column name="completeness" value="PARTIAL"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope"><![CDATA[Ambassadeurs bilat??raux cl??s et repr??sentants permanents aupr??s des grandes organisations internationales (ONU, UE, OTAN)]]></column>
+            <column name="gaps" value="Données locales figées (seed embarqué) – en cours de remplacement par crawler réseau officiel direct"/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="324"/>
+            <column name="parser_id" valueNumeric="304"/>
+            <column name="completeness" value="PARTIAL"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope"><![CDATA[Pr??sidents et directeurs g??n??raux des participations strat??giques de l'??tat (ENI, Enel, Leonardo, Poste, FS, CDP, RAI, Terna, Snam, Invitalia)]]></column>
+            <column name="gaps" value="Données locales figées (seed embarqué) – en cours de remplacement par crawler réseau officiel direct"/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="325"/>
+            <column name="parser_id" valueNumeric="305"/>
+            <column name="completeness" value="PARTIAL"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope" value="Directeurs g??n??raux des ASL/USL, Aziende Ospedaliere (AO/AOU) et instituts sanitaires publics des r??gions italiennes"/>
+            <column name="gaps" value="Données locales figées (seed embarqué) – en cours de remplacement par crawler réseau officiel direct"/>
+        </insert>
+    </changeSet>
+</databaseChangeLog>

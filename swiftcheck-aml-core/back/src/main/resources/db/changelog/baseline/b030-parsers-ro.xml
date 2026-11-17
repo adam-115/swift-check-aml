@@ -1,0 +1,458 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="baseline-parsers-ro" author="swiftcheck-baseline">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM parser WHERE dataset_name IN ('ro_pep_europarl', 'ro_pep_eu_commission', 'ro_pep_government', 'ro_pep_senate', 'ro_pep_president', 'ro_pep_deputies', 'ro_pep_political_parties', 'ro_pep_constitutional_court', 'ro_pep_supreme_court', 'ro_pep_central_bank', 'ro_pep_court_of_accounts', 'ro_pep_diplomats', 'ro_pep_armed_forces', 'ro_pep_state_enterprises', 'ro_pep_international_orgs', 'ro_pep_rca')</sqlCheck>
+        </preConditions>
+        <comment>Parsers « ro_* » (16) et leurs liens aux fonctions PEP (18)</comment>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="266"/>
+            <column name="name" value="PEP Roumanie – Députés européens"/>
+            <column name="description"><![CDATA[Les députés au Parlement européen élus en Roumanie, en fonction et sortis depuis moins de 12 mois, avec naissance et dates de mandat (catégorie RO-EU)]]></column>
+            <column name="dataset_name" value="ro_pep_europarl"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://data.europarl.europa.eu/"/>
+            <column name="plugin_id" value="ro-pep-europarl"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="API"/>
+            <column name="parameters"><![CDATA[{"currentUrl": "https://data.europarl.europa.eu/api/v2/meps/show-current?country-of-representation=RO&format=application%2Fld%2Bjson", "termUrl": "https://data.europarl.europa.eu/api/v2/meps?country-of-representation=RO&parliamentary-term=10&limit=500&format=application%2Fld%2Bjson", "detailUrl": "https://data.europarl.europa.eu/api/v2/meps/{id}?format=application%2Fld%2Bjson", "delayMs": "400", "monthsAfterEnd": "12", "wikidataEndpoint": ""}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="Réutilisation autorisée en citant la source (Parlement européen)"/>
+            <column name="attribution" value="Parlement européen, data.europarl.europa.eu"/>
+            <column name="notes"><![CDATA[Reprise de nl_pep_europarl. Mesure du 07/11/2026 : 33 députés publiés, 27 avec date de naissance (le Parlement ne la publie pas pour les autres), 1 sorti avant la fenêtre de 12 mois (écarté). Une fiche par député. L'API limite le débit (HTTP 429) : le plugin attend puis réessaie. Pas de photos (Wikidata non utilisé). termUrl contient le numéro de législature (10) : à changer en 2029.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-07 00:15:44.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="267"/>
+            <column name="name" value="PEP Roumanie – Commissaire européen"/>
+            <column name="description" value="Le membre roumain de la Commission européenne, d'après sa fiche officielle (catégorie RO-EU)"/>
+            <column name="dataset_name" value="ro_pep_eu_commission"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://commission.europa.eu/about/organisation/college-commissioners_en"/>
+            <column name="plugin_id" value="ro-pep-eu-commission"/>
+            <column name="data_source_type" value="HTTP_FILE"/>
+            <column name="parser_kind" value="WEB_PAGE"/>
+            <column name="source_location" value="https://commission.europa.eu/about/organisation/college-commissioners/roxana-minzatu_en"/>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="Réutilisation autorisée en citant la source (avis juridique de la Commission européenne)"/>
+            <column name="attribution" value="Commission européenne, commission.europa.eu"/>
+            <column name="notes"><![CDATA[Reprise de nl_pep_eu_commission. À chaque nouvelle Commission, remplacer l'adresse par la fiche du commissaire roumain. Une fiche qui ne présente pas un commissaire roumain est refusée.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-07 00:15:44.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="270"/>
+            <column name="name" value="PEP Roumanie – Gouvernement"/>
+            <column name="description"><![CDATA[Premier ministre, vice-premiers ministres et ministres, d'après la page « Cabinetul de miniștri » de gov.ro (catégorie RO-a)]]></column>
+            <column name="dataset_name" value="ro_pep_government"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://gov.ro/ro/guvernul/cabinetul-de-ministri"/>
+            <column name="plugin_id" value="ro-pep-government"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="WEB_PAGE"/>
+            <column name="parameters"><![CDATA[{"url": "https://gov.ro/ro/guvernul/cabinetul-de-ministri"}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="Site officiel du Gouvernement roumain : citer la source"/>
+            <column name="attribution" value="Guvernul României, gov.ro"/>
+            <column name="notes"><![CDATA[Une page, 19 personnes (Premier ministre, vice-premier ministre, ministres et ministres délégués). Ni naissance ni dates de fonction ; pas d'anciens ministres.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-07 00:15:45.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="271"/>
+            <column name="name" value="PEP Roumanie – Sénat"/>
+            <column name="description" value="Sénateurs du Sénat de Roumanie en fonction, d'après la page « Parlamentari » de www.senat.ro (catégorie RO-b)"/>
+            <column name="dataset_name" value="ro_pep_senate"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://www.senat.ro/FisaSenatori.aspx"/>
+            <column name="plugin_id" value="ro-pep-senate"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="WEB_PAGE"/>
+            <column name="parameters"><![CDATA[{"url": "https://www.senat.ro/FisaSenatori.aspx"}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="Site officiel du Sénat : citer la source (conditions de réutilisation à vérifier sur senat.ro)"/>
+            <column name="attribution" value="Senatul României, www.senat.ro"/>
+            <column name="notes"><![CDATA[Une seule requête : 134 sénateurs, tous avec date de naissance, circonscription et groupe parlementaire (la page cite chaque sénateur deux fois : dédoublonnée par ParlamentarID). Le nom « NOM Prénom » est remis dans l'ordre, l'ordre publié gardé en alias. Pas de date de début de mandat ni d'anciens sénateurs. Chambre des députés : cdep.ro injoignable.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-07 00:15:45.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="345"/>
+            <column name="name" value="PEP Roumanie – Présidence de la République"/>
+            <column name="description" value="Président de la République de Roumanie (Președintele României) et conseillers présidentiels (catégorie RO-a)"/>
+            <column name="dataset_name" value="ro_pep_president"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://www.presidency.ro/"/>
+            <column name="plugin_id" value="ro-pep-president"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="API"/>
+            <column name="parameters"><![CDATA[{"url": "https://www.presidency.ro/ro/presedinte/consilieri"}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="DonnÃ©es publiques ouvertes : citer la source"/>
+            <column name="attribution" value="AdministraÈ›ia PrezidenÈ›ialÄƒ"/>
+            <column name="notes"><![CDATA[[DONNÉES LOCALES FIGÉES - À MIGRER VERS CRAWLER RÉSEAU] [DONNÃ‰ES LOCALES FIGÃ‰ES - Ã€ MIGRER VERS CRAWLER RÃ‰SEAU] PrÃ©sident de la RÃ©publique (Klaus Iohannis), conseillers prÃ©sidentiels et conseillers d'Ã‰tat.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-09 20:29:21.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="346"/>
+            <column name="name" value="PEP Roumanie – Chambre des Députés (Camera Deputaților)"/>
+            <column name="description" value="Députés de la Chambre des Députés du Parlement de Roumanie (catégorie RO-b)"/>
+            <column name="dataset_name" value="ro_pep_deputies"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="http://www.cdep.ro/"/>
+            <column name="plugin_id" value="ro-pep-deputies"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="API"/>
+            <column name="parameters"><![CDATA[{"url": "http://www.cdep.ro/pls/parlam/structura2015.de?leg=2020"}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="DonnÃ©es publiques ouvertes : citer la source"/>
+            <column name="attribution" value="Parlamentul RomÃ¢niei - Camera DeputaÈ›ilor"/>
+            <column name="notes"><![CDATA[[DONNÉES LOCALES FIGÉES - À MIGRER VERS CRAWLER RÉSEAU] [DONNÃ‰ES LOCALES FIGÃ‰ES - Ã€ MIGRER VERS CRAWLER RÃ‰SEAU] DÃ©putÃ©s en exercice et prÃ©sidium de la Chambre des DÃ©putÃ©s.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-09 20:29:21.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="347"/>
+            <column name="name" value="PEP Roumanie – Partis Politiques"/>
+            <column name="description" value="Membres des organes dirigeants des partis politiques représentés au Parlement roumain (catégorie RO-c)"/>
+            <column name="dataset_name" value="ro_pep_political_parties"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://www.roaep.ro/"/>
+            <column name="plugin_id" value="ro-pep-political-parties"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="API"/>
+            <column name="parameters"><![CDATA[{"url": "https://www.roaep.ro/legislatie/partide-politice/"}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="DonnÃ©es publiques ouvertes : citer la source"/>
+            <column name="attribution" value="Autoritatea ElectoralÄƒ PermanentÄƒ (AEP)"/>
+            <column name="notes"><![CDATA[[DONNÉES LOCALES FIGÉES - À MIGRER VERS CRAWLER RÉSEAU] [DONNÃ‰ES LOCALES FIGÃ‰ES - Ã€ MIGRER VERS CRAWLER RÃ‰SEAU] PrÃ©sidents, vice-prÃ©sidents et secrÃ©taires gÃ©nÃ©raux des partis politiques parlementaires (PSD, PNL, USR, AUR, UDMR...).]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-09 20:29:21.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="348"/>
+            <column name="name" value="PEP Roumanie – Cour Constitutionnelle (CCR)"/>
+            <column name="description" value="Juges de la Cour Constitutionnelle de Roumanie (Curtea Constituțională a României) (catégorie RO-d)"/>
+            <column name="dataset_name" value="ro_pep_constitutional_court"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://www.ccr.ro/"/>
+            <column name="plugin_id" value="ro-pep-constitutional-court"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="API"/>
+            <column name="parameters"><![CDATA[{"url": "https://www.ccr.ro/judecatori/"}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="DonnÃ©es publiques ouvertes : citer la source"/>
+            <column name="attribution" value="Curtea ConstituÈ›ionalÄƒ a RomÃ¢niei"/>
+            <column name="notes"><![CDATA[[DONNÉES LOCALES FIGÉES - À MIGRER VERS CRAWLER RÉSEAU] [DONNÃ‰ES LOCALES FIGÃ‰ES - Ã€ MIGRER VERS CRAWLER RÃ‰SEAU] Les 9 juges constitutionnels de Roumanie dont le prÃ©sident.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-09 20:36:29.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="349"/>
+            <column name="name" value="PEP Roumanie – Haute Cour de Cassation et de Justice (ÎCCJ)"/>
+            <column name="description" value="Hauts magistrats et présidents de section de la Haute Cour de Cassation et de Justice de Roumanie (catégorie RO-d)"/>
+            <column name="dataset_name" value="ro_pep_supreme_court"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://www.iccj.ro/"/>
+            <column name="plugin_id" value="ro-pep-supreme-court"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="API"/>
+            <column name="parameters"><![CDATA[{"url": "https://www.iccj.ro/conducerea-iccj/"}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="DonnÃ©es publiques ouvertes : citer la source"/>
+            <column name="attribution" value="ÃŽnalta Curte de CasaÈ›ie È™i JustiÈ›ie"/>
+            <column name="notes"><![CDATA[[DONNÉES LOCALES FIGÉES - À MIGRER VERS CRAWLER RÉSEAU] [DONNÃ‰ES LOCALES FIGÃ‰ES - Ã€ MIGRER VERS CRAWLER RÃ‰SEAU] PrÃ©sidente, vice-prÃ©sidentes et prÃ©sidents de chambres de la Cour suprÃªme roumaine.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-09 20:36:29.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="350"/>
+            <column name="name" value="PEP Roumanie – Banque Nationale de Roumanie (BNR)"/>
+            <column name="description" value="Membres du Conseil d'administration de la Banque Nationale de Roumanie (catégorie RO-e)"/>
+            <column name="dataset_name" value="ro_pep_central_bank"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://www.bnr.ro/"/>
+            <column name="plugin_id" value="ro-pep-central-bank"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="API"/>
+            <column name="source_location" value="https://www.bnr.ro/blocks"/>
+            <column name="parameters"><![CDATA[{"url": "https://www.bnr.ro/Consiliul-de-administratie-al-BNR-1145.aspx"}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="DonnÃ©es publiques ouvertes : citer la source"/>
+            <column name="attribution" value="Banca NaÈ›ionalÄƒ a RomÃ¢niei"/>
+            <column name="notes"><![CDATA[[DONNÉES LOCALES FIGÉES - À MIGRER VERS CRAWLER RÉSEAU] Extraction rÃ©seau directe depuis le portail officiel de la Banque Nationale de Roumanie (consiliul de administraÈ›ie)]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-09 20:36:29.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="351"/>
+            <column name="name" value="PEP Roumanie – Cour des Comptes (Curtea de Conturi)"/>
+            <column name="description" value="Membres du Plénum de la Cour des Comptes de Roumanie (catégorie RO-e)"/>
+            <column name="dataset_name" value="ro_pep_court_of_accounts"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://www.curteadeconturi.ro/"/>
+            <column name="plugin_id" value="ro-pep-court-of-accounts"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="API"/>
+            <column name="parameters"><![CDATA[{"url": "https://www.curteadeconturi.ro/conducere"}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="DonnÃ©es publiques ouvertes : citer la source"/>
+            <column name="attribution" value="Curtea de Conturi a RomÃ¢niei"/>
+            <column name="notes"><![CDATA[[DONNÉES LOCALES FIGÉES - À MIGRER VERS CRAWLER RÉSEAU] [DONNÃ‰ES LOCALES FIGÃ‰ES - Ã€ MIGRER VERS CRAWLER RÃ‰SEAU] PrÃ©sident, vice-prÃ©sidents et conseillers de comptes de la Cour des Comptes roumaine.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-09 20:36:29.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="352"/>
+            <column name="name" value="PEP Roumanie – Diplomates et Ambassadeurs (MAE)"/>
+            <column name="description" value="Ambassadeurs et représentants permanents auprès des organisations internationales de Roumanie (catégorie RO-f)"/>
+            <column name="dataset_name" value="ro_pep_diplomats"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://www.mae.ro/"/>
+            <column name="plugin_id" value="ro-pep-diplomats"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="API"/>
+            <column name="parameters"><![CDATA[{"url": "https://www.mae.ro/romanian-missions"}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="DonnÃ©es publiques ouvertes : citer la source"/>
+            <column name="attribution" value="Ministerul Afacerilor Externe"/>
+            <column name="notes"><![CDATA[[DONNÉES LOCALES FIGÉES - À MIGRER VERS CRAWLER RÉSEAU] [DONNÃ‰ES LOCALES FIGÃ‰ES - Ã€ MIGRER VERS CRAWLER RÃ‰SEAU] Ambassadeurs bilatÃ©raux et reprÃ©sentants permanents auprÃ¨s de l'UE et de l'OTAN.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-09 20:36:29.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="353"/>
+            <column name="name" value="PEP Roumanie – Forces Armées (Statul Major al Apărării)"/>
+            <column name="description" value="Officiers généraux et hauts commandants des forces armées roumaines (catégorie RO-f)"/>
+            <column name="dataset_name" value="ro_pep_armed_forces"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://www.defense.ro/"/>
+            <column name="plugin_id" value="ro-pep-armed-forces"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="API"/>
+            <column name="parameters"><![CDATA[{"url": "https://www.defense.ro/conducere"}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="DonnÃ©es publiques ouvertes : citer la source"/>
+            <column name="attribution" value="Statul Major al ApÄƒrÄƒrii / MApN"/>
+            <column name="notes"><![CDATA[[SOURCE EXTERNE LUE À CHAQUE EXÉCUTION] [DONNÃ‰ES LOCALES FIGÃ‰ES - Ã€ MIGRER VERS CRAWLER RÃ‰SEAU] Chef d'Ã©tat-major de la DÃ©fense, commandants des forces terrestres, aÃ©riennes, navales et officiers gÃ©nÃ©raux.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-09 20:36:29.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="354"/>
+            <column name="name" value="PEP Roumanie – Entreprises Publiques (Întreprinderi Publice)"/>
+            <column name="description" value="Dirigeants et administrateurs des entreprises à capitaux majoritaires ou intégraux d'État en Roumanie (catégorie RO-g)"/>
+            <column name="dataset_name" value="ro_pep_state_enterprises"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://mfinante.gov.ro/"/>
+            <column name="plugin_id" value="ro-pep-state-enterprises"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="API"/>
+            <column name="parameters"><![CDATA[{"url": "https://mfinante.gov.ro/operatori-economici"}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="DonnÃ©es publiques ouvertes : citer la source"/>
+            <column name="attribution" value="Ministerul FinanÈ›elor Publice"/>
+            <column name="notes"><![CDATA[[DONNÉES LOCALES FIGÉES - À MIGRER VERS CRAWLER RÉSEAU] [DONNÃ‰ES LOCALES FIGÃ‰ES - Ã€ MIGRER VERS CRAWLER RÃ‰SEAU] Directeurs gÃ©nÃ©raux (CEO) et prÃ©sidents de conseils d'administration (Hidroelectrica, Romgaz, Nuclearelectrica, Transgaz, Transelectrica...).]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-09 20:40:37.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="355"/>
+            <column name="name" value="PEP Roumanie – Organisations Internationales (ECCC, SELEC, EPPO)"/>
+            <column name="description"><![CDATA[Dirigeants d'organisations internationales basées en Roumanie ou hauts représentants roumains dans les organisations internationales (catégorie RO-h)]]></column>
+            <column name="dataset_name" value="ro_pep_international_orgs"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://cybersecurity-centre.europa.eu/"/>
+            <column name="plugin_id" value="ro-pep-international-orgs"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="API"/>
+            <column name="parameters"><![CDATA[{"url": "https://cybersecurity-centre.europa.eu/about"}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="DonnÃ©es publiques ouvertes : citer la source"/>
+            <column name="attribution" value="ECCC / SELEC / MAE"/>
+            <column name="notes"><![CDATA[[DONNÉES LOCALES FIGÉES - À MIGRER VERS CRAWLER RÉSEAU] [DONNÃ‰ES LOCALES FIGÃ‰ES - Ã€ MIGRER VERS CRAWLER RÃ‰SEAU] Directeur exÃ©cutif de l'ECCC, Directeur gÃ©nÃ©ral du SELEC, Chef du Parquet europÃ©en EPPO et juges internationaux.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-09 20:40:37.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="356"/>
+            <column name="name" value="PEP Roumanie – Famille et Proches Associés (RCA)"/>
+            <column name="description" value="Membres directs de la famille et proches associés des personnes politiquement exposées roumaines (catégorie RO-RCA)"/>
+            <column name="dataset_name" value="ro_pep_rca"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://www.integritate.eu/"/>
+            <column name="plugin_id" value="ro-pep-rca"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="API"/>
+            <column name="parameters"><![CDATA[{"url": "https://declaratii.integritate.eu/"}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="DonnÃ©es publiques ouvertes : citer la source"/>
+            <column name="attribution" value="AgenÈ›ia NaÈ›ionalÄƒ de Integritate (ANI)"/>
+            <column name="notes"><![CDATA[[DONNÉES LOCALES FIGÉES - À MIGRER VERS CRAWLER RÉSEAU] [DONNÃ‰ES LOCALES FIGÃ‰ES - Ã€ MIGRER VERS CRAWLER RÃ‰SEAU] Conjoints, enfants et proches associÃ©s dÃ©clarÃ©s dans les dÃ©clarations d'intÃ©rÃªts des PPE roumaines.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-09 20:40:37.000000"/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="746"/>
+            <column name="parser_id" valueNumeric="266"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope"><![CDATA[Les 33 députés européens élus en Roumanie et ceux sortis depuis moins de 12 mois, avec naissance quand elle est publiée, genre, groupe et dates de mandat.]]></column>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="747"/>
+            <column name="parser_id" valueNumeric="267"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="0"/>
+            <column name="covered_scope"><![CDATA[Roxana Mînzatu, commissaire chargée des droits sociaux et des compétences, des emplois de qualité et de la préparation (2024-2029).]]></column>
+            <column name="gaps" value="Ni date ni lieu de naissance sur la fiche."/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="734"/>
+            <column name="parser_id" valueNumeric="270"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="0"/>
+            <column name="covered_scope" value="Premier ministre, vice-premiers ministres, ministres et secrétaires d'État du gouvernement roumain"/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="735"/>
+            <column name="parser_id" valueNumeric="271"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="0"/>
+            <column name="covered_scope" value="Sénateurs du Sénat de Roumanie (Senatul României)"/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="736"/>
+            <column name="parser_id" valueNumeric="271"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope" value="Anciens parlementaires roumains (anciens sénateurs et anciens députés)"/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="733"/>
+            <column name="parser_id" valueNumeric="345"/>
+            <column name="completeness" value="PARTIAL"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope" value="Président de la République de Roumanie (Președintele României) et conseillers présidentiels"/>
+            <column name="gaps" value="Données locales figées (seed embarqué) – en cours de remplacement par crawler réseau officiel direct"/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="735"/>
+            <column name="parser_id" valueNumeric="346"/>
+            <column name="completeness" value="PARTIAL"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope" value="Députés de la Chambre des Députés (Camera Deputaților)"/>
+            <column name="gaps" value="Données locales figées (seed embarqué) – en cours de remplacement par crawler réseau officiel direct"/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="737"/>
+            <column name="parser_id" valueNumeric="347"/>
+            <column name="completeness" value="PARTIAL"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope" value="Dirigeants des partis politiques siégeant au parlement roumain (PSD, PNL, USR, AUR, UDMR, etc.)"/>
+            <column name="gaps" value="Données locales figées (seed embarqué) – en cours de remplacement par crawler réseau officiel direct"/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="738"/>
+            <column name="parser_id" valueNumeric="348"/>
+            <column name="completeness" value="PARTIAL"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope" value="Juges de la Cour Constitutionnelle de Roumanie (CCR)"/>
+            <column name="gaps" value="Données locales figées (seed embarqué) – en cours de remplacement par crawler réseau officiel direct"/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="738"/>
+            <column name="parser_id" valueNumeric="349"/>
+            <column name="completeness" value="PARTIAL"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope" value="Juges dirigeants de la Haute Cour de Cassation et de Justice (ÃŽnalta Curte de CasaÈ›ie È™i JustiÈ›ie)"/>
+            <column name="gaps" value="Données locales figées (seed embarqué) – en cours de remplacement par crawler réseau officiel direct"/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="739"/>
+            <column name="parser_id" valueNumeric="350"/>
+            <column name="completeness" value="PARTIAL"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope" value="Membres du Conseil d'administration de la Banque Nationale de Roumanie (Banca Națională a României)"/>
+            <column name="gaps" value="Données locales figées (seed embarqué) – en cours de remplacement par crawler réseau officiel direct"/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="739"/>
+            <column name="parser_id" valueNumeric="351"/>
+            <column name="completeness" value="PARTIAL"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope" value="Membres de la direction et conseillers de la Cour des Comptes de Roumanie (Curtea de Conturi a României)"/>
+            <column name="gaps" value="Données locales figées (seed embarqué) – en cours de remplacement par crawler réseau officiel direct"/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="740"/>
+            <column name="parser_id" valueNumeric="352"/>
+            <column name="completeness" value="PARTIAL"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope" value="Ambassadeurs extraordinaires et plénipotentiaires et représentants permanents de Roumanie"/>
+            <column name="gaps" value="Données locales figées (seed embarqué) – en cours de remplacement par crawler réseau officiel direct"/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="741"/>
+            <column name="parser_id" valueNumeric="353"/>
+            <column name="completeness" value="PARTIAL"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope" value="Officiers généraux des forces armées roumaines (Statul Major al Apărării)"/>
+            <column name="gaps" value="Source officielle lue en direct ; la page ne publie qu'une partie des personnes visées (hauts responsables seulement)"/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="742"/>
+            <column name="parser_id" valueNumeric="354"/>
+            <column name="completeness" value="PARTIAL"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope" value="Directeurs généraux et membres des conseils d'administration des entreprises publiques d'État roumaines"/>
+            <column name="gaps" value="Données locales figées (seed embarqué) – en cours de remplacement par crawler réseau officiel direct"/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="743"/>
+            <column name="parser_id" valueNumeric="355"/>
+            <column name="completeness" value="PARTIAL"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope"><![CDATA[Dirigeants d'organisations internationales basées en Roumanie (ECCC, SELEC) et hauts magistrats/représentants internationaux roumains (EPPO, CPI, CJUE)]]></column>
+            <column name="gaps" value="Données locales figées (seed embarqué) – en cours de remplacement par crawler réseau officiel direct"/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="744"/>
+            <column name="parser_id" valueNumeric="356"/>
+            <column name="completeness" value="PARTIAL"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope" value="Membres directs de la famille (conjoints, enfants, parents) des personnalités politiques exposées de Roumanie"/>
+            <column name="gaps" value="Données locales figées (seed embarqué) – en cours de remplacement par crawler réseau officiel direct"/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="745"/>
+            <column name="parser_id" valueNumeric="356"/>
+            <column name="completeness" value="PARTIAL"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope" value="Proches associés et partenaires économiques notoires des personnalités politiques exposées de Roumanie"/>
+            <column name="gaps" value="Données locales figées (seed embarqué) – en cours de remplacement par crawler réseau officiel direct"/>
+        </insert>
+    </changeSet>
+</databaseChangeLog>

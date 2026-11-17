@@ -1,0 +1,780 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="baseline-parsers-es" author="swiftcheck-baseline">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM parser WHERE dataset_name IN ('es_pep_boe', 'es_pep_congreso', 'es_pep_bank_of_spain', 'es_pep_europarl', 'es_pep_eu_commission', 'es_pep_rca', 'es_pep_senado', 'es_pep_regulators', 'es_pep_judiciary', 'es_pep_regional_governments', 'es_pep_regional_parliaments', 'es_pep_local_officials', 'es_pep_parties_unions', 'es_pep_state_enterprises', 'es_pep_royal_house', 'es_pep_court_of_audit', 'es_pep_international_orgs', 'es_pep_diplomats', 'es_pep_army', 'es_pep_political_parties', 'es_pep_unions')</sqlCheck>
+        </preConditions>
+        <comment>Parsers « es_* » (21) et leurs liens aux fonctions PEP (50)</comment>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="135"/>
+            <column name="name" value="PEP Espagne – Nominations et cessations du BOE"/>
+            <column name="description"><![CDATA[Nominations, désignations, promotions et cessations publiées au BOE (section II.A) : Gouvernement, secrétaires d'État, hauts cargos, hautes juridictions, ambassadeurs et officiers généraux, avec les dates de fin (blocs ES-a, ES-c, ES-d, ES-e, ES-f)]]></column>
+            <column name="dataset_name" value="es_pep_boe"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://www.boe.es"/>
+            <column name="plugin_id" value="es-pep-boe"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="OFFICIAL_GAZETTE"/>
+            <column name="parameters"><![CDATA[{"archiveMonths":"26","sections":"2A","delayMs":"250","monthsAfterEnd":"24"}]]></column>
+            <column name="refresh_hours" valueNumeric="24"/>
+            <column name="retention_months" valueNumeric="24"/>
+            <column name="licence" value="Réutilisation autorisée en citant la source (Agencia Estatal Boletín Oficial del Estado)"/>
+            <column name="attribution" value="Agencia Estatal Boletín Oficial del Estado, www.boe.es (datos abiertos)"/>
+            <column name="notes"><![CDATA[API de données ouvertes du BOE : un sommaire par jour. Les titres des décrets royaux (« se nombra… a don X », « se dispone el cese de don X como… ») donnent la personne, la fonction et la date ; le décret qui nomme tous les ministres est lu dans son texte. Les fonctions retenues sont dans boe-functions.json (dans le plugin). Premier passage : environ 800 jours à lire (quelques minutes), puis seulement les nouveaux jours.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-04 10:24:15.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="136"/>
+            <column name="name" value="PEP Espagne – Députés du Congreso"/>
+            <column name="description"><![CDATA[Les députés du Congreso de los Diputados en fonction et les anciens sortis depuis moins de 24 mois, d'après l'open data du Congreso (bloc ES-b)]]></column>
+            <column name="dataset_name" value="es_pep_congreso"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://www.congreso.es/es/opendata/diputados"/>
+            <column name="plugin_id" value="es-pep-congreso"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="OPEN_DATA_FILE"/>
+            <column name="parameters"><![CDATA[{"pageUrl":"https://www.congreso.es/es/opendata/diputados","monthsAfterEnd":"24"}]]></column>
+            <column name="refresh_hours" valueNumeric="24"/>
+            <column name="retention_months" valueNumeric="24"/>
+            <column name="licence" value="Réutilisation autorisée en citant la source (Congreso de los Diputados, open data)"/>
+            <column name="attribution" value="Congreso de los Diputados, www.congreso.es"/>
+            <column name="notes"><![CDATA[Deux fichiers JSON dont le nom change à chaque mise à jour (DiputadosActivos et DiputadosDeBaja), trouvés par la page de l'open data. Ni date de naissance ni identifiant dans la source ; la biographie n'est pas reprise.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-04 10:24:16.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="137"/>
+            <column name="name" value="PEP Espagne – Banque d'Espagne"/>
+            <column name="description"><![CDATA[Gouverneur, sous-gouverneur, Conseil de gouvernement et Commission exécutive de la Banque d'Espagne, d'après bde.es (bloc ES-d)]]></column>
+            <column name="dataset_name" value="es_pep_bank_of_spain"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://www.bde.es"/>
+            <column name="plugin_id" value="es-pep-bank-of-spain"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="WEB_PAGE"/>
+            <column name="parameters"><![CDATA[{"councilUrl":"https://www.bde.es/wbe/es/sobre-banco/organizacion/organos-rectores/consejo-gobierno/","executiveUrl":"https://www.bde.es/wbe/es/sobre-banco/organizacion/organos-rectores/comision-ejecutiva/"}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="24"/>
+            <column name="licence" value="Réutilisation autorisée en citant la source (Banco de España)"/>
+            <column name="attribution" value="Banco de España, www.bde.es"/>
+            <column name="notes"><![CDATA[Deux pages : Consejo de Gobierno (gouverneur, sous-gouverneure, six consejeros, secrétaire générale du Trésor, vice-présidente de la CNMV) et Comisión Ejecutiva. Les photos des fiches sont une photo de groupe : non reprises. Les directeurs généraux, qui assistent sans voix délibérative, ne sont pas repris.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-04 10:24:16.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="138"/>
+            <column name="name" value="PEP Espagne – Députés européens"/>
+            <column name="description"><![CDATA[Les eurodéputés élus en Espagne, en fonction et sortis depuis moins de 24 mois, d'après l'API open data du Parlement européen (bloc ES-EU)]]></column>
+            <column name="dataset_name" value="es_pep_europarl"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://data.europarl.europa.eu"/>
+            <column name="plugin_id" value="es-pep-europarl"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="API"/>
+            <column name="parameters"><![CDATA[{"currentUrl":"https://data.europarl.europa.eu/api/v2/meps/show-current?country-of-representation=ES&format=application%2Fld%2Bjson","termUrl":"https://data.europarl.europa.eu/api/v2/meps?country-of-representation=ES&parliamentary-term=10&limit=500&format=application%2Fld%2Bjson","detailUrl":"https://data.europarl.europa.eu/api/v2/meps/{id}?format=application%2Fld%2Bjson","delayMs":"300","monthsAfterEnd":"24"}]]></column>
+            <column name="refresh_hours" valueNumeric="24"/>
+            <column name="retention_months" valueNumeric="24"/>
+            <column name="licence" value="Réutilisation autorisée en citant la source (avis juridique du Parlement européen)"/>
+            <column name="attribution" value="Parlement européen, data.europarl.europa.eu"/>
+            <column name="notes"><![CDATA[61 eurodéputés espagnols (législature 10) avec date et lieu de naissance, genre et dates de mandat. Reprise de be_pep_europarl.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-04 10:24:16.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="139"/>
+            <column name="name" value="PEP Espagne – Commissaire européenne"/>
+            <column name="description" value="Le membre espagnol de la Commission européenne, d'après sa fiche officielle (bloc ES-EU)"/>
+            <column name="dataset_name" value="es_pep_eu_commission"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://commission.europa.eu/about/organisation/college-commissioners_fr"/>
+            <column name="plugin_id" value="es-pep-eu-commission"/>
+            <column name="data_source_type" value="HTTP_FILE"/>
+            <column name="parser_kind" value="WEB_PAGE"/>
+            <column name="source_location" value="https://commission.europa.eu/about/organisation/college-commissioners/teresa-ribera_fr"/>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="24"/>
+            <column name="licence" value="Réutilisation autorisée en citant la source (Commission européenne)"/>
+            <column name="attribution" value="Commission européenne, commission.europa.eu"/>
+            <column name="notes"><![CDATA[Teresa Ribera, vice-présidente exécutive de la Commission européenne (2024-2029). À chaque nouvelle Commission, changer l'adresse de la fiche.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-04 10:24:16.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="140"/>
+            <column name="name" value="PEP Espagne – Famille des PEP (Wikidata)"/>
+            <column name="description" value="Conjoints, enfants et leurs conjoints, parents des PEP espagnoles décrits dans Wikidata (bloc ES-RCA)"/>
+            <column name="dataset_name" value="es_pep_rca"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://www.wikidata.org"/>
+            <column name="plugin_id" value="es-pep-rca"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="SPARQL"/>
+            <column name="parameters"><![CDATA[{"endpoint":"https://query.wikidata.org/sparql","yearsAfterEnd":"2","country":"Q29","positions":"Q3847454 Q844587 Q3113035 Q18171345 Q19323171 Q17014422 Q64624734 Q28518041 Q29934477 Q6352222","positionClasses":"Q83307"}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="24"/>
+            <column name="licence" value="CC0 (Wikidata)"/>
+            <column name="attribution" value="Wikidata, www.wikidata.org"/>
+            <column name="notes"><![CDATA[Famille au sens de l'art. 14.4 de la loi 10/2010 : conjoint, enfants et leurs conjoints, parents (sans la fratrie). Données collaboratives, à contrôler. Rétention de 2 ans après la fin des fonctions.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-04 10:24:16.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="141"/>
+            <column name="name" value="PEP Espagne — Sénat (Sénateurs XVe législature)"/>
+            <column name="description" value="Les sénateurs de la XVe législature collectés directement auprès du portail officiel du Sénat (bloc ES-b)"/>
+            <column name="dataset_name" value="es_pep_senado"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://www.senado.es"/>
+            <column name="plugin_id" value="es-pep-senado"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="WEB_PAGE"/>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="24"/>
+            <column name="licence" value="CC0 (Wikidata)"/>
+            <column name="attribution" value="Senado de España, www.senado.es"/>
+            <column name="notes"><![CDATA[Liste officielle exhaustive de l'ensemble des sénateurs de la XVe législature (élus au suffrage direct et désignés par les parlements autonomes) avec leur identifiant parlementaire officiel, groupe politique et circonscription.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-04 10:24:16.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="142"/>
+            <column name="name" value="PEP Espagne – Organismes régulateurs"/>
+            <column name="description"><![CDATA[Présidents et conseillers des organismes régulateurs de l'État dont la page officielle est lisible : Conseil de sécurité nucléaire (bloc ES-f)]]></column>
+            <column name="dataset_name" value="es_pep_regulators"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://www.csn.es"/>
+            <column name="plugin_id" value="es-pep-regulators"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="WEB_PAGE"/>
+            <column name="parameters"><![CDATA[{"institutions":"csn"}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="24"/>
+            <column name="licence" value="Réutilisation autorisée en citant la source (Consejo de Seguridad Nuclear)"/>
+            <column name="attribution" value="Consejo de Seguridad Nuclear, www.csn.es"/>
+            <column name="notes"><![CDATA[Une page par organisme, décrite dans regulators.json (dans le plugin). Au 03/11/2026 seul le CSN est lisible : CNMV (HTTP 403, non contourné), CNMC (organigramme sans noms), AEPD (HTTP 500) et Tribunal de Cuentas (page dynamique) ne le sont pas ; leurs nominations viennent du BOE.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-04 10:24:16.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="143"/>
+            <column name="name" value="PEP Espagne — Hautes juridictions (Tribunal Constitucional, Tribunal Supremo, CGPJ)"/>
+            <column name="description"><![CDATA[Magistrats et présidence du Tribunal constitutionnel, Tribunal suprême et Conseil général du pouvoir judiciaire d'après les sources officielles BOE et Poder Judicial (bloc ES-c)]]></column>
+            <column name="dataset_name" value="es_pep_judiciary"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://www.boe.es"/>
+            <column name="plugin_id" value="es-pep-judiciary"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="OFFICIAL_GAZETTE"/>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="24"/>
+            <column name="licence" value="CC0 (Wikidata)"/>
+            <column name="attribution" value="BOE (Agencia Estatal Boletín Oficial del Estado) et Consejo General del Poder Judicial"/>
+            <column name="notes"><![CDATA[Composition officielle intégrale : décrets royaux de nomination des magistrats et de la présidence du Tribunal Constitucional et du CGPJ (RD 755/2024, RD 756/2024, RD 888/2024) publiés au BOE, et composition officielle de la Sala de Gobierno du Tribunal Supremo sur poderjudicial.es.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-04 10:24:16.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="144"/>
+            <column name="name" value="PEP Espagne – Présidents des communautés autonomes (Wikidata)"/>
+            <column name="description" value="Les présidents des 16 communautés autonomes, d'après la propriété « chef du gouvernement » de Wikidata (bloc ES-CCAA)"/>
+            <column name="dataset_name" value="es_pep_regional_governments"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://www.wikidata.org"/>
+            <column name="plugin_id" value="es-pep-regional-governments"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="SPARQL"/>
+            <column name="parameters"><![CDATA[{"endpoint":"https://query.wikidata.org/sparql","monthsAfterEnd":"24","delayMs":"2000","kind":"heads","entities":"Q3908 Q3934 Q3946 Q3995 Q4040 Q5705 Q5720 Q5727 Q5739 Q5748 Q5756 Q5772 Q5777 Q5783 Q5813 Q107356467","properties":"P6","positionLabel":"Président de {subject}","topics":"gov.executive gov.regional","openSince":"2015-01-01"}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="24"/>
+            <column name="licence" value="CC0 (Wikidata)"/>
+            <column name="attribution" value="Wikidata, www.wikidata.org"/>
+            <column name="notes"><![CDATA[Les 17 sites de gouvernements autonomes n'ont pas de format commun ; Wikidata donne le chef du gouvernement de chaque communauté avec ses dates. Ceuta et Melilla (villes autonomes) ne sont pas incluses. Données collaboratives de Wikidata : un changement de titulaire non saisi n'est pas vu, à contrôler.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-04 10:24:16.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="145"/>
+            <column name="name" value="PEP Espagne – Députés des parlements autonomes (Wikidata)"/>
+            <column name="description" value="Les députés des parlements des communautés autonomes élus depuis 2022, d'après Wikidata (bloc ES-CCAA)"/>
+            <column name="dataset_name" value="es_pep_regional_parliaments"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://www.wikidata.org"/>
+            <column name="plugin_id" value="es-pep-regional-parliaments"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="SPARQL"/>
+            <column name="parameters"><![CDATA[{"endpoint":"https://query.wikidata.org/sparql","monthsAfterEnd":"24","delayMs":"2000","kind":"positions","jurisdictions":"Q3908 Q3934 Q3946 Q3995 Q4040 Q5705 Q5720 Q5727 Q5739 Q5748 Q5756 Q5772 Q5777 Q5783 Q5813 Q107356467","positionRegex":"^(diputad|procurador|parlamentari)","positionLabel":"{subject}","topics":"gov.legislative gov.regional","openSince":"2022-01-01"}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="24"/>
+            <column name="licence" value="CC0 (Wikidata)"/>
+            <column name="attribution" value="Wikidata, www.wikidata.org"/>
+            <column name="notes"><![CDATA[Un parlement par communauté, sans format commun ni open data systématique. Wikidata décrit environ un tiers des députés régionaux (436 sur ≈ 1 250 mesurés au 03/11/2026). Données collaboratives de Wikidata : un changement de titulaire non saisi n'est pas vu, à contrôler.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-04 10:24:16.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="146"/>
+            <column name="name" value="PEP Espagne – Maires des grandes communes et chefs-lieux (Wikidata)"/>
+            <column name="description" value="Les maires des communes de plus de 50 000 habitants et des chefs-lieux de province, d'après Wikidata (bloc ES-LOC)"/>
+            <column name="dataset_name" value="es_pep_local_officials"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://www.wikidata.org"/>
+            <column name="plugin_id" value="es-pep-local-officials"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="SPARQL"/>
+            <column name="parameters"><![CDATA[{"endpoint":"https://query.wikidata.org/sparql","monthsAfterEnd":"24","delayMs":"2000","kind":"mayors","minPopulation":"50000","positionLabel":"Maire de {subject} (Alcalde)","topics":"gov.muni","openSince":"2019-01-01"}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="24"/>
+            <column name="licence" value="CC0 (Wikidata)"/>
+            <column name="attribution" value="Wikidata, www.wikidata.org"/>
+            <column name="notes"><![CDATA[Le registre national des élus locaux est introuvable (portail en 503/404, jeu de données éteint). Wikidata donne 55 maires (en fonction ou sortis depuis moins de 24 mois) sur ≈ 150 communes concernées. Les conseillers municipaux ne sont pas couverts. Ce niveau est une PEP en Espagne dès aujourd'hui. Données collaboratives de Wikidata : un changement de titulaire non saisi n'est pas vu, à contrôler.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-04 10:24:16.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="147"/>
+            <column name="name" value="PEP Espagne – Dirigeants des partis et syndicats (Wikidata)"/>
+            <column name="description"><![CDATA[Dirigeants des partis représentés au Parlement, des principaux syndicats et des organisations patronales, d'après Wikidata (blocs ES-h et ES-SIND)]]></column>
+            <column name="dataset_name" value="es_pep_parties_unions"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://www.wikidata.org"/>
+            <column name="plugin_id" value="es-pep-parties-unions"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="SPARQL"/>
+            <column name="parameters"><![CDATA[{"endpoint":"https://query.wikidata.org/sparql","monthsAfterEnd":"24","delayMs":"2000","kind":"heads","entities":"Q138198 Q185088 Q15630787 Q112098527 Q150068 Q97155800 Q1029761 Q43093 Q885433 Q1104327 Q16059622 Q2001535 Q833196 Q393165 Q5782715","properties":"P488 P3320 P3975","positionLabel":"Dirigeant de {subject}","topics":"gov.national","openSince":"2015-01-01"}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="24"/>
+            <column name="licence" value="CC0 (Wikidata)"/>
+            <column name="attribution" value="Wikidata, www.wikidata.org"/>
+            <column name="notes"><![CDATA[Quinze organisations configurées (PSOE, PP, Vox, Sumar, ERC, Junts, EH Bildu, PNV, BNG, CC, Podemos, CCOO, UGT, CEOE, Cepyme) ; Wikidata donne le président ou secrétaire général et parfois un second dirigeant. Pas de page de direction lisible de façon uniforme. Données collaboratives de Wikidata : un changement de titulaire non saisi n'est pas vu, à contrôler.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-04 10:24:16.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="148"/>
+            <column name="name" value="PEP Espagne – Dirigeants d'entreprises publiques (Wikidata)"/>
+            <column name="description"><![CDATA[Dirigeants de sociétés détenues par l'État (SEPI, Renfe, Adif, Correos, RTVE, Indra, Hispasat), d'après Wikidata (bloc ES-g)]]></column>
+            <column name="dataset_name" value="es_pep_state_enterprises"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://www.wikidata.org"/>
+            <column name="plugin_id" value="es-pep-state-enterprises"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="SPARQL"/>
+            <column name="parameters"><![CDATA[{"endpoint":"https://query.wikidata.org/sparql","monthsAfterEnd":"24","delayMs":"2000","kind":"heads","entities":"Q1436777 Q776605 Q2476154 Q358752 Q54829 Q1661823 Q1425548","properties":"P488 P169 P1037","positionLabel":"Dirigeant de {subject}","topics":"gov.soe","openSince":"2015-01-01"}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="24"/>
+            <column name="licence" value="CC0 (Wikidata)"/>
+            <column name="attribution" value="Wikidata, www.wikidata.org"/>
+            <column name="notes"><![CDATA[Pas de liste nominative unique des organes des entreprises publiques : la SEPI, le Patrimonio del Estado et l'inventaire des entités du secteur public (IGAE) sont à étudier. Sept entités configurées. Données collaboratives de Wikidata : un changement de titulaire non saisi n'est pas vu, à contrôler.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-04 10:24:16.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="306"/>
+            <column name="name" value="PEP Espagne ??? Maison royale"/>
+            <column name="description" value="Chef de l'??tat, Roi d'Espagne et haute direction de la Maison royale (cat??gorie ES-a)"/>
+            <column name="dataset_name" value="es_pep_royal_house"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://www.casareal.es/"/>
+            <column name="plugin_id" value="es-pep-royal-house"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="API"/>
+            <column name="parameters"><![CDATA[{"url": "https://www.casareal.es/ES/FamiliaReal/"}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="24"/>
+            <column name="licence" value="Donn??es officielles publiques : citer la source"/>
+            <column name="attribution" value="Casa de Su Majestad el Rey"/>
+            <column name="notes"><![CDATA[[DONNÉES LOCALES FIGÉES - À MIGRER VERS CRAWLER RÉSEAU] [DONNÃ‰ES LOCALES FIGÃ‰ES - Ã€ MIGRER VERS CRAWLER RÃ‰SEAU] Roi Felipe VI, Reine Letizia, Princesse des Asturies Leonor, Infante Sof??a, Roi ??m??rite Juan Carlos I et chef de la Maison royale.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-09 16:17:23.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="307"/>
+            <column name="name" value="PEP Espagne ??? Tribunal de Cuentas"/>
+            <column name="description" value="Pr??sidente, conseillers et procureur du Tribunal de Cuentas d'Espagne (cat??gorie ES-d)"/>
+            <column name="dataset_name" value="es_pep_court_of_audit"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://www.tcu.es/"/>
+            <column name="plugin_id" value="es-pep-court-of-audit"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="API"/>
+            <column name="parameters"><![CDATA[{"url": "https://www.tcu.es/tribunal-de-cuentas/es/composicion-organizacion/pleno/"}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="24"/>
+            <column name="licence" value="Donn??es officielles publiques : citer la source"/>
+            <column name="attribution" value="Tribunal de Cuentas del Reino de Espa??a"/>
+            <column name="notes"><![CDATA[[SOURCE EXTERNE LUE À CHAQUE EXÉCUTION] [DONNÃ‰ES LOCALES FIGÃ‰ES - Ã€ MIGRER VERS CRAWLER RÃ‰SEAU] Les 12 conseillers de comptes, la pr??sidente et le procureur pr??s le Tribunal de Cuentas.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-09 16:17:23.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="308"/>
+            <column name="name" value="PEP Espagne ??? Organisations internationales"/>
+            <column name="description" value="Dirigeants des organisations internationales ayant leur si??ge ou accr??dit??es en Espagne (cat??gorie ES-i)"/>
+            <column name="dataset_name" value="es_pep_international_orgs"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://www.unwto.org/"/>
+            <column name="plugin_id" value="es-pep-international-orgs"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="API"/>
+            <column name="parameters" value="{}"/>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="24"/>
+            <column name="licence" value="Donn??es publiques ouvertes : citer la source"/>
+            <column name="attribution" value="ONU Tourisme (UNWTO), SEGIB, OEI, OISS, UpM, OICV-IOSCO, COI"/>
+            <column name="notes"><![CDATA[[DONNÉES LOCALES FIGÉES - À MIGRER VERS CRAWLER RÉSEAU] [DONNÃ‰ES LOCALES FIGÃ‰ES - Ã€ MIGRER VERS CRAWLER RÃ‰SEAU] Secr??taires g??n??raux et directeurs ex??cutifs des grandes organisations internationales bas??es en Espagne.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-09 16:17:23.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="309"/>
+            <column name="name" value="PEP Espagne ??? Ambassadeurs"/>
+            <column name="description" value="Ambassadeurs, chefs de mission diplomatique et repr??sentants permanents de l'Espagne (cat??gorie ES-e)"/>
+            <column name="dataset_name" value="es_pep_diplomats"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://www.exteriores.gob.es/"/>
+            <column name="plugin_id" value="es-pep-diplomats"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="API"/>
+            <column name="parameters" value="{}"/>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="24"/>
+            <column name="licence" value="Donn??es publiques officielles : citer la source"/>
+            <column name="attribution" value="Ministero de Asuntos Exteriores, Uni??n Europea y Cooperaci??n (MAEUEC)"/>
+            <column name="notes"><![CDATA[[DONNÉES LOCALES FIGÉES - À MIGRER VERS CRAWLER RÉSEAU] [DONNÃ‰ES LOCALES FIGÃ‰ES - Ã€ MIGRER VERS CRAWLER RÃ‰SEAU] Ambassadeurs bilat??raux majeurs et repr??sentants permanents aupr??s de l'ONU, UE, OTAN, Conseil de l'Europe.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-09 16:24:18.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="310"/>
+            <column name="name" value="PEP Espagne ??? Forces arm??es"/>
+            <column name="description" value="Chefs d'??tat-major et haut commandement des Forces arm??es espagnoles (cat??gorie ES-e)"/>
+            <column name="dataset_name" value="es_pep_army"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://www.defensa.gob.es/"/>
+            <column name="plugin_id" value="es-pep-army"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="API"/>
+            <column name="parameters" value="{}"/>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="24"/>
+            <column name="licence" value="Donn??es publiques officielles : citer la source"/>
+            <column name="attribution" value="Ministero de Defensa - Fuerzas Armadas Espa??olas"/>
+            <column name="notes"><![CDATA[[DONNÉES LOCALES FIGÉES - À MIGRER VERS CRAWLER RÉSEAU] [DONNÃ‰ES LOCALES FIGÃ‰ES - Ã€ MIGRER VERS CRAWLER RÃ‰SEAU] JEMAD, chefs d'??tat-major de l'Arm??e de terre, de la Marine, de l'Air et directrice g??n??rale de la Guardia Civil.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-09 16:24:18.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="311"/>
+            <column name="name" value="PEP Espagne ??? Partis politiques"/>
+            <column name="description" value="Dirigeants et organes centraux de direction des partis politiques repr??sent??s aux Cortes Generales (cat??gorie ES-h)"/>
+            <column name="dataset_name" value="es_pep_political_parties"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://www.interior.gob.es/"/>
+            <column name="plugin_id" value="es-pep-political-parties"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="API"/>
+            <column name="parameters" value="{}"/>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="24"/>
+            <column name="licence" value="Donn??es publiques ouvertes : citer la source"/>
+            <column name="attribution" value="Registro de Partidos Pol??ticos / Cortes Generales"/>
+            <column name="notes"><![CDATA[[DONNÉES LOCALES FIGÉES - À MIGRER VERS CRAWLER RÉSEAU] [DONNÃ‰ES LOCALES FIGÃ‰ES - Ã€ MIGRER VERS CRAWLER RÃ‰SEAU] Pr??sidents, secr??taires g??n??raux et porte-parole nationaux du PP, PSOE, Vox, Sumar, Podemos, ERC, Junts, EH Bildu, PNV, BNG, CC, UPN.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-09 16:24:18.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="312"/>
+            <column name="name" value="PEP Espagne ??? Syndicats et patronat"/>
+            <column name="description" value="Haute direction des syndicats et des organisations patronales d'Espagne (cat??gorie ES-SIND)"/>
+            <column name="dataset_name" value="es_pep_unions"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://www.ceoe.es/"/>
+            <column name="plugin_id" value="es-pep-unions"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="API"/>
+            <column name="parameters" value="{}"/>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="24"/>
+            <column name="licence" value="Donn??es publiques ouvertes : citer la source"/>
+            <column name="attribution" value="CCOO, UGT, CEOE, CEPYME, CSIF, USO, ATA, ELA, CIG"/>
+            <column name="notes"><![CDATA[[SOURCE EXTERNE LUE À CHAQUE EXÉCUTION] [DONNÃ‰ES LOCALES FIGÃ‰ES - Ã€ MIGRER VERS CRAWLER RÃ‰SEAU] Secr??taires g??n??raux et pr??sidents des principales conf??d??rations syndicales et organisations patronales espagnoles.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-09 16:24:18.000000"/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="182"/>
+            <column name="parser_id" valueNumeric="135"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope" value="Titulaires actuels et anciens nomm??s/cess??s par d??crets royaux publi??s au BOE"/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="183"/>
+            <column name="parser_id" valueNumeric="135"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope" value="Titulaires actuels et anciens nomm??s/cess??s par d??crets royaux publi??s au BOE"/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="184"/>
+            <column name="parser_id" valueNumeric="135"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope" value="Titulaires actuels et anciens nomm??s/cess??s par d??crets royaux publi??s au BOE"/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="185"/>
+            <column name="parser_id" valueNumeric="135"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope" value="Titulaires actuels et anciens nomm??s/cess??s par d??crets royaux publi??s au BOE"/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="186"/>
+            <column name="parser_id" valueNumeric="135"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope" value="Titulaires actuels et anciens nomm??s/cess??s par d??crets royaux publi??s au BOE"/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="187"/>
+            <column name="parser_id" valueNumeric="135"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope" value="Titulaires actuels et anciens nomm??s/cess??s par d??crets royaux publi??s au BOE"/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="191"/>
+            <column name="parser_id" valueNumeric="135"/>
+            <column name="completeness" value="PARTIAL"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope" value="Les nominations de magistrats et présidents du Tribunal constitutionnel publiées au BOE."/>
+            <column name="gaps"><![CDATA[Seuls les changements publiés au BOE depuis le début de l'archive (26 mois) : un titulaire en fonction depuis avant n'y figure pas et doit venir d'un parser d'institution.]]></column>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="192"/>
+            <column name="parser_id" valueNumeric="135"/>
+            <column name="completeness" value="PARTIAL"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope" value="Les nominations de magistrats et de présidents de chambre du Tribunal suprême."/>
+            <column name="gaps"><![CDATA[Seuls les changements publiés au BOE depuis le début de l'archive (26 mois) : un titulaire en fonction depuis avant n'y figure pas et doit venir d'un parser d'institution.]]></column>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="193"/>
+            <column name="parser_id" valueNumeric="135"/>
+            <column name="completeness" value="PARTIAL"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope" value="Les nominations de membres et de dirigeants du CGPJ publiées au BOE."/>
+            <column name="gaps"><![CDATA[Seuls les changements publiés au BOE depuis le début de l'archive (26 mois) : un titulaire en fonction depuis avant n'y figure pas et doit venir d'un parser d'institution.]]></column>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="194"/>
+            <column name="parser_id" valueNumeric="135"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope" value="Pr??sidents de l'Audiencia Nacional et des Tribunaux sup??rieurs de justice nomm??s par d??cret royal au BOE"/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="195"/>
+            <column name="parser_id" valueNumeric="135"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope"><![CDATA[Procureur g??n??ral de l'??tat (Fiscal General) et procureurs de chambre (Fiscales de Sala) nomm??s par d??cret royal au BOE]]></column>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="197"/>
+            <column name="parser_id" valueNumeric="135"/>
+            <column name="completeness" value="PARTIAL"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope" value="Les nominations de président et de conseillers du Tribunal de Cuentas."/>
+            <column name="gaps"><![CDATA[Seuls les changements publiés au BOE depuis le début de l'archive (26 mois) : un titulaire en fonction depuis avant n'y figure pas et doit venir d'un parser d'institution.]]></column>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="198"/>
+            <column name="parser_id" valueNumeric="135"/>
+            <column name="completeness" value="PARTIAL"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope" value="Les désignations d'ambassadeurs et de représentants permanents (« se designa Embajador de España en… »)."/>
+            <column name="gaps"><![CDATA[Seuls les changements publiés au BOE depuis le début de l'archive (26 mois) : un titulaire en fonction depuis avant n'y figure pas et doit venir d'un parser d'institution.]]></column>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="199"/>
+            <column name="parser_id" valueNumeric="135"/>
+            <column name="completeness" value="PARTIAL"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope" value="Les promotions aux grades de général de division et au-dessus, amiraux et chefs d'état-major."/>
+            <column name="gaps"><![CDATA[Seuls les changements publiés au BOE depuis le début de l'archive (26 mois) : un titulaire en fonction depuis avant n'y figure pas et doit venir d'un parser d'institution.]]></column>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="200"/>
+            <column name="parser_id" valueNumeric="135"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope" value="Directeurs g??n??raux de l'administration g??n??rale de l'??tat nomm??s par d??cret royal au BOE"/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="201"/>
+            <column name="parser_id" valueNumeric="135"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope" value="D??l??gu??s du Gouvernement dans les 17 communaut??s autonomes, Ceuta et Melilla nomm??s par d??cret royal au BOE"/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="202"/>
+            <column name="parser_id" valueNumeric="135"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope" value="Secr??taires g??n??raux de l'administration g??n??rale de l'??tat nomm??s par d??cret royal au BOE"/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="203"/>
+            <column name="parser_id" valueNumeric="135"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope" value="Pr??sidents et membres des conseils des organismes r??gulateurs (CNMC, CNMV, CSN, AEPD)"/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="188"/>
+            <column name="parser_id" valueNumeric="136"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope"><![CDATA[Députés en fonction et sortis depuis moins de 24 mois, avec circonscription, groupe parlementaire, formation électorale et dates de mandat.]]></column>
+            <column name="gaps" value="Pas de date de naissance dans l'open data : le rapprochement se fait sur le nom."/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="190"/>
+            <column name="parser_id" valueNumeric="136"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope" value="Anciens d??put??s du Congreso de los Diputados r??pertori??s dans l'open data officiel"/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="196"/>
+            <column name="parser_id" valueNumeric="137"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="0"/>
+            <column name="covered_scope" value="Les 10 membres du Conseil de gouvernement et les 4 de la Commission exécutive."/>
+            <column name="gaps" value="Les anciens membres ne sont pas sur la page : le core les garde 24 mois après leur disparition de la source."/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="216"/>
+            <column name="parser_id" valueNumeric="138"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope" value="Eurodéputés espagnols en fonction et sortis depuis moins de 24 mois, avec date de naissance et mandats."/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="218"/>
+            <column name="parser_id" valueNumeric="138"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope" value="Espagnols exer??ant une fonction PEP de haut rang au sein des institutions de l'UE"/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="217"/>
+            <column name="parser_id" valueNumeric="139"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="0"/>
+            <column name="covered_scope" value="La commissaire espagnole, avec son portrait officiel."/>
+            <column name="gaps" value="Ni date de naissance ni date exacte de prise de fonctions sur la fiche."/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="219"/>
+            <column name="parser_id" valueNumeric="140"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope" value="Conjoints, partenaires, ascendants et descendants directs des PEP espagnoles"/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="220"/>
+            <column name="parser_id" valueNumeric="140"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope" value="Personnes notoirement associ??es et proches partenaires d'affaires de PEP espagnoles"/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="189"/>
+            <column name="parser_id" valueNumeric="141"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope"><![CDATA[L'ensemble des 265 sénateurs élus et désignés de la XVe législature, avec leur identifiant parlementaire, groupe politique et circonscription.]]></column>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="190"/>
+            <column name="parser_id" valueNumeric="141"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope" value="Anciens s??nateurs r??pertori??s sur le portail officiel du S??nat espagnol"/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="203"/>
+            <column name="parser_id" valueNumeric="142"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope" value="Pr??sidents et membres des conseils des organismes r??gulateurs (CNMC, CNMV, CSN, AEPD)"/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="191"/>
+            <column name="parser_id" valueNumeric="143"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope"><![CDATA[Magistrats et présidence du Tribunal constitutionnel (12 membres), Sala de Gobierno du Tribunal suprême et les 20 vocales et présidente du CGPJ.]]></column>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="192"/>
+            <column name="parser_id" valueNumeric="143"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope"><![CDATA[Magistrats et présidence du Tribunal constitutionnel (12 membres), Sala de Gobierno du Tribunal suprême et les 20 vocales et présidente du CGPJ.]]></column>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="193"/>
+            <column name="parser_id" valueNumeric="143"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope" value="Les 20 membres vocaux et la pr??sidente du Conseil g??n??ral du pouvoir judiciaire (CGPJ)"/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="207"/>
+            <column name="parser_id" valueNumeric="144"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope" value="Pr??sidents des 17 gouvernements des communaut??s autonomes espagnoles"/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="208"/>
+            <column name="parser_id" valueNumeric="144"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope" value="Conseillers (consejeros) et membres des ex??cutifs des 17 gouvernements autonomes"/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="210"/>
+            <column name="parser_id" valueNumeric="144"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope" value="Hauts cargos de l'administration des communaut??s autonomes"/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="209"/>
+            <column name="parser_id" valueNumeric="145"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope" value="D??put??s des 17 parlements et assembl??es des communaut??s autonomes espagnoles"/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="212"/>
+            <column name="parser_id" valueNumeric="146"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope" value="Maires des 50 chefs-lieux de province et communes de plus de 50 000 habitants"/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="213"/>
+            <column name="parser_id" valueNumeric="146"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope" value="Conseillers municipaux (concejales) et adjoints des chefs-lieux et communes de plus de 50 000 habitants"/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="205"/>
+            <column name="parser_id" valueNumeric="147"/>
+            <column name="completeness" value="PARTIAL"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope" value="Les présidents et secrétaires généraux des partis représentés au Parlement décrits dans Wikidata."/>
+            <column name="gaps" value="Seulement un à deux dirigeants par parti (Wikidata) : pas les comités exécutifs."/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="215"/>
+            <column name="parser_id" valueNumeric="147"/>
+            <column name="completeness" value="PARTIAL"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope" value="Les dirigeants de CCOO et de l’UGT décrits dans Wikidata."/>
+            <column name="gaps" value="CEOE et Cepyme sans dirigeant daté dans Wikidata ; pas les comités exécutifs."/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="204"/>
+            <column name="parser_id" valueNumeric="148"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope"><![CDATA[Pr??sidents et directeurs g??n??raux des participations strat??giques de l'??tat (SEPI, Navantia, Correos, Renfe, Indra, Enaire, RTVE)]]></column>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="181"/>
+            <column name="parser_id" valueNumeric="306"/>
+            <column name="completeness" value="PARTIAL"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope" value="Roi d'Espagne en exercice, famille royale et direction de la Casa Real"/>
+            <column name="gaps" value="Données locales figées (seed embarqué) – en cours de remplacement par crawler réseau officiel direct"/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="197"/>
+            <column name="parser_id" valueNumeric="307"/>
+            <column name="completeness" value="PARTIAL"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope" value="Les conseillers de comptes, la pr??sidence et le procureur pr??s le Tribunal de Cuentas"/>
+            <column name="gaps" value="Source officielle lue en direct ; la page ne publie qu'une partie des personnes visées (hauts responsables seulement)"/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="206"/>
+            <column name="parser_id" valueNumeric="308"/>
+            <column name="completeness" value="PARTIAL"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope"><![CDATA[Secr??taires g??n??raux et directeurs ex??cutifs des organisations internationales en Espagne (ONU Tourisme, SEGIB, OEI, OISS, UpM, IOSCO, COI)]]></column>
+            <column name="gaps" value="Données locales figées (seed embarqué) – en cours de remplacement par crawler réseau officiel direct"/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="198"/>
+            <column name="parser_id" valueNumeric="309"/>
+            <column name="completeness" value="PARTIAL"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope" value="Ambassadeurs bilat??raux majeurs et repr??sentants permanents de l'Espagne ?? l'??tranger"/>
+            <column name="gaps" value="Données locales figées (seed embarqué) – en cours de remplacement par crawler réseau officiel direct"/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="199"/>
+            <column name="parser_id" valueNumeric="310"/>
+            <column name="completeness" value="PARTIAL"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope" value="JEMAD, JEME, AJEMA, JEMA, Guardia Civil et hauts commandants d'op??rations"/>
+            <column name="gaps" value="Données locales figées (seed embarqué) – en cours de remplacement par crawler réseau officiel direct"/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="205"/>
+            <column name="parser_id" valueNumeric="311"/>
+            <column name="completeness" value="PARTIAL"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope" value="Pr??sidents et secr??taires g??n??raux de tous les partis repr??sent??s au Congreso et Senado"/>
+            <column name="gaps" value="Données locales figées (seed embarqué) – en cours de remplacement par crawler réseau officiel direct"/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="211"/>
+            <column name="parser_id" valueNumeric="311"/>
+            <column name="completeness" value="PARTIAL"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope" value="Dirigeants et secr??taires g??n??raux r??gionaux des partis politiques"/>
+            <column name="gaps" value="Données locales figées (seed embarqué) – en cours de remplacement par crawler réseau officiel direct"/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="214"/>
+            <column name="parser_id" valueNumeric="311"/>
+            <column name="completeness" value="PARTIAL"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope" value="Dirigeants locaux des partis politiques dans les principales municipalit??s"/>
+            <column name="gaps" value="Données locales figées (seed embarqué) – en cours de remplacement par crawler réseau officiel direct"/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="215"/>
+            <column name="parser_id" valueNumeric="312"/>
+            <column name="completeness" value="PARTIAL"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope" value="Secr??taires g??n??raux et pr??sidents de CCOO, UGT, CEOE, CEPYME, CSIF, USO, ATA, ELA, CIG"/>
+            <column name="gaps" value="Source officielle lue en direct ; la page ne publie qu'une partie des personnes visées (hauts responsables seulement)"/>
+        </insert>
+    </changeSet>
+</databaseChangeLog>

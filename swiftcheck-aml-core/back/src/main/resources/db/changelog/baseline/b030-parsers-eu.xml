@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="baseline-parsers-eu" author="swiftcheck-baseline">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM parser WHERE dataset_name IN ('eu_sanctions')</sqlCheck>
+        </preConditions>
+        <comment>Parsers « eu_* » (1) et leurs liens aux fonctions PEP (0)</comment>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="1"/>
+            <column name="name" value="Sanctions financières UE"/>
+            <column name="description" value="Liste consolidée des sanctions financières de l'Union européenne"/>
+            <column name="dataset_name" value="eu_sanctions"/>
+            <column name="list_type" value="AML"/>
+            <column name="website_url" value="https://data.europa.eu/data/datasets/consolidated-list-of-persons-groups-and-entities-subject-to-eu-financial-sanctions"/>
+            <column name="plugin_id" value="eu-parser"/>
+            <column name="data_source_type" value="HTTP_FILE"/>
+            <column name="parser_kind" value="OPEN_DATA_FILE"/>
+            <column name="source_location" value="https://webgate.ec.europa.eu/fsd/fsf/public/files/xmlFullSanctionsList_1_1/content?token=dG9rZW4tMjAxNw"/>
+            <column name="refresh_hours" valueNumeric="1"/>
+            <column name="retention_months" valueNumeric="0"/>
+            <column name="licence" value="Réutilisation autorisée (décision 2011/833/UE)"/>
+            <column name="attribution" value="© Union européenne"/>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-10-26 21:15:29.000000"/>
+        </insert>
+    </changeSet>
+</databaseChangeLog>

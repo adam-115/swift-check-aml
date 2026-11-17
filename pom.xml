@@ -203,6 +203,8 @@
         <module>swiftcheck-aml-plugins/pep/lithuania/swiftcheck-aml-lt-pep-eu-commission</module>
         <module>swiftcheck-aml-plugins/pep/czechia/swiftcheck-aml-cz-pep-europarl</module>
         <module>swiftcheck-aml-plugins/pep/czechia/swiftcheck-aml-cz-pep-eu-commission</module>
+        <module>swiftcheck-aml-plugins/pep/czechia/swiftcheck-aml-cz-pep-psp</module>
+        <module>swiftcheck-aml-plugins/pep/czechia/swiftcheck-aml-cz-pep-institutions</module>
         <module>swiftcheck-aml-plugins/pep/poland/swiftcheck-aml-pl-pep-europarl</module>
         <module>swiftcheck-aml-plugins/pep/poland/swiftcheck-aml-pl-pep-eu-commission</module>
         <module>swiftcheck-aml-plugins/pep/finland/swiftcheck-aml-fi-pep-europarl</module>

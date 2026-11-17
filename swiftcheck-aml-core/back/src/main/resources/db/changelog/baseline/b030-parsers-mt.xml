@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="baseline-parsers-mt" author="swiftcheck-baseline">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM parser WHERE dataset_name IN ('mt_pep_parliament', 'mt_pep_institutions', 'mt_pep_europarl', 'mt_pep_eu_commission')</sqlCheck>
+        </preConditions>
+        <comment>Parsers « mt_* » (4) et leurs liens aux fonctions PEP (8)</comment>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="292"/>
+            <column name="name" value="PEP Malte – Chambre des représentants"/>
+            <column name="description"><![CDATA[Députés en fonction (15e législature), députés de la législature précédente terminée depuis moins de 12 mois et président de la Chambre, d'après parlament.mt (catégorie MT-b)]]></column>
+            <column name="dataset_name" value="mt_pep_parliament"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://parlament.mt/en/15th-leg/political-groups/"/>
+            <column name="plugin_id" value="mt-pep-parliament"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="WEB_PAGE"/>
+            <column name="parameters"><![CDATA[{"currentUrl": "https://parlament.mt/en/15th-leg/political-groups/", "previousUrl": "https://parlament.mt/en/14th-leg/political-groups/", "speakerUrl": "https://parlament.mt/en/15th-leg/political-groups/speaker-abela-carmelo/", "monthsAfterEnd": "12"}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="Site officiel du Parlement de Malte : citer la source"/>
+            <column name="attribution" value="Parlament ta' Malta, parlament.mt"/>
+            <column name="notes"><![CDATA[Trois pages (1 seconde entre les appels) : groupes parlementaires de la 15e législature (79 députés) et de la 14e (79, dont 56 réélus), fiche du président de la Chambre. Identifiant = adresse de la fiche, stable d'une législature à l'autre : une personne réélue n'est écrite qu'une fois. Fonctions de la liste (Premier ministre, whips, chef de l'opposition) en description ; le Premier ministre reçoit un poste distinct. Ni naissance ni date de fin (fiches individuelles non lues). La 14e législature est gardée tant que son année de fin (2026) est celle de la fenêtre de rétention ou plus récente. Le site est derrière Cloudflare et répond par moments 403 : le parser échoue alors avec le code HTTP.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-09 00:21:52.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="293"/>
+            <column name="name" value="PEP Malte – Président et Auditeur général"/>
+            <column name="description"><![CDATA[Présidente de la République (president.gov.mt) et Auditeur général avec son adjoint (nao.gov.mt) (catégories MT-a et MT-e)]]></column>
+            <column name="dataset_name" value="mt_pep_institutions"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://nao.gov.mt/about-us/senior-officials/"/>
+            <column name="plugin_id" value="mt-pep-institutions"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="WEB_PAGE"/>
+            <column name="parameters"><![CDATA[{"presidentUrl": "https://president.gov.mt/biography/", "auditUrl": "https://nao.gov.mt/about-us/senior-officials/"}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="Sites officiels : citer la source"/>
+            <column name="attribution" value="Office of the President of Malta ; National Audit Office, Malta"/>
+            <column name="notes"><![CDATA[Deux pages : la biographie de la présidente Myriam Spiteri Debono et la liste des hauts responsables du NAO (Auditeur général Charles Deguara, adjoint Noel Camilleri ; les deux adjoints à l'Auditeur général ne sont pas repris). Ni naissance ni dates de fonction. Les deux sites sont derrière Cloudflare et répondent par moments 403 : le parser échoue alors avec le code HTTP.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-09 00:21:52.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="294"/>
+            <column name="name" value="PEP Malte – Députés européens"/>
+            <column name="description"><![CDATA[Les députés au Parlement européen élus à Malte, en fonction et sortis depuis moins de 12 mois, avec naissance et dates de mandat (catégorie MT-EU)]]></column>
+            <column name="dataset_name" value="mt_pep_europarl"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://data.europarl.europa.eu/"/>
+            <column name="plugin_id" value="mt-pep-europarl"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="API"/>
+            <column name="parameters"><![CDATA[{"currentUrl": "https://data.europarl.europa.eu/api/v2/meps/show-current?country-of-representation=MT&format=application%2Fld%2Bjson", "termUrl": "https://data.europarl.europa.eu/api/v2/meps?country-of-representation=MT&parliamentary-term=10&limit=500&format=application%2Fld%2Bjson", "detailUrl": "https://data.europarl.europa.eu/api/v2/meps/{id}?format=application%2Fld%2Bjson", "delayMs": "400", "monthsAfterEnd": "12", "wikidataEndpoint": ""}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="Réutilisation autorisée en citant la source (Parlement européen)"/>
+            <column name="attribution" value="Parlement européen, data.europarl.europa.eu"/>
+            <column name="notes"><![CDATA[Reprise de nl_pep_europarl. Mesure du 09/11/2026 : 6 personnes en fonction, toutes avec date de naissance. L'API limite le débit (HTTP 429) : le plugin attend puis réessaie. Pas de photos (Wikidata non utilisé). termUrl contient le numéro de législature (10) : à changer en 2029.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-09 00:21:52.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="295"/>
+            <column name="name" value="PEP Malte – Commissaire européen"/>
+            <column name="description" value="Le membre maltais de la Commission européenne, d'après sa fiche officielle (catégorie MT-EU)"/>
+            <column name="dataset_name" value="mt_pep_eu_commission"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://commission.europa.eu/about/organisation/college-commissioners_en"/>
+            <column name="plugin_id" value="mt-pep-eu-commission"/>
+            <column name="data_source_type" value="HTTP_FILE"/>
+            <column name="parser_kind" value="WEB_PAGE"/>
+            <column name="source_location" value="https://commission.europa.eu/about/organisation/college-commissioners/glenn-micallef_en"/>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="Réutilisation autorisée en citant la source (avis juridique de la Commission européenne)"/>
+            <column name="attribution" value="Commission européenne, commission.europa.eu"/>
+            <column name="notes"><![CDATA[Reprise de nl_pep_eu_commission. À chaque nouvelle Commission, remplacer l'adresse par la fiche du commissaire maltais. Une fiche qui ne présente pas un commissaire maltais est refusée.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-09 00:21:52.000000"/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="842"/>
+            <column name="parser_id" valueNumeric="292"/>
+            <column name="completeness" value="PARTIAL"/>
+            <column name="includes_former" valueNumeric="0"/>
+            <column name="covered_scope"><![CDATA[Le Premier ministre Robert Abela (poste distinct) ; les autres ministres figurent comme députés, sans leur fonction ministérielle.]]></column>
+            <column name="gaps" value="Ministres et secrétaires parlementaires non identifiés comme tels : gov.mt est protégé par Cloudflare."/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="845"/>
+            <column name="parser_id" valueNumeric="292"/>
+            <column name="completeness" value="PARTIAL"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope"><![CDATA[Les 79 députés de la 15e législature et les 79 de la 14e (terminée en 2026), par leur nom, avec groupe et fonction au Parlement.]]></column>
+            <column name="gaps" value="Ni naissance ni date de fin de mandat ; législature 2022-2026 gardée à l'année près."/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="846"/>
+            <column name="parser_id" valueNumeric="292"/>
+            <column name="completeness" value="PARTIAL"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope"><![CDATA[Les 79 députés de la 15e législature et les 79 de la 14e (terminée en 2026), par leur nom, avec groupe et fonction au Parlement.]]></column>
+            <column name="gaps" value="Ni naissance ni date de fin de mandat ; législature 2022-2026 gardée à l'année près."/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="847"/>
+            <column name="parser_id" valueNumeric="292"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="0"/>
+            <column name="covered_scope" value="Le président de la Chambre en fonction (élu le 20/06/2026)."/>
+            <column name="gaps" value="Ses prédécesseurs ne sont pas couverts."/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="841"/>
+            <column name="parser_id" valueNumeric="293"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="0"/>
+            <column name="covered_scope" value="La présidente de la République en exercice."/>
+            <column name="gaps" value="Les anciens présidents ne sont pas couverts ; pas de naissance."/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="850"/>
+            <column name="parser_id" valueNumeric="293"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="0"/>
+            <column name="covered_scope" value="L'Auditeur général et son adjoint en fonction."/>
+            <column name="gaps" value="Les anciens titulaires ne sont pas couverts ; pas de naissance."/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="858"/>
+            <column name="parser_id" valueNumeric="294"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope"><![CDATA[Les 6 députés européens élus à Malte et ceux sortis depuis moins de 12 mois, avec naissance, genre, groupe et dates de mandat.]]></column>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="859"/>
+            <column name="parser_id" valueNumeric="295"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="0"/>
+            <column name="covered_scope"><![CDATA[Glenn Micallef, commissaire chargé de l'équité intergénérationnelle, de la jeunesse, de la culture et du sport (2024-2029).]]></column>
+            <column name="gaps" value="Ni date ni lieu de naissance sur la fiche."/>
+        </insert>
+    </changeSet>
+</databaseChangeLog>

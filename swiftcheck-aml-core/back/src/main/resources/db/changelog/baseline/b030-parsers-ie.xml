@@ -1,0 +1,315 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="baseline-parsers-ie" author="swiftcheck-baseline">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM parser WHERE dataset_name IN ('ie_pep_parliament', 'ie_pep_europarl', 'ie_pep_eu_commission', 'ie_pep_president', 'ie_pep_parliament_history', 'ie_pep_courts', 'ie_pep_central_bank', 'ie_pep_councillors', 'ie_pep_state_enterprises', 'ie_pep_defence_forces')</sqlCheck>
+        </preConditions>
+        <comment>Parsers « ie_* » (10) et leurs liens aux fonctions PEP (14)</comment>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="182"/>
+            <column name="name" value="PEP Irlande – Oireachtas et Gouvernement"/>
+            <column name="description"><![CDATA[Députés (Dáil), sénateurs (Seanad), Taoiseach, ministres et ministres d'État, d'après l'API ouverte de l'Oireachtas, en fonction et sortis depuis moins de 12 mois (catégories IE-a et IE-b)]]></column>
+            <column name="dataset_name" value="ie_pep_parliament"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://api.oireachtas.ie/"/>
+            <column name="plugin_id" value="ie-pep-parliament"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="API"/>
+            <column name="parameters"><![CDATA[{"apiUrl": "https://api.oireachtas.ie/v1", "monthsAfterEnd": "12", "delayMs": "1000"}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="Licence Oireachtas (PSI) / Creative Commons Attribution 4.0 : citer la source"/>
+            <column name="attribution" value="Houses of the Oireachtas, api.oireachtas.ie"/>
+            <column name="notes"><![CDATA[Environ 3 appels : liste des chambres, puis les membres du Dáil et du Seanad en cours (et des chambres terminées depuis moins de 12 mois). Fonctions (Taoiseach, ministres, ministres d'État, Ceann Comhairle) avec dates. L'API ne donne ni date de naissance ni sexe. Les décédés sont écartés.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-05 18:04:39.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="183"/>
+            <column name="name" value="PEP Irlande – Députés européens"/>
+            <column name="description"><![CDATA[Les députés au Parlement européen élus en Irlande, en fonction et sortis depuis moins de 12 mois, avec naissance et dates de mandat (catégorie IE-b)]]></column>
+            <column name="dataset_name" value="ie_pep_europarl"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://data.europarl.europa.eu/"/>
+            <column name="plugin_id" value="ie-pep-europarl"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="API"/>
+            <column name="parameters"><![CDATA[{"currentUrl": "https://data.europarl.europa.eu/api/v2/meps/show-current?country-of-representation=IE&format=application%2Fld%2Bjson", "termUrl": "https://data.europarl.europa.eu/api/v2/meps?country-of-representation=IE&parliamentary-term=10&limit=500&format=application%2Fld%2Bjson", "detailUrl": "https://data.europarl.europa.eu/api/v2/meps/{id}?format=application%2Fld%2Bjson", "delayMs": "400", "monthsAfterEnd": "12"}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="Réutilisation autorisée en citant la source (Parlement européen)"/>
+            <column name="attribution" value="Parlement européen, data.europarl.europa.eu"/>
+            <column name="notes"><![CDATA[Reprise de it_pep_europarl. Une fiche par député (16 appels). L'API limite le débit (HTTP 429) : le plugin attend puis réessaie. Photos : Wikimedia Commons (images seulement).]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-05 18:04:39.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="184"/>
+            <column name="name" value="PEP Irlande – Commissaire européen"/>
+            <column name="description" value="Le membre irlandais de la Commission européenne, d'après sa fiche officielle (catégorie IE-EU)"/>
+            <column name="dataset_name" value="ie_pep_eu_commission"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://commission.europa.eu/about/organisation/college-commissioners_en"/>
+            <column name="plugin_id" value="ie-pep-eu-commission"/>
+            <column name="data_source_type" value="HTTP_FILE"/>
+            <column name="parser_kind" value="WEB_PAGE"/>
+            <column name="source_location" value="https://commission.europa.eu/about/organisation/college-commissioners/michael-mcgrath_en"/>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="Réutilisation autorisée en citant la source (avis juridique de la Commission européenne)"/>
+            <column name="attribution" value="Commission européenne, commission.europa.eu"/>
+            <column name="notes"><![CDATA[Reprise de it_pep_eu_commission. À chaque nouvelle Commission, remplacer l'adresse par la fiche du commissaire irlandais. Une fiche qui ne présente pas un commissaire irlandais est refusée.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-05 18:04:39.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="185"/>
+            <column name="name" value="PEP Irlande – Président d'Irlande"/>
+            <column name="description" value="Le Président d'Irlande en fonction, d'après sa page officielle sur president.ie (catégorie IE-a)"/>
+            <column name="dataset_name" value="ie_pep_president"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://president.ie/"/>
+            <column name="plugin_id" value="ie-pep-president"/>
+            <column name="data_source_type" value="HTTP_FILE"/>
+            <column name="parser_kind" value="WEB_PAGE"/>
+            <column name="source_location" value="https://president.ie/the-president/catherine-connolly"/>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="Site officiel de la Présidence d'Irlande : citer la source"/>
+            <column name="attribution" value="Áras an Uachtaráin, president.ie"/>
+            <column name="notes"><![CDATA[Le nom vient du titre de la page, la période du texte « 2025 - Present Day » ; une page d'ancien Président est refusée. Ni date ni lieu de naissance. À chaque nouveau Président, remplacer l'adresse (menu « President in Office » du site) : le sortant reste publié 12 mois par la rétention du cœur.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-05 18:04:39.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="186"/>
+            <column name="name" value="PEP Irlande – Oireachtas, historique de 50 ans"/>
+            <column name="description"><![CDATA[Anciens députés, sénateurs et ministres des 50 dernières années, d'après l'API ouverte de l'Oireachtas (couche étendue de ie_pep_parliament)]]></column>
+            <column name="dataset_name" value="ie_pep_parliament_history"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://api.oireachtas.ie/"/>
+            <column name="plugin_id" value="ie-pep-parliament"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="API"/>
+            <column name="parameters"><![CDATA[{"apiUrl": "https://api.oireachtas.ie/v1", "monthsAfterEnd": "600", "delayMs": "1000"}]]></column>
+            <column name="refresh_hours" valueNumeric="720"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="Licence Oireachtas (PSI) / Creative Commons Attribution 4.0 : citer la source"/>
+            <column name="attribution" value="Houses of the Oireachtas, api.oireachtas.ie"/>
+            <column name="notes"><![CDATA[Même plugin et mêmes identifiants (pId) que ie_pep_parliament : les personnes en fonction y sont aussi. Environ 30 chambres, 45 secondes. Environ 950 personnes pour 788 chez OpenSanctions. Les décès ne sont écartés que si l'API donne la date : des personnes décédées peuvent subsister. Au-delà des 12 mois de vigilance légale : à activer selon l'approche par les risques.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-05 18:04:39.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="187"/>
+            <column name="name" value="PEP Irlande – Hautes juridictions"/>
+            <column name="description"><![CDATA[Juges de la Supreme Court, de la Court of Appeal et de la High Court, d'après la page officielle du Courts Service (catégorie IE-d)]]></column>
+            <column name="dataset_name" value="ie_pep_courts"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://www.courts.ie/"/>
+            <column name="plugin_id" value="ie-pep-courts"/>
+            <column name="data_source_type" value="HTTP_FILE"/>
+            <column name="parser_kind" value="WEB_PAGE"/>
+            <column name="source_location" value="https://www.courts.ie/judges"/>
+            <column name="parameters"><![CDATA[{"courts": "Supreme Court,Court of Appeal,High Court"}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="Site officiel du Courts Service : citer la source"/>
+            <column name="attribution" value="Courts Service of Ireland, www.courts.ie"/>
+            <column name="notes"><![CDATA[Page découpée en sections « Judges of the … » ; Chief Justice, présidents de cours et membres de droit repérés. Ni dates ni naissance : seuls les juges en fonction sont nommés (le cœur garde les partis pendant la rétention). Circuit Court et District Court non reprises (paramètre courts pour les ajouter).]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-05 18:04:39.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="188"/>
+            <column name="name" value="PEP Irlande – Banque centrale"/>
+            <column name="description"><![CDATA[Membres de la Commission de la Banque centrale d'Irlande : Governor, Deputy Governors, Secretary General du Department of Finance et membres nommés (catégorie IE-e)]]></column>
+            <column name="dataset_name" value="ie_pep_central_bank"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://www.centralbank.ie/"/>
+            <column name="plugin_id" value="ie-pep-central-bank"/>
+            <column name="data_source_type" value="HTTP_FILE"/>
+            <column name="parser_kind" value="WEB_PAGE"/>
+            <column name="source_location" value="https://www.centralbank.ie/about/who-we-are/the-commission"/>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="Site officiel de la Banque centrale d'Irlande : citer la source"/>
+            <column name="attribution" value="Central Bank of Ireland, www.centralbank.ie"/>
+            <column name="notes"><![CDATA[Dix membres (blocs « spotlight-content »). Le Secretary of the Central Bank n'est pas membre de la Commission et n'est pas repris. Ni dates ni naissance.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-05 18:04:39.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="189"/>
+            <column name="name" value="PEP Irlande – Conseillers locaux (Dublin)"/>
+            <column name="description"><![CDATA[Conseillers de Dublin City Council et de Dún Laoghaire-Rathdown County Council, d'après l'open data des conseils (couche étendue, catégorie IE-AMLR)]]></column>
+            <column name="dataset_name" value="ie_pep_councillors"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://data.gov.ie/"/>
+            <column name="plugin_id" value="ie-pep-councillors"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="OPEN_DATA_FILE"/>
+            <column name="parameters"><![CDATA[{"sources": "Dublin City Council|https://data.smartdublin.ie/dataset/3b96f6f0-3873-4ea9-94a2-646bbd3db113/resource/95e8a95c-4d48-4164-9fb1-e02fc8026893/download/councillor_details_dcc.csv;Dún Laoghaire-Rathdown|https://data.smartdublin.ie/dataset/ddda5519-652c-4cb8-9dd0-66068e727d8d/resource/a03cc5eb-0893-4e0d-bf3c-55fc203a7082/download/councillors_dlr.csv"}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="Licences des jeux sur data.gov.ie / Smart Dublin : citer la source"/>
+            <column name="attribution" value="Dublin City Council et Dún Laoghaire-Rathdown County Council (Smart Dublin)"/>
+            <column name="notes"><![CDATA[103 conseillers (63 + 40). Fingal et South Dublin ne publient pas de liste d'élus en CSV ; les 27 autres conseils non plus en open data. Hors liste de l'article 37 : à activer selon l'approche par les risques. Un conseil de plus : ajouter « Nom|adresse » au paramètre sources.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-05 18:04:40.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="190"/>
+            <column name="name" value="PEP Irlande – Entreprises d'État"/>
+            <column name="description"><![CDATA[Membres du conseil d'administration d'ESB, d'Uisce Éireann et de Bord na Móna, d'après les pages officielles des entreprises (catégorie IE-g)]]></column>
+            <column name="dataset_name" value="ie_pep_state_enterprises"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://esb.ie/"/>
+            <column name="plugin_id" value="ie-pep-state-enterprises"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="WEB_PAGE"/>
+            <column name="parameters"><![CDATA[{"entities": "esb|ESB|https://esb.ie/who-we-are/esb-management-team/esb-board-members;uisce_eireann|Uisce Éireann|https://www.water.ie/about/about-irish-water/corporate-governance;bord_na_mona|Bord na Móna|https://www.bnm.ie/who-we-are/our-board/", "delayMs": "1500"}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="Sites officiels des entreprises : citer la source"/>
+            <column name="attribution" value="ESB, Uisce Éireann, Bord na Móna"/>
+            <column name="notes"><![CDATA[34 administrateurs (12 + 10 + 12). Un extracteur par site (clés esb, uisce_eireann, bord_na_mona) : une autre entreprise demande un nouvel extracteur. Non couverts : An Post (contrôle Radware), RTÉ (403) — non contournés — ; EirGrid, daa, Coillte, CIÉ : pas de page de conseil lisible.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-05 18:04:40.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="191"/>
+            <column name="name" value="PEP Irlande – Defence Forces"/>
+            <column name="description"><![CDATA[Officiers généraux et amiraux des Defence Forces, d'après la liste des Designated Public Officials du site officiel (catégorie IE-f)]]></column>
+            <column name="dataset_name" value="ie_pep_defence_forces"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://www.military.ie/"/>
+            <column name="plugin_id" value="ie-pep-defence-forces"/>
+            <column name="data_source_type" value="HTTP_FILE"/>
+            <column name="parser_kind" value="WEB_PAGE"/>
+            <column name="source_location" value="https://www.military.ie/en/public-information/designated-public-officials/"/>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="Site officiel des Defence Forces : citer la source"/>
+            <column name="attribution" value="Óglaigh na hÉireann / Defence Forces, www.military.ie"/>
+            <column name="notes"><![CDATA[Tableau RANK / NAME / APPT publié au titre de la loi sur le lobbying : 12 officiers (chef d'état-major, adjoints, généraux de brigade, commodore). Les Assistant Secretary (civils du ministère) sont écartés. Ni dates ni naissance.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-05 18:04:40.000000"/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="344"/>
+            <column name="parser_id" valueNumeric="182"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope"><![CDATA[Taoiseach, ministres et ministres d'État en fonction ou sortis depuis moins de 12 mois, avec dates de nomination et de fin, d'après les fonctions du membre à l'Oireachtas.]]></column>
+            <column name="gaps"><![CDATA[Seulement les membres de l'Oireachtas (tous les ministres irlandais le sont). Pas de fonction « Tánaiste » distincte dans l'API.]]></column>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="345"/>
+            <column name="parser_id" valueNumeric="182"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope"><![CDATA[Taoiseach, ministres et ministres d'État en fonction ou sortis depuis moins de 12 mois, avec dates de nomination et de fin, d'après les fonctions du membre à l'Oireachtas.]]></column>
+            <column name="gaps"><![CDATA[Seulement les membres de l'Oireachtas (tous les ministres irlandais le sont). Pas de fonction « Tánaiste » distincte dans l'API.]]></column>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="346"/>
+            <column name="parser_id" valueNumeric="182"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope"><![CDATA[Tous les membres du Dáil et du Seanad en fonction et sortis depuis moins de 12 mois, avec parti, circonscription ou panel et dates de mandat.]]></column>
+            <column name="gaps" value="Ni date de naissance ni sexe dans l'API."/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="347"/>
+            <column name="parser_id" valueNumeric="182"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope"><![CDATA[Tous les membres du Dáil et du Seanad en fonction et sortis depuis moins de 12 mois, avec parti, circonscription ou panel et dates de mandat.]]></column>
+            <column name="gaps" value="Ni date de naissance ni sexe dans l'API."/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="348"/>
+            <column name="parser_id" valueNumeric="182"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope"><![CDATA[Tous les membres du Dáil et du Seanad en fonction et sortis depuis moins de 12 mois, avec parti, circonscription ou panel et dates de mandat.]]></column>
+            <column name="gaps" value="Ni date de naissance ni sexe dans l'API."/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="349"/>
+            <column name="parser_id" valueNumeric="183"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope"><![CDATA[Les 14 députés européens élus en Irlande et ceux sortis depuis moins de 12 mois, avec naissance, genre, groupe et dates de mandat.]]></column>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="357"/>
+            <column name="parser_id" valueNumeric="184"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="0"/>
+            <column name="covered_scope"><![CDATA[Michael McGrath, commissaire chargé de la démocratie, de la justice, de l'État de droit et de la protection des consommateurs (2024-2029).]]></column>
+            <column name="gaps" value="Ni date ni lieu de naissance sur la fiche."/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="343"/>
+            <column name="parser_id" valueNumeric="185"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="0"/>
+            <column name="covered_scope" value="Le Président d'Irlande en fonction (Catherine Connolly depuis 2025)."/>
+            <column name="gaps" value="Pas de date ni de lieu de naissance ; année de début seulement."/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="348"/>
+            <column name="parser_id" valueNumeric="186"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope"><![CDATA[Tous les membres de l'Oireachtas des 50 dernières années (Dáil et Seanad) avec dates de mandat, parti, circonscription et fonctions ministérielles.]]></column>
+            <column name="gaps" value="Ni date de naissance ni sexe ; décès non toujours renseignés."/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="351"/>
+            <column name="parser_id" valueNumeric="187"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="0"/>
+            <column name="covered_scope"><![CDATA[Juges en fonction de la Supreme Court, de la Court of Appeal et de la High Court, avec Chief Justice et présidents de cours.]]></column>
+            <column name="gaps" value="Pas de dates ni de naissance ; les anciens juges ne sont pas nommés par la source."/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="352"/>
+            <column name="parser_id" valueNumeric="188"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="0"/>
+            <column name="covered_scope" value="Commission de la Banque centrale d'Irlande, gouverneur et directeurs exécutifs"/>
+            <column name="gaps" value="Comptroller and Auditor General non couvert (audgen.gov.ie ne répond pas) ; pas de dates ni de naissance."/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="374"/>
+            <column name="parser_id" valueNumeric="189"/>
+            <column name="completeness" value="PARTIAL"/>
+            <column name="includes_former" valueNumeric="0"/>
+            <column name="covered_scope" value="Les 103 conseillers de Dublin City Council et de Dún Laoghaire-Rathdown, avec parti et circonscription."/>
+            <column name="gaps" value="Seuls 2 des 31 conseils publient leur liste en CSV ; pas de dates ni de naissance."/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="355"/>
+            <column name="parser_id" valueNumeric="190"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="0"/>
+            <column name="covered_scope" value="Organes de direction des principales entreprises publiques d'État irlandaises"/>
+            <column name="gaps"><![CDATA[An Post, RTÉ, EirGrid, daa, Coillte, CIÉ et les autres entreprises détenues par l'État ne sont pas couverts ; pas de dates ni de naissance.]]></column>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="354"/>
+            <column name="parser_id" valueNumeric="191"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="0"/>
+            <column name="covered_scope" value="Les 12 officiers généraux et amiraux désignés : chef d'état-major, adjoints, généraux de brigade et commodore."/>
+            <column name="gaps" value="Pas de dates ni de naissance ; les anciens titulaires ne sont pas nommés par la source."/>
+        </insert>
+    </changeSet>
+</databaseChangeLog>

@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="baseline-parsers-hr" author="swiftcheck-baseline">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM parser WHERE dataset_name IN ('hr_pep_europarl', 'hr_pep_eu_commission', 'hr_pep_parliament', 'hr_pep_government', 'hr_pep_institutions')</sqlCheck>
+        </preConditions>
+        <comment>Parsers « hr_* » (5) et leurs liens aux fonctions PEP (7)</comment>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="264"/>
+            <column name="name" value="PEP Croatie – Députés européens"/>
+            <column name="description"><![CDATA[Les députés au Parlement européen élus en Croatie, en fonction et sortis depuis moins de 12 mois, avec naissance et dates de mandat (catégorie HR-EU)]]></column>
+            <column name="dataset_name" value="hr_pep_europarl"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://data.europarl.europa.eu/"/>
+            <column name="plugin_id" value="hr-pep-europarl"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="API"/>
+            <column name="parameters"><![CDATA[{"currentUrl": "https://data.europarl.europa.eu/api/v2/meps/show-current?country-of-representation=HR&format=application%2Fld%2Bjson", "termUrl": "https://data.europarl.europa.eu/api/v2/meps?country-of-representation=HR&parliamentary-term=10&limit=500&format=application%2Fld%2Bjson", "detailUrl": "https://data.europarl.europa.eu/api/v2/meps/{id}?format=application%2Fld%2Bjson", "delayMs": "400", "monthsAfterEnd": "12", "wikidataEndpoint": ""}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="Réutilisation autorisée en citant la source (Parlement européen)"/>
+            <column name="attribution" value="Parlement européen, data.europarl.europa.eu"/>
+            <column name="notes"><![CDATA[Reprise de nl_pep_europarl. Mesure du 07/11/2026 : 12 députés publiés, 8 avec date de naissance (le Parlement ne la publie pas pour les autres), 1 sorti avant la fenêtre de 12 mois (écarté). Une fiche par député. L'API limite le débit (HTTP 429) : le plugin attend puis réessaie. Pas de photos (Wikidata non utilisé). termUrl contient le numéro de législature (10) : à changer en 2029.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-07 00:15:44.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="265"/>
+            <column name="name" value="PEP Croatie – Commissaire européen"/>
+            <column name="description" value="Le membre croate de la Commission européenne, d'après sa fiche officielle (catégorie HR-EU)"/>
+            <column name="dataset_name" value="hr_pep_eu_commission"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://commission.europa.eu/about/organisation/college-commissioners_en"/>
+            <column name="plugin_id" value="hr-pep-eu-commission"/>
+            <column name="data_source_type" value="HTTP_FILE"/>
+            <column name="parser_kind" value="WEB_PAGE"/>
+            <column name="source_location" value="https://commission.europa.eu/about/organisation/college-commissioners/dubravka-suica_en"/>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="Réutilisation autorisée en citant la source (avis juridique de la Commission européenne)"/>
+            <column name="attribution" value="Commission européenne, commission.europa.eu"/>
+            <column name="notes"><![CDATA[Reprise de nl_pep_eu_commission. À chaque nouvelle Commission, remplacer l'adresse par la fiche du commissaire croate. Une fiche qui ne présente pas un commissaire croate est refusée.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-07 00:15:44.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="268"/>
+            <column name="name" value="PEP Croatie – Sabor"/>
+            <column name="description" value="Représentants du Sabor de la 11e législature, d'après la liste officielle sabor.hr (catégorie HR-b)"/>
+            <column name="dataset_name" value="hr_pep_parliament"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://www.sabor.hr/hr/zastupnici"/>
+            <column name="plugin_id" value="hr-pep-sabor"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="WEB_PAGE"/>
+            <column name="parameters"><![CDATA[{"listUrl": "https://www.sabor.hr/hr/zastupnici", "delayMs": "1500"}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="Site officiel du Sabor : citer la source (conditions de réutilisation à vérifier sur sabor.hr)"/>
+            <column name="attribution" value="Hrvatski sabor, www.sabor.hr"/>
+            <column name="notes"><![CDATA[Tableau paginé de 50 lignes : 3 pages, 150 représentants actifs (11e législature, depuis le 16/05/2024) avec parti, circonscription, statut du mandat. Le nom « Nom, Prénom » est remis dans l'ordre et l'ordre publié gardé en alias. Ni naissance ni décès ; la 10e législature a pris fin le 16/05/2024 (hors fenêtre de 12 mois).]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-07 00:15:44.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="269"/>
+            <column name="name" value="PEP Croatie – Gouvernement"/>
+            <column name="description"><![CDATA[Premier ministre, vice-premiers ministres et ministres, d'après la page « Članovi Vlade » de vlada.gov.hr (catégorie HR-a)]]></column>
+            <column name="dataset_name" value="hr_pep_government"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://vlada.gov.hr/clanovi-vlade/128"/>
+            <column name="plugin_id" value="hr-pep-government"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="WEB_PAGE"/>
+            <column name="parameters"><![CDATA[{"url": "https://vlada.gov.hr/clanovi-vlade/128"}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="Site officiel du Gouvernement croate : citer la source"/>
+            <column name="attribution" value="Vlada Republike Hrvatske, vlada.gov.hr"/>
+            <column name="notes"><![CDATA[Une page, 19 personnes (Premier ministre, vice-premiers ministres et ministres). Ni naissance ni dates de fonction ; pas d'anciens ministres.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-07 00:15:45.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="274"/>
+            <column name="name" value="PEP Croatie – Président, Banque nationale et Cour constitutionnelle"/>
+            <column name="description"><![CDATA[Président de la République, gouverneur, gouverneure adjointe et vice-gouverneurs de la Banque nationale de Croatie, juges de la Cour constitutionnelle, d'après leurs pages officielles (catégories HR-a, HR-d et HR-e)]]></column>
+            <column name="dataset_name" value="hr_pep_institutions"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://www.predsjednik.hr/predsjednik/"/>
+            <column name="plugin_id" value="hr-pep-institutions"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="WEB_PAGE"/>
+            <column name="parameters"><![CDATA[{"keys": "president,hnb-governor,hnb-deputy,hnb-vice,constitutional-court,constitutional-court-president", "delayMs": "2000"}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="Sites officiels de la Présidence, de la HNB et de la Cour constitutionnelle : citer la source"/>
+            <column name="attribution" value="Predsjednik Republike Hrvatske, Hrvatska narodna banka, Ustavni sud Republike Hrvatske"/>
+            <column name="notes"><![CDATA[Six pages, 17 personnes, toutes avec naissance : président Zoran Milanović (1966-10-30, première élection 2020), gouverneur Ante Žigman (nommé le 19/06/2026), gouverneure adjointe Sandra Švaljek, 4 vice-gouverneurs, 9 juges de la Cour constitutionnelle et son président (année de naissance seule). Les commentaires HTML de la page du gouverneur sont retirés (elle garde en commentaire la fiche de l'ancien gouverneur).]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-07 00:15:45.000000"/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="731"/>
+            <column name="parser_id" valueNumeric="264"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope"><![CDATA[Les 12 députés européens élus en Croatie et ceux sortis depuis moins de 12 mois, avec naissance quand elle est publiée, genre, groupe et dates de mandat.]]></column>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="732"/>
+            <column name="parser_id" valueNumeric="265"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="0"/>
+            <column name="covered_scope" value="Dubravka Šuica, commissaire chargée de la Méditerranée (2024-2029)."/>
+            <column name="gaps" value="Ni date ni lieu de naissance sur la fiche."/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="720"/>
+            <column name="parser_id" valueNumeric="268"/>
+            <column name="completeness" value="PARTIAL"/>
+            <column name="includes_former" valueNumeric="0"/>
+            <column name="covered_scope" value="Les représentants actifs du Sabor (11e législature), avec parti, circonscription et date de début."/>
+            <column name="gaps" value="Pas de naissance ; représentants au mandat en pause ou terminé non listés ; anciens représentants non couverts."/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="719"/>
+            <column name="parser_id" valueNumeric="269"/>
+            <column name="completeness" value="PARTIAL"/>
+            <column name="includes_former" valueNumeric="0"/>
+            <column name="covered_scope" value="Le Premier ministre, les vice-premiers ministres et les ministres du Gouvernement en fonction."/>
+            <column name="gaps" value="Anciens ministres et secrétaires d'État non couverts ; pas de naissance ; président de la République non couvert."/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="718"/>
+            <column name="parser_id" valueNumeric="274"/>
+            <column name="completeness" value="PARTIAL"/>
+            <column name="includes_former" valueNumeric="0"/>
+            <column name="covered_scope" value="Le président de la République en fonction, avec naissance et année de première élection."/>
+            <column name="gaps" value="Anciens présidents non couverts."/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="723"/>
+            <column name="parser_id" valueNumeric="274"/>
+            <column name="completeness" value="PARTIAL"/>
+            <column name="includes_former" valueNumeric="0"/>
+            <column name="covered_scope" value="Le président et 9 juges de la Cour constitutionnelle (année de naissance)."/>
+            <column name="gaps" value="Environ 3 des 13 postes de juges non repris ; Cour suprême non couverte ; anciens juges non couverts."/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="724"/>
+            <column name="parser_id" valueNumeric="274"/>
+            <column name="completeness" value="PARTIAL"/>
+            <column name="includes_former" valueNumeric="0"/>
+            <column name="covered_scope"><![CDATA[Le gouverneur, la gouverneure adjointe et les quatre vice-gouverneurs de la Banque nationale, avec naissance et date de nomination.]]></column>
+            <column name="gaps" value="Cour des comptes non couverte ; anciens gouverneurs non couverts."/>
+        </insert>
+    </changeSet>
+</databaseChangeLog>

@@ -33,6 +33,8 @@ swift-check-docker/
 
 # ---------------------------------------------------------------- Archives
 *.zip
+# fichiers de test (petits extraits de sources réelles) : à versionner
+!**/src/test/resources/**/*.zip
 *.tar.gz
 *.rar
 

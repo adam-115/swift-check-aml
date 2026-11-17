@@ -1,0 +1,805 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="baseline-parsers-be" author="swiftcheck-baseline">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM parser WHERE dataset_name IN ('be_pep_king', 'be_pep_federal_government', 'be_pep_chamber', 'be_pep_flemish_parliament', 'be_pep_walloon_parliament', 'be_pep_europarl', 'be_pep_eu_commission', 'be_pep_rca', 'be_pep_regional_governments', 'be_pep_regional_parliaments', 'be_pep_senate', 'be_pep_constitutional_court', 'be_pep_council_of_state', 'be_pep_court_of_audit', 'be_pep_national_bank', 'be_pep_diplomats', 'be_pep_army', 'be_pep_international_orgs', 'be_pep_moniteur', 'be_pep_public_enterprises', 'be_pep_political_parties', 'be_pep_local_executives', 'be_pep_associated_entities', 'be_pep_local_executives_all', 'be_pep_eu_institutions')</sqlCheck>
+        </preConditions>
+        <comment>Parsers « be_* » (25) et leurs liens aux fonctions PEP (40)</comment>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="89"/>
+            <column name="name" value="PEP Belgique – Roi des Belges"/>
+            <column name="description"><![CDATA[Le Roi des Belges, titulaire actuel d’après Wikidata, contrôlé par la page officielle de monarchie.be et par le Moniteur belge (catégorie BE-a)]]></column>
+            <column name="dataset_name" value="be_pep_king"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://www.monarchie.be/fr/famille-royale/le-roi"/>
+            <column name="plugin_id" value="be-pep-king"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="SPARQL"/>
+            <column name="parameters"><![CDATA[{"pageUrl": "https://www.monarchie.be/fr/famille-royale/le-roi", "endpoint": "https://query.wikidata.org/sparql", "moniteurUrl": "https://www.ejustice.just.fgov.be/mopdf/2013/07/21_1.pdf"}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="CC0 (Wikidata) ; monarchie.be : citer la source"/>
+            <column name="attribution" value="Moniteur belge, ejustice.just.fgov.be ; Palais royal, www.monarchie.be ; Wikidata"/>
+            <column name="notes"><![CDATA[La naissance vient de la page officielle ; le nom et la date d’accession de Wikidata. Le Moniteur belge du 21/07/2013 (source primaire) doit nommer le même Roi et la même date d’accession. Si les sources ne concordent pas (changement de règne), l’exécution s’arrête : renseigner alors moniteurUrl avec le numéro de l’avènement du nouveau Roi.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-02 20:33:34.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="90"/>
+            <column name="name" value="PEP Belgique – Gouvernement fédéral"/>
+            <column name="description"><![CDATA[Premier ministre, vice-Premiers ministres, ministres et secrétaires d’État fédéraux, d’après belgium.be (catégorie BE-a)]]></column>
+            <column name="dataset_name" value="be_pep_federal_government"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url"><![CDATA[https://www.belgium.be/fr/la_belgique/pouvoirs_publics/autorites_federales/gouvernement_federal/composition_gouvernement]]></column>
+            <column name="plugin_id" value="be-pep-federal-government"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="WEB_PAGE"/>
+            <column name="parameters"><![CDATA[{"url": "https://www.belgium.be/fr/la_belgique/pouvoirs_publics/autorites_federales/gouvernement_federal/composition_gouvernement"}]]></column>
+            <column name="refresh_hours" valueNumeric="24"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="Citer la source (belgium.be)"/>
+            <column name="attribution" value="Service public fédéral Chancellerie, www.belgium.be"/>
+            <column name="notes"><![CDATA[premier.be refuse les clients automatiques (HTTP 403) : non utilisé. Ni date de naissance ni date d’entrée en fonction sur la page.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-02 20:33:34.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="91"/>
+            <column name="name" value="PEP Belgique – Chambre des représentants"/>
+            <column name="description" value="Les 150 membres de la Chambre des représentants, d’après leurs fiches sur dekamer.be (catégorie BE-b)"/>
+            <column name="dataset_name" value="be_pep_chamber"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://www.dekamer.be"/>
+            <column name="plugin_id" value="be-pep-chamber"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="WEB_PAGE"/>
+            <column name="parameters"><![CDATA[{"listUrl": "https://www.dekamer.be/kvvcr/showpage.cfm?section=/depute&language=fr&cfm=/site/wwwcfm/depute/cvlist54.cfm", "detailUrl": "https://www.dekamer.be/kvvcr/showpage.cfm?section=/depute&language=fr&cfm=cvview54.cfm?key={key}&lactivity=56", "delayMs": "300"}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="Citer la source (Chambre des représentants)"/>
+            <column name="attribution" value="Chambre des représentants de Belgique, www.dekamer.be"/>
+            <column name="notes"><![CDATA[Lit la fiche de chaque député (150 appels, environ 2 min 30). La législature (56, cvlist54) est dans les adresses : à changer après les élections de 2029.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-02 20:33:34.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="92"/>
+            <column name="name" value="PEP Belgique – Parlement flamand"/>
+            <column name="description"><![CDATA[Les 124 membres du Parlement flamand et les anciens membres dont le mandat a pris fin pendant la durée de rétention, d’après l’API open data du Parlement (catégorie BE-b)]]></column>
+            <column name="dataset_name" value="be_pep_flemish_parliament"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://ws.vlpar.be/e/opendata/api"/>
+            <column name="plugin_id" value="be-pep-flemish-parliament"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="API"/>
+            <column name="parameters"><![CDATA[{"listUrl": "https://ws.vlpar.be/e/opendata/vv/huidige", "formerUrl": "https://ws.vlpar.be/e/opendata/vv/gewezen", "detailUrl": "https://ws.vlpar.be/e/opendata/vv/{id}", "delayMs": "200", "retentionMonths": "12"}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="Gratis Open Data Licentie Vlaanderen"/>
+            <column name="attribution" value="Vlaams Parlement, ws.vlpar.be"/>
+            <column name="notes"><![CDATA[Lit la fiche de chaque membre en fonction (124 appels) puis celle de chacun des quelque 940 anciens, pour y lire la fin de leur dernier mandat (environ 4 minutes avec delayMs = 200). vlaamsparlement.be refuse les clients automatiques (HTTP 403) : la source citée est la fiche de l’API.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-02 20:33:34.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="93"/>
+            <column name="name" value="PEP Belgique – Parlement de Wallonie"/>
+            <column name="description"><![CDATA[Les 75 membres du Parlement de Wallonie, son bureau et les anciens députés dont le mandat a pris fin pendant la durée de rétention, d’après l’open data et les fiches du Parlement (catégorie BE-b)]]></column>
+            <column name="dataset_name" value="be_pep_walloon_parliament"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://www.parlement-wallonie.be"/>
+            <column name="plugin_id" value="be-pep-walloon-parliament"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="OPEN_DATA_FILE"/>
+            <column name="parameters"><![CDATA[{"url": "https://www.parlement-wallonie.be/opendata/composition_dep_od.php?f=json", "formerUrl": "https://www.parlement-wallonie.be/pwpages?p=composition_mandataires", "detailUrl": "https://www.parlement-wallonie.be/pwpages?p=composition_dep_det&id={id}&t=old", "delayMs": "300", "retentionMonths": "12"}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="Open data du Parlement de Wallonie : citer la source"/>
+            <column name="attribution" value="Parlement de Wallonie, www.parlement-wallonie.be"/>
+            <column name="notes"><![CDATA[Le fichier open data donne aussi l’adresse, le téléphone, l’e-mail et les réseaux sociaux des députés : jamais repris. Les anciens ne sont pas dans l’open data : la liste paginée « Les anciens membres » (9 pages) donne des années, puis la fiche des seuls anciens dont une période finit l’année de la limite de rétention ou après donne la date exacte du mandat. Si cette lecture échoue, les députés en fonction sont quand même publiés et le message d’exécution l’indique.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-02 20:33:34.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="94"/>
+            <column name="name" value="PEP Belgique – Députés européens"/>
+            <column name="description" value="Les députés européens élus en Belgique, en fonction et sortis depuis moins de 12 mois (catégorie BE-EU)"/>
+            <column name="dataset_name" value="be_pep_europarl"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://data.europarl.europa.eu"/>
+            <column name="plugin_id" value="be-pep-europarl"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="API"/>
+            <column name="parameters"><![CDATA[{"currentUrl": "https://data.europarl.europa.eu/api/v2/meps/show-current?country-of-representation=BE&format=application%2Fld%2Bjson", "termUrl": "https://data.europarl.europa.eu/api/v2/meps?country-of-representation=BE&parliamentary-term=10&limit=500&format=application%2Fld%2Bjson", "detailUrl": "https://data.europarl.europa.eu/api/v2/meps/{id}?format=application%2Fld%2Bjson", "delayMs": "300", "monthsAfterEnd": "12"}]]></column>
+            <column name="refresh_hours" valueNumeric="24"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="Réutilisation autorisée en citant la source (avis juridique du Parlement européen)"/>
+            <column name="attribution" value="Parlement européen, data.europarl.europa.eu"/>
+            <column name="notes" value="Reprise de fr_pep_europarl. termUrl contient le numéro de législature (10) : à changer à la prochaine législature."/>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-02 20:33:34.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="95"/>
+            <column name="name" value="PEP Belgique – Commissaire européen"/>
+            <column name="description" value="Le membre belge de la Commission européenne, d’après sa fiche officielle (catégorie BE-EU)"/>
+            <column name="dataset_name" value="be_pep_eu_commission"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://commission.europa.eu/about/organisation/college-commissioners_fr"/>
+            <column name="plugin_id" value="be-pep-eu-commission"/>
+            <column name="data_source_type" value="HTTP_FILE"/>
+            <column name="parser_kind" value="WEB_PAGE"/>
+            <column name="source_location" value="https://commission.europa.eu/about/organisation/college-commissioners/hadja-lahbib_fr"/>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="Réutilisation autorisée en citant la source (avis juridique de la Commission européenne)"/>
+            <column name="attribution" value="Commission européenne, commission.europa.eu"/>
+            <column name="notes"><![CDATA[Reprise de fr_pep_eu_commission. À chaque nouvelle Commission, remplacer l’adresse par la fiche du commissaire belge. Une fiche qui ne présente pas un commissaire belge est refusée.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-02 20:33:34.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="96"/>
+            <column name="name" value="PEP Belgique – Famille des PEP (Wikidata)"/>
+            <column name="description" value="Conjoints, enfants et leurs conjoints, parents des PEP belges décrits dans Wikidata (catégorie BE-RCA)"/>
+            <column name="dataset_name" value="be_pep_rca"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://www.wikidata.org"/>
+            <column name="plugin_id" value="be-pep-rca"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="SPARQL"/>
+            <column name="parameters"><![CDATA[{"endpoint": "https://query.wikidata.org/sparql", "yearsAfterEnd": "1", "country": "Q31", "positions": "Q13592862 Q213107 Q87885285 Q15705021 Q17619252 Q15105064 Q19351455 Q33108580 Q2746377 Q3100220 Q435627 Q2326814 Q100530029", "positionClasses": "Q83307"}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="CC0 (Wikidata)"/>
+            <column name="attribution" value="Wikidata, www.wikidata.org"/>
+            <column name="notes"><![CDATA[Reprise de fr_pep_rca. Couverture partielle : seules les familles décrites dans Wikidata. Sans les frères et sœurs (loi du 18/09/2017, art. 4, 29°). Données collaboratives, à contrôler.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-02 20:33:34.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="97"/>
+            <column name="name" value="PEP Belgique – Gouvernements des Régions et Communautés"/>
+            <column name="description"><![CDATA[Ministres-présidents, vice-ministres-présidents, ministres et secrétaires d’État des Régions et des Communautés (catégorie BE-a)]]></column>
+            <column name="dataset_name" value="be_pep_regional_governments"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://www.vlaanderen.be/fr/gouvernement-flamand"/>
+            <column name="plugin_id" value="be-pep-regional-governments"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="WEB_PAGE"/>
+            <column name="source_location" value=""/>
+            <column name="parameters"><![CDATA[{"delayMs":"1500","governments":[{"code":"vlaanderen","name":"Gouvernement flamand (Vlaamse Regering)","entityName":"R\u00e9gion flamande et Communaut\u00e9 flamande","url":"https://www.vlaanderen.be/vlaamse-regering","fileName":"vlaanderen.html","format":"VLAANDEREN_SPOTLIGHT"},{"code":"cfwb","name":"Gouvernement de la F\u00e9d\u00e9ration Wallonie-Bruxelles","entityName":"Communaut\u00e9 fran\u00e7aise (F\u00e9d\u00e9ration Wallonie-Bruxelles)","url":"https://gouvernement.cfwb.be/home.html","fileName":"cfwb.html","format":"CFWB_LIST"},{"code":"ostbelgien","name":"Gouvernement de la Communaut\u00e9 germanophone (Regierung der Deutschsprachigen Gemeinschaft)","entityName":"Communaut\u00e9 germanophone","url":"https://fr.wikipedia.org/w/api.php?action=parse&page=Gouvernement_Paasch_III&prop=wikitext&format=json","fileName":"ostbelgien.html","format":"MEDIAWIKI_TABLE"},{"code":"wallonie","name":"Gouvernement wallon","entityName":"R\u00e9gion wallonne","url":"https://fr.wikipedia.org/w/api.php?action=parse&page=Gouvernement_Dolimont&prop=wikitext&format=json","fileName":"wallonie.html","format":"MEDIAWIKI_TABLE"},{"code":"bruxelles","name":"Gouvernement de la R\u00e9gion de Bruxelles-Capitale","entityName":"R\u00e9gion de Bruxelles-Capitale","url":"https://fr.wikipedia.org/w/api.php?action=parse&page=Gouvernement_Dilli%C3%A8s&prop=wikitext&format=json","fileName":"bruxelles.html","format":"MEDIAWIKI_TABLE"}]}]]></column>
+            <column name="refresh_hours" valueNumeric="24"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="Citer la source (portails officiels des entités fédérées)"/>
+            <column name="attribution"><![CDATA[Gouvernements de la Flandre, de la Fédération Wallonie-Bruxelles, de la Communauté germanophone, de la Wallonie et de Bruxelles-Capitale]]></column>
+            <column name="notes"><![CDATA[Extrait les gouvernements accessibles (Flandre, Fédération Wallonie-Bruxelles, Communauté germanophone) et signale dans le journal les sites injoignables.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-02 22:13:38.000000"/>
+            <column name="updated_at" value="2026-11-02 22:40:55.915277"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="98"/>
+            <column name="name" value="PEP Belgique – Parlements des entités fédérées (PFWB, PDG, Bruxelles)"/>
+            <column name="description"><![CDATA[Membres et présidents du Parlement de la Fédération Wallonie-Bruxelles, du Parlement de la Communauté germanophone et du Parlement bruxellois (catégorie BE-b)]]></column>
+            <column name="dataset_name" value="be_pep_regional_parliaments"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://www.pfwb.be/les-94-deputes"/>
+            <column name="plugin_id" value="be-pep-regional-parliaments"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="WEB_PAGE"/>
+            <column name="parameters"><![CDATA[{"parliaments":[{"code":"pfwb","parliamentName":"Parlement de la F\u00e9d\u00e9ration Wallonie-Bruxelles","jurisdiction":"Communaut\u00e9 fran\u00e7aise (F\u00e9d\u00e9ration Wallonie-Bruxelles)","membersUrl":"https://www.pfwb.be/les-deputes","bureauUrl":null},{"code":"pdg","parliamentName":"Parlement de la Communaut\u00e9 germanophone (Parlament der Deutschsprachigen Gemeinschaft)","jurisdiction":"Communaut\u00e9 germanophone de Belgique (Ostbelgien)","membersUrl":"https://www.pdg.be/de/abgeordnete/mitglieder","bureauUrl":"https://www.pdg.be/de/abgeordnete/prasidium"},{"code":"bruxelles","parliamentName":"Parlement de la R\u00e9gion de Bruxelles-Capitale","jurisdiction":"R\u00e9gion de Bruxelles-Capitale","membersUrl":"https://fr.wikipedia.org/w/api.php?action=parse&page=Liste_des_d%C3%A9put%C3%A9s_bruxellois_(2024-2029)&prop=wikitext&format=json","bureauUrl":null}]}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="Citer la source (PFWB, PDG, Parlement bruxellois)"/>
+            <column name="attribution" value="Parlement de la Fédération Wallonie-Bruxelles (pfwb.be) ; Parlament der Deutschsprachigen Gemeinschaft (pdg.be)"/>
+            <column name="notes"><![CDATA[Couvre les 94 députés du PFWB et les 25 membres (et Präsidium) du Parlement de la Communauté germanophone. Les parlements flamand et wallon sont couverts par des parsers dédiés au lot 1.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-02 22:13:38.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="99"/>
+            <column name="name" value="PEP Belgique – Sénat"/>
+            <column name="description" value="Les 60 sénateurs (50 sénateurs des entités fédérées et 10 sénateurs cooptés) et la présidence du Sénat (catégorie BE-b)"/>
+            <column name="dataset_name" value="be_pep_senate"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url"><![CDATA[https://www.senate.be/www/?MIval=/WieIsWie/LijstDerSenatoren&LANG=fr]]></column>
+            <column name="plugin_id" value="be-pep-senate"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="WEB_PAGE"/>
+            <column name="parameters"><![CDATA[{"url": "https://www.senate.be/www/?MIval=/WieIsWie/LijstDerSenatoren&LANG=fr"}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="Citer la source (Sénat de Belgique)"/>
+            <column name="attribution" value="Sénat de Belgique, www.senate.be"/>
+            <column name="notes"><![CDATA[Les coordonnées personnelles de correspondance présentes sur senate.be sont supprimées dès le téléchargement et ne sont jamais reprises dans les entités.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-02 22:13:38.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="100"/>
+            <column name="name" value="PEP Belgique – Cour constitutionnelle"/>
+            <column name="description" value="Les 12 juges et les 2 présidents (francophone et néerlandophone) de la Cour constitutionnelle (catégorie BE-d)"/>
+            <column name="dataset_name" value="be_pep_constitutional_court"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://fr.const-court.be/court/presentation/organization"/>
+            <column name="plugin_id" value="be-pep-constitutional-court"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="WEB_PAGE"/>
+            <column name="parameters"><![CDATA[{"url": "https://fr.const-court.be/court/presentation/organization"}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="Citer la source (Cour constitutionnelle)"/>
+            <column name="attribution" value="Cour constitutionnelle de Belgique, fr.const-court.be"/>
+            <column name="notes"><![CDATA[Extrait uniquement les sections Présidents et Juges (les référendaires et greffiers ne sont pas visés par l’Annexe IV). Fournit la date de naissance et la date de nomination par arrêté royal.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-02 22:13:38.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="101"/>
+            <column name="name" value="PEP Belgique – Conseil d’État"/>
+            <column name="description"><![CDATA[Chefs de corps du Conseil d’État : Premier président, présidente, auditeur général et auditeur général adjoint (catégorie BE-d)]]></column>
+            <column name="dataset_name" value="be_pep_council_of_state"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://www.raadvst-consetat.be/fr/le-conseil-detat/organisation/direction-et-gestion/"/>
+            <column name="plugin_id" value="be-pep-council-of-state"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="WEB_PAGE"/>
+            <column name="source_location" value=""/>
+            <column name="parameters"><![CDATA[{"url": "https://www.raadvst-consetat.be/fr/le-conseil-detat/organisation/direction-et-gestion/"}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="Citer la source (Conseil d’État)"/>
+            <column name="attribution" value="Conseil d’État de Belgique, www.raadvst-consetat.be"/>
+            <column name="notes"><![CDATA[Le site du Conseil d’État ne publie nominativement que les chefs de corps et le greffier en chef (ce dernier est exclu car non visé par l’Annexe IV). Les autres conseillers sont couverts par le Moniteur belge (lot 3).]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-02 22:13:38.000000"/>
+            <column name="updated_at" value="2026-11-12 23:52:13.748427"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="102"/>
+            <column name="name" value="PEP Belgique – Cour des comptes"/>
+            <column name="description"><![CDATA[Première présidente, présidente et 8 conseillers des chambres française et néerlandaise de la Cour des comptes (catégorie BE-e)]]></column>
+            <column name="dataset_name" value="be_pep_court_of_audit"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://www.ccrek.be/fr/about-page/organisation"/>
+            <column name="plugin_id" value="be-pep-court-of-audit"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="WEB_PAGE"/>
+            <column name="parameters"><![CDATA[{"url": "https://www.ccrek.be/fr/about-page/organisation"}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="Citer la source (Cour des comptes)"/>
+            <column name="attribution" value="Cour des comptes de Belgique, www.ccrek.be"/>
+            <column name="notes"><![CDATA[Extrait les 10 magistrats composant les chambres française et néerlandaise (les greffiers en chef et greffiers ne sont pas visés par l’Annexe IV).]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-02 22:13:38.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="103"/>
+            <column name="name" value="PEP Belgique – Banque nationale de Belgique"/>
+            <column name="description"><![CDATA[Gouverneur, membres du Comité de direction et membres du Conseil de régence de la Banque nationale de Belgique (catégorie BE-e)]]></column>
+            <column name="dataset_name" value="be_pep_national_bank"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://www.nbb.be/fr/la-banque-nationale/administration-et-controle/organes-de-la-banque/comite-de-direction"/>
+            <column name="plugin_id" value="be-pep-national-bank"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="WEB_PAGE"/>
+            <column name="parameters"><![CDATA[{"comiteDirectionUrl": "https://www.nbb.be/fr/la-banque-nationale/administration-et-controle/organes-de-la-banque/comite-de-direction", "conseilRegenceUrl": "https://www.nbb.be/fr/la-banque-nationale/administration-et-controle/organes-de-la-banque/conseil-de-regence"}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="Citer la source (Banque nationale de Belgique)"/>
+            <column name="attribution" value="Banque nationale de Belgique, www.nbb.be"/>
+            <column name="notes"><![CDATA[Combine les pages officielles du Comité de direction (Gouverneur et 4 directeurs) et du Conseil de régence (11 régents). Le représentant du ministre des Finances (voix consultative) est exclu.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-02 22:13:38.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="104"/>
+            <column name="name" value="PEP Belgique – Ambassadeurs, consuls généraux et chargés d’affaires"/>
+            <column name="description"><![CDATA[Ambassadeurs, consuls généraux, consuls, chargés d’affaires et représentants permanents de la Belgique à l’étranger (catégorie BE-f)]]></column>
+            <column name="dataset_name" value="be_pep_diplomats"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://diplomatie.belgium.be/fr/ambassades-et-consulats"/>
+            <column name="plugin_id" value="be-pep-diplomats"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="API"/>
+            <column name="parameters"><![CDATA[{"countriesApiUrl": "https://publicapps.diplomatie.be/api/geography/country/institutions?language=fr", "institutionsApiUrl": "https://publicapps.diplomatie.be/api/belgianInstitutions?language=fr&countryIso={ISO}&isForeignInstitution=false"}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="Citer la source (SPF Affaires étrangères)"/>
+            <column name="attribution" value="SPF Affaires étrangères, Commerce extérieur et Coopération au Développement, diplomatie.belgium.be"/>
+            <column name="notes"><![CDATA[Interroge l’API officielle de l’annuaire diplomatique (publicapps.diplomatie.be). Les consuls honoraires et les coordonnées postales/téléphoniques des postes sont exclus.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-02 22:13:38.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="105"/>
+            <column name="name" value="PEP Belgique – Officiers généraux de la Défense"/>
+            <column name="description" value="Chef de la Défense (CHOD), Vice-Chef de la Défense (VCHOD) et officiers généraux publiés sur mil.be (catégorie BE-f)"/>
+            <column name="dataset_name" value="be_pep_army"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://www.mil.be/fr/"/>
+            <column name="plugin_id" value="be-pep-army"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="WEB_PAGE"/>
+            <column name="parameters"><![CDATA[{"source":"https://www.mil.be/fr/","armyPages":[{"code":"mil-command","url":"https://www.mil.be/fr/a-propos-de-la-defense/structure-de-la-defense/"},{"code":"mil-chod","url":"https://www.mil.be/fr/news/voeux-de-nouvel-an-2026-la-defense-est-un-investissement-dans-notre-avenir/"},{"code":"mil-hq","url":"https://www.mil.be/fr/news/futur-quartier-general-a-evere-la-premiere-pierre-est-posee/"},{"code":"mil-land","url":"https://www.mil.be/fr/news/pose-de-la-premiere-pierre-des-nouvelles-infrastructures-pour-les-nouveaux-vehicules-de-la-force-terrestre-a-leopoldsburg/"},{"code":"mil-cyber","url":"https://www.mil.be/fr/news/inauguration-d-une-deuxieme-cyber-defense-factory-a-bruges-sur-le-campus-de-howest/"}]}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="Citer la source (La Défense, mil.be)"/>
+            <column name="attribution" value="La Défense, www.mil.be"/>
+            <column name="notes"><![CDATA[La Défense ne publie pas d’annuaire complet des officiers généraux : le parser extrait le CHOD, le VCHOD et les officiers généraux commandants de composantes cités sur mil.be. Les nominations par arrêté royal sont complétées par le Moniteur belge (lot 3).]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-02 22:13:38.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="106"/>
+            <column name="name" value="PEP Belgique – Organisations internationales établies en Belgique"/>
+            <column name="description"><![CDATA[Hauts dirigeants des organisations internationales établies en Belgique (OTAN, Union Benelux, Organisation mondiale des douanes, Eurocontrol)]]></column>
+            <column name="dataset_name" value="be_pep_international_orgs"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://www.nato.int/en/about-us/organization/who-we-are"/>
+            <column name="plugin_id" value="be-pep-international-orgs"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="WEB_PAGE"/>
+            <column name="parameters"><![CDATA[{"organizations":[{"code":"nato","acronym":"OTAN / NATO","name":"Organisation du Trait\u00e9 de l'Atlantique Nord (OTAN)","headquarters":"Bruxelles","url":"https://www.nato.int/en/about-us/organization/who-we-are","status":"active"},{"code":"benelux","acronym":"Union Benelux","name":"Union Benelux (Secr\u00e9tariat g\u00e9n\u00e9ral)","headquarters":"Bruxelles","url":"https://www.benelux.int/fr/contact/qui-est-qui-au-secretariat-general-de-lunion-benelux/","status":"active"},{"code":"wco","acronym":"OMD / WCO","name":"Organisation mondiale des douanes (OMD)","headquarters":"Bruxelles","url":"https://www.wcoomd.org/fr/about-us/what-is-the-wco/secretary-general.aspx","status":"active"},{"code":"eurocontrol","acronym":"Eurocontrol","name":"Organisation europ\u00e9enne pour la s\u00e9curit\u00e9 de la navigation a\u00e9rienne (Eurocontrol)","headquarters":"Bruxelles","url":"https://www.eurocontrol.int/about-us","status":"active"},{"code":"shape","acronym":"SHAPE","name":"Grand Quartier g\u00e9n\u00e9ral des puissances alli\u00e9es en Europe (SHAPE)","headquarters":"Mons (Casteau)","url":"https://en.wikipedia.org/w/api.php?action=parse&page=Supreme_Headquarters_Allied_Powers_Europe&prop=wikitext&format=json","status":"active"},{"code":"oacps","acronym":"OEACP / OACPS","name":"Organisation des \u00c9tats d'Afrique, des Cara\u00efbes et du Pacifique (OEACP)","headquarters":"Bruxelles","url":"https://en.wikipedia.org/w/api.php?action=parse&page=Organisation_of_African,_Caribbean_and_Pacific_States&prop=wikitext&format=json","status":"active"}]}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="Citer la source (OTAN, Union Benelux, OMD/WCO)"/>
+            <column name="attribution" value="OTAN (nato.int), Union Benelux (benelux.int), Organisation mondiale des douanes (wcoomd.org)"/>
+            <column name="notes"><![CDATA[Extraction en direct des états-majors et secrétariats généraux depuis les sites officiels : nato.int (Secrétaire général, Deputy SG, Comité militaire), benelux.int (Collège des secrétaires généraux), wcoomd.org (Secrétaire général de l'OMD) et eurocontrol.int (Directeur général et directeurs exécutifs).]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-02 22:13:38.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="113"/>
+            <column name="name" value="PEP Belgique – Moniteur belge (nominations et démissions)"/>
+            <column name="description"><![CDATA[Arrêtés royaux, ministériels et judiciaires de nomination, renouvellement, démission et retraite des hautes fonctions publiques (catégories BE-d, BE-f, BE-g, BE-a)]]></column>
+            <column name="dataset_name" value="be_pep_moniteur"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://www.ejustice.just.fgov.be/cgi/summary.pl?language=fr"/>
+            <column name="plugin_id" value="be-pep-moniteur"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="WEB_PAGE"/>
+            <column name="parameters"><![CDATA[{"baseUrl":"https://www.ejustice.just.fgov.be/cgi","days":"180","delayMs":"1000","yearsAfterEnd":"5","cassationSiegeUrl":"https://www.cass.be/pdf/Historischoverzichtvandemagistratenvandezetel.pdf","cassationParquetUrl":"https://www.cass.be/pdf/HistoriqueAGFRNL.pdf","cassationNews2025Url":"https://www.cass.be/News-2025.html","cassationNews2026Url":"https://www.cass.be/News-2026.html","collegeCompositionUrl":"https://www.tribunaux-rechtbanken.be/fr/college/composition"}]]></column>
+            <column name="refresh_hours" valueNumeric="24"/>
+            <column name="retention_months" valueNumeric="60"/>
+            <column name="licence" value="Domaine public (Service public fédéral Justice)"/>
+            <column name="attribution" value="Moniteur belge (ejustice.just.fgov.be)"/>
+            <column name="notes" value="Collecte quotidienne des actes officiels de nomination et de cessation de fonction parus au Moniteur belge."/>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-03 18:29:02.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="114"/>
+            <column name="name"><![CDATA[PEP Belgique – Entreprises publiques (Cour des comptes & SFPI)]]></column>
+            <column name="description"><![CDATA[Conseils d’administration, comités de direction et commissaires du gouvernement des entreprises publiques autonomes, participations stratégiques fédérales/régionales, ports et grandes intercommunales (catégorie BE-g via Cour des comptes / Regimand)]]></column>
+            <column name="dataset_name" value="be_pep_public_enterprises"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://public.regimand.be/"/>
+            <column name="plugin_id" value="be-pep-public-enterprises"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="API"/>
+            <column name="parameters"><![CDATA[{"regimandUrl":"https://public.regimand.be","sfpiUrl":"https://www.sfpi-fpim.be/fr/investissements/","year":"2024","yearsAfterEnd":"5","enterprises":[{"slug":"sncb","query":"SNCB","name":"SNCB (Soci\u00e9t\u00e9 nationale des chemins de fer belges)","keywords":["sncb","nmbs","chemins de fer belges","belgische spoorwegen"],"description":"Entreprise publique autonome f\u00e9d\u00e9rale \u2013 Transport ferroviaire"},{"slug":"infrabel","query":"Infrabel","name":"Infrabel","keywords":["infrabel"],"description":"Entreprise publique autonome f\u00e9d\u00e9rale \u2013 Gestionnaire de l'infrastructure ferroviaire"},{"slug":"bpost","query":"bpost","name":"bpost","keywords":["bpost","la poste"],"description":"Entreprise publique autonome f\u00e9d\u00e9rale \u2013 Services postaux (portefeuille SFPI)"},{"slug":"proximus","query":"Proximus","name":"Proximus","keywords":["proximus","belgacom"],"description":"Entreprise publique autonome f\u00e9d\u00e9rale \u2013 T\u00e9l\u00e9communications (portefeuille SFPI)"},{"slug":"skeyes","query":"skeyes","name":"skeyes (Belgocontrol)","keywords":["skeyes","belgocontrol"],"description":"Entreprise publique autonome f\u00e9d\u00e9rale \u2013 S\u00e9curit\u00e9 de la navigation a\u00e9rienne"},{"slug":"loterie_nationale","query":"Loterie Nationale","name":"Loterie Nationale","keywords":["loterie nationale","nationale loterij"],"description":"Soci\u00e9t\u00e9 anonyme de droit public \u2013 Portefeuille SFPI"},{"slug":"sfpi","query":"SFPI","name":"SFPI (Soci\u00e9t\u00e9 f\u00e9d\u00e9rale de Participations et d'Investissement)","keywords":["sfpi","fpim","soci\u00e9t\u00e9 f\u00e9d\u00e9rale de participations","federale participatie"],"description":"Soci\u00e9t\u00e9 f\u00e9d\u00e9rale de Participations et d'Investissement"},{"slug":"credendo","query":"Credendo","name":"Credendo (Ducroire)","keywords":["credendo","ducroire","delcredere"],"description":"Institution publique d'assurance-cr\u00e9dit \u00e0 l'exportation"},{"slug":"rtbf","query":"RTBF","name":"RTBF (Radio-T\u00e9l\u00e9vision belge de la Communaut\u00e9 fran\u00e7aise)","keywords":["rtbf","radio-t\u00e9l\u00e9vision belge"],"description":"Entreprise publique autonome culturelle \u2013 Communaut\u00e9 fran\u00e7aise"},{"slug":"vrt","query":"VRT","name":"VRT (Vlaamse Radio- en Televisieomroeporganisatie)","keywords":["vrt","vlaamse radio"],"description":"Entreprise publique de radiodiffusion \u2013 Communaut\u00e9 flamande"},{"slug":"stib","query":"STIB","name":"STIB / MIVB (Soci\u00e9t\u00e9 des Transports Intercommunaux de Bruxelles)","keywords":["stib","mivb","transports intercommunaux de bruxelles"],"description":"Organisme d'int\u00e9r\u00eat public \u2013 Transport public bruxellois"},{"slug":"de_lijn","query":"De Lijn","name":"Vlaamse Vervoermaatschappij De Lijn","keywords":["de lijn","vlaamse vervoermaatschappij"],"description":"Entreprise publique de transport \u2013 R\u00e9gion flamande"},{"slug":"belfius","query":"Belfius","name":"Belfius Banque et Assurances","keywords":["belfius"],"description":"Participation publique strat\u00e9gique \u00e0 100 % \u2013 Portefeuille SFPI"},{"slug":"apetra","query":"Apetra","name":"APETRA (Agence de gestion des stocks strat\u00e9giques de p\u00e9trole)","keywords":["apetra"],"description":"Soci\u00e9t\u00e9 anonyme de droit public \u00e0 finalit\u00e9 sociale \u2013 \u00c9nergie"},{"slug":"astrid","query":"ASTRID","name":"ASTRID","keywords":["astrid"],"description":"Soci\u00e9t\u00e9 anonyme de droit public \u2013 T\u00e9l\u00e9communications des services de secours et de s\u00e9curit\u00e9"},{"slug":"fluvius","query":"Fluvius","name":"Fluvius System Operator","keywords":["fluvius"],"description":"Gestionnaire de r\u00e9seau de distribution d'\u00e9lectricit\u00e9 et de gaz en Flandre (intercommunale)"},{"slug":"ores","query":"ORES","name":"ORES (Op\u00e9rateur des R\u00e9seaux Gaz et \u00c9lectricit\u00e9)","keywords":["ores"],"description":"Principal gestionnaire de r\u00e9seau de distribution d'\u00e9nergie en Wallonie (intercommunale)"},{"slug":"sibelga","query":"Sibelga","name":"Sibelga","keywords":["sibelga"],"description":"Gestionnaire de r\u00e9seau de distribution d'\u00e9lectricit\u00e9 et de gaz \u00e0 Bruxelles (intercommunale)"},{"slug":"resa","query":"RESA","name":"RESA","keywords":["resa"],"description":"Gestionnaire de r\u00e9seau de distribution de gaz et d'\u00e9lectricit\u00e9 en r\u00e9gion li\u00e9geoise (intercommunale)"},{"slug":"swde","query":"SWDE","name":"SWDE (Soci\u00e9t\u00e9 Wallonne des Eaux)","keywords":["swde","soci\u00e9t\u00e9 wallonne des eaux"],"description":"Soci\u00e9t\u00e9 publique autonome de distribution d'eau potable en Wallonie"},{"slug":"vivaqua","query":"Vivaqua","name":"VIVAQUA","keywords":["vivaqua"],"description":"Intercommunale de production et distribution d'eau potable \u00e0 Bruxelles et Wallonie"},{"slug":"de_watergroep","query":"De Watergroep","name":"De Watergroep","keywords":["watergroep"],"description":"Plus grande entreprise publique int\u00e9gr\u00e9e de l'eau en Flandre (intercommunale)"},{"slug":"enodia","query":"Enodia","name":"Enodia / Nethys","keywords":["enodia","nethys"],"description":"Holding public intercommunal li\u00e9geois actif dans l'\u00e9nergie et les t\u00e9l\u00e9communications"},{"slug":"port_antwerp","query":"Port of Antwerp","name":"Port of Antwerp-Bruges","keywords":["port of antwerp","haven van antwerpen"],"description":"R\u00e9gie publique autonome et soci\u00e9t\u00e9 portuaire d'Anvers et Bruges"},{"slug":"port_bruxelles","query":"Port de Bruxelles","name":"Port de Bruxelles","keywords":["port de bruxelles","haven van brussel"],"description":"Soci\u00e9t\u00e9 r\u00e9gionale d'exploitation du port int\u00e9rieur de Bruxelles"},{"slug":"igretec","query":"Igretec","name":"IGRETEC","keywords":["igretec"],"description":"Intercommunale de d\u00e9veloppement \u00e9conomique et d'am\u00e9nagement de la r\u00e9gion de Charleroi"}]}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="60"/>
+            <column name="licence" value="Cour des comptes de Belgique (public.regimand.be) et SFPI (sfpi-fpim.be)"/>
+            <column name="attribution" value="Cour des comptes de Belgique ; Société Fédérale de Participations et d'Investissement"/>
+            <column name="notes"><![CDATA[Interroge en direct l'API Regimand de la Cour des comptes pour 25 entités publiques stratégiques et intercommunales majeures (SNCB, Infrabel, bpost, Proximus, skeyes, Loterie Nationale, SFPI, Credendo, RTBF, VRT, STIB, De Lijn, Belfius, Apetra, ASTRID, Fluvius, ORES, Sibelga, RESA, SWDE, Vivaqua, De Watergroep, Enodia, Port of Antwerp-Bruges, Port de Bruxelles, Igretec).]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-03 18:29:02.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="115"/>
+            <column name="name" value="PEP Belgique – Partis politiques (Wikidata)"/>
+            <column name="description"><![CDATA[Dirigeants nationaux, présidents, secrétaires généraux et membres des organes dirigeants des partis politiques belges (catégorie BE-c, croisement Wikidata et registre des personnes morales BCE / ASBL)]]></column>
+            <column name="dataset_name" value="be_pep_political_parties"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://query.wikidata.org/"/>
+            <column name="plugin_id" value="be-pep-political-parties"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="SPARQL"/>
+            <column name="parameters"><![CDATA[{"endpoint":"https://query.wikidata.org/sparql","country":"Q31","regimandUrl":"https://public.regimand.be","year":"2024","monthsAfterEnd":"12","parties":[{"slug":"mr","query":"Mouvement R\u00e9formateur","name":"Mouvement R\u00e9formateur (MR)","pattern":"^(MR(\\s*-\\s*Mouvement\\s+r[e\u00e9]formateur)?|Mouvement\\s+r[e\u00e9]formateur)(\\s*,?\\s*(asbl|vzw))?$"},{"slug":"ps","query":"Parti Socialiste","name":"Parti Socialiste (PS)","pattern":"^(PS(\\s*-\\s*Parti\\s+socialiste)?|Parti\\s+socialiste)(\\s*,?\\s*(asbl|vzw))?$"},{"slug":"nva","query":"N-VA","name":"Nieuw-Vlaamse Alliantie (N-VA)","pattern":"^(N-VA(\\s*-\\s*Nieuw-Vlaamse\\s+Alliantie)?|Nieuw-Vlaamse\\s+Alliantie)(\\s*,?\\s*(asbl|vzw))?$"},{"slug":"ecolo","query":"Ecolo","name":"Ecolo","pattern":"^(Ecolo|Ecodota(\\s*-\\s*Ecolo\\s+f[e\u00e9]d[e\u00e9]ral)?)(\\s*,?\\s*(asbl|vzw))?$"},{"slug":"engages","query":"Les Engag\u00e9s","name":"Les Engag\u00e9s","pattern":"^(Les\\s+Engag[e\u00e9]s)(\\s*,?\\s*(asbl|vzw))?$"},{"slug":"groen","query":"Groen","name":"Groen","pattern":"^(Groen(\\s+vzw)?|Groenhuis(\\s+vzw)?)$"},{"slug":"vooruit","query":"Vooruit","name":"Vooruit","pattern":"^(Vooruit|Bureau\\s+van\\s+Vooruit)(\\s*,?\\s*(asbl|vzw))?$"},{"slug":"cdenv","query":"CD&V","name":"Christen-Democratisch en Vlaams (CD&V)","pattern":"^(CD&V|Christen-Democratisch\\s+en\\s+Vlaams)(\\s*,?\\s*(asbl|vzw))?$"},{"slug":"openvld","query":"Open Vld","name":"Open Vlaamse Liberalen en Democraten (Open Vld)","pattern":"^(Open\\s+Vld|Open\\s+Vlaamse\\s+Liberalen\\s+en\\s+Democraten)(\\s*,?\\s*(asbl|vzw))?$"},{"slug":"ptb","query":"PTB","name":"Parti du Travail de Belgique (PTB-PVDA)","pattern":"^(PTB(\\s*/\\s*PVDA)?(\\s*-\\s*Parti\\s+du\\s+travail\\s+de\\s+Belgique)?|PVDA|PVDA-PTB-22)(\\s*,?\\s*(asbl|vzw))?$"},{"slug":"pvda","query":"PVDA","name":"Parti du Travail de Belgique (PTB-PVDA)","pattern":"^(PTB(\\s*/\\s*PVDA)?(\\s*-\\s*Parti\\s+du\\s+travail\\s+de\\s+Belgique)?|PVDA|PVDA-PTB-22)(\\s*,?\\s*(asbl|vzw))?$"},{"slug":"vlaamsbelang","query":"Vlaams Belang","name":"Vlaams Belang","pattern":"^(Vlaams\\s+Belang)(\\s*,?\\s*(asbl|vzw))?$"},{"slug":"defi","query":"D\u00e9FI","name":"D\u00e9FI","pattern":"^(D[e\u00e9]FI(\\s*-\\s*D[e\u00e9]mocrate\\s+f[e\u00e9]d[e\u00e9]raliste\\s+ind[e\u00e9]pendant)?|Solidarit[e\u00e9]\\s+D[e\u00e9]FI)(\\s*,?\\s*(asbl|vzw))?$"}]}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="60"/>
+            <column name="licence" value="CC0 1.0 Universal (Wikidata)"/>
+            <column name="attribution" value="Contributeurs Wikidata (entité Q31 - Belgique)"/>
+            <column name="notes"><![CDATA[Combine la collecte SPARQL Wikidata (présidents, secrétaires généraux) avec le référentiel officiel des ASBL/BCE pour les conseils d'administration et bureaux politiques des 12 partis majeurs (MR, PS, Ecolo, Groen, N-VA, Les Engagés, Vooruit, CD&V, Open VLD, PTB-PVDA, Vlaams Belang, DéFI).]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-03 18:29:02.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="116"/>
+            <column name="name" value="PEP Belgique – Pouvoirs locaux (50 000 hab. et plus)"/>
+            <column name="description"><![CDATA[Bourgmestres, gouverneurs de provinces, échevins, présidents de CPAS et députés provinciaux des collectivités de 50 000 habitants ou plus (catégorie BE-AMLR, règlement (UE) 2024/1624 applicable le 10/07/2027)]]></column>
+            <column name="dataset_name" value="be_pep_local_executives"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://public.regimand.be/"/>
+            <column name="plugin_id" value="be-pep-local-executives"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="SPARQL"/>
+            <column name="parameters"><![CDATA[{"lblodEndpoint": "https://centrale-vindplaats.lblod.info/sparql", "regimandUrl": "https://public.regimand.be", "regimandDelayMs": "300", "minPopulation": "50000"}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="60"/>
+            <column name="licence" value="Licence Ouverte Flandre (LBLOD Mandatendatabank) et données publiques de la Cour des comptes de Belgique (Regimand)"/>
+            <column name="attribution"><![CDATA[Cour des comptes de Belgique (public.regimand.be) ; Agentschap Binnenlands Bestuur Vlaanderen (LBLOD Mandatendatabank) ; Statbel (chiffres officiels de population)]]></column>
+            <column name="notes"><![CDATA[Sources 100% officielles gouvernementales et constitutionnelles sans données figées : Bourgmestres, échevins et présidents de CPAS / BCSD flamands via LBLOD Mandatendatabank en temps réel ; Bourgmestres, échevins, présidents de CPAS, gouverneurs et députés provinciaux wallons et bruxellois via les déclarations officielles sous serment à la Cour des comptes (Regimand). Périmètre légal AMLR (art. 2(1)(35)) des 40 collectivités belges >= 50 000 habitants (30 communes et 10 provinces basées sur Statbel).]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-03 18:29:02.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="117"/>
+            <column name="name" value="PEP Belgique – Entités associées aux PEP (Regimand Cour des comptes)"/>
+            <column name="description"><![CDATA[Organismes, sociétés et institutions privées ou dérivées dans lesquels les PEP belges exercent des mandats déclarés (catégorie BE-RCA, proches associés personnes morales)]]></column>
+            <column name="dataset_name" value="be_pep_associated_entities"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://public.regimand.be/"/>
+            <column name="plugin_id" value="be-pep-associated-entities"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="API"/>
+            <column name="parameters"><![CDATA[{"regimandUrl":"https://public.regimand.be","year":"2024","institutions":[{"slug":"chambre","query":"Chambre des","label":"Chambre des repr\u00e9sentants"},{"slug":"senat","query":"S\u00e9nat","label":"S\u00e9nat"},{"slug":"gouvernement_federal","query":"Gouvernement f\u00e9d\u00e9ral","label":"Gouvernement f\u00e9d\u00e9ral"},{"slug":"parlement_flamand","query":"Parlement flamand","label":"Parlement flamand"},{"slug":"gouvernement_flamand","query":"Gouvernement flamand","label":"Gouvernement flamand"},{"slug":"parlement_wallon","query":"Parlement wallon","label":"Parlement de Wallonie"},{"slug":"gouvernement_wallon","query":"Gouvernement wallon","label":"Gouvernement wallon"},{"slug":"parlement_cf","query":"Parlement de la Communaut\u00e9 fran\u00e7aise","label":"Parlement de la F\u00e9d\u00e9ration Wallonie-Bruxelles"},{"slug":"gouvernement_cf","query":"Gouvernement de la Communaut\u00e9 fran\u00e7aise","label":"Gouvernement de la F\u00e9d\u00e9ration Wallonie-Bruxelles"},{"slug":"parlement_bruxelles","query":"Parlement de la R\u00e9gion de Bruxelles-Capitale","label":"Parlement de la R\u00e9gion de Bruxelles-Capitale"},{"slug":"gouvernement_bruxelles","query":"Gouvernement de la R\u00e9gion de Bruxelles-Capitale","label":"Gouvernement de la R\u00e9gion de Bruxelles-Capitale"},{"slug":"parlement_dg","query":"Parlement de la Communaut\u00e9 germanophone","label":"Parlement de la Communaut\u00e9 germanophone"},{"slug":"gouvernement_dg","query":"Gouvernement de la Communaut\u00e9 germanophone","label":"Gouvernement de la Communaut\u00e9 germanophone"},{"slug":"parlement_europeen","query":"Parlement europ\u00e9en","label":"Parlement europ\u00e9en"}]}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="60"/>
+            <column name="licence" value="Cour des comptes de Belgique (public.regimand.be)"/>
+            <column name="attribution" value="Cour des comptes de Belgique (registre officiel des mandats, fonctions et professions)"/>
+            <column name="notes"><![CDATA[Extrait chaque organisme externe (isLiable = false) lié aux mandataires publics assujettis (députés, sénateurs, ministres fédéraux et régionaux). Crée les entités Person, Organization (role.rca) et les relations Directorship.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-03 18:29:02.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="152"/>
+            <column name="name" value="PEP Belgique – Pouvoirs locaux étendus (toutes les communes)"/>
+            <column name="description"><![CDATA[Bourgmestres, gouverneurs, échevins, présidents de CPAS et députés provinciaux de toutes les communes et provinces belges, sans seuil de population (couche étendue)]]></column>
+            <column name="dataset_name" value="be_pep_local_executives_all"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://public.regimand.be/"/>
+            <column name="plugin_id" value="be-pep-local-executives"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="SPARQL"/>
+            <column name="parameters"><![CDATA[{"wikidataEndpoint": "https://query.wikidata.org/sparql", "lblodEndpoint": "https://centrale-vindplaats.lblod.info/sparql", "regimandUrl": "https://public.regimand.be", "regimandDelayMs": "300", "minPopulation": "0", "countryQid": "Q31"}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence"><![CDATA[CC0 1.0 (Wikidata), Licence Ouverte Flandre (LBLOD Mandatendatabank) et données publiques de la Cour des comptes (Regimand)]]></column>
+            <column name="attribution" value="Wikidata (Q31) ; Agentschap Binnenlands Bestuur (LBLOD Mandatendatabank) ; Cour des comptes, public.regimand.be"/>
+            <column name="notes"><![CDATA[Couche étendue au-delà du champ légal, même plugin et mêmes identifiants que be_pep_local_executives. Exécution longue (environ une heure) : une recherche Regimand par commune, avec 300 ms entre deux appels. Regimand publie le dernier exercice clos. Les bourgmestres wallons et bruxellois viennent de Wikidata, faute de source officielle libre : la liste de l'Union des villes et communes de Wallonie (open data Wallonie) est en CC BY-NC.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-05 00:36:28.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="369"/>
+            <column name="name" value="PEP Belgique – Belges dans les institutions de l'UE"/>
+            <column name="description"><![CDATA[Juges, avocats généraux et greffiers de la CJUE, membres de la Cour des comptes européenne, représentants au conseil de surveillance de la BCE et directoire, secrétaire général du Conseil, de nationalité belge, d'après les pages officielles de ces institutions (catégorie BE-EU)]]></column>
+            <column name="dataset_name" value="be_pep_eu_institutions"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://curia.europa.eu/jcms/jcms/Jo2_7026/fr/"/>
+            <column name="plugin_id" value="be-pep-eu-institutions"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="WEB_PAGE"/>
+            <column name="parameters"><![CDATA[{"delayMs":"500","cjUrl":"https://curia.europa.eu/jcms/jcms/Jo2_7026/fr/","gcUrl":"https://curia.europa.eu/jcms/jcms/Jo2_7035/fr/","ecaUrl":"https://www.eca.europa.eu/ContentPagesDocuments/Organisation/COMPOSITION_EN.pdf","ecbBoardUrl":"https://www.ecb.europa.eu/ecb/orga/decisions/eb/html/index.fr.html","ssmUrl":"https://www.bankingsupervision.europa.eu/about/organisation/leadership/supervisoryboard/html/index.en.html","councilSgUrl":"https://www.consilium.europa.eu/fr/general-secretariat/secretary-general/","councilSgBioUrl":"https://www.consilium.europa.eu/fr/general-secretariat/secretary-general/biography/"}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="Réutilisation autorisée des contenus des institutions de l'UE, source citée"/>
+            <column name="attribution"><![CDATA[CJUE (curia.europa.eu), Cour des comptes européenne (eca.europa.eu), BCE (ecb.europa.eu), Conseil de l'Union européenne (consilium.europa.eu)]]></column>
+            <column name="notes"><![CDATA[Sources 100% officielles de l'UE en temps réel sans données figées. La CJUE et la BCE ne publiant pas directement la nationalité, celle-ci est établie par les biographies et CVs officiels (lieu de naissance en Belgique ou autorité nationale représentée) avec traçabilité dans les notes.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-11 17:31:15.000000"/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="87"/>
+            <column name="parser_id" valueNumeric="89"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="0"/>
+            <column name="covered_scope"><![CDATA[Le roi Philippe, en fonction depuis le 21/07/2013, confirmé par le Moniteur belge (source primaire), avec la date et le lieu de naissance de la page officielle.]]></column>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="88"/>
+            <column name="parser_id" valueNumeric="90"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="0"/>
+            <column name="covered_scope" value="Les 15 membres du gouvernement De Wever, avec leur fonction exacte et leur portrait officiel."/>
+            <column name="gaps"><![CDATA[Ni date de naissance ni date d’entrée en fonction sur la page. Les anciens membres ne sont pas couverts (lot 3 : Moniteur belge).]]></column>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="91"/>
+            <column name="parser_id" valueNumeric="91"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="0"/>
+            <column name="covered_scope"><![CDATA[Les 150 députés en fonction, avec circonscription, groupe, date et lieu de naissance (149 sur 150) et début de mandat (date d’entrée pour un suppléant).]]></column>
+            <column name="gaps" value="Une fiche sans date de naissance (Carmen Ramlot). Les anciens députés ne sont pas couverts."/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="98"/>
+            <column name="parser_id" valueNumeric="91"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope" value="Membres sortants des assemblees parlementaires"/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="93"/>
+            <column name="parser_id" valueNumeric="92"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope"><![CDATA[Les 124 membres en fonction, avec date et lieu de naissance, genre, circonscription, groupe, début du mandat en cours et portrait officiel ; les anciens membres dont le dernier mandat a pris fin pendant la durée de rétention (12 mois), avec les dates de leur mandat.]]></column>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="98"/>
+            <column name="parser_id" valueNumeric="92"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope" value="Membres sortants des assemblees parlementaires"/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="94"/>
+            <column name="parser_id" valueNumeric="93"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope"><![CDATA[Les 75 députés en fonction, avec parti, circonscription, fonction au bureau (président, vice-présidents, secrétaires) et portrait officiel ; les anciens députés dont le mandat a pris fin pendant la durée de rétention (12 mois), avec les dates de leur mandat.]]></column>
+            <column name="gaps" value="Pas de date de naissance dans le fichier ni dans les fiches des anciens."/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="98"/>
+            <column name="parser_id" valueNumeric="93"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope" value="Membres sortants des assemblees parlementaires"/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="111"/>
+            <column name="parser_id" valueNumeric="94"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope"><![CDATA[Les 22 députés européens élus en Belgique, avec date et lieu de naissance, dates de mandat et photo Wikimedia Commons ; les sortis depuis moins de 12 mois.]]></column>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="112"/>
+            <column name="parser_id" valueNumeric="95"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="0"/>
+            <column name="covered_scope"><![CDATA[Hadja Lahbib, commissaire (2024-2029) à l’égalité, à l’état de préparation et à la gestion des crises, avec son portrait officiel.]]></column>
+            <column name="gaps" value="Ni date de naissance ni date exacte de prise de fonctions sur la fiche."/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="114"/>
+            <column name="parser_id" valueNumeric="96"/>
+            <column name="completeness" value="PARTIAL"/>
+            <column name="includes_former" valueNumeric="0"/>
+            <column name="covered_scope"><![CDATA[Conjoints, enfants et leurs conjoints, parents des PEP belges décrits dans Wikidata : 74 proches de 63 PEP (sur 1 321 PEP belges trouvées).]]></column>
+            <column name="gaps"><![CDATA[Seules les familles décrites dans Wikidata ; les ministres régionaux ne sont repris que par leur ministre-président. Données collaboratives, à contrôler.]]></column>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="89"/>
+            <column name="parser_id" valueNumeric="97"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="0"/>
+            <column name="covered_scope"><![CDATA[35 ministres et secrétaires d'État des 5 gouvernements régionaux et communautaires : Flandre (9, vlaanderen.be), Fédération Wallonie-Bruxelles (6, gouvernement.cfwb.be), Communauté germanophone (4, MediaWiki Paasch III), Wallonie (8, MediaWiki Dolimont) et Bruxelles-Capitale (8, MediaWiki Vervoort III).]]></column>
+            <column name="gaps" value="Pas de date de naissance."/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="95"/>
+            <column name="parser_id" valueNumeric="98"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="0"/>
+            <column name="covered_scope"><![CDATA[Les 94 députés du Parlement de la Fédération Wallonie-Bruxelles, avec groupe politique, fonction au bureau ou en commission et portrait officiel.]]></column>
+            <column name="gaps" value="Pas de date de naissance sur la liste publique."/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="96"/>
+            <column name="parser_id" valueNumeric="98"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="0"/>
+            <column name="covered_scope"><![CDATA[89 députés du Parlement de la Région de Bruxelles-Capitale (72 francophones et 17 néerlandophones, législature 2024-2029), lus via l'API MediaWiki.]]></column>
+            <column name="gaps" value="Pas de date de naissance."/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="97"/>
+            <column name="parser_id" valueNumeric="98"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="0"/>
+            <column name="covered_scope"><![CDATA[Les 25 membres du Parlement de la Communauté germanophone et les membres de son Präsidium, avec groupe politique et portrait officiel.]]></column>
+            <column name="gaps" value="Pas de date de naissance sur la liste publique."/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="92"/>
+            <column name="parser_id" valueNumeric="99"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="0"/>
+            <column name="covered_scope" value="Les 59/60 sénateurs en fonction (entités fédérées et cooptés), avec catégorie de mandat et portrait officiel."/>
+            <column name="gaps" value="Pas de date de naissance sur la liste récapitulative. Les anciens sénateurs ne sont pas couverts."/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="98"/>
+            <column name="parser_id" valueNumeric="99"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope" value="Membres sortants des assemblees parlementaires"/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="100"/>
+            <column name="parser_id" valueNumeric="100"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="0"/>
+            <column name="covered_scope"><![CDATA[Les 12 juges (dont les 2 présidents) de la Cour constitutionnelle, avec date et lieu de naissance, date de nomination royale et portrait officiel.]]></column>
+            <column name="gaps" value="Les anciens juges ne sont pas couverts."/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="103"/>
+            <column name="parser_id" valueNumeric="101"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="0"/>
+            <column name="covered_scope"><![CDATA[Tous les membres du Conseil d'État : premier président, président, présidents de chambre, conseillers d'État, assesseurs de la section de législation, auditeur général et adjoint, premiers auditeurs chefs de section, premiers auditeurs, auditeurs et auditeurs adjoints. Sources : page « Direction et gestion » et compositions officielles des chambres (francophones, bilingue, néerlandophones) et de l'auditorat (francophone et néerlandophone), relues à chaque exécution.]]></column>
+            <column name="gaps"><![CDATA[Les compositions du siège et de l'auditorat francophone ne donnent que l'initiale du prénom (« P. Ronvaux ») ; noms complets pour la direction et l'auditorat néerlandophone. Pas de date de naissance. Greffiers et personnel administratif exclus (non PEP).]]></column>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="105"/>
+            <column name="parser_id" valueNumeric="102"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="0"/>
+            <column name="covered_scope"><![CDATA[Les 10 magistrats de la Cour des comptes (Première présidente, présidente et 8 conseillers), avec chambre linguistique et portrait officiel.]]></column>
+            <column name="gaps" value="Pas de date de naissance sur la page."/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="104"/>
+            <column name="parser_id" valueNumeric="103"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="0"/>
+            <column name="covered_scope"><![CDATA[Le Gouverneur, les 4 directeurs du Comité de direction et les 11 régents du Conseil de régence (16 personnes au total), avec portrait officiel pour le Comité de direction.]]></column>
+            <column name="gaps" value="Pas de date de naissance sur les pages publiques."/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="106"/>
+            <column name="parser_id" valueNumeric="104"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="0"/>
+            <column name="covered_scope"><![CDATA[Ambassadeurs, consuls généraux, consuls, chargés d’affaires et représentants permanents en poste dans le réseau diplomatique belge.]]></column>
+            <column name="gaps" value="Pas de date de naissance dans l’annuaire public."/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="107"/>
+            <column name="parser_id" valueNumeric="105"/>
+            <column name="completeness" value="PARTIAL"/>
+            <column name="includes_former" valueNumeric="0"/>
+            <column name="covered_scope" value="Chef de la Défense (CHOD), Vice-Chef de la Défense (VCHOD) et commandants de composantes publiés sur mil.be."/>
+            <column name="gaps" value="Annuaire complet non publié sur mil.be ; complété par les arrêtés royaux au Moniteur belge (lot 3)."/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="109"/>
+            <column name="parser_id" valueNumeric="106"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="0"/>
+            <column name="covered_scope"><![CDATA[22 hauts dirigeants des 6 organisations internationales établies en Belgique : OTAN (4, Bruxelles), Union Benelux (3, Bruxelles), OMD / WCO (1, Bruxelles), Eurocontrol (10, Bruxelles), SHAPE (3, Mons/Casteau) et OEACP / OACPS (1, Bruxelles).]]></column>
+            <column name="gaps" value="Pas de date de naissance."/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="89"/>
+            <column name="parser_id" valueNumeric="113"/>
+            <column name="completeness" value="PARTIAL"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope" value="Nominations et demissions des ministres regionaux publiees aux actes du Moniteur belge"/>
+            <column name="gaps"><![CDATA[Seuls les actes du Moniteur belge des 180 derniers jours sont lus : nominations et départs récents uniquement, pas l'ensemble des titulaires en fonction. Les personnes publiées sont gardées 60 mois après leur disparition de la source.]]></column>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="90"/>
+            <column name="parser_id" valueNumeric="113"/>
+            <column name="completeness" value="PARTIAL"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope" value="Anciens membres des gouvernements fédéral et régionaux (arrêtés de démission acceptée)."/>
+            <column name="gaps"><![CDATA[Seuls les actes du Moniteur belge des 180 derniers jours sont lus : nominations et départs récents uniquement, pas l'ensemble des titulaires en fonction. Les personnes publiées sont gardées 60 mois après leur disparition de la source.]]></column>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="98"/>
+            <column name="parser_id" valueNumeric="113"/>
+            <column name="completeness" value="PARTIAL"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope" value="Anciens parlementaires dont la cessation de fonction est publiee au Moniteur belge"/>
+            <column name="gaps"><![CDATA[Seuls les actes du Moniteur belge des 180 derniers jours sont lus : nominations et départs récents uniquement, pas l'ensemble des titulaires en fonction. Les personnes publiées sont gardées 60 mois après leur disparition de la source.]]></column>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="101"/>
+            <column name="parser_id" valueNumeric="113"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope"><![CDATA[58 magistrats du siège et du parquet de la Cour de cassation (premier président, président, présidents de section, conseillers, procureur général, premier avocat général, avocats généraux et avocats généraux délégués en fonction ou admis à la retraite depuis moins de 5 ans), lus directement sur cass.be (aperçus officiels du siège et du parquet et audiences solennelles d'installation 2025-2026) et complétés par le Moniteur belge.]]></column>
+            <column name="gaps" value="Pas de date de naissance."/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="102"/>
+            <column name="parser_id" valueNumeric="113"/>
+            <column name="completeness" value="PARTIAL"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope"><![CDATA[Premiers présidents des cours d'appel et des cours du travail siégeant au Collège des cours et tribunaux (tribunaux-rechtbanken.be), conseillers et avocats généraux promus à la Cour de cassation (cass.be) et nominations/démissions publiées au Moniteur belge avec prénom complet.]]></column>
+            <column name="gaps" value="Les actes du Moniteur belge ne mentionnant que l'initiale du prénom sont écartés pour éviter les homonymies."/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="103"/>
+            <column name="parser_id" valueNumeric="113"/>
+            <column name="completeness" value="PARTIAL"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope" value="Membres du Conseil d’État (premiers présidents, présidents, conseillers, assesseurs, auditeurs)."/>
+            <column name="gaps"><![CDATA[Seuls les actes du Moniteur belge des 180 derniers jours sont lus : nominations et départs récents uniquement, pas l'ensemble des titulaires en fonction. Les personnes publiées sont gardées 60 mois après leur disparition de la source.]]></column>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="106"/>
+            <column name="parser_id" valueNumeric="113"/>
+            <column name="completeness" value="PARTIAL"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope" value="Ambassadeurs, consuls généraux et chargés d’affaires nommés par arrêté royal."/>
+            <column name="gaps"><![CDATA[Seuls les actes du Moniteur belge des 180 derniers jours sont lus : nominations et départs récents uniquement, pas l'ensemble des titulaires en fonction. Les personnes publiées sont gardées 60 mois après leur disparition de la source.]]></column>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="107"/>
+            <column name="parser_id" valueNumeric="113"/>
+            <column name="completeness" value="PARTIAL"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope" value="Officiers généraux de la Défense (général, lieutenant-général, général-major, amiral)."/>
+            <column name="gaps"><![CDATA[Seuls les actes du Moniteur belge des 180 derniers jours sont lus : nominations et départs récents uniquement, pas l'ensemble des titulaires en fonction. Les personnes publiées sont gardées 60 mois après leur disparition de la source.]]></column>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="108"/>
+            <column name="parser_id" valueNumeric="113"/>
+            <column name="completeness" value="PARTIAL"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope" value="Commissaires du gouvernement et administrateurs nommés par arrêté royal ou ministériel."/>
+            <column name="gaps" value="Complété par be_pep_public_enterprises (listes déclarées)."/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="108"/>
+            <column name="parser_id" valueNumeric="114"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope"><![CDATA[Membres des conseils d’administration, présidents, directeurs généraux et commissaires du gouvernement des entreprises publiques fédérales et régionales, autorités portuaires et intercommunales de distribution d'énergie et d'eau déclarés à la Cour des comptes.]]></column>
+            <column name="gaps"><![CDATA[Les mandats d'entreprises publiques et intercommunales de niveau purement local non soumises au dépôt obligatoire auprès de la Cour des comptes relèvent de be_pep_associated_entities.]]></column>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="99"/>
+            <column name="parser_id" valueNumeric="115"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope"><![CDATA[172 dirigeants et membres des organes dirigeants nationaux des partis politiques belges (196 mandats actifs) : présidents, coprésidents, secrétaires généraux et directeurs via Wikidata (18 partis), complétés par les vice-présidents, secrétaires généraux, trésoriers, directeurs politiques, administrateurs et membres des bureaux politiques, conseils de parti et comités directeurs déclarés à la Cour des comptes (Regimand) pour les 12 partis représentés (MR, PS, N-VA, Ecolo, Les Engagés, Groen, Vooruit, CD&V, Open Vld, PTB-PVDA, Vlaams Belang, DéFI).]]></column>
+            <column name="gaps" value="Pas de date de naissance pour les membres extraits uniquement via Regimand."/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="110"/>
+            <column name="parser_id" valueNumeric="116"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope"><![CDATA[Tous les bourgmestres des 30 communes belges de 50 000 habitants ou plus et les 10 gouverneurs de province extraits exclusivement de sources officielles gouvernementales : LBLOD Mandatendatabank pour la Flandre et Cour des comptes (Regimand - déclarations officielles des bourgmestres et gouverneurs) pour la Wallonie et Bruxelles. Mandats terminés inclus pendant la durée de rétention.]]></column>
+            <column name="gaps"><![CDATA[Aucune lacune sur le périmètre légal AMLR. Sources 100% officielles et dynamiques sans dépendance collaborative (Wikidata).]]></column>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="245"/>
+            <column name="parser_id" valueNumeric="116"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope"><![CDATA[Échevins (Schepenen), présidents de CPAS/BCSD et députés provinciaux (Gedeputeerden) des 30 communes et 10 provinces de 50 000 habitants ou plus extraits en temps réel des sources officielles : LBLOD (Agentschap Binnenlands Bestuur) et Regimand (Cour des comptes de Belgique). Mandats terminés inclus pendant la durée de rétention.]]></column>
+            <column name="gaps"><![CDATA[Aucune lacune sur le périmètre légal AMLR. Sources 100% officielles et dynamiques sans dépendance collaborative (Wikidata).]]></column>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="115"/>
+            <column name="parser_id" valueNumeric="117"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope"><![CDATA[Organismes et sociétés liés aux parlementaires et membres de gouvernement belges, avec liens Directorship et statut de rémunération.]]></column>
+            <column name="gaps" value="Ne couvre pas les personnes physiques (famille PEP)."/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="247"/>
+            <column name="parser_id" valueNumeric="152"/>
+            <column name="completeness" value="PARTIAL"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope" value="Bourgmestres, échevins, présidents de CPAS et députés provinciaux de toutes les communes et provinces belges."/>
+            <column name="gaps"><![CDATA[Regimand publie le dernier exercice clos, avec un décalage. Conseillers communaux et membres des conseils de CPAS : non repris. Hors champ légal actuel.]]></column>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="113"/>
+            <column name="parser_id" valueNumeric="369"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope"><![CDATA[Belges exerçant une fonction PEP dans les institutions de l'UE (liste de la Commission JO C/2023/724) : 5 titulaires belges identifiés sur 125 membres analysés (3 à la Cour de justice et au Tribunal de l'UE, 1 à la Cour des comptes européenne, 1 au conseil de surveillance prudentielle de la BCE, 0 au directoire de la BCE et au secrétariat général du Conseil).]]></column>
+            <column name="gaps" value="Pas de date de naissance."/>
+        </insert>
+    </changeSet>
+</databaseChangeLog>

@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="baseline-parsers-lt" author="swiftcheck-baseline">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM parser WHERE dataset_name IN ('lt_pep_parliament', 'lt_pep_europarl', 'lt_pep_eu_commission')</sqlCheck>
+        </preConditions>
+        <comment>Parsers « lt_* » (3) et leurs liens aux fonctions PEP (3)</comment>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="243"/>
+            <column name="name" value="PEP Lituanie – Seimas"/>
+            <column name="description" value="Membres du Seimas (législature 2024-2028), d'après le site officiel www.lrs.lt (catégorie LT-b)"/>
+            <column name="dataset_name" value="lt_pep_parliament"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://www.lrs.lt/"/>
+            <column name="plugin_id" value="lt-pep-seimas"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="WEB_PAGE"/>
+            <column name="parameters"><![CDATA[{"listUrl": "https://www.lrs.lt/sip/portal.show?p_r=35299&p_k=1", "details": "true", "delayMs": "20000"}]]></column>
+            <column name="refresh_hours" valueNumeric="720"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="Site officiel du Seimas : citer la source (conditions de réutilisation à vérifier sur www.lrs.lt)"/>
+            <column name="attribution" value="Lietuvos Respublikos Seimas, www.lrs.lt"/>
+            <column name="notes"><![CDATA[La page « Seimo nariai » (1 requête) donne 140 membres avec leur groupe ; la fiche de chaque membre donne la date et le lieu de naissance. Le robots.txt impose 20 secondes entre deux requêtes (plancher imposé dans le code) et interdit /pls/ : avec les fiches, une exécution dure environ 47 minutes ; mettre details = false pour ne lire que la liste (une requête, sans naissance). Pas de dates de mandat ; pas d'anciens membres.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-07 00:15:43.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="248"/>
+            <column name="name" value="PEP Lituanie – Députés européens"/>
+            <column name="description"><![CDATA[Les députés au Parlement européen élus en Lituanie, en fonction et sortis depuis moins de 12 mois, avec naissance et dates de mandat (catégorie LT-EU)]]></column>
+            <column name="dataset_name" value="lt_pep_europarl"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://data.europarl.europa.eu/"/>
+            <column name="plugin_id" value="lt-pep-europarl"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="API"/>
+            <column name="parameters"><![CDATA[{"currentUrl": "https://data.europarl.europa.eu/api/v2/meps/show-current?country-of-representation=LT&format=application%2Fld%2Bjson", "termUrl": "https://data.europarl.europa.eu/api/v2/meps?country-of-representation=LT&parliamentary-term=10&limit=500&format=application%2Fld%2Bjson", "detailUrl": "https://data.europarl.europa.eu/api/v2/meps/{id}?format=application%2Fld%2Bjson", "delayMs": "400", "monthsAfterEnd": "12", "wikidataEndpoint": ""}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="Réutilisation autorisée en citant la source (Parlement européen)"/>
+            <column name="attribution" value="Parlement européen, data.europarl.europa.eu"/>
+            <column name="notes"><![CDATA[Reprise de nl_pep_europarl. Mesure du 06/11/2026 : 11 députés en fonction, 10 avec date de naissance, 1 sorti avant la fenêtre de 12 mois (écarté). Une fiche par député. L'API limite le débit (HTTP 429) : le plugin attend puis réessaie. Pas de photos (Wikidata non utilisé). termUrl contient le numéro de législature (10) : à changer en 2029.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-07 00:15:43.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="249"/>
+            <column name="name" value="PEP Lituanie – Commissaire européen"/>
+            <column name="description" value="Le membre lituanien de la Commission européenne, d'après sa fiche officielle (catégorie LT-EU)"/>
+            <column name="dataset_name" value="lt_pep_eu_commission"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://commission.europa.eu/about/organisation/college-commissioners_en"/>
+            <column name="plugin_id" value="lt-pep-eu-commission"/>
+            <column name="data_source_type" value="HTTP_FILE"/>
+            <column name="parser_kind" value="WEB_PAGE"/>
+            <column name="source_location" value="https://commission.europa.eu/about/organisation/college-commissioners/andrius-kubilius_en"/>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="Réutilisation autorisée en citant la source (avis juridique de la Commission européenne)"/>
+            <column name="attribution" value="Commission européenne, commission.europa.eu"/>
+            <column name="notes"><![CDATA[Reprise de nl_pep_eu_commission. À chaque nouvelle Commission, remplacer l'adresse par la fiche du commissaire lituanien. Une fiche qui ne présente pas un commissaire lituanien est refusée.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-07 00:15:43.000000"/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="608"/>
+            <column name="parser_id" valueNumeric="243"/>
+            <column name="completeness" value="PARTIAL"/>
+            <column name="includes_former" valueNumeric="0"/>
+            <column name="covered_scope" value="Les 140 membres du Seimas de la législature en cours, avec groupe et, avec les fiches, naissance et lieu de naissance."/>
+            <column name="gaps" value="Anciens membres non couverts ; pas de dates de mandat ; un siège sur 141 non listé."/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="642"/>
+            <column name="parser_id" valueNumeric="248"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope"><![CDATA[Les 11 députés européens élus en Lituanie et ceux sortis depuis moins de 12 mois, avec naissance, genre, groupe et dates de mandat.]]></column>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="643"/>
+            <column name="parser_id" valueNumeric="249"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="0"/>
+            <column name="covered_scope" value="Andrius Kubilius, commissaire chargé de la défense et de l'espace (2024-2029)."/>
+            <column name="gaps" value="Ni date ni lieu de naissance sur la fiche."/>
+        </insert>
+    </changeSet>
+</databaseChangeLog>

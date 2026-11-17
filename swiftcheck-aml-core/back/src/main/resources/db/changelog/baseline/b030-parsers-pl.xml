@@ -1,0 +1,521 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="baseline-parsers-pl" author="swiftcheck-baseline">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM parser WHERE dataset_name IN ('pl_pep_parliament', 'pl_pep_parliament_history', 'pl_pep_clubs', 'pl_pep_government', 'pl_pep_europarl', 'pl_pep_eu_commission', 'pl_pep_president', 'pl_pep_senat', 'pl_pep_political_parties', 'pl_pep_constitutional_tribunal', 'pl_pep_supreme_court', 'pl_pep_audit_court', 'pl_pep_central_bank', 'pl_pep_diplomats', 'pl_pep_armed_forces', 'pl_pep_state_enterprises', 'pl_pep_international_orgs', 'pl_pep_rca')</sqlCheck>
+        </preConditions>
+        <comment>Parsers « pl_* » (18) et leurs liens aux fonctions PEP (21)</comment>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="225"/>
+            <column name="name" value="PEP Pologne – Diète (Sejm)"/>
+            <column name="description"><![CDATA[Députés de la Diète en fonction ou sortis depuis moins de 12 mois, d'après l'API officielle api.sejm.gov.pl (catégorie PL-b)]]></column>
+            <column name="dataset_name" value="pl_pep_parliament"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://api.sejm.gov.pl/"/>
+            <column name="plugin_id" value="pl-pep-sejm"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="API"/>
+            <column name="parameters"><![CDATA[{"apiUrl": "https://api.sejm.gov.pl/sejm", "scope": "parliament", "monthsAfterEnd": "12", "delayMs": "500"}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="Données ouvertes de la Diète : citer la source (conditions de réutilisation à vérifier sur api.sejm.gov.pl)"/>
+            <column name="attribution" value="Sejm Rzeczypospolitej Polskiej, api.sejm.gov.pl"/>
+            <column name="notes"><![CDATA[4 appels (législatures, députés des législatures dans la fenêtre, groupes). Naissance complète ; fin de mandat exacte pour les mandats interrompus, fin de législature pour les mandats terminés. 460 personnes gardées. Un député est reconnu d'une législature à l'autre par prénom, nom et naissance. Décès enregistrés pendant la législature écartés (3).]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-06 10:28:58.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="226"/>
+            <column name="name" value="PEP Pologne – Diète, historique de 15 ans"/>
+            <column name="description" value="Anciens députés de la Diète des 15 dernières années (couche étendue de pl_pep_parliament)"/>
+            <column name="dataset_name" value="pl_pep_parliament_history"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://api.sejm.gov.pl/"/>
+            <column name="plugin_id" value="pl-pep-sejm"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="API"/>
+            <column name="parameters"><![CDATA[{"apiUrl": "https://api.sejm.gov.pl/sejm", "scope": "parliament", "monthsAfterEnd": "180", "delayMs": "500"}]]></column>
+            <column name="refresh_hours" valueNumeric="720"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="Données ouvertes de la Diète : citer la source (conditions de réutilisation à vérifier sur api.sejm.gov.pl)"/>
+            <column name="attribution" value="Sejm Rzeczypospolitej Polskiej, api.sejm.gov.pl"/>
+            <column name="notes"><![CDATA[Même plugin et mêmes identifiants que pl_pep_parliament ; 1 204 personnes (législatures 6 à 10). La source ne publie pas le décès des anciens députés : une partie des personnes listées est décédée, d'où une fenêtre limitée à 15 ans. À activer selon l'approche par les risques.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-06 10:28:58.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="227"/>
+            <column name="name" value="PEP Pologne – Présidents de groupes parlementaires"/>
+            <column name="description" value="Présidents des groupes parlementaires (kluby) de la Diète, d'après l'API officielle api.sejm.gov.pl (catégorie PL-c)"/>
+            <column name="dataset_name" value="pl_pep_clubs"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://api.sejm.gov.pl/"/>
+            <column name="plugin_id" value="pl-pep-sejm"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="API"/>
+            <column name="parameters"><![CDATA[{"apiUrl": "https://api.sejm.gov.pl/sejm", "scope": "clubs", "monthsAfterEnd": "12", "delayMs": "500"}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="Données ouvertes de la Diète : citer la source (conditions de réutilisation à vérifier sur api.sejm.gov.pl)"/>
+            <column name="attribution" value="Sejm Rzeczypospolitej Polskiej, api.sejm.gov.pl"/>
+            <column name="notes"><![CDATA[Même plugin que pl_pep_parliament (scope = clubs). 9 personnes. Seuls les présidents de groupes siégeant à la Diète ; les directions des partis ne sont pas publiées.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-06 10:28:58.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="228"/>
+            <column name="name" value="PEP Pologne – Gouvernement"/>
+            <column name="description"><![CDATA[Premier ministre, vice-premiers ministres et ministres, d'après la page officielle « Skład Rady Ministrów » de la Chancellerie du Premier ministre (catégorie PL-a)]]></column>
+            <column name="dataset_name" value="pl_pep_government"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://www.gov.pl/web/premier/sklad-rady-ministrow"/>
+            <column name="plugin_id" value="pl-pep-government"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="WEB_PAGE"/>
+            <column name="parameters" value="{}"/>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="Site officiel de la Chancellerie du Premier ministre : citer la source"/>
+            <column name="attribution" value="Kancelaria Prezesa Rady Ministrów, gov.pl"/>
+            <column name="notes"><![CDATA[Une page, 21 personnes (Premier ministre, 3 vice-premiers ministres, 17 ministres). Pas de naissance ni de dates de nomination. Anciens ministres et secrétaires d'État non couverts.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-06 10:28:58.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="250"/>
+            <column name="name" value="PEP Pologne – Députés européens"/>
+            <column name="description"><![CDATA[Les députés au Parlement européen élus en Pologne, en fonction et sortis depuis moins de 12 mois, avec naissance et dates de mandat (catégorie PL-EU)]]></column>
+            <column name="dataset_name" value="pl_pep_europarl"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://data.europarl.europa.eu/"/>
+            <column name="plugin_id" value="pl-pep-europarl"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="API"/>
+            <column name="parameters"><![CDATA[{"currentUrl": "https://data.europarl.europa.eu/api/v2/meps/show-current?country-of-representation=PL&format=application%2Fld%2Bjson", "termUrl": "https://data.europarl.europa.eu/api/v2/meps?country-of-representation=PL&parliamentary-term=10&limit=500&format=application%2Fld%2Bjson", "detailUrl": "https://data.europarl.europa.eu/api/v2/meps/{id}?format=application%2Fld%2Bjson", "delayMs": "400", "monthsAfterEnd": "12", "wikidataEndpoint": ""}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="Réutilisation autorisée en citant la source (Parlement européen)"/>
+            <column name="attribution" value="Parlement européen, data.europarl.europa.eu"/>
+            <column name="notes"><![CDATA[Reprise de nl_pep_europarl. Mesure du 06/11/2026 : 53 députés publiés, 42 avec date de naissance, 1 sorti avant la fenêtre de 12 mois (écarté). Une fiche par député. L'API limite le débit (HTTP 429) : le plugin attend puis réessaie. Pas de photos (Wikidata non utilisé). termUrl contient le numéro de législature (10) : à changer en 2029.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-07 00:15:43.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="251"/>
+            <column name="name" value="PEP Pologne – Commissaire européen"/>
+            <column name="description" value="Le membre polonais de la Commission européenne, d'après sa fiche officielle (catégorie PL-EU)"/>
+            <column name="dataset_name" value="pl_pep_eu_commission"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://commission.europa.eu/about/organisation/college-commissioners_en"/>
+            <column name="plugin_id" value="pl-pep-eu-commission"/>
+            <column name="data_source_type" value="HTTP_FILE"/>
+            <column name="parser_kind" value="WEB_PAGE"/>
+            <column name="source_location" value="https://commission.europa.eu/about/organisation/college-commissioners/piotr-serafin_en"/>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="Réutilisation autorisée en citant la source (avis juridique de la Commission européenne)"/>
+            <column name="attribution" value="Commission européenne, commission.europa.eu"/>
+            <column name="notes"><![CDATA[Reprise de nl_pep_eu_commission. À chaque nouvelle Commission, remplacer l'adresse par la fiche du commissaire polonais. Une fiche qui ne présente pas un commissaire polonais est refusée.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-07 00:15:43.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="333"/>
+            <column name="name" value="PEP Pologne – Présidence de la République"/>
+            <column name="description"><![CDATA[Président de la République de Pologne (Prezydent RP), Chancellerie présidentielle (KPRP) et Bureau de la sécurité nationale (BBN) (catégorie PL-a)]]></column>
+            <column name="dataset_name" value="pl_pep_president"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://www.prezydent.pl/"/>
+            <column name="plugin_id" value="pl-pep-president"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="API"/>
+            <column name="parameters"><![CDATA[{"url": "https://www.prezydent.pl/kancelaria"}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="DonnÃ©es publiques ouvertes : citer la source"/>
+            <column name="attribution" value="Kancelaria Prezydenta Rzeczypospolitej Polskiej"/>
+            <column name="notes"><![CDATA[[DONNÉES LOCALES FIGÉES - À MIGRER VERS CRAWLER RÉSEAU] [DONNÃ‰ES LOCALES FIGÃ‰ES - Ã€ MIGRER VERS CRAWLER RÃ‰SEAU] PrÃ©sident de la RÃ©publique (Andrzej Duda), chef de la chancellerie, chef du BBN et secrÃ©taires d'Ã‰tat.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-09 19:06:01.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="334"/>
+            <column name="name" value="PEP Pologne – Sénat (Senat RP)"/>
+            <column name="description" value="Maréchal, vice-maréchaux et sénateurs du Sénat de la République de Pologne (catégorie PL-b)"/>
+            <column name="dataset_name" value="pl_pep_senat"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://www.senat.gov.pl/"/>
+            <column name="plugin_id" value="pl-pep-senat"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="API"/>
+            <column name="parameters"><![CDATA[{"url": "https://www.senat.gov.pl/sklad/senatorowie/"}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="DonnÃ©es publiques ouvertes : citer la source"/>
+            <column name="attribution" value="Senat Rzeczypospolitej Polskiej"/>
+            <column name="notes"><![CDATA[[DONNÉES LOCALES FIGÉES - À MIGRER VERS CRAWLER RÉSEAU] [DONNÃ‰ES LOCALES FIGÃ‰ES - Ã€ MIGRER VERS CRAWLER RÃ‰SEAU] MarÃ©chale du SÃ©nat (MaÅ‚gorzata Kidawa-BÅ‚oÅ„ska), vice-marÃ©chaux et sÃ©nateurs du SÃ©nat de la RÃ©publique.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-09 19:06:01.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="335"/>
+            <column name="name" value="PEP Pologne – Partis Politiques"/>
+            <column name="description" value="Membres des organes dirigeants des partis politiques représentés au parlement polonais (catégorie PL-c)"/>
+            <column name="dataset_name" value="pl_pep_political_parties"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://pkw.gov.pl/"/>
+            <column name="plugin_id" value="pl-pep-political-parties"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="API"/>
+            <column name="parameters"><![CDATA[{"url": "https://pkw.gov.pl/finansowanie-polityki/partie-polityczne/rejestr-partii-politycznych"}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="DonnÃ©es publiques ouvertes : citer la source"/>
+            <column name="attribution" value="PaÅ„stwowa Komisja Wyborcza (PKW) / Rejestr partii politycznych"/>
+            <column name="notes"><![CDATA[[DONNÉES LOCALES FIGÉES - À MIGRER VERS CRAWLER RÉSEAU] [DONNÃ‰ES LOCALES FIGÃ‰ES - Ã€ MIGRER VERS CRAWLER RÃ‰SEAU] PrÃ©sidents et membres des comitÃ©s directeurs des partis reprÃ©sentÃ©s au parlement (KO/PO, PiS, PSL, Polska 2050, Lewica, Konfederacja, Razem...).]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-09 19:06:01.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="336"/>
+            <column name="name" value="PEP Pologne – Tribunal Constitutionnel (Trybunał Konstytucyjny)"/>
+            <column name="description" value="Président, vice-président et juges du Tribunal constitutionnel polonais (catégorie PL-d)"/>
+            <column name="dataset_name" value="pl_pep_constitutional_tribunal"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://trybunal.gov.pl/"/>
+            <column name="plugin_id" value="pl-pep-constitutional-tribunal"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="API"/>
+            <column name="parameters"><![CDATA[{"url": "https://trybunal.gov.pl/o-trybunale/sedziowie-trybunalu"}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="DonnÃ©es publiques ouvertes : citer la source"/>
+            <column name="attribution" value="TrybunaÅ‚ Konstytucyjny Rzeczypospolitej Polskiej"/>
+            <column name="notes"><![CDATA[[DONNÉES LOCALES FIGÉES - À MIGRER VERS CRAWLER RÉSEAU] [DONNÃ‰ES LOCALES FIGÃ‰ES - Ã€ MIGRER VERS CRAWLER RÃ‰SEAU] PrÃ©sidente (Julia PrzyÅ‚Ä™bska), vice-prÃ©sident et ensemble des juges du Tribunal constitutionnel.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-09 19:15:58.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="337"/>
+            <column name="name" value="PEP Pologne – Cour Suprême et Haute Juridiction Administrative"/>
+            <column name="description"><![CDATA[Premier Président et présidents de chambres de la Cour suprême (Sąd Najwyższy) et du Tribunal administratif suprême (NSA) (catégorie PL-d)]]></column>
+            <column name="dataset_name" value="pl_pep_supreme_court"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://www.sn.pl/"/>
+            <column name="plugin_id" value="pl-pep-supreme-court"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="API"/>
+            <column name="parameters"><![CDATA[{"url": "https://www.sn.pl/osÄ…dzie/SitePages/Struktura.aspx"}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="DonnÃ©es publiques ouvertes : citer la source"/>
+            <column name="attribution"><![CDATA[SÄ…d NajwyÅ¼szy & Naczelny SÄ…d Administracyjny]]></column>
+            <column name="notes"><![CDATA[[DONNÉES LOCALES FIGÉES - À MIGRER VERS CRAWLER RÉSEAU] [DONNÃ‰ES LOCALES FIGÃ‰ES - Ã€ MIGRER VERS CRAWLER RÃ‰SEAU] Premier PrÃ©sident (MaÅ‚gorzata Manowska), prÃ©sidents des chambres du SÄ…d NajwyÅ¼szy et prÃ©sidence du NSA.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-09 19:15:58.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="338"/>
+            <column name="name" value="PEP Pologne – Cour des Comptes (NIK)"/>
+            <column name="description"><![CDATA[Président, vice-présidents et membres du collège de la Chambre suprême de contrôle (Najwyższa Izba Kontroli - NIK) (catégorie PL-e)]]></column>
+            <column name="dataset_name" value="pl_pep_audit_court"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://www.nik.gov.pl/"/>
+            <column name="plugin_id" value="pl-pep-audit-court"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="API"/>
+            <column name="source_location" value="https://www.nik.gov.pl/o-nik/kolegium-nik/czlonkowie-kolegium-nik.html"/>
+            <column name="parameters"><![CDATA[{"url": "https://www.nik.gov.pl/o-nik/kierownictwo/"}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="DonnÃ©es publiques ouvertes : citer la source"/>
+            <column name="attribution" value="NajwyÅ¼sza Izba Kontroli (NIK)"/>
+            <column name="notes"><![CDATA[[DONNÉES LOCALES FIGÉES - À MIGRER VERS CRAWLER RÉSEAU] Scraping direct officiel NIK (Kierownictwo + Czlonkowie Kolegium NIK, 19 hauts dirigeants, photos officielles)]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-09 19:15:58.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="339"/>
+            <column name="name" value="PEP Pologne – Banque Nationale (NBP)"/>
+            <column name="description"><![CDATA[Gouverneur, membres du Directoire et membres du Conseil de politique monétaire de la Banque nationale de Pologne (NBP & RPP) (catégorie PL-e)]]></column>
+            <column name="dataset_name" value="pl_pep_central_bank"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://www.nbp.pl/"/>
+            <column name="plugin_id" value="pl-pep-central-bank"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="API"/>
+            <column name="parameters"><![CDATA[{"url": "https://www.nbp.pl/home.aspx?f=/o_nbp/struktura/zarzad.html"}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="DonnÃ©es publiques ouvertes : citer la source"/>
+            <column name="attribution" value="Narodowy Bank Polski (NBP)"/>
+            <column name="notes"><![CDATA[[DONNÉES LOCALES FIGÉES - À MIGRER VERS CRAWLER RÉSEAU] [DONNÃ‰ES LOCALES FIGÃ‰ES - Ã€ MIGRER VERS CRAWLER RÃ‰SEAU] Gouverneur (Adam GlapiÅ„ski), vice-prÃ©sidents, membres du Directoire et membres du Conseil de politique monÃ©taire (RPP).]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-09 19:15:58.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="340"/>
+            <column name="name" value="PEP Pologne – Diplomates et Ambassadeurs"/>
+            <column name="description"><![CDATA[Ambassadeurs extraordinaires et plénipotentiaires et représentants permanents auprès des organisations internationales (catégorie PL-f)]]></column>
+            <column name="dataset_name" value="pl_pep_diplomats"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://www.gov.pl/web/dyplomacja"/>
+            <column name="plugin_id" value="pl-pep-diplomats"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="API"/>
+            <column name="source_location" value="https://www.gov.pl/web/dyplomacja/polskie-przedstawicielstwa-na-swiecie"/>
+            <column name="parameters"><![CDATA[{"url": "https://www.gov.pl/web/dyplomacja/polskie-przedstawicielstwa-na-swiecie"}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="DonnÃ©es publiques ouvertes : citer la source"/>
+            <column name="attribution" value="Ministerstwo Spraw Zagranicznych (MSZ)"/>
+            <column name="notes"><![CDATA[[DONNÉES LOCALES FIGÉES - À MIGRER VERS CRAWLER RÉSEAU] Scraping direct officiel gov.pl / MSZ (registre officiel des 134 ambassadeurs, charges d affaires et consuls generaux)]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-09 19:15:58.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="341"/>
+            <column name="name" value="PEP Pologne – Forces Armées (Wojsko Polskie)"/>
+            <column name="description"><![CDATA[Chef d'état-major général, commandants généraux, opérationnels et officiers généraux des forces armées polonaises (catégorie PL-f)]]></column>
+            <column name="dataset_name" value="pl_pep_armed_forces"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://www.gov.pl/web/obrona-narodowa"/>
+            <column name="plugin_id" value="pl-pep-armed-forces"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="API"/>
+            <column name="parameters"><![CDATA[{"url": "https://www.gov.pl/web/obrona-narodowa/kierownictwo-sztabu-generalnego"}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="DonnÃ©es publiques ouvertes : citer la source"/>
+            <column name="attribution"><![CDATA[Ministerstwo Obrony Narodowej (MON) & Sztab Generalny WP]]></column>
+            <column name="notes"><![CDATA[[SOURCE EXTERNE LUE À CHAQUE EXÉCUTION] [DONNÃ‰ES LOCALES FIGÃ‰ES - Ã€ MIGRER VERS CRAWLER RÃ‰SEAU] Chef d'Ã©tat-major gÃ©nÃ©ral (WiesÅ‚aw KukuÅ‚a), commandants des forces armÃ©es terrestres, aÃ©riennes, navales et territoriales (WOT).]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-09 19:15:58.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="342"/>
+            <column name="name" value="PEP Pologne – Entreprises Publiques (Spółki Skarbu Państwa)"/>
+            <column name="description"><![CDATA[Présidents et membres des conseils d'administration et de surveillance des entreprises publiques d'État polonaises (catégorie PL-g)]]></column>
+            <column name="dataset_name" value="pl_pep_state_enterprises"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://www.gov.pl/web/aktywa-panstwowe"/>
+            <column name="plugin_id" value="pl-pep-state-enterprises"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="API"/>
+            <column name="parameters"><![CDATA[{"url": "https://www.gov.pl/web/aktywa-panstwowe/wykaz-spolek-z-udzialem-skarbu-panstwa"}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="DonnÃ©es publiques ouvertes : citer la source"/>
+            <column name="attribution" value="Ministerstwo AktywÃ³w PaÅ„stwowych (MAP)"/>
+            <column name="notes"><![CDATA[[DONNÉES LOCALES FIGÉES - À MIGRER VERS CRAWLER RÉSEAU] [DONNÃ‰ES LOCALES FIGÃ‰ES - Ã€ MIGRER VERS CRAWLER RÃ‰SEAU] PrÃ©sidents et directeurs exÃ©cutifs des grandes entreprises d'Ã‰tat (Orlen, PGE, PZU, KGHM, PKO BP, PKP, Tauron, Totalizator Sportowy...).]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-09 19:36:10.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="343"/>
+            <column name="name" value="PEP Pologne – Organisations Internationales (Varsovie)"/>
+            <column name="description" value="Hauts dirigeants des organisations internationales ayant leur siège ou organe principal en Pologne (catégorie PL-h)"/>
+            <column name="dataset_name" value="pl_pep_international_orgs"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://frontex.europa.eu/"/>
+            <column name="plugin_id" value="pl-pep-international-orgs"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="API"/>
+            <column name="parameters"><![CDATA[{"url": "https://frontex.europa.eu/about-frontex/executive-management/"}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="DonnÃ©es publiques ouvertes : citer la source"/>
+            <column name="attribution" value="Organisations Internationales (FRONTEX, OSCE/ODIHR)"/>
+            <column name="notes"><![CDATA[[DONNÉES LOCALES FIGÉES - À MIGRER VERS CRAWLER RÉSEAU] [DONNÃ‰ES LOCALES FIGÃ‰ES - Ã€ MIGRER VERS CRAWLER RÃ‰SEAU] Directeurs exÃ©cutifs, directeurs adjoints et hauts dirigeants des organisations Ã©tablies Ã  Varsovie (Frontex, ODIHR).]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-09 19:36:10.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="344"/>
+            <column name="name" value="PEP Pologne – RCA (Famille et Proches Associés)"/>
+            <column name="description" value="Membres de la famille et proches associés des personnalités politiques polonaises (catégorie PL-RCA)"/>
+            <column name="dataset_name" value="pl_pep_rca"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://www.prezydent.pl/"/>
+            <column name="plugin_id" value="pl-pep-rca"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="API"/>
+            <column name="parameters"><![CDATA[{"url": "https://www.prezydent.pl/pierwsza-dama"}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="DonnÃ©es publiques ouvertes : citer la source"/>
+            <column name="attribution"><![CDATA[Kancelaria Prezydenta RP & Registres publics]]></column>
+            <column name="notes"><![CDATA[[DONNÉES LOCALES FIGÉES - À MIGRER VERS CRAWLER RÉSEAU] [DONNÃ‰ES LOCALES FIGÃ‰ES - Ã€ MIGRER VERS CRAWLER RÃ‰SEAU] Membres de la famille prÃ©sidentielle (PremiÃ¨re Dame, enfants, parents), conjoints de membres du gouvernement et proches associÃ©s d'affaires notoires.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-09 19:36:10.000000"/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="484"/>
+            <column name="parser_id" valueNumeric="225"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope"><![CDATA[Tous les députés en fonction et ceux sortis depuis moins de 12 mois, avec naissance, club, circonscription et dates de mandat.]]></column>
+            <column name="gaps" value="Sénateurs non couverts (accès refusé par le pare-feu du Sénat)."/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="485"/>
+            <column name="parser_id" valueNumeric="225"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope"><![CDATA[Tous les députés en fonction et ceux sortis depuis moins de 12 mois, avec naissance, club, circonscription et dates de mandat.]]></column>
+            <column name="gaps" value="Sénateurs non couverts (accès refusé par le pare-feu du Sénat)."/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="485"/>
+            <column name="parser_id" valueNumeric="226"/>
+            <column name="completeness" value="PARTIAL"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope" value="Députés des législatures 6 à 10 avec dates de mandat."/>
+            <column name="gaps" value="Décès des anciens députés non publié par la source ; législatures antérieures non reprises."/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="487"/>
+            <column name="parser_id" valueNumeric="227"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="0"/>
+            <column name="covered_scope" value="Présidents et porte-parole des clubs parlementaires et groupes de la Diète (Sejm) et du Sénat"/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="482"/>
+            <column name="parser_id" valueNumeric="228"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="0"/>
+            <column name="covered_scope" value="Premier ministre (Prezes Rady Ministrów), vice-premiers ministres et ministres du Conseil des ministres"/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="483"/>
+            <column name="parser_id" valueNumeric="228"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope" value="Secrétaires d'État auprès des ministères et de la Chancellerie du Premier ministre (KPRM)"/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="645"/>
+            <column name="parser_id" valueNumeric="250"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope"><![CDATA[Les 53 députés européens élus en Pologne et ceux sortis depuis moins de 12 mois, avec naissance, genre, groupe et dates de mandat.]]></column>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="646"/>
+            <column name="parser_id" valueNumeric="251"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="0"/>
+            <column name="covered_scope" value="Piotr Serafin, commissaire chargé du budget, de la lutte contre la fraude et de l'administration publique (2024-2029)."/>
+            <column name="gaps" value="Ni date ni lieu de naissance sur la fiche."/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="481"/>
+            <column name="parser_id" valueNumeric="333"/>
+            <column name="completeness" value="PARTIAL"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope" value="Président de la République de Pologne (Prezydent RP) et membres de la Chancellerie présidentielle"/>
+            <column name="gaps" value="Données locales figées (seed embarqué) – en cours de remplacement par crawler réseau officiel direct"/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="486"/>
+            <column name="parser_id" valueNumeric="334"/>
+            <column name="completeness" value="PARTIAL"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope" value="Maréchal, vice-maréchaux et sénateurs du Senat RP"/>
+            <column name="gaps" value="Données locales figées (seed embarqué) – en cours de remplacement par crawler réseau officiel direct"/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="488"/>
+            <column name="parser_id" valueNumeric="335"/>
+            <column name="completeness" value="PARTIAL"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope" value="Présidents et secrétaires généraux des partis politiques siégeant à la Diète et au Sénat"/>
+            <column name="gaps" value="Données locales figées (seed embarqué) – en cours de remplacement par crawler réseau officiel direct"/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="490"/>
+            <column name="parser_id" valueNumeric="336"/>
+            <column name="completeness" value="PARTIAL"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope" value="Président, vice-président et magistrats du Trybunał Konstytucyjny"/>
+            <column name="gaps" value="Données locales figées (seed embarqué) – en cours de remplacement par crawler réseau officiel direct"/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="489"/>
+            <column name="parser_id" valueNumeric="337"/>
+            <column name="completeness" value="PARTIAL"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope" value="Premier Président, présidents de chambres de la Cour suprême et présidence du Tribunal administratif suprême"/>
+            <column name="gaps" value="Données locales figées (seed embarqué) – en cours de remplacement par crawler réseau officiel direct"/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="491"/>
+            <column name="parser_id" valueNumeric="338"/>
+            <column name="completeness" value="PARTIAL"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope" value="Prezes NIK (Mariusz Haladyj), Wiceprezesi, Dyrektor Generalna, Czlonkowie Kolegium NIK (19 hauts dirigeants)"/>
+            <column name="gaps" value="Données locales figées (seed embarqué) – en cours de remplacement par crawler réseau officiel direct"/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="492"/>
+            <column name="parser_id" valueNumeric="339"/>
+            <column name="completeness" value="PARTIAL"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope" value="Président du NBP, membres du directoire et membres du Conseil de politique monétaire"/>
+            <column name="gaps" value="Données locales figées (seed embarqué) – en cours de remplacement par crawler réseau officiel direct"/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="493"/>
+            <column name="parser_id" valueNumeric="340"/>
+            <column name="completeness" value="PARTIAL"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope" value="Ambassadeurs, charges d affaires a.i. et consuls generaux de la Republique de Pologne (134 diplomates dans le monde)"/>
+            <column name="gaps" value="Données locales figées (seed embarqué) – en cours de remplacement par crawler réseau officiel direct"/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="494"/>
+            <column name="parser_id" valueNumeric="341"/>
+            <column name="completeness" value="PARTIAL"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope" value="Chef d'état-major général de l'armée polonaise, commandants généraux et opérationnels des armées"/>
+            <column name="gaps" value="Source officielle lue en direct ; la page ne publie qu'une partie des personnes visées (hauts responsables seulement)"/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="495"/>
+            <column name="parser_id" valueNumeric="342"/>
+            <column name="completeness" value="PARTIAL"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope" value="Présidents et membres des organes dirigeants des entreprises publiques d'État"/>
+            <column name="gaps" value="Données locales figées (seed embarqué) – en cours de remplacement par crawler réseau officiel direct"/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="496"/>
+            <column name="parser_id" valueNumeric="343"/>
+            <column name="completeness" value="PARTIAL"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope" value="Directeurs exécutifs et adjoints des agences et organisations internationales sises en Pologne"/>
+            <column name="gaps" value="Données locales figées (seed embarqué) – en cours de remplacement par crawler réseau officiel direct"/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="497"/>
+            <column name="parser_id" valueNumeric="344"/>
+            <column name="completeness" value="PARTIAL"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope" value="Famille présidentielle, conjoints et enfants de ministres et hauts dirigeants de l'État polonais"/>
+            <column name="gaps" value="Données locales figées (seed embarqué) – en cours de remplacement par crawler réseau officiel direct"/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="498"/>
+            <column name="parser_id" valueNumeric="344"/>
+            <column name="completeness" value="PARTIAL"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope" value="Personnes connues pour entretenir des liens d'affaires étroits ou un partenariat professionnel avec une PEP polonaise"/>
+            <column name="gaps" value="Données locales figées (seed embarqué) – en cours de remplacement par crawler réseau officiel direct"/>
+        </insert>
+    </changeSet>
+</databaseChangeLog>

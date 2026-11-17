@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="baseline-application-config" author="swiftcheck-baseline">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM application_config</sqlCheck>
+        </preConditions>
+        <comment>Configuration de l'application (chemins fournis par les paramètres Liquibase)</comment>
+        <insert tableName="application_config">
+            <column name="id" valueNumeric="1"/>
+            <column name="yente_url" value="${yenteUrl}"/>
+            <column name="yente_update_token" value="${yenteUpdateToken}"/>
+            <column name="yente_data_folder" value="${yenteDataFolder}"/>
+            <column name="yente_container_data_path" value="/data"/>
+            <column name="yente_manifest_path" value="${yenteManifestPath}"/>
+            <column name="archive_folder" value="${archiveFolder}"/>
+            <column name="work_folder" value="${workFolder}"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="baseline-users" author="swiftcheck-baseline">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM app_user</sqlCheck>
+        </preConditions>
+        <comment>Comptes applicatifs initiaux (rôles ; l'authentification passe par Keycloak)</comment>
+        <insert tableName="app_user">
+            <column name="id" valueNumeric="1"/>
+            <column name="username" value="admin"/>
+            <column name="email" value="admin@swiftcheck.com"/>
+            <column name="first_name" value="Admin"/>
+            <column name="last_name" value="SwiftCheck"/>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_date" value="2026-10-26 21:15:29.000000"/>
+        </insert>
+        <insert tableName="app_user">
+            <column name="id" valueNumeric="2"/>
+            <column name="username" value="tester"/>
+            <column name="email" value="tester@swiftcheck.com"/>
+            <column name="first_name" value="Auditeur"/>
+            <column name="last_name" value="Tester"/>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_date" value="2026-10-26 21:15:29.000000"/>
+        </insert>
+        <insert tableName="app_user_roles">
+            <column name="user_id" valueNumeric="1"/>
+            <column name="role" value="ADMIN"/>
+        </insert>
+        <insert tableName="app_user_roles">
+            <column name="user_id" valueNumeric="2"/>
+            <column name="role" value="TESTER"/>
+        </insert>
+    </changeSet>
+</databaseChangeLog>

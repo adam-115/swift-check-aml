@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="baseline-parsers-ee" author="swiftcheck-baseline">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM parser WHERE dataset_name IN ('ee_pep_parliament', 'ee_pep_parliament_history', 'ee_pep_government', 'ee_pep_institutions', 'ee_pep_europarl', 'ee_pep_eu_commission')</sqlCheck>
+        </preConditions>
+        <comment>Parsers « ee_* » (6) et leurs liens aux fonctions PEP (10)</comment>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="236"/>
+            <column name="name" value="PEP Estonie – Riigikogu"/>
+            <column name="description"><![CDATA[Membres du Riigikogu en fonction ou sortis depuis moins de 12 mois, d'après l'API officielle api.riigikogu.ee (catégorie EE-b)]]></column>
+            <column name="dataset_name" value="ee_pep_parliament"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://api.riigikogu.ee/"/>
+            <column name="plugin_id" value="ee-pep-riigikogu"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="API"/>
+            <column name="parameters"><![CDATA[{"apiUrl": "https://api.riigikogu.ee/api", "monthsAfterEnd": "12", "delayMs": "6000"}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="Données ouvertes du Riigikogu : citer la source (conditions de réutilisation à vérifier sur api.riigikogu.ee)"/>
+            <column name="attribution" value="Riigikogu, api.riigikogu.ee"/>
+            <column name="notes"><![CDATA[2 appels (compositions, membres de la 15e composition). 104 personnes gardées sur 138 mandats lus. Naissance, sexe, dates exactes de mandat, fonction (président, vice-présidents), groupe et circonscription. Décès enregistrés écartés. Liste demandée en estonien : en anglais l'API masque le nom des anciens membres. Rythme : 6 s entre appels (robots.txt : 5 s ; l'API répond 429 plus vite).]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-06 16:37:11.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="237"/>
+            <column name="name" value="PEP Estonie – Riigikogu, historique depuis 1992"/>
+            <column name="description" value="Anciens membres du Riigikogu depuis la 7e composition (1992), vivants uniquement (couche étendue de ee_pep_parliament)"/>
+            <column name="dataset_name" value="ee_pep_parliament_history"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://api.riigikogu.ee/"/>
+            <column name="plugin_id" value="ee-pep-riigikogu"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="API"/>
+            <column name="parameters"><![CDATA[{"apiUrl": "https://api.riigikogu.ee/api", "monthsAfterEnd": "600", "delayMs": "6000"}]]></column>
+            <column name="refresh_hours" valueNumeric="720"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="Données ouvertes du Riigikogu : citer la source (conditions de réutilisation à vérifier sur api.riigikogu.ee)"/>
+            <column name="attribution" value="Riigikogu, api.riigikogu.ee"/>
+            <column name="notes"><![CDATA[Même plugin et mêmes identifiants que ee_pep_parliament ; 10 appels (environ 70 s), 525 personnes sur 1 248 mandats lus (compositions 7 à 15) ; 181 personnes décédées écartées grâce à la date de décès de la source. À activer selon l'approche par les risques.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-06 16:37:11.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="238"/>
+            <column name="name" value="PEP Estonie – Gouvernement"/>
+            <column name="description" value="Premier ministre et ministres en fonction, d'après les fiches officielles du site du Gouvernement (catégorie EE-a)"/>
+            <column name="dataset_name" value="ee_pep_government"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://valitsus.ee/en"/>
+            <column name="plugin_id" value="ee-pep-government"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="WEB_PAGE"/>
+            <column name="parameters"><![CDATA[{"homeUrl": "https://valitsus.ee/en", "delayMs": "2000"}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="Site officiel du Gouvernement de la République d'Estonie : citer la source"/>
+            <column name="attribution" value="Vabariigi Valitsus, valitsus.ee"/>
+            <column name="notes"><![CDATA[Une page d'accueil puis une fiche par membre (14 pages, environ 30 s). 13 personnes : Premier ministre et 12 ministres, avec fonction, date de prise de fonction, naissance et lieu quand la fiche les donne. Pas d'anciens ministres : le site ne publie que les membres en fonction.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-06 16:37:11.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="239"/>
+            <column name="name" value="PEP Estonie – Président, Cour suprême, Riigikontroll et Banque d'Estonie"/>
+            <column name="description"><![CDATA[Président de la République, juges de la Cour suprême, Auditeur général, directoire et conseil de surveillance de la Banque d'Estonie, d'après leurs pages officielles (catégories EE-a, EE-d et EE-e)]]></column>
+            <column name="dataset_name" value="ee_pep_institutions"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://president.ee/en"/>
+            <column name="plugin_id" value="ee-pep-institutions"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="WEB_PAGE"/>
+            <column name="parameters"><![CDATA[{"keys": "president,supreme-court,auditor-general,eesti-pank-executive,eesti-pank-supervisory", "delayMs": "2000"}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="Sites officiels de la Présidence, de la Cour suprême, du Riigikontroll et d'Eesti Pank : citer la source"/>
+            <column name="attribution" value="Vabariigi President, Riigikohus, Riigikontroll, Eesti Pank"/>
+            <column name="notes"><![CDATA[Cinq pages, 34 personnes : président de la République (Ülle Madise, depuis le 12/10/2026, naissance et lieu), 18 juges de la Cour suprême dont le président et les 3 présidents de chambre (naissance du président seulement ; 19 postes, un vacant), Auditeur général (naissance et lieu), directoire d'Eesti Pank (gouverneur et 2 sous-gouverneurs, mois de prise de fonction) et conseil de surveillance (président, 6 membres du Riigikogu, 4 experts). Chancelier de justice : poste vacant, non repris.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-06 16:37:11.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="244"/>
+            <column name="name" value="PEP Estonie – Députés européens"/>
+            <column name="description"><![CDATA[Les députés au Parlement européen élus en Estonie, en fonction et sortis depuis moins de 12 mois, avec naissance et dates de mandat (catégorie EE-EU)]]></column>
+            <column name="dataset_name" value="ee_pep_europarl"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://data.europarl.europa.eu/"/>
+            <column name="plugin_id" value="ee-pep-europarl"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="API"/>
+            <column name="parameters"><![CDATA[{"currentUrl": "https://data.europarl.europa.eu/api/v2/meps/show-current?country-of-representation=EE&format=application%2Fld%2Bjson", "termUrl": "https://data.europarl.europa.eu/api/v2/meps?country-of-representation=EE&parliamentary-term=10&limit=500&format=application%2Fld%2Bjson", "detailUrl": "https://data.europarl.europa.eu/api/v2/meps/{id}?format=application%2Fld%2Bjson", "delayMs": "400", "monthsAfterEnd": "12", "wikidataEndpoint": ""}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="Réutilisation autorisée en citant la source (Parlement européen)"/>
+            <column name="attribution" value="Parlement européen, data.europarl.europa.eu"/>
+            <column name="notes"><![CDATA[Reprise de nl_pep_europarl. Mesure du 06/11/2026 : 7 députés en fonction, 7 avec date de naissance. Une fiche par député. L'API limite le débit (HTTP 429) : le plugin attend puis réessaie. Pas de photos (Wikidata non utilisé). termUrl contient le numéro de législature (10) : à changer en 2029.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-07 00:15:43.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="245"/>
+            <column name="name" value="PEP Estonie – Commissaire européen"/>
+            <column name="description" value="Le membre estonien de la Commission européenne, d'après sa fiche officielle (catégorie EE-EU)"/>
+            <column name="dataset_name" value="ee_pep_eu_commission"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://commission.europa.eu/about/organisation/college-commissioners_en"/>
+            <column name="plugin_id" value="ee-pep-eu-commission"/>
+            <column name="data_source_type" value="HTTP_FILE"/>
+            <column name="parser_kind" value="WEB_PAGE"/>
+            <column name="source_location" value="https://commission.europa.eu/about/organisation/college-commissioners/kaja-kallas_en"/>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="Réutilisation autorisée en citant la source (avis juridique de la Commission européenne)"/>
+            <column name="attribution" value="Commission européenne, commission.europa.eu"/>
+            <column name="notes"><![CDATA[Reprise de nl_pep_eu_commission. À chaque nouvelle Commission, remplacer l'adresse par la fiche du commissaire estonien. Une fiche qui ne présente pas un commissaire estonien est refusée.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-07 00:15:43.000000"/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="546"/>
+            <column name="parser_id" valueNumeric="236"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope"><![CDATA[Tous les membres du Riigikogu en fonction et ceux sortis depuis moins de 12 mois, avec naissance, groupe, circonscription et dates de mandat.]]></column>
+            <column name="gaps" value="Aucune connue pour le Parlement."/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="547"/>
+            <column name="parser_id" valueNumeric="236"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope"><![CDATA[Tous les membres du Riigikogu en fonction et ceux sortis depuis moins de 12 mois, avec naissance, groupe, circonscription et dates de mandat.]]></column>
+            <column name="gaps" value="Aucune connue pour le Parlement."/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="547"/>
+            <column name="parser_id" valueNumeric="237"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope" value="Membres du Riigikogu des compositions 7 à 15 (depuis 1992), vivants, avec dates de mandat."/>
+            <column name="gaps" value="Compositions antérieures à 1992 non reprises (Riigikogu d'avant l'occupation soviétique)."/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="544"/>
+            <column name="parser_id" valueNumeric="238"/>
+            <column name="completeness" value="PARTIAL"/>
+            <column name="includes_former" valueNumeric="0"/>
+            <column name="covered_scope" value="Le Premier ministre et les ministres du Gouvernement en fonction."/>
+            <column name="gaps" value="Anciens ministres non couverts ; président de la République non couvert (lot 2)."/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="543"/>
+            <column name="parser_id" valueNumeric="239"/>
+            <column name="completeness" value="PARTIAL"/>
+            <column name="includes_former" valueNumeric="0"/>
+            <column name="covered_scope" value="Le président de la République en fonction, avec naissance et date de prise de fonction."/>
+            <column name="gaps" value="Anciens présidents vivants non couverts."/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="549"/>
+            <column name="parser_id" valueNumeric="239"/>
+            <column name="completeness" value="PARTIAL"/>
+            <column name="includes_former" valueNumeric="0"/>
+            <column name="covered_scope" value="Les juges de la Cour suprême en fonction (18 sur 19 postes), le président et les présidents de chambre."/>
+            <column name="gaps" value="Anciens juges non couverts ; un poste vacant ; naissance seulement pour le président de la Cour."/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="550"/>
+            <column name="parser_id" valueNumeric="239"/>
+            <column name="completeness" value="PARTIAL"/>
+            <column name="includes_former" valueNumeric="0"/>
+            <column name="covered_scope" value="L'Auditeur général en fonction, avec naissance et lieu de naissance."/>
+            <column name="gaps" value="Anciens titulaires non couverts."/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="552"/>
+            <column name="parser_id" valueNumeric="239"/>
+            <column name="completeness" value="PARTIAL"/>
+            <column name="includes_former" valueNumeric="0"/>
+            <column name="covered_scope" value="Le gouverneur, les sous-gouverneurs et les membres du conseil de surveillance de la Banque d'Estonie."/>
+            <column name="gaps" value="Anciens membres non couverts ; pas de naissance."/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="636"/>
+            <column name="parser_id" valueNumeric="244"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope"><![CDATA[Les 7 députés européens élus en Estonie et ceux sortis depuis moins de 12 mois, avec naissance, genre, groupe et dates de mandat.]]></column>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="637"/>
+            <column name="parser_id" valueNumeric="245"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="0"/>
+            <column name="covered_scope"><![CDATA[Kaja Kallas, haute représentante de l'Union pour les affaires étrangères et la politique de sécurité et vice-présidente (2024-2029).]]></column>
+            <column name="gaps" value="Ni date ni lieu de naissance sur la fiche."/>
+        </insert>
+    </changeSet>
+</databaseChangeLog>

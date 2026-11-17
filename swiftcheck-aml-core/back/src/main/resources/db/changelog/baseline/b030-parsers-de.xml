@@ -1,0 +1,909 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="baseline-parsers-de" author="swiftcheck-baseline">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM parser WHERE dataset_name IN ('de_pep_bundestag', 'de_pep_bundesrat', 'de_pep_federal_government', 'de_pep_president', 'de_pep_europarl', 'de_pep_eu_commission', 'de_pep_rca', 'de_pep_bundesbank', 'de_pep_audit_courts', 'de_pep_federal_courts', 'de_pep_land_constitutional_courts', 'de_pep_parties', 'de_pep_diplomats', 'de_pep_international_orgs', 'de_pep_state_enterprises', 'de_pep_landtage', 'de_pep_local_executives', 'de_pep_bafin', 'de_pep_federal_secretaries', 'de_pep_land_governments', 'de_pep_lobbyregister', 'de_pep_defence', 'de_pep_defence_secretaries', 'de_pep_defence_heer', 'de_pep_defence_luftwaffe', 'de_pep_defence_marine', 'de_pep_defence_cir', 'de_pep_defence_support')</sqlCheck>
+        </preConditions>
+        <comment>Parsers « de_* » (28) et leurs liens aux fonctions PEP (42)</comment>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="118"/>
+            <column name="name" value="PEP Allemagne – Députés du Bundestag"/>
+            <column name="description"><![CDATA[Les députés du Bundestag en fonction et les anciens sortis depuis moins de 12 mois, d’après l’open data XML du Bundestag (catégorie DE-b)]]></column>
+            <column name="dataset_name" value="de_pep_bundestag"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://www.bundestag.de/services/opendata"/>
+            <column name="plugin_id" value="de-pep-bundestag"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="OPEN_DATA_FILE"/>
+            <column name="source_location" value=""/>
+            <column name="parameters"><![CDATA[{"monthsAfterEnd": "1200"}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="Open Data Bundestag (Datenlizenz Deutschland - Namensnennung 2.0)"/>
+            <column name="attribution" value="Deutscher Bundestag, www.bundestag.de"/>
+            <column name="notes"><![CDATA[Fichier XML MdB-Stammdaten.zip contenant l'ensemble des 4 614 députés depuis 1949 avec date et lieu de naissance, parti, circonscription et dates de mandat. Historique long : les anciens dont le mandat date de plus de 12 mois sont repris (monthsAfterEnd = 1200) ; la recherche les présente comme « Ancien PEP (Historique) ». Les personnes décédées ne sont jamais reprises.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-03 22:53:08.000000"/>
+            <column name="updated_at" value="2026-11-16 10:43:24.023856"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="119"/>
+            <column name="name" value="PEP Allemagne – Bundesrat et gouvernements des Länder"/>
+            <column name="description"><![CDATA[Les membres du Bundesrat (catégorie DE-b) et ministres-présidents et ministres des 16 Länder (catégorie DE-a), d’après bundesrat.de]]></column>
+            <column name="dataset_name" value="de_pep_bundesrat"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://www.bundesrat.de"/>
+            <column name="plugin_id" value="de-pep-bundesrat"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="WEB_PAGE"/>
+            <column name="parameters"><![CDATA[{"urls":"[\"https://www.bundesrat.de/DE/bundesrat/mitglieder/mitglieder-node.html?param3=Alle&param2=member&param1=state-1\",\"https://www.bundesrat.de/DE/bundesrat/mitglieder/aenderungen/aenderungen-node.html\",\"https://www.bundesrat.de/DE/bundesrat/praesidium/praesidium-node.html\",\"https://www.bundesrat.de/DE/bundesrat/staendiger-beirat/staendiger-beirat.html\",\"https://www.bundesrat.de/SharedDocs/personen/DE/laender/bw/hoogvliet-rudolf.html\",\"https://www.bundesrat.de/SharedDocs/personen/DE/laender/by/gernbauer-karolina.html\",\"https://www.bundesrat.de/SharedDocs/personen/DE/laender/be/hauer-florian.html\",\"https://www.bundesrat.de/SharedDocs/personen/DE/laender/bb/kolesnyk-daniel.html\",\"https://www.bundesrat.de/SharedDocs/personen/DE/laender/hb/boehning-nancy.html\",\"https://www.bundesrat.de/SharedDocs/personen/DE/laender/hh/assmann-liv.html\",\"https://www.bundesrat.de/SharedDocs/personen/DE/laender/he/pentz-manfred.html\",\"https://www.bundesrat.de/SharedDocs/personen/DE/laender/mv/bieringer-jutta.html\",\"https://www.bundesrat.de/SharedDocs/personen/DE/laender/ni/dicke-veronika.html\",\"https://www.bundesrat.de/SharedDocs/personen/DE/laender/nw/ro%C3%9Fbach-matthias.html\",\"https://www.bundesrat.de/SharedDocs/personen/DE/laender/rp/welling-torsten.html\",\"https://www.bundesrat.de/SharedDocs/personen/DE/laender/sl/bischoff-thorsten.html\",\"https://www.bundesrat.de/SharedDocs/personen/DE/laender/sn/franke-markus.html\",\"https://www.bundesrat.de/SharedDocs/personen/DE/laender/st/grossner-simone.html\",\"https://www.bundesrat.de/SharedDocs/personen/DE/laender/sh/gerken-sandra.html\",\"https://www.bundesrat.de/SharedDocs/personen/DE/laender/th/burmeister-christoph.html\",\"https://www.bundesrat.de/DE/bundesrat/laender/bw/bw-node.html\",\"https://www.bundesrat.de/DE/bundesrat/laender/by/by-node.html\",\"https://www.bundesrat.de/DE/bundesrat/laender/be/be-node.html\",\"https://www.bundesrat.de/DE/bundesrat/laender/bb/bb-node.html\",\"https://www.bundesrat.de/DE/bundesrat/laender/hb/hb-node.html\",\"https://www.bundesrat.de/DE/bundesrat/laender/hh/hh-node.html\",\"https://www.bundesrat.de/DE/bundesrat/laender/he/he-node.html\",\"https://www.bundesrat.de/DE/bundesrat/laender/mv/mv-node.html\",\"https://www.bundesrat.de/DE/bundesrat/laender/ni/ni-node.html\",\"https://www.bundesrat.de/DE/bundesrat/laender/nw/nw-node.html\",\"https://www.bundesrat.de/DE/bundesrat/laender/rp/rp-node.html\",\"https://www.bundesrat.de/DE/bundesrat/laender/sl/sl-node.html\",\"https://www.bundesrat.de/DE/bundesrat/laender/sn/sn-node.html\",\"https://www.bundesrat.de/DE/bundesrat/laender/st/st-node.html\",\"https://www.bundesrat.de/DE/bundesrat/laender/sh/sh-node.html\",\"https://www.bundesrat.de/DE/bundesrat/laender/th/th-node.html\"]"}]]></column>
+            <column name="refresh_hours" valueNumeric="24"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="Citer la source (Bundesrat)"/>
+            <column name="attribution" value="Bundesrat, www.bundesrat.de"/>
+            <column name="notes"><![CDATA[Extrait les membres titulaires et suppléants du Bundesrat, qui composent les exécutifs des 16 Länder. Donne d’un coup les ministres-présidents et ministres régionaux.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-03 22:53:08.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="120"/>
+            <column name="name" value="PEP Allemagne – Gouvernement fédéral"/>
+            <column name="description" value="Chancelier fédéral et ministres fédéraux, d’après bundesregierung.de (catégorie DE-a)"/>
+            <column name="dataset_name" value="de_pep_federal_government"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://www.bundesregierung.de/breg-de/bundesregierung/bundeskabinett"/>
+            <column name="plugin_id" value="de-pep-federal-government"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="WEB_PAGE"/>
+            <column name="parameters"><![CDATA[{"urls":"[\"https://www.bundesregierung.de/breg-de/bundesregierung/bundeskabinett\",\"https://www.bundesregierung.de/breg-de/bundesregierung/bundeskabinett/friedrich-merz-2342660#jumpto-2342648\",\"https://www.bundesregierung.de/breg-de/bundesregierung/bundeskabinett/lars-klingbeil-2342606#jumpto-2342598\",\"https://www.bundesregierung.de/breg-de/bundesregierung/bundeskabinett/alexander-dobrindt-2342806#jumpto-2342792\",\"https://www.bundesregierung.de/breg-de/bundesregierung/bundeskabinett/johann-wadephul-2342698#jumpto-2342690\",\"https://www.bundesregierung.de/breg-de/bundesregierung/bundeskabinett/boris-pistorius-2342862#jumpto-2342854\",\"https://www.bundesregierung.de/breg-de/bundesregierung/bundeskabinett/katherina-reiche-2342740#jumpto-2342728\",\"https://www.bundesregierung.de/breg-de/bundesregierung/bundeskabinett/dorothee-baer-2342724#jumpto-2342716\",\"https://www.bundesregierung.de/breg-de/bundesregierung/bundeskabinett/stefanie-hubig-2342672#jumpto-2342664\",\"https://www.bundesregierung.de/breg-de/bundesregierung/bundeskabinett/karin-prien-2342644#jumpto-2342626\",\"https://www.bundesregierung.de/breg-de/bundesregierung/bundeskabinett/alexander-schweitzer-2456608#jumpto-2456600\",\"https://www.bundesregierung.de/breg-de/bundesregierung/bundeskabinett/2342876-2342876#jumpto-2342868\",\"https://www.bundesregierung.de/breg-de/bundesregierung/bundeskabinett/steffen-bilger-2448424#jumpto-2448416\",\"https://www.bundesregierung.de/breg-de/bundesregierung/bundeskabinett/carsten-schneider-2342712#jumpto-2342702\",\"https://www.bundesregierung.de/breg-de/bundesregierung/bundeskabinett/carsten-linnemann-2448406#jumpto-2448398\",\"https://www.bundesregierung.de/breg-de/bundesregierung/bundeskabinett/reem-alabali-radovan-2342836#jumpto-2342824\",\"https://www.bundesregierung.de/breg-de/bundesregierung/bundeskabinett/alois-rainer-2342622#jumpto-2342610\",\"https://www.bundesregierung.de/breg-de/bundesregierung/bundeskabinett/nina-warken-2342850#jumpto-2342840\",\"https://www.bundesregierung.de/breg-de/bundesregierung/bundeskabinett/verena-hubertz-2342756#jumpto-2342744\"]"}]]></column>
+            <column name="refresh_hours" valueNumeric="24"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="Citer la source (Presse- und Informationsamt der Bundesregierung)"/>
+            <column name="attribution" value="Presse- und Informationsamt der Bundesregierung, www.bundesregierung.de"/>
+            <column name="notes"><![CDATA[Lit la page officielle du cabinet fédéral. Donne le Chancelier et les ministres fédéraux avec leur fonction exacte et portrait officiel.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-03 22:53:08.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="121"/>
+            <column name="name" value="PEP Allemagne – Président fédéral"/>
+            <column name="description"><![CDATA[Le Président fédéral de la République fédérale d'Allemagne, d’après sa page officielle sur bundespraesident.de (catégorie DE-a)]]></column>
+            <column name="dataset_name" value="de_pep_president"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://www.bundespraesident.de"/>
+            <column name="plugin_id" value="de-pep-president"/>
+            <column name="data_source_type" value="HTTP_FILE"/>
+            <column name="parser_kind" value="WEB_PAGE"/>
+            <column name="source_location" value="https://www.bundespraesident.de/DE/bundespraesident/frank-walter-steinmeier_node.html"/>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="Citer la source (Bundespräsidialamt)"/>
+            <column name="attribution" value="Bundespräsidialamt, www.bundespraesident.de"/>
+            <column name="notes" value="Biographie officielle du Président fédéral, date et lieu de naissance, année d'élection et portrait officiel."/>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-03 22:53:08.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="122"/>
+            <column name="name" value="PEP Allemagne – Députés européens"/>
+            <column name="description" value="Les députés européens élus en Allemagne, en fonction et sortis depuis moins de 12 mois (catégorie DE-EU)"/>
+            <column name="dataset_name" value="de_pep_europarl"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://data.europarl.europa.eu"/>
+            <column name="plugin_id" value="de-pep-europarl"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="API"/>
+            <column name="source_location" value=""/>
+            <column name="parameters"><![CDATA[{"currentUrl": "https://data.europarl.europa.eu/api/v2/meps/show-current?country-of-representation=DE&format=application%2Fld%2Bjson", "termUrl": "https://data.europarl.europa.eu/api/v2/meps?country-of-representation=DE&parliamentary-term=10&limit=500&format=application%2Fld%2Bjson", "detailUrl": "https://data.europarl.europa.eu/api/v2/meps/{id}?format=application%2Fld%2Bjson", "delayMs": "300", "monthsAfterEnd": "12"}]]></column>
+            <column name="refresh_hours" valueNumeric="24"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="Réutilisation autorisée en citant la source (avis juridique du Parlement européen)"/>
+            <column name="attribution" value="Parlement européen, data.europarl.europa.eu"/>
+            <column name="notes" value="Reprise de be_pep_europarl et fr_pep_europarl avec filtre pays DE. 96 eurodéputés avec dates de naissance et mandats."/>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-03 22:53:08.000000"/>
+            <column name="updated_at" value="2026-11-16 10:43:59.119304"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="123"/>
+            <column name="name" value="PEP Allemagne – Présidence de la Commission européenne"/>
+            <column name="description" value="Le membre allemand de la Commission européenne (Présidente), d’après sa fiche officielle (catégorie DE-EU)"/>
+            <column name="dataset_name" value="de_pep_eu_commission"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://commissioners.ec.europa.eu/"/>
+            <column name="plugin_id" value="de-pep-eu-commission"/>
+            <column name="data_source_type" value="HTTP_FILE"/>
+            <column name="parser_kind" value="WEB_PAGE"/>
+            <column name="source_location" value="https://commissioners.ec.europa.eu/ursula-von-der-leyen_de"/>
+            <column name="parameters" value=""/>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="Réutilisation autorisée en citant la source (Commission européenne)"/>
+            <column name="attribution" value="Commission européenne, commissioners.ec.europa.eu"/>
+            <column name="notes" value="Ursula von der Leyen, Présidente de la Commission européenne (2024-2029) avec photo officielle."/>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-03 22:53:08.000000"/>
+            <column name="updated_at" value="2026-11-16 10:45:46.479853"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="124"/>
+            <column name="name" value="PEP Allemagne – Famille des PEP (Wikidata)"/>
+            <column name="description" value="Conjoints, enfants et leurs conjoints, parents des PEP allemandes décrits dans Wikidata (catégorie DE-RCA)"/>
+            <column name="dataset_name" value="de_pep_rca"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://www.wikidata.org"/>
+            <column name="plugin_id" value="de-pep-rca"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="SPARQL"/>
+            <column name="parameters"><![CDATA[{"endpoint": "https://query.wikidata.org/sparql", "yearsAfterEnd": "1", "country": "Q183", "positions": "Q25223 Q4970 Q310662 Q1939555 Q19368417 Q17478052 Q17488092", "positionClasses": "Q83307 Q19368688"}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="CC0 (Wikidata)"/>
+            <column name="attribution" value="Wikidata, www.wikidata.org"/>
+            <column name="notes" value="Famille au sens du GwG § 1 (13) : conjoint, enfants, parents (sans la fratrie). Données collaboratives, à contrôler."/>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-03 22:53:08.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="125"/>
+            <column name="name" value="PEP Allemagne – Directoire de la Bundesbank"/>
+            <column name="description" value="Président, vice-présidente et membres du directoire de la Deutsche Bundesbank (catégorie DE-f)"/>
+            <column name="dataset_name" value="de_pep_bundesbank"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://www.bundesbank.de/de/bundesbank/organisation/vorstand"/>
+            <column name="plugin_id" value="de-pep-bundesbank"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="WEB_PAGE"/>
+            <column name="source_location" value=""/>
+            <column name="parameters"><![CDATA[{"urls":"[\"https://www.bundesbank.de/de/bundesbank/organisation/vorstand/prof-dr-joachim-nagel-858550\",\"https://www.bundesbank.de/de/bundesbank/organisation/vorstand/dr-sabine-mauderer-758274\",\"https://www.bundesbank.de/de/bundesbank/organisation/vorstand/lutz-lienenkaemper-715586\",\"https://www.bundesbank.de/de/bundesbank/organisation/vorstand/michael-theurer-604188\",\"https://www.bundesbank.de/de/bundesbank/organisation/vorstand/prof-dr-fritzi-koehler-geib-713174\",\"https://www.bundesbank.de/de/bundesbank/organisation/vorstand/dr-philipp-nimmermann-758294\",\"https://www.bundesbank.de/de/bundesbank/organisation/coo-und-bereiche/dr-stephan-freismuth-938222\",\"https://www.bundesbank.de/de/bundesbank/organisation/coo-und-bereiche/werner-grothe-883500\",\"https://www.bundesbank.de/de/bundesbank/organisation/coo-und-bereiche/prof-dr-falko-fecht-893070\",\"https://www.bundesbank.de/de/bundesbank/organisation/coo-und-bereiche/dirk-gerlach-883502\",\"https://www.bundesbank.de/de/bundesbank/organisation/coo-und-bereiche/andreas-keller-883504\",\"https://www.bundesbank.de/de/bundesbank/organisation/coo-und-bereiche/stefan-hardt-604218\",\"https://www.bundesbank.de/de/bundesbank/organisation/coo-und-bereiche/dr-christoph-schmieder-921382\",\"https://www.bundesbank.de/de/bundesbank/organisation/coo-und-bereiche/dr-jan-paulick-883506\",\"https://www.bundesbank.de/de/bundesbank/organisation/coo-und-bereiche/dr-benjamin-weigert-604222\",\"https://www.bundesbank.de/de/bundesbank/organisation/coo-und-bereiche/julian-reischle-604220\",\"https://www.bundesbank.de/de/bundesbank/organisation/coo-und-bereiche/martin-pondelicek-883508\",\"https://www.bundesbank.de/de/bundesbank/organisation/coo-und-bereiche/dr-jens-ulbrich-604224\",\"https://www.bundesbank.de/de/bundesbank/organisation/hauptverwaltungen/in-baden-wuerttemberg/beirat/beirat-der-hauptverwaltung-in-baden-wuerttemberg-604240\",\"https://www.bundesbank.de/de/bundesbank/organisation/hauptverwaltungen/in-baden-wuerttemberg/praesident/praesident-der-hauptverwaltung-in-baden-wuerttemberg-604236\",\"https://www.bundesbank.de/de/bundesbank/organisation/hauptverwaltungen/in-bayern/praesident/praesident-der-hauptverwaltung-in-bayern-604250\",\"https://www.bundesbank.de/de/bundesbank/organisation/hauptverwaltungen/in-bayern/beirat/beirat-der-hauptverwaltung-in-bayern-604254\",\"https://www.bundesbank.de/de/bundesbank/organisation/hauptverwaltungen/in-berlin-und-brandenburg/praesident/praesident-der-hauptverwaltung-in-berlin-und-brandenburg-604264\",\"https://www.bundesbank.de/de/bundesbank/organisation/hauptverwaltungen/in-berlin-und-brandenburg/beirat/beirat-der-hauptverwaltung-in-berlin-und-brandenburg-604268\",\"https://www.bundesbank.de/de/bundesbank/organisation/hauptverwaltungen/in-bremen-niedersachsen-und-sachsen-anhalt/praesident/praesident-der-hauptverwaltung-in-bremen-niedersachsen-und-sachsen-anhalt-604278\",\"https://www.bundesbank.de/de/bundesbank/organisation/hauptverwaltungen/in-bremen-niedersachsen-und-sachsen-anhalt/beirat/beirat-der-hauptverwaltung-in-bremen-niedersachsen-und-sachsen-anhalt-604282\",\"https://www.bundesbank.de/de/bundesbank/organisation/hauptverwaltungen/in-hamburg-mecklenburg-vorpommern-und-schleswig-holstein/praesident/praesident-der-hauptverwaltung-in-hamburg-mecklenburg-vorpommern-und-schleswig-holstein-604294\",\"https://www.bundesbank.de/de/bundesbank/organisation/hauptverwaltungen/in-hamburg-mecklenburg-vorpommern-und-schleswig-holstein/beirat/beirat-der-hauptverwaltung-in-hamburg-mecklenburg-vorpommern-und-schleswig-holstein-604298\",\"https://www.bundesbank.de/de/bundesbank/organisation/hauptverwaltungen/in-hessen/praesident/praesident-der-hauptverwaltung-in-hessen-604310\",\"https://www.bundesbank.de/de/bundesbank/organisation/hauptverwaltungen/in-hessen/beirat/beirat-der-hauptverwaltung-in-hessen-604314\",\"https://www.bundesbank.de/de/bundesbank/organisation/hauptverwaltungen/in-nordrhein-westfalen/praesident/praesident-der-hauptverwaltung-in-nordrhein-westfalen-604324\",\"https://www.bundesbank.de/de/bundesbank/organisation/hauptverwaltungen/in-nordrhein-westfalen/beirat/beirat-der-hauptverwaltung-in-nordrhein-westfalen-604328\",\"https://www.bundesbank.de/de/bundesbank/organisation/hauptverwaltungen/in-rheinland-pfalz-und-dem-saarland/praesident/praesident-der-hauptverwaltung-in-rheinland-pfalz-und-dem-saarland-604338\",\"https://www.bundesbank.de/de/bundesbank/organisation/hauptverwaltungen/in-rheinland-pfalz-und-dem-saarland/beirat/beirat-der-hauptverwaltung-in-rheinland-pfalz-und-dem-saarland-604342\",\"https://www.bundesbank.de/de/bundesbank/organisation/hauptverwaltungen/in-sachsen-und-thueringen/beirat/beirat-der-hauptverwaltung-in-sachsen-und-thueringen-604354\"]"}]]></column>
+            <column name="refresh_hours" valueNumeric="24"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="Citer la source (Deutsche Bundesbank)"/>
+            <column name="attribution" value="Deutsche Bundesbank, www.bundesbank.de"/>
+            <column name="notes" value="Extrait le directoire complet (Vorstand) de la Deutsche Bundesbank avec photos et rôles officiels."/>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-03 22:53:08.000000"/>
+            <column name="updated_at" value="2026-11-03 23:40:22.585594"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="126"/>
+            <column name="name" value="PEP Allemagne – Cours des comptes fédérale et régionales"/>
+            <column name="description"><![CDATA[Présidents, vice-présidents et membres dirigeants de la Cour des comptes fédérale et des 16 cours régionales (catégorie DE-e)]]></column>
+            <column name="dataset_name" value="de_pep_audit_courts"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://www.bundesrechnungshof.de"/>
+            <column name="plugin_id" value="de-pep-audit-courts"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="WEB_PAGE"/>
+            <column name="source_location" value=""/>
+            <column name="parameters"><![CDATA[{"configFile": ""}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="Citer la source (Bundesrechnungshof / Landesrechnungshöfe)"/>
+            <column name="attribution" value="Bundesrechnungshof und Landesrechnungshöfe"/>
+            <column name="notes" value="Configuration-driven : lit les pages des collèges dirigeants de la Cour fédérale et des 16 cours des Länder."/>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-03 22:53:09.000000"/>
+            <column name="updated_at" value="2026-11-16 10:42:26.844255"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="127"/>
+            <column name="name" value="PEP Allemagne – Juges des cours fédérales suprêmes"/>
+            <column name="description" value="Juges des 6 cours fédérales suprêmes : BVerfG, BGH, BVerwG, BAG, BSG, BFH (catégorie DE-d)"/>
+            <column name="dataset_name" value="de_pep_federal_courts"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://www.bundesverfassungsgericht.de"/>
+            <column name="plugin_id" value="de-pep-federal-courts"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="WEB_PAGE"/>
+            <column name="source_location" value=""/>
+            <column name="parameters"><![CDATA[{"courts":"[{\"key\":\"bverfg\",\"name\":\"Bundesverfassungsgericht\",\"acronym\":\"BVerfG\",\"url\":\"https://www.bundesverfassungsgericht.de/DE/DasBundesverfassungsgericht/RichterinnenRichter/richterinnenRichter_node.html\"},{\"key\":\"bgh\",\"wikipedia\":\"Liste_der_Richter_am_Bundesgerichtshof\",\"name\":\"Bundesgerichtshof\",\"acronym\":\"BGH\",\"delayMs\":30000,\"url\":\"https://www.bundesgerichtshof.de/DE/DasGericht/Praesidenten/praesidenten_node.html\",\"plan\":{\"url\":\"https://www.bundesgerichtshof.de/DE/DasGericht/Geschaeftsverteilung/geschaeftsverteilung_node.html\",\"links\":[\"/Geschaeftsverteilungsplan\\\\d{4}/[^/]*_node\\\\.html\",\"\\\\.pdf\\\\?__blob=publicationFile\"]},\"search\":{\"url\":\"https://www.bundesgerichtshof.de/SiteGlobals/Forms/Suche/Servicesuche_Formular.html?nn=373996&templateQueryString={query}\",\"query\":\"\\\"{lastName}\\\" Richter Bundesgerichtshof ernannt\",\"link\":\"/SharedDocs/Pressemitteilungen/DE/\\\\d{4}/\\\\d+\\\\.html\",\"results\":2}},{\"key\":\"bverwg\",\"wikipedia\":\"Liste_der_Richter_am_deutschen_Bundesverwaltungsgericht\",\"name\":\"Bundesverwaltungsgericht\",\"acronym\":\"BVerwG\",\"url\":\"https://www.bverwg.de/das-gericht/organisation/der-praesident\",\"plan\":{\"url\":\"https://www.bverwg.de/user/pages/03.Rechtsprechung/06.Geschaeftsverteilungsplan/gvp_bverwg.pdf\",\"links\":[]}},{\"key\":\"bfh\",\"wikipedia\":\"Liste_der_Richter_am_Bundesfinanzhof\",\"name\":\"Bundesfinanzhof\",\"acronym\":\"BFH\",\"delayMs\":60000,\"url\":\"https://www.bundesfinanzhof.de/de/gericht/organisation/praesident-und-vizepraesident/\",\"plan\":{\"url\":\"https://www.bundesfinanzhof.de/de/gericht/organisation/senate/\",\"links\":[\"GVPl_BFH_Stand_[^/]*\\\\.pdf\"]}},{\"key\":\"bag\",\"wikipedia\":\"Liste_der_Richter_am_Bundesarbeitsgericht\",\"name\":\"Bundesarbeitsgericht\",\"acronym\":\"BAG\",\"url\":\"https://www.bundesarbeitsgericht.de/die-arbeitsgerichtsbarkeit/organisation/\",\"plan\":{\"url\":\"https://www.bundesarbeitsgericht.de/die-arbeitsgerichtsbarkeit/geschaeftsverteilung/\",\"links\":[\"/gvpl_\\\\d+\\\\.pdf$\"]}},{\"key\":\"bsg\",\"wikipedia\":\"Liste_der_Richter_am_Bundessozialgericht\",\"name\":\"Bundessozialgericht\",\"acronym\":\"BSG\",\"delayMs\":30000,\"url\":\"https://www.bsg.bund.de/DE/Gericht/Praesidentin_Vizepraesident/praesidentin_vizepraesident_node.html\",\"plan\":{\"url\":\"https://www.bsg.bund.de/DE/Verfahren/Geschaeftsverteilung/geschaeftsverteilung_node.html\",\"links\":[\"Geschaeftsverteilungsplan_\\\\d{4}(_\\\\d+)?\\\\.html\",\"\\\\.pdf\\\\?__blob=publicationFile\"]}}]","nameSources":"[\"https://www.bmjv.de/SharedDocs/Pressearchiv/Pressemitteilungen/2018/070618_Bundesrichterwahl.html\",\"https://www.bmjv.de/SharedDocs/Pressearchiv/Pressemitteilungen/2018/121418_Bundesrichterwahl.html\",\"https://www.bmjv.de/SharedDocs/Pressearchiv/Pressemitteilungen/2019/031419_Bundesrichterwahl.html\",\"https://www.bmjv.de/SharedDocs/Pressearchiv/Pressemitteilungen/2020/070220_Bundesrichterwahl.html\",\"https://www.bmjv.de/SharedDocs/Pressearchiv/Pressemitteilungen/2020/100920_neue_Bundesrichterinnen_und_Bundesrichter.html\",\"https://www.bmjv.de/SharedDocs/Pressearchiv/Pressemitteilungen/2021/0325_Bundesrichter.html\",\"https://www.bmjv.de/SharedDocs/Pressemitteilungen/DE/2022/0707_Bundesrichterwahl.html\",\"https://www.bmjv.de/SharedDocs/Pressemitteilungen/DE/2023/0330_Bundesrichterwahl.html\",\"https://www.bmjv.de/SharedDocs/Pressemitteilungen/DE/2024/0321_Bundesrichterwahl.html\",\"https://www.bmjv.de/SharedDocs/Pressemitteilungen/DE/2025/1218_Bundesrichterwahl.html\",\"https://www.bmjv.de/SharedDocs/Pressemitteilungen/DE/2026/0610_Bundesrichter_innenwahl.html\",\"https://www.bmas.de/DE/Service/Presse/Pressemitteilungen/2014/fuenf-neue-richter-gewaehlt-2014-05-22.html\",\"https://www.bmas.de/DE/Service/Presse/Pressemitteilungen/2015/neue-bundesrichter-2015.html\",\"https://www.bmas.de/DE/Service/Presse/Pressemitteilungen/2016/sechs-neue-richter-gewaehlt.html\",\"https://www.bmas.de/DE/Service/Presse/Pressemitteilungen/2018/zwoelf-neue-bundesrichter.html\",\"https://www.bmas.de/DE/Service/Presse/Pressemitteilungen/2021/zehn-neue-bundesrichterinnen-bundesarbeitsgericht-bundessozialgericht.html\",\"https://www.bmas.de/DE/Service/Presse/Pressemitteilungen/2025/bundesrichter.html\",\"https://www.bverwg.de/user/pages/02.Das-Gericht/06.Bild-und-Informationsmaterial/01.Zahlen-und-Fakten/jahresbericht_2025.pdf\",\"https://www.bundesarbeitsgericht.de/wp-content/uploads/2026/03/jahresbericht_2025.pdf\",\"https://www.bsg.bund.de/SharedDocs/Downloads/DE/Jahresberichte/Jahresbericht_2025_pdf.pdf?__blob=publicationFile\"]","judgeNames":"[{\"court\":\"bgh\",\"name\":\"Thomas Koch\",\"source\":\"https://www.bundesgerichtshof.de/SharedDocs/Pressemitteilungen/DE/2006/2006119.html\"},{\"court\":\"bgh\",\"name\":\"Martina Schwonke\",\"source\":\"https://www.bundesgerichtshof.de/SharedDocs/Pressemitteilungen/DE/2014/2014040.html\"},{\"court\":\"bgh\",\"name\":\"Heinz Wöstmann\",\"source\":\"https://www.bundesgerichtshof.de/SharedDocs/Pressemitteilungen/DE/2007/2007053.html\"},{\"court\":\"bgh\",\"name\":\"Falk Bernau\",\"source\":\"https://www.bundesgerichtshof.de/SharedDocs/Pressemitteilungen/DE/2017/2017001.html\"},{\"court\":\"bgh\",\"name\":\"Ulrich Herrmann\",\"source\":\"https://www.bundesgerichtshof.de/SharedDocs/Pressemitteilungen/DE/2003/2003155.html\"},{\"court\":\"bgh\",\"name\":\"Christoph Karczewski\",\"source\":\"https://www.bundesgerichtshof.de/SharedDocs/Pressemitteilungen/DE/2010/2010001.html\"},{\"court\":\"bgh\",\"name\":\"Gero Götz\",\"source\":\"https://www.bundesgerichtshof.de/SharedDocs/Pressemitteilungen/DE/2016/2016175.html\"},{\"court\":\"bgh\",\"name\":\"Stephan Seiters\",\"source\":\"https://www.bundesgerichtshof.de/SharedDocs/Pressemitteilungen/DE/2009/2009002.html\"},{\"court\":\"bgh\",\"name\":\"Vera von Pentz\",\"source\":\"https://www.bundesgerichtshof.de/SharedDocs/Pressemitteilungen/DE/2009/2009002.html\"},{\"court\":\"bgh\",\"name\":\"Oliver Klein\",\"source\":\"https://www.bundesgerichtshof.de/SharedDocs/Pressemitteilungen/DE/2016/2016111.html\"},{\"court\":\"bgh\",\"name\":\"Peter Allgayer\",\"source\":\"https://www.bundesgerichtshof.de/SharedDocs/Pressemitteilungen/DE/2016/2016219.html\"},{\"court\":\"bgh\",\"name\":\"Rüdiger Pamp\",\"source\":\"https://www.bundesgerichtshof.de/SharedDocs/Pressemitteilungen/DE/2010/2010169.html\"},{\"court\":\"bgh\",\"name\":\"Claus Halfmeier\",\"source\":\"https://www.bundesgerichtshof.de/SharedDocs/Pressemitteilungen/DE/2007/2007089.html\"},{\"court\":\"bgh\",\"name\":\"Andreas Jurgeleit\",\"source\":\"https://www.bundesgerichtshof.de/SharedDocs/Pressemitteilungen/DE/2013/2013003.html\"},{\"court\":\"bgh\",\"name\":\"Christiane Graßnack\",\"source\":\"https://www.bundesgerichtshof.de/SharedDocs/Pressemitteilungen/DE/2014/2014018.html\"},{\"court\":\"bgh\",\"name\":\"Ralph Ernst Bünger\",\"source\":\"https://www.bundesgerichtshof.de/SharedDocs/Pressemitteilungen/DE/2009/2009174.html\"},{\"court\":\"bgh\",\"name\":\"Christian Grüneberg\",\"source\":\"https://www.bundesgerichtshof.de/SharedDocs/Pressemitteilungen/DE/2006/2006111.html\"},{\"court\":\"bgh\",\"name\":\"Gabriele Cirener\",\"source\":\"https://www.bundesgerichtshof.de/SharedDocs/Pressemitteilungen/DE/2020/2020070.html\"},{\"court\":\"bfh\",\"name\":\"Ulrich Schallmoser\",\"source\":\"https://www.bundesfinanzhof.de/de/presse/pressemitteilungen/?tx_solr%5Bpage%5D=8&tx_solr%5Bq%5D=Richter%20am%20Bundesfinanzhof%20ernannt\"},{\"court\":\"bfh\",\"name\":\"Ruben Martini\",\"source\":\"https://www.bundesfinanzhof.de/de/presse/pressemitteilungen/?tx_solr%5Bpage%5D=8&tx_solr%5Bq%5D=Richter%20am%20Bundesfinanzhof%20ernannt\"},{\"court\":\"bfh\",\"name\":\"Franceska Werth\",\"source\":\"https://www.bundesfinanzhof.de/de/presse/pressemitteilungen/?tx_solr%5Bpage%5D=30&tx_solr%5Bq%5D=Richter%20am%20Bundesfinanzhof%20ernannt\"},{\"court\":\"bfh\",\"name\":\"Anja Wald\",\"source\":\"https://www.bundesfinanzhof.de/de/presse/pressemitteilungen/?tx_solr%5Bpage%5D=7&tx_solr%5Bq%5D=Richter%20am%20Bundesfinanzhof%20ernannt\"},{\"court\":\"bfh\",\"name\":\"Rainer Kurt Wendl\",\"source\":\"https://www.bundesfinanzhof.de/de/presse/pressemitteilungen/?tx_solr%5Bpage%5D=32&tx_solr%5Bq%5D=Richter%20am%20Bundesfinanzhof%20ernannt\"},{\"court\":\"bfh\",\"name\":\"Ulrike Köhler\",\"source\":\"https://www.bundesfinanzhof.de/de/presse/pressemitteilungen/?tx_solr%5Bpage%5D=26&tx_solr%5Bq%5D=Richter%20am%20Bundesfinanzhof%20ernannt\"},{\"court\":\"bfh\",\"name\":\"Ulrike Banniza\",\"source\":\"https://www.bundesfinanzhof.de/de/presse/pressemitteilungen/?tx_solr%5Bpage%5D=10&tx_solr%5Bq%5D=Richter%20am%20Bundesfinanzhof%20ernannt\"},{\"court\":\"bfh\",\"name\":\"Ute Geisenberger\",\"source\":\"https://www.bundesfinanzhof.de/de/presse/pressemitteilungen/?tx_solr%5Bpage%5D=9&tx_solr%5Bq%5D=Richter%20am%20Bundesfinanzhof%20ernannt\"},{\"court\":\"bfh\",\"name\":\"Katharina Wagner\",\"source\":\"https://www.bundesfinanzhof.de/de/presse/pressemitteilungen/?tx_solr%5Bpage%5D=9&tx_solr%5Bq%5D=Richter%20am%20Bundesfinanzhof%20ernannt\"},{\"court\":\"bfh\",\"name\":\"Katja Wiesmann\",\"source\":\"https://www.bundesfinanzhof.de/de/presse/pressemitteilungen/?tx_solr%5Bpage%5D=18&tx_solr%5Bq%5D=Richter%20am%20Bundesfinanzhof%20ernannt\"},{\"court\":\"bfh\",\"name\":\"Michaela Teller\",\"source\":\"https://www.bundesfinanzhof.de/de/presse/pressemitteilungen/?tx_solr%5Bpage%5D=22&tx_solr%5Bq%5D=Richter%20am%20Bundesfinanzhof%20ernannt\"},{\"court\":\"bfh\",\"name\":\"Volker Pfirrmann\",\"source\":\"https://www.bundesfinanzhof.de/de/presse/pressemitteilungen/?tx_solr%5Bpage%5D=5&tx_solr%5Bq%5D=Richter%20am%20Bundesfinanzhof%20ernannt\"},{\"court\":\"bfh\",\"name\":\"Jens Reddig\",\"source\":\"https://www.bundesfinanzhof.de/de/presse/pressemitteilungen/?tx_solr%5Bpage%5D=17&tx_solr%5Bq%5D=Richter%20am%20Bundesfinanzhof%20ernannt\"},{\"court\":\"bfh\",\"name\":\"Roberta Hübner\",\"source\":\"https://www.bundesfinanzhof.de/de/presse/pressemitteilungen/?tx_solr%5Bpage%5D=7&tx_solr%5Bq%5D=Richter%20am%20Bundesfinanzhof%20ernannt\"},{\"court\":\"bfh\",\"name\":\"Gregor Nöcker\",\"source\":\"https://www.bundesfinanzhof.de/de/presse/pressemitteilungen/?tx_solr%5Bpage%5D=30&tx_solr%5Bq%5D=Richter%20am%20Bundesfinanzhof%20ernannt\"},{\"court\":\"bag\",\"name\":\"Stephanie Rachor\",\"source\":\"https://www.bundesarbeitsgericht.de/presse/stephanie-rachor-neue-vorsitzende-richterin-am-bundesarbeitsgericht/\"},{\"court\":\"bag\",\"name\":\"Ursula Rinck\",\"source\":\"https://www.bundesarbeitsgericht.de/presse/frau-dr-ursula-rinck-neue-vorsitzende-richterin-am-bundesarbeitsgericht/\"},{\"court\":\"bag\",\"name\":\"Karin Spelge\",\"source\":\"https://www.bundesarbeitsgericht.de/presse/karin-spelge-neue-vorsitzende-richterin-am-bundesarbeitsgericht/\"},{\"court\":\"bag\",\"name\":\"Markus Krumbiegel\",\"source\":\"https://www.bundesarbeitsgericht.de/presse/herr-markus-krumbiegel-neuer-vorsitzender-richter-am-bundesarbeitsgericht/\"},{\"court\":\"bag\",\"name\":\"Waldemar Reinfelder\",\"source\":\"https://www.bundesarbeitsgericht.de/presse/waldemar-reinfelder-neuer-vorsitzender-richter-am-bundesarbeitsgericht/\"}]","maxSearches":"10","delayMs":"1000","monthsAfterEnd":"12","wikipediaFallback":"true","wikipediaDelayMs":"5000"}]]></column>
+            <column name="refresh_hours" valueNumeric="24"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="Citer les sources respectives des cours fédérales"/>
+            <column name="attribution" value="Oberste Gerichtshöfe des Bundes"/>
+            <column name="notes"><![CDATA[Extrait les juges fédéraux des 6 hautes juridictions : Cour constitutionnelle (BVerfG, 16 juges) et cours de justice suprêmes.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-03 22:53:09.000000"/>
+            <column name="updated_at" value="2026-11-16 22:09:40.083914"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="128"/>
+            <column name="name" value="PEP Allemagne – Cours constitutionnelles des Länder"/>
+            <column name="description" value="Présidents et juges des 16 cours constitutionnelles régionales des Länder (catégorie DE-d)"/>
+            <column name="dataset_name" value="de_pep_land_constitutional_courts"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://verfgh.baden-wuerttemberg.de"/>
+            <column name="plugin_id" value="de-pep-land-constitutional-courts"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="WEB_PAGE"/>
+            <column name="parameters"><![CDATA[{"configFile": ""}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="Citer la source (Landesverfassungsgerichte)"/>
+            <column name="attribution" value="Verfassungsgerichte der 16 Länder"/>
+            <column name="notes"><![CDATA[Lit les membres et présidents des 16 cours constitutionnelles des Länder (Verfassungsgerichtshöfe / Staatsgerichtshöfe).]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-03 22:53:09.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="129"/>
+            <column name="name" value="PEP Allemagne – Directions fédérales des partis politiques"/>
+            <column name="description"><![CDATA[Membres des organes dirigeants fédéraux des partis représentés au Bundestag, d'après la Bundeswahlleiterin (§ 6 (3) PartG) (catégorie DE-c)]]></column>
+            <column name="dataset_name" value="de_pep_parties"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://www.wikidata.org"/>
+            <column name="plugin_id" value="de-pep-parties"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="SPARQL"/>
+            <column name="source_location" value=""/>
+            <column name="parameters"><![CDATA[{"endpoint": "https://query.wikidata.org/sparql", "country": "Q183", "monthsAfterEnd": "12"}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="Unterlagensammlung der Bundeswahlleiterin (§ 6 (3) PartG)"/>
+            <column name="attribution" value="Die Bundeswahlleiterin, www.bundeswahlleiterin.de"/>
+            <column name="notes"><![CDATA[Organes dirigeants (Bundesvorstand, Parteivorstand, Präsidium) des partis siégeant au Bundestag (SPD, CDU, CSU, GRÜNE, FDP, AfD, DIE LINKE, BSW).]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-03 22:53:09.000000"/>
+            <column name="updated_at" value="2026-11-16 10:44:18.060034"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="130"/>
+            <column name="name" value="PEP Allemagne – Ambassadeurs et chefs de poste diplomatique"/>
+            <column name="description" value="Ambassadeurs, représentants permanents et chargés d'affaires de l'Allemagne dans le monde (catégorie DE-g)"/>
+            <column name="dataset_name" value="de_pep_diplomats"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://www.auswaertiges-amt.de"/>
+            <column name="plugin_id" value="de-pep-diplomats"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="WEB_PAGE"/>
+            <column name="source_location" value=""/>
+            <column name="parameters" value="{}"/>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="Citer la source (Auswärtiges Amt)"/>
+            <column name="attribution" value="Auswärtiges Amt, www.auswaertiges-amt.de"/>
+            <column name="notes" value="Désactivé : aucune liste nominative d'ambassadeurs lisible en ligne, et plus aucune liste embarquée dans le plugin."/>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-03 22:53:09.000000"/>
+            <column name="updated_at" value="2026-11-04 21:43:46.726663"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="131"/>
+            <column name="name" value="PEP Allemagne – Organisations internationales établies en Allemagne"/>
+            <column name="description" value="Dirigeants des organisations internationales ayant leur siège ou antenne majeure en Allemagne (catégorie DE-i)"/>
+            <column name="dataset_name" value="de_pep_international_orgs"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://www.epo.org"/>
+            <column name="plugin_id" value="de-pep-international-orgs"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="WEB_PAGE"/>
+            <column name="parameters"><![CDATA[{"configFile": ""}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="Citer chaque organisation internationale"/>
+            <column name="attribution" value="OEB, EUMETSAT, EMBL, ESO, OCCAR, UN Bonn, ITLOS"/>
+            <column name="notes"><![CDATA[Reprise et adaptation de fr_pep_international_orgs : lit les dirigeants de l'OEB (Munich), EUMETSAT (Darmstadt), EMBL, ESO, OCCAR, ONU à Bonn et ITLOS (Hambourg).]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-03 22:53:09.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="132"/>
+            <column name="name" value="PEP Allemagne – Entreprises publiques"/>
+            <column name="description"><![CDATA[Organes de direction et de surveillance des entreprises publiques fédérales et des Länder au-delà des seuils GwG (catégorie DE-h)]]></column>
+            <column name="dataset_name" value="de_pep_state_enterprises"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://www.bundesfinanzministerium.de"/>
+            <column name="plugin_id" value="de-pep-state-enterprises"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="WEB_PAGE"/>
+            <column name="source_location" value=""/>
+            <column name="parameters"><![CDATA[{"configFile": ""}]]></column>
+            <column name="refresh_hours" valueNumeric="720"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="Rapport sur les participations du Bund (BMF)"/>
+            <column name="attribution" value="Bundesministerium der Finanzen (BMF)"/>
+            <column name="notes"><![CDATA[Lit les organes de direction (Vorstand) et de surveillance (Aufsichtsrat) des entreprises publiques du Bund et des Länder selon les critères du GwG § 1 (12) h) (> 50% public, > 2000 salariés ou > 3 Md€).]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-03 23:41:56.000000"/>
+            <column name="updated_at" value="2026-11-16 10:44:51.600478"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="133"/>
+            <column name="name" value="PEP Allemagne – Parlements des Länder"/>
+            <column name="description"><![CDATA[Membres des 16 parlements régionaux des Länder (Landtage, Bürgerschaften, Abgeordnetenhaus) (catégorie DE-b optionnelle)]]></column>
+            <column name="dataset_name" value="de_pep_landtage"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://www.abgeordnetenwatch.de"/>
+            <column name="plugin_id" value="de-pep-landtage"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="API"/>
+            <column name="source_location" value=""/>
+            <column name="parameters"><![CDATA[{"delayMs": "1000", "endpoint": "https://www.abgeordnetenwatch.de/api/v2", "backoffMs": "5000", "birthYears": "false", "monthsAfterEnd": "12"}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="CC0 (AbgeordnetenWatch) et sites officiels des Landtage"/>
+            <column name="attribution" value="AbgeordnetenWatch.de / Landtage der 16 Bundesländer"/>
+            <column name="notes"><![CDATA[Optionnel : couvre environ 1 900 parlementaires régionaux des 16 Länder (critère d'importance comparable du GwG § 1 (12)).]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-03 23:41:56.000000"/>
+            <column name="updated_at" value="2026-11-16 10:45:58.621290"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="134"/>
+            <column name="name"><![CDATA[PEP Allemagne – Maires et Landräte (>= 50 000 hab.)]]></column>
+            <column name="description" value="Maires des villes de 50 000 hab. et plus et Landräte des Landkreise (catégorie DE-AMLR, applicable juillet 2027)"/>
+            <column name="dataset_name" value="de_pep_local_executives"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://www.destatis.de"/>
+            <column name="plugin_id" value="de-pep-local-executives"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="SPARQL"/>
+            <column name="source_location" value=""/>
+            <column name="parameters"><![CDATA[{"landraeteUrl":"https://www.landkreistag.de/der-verband/landesverbaende/mittelbare-mitglieder","populationUrl":"https://www.destatis.de/DE/Themen/Laender-Regionen/Regionales/Gemeindeverzeichnis/Administrativ/Archiv/GVAuszugQ/AuszugGV3QAktuell.xlsx?__blob=publicationFile","mayorSources":"[{\"land\":\"BY\",\"publisher\":\"Bayerisches Landesamt für Statistik\",\"url\":\"https://www.statistik.bayern.de/mam/wahlen/kommunalwahlen/bgm/wahlergebnisse_mandatsr%C3%A4ger.xlsx\",\"format\":\"xlsx\",\"sheet\":\"Mandatsträger\",\"agsPrefix\":\"09\",\"nameOrder\":\"lastFirst\",\"roles\":\"(?i)bürgermeister\",\"columns\":{\"key\":\"Schlüssel\",\"place\":\"Gemeindename/Landkreis\",\"role\":\"Amtsbezeichnung\",\"name\":\"Amtsinhaber/in\",\"gender\":\"Geschlecht\",\"birthYear\":\"Geburtsjahr\",\"party\":\"Wahlvorschlag\",\"start\":\"Erster Amtsantritt\"}},{\"land\":\"NW\",\"publisher\":\"Landeswahlleiterin Nordrhein-Westfalen (résultats des élections communales 2025)\",\"format\":\"perCity\",\"nameOrder\":\"lastFirst\",\"url\":\"https://www.wahlergebnisse.nrw/kommunalwahlen/2025/aktuell/txtdateien/b{ags6}kw2500.txt\",\"elected\":\"gewählt:\\\\s*\\\\R\\\\s*(.+?)\\\\s*\\\\(([^()]*)\\\\)\\\\s*\\\\R\\\\s*(\\\\d{2}\\\\.\\\\d{2}\\\\.\\\\d{4})\",\"roleFrom\":\"Wahl der ((?:Ober)?[Bb]ürgermeister)\",\"keyAliases\":{\"05334002\":\"313000\"}}]","landratRoles":"{\"Region Hannover\":\"Regionspräsident\",\"StädteRegion Aachen\":\"Städteregionsrat\",\"Regionalverband Saarbrücken\":\"Regionalverbandsdirektor\"}","minPopulation":"50000","delayMs":"1000","wikidataFallback":"true","endpoint":"https://query.wikidata.org/sparql"}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="Destatis (Gemeindeverzeichnis) / CC0 Wikidata"/>
+            <column name="attribution" value="Statistisches Bundesamt (Destatis) / Wikidata"/>
+            <column name="notes"><![CDATA[Anticipation du règlement (UE) 2024/1624 (AMLR). Couvre les ~200 maires (Oberbürgermeister) et ~290 préfets de cantons (Landräte) au-dessus de 50 000 habitants.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-03 23:41:56.000000"/>
+            <column name="updated_at" value="2026-11-16 22:05:00.004726"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="149"/>
+            <column name="name" value="PEP Allemagne – Direction de la BaFin"/>
+            <column name="description"><![CDATA[Président et directeurs exécutifs de l'autorité fédérale de supervision financière (catégorie DE-f, hors liste notifiée)]]></column>
+            <column name="dataset_name" value="de_pep_bafin"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://www.bafin.de/DE/die-bafin/ueber-die-bafin/organisation/direktorium/direktorium_node.html"/>
+            <column name="plugin_id" value="de-pep-bafin"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="WEB_PAGE"/>
+            <column name="parameters"><![CDATA[{"urls":"[\"https://www.bafin.de/DE/die-bafin/ueber-die-bafin/organisation/direktorium/praesident/praesident_node.html\",\"https://www.bafin.de/DE/die-bafin/ueber-die-bafin/organisation/direktorium/anti-financial-crime/anti-financial-crime_node.html\",\"https://www.bafin.de/DE/die-bafin/ueber-die-bafin/organisation/direktorium/abwicklung/abwicklung_node.html\",\"https://www.bafin.de/DE/die-bafin/ueber-die-bafin/organisation/direktorium/innere-verwaltung/innere-verwaltung_node.html\",\"https://www.bafin.de/DE/die-bafin/ueber-die-bafin/organisation/direktorium/wertpapieraufsicht/wertpapieraufsicht_node.html\",\"https://www.bafin.de/DE/die-bafin/ueber-die-bafin/organisation/direktorium/versicherungsaufsicht/versicherungsaufsicht_node.html\",\"https://www.bafin.de/DE/die-bafin/ueber-die-bafin/organisation/direktorium/bankenaufsicht/bankenaufsicht_node.html\"]"}]]></column>
+            <column name="refresh_hours" valueNumeric="24"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="Citer la source (BaFin)"/>
+            <column name="attribution" value="Bundesanstalt für Finanzdienstleistungsaufsicht, www.bafin.de"/>
+            <column name="notes"><![CDATA[Lit la page « Direktorium » : un bloc par membre. Le Verwaltungsrat n'est pas publié sous une forme lisible. Fonction hors liste notifiée JO C/2023/724 : la BaFin n'est pas une banque centrale.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-04 20:15:02.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="150"/>
+            <column name="name" value="PEP Allemagne – Secrétaires d'État fédéraux"/>
+            <column name="description"><![CDATA[Secrétaires d'État parlementaires, ministres d'État et secrétaires d'État fonctionnaires des ministères fédéraux, et anciens ministres sortis depuis moins de 12 mois (catégorie DE-a)]]></column>
+            <column name="dataset_name" value="de_pep_federal_secretaries"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://www.bundestag.de/dokumente/parlamentsarchiv/datenhandbuch/06/kapitel-06-475940"/>
+            <column name="plugin_id" value="de-pep-federal-secretaries"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="OFFICIAL_GAZETTE"/>
+            <column name="source_location" value=""/>
+            <column name="parameters"><![CDATA[{"chapterUrl": "https://www.bundestag.de/dokumente/parlamentsarchiv/datenhandbuch/06/kapitel-06-475940", "term": "21", "monthsAfterEnd": "12"}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="Citer la source (Deutscher Bundestag, Datenhandbuch)"/>
+            <column name="attribution" value="Deutscher Bundestag, Datenhandbuch, chapitre 6.3, www.bundestag.de"/>
+            <column name="notes"><![CDATA[Lit le tableau « Namentliche Aufstellung der Minister und Staatssekretäre » (PDF du chapitre 6.3) : trois colonnes découpées par position. Le PDF est un instantané mis à jour par le service du Bundestag ; l'adresse du PDF est découverte sur la page du chapitre. Le message d'exécution donne la date du document.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-04 20:15:02.000000"/>
+            <column name="updated_at" value="2026-11-16 10:45:20.337461"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="370"/>
+            <column name="name" value="PEP Allemagne - Gouvernements des 16 Laender"/>
+            <column name="description" value="Ministres-presidents, ministres et secretaires d'Etat des 16 Laender allemands (categorie DE-a)"/>
+            <column name="dataset_name" value="de_pep_land_governments"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://www.baden-wuerttemberg.de"/>
+            <column name="plugin_id" value="de-pep-land-governments"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="WEB_PAGE"/>
+            <column name="source_location" value=""/>
+            <column name="parameters"><![CDATA[{"urls":"[\"https://www.baden-wuerttemberg.de/de/regierung/ministerpraesident\",\"https://www.baden-wuerttemberg.de/de/regierung/mitglieder-der-landesregierung\",\"https://www.bayern.de/staatsregierung/ministerpraesident/minister-president/\",\"https://www.bayern.de/staatsregierung/kabinett/\",\"https://daten.berlin.de/datensaetze\",\"https://www.berlin.de/rbmskzl/politik/senat/senatsmitglieder/\",\"https://brandenburg.de/de/ministerpraesident/bb1.c.476536.de\",\"https://brandenburg.de/de/minister/bb1.c.476877.de\",\"https://www.rathaus.bremen.de/senat-734\",\"https://www.rathaus.bremen.de/praesidenten-des-senats-seit-1945-4308\",\"https://www.hamburg.de/politik-und-verwaltung/senat/der-hamburger-senat\",\"https://www.hamburg.de/politik-und-verwaltung/behoerden/senatskanzlei/wir-ueber-uns\",\"https://staatskanzlei.hessen.de/unser-haus/chef-der-staatskanzlei\",\"https://hessen.de/regierung/landesregierung/staatssekretaerinnen-und-staatssekretaere\",\"https://government-mv.de/seite/cabinet\",\"https://www.state-chancellery.niedersachsen.de/minister_president/curriculum-vitae-minister-president-of-lower-saxony-olaf-lies-242206.html\",\"https://www.lower-saxony.de/politics_and_state/state_government/the-lower-saxony-state-government-99165.html\",\"https://www.land.nrw/landeskabinett\",\"https://www.rlp.de/regierung/ministerrat\",\"https://www.saarland.de/stk/DE/portale/65-jahre-saarland/hintergrund/ministerpraesidenten\",\"https://www.saarland.de/mfw/DE/wir_ueber_uns/minister\",\"https://www.saarland.de/mibs/DE/institution/minister\",\"https://www.saarland.de/mibs/DE/institution/sts/sts_BubbleTabs\",\"https://www.saarland.de/mibs/DE/institution/minister/minister_BubbleTabs\",\"https://www.saarland.de/DE/politik-verwaltung/regierung/staatskanzlei-und-ministerien\",\"https://www.saarland.de/mukmav/DE/institution/ministerin\",\"https://www.saarland.de/mukmav/DE/institution/staatssekretaer\",\"https://www.saarland.de/mbk/DE/institution/ministerin/_functions/ministerin_BubbleTabs\",\"https://www.saarland.de/mbk/DE/institution/staatssekretaer/_functions/BubbleTabs-Modul/BubbleTabs\",\"https://www.saarland.de/masfg/DE/institution/hausspitze/lebenslauf_minister\",\"https://www.saarland.de/masfg/DE/institution/hausspitze/lebenslauf_staatssekret%C3%A4r\",\"https://www.staatsregierung.sachsen.de/\",\"https://www.staatsregierung.sachsen.de/regierungsmitglieder-6584.html\",\"https://sachsen-anhalt.de/politik-verwaltung/landesregierung/page/die-ministerien\",\"https://sachsen-anhalt.de/politik-verwaltung/page/ministerpraesident\",\"https://www.schleswig-holstein.de/DE/landesregierung/ministerien-behoerden\",\"https://www.schleswig holstein.de/DE/landesregierung/ministerien behoerden/I\",\"https://www.schleswig holstein.de/DE/landesregierung/ministerien behoerden/II/ii_node\",\"https://www.schleswig holstein.de/DE/landesregierung/ministerien behoerden/III/iii_node\",\"https://www.schleswig holstein.de/DE/landesregierung/ministerien behoerden/IV/iv_node\",\"https://www.schleswig holstein.de/DE/landesregierung/ministerien behoerden/V/v_node\",\"https://www.schleswig holstein.de/DE/landesregierung/ministerien behoerden/VI/vi_node\",\"https://www.schleswig holstein.de/DE/landesregierung/ministerien behoerden/VII/vii_node\",\"https://www.schleswig holstein.de/DE/landesregierung/ministerien behoerden/VIII/viii_node\",\"https://www.schleswig holstein.de/DE/landesregierung/ministerien behoerden/Staatskanzlei/staatskanzlei_node\",\"https://www.thueringen.de/\",\"https://thueringen.de/staatskanzlei/ministerpraesident\"]"}]]></column>
+            <column name="refresh_hours" valueNumeric="24"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="Citer les sources des Laender"/>
+            <column name="attribution" value="Laenderregierungen"/>
+            <column name="notes"><![CDATA[Extrait les membres des cabinets des 16 Laender d'apres leurs sites officiels avec fiches de CV. Gere les URLs avec espaces en SOURCE_BROKEN sans planter.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-15 22:54:41.000000"/>
+            <column name="updated_at" value="2026-11-15 23:32:55.393844"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="371"/>
+            <column name="name" value="PEP Allemagne - Lobbyregister du Bundestag (RCA GwG Abs. 14)"/>
+            <column name="description"><![CDATA[Registre des lobbyistes du Bundestag : entites, representants, personnes notoirement proches (RCA.1/RCA.2) et anciens mandats (A.2/B.2)]]></column>
+            <column name="dataset_name" value="de_pep_lobbyregister"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://www.lobbyregister.bundestag.de"/>
+            <column name="plugin_id" value="de-pep-lobbyregister"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="API"/>
+            <column name="parameters"><![CDATA[{"url": "https://www.lobbyregister.bundestag.de/sucheDetailJson", "testApiKey": "5bHB2zrUuHR6YdPoZygQhWfg2CBrjUOi", "pageSize": "100"}]]></column>
+            <column name="refresh_hours" valueNumeric="24"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="Open Data Bundestag (Lobbyregistergesetz - LobbyRG)"/>
+            <column name="attribution" value="Deutscher Bundestag, www.lobbyregister.bundestag.de"/>
+            <column name="notes"><![CDATA[Ingere le Lobbyregister du Bundestag et detecte les bekanntermassen nahestehende Personen (RCA GwG Abs. 14) ainsi que les anciens mandats etatiques.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-15 22:54:41.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="372"/>
+            <column name="name" value="PEP Allemagne - Ministere de la Defense et Bundeswehr (BMVg)"/>
+            <column name="description" value="Ministre federal de la Defense (A.1), Generalinspekteur der Bundeswehr (F.1) et anciens ministres (A.2)"/>
+            <column name="dataset_name" value="de_pep_defence"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://www.bmvg.de"/>
+            <column name="plugin_id" value="de-pep-defence"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="WEB_PAGE"/>
+            <column name="source_location" value=""/>
+            <column name="parameters"><![CDATA[{"ministerUrl": "https://www.bmvg.de/de/ministerium/verteidigungsminister-boris-pistorius?targetView=asTeaserSlider", "ministerVitaUrl": "https://www.bmvg.de/de/ministerium/verteidigungsminister-boris-pistorius/vita", "generalinspekteurUrl": "https://www.bmvg.de/de/ministerium/der-generalinspekteur-der-bundeswehr?targetView=asTeaserSlider", "formerMinistersUrl": "https://www.bmvg.de/de/ministerium/geschichte-des-verteidigungsministeriums/ehemalige-verteidigungsminister"}]]></column>
+            <column name="refresh_hours" valueNumeric="24"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="Citer la source (Bundesministerium der Verteidigung - BMVg)"/>
+            <column name="attribution" value="Bundesministerium der Verteidigung, www.bmvg.de"/>
+            <column name="notes" value="Scrape le ministre de la Defense (A.1), le Generalinspekteur (F.1) et l historique complet des anciens ministres (A.2)."/>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-15 22:54:41.000000"/>
+            <column name="updated_at" value="2026-11-16 10:29:27.568799"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="373"/>
+            <column name="name" value="PEP Allemagne - Secretaires d Etat de la Defense (BMVg)"/>
+            <column name="description" value="Secretaires d Etat fonctionnaires et parlementaires du ministere federal de la Defense (GwG A.1)"/>
+            <column name="dataset_name" value="de_pep_defence_secretaries"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://www.bmvg.de/de/ministerium/staatssekretaere"/>
+            <column name="plugin_id" value="de-pep-defence-secretaries"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="WEB_PAGE"/>
+            <column name="source_location" value=""/>
+            <column name="parameters"><![CDATA[{"hubUrl": "https://www.bmvg.de/de/ministerium/staatssekretaere"}]]></column>
+            <column name="refresh_hours" valueNumeric="24"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="Citer la source (Bundesministerium der Verteidigung - BMVg)"/>
+            <column name="attribution" value="Bundesministerium der Verteidigung, www.bmvg.de"/>
+            <column name="notes" value="Scrape dynamiquement le hub /staatssekretaere et les profils enfants des secretaires d Etat du BMVg (A.1)."/>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-15 22:54:41.000000"/>
+            <column name="updated_at" value="2026-11-16 10:30:06.843081"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="374"/>
+            <column name="name" value="PEP Allemagne - Armee de terre (Heer / Bundeswehr)"/>
+            <column name="description" value="Commandement du Heer et commandants de divisions et corps d armee (GwG F.1 - Officiers generaux)"/>
+            <column name="dataset_name" value="de_pep_defence_heer"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://www.bundeswehr.de/de/organisation/heer"/>
+            <column name="plugin_id" value="de-pep-defence-heer"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="WEB_PAGE"/>
+            <column name="source_location" value=""/>
+            <column name="parameters"><![CDATA[{"kommandoHeerUrl": "https://www.bundeswehr.de/de/organisation/heer/struktur/kommando-heer", "units": "https://www.bundeswehr.de/de/organisation/heer/struktur/10-panzerdivision,https://www.bundeswehr.de/de/organisation/heer/struktur/1-panzerdivision,https://www.bundeswehr.de/de/organisation/heer/struktur/division-schnelle-kraefte,https://www.bundeswehr.de/de/organisation/heer/struktur/heimatschutzdivision,https://www.bundeswehr.de/de/organisation/heer/struktur/amt-fuer-heeresentwicklung,https://www.bundeswehr.de/de/organisation/heer/struktur/1-deutsch-niederlaendisches-korps"}]]></column>
+            <column name="refresh_hours" valueNumeric="24"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="Citer la source (Bundeswehr - Deutsches Heer)"/>
+            <column name="attribution" value="Bundeswehr, www.bundeswehr.de"/>
+            <column name="notes"><![CDATA[Scrape les officiers generaux du commandement du Heer et des divisions operationnelles (GwG F.1). Archive les CVs PDF avec empreinte SHA-256.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-15 22:54:41.000000"/>
+            <column name="updated_at" value="2026-11-16 10:28:45.724724"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="375"/>
+            <column name="name" value="PEP Allemagne - Armee de l air (Luftwaffe / Bundeswehr)"/>
+            <column name="description" value="Commandement de la Luftwaffe, escadres, ecoles et centres (GwG F.1 - Officiers generaux et superieurs)"/>
+            <column name="dataset_name" value="de_pep_defence_luftwaffe"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://www.bundeswehr.de/de/organisation/luftwaffe"/>
+            <column name="plugin_id" value="de-pep-defence-luftwaffe"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="WEB_PAGE"/>
+            <column name="source_location" value=""/>
+            <column name="parameters"><![CDATA[{"kommandoLuftwaffeUrl": "https://www.bundeswehr.de/de/organisation/luftwaffe/organisation-/kommando-luftwaffe", "units": "https://www.bundeswehr.de/de/organisation/luftwaffe/organisation-/luftwaffentruppenkommando,https://www.bundeswehr.de/de/organisation/luftwaffe/organisation-/air-component-command,https://www.bundeswehr.de/de/organisation/luftwaffe/organisation-/air-component-command/einsatzfuehrungsbereich-2,https://www.bundeswehr.de/de/organisation/luftwaffe/organisation-/air-component-command/einsatzfuehrungsbereich-3,https://www.bundeswehr.de/de/organisation/luftwaffe/organisation-/air-component-command/fuehrungsunterstuetzungszentrum-der-luftwaffe-,https://www.bundeswehr.de/de/organisation/luftwaffe/organisation-/air-component-command/zentrum-simulations-und-navigationsunterstuetzung-fliegende-waffensysteme-der-bundeswehr,https://www.bundeswehr.de/de/organisation/luftwaffe/organisation-/air-component-command/ddo-dta-europaeisches-lufttransportkommando,https://www.bundeswehr.de/de/organisation/luftwaffe/organisation-/air-component-command/ddo-dta-nato-force-sig-onellaisr,https://www.bundeswehr.de/de/organisation/luftwaffe/organisation-/air-component-command/ddo-dta-naew-hq-fhp-geilenkirchen,https://www.bundeswehr.de/de/organisation/luftwaffe/organisation-/luftwaffentruppenkommando/zentrum-fuer-luft-und-raumfahrtmedizin,https://www.bundeswehr.de/de/organisation/luftwaffe/organisation-/luftwaffentruppenkommando/taktisches-luftwaffengeschwader-31-boelcke,https://www.bundeswehr.de/de/organisation/luftwaffe/organisation-/luftwaffentruppenkommando/taktisches-luftwaffengeschwader-33,https://www.bundeswehr.de/de/organisation/luftwaffe/organisation-/luftwaffentruppenkommando/taktisches-luftwaffengeschwader-51-immelmann,https://www.bundeswehr.de/de/organisation/luftwaffe/organisation-/luftwaffentruppenkommando/taktisches-luftwaffengeschwader-71-richthofen,https://www.bundeswehr.de/de/organisation/luftwaffe/organisation-/luftwaffentruppenkommando/taktisches-luftwaffengeschwader-73-steinhoff,https://www.bundeswehr.de/de/organisation/luftwaffe/organisation-/luftwaffentruppenkommando/taktisches-luftwaffengeschwader-74,https://www.bundeswehr.de/de/organisation/luftwaffe/organisation-/luftwaffentruppenkommando/flugabwehrraketengeschwader-1,https://www.bundeswehr.de/de/organisation/luftwaffe/organisation-/luftwaffentruppenkommando/lufttransportgeschwader-62,https://www.bundeswehr.de/de/organisation/luftwaffe/organisation-/luftwaffentruppenkommando/hubschraubergeschwader-64,https://www.bundeswehr.de/de/organisation/luftwaffe/organisation-/luftwaffentruppenkommando/flugbereitschaft-des-bundesministeriums-der-verteidigung,https://www.bundeswehr.de/de/organisation/luftwaffe/organisation-/luftwaffentruppenkommando/luftwaffe-in-evreux,https://www.bundeswehr.de/de/organisation/luftwaffe/organisation-/luftwaffentruppenkommando/objektschutzregiment-der-luftwaffe-friesland-,https://www.bundeswehr.de/de/organisation/luftwaffe/organisation-/luftwaffentruppenkommando/luftwaffenausbildungsbataillon1,https://www.bundeswehr.de/de/organisation/luftwaffe/organisation-/luftwaffentruppenkommando/unteroffizierschule-der-luftwaffe,https://www.bundeswehr.de/de/organisation/luftwaffe/organisation-/luftwaffentruppenkommando/offizierschule-der-luftwaffe,https://www.bundeswehr.de/de/organisation/luftwaffe/organisation-/luftwaffentruppenkommando/waffenschule-luftwaffe,https://www.bundeswehr.de/de/organisation/luftwaffe/organisation-/luftwaffentruppenkommando/technisches-ausbildungszentrum-der-luftwaffe,https://www.bundeswehr.de/de/organisation/luftwaffe/organisation-/luftwaffentruppenkommando/taktisches-ausbildungskommando-der-luftwaffe-usa,https://www.bundeswehr.de/de/organisation/luftwaffe/organisation-/luftwaffentruppenkommando/waffensystemunterstuetzungszentrum-1,https://www.bundeswehr.de/de/organisation/luftwaffe/organisation-/luftwaffentruppenkommando/waffensystemunterstuetzungszentrum-einsatzfaehigkeit,https://www.bundeswehr.de/de/organisation/luftwaffe/organisation-/weltraumkommando-der-bundeswehr,https://www.bundeswehr.de/de/organisation/luftwaffe/organisation-/das-luftfahrtamt-der-bundeswehr,https://www.bundeswehr.de/de/organisation/luftwaffe/organisation-/das-luftfahrtamt-der-bundeswehr/organisation-und-struktur,https://www.bundeswehr.de/de/organisation/luftwaffe/organisation-/continuing-airworthiness-management-organisation-bundeswehr"}]]></column>
+            <column name="refresh_hours" valueNumeric="24"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="Citer la source (Bundeswehr - Luftwaffe)"/>
+            <column name="attribution" value="Bundeswehr, www.bundeswehr.de"/>
+            <column name="notes"><![CDATA[Scrape les officiers generaux et commandants d escadres de la Luftwaffe (GwG F.1). Archive les CVs PDF avec empreinte SHA-256.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-15 22:54:41.000000"/>
+            <column name="updated_at" value="2026-11-16 10:28:33.062606"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="376"/>
+            <column name="name" value="PEP Allemagne - Marine (Deutsche Marine / Bundeswehr)"/>
+            <column name="description" value="Flottilles, ecoles, commandements navals et escadres (GwG F.1 - Amiraux et officiers superieurs)"/>
+            <column name="dataset_name" value="de_pep_defence_marine"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://www.bundeswehr.de/de/organisation/marine"/>
+            <column name="plugin_id" value="de-pep-defence-marine"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="WEB_PAGE"/>
+            <column name="source_location" value=""/>
+            <column name="parameters"><![CDATA[{"marineKommandoUrl": "https://www.bundeswehr.de/de/organisation/marine/organisation/marinekommando", "units": "https://www.bundeswehr.de/de/organisation/marine/struktur/einsatzflottille-1,https://www.bundeswehr.de/de/organisation/marine/struktur/einsatzflottille-2,https://www.bundeswehr.de/de/organisation/marine/struktur/marinefliegerkommando,https://www.bundeswehr.de/de/organisation/marine/struktur/marineunterstuetzungskommando,https://www.bundeswehr.de/de/organisation/marine/struktur/schifffahrtmedizinisches-institut,https://www.bundeswehr.de/de/organisation/marine/struktur/truppenbesuchszentrum,https://www.bundeswehr.de/de/organisation/marine/struktur/einsatzausbildungszentrum-schadensabwehr,https://www.bundeswehr.de/de/organisation/marine/struktur/marineschule-muerwik,https://www.bundeswehr.de/de/organisation/marine/struktur/marineunteroffizierschule,https://www.bundeswehr.de/de/organisation/marine/struktur/marineoperationsschule,https://www.bundeswehr.de/de/organisation/marine/struktur/marinetechnikschule,https://www.bundeswehr.de/de/organisation/marine/struktur/fuehrungsstab-deu-marfor,https://www.bundeswehr.de/de/organisation/marine/struktur/coe-csw,https://www.bundeswehr.de/de/organisation/marine/struktur/marineschifffahrtleitung,https://www.bundeswehr.de/de/organisation/marine/struktur/einsatzflottille-1/marinestuetzpunktkommandos-kiel-eckernfoerde-warnemuende,https://www.bundeswehr.de/de/organisation/marine/struktur/einsatzflottille-1/1-korvettengeschwader,https://www.bundeswehr.de/de/organisation/marine/struktur/einsatzflottille-1/kommando-spezialkraefte-marine,https://www.bundeswehr.de/de/organisation/marine/struktur/einsatzflottille-1/3-minensuchgeschwader,https://www.bundeswehr.de/de/organisation/marine/struktur/einsatzflottille-1/seebataillon,https://www.bundeswehr.de/de/organisation/marine/struktur/einsatzflottille-1/1-ubootgeschwader,https://www.bundeswehr.de/de/organisation/marine/struktur/einsatzflottille-1/ausbildungszentrum-uboote,https://www.bundeswehr.de/de/organisation/marine/struktur/einsatzflottille-1/unterstuetzungsgeschwader"}]]></column>
+            <column name="refresh_hours" valueNumeric="24"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="Citer la source (Bundeswehr - Marine)"/>
+            <column name="attribution" value="Bundeswehr, www.bundeswehr.de"/>
+            <column name="notes"><![CDATA[Scrape les amiraux et commandants d escadres de la Marine allemande (GwG F.1). Extraction native depuis fiches HTML et CVs PDF.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-15 22:54:41.000000"/>
+            <column name="updated_at" value="2026-11-16 10:29:09.874148"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="377"/>
+            <column name="name" value="PEP Allemagne - Cyber- und Informationsraum (CIR / Bundeswehr)"/>
+            <column name="description"><![CDATA[Commandement CIR, centres d operations cyber, bataillons IT et renseignement (GwG F.1 - Officiers generaux et superieurs)]]></column>
+            <column name="dataset_name" value="de_pep_defence_cir"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://www.bundeswehr.de/de/organisation/cyber-und-informationsraum"/>
+            <column name="plugin_id" value="de-pep-defence-cir"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="WEB_PAGE"/>
+            <column name="source_location" value=""/>
+            <column name="parameters"><![CDATA[{"kommandoCirUrl": "https://www.bundeswehr.de/de/organisation/cyber-und-informationsraum/kommando-und-organisation-cir", "units": "https://www.bundeswehr.de/de/organisation/cyber-und-informationsraum/kommando-und-organisation-cir/kommando-cyber-und-informationsraum,https://www.bundeswehr.de/de/organisation/cyber-und-informationsraum/kommando-und-organisation-cir/kommando-cyber-und-informationsraum/kommando-it-services-bw,https://www.bundeswehr.de/de/organisation/cyber-und-informationsraum/kommando-und-organisation-cir/kommando-cyber-und-informationsraum/kommando-it-services-bw/1st-nato-signal-battalion,https://www.bundeswehr.de/de/organisation/cyber-und-informationsraum/kommando-und-organisation-cir/kommando-cyber-und-informationsraum/kommando-it-services-bw/informationstechnikbataillon-281,https://www.bundeswehr.de/de/organisation/cyber-und-informationsraum/kommando-und-organisation-cir/kommando-cyber-und-informationsraum/kommando-it-services-bw/informationstechnikbataillon-282,https://www.bundeswehr.de/de/organisation/cyber-und-informationsraum/kommando-und-organisation-cir/kommando-cyber-und-informationsraum/kommando-it-services-bw/informationstechnikbataillon-292,https://www.bundeswehr.de/de/organisation/cyber-und-informationsraum/kommando-und-organisation-cir/kommando-cyber-und-informationsraum/kommando-it-services-bw/informationstechnikbataillon-293,https://www.bundeswehr.de/de/organisation/cyber-und-informationsraum/kommando-und-organisation-cir/kommando-cyber-und-informationsraum/kommando-it-services-bw/informationstechnikbataillon-381,https://www.bundeswehr.de/de/organisation/cyber-und-informationsraum/kommando-und-organisation-cir/kommando-cyber-und-informationsraum/kommando-it-services-bw/informationstechnikbataillon-383,https://www.bundeswehr.de/de/organisation/cyber-und-informationsraum/kommando-und-organisation-cir/kommando-cyber-und-informationsraum/kommando-aufklaerung-wirkung,https://www.bundeswehr.de/de/organisation/cyber-und-informationsraum/kommando-und-organisation-cir/kommando-cyber-und-informationsraum/kommando-aufklaerung-wirkung/zu-stelle-bw-taufkl,https://www.bundeswehr.de/de/organisation/cyber-und-informationsraum/kommando-und-organisation-cir/kommando-cyber-und-informationsraum/kommando-aufklaerung-wirkung/bataillon-elektronische-kampffuehrung-911,https://www.bundeswehr.de/de/organisation/cyber-und-informationsraum/kommando-und-organisation-cir/kommando-cyber-und-informationsraum/kommando-aufklaerung-wirkung/bataillon-elektronische-kampffuehrung-912,https://www.bundeswehr.de/de/organisation/cyber-und-informationsraum/kommando-und-organisation-cir/kommando-cyber-und-informationsraum/kommando-aufklaerung-wirkung/bataillon-elektronische-kampffuehrung-931,https://www.bundeswehr.de/de/organisation/cyber-und-informationsraum/kommando-und-organisation-cir/kommando-cyber-und-informationsraum/kommando-aufklaerung-wirkung/bataillon-elektronische-kampffuehrung-932,https://www.bundeswehr.de/de/organisation/cyber-und-informationsraum/kommando-und-organisation-cir/kommando-cyber-und-informationsraum/kommando-aufklaerung-wirkung/fmaufklzentr-nord,https://www.bundeswehr.de/de/organisation/cyber-und-informationsraum/kommando-und-organisation-cir/kommando-cyber-und-informationsraum/kommando-aufklaerung-wirkung/fmaufklzentr-sued,https://www.bundeswehr.de/de/organisation/cyber-und-informationsraum/kommando-und-organisation-cir/kommando-cyber-und-informationsraum/kommando-aufklaerung-wirkung/zentrale-abbildende-aufklaerung,https://www.bundeswehr.de/de/organisation/cyber-und-informationsraum/kommando-und-organisation-cir/kommando-cyber-und-informationsraum/zentrum-cyber-operationen,https://www.bundeswehr.de/de/organisation/cyber-und-informationsraum/kommando-und-organisation-cir/kommando-cyber-und-informationsraum/ausbildungszentrum-cyber-und-informationsraum,https://www.bundeswehr.de/de/organisation/cyber-und-informationsraum/kommando-und-organisation-cir/kommando-cyber-und-informationsraum/zentrum-fuer-cyber-sicherheit-der-bundeswehr,https://www.bundeswehr.de/de/organisation/cyber-und-informationsraum/kommando-und-organisation-cir/kommando-cyber-und-informationsraum/zentrum-digitalisierung-der-bundeswehr,https://www.bundeswehr.de/de/organisation/cyber-und-informationsraum/kommando-und-organisation-cir/kommando-cyber-und-informationsraum/zentrum-fuer-geoinformationswesen-der-bundeswehr,https://www.bundeswehr.de/de/organisation/cyber-und-informationsraum/kommando-und-organisation-cir/kommando-cyber-und-informationsraum/zentrum-operative-kommunikation-der-bundeswehr"}]]></column>
+            <column name="refresh_hours" valueNumeric="24"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="Citer la source (Bundeswehr - Cyber- und Informationsraum)"/>
+            <column name="attribution" value="Bundeswehr, www.bundeswehr.de"/>
+            <column name="notes"><![CDATA[Scrape les officiers generaux et superieurs du commandement CIR, des centres et bataillons (GwG F.1). Extraction native depuis fiches HTML et CVs PDF.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-15 22:54:41.000000"/>
+            <column name="updated_at" value="2026-11-16 10:28:56.482339"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="378"/>
+            <column name="name" value="PEP Allemagne - Soutien, Ausruestung et Organismes interarmees (Bundeswehr)"/>
+            <column name="description"><![CDATA[Commandements de soutien, BAAINBw, personnel, IUD, ecoles, aumonerie et BAMAD (GwG F.1 - Officiers generaux et hauts dirigeants civils)]]></column>
+            <column name="dataset_name" value="de_pep_defence_support"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://www.bundeswehr.de/de/organisation/unterstuetzungsbereich"/>
+            <column name="plugin_id" value="de-pep-defence-support"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="WEB_PAGE"/>
+            <column name="source_location" value=""/>
+            <column name="parameters"><![CDATA[{"supportUrl": "https://www.bundeswehr.de/de/organisation/unterstuetzungsbereich", "units": "https://www.bundeswehr.de/de/organisation/unterstuetzungsbereich/unterstuetzungskommando-der-bundeswehr,https://www.bundeswehr.de/de/organisation/unterstuetzungsbereich/sanitaetsdienst/kommando-gesundheitsversorgung-in-koblenz,https://www.bundeswehr.de/de/organisation/unterstuetzungsbereich/abc-abwehr-bundeswehr/abc-abwehrkommando-der-bundeswehr-in-bruchsal,https://www.bundeswehr.de/de/organisation/unterstuetzungsbereich/logistik/logistikkommando-der-bundeswehr-in-erfurt,https://www.bundeswehr.de/de/organisation/unterstuetzungsbereich/feldjaeger-militaerpolizei/kommando-feldjaeger-in-hannover,https://www.bundeswehr.de/de/organisation/unterstuetzungsbereich/feldjaeger-militaerpolizei/kommando-feldjaeger-in-hannover/schule-fuer-feldjaeger-und-stabsdienst-in-hannover,https://www.bundeswehr.de/de/organisation/unterstuetzungsbereich/feldjaeger-militaerpolizei/kommando-feldjaeger-in-hannover/wachbataillon-beim-bundesministerium-der-verteidigung-in-berlin,https://www.bundeswehr.de/de/organisation/unterstuetzungsbereich/feldjaeger-militaerpolizei/kommando-feldjaeger-in-hannover/feldjaegerregiment-1-in-berlin,https://www.bundeswehr.de/de/organisation/unterstuetzungsbereich/feldjaeger-militaerpolizei/kommando-feldjaeger-in-hannover/feldjaegerregiment-2-in-hilden,https://www.bundeswehr.de/de/organisation/unterstuetzungsbereich/feldjaeger-militaerpolizei/kommando-feldjaeger-in-hannover/feldjaegerregiment-3-in-muenchen,https://www.bundeswehr.de/de/organisation/unterstuetzungsbereich/streitkraeftegemeinsame-aufgaben/streitkraefteamt-in-bonn,https://www.bundeswehr.de/de/organisation/unterstuetzungsbereich/streitkraeftegemeinsame-aufgaben/streitkraefteamt-in-bonn/bundeswehrkommando-usa-und-kanada-in-reston,https://www.bundeswehr.de/de/organisation/unterstuetzungsbereich/streitkraeftegemeinsame-aufgaben/streitkraefteamt-in-bonn/ddo-dta-nato-school-in-oberammergau,https://www.bundeswehr.de/de/organisation/unterstuetzungsbereich/streitkraeftegemeinsame-aufgaben/streitkraefteamt-in-bonn/deutsche-delegation-niederlande-in-brunssum,https://www.bundeswehr.de/de/organisation/unterstuetzungsbereich/streitkraeftegemeinsame-aufgaben/streitkraefteamt-in-bonn/dmv-nato-und-eu-in-bruessel,https://www.bundeswehr.de/de/organisation/unterstuetzungsbereich/streitkraeftegemeinsame-aufgaben/streitkraefteamt-in-bonn/george-c-marshall-center-in-garmisch-partenkirchen,https://www.bundeswehr.de/de/organisation/unterstuetzungsbereich/streitkraeftegemeinsame-aufgaben/streitkraefteamt-in-bonn/integriertes-fach-und-ausbilderzentrum-saspf-bw-in-aachen,https://www.bundeswehr.de/de/organisation/unterstuetzungsbereich/streitkraeftegemeinsame-aufgaben/streitkraefteamt-in-bonn/schule-fuer-diensthundewesen-der-bundeswehr-in-ulmen,https://www.bundeswehr.de/de/organisation/unterstuetzungsbereich/streitkraeftegemeinsame-aufgaben/streitkraefteamt-in-bonn/sportschule-der-bundeswehr-in-warendorf,https://www.bundeswehr.de/de/organisation/unterstuetzungsbereich/streitkraeftegemeinsame-aufgaben/truppenuebungsplaetze/bereich-truppenuebungsplatzkommandantur-nord,https://www.bundeswehr.de/de/organisation/unterstuetzungsbereich/streitkraeftegemeinsame-aufgaben/truppenuebungsplaetze/bereich-truppenuebungsplatzkommandantur-ost,https://www.bundeswehr.de/de/organisation/unterstuetzungsbereich/streitkraeftegemeinsame-aufgaben/truppenuebungsplaetze/bereich-truppenuebungsplatzkommandantur-sued,https://www.bundeswehr.de/de/organisation/unterstuetzungsbereich/streitkraeftegemeinsame-aufgaben/streitkraefteamt-in-bonn/zentrum-informationsarbeit-bundeswehr,https://www.bundeswehr.de/de/organisation/unterstuetzungsbereich/streitkraeftegemeinsame-aufgaben/streitkraefteamt-in-bonn/zentrum-militaermusik-der-bundeswehr-in-bonn,https://www.bundeswehr.de/de/organisation/unterstuetzungsbereich/streitkraeftegemeinsame-aufgaben/streitkraefteamt-in-bonn/zentrum-militaermusik-der-bundeswehr-in-bonn/ausbildungsmusikkorps-der-bundeswehr-in-hilden,https://www.bundeswehr.de/de/organisation/unterstuetzungsbereich/streitkraeftegemeinsame-aufgaben/streitkraefteamt-in-bonn/zentrum-militaermusik-der-bundeswehr-in-bonn/big-band-der-bundeswehr-in-euskirchen,https://www.bundeswehr.de/de/organisation/unterstuetzungsbereich/streitkraeftegemeinsame-aufgaben/streitkraefteamt-in-bonn/zentrum-militaermusik-der-bundeswehr-in-bonn/heeresmusikkorps-hannover,https://www.bundeswehr.de/de/organisation/unterstuetzungsbereich/streitkraeftegemeinsame-aufgaben/streitkraefteamt-in-bonn/zentrum-militaermusik-der-bundeswehr-in-bonn/gebirgsmusikkorps-der-bundeswehr-in-garmisch-partenkirchen,https://www.bundeswehr.de/de/organisation/unterstuetzungsbereich/streitkraeftegemeinsame-aufgaben/streitkraefteamt-in-bonn/zentrum-militaermusik-der-bundeswehr-in-bonn/heeresmusikkorps-kassel,https://www.bundeswehr.de/de/organisation/unterstuetzungsbereich/streitkraeftegemeinsame-aufgaben/streitkraefteamt-in-bonn/zentrum-militaermusik-der-bundeswehr-in-bonn/heeresmusikkorps-koblenz,https://www.bundeswehr.de/de/organisation/unterstuetzungsbereich/streitkraeftegemeinsame-aufgaben/streitkraefteamt-in-bonn/zentrum-militaermusik-der-bundeswehr-in-bonn/heeresmusikkorps-neubrandenburg,https://www.bundeswehr.de/de/organisation/unterstuetzungsbereich/streitkraeftegemeinsame-aufgaben/streitkraefteamt-in-bonn/zentrum-militaermusik-der-bundeswehr-in-bonn/heeresmusikkorps-ulm,https://www.bundeswehr.de/de/organisation/unterstuetzungsbereich/streitkraeftegemeinsame-aufgaben/streitkraefteamt-in-bonn/zentrum-fuer-verifikationsaufgaben-der-bundeswehr-geilenkirchen,https://www.bundeswehr.de/de/organisation/unterstuetzungsbereich/zivil-militaerische-zusammenarbeit-der-bundeswehr/kommando-zivil-militaerische-zusammenarbeit-in-nienburg,https://www.bundeswehr.de/de/organisation/unterstuetzungsbereich/militaerattaches-headquarters-international-eng-vernetzt/multinationales-kommando-operative-fuehrung-in-ulm,https://www.bundeswehr.de/de/organisation/unterstuetzungsbereich/planung-zukunft/planungsamt-in-berlin,https://www.bundeswehr.de/de/organisation/unterstuetzungsbereich/bundesakademie-fuer-sicherheitspolitik-in-berlin,https://www.bundeswehr.de/de/organisation/operatives-fuehrungskommando-der-bundeswehr,https://www.bundeswehr.de/de/organisation/ausruestung-baainbw,https://www.bundeswehr.de/de/organisation/ausruestung-baainbw/struktur/baainbw,https://www.bundeswehr.de/de/organisation/ausruestung-baainbw/struktur/deutsche-verbindungsstelle,https://www.bundeswehr.de/de/organisation/ausruestung-baainbw/struktur/marinearsenal,https://www.bundeswehr.de/de/organisation/ausruestung-baainbw/struktur/wis,https://www.bundeswehr.de/de/organisation/ausruestung-baainbw/struktur/wiweb,https://www.bundeswehr.de/de/organisation/ausruestung-baainbw/struktur/wtd-41,https://www.bundeswehr.de/de/organisation/ausruestung-baainbw/struktur/wtd-52,https://www.bundeswehr.de/de/organisation/ausruestung-baainbw/struktur/wtd-61,https://www.bundeswehr.de/de/organisation/ausruestung-baainbw/struktur/wtd-71,https://www.bundeswehr.de/de/organisation/ausruestung-baainbw/struktur/wtd-81,https://www.bundeswehr.de/de/organisation/ausruestung-baainbw/struktur/wtd-91,https://www.bundeswehr.de/de/organisation/infrastruktur-umweltschutz-und-dienstleistungen,https://www.bundeswehr.de/de/organisation/infrastruktur-umweltschutz-und-dienstleistungen/organisation-iud/baiudbw,https://www.bundeswehr.de/de/organisation/infrastruktur-umweltschutz-und-dienstleistungen/organisation-iud/verpflegungsamt-der-bundeswehr,https://www.bundeswehr.de/de/organisation/infrastruktur-umweltschutz-und-dienstleistungen/organisation-iud/brandschutzamt-der-bundeswehr,https://www.bundeswehr.de/de/organisation/infrastruktur-umweltschutz-und-dienstleistungen/organisation-iud/bundeswehrverwaltungsstellen-im-ausland,https://www.bundeswehr.de/de/organisation/infrastruktur-umweltschutz-und-dienstleistungen/organisation-iud/bundeswehr-dienstleistungszentren,https://www.bundeswehr.de/de/organisation/personal,https://www.bundeswehr.de/de/organisation/personal/bundesamt-fuer-das-personalmanagement-der-bundeswehr-,https://www.bundeswehr.de/de/organisation/personal/helmut-schmidt-universitaet-universitaet-der-bundeswehr-hamburg,https://www.bundeswehr.de/de/organisation/personal/universitaet-der-bundeswehr-muenchen,https://www.bundeswehr.de/de/organisation/personal/bildungszentrum-der-bundeswehr-,https://www.bundeswehr.de/de/organisation/personal/hs-bund-fachbereich-bundeswehrverwaltung-,https://www.bundeswehr.de/de/organisation/personal/das-bundessprachenamt,https://www.bundeswehr.de/de/organisation/personal/bundesamt-fuer-das-personalmanagement-der-bundeswehr-/karrierecenter-der-bundeswehr-/berlin,https://www.bundeswehr.de/de/organisation/personal/bundesamt-fuer-das-personalmanagement-der-bundeswehr-/karrierecenter-der-bundeswehr-/duesseldorf,https://www.bundeswehr.de/de/organisation/personal/bundesamt-fuer-das-personalmanagement-der-bundeswehr-/karrierecenter-der-bundeswehr-/erfurt,https://www.bundeswehr.de/de/organisation/personal/bundesamt-fuer-das-personalmanagement-der-bundeswehr-/karrierecenter-der-bundeswehr-/hannover,https://www.bundeswehr.de/de/organisation/personal/bundesamt-fuer-das-personalmanagement-der-bundeswehr-/karrierecenter-der-bundeswehr-/mainz,https://www.bundeswehr.de/de/organisation/personal/bundesamt-fuer-das-personalmanagement-der-bundeswehr-/karrierecenter-der-bundeswehr-/muenchen,https://www.bundeswehr.de/de/organisation/personal/bundesamt-fuer-das-personalmanagement-der-bundeswehr-/karrierecenter-der-bundeswehr-/stuttgart,https://www.bundeswehr.de/de/organisation/personal/bundesamt-fuer-das-personalmanagement-der-bundeswehr-/karrierecenter-der-bundeswehr-/wilhelmshaven,https://www.bundeswehr.de/de/organisation/militaerseelsorge/juedische-militaerseelsorge,https://www.bundeswehr.de/de/organisation/militaerseelsorge/juedische-militaerseelsorge/militaerbundesrabbiner-zsolt-balla,https://www.bundeswehr.de/de/organisation/militaerseelsorge/evangelische-militaerseelsorge,https://www.bundeswehr.de/de/organisation/militaerseelsorge/evangelische-militaerseelsorge/dienststellen,https://www.bundeswehr.de/de/organisation/militaerseelsorge/evangelische-militaerseelsorge/dienststellen/militaerpfarraemter,https://www.bundeswehr.de/de/organisation/fuehrungsakademie-der-bundeswehr,https://www.bundeswehr.de/de/organisation/fuehrungsakademie-der-bundeswehr/nationale-und-internationale-stabsoffizierausbildung,https://www.bundeswehr.de/de/organisation/zentrum-innere-fuehrung,https://www.bundeswehr.de/de/organisation/mad-bundesamt-fuer-den-militaerischen-abschirmdienst"}]]></column>
+            <column name="refresh_hours" valueNumeric="24"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="Citer la source (Bundeswehr - Unterstuetzungsbereich, BAAINBw, Personal, BAMAD)"/>
+            <column name="attribution" value="Bundeswehr, www.bundeswehr.de"/>
+            <column name="notes"><![CDATA[Scrape les officiers generaux, amiraux et hauts dirigeants civils du soutien, de l armement, du personnel et du BAMAD (GwG F.1). Extraction native et CVs PDF.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-15 22:54:41.000000"/>
+            <column name="updated_at" value="2026-11-16 10:30:17.646282"/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="125"/>
+            <column name="parser_id" valueNumeric="118"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope"><![CDATA[Députés du Bundestag en fonction et sortis depuis moins de 12 mois, avec date et lieu de naissance, parti, groupe et circonscription.]]></column>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="129"/>
+            <column name="parser_id" valueNumeric="118"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope" value="Membres actuels et anciens du Bundestag avec historique législatif"/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="122"/>
+            <column name="parser_id" valueNumeric="119"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="0"/>
+            <column name="covered_scope" value="Les ministres-présidents et maires gouverneurs des 16 Länder, avec leur fonction régionale exacte."/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="123"/>
+            <column name="parser_id" valueNumeric="119"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="0"/>
+            <column name="covered_scope" value="Les ministres et sénateurs des 16 Länder siégeant au Bundesrat."/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="126"/>
+            <column name="parser_id" valueNumeric="119"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="0"/>
+            <column name="covered_scope" value="Les membres titulaires du Bundesrat avec leur Land et leur parti."/>
+            <column name="gaps" value="Les anciens membres ne sont pas repris sur la page courante."/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="127"/>
+            <column name="parser_id" valueNumeric="119"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="0"/>
+            <column name="covered_scope" value="Les membres suppléants du Bundesrat avec leur Land et leur parti."/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="129"/>
+            <column name="parser_id" valueNumeric="119"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope" value="Membres du Bundesrat (titulaires et suppléants)"/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="119"/>
+            <column name="parser_id" valueNumeric="120"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="0"/>
+            <column name="covered_scope" value="Le Chancelier fédéral avec son portrait officiel."/>
+            <column name="gaps" value="Les anciens membres ne sont pas repris sur la page courante."/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="120"/>
+            <column name="parser_id" valueNumeric="120"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="0"/>
+            <column name="covered_scope" value="Les ministres fédéraux et ministres d'État du cabinet."/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="118"/>
+            <column name="parser_id" valueNumeric="121"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="0"/>
+            <column name="covered_scope" value="Le Président fédéral Frank-Walter Steinmeier, avec date et lieu de naissance, début du mandat et photo officielle."/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="147"/>
+            <column name="parser_id" valueNumeric="122"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope"><![CDATA[Les 96 députés européens élus en Allemagne, avec date et lieu de naissance, dates de mandat et photo Wikimedia Commons ; les sortis depuis moins de 12 mois.]]></column>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="148"/>
+            <column name="parser_id" valueNumeric="123"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="0"/>
+            <column name="covered_scope" value="Ursula von der Leyen, présidente de la Commission européenne, avec son portrait officiel."/>
+            <column name="gaps" value="Ni date de naissance ni date exacte de prise de fonctions sur la fiche."/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="150"/>
+            <column name="parser_id" valueNumeric="124"/>
+            <column name="completeness" value="PARTIAL"/>
+            <column name="includes_former" valueNumeric="0"/>
+            <column name="covered_scope" value="Conjoints, enfants et leurs conjoints, parents des PEP allemandes décrits dans Wikidata."/>
+            <column name="gaps" value="Seules les familles décrites dans Wikidata. Données collaboratives."/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="140"/>
+            <column name="parser_id" valueNumeric="125"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="0"/>
+            <column name="covered_scope" value="Président, vice-présidente et membres du directoire avec photos et fonctions officielles."/>
+            <column name="gaps" value="Les anciens membres ne sont pas repris sur la page courante."/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="138"/>
+            <column name="parser_id" valueNumeric="126"/>
+            <column name="completeness" value="PARTIAL"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope"><![CDATA[Président et vice-président du Bundesrechnungshof lus sur le site, et le président sorti depuis moins de 12 mois quand le communiqué de changement de présidence est publié.]]></column>
+            <column name="gaps"><![CDATA[Les autres membres du collège et les 16 cours des comptes des Länder ne sont pas couverts : leurs pages répondent 404 ou n'existent pas sous une forme lisible.]]></column>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="139"/>
+            <column name="parser_id" valueNumeric="126"/>
+            <column name="completeness" value="PARTIAL"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope"><![CDATA[Président et vice-président du Bundesrechnungshof lus sur le site, et le président sorti depuis moins de 12 mois quand le communiqué de changement de présidence est publié.]]></column>
+            <column name="gaps"><![CDATA[Les autres membres du collège et les 16 cours des comptes des Länder ne sont pas couverts : leurs pages répondent 404 ou n'existent pas sous une forme lisible.]]></column>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="131"/>
+            <column name="parser_id" valueNumeric="127"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="0"/>
+            <column name="covered_scope" value="Les 16 juges (deux sénats de huit), lus sur la page officielle à chaque exécution."/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="132"/>
+            <column name="parser_id" valueNumeric="127"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="0"/>
+            <column name="covered_scope"><![CDATA[Juges en fonction lus dans le plan de repartition officiel de la cour (nom, titre, fonction, genre) ; prenom lu dans les communiques d'election du BMJV et du BMAS, le rapport annuel de la cour ou ses communiques de nomination, sinon dans la liste Wikipedia DE des juges (complement, note sur la fiche) ; president et vice-president lus sur la page officielle de la cour.]]></column>
+            <column name="gaps"><![CDATA[Wikipedia ne sert qu'au prenom d'un juge du plan sans prenom officiel (meme cour, meme nom, meme initiale, en fonction) : fiche marquee non confirmee. Quelques juges sans prenom ni officiel ni Wikipedia sont publies avec le nom de famille seul. Pas de date de naissance ni de date de prise de fonctions pour les juges des plans ; juges sortis non conserves.]]></column>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="133"/>
+            <column name="parser_id" valueNumeric="127"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="0"/>
+            <column name="covered_scope"><![CDATA[Juges en fonction lus dans le plan de repartition officiel de la cour (nom, titre, fonction, genre) ; prenom lu dans les communiques d'election du BMJV et du BMAS, le rapport annuel de la cour ou ses communiques de nomination, sinon dans la liste Wikipedia DE des juges (complement, note sur la fiche) ; president et vice-president lus sur la page officielle de la cour.]]></column>
+            <column name="gaps"><![CDATA[Wikipedia ne sert qu'au prenom d'un juge du plan sans prenom officiel (meme cour, meme nom, meme initiale, en fonction) : fiche marquee non confirmee. Quelques juges sans prenom ni officiel ni Wikipedia sont publies avec le nom de famille seul. Pas de date de naissance ni de date de prise de fonctions pour les juges des plans ; juges sortis non conserves.]]></column>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="134"/>
+            <column name="parser_id" valueNumeric="127"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="0"/>
+            <column name="covered_scope"><![CDATA[Juges en fonction lus dans le plan de repartition officiel de la cour (nom, titre, fonction, genre) ; prenom lu dans les communiques d'election du BMJV et du BMAS, le rapport annuel de la cour ou ses communiques de nomination, sinon dans la liste Wikipedia DE des juges (complement, note sur la fiche) ; president et vice-president lus sur la page officielle de la cour.]]></column>
+            <column name="gaps"><![CDATA[Wikipedia ne sert qu'au prenom d'un juge du plan sans prenom officiel (meme cour, meme nom, meme initiale, en fonction) : fiche marquee non confirmee. Quelques juges sans prenom ni officiel ni Wikipedia sont publies avec le nom de famille seul. Pas de date de naissance ni de date de prise de fonctions pour les juges des plans ; juges sortis non conserves.]]></column>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="135"/>
+            <column name="parser_id" valueNumeric="127"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="0"/>
+            <column name="covered_scope"><![CDATA[Juges en fonction lus dans le plan de repartition officiel de la cour (nom, titre, fonction, genre) ; prenom lu dans les communiques d'election du BMJV et du BMAS, le rapport annuel de la cour ou ses communiques de nomination, sinon dans la liste Wikipedia DE des juges (complement, note sur la fiche) ; president et vice-president lus sur la page officielle de la cour.]]></column>
+            <column name="gaps"><![CDATA[Wikipedia ne sert qu'au prenom d'un juge du plan sans prenom officiel (meme cour, meme nom, meme initiale, en fonction) : fiche marquee non confirmee. Quelques juges sans prenom ni officiel ni Wikipedia sont publies avec le nom de famille seul. Pas de date de naissance ni de date de prise de fonctions pour les juges des plans ; juges sortis non conserves.]]></column>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="136"/>
+            <column name="parser_id" valueNumeric="127"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="0"/>
+            <column name="covered_scope"><![CDATA[Juges en fonction lus dans le plan de repartition officiel de la cour (nom, titre, fonction, genre) ; prenom lu dans les communiques d'election du BMJV et du BMAS, le rapport annuel de la cour ou ses communiques de nomination, sinon dans la liste Wikipedia DE des juges (complement, note sur la fiche) ; president et vice-president lus sur la page officielle de la cour.]]></column>
+            <column name="gaps"><![CDATA[Wikipedia ne sert qu'au prenom d'un juge du plan sans prenom officiel (meme cour, meme nom, meme initiale, en fonction) : fiche marquee non confirmee. Quelques juges sans prenom ni officiel ni Wikipedia sont publies avec le nom de famille seul. Pas de date de naissance ni de date de prise de fonctions pour les juges des plans ; juges sortis non conserves.]]></column>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="137"/>
+            <column name="parser_id" valueNumeric="128"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="0"/>
+            <column name="covered_scope"><![CDATA[Les membres titulaires des 16 cours constitutionnelles des Länder, lus sur les 16 pages officielles à chaque exécution (un extracteur par cour).]]></column>
+            <column name="gaps"><![CDATA[Les suppléants ne sont pas repris. Rhénanie-du-Nord-Westphalie : la page ne donne pas le prénom de la présidente. Une page illisible est signalée dans le message d'exécution.]]></column>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="130"/>
+            <column name="parser_id" valueNumeric="129"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="0"/>
+            <column name="covered_scope"><![CDATA[Membres des directions fédérales des partis représentés au Bundestag (présidents, vice-présidents, secrétaires généraux, trésoriers).]]></column>
+            <column name="gaps" value="Documents déposés par les partis eux-mêmes sous leur responsabilité."/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="141"/>
+            <column name="parser_id" valueNumeric="130"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="0"/>
+            <column name="covered_scope" value="Chefs de mission diplomatique et ambassadeurs d'Allemagne"/>
+            <column name="gaps"><![CDATA[Le ministère des Affaires étrangères ne publie pas de liste nominative lisible ; la liste de noms qui était embarquée dans le plugin a été supprimée.]]></column>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="144"/>
+            <column name="parser_id" valueNumeric="131"/>
+            <column name="completeness" value="PARTIAL"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope"><![CDATA[Direction de l'ESO, du EMBL et du tribunal international du droit de la mer (président, vice-président, 19 juges), lues en direct.]]></column>
+            <column name="gaps" value="EPO, EUMETSAT, OCCAR et CCNUCC non couverts : pages en 404, sans nom ou protégées."/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="143"/>
+            <column name="parser_id" valueNumeric="132"/>
+            <column name="completeness" value="PARTIAL"/>
+            <column name="includes_former" valueNumeric="0"/>
+            <column name="covered_scope"><![CDATA[Directions de six entreprises (Deutsche Bahn, KfW, Deutsche Telekom, Uniper, DFS, Bundesdruckerei), lues sur leurs pages à chaque exécution, avec le conseil de surveillance de Telekom et les présidents des conseils de DFS.]]></column>
+            <column name="gaps"><![CDATA[DHL Group (page illisible depuis le poste d'exécution), conseils de surveillance des autres entreprises, et toutes les autres entreprises publiques non couverts.]]></column>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="128"/>
+            <column name="parser_id" valueNumeric="133"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope"><![CDATA[Les députés des 16 parlements des Länder, en fonction ou sortis depuis moins de 12 mois, avec parti, circonscription, dates de mandat et année de naissance.]]></column>
+            <column name="gaps"><![CDATA[Source tierce (abgeordnetenwatch, CC0). Un Land dont le nombre de mandats lus est inférieur à 90 % des sièges est signalé dans le message d'exécution. Fonction hors liste notifiée JO C/2023/724.]]></column>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="145"/>
+            <column name="parser_id" valueNumeric="134"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="0"/>
+            <column name="covered_scope"><![CDATA[Maires des villes de 50 000 habitants ou plus : listes officielles de la Baviere (Bayerisches Landesamt fuer Statistik) et de la NRW (resultats officiels des elections communales 2025) ; pour les autres Laender, complement Wikidata par cle AGS (fiche marquee a confirmer) ; population lue dans le repertoire des communes de Destatis.]]></column>
+            <column name="gaps"><![CDATA[Environ 97 villes ne sont couvertes que par Wikidata (Bade-Wurtemberg, Basse-Saxe, Hesse, Rhenanie-Palatinat...) en attendant les listes officielles de leur Land ; une ville avec plusieurs titulaires possibles dans Wikidata n'est pas publiee (message d'execution).]]></column>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="146"/>
+            <column name="parser_id" valueNumeric="134"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="0"/>
+            <column name="covered_scope"><![CDATA[Chefs de l'executif des 294 Landkreise (Landrat, Landraetin ; Staedteregionsrat d'Aachen, Regionspraesident de Hanovre, Regionalverbandsdirektor de Sarrebruck), lus sur la page Landkreise und Landraete du Deutscher Landkreistag.]]></column>
+            <column name="gaps"><![CDATA[Ni date de naissance ni date de prise de fonctions ni parti (la page du Landkreistag ne les donne pas). Liste mise a jour par le Landkreistag : un changement tres recent peut manquer.]]></column>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="244"/>
+            <column name="parser_id" valueNumeric="149"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="0"/>
+            <column name="covered_scope" value="Président et directeurs exécutifs de la BaFin"/>
+            <column name="gaps" value="Verwaltungsrat non couvert (membres non publiés sous forme lisible) ; anciens membres absents de la page."/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="121"/>
+            <column name="parser_id" valueNumeric="150"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope" value="Secrétaires d'État parlementaires et secrétaires d'État des ministères fédéraux"/>
+            <column name="gaps"><![CDATA[Instantané du Datenhandbuch (daté dans le message d'exécution) : un changement postérieur n'est pas vu. Les secrétaires d'État de la Chancellerie et des ministères sont lus ; pas les Länder.]]></column>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="124"/>
+            <column name="parser_id" valueNumeric="150"/>
+            <column name="completeness" value="PARTIAL"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope" value="Anciens ministres fédéraux de la 21e législature dont le départ date de moins de 12 mois (remaniement du 29/07/2026)."/>
+            <column name="gaps" value="Anciens membres des gouvernements des Länder non couverts ; instantané du Datenhandbuch."/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="122"/>
+            <column name="parser_id" valueNumeric="370"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="0"/>
+            <column name="covered_scope" value="Ministres-presidents et ministres des 16 Laender d'apres leurs sites officiels."/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="123"/>
+            <column name="parser_id" valueNumeric="370"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="0"/>
+            <column name="covered_scope" value="Ministres, senateurs et secretaires d'Etat des gouvernements des Laender."/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="120"/>
+            <column name="parser_id" valueNumeric="372"/>
+            <column name="completeness" value="PARTIAL"/>
+            <column name="includes_former" valueNumeric="0"/>
+            <column name="covered_scope" value="Ministre federal de la Defense, lu sur la page du BMVg."/>
+            <column name="gaps"><![CDATA[Complement : la fonction est deja couverte par de_pep_federal_government. Le 16/11/2026, le nom du ministre n'a pas ete detecte (ALERT STRUCTURE_CHANGED).]]></column>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="121"/>
+            <column name="parser_id" valueNumeric="373"/>
+            <column name="completeness" value="PARTIAL"/>
+            <column name="includes_former" valueNumeric="0"/>
+            <column name="covered_scope" value="Secretaires d'Etat parlementaires et fonctionnaires du ministere federal de la Defense (BMVg)."/>
+            <column name="gaps" value="Complement : la fonction est deja couverte pour tous les ministeres par de_pep_federal_secretaries."/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="861"/>
+            <column name="parser_id" valueNumeric="374"/>
+            <column name="completeness" value="PARTIAL"/>
+            <column name="includes_former" valueNumeric="0"/>
+            <column name="covered_scope" value="Commandants et officiers generaux lus sur les pages officielles de la Bundeswehr : Heer (armee de terre)."/>
+            <column name="gaps" value="Seulement 12 personnes lues le 16/11/2026, pour environ 50 generaux de l'armee de terre."/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="861"/>
+            <column name="parser_id" valueNumeric="375"/>
+            <column name="completeness" value="PARTIAL"/>
+            <column name="includes_former" valueNumeric="0"/>
+            <column name="covered_scope" value="Commandants et officiers generaux lus sur les pages officielles de la Bundeswehr : Luftwaffe (armee de l'air)."/>
+            <column name="gaps" value="Seuls les officiers generaux qui ont une page de profil sont lus."/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="861"/>
+            <column name="parser_id" valueNumeric="376"/>
+            <column name="completeness" value="PARTIAL"/>
+            <column name="includes_former" valueNumeric="0"/>
+            <column name="covered_scope" value="Commandants et officiers generaux lus sur les pages officielles de la Bundeswehr : Marine."/>
+            <column name="gaps" value="Seulement 4 personnes lues le 16/11/2026 : aucun profil de commandement detecte sur une partie des pages."/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="861"/>
+            <column name="parser_id" valueNumeric="377"/>
+            <column name="completeness" value="PARTIAL"/>
+            <column name="includes_former" valueNumeric="0"/>
+            <column name="covered_scope" value="Commandants et officiers generaux lus sur les pages officielles de la Bundeswehr : Cyber- und Informationsraum (CIR)."/>
+            <column name="gaps" value="Seuls les officiers generaux qui ont une page de profil sont lus."/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="861"/>
+            <column name="parser_id" valueNumeric="378"/>
+            <column name="completeness" value="PARTIAL"/>
+            <column name="includes_former" valueNumeric="0"/>
+            <column name="covered_scope"><![CDATA[Commandants et officiers generaux lus sur les pages officielles de la Bundeswehr : soutien, sante et armement (Unterstuetzungsbereich, BAAINBw).]]></column>
+            <column name="gaps" value="Une page de structure non reconnue le 16/11/2026 (ALERT STRUCTURE_CHANGED)."/>
+        </insert>
+    </changeSet>
+</databaseChangeLog>

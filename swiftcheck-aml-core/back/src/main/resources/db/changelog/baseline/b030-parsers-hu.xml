@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="baseline-parsers-hu" author="swiftcheck-baseline">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM parser WHERE dataset_name IN ('hu_pep_parliament', 'hu_pep_government', 'hu_pep_europarl', 'hu_pep_eu_commission')</sqlCheck>
+        </preConditions>
+        <comment>Parsers « hu_* » (4) et leurs liens aux fonctions PEP (5)</comment>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="275"/>
+            <column name="name" value="PEP Hongrie – Assemblée nationale"/>
+            <column name="description"><![CDATA[Députés en fonction et mandats terminés depuis moins de 12 mois, d'après le registre des représentants de l'Office électoral national (catégorie HU-b)]]></column>
+            <column name="dataset_name" value="hu_pep_parliament"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://vtr.valasztas.hu/kepviselo"/>
+            <column name="plugin_id" value="hu-pep-parliament"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="API"/>
+            <column name="parameters"><![CDATA[{"baseUrl": "https://vtr.valasztas.hu/kepviselo/data", "monthsAfterEnd": "12", "delayMs": "1000"}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence"><![CDATA[Données publiques de l'Office électoral national : citer la source (conditions de réutilisation à vérifier sur valasztas.hu)]]></column>
+            <column name="attribution" value="Nemzeti Választási Iroda, vtr.valasztas.hu"/>
+            <column name="notes"><![CDATA[Quatre fichiers JSON publics (cycles, version, députés en fonction, mandats terminés) : 199 députés en fonction et 29 mandats terminés (démissions, etc.), soit 228 personnes. Le cycle parlementaire en cours est choisi par ses dates. L'identifiant szId est celui de la personne. Pas de naissance ; la législature 2022-2026 (terminée le 08/05/2026) n'est pas dans le registre sauf pour ceux qui ont quitté leur siège dans la législature en cours. parlament.hu (CAPTCHA) non utilisé.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-07 00:41:30.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="276"/>
+            <column name="name" value="PEP Hongrie – Gouvernement"/>
+            <column name="description" value="Premier ministre et ministres, d'après la page « Kormányzat » de kormany.hu (catégorie HU-a)"/>
+            <column name="dataset_name" value="hu_pep_government"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://kormany.hu/kormanyzat"/>
+            <column name="plugin_id" value="hu-pep-government"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="WEB_PAGE"/>
+            <column name="parameters"><![CDATA[{"url": "https://kormany.hu/kormanyzat"}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="Site officiel du Gouvernement hongrois : citer la source"/>
+            <column name="attribution" value="Magyarország Kormánya, kormany.hu"/>
+            <column name="notes"><![CDATA[Une page, 17 personnes (Premier ministre Magyar Péter et ministres, dont deux vice-premiers ministres). Les porte-parole ne sont pas repris. Ni naissance ni dates de fonction ; pas d'anciens ministres. Nom « Nom Prénom » : ordre inverse en alias.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-07 00:41:30.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="277"/>
+            <column name="name" value="PEP Hongrie – Députés européens"/>
+            <column name="description"><![CDATA[Les députés au Parlement européen élus en Hongrie, en fonction et sortis depuis moins de 12 mois, avec naissance et dates de mandat (catégorie HU-EU)]]></column>
+            <column name="dataset_name" value="hu_pep_europarl"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://data.europarl.europa.eu/"/>
+            <column name="plugin_id" value="hu-pep-europarl"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="API"/>
+            <column name="parameters"><![CDATA[{"currentUrl": "https://data.europarl.europa.eu/api/v2/meps/show-current?country-of-representation=HU&format=application%2Fld%2Bjson", "termUrl": "https://data.europarl.europa.eu/api/v2/meps?country-of-representation=HU&parliamentary-term=10&limit=500&format=application%2Fld%2Bjson", "detailUrl": "https://data.europarl.europa.eu/api/v2/meps/{id}?format=application%2Fld%2Bjson", "delayMs": "400", "monthsAfterEnd": "12", "wikidataEndpoint": ""}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="Réutilisation autorisée en citant la source (Parlement européen)"/>
+            <column name="attribution" value="Parlement européen, data.europarl.europa.eu"/>
+            <column name="notes"><![CDATA[Reprise de nl_pep_europarl. Mesure du 07/11/2026 : 24 personnes (21 en fonction et 3 sorties depuis moins de 12 mois, dont Magyar Péter devenu Premier ministre), 16 avec date de naissance ; 1 sorti avant la fenêtre (écarté). L'API limite le débit (HTTP 429) : le plugin attend puis réessaie. Pas de photos (Wikidata non utilisé). termUrl contient le numéro de législature (10) : à changer en 2029.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-07 00:41:30.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="278"/>
+            <column name="name" value="PEP Hongrie – Commissaire européen"/>
+            <column name="description" value="Le membre hongrois de la Commission européenne, d'après sa fiche officielle (catégorie HU-EU)"/>
+            <column name="dataset_name" value="hu_pep_eu_commission"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://commission.europa.eu/about/organisation/college-commissioners_en"/>
+            <column name="plugin_id" value="hu-pep-eu-commission"/>
+            <column name="data_source_type" value="HTTP_FILE"/>
+            <column name="parser_kind" value="WEB_PAGE"/>
+            <column name="source_location" value="https://commission.europa.eu/about/organisation/college-commissioners/oliver-varhelyi_en"/>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="Réutilisation autorisée en citant la source (avis juridique de la Commission européenne)"/>
+            <column name="attribution" value="Commission européenne, commission.europa.eu"/>
+            <column name="notes"><![CDATA[Reprise de nl_pep_eu_commission. À chaque nouvelle Commission, remplacer l'adresse par la fiche du commissaire hongrois. Une fiche qui ne présente pas un commissaire hongrois est refusée.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-07 00:41:30.000000"/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="751"/>
+            <column name="parser_id" valueNumeric="275"/>
+            <column name="completeness" value="PARTIAL"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope"><![CDATA[Les 199 députés en fonction et les 29 mandats terminés dans la législature en cours (dont des démissionnaires récents), avec parti, circonscription ou liste et dates.]]></column>
+            <column name="gaps" value="Députés de la législature 2022-2026 sortis le 08/05/2026 non couverts ; pas de naissance."/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="752"/>
+            <column name="parser_id" valueNumeric="275"/>
+            <column name="completeness" value="PARTIAL"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope"><![CDATA[Les 199 députés en fonction et les 29 mandats terminés dans la législature en cours (dont des démissionnaires récents), avec parti, circonscription ou liste et dates.]]></column>
+            <column name="gaps" value="Députés de la législature 2022-2026 sortis le 08/05/2026 non couverts ; pas de naissance."/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="749"/>
+            <column name="parser_id" valueNumeric="276"/>
+            <column name="completeness" value="PARTIAL"/>
+            <column name="includes_former" valueNumeric="0"/>
+            <column name="covered_scope" value="Le Premier ministre et les ministres du Gouvernement en fonction."/>
+            <column name="gaps" value="Anciens ministres et secrétaires d'État non couverts ; pas de naissance ; président de la République non couvert."/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="762"/>
+            <column name="parser_id" valueNumeric="277"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope"><![CDATA[Les 21 députés européens élus en Hongrie et ceux sortis depuis moins de 12 mois, avec naissance quand elle est publiée, genre, groupe et dates de mandat.]]></column>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="763"/>
+            <column name="parser_id" valueNumeric="278"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="0"/>
+            <column name="covered_scope" value="Olivér Várhelyi, commissaire chargé de la santé et du bien-être animal (2024-2029)."/>
+            <column name="gaps" value="Ni date ni lieu de naissance sur la fiche."/>
+        </insert>
+    </changeSet>
+</databaseChangeLog>

@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="baseline-parsers-sk" author="swiftcheck-baseline">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM parser WHERE dataset_name IN ('sk_pep_europarl', 'sk_pep_eu_commission', 'sk_pep_government')</sqlCheck>
+        </preConditions>
+        <comment>Parsers « sk_* » (3) et leurs liens aux fonctions PEP (3)</comment>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="260"/>
+            <column name="name" value="PEP Slovaquie – Députés européens"/>
+            <column name="description"><![CDATA[Les députés au Parlement européen élus en Slovaquie, en fonction et sortis depuis moins de 12 mois, avec naissance et dates de mandat (catégorie SK-EU)]]></column>
+            <column name="dataset_name" value="sk_pep_europarl"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://data.europarl.europa.eu/"/>
+            <column name="plugin_id" value="sk-pep-europarl"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="API"/>
+            <column name="parameters"><![CDATA[{"currentUrl": "https://data.europarl.europa.eu/api/v2/meps/show-current?country-of-representation=SK&format=application%2Fld%2Bjson", "termUrl": "https://data.europarl.europa.eu/api/v2/meps?country-of-representation=SK&parliamentary-term=10&limit=500&format=application%2Fld%2Bjson", "detailUrl": "https://data.europarl.europa.eu/api/v2/meps/{id}?format=application%2Fld%2Bjson", "delayMs": "400", "monthsAfterEnd": "12", "wikidataEndpoint": ""}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="Réutilisation autorisée en citant la source (Parlement européen)"/>
+            <column name="attribution" value="Parlement européen, data.europarl.europa.eu"/>
+            <column name="notes"><![CDATA[Reprise de nl_pep_europarl. Mesure du 07/11/2026 : 15 députés publiés, 13 avec date de naissance (le Parlement ne la publie pas pour les autres). Une fiche par député. L'API limite le débit (HTTP 429) : le plugin attend puis réessaie. Pas de photos (Wikidata non utilisé). termUrl contient le numéro de législature (10) : à changer en 2029.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-07 00:15:44.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="261"/>
+            <column name="name" value="PEP Slovaquie – Commissaire européen"/>
+            <column name="description" value="Le membre slovaque de la Commission européenne, d'après sa fiche officielle (catégorie SK-EU)"/>
+            <column name="dataset_name" value="sk_pep_eu_commission"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://commission.europa.eu/about/organisation/college-commissioners_en"/>
+            <column name="plugin_id" value="sk-pep-eu-commission"/>
+            <column name="data_source_type" value="HTTP_FILE"/>
+            <column name="parser_kind" value="WEB_PAGE"/>
+            <column name="source_location" value="https://commission.europa.eu/about/organisation/college-commissioners/maros-sefcovic_en"/>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="Réutilisation autorisée en citant la source (avis juridique de la Commission européenne)"/>
+            <column name="attribution" value="Commission européenne, commission.europa.eu"/>
+            <column name="notes"><![CDATA[Reprise de nl_pep_eu_commission. À chaque nouvelle Commission, remplacer l'adresse par la fiche du commissaire slovaque. Une fiche qui ne présente pas un commissaire slovaque est refusée.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-07 00:15:44.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="272"/>
+            <column name="name" value="PEP Slovaquie – Gouvernement"/>
+            <column name="description"><![CDATA[Président du gouvernement, vice-présidents et ministres, d'après la page « Členovia vlády » de vlada.gov.sk (catégorie SK-a)]]></column>
+            <column name="dataset_name" value="sk_pep_government"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://www.vlada.gov.sk/vlada-sr/clenovia-vlady/"/>
+            <column name="plugin_id" value="sk-pep-government"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="WEB_PAGE"/>
+            <column name="parameters"><![CDATA[{"url": "https://www.vlada.gov.sk/vlada-sr/clenovia-vlady/"}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="Site officiel de l'Office du gouvernement slovaque : citer la source"/>
+            <column name="attribution" value="Úrad vlády Slovenskej republiky, www.vlada.gov.sk"/>
+            <column name="notes"><![CDATA[Une page, 21 personnes. La page porte la mention « Aktualizované 27.01.2026 » (reprise dans le message de chaque exécution) : à vérifier après tout remaniement. Une entrée au nom coupé par le site n'est pas lue (la personne figure déjà plus haut). Ni naissance ni dates de fonction ; pas d'anciens ministres.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-07 00:15:45.000000"/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="701"/>
+            <column name="parser_id" valueNumeric="260"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope"><![CDATA[Les 15 députés européens élus en Slovaquie et ceux sortis depuis moins de 12 mois, avec naissance quand elle est publiée, genre, groupe et dates de mandat.]]></column>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="702"/>
+            <column name="parser_id" valueNumeric="261"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="0"/>
+            <column name="covered_scope"><![CDATA[Maroš Šefčovič, commissaire chargé du commerce et de la sécurité économique, des relations interinstitutionnelles et de la transparence (2024-2029).]]></column>
+            <column name="gaps" value="Ni date ni lieu de naissance sur la fiche."/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="689"/>
+            <column name="parser_id" valueNumeric="272"/>
+            <column name="completeness" value="PARTIAL"/>
+            <column name="includes_former" valueNumeric="0"/>
+            <column name="covered_scope" value="Le président du gouvernement, les vice-présidents et les ministres tels que publiés sur vlada.gov.sk."/>
+            <column name="gaps"><![CDATA[Anciens ministres et secrétaires d'État non couverts ; pas de naissance ; Conseil national et Présidence non couverts (accès refusé).]]></column>
+        </insert>
+    </changeSet>
+</databaseChangeLog>

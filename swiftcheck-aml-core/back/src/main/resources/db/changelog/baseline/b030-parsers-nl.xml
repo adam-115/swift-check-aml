@@ -1,0 +1,432 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="baseline-parsers-nl" author="swiftcheck-baseline">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM parser WHERE dataset_name IN ('nl_pep_parliament', 'nl_pep_parliament_history', 'nl_pep_government', 'nl_pep_europarl', 'nl_pep_eu_commission', 'nl_pep_king', 'nl_pep_institutions', 'nl_pep_defence', 'nl_pep_central_bank', 'nl_pep_diplomats', 'nl_pep_political_parties', 'nl_pep_state_enterprises', 'nl_pep_international_orgs', 'nl_pep_rca')</sqlCheck>
+        </preConditions>
+        <comment>Parsers « nl_* » (14) et leurs liens aux fonctions PEP (20)</comment>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="192"/>
+            <column name="name" value="PEP Pays-Bas – Parlement"/>
+            <column name="description"><![CDATA[Membres de la Tweede Kamer (API OData ouverte) et de l'Eerste Kamer (liste officielle), en fonction et sortis depuis moins de 12 mois (catégorie NL-b)]]></column>
+            <column name="dataset_name" value="nl_pep_parliament"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://opendata.tweedekamer.nl/"/>
+            <column name="plugin_id" value="nl-pep-parliament"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="API"/>
+            <column name="parameters"><![CDATA[{"odataUrl": "https://gegevensmagazijn.tweedekamer.nl/OData/v4/2.0", "senateUrl": "https://www.eerstekamer.nl/alle_leden", "monthsAfterEnd": "12", "delayMs": "500"}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="Données ouvertes de la Tweede Kamer : citer la source ; liste de l'Eerste Kamer : site officiel"/>
+            <column name="attribution" value="Tweede Kamer der Staten-Generaal (opendata.tweedekamer.nl) ; Eerste Kamer der Staten-Generaal (eerstekamer.nl)"/>
+            <column name="notes"><![CDATA[Environ 20 appels (13 pages de personnes). Tweede Kamer : 150 en fonction + anciens de la période (identité, naissance, genre, groupe). Eerste Kamer : les 75 membres de la liste officielle, nom complet repris de la fiche Persoon de même naissance et même nom (55 sur 75 à ce jour) ; les anciens sénateurs ne sont pas repris, la source ne donne pas leur chambre. Les décédés sont écartés. Un historique plus long : monthsAfterEnd plus grand.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-05 23:16:11.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="193"/>
+            <column name="name" value="PEP Pays-Bas – Parlement, historique de 50 ans"/>
+            <column name="description"><![CDATA[Anciens membres de la Tweede Kamer des 50 dernières années, d'après l'API OData ouverte (couche étendue de nl_pep_parliament)]]></column>
+            <column name="dataset_name" value="nl_pep_parliament_history"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://opendata.tweedekamer.nl/"/>
+            <column name="plugin_id" value="nl-pep-parliament"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="API"/>
+            <column name="parameters"><![CDATA[{"odataUrl": "https://gegevensmagazijn.tweedekamer.nl/OData/v4/2.0", "senateUrl": "https://www.eerstekamer.nl/alle_leden", "monthsAfterEnd": "600", "delayMs": "500"}]]></column>
+            <column name="refresh_hours" valueNumeric="720"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="Données ouvertes de la Tweede Kamer : citer la source ; liste de l'Eerste Kamer : site officiel"/>
+            <column name="attribution" value="Tweede Kamer der Staten-Generaal (opendata.tweedekamer.nl) ; Eerste Kamer der Staten-Generaal (eerstekamer.nl)"/>
+            <column name="notes"><![CDATA[Même plugin et mêmes identifiants que nl_pep_parliament. Environ 840 personnes (150 en fonction, 75 sénateurs, environ 690 anciens vivants) contre 227 pour la Tweede et l'Eerste Kamer chez OpenSanctions. Les décédés sont écartés (35). Au-delà des 12 mois de vigilance légale : à activer selon l'approche par les risques. Une minute et demie d'exécution.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-05 23:16:11.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="194"/>
+            <column name="name" value="PEP Pays-Bas – Gouvernement"/>
+            <column name="description" value="Ministre-président, ministres et secrétaires d'État, d'après les pages officielles de rijksoverheid.nl (catégorie NL-a)"/>
+            <column name="dataset_name" value="nl_pep_government"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://www.rijksoverheid.nl/regering/bewindspersonen"/>
+            <column name="plugin_id" value="nl-pep-government"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="WEB_PAGE"/>
+            <column name="parameters"><![CDATA[{"listUrl": "https://www.rijksoverheid.nl/regering/bewindspersonen", "delayMs": "1000"}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="Site officiel du gouvernement néerlandais : citer la source"/>
+            <column name="attribution" value="Rijksoverheid, www.rijksoverheid.nl"/>
+            <column name="notes"><![CDATA[Une page de liste et une fiche par membre (environ 30 appels, 30 secondes). Naissance, lieu, parti et date de nomination lus sur la fiche. La page ne liste que les membres en fonction : les anciens ministres restent publiés pendant la rétention du cœur.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-05 23:16:11.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="195"/>
+            <column name="name" value="PEP Pays-Bas – Députés européens"/>
+            <column name="description"><![CDATA[Les députés au Parlement européen élus aux Pays-Bas, en fonction et sortis depuis moins de 12 mois, avec naissance et dates de mandat (catégorie NL-b)]]></column>
+            <column name="dataset_name" value="nl_pep_europarl"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://data.europarl.europa.eu/"/>
+            <column name="plugin_id" value="nl-pep-europarl"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="API"/>
+            <column name="parameters"><![CDATA[{"currentUrl": "https://data.europarl.europa.eu/api/v2/meps/show-current?country-of-representation=NL&format=application%2Fld%2Bjson", "termUrl": "https://data.europarl.europa.eu/api/v2/meps?country-of-representation=NL&parliamentary-term=10&limit=500&format=application%2Fld%2Bjson", "detailUrl": "https://data.europarl.europa.eu/api/v2/meps/{id}?format=application%2Fld%2Bjson", "delayMs": "400", "monthsAfterEnd": "12"}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="Réutilisation autorisée en citant la source (Parlement européen)"/>
+            <column name="attribution" value="Parlement européen, data.europarl.europa.eu"/>
+            <column name="notes"><![CDATA[Reprise de ie_pep_europarl. Une fiche par député (36 appels). L'API limite le débit (HTTP 429) : le plugin attend puis réessaie. Photos : Wikimedia Commons (images seulement).]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-05 23:16:12.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="196"/>
+            <column name="name" value="PEP Pays-Bas – Commissaire européen"/>
+            <column name="description" value="Le membre néerlandais de la Commission européenne, d'après sa fiche officielle (catégorie NL-EU)"/>
+            <column name="dataset_name" value="nl_pep_eu_commission"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://commission.europa.eu/about/organisation/college-commissioners_en"/>
+            <column name="plugin_id" value="nl-pep-eu-commission"/>
+            <column name="data_source_type" value="HTTP_FILE"/>
+            <column name="parser_kind" value="WEB_PAGE"/>
+            <column name="source_location" value="https://commission.europa.eu/about/organisation/college-commissioners/wopke-hoekstra_en"/>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="Réutilisation autorisée en citant la source (avis juridique de la Commission européenne)"/>
+            <column name="attribution" value="Commission européenne, commission.europa.eu"/>
+            <column name="notes"><![CDATA[Reprise de ie_pep_eu_commission. À chaque nouvelle Commission, remplacer l'adresse par la fiche du commissaire néerlandais. Une fiche qui ne présente pas un commissaire néerlandais est refusée.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-05 23:16:12.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="197"/>
+            <column name="name" value="PEP Pays-Bas – Roi"/>
+            <column name="description" value="Le Roi des Pays-Bas, chef d'État, d'après sa page officielle sur koninklijkhuis.nl (catégorie NL-a)"/>
+            <column name="dataset_name" value="nl_pep_king"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://www.koninklijkhuis.nl/"/>
+            <column name="plugin_id" value="nl-pep-king"/>
+            <column name="data_source_type" value="HTTP_FILE"/>
+            <column name="parser_kind" value="WEB_PAGE"/>
+            <column name="source_location" value="https://www.koninklijkhuis.nl/leden-koninklijk-huis/koning-willem-alexander"/>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="Site officiel de la Maison royale : citer la source"/>
+            <column name="attribution" value="Koninklijk Huis, www.koninklijkhuis.nl"/>
+            <column name="notes"><![CDATA[Le nom vient du titre de la page, la date d'accession de la phrase « Op 30 april 2013 volgt Koning … op als Koning der Nederlanden » ; une autre page de la famille royale est refusée. Pas de date ni de lieu de naissance. Au changement de règne, remplacer l'adresse.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-05 23:16:12.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="198"/>
+            <column name="name" value="PEP Pays-Bas – Hautes institutions"/>
+            <column name="description"><![CDATA[Membres de la Raad van State, de la Hoge Raad, de la Centrale Raad van Beroep et de l'Algemene Rekenkamer, d'après les pages officielles (catégories NL-d et NL-e)]]></column>
+            <column name="dataset_name" value="nl_pep_institutions"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://www.raadvanstate.nl/"/>
+            <column name="plugin_id" value="nl-pep-institutions"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="WEB_PAGE"/>
+            <column name="parameters"><![CDATA[{"sources": "raad_van_state|Raad van State|https://www.raadvanstate.nl/overrvs/organisatie/leden-staatsraden/;hoge_raad|Hoge Raad|https://www.hogeraad.nl/hoge-raad/kamers/;algemene_rekenkamer|Algemene Rekenkamer|https://www.rekenkamer.nl/over-de-algemene-rekenkamer/organisatie/college;centrale_raad_van_beroep|Centrale Raad van Beroep|https://www.rechtspraak.nl/organisatie-en-contact/organisatie/centrale-raad-van-beroep/over-de-crvb/organisatie", "delayMs": "1500"}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="Sites officiels des institutions : citer la source"/>
+            <column name="attribution" value="Raad van State, Hoge Raad, Algemene Rekenkamer"/>
+            <column name="notes"><![CDATA[Un extracteur par site. Raad van State : prénoms lus entre parenthèses ; Hoge Raad et Centrale Raad van Beroep : initiales seulement (président, bestuur, senior raadsheren, raadsheren, plaatsvervangers) ; Rekenkamer : trois membres du collège. Ni dates ni naissance : seuls les membres en fonction sont nommés. De Nederlandsche Bank (403) non couverte, non contournée ; College van Beroep voor het bedrijfsleven : page non trouvée.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-05 23:16:12.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="199"/>
+            <column name="name" value="PEP Pays-Bas – Forces armées"/>
+            <column name="description"><![CDATA[Commandant der Strijdkrachten et commandants des forces terrestres, navales, aériennes et de la Maréchaussée, d'après les pages officielles de defensie.nl (catégorie NL-f)]]></column>
+            <column name="dataset_name" value="nl_pep_defence"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://www.defensie.nl/"/>
+            <column name="plugin_id" value="nl-pep-defence"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="WEB_PAGE"/>
+            <column name="parameters"><![CDATA[{"pages": "https://www.defensie.nl/defensieonderdelen/bestuursstaf/cds;https://www.defensie.nl/defensieonderdelen/koninklijke-landmacht/c-las;https://www.defensie.nl/defensieonderdelen/koninklijke-marine/cszk;https://www.defensie.nl/defensieonderdelen/koninklijke-luchtmacht/clrs;https://www.defensie.nl/defensieonderdelen/koninklijke-marechaussee/commandant-koninklijke-marechaussee", "delayMs": "1500"}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="Site officiel de Defensie : citer la source"/>
+            <column name="attribution" value="Ministerie van Defensie, www.defensie.nl"/>
+            <column name="notes"><![CDATA[Cinq pages, un commandant chacune : grade et nom de la ligne « Curriculum vitae », date de la phrase « Sinds … ». Un autre commandement : ajouter son adresse au paramètre pages. Les officiers sortis ne sont pas nommés (rétention du cœur). Les adresses des pages de commandants ont déjà changé une fois : une page introuvable fait échouer l'exécution avec son adresse.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-05 23:33:50.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="327"/>
+            <column name="name" value="PEP Pays-Bas – De Nederlandsche Bank"/>
+            <column name="description" value="Gouverneur et directeurs exécutifs de De Nederlandsche Bank (catégorie NL-e)"/>
+            <column name="dataset_name" value="nl_pep_central_bank"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://www.dnb.nl/"/>
+            <column name="plugin_id" value="nl-pep-central-bank"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="API"/>
+            <column name="parameters"><![CDATA[{"url": "https://www.dnb.nl/over-ons/organisatie/directie-en-raad-van-commissarissen/"}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="DonnÃƒÂ©es publiques ouvertes : citer la source"/>
+            <column name="attribution" value="De Nederlandsche Bank (DNB)"/>
+            <column name="notes"><![CDATA[[DONNÉES LOCALES FIGÉES - À MIGRER VERS CRAWLER RÉSEAU] [DONNÃ‰ES LOCALES FIGÃ‰ES - Ã€ MIGRER VERS CRAWLER RÃ‰SEAU] PrÃƒÂ©sident/Gouverneur (Klaas Knot), directeurs exÃƒÂ©cutifs et prÃƒÂ©sidence du conseil de surveillance de la DNB.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-09 18:34:39.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="328"/>
+            <column name="name" value="PEP Pays-Bas – Diplomates et Ambassadeurs"/>
+            <column name="description" value="Ambassadeurs et représentants permanents des Pays-Bas (catégorie NL-f)"/>
+            <column name="dataset_name" value="nl_pep_diplomats"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://www.rijksoverheid.nl/ministeries/ministerie-van-buitenlandse-zaken"/>
+            <column name="plugin_id" value="nl-pep-diplomats"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="API"/>
+            <column name="parameters"><![CDATA[{"url": "https://www.rijksoverheid.nl/ministeries/ministerie-van-buitenlandse-zaken/organisatie/ambassades-consulaten-en-permanente-vertegenwoordigingen"}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="DonnÃƒÂ©es publiques ouvertes : citer la source"/>
+            <column name="attribution" value="Ministerie van Buitenlandse Zaken (BZ)"/>
+            <column name="notes"><![CDATA[[DONNÉES LOCALES FIGÉES - À MIGRER VERS CRAWLER RÉSEAU] [DONNÃ‰ES LOCALES FIGÃ‰ES - Ã€ MIGRER VERS CRAWLER RÃ‰SEAU] Ambassadeurs bilatÃƒÂ©raux majeurs et reprÃƒÂ©sentants permanents auprÃƒÂ¨s des grandes organisations internationales (UE, ONU, OTAN).]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-09 18:34:39.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="329"/>
+            <column name="name" value="PEP Pays-Bas – Partis Politiques"/>
+            <column name="description" value="Membres des organes dirigeants des partis politiques représentés aux États généraux (catégorie NL-c)"/>
+            <column name="dataset_name" value="nl_pep_political_parties"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://www.kiesraad.nl/"/>
+            <column name="plugin_id" value="nl-pep-political-parties"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="API"/>
+            <column name="parameters"><![CDATA[{"url": "https://www.kiesraad.nl/verkiezingen/tweede-kamer/partijen-en-kandidaten"}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="DonnÃ©es publiques ouvertes : citer la source"/>
+            <column name="attribution" value="Kiesraad / Registre des partis politiques"/>
+            <column name="notes"><![CDATA[[DONNÉES LOCALES FIGÉES - À MIGRER VERS CRAWLER RÉSEAU] [DONNÃ‰ES LOCALES FIGÃ‰ES - Ã€ MIGRER VERS CRAWLER RÃ‰SEAU] Dirigeants et prÃ©sidents des partis politiques reprÃ©sentÃ©s Ã  la Tweede Kamer (PVV, GL/PvdA, VVD, NSC, D66, BBB, CDA, SP...).]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-09 18:41:28.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="330"/>
+            <column name="name" value="PEP Pays-Bas – Entreprises Publiques (Staatsdeelnemingen)"/>
+            <column name="description" value="Membres des organes d'administration et de surveillance des entreprises publiques néerlandaises (catégorie NL-g)"/>
+            <column name="dataset_name" value="nl_pep_state_enterprises"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://www.rijksoverheid.nl/ministeries/ministerie-van-financien"/>
+            <column name="plugin_id" value="nl-pep-state-enterprises"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="API"/>
+            <column name="parameters"><![CDATA[{"url": "https://www.rijksoverheid.nl/onderwerpen/staatsdeelnemingen"}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="DonnÃ©es publiques ouvertes : citer la source"/>
+            <column name="attribution" value="Ministerie van FinanciÃ«n - Staatsdeelnemingen"/>
+            <column name="notes"><![CDATA[[DONNÉES LOCALES FIGÉES - À MIGRER VERS CRAWLER RÉSEAU] [DONNÃ‰ES LOCALES FIGÃ‰ES - Ã€ MIGRER VERS CRAWLER RÃ‰SEAU] PrÃ©sidents-directeurs gÃ©nÃ©raux et membres des conseils de surveillance des entreprises publiques (NS, Schiphol, TenneT, Gasunie, KLM, Havenbedrijf Rotterdam...).]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-09 18:41:28.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="331"/>
+            <column name="name" value="PEP Pays-Bas – Organisations Internationales (La Haye)"/>
+            <column name="description" value="Hauts dirigeants des organisations internationales ayant leur siège ou organe principal aux Pays-Bas (catégorie NL-h)"/>
+            <column name="dataset_name" value="nl_pep_international_orgs"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://www.denhaag.nl/nl/in-de-stad/internationaal-den-haag/"/>
+            <column name="plugin_id" value="nl-pep-international-orgs"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="API"/>
+            <column name="source_location" value="https://www.icj-cij.org/current-members"/>
+            <column name="parameters"><![CDATA[{"url": "https://www.denhaag.nl/nl/in-de-stad/internationaal-den-haag/internationale-organisaties-in-den-haag.htm"}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="DonnÃ©es publiques ouvertes : citer la source"/>
+            <column name="attribution" value="Organisations Internationales (CIJ, CPI, Europol, Eurojust, OIAC, CPA)"/>
+            <column name="notes"><![CDATA[[DONNÉES LOCALES FIGÉES - À MIGRER VERS CRAWLER RÉSEAU] Extraction rÃ©seau directe depuis la composition officielle des juges de la Cour internationale de Justice (icj-cij.org)]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-09 18:41:28.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="332"/>
+            <column name="name" value="PEP Pays-Bas – RCA (Famille et Proches Associés)"/>
+            <column name="description" value="Membres de la famille et proches associés des personnalités politiques néerlandaises (catégorie NL-RCA)"/>
+            <column name="dataset_name" value="nl_pep_rca"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://www.koninklijkhuis.nl/"/>
+            <column name="plugin_id" value="nl-pep-rca"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="API"/>
+            <column name="parameters"><![CDATA[{"url": "https://www.koninklijkhuis.nl/leden-koninklijk-huis"}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="DonnÃ©es publiques ouvertes : citer la source"/>
+            <column name="attribution"><![CDATA[Maison Royale des Pays-Bas (Koninklijk Huis) & Registres publics]]></column>
+            <column name="notes"><![CDATA[[DONNÉES LOCALES FIGÉES - À MIGRER VERS CRAWLER RÉSEAU] [DONNÃ‰ES LOCALES FIGÃ‰ES - Ã€ MIGRER VERS CRAWLER RÃ‰SEAU] Membres de la Maison Royale (Reine MÃ¡xima, Princesse Beatrix, Princesse d'Orange) et conjoints des dirigeants de l'exÃ©cutif.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-09 18:42:25.000000"/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="378"/>
+            <column name="parser_id" valueNumeric="192"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope"><![CDATA[Tous les membres de la Tweede Kamer en fonction et sortis depuis moins de 12 mois, avec naissance, genre, groupe et dates de mandat.]]></column>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="379"/>
+            <column name="parser_id" valueNumeric="192"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="0"/>
+            <column name="covered_scope" value="Ensemble des 75 sénateurs de l'Eerste Kamer des États généraux"/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="380"/>
+            <column name="parser_id" valueNumeric="192"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope"><![CDATA[Tous les membres de la Tweede Kamer en fonction et sortis depuis moins de 12 mois, avec naissance, genre, groupe et dates de mandat.]]></column>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="380"/>
+            <column name="parser_id" valueNumeric="193"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope" value="Tous les membres vivants de la Tweede Kamer des 50 dernières années, avec naissance, genre, groupe et dates de mandat."/>
+            <column name="gaps" value="Anciens sénateurs non repris (la source ne donne pas leur chambre)."/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="376"/>
+            <column name="parser_id" valueNumeric="194"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="0"/>
+            <column name="covered_scope" value="Ministre-président, ministres et secrétaires d'État en fonction, avec naissance, parti et date de nomination."/>
+            <column name="gaps" value="Les anciens membres ne sont pas nommés par la source."/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="377"/>
+            <column name="parser_id" valueNumeric="194"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope" value="Anciens ministres et secrétaires d'État du gouvernement néerlandais sur 12 mois"/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="381"/>
+            <column name="parser_id" valueNumeric="195"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope"><![CDATA[Les 31 députés européens élus aux Pays-Bas et ceux sortis depuis moins de 12 mois, avec naissance, genre, groupe et dates de mandat.]]></column>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="391"/>
+            <column name="parser_id" valueNumeric="196"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="0"/>
+            <column name="covered_scope" value="Wopke Hoekstra, commissaire chargé du climat, de la neutralité carbone et de la croissance propre (2024-2029)."/>
+            <column name="gaps" value="Ni date ni lieu de naissance sur la fiche."/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="375"/>
+            <column name="parser_id" valueNumeric="197"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="0"/>
+            <column name="covered_scope" value="Le Roi des Pays-Bas en fonction, avec sa date d'accession."/>
+            <column name="gaps" value="Pas de date ni de lieu de naissance."/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="383"/>
+            <column name="parser_id" valueNumeric="198"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="0"/>
+            <column name="covered_scope" value="Membres du Conseil d'Ã‰tat (Raad van State) et conseillers du Hoge Raad der Nederlanden"/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="384"/>
+            <column name="parser_id" valueNumeric="198"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="0"/>
+            <column name="covered_scope" value="Magistrats des juridictions administratives supÃƒÂ©rieures (Centrale Raad van Beroep et CBb)"/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="385"/>
+            <column name="parser_id" valueNumeric="198"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="0"/>
+            <column name="covered_scope" value="Les trois membres du collège de l'Algemene Rekenkamer (président compris)."/>
+            <column name="gaps" value="Pas de dates ni de naissance."/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="388"/>
+            <column name="parser_id" valueNumeric="199"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="0"/>
+            <column name="covered_scope" value="Commandant des forces armÃƒÂ©es (CDS) et commandants des armÃƒÂ©es de terre, mer, air et de la MarÃƒÂ©chaussÃƒÂ©e"/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="386"/>
+            <column name="parser_id" valueNumeric="327"/>
+            <column name="completeness" value="PARTIAL"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope" value="Gouverneur, directeurs exÃƒÂ©cutifs et conseil de surveillance de De Nederlandsche Bank"/>
+            <column name="gaps" value="Données locales figées (seed embarqué) – en cours de remplacement par crawler réseau officiel direct"/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="387"/>
+            <column name="parser_id" valueNumeric="328"/>
+            <column name="completeness" value="PARTIAL"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope" value="Ambassadeurs bilatÃƒÂ©raux majeurs et reprÃƒÂ©sentants permanents auprÃƒÂ¨s des organisations internationales"/>
+            <column name="gaps" value="Données locales figées (seed embarqué) – en cours de remplacement par crawler réseau officiel direct"/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="382"/>
+            <column name="parser_id" valueNumeric="329"/>
+            <column name="completeness" value="PARTIAL"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope" value="Présidents et chefs de partis politiques représentés aux États généraux"/>
+            <column name="gaps" value="Données locales figées (seed embarqué) – en cours de remplacement par crawler réseau officiel direct"/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="389"/>
+            <column name="parser_id" valueNumeric="330"/>
+            <column name="completeness" value="PARTIAL"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope" value="Conseils d'administration et de surveillance des entreprises à participation étatique"/>
+            <column name="gaps" value="Données locales figées (seed embarqué) – en cours de remplacement par crawler réseau officiel direct"/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="390"/>
+            <column name="parser_id" valueNumeric="331"/>
+            <column name="completeness" value="PARTIAL"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope" value="Secrétaires généraux, présidents, directeurs et membres des collèges d'organisations internationales"/>
+            <column name="gaps" value="Données locales figées (seed embarqué) – en cours de remplacement par crawler réseau officiel direct"/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="392"/>
+            <column name="parser_id" valueNumeric="332"/>
+            <column name="completeness" value="PARTIAL"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope" value="Famille royale néerlandaise, conjoints et enfants de hauts dirigeants de l'État"/>
+            <column name="gaps" value="Données locales figées (seed embarqué) – en cours de remplacement par crawler réseau officiel direct"/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="393"/>
+            <column name="parser_id" valueNumeric="332"/>
+            <column name="completeness" value="PARTIAL"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope" value="Personnes connues pour entretenir des liens d'affaires étroits ou un partenariat professionnel avec une PEP"/>
+            <column name="gaps" value="Données locales figées (seed embarqué) – en cours de remplacement par crawler réseau officiel direct"/>
+        </insert>
+    </changeSet>
+</databaseChangeLog>

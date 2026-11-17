@@ -1,0 +1,441 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="baseline-country-AT" author="swiftcheck-baseline">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM country WHERE iso = 'AT'</sqlCheck>
+        </preConditions>
+        <comment>Pays AT (Autriche)</comment>
+        <insert tableName="country">
+            <column name="iso" value="AT"/>
+            <column name="name" value="Autriche"/>
+            <column name="eu_member" valueNumeric="1"/>
+            <column name="legal_basis" value="Finanzmarkt-Geldwäschegesetz (FM-GwG) § 2 Z 6 lit. a à h, § 11 : au moins douze mois après la fin des fonctions"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="official_list_reference" value="JO C/2023/724 (section Autriche) ; FM-GwG § 2 Z 6"/>
+            <column name="official_list_date" value="2023-10-24"/>
+            <column name="official_list_url" value="https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=OJ:C_202300724"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="baseline-country-BE" author="swiftcheck-baseline">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM country WHERE iso = 'BE'</sqlCheck>
+        </preConditions>
+        <comment>Pays BE (Belgique)</comment>
+        <insert tableName="country">
+            <column name="iso" value="BE"/>
+            <column name="name" value="Belgique"/>
+            <column name="eu_member" valueNumeric="1"/>
+            <column name="legal_basis" value="Loi du 18 septembre 2017 relative à la prévention du blanchiment, art. 4, 28° à 30°, et art. 41"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="official_list_reference" value="Loi du 18 septembre 2017, Annexe IV ; JO C/2023/724"/>
+            <column name="official_list_date" value="2021-07-10"/>
+            <column name="official_list_url" value="https://www.ejustice.just.fgov.be/eli/loi/2017/09/18/2017013368/justel"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="baseline-country-BG" author="swiftcheck-baseline">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM country WHERE iso = 'BG'</sqlCheck>
+        </preConditions>
+        <comment>Pays BG (Bulgarie)</comment>
+        <insert tableName="country">
+            <column name="iso" value="BG"/>
+            <column name="name" value="Bulgarie"/>
+            <column name="eu_member" valueNumeric="1"/>
+            <column name="legal_basis" value="Transposition de la directive (UE) 2015/849"/>
+            <column name="retention_months" valueNumeric="12"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="baseline-country-CH" author="swiftcheck-baseline">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM country WHERE iso = 'CH'</sqlCheck>
+        </preConditions>
+        <comment>Pays CH (Suisse)</comment>
+        <insert tableName="country">
+            <column name="iso" value="CH"/>
+            <column name="name" value="Suisse"/>
+            <column name="eu_member" valueNumeric="0"/>
+            <column name="legal_basis" value="Loi sur le blanchiment d'argent (LBA)"/>
+            <column name="retention_months" valueNumeric="18"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="baseline-country-CY" author="swiftcheck-baseline">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM country WHERE iso = 'CY'</sqlCheck>
+        </preConditions>
+        <comment>Pays CY (Chypre)</comment>
+        <insert tableName="country">
+            <column name="iso" value="CY"/>
+            <column name="name" value="Chypre"/>
+            <column name="eu_member" valueNumeric="1"/>
+            <column name="legal_basis" value="Transposition de la directive (UE) 2015/849"/>
+            <column name="retention_months" valueNumeric="12"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="baseline-country-CZ" author="swiftcheck-baseline">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM country WHERE iso = 'CZ'</sqlCheck>
+        </preConditions>
+        <comment>Pays CZ (Tchéquie)</comment>
+        <insert tableName="country">
+            <column name="iso" value="CZ"/>
+            <column name="name" value="Tchéquie"/>
+            <column name="eu_member" valueNumeric="1"/>
+            <column name="legal_basis" value="Transposition de la directive (UE) 2015/849"/>
+            <column name="retention_months" valueNumeric="12"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="baseline-country-DE" author="swiftcheck-baseline">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM country WHERE iso = 'DE'</sqlCheck>
+        </preConditions>
+        <comment>Pays DE (Allemagne)</comment>
+        <insert tableName="country">
+            <column name="iso" value="DE"/>
+            <column name="name" value="Allemagne"/>
+            <column name="eu_member" valueNumeric="1"/>
+            <column name="legal_basis" value="Geldwäschegesetz (GwG), § 1 (12) à (14) et § 15 (3)"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="official_list_reference" value="JO C/2023/724 (section Allemagne) ; GwG § 1 (12)"/>
+            <column name="official_list_date" value="2023-10-24"/>
+            <column name="official_list_url" value="https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=OJ:C_202300724"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="baseline-country-DK" author="swiftcheck-baseline">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM country WHERE iso = 'DK'</sqlCheck>
+        </preConditions>
+        <comment>Pays DK (Danemark)</comment>
+        <insert tableName="country">
+            <column name="iso" value="DK"/>
+            <column name="name" value="Danemark"/>
+            <column name="eu_member" valueNumeric="1"/>
+            <column name="legal_basis" value="Hvidvaskloven"/>
+            <column name="retention_months" valueNumeric="12"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="baseline-country-EE" author="swiftcheck-baseline">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM country WHERE iso = 'EE'</sqlCheck>
+        </preConditions>
+        <comment>Pays EE (Estonie)</comment>
+        <insert tableName="country">
+            <column name="iso" value="EE"/>
+            <column name="name" value="Estonie"/>
+            <column name="eu_member" valueNumeric="1"/>
+            <column name="legal_basis" value="Transposition de la directive (UE) 2015/849"/>
+            <column name="retention_months" valueNumeric="12"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="baseline-country-ES" author="swiftcheck-baseline">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM country WHERE iso = 'ES'</sqlCheck>
+        </preConditions>
+        <comment>Pays ES (Espagne)</comment>
+        <insert tableName="country">
+            <column name="iso" value="ES"/>
+            <column name="name" value="Espagne"/>
+            <column name="eu_member" valueNumeric="1"/>
+            <column name="legal_basis"><![CDATA[Ley 10/2010 de prevención del blanqueo de capitales y de la financiación del terrorismo, art. 14 (personas con responsabilidad pública) et 14.9 (deux ans)]]></column>
+            <column name="retention_months" valueNumeric="24"/>
+            <column name="official_list_reference" value="JO C/2023/724 (section Espagne) ; Ley 10/2010, art. 14"/>
+            <column name="official_list_date" value="2023-10-24"/>
+            <column name="official_list_url" value="https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=OJ:C_202300724"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="baseline-country-FI" author="swiftcheck-baseline">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM country WHERE iso = 'FI'</sqlCheck>
+        </preConditions>
+        <comment>Pays FI (Finlande)</comment>
+        <insert tableName="country">
+            <column name="iso" value="FI"/>
+            <column name="name" value="Finlande"/>
+            <column name="eu_member" valueNumeric="1"/>
+            <column name="legal_basis" value="Transposition de la directive (UE) 2015/849"/>
+            <column name="retention_months" valueNumeric="12"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="baseline-country-FR" author="swiftcheck-baseline">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM country WHERE iso = 'FR'</sqlCheck>
+        </preConditions>
+        <comment>Pays FR (France)</comment>
+        <insert tableName="country">
+            <column name="iso" value="FR"/>
+            <column name="name" value="France"/>
+            <column name="eu_member" valueNumeric="1"/>
+            <column name="legal_basis" value="Code monétaire et financier, art. L. 561-10 et R. 561-18"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="official_list_reference" value="JO C/2023/724"/>
+            <column name="official_list_date" value="2023-11-10"/>
+            <column name="official_list_url" value="https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=OJ:C_202300724"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="baseline-country-GR" author="swiftcheck-baseline">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM country WHERE iso = 'GR'</sqlCheck>
+        </preConditions>
+        <comment>Pays GR (Grèce)</comment>
+        <insert tableName="country">
+            <column name="iso" value="GR"/>
+            <column name="name" value="Grèce"/>
+            <column name="eu_member" valueNumeric="1"/>
+            <column name="legal_basis" value="Transposition de la directive (UE) 2015/849"/>
+            <column name="retention_months" valueNumeric="12"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="baseline-country-HR" author="swiftcheck-baseline">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM country WHERE iso = 'HR'</sqlCheck>
+        </preConditions>
+        <comment>Pays HR (Croatie)</comment>
+        <insert tableName="country">
+            <column name="iso" value="HR"/>
+            <column name="name" value="Croatie"/>
+            <column name="eu_member" valueNumeric="1"/>
+            <column name="legal_basis" value="Transposition de la directive (UE) 2015/849"/>
+            <column name="retention_months" valueNumeric="12"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="baseline-country-HU" author="swiftcheck-baseline">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM country WHERE iso = 'HU'</sqlCheck>
+        </preConditions>
+        <comment>Pays HU (Hongrie)</comment>
+        <insert tableName="country">
+            <column name="iso" value="HU"/>
+            <column name="name" value="Hongrie"/>
+            <column name="eu_member" valueNumeric="1"/>
+            <column name="legal_basis" value="Transposition de la directive (UE) 2015/849"/>
+            <column name="retention_months" valueNumeric="12"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="baseline-country-IE" author="swiftcheck-baseline">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM country WHERE iso = 'IE'</sqlCheck>
+        </preConditions>
+        <comment>Pays IE (Irlande)</comment>
+        <insert tableName="country">
+            <column name="iso" value="IE"/>
+            <column name="name" value="Irlande"/>
+            <column name="eu_member" valueNumeric="1"/>
+            <column name="legal_basis"><![CDATA[Criminal Justice (Money Laundering and Terrorist Financing) Act 2010, art. 37 (modifié par le Criminal Justice (Money Laundering and Terrorist Financing) (Amendment) Act 2018) : personnes exerçant ou ayant exercé depuis moins de douze mois une fonction publique importante, leurs proches et associés]]></column>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="official_list_reference" value="JO C/2023/724 (section Irlande) ; Criminal Justice Act 2010, art. 37"/>
+            <column name="official_list_date" value="2023-10-24"/>
+            <column name="official_list_url" value="https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=OJ:C_202300724"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="baseline-country-IT" author="swiftcheck-baseline">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM country WHERE iso = 'IT'</sqlCheck>
+        </preConditions>
+        <comment>Pays IT (Italie)</comment>
+        <insert tableName="country">
+            <column name="iso" value="IT"/>
+            <column name="name" value="Italie"/>
+            <column name="eu_member" valueNumeric="1"/>
+            <column name="legal_basis"><![CDATA[D.Lgs. 231/2007, art. 1 c.2 lett. dd), points 1.1 à 1.9 : personnes exerçant ou ayant cessé depuis moins d'un an une fonction publique importante, leurs proches et associés]]></column>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="official_list_reference" value="JO C/2023/724 (section Italie) ; D.Lgs. 231/2007"/>
+            <column name="official_list_date" value="2023-10-24"/>
+            <column name="official_list_url" value="https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=OJ:C_202300724"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="baseline-country-LT" author="swiftcheck-baseline">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM country WHERE iso = 'LT'</sqlCheck>
+        </preConditions>
+        <comment>Pays LT (Lituanie)</comment>
+        <insert tableName="country">
+            <column name="iso" value="LT"/>
+            <column name="name" value="Lituanie"/>
+            <column name="eu_member" valueNumeric="1"/>
+            <column name="legal_basis" value="Transposition de la directive (UE) 2015/849"/>
+            <column name="retention_months" valueNumeric="12"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="baseline-country-LU" author="swiftcheck-baseline">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM country WHERE iso = 'LU'</sqlCheck>
+        </preConditions>
+        <comment>Pays LU (Luxembourg)</comment>
+        <insert tableName="country">
+            <column name="iso" value="LU"/>
+            <column name="name" value="Luxembourg"/>
+            <column name="eu_member" valueNumeric="1"/>
+            <column name="legal_basis" value="Loi modifiée du 12 novembre 2004 relative à la lutte contre le blanchiment"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="official_list_reference" value="JO C/2023/724"/>
+            <column name="official_list_url" value="https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=OJ:C_202300724"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="baseline-country-LV" author="swiftcheck-baseline">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM country WHERE iso = 'LV'</sqlCheck>
+        </preConditions>
+        <comment>Pays LV (Lettonie)</comment>
+        <insert tableName="country">
+            <column name="iso" value="LV"/>
+            <column name="name" value="Lettonie"/>
+            <column name="eu_member" valueNumeric="1"/>
+            <column name="legal_basis" value="Transposition de la directive (UE) 2015/849"/>
+            <column name="retention_months" valueNumeric="12"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="baseline-country-MT" author="swiftcheck-baseline">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM country WHERE iso = 'MT'</sqlCheck>
+        </preConditions>
+        <comment>Pays MT (Malte)</comment>
+        <insert tableName="country">
+            <column name="iso" value="MT"/>
+            <column name="name" value="Malte"/>
+            <column name="eu_member" valueNumeric="1"/>
+            <column name="legal_basis" value="Transposition de la directive (UE) 2015/849"/>
+            <column name="retention_months" valueNumeric="12"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="baseline-country-NL" author="swiftcheck-baseline">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM country WHERE iso = 'NL'</sqlCheck>
+        </preConditions>
+        <comment>Pays NL (Pays-Bas)</comment>
+        <insert tableName="country">
+            <column name="iso" value="NL"/>
+            <column name="name" value="Pays-Bas"/>
+            <column name="eu_member" valueNumeric="1"/>
+            <column name="legal_basis"><![CDATA[Wet ter voorkoming van witwassen en financieren van terrorisme (Wwft) : personnes exerçant ou ayant exercé depuis moins de douze mois une fonction publique importante (politiek prominente persoon), leurs proches et associés]]></column>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="official_list_reference" value="JO C/2023/724 (section Pays-Bas) ; Wwft"/>
+            <column name="official_list_date" value="2023-10-24"/>
+            <column name="official_list_url" value="https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=OJ:C_202300724"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="baseline-country-NO" author="swiftcheck-baseline">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM country WHERE iso = 'NO'</sqlCheck>
+        </preConditions>
+        <comment>Pays NO (Norvège)</comment>
+        <insert tableName="country">
+            <column name="iso" value="NO"/>
+            <column name="name" value="Norvège"/>
+            <column name="eu_member" valueNumeric="0"/>
+            <column name="legal_basis"><![CDATA[Hvitvaskingsloven (loi du 1er juin 2018 n° 23) : personnes exerçant ou ayant exercé depuis moins de douze mois une fonction publique importante (politisk eksponert person), leurs proches et associés]]></column>
+            <column name="retention_months" valueNumeric="12"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="baseline-country-PL" author="swiftcheck-baseline">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM country WHERE iso = 'PL'</sqlCheck>
+        </preConditions>
+        <comment>Pays PL (Pologne)</comment>
+        <insert tableName="country">
+            <column name="iso" value="PL"/>
+            <column name="name" value="Pologne"/>
+            <column name="eu_member" valueNumeric="1"/>
+            <column name="legal_basis" value="Transposition de la directive (UE) 2015/849"/>
+            <column name="retention_months" valueNumeric="12"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="baseline-country-PT" author="swiftcheck-baseline">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM country WHERE iso = 'PT'</sqlCheck>
+        </preConditions>
+        <comment>Pays PT (Portugal)</comment>
+        <insert tableName="country">
+            <column name="iso" value="PT"/>
+            <column name="name" value="Portugal"/>
+            <column name="eu_member" valueNumeric="1"/>
+            <column name="legal_basis"><![CDATA[Lei n.º 83/2017 de 18 de agosto (modifiée par la loi 58/2020), art. 2.º, n.º 1, al. cc) : titulaires de cargos políticos ou públicos de nível superior, douze mois après la fin des fonctions]]></column>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="official_list_reference" value="JO C/2023/724 (section Portugal, 54 fonctions) ; Lei n.º 83/2017"/>
+            <column name="official_list_date" value="2023-10-24"/>
+            <column name="official_list_url" value="https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=OJ:C_202300724"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="baseline-country-RO" author="swiftcheck-baseline">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM country WHERE iso = 'RO'</sqlCheck>
+        </preConditions>
+        <comment>Pays RO (Roumanie)</comment>
+        <insert tableName="country">
+            <column name="iso" value="RO"/>
+            <column name="name" value="Roumanie"/>
+            <column name="eu_member" valueNumeric="1"/>
+            <column name="legal_basis" value="Transposition de la directive (UE) 2015/849"/>
+            <column name="retention_months" valueNumeric="12"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="baseline-country-SE" author="swiftcheck-baseline">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM country WHERE iso = 'SE'</sqlCheck>
+        </preConditions>
+        <comment>Pays SE (Suède)</comment>
+        <insert tableName="country">
+            <column name="iso" value="SE"/>
+            <column name="name" value="Suède"/>
+            <column name="eu_member" valueNumeric="1"/>
+            <column name="legal_basis" value="Transposition de la directive (UE) 2015/849"/>
+            <column name="retention_months" valueNumeric="12"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="baseline-country-SI" author="swiftcheck-baseline">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM country WHERE iso = 'SI'</sqlCheck>
+        </preConditions>
+        <comment>Pays SI (Slovénie)</comment>
+        <insert tableName="country">
+            <column name="iso" value="SI"/>
+            <column name="name" value="Slovénie"/>
+            <column name="eu_member" valueNumeric="1"/>
+            <column name="legal_basis" value="Transposition de la directive (UE) 2015/849"/>
+            <column name="retention_months" valueNumeric="12"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="baseline-country-SK" author="swiftcheck-baseline">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM country WHERE iso = 'SK'</sqlCheck>
+        </preConditions>
+        <comment>Pays SK (Slovaquie)</comment>
+        <insert tableName="country">
+            <column name="iso" value="SK"/>
+            <column name="name" value="Slovaquie"/>
+            <column name="eu_member" valueNumeric="1"/>
+            <column name="legal_basis" value="Transposition de la directive (UE) 2015/849"/>
+            <column name="retention_months" valueNumeric="12"/>
+        </insert>
+    </changeSet>
+</databaseChangeLog>

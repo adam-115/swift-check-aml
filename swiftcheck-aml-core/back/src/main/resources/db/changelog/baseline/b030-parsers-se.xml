@@ -1,0 +1,295 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="baseline-parsers-se" author="swiftcheck-baseline">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM parser WHERE dataset_name IN ('se_pep_parliament', 'se_pep_parliament_history', 'se_pep_government', 'se_pep_government_history', 'se_pep_parties', 'se_pep_oversight', 'se_pep_institutions', 'se_pep_europarl', 'se_pep_eu_commission')</sqlCheck>
+        </preConditions>
+        <comment>Parsers « se_* » (9) et leurs liens aux fonctions PEP (14)</comment>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="212"/>
+            <column name="name" value="PEP Suède – Riksdag"/>
+            <column name="description"><![CDATA[Députés du Riksdag et présidence du Riksdag, en fonction ou sortis depuis moins de 12 mois, d'après l'API ouverte data.riksdagen.se (catégorie SE-b)]]></column>
+            <column name="dataset_name" value="se_pep_parliament"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://data.riksdagen.se/"/>
+            <column name="plugin_id" value="se-pep-riksdagen"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="API"/>
+            <column name="parameters"><![CDATA[{"apiUrl": "https://data.riksdagen.se", "scope": "parliament", "monthsAfterEnd": "12"}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="Données ouvertes du Riksdag : citer la source (conditions de réutilisation à vérifier sur data.riksdagen.se)"/>
+            <column name="attribution" value="Sveriges riksdag, data.riksdagen.se"/>
+            <column name="notes"><![CDATA[Un seul appel JSON (environ 19 Mo, 3 524 personnes). Dates exactes de début et de fin de mandat ; naissance : année seulement. 482 personnes gardées (349 sièges plus les remplaçants de l'année). Les périodes de congé sont reprises avec une note. Décédés écartés (209).]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-06 02:10:15.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="213"/>
+            <column name="name" value="PEP Suède – Riksdag, historique de 50 ans"/>
+            <column name="description" value="Anciens députés du Riksdag des 50 dernières années (couche étendue de se_pep_parliament)"/>
+            <column name="dataset_name" value="se_pep_parliament_history"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://data.riksdagen.se/"/>
+            <column name="plugin_id" value="se-pep-riksdagen"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="API"/>
+            <column name="parameters"><![CDATA[{"apiUrl": "https://data.riksdagen.se", "scope": "parliament", "monthsAfterEnd": "600"}]]></column>
+            <column name="refresh_hours" valueNumeric="720"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="Données ouvertes du Riksdag : citer la source (conditions de réutilisation à vérifier sur data.riksdagen.se)"/>
+            <column name="attribution" value="Sveriges riksdag, data.riksdagen.se"/>
+            <column name="notes"><![CDATA[Même plugin et mêmes identifiants que se_pep_parliament. 1 623 personnes vivantes. Au-delà des 12 mois de vigilance légale : à activer selon l'approche par les risques.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-06 02:10:15.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="214"/>
+            <column name="name" value="PEP Suède – Gouvernement"/>
+            <column name="description"><![CDATA[Premier ministre et ministres en fonction ou sortis depuis moins de 12 mois, avec leur département, d'après l'API ouverte du Riksdag (catégorie SE-a)]]></column>
+            <column name="dataset_name" value="se_pep_government"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://data.riksdagen.se/"/>
+            <column name="plugin_id" value="se-pep-riksdagen"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="API"/>
+            <column name="parameters"><![CDATA[{"apiUrl": "https://data.riksdagen.se", "scope": "government", "monthsAfterEnd": "12"}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="Données ouvertes du Riksdag : citer la source (conditions de réutilisation à vérifier sur data.riksdagen.se)"/>
+            <column name="attribution" value="Sveriges riksdag, data.riksdagen.se"/>
+            <column name="notes" value="Même plugin que se_pep_parliament (scope = government). 24 personnes. Secrétaires d'État absents de l'API."/>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-06 02:10:15.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="215"/>
+            <column name="name" value="PEP Suède – Gouvernement, historique de 50 ans"/>
+            <column name="description" value="Anciens ministres des 50 dernières années (couche étendue de se_pep_government)"/>
+            <column name="dataset_name" value="se_pep_government_history"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://data.riksdagen.se/"/>
+            <column name="plugin_id" value="se-pep-riksdagen"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="API"/>
+            <column name="parameters"><![CDATA[{"apiUrl": "https://data.riksdagen.se", "scope": "government", "monthsAfterEnd": "600"}]]></column>
+            <column name="refresh_hours" valueNumeric="720"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="Données ouvertes du Riksdag : citer la source (conditions de réutilisation à vérifier sur data.riksdagen.se)"/>
+            <column name="attribution" value="Sveriges riksdag, data.riksdagen.se"/>
+            <column name="notes"><![CDATA[Même plugin et mêmes identifiants que se_pep_government. 158 personnes vivantes. À activer selon l'approche par les risques.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-06 02:10:15.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="216"/>
+            <column name="name" value="PEP Suède – Chefs de parti"/>
+            <column name="description"><![CDATA[Chefs de parti et porte-parole des partis représentés au Riksdag, en fonction ou sortis depuis moins de 12 mois (catégorie SE-c)]]></column>
+            <column name="dataset_name" value="se_pep_parties"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://data.riksdagen.se/"/>
+            <column name="plugin_id" value="se-pep-riksdagen"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="API"/>
+            <column name="parameters"><![CDATA[{"apiUrl": "https://data.riksdagen.se", "scope": "parties", "monthsAfterEnd": "12"}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="Données ouvertes du Riksdag : citer la source (conditions de réutilisation à vérifier sur data.riksdagen.se)"/>
+            <column name="attribution" value="Sveriges riksdag, data.riksdagen.se"/>
+            <column name="notes"><![CDATA[Même plugin que se_pep_parliament (scope = parties). 10 personnes. Seuls les chefs qui siègent au Riksdag figurent dans la source ; les autres membres des directions de parti ne sont pas publiés.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-06 02:10:15.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="217"/>
+            <column name="name" value="PEP Suède – Riksrevisionen et médiateurs"/>
+            <column name="description"><![CDATA[Riksrevisor et direction de la Riksrevisionen, médiateurs parlementaires (JO) en fonction ou sortis depuis moins de 12 mois (catégorie SE-e)]]></column>
+            <column name="dataset_name" value="se_pep_oversight"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://data.riksdagen.se/"/>
+            <column name="plugin_id" value="se-pep-riksdagen"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="API"/>
+            <column name="parameters"><![CDATA[{"apiUrl": "https://data.riksdagen.se", "scope": "oversight", "monthsAfterEnd": "12"}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="Données ouvertes du Riksdag : citer la source (conditions de réutilisation à vérifier sur data.riksdagen.se)"/>
+            <column name="attribution" value="Sveriges riksdag, data.riksdagen.se"/>
+            <column name="notes"><![CDATA[Même plugin que se_pep_parliament (scope = oversight). 10 personnes. Année de naissance absente pour les non-députés. Direction de la Riksbank absente de l'API.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-06 02:10:15.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="218"/>
+            <column name="name" value="PEP Suède – Hautes cours, Riksbank et Roi"/>
+            <column name="description"><![CDATA[Juges de la Cour suprême et de la Cour administrative suprême, direction de la Riksbank et Roi de Suède, d'après leurs pages officielles (catégories SE-a, SE-d et SE-e)]]></column>
+            <column name="dataset_name" value="se_pep_institutions"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://www.domstol.se/"/>
+            <column name="plugin_id" value="se-pep-institutions"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="WEB_PAGE"/>
+            <column name="parameters"><![CDATA[{"keys": "hd,hfd,riksbank,king", "delayMs": "1500"}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="Sites officiels des juridictions, de la Riksbank et de la Maison royale : citer la source"/>
+            <column name="attribution" value="Sveriges domstolar, domstol.se ; Sveriges riksbank, riksbank.se ; Kungl. Hovstaterna, kungahuset.se"/>
+            <column name="notes"><![CDATA[Quatre pages. 16 juges de la Cour suprême et 16 de la Cour administrative suprême avec année d'entrée en fonction et président, 5 membres de la direction de la Riksbank, et le Roi avec date de naissance et d'accession au trône. Pas de naissance pour les juges ni pour la direction de la Riksbank.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-06 02:10:15.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="254"/>
+            <column name="name" value="PEP Suède – Députés européens"/>
+            <column name="description"><![CDATA[Les députés au Parlement européen élus en Suède, en fonction et sortis depuis moins de 12 mois, avec naissance et dates de mandat (catégorie SE-EU)]]></column>
+            <column name="dataset_name" value="se_pep_europarl"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://data.europarl.europa.eu/"/>
+            <column name="plugin_id" value="se-pep-europarl"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="API"/>
+            <column name="parameters"><![CDATA[{"currentUrl": "https://data.europarl.europa.eu/api/v2/meps/show-current?country-of-representation=SE&format=application%2Fld%2Bjson", "termUrl": "https://data.europarl.europa.eu/api/v2/meps?country-of-representation=SE&parliamentary-term=10&limit=500&format=application%2Fld%2Bjson", "detailUrl": "https://data.europarl.europa.eu/api/v2/meps/{id}?format=application%2Fld%2Bjson", "delayMs": "400", "monthsAfterEnd": "12", "wikidataEndpoint": ""}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="Réutilisation autorisée en citant la source (Parlement européen)"/>
+            <column name="attribution" value="Parlement européen, data.europarl.europa.eu"/>
+            <column name="notes"><![CDATA[Reprise de nl_pep_europarl. Mesure du 06/11/2026 : 21 députés publiés, 19 avec date de naissance, aucun sorti pendant la législature. Une fiche par député. L'API limite le débit (HTTP 429) : le plugin attend puis réessaie. Pas de photos (Wikidata non utilisé). termUrl contient le numéro de législature (10) : à changer en 2029.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-07 00:15:44.000000"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="id" valueNumeric="255"/>
+            <column name="name" value="PEP Suède – Commissaire européen"/>
+            <column name="description" value="Le membre suédois de la Commission européenne, d'après sa fiche officielle (catégorie SE-EU)"/>
+            <column name="dataset_name" value="se_pep_eu_commission"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://commission.europa.eu/about/organisation/college-commissioners_en"/>
+            <column name="plugin_id" value="se-pep-eu-commission"/>
+            <column name="data_source_type" value="HTTP_FILE"/>
+            <column name="parser_kind" value="WEB_PAGE"/>
+            <column name="source_location" value="https://commission.europa.eu/about/organisation/college-commissioners/jessika-roswall_en"/>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="Réutilisation autorisée en citant la source (avis juridique de la Commission européenne)"/>
+            <column name="attribution" value="Commission européenne, commission.europa.eu"/>
+            <column name="notes"><![CDATA[Reprise de nl_pep_eu_commission. À chaque nouvelle Commission, remplacer l'adresse par la fiche du commissaire suédois. Une fiche qui ne présente pas un commissaire suédois est refusée.]]></column>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="created_at" value="2026-11-07 00:15:44.000000"/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="438"/>
+            <column name="parser_id" valueNumeric="212"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope" value="Tous les députés en fonction et ceux sortis depuis moins de 12 mois, avec dates exactes, année de naissance et sexe."/>
+            <column name="gaps" value="Naissance : année seulement."/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="439"/>
+            <column name="parser_id" valueNumeric="212"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope" value="Tous les députés en fonction et ceux sortis depuis moins de 12 mois, avec dates exactes, année de naissance et sexe."/>
+            <column name="gaps" value="Naissance : année seulement."/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="439"/>
+            <column name="parser_id" valueNumeric="213"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope" value="Tous les députés vivants des 50 dernières années, avec dates exactes de mandat."/>
+            <column name="gaps" value="Naissance : année seulement."/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="436"/>
+            <column name="parser_id" valueNumeric="214"/>
+            <column name="completeness" value="PARTIAL"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope" value="Premier ministre et ministres en fonction ou sortis depuis moins de 12 mois, avec département et dates exactes."/>
+            <column name="gaps" value="Secrétaires d'État non couverts (absents de la source)."/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="436"/>
+            <column name="parser_id" valueNumeric="215"/>
+            <column name="completeness" value="PARTIAL"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope" value="Anciens ministres vivants des 50 dernières années, avec département et dates exactes."/>
+            <column name="gaps" value="Secrétaires d'État non couverts (absents de la source)."/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="440"/>
+            <column name="parser_id" valueNumeric="216"/>
+            <column name="completeness" value="PARTIAL"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope" value="Chefs de parti et porte-parole qui siègent ou ont siégé au Riksdag."/>
+            <column name="gaps" value="Chefs de parti hors Riksdag et autres membres des directions non couverts."/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="443"/>
+            <column name="parser_id" valueNumeric="217"/>
+            <column name="completeness" value="PARTIAL"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope" value="Riksrevisor, direction de la Riksrevisionen et médiateurs parlementaires (JO)."/>
+            <column name="gaps" value="Direction de la Riksbank non couverte ; pas de naissance pour les non-députés."/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="444"/>
+            <column name="parser_id" valueNumeric="217"/>
+            <column name="completeness" value="PARTIAL"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope" value="Riksrevisor, direction de la Riksrevisionen et médiateurs parlementaires (JO)."/>
+            <column name="gaps" value="Direction de la Riksbank non couverte ; pas de naissance pour les non-députés."/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="435"/>
+            <column name="parser_id" valueNumeric="218"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="0"/>
+            <column name="covered_scope" value="Le Roi de Suède, avec date de naissance et date d'accession au trône."/>
+            <column name="gaps" value="Membres de la famille royale non couverts (famille proche de la PEP, catégorie RCA)."/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="441"/>
+            <column name="parser_id" valueNumeric="218"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="0"/>
+            <column name="covered_scope" value="Les 16 justitieråd de chaque cour suprême, avec année d'entrée en fonction et président."/>
+            <column name="gaps" value="Anciens juges non couverts ; pas de naissance."/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="442"/>
+            <column name="parser_id" valueNumeric="218"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="0"/>
+            <column name="covered_scope" value="Les 16 justitieråd de chaque cour suprême, avec année d'entrée en fonction et président."/>
+            <column name="gaps" value="Anciens juges non couverts ; pas de naissance."/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="445"/>
+            <column name="parser_id" valueNumeric="218"/>
+            <column name="completeness" value="PARTIAL"/>
+            <column name="includes_former" valueNumeric="0"/>
+            <column name="covered_scope" value="Les cinq membres de la direction de la Riksbank (gouverneur et sous-gouverneurs)."/>
+            <column name="gaps" value="Conseil général de la Riksbank (riksbanksfullmäktige) non couvert ; pas de naissance."/>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="651"/>
+            <column name="parser_id" valueNumeric="254"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="1"/>
+            <column name="covered_scope"><![CDATA[Les 21 députés européens élus en Suède et ceux sortis depuis moins de 12 mois, avec naissance, genre, groupe et dates de mandat.]]></column>
+        </insert>
+        <insert tableName="pep_function_parser">
+            <column name="function_id" valueNumeric="652"/>
+            <column name="parser_id" valueNumeric="255"/>
+            <column name="completeness" value="COMPLETE"/>
+            <column name="includes_former" valueNumeric="0"/>
+            <column name="covered_scope"><![CDATA[Jessika Roswall, commissaire chargée de l'environnement, de la résilience en matière d'eau et d'une économie circulaire compétitive (2024-2029).]]></column>
+            <column name="gaps" value="Ni date ni lieu de naissance sur la fiche."/>
+        </insert>
+    </changeSet>
+</databaseChangeLog>
