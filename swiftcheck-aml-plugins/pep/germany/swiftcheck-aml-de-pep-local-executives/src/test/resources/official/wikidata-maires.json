@@ -1,0 +1,2351 @@
+{
+  "head" : {
+    "vars" : [ "ags", "person", "personLabel", "start", "partyLabel" ]
+  },
+  "results" : {
+    "bindings" : [ {
+      "ags" : {
+        "type" : "literal",
+        "value" : "14713000"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q106747"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2006-03-29T00:00:00Z"
+      },
+      "personLabel" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "Burkhard Jung"
+      },
+      "partyLabel" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "Sozialdemokratische Partei Deutschlands"
+      }
+    }, {
+      "ags" : {
+        "type" : "literal",
+        "value" : "06414000"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1081742"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1882-01-01T00:00:00Z"
+      },
+      "personLabel" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "Christian Schlichter"
+      }
+    }, {
+      "ags" : {
+        "type" : "literal",
+        "value" : "14612000"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1227894"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2015-03-02T00:00:00Z"
+      },
+      "personLabel" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "Dirk Hilbert"
+      },
+      "partyLabel" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "Freie Demokratische Partei"
+      }
+    }, {
+      "ags" : {
+        "type" : "literal",
+        "value" : "08212000"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1443774"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2013-03-01T00:00:00Z"
+      },
+      "personLabel" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "Frank Mentrup"
+      },
+      "partyLabel" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "Sozialdemokratische Partei Deutschlands"
+      }
+    }, {
+      "ags" : {
+        "type" : "literal",
+        "value" : "06414000"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1747254"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "1868-01-01T00:00:00Z"
+      },
+      "personLabel" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "Wilhelm Lanz"
+      }
+    }, {
+      "ags" : {
+        "type" : "literal",
+        "value" : "10041100"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1805993"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2019-10-01T00:00:00Z"
+      },
+      "personLabel" : {
+        "type" : "literal",
+        "value" : "Q1805993"
+      },
+      "partyLabel" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "Christlich Demokratische Union Deutschlands"
+      }
+    }, {
+      "ags" : {
+        "type" : "literal",
+        "value" : "08111000"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q15444489"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2022-01-04T00:00:00Z"
+      },
+      "personLabel" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "Frank Nopper"
+      },
+      "partyLabel" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "Christlich Demokratische Union Deutschlands"
+      }
+    }, {
+      "ags" : {
+        "type" : "literal",
+        "value" : "03241001"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q15787522"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2019-11-22T00:00:00Z"
+      },
+      "personLabel" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "Belit Onay"
+      },
+      "partyLabel" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "Bündnis 90/Die Grünen"
+      }
+    }, {
+      "ags" : {
+        "type" : "literal",
+        "value" : "06414000"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q64691933"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2019-01-01T00:00:00Z"
+      },
+      "personLabel" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "Gert-Uwe Mende"
+      },
+      "partyLabel" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "Sozialdemokratische Partei Deutschlands"
+      }
+    }, {
+      "ags" : {
+        "type" : "literal",
+        "value" : "07315000"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q68342700"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2023-03-22T00:00:00Z"
+      },
+      "personLabel" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "Nino Haase"
+      }
+    }, {
+      "ags" : {
+        "type" : "literal",
+        "value" : "15003000"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q111915380"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2022-07-01T00:00:00Z"
+      },
+      "personLabel" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "Simone Borris"
+      }
+    }, {
+      "ags" : {
+        "type" : "literal",
+        "value" : "06412000"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q115245491"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2023-05-11T00:00:00Z"
+      },
+      "personLabel" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "Mike Josef"
+      },
+      "partyLabel" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "Sozialdemokratische Partei Deutschlands"
+      }
+    }, {
+      "ags" : {
+        "type" : "literal",
+        "value" : "16051000"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q126490082"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2024-07-01T00:00:00Z"
+      },
+      "personLabel" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "Andreas Horn"
+      },
+      "partyLabel" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "Christlich Demokratische Union Deutschlands"
+      }
+    }, {
+      "ags" : {
+        "type" : "literal",
+        "value" : "08416041"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q107726"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2007-01-01T00:00:00Z"
+      },
+      "personLabel" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "Boris Palmer"
+      },
+      "partyLabel" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "Bündnis 90/Die Grünen"
+      }
+    }, {
+      "ags" : {
+        "type" : "literal",
+        "value" : "07319000"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q362924"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2019-01-01T00:00:00Z"
+      },
+      "personLabel" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "Adolf Kessel"
+      },
+      "partyLabel" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "Christlich Demokratische Union Deutschlands"
+      }
+    }, {
+      "ags" : {
+        "type" : "literal",
+        "value" : "08115045"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q824356"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2001-01-01T00:00:00Z"
+      },
+      "personLabel" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "Bernd Vöhringer"
+      },
+      "partyLabel" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "Christlich Demokratische Union Deutschlands"
+      }
+    }, {
+      "ags" : {
+        "type" : "literal",
+        "value" : "08222000"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1081943"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2023-01-01T00:00:00Z"
+      },
+      "personLabel" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "Christian Specht"
+      },
+      "partyLabel" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "Christlich Demokratische Union Deutschlands"
+      }
+    }, {
+      "ags" : {
+        "type" : "literal",
+        "value" : "06415000"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1098605"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2003-01-01T00:00:00Z"
+      },
+      "personLabel" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "Claus Kaminsky"
+      },
+      "partyLabel" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "Sozialdemokratische Partei Deutschlands"
+      }
+    }, {
+      "ags" : {
+        "type" : "literal",
+        "value" : "08436064"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1162260"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2010-06-01T00:00:00Z"
+      },
+      "personLabel" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "Daniel Rapp"
+      },
+      "partyLabel" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "Christlich Demokratische Union Deutschlands"
+      }
+    }, {
+      "ags" : {
+        "type" : "literal",
+        "value" : "07111000"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1175100"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2018-05-01T00:00:00Z"
+      },
+      "personLabel" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "David Langner"
+      },
+      "partyLabel" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "Sozialdemokratische Partei Deutschlands"
+      }
+    }, {
+      "ags" : {
+        "type" : "literal",
+        "value" : "03454032"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1222338"
+      },
+      "personLabel" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "Dieter Krone"
+      }
+    }, {
+      "ags" : {
+        "type" : "literal",
+        "value" : "08136065"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1278274"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2009-01-01T00:00:00Z"
+      },
+      "personLabel" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "Richard Arnold"
+      },
+      "partyLabel" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "Christlich Demokratische Union Deutschlands"
+      }
+    }, {
+      "ags" : {
+        "type" : "literal",
+        "value" : "08221000"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1281405"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2006-01-01T00:00:00Z"
+      },
+      "personLabel" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "Eckart Würzner"
+      }
+    }, {
+      "ags" : {
+        "type" : "literal",
+        "value" : "03403000"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1283314"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2014-01-01T00:00:00Z"
+      },
+      "personLabel" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "Jürgen Krogmann"
+      },
+      "partyLabel" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "Sozialdemokratische Partei Deutschlands"
+      }
+    }, {
+      "ags" : {
+        "type" : "literal",
+        "value" : "01060063"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1331472"
+      },
+      "personLabel" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "Elke Christina Roeder"
+      },
+      "partyLabel" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "Sozialdemokratische Partei Deutschlands"
+      }
+    }, {
+      "ags" : {
+        "type" : "literal",
+        "value" : "06411000"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1340903"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2011-06-21T00:00:00Z"
+      },
+      "personLabel" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "Jochen Partsch"
+      },
+      "partyLabel" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "Bündnis 90/Die Grünen"
+      }
+    }, {
+      "ags" : {
+        "type" : "literal",
+        "value" : "03102000"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1443571"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2006-01-01T00:00:00Z"
+      },
+      "personLabel" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "Frank Klingebiel"
+      },
+      "partyLabel" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "Christlich Demokratische Union Deutschlands"
+      }
+    }, {
+      "ags" : {
+        "type" : "literal",
+        "value" : "06433012"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1555958"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2012-01-01T00:00:00Z"
+      },
+      "personLabel" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "Patrick Burghardt"
+      },
+      "partyLabel" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "Christlich Demokratische Union Deutschlands"
+      }
+    }, {
+      "ags" : {
+        "type" : "literal",
+        "value" : "01004000"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2018095"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2009-09-01T00:00:00Z"
+      },
+      "personLabel" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "Olaf Tauras"
+      },
+      "partyLabel" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "Christlich Demokratische Union Deutschlands"
+      }
+    }, {
+      "ags" : {
+        "type" : "literal",
+        "value" : "06534014"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2427382"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2015-12-01T00:00:00Z"
+      },
+      "personLabel" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "Thomas Spies"
+      },
+      "partyLabel" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "Sozialdemokratische Partei Deutschlands"
+      }
+    }, {
+      "ags" : {
+        "type" : "literal",
+        "value" : "08335043"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2475635"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2012-09-10T00:00:00Z"
+      },
+      "personLabel" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "Ulrich Burchardt"
+      },
+      "partyLabel" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "Christlich Demokratische Union Deutschlands"
+      }
+    }, {
+      "ags" : {
+        "type" : "literal",
+        "value" : "13073088"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2641762"
+      },
+      "personLabel" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "Alexander Badrow"
+      },
+      "partyLabel" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "Christlich Demokratische Union Deutschlands"
+      }
+    }, {
+      "ags" : {
+        "type" : "literal",
+        "value" : "03254021"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q15731019"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2014-02-01T00:00:00Z"
+      },
+      "personLabel" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "Ingo Meyer"
+      }
+    }, {
+      "ags" : {
+        "type" : "literal",
+        "value" : "08116019"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q15834428"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2021-11-01T00:00:00Z"
+      },
+      "personLabel" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "Matthias Klopfer"
+      },
+      "partyLabel" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "Sozialdemokratische Partei Deutschlands"
+      }
+    }, {
+      "ags" : {
+        "type" : "literal",
+        "value" : "08136088"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q15850694"
+      },
+      "personLabel" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "Thilo Rentschler"
+      },
+      "partyLabel" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "Sozialdemokratische Partei Deutschlands"
+      }
+    }, {
+      "ags" : {
+        "type" : "literal",
+        "value" : "08121000"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q15858419"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2014-05-05T00:00:00Z"
+      },
+      "personLabel" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "Harry Mergel"
+      },
+      "partyLabel" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "Sozialdemokratische Partei Deutschlands"
+      }
+    }, {
+      "ags" : {
+        "type" : "literal",
+        "value" : "03241005"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q17310787"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2014-11-01T00:00:00Z"
+      },
+      "personLabel" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "Christian Grahl"
+      },
+      "partyLabel" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "Christlich Demokratische Union Deutschlands"
+      }
+    }, {
+      "ags" : {
+        "type" : "literal",
+        "value" : "03241010"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q17325204"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2014-11-01T00:00:00Z"
+      },
+      "personLabel" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "Mirko Heuer"
+      },
+      "partyLabel" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "Christlich Demokratische Union Deutschlands"
+      }
+    }, {
+      "ags" : {
+        "type" : "literal",
+        "value" : "08336050"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q17418073"
+      },
+      "personLabel" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "Jörg Lutz"
+      }
+    }, {
+      "ags" : {
+        "type" : "literal",
+        "value" : "14626110"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q18334593"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2019-08-01T00:00:00Z"
+      },
+      "personLabel" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "Octavian Ursu"
+      },
+      "partyLabel" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "Christlich Demokratische Union Deutschlands"
+      }
+    }, {
+      "ags" : {
+        "type" : "literal",
+        "value" : "07211000"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q19721051"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2015-01-01T00:00:00Z"
+      },
+      "personLabel" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "Wolfram Leibe"
+      },
+      "partyLabel" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "Sozialdemokratische Partei Deutschlands"
+      }
+    }, {
+      "ags" : {
+        "type" : "literal",
+        "value" : "13075039"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q19959409"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2015-05-01T00:00:00Z"
+      },
+      "personLabel" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "Stefan Fassbinder"
+      },
+      "partyLabel" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "Bündnis 90/Die Grünen"
+      }
+    }, {
+      "ags" : {
+        "type" : "literal",
+        "value" : "13071107"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q19964274"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2015-04-01T00:00:00Z"
+      },
+      "personLabel" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "Silvio Witt"
+      }
+    }, {
+      "ags" : {
+        "type" : "literal",
+        "value" : "06434001"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q20752736"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2015-09-18T00:00:00Z"
+      },
+      "personLabel" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "Alexander Hetjes"
+      },
+      "partyLabel" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "Christlich Demokratische Union Deutschlands"
+      }
+    }, {
+      "ags" : {
+        "type" : "literal",
+        "value" : "06532023"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q21039720"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2015-11-27T00:00:00Z"
+      },
+      "personLabel" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "Manfred Wagner"
+      },
+      "partyLabel" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "Sozialdemokratische Partei Deutschlands"
+      }
+    }, {
+      "ags" : {
+        "type" : "literal",
+        "value" : "08117026"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q23564480"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2021-01-14T00:00:00Z"
+      },
+      "personLabel" : {
+        "type" : "literal",
+        "value" : "Q23564480"
+      },
+      "partyLabel" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "Bündnis 90/Die Grünen"
+      }
+    }, {
+      "ags" : {
+        "type" : "literal",
+        "value" : "06631009"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q24574588"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2015-03-15T00:00:00Z"
+      },
+      "personLabel" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "Heiko Wingenfeld"
+      },
+      "partyLabel" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "Christlich Demokratische Union Deutschlands"
+      }
+    }, {
+      "ags" : {
+        "type" : "literal",
+        "value" : "05754008"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q26772941"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2015-01-01T00:00:00Z"
+      },
+      "personLabel" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "Henning Schulz"
+      },
+      "partyLabel" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "Christlich Demokratische Union Deutschlands"
+      }
+    }, {
+      "ags" : {
+        "type" : "literal",
+        "value" : "13003000"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q26831145"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2023-02-01T00:00:00Z"
+      },
+      "personLabel" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "Eva-Maria Kröger"
+      },
+      "partyLabel" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "Die Linke"
+      }
+    }, {
+      "ags" : {
+        "type" : "literal",
+        "value" : "03351006"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q28840522"
+      },
+      "personLabel" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "Jörg Nigge"
+      },
+      "partyLabel" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "Christlich Demokratische Union Deutschlands"
+      }
+    }, {
+      "ags" : {
+        "type" : "literal",
+        "value" : "08435016"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q28947300"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2024-12-01T00:00:00Z"
+      },
+      "personLabel" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "Simon Blümcke"
+      },
+      "partyLabel" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "Freie Wähler"
+      }
+    }, {
+      "ags" : {
+        "type" : "literal",
+        "value" : "08231000"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q29867098"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2017-08-01T00:00:00Z"
+      },
+      "personLabel" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "Peter Boch"
+      },
+      "partyLabel" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "Christlich Demokratische Union Deutschlands"
+      }
+    }, {
+      "ags" : {
+        "type" : "literal",
+        "value" : "06611000"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q33262484"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2017-07-22T00:00:00Z"
+      },
+      "personLabel" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "Christian Geselle"
+      },
+      "partyLabel" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "Sozialdemokratische Partei Deutschlands"
+      }
+    }, {
+      "ags" : {
+        "type" : "literal",
+        "value" : "07138045"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q36522469"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2017-11-01T00:00:00Z"
+      },
+      "personLabel" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "Jan Einig"
+      },
+      "partyLabel" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "Christlich Demokratische Union Deutschlands"
+      }
+    }, {
+      "ags" : {
+        "type" : "literal",
+        "value" : "06413000"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q40906565"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2018-01-21T00:00:00Z"
+      },
+      "personLabel" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "Felix Schwenke"
+      },
+      "partyLabel" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "Sozialdemokratische Partei Deutschlands"
+      }
+    }, {
+      "ags" : {
+        "type" : "literal",
+        "value" : "03252006"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q41631688"
+      },
+      "personLabel" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "Claudio Griese"
+      },
+      "partyLabel" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "Christlich Demokratische Union Deutschlands"
+      }
+    }, {
+      "ags" : {
+        "type" : "literal",
+        "value" : "01003000"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q43342106"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2018-05-01T00:00:00Z"
+      },
+      "personLabel" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "Jan Lindenau"
+      },
+      "partyLabel" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "Sozialdemokratische Partei Deutschlands"
+      }
+    }, {
+      "ags" : {
+        "type" : "literal",
+        "value" : "07316000"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q44413411"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2018-01-01T00:00:00Z"
+      },
+      "personLabel" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "Marc Weigel"
+      }
+    }, {
+      "ags" : {
+        "type" : "literal",
+        "value" : "16055000"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q50359380"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2018-07-01T00:00:00Z"
+      },
+      "personLabel" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "Peter Kleine"
+      }
+    }, {
+      "ags" : {
+        "type" : "literal",
+        "value" : "16053000"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q52376077"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2018-07-01T00:00:00Z"
+      },
+      "personLabel" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "Thomas Nitzsche"
+      },
+      "partyLabel" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "Freie Demokratische Partei"
+      }
+    }, {
+      "ags" : {
+        "type" : "literal",
+        "value" : "08311000"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q52733438"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2018-07-02T00:00:00Z"
+      },
+      "personLabel" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "Martin Horn"
+      }
+    }, {
+      "ags" : {
+        "type" : "literal",
+        "value" : "08317096"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q57400355"
+      },
+      "personLabel" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "Marco Steffens"
+      },
+      "partyLabel" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "Christlich Demokratische Union Deutschlands"
+      }
+    }, {
+      "ags" : {
+        "type" : "literal",
+        "value" : "08326074"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q57814405"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2019-01-01T00:00:00Z"
+      },
+      "personLabel" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "Jürgen Roth"
+      },
+      "partyLabel" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "Christlich Demokratische Union Deutschlands"
+      }
+    }, {
+      "ags" : {
+        "type" : "literal",
+        "value" : "08115003"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q57959440"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2018-04-03T00:00:00Z"
+      },
+      "personLabel" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "Stefan Belz"
+      },
+      "partyLabel" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "Bündnis 90/Die Grünen"
+      }
+    }, {
+      "ags" : {
+        "type" : "literal",
+        "value" : "06531005"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q58047235"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2021-12-13T00:00:00Z"
+      },
+      "personLabel" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "Frank-Tilo Becher"
+      },
+      "partyLabel" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "Sozialdemokratische Partei Deutschlands"
+      }
+    }, {
+      "ags" : {
+        "type" : "literal",
+        "value" : "01004000"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q59560305"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2021-01-01T00:00:00Z"
+      },
+      "personLabel" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "Tobias Bergmann"
+      },
+      "partyLabel" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "Sozialdemokratische Partei Deutschlands"
+      }
+    }, {
+      "ags" : {
+        "type" : "literal",
+        "value" : "08415061"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q61935566"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2019-02-24T00:00:00Z"
+      },
+      "personLabel" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "Thomas Keck"
+      },
+      "partyLabel" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "Sozialdemokratische Partei Deutschlands"
+      }
+    }, {
+      "ags" : {
+        "type" : "literal",
+        "value" : "06433012"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q63413017"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2018-01-01T00:00:00Z"
+      },
+      "personLabel" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "Udo Bausch"
+      }
+    }, {
+      "ags" : {
+        "type" : "literal",
+        "value" : "08118048"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q65954273"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2019-01-01T00:00:00Z"
+      },
+      "personLabel" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "Matthias Knecht"
+      }
+    }, {
+      "ags" : {
+        "type" : "literal",
+        "value" : "01056015"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q85605403"
+      },
+      "personLabel" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "Volker Hatje"
+      }
+    }, {
+      "ags" : {
+        "type" : "literal",
+        "value" : "08317065"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q87206214"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2019-11-01T00:00:00Z"
+      },
+      "personLabel" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "Markus Ibert"
+      }
+    }, {
+      "ags" : {
+        "type" : "literal",
+        "value" : "12053000"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q95299004"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2025-01-01T00:00:00Z"
+      },
+      "personLabel" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "Axel Strasser"
+      }
+    }, {
+      "ags" : {
+        "type" : "literal",
+        "value" : "14511000"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q100276618"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2020-11-25T00:00:00Z"
+      },
+      "personLabel" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "Sven Schulze"
+      },
+      "partyLabel" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "Sozialdemokratische Partei Deutschlands"
+      }
+    }, {
+      "ags" : {
+        "type" : "literal",
+        "value" : "14524330"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q105271954"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2020-11-17T00:00:00Z"
+      },
+      "personLabel" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "Constance Arndt"
+      }
+    }, {
+      "ags" : {
+        "type" : "literal",
+        "value" : "03103000"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q105942763"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2021-10-01T00:00:00Z"
+      },
+      "personLabel" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "Dennis Weilmann"
+      },
+      "partyLabel" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "Christlich Demokratische Union Deutschlands"
+      }
+    }, {
+      "ags" : {
+        "type" : "literal",
+        "value" : "03101000"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q106129189"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2021-01-01T00:00:00Z"
+      },
+      "personLabel" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "Thorsten Kornblum"
+      },
+      "partyLabel" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "Sozialdemokratische Partei Deutschlands"
+      }
+    }, {
+      "ags" : {
+        "type" : "literal",
+        "value" : "08135019"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q107301885"
+      },
+      "personLabel" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "Michael Salomo"
+      },
+      "partyLabel" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "Sozialdemokratische Partei Deutschlands"
+      }
+    }, {
+      "ags" : {
+        "type" : "literal",
+        "value" : "08136088"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q107671291"
+      },
+      "personLabel" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "Frederick Brütting"
+      },
+      "partyLabel" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "Sozialdemokratische Partei Deutschlands"
+      }
+    }, {
+      "ags" : {
+        "type" : "literal",
+        "value" : "14523320"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q108381623"
+      },
+      "personLabel" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "Steffen Zenner"
+      },
+      "partyLabel" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "Christlich Demokratische Union Deutschlands"
+      }
+    }, {
+      "ags" : {
+        "type" : "literal",
+        "value" : "03404000"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q108703393"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2021-01-01T00:00:00Z"
+      },
+      "personLabel" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "Katharina Pötter"
+      },
+      "partyLabel" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "Christlich Demokratische Union Deutschlands"
+      }
+    }, {
+      "ags" : {
+        "type" : "literal",
+        "value" : "03355022"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q108731006"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2021-11-01T00:00:00Z"
+      },
+      "personLabel" : {
+        "type" : "literal",
+        "value" : "Q108731006"
+      },
+      "partyLabel" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "Bündnis 90/Die Grünen"
+      }
+    }, {
+      "ags" : {
+        "type" : "literal",
+        "value" : "03159016"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q109756546"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2021-09-26T00:00:00Z"
+      },
+      "personLabel" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "Petra Broistedt"
+      },
+      "partyLabel" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "Sozialdemokratische Partei Deutschlands"
+      }
+    }, {
+      "ags" : {
+        "type" : "literal",
+        "value" : "15001000"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q109913749"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2021-01-01T00:00:00Z"
+      },
+      "personLabel" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "Robert Reck"
+      }
+    }, {
+      "ags" : {
+        "type" : "literal",
+        "value" : "08119079"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q110914817"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2022-01-01T00:00:00Z"
+      },
+      "personLabel" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "Sebastian Wolf"
+      },
+      "partyLabel" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "Christlich Demokratische Union Deutschlands"
+      }
+    }, {
+      "ags" : {
+        "type" : "literal",
+        "value" : "07133006"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q111383008"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2022-03-27T00:00:00Z"
+      },
+      "personLabel" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "Emanuel Letz"
+      },
+      "partyLabel" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "Freie Demokratische Partei"
+      }
+    }, {
+      "ags" : {
+        "type" : "literal",
+        "value" : "08211000"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q111383049"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2022-06-10T00:00:00Z"
+      },
+      "personLabel" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "Dietmar Späth"
+      }
+    }, {
+      "ags" : {
+        "type" : "literal",
+        "value" : "12052000"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q114573982"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2022-01-01T00:00:00Z"
+      },
+      "personLabel" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "Tobias Schick"
+      },
+      "partyLabel" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "Sozialdemokratische Partei Deutschlands"
+      }
+    }, {
+      "ags" : {
+        "type" : "literal",
+        "value" : "06611000"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q117084302"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2023-07-21T00:00:00Z"
+      },
+      "personLabel" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "Sven Schoeller"
+      }
+    }, {
+      "ags" : {
+        "type" : "literal",
+        "value" : "07312000"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q120707183"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2023-01-01T00:00:00Z"
+      },
+      "personLabel" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "Beate Kimmel"
+      },
+      "partyLabel" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "Sozialdemokratische Partei Deutschlands"
+      }
+    }, {
+      "ags" : {
+        "type" : "literal",
+        "value" : "06411000"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q121270523"
+      },
+      "personLabel" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "Hanno Benz"
+      },
+      "partyLabel" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "Sozialdemokratische Partei Deutschlands"
+      }
+    }, {
+      "ags" : {
+        "type" : "literal",
+        "value" : "01001000"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q122411456"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2023-01-15T00:00:00Z"
+      },
+      "personLabel" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "Fabian Geyer"
+      }
+    }, {
+      "ags" : {
+        "type" : "literal",
+        "value" : "08216043"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q123054034"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2023-12-17T00:00:00Z"
+      },
+      "personLabel" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "Monika Müller"
+      },
+      "partyLabel" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "Sozialdemokratische Partei Deutschlands"
+      }
+    }, {
+      "ags" : {
+        "type" : "literal",
+        "value" : "16052000"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q123536666"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2024-07-01T00:00:00Z"
+      },
+      "personLabel" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "Kurt Dannenberg"
+      },
+      "partyLabel" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "Christlich Demokratische Union Deutschlands"
+      }
+    }, {
+      "ags" : {
+        "type" : "literal",
+        "value" : "08421000"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q123917094"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2024-03-01T00:00:00Z"
+      },
+      "personLabel" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "Martin Ansbacher"
+      },
+      "partyLabel" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "Sozialdemokratische Partei Deutschlands"
+      }
+    }, {
+      "ags" : {
+        "type" : "literal",
+        "value" : "03157006"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q131056867"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2016-01-01T00:00:00Z"
+      },
+      "personLabel" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "Klaus Saemann"
+      },
+      "partyLabel" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "Sozialdemokratische Partei Deutschlands"
+      }
+    }, {
+      "ags" : {
+        "type" : "literal",
+        "value" : "15002000"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q132862267"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2025-03-26T00:00:00Z"
+      },
+      "personLabel" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "Alexander Vogt"
+      }
+    }, {
+      "ags" : {
+        "type" : "literal",
+        "value" : "08115045"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q134581026"
+      },
+      "personLabel" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "Markus Kleemann"
+      },
+      "partyLabel" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "Christlich Demokratische Union Deutschlands"
+      }
+    }, {
+      "ags" : {
+        "type" : "literal",
+        "value" : "12054000"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q136379644"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2025-10-24T00:00:00Z"
+      },
+      "personLabel" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "Noosha Aubel"
+      },
+      "partyLabel" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "Parteiloser"
+      }
+    }, {
+      "ags" : {
+        "type" : "literal",
+        "value" : "03254021"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q136471050"
+      },
+      "personLabel" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "Arnold Albrecht"
+      }
+    }, {
+      "ags" : {
+        "type" : "literal",
+        "value" : "07314000"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q136484951"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2026-01-01T00:00:00Z"
+      },
+      "personLabel" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "Klaus Blettner"
+      },
+      "partyLabel" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "Christlich Demokratische Union Deutschlands"
+      }
+    }, {
+      "ags" : {
+        "type" : "literal",
+        "value" : "03454032"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q136548631"
+      },
+      "personLabel" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "Hans Klukkert"
+      }
+    }, {
+      "ags" : {
+        "type" : "literal",
+        "value" : "03454032"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q136556368"
+      },
+      "personLabel" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "Ursula Ramelow"
+      },
+      "partyLabel" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "Christlich Demokratische Union Deutschlands"
+      }
+    }, {
+      "ags" : {
+        "type" : "literal",
+        "value" : "05754008"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q136704414"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2024-12-03T00:00:00Z"
+      },
+      "personLabel" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "Matthias Trepper"
+      },
+      "partyLabel" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "Sozialdemokratische Partei Deutschlands"
+      }
+    }, {
+      "ags" : {
+        "type" : "literal",
+        "value" : "08317096"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q137146264"
+      },
+      "personLabel" : {
+        "type" : "literal",
+        "value" : "Q137146264"
+      },
+      "partyLabel" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "Christlich Demokratische Union Deutschlands"
+      }
+    }, {
+      "ags" : {
+        "type" : "literal",
+        "value" : "12051000"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q137168776"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2025-01-01T00:00:00Z"
+      },
+      "personLabel" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "Daniel Kelp"
+      },
+      "partyLabel" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "Sozialdemokratische Partei Deutschlands"
+      }
+    }, {
+      "ags" : {
+        "type" : "literal",
+        "value" : "13004000"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q138753169"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2026-01-01T00:00:00Z"
+      },
+      "personLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Bernd Nottebaum"
+      },
+      "partyLabel" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "Christlich Demokratische Union Deutschlands"
+      }
+    }, {
+      "ags" : {
+        "type" : "literal",
+        "value" : "03405000"
+      },
+      "person" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q141454174"
+      },
+      "start" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2026-11-01T00:00:00Z"
+      },
+      "personLabel" : {
+        "type" : "literal",
+        "value" : "Q141454174"
+      }
+    } ]
+  }
+}

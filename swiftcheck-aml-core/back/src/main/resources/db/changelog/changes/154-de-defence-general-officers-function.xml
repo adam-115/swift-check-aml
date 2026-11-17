@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <!--
+      Les 7 parsers de_pep_defence* (changeSets 144 a 150) publient depuis le 16/11/2026 (131 personnes) mais ne
+      sont relies a aucune fonction : ils n'entrent pas dans le taux de couverture.
+        - Nouvelle fonction DE-g « Officier general ou amiral de la Bundeswehr » (directive 2015/849 art. 3 (9) f,
+          AMLR art. 2 (34) : officiers superieurs des forces armees). Environ 200 generaux et amiraux en activite.
+          Couverte en PARTIAL par les 5 parsers des commandements ; lecture du 16/11 : Luftwaffe 48, soutien et
+          armement 36, CIR 24, Heer 12, Marine 4.
+        - Secretaires d'Etat du BMVg (de_pep_defence_secretaries) : complement PARTIAL de la fonction des
+          secretaires d'Etat (deja couverte par de_pep_federal_secretaries).
+        - Ministre de la Defense (de_pep_defence) : complement PARTIAL de la fonction des ministres federaux.
+    -->
+    <changeSet id="154-de-defence-general-officers-function" author="swiftcheck" dbms="mysql">
+        <sql><![CDATA[
+            INSERT INTO pep_function (category_id, label, institution, expected_holders)
+            SELECT c.id, 'Officier général ou amiral de la Bundeswehr (général, amiral, inspecteur, commandant)', 'Bundeswehr', 200
+            FROM pep_category c WHERE c.code = 'DE-g' AND c.country_iso = 'DE';
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'PARTIAL', FALSE,
+                   CONCAT('Commandants et officiers generaux lus sur les pages officielles de la Bundeswehr : ',
+                          CASE p.dataset_name
+                              WHEN 'de_pep_defence_heer' THEN 'Heer (armee de terre).'
+                              WHEN 'de_pep_defence_luftwaffe' THEN 'Luftwaffe (armee de l''air).'
+                              WHEN 'de_pep_defence_marine' THEN 'Marine.'
+                              WHEN 'de_pep_defence_cir' THEN 'Cyber- und Informationsraum (CIR).'
+                              ELSE 'soutien, sante et armement (Unterstuetzungsbereich, BAAINBw).' END),
+                   CASE p.dataset_name
+                       WHEN 'de_pep_defence_marine' THEN 'Seulement 4 personnes lues le 16/11/2026 : aucun profil de commandement detecte sur une partie des pages.'
+                       WHEN 'de_pep_defence_heer' THEN 'Seulement 12 personnes lues le 16/11/2026, pour environ 50 generaux de l''armee de terre.'
+                       WHEN 'de_pep_defence_support' THEN 'Une page de structure non reconnue le 16/11/2026 (ALERT STRUCTURE_CHANGED).'
+                       ELSE 'Seuls les officiers generaux qui ont une page de profil sont lus.' END
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'DE-g' AND f.label LIKE 'Officier g%n%ral ou amiral de la Bundeswehr%'
+              AND p.dataset_name IN ('de_pep_defence_heer', 'de_pep_defence_luftwaffe', 'de_pep_defence_marine',
+                                     'de_pep_defence_cir', 'de_pep_defence_support');
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'PARTIAL', FALSE, 'Secretaires d''Etat parlementaires et fonctionnaires du ministere federal de la Defense (BMVg).',
+                   'Complement : la fonction est deja couverte pour tous les ministeres par de_pep_federal_secretaries.'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'DE-a' AND f.label LIKE 'Secr%taire d''%tat parlementaire ou secr%taire d''%tat%'
+              AND p.dataset_name = 'de_pep_defence_secretaries';
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'PARTIAL', FALSE, 'Ministre federal de la Defense, lu sur la page du BMVg.',
+                   'Complement : la fonction est deja couverte par de_pep_federal_government. Le 16/11/2026, le nom du ministre n''a pas ete detecte (ALERT STRUCTURE_CHANGED).'
+            FROM pep_function f JOIN pep_category c ON c.id = f.category_id, parser p
+            WHERE c.code = 'DE-a' AND f.label LIKE 'Ministre f%d%ral ou ministre d''%tat%'
+              AND p.dataset_name = 'de_pep_defence';
+        ]]></sql>
+    </changeSet>
+</databaseChangeLog>

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <!--
+      de_pep_eu_institutions : Allemands membres de la CJUE (Cour, Tribunal), de la Cour des comptes europeenne, du
+      directoire et du conseil de surveillance de la BCE, et secretaire general du Conseil, lus sur les pages officielles
+      (sur le modele de be_pep_eu_institutions). Fonction 149.
+      de_pep_defence_attaches : attaches de defense allemands lus dans les listes diplomatiques officielles des pays
+      d'accueil (l'Allemagne ne publie pas la liste de ses attaches). Fonction 142, couverture partielle.
+    -->
+    <changeSet id="156-register-de-pep-eu-institutions-defence-attaches" author="swiftcheck" dbms="mysql">
+        <insert tableName="parser">
+            <column name="name" value="PEP Allemagne - Allemands dans les institutions de l'UE"/>
+            <column name="description" value="Allemands membres de la CJUE, de la Cour des comptes europeenne, de la BCE (directoire, conseil de surveillance) et du secretariat general du Conseil"/>
+            <column name="dataset_name" value="de_pep_eu_institutions"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://curia.europa.eu/"/>
+            <column name="plugin_id" value="de-pep-eu-institutions"/>
+            <column name="plugin_url" value="D:/test parser 2/plugins/swiftcheck-aml-de-pep-eu-institutions-0.0.1-SNAPSHOT.jar"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="WEB_PAGE"/>
+            <column name="parameters"><![CDATA[{"delayMs":"500","cjUrl":"https://curia.europa.eu/jcms/jcms/Jo2_7026/fr/","gcUrl":"https://curia.europa.eu/jcms/jcms/Jo2_7035/fr/","ecaUrl":"https://www.eca.europa.eu/ContentPagesDocuments/Organisation/COMPOSITION_EN.pdf","ecbBoardUrl":"https://www.ecb.europa.eu/ecb/orga/decisions/eb/html/index.fr.html","ssmUrl":"https://www.bankingsupervision.europa.eu/about/organisation/leadership/supervisoryboard/html/index.en.html","councilSgUrl":"https://www.consilium.europa.eu/fr/general-secretariat/secretary-general/","councilSgBioUrl":"https://www.consilium.europa.eu/fr/general-secretariat/secretary-general/biography/","knownNationals":"[{\"name\":\"Isabel Schnabel\",\"evidence\":\"candidate du gouvernement allemand, recommandée par l'Eurogroupe en 2019 (le CV de la BCE ne donne pas la nationalité)\"}]"}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="Citer la source (pages officielles des institutions de l'UE)"/>
+            <column name="attribution" value="CJUE, Cour des comptes europeenne, BCE, Conseil de l'UE"/>
+            <column name="notes" value="Nationalite d'apres la source officielle (pays indique, naissance en Allemagne, autorite nationale) ; liste knownNationals pour les membres dont la page ne la donne pas."/>
+            <column name="enabled" valueBoolean="true"/>
+            <column name="created_at" valueComputed="NOW()"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="name" value="PEP Allemagne - Attaches de defense"/>
+            <column name="description" value="Verteidigungsattaches des ambassades d'Allemagne (par. 1 (12) g) GwG), lus dans les listes diplomatiques officielles des pays d'accueil"/>
+            <column name="dataset_name" value="de_pep_defence_attaches"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://www.bundeswehr.de/de/organisation/unterstuetzungsbereich/militaerattaches-headquarters-international-eng-vernetzt"/>
+            <column name="plugin_id" value="de-pep-defence-attaches"/>
+            <column name="plugin_url" value="D:/test parser 2/plugins/swiftcheck-aml-de-pep-defence-attaches-0.0.1-SNAPSHOT.jar"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="WEB_PAGE"/>
+            <column name="parameters"><![CDATA[{"lists":"[{\"host\":\"Suède\",\"publisher\":\"Regeringskansliet (Stockholm Diplomatic List)\",\"url\":\"https://www.government.se/contentassets/fbe729b57a7b4cd8a6cc2ebb882fff02/stockholm-diplomatic-list-16-october-2026.pdf\",\"nameAt\":\"same\"},{\"host\":\"Royaume-Uni\",\"publisher\":\"FCDO (London Diplomatic List)\",\"url\":\"https://assets.publishing.service.gov.uk/media/6af468b6a4004bdbe54e54ee/LONDON_DIPLOMATIC_LIST_-__NOVEMBER_2026.odt\",\"nameAt\":\"same\"},{\"host\":\"Islande\",\"publisher\":\"Utanríkisráðuneytið (Reykjavik Diplomatic and Consular List)\",\"url\":\"https://www.stjornarradid.is/library/04-Raduneytin/Utanrikisraduneytid/PDF-skjol/Diplomatic-List/Reykjavik%20Diplomatic%20and%20Consular%20List%20-%20April%202026.pdf\",\"nameAt\":\"after\"},{\"host\":\"Macédoine du Nord\",\"publisher\":\"Ministère des Affaires étrangères (Diplomatic List)\",\"url\":\"https://portal.mdt.gov.mk/post-body-files/direktorat-za-diplomatski-protokol-file-Vyne.pdf\",\"nameAt\":\"before\"},{\"host\":\"Estonie\",\"publisher\":\"Välisministeerium (Tallinn Diplomatic List)\",\"url\":\"https://vm.ee/sites/default/files/documents/2026-10/Tallinn%20Diplomatic%20List%208%20October%202026.pdf\",\"nameAt\":\"before\"},{\"host\":\"Danemark\",\"publisher\":\"Udenrigsministeriet (Copenhagen Diplomatic List)\",\"url\":\"https://um.dk/media/p4bf5015/copenhagen-diplomatic-list-09092026.pdf\",\"nameAt\":\"same\"},{\"host\":\"Thaïlande\",\"publisher\":\"Ministry of Foreign Affairs (Diplomatic and Consular List)\",\"url\":\"https://image.mfa.go.th/mfa/0/mkKfL2iULZ/March_2026/March_2026.pdf\",\"nameAt\":\"before\"},{\"host\":\"Singapour\",\"publisher\":\"Ministry of Foreign Affairs (Diplomatic & Consular List)\",\"url\":\"https://isomer-user-content.by.gov.sg/262/3422801a-41e6-4a10-bf7a-88b69f5f9f18/Dipconopen.pdf\",\"nameAt\":\"before\"}]","delayMs":"1000"}]]></column>
+            <column name="refresh_hours" valueNumeric="168"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="Citer la source (liste diplomatique du pays d'accueil)"/>
+            <column name="attribution" value="Ministeres des Affaires etrangeres des pays d'accueil"/>
+            <column name="notes" value="Couverture partielle : seuls les pays dont la liste diplomatique est publiee et lisible (8 listes au 17/11/2026). Les adresses des listes changent a chaque edition : les mettre a jour dans le parametre lists."/>
+            <column name="enabled" valueBoolean="true"/>
+            <column name="created_at" valueComputed="NOW()"/>
+        </insert>
+        <sql><![CDATA[
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT 149, p.id, 'COMPLETE', FALSE,
+                   'Allemands membres de la Cour de justice et du Tribunal, de la Cour des comptes europeenne, du directoire et du conseil de surveillance prudentielle de la BCE, et secretaire general du Conseil (pages officielles). Commissaires et deputes europeens : de_pep_eu_commission et de_pep_europarl.',
+                   'Nationalite deduite de la source (pays indique, naissance, autorite nationale) ; les CV de la BCE ne donnent plus le lieu de naissance (liste knownNationals). Page du Secretariat general du Conseil fermee aux robots (HTTP 403). Agences et autres organes de l''UE non lus.'
+            FROM parser p WHERE p.dataset_name = 'de_pep_eu_institutions';
+
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT 142, p.id, 'PARTIAL', FALSE,
+                   'Attaches de defense allemands nommes dans les listes diplomatiques officielles de la Suede, du Royaume-Uni, de l''Islande, de la Macedoine du Nord, de l''Estonie, du Danemark, de la Thailande et de Singapour.',
+                   'L''Allemagne ne publie pas la liste de ses attaches de defense (environ 90 postes) ; seuls les pays d''accueil dont la liste est publique et lisible sont couverts. Listes fermees aux robots : Irlande, Albanie, Azerbaidjan ; liste de la Georgie en deux colonnes non lue.'
+            FROM parser p WHERE p.dataset_name = 'de_pep_defence_attaches';
+
+            UPDATE pep_function SET expected_holders = 90 WHERE id = 142 AND expected_holders IS NULL;
+        ]]></sql>
+    </changeSet>
+</databaseChangeLog>

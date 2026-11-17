@@ -1,0 +1,38 @@
+Kommunalwahlen am 14.09.2025 bzw. 28.09.2025 in Nordrhein-Westfalen
+Endgültiges Ergebnis für Krfr. Stadt Köln
+
+Wahl der Oberbürgermeister/-innen der kreisfreien Städte sowie der Landrätinnen und Landräte der Kreise
+
+Bei der Stichwahl am 28.09.2025 gewählt:
+Burmester, Torsten (SPD)
+28.09.2025: 53,5 % der gültigen Stimmen
+
+Zum Vergleich:
+Bisher im Amt:
+Reker, Henriette (Einzelbew.)
+27.09.2020: 59,3 % der gültigen Stimmen
+(13.09.2020: 45,1 % der gültigen Stimmen)
+
+Merkmal;Anzahl;%;Anzahl Stichwahl;% Stichwahl
+Wahlberechtigte ohne Sperrvermerk "W";541243;66,9;541989;67,1
+Wahlberechtigte mit Sperrvermerk "W";268173;33,1;265686;32,9
+Wahlberechtigte mit selbständigem Wahlschein;0;0,0;0;0,0
+Wahlberechtigte insgesamt;809416;100,0;807675;100,0
+Wähler/-innen;461517;57,0;361158;44,7
+darunter Wähler mit Wahlschein;229455;49,7;174623;48,4
+Ungültige Stimmen;3044;0,7;1964;0,5
+Gültige Stimmen;458473;100,0;359194;100,0
+davon entfielen auf:
+Aymaz, Berivan (GRÜNE);128932;28,1;166996;46,5
+Burmester, Torsten (SPD);97791;21,3;192198;53,5
+Greitemann, Markus (CDU);89263;19,5;;
+Kockerbeck, Heiner (DIE LINKE);28054;6,1;;
+Görzel, Volker (FDP);13552;3,0;;
+Wolfram, Lars (Volt);11585;2,5;;
+Büschges, Matthias (AfD);38882;8,5;;
+Benecke, Dr. Mark (Die PARTEI);16197;3,5;;
+Feuser, Inga (WGR);3303;0,7;;
+Herden, Heike Flora (PdF);2513;0,5;;
+Güçlü, Ali (EZB);915;0,2;;
+Campione, Roberto (WGR);11656;2,5;;
+Mörtter, Hans (EZB);15830;3,5;;

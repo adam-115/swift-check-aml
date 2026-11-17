@@ -78,7 +78,7 @@ public class ImageFetcher {
             throw new IOException("adresse refusée (" + uri.getScheme() + ")");
         }
         HttpRequest request = HttpRequest.newBuilder(uri).timeout(Duration.ofSeconds(60))
-                .header("User-Agent", userAgent).header("Accept", "image/*").GET().build();
+                .header("User-Agent", userAgent).header("Accept", "image/*").header("Accept-Encoding", "identity").GET().build();
         HttpResponse<byte[]> response = http.send(request, HttpResponse.BodyHandlers.ofByteArray());
         if (response.statusCode() != 200) {
             throw new IOException("HTTP " + response.statusCode());
@@ -87,11 +87,46 @@ public class ImageFetcher {
         if (!EXTENSIONS.containsKey(type)) {
             throw new IOException("pas une image (" + type + ")");
         }
-        byte[] body = response.body();
+        byte[] body = decoded(response.body(), response.headers().firstValue("Content-Encoding").orElse(""));
         if (body.length == 0 || body.length > MAX_BYTES) {
             throw new IOException("taille refusée (" + body.length + " octets)");
         }
+        if (!looksLikeImage(body)) {
+            throw new IOException("contenu reçu qui n'est pas une image (" + type + " annoncé)");
+        }
         return new Image(body, type);
+    }
+
+    /**
+     * Corps décompressé. Le client HTTP de Java ne décompresse pas : certains sites (bmvg.de) envoient l'image en gzip
+     * même sans {@code Accept-Encoding}, et l'archive gardait alors un fichier gzip illisible par le navigateur.
+     */
+    static byte[] decoded(byte[] body, String contentEncoding) throws IOException {
+        String enc = contentEncoding.trim().toLowerCase();
+        boolean gzipMagic = body.length > 2 && (body[0] & 0xff) == 0x1f && (body[1] & 0xff) == 0x8b;
+        if (enc.contains("gzip") || gzipMagic) {
+            try (var in = new java.util.zip.GZIPInputStream(new java.io.ByteArrayInputStream(body))) {
+                return in.readNBytes(MAX_BYTES + 1);
+            }
+        }
+        if (enc.contains("deflate")) {
+            try (var in = new java.util.zip.InflaterInputStream(new java.io.ByteArrayInputStream(body))) {
+                return in.readNBytes(MAX_BYTES + 1);
+            }
+        }
+        return body;
+    }
+
+    /** Signature d'un fichier JPEG, PNG, GIF ou WebP. */
+    static boolean looksLikeImage(byte[] b) {
+        if (b.length < 12) {
+            return false;
+        }
+        boolean jpeg = (b[0] & 0xff) == 0xff && (b[1] & 0xff) == 0xd8;
+        boolean png = (b[0] & 0xff) == 0x89 && b[1] == 'P' && b[2] == 'N' && b[3] == 'G';
+        boolean gif = b[0] == 'G' && b[1] == 'I' && b[2] == 'F';
+        boolean webp = b[0] == 'R' && b[1] == 'I' && b[2] == 'F' && b[3] == 'F' && b[8] == 'W' && b[9] == 'E' && b[10] == 'B' && b[11] == 'P';
+        return jpeg || png || gif || webp;
     }
 
     static boolean isCommons(String url) {

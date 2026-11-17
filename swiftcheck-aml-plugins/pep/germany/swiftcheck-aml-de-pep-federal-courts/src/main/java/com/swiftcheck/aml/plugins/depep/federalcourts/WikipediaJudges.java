@@ -28,8 +28,29 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  * |                                présidence depuis
  * </pre>
  * Les méthodes sont pures (texte en entrée) pour être testées sur des pages réelles.
+ * <p>
+ * Complément seulement : la liste des juges vient du plan officiel de la cour, et Wikipédia ne sert qu'à donner le
+ * prénom d'un juge du plan qu'aucune publication officielle ne nomme ({@link #asNames}). Une personne absente du plan
+ * n'est jamais publiée à partir de Wikipédia.
  */
 final class WikipediaJudges {
+
+    static final String SOURCE_PREFIX = "https://de.wikipedia.org/wiki/";
+
+    /** Juges en fonction à la date donnée, sous forme de noms à rapprocher du plan. */
+    static List<NamedJudges.NamedJudge> asNames(List<Judge> judges, String court, String page, LocalDate today) {
+        List<NamedJudges.NamedJudge> out = new ArrayList<>();
+        for (Judge j : judges) {
+            if (j.keep(today, 0) && j.firstName() != null && !j.firstName().isBlank()) {
+                out.add(new NamedJudges.NamedJudge(court, List.of(j.fullName().split("\\s+")), null, SOURCE_PREFIX + page));
+            }
+        }
+        return out;
+    }
+
+    static boolean isWikipedia(String sourceUrl) {
+        return sourceUrl != null && sourceUrl.startsWith(SOURCE_PREFIX);
+    }
 
     private static final ObjectMapper JSON = new ObjectMapper();
     private static final Pattern PERSON = Pattern.compile("\\{\\{PersonZelle\\|([^|}]*)\\|([^|}]*)");

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="fr"><head><meta charset="utf-8">
+<title>Couverture PEP Allemagne – comparaison OpenSanctions</title>
+<style>
+@page{size:A4;margin:16mm 14mm}
+body{font-family:Segoe UI,Arial,sans-serif;font-size:10.5pt;color:#1e293b;line-height:1.45}
+h1{font-size:20pt;margin:0 0 4px;color:#0f172a} h2{font-size:14pt;margin:22px 0 8px;color:#0f172a;border-bottom:2px solid #0f766e;padding-bottom:3px;page-break-after:avoid}
+h3{font-size:11.5pt;margin:14px 0 4px;color:#0f766e;page-break-after:avoid}
+.sub{color:#64748b;margin-bottom:14px}
+.kpis{display:flex;gap:10px;margin:12px 0}.kpi{flex:1;border:1px solid #cbd5e1;border-radius:8px;padding:9px 11px}
+.kpi b{display:block;font-size:17pt;color:#0f766e;white-space:nowrap}.kpi span{font-size:9pt;color:#475569}
+table{border-collapse:collapse;width:100%;margin:8px 0;font-size:9pt}th{background:#0f172a;color:#fff;text-align:left;padding:5px 6px}
+td{border-bottom:1px solid #e2e8f0;padding:4px 6px;vertical-align:top}tr{page-break-inside:avoid}
+td.n{text-align:right;white-space:nowrap}
+.ok{background:#dcfce7;color:#166534}.mid{background:#fef9c3;color:#854d0e}.ko{background:#fee2e2;color:#991b1b}.nm{background:#e2e8f0;color:#334155}
+.tag{display:inline-block;padding:1px 7px;border-radius:9px;font-size:8.5pt;font-weight:600;white-space:nowrap}
+.warn{border-left:4px solid #dc2626;background:#fef2f2;padding:8px 12px;margin:10px 0}
+.note{border-left:4px solid #0f766e;background:#f0fdfa;padding:8px 12px;margin:10px 0}
+.bar{height:12px;background:#e2e8f0;border-radius:6px;overflow:hidden}.bar i{display:block;height:100%;background:#0f766e}
+small{color:#64748b}
+</style></head><body>
+
+<h1>Couverture PEP de l'Allemagne et comparaison avec OpenSanctions</h1>
+<div class="sub">SwiftCheck AML – état au 16 novembre 2026, après la relance complète des parsers allemands (exécutions 1219 à 1244) et la réindexation de yente · base <b>swift_check_2</b> (lecture seule), fichiers publiés et index yente · OpenSanctions : page pays et tableaux EveryPolitician (national, sous-national, autre) relus le 16/11</div>
+
+<div class="kpis">
+<div class="kpi"><b>96 %</b><span>des titulaires attendus couverts : <strong>4 217 sur 4 388</strong>, sur 26 fonctions chiffrées</span></div>
+<div class="kpi"><b>7 177</b><span>fiches de personnes allemandes dans la recherche (27 datasets à jour)</span></div>
+<div class="kpi"><b>74 % → 96 %</b><span>progression depuis le 15/11 : Landtage, juges fédéraux, Landräte, Défense</span></div>
+<div class="kpi"><b>≈ 2 550</b><span>PEP allemandes marquées « en fonction » chez OpenSanctions (sur 10 051)</span></div>
+</div>
+
+<div class="note"><b>En bref.</b> Le cœur du droit allemand (GwG § 1 (12) et liste nationale publiée au JO C/2023/724) est couvert : exécutifs fédéral et des Länder, Bundestag, Bundesrat, les 16 Landtage, juges des cours fédérales et constitutionnelles, banque centrale et superviseur, diplomates, et pour l'AMLR (2027) les maires et Landräte. Les manques restants sont ciblés : officiers généraux de la Marine et de l'armée de terre, membres des cours des comptes, organisations internationales établies en Allemagne. Face à OpenSanctions, nous sommes à égalité sur les parlements et nettement devant sur toutes les autres fonctions, où OpenSanctions n'a presque aucun titulaire marqué en fonction. OpenSanctions garde plus d'historique au-delà de 12 mois, ce que le GwG n'exige pas.</div>
+
+<h2>1. Méthode</h2>
+<p>Pour chaque fonction PEP enregistrée en base, je compare l'effectif attendu au nombre de titulaires <b>justes</b> publiés : en fonction, ou sortis depuis moins de 12 mois, sans les doublons ni les fiches périmées. Les taux sont plafonnés à 100 % (un effectif attendu sous-estimé ne fait pas monter le total). Une fonction sans effectif attendu est dite <b>non mesurable</b> et n'entre pas dans le taux.</p>
+<p><small>Limites : les effectifs attendus sont ceux de la base ; deux sont sous-estimés (ministres des Länder : 53 pour environ 150 réels ; ambassadeurs : 150 pour 216 postes lus). Les fiches gardées par la rétention (disparues de la source depuis moins de 12 mois) restent publiées mais ne sont pas comptées comme justes.</small></p>
+
+<h2>2. Couverture par fonction</h2>
+<table>
+<tr><th>Cat.</th><th>Fonction</th><th>Source</th><th>Attendu</th><th>Juste</th><th>Taux</th></tr>
+<tr><td>DE-a</td><td>Président fédéral</td><td>bundespraesident.de</td><td class="n">1</td><td class="n">1</td><td><span class="tag ok">100 %</span></td></tr>
+<tr><td>DE-a</td><td>Chancelier et ministres fédéraux</td><td>bundesregierung.de</td><td class="n">17</td><td class="n">18</td><td><span class="tag ok">100 %</span></td></tr>
+<tr><td>DE-a</td><td>Secrétaires d'État (parlementaires et fonctionnaires)</td><td>Datenhandbuch du Bundestag (12/08/2026)</td><td class="n">70</td><td class="n">65</td><td><span class="tag ok">93 %</span></td></tr>
+<tr><td>DE-a</td><td>Ministres-présidents des Länder</td><td>Bundesrat</td><td class="n">16</td><td class="n">16</td><td><span class="tag ok">100 %</span></td></tr>
+<tr><td>DE-a</td><td>Ministres et sénateurs des Länder</td><td>Bundesrat ; sites des Länder (146 membres)</td><td class="n">53</td><td class="n">161</td><td><span class="tag ok">100 %</span></td></tr>
+<tr><td>DE-a</td><td>Anciens membres de gouvernement</td><td>Datenhandbuch</td><td class="n">–</td><td class="n">9</td><td><span class="tag nm">non mesurable</span></td></tr>
+<tr><td>DE-b</td><td>Bundestag</td><td>fichier officiel du Bundestag</td><td class="n">630</td><td class="n">630</td><td><span class="tag ok">100 %</span></td></tr>
+<tr><td>DE-b</td><td>Anciens députés du Bundestag (durée retenue)</td><td>fichier officiel</td><td class="n">–</td><td class="n">1 865</td><td><span class="tag nm">non mesurable</span></td></tr>
+<tr><td>DE-b</td><td>Bundesrat (membres et suppléants)</td><td>bundesrat.de</td><td class="n">149</td><td class="n">180</td><td><span class="tag ok">100 %</span></td></tr>
+<tr><td>DE-b</td><td>Les 16 Landtage</td><td>abgeordnetenwatch (CC0)</td><td class="n">1 866</td><td class="n">1 866</td><td><span class="tag ok">100 %</span></td></tr>
+<tr><td>DE-c</td><td>Direction fédérale des partis</td><td>Wikidata</td><td class="n">–</td><td class="n">211</td><td><span class="tag nm">non mesurable</span></td></tr>
+<tr><td>DE-d</td><td>Cour constitutionnelle fédérale</td><td>bundesverfassungsgericht.de</td><td class="n">16</td><td class="n">16</td><td><span class="tag ok">100 %</span></td></tr>
+<tr><td>DE-d</td><td>Cour fédérale de justice (BGH)</td><td>Wikipédia + plan officiel (149 confirmés)</td><td class="n">150</td><td class="n">174</td><td><span class="tag ok">100 %</span></td></tr>
+<tr><td>DE-d</td><td>Cour administrative fédérale (BVerwG)</td><td>Wikipédia + plan officiel (49 confirmés)</td><td class="n">55</td><td class="n">55</td><td><span class="tag ok">100 %</span></td></tr>
+<tr><td>DE-d</td><td>Cour fédérale des finances (BFH)</td><td>Wikipédia</td><td class="n">60</td><td class="n">54</td><td><span class="tag ok">90 %</span></td></tr>
+<tr><td>DE-d</td><td>Cour fédérale du travail (BAG)</td><td>Wikipédia</td><td class="n">40</td><td class="n">34</td><td><span class="tag mid">85 %</span></td></tr>
+<tr><td>DE-d</td><td>Cour sociale fédérale (BSG)</td><td>Wikipédia</td><td class="n">45</td><td class="n">43</td><td><span class="tag ok">96 %</span></td></tr>
+<tr><td>DE-d</td><td>Cours constitutionnelles des Länder</td><td>sites des 16 cours</td><td class="n">150</td><td class="n">161</td><td><span class="tag ok">100 %</span></td></tr>
+<tr><td>DE-e</td><td>Bundesrechnungshof</td><td>bundesrechnungshof.de</td><td class="n">16</td><td class="n">4</td><td><span class="tag ko">25 %</span></td></tr>
+<tr><td>DE-e</td><td>Cours des comptes des Länder</td><td>sites des cours (lus le 05/11, gardés par la rétention)</td><td class="n">24</td><td class="n">16</td><td><span class="tag mid">67 %</span></td></tr>
+<tr><td>DE-f</td><td>Directoire de la Bundesbank</td><td>bundesbank.de</td><td class="n">6</td><td class="n">6</td><td><span class="tag ok">100 %</span></td></tr>
+<tr><td>DE-f</td><td>Direktorium de la BaFin</td><td>bafin.de</td><td class="n">7</td><td class="n">7</td><td><span class="tag ok">100 %</span></td></tr>
+<tr><td>DE-g</td><td>Ambassadeurs et chargés d'affaires</td><td>Auswärtiges Amt</td><td class="n">150</td><td class="n">216</td><td><span class="tag ok">100 %</span></td></tr>
+<tr><td>DE-g</td><td>Officiers généraux et amiraux de la Bundeswehr</td><td>bundeswehr.de (5 commandements)</td><td class="n">200</td><td class="n">124</td><td><span class="tag mid">62 %</span></td></tr>
+<tr><td>DE-g</td><td>Attachés de défense</td><td>aucune source lisible</td><td class="n">–</td><td class="n">0</td><td><span class="tag nm">non mesurable</span></td></tr>
+<tr><td>DE-h</td><td>Entreprises publiques (direction, surveillance)</td><td>6 sites (DB, Telekom, KfW, DFS, Bundesdruckerei, Uniper)</td><td class="n">–</td><td class="n">48</td><td><span class="tag nm">non mesurable</span></td></tr>
+<tr><td>DE-i</td><td>Organisations internationales en Allemagne</td><td>ITLOS, ESO, EMBL</td><td class="n">80</td><td class="n">24</td><td><span class="tag ko">30 %</span></td></tr>
+<tr><td>AMLR</td><td>Maires des villes de 50 000 habitants et plus</td><td>Wikidata (titulaire actuel)</td><td class="n">200</td><td class="n">≈ 210</td><td><span class="tag ok">100 %</span></td></tr>
+<tr><td>AMLR</td><td>Landräte (294 Landkreise)</td><td>Wikipédia (infobox de chaque Landkreis)</td><td class="n">290</td><td class="n">294</td><td><span class="tag ok">100 %</span></td></tr>
+<tr><td>UE</td><td>Eurodéputés élus en Allemagne</td><td>europarl.europa.eu</td><td class="n">96</td><td class="n">96</td><td><span class="tag ok">100 %</span></td></tr>
+<tr><td>UE</td><td>Membre allemand de la Commission</td><td>commission.europa.eu</td><td class="n">1</td><td class="n">1</td><td><span class="tag ok">100 %</span></td></tr>
+<tr><td>RCA</td><td>Membres de la famille</td><td>Wikidata</td><td class="n">–</td><td class="n">131</td><td><span class="tag nm">non mesurable</span></td></tr>
+<tr><td>RCA</td><td>Proches associés</td><td>aucune source</td><td class="n">–</td><td class="n">0</td><td><span class="tag nm">non couvert</span></td></tr>
+</table>
+<p><b>Total des fonctions chiffrées : 4 217 titulaires justes sur 4 388 attendus, soit 96 %.</b> Sans la fonction Défense, ajoutée le 16/11, le taux serait de 98 %.</p>
+
+<h3>Progression depuis l'analyse du 15 novembre</h3>
+<table>
+<tr><th>Étape</th><th>Correction</th><th>Gain</th><th>Taux</th></tr>
+<tr><td>15/11</td><td>État initial</td><td></td><td><div class="bar"><i style="width:74%"></i></div>74 %</td></tr>
+<tr><td>Landtage</td><td>Attente progressive et seconde passe sur les refus de l'API (HTTP 429) ; 200 doublons de la première version supprimés</td><td>+348 députés (NRW, BW, Hambourg)</td><td><div class="bar"><i style="width:83%"></i></div>83 %</td></tr>
+<tr><td>Cours fédérales</td><td>Listes Wikipédia des juges, recoupées avec les plans de répartition officiels du BGH et du BVerwG</td><td>+320 juges</td><td><div class="bar"><i style="width:91%"></i></div>91 %</td></tr>
+<tr><td>Exécutifs locaux</td><td>Landräte lus dans les infobox Wikipédia ; maires réduits au titulaire actuel (Göttingen : 10 → 1)</td><td>+290 Landräte, +20 maires</td><td><div class="bar"><i style="width:98%"></i></div>98 %</td></tr>
+<tr><td>Défense</td><td>Nouvelle fonction « officiers généraux et amiraux » (200 attendus) reliée aux 5 parsers des commandements</td><td>+124 officiers comptés, +200 attendus</td><td><div class="bar"><i style="width:96%"></i></div>96 %</td></tr>
+</table>
+
+<h2>3. Comparaison avec OpenSanctions</h2>
+<p>OpenSanctions recense <b>10 051 PEP liées à l'Allemagne</b>, mais seulement <b>environ 2 550 marquées en fonction</b> ; 1 866 d'entre elles sont des députés de Landtage. Le reste est de l'historique, surtout issu de Wikidata : anciens ambassadeurs, anciens députés, évêques, recteurs… dont le statut est le plus souvent inconnu. Ses sources allemandes propres sont trois jeux : Bundestag (1 818 entités), Bundesrat (181) et abgeordnetenwatch (2 510).</p>
+<table>
+<tr><th>Fonction</th><th>OpenSanctions en fonction</th><th>OpenSanctions terminés / statut inconnu</th><th>SwiftCheck AML (juste)</th><th>Avantage</th></tr>
+<tr><td>Président fédéral</td><td class="n">1</td><td></td><td class="n">1</td><td><span class="tag nm">égalité</span></td></tr>
+<tr><td>Gouvernement fédéral</td><td class="n">≈ 17</td><td>nombreux anciens</td><td class="n">18</td><td><span class="tag nm">égalité</span></td></tr>
+<tr><td>Secrétaires d'État fédéraux</td><td class="n">0</td><td>11 / 104</td><td class="n">65</td><td><span class="tag ok">SwiftCheck</span></td></tr>
+<tr><td>Bundestag</td><td class="n">635</td><td>1 264 / 35</td><td class="n">630 (+1 865 anciens)</td><td><span class="tag nm">égalité</span></td></tr>
+<tr><td>Bundesrat</td><td class="n">0</td><td>29 / 201 (+51 / 81 suppléants)</td><td class="n">180</td><td><span class="tag ok">SwiftCheck</span></td></tr>
+<tr><td>Ministres-présidents des Länder</td><td class="n">0</td><td>8 / 13</td><td class="n">16</td><td><span class="tag ok">SwiftCheck</span></td></tr>
+<tr><td>Ministres des Länder</td><td class="n">0</td><td>quelques / ≈ 40</td><td class="n">161</td><td><span class="tag ok">SwiftCheck</span></td></tr>
+<tr><td>Les 16 Landtage</td><td class="n">1 866</td><td>des milliers sans statut (Wikidata)</td><td class="n">1 866</td><td><span class="tag nm">égalité</span></td></tr>
+<tr><td>Direction des partis</td><td class="n">0</td><td>quelques</td><td class="n">211</td><td><span class="tag ok">SwiftCheck</span></td></tr>
+<tr><td>Cour constitutionnelle fédérale</td><td class="n">4</td><td>27 / 1</td><td class="n">16</td><td><span class="tag ok">SwiftCheck</span></td></tr>
+<tr><td>Autres cours fédérales suprêmes</td><td class="n">0</td><td>3 / 12</td><td class="n">360</td><td><span class="tag ok">SwiftCheck</span></td></tr>
+<tr><td>Cours constitutionnelles des Länder</td><td class="n">0</td><td></td><td class="n">161</td><td><span class="tag ok">SwiftCheck</span></td></tr>
+<tr><td>Cours des comptes</td><td class="n">0</td><td></td><td class="n">20</td><td><span class="tag ok">SwiftCheck</span></td></tr>
+<tr><td>Bundesbank et BaFin</td><td class="n">1</td><td>2</td><td class="n">13</td><td><span class="tag ok">SwiftCheck</span></td></tr>
+<tr><td>Ambassadeurs allemands</td><td class="n">≈ 14</td><td>≈ 600 terminés</td><td class="n">216</td><td><span class="tag ok">SwiftCheck</span></td></tr>
+<tr><td>Officiers généraux</td><td class="n">0</td><td>≈ 15 terminés</td><td class="n">124</td><td><span class="tag ok">SwiftCheck</span></td></tr>
+<tr><td>Entreprises publiques</td><td class="n">0</td><td>1</td><td class="n">48</td><td><span class="tag ok">SwiftCheck</span></td></tr>
+<tr><td>Maires et Landräte</td><td class="n">≈ 3</td><td>≈ 100 sans statut</td><td class="n">≈ 500</td><td><span class="tag ok">SwiftCheck</span></td></tr>
+<tr><td>Eurodéputés</td><td class="n">dans le jeu UE</td><td></td><td class="n">96</td><td><span class="tag nm">égalité</span></td></tr>
+<tr><td>Proches</td><td class="n">364 proches associés</td><td></td><td class="n">131 membres de famille</td><td><span class="tag ko">OpenSanctions</span></td></tr>
+</table>
+
+<h3>Lecture</h3>
+<ul>
+<li><b>Parlements : égalité.</b> Bundestag et Landtage reposent des deux côtés sur les mêmes sources (fichier du Bundestag, abgeordnetenwatch). Notre retard sur les Landtage au 15/11 venait d'un défaut technique, corrigé le 16/11.</li>
+<li><b>Toutes les autres fonctions du GwG : avantage SwiftCheck.</b> Bundesrat, gouvernements des Länder, secrétaires d'État, juges, cours des comptes, banque centrale, diplomates, militaires, entreprises publiques : OpenSanctions n'a presque aucun titulaire marqué en fonction, car ces données lui viennent de Wikidata sans dates fiables.</li>
+<li><b>AMLR (2027) : avantage net.</b> Environ 500 maires et Landräte contre 3 chez OpenSanctions.</li>
+<li><b>Historique et proches : avantage OpenSanctions.</b> Il garde les anciens titulaires sans limite de durée et recense 364 proches associés. Le GwG demande la vigilance au moins 12 mois après la fin de la fonction : notre rétention de 12 mois y répond, et nous gardons 1 865 anciens députés du Bundestag.</li>
+</ul>
+
+<h2>4. Ce qui reste à faire</h2>
+<table>
+<tr><th>Priorité</th><th>Sujet</th><th>Pourquoi</th><th>Effet</th></tr>
+<tr><td>1</td><td>Officiers généraux (Marine, armée de terre)</td><td>Pages de profil incomplètes ; Marine et soutien en « STRUCTURE_CHANGED »</td><td>≈ +75</td></tr>
+<tr><td>2</td><td>Bundesrechnungshof et cours des comptes des Länder</td><td>Le collège n'est pas publié sous forme lisible ; les 16 présidents des Länder ne tiennent que par la rétention</td><td>+12, et éviter la perte de 16 dans 12 mois</td></tr>
+<tr><td>3</td><td>Organisations internationales</td><td>EPO, EUMETSAT, OCCAR et CCNUCC : pages en 404, sans nom ou protégées</td><td>≈ +55</td></tr>
+<tr><td>4</td><td>Gouvernements des Länder</td><td>22 pages en échec (Berlin, Sarre) ; 4 ministres-présidents lus sur 16</td><td>secrétaires d'État des Länder</td></tr>
+<tr><td>5</td><td>Fiches gardées « en fonction »</td><td>La rétention garde 12 mois les fiches disparues sans changer leur statut : 36 aux cours fédérales, 55 chez les exécutifs locaux, 47 diplomates</td><td>statut juste</td></tr>
+<tr><td>6</td><td>Bundestag</td><td>Le contrôle avec la liste en ligne ne reconnaît aucun député : départs et arrivées depuis le 29/04/2026 non détectés</td><td>fraîcheur</td></tr>
+</table>
+
+<div class="warn"><b>Points de vigilance.</b> (1) Le dataset <code>de_pep_defence</code> porte un nom qui prolonge les 6 autres datasets Défense : réindexé seul, il peut les faire sortir de la recherche (défaut de yente déjà observé sur <code>fr_pep_local_executives_all</code>). (2) Juges fédéraux, Landräte, maires, partis et famille viennent de Wikipédia ou Wikidata : un changement récent peut manquer ; seuls le BGH et le BVerwG sont recoupés avec un plan officiel. (3) Les changeSets 151 à 154 (déclarations de complétude et fonction Défense) s'appliqueront au prochain redémarrage du back.</div>
+
+<p><small>Sources : base swift_check_2 (exécutions des parsers de_pep_*), fichiers publiés de yente et index Elasticsearch, 16/11/2026 ; opensanctions.org/countries/de et everypolitician.org/territories/de (national, subnational, other), relus le 16/11/2026.</small></p>
+</body></html>

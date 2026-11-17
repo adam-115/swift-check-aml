@@ -135,6 +135,8 @@
         <module>swiftcheck-aml-plugins/pep/germany/swiftcheck-aml-de-pep-defence-marine</module>
         <module>swiftcheck-aml-plugins/pep/germany/swiftcheck-aml-de-pep-defence-cir</module>
         <module>swiftcheck-aml-plugins/pep/germany/swiftcheck-aml-de-pep-defence-support</module>
+        <module>swiftcheck-aml-plugins/pep/germany/swiftcheck-aml-de-pep-eu-institutions</module>
+        <module>swiftcheck-aml-plugins/pep/germany/swiftcheck-aml-de-pep-defence-attaches</module>
         <module>swiftcheck-aml-plugins/pep/portugal/swiftcheck-aml-pt-pep-europarl</module>
         <module>swiftcheck-aml-plugins/pep/portugal/swiftcheck-aml-pt-pep-parliament</module>
         <module>swiftcheck-aml-plugins/pep/portugal/swiftcheck-aml-pt-pep-government</module>

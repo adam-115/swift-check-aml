@@ -179,5 +179,8 @@
     <include file="db/changelog/changes/151-de-landtage-slower-api-calls.xml" />
     <include file="db/changelog/changes/152-de-federal-courts-all-judges.xml" />
     <include file="db/changelog/changes/153-de-local-executives-landraete.xml" />
+    <include file="db/changelog/changes/154-de-defence-general-officers-function.xml" />
+    <include file="db/changelog/changes/155-de-federal-courts-local-executives-official-sources.xml" />
+    <include file="db/changelog/changes/156-register-de-pep-eu-institutions-defence-attaches.xml" />
 
 </databaseChangeLog>

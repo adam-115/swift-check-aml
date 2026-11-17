@@ -74,7 +74,7 @@ class FederalPagesTest {
     // ------------------------------------------------------------------ plugin complet
 
     private static DePepFederalCourtsParser.Fetcher fixtures() throws IOException {
-        var config = DePepFederalCourtsParser.loadConfig();
+        var config = TestParameters.config();
         return url -> {
             for (var c : config.courts()) {
                 if (c.url().equals(url)) {
@@ -87,7 +87,7 @@ class FederalPagesTest {
 
     @Test
     void writesTheDatasetAndDropsFormerPresidentsOlderThanTwelveMonths(@TempDir Path raw) throws Exception {
-        var outcomes = DePepFederalCourtsParser.readAll(DePepFederalCourtsParser.loadConfig(), fixtures(), raw);
+        var outcomes = DePepFederalCourtsParser.readAll(TestParameters.config(), fixtures(), raw);
         FtmDatasetBuilder dataset = new FtmDatasetBuilder(DePepFederalCourtsParser.ID_PREFIX, DePepFederalCourtsParser.TOPIC);
 
         String message = DePepFederalCourtsParser.convert(outcomes, LocalDate.of(2026, 11, 4), 12, dataset);
@@ -104,7 +104,7 @@ class FederalPagesTest {
 
     @Test
     void aBrokenPageIsReportedAndFailsWhenAllAreBroken(@TempDir Path raw) throws Exception {
-        var config = DePepFederalCourtsParser.loadConfig();
+        var config = TestParameters.config();
         var base = fixtures();
         var outcomes = DePepFederalCourtsParser.readAll(config, url -> url.contains("bverwg") ? "<html></html>" : base.get(url), raw);
         assertThat(outcomes.stream().filter(o -> o.problem() != null).map(o -> o.court().key())).containsExactly("bverwg");

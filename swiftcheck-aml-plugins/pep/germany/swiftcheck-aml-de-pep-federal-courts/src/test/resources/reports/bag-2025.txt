@@ -1,0 +1,2356 @@
+Bundesarbeitsgericht
+JAHRESBERICHT 
+2025
+Jahresbericht
+des Bundesarbeitsgerichts
+2025
+
+Impressum
+Herausgeberin
+Die Präsidentin des Bundesarbeitsgerichts
+Redaktion
+Pressestelle des Bundesarbeitsgerichts
+Telefon:  0361 2636-1217
+Stand: 31.12.2025
+Hausanschrift
+Bundesarbeitsgericht 
+Hugo-Preuß-Platz 1 
+99084 Erfurt 
+ 
+Postanschrift
+Bundesarbeitsgericht 
+99113 Erfurt 
+ 
+Internet
+www.bundesarbeitsgericht.de 
+ 
+E-Mail 
+bag@bundesarbeitsgericht.de 
+ 
+Telefon:  0361 2636-0 
+Fax:   0361 2636-2008
+Bildnachweis
+Matthias Frank Schmidt
+4                                                                                   Jahresbericht des Bundesarbeitsgerichts 2025
+Inhaltsverzeichnis
+Vorwort  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .8
+A . Geschäftsentwicklung   .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 11
+B . Rechtsprechungsübersicht   .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 15
+1 . Abschnitt:   Recht des Arbeitsverhältnisses  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .20
+I . Arbeitnehmerstatus: Schiedsrichter-Assistent  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .20
+II . Arbeitsbedingungen: Bezugnahme- und Verweisungsklauseln .  .  .  .20
+1. Inhaltskontrolle einer Bezugnahmeklausel: Kontrollprivileg . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .20
+2. Auslegung einer arbeitsvertraglichen Bezugnahmeklausel auf mehrere Tarifwerke . . . . . . . . . . . . . . . . . . 21
+3. Reichweite einer Gleichstellungsabrede . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 21
+III . Ansprüche aus dem Arbeitsverhältnis  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 21
+1. Vergütung . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 21
+2. Urlaub . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .26
+3. Zeugnis . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 27
+4. Datenschutz: Immaterieller Schadensersatz nach der DSGVO . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 27
+5. Digitale Entgeltabrechnung . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .28
+IV . Arbeitnehmerüberlassung  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .28
+V . Schutz vor Benachteiligung - Förderung der Chancengleichheit  .  .  .28
+1. Teilzeitbeschäftigung: Mehrarbeitszuschläge . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .28
+2. Entgeltdiskriminierung wegen des Geschlechts . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 29
+3. Altersdiskriminierung . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .29
+4. Schwerbehinderung: Inklusionsbeauftragter . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .30
+VI . Beendigung von Arbeitsverhältnissen  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 30
+1. Kündigung  . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .30
+2. Sonderkündigungsschutz: Verspätete Kündigungsschutzklage einer schwangeren Beschäftigten . . . 31
+3. Befristung . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 32
+4. Karenzentschädigung bei nachvertraglichem Wettbewerbsverbot: Virtuelle Aktienoptionen . . . . . . . . 33
+5. Verfall von virtuellen Optionen bei Ausscheiden . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 33
+Inhaltsverzeichnis                                                                                                                           5
+VII . Betriebliche Altersversorgung  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 33
+1. Arbeitgeberzuschuss . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 33
+2. Berücksichtigung von Erziehungs- oder Elternzeit bei der Wartezeit . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .34
+3. Ablösung von Versorgungsregelungen im Konzern  . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .34
+4.	 Anpassung:	Befreiung	von	Anpassungsprüfungspflicht . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .34
+5. Absenkung der Versorgungsrechte durch Krisentarifvertrag . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 35
+6. Unverfallbare Anwartschaft . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 35
+7. Hinterbliebenenversorgung: Mindestehedauer . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 35
+8. Pensions-Sicherungs-Verein . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 36
+9. Aufstockungsbetrag bei Postbeschäftigungsunfähigkeit . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 36
+2 . Abschnitt:   Kollektives Arbeitsrecht   .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 37
+I . Tarifrecht  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 37
+1. Koalitionsrecht: Digitales Zugangsrecht einer Gewerkschaft . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 37
+2. Nichtigkeit diskriminierender Tarifnormen  . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 37
+3. Tarifpluraler Betrieb . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 37
+II . Betriebsverfassungs- und Personalvertretungsrecht  .  .  .  .  .  .  .  .  .  .  .  .  . 38
+1. Wahl des Betriebsrats . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 38
+2. Kosten und Sachaufwand des Betriebsrats . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 39
+3. Mitbestimmung in personellen Angelegenheiten . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .40
+4.	 Fälligkeit	einer	Sozialplanabfindung . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 41
+5. Schwerbehindertenvertretung . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 41
+6. Nachholung eines Arbeitnehmerbeteiligungsverfahrens in der SE . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .42 
+ 
+3 . Abschnitt:    I nsolvenzrecht   .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .43
+1.  Bestimmtheit bei Anmeldung zur Insolvenztabelle . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .43
+4 . Abschnitt:    Prozessrecht  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .43
+I . Allgemeines Prozessrecht  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .43
+1. Rechtsweg: Streitigkeit aus Aktionärsvereinbarung . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .43
+2.	 Wiedereinsetzung:	Anwaltliche	Pflichten	bei	Fristprüfung  . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .44
+3. Zwangsvollstreckung . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .44
+4. Prozesskostenhilfe: Mehrvergleich . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .45
+6                                                                                   Jahresbericht des Bundesarbeitsgerichts 2025
+II . Nichtzulassungsbeschwerde   .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .45
+1. Revisionsbeschwerde . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .45
+2. Absoluter Revisionsgrund: Telefonkonferenz . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .45
+C . Über das Bundesarbeitsgericht  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 48
+I . Bibliothek   .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .48
+II . Dokumentation  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .48
+III . Presse- und Öffentlichkeitsarbeit  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .49
+IV . Personalien  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 53
+D . Tabellarischer Anhang  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 60
+E . Geschäftsverteilung   .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 68
+Inhaltsverzeichnis                                                                                                                           7
+8                                                                                   Jahresbericht des Bundesarbeitsgerichts 2025
+Vorwort
+Sehr geehrte Damen und Herren,
+die Zusammenarbeit der Gerichte im europäi- individuelle wöchentliche Arbeitszeit proportional 
+schen Gerichtsverbund hat sich im Jahr 2025 wei- zur tarifvertraglichen Zuschlagsgrenze für Voll-
+ter vertieft. zeitbeschäftigte überschreiten. Den Tarifvertrags-
+parteien ist vor der gerichtlichen Entscheidung 
+Die deutschen Arbeitsgerichte arbeiten an den nicht die Korrektur ihrer diskriminierenden Rege-
+Folgeentscheidungen zu dem Senatsbeschluss lung zu ermöglichen.
+des Bundesverfassungsgerichts vom 11. Dezem-
+ber 2024, der tarifliche Zuschläge für regelmäßige Im ebenfalls unionsrechtlich überformten Bereich 
+und unregelmäßige Nachtarbeit behandelt.1 des Befristungsrechts hat der Sechste Senat des 
+Bundesarbeitsgerichts schon am 13. November 
+Das Bundesarbeitsgericht hat weitere Rezepti- 2025 eine dieser Rechtsprechungslinie entspre-
+onsentscheidungen zu den Vorabentscheidungen chende Entscheidung getroffen.6 Verstößt eine 
+des Gerichtshofs der Europäischen Union in den tarifliche Norm gegen das Diskriminierungsver-
+Sachen Lufthansa CityLine2 und KfH Kuratorium bot befristet beschäftigter Arbeitnehmer nach § 4 
+für Dialyse und Nierentransplantation3 getroffen. Abs. 2 TzBfG und ist deshalb aufgrund von § 134 
+In den Entscheidungen des EuGH wurden Fra- BGB (teil-)nichtig, hat der benachteiligte Arbeit-
+gen zu tariflichen Überstunden- oder auch Mehr- nehmer Anspruch darauf, so behandelt zu werden 
+arbeitszuschlägen bei Teilzeitarbeit beantwortet. wie die vergleichbaren Dauerbeschäftigten. Den 
+Tarifvertragsparteien ist es vor einer gerichtlichen 
+Der Achte Senat des Bundesarbeitsgerichts hatte Entscheidung nicht zu ermöglichen, ihre diskrimi-
+bereits am 5. Dezember 2024 eine erste Folge- nierende Regelung zu korrigieren.
+entscheidung getroffen und Verstöße einer Tarif-
+norm gegen die Verbote der Diskriminierung von Eine weitere Klärung hat das Bundesverfassungs-
+Teilzeitbeschäftigten des § 4 Abs. 1 TzBfG und gericht für Arbeitsverhältnisse mit kirchlichen 
+der mittelbaren Benachteiligung von Arbeitneh- Einrichtungen herbeigeführt.7 Mit Beschluss vom 
+merinnen wegen des Geschlechts nach § 7 Abs. 1 29. September 2025 hat der Zweite Senat des 
+AGG angenommen.4 Der Fünfte Senat des Bun- Bundesverfassungsgerichts der Verfassungsbe-
+desarbeitsgerichts hat sich dieser Rechtsprechung schwerde eines kirchlichen Arbeitgebers statt-
+mit Urteil vom 26. November 2025 angeschlos- gegeben, die sich gegen ein Urteil des Bundes-
+sen.5 Eine tarifvertragliche Bestimmung, nach der arbeitsgerichts richtet. Mit dem angegriffenen 
+Mehrarbeitszuschläge unabhängig von der indivi- Urteil, dem eine Vorabentscheidung des Gerichts-
+duellen Arbeitszeit ab der 41. Wochenstunde zu hofs der Europäischen Union in der Sache Egen-
+zahlen sind, verstößt gegen das Verbot der Dis- berger vorausgegangen war,8 hatte das Bundes-
+kriminierung Teilzeitbeschäftigter in § 4 Abs. 1 arbeitsgericht den kirchlichen Arbeitgeber zur 
+TzBfG. Teilzeitbeschäftigten steht deshalb nach Zahlung einer Entschädigung verurteilt.9 Die 
+§ 612 Abs. 2 BGB iVm. § 4 Abs. 1 Satz 2 TzBfG der kirchliche Einrichtung hatte eine konfessionslose 
+tarifliche Mehrarbeitszuschlag zu, wenn sie ihre Bewerberin für eine ausgeschriebene Stelle nicht 
+zum Vorstellungsgespräch eingeladen. 
+1  BVerfG 11. Dezember 2024 - 1 BvR 1109/21 und 1 BvR 1422/23 -.
+2  EuGH 19. Oktober 2023 - C-660/20  - [Lufthansa CityLine].
+3  EuGH 29. Juli 2024 - C-184/22 und C-185/22 -  
+  [KfH Kuratorium für Dialyse und Nierentransplantation].
+4  BAG 5. Dezember 2024 - 8 AZR 370/20 -.
+5  BAG 26. November 2025 - 5 AZR 118/23 -.
+6  BAG 13. November 2025 - 6 AZR 131/25 -.
+7  BVerfG 29. September 2025 - 2 BvR 934/19 -.
+8  EuGH 17. April 2018 - C-414/16 - [Egenberger].
+9  BAG 25. Oktober 2018 - 8 AZR 501/14 -.
+Inhaltsverzeichnis                                                                                                                           9
+Der Achte Senat des Bundesarbeitsgerichts wird am 
+21. Mai 2026 erneut über die Sache Egenberger 
+verhandeln.
+Ich danke allen Angehörigen des Bundesarbeits-
+gerichts sehr herzlich dafür, dass sie zum Gelin-
+gen unserer gemeinsamen Arbeit beitragen.
+       
+     
+Inken Gallner
+ 
+10 Jahresbericht des Bundesarbeitsgerichts 2025
+A. Geschäftsentwicklung 11
+A. Geschäftsentwicklung
+1.  Die Zahl der Eingänge beim Bundesarbeits- 3.  Im Jahr 2025 sind 1.185 Sachen erledigt 
+gericht ist um 251 Verfahren bzw. 19,09 Prozent worden. Damit überstieg die Zahl der Erledigun-
+zurückgegangen. Die durchschnittliche Dauer der gen die der Eingänge um 121 Verfahren. Es han-
+beim Bundesarbeitsgericht erledigten Verfahren delte sich um 371 (Vorjahr 512) Revisionen und 
+hat sich verkürzt. Sie betrug im abgelaufenen Ge- Rechtsbeschwerden in Beschlussverfahren sowie 
+schäftsjahr fünf Monate und sechs Tage (im Vor- 714 (Vorjahr 1.007) Nichtzulassungsbeschwerden. 
+jahr acht Monate und 26 Tage). Daneben wurden noch 39 Revisions- bzw. Rechts-
+beschwerden in Beschwerdeverfahren, 56 darauf 
+2.  Insgesamt gingen im Geschäftsjahr 2025 bezogene Nichtzulassungsbeschwerden sowie fünf 
+1.064 Sachen ein (Vorjahr 1.315 Sachen). 25,19 sonstige Verfahren erledigt. Außerdem wurde über 
+Prozent der Eingänge (268 Sachen) betrafen Re- einen selbständigen Antrag auf Gewährung von 
+visionen und Rechtsbeschwerden im Beschluss- Prozesskostenhilfe in Revisionsverfahren entschie-
+verfahren. Weitere 66,07 Prozent der Eingänge den.
+entfielen auf Nichtzulassungsbeschwerden (703 
+Sachen). Gegenüber dem Vorjahr stellt dies hin- Von den erledigten Revisionen und Rechtsbe-
+sichtlich der Revisionen und Rechtsbeschwerden im schwerden hatten unter Berücksichtigung der 
+Beschlussverfahren einen Rückgang um 84 Sachen Zurückverweisungen 122 Erfolg, das entspricht 
+bzw. 23,86 Prozent dar (Vorjahr 352 Sachen). Die einer Erfolgsquote von 32,88 Prozent gegenüber 
+Zahl der Nichtzulassungsbeschwerden ist gegen- 38,48 Prozent (197 Sachen) im Vorjahr. Von den 
+über dem Vorjahr um 171 Verfahren bzw. 19,57 Nichtzulassungsbeschwerden waren 20 Beschwer-
+Prozent zurückgegangen (Vorjahr 874 Sachen). den (2,8 Prozent - im Vorjahr 54 entsprechend 
+5,36 Prozent) erfolgreich. Anhängig sind am Ende 
+Hinzu kamen 32 (Vorjahr 33) Revisions- bzw. des Berichtsjahres noch 405 Sachen (Vorjahr 526; 
+Rechtsbeschwerden in Beschwerdeverfahren, 54 2023: 813; 2022: 925; 2021: 942; 2020: 1.020; 
+(Vorjahr 47) Beschwerden gegen die Nichtzulas- 2019: 1.245; 2018: 1.136; 2017: 1.242; 2016: 
+sung der Rechtsbeschwerde in Beschwerdeverfah- 1.639; 2015: 1.458); davon sind 312 Revisionen 
+ren sowie sieben sonstige Verfahren. Es wurde kein (Vorjahr 480). 
+selbständiger Antrag auf Gewährung von Prozess-
+kostenhilfe in Revisionsverfahren gestellt. 4. Dem Großen Senat des Bundesarbeitsge-
+richts liegt derzeit keine Sache vor. Gegen verschie-
+dene Entscheidungen des Bundesarbeitsgerichts 
+sind beim Bundesverfassungsgericht Verfassungs-
+beschwerden anhängig. 
+12 Jahresbericht des Bundesarbeitsgerichts 2025
+Zuordnung nach Rechtsgebieten
+Eingänge Erledigungen Bestände
+Beendigung von Arbeitsverhältnissen 23,31 % 21,94 % 19,26 %
+(Kündigungen, befristete Arbeitsverhältnisse; (248) (260) (78)
+ohne Kündigungen nach § 613a BGB)
+Arbeitsentgelt 17,2 % 20,17 % 14,57 %
+(183) (239) (59)
+Betriebsverfassung und 16,26 % 5,99 % 25,19 %
+Personalvertretung (173) (71) (102)
+Tarifvertragsrecht und Tarifvertrags- 13,34 % 11,9 % 14,81 %
+auslegung (einschl. Eingruppierung) (142) (141) (60)
+Ruhegeld (einschl. Vorruhestand) 9,12 % 10,72 % 7,16 %
+und Altersteilzeit (97) (127) (29)
+Sonstige 20,77 % 29,28 % 19,01 %
+(221) (347) (77)
+A. Geschäftsentwicklung 13
+Geschäftsentwicklung beim Bundesarbeitsgericht
+3000
+2500
+2000
+1500
+1000
+500
+0
+2015 2016 2017 2018 2019 2020 2021 2022 2023 2024 2025
+Eingänge Erledigungen Bestand
+14 Jahresbericht des Bundesarbeitsgerichts 2025
+B. Rechtsprechungsübersicht  15
+B. Rechtsprechungsübersicht
+In den Jahresbericht wurden aufgenommen
+Entscheidungen des Ersten Senats
+Beschluss vom 26. November 2024 - 1 ABR 37/20 -
+(SE - Nachholung des Arbeitnehmerbeteiligungsverfahrens)
+Beschluss vom 26. November 2024 - 1 ABR 12/23 -
+(Betriebsratsmitglied - Vergütungsanpassung - Mitbestimmung)
+Beschluss vom 17. Dezember 2024 - 1 ABN 53/24 -
+(Beschlussverfahren - Revisionsbeschwerde)
+Urteil vom 28. Januar 2025 - 1 AZR 73/24 -
+(Sozialplanabfindung - Fälligkeit - Verzugszinsen)
+Urteil vom 28. Januar 2025 - 1 AZR 33/24 -
+(„Digitaler“ Zugang einer Gewerkschaft zum Betrieb)
+Beschluss vom 25. Februar 2025 - 1 ABR 33/23 -
+(Ein- und Umgruppierung - tarifpluraler Betrieb)
+Beschluss vom 23. September 2025 - 1 ABR 25/24 -
+(Personelle Einzelmaßnahme - Einstellung - Matrixstrukturen)
+Entscheidungen des Zweiten Senats
+Urteil vom 5. Dezember 2024 - 2 AZR 275/23 -
+(Befristeter Arbeitsvertrag - Probezeitkündigung)
+Urteil vom 30. Januar 2025 - 2 AZR 68/24 -
+(Einwurf-Einschreiben - Zugang - Anscheinsbeweis)
+Urteil vom 6. März 2025 - 2 AZR 115/24 -
+(Wohnungseigentümergemeinschaft - Vertretungsmacht des Verwalters)
+Urteil vom 3. April 2025 - 2 AZR 178/24 -
+(Wartezeitkündigung eines schwerbehinderten Menschen - Präventionsverfahren)
+Urteil vom 3. April 2025 - 2 AZR 156/24 -
+(Sonderkündigungsschutz für Schwangere)
+Beschluss vom 18. Juni 2025 - 2 AZR 91/24 (A) -
+(Annahmeverzugslohn - Abbedingung - Rechtswahl)
+Teilurteil vom 18. Juni 2025 - 2 AZR 96/24 (B) -
+(Kündigung - Rechtswahl - Betriebsbegriff - Zeugnis)
+Urteil vom 30. Oktober 2025 - 2 AZR 160/24 -
+(Befristeter Arbeitsvertrag - Probezeitkündigung)
+16 Jahresbericht des Bundesarbeitsgerichts 2025
+Entscheidungen des Dritten Senats
+Urteil vom 2. Juli 2024 - 3 AZR 247/23 -
+(Verschlechterung betrieblicher Altersversorgung im Konzern)
+Urteil vom 22. Oktober 2024 - 3 AZR 23/24 -
+(Pensionskasse - Hinterbliebenenversorgung - Mindestehedauer)
+Urteil vom 26. November 2024 - 3 AZR 28/24 -
+(Absenkung der Versorgungsrechte durch Krisentarifvertrag)
+Urteil vom 21. Januar 2025 - 3 AZR 45/24 -
+(Ansprüche des Pensions-Sicherungs-Vereins - Verjährung)
+Urteil vom 11. März 2025 - 3 AZR 136/24 -
+(Ruhegeld - steuerliches Näherungsverfahren)
+Urteil vom 6. Mai 2025 - 3 AZR 142/24 -
+(Anpassung von Versorgungsleistungen - Pensionskasse)
+Urteil vom 6. Mai 2025 - 3 AZR 65/24 -
+(Erfüllung der Wartezeit und Erziehungsurlaub)
+Urteil vom 6. Mai 2025 - 3 AZR 130/24 -
+(Übernahme betriebsrentenrechtlicher Zusagen und Insolvenz)
+Urteil vom 24. Juni 2025 - 3 AZR 158/24 -
+(Arbeitgeberzuschuss - Entgeltumwandlung - Erfüllung)
+Urteil vom 24. Juni 2025 - 3 AZR 157/24 -
+(Aufstockungsbetrag bei Postbeschäftigungsunfähigkeit)
+Entscheidungen des Vierten Senats
+Urteil vom 11. Dezember 2024 - 4 AZR 44/24 -
+(Reichweite einer sog. Gleichstellungsabrede)
+Urteil vom 29. Januar 2025 - 4 AZR 83/24 -
+(Bezugnahme auf einen Tarifvertrag - Inhaltskontrolle)
+Beschluss vom 11. Februar 2025 - 4 AZB 26/24 -
+(Prozesskostenhilfe für Mehrvergleich)
+Beschluss vom 26. Februar 2025 - 4 ABR 21/24 -
+(Eingruppierung einer Medizinischen Fachangestellten)
+Urteil vom 26. Februar 2025 - 4 AZR 62/24 -
+(Eingruppierung - Verweisungskette - Normenklarheit)
+Beschluss vom 19. März 2025 - 4 ABR 35/23 -
+(Tarifkollision - Feststellung des Mehrheitstarifvertrags)
+Urteil vom 19. März 2025 - 4 AZR 283/23 -
+(Gewerkschaftlicher Unterlassungsanspruch - Umfang der Rechtskraft - Bestimmtheit eines Klageantrags)
+B. Rechtsprechungsübersicht  17
+Urteil vom 21. Mai 2025 - 4 AZR 267/24 -
+(Bezugnahme auf mehrere Tarifwerke - ergänzende Vertragsauslegung)
+Entscheidungen des Fünften Senats
+Urteil vom 4. Dezember 2024 - 5 AZR 276/23 -
+(Annahmeverzug und Unmöglichkeit)
+Urteil vom 15. Januar 2025 - 5 AZR 284/24 -
+(Arbeitsunfähigkeitsbescheinigung - Beweiswert einer im Nicht-EU-Ausland ausgestellten ärztlichen  
+Bescheinigung)
+Urteil vom 12. Februar 2025 - 5 AZR 171/24 -
+(Widerruf der privaten Nutzung eines Dienstwagens - Nutzungsausfallentschädigung)
+Urteil vom 12. Februar 2025 - 5 AZR 127/24 -
+(Freistellung - böswilliges Unterlassen anderweitigen Verdienstes)
+Urteil vom 14. Mai 2025 - 5 AZR 215/24 -
+(Vergütung für Umkleidezeiten - Entgeltfortzahlung - Urlaubsentgelt - Gutschrift auf Arbeitszeitkonto - 
+materielle Rechtskraft)
+Beschluss vom 9. September 2025 - 5 AZN 142/25 -
+(Absoluter Revisionsgrund - Telefonkonferenz)
+Urteil vom 26. November 2025 - 5 AZR 118/23 -
+(Tarifvertragliche Mehrarbeitszuschläge - Teilzeitarbeit)
+Entscheidungen des Sechsten Senats
+Urteil vom 1. August 2024 - 6 AZR 38/24 -
+(Feiertagszuschlag - regelmäßiger Beschäftigungsort)
+Urteil vom 20. Februar 2025 - 6 AZR 32/24 -
+(Insolvenzanmeldung - Bestimmtheit - Schriftlichkeit)
+Urteil vom 20. Februar 2025 - 6 AZR 155/23 -
+(Wiedereinsetzung - anwaltliche Pflichten bei Fristprüfung)
+Urteil vom 20. Februar 2025 - 6 AZR 108/24 -
+(Kumulative Anwendung von § 16 Abs. 2 Satz 2 und 3 TV-L)
+Urteil vom 31. Juli 2025 - 6 AZR 18/25 -
+(Diskriminierungsschutz - Befristung auf Regelaltersgrenze)
+Urteil vom 13. November 2025 - 6 AZR 131/25 -
+(§ 4 TzBfG - Diskriminierung - primäre Korrekturkompetenz)
+18 Jahresbericht des Bundesarbeitsgerichts 2025
+Entscheidungen des Siebten Senats
+Beschluss vom 25. September 2024 - 7 ABR 37/23 -
+(Freistellung des Betriebsrats von Rechtsanwaltskosten)
+Beschluss vom 23. Oktober 2024 - 7 ABR 34/23 -
+(Betriebsratswahl - schriftliche Stimmabgabe)
+Beschluss vom 23. Oktober 2024 - 7 ABR 36/23 -
+(Schwerbehindertenvertretung - Werkstattbeschäftigte - aktives Wahlrecht)
+Beschluss vom 27. November 2024 - 7 ABR 32/23 -
+(Vereinfachtes Wahlverfahren)
+Beschluss vom 22. Januar 2025 - 7 ABR 1/24 -
+(Betriebsratswahl - Verlangen von Briefwahlunterlagen)
+Urteil vom 20. März 2025 - 7 AZR 46/24 -
+(Betriebsratsmitglied - Anpassung der Vergütung)
+Urteil vom 20. März 2025 - 7 AZR 159/24 -
+(Betriebsratsmitglied - Vergütungsanpassung)
+Urteil vom 20. März 2025 - 7 AZR 181/24 -
+(Betriebsratsmitglied - Vergütungsanpassung)
+Beschluss vom 22. Mai 2025 - 7 ABR 28/24 - 
+(Mehrfache Wahlberechtigung von Führungskräften)
+Beschluss vom 18. Juni 2025 - 7 ABR 6/24 -
+(Gesamtschwerbehindertenvertretung - Zuständigkeit)
+Entscheidungen des Achten Senats
+Urteil vom 27. März 2025 - 8 AZR 63/24 -
+(Nachvertragliches Wettbewerbsverbot - Karenzentschädigung)
+Urteil vom 27. März 2025 - 8 AZR 139/24 -
+(Internationale Zuständigkeit - nachvertragliches Wettbewerbsverbot - Berechnung der Karenzentschädi-
+gung - virtuelle Aktienoptionen)
+Urteil vom 8. Mai 2025 - 8 AZR 209/21 -
+(Datenschutz - immaterieller Schadensersatz)
+Urteil vom 8. Mai 2025 - 8 AZR 299/24 -
+(Altersgrenze - Einstellung)
+Urteil vom 26. Juni 2025 - 8 AZR 276/24 -
+(Entschädigung - Schwerbehinderung - Inklusionsbeauftragter)
+Beschluss vom 26. Juni 2025 - 8 AZB 17/25 -
+(Zwangsvollstreckung nach § 888 ZPO - Erfüllung des titulierten Beschäftigungsanspruchs - Ausübung des 
+Weisungsrechts)
+B. Rechtsprechungsübersicht  19
+Beschluss vom 22. September 2025 - 8 AZB 6/25 -
+(Zwangsvollstreckung - Beschlussverfahren)
+Urteil vom 23. Oktober 2025 - 8 AZR 300/24 -
+(Entgeltgleichheit - Paarvergleich - Beweislast)
+Entscheidungen des Neunten Senats
+Urteil vom 28. Januar 2025 - 9 AZR 48/24 -
+(Erteilung digitaler Entgeltabrechnungen)
+Urteil vom 25. Februar 2025 - 9 AZR 5/24 -
+(Vertrauenspersonen der schwerbehinderten Menschen)
+Urteil vom 3. Juni 2025 - 9 AZR 104/24 -
+(Kein Urlaubsverzicht durch Prozessvergleich)
+Urteil vom 3. Juni 2025 - 9 AZR 133/24 -
+(Befristete Auslandsentsendung - Arbeitnehmerüberlassung)
+Urteil vom 3. Juni 2025 - 9 AZR 137/24 -
+(Berechnung des Urlaubsabgeltungsanspruchs - Referenzzeitraum)
+Urteil vom 19. August 2025 - 9 AZR 216/24 -
+(Arbeitstagbezug bei der Berechnung und Erfüllung von Urlaub)
+Beschluss vom 29. August 2025 - 9 AZB 4/25 -
+(Rechtsweg - Wirksamkeit einer Aktionärsvereinbarung)
+Beschluss vom 3. Dezember 2025 - 9 AZB 18/25 -
+(Schiedsrichter-Assistent - Rechtsweg - Arbeitnehmerstatus)
+Entscheidungen des Zehnten Senats
+Urteil vom 19. Februar 2025 - 10 AZR 57/24 -
+(Verspätete Zielvorgabe - Schadensersatz)
+Urteil vom 19. März 2025 - 10 AZR 67/24 -
+(Virtuelle Optionen - Verfallklausel bei Ausscheiden)
+Urteil vom 16. April 2025 - 10 AZR 80/24 -
+(Provisionsanspruch - Kryptowährung - Sachbezug)
+Urteil vom 2. Juli 2025 - 10 AZR 162/24 -
+(Bezugnahme auf einen Tarifvertrag - Inhaltskontrolle)
+20 Jahresbericht des Bundesarbeitsgerichts 2025
+  1. Abschnitt: Recht des Arbeitsverhältnisses
+I. Arbeitnehmerstatus: Schiedsrichter-Assistent
+Ein Schiedsrichter-Assistent in der 3. Fußball-Liga richter-Teams mitzuwirken. Erklärt er sich nicht be-
+ist kein Arbeitnehmer der DFB Schiri GmbH. Für reit, ein Spiel zu leiten, drohen ihm keine Sanktio-
+eine auf Entschädigung und Schadensersatz we- nen aufgrund der Schiedsrichterordnung des DFB. 
+gen Diskriminierung gerichtete Klage ist daher Übernimmt er einvernehmlich eine Spielleitung in 
+der Rechtsweg zu den Gerichten für Arbeitssachen der 3. Liga, hat er die Pflichten nach Maßgabe des 
+nicht eröffnet. Dies entschied der Neunte Senat am Rahmenvertrags sowie der Schiedsrichterordnung 
+3. Dezember 2025 (- 9 AZB 18/25 -). Weder durch zu erfüllen. Die Tätigkeit eines Schiedsrichter- 
+den Abschluss des Rahmenvertrags noch durch die Assistenten ist danach keine weisungsgebunde-
+einzelnen Einsätze als Schiedsrichter-Assistent wä- ne und fremdbestimmte Tätigkeit in persönlicher 
+re zwischen den Parteien ein Arbeitsverhältnis iSv. Abhängigkeit. Bei dem Schiedsrichter-Assistenten 
+§ 5 Abs. 1 Satz 1 ArbGG, § 611a Abs. 1 BGB be- handelt es sich auch nicht um eine arbeitnehmer-
+gründet worden. Die DFB Schiri GmbH kann einen ähnliche Person iSv. § 5 Abs. 1 Satz 2 ArbGG, da 
+Schiedsrichter-Assistenten in der 3. Liga aufgrund die hierfür erforderliche wirtschaftliche Abhängig-
+des Rahmenvertrags nicht einseitig anweisen, an keit fehlt.
+einem bestimmten Spiel als Mitglied des Schieds-
+II. Arbeitsbedingungen:  
+Bezugnahme- und Verweisungsklauseln
+1. Inhaltskontrolle einer Bezugnahmeklausel: Kontrollprivileg
+Der Vierte Senat befasste sich am 29. Januar nicht entgegenstehen, da sie auch im Fall beider-
+2025 mit den Voraussetzungen des Kontrollprivi- seitiger Tarifgebundenheit maßgebend wären. Der 
+legs von Tarifverträgen bei Bezugnahmeklauseln Zehnte Senat wies in seiner Entscheidung darauf 
+(- 4 AZR 83/24 -), der Zehnte Senat hatte am hin, dass eine beschränkte Verweisung auf einzel-
+2. Juli 2025 Gelegenheit, Stellung dazu zu neh- ne Tarifnormen oder sachlich und inhaltlich zusam-
+men (- 10 AZR 162/24 -). Beide Senate konsta- menhängende Regelungsbereiche oder -komplexe 
+tierten, dass nach § 310 Abs. 4 Satz 3 iVm. § 307 des Tarifvertrags nicht zu deren Kontrollfreiheit 
+Abs. 3 BGB arbeitsvertraglich in Bezug genomme- führt. Dafür sprechen Wortlaut, Gesetzessyste-
+ne tarifliche Regelungen keiner Inhaltskontrolle matik, Sinn und Zweck sowie die Entstehungsge-
+unterliegen, wenn sich die Bezugnahme auf die schichte des Kontrollprivilegs.
+Gesamtheit der Regelungen eines einschlägigen 
+Tarifvertrags erstreckt. Nur dann gilt auch hinsicht-
+lich der Bezugnahme die für den Tarifvertrag be-
+stehende Angemessenheitsvermutung. Das Kon- 
+trollprivileg nach § 310 Abs. 4 Satz 3 iVm. § 307 
+Abs. 3 BGB setzt aber keine Inbezugnahme des 
+gesamten Tarifwerks voraus. Der Vierte Senat 
+stellte weitergehend fest, dass individualvertrag-
+liche Vereinbarungen über tariflich nicht geregelte 
+Gegenstände sowie Vertragsbestimmungen, die für 
+den Arbeitnehmer günstiger iSd. § 4 Abs. 3 TVG 
+sind als die in Bezug genommenen tariflichen Be-
+stimmungen, der Anwendung des Kontrollprivilegs 
+B. Rechtsprechungsübersicht  21
+2. Auslegung einer arbeitsvertraglichen Bezugnahmeklausel auf 
+mehrere Tarifwerke
+In seiner Entscheidung vom 21. Mai 2025 setzte sich stimmbar. Haben die Parteien keine ausdrückliche 
+der Vierte Senat mit der Auslegung einer Bezug- oder konkludente Kollisionsregel für den Fall ge-
+nahmeklausel auseinander, die zeitdynamisch auf troffen, dass die in Bezug genommenen Tarifwer-
+mehrere Tarifwerke verweist (- 4 AZR 267/24 -). ke später unterschiedliche Regelungen enthalten, 
+Wird im Arbeitsvertrag neben den Tarifverträgen, führt das nicht zur Unwirksamkeit der vertragli-
+an welche die Arbeitgeberin gebunden ist, auch chen Bezugnahmeregelung, sondern lediglich zur 
+auf andere - zum Zeitpunkt des Vertragsschlusses Teilunwirksamkeit und in der Folge zum Wegfall 
+gleichlautende - Tarifwerke verwiesen, steht das der vereinbarten Dynamik. Die durch die fehlende 
+einer Auslegung als zeitdynamische Bezugnahme, Kollisionsregelung entstandene planwidrige Rege-
+deren Dynamik nach der früheren Rechtsprechung lungslücke kann im Wege ergänzender Vertrags-
+des Senats mit dem Ende der Tarifgebundenheit auslegung geschlossen werden, wenn festgestellt 
+der Arbeitgeberin entfällt - sog. Gleichstellungs- werden kann, welche Regelung aus einer objektiv-
+abrede - entgegen. Eine solche Bezugnahme auf generalisierenden Sicht dem hypothetischen Willen 
+mehrere Tarifwerke ist nicht unwirksam, solange beider Parteien Rechnung trägt. Bestehen mehrere 
+die beiden Tarifwerke inhaltlich gleichlautend sind. gleichwertige Möglichkeiten zur Lückenschließung, 
+Der Inhalt der Bezugnahme ist dann eindeutig be- scheidet eine ergänzende Vertragsauslegung aus.
+3. Reichweite einer Gleichstellungsabrede
+Der Vierte Senat ging am 11. Dezember 2024 der rifwerke entfällt - ist hierfür ebenso wenig ausrei-
+Frage nach, welche Auswirkungen die Versetzung chend wie der Verweis auf eine „Betriebsordnung“ 
+eines Arbeitnehmers an einen anderen Arbeitsort oder auf „Betriebsvereinbarungen“. Handelt es sich 
+auf eine arbeitsvertragliche Bezugnahmeklausel dagegen um eine sog. Gleichstellungsabrede, ent-
+hat (- 4 AZR 44/24 -). Liegt eine sog. große dyna- fällt mit der Versetzung an einen Arbeitsort, der 
+mische Bezugnahmeklausel oder Tarifwechselklau- nicht im Geltungsbereich des in Bezug genomme-
+sel vor, sind die am neuen Arbeitsort für die Arbeit- nen Tarifvertrags liegt, die Dynamik der Bezugnah-
+geberin geltenden Tarifverträge maßgebend. Eine me. Die Tarifverträge, auf die verwiesen wird, sind 
+solche Bezugnahmeklausel liegt aber nur vor, wenn ab diesem Zeitpunkt nur noch statisch anwendbar. 
+dies im Wortlaut der Vereinbarung erkennbar zum Die Bezugnahme auf bestimmte Tarifverträge oder 
+Ausdruck kommt. Allein der Umstand, dass es sich Tarifwerke reicht in diesem Fall nur so weit, wie 
+bei der vertraglichen Abrede um eine sog. Gleich- dies bei einem tarifgebundenen Arbeitnehmer der 
+stellungsabrede im Sinne der früheren Rechtspre- Fall wäre. Die Dynamik steht unter der auflösenden 
+chung des Senats handelt - bei der die zeitliche Bedingung des Wegfalls einer der Voraussetzungen 
+Dynamik der Bezugnahme endet, wenn die Tarifge- für die Gleichstellungsabrede.
+bundenheit der Arbeitgeberin an die genannten Ta-
+III. Ansprüche aus dem Arbeitsverhältnis
+1. Vergütung
+a)   Entgeltfortzahlung im Krankheitsfall: Im Urteil vom 15. Januar 2025 hat sich der Fünf-
+Beweiswert einer Arbeitsunfähigkeits- te Senat mit dem Beweiswert einer im Nicht-EU-
+bescheinigung aus dem Nicht-EU-Aus- Ausland ausgestellten Arbeitsunfähigkeitsbeschei-
+land nigung befasst (- 5 AZR 284/24 -). Der Beweis 
+krankheitsbedingter Arbeitsunfähigkeit wird in der 
+22 Jahresbericht des Bundesarbeitsgerichts 2025
+Regel durch die Vorlage einer ärztlichen Arbeits- wenn MFA und OTA für im Wesentlichen gleiche 
+unfähigkeitsbescheinigung iSd. § 5 Abs. 1 Satz 2 Tätigkeiten im Operationssaal eingesetzt werden. 
+Entgeltfortzahlungsgesetz (EFZG) geführt. Eine Die Tätigkeit entspricht zwar sowohl dem Berufs-
+ordnungsgemäß ausgestellte Arbeitsunfähigkeits- bild einer MFA als auch dem einer OTA. Die Ausbil-
+bescheinigung ist das gesetzlich ausdrücklich vor- dung zur OTA ist aber für eine Assistenztätigkeit im 
+gesehene und insoweit wichtigste Beweismittel für Operationssaal die spezifischere. Es besteht daher 
+das Vorliegen krankheitsbedingter Arbeitsunfähig- ein einleuchtender Grund für die von den Tarifver-
+keit. Lässt eine Arbeitsunfähigkeitsbescheinigung, tragsparteien getroffene Differenzierung. Damit 
+die in einem Land außerhalb der Europäischen hält die Regelung der auf eine Willkürkontrolle be-
+Union ausgestellt wurde, erkennen, dass der Arzt schränkten gerichtlichen Kontrolle am Maßstab des 
+zwischen einer bloßen Erkrankung und einer mit Art. 3 Abs. 1 GG stand.
+Arbeitsunfähigkeit verbundenen Erkrankung unter-
+schieden hat, kommt ihr grundsätzlich der gleiche bb) Höhergruppierungsantrag
+Beweiswert wie einer in Deutschland ausgestellten 
+ärztlichen Arbeitsunfähigkeitsbescheinigung zu. Eine Lehrerin war seit dem 22. Juli 2019 an einer 
+Damit hat der Senat seine bisherige Rechtspre- Grundschule bei dem Land Berlin beschäftigt und 
+chung (BAG 19. Februar 1997 - 5 AZR 83/96 -) in der Entgeltgruppe 10 des Tarifvertrags für den 
+fortgeführt. Auch der Beweiswert einer solchen öffentlichen Dienst der Länder (TV-L) eingruppiert. 
+Arbeitsunfähigkeitsbescheinigung kann jedoch er- Sie begehrte aufgrund einer zum 1. August 2019 
+schüttert sein. Hierzu genügt es, wenn nach der in Kraft getretenen Tarifvertragsänderung eine 
+vorzunehmenden Gesamtbetrachtung des zu wür- Vergütung nach Entgeltgruppe 12 TV-L. Nach den 
+digenden Einzelfalls Umstände vorliegen, die zwar tariflichen Regelungen wurde die höhere Vergü-
+für sich betrachtet unverfänglich sein mögen, in tung aber für vor dem 1. August 2019 eingestellte 
+der Gesamtschau aber ernsthafte Zweifel am Be- Beschäftigte nur dann geleistet, wenn ein Höher-
+weiswert der Bescheinigung begründen. Derartige gruppierungsantrag innerhalb der Ausschlussfrist 
+Umstände waren nach Ansicht des Senats vorlie- von einem Jahr gestellt wurde. Die Lehrerin stellte 
+gend gegeben. Das hatte zur Folge, dass nunmehr den Antrag erst am 1. Dezember 2021 und ver-
+der Kläger die volle Darlegungs- und Beweislast wies darauf, sie habe die Frist dem Tarifvertrag 
+für das Bestehen krankheitsbedingter Arbeitsun- nicht hinreichend deutlich entnehmen können. Der 
+fähigkeit als Voraussetzung für den Entgeltfortzah- Vierte Senat entschied am 26. Februar 2025, dass 
+lungsanspruch nach § 3 Abs. 1 EFZG trug. Da das das Antragserfordernis und die Frist nicht gegen 
+Landesarbeitsgericht hierzu keine Feststellungen das Gebot der Bestimmtheit und Normenklarheit 
+getroffen hatte, wurde die Sache insoweit zur neu- verstoßen und daher hätten eingehalten werden 
+en Verhandlung und Entscheidung an das Landes- müssen (- 4 AZR 62/24 -). Das für staatliche Ein-
+arbeitsgericht zurückverwiesen. griffe aus dem Rechtsstaatsprinzip abgeleitete Ge-
+bot der Bestimmtheit und Normenklarheit findet 
+b)  Eingruppierung zwar im Grundsatz auch für tarifvertragliche Re-
+gelungen Anwendung. Die für staatliche Grund-
+aa) Medizinische Fachangestellte (MFA) rechtseinschränkungen geltenden Anforderungen 
+im Hinblick auf die Verständlichkeit einer Bestim-
+Die Eingruppierung einer Medizinischen Fachan- mung aus der Sicht eines Normunterworfenen sind 
+gestellten (MFA) war Gegenstand einer Entschei- aber nicht „eins zu eins“ übertragbar. Erforderlich, 
+dung des Vierten Senats vom 26. Februar 2025 aber auch ausreichend ist, dass der Regelungsge-
+(- 4 ABR 21/24 -). Die Tarifverträge für den öffent- halt einer Tarifnorm im Wege der Auslegung mit 
+lichen Dienst in der für den Bereich der Vereinigung herkömmlichen juristischen Methoden ermittelbar 
+der kommunalen Arbeitgeber geltenden Fassung ist. Dies war vorliegend der Fall. Das fristgebun-
+(TVöD/VKA) sehen für MFA eine Eingruppierung dene Erfordernis eines Höhergruppierungsantrags 
+nach den allgemeinen Tätigkeitsmerkmalen vor, für Lehrkräfte im Land Berlin ist zudem mit dem 
+während Operationstechnische Assistenten (OTA) allgemeinen Gleichheitssatz des Art. 3 Abs. 1 GG 
+nach den Tätigkeitsmerkmalen für Beschäftigte in vereinbar, auch wenn Lehrkräfte, die nach dem 
+der Pflege zu vergüten sind. Diese unterschiedliche 31. Juli 2019 eingestellt wurden, ohne Antrag die 
+Eingruppierung ist auch dann mit dem allgemeinen höhere Vergütung erhalten. Sie sind mit den über-
+Gleichheitssatz nach Art. 3 Abs. 1 GG vereinbar, zuleitenden Lehrkräften nicht vergleichbar. Die Be-
+B. Rechtsprechungsübersicht  23
+fristung der Antragsmöglichkeit dient der Schaf- Entscheidung des Sechsten Senats zu den bei dem 
+fung von Rechtssicherheit. neuen Arbeitgeber erworbenen Zeiten einschlägi-
+ger Berufserfahrung hinzuzurechnen. Zur Ermitt-
+cc)  Stufenzuordnung: Berücksichtigung einschlägi- lung der im konkreten Fall zutreffenden Stufe ist 
+ger Berufserfahrung das Verfahren an das Landesarbeitsgericht zurück-
+verwiesen worden.
+In seinem Urteil vom 20. Februar 2025 setzte sich 
+der Sechste Senat damit auseinander, inwieweit c)   Widerruf privater Nutzung eines Dienst-
+einschlägige Berufserfahrung bei der Stufenzuord- wagens
+nung nach dem Tarifvertrag für den öffentlichen 
+Dienst der Länder (TV-L) zu berücksichtigen ist Eine Allgemeine Geschäftsbedingung, nach der 
+(- 6 AZR 108/24 -). Anlass war der folgende Fall: ein Arbeitnehmer ein - auch privat nutzbares - 
+Ein in der mittelbaren Landesverwaltung tätiger Dienstfahrzeug bei einer berechtigten Freistellung 
+Hausmeister erhielt zunächst eine Vergütung nach während der Kündigungsfrist entschädigungs-
+Entgeltgruppe 5 Stufe 5 TV-L. 2019 wechselte er in los an den Arbeitgeber zurückgeben muss, kann 
+die unmittelbare Landesverwaltung und war dort wirksam vereinbart werden. Der Fünfte Senat hat 
+mehrfach - aneinander anschließend - mit demsel- in seiner Entscheidung (- 5 AZR 171/24 -) vom 
+ben Entgelt bei verschiedenen Bezirksverwaltun- 12. Februar 2025 angenommen, dass die streit-
+gen beschäftigt. Nach einmonatiger Unterbrechung gegenständliche Widerrufsklausel den formellen 
+des Arbeitsverhältnisses wurde er als Schulhaus- Anforderungen des § 308 Nr. 4 BGB genügte. Der 
+meister in einer weiteren Bezirksverwaltung des maßgebliche Grund für den Widerruf der Dienstwa-
+Landes unbefristet weiterbeschäftigt, allerdings genüberlassung ist in der Klausel ausreichend klar 
+der niedrigeren Stufe 3 der Entgeltgruppe 5 benannt. Zudem war aufgrund des in den Gehalts-
+TV-L zugeordnet. Der Sechste Senat entschied, abrechnungen ausgewiesenen geldwerten Vorteils 
+dass die zwingend unter Berücksichtigung ein- erkenn- und kalkulierbar, wie sich dies auf die 
+schlägiger Berufserfahrung vorzunehmende streit- Höhe der Vergütung auswirken würde. Auch ma-
+befangene Stufenzuordnung nicht losgelöst von teriell war die Klausel wirksam, weil sie aufgrund 
+den vom beklagten Land bei den vorherigen Ein- der Freistellung während der Kündigungsfrist die 
+stellungen des Klägers vorzunehmenden Stufen- dienstliche und private Nutzung des Dienstwagens 
+zuordnungen betrachtet werden kann. Bei der Zu- in sachgerechter Weise verknüpfte. Allerdings ent-
+ordnung nach der ersten Einstellung des Klägers sprach die konkrete Ausübung des Widerrufsvor-
+durch das beklagte Land zum 1. Februar 2019 war behalts nicht billigem Ermessen iSd. § 315 Abs. 1 
+§ 16 Abs. 2 Satz 3 TV-L, der die Anrechnung von BGB. Im Rahmen der hierbei gebotenen Abwä-
+Berufserfahrung aus einem Arbeitsverhältnis zu gung der Vertragsparteien war das Interesse des 
+einem anderen Arbeitgeber regelt, anzuwenden, Klägers an einer weiteren privaten Nutzung nicht 
+weil der Kläger von der mittelbaren in die unmittel- ausreichend berücksichtigt. Auch wenn ein Arbeit-
+bare Landesverwaltung gewechselt war. Maßgeb- nehmer - wie im Streitfall - den Dienstwagen nicht 
+lich ist insoweit, dass es sich um unterschiedliche im gesamten Kalendermonat nutzen kann, muss 
+Rechtsträger und damit Anstellungsträger handelt. er bei gewählter Pauschalversteuerung gemäß 
+Deshalb war der Kläger am 1. Februar 2019 der § 6 Abs. 1 Nr. 4 EStG die Nutzung mit der vollen 
+Stufe 3 seiner Entgeltgruppe zuzuordnen. Die dar- Monatspauschale versteuern. Aus diesem Grund 
+über hinausgehende einschlägige Berufserfahrung, wird im Regelfall nur ein zum Monatsende erfol-
+die ihm die Tätigkeit in der mittelbaren Landesver- gender Widerruf der Dienstwagennutzung billigem 
+waltung vermittelt hatte, wurde abgeschnitten. Die Ermessen entsprechen.
+Stufenlaufzeit begann in der Stufe 3 neu zu laufen. 
+Bei den weiteren Einstellungen, die sich grund- d)   Umkleidezeit als zu vergütende Arbeits-
+sätzlich nach § 16 Abs. 2 Satz 2 TV-L, der die An- zeit im Fall der Entgeltfortzahlung
+rechnung einschlägiger Berufserfahrung aus einem 
+Arbeitsverhältnis zu demselben Arbeitgeber regelt, Ist ein Arbeitnehmer verpflichtet, bei Ausübung 
+richteten, war zusätzlich bei der Stufenzuordnung der geschuldeten Tätigkeit spezielle Schutzklei-
+die bei einem anderen Arbeitgeber erworbene ein- dung zu tragen, so ist das Umkleiden im Betrieb 
+schlägige Berufserfahrung nach § 16 Abs. 2 Satz 3 grundsätzlich vergütungspflichtige Arbeit. Diese 
+TV-L zu berücksichtigen. Die nach § 16 Abs. 2 Einordnung schließt aber individual- oder kollektiv-
+Satz 3 TV-L berücksichtigten Zeiten sind nach der rechtliche Regelungen nicht aus, nach denen die 
+24 Jahresbericht des Bundesarbeitsgerichts 2025
+für das innerbetriebliche Umkleiden aufgewende- f)   Zielvorgabe bei leistungsorientierter Be-
+te Zeit anders zu vergüten ist als die „eigentliche zahlung
+Tätigkeit“. Eine solche besondere Form der Ver-
+gütung für die „Umkleidearbeit“ kann auch eine Der Zehnte Senat beschäftigte sich in seiner Ent-
+pauschale Zeitgutschrift auf dem Arbeitszeitkonto scheidung vom 19. Februar 2025 (- 10 AZR 57/24 -) 
+sein, entschied der Fünfte Senat am 14. Mai 2025 mit Schadensersatzansprüchen wegen verspäte-
+(- 5 AZR 215/24 -). Auf diese hat der Arbeitnehmer ter Zielvorgaben für eine variable Vergütung. Der 
+auch in Zeiten, in denen er Entgeltfortzahlung im Senat nahm einen Schadensersatzanspruch des 
+Krankheitsfall nach § 3 Abs. 1 EFZG erhält oder sich Arbeitnehmers nach § 280 Abs. 1, Abs. 3 BGB iVm. 
+in bezahltem Erholungsurlaub (§ 1 BUrlG) befindet, § 283 Satz 1 BGB statt der Leistung an, wenn eine 
+Anspruch. Zu der nach § 4 Abs. 1 EFZG während nachträgliche Zielvorgabe so spät abgegeben wird, 
+einer krankheitsbedingten Arbeitsunfähigkeit fort- dass sie ihre Motivations- und Anreizfunktion nicht 
+zuzahlenden Vergütung gehört - sofern nicht ge- mehr erfüllen kann. Denn der Arbeitgeber verstößt 
+mäß § 4 Abs. 4 EFZG durch Tarifvertrag eine an- schuldhaft gegen seine arbeitsvertragliche Ver-
+dere Bemessungsgrundlage festgelegt wird - auch pflichtung, dem Arbeitnehmer rechtzeitig für eine 
+die Vergütung für die „Umkleidearbeit“. Entspre- Zielperiode Ziele vorzugeben, an deren Erreichen 
+chendes gilt für den Urlaub. Da das während dieser die Zahlung einer variablen Vergütung geknüpft ist 
+Zeit zu zahlende Entgelt nicht geringer sein darf (Zielvorgabe). Der Zeitpunkt, zu dem der Arbeitge-
+als das Entgelt, das der Arbeitnehmer in Zeiten der ber eine Zielvorgabe vornehmen muss, ergibt sich 
+Arbeitsleistung erhält, umfasst es auch die Vergü- regelmäßig aus den Vereinbarungen der Parteien 
+tung für die „Umkleidearbeit“. oder für das Arbeitsverhältnis geltenden kollektiv-
+rechtlichen Bestimmungen. Nach Ablauf der Ziel-
+e)  Feiertagszuschlag periode ist die Festlegung von Zielen durch eine 
+Zielvorgabe unmöglich iSv. § 275 Abs. 1 BGB. Ob 
+Der Sechste Senat hatte am 1. August 2024 dar- eine Zielvorgabe bereits unmöglich ist, wenn der 
+über zu entscheiden (- 6 AZR 38/24 -), ob Arbeit- für die Leistungsbestimmung vertraglich oder kol-
+nehmer einen Anspruch auf Feiertagszuschläge lektivrechtlich vorgegebene Zeitpunkt verstrichen 
+nach dem Tarifvertrag für den öffentlichen Dienst ist, hängt von den Umständen des Einzelfalls ab, 
+der Länder (TV-L) haben, wenn an ihrem regelmä- insbesondere dem Inhalt der jeweiligen vertragli-
+ßigen Beschäftigungsort ein gesetzlicher Feiertag chen Abreden und ggf. normativ geltenden Rege-
+ist, sie aber an diesem Tag an einem anderen Ort lungen sowie dem Sinn und Zweck der Leistungs-
+ihre Arbeitsleistung erbringen. Anlass war folgen- bestimmung und der Interessenlage der Parteien. 
+der Fall: Ein Arbeitnehmer, dessen regelmäßiger Eine nachträgliche Zielvorgabe durch den Arbeitge-
+Beschäftigungsort in Nordrhein-Westfalen liegt, ber ist jedenfalls dann unmöglich, wenn so erheb-
+nahm auf Anordnung seines Arbeitgebers vom liche Teile der Zielperiode abgelaufen sind, dass die 
+1. bis zum 5. November 2021 an einer Fortbil- Anreiz-, Motivations- und Steuerungsfunktion nicht 
+dungsveranstaltung in Hessen teil. Das auf den mehr erfüllt werden und der Arbeitnehmer seine 
+1. November fallende Hochfest Allerheiligen ist Arbeitsleistung nicht mehr in ausreichendem Maß 
+zwar nach dem Feiertagsgesetz für das Land Nord- an den Zielen orientieren kann.
+rhein-Westfalen gesetzlicher Feiertag, nicht jedoch 
+nach den für das Bundesland Hessen geltenden g)  Provisionsanspruch als Kryptowährung
+landesrechtlichen Bestimmungen. Der Sechste 
+Senat bejahte den Anspruch auf einen Feiertags- Mit der Frage, ob ein Provisionsanspruch durch die 
+zuschlag, denn dafür ist nach dem TV-L maßgeb- Übertragung der sog. Kryptowährung Ether (ETH) 
+lich, dass am regelmäßigen Beschäftigungsort des erfüllt werden kann, befasste sich der Zehnte Se-
+Arbeitnehmers ein gesetzlicher Feiertag ist. Dieser nat am 16. April 2025 (- 10 AZR 80/24 -). Der 
+lag ungeachtet der Fortbildung weiterhin in Nord- Senat nahm an, dass dies als Sachbezug iSv. § 107 
+rhein-Westfalen. Für den Zuschlagsanspruch spielt Abs. 2 Satz 1 Gewerbeordnung (GewO) grundsätz-
+es keine Rolle, wenn die Beschäftigung an einem lich wirksam vereinbart werden kann, wenn die 
+gesetzlichen Feiertag wegen Verstoßes gegen das Übertragung bei objektiver Betrachtung im Inte-
+öffentlich-rechtliche Arbeitszeitrecht rechtswidrig resse des Arbeitnehmers liegt. Der unpfändbare 
+ist. Betrag des Arbeitsentgelts muss dem Arbeitneh-
+mer aber in Geld ausgezahlt werden, § 107 Abs. 2 
+Satz 5 GewO. Damit soll ua. sichergestellt werden, 
+dass der Arbeitnehmer nicht gezwungen wird, erst 
+B. Rechtsprechungsübersicht  25
+den Sachbezug in Euro „umzutauschen“ oder So- die Auffassung vertreten, dass § 615 Satz 1 BGB 
+zialleistungen in Anspruch zu nehmen, um die Be- insoweit zwingend ist, als Annahmeverzugslohn-
+dürfnisse des täglichen Lebens befriedigen zu kön- ansprüche des Arbeitnehmers für den Fall einer 
+nen. Ein Verstoß gegen § 107 Abs. 2 Satz 5 GewO unwirksamen oder zu einem späteren Zeitpunkt 
+führt, wenn der Sachbezug, wie hier die Einheit wirkenden Arbeitgeberkündigung nicht im Voraus 
+ETH, teilbar ist, lediglich zur teilweisen Nichtigkeit - insbesondere nicht durch die Wahl einer auslän-
+der Vereinbarung. Das bedeutet, dass das Arbeits- dischen Rechtsordnung - abbedungen werden kön-
+entgelt bis zur Höhe der jeweiligen Pfändungsfrei- nen. Es sei mit den § 615 BGB zugrunde liegenden 
+grenzen in Geld zu leisten und der Sachbezug ent- Gerechtigkeitsvorstellungen nicht vereinbar, durch 
+sprechend zu kürzen ist. einen vollständigen Ausschluss der Regelung das 
+den Arbeitgeber bei einer unwirksamen oder zu ei-
+h)  Annahmeverzug nem späteren Zeitpunkt wirkenden Kündigung tref-
+fende Entgeltrisiko von vornherein generell auf den 
+aa) Unmöglichkeit wegen Erkrankung Arbeitnehmer zu verlagern und so praktisch den 
+Kündigungsschutz zu umgehen. Eine solche Ver-
+Ist der Gläubiger für den Umstand, aufgrund des- einbarung wäre nach § 134 BGB nichtig. Mit die-
+sen der Schuldner nach § 275 Abs. 1 bis 3 BGB ser Auffassung weicht der Senat von einer Recht-
+nicht zu leisten braucht, allein oder weit überwie- sprechung des Fünften Senats vom 29. März 2023 
+gend verantwortlich oder tritt dieser vom Schuld- (- 5 AZR 55/19 -) ab. Um zu klären, ob es einer 
+ner nicht zu vertretende Umstand zu einer Zeit ein, Vorlage an den Großen Senat des Bundesarbeits-
+zu welcher der Gläubiger im Verzug der Annahme gerichts bedarf, hat der Zweite Senat nach § 45 
+ist, so behält der Schuldner nach § 326 Abs. 2 BGB Abs. 3 Satz 1 ArbGG angefragt, ob der Fünfte Se-
+den Anspruch auf die Gegenleistung. Mit der Frage, nat an seiner Rechtsauffassung festhält. Der Fünfte 
+ob diese Vorschrift anwendbar ist, wenn es dem Senat hat mit Beschluss vom 28. Januar 2026 ge-
+Arbeitnehmer krankheitsbedingt unmöglich ist, antwortet (- 5 AS 4/25 -). Er vertritt nunmehr auch 
+seine Arbeitsleistung zu erbringen, beschäftigte die Rechtsauffassung, dass § 615 Satz 1 BGB inso-
+sich der Fünfte Senat in seiner Entscheidung von weit zwingend ist, als Annahmeverzugsansprüche 
+4. Dezember 2024 (- 5 AZR 276/23 -). Nach diesem des Arbeitnehmers für den Fall einer unwirksamen 
+Urteil findet § 326 Abs. 2 BGB keine Anwendung, oder erst zu einem späteren Zeitpunkt wirkenden 
+wenn der Arbeitnehmer während des Annahmever- Arbeitgeberkündigung nicht im Voraus abbedun-
+zugs erkrankt und ihm deshalb die Erbringung der gen werden können.
+Arbeitsleistung unmöglich wird. Auch wenn sich 
+die Tatbestandsvoraussetzungen von § 326 Abs. 2 cc)  Böswilliges Unterlassen anderweitigen Ver-
+Satz 1 Alt. 2 BGB und § 615 BGB überschneiden, dienstes bei Freistellung während der Kündi-
+ist § 615 BGB für diesen Fall die speziellere Re- gungsfrist
+gelung, die die allgemeine Bestimmung in § 326 
+Abs. 2 BGB verdrängt. Dies ergibt sich auch dar- Mit Urteil vom 12. Februar 2025 (- 5 AZR 127/24 -) 
+aus, dass § 616 BGB für Dienstverhältnisse eine hat der Fünfte Senat entschieden, dass den Arbeit-
+besondere Regelung enthält, wenn der zur Dienst- nehmer, der für die Dauer der Kündigungsfrist von 
+leistung Verpflichtete aus einem in seiner Person seinem Arbeitgeber freigestellt wurde, keine Oblie-
+liegenden Hinderungsgrund diese nicht erbringen genheit trifft, schon während der noch laufenden 
+kann. In diesem Fall wird dem Dienstberechtigten Kündigungsfrist eine neue Arbeit aufzunehmen. 
+die Pflicht zur Fortzahlung der Vergütung ausdrück- Er handelt daher nicht böswillig iSd. § 615 Satz 2 
+lich nur für eine „verhältnismäßig nicht erhebliche BGB, wenn er während dieser Zeit keinen ander-
+Zeit“ zugewiesen. Für Arbeitsverhältnisse gilt bei weitigen Verdienst erzielt. Im entschiedenen Fall 
+Arbeitsunfähigkeit infolge von Krankheit der noch befand sich die beklagte Arbeitgeberin aufgrund 
+speziellere § 3 EFZG, der die Entgeltfortzahlung der von ihr einseitig erklärten Freistellung des 
+auf sechs Wochen beschränkt. Beide Vorschriften Arbeitnehmers während der Kündigungsfrist im 
+gelten auch während des Annahmeverzugs und Annahmeverzug und schuldete dem Kläger nach 
+gehen der allgemeinen Regelung in § 326 Abs. 2 § 615 Satz 1 BGB iVm. § 611a Abs. 2 BGB die ver-
+Satz 1 Alt. 2 BGB vor. einbarte Vergütung für die gesamte Dauer der Kün-
+digungsfrist. Ihr Einwand, der Kläger hätte schon 
+bb) Abbedingung von § 615 BGB per Rechtswahl während dieser Zeit anderweitigen Verdienst erzie-
+len können, den er sich nach § 615 Satz 2 Var. 3 
+Ausweislich seiner Entscheidung vom 18. Juni 2025 BGB anrechnen lassen müsse, blieb erfolglos. Da 
+(- 2 AZR 91/24 (A) -) möchte der Zweite Senat die Norm eine Billigkeitsregelung enthält, ist der 
+26 Jahresbericht des Bundesarbeitsgerichts 2025
+durch eine - fiktive - Anrechnung nicht erworbe- gung des Arbeitnehmers, indem er diesen einseitig 
+nen Verdienstes beim Arbeitnehmer eintretende während der Kündigungsfrist freistellt, kann vom 
+Nachteil nur gerechtfertigt, wenn dieser wider Treu Arbeitnehmer nicht verlangt werden, schon wäh-
+und Glauben (§ 242 BGB) untätig geblieben ist. rend des unstreitig noch bestehenden Arbeitsver-
+Der Umfang der den Arbeitnehmer treffenden Ob- hältnisses eine anderweitige Arbeit aufzunehmen. 
+liegenheiten zu anderweitigem Erwerb kann dabei Denn damit würde er dem Arbeitgeber, der sich 
+nicht losgelöst von den Pflichten des Arbeitgebers seiner Beschäftigungspflicht entzieht, auch noch zu 
+beurteilt werden. Verletzt der Arbeitgeber - wie im einer Befreiung von seiner Vergütungspflicht ver-
+Streitfall - die ihm obliegende Pflicht zur Beschäfti- helfen müssen.
+2. Urlaub
+a)  Urlaubsanspruch nach Arbeitstagen (BUrlG) unzulässigen Ausschluss des gesetzlichen 
+Mindesturlaubs betrifft. Weder der gesetzliche An-
+Der Neunte Senat hatte am 19. August 2025 dar- spruch auf bezahlten Erholungsurlaub noch ein 
+über zu befinden, ob die Berechnung und Erfüllung erst künftig - mit der rechtlichen Beendigung des 
+des Urlaubsanspruchs auf Grundlage von Kalen- Arbeitsverhältnisses - entstehender Anspruch auf 
+dertagen erfolgen kann (- 9 AZR 216/24 -). Der Abgeltung gesetzlichen Mindesturlaubs darf im 
+Senat entschied, dass die Anzahl der Urlaubstage Voraus ausgeschlossen oder beschränkt werden. 
+nach der Konzeption des Bundesurlaubsgesetzes Dies gilt selbst dann, wenn bei Abschluss eines ge-
+nicht nach Kalendertagen zu ermitteln ist. Bei der richtlichen Vergleichs, der eine Beendigung des Ar-
+Urlaubsberechnung anhand der sog. Jahresformel beitsverhältnisses gegen Zahlung einer Abfindung 
+finden nur Tage Berücksichtigung, an denen der regelt, bereits feststeht, dass der Arbeitnehmer 
+Arbeitnehmer regelmäßig zur Arbeit verpflichtet den gesetzlichen Mindesturlaub wegen krankheits-
+ist. Für den Rettungsdienst, der an sieben Tagen bedingter Arbeitsunfähigkeit nicht mehr in An-
+in der Woche durchgehend betrieben wird, dür- spruch nehmen kann. Der bezahlte Mindesturlaub 
+fen der Berechnung des (tariflichen) Urlaubsan- darf nach Art. 7 Abs. 2 der Richtlinie 2003/88/EG 
+spruchs nicht 42 Kalendertage zugrunde gelegt des Europäischen Parlaments und des Rates vom 
+werden. Dies würde unzulässigerweise alle sieben 4. November 2003 über bestimmte Aspekte der 
+Tage einer Woche einbeziehen. Um den sechswö- Arbeitszeitgestaltung außer bei Beendigung des 
+chigen Urlaubsanspruch zu erwerben, müssten die Arbeitsverhältnisses nicht durch eine finanzielle 
+im Rettungsdienst Beschäftigten dauerhaft an allen Vergütung ersetzt werden. Im bestehenden Ar-
+sieben Tagen der Woche tätig sein, was gegen ar- beitsverhältnis darf der Arbeitnehmer somit nicht 
+beitszeitrechtliche Vorgaben verstieße. Der Neunte gegen und erst recht nicht ohne finanziellen Aus-
+Senat hat noch einmal bekräftigt, dass es für die gleich auf den gesetzlichen Mindesturlaub „verzich-
+Berechnung und Erfüllung des Urlaubs nach Tagen ten“. Der Senat stellte klar, dass § 13 Abs. 1 Satz 3 
+mit Arbeitspflicht keine Rolle spielt, ob der Arbeit- BUrlG einem Vergleich über die tatsächlichen Vo-
+geber den Arbeitnehmer in einer tageübergreifen- raussetzungen des Urlaubs(abgeltungs)anspruchs 
+den Nachtschicht einsetzt. Für eine Schicht über nicht entgegensteht, wenn sich die Parteien nicht 
+zwei Kalendertage fließen daher zwei Tage in die über den rechtlichen Wegfall einer Forderung, son-
+Berechnung ein. dern über das Bestehen der anspruchsrelevan-
+ten Voraussetzungen verständigen. Ein zulässiger 
+b)  Urlaubsverzicht durch Prozessvergleich Tatsachenvergleich setzt jedoch voraus, dass die 
+Parteien eine tatsächlich bestehende Unsicherheit 
+Kann der Arbeitnehmer im bestehenden Arbeits- durch gegenseitiges Nachgeben ausräumen. Im 
+verhältnis durch gerichtlichen Vergleich auf seinen entschiedenen Fall hatte kein Streit zwischen den 
+gesetzlichen Mindesturlaub verzichten? Der Neunte Parteien darüber bestanden, dass dem Kläger im 
+Senat verneinte diese Frage in seiner Entscheidung relevanten Zeitraum kein Urlaub gewährt worden 
+vom 3. Juni 2025 (- 9 AZR 104/24 -). Die Vereinba- war.
+rung, Urlaubsansprüche seien „in natura gewährt“, 
+ist gemäß § 134 BGB unwirksam, soweit sie ei-
+nen nach § 13 Abs. 1 Satz 3 Bundesurlaubsgesetz 
+B. Rechtsprechungsübersicht  27
+c)   Berechnung des Urlaubsabgeltungsan- endigung. Die Höhe des Geldfaktors bemisst sich 
+spruchs grundsätzlich gemäß § 11 Abs. 1 BUrlG nach dem 
+durchschnittlichen Arbeitsverdienst in den letzten 
+Der Neunte Senat hatte am 3. Juni 2025 die Fra- 13 Wochen vor Beendigung des Arbeitsverhältnis-
+ge zu klären, wie der Urlaubsabgeltungsanspruch ses. Hat der Arbeitnehmer im Referenzzeitraum 
+zu berechnen ist, wenn der Arbeitnehmer vor der seine Arbeit unverschuldet versäumt, ist sein ge-
+Beendigung des Arbeitsverhältnisses längere Zeit wöhnlicher Arbeitsverdienst für die nach dem Ar-
+wegen voller Erwerbsminderungsrente abwesend beitsvertrag geschuldete regelmäßige Arbeitszeit 
+war (- 9 AZR 137/24 -). Die Abgeltung von Ur- zugrunde zu legen. Verdienstkürzungen, die im Be-
+laub nach § 7 Abs. 4 BUrlG, der wegen Beendi- rechnungszeitraum infolge von Kurzarbeit, Arbeits-
+gung des Arbeitsverhältnisses ganz oder teilweise ausfällen oder unverschuldeter Arbeitsversäumnis 
+nicht mehr gewährt werden kann, ist - ebenso wie eintreten, führen zu keiner Minderung des Abgel-
+das Urlaubsentgelt - aus einer Multiplikation von tungsanspruchs. Zu den Zeiten unverschuldeter 
+Zeit- und Geldfaktor zu errechnen. Maßgeblich sind Arbeitsversäumnis zählen auch Abwesenheitszei-
+die Verhältnisse im Zeitpunkt der rechtlichen Be- ten infolge voller Erwerbsminderung.
+3. Zeugnis
+Der Arbeitnehmer kann auf die Erteilung eines den objektiven Anknüpfungen des Art. 30 Abs. 2 
+qualifizierten Zeugnisses nicht durch Wahl einer EGBGB aF anzuwenden wäre. Bei dem Anspruch 
+Rechtsordnung, die keinen Zeugnisanspruch vor- auf ein qualifiziertes Zeugnis handelt es sich um 
+sieht, vor Beendigung des Arbeitsverhältnisses für zwingendes Recht in diesem Sinne. Das Arbeits-
+die Zukunft wirksam verzichten, urteilte der Zwei- zeugnis ist, allen evidenten Mängeln zum Trotz, 
+te Senat am 18. Juni 2025 (- 2 AZR 96/24 (B) -). für den Stellenwechsel des Arbeitnehmers in der 
+§ 109 Abs. 1 Gewerbeordnung (GewO), aus dem Praxis von größter Bedeutung und erleichtert sein 
+ein Anspruch des Arbeitnehmers auf Erteilung ei- Fortkommen im Berufsleben. Der Zeugnisanspruch 
+nes qualifizierten Arbeitszeugnisses folgt, ist für ist jedenfalls vor der Beendigung eines Arbeitsver-
+die Zeit vor der Beendigung des Arbeitsverhältnis- hältnisses nicht abdingbar, da insoweit die Möglich-
+ses eine international zwingende Norm iSv. Art. 30 keit der Druckausübung seitens des Arbeitgebers 
+Abs. 1 EGBGB aF, der im Wesentlichen dem jetzigen besteht. Vor Beendigung des Arbeitsverhältnisses 
+Art. 8 Abs. 1 Rom-I VO entspricht. Danach darf die abgegebene Verzichtserklärungen, Erlassverträ-
+vereinbarte Rechtswahl dem Arbeitnehmer nicht ge gemäß § 397 BGB oder den Zeugnisanspruch 
+den Schutz zwingenden deutschen Arbeitsrechts ausschließende Vereinbarungen sind deshalb nach 
+entziehen, sofern dieses ohne Rechtswahl nach § 134 BGB nichtig.
+4. Datenschutz: Immaterieller Schadensersatz nach der DSGVO
+Am 8. Mai 2025 hatte der Achte Senat darüber zu zur Wahrung der berechtigten Interessen des Ar-
+entscheiden (- 8 AZR 209/21 -), ob einem Arbeit- beitgebers gerechtfertigt sein, wenn entpersona-
+nehmer Schadensersatz wegen Verstoßes gegen lisierte „Dummy-Daten“ nicht genügen, um den 
+die Datenschutzgrundverordnung (DSGVO) zu- Testzweck zu erreichen. Sind die zu Testzwecken 
+steht, wenn der Arbeitgeber personenbezogene zu übertragenden personenbezogenen Daten aber 
+Echtdaten innerhalb des Konzerns an eine ande- - wie vorliegend - in einer Betriebsvereinbarung 
+re Gesellschaft überträgt, um eine cloudbasierte abschließend aufgezählt, kann regelmäßig nicht 
+Software für Personalverwaltung zu testen. Der angenommen werden, dass die Übertragung wei-
+Senat bejahte einen entsprechenden Anspruch terer Daten erforderlich ist. Durch die unrechtmä-
+und sprach dem Kläger einen Schadensersatz iHv. ßige Datenverarbeitung erlitt der Kläger auch einen 
+200,00 Euro zu. Zwar kann die Verarbeitung per- immateriellen Schaden iSv. Art. 82 Abs. 1 DSGVO 
+sonenbezogener Daten im Rahmen des vorläufigen in Form eines Kontrollverlustes. Der - selbst kurz-
+Betriebs einer Software zu Testzwecken im Einzel- zeitige - Verlust der Kontrolle über personenbezo-
+fall nach Art. 6 Abs. 1 Unterabs. 1 Buchst. f DSGVO gene Daten kann einen immateriellen Schaden iSv. 
+28 Jahresbericht des Bundesarbeitsgerichts 2025
+Art. 82 Abs. 1 DSGVO darstellen, der einen Scha- sächlich einen solchen Schaden - so geringfügig er 
+densersatzanspruch begründet, sofern die betrof- auch sein mag - erlitten hat.
+fene Person den Nachweis erbringt, dass sie tat-
+5. Digitale Entgeltabrechnung
+Muss eine Entgeltabrechnung in Papierform über- Arbeitnehmer verantwortlich zu sein. Es genügt, 
+sandt werden? Darüber hatte der Neunte Senat am dass er die Abrechnung an einer elektronischen 
+28. Januar 2025 zu befinden (- 9 AZR 48/24 -). Der Ausgabestelle bereitstellt. Hierbei hat er den be-
+Arbeitgeber hat dem Arbeitnehmer gemäß § 108 rechtigten Interessen der Beschäftigten Rechnung 
+Abs. 1 Satz 1 GewO bei Zahlung des Arbeitsentgelts zu tragen, die privat nicht über die Möglichkeit 
+eine Abrechnung in Textform zu erteilen. Der Senat eines Online-Zugriffs verfügen. Eine Betriebsver-
+entschied, der Arbeitgeber könne diese Verpflich- einbarung über die Einführung und Nutzung eines 
+tung grundsätzlich auch dadurch erfüllen, dass er digitalen Mitarbeiterpostfachs zum Zweck der Er-
+die Abrechnung als elektronisches Dokument zum teilung digitaler Abrechnungen trägt berechtigten 
+Abruf in ein passwortgeschütztes digitales Mitar- Belangen der Beschäftigten hinreichend Rechnung, 
+beiterpostfach einstellt. Denn der Anspruch eines wenn der Arbeitgeber es Arbeitnehmern ohne Zu-
+Arbeitnehmers auf Abrechnung seines Entgelts ist griff auf ein privates Endgerät ermöglichen muss, 
+eine sog. Holschuld, die der Arbeitgeber erfüllen die Unterlagen im Betrieb einzusehen und auszu-
+kann, ohne für den Zugang der Abrechnung beim drucken.
+IV. Arbeitnehmerüberlassung
+Der Neunte Senat entschied mit Urteil vom 3. Juni zwingend vorübergehender Natur. Ihrer Perpetuie-
+2025 (- 9 AZR 133/24 -), dass die AGB-Kontrolle, rung stehen § 10 Abs. 1 iVm. § 9 Abs. 1 Nr. 1b AÜG 
+die zur Unwirksamkeit der Befristung einer Verein- entgegen. Das gilt auch im Fall der Überlassung 
+barung über eine Auslandsentsendung führt, kein eines Arbeitnehmers innerhalb eines Konzerns. Die 
+Recht des Arbeitnehmers bewirken kann, einem Anwendung des Konzernprivilegs nach § 1 Abs. 3 
+Arbeitgeber im Ausland dauerhaft überlassen zu Nr. 2 AÜG ist bereits dann ausgeschlossen, wenn 
+werden. Diese Rechtsfolge stände im Widerspruch entweder die Einstellung „oder“ die Beschäftigung 
+zu den Vorgaben des Arbeitnehmerüberlassungs- Überlassungszwecken dient.
+gesetzes (AÜG). Arbeitnehmerüberlassung ist 
+V. Schutz vor Benachteiligung - Förderung der  
+Chancengleichheit
+1. Teilzeitbeschäftigung: Mehrarbeitszuschläge
+Eine tarifvertragliche Bestimmung, nach der Mehr- nis zu ihrer individuellen Arbeitszeit - mehr arbei-
+arbeitszuschläge unabhängig von der individuel- ten müssen, um in den Genuss solcher Zuschläge 
+len Arbeitszeit ab der 41. Wochenarbeitsstunde zu zu kommen. Die Benachteiligung ist nicht gerecht-
+zahlen sind, verstößt gegen das Verbot der Diskri- fertigt. Bei der Prüfung, ob ein sachlicher Grund 
+minierung Teilzeitbeschäftigter (§ 4 Abs. 1 TzBfG). für die Benachteiligung vorliegt, ist aufgrund des 
+Das entschied der Fünfte Senat am 26. November Unionsrechtsbezugs von § 4 Abs. 1 TzBfG nicht 
+2025 (- 5 AZR 118/23 -). Eine solche Regelung be- lediglich eine Willkürkontrolle vorzunehmen. Viel-
+nachteiligt Teilzeitbeschäftigte, da sie - im Verhält- mehr sind die vom Gerichtshof der Europäischen 
+B. Rechtsprechungsübersicht  29
+Union vorgegebenen Anforderungen zu beachten. für die Gewährung eines Mehrarbeitszuschlags für 
+Danach lässt sich die Zuschlagsregelung auch nicht Teilzeitbeschäftigte nicht wirksam ist. Diesen steht 
+damit rechtfertigen, dass eine wöchentliche Ar- nach § 612 Abs. 2 BGB iVm. § 4 Abs. 1 Satz 2 
+beitszeit von mehr als 40 Stunden zu einer beson- TzBfG ein Anspruch auf Mehrarbeitszuschläge zu, 
+deren Belastung führt, die finanziell kompensiert wenn ihre individuell vereinbarte wöchentliche Ar-
+und im Interesse des Gesundheitsschutzes der beitszeit proportional zur Zuschlagsgrenze für Voll-
+Arbeitnehmer vermieden werden soll. Denn dabei zeitbeschäftigte überschritten wurde. Die den Tarif-
+werden die besonderen Belastungen, die eine über vertragsparteien aus Art. 9 Abs. 3 GG zustehende 
+die individuelle Wochenarbeitszeit hinausgehende Befugnis zur primären Korrektur ihrer Regelungen 
+Mehrarbeit typischerweise auch bei Teilzeitarbeit- steht dem nicht entgegen. Im Anwendungsbereich 
+nehmern haben kann, von den Tarifvertragspartei- unionsrechtlich überformter Diskriminierungsver-
+en nicht angemessen berücksichtigt. Der Verstoß bote ist den Tarifvertragsparteien keine solche pri-
+der Tarifnorm gegen § 4 Abs. 1 TzBfG hat zur Fol- märe Korrekturmöglichkeit einzuräumen.
+ge, dass die im Tarifvertrag vorgesehene Grenze 
+2. Entgeltdiskriminierung wegen des Geschlechts
+Männer und Frauen haben bei gleicher oder gleich- Wahrscheinlichkeit für eine geschlechtsbedingte 
+wertiger Arbeit Anspruch auf gleiches Entgelt. Der Benachteiligung bedarf es nicht. Kann der Arbeit-
+Achte Senat befasste sich in diesem Zusammen- geber die aus einem solchen Paarvergleich folgen-
+hang in der Entscheidung vom 23. Oktober 2025 de Vermutung einer Benachteiligung wegen des 
+mit dem sog. Paarvergleich (- 8 AZR 300/24 -). Geschlechts nicht widerlegen, ist er zur Zahlung 
+Klagt eine Arbeitnehmerin auf gleiches Entgelt des Entgelts verpflichtet, das er dem zum Vergleich 
+für gleiche oder gleichwertige Arbeit, begründet herangezogenen Kollegen gezahlt hat. Die Größe 
+der Umstand, dass ihr Entgelt geringer ist als das der männlichen Vergleichsgruppe und die Höhe der 
+eines männlichen Kollegen, der die gleiche oder Medianentgelte beider Geschlechtsgruppen ist für 
+gleichwertige Arbeit verrichtet, regelmäßig die das Eingreifen der Vermutungswirkung ohne Be-
+Vermutung, dass diese Benachteiligung wegen deutung. Dies gibt die Rechtsprechung des Ge-
+des Geschlechts erfolgt ist. Einer überwiegenden richtshofs der Europäischen Union vor.
+3. Altersdiskriminierung
+In seiner Entscheidung vom 8. Mai 2025 grenze in der gesetzlichen Rentenversicherung 
+(- 8 AZR 299/24 -) hatte sich der Achte Senat mit zwar eine unmittelbare Benachteiligung wegen 
+der Frage zu befassen, ob eine Altersdiskriminie- des Alters iSv. § 3 Abs. 1 iVm. § 1 AGG. Diese 
+rung vorliegen kann, wenn ein Bewerber nicht Benachteiligung war aber nach § 10 Satz 1 und 2 
+eingestellt wird, weil er die tarifliche Altersgrenze AGG gerechtfertigt. Ein an eine tarifvertragliche 
+überschritten hat. Anlass war der folgende Fall: Altersgrenze gebundener Arbeitgeber darf einen 
+Eine an den Tarifvertrag des öffentlichen Dienstes externen Bewerber, der die gesetzliche Regelal-
+für den Bereich der Verwaltung (TVöD-V) gebun- tersgrenze überschritten hat, ablehnen, sofern für 
+dene Arbeitgeberin schrieb eine Stelle aus, auf die die Stelle ein jüngerer qualifizierter Bewerber zur 
+sich der schwerbehinderte Kläger - der zu diesem Verfügung steht, wenn er damit - wie vorliegend 
+Zeitpunkt bereits die Regelaltersgrenze in der ge- und auch typischerweise - das legitime Ziel einer 
+setzlichen Rentenversicherung überschritten hat- ausgewogenen Beschäftigungsverteilung zwischen 
+te - erfolglos bewarb. Nachdem die Arbeitgeberin den Generationen verfolgt. Für die Rechtfertigung 
+eine jüngere Bewerberin befristet eingestellt hat- der Benachteiligung spielt es keine Rolle, ob es sich 
+te, verlangte der Kläger eine Entschädigung nach um eine unbefristete oder befristet zu besetzende 
+§ 15 Abs. 2 Allgemeines Gleichbehandlungsgesetz Stelle handelt. Auch die nach § 165 Satz 3 Neuntes 
+(AGG) ua. wegen einer altersbedingten Diskrimi- Buch Sozialgesetzbuch (SGB IX) bestehende Pflicht 
+nierung. Der Senat sah in der Ablehnung des Klä- öffentlicher Arbeitgeber, schwerbehinderte Men-
+gers wegen des Überschreitens der Regelalters- schen zu einem Vorstellungsgespräch einzuladen, 
+30 Jahresbericht des Bundesarbeitsgerichts 2025
+hatte die Beklagte nicht verletzt. Die Pflicht bezieht durch den Arbeitgeber eine nach § 10 Satz 1 und 2 
+sich nicht auf Bewerber, die die Regelaltersgren- AGG gerechtfertigte Benachteiligung wegen des 
+ze in der gesetzlichen Rentenversicherung bereits Alters darstellt.
+überschritten haben und deren Nichteinstellung 
+4. Schwerbehinderung: Inklusionsbeauftragter
+Die Verletzung der sich aus § 181 SGB IX erge- ten ihn betreffenden Maßnahmen noch keine weni-
+benden Pflicht eines Arbeitgebers, einen Inklusi- ger günstige Behandlung als sie eine andere Person 
+onsbeauftragten zu bestellen, kann zwar ein Indiz in einer vergleichbaren Situation erfährt, erfahren 
+iSv. § 22 AGG für den kausalen Zusammenhang hat oder erfahren würde. Zudem stellt die unter-
+zwischen der Schwerbehinderung und einer Be- bliebene Bestellung eines Inklusionsbeauftragten 
+nachteiligung eines Arbeitnehmers begründen. Das nur dann ein Indiz für eine Benachteiligung wegen 
+setzt aber voraus, dass durch die benachteiligen- einer Behinderung dar, wenn die Maßnahme des 
+de Maßnahme die spezifischen Belange schwerbe- Arbeitgebers den - zum Zweck des Schutzes der 
+hinderter Menschen betroffen sind. Dies entschied Rechte schwerbehinderter Menschen bestimmten - 
+der Achte Senat mit Urteil vom 26. Juni 2025 Aufgabenkreis des Inklusionsbeauftragten tangiert. 
+(- 8 AZR 276/24 -). Der Umstand, dass kein In- Voraussetzung für das Eingreifen der Indizwirkung 
+klusionsbeauftragter bestellt wird, stellt - für sich ist daher der Bezug zu einer etwaigen Pflichtver-
+genommen - noch keine Benachteiligung dar, die letzung des Arbeitgebers iSv. § 181 Satz 3 SGB IX. 
+einen Entschädigungsanspruch zu begründen ver- Daran fehlt es, wenn von der benachteiligenden 
+mag. Allein durch dessen unterbliebene Bestellung Maßnahme alle Arbeitnehmer gleichermaßen be-
+erfährt ein Arbeitnehmer unabhängig von konkre- troffen sind.
+VI. Beendigung von Arbeitsverhältnissen
+1. Kündigung
+a)  Zugang eines Kündigungsschreibens scheinsbeweis für einen Zugang der eingelieferten 
+Postsendung beim Empfänger. Ob für den Absen-
+Der Zweite Senat befasste sich am 30. Januar 2025 der bei Vorlage des Einlieferungsbelegs zusammen 
+mit der Frage, wie der Arbeitgeber den Zugang ei- mit einer Reproduktion des Auslieferungsbelegs 
+ner per Einwurf-Einschreiben an den Arbeitnehmer der Beweis des ersten Anscheins streitet, dass die 
+übersandten Kündigung im Prozess beweisen kann Sendung durch Einlegen in den Briefkasten zuge-
+(- 2 AZR 68/24 -). Eine verkörperte Willenserklä- gangen ist, wenn ein näher beschriebenes Verfah-
+rung geht unter Abwesenden zu, sobald sie in ver- ren eingehalten wurde, musste der Senat aufgrund 
+kehrsüblicher Weise in die tatsächliche Verfügungs- des gegebenen Sachverhalts nicht entscheiden.
+gewalt des Empfängers gelangt ist und für diesen 
+unter gewöhnlichen Verhältnissen die Möglichkeit b)   Vertretungsmacht: Verwalter einer 
+besteht, von ihr Kenntnis zu nehmen. Zum Bereich Wohnungseigentümergemeinschaft
+des Empfängers gehören von ihm vorgehaltene 
+sog. Empfangseinrichtungen wie ein Briefkasten. Darf ein Verwalter einer Wohnungseigentümer-
+Die Arbeitgeberin trägt für den ihr günstigen Um- gemeinschaft das Arbeitsverhältnis eines Haus-
+stand des Zugangs des Kündigungsschreibens die meisters kündigen, wenn dieser gleichzeitig Woh-
+Darlegungs- und Beweislast. Die bloße Vorlage nungseigentümer ist? Der Zweite Senat bejahte 
+des Einlieferungsbelegs eines Einwurf-Einschrei- mit Urteil vom 6. März 2025 (- 2 AZR 115/24 -) 
+bens und die Darstellung seines Sendungsverlaufs diese Frage. Denn Abschluss und Kündigung eines 
+begründen für sich allein genommen keinen An- Arbeitsvertrags mit einer Gemeinschaft von Woh-
+B. Rechtsprechungsübersicht  31
+nungseigentümern sind von der unbeschränk- c)   Präventionsverfahren und Wartezeit-
+ten Vertretungsmacht des Verwalters nach § 9b kündigung eines schwerbehinderten 
+Abs. 1 Satz 1 Halbs. 1 Wohnungseigentumsgesetz Menschen
+(WEG) erfasst und bedürfen zu ihrer Wirksamkeit 
+keines Beschlusses der Wohnungseigentümerge- Der Zweite Senat setzte sich in einer Entscheidung 
+meinschaft. Eine Beschränkung des Umfangs der vom 3. April 2025 (- 2 AZR 178/24 -) mit der Fra-
+Vertretungsmacht des Verwalters einer Gemein- ge auseinander, ob Arbeitgeber bei der Kündigung 
+schaft von Wohnungseigentümern für Rechtsge- schwerbehinderter Arbeitnehmer bereits in der 
+schäfte gegenüber einem Wohnungseigentümer ist Wartezeit des § 1 Abs. 1 KSchG und damit in den 
+nach § 9b Abs. 1 Satz 3 WEG unwirksam, soweit ersten sechs Monaten des Arbeitsverhältnisses ver-
+dieser der Gemeinschaft wie ein Außenstehender pflichtet sind, ein Präventionsverfahren nach § 167 
+(„Dritter“) gegenübertritt. So liegt es beim Ab- Abs. 1 SGB IX durchzuführen. Ein solches ist nach 
+schluss und der Kündigung eines Arbeitsvertrags Auffassung des Bundesarbeitsgerichts bei einer or-
+als Hausmeister, der genauso mit einem der Ge- dentlichen Kündigung während der Wartezeit nicht 
+meinschaft der Wohnungseigentümer nicht ange- erforderlich. Sowohl Wortlaut als auch Systematik 
+hörenden Arbeitnehmer hätte abgeschlossen wer- der Vorschrift des § 167 Abs. 1 SGB IX sprechen 
+den können. dafür, dass diese Norm nur für Kündigungen im 
+zeitlichen und sachlichen Anwendungsbereich des 
+Kündigungsschutzgesetzes gilt. Die Begrifflichkei-
+ten des § 167 Abs. 1 SGB IX knüpfen erkennbar an 
+die Terminologie des § 1 Abs. 2 KSchG an.
+2. Sonderkündigungsschutz: Verspätete Kündigungsschutzklage 
+einer schwangeren Beschäftigten
+Erlangt eine Arbeitnehmerin schuldlos erst nach lassen, wenn diese erst nach Ablauf der Klagefrist 
+Ablauf der Klagefrist des § 4 Satz 1 KSchG Kennt- des § 4 Satz 1 KSchG positive Kenntnis davon er-
+nis von einer beim Zugang des Kündigungsschrei- langt, dass sie schon bei Zugang der Kündigung 
+bens bereits bestehenden Schwangerschaft, ist schwanger war. Positive Kenntnis vom Bestehen 
+die verspätet erhobene Kündigungsschutzklage einer Schwangerschaft bereits im Kündigungszeit-
+auf ihren Antrag gemäß § 5 Abs. 1 Satz 2 KSchG punkt wird die Arbeitnehmerin regelmäßig erst 
+nachträglich zuzulassen. Das entschied der Zweite aufgrund des entsprechenden Ergebnisses einer 
+Senat am 3. April 2025 (- 2 AZR 156/24 -). Dabei ärztlichen Untersuchung haben. Die Arbeitnehme-
+hielt das Bundesarbeitsgericht an seiner Rechts- rin ist nicht aufgrund einer entsprechenden Vermu-
+auffassung fest, dass die Regelung des § 4 Satz 4 tung oder bloß vager Anhaltspunkte gehalten, sich 
+KSchG über den späteren Beginn der Klagefrist für unverzüglich Gewissheit über das Vorliegen einer 
+den Fall, dass die Kündigung der Zustimmung ei- Schwangerschaft im Kündigungszeitpunkt zu ver-
+ner Behörde bedarf, keine Anwendung findet, wenn schaffen, um dem Vorwurf zu entgehen, sie habe 
+der Arbeitgeber bei Zugang der Kündigung keine die verspätete Kenntniserlangung iSv. § 5 Abs. 1 
+Kenntnis von den den Sonderkündigungsschutz Satz 2 KSchG zu vertreten. Mit dieser Auslegung 
+gemäß § 17 Abs. 1 Satz 1 Nr. 1 MuSchG begrün- des § 5 Abs. 1 KSchG verstößt die teleologische 
+denden Umständen hat. Das gilt auch, wenn die Reduktion des § 4 Satz 4 KSchG bei Unkenntnis 
+Arbeitnehmerin - wie im entschiedenen Fall - zu- des kündigenden Arbeitgebers vom Eingreifen des 
+nächst selbst nicht um ihre Schwangerschaft weiß. Sonderkündigungsschutzes nicht gegen Art. 10 der 
+Nach § 5 Abs. 1 Satz 2 KSchG ist die Kündigungs- Richtlinie 92/85/EWG des Rates vom 19. Oktober 
+schutzklage auf den form- und fristgerechten An- 1992 (Mutterschutzrichtlinie) iVm. dem unions-
+trag der Arbeitnehmerin aber nachträglich zuzu- rechtlichen Effektivitätsgrundsatz.
+32 Jahresbericht des Bundesarbeitsgerichts 2025
+3. Befristung
+a)  Verhältnismäßigkeit einer Probezeit c)   Benachteiligungsverbot bei Altersbefris-
+tung
+Wird für ein befristetes Arbeitsverhältnis neben der 
+Kündbarkeit (§ 15 Abs. 4 TzBfG) eine Probezeit ver- Für den Sechsten Senat stellte sich am 31. Juli 
+einbart, so muss diese gemäß § 15 Abs. 3 TzBfG (in 2025 die Frage (- 6 AZR 18/25 -), ob das Diskri-
+der Fassung vom 20. Juli 2022) im Verhältnis zur minierungsverbot für befristet beschäftigte Arbeit-
+erwarteten Dauer der Befristung und der Art der nehmer auch dann gilt, wenn die Befristung darin 
+Tätigkeit stehen. Danach darf eine vereinbarte Pro- besteht, dass das Arbeitsverhältnis mit Vollendung 
+bezeit ohne Hinzutreten von besonderen Umstän- des gesetzlich festgelegten Alters für den Anspruch 
+den nicht der gesamten Befristungsdauer entspre- auf eine Regelaltersrente enden wird, wie es 
+chen. Dies hat der Zweite Senat am 5. Dezember § 33 Abs. 1 Buchst. a des Tarifvertrags für den 
+2024 (- 2 AZR 275/23 -) entschieden. Die unver- öffentlichen Dienst der Länder (TV-L) anordnet. 
+hältnismäßige Dauer der Probezeit hat zur Folge, Nach § 4 Abs. 2 Satz 1 TzBfG darf ein befristet be-
+dass eine Kündigung das Arbeitsverhältnis nicht schäftigter Arbeitnehmer wegen der Befristung des 
+mit der verkürzten zweiwöchigen Frist des § 622 Arbeitsvertrags nicht schlechter behandelt werden 
+Abs. 3 BGB beendet. Ist neben oder - im Falle der als ein vergleichbarer unbefristet beschäftigter 
+Teilbarkeit der Klausel - in einer Vereinbarung über Arbeitnehmer, es sei denn, dass sachliche Grün-
+die Probezeit eine Abrede über die Beendigung des de eine unterschiedliche Behandlung rechtfertigen. 
+befristeten Arbeitsvertrags durch eine ordentliche Der Sechste Senat entschied, dass sich der Schutz 
+Kündigung getroffen, bleibt deren Wirksamkeit von des § 4 Abs. 2 Satz 1 TzBfG für befristet beschäf-
+der Unwirksamkeit einer unverhältnismäßig langen tigte Arbeitnehmer nach seinem Sinn und Zweck 
+Probezeit unberührt. nicht auf Arbeitsverhältnisse erstreckt, die auf das 
+Erreichen der Regelaltersgrenze befristet sind. Der 
+b)  Feste Begrenzung der Probezeitdauer Sache nach stellen sich solche Arbeitsverhältnisse 
+als konsolidierte „Normalarbeitsverhältnisse“ dar. 
+Mit Urteil vom 30. Oktober 2025 (- 2 AZR 160/24 -) Da das Diskriminierungsverbot befristet Beschäf-
+stellte der Zweite Senat klar, dass es für die Ver- tigter in § 4 Abs. 2 TzBfG eine Konkretisierung des 
+hältnismäßigkeit einer vereinbarten Probezeit primärrechtlichen allgemeinen Gleichheitssatzes 
+in einem kündbaren (§ 15 Abs. 4 TzBfG) befris- von Art. 20 der Charta der Grundrechte der Euro-
+teten Arbeitsverhältnis iSv. § 15 Abs. 3 TzBfG (in päischen Union (GRC) darstellt, liegt auch keine 
+der Fassung vom 20. Juli 2022) keinen Regelwert Diskriminierung nach Art. 20 GRC vor.
+gibt. Insbesondere existiert keine Regel dahin-
+gehend, dass die Länge der Probezeit höchstens 
+25 Prozent der Befristungsdauer betragen darf. 
+Vielmehr ist stets eine Einzelfallabwägung unter 
+Berücksichtigung der erwarteten Dauer der Befris-
+tung und der Art der Tätigkeit durchzuführen. Im 
+entschiedenen Fall wurde eine viermonatige Probe-
+zeit mit einem detaillierten Einarbeitungsplan über 
+16 Wochen bei einer Befristung von einem Jahr als 
+verhältnismäßig anerkannt. Der Senat hat ergän-
+zend klargestellt, dass der Begriff der „Probezeit“ 
+im unionsrechtlichen Sinn und in § 15 Abs. 3 TzBfG 
+nicht gleichbedeutend mit dem Begriff der „Warte-
+zeit“ gemäß § 1 Abs. 1 KSchG ist, sodass die Ver-
+einbarung einer Probezeit von weniger als sechs 
+Monaten als solche nicht zu einer Verkürzung der 
+gesetzlichen Wartezeit führt.
+B. Rechtsprechungsübersicht  33
+4. Karenzentschädigung bei nachvertraglichem Wettbewerbsver-
+bot: Virtuelle Aktienoptionen
+Bei einem nachvertraglichen Wettbewerbsverbot geleistete Arbeit erbracht hat. Vom Arbeitgeber 
+mit einem Arbeitnehmer muss der frühere Arbeit- gewährte virtuelle Aktienoptionsrechte sind da-
+geber eine Karenzentschädigung zahlen, die min- mit bei der Berechnung der Karenzentschädigung 
+destens die Hälfte der zuletzt bezogenen „ver- zu berücksichtigen, sofern sie noch im laufenden 
+tragsmäßigen Leistung“ erreicht, § 74 Abs. 2, Arbeitsverhältnis ausgeübt wurden. Nicht ausrei-
+§ 74b Abs. 2 Handelsgesetzbuch (HGB). Mit zwei chend ist es dagegen, wenn die Optionsrechte zwar 
+Entscheidungen vom 27. März 2025 (- 8 AZR während dieser Zeit schon erdient (gevestet), aber 
+63/24 - und - 8 AZR 139/24 -) hat der Achte Senat erst nach der Beendigung des Arbeitsverhältnisses 
+geklärt, wann Leistungen aus virtuellen Aktienop- ausgeübt werden. Der Senat stellte zugleich klar, 
+tionsprogrammen bei der Berechnung der Karenz- dass Leistungen aus einem Programm zu virtuellen 
+entschädigung zu berücksichtigen sind. Zu den zu- Aktienoptionen unabhängig davon in die Berech-
+letzt bezogenen vertragsmäßigen Leistungen iSv. nung der Karenzentschädigung nach § 74 Abs. 2, 
+§ 74 Abs. 2 HGB, die in die Berechnung der Ka- § 74b Abs. 2 HGB einfließen können, ob das Ak-
+renzentschädigung einfließen, gehören danach tienoptionsprogramm geendet hat, bevor das Ar-
+diejenigen Leistungen, die der Arbeitgeber im lau- beitsverhältnis beendet war.
+fenden Arbeitsverhältnis als Gegenleistung für die 
+5. Verfall von virtuellen Optionen bei Ausscheiden
+Mit Urteil vom 19. März 2025 entschied der Zehn- Wartezeit erbrachte Arbeitsleistung darstellen. Da-
+te Senat (- 10 AZR 67/24 -), dass eine Klausel in rüber hinaus führt die Verfallklausel zu einer über-
+Allgemeinen Geschäftsbedingungen, die bestimmt, mäßigen Erschwerung des durch Art. 12 Abs. 1 GG 
+dass zugunsten des Arbeitnehmers erdiente (ge- geschützten Kündigungsrechts des Arbeitnehmers. 
+vestete) virtuelle Optionsrechte nach Beendigung Ebenfalls unwirksam ist eine Klausel, die vorsieht, 
+des Arbeitsverhältnisses aufgrund einer Eigenkün- dass die virtuellen Optionsrechte nach Beendigung 
+digung sofort verfallen, den Arbeitnehmer unange- des Arbeitsverhältnisses doppelt so schnell verfal-
+messen benachteiligt und daher unwirksam ist. Sie len, wie sie innerhalb der sog. Vesting-Periode ent-
+berücksichtigt nicht, dass die gevesteten virtuellen standen sind. Dies führt nach § 306 Abs. 1 BGB 
+Optionen und die mit ihnen verbundene Chance zum ersatzlosen Wegfall der Bestimmungen, wäh-
+auf Partizipation an der Wertsteigerung des Unter- rend der Vertrag im Übrigen wirksam bleibt.
+nehmens auch eine Gegenleistung für die in der 
+VII. Betriebliche Altersversorgung
+1. Arbeitgeberzuschuss
+Nach einer Entscheidung des Dritten Senats vom erfüllt. Die Erfüllung ist objektive Folge der Leis-
+24. Juni 2025 (- 3 AZR 158/24 -) wird der Anspruch tungsbewirkung, einer entsprechenden Vereinba-
+eines Arbeitnehmers auf Zahlung eines zusätzlich rung bedarf es nicht. Ob und ggf. unter welchen 
+zur Entgeltumwandlung für eine betriebliche Alters- Voraussetzungen auf anderer Rechtsgrundlage ge-
+versorgung zu leistenden Arbeitgeberzuschusses schuldete Leistungen des Arbeitgebers auf den An-
+nach § 1a Abs. 1a Betriebsrentengesetz (BetrAVG) spruch aus § 1a Abs. 1a BetrAVG „angerechnet“ 
+allein durch die Weiterleitung des geschuldeten werden können, bedurfte keiner Entscheidung und 
+Betrags an die betreffende Versorgungseinrichtung wurde vom Senat offengelassen.
+34 Jahresbericht des Bundesarbeitsgerichts 2025
+2. Berücksichtigung von Erziehungs- oder Elternzeit bei der  
+Wartezeit
+Sind Erziehungs- oder Elternzeiten ohne Vergü- ligung wegen des Geschlechts jedenfalls gerecht-
+tungsansprüche für die Erfüllung einer Wartezeit zur fertigt ist. In Systemen der betrieblichen Alters-
+Abgrenzung zweier unterschiedlicher Regelungs- versorgung ist es - jedenfalls bei umlagebasierten 
+systeme der betrieblichen Altersversorgung ein- Systemen, die an vergütungspflichtige Zeiten an-
+zubeziehen? Mit dieser Frage beschäftigte sich der knüpfen - zulässig, Monate ohne Entgelt - und da-
+Dritte Senat am 6. Mai 2025 (- 3 AZR 65/24 -). Ein mit auch Zeiten des ruhenden Arbeitsverhältnisses 
+Tarifvertrag, der die Ablösung eines Versorgungs- wegen Erziehungs- oder Elternzeiten - von der 
+systems vorsah, enthielt eine Besitzstandsklausel Berücksichtigung auszunehmen. Der Unterschied 
+für Arbeitnehmer, die eine bestimmte Wartezeit er- zwischen einem ruhenden und einem nicht ruhen-
+füllt hatten. Zeiten, in denen das Arbeitsverhältnis den Arbeitsverhältnis ist so gewichtig, dass er eine 
+zB wegen Elternzeit geruht hatte, sollten auf diese unterschiedliche Behandlung rechtfertigt. Das gilt 
+nicht angerechnet werden. Die Regelung war nach auch bei einem Systemwechsel wie dem vorliegen-
+Auffassung des Bundesarbeitsgerichts zulässig, da den.
+eine darin liegende mögliche mittelbare Benachtei-
+3. Ablösung von Versorgungsregelungen im Konzern
+Der Dritte Senat hatte am 2. Juli 2024 über die Vo- sachlich-proportionale Gründe erforderlich. Dabei 
+raussetzungen der Ablösung eines konzernweit ge- konkretisierte das Bundesarbeitsgericht die Anfor-
+regelten Versorgungswerks durch verschlechtern- derungen an sachlich-proportionale Gründe auf der 
+de Regelungen zu entscheiden (- 3 AZR 247/23 -). dritten Stufe für den Fall, dass der Konzernarbeit-
+Dabei hielt der Senat zunächst an seiner Recht- geber die schon bislang konzernweit geregelte be-
+sprechung fest, dass es aus den Grundsätzen der triebliche Altersversorgung für den gesamten Kon-
+Verhältnismäßigkeit und des Vertrauensschut- zern durch eine neue Konzernbetriebsvereinbarung 
+zes bei der verschlechternden Neuregelung einer ablösen möchte. Maßgebend sind dann die tatsäch-
+Versorgungsordnung unterschiedlich gewichtiger lichen Umstände und wirtschaftlichen Verhältnisse 
+Gründe für eine Ablösung bedarf. Der unter Gel- im Konzern. Es kommen - entsprechend den Anfor-
+tung der bisherigen Ordnung und in dem Vertrauen derungen auf Unternehmensebene - nachvollzieh-
+auf deren Inhalt bereits erdiente und entsprechend bare, anerkennenswerte Gründe in Betracht, die 
+§ 2 Abs. 1, § 2a Abs. 1 BetrAVG ermittelte Teilbe- einen vernünftig handelnden Konzernarbeitgeber 
+trag kann nur in seltenen Ausnahmefällen entzogen zu einer Verschlechterung der noch zu erdienenden 
+werden. Der Eingriff setzt zwingende Gründe vor- Zuwächse veranlassen können. Ebenso kann eine 
+aus. Zuwächse, die sich - wie etwa bei endgehalts- bereits eingetretene oder prognostizierte negative 
+bezogenen Zusagen - dienstzeitunabhängig aus Entwicklung nur des Versorgungssystems aufgrund 
+dynamischen Berechnungsfaktoren ergeben (er- unvorhersehbarer Umstände - zB eine unvorher-
+diente Dynamik), können nur aus triftigen Gründen sehbare Mehrbelastung aufgrund Änderungen im 
+geschmälert werden. Für eine Verschlechterung der Recht der gesetzlichen Rentenversicherung - einen 
+Berechnungsgrundlagen für dienstzeitabhängige, sachlichen Grund darstellen.
+noch nicht erdiente Zuwachsraten sind schließlich 
+4. Anpassung: Befreiung von Anpassungsprüfungspflicht
+Die Entscheidung vom 6. Mai 2025 (- 3 AZR sorgung über eine Pensionskasse iSd. § 1b Abs. 3 
+142/24 -) thematisierte die Befreiung von der BetrAVG durchgeführt wird und ab Rentenbeginn 
+Anpassungsprüfungspflicht von Versorgungsleis- sämtliche auf den Rentenbestand entfallende Über-
+tungen bei einer Pensionskasse nach § 16 Abs. 1 schussanteile zur Erhöhung der laufenden Leistun-
+Satz 1 BetrAVG. Diese entfällt nach § 16 Abs. 3 gen verwendet werden. Das gilt auch dann, wenn 
+Nr. 2 BetrAVG, wenn die betriebliche Altersver- eine Pensionskasse ihren eigenen Arbeitnehmern 
+B. Rechtsprechungsübersicht  35
+eine betriebsrentenrechtliche Versorgungszusage dert § 16 Abs. 3 Nr. 2 BetrAVG jedoch nicht, dass 
+erteilt, die über sie selbst als Pensionskasse durch- in jedem Fall eine Überschussbeteiligung und somit 
+geführt wird. Dabei müssen die Voraussetzungen eine Anpassung laufender Renten durch entspre-
+des Wegfalls der Anpassungsprüfungspflicht nach chende Überschussverwendung zu erfolgen hat. 
+§ 16 Abs. 3 Nr. 2 BetrAVG rechtlich verbindlich bei Eine solche kommt vielmehr nur in Betracht, wenn 
+Eintritt des Versorgungsfalls feststehen. Eine bloß die dauernde Erfüllbarkeit der sich aus den Ver-
+praktische Handhabung, aufgrund derer die Pen- sicherungsverträgen ergebenden Verpflichtungen 
+sionskasse so verfährt, wie es § 16 Abs. 3 Nr. 2 des Unternehmens beachtet ist.
+BetrAVG voraussetzt, genügt nicht. Weiterhin for-
+5. Absenkung der Versorgungsrechte durch Krisentarifvertrag
+Am 26. November 2024 befasste sich der Dritte rechte führt, bedürfen die Tarifvertragsparteien 
+Senat (- 3 AZR 28/24 -) mit der Wirksamkeit eines legitimierender Gründe. Deren Gewicht hängt von 
+zur Bewältigung der wirtschaftlichen Folgen der den Nachteilen ab, die den Versorgungsberechtig-
+Coronakrise geschlossenen Tarifvertrags, der ua. ten durch die Änderung der Versorgungsregelun-
+die Aussetzung von Beiträgen zur betrieblichen gen entstehen. Für nicht schwerwiegende Eingriffe 
+Altersversorgung vorsah. Voraussetzung dafür ist reicht jeder sachliche Grund aus. Darüber hinaus 
+die Einhaltung der vom Bundesarbeitsgericht ent- stellte der Senat klar, dass eine rückwirkende tarif-
+wickelten Maßstäbe zum Vertrauensschutz und zur liche Regelung nicht gegen den aus dem Rechts-
+Verhältnismäßigkeit bei verschlechternden Tarif- staatsprinzip (Art. 20 Abs. 3 GG) folgenden Ver-
+regelungen. Danach sind die Tarifvertragsparteien trauensgrundsatz verstößt, wenn es an einem 
+zwar nicht verpflichtet, die jeweils zweckmäßigste, schutzwürdigen Vertrauen in den Fortbestand der 
+vernünftigste oder gerechteste Lösung zu wählen. begünstigenden Rechtslage fehlt. Das ist insbeson-
+Wenn die tarifliche Regelung aber zu einer Be- dere dann der Fall, wenn die rückwirkende Norm 
+schränkung oder zu einem Eingriff in Versorgungs- der Beseitigung einer unklaren Rechtslage dient.
+6. Unverfallbare Anwartschaft
+Berechnet der Arbeitgeber beim vorzeitigen Aus- die Berechnung der gesetzlichen Rente individu-
+scheiden des Versorgungsberechtigten die Höhe ei- ell auf Grundlage der tatsächlich nachgewiesenen 
+ner auf ein betriebliches Ruhegeld anzurechnenden sozialversicherungsrechtlichen Entgeltpunkte vor-
+gesetzlichen Altersrente nach §§ 2, 2a BetrAVG nehmen. Das gilt auch dann, wenn der Ruhegeld-
+aufgrund fehlender Kenntnis von den tatsächlich anspruch dadurch geringer ausfällt als in der ur-
+erworbenen Entgeltpunkten unter Anwendung sprünglichen Auskunft. Die Mitteilung ist eine bloße 
+des steuerlichen Näherungsverfahrens und teilt er Wissenserklärung und kein abstraktes oder dekla-
+dem Arbeitnehmer auf dieser Grundlage die Höhe ratorisches Schuldanerkenntnis. Dies entschied der 
+der unverfallbaren Anwartschaft mit, kann er re- Dritte Senat am 11. März 2025 (- 3 AZR 136/24 -).
+gelmäßig gleichwohl im späteren Versorgungsfall 
+7. Hinterbliebenenversorgung: Mindestehedauer
+Darf die Satzung einer Pensionskasse eine zu- bestimmung unterlag zwar grundsätzlich der Kon-
+gesagte Hinterbliebenenversorgung davon ab- trolle nach dem Recht der Allgemeinen Geschäfts-
+hängig machen, dass die Ehe mit dem ver- bedingungen, da es sich nicht um einen Tarifvertrag 
+storbenen Mitglied mindestens drei Monate iSd. § 310 Abs. 4 BGB handelte und sie auch kei-
+bestand, sofern kein Unfalltod vorliegt? Der nen tariflichen Ursprung hatte. Sie war aber AGB-
+Dritte Senat bejahte dies in seinem Urteil vom rechtlich nicht zu beanstanden und benachteiligt 
+22. Oktober 2024 (- 3 AZR 23/24 -). Die Satzungs- die Versorgungsberechtigten nicht unangemessen 
+36 Jahresbericht des Bundesarbeitsgerichts 2025
+iSv. § 307 Abs. 1 Satz 1 BGB. Insbesondere war gung der gesetzlichen Vorgaben und wechselseiti-
+die Frist von drei Monaten auch unter Berücksichti- gen Interessen nicht zu beanstanden.
+8. Pensions-Sicherungs-Verein
+a)  Verjährung b)   Übernahme einer Altersversorgungsver-
+pflichtung
+Mit der Verjährung auf den Pensions-Sicherungs-
+Verein (PSV) übergegangener Forderungen gegen Bei Eröffnung des Insolvenzverfahrens über das 
+die Insolvenzmasse setzte sich der Dritte Senat am Vermögen des Arbeitgebers besteht grundsätzlich 
+21. Januar 2025 auseinander (- 3 AZR 45/24 -). ein Anspruch des Arbeitnehmers auf Leistungen 
+Er verwies darauf, dass § 18a BetrAVG abschlie- gegen den Pensions-Sicherungs-Verein als Träger 
+ßend die Verjährung von Ansprüchen auf Leis- der Insolvenzsicherung. Für den Fall einer Zusa-
+tungen der betrieblichen Altersversorgung regelt. ge oder Verbesserung einer Zusage in den letzten 
+Satz 1 der Bestimmung normiert für den „Anspruch beiden Jahren vor Eintritt des Sicherungsfalls be-
+auf Leistungen aus der betrieblichen Altersversor- steht der Anspruch nach § 7 Abs. 5 Satz 3 Nr. 2 
+gung“ eine 30-jährige Verjährungsfrist, ohne dabei BetrAVG für im Rahmen von Übertragungen ge-
+nach verschiedenen Leistungsarten zu unterschei- gebene Zusagen nur, soweit der Übertragungs-
+den. § 18a Satz 2 BetrAVG nimmt davon lediglich wert die Beitragsbemessungsgrenze in der all-
+regelmäßig wiederkehrende Leistungen der be- gemeinen Rentenversicherung nicht übersteigt. 
+trieblichen Altersversorgung aus. Die auf den PSV Dazu entschied der Dritte Senat am 6. Mai 2025 
+übergegangenen und kapitalisierten Forderungen (- 3 AZR 130/24 -), dass § 7 Abs. 5 Satz 3 BetrAVG 
+gegen die Insolvenzmasse sind Ansprüche auf eine unwiderlegbare Vermutung und damit einen 
+Leistungen aus der betrieblichen Altersversorgung zeitlich begrenzten objektiven Ausschlusstatbe-
+iSv. § 18a Satz 1 BetrAVG. Sie haben den Charak- stand enthält. Zu den Zusagen, die den PSV nicht 
+ter nicht durch den gesetzlichen Forderungsüber- zur umfassenden Sicherung verpflichten, zählen 
+gang (§ 9 Abs. 2 BetrAVG) verloren. Es handelt auch vertragliche Arbeitgeberwechsel mit Über-
+sich infolge ihrer nach § 9 Abs. 2 Satz 3 BetrAVG nahme der Altersversorgungszusage durch den 
+und den Vorschriften der Insolvenzordnung vorzu- neuen Arbeitgeber iSd. § 4 Abs. 2 Nr. 1 BetrAVG. 
+nehmenden Kapitalisierung auch nicht um wieder- Hiervon ist auch bei einem Arbeitgeberwechsel im 
+kehrende Leistungen iSd. § 18a Satz 2 BetrAVG. Konzern kein abweichendes Ergebnis geboten.
+Die Ansprüche verjähren daher in 30 Jahren.
+9. Aufstockungsbetrag bei Postbeschäftigungsunfähigkeit
+In der Entscheidung des Dritten Senats vom Betriebsrentenempfänger die Rente aus der ge-
+24. Juni 2025 (- 3 AZR 157/24 -) ging es um einen setzlichen Rentenversicherung aus versicherungs-
+Anspruch auf Zahlung eines Aufstockungsbetrags rechtlichen Gründen abgelehnt wird, weil er der 
+zu einer Betriebsrente bei Postbeschäftigungs- tarifvertraglichen Verpflichtung zur Aufrechterhal-
+unfähigkeit für den Fall, dass der Betriebsrenten- tung der gesetzlichen Rente nicht nachgekommen 
+empfänger keine Leistungen aus der gesetzlichen ist. Dem stehen weder grundrechtliche Wertungen 
+Rentenversicherung erhält. Hierzu kann eine ta- noch das Anrechnungsverbot des § 5 Abs. 2 Satz 2 
+rifliche Regelung zulässigerweise das Ruhen des Alt. 1 BetrAVG entgegen.
+Anspruchs bestimmen, solange und soweit dem 
+B. Rechtsprechungsübersicht  37
+  2. Abschnitt: Kollektives Arbeitsrecht
+I. Tarifrecht
+1. Koalitionsrecht: Digitales Zugangsrecht einer Gewerkschaft
+Ein Arbeitgeber ist nicht verpflichtet, der für ihn zen. Allerdings haben die Gerichte - mangels Tä-
+tarifzuständigen Gewerkschaft die dienstlichen tigwerdens des Gesetzgebers - bei der Ausgestal-
+E-Mail-Adressen seiner - bereits vorhandenen tung der Koalitionsbetätigungsfreiheit auch die mit 
+und neu hinzukommenden - Arbeitnehmer zum einem solchen Begehren konfligierenden Grund-
+Zweck der Mitgliederwerbung mitzuteilen. Das rechte des Arbeitgebers aus Art. 14 und Art. 12 
+entschied der Erste Senat am 28. Januar 2025 Abs. 1 GG sowie die ebenfalls berührten Grund-
+(- 1 AZR 33/24 -). Ein solches Begehren kann rechte der Arbeitnehmer aus Art. 2 Abs. 1 iVm. 
+nicht auf eine von den Gerichten - im Weg der Art. 1 Abs. 1 GG und Art. 8 der Charta der Grund-
+gesetzesvertretenden Rechtsfortbildung - vorzu- rechte der Europäischen Union in den Blick zu neh-
+nehmende Ausgestaltung der durch Art. 9 Abs. 3 men. Dies erfordert eine Abwägung im Einzelfall, 
+GG garantierten Koalitionsbetätigungsfreiheit ge- die nicht allein das „Wie“ eines Zugangs zum be-
+stützt werden. Art. 9 Abs. 3 GG gewährleistet zwar trieblichen E-Mail-System, sondern auch den beab-
+grundsätzlich die Befugnis einer Gewerkschaft, sichtigten Umfang seiner Nutzung berücksichtigen 
+betriebliche E-Mail-Adressen der Arbeitnehmer zu muss.
+Werbezwecken und für deren Information zu nut-
+2. Nichtigkeit diskriminierender Tarifnormen
+Müssen Gerichte den Tarifvertragsparteien ein re Korrekturkompetenz der Tarifvertragsparteien. 
+Recht einräumen, eine wegen Benachteiligung Verstößt daher eine tarifliche Norm gegen das Uni-
+befristet beschäftigter Arbeitnehmer nichtige ta- onsrecht umsetzende Diskriminierungsverbot be-
+rifliche Regelung zu korrigieren? Der Sechste fristet beschäftigter Arbeitnehmer nach § 4 Abs. 2 
+Senat entschied am 13. November 2025 hierzu TzBfG und ist deshalb gemäß § 134 BGB (teil-)
+(- 6 AZR 131/25 -): Im Anwendungsbereich uni- nichtig, hat der benachteiligte Arbeitnehmer un-
+onsrechtlich überformter Diskriminierungsverbote mittelbar Anspruch darauf, so behandelt zu werden 
+besteht - anders als bei Verletzungen des Gleich- wie die vergleichbaren Dauerbeschäftigten (sog. 
+heitssatzes aus Art. 3 Abs. 1 GG - keine primä- Anpassung nach oben).
+3. Tarifpluraler Betrieb
+a)   Unterlassungsanspruch bei Tarifkolli- § 4a Abs. 2 Satz 2 TVG gegen den Arbeitgeber in 
+sion Betracht, soweit damit die Nichtanwendung der 
+eigenen, von der antragstellenden Gewerkschaft 
+In seiner Entscheidung vom 19. März 2025 geschlossenen Tarifverträge beanstandet wird. Da 
+(- 4 AZR 283/23 -) konkretisierte der Vierte Se- die Wirkung des § 4a Abs. 2 Satz 2 TVG aber auf 
+nat die Voraussetzungen für Unterlassungsan- die Verdrängung des Minderheitstarifvertrags be-
+sprüche einer Minderheitsgewerkschaft im Fall schränkt ist und nicht die Anwendung des Mehr-
+einer Tarifkollision nach § 4a Tarifvertragsgesetz heitstarifvertrags auf die Arbeitsverhältnisse der 
+(TVG). Danach kommt ein Unterlassungsanspruch Mitglieder der Gewerkschaft zur Folge hat, die den 
+im Hinblick auf eine fehlerhafte Anwendung des verdrängten Tarifvertrag geschlossen hat, kann die 
+38 Jahresbericht des Bundesarbeitsgerichts 2025
+Minderheitsgewerkschaft nicht ohne Weiteres die bzw. Untersuchungsgrundsatzes (§ 99 Abs. 2 iVm. 
+Unterlassung der Anwendung des Mehrheitstarif- § 83 Abs. 1 Satz 1 ArbGG) mit erga-omnes- 
+vertrags verlangen. Wirkung positiv feststellen zu lassen, ob ein mit 
+ihnen geschlossener Tarifvertrag im jeweiligen 
+b)  Feststellung des Mehrheitstarifvertrags Betrieb als Mehrheitstarifvertrag iSd. § 4a Abs. 2 
+Satz 2 TVG anzuwenden ist. Dabei kann auch ein 
+In einer weiteren Entscheidung zur Tarifkollision Antrag, der auf die Feststellung des nach § 4a 
+stellte der Vierte Senat in seiner Entscheidung vom Abs. 2 Satz 2 TVG anwendbaren Tarifvertrags in 
+19. März 2025 (- 4 ABR 35/23 -) fest, dass die einem in der Vergangenheit liegenden Zeitraum 
+in § 4a Abs. 2 Satz 2 TVG vorgesehene Verdrän- abzielt, zulässig sein. Voraussetzung ist allerdings 
+gungswirkung des Minderheitstarifvertrags keinen das Bestehen eines besonderen Rechtsschutz-
+rechtskräftigen Beschluss nach § 99 Abs. 3 ArbGG interesses aufgrund einer gegenwärtigen, kon-
+voraussetzt, sondern im Kollisionsfall kraft Geset- kreten Beeinträchtigung des durch Art. 9 Abs. 3 
+zes unmittelbar eintritt. Der Gesetzgeber hat mit GG geschützten Rechts der Tarifvertragsparteien, 
+dem Verfahren nach § 99 ArbGG den Tarifvertrags- namentlich auf Anwendung der Tarifverträge in den 
+parteien lediglich die Möglichkeit eingeräumt, un- von ihnen erfassten Individualarbeitsverhältnissen.
+ter Geltung des eingeschränkten Amtsermittlungs- 
+II. Betriebsverfassungs- und Personalvertretungsrecht
+1. Wahl des Betriebsrats
+a)  Aktives Wahlrecht von Führungskräften b)  Schriftliche Stimmabgabe
+Am 22. Mai 2025 befasste sich der Siebte Senat Gegenstand des Beschlusses des Siebten Senats 
+im Rahmen der Anfechtung einer Betriebsratswahl vom 23. Oktober 2024 (- 7 ABR 34/23 -) war die 
+mit dem aktiven Wahlrecht von Führungskräften in Anfechtung einer Betriebsratswahl mit der Frage, 
+mehreren Betrieben bei Bestehen einer unterneh- unter welchen Voraussetzungen der Wahlvorstand 
+mensinternen Matrixstruktur (- 7 ABR 28/24 -). Arbeitnehmern die Unterlagen für eine schriftliche 
+Ein Arbeitnehmer, der mehreren Betrieben des- Stimmabgabe ohne einen entsprechenden Antrag 
+selben Unternehmens angehört, hat bei der Wahl übersenden kann. Der Senat verwies zunächst da-
+des Betriebsrats in sämtlichen dieser Betriebe das rauf, dass die Fälle einer zulässigen Briefwahl in 
+aktive Wahlrecht. Das gilt auch für Führungskräf- der Wahlordnung (WO) abschließend geregelt sind. 
+te in Unternehmen mit einer betriebsübergreifen- Nach § 24 Abs. 2 Nr. 1 WO erhalten die Unterlagen 
+den Matrixstruktur. Nach § 7 Satz 1 Betriebsver- zur schriftlichen Stimmabgabe - ohne dies zu ver-
+fassungsgesetz (BetrVG) sind wahlberechtigt alle langen - diejenigen Wahlberechtigten, von denen 
+Arbeitnehmer des Betriebs, die das 16. Lebensjahr dem Wahlvorstand bekannt ist, dass sie im Zeit-
+vollendet haben. Damit knüpft die Wahlberech- punkt der Wahl nach der Eigenart ihres Beschäf-
+tigung an die Zugehörigkeit des Arbeitnehmers tigungsverhältnisses nicht im Betrieb anwesend 
+zum Betrieb an, welche durch die Eingliederung sein werden. Hierunter fallen Arbeitnehmer, die 
+in die Betriebsorganisation begründet wird. Der während der Wahl wegen vorübergehend ausgeüb-
+Umstand, dass ein Arbeitnehmer bereits in einem ter mobiler Arbeit und wegen Kurzarbeit betriebs-
+Betrieb eingegliedert und damit in diesem wahl- abwesend sind. Demgegenüber werden solche 
+berechtigt ist, steht seiner Wahlberechtigung in Arbeitnehmer, die zwar grundsätzlich zur mobilen 
+einem weiteren Betrieb nicht entgegen. Es ist mög- Arbeit berechtigt wären, von denen dem Wahlvor-
+lich, in mehreren Betrieben wahlberechtigt zu sein. stand aber bekannt ist, dass sie im Wahlzeitraum 
+wegen Unabkömmlichkeit ihre Tätigkeit im Betrieb 
+verrichten, nicht erfasst.
+B. Rechtsprechungsübersicht  39
+c)  Vereinfachtes Wahlverfahren d)  Verlangen von Briefwahlunterlagen
+Ebenfalls mit der Anfechtung einer Betriebs- Am 22. Januar 2025 hatte der Siebte Senat Ge-
+ratswahl beschäftigte sich der Siebte Senat am legenheit, die Anforderungen an eine ordnungsge-
+27. November 2024 (- 7 ABR 32/23 -). Es ging um mäße schriftliche Stimmabgabe bei einer Betriebs-
+die Frage, ob ein Anfechtungsgrund vorliegt, wenn ratswahl zu konkretisieren (- 7 ABR 1/24 -). Der 
+der Wahlvorstand bei der Durchführung einer Be- Siebte Senat stellte zunächst fest, dass die Pflicht 
+triebsratswahl nach dem vereinfachten einstufigen des Wahlvorstands nach § 24 Abs. 1 Satz 1 WO, 
+Wahlverfahren den einzigen Wahlvorschlag schon einem Wahlberechtigten, der im Zeitpunkt der Be-
+vor Ablauf der gesetzlichen Frist zur Einreichung triebsratswahl wegen Abwesenheit vom Betrieb an 
+von Wahlvorschlägen nach § 14a Abs. 3 Satz 2 der persönlichen Stimmabgabe verhindert ist, auf 
+Halbs. 1 BetrVG bekannt macht, nachdem er ihn sein Verlangen die Unterlagen für eine schriftliche 
+als gültig anerkannt hat. Der Siebte Senat vernein- Stimmabgabe auszuhändigen oder zu übersenden, 
+te eine Anfechtbarkeit der Wahl. § 36 Abs. 5 Satz 3 keine Begründung des Verlangens durch den Wahl-
+WO iVm. § 14a Abs. 3 Satz 2 Halbs. 1 BetrVG be- berechtigten voraussetzt. Der Wahlvorstand hat die 
+gründet eine Pflicht des Wahlvorstands zur Be- Verhinderung wegen Betriebsabwesenheit vor der 
+kanntmachung der für gültig befundenen Wahlvor- Aushändigung der Briefwahlunterlagen nur dann zu 
+schläge nach Ablauf der gesetzlichen Mindestfrist überprüfen, wenn sich Zweifel daran aufdrängen. 
+für deren Einreichung. Die Regelung untersagt Darüber hinaus hat das Bundesarbeitsgericht ent-
+nicht die Bekanntmachung vor Ablauf der gesetz- schieden, dass auch ein per Briefwahl abgegebener 
+lichen Mindestfrist. Hierfür sprechen neben dem Stimmzettel zur Wahrung der Geheimheit der Wahl 
+Wortlaut von § 36 Abs. 5 Satz 2 WO insbesondere nach § 25 Satz 1 Nr. 1 WO nur gültig ist, wenn er 
+auch Sinn und Zweck der gesetzlichen Regelung. so gefaltet wird, dass die Stimmabgabe erst nach 
+Diese dient der neutralen, rechtzeitigen und um- Auseinanderfalten des Stimmzettels erkennbar ist. 
+fassenden Information der Wähler über die zur Falsch gefaltete Stimmzettel muss der Wahlvor-
+Wahl stehenden Kandidaten. Er wird auch durch stand nach Öffnen der Umschläge wegen ihrer Un-
+eine frühere Bekanntmachung erfüllt. gültigkeit gar nicht erst in die Wahlurne einlegen.
+2. Kosten und Sachaufwand des Betriebsrats
+a)  Freistellung von Rechtsanwaltskosten verlangen. Ein Anspruch auf Freistellung von den 
+Kosten besteht auch, wenn er der zunächst auf 
+In der Entscheidung vom 25. September 2024 einem unwirksamen Beschluss beruhenden Beauf-
+(- 7 ABR 37/23 -) befasste sich der Siebte Senat tragung des Anwalts durch einen später ordnungs-
+mit der Freistellung des Betriebsrats von Rechts- gemäß gefassten Beschluss nachträglich zustimmt.
+anwaltskosten. Dazu stellte er zunächst klar, dass 
+ein Beschluss des Betriebsrats zur Einleitung ei- b)  Korrektur der Vergütungsanpassung
+nes Beschlussverfahrens und Beauftragung eines 
+Rechtsanwalts an einem erheblichen Mangel leidet Nach dem Betriebsverfassungsgesetz haben Mit-
+und unwirksam ist, wenn zu der Betriebsratssit- glieder des Betriebsrats Anspruch auf Erhöhung 
+zung, auf der er gefasst worden ist, Ersatzmitglie- ihres Arbeitsentgelts in dem Umfang, in dem das 
+der unter Verstoß gegen die in § 25 Abs. 2 BetrVG Arbeitsentgelt vergleichbarer Arbeitnehmer mit 
+vorgegebene Reihenfolge herangezogen worden betriebsüblicher beruflicher Entwicklung steigt 
+sind. Dies gilt auch, wenn die Heranziehung ei- (§ 37 Abs. 4 Satz 1 BetrVG). Für das Vorliegen 
+nes „falschen“ Ersatzmitglieds in gutem Glauben der Voraussetzungen dieses Anspruchs ist grund-
+und ohne Bevorzugungs- bzw. Benachteiligungs- sätzlich das Betriebsratsmitglied darlegungs- und 
+absicht bestimmter Personen oder Listen erfolgt beweisbelastet. Will der Arbeitgeber eine mitge-
+ist. Grundsätzlich kann der Betriebsrat nach § 40 teilte und gewährte Vergütungserhöhung, die sich 
+Abs. 1 BetrVG eine Freistellung von den Kosten für für das Betriebsratsmitglied als Anpassung seines 
+die außergerichtliche und gerichtliche Durchset- Entgelts entsprechend § 37 Abs. 4 Satz 1 BetrVG 
+zung von Rechten - vorbehaltlich deren Erforder- darstellte, nach unten korrigieren, hat der Arbeit-
+lichkeit - aber nur bei einem wirksamen Betriebs- geber darzulegen und zu beweisen, dass die Ver-
+ratsbeschluss zur Beauftragung des Rechtsanwalts gütungserhöhung objektiv fehlerhaft war. Der ent-
+40 Jahresbericht des Bundesarbeitsgerichts 2025
+sprechende Sachvortrag des Arbeitgebers muss des Gemeinsamen Senats der obersten Gerichts-
+den Schluss darauf zulassen, dass - bezogen auf höfe des Bundes bedürfte.
+den Zeitpunkt der mitgeteilten (für den streitge- In zwei weiteren Entscheidungen zur Vergütung 
+genständlichen Zeitraum maßgeblichen) Vergü- von Betriebsratsmitgliedern vom selben Tag, prä-
+tungserhöhung - (nur) die Voraussetzungen der zisierte der Siebte Senat den maßgebenden Zeit-
+„nach unten“ korrigierten Vergütungsanpassung punkt für die Bestimmung der vergleichbaren 
+erfüllt waren. Dies entschied der Siebte Senat am Arbeitnehmer als Anknüpfung des Vergütungs-
+20. März 2025 (- 7 AZR 46/24 -). Darüber hinaus anpassungsanspruchs nach § 37 Abs. 4 BetrVG. 
+bekräftigte der Senat, dass einem Betriebsrats- Dies ist grundsätzlich die erstmalige Übernah-
+mitglied neben der ihm nach § 37 Abs. 4 Satz 1 me des Betriebsratsamts, und zwar auch dann, 
+BetrVG garantierten (Mindest-)Vergütung ein An- wenn das Betriebsratsmitglied vor der Mandats-
+spruch auf Zahlung einer höheren Vergütung nach übernahme bereits aus anderen Gründen von 
+§ 78 Satz 2 BetrVG iVm. § 611a Abs. 2 BGB zu- der Erbringung seiner Arbeitsleistung befreit war 
+stehen kann, wenn sich sie Zahlung einer gerin- (- 7 AZR 159/24 -) oder nach Beendigung der 
+geren Vergütung als Benachteiligung des Betriebs- Amtszeit noch während des nachwirkenden Ent-
+ratsmitglieds wegen seiner Betriebsratstätigkeit geltschutzzeitraums iSv. § 37 Abs. 4 Satz 1 BetrVG 
+darstellt (fiktive Beförderung/fiktive Karriere). An bzw. dessen Erhöhung iSv. § 38 Abs. 3 BetrVG 
+dieser Rechtsauffassung hat das Bundesarbeits- wegen Wiederwahl des Betriebsratsmitglieds eine 
+gericht festgehalten, ohne dass es in Ansehung weitere Amtszeit beginnt (- 7 AZR 181/24 -). Aus 
+der Entscheidung des Bundesgerichtshofs vom sachlichen Gründen ist das Abstellen auf einen 
+10. Januar 2023 (- 6 StR 133/22 -) der Anrufung späteren Zeitpunkt möglich.
+3. Mitbestimmung in personellen Angelegenheiten
+a)   Vergütungsanpassung eines Betriebs- b)   Ein- und Umgruppierung im tarifplura-
+ratsmitglieds len Betrieb
+Die Erhöhung des Arbeitsentgelts eines von seiner Müssen Arbeitgeber, die an zwei mit unterschied-
+beruflichen Tätigkeit freigestellten Betriebsratsmit- lichen Gewerkschaften vereinbarte tarifliche Ver-
+glieds nach § 37 Abs. 4 oder § 78 Satz 2 BetrVG gütungsordnungen gebunden sind, die zu einer 
+unterliegt nicht der Mitbeurteilung des Betriebsrats Tarifpluralität im Betrieb führen, die Arbeitnehmer 
+nach § 99 BetrVG. Das entschied der Erste Senat allen - auch den durch § 4a TVG verdrängten - 
+am 26. November 2024 (- 1 ABR 12/23 -). § 99 Vergütungsordnungen zuordnen? Mit dieser Frage 
+BetrVG sieht eine Beteiligung des Betriebsrats bei setzte sich der Erste Senat am 25. Februar 2025 
+Ein- und Umgruppierungen vor. Diese bestehen auseinander (- 1 ABR 33/23 -) und bejahte sie. 
+in der Zuordnung der zu verrichtenden Tätigkeit Die betriebsverfassungsrechtliche Pflicht zur Ein- 
+eines Arbeitnehmers zu einer bestimmten Grup- bzw. Umgruppierung in alle Vergütungsordnungen 
+pe der maßgebenden Vergütungsordnung. Bei der wird durch die in § 4a Abs. 2 TVG angeordnete 
+Erhöhung des Arbeitsentgelts eines freigestellten Verdrängung des Minderheitstarifvertrags nicht be-
+Betriebsratsmitglieds nach § 37 Abs. 4 oder § 78 rührt. Die Norm trifft keine Regelung über die im 
+Satz 2 BetrVG erfolgt demgegenüber keine solche Rahmen von § 99 BetrVG bei Ein- und Umgruppie-
+Einordnung, sondern eine Anpassung der Vergü- rungen geltende betriebliche Vergütungsordnung. 
+tung des Betriebsratsmitglieds nach Maßgabe der Der Betriebsrat kann zur Sicherung seines Mitbe-
+in diesen Normen geregelten gesetzlichen Vorga- urteilungsrechts vom Arbeitgeber entsprechend 
+ben. Danach ist die Vergütung eines freigestell- § 101 BetrVG verlangen, dass dieser die Ein- bzw. 
+ten Betriebsratsmitglieds entweder entsprechend Umgruppierung auch in die tarifliche Vergütungs-
+der betriebsüblichen beruflichen Entwicklung ver- ordnung der Minderheitsgewerkschaft vornimmt, 
+gleichbarer Arbeitnehmer oder zur Vermeidung ihn hierbei nach § 99 Abs. 1 BetrVG beteiligt und 
+einer Benachteiligung anzupassen, weil das Be- - im Fall einer Zustimmungsverweigerung - ein 
+triebsratsmitglied nur infolge der Amtsübernahme Zustimmungsersetzungsverfahren durchführt. Da 
+nicht in eine höher vergütete Position aufsteigen die Rechtslage durch die Entscheidung des Senats 
+konnte. insoweit nunmehr geklärt ist, ist eine Verweige-
+rung der Zustimmung durch den Betriebsrat nach 
+B. Rechtsprechungsübersicht  41
+§ 99 Abs. 2 Nr. 1 BetrVG mit der Begründung, der zum Betriebsinhaber steht. Erforderlich ist aber 
+Arbeitgeber müsse die mit der anderen Gewerk- stets, dass dem Betriebsinhaber ein für ein Ar-
+schaft vereinbarte Vergütungsordnung anwenden, beitsverhältnis typisches Weisungsrecht bezüglich 
+zukünftig unbeachtlich. Inhalt, Ort und Zeit der Tätigkeit zumindest teil-
+weise zusteht. Zudem muss die betreffende Per-
+c)   Einstellung bei Betrieben mit Matrix- son Tätigkeiten verrichten, aus deren tatsächlicher 
+struktur Wahrnehmung sich ergibt, dass sie in die Erfüllung 
+der im Betrieb von den dortigen Arbeitnehmern zu 
+Wann liegt eine Einstellung nach § 99 Abs. 1 erledigenden Aufgaben oder in die Arbeitsprozesse 
+Satz 1 BetrVG beim Einsatz von Führungskräf- eingebunden ist. Dies gilt auch bei einem Einsatz 
+ten innerhalb eines international tätigen Konzerns von Führungskräften, die innerhalb eines interna-
+mit sog. Matrixstrukturen vor? Damit beschäftig- tional tätigen Konzerns mit sog. Matrixstrukturen 
+te sich der Erste Senat am 23. September 2025 Tätigkeiten für Betriebe eines Konzernunterneh-
+(- 1 ABR 25/24 -). Eine Einstellung iSv. § 99 Abs. 1 mens ausüben, mit dem keine arbeitsvertragliche 
+Satz 1 BetrVG ist gegeben, wenn eine Person in die Bindung besteht. Die Prüfung, ob im Einzelfall eine 
+Arbeitsorganisation eines Betriebs eingegliedert Eingliederung in die betriebliche Arbeitsorganisa-
+wird, um zusammen mit den dort schon beschäf- tion gegeben ist, bedarf einer Gesamtwürdigung 
+tigten Arbeitnehmern dessen arbeitstechnischen sämtlicher maßgebender Umstände sowie konkre-
+Zweck durch weisungsgebundene Tätigkeit zu ver- ter Feststellungen zum Betriebszweck und zu den 
+wirklichen. Dabei kommt es nicht darauf an, dass tatsächlich zu verrichtenden Tätigkeiten.
+die betreffende Person in einem Arbeitsverhältnis 
+4. Fälligkeit einer Sozialplanabfindung
+Hat die erfolglose Anfechtung eines Sozialplans punkt fällig, wenn dieser erfolglos gerichtlich an-
+Einfluss auf den darin festgelegten Fälligkeits- gefochten wurde. Die Anfechtung führt nicht zu 
+zeitpunkt eines Abfindungsanspruchs? Über diese einer Verschiebung des Fälligkeitszeitpunkts auf 
+Frage hatte der Erste Senat am 28. Januar 2025 den Eintritt der Rechtskraft der Entscheidung in 
+zu befinden (- 1 AZR 73/24 -) und verneinte sie. dem Beschlussverfahren über die Wirksamkeit des 
+Abfindungsansprüche aus einem durch Spruch der Einigungsstellenspruchs. Die gerichtliche Entschei-
+Einigungsstelle beschlossenen Sozialplan werden dung in einem solchen Verfahren hat lediglich fest-
+auch dann zu dem im Sozialplan bestimmten Zeit- stellende und nicht rechtsgestaltende Wirkung.
+5. Schwerbehindertenvertretung
+a)   Aktives Wahlrecht Werkstattbeschäftig- die Vertretung der Interessen aller schwerbehin-
+ter derten Menschen und damit auch auf die lediglich 
+in einem arbeitnehmerähnlichen Rechtsverhältnis 
+Schwerbehinderte Werkstattbeschäftigte gehören stehenden Werkstattbeschäftigten in dem Betrieb 
+zu den in einem Betrieb beschäftigten schwerbe- erstreckt. Der Umstand, dass Werkstattbeschäf-
+hinderten Menschen. Sie haben das aktive Wahl- tigte durch den Werkstattrat vertreten werden, 
+recht zur Schwerbehindertenvertretung iSv. § 177 steht der Wahlberechtigung schwerbehinderter 
+Abs. 2 Neuntes Buch Sozialgesetzbuch (SGB IX) Werkstattbeschäftigter zur Schwerbehinderten-
+unabhängig davon, ob sie in den Betrieb einge- vertretung dabei nicht entgegen. Zwischen beiden 
+gliedert sind. Dies entschied der Siebte Senat am Interessenvertretungen besteht kein Exklusivitäts-
+23. Oktober 2024 (- 7 ABR 36/23 -) aus Anlass ei- verhältnis zugunsten des Werkstattrats. Die Wahl 
+nes Wahlanfechtungsverfahrens. Der Gesetzgeber unter Ausschluss dieser Beschäftigten war daher 
+hat die Aufgabe der Schwerbehindertenvertretung unwirksam, da nicht auszuschließen war, dass der 
+nicht auf die Interessenwahrung der schwerbehin- Verstoß gegen § 177 Abs. 2 SGB IX geeignet war, 
+derten Arbeitnehmer beschränkt, sondern sie auf das Ergebnis der Wahl zu beeinflussen.
+42 Jahresbericht des Bundesarbeitsgerichts 2025
+b)   Zuständigkeit der Gesamtschwerbehin- c)  Vergütung einer Vertrauensperson
+dertenvertretung
+In der Entscheidung vom 25. Februar 2025 setzte 
+Am 18. Juni 2025 (- 7 ABR 6/24 -) hatte der Siebte sich der Neunte Senat mit der Frage auseinander, 
+Senat eine Entscheidung darüber zu treffen, ob bei ob einer vormals als Vertrauensperson der schwer-
+bestimmten Stellenbesetzungsverfahren die nach behinderten Menschen freigestellten Beschäftigten 
+dem SGB IX vorgesehenen Unterrichtungs-, Er- aufgrund eines fiktiven Beförderungsanspruchs ei-
+örterungs-, Teilnahme- und Einsichtsrechte in die ne höhere Vergütung zusteht (- 9 AZR 5/24 -). Für 
+Zuständigkeit der örtlichen Schwerbehindertenver- die Prüfung, ob eine Benachteiligung nach § 179 
+tretung oder der Gesamtschwerbehindertenvertre- Abs. 2 SGB IX iVm. § 611a Abs. 2 BGB vorliegt, 
+tung fallen. Der Senat stellte zunächst klar, dass sind die zur Parallelnorm des § 78 Satz 2 BetrVG 
+die Beteiligung bei personellen Einzelmaßnahmen für Betriebsratsmitglieder entwickelten Grundsät-
+bzw. diesen vorgelagerten Maßnahmen regelmäßig ze entsprechend anzuwenden. Der Arbeitgeber 
+keine „überbetriebliche Angelegenheit“ ist. Eine muss Vertrauenspersonen eine berufliche Entwick-
+Zuständigkeit der Gesamtschwerbehindertenver- lung gewährleisten, die derjenigen entspricht, die 
+tretung nach § 180 Abs. 6 Satz 1 SGB IX ist da- sie ohne ihre Amtstätigkeit durchlaufen hätten. 
+her nicht gegeben. Ist aber nach den einschlägigen Das Benachteiligungsverbot erfasst die berufliche 
+(landes-)personalvertretungsrechtlichen Vorschrif- Tätigkeit und das sich daraus ergebende Entgelt. 
+ten bei Stellenbesetzungsverfahren im öffentlichen Für eine unzulässige Benachteiligung aufgrund 
+Dienst der Gesamtpersonalrat zu beteiligen, fällt der Amtstätigkeit trägt grundsätzlich die Vertrau-
+die schwerbehindertenvertretungsrechtliche Betei- ensperson die Darlegungs- und Beweislast. Ihr 
+ligung dennoch in die Zuständigkeit der Gesamt- kommen aber die Grundsätze der abgestuften 
+schwerbehindertenvertretung. Das folgt - auch im Darlegungs- und Beweislast zugute. Die Vertrau-
+Bereich der einstufigen Verwaltung mit mehreren ensperson muss daher zumindest darlegen, dass 
+Dienststellen - aus dem in § 180 Abs. 6 Satz 3 sie die Qualifikationsanforderungen der höher do-
+und 4 SGB IX niedergelegten Prinzip des Gleich- tierten Stelle erfüllt und sich der fiktive Beförde-
+laufs der personal- und schwerbehindertenvertre- rungsanspruch auf eine freie Stelle bezieht. Hieran 
+tungsrechtlichen Beteiligungsebenen. fehlte es im konkreten Fall.
+6. Nachholung eines Arbeitnehmerbeteiligungsverfahrens  
+in der SE
+Der Erste Senat beschäftigte sich am bei Gründung der SE das Verfahren mangels in den 
+26. November 2024 damit, ob bei einer arbeit- Gründungsgesellschaften beschäftigter Arbeitneh-
+nehmerlos gegründeten und eingetragenen Euro- mer nicht durchgeführt werden konnte, scheitert 
+päischen Gesellschaft (SE) ein unterbliebenes am Fehlen einer planwidrigen Regelungslücke. 
+Verhandlungsverfahren über eine Arbeitnehmerbe- Eine Pflicht zur Nachholung eines solchen Ver-
+teiligung nachzuholen ist (- 1 ABR 37/20 -). Er ver- handlungsverfahrens ergibt sich auch nicht aus 
+neinte dies, nachdem der Gerichtshof der Europäi- § 43 SEBG. Ungeachtet der Frage, unter welchen 
+schen Union zuvor Fragen zur Auslegung der dem Voraussetzungen nach dieser Norm ein Rechts-
+Gesetz über die Beteiligung der Arbeitnehmer in missbrauch angenommen werden kann, hat der 
+einer Europäischen Gesellschaft (SEBG) zugrunde nationale Gesetzgeber diese Rechtsfolge - anders 
+liegenden unionsrechtlichen Normen beantwortet als in § 36 MgFSG - nicht vorgesehen. Eine den 
+hatte (16. Mai 2024 - C-706/22 - [Konzernbe- Wortlaut übersteigende Auslegung kommt nicht in 
+triebsrat]). Die Einleitung des Verhandlungsver- Betracht.
+fahrens nach §§ 11 ff. SEBG ist sowohl nach deut-
+schem als auch Unionsrecht lediglich bei Gründung 
+der SE vorgesehen. Eine analoge Anwendung der 
+Vorschriften über die Einleitung für den Fall, dass 
+B. Rechtsprechungsübersicht  43
+  3. Abschnitt: Insolvenzrecht 
+1. Bestimmtheit bei Anmeldung zur Insolvenztabelle
+In seiner Entscheidung vom 20. Februar 2025 fassernamens mit Beglaubigungsvermerk enthielt. 
+(- 6 AZR 32/24 -) setzte sich der Sechste Senat Das Schreiben enthielt die wesentlichen, üblicher-
+mit der Ordnungsgemäßheit einer Forderungs- weise gerade bei einer arbeitsteilig organisierten 
+anmeldung zur Insolvenztabelle auseinander. Die juristischen Person des öffentlichen Rechts zu er-
+Bundesagentur für Arbeit meldete beim Insolvenz- wartenden formalen und inhaltlichen Anhaltspunk-
+verwalter zunächst eine Insolvenzforderung mit te für eine dem Insolvenzverwalter mit Wissen und 
+einem Schätzwert von 100.000,00 Euro zur Insol- Wollen einer vertretungsberechtigten Person zuge-
+venztabelle an und begründete dies mit Anträgen leiteten Erklärung und genügte damit dem Zweck 
+auf Insolvenzgeld nach §§ 165 ff. SGB III. Das des Schriftformgebots. Bei einer Forderungsanmel-
+Schreiben endete mit dem Satz „Dieses Schreiben dung der Bundesagentur für Arbeit zur Tabelle, mit 
+wurde maschinell erstellt und ist ohne Unterschrift der Entgeltansprüche mehrerer Arbeitnehmer aus 
+rechtswirksam.“ Im weiteren Verlauf präzisierte übergegangenem Recht nach § 169 Satz 1 SGB III 
+die Bundesagentur für Arbeit die Forderung auf wegen der Beantragung von Insolvenzgeld be-
+den Betrag von 52.607,81 Euro für sieben Arbeit- ansprucht werden, handelt es sich aber um eine 
+nehmer, die - ebenso wie die Höhe des jeweiligen Sammelanmeldung, die nur zulässig ist, wenn die 
+Insolvenzgeldes und die Leistungszeiträume - erst- einzelnen Arbeitnehmer, ihr jeweiliges monatliches 
+malig namentlich genannt wurden. Damit lag kei- Bruttoentgelt und die konkreten Anspruchszeiträu-
+ne ordnungsgemäße Forderungsanmeldung iSd. me genannt sind. Daran fehlte es. Die spätere Kon-
+§§ 174 ff. InsO vor. Es war zwar, obwohl die An- kretisierung änderte daran nichts, da der Mangel 
+meldung nach § 174 Abs. 1 InsO „schriftlich“ zu einer Forderungsanmeldung nur durch eine Neu-
+erfolgen hat, unschädlich, dass sie weder eine anmeldung behoben werden kann.
+Unterschrift trug noch die Wiedergabe des Ver-
+  4. Abschnitt: Prozessrecht
+I. Allgemeines Prozessrecht
+1. Rechtsweg: Streitigkeit aus Aktionärsvereinbarung
+Am 29. August 2025 hatte der Neunte Senat da- tienbesitz in Zusammenhang stehenden rechtli-
+rüber zu entscheiden, welcher Rechtsweg für den chen Fragen vor den Gerichten für Arbeitssachen 
+Streit über die Wirksamkeit einer Aktionärsverein- zu klären sind. Die Frage der Wirksamkeit einer 
+barung eröffnet ist (- 9 AZB 4/25 -). Selbst wenn Aktionärsvereinbarung betrifft die gesellschafts-
+der Aktionär, der die Unwirksamkeit der Verein- rechtliche Stellung des Arbeitnehmers als Aktionär. 
+barung geltend macht, zuvor Arbeitnehmer der Für einen rechtlichen oder unmittelbar wirtschaftli-
+Aktiengesellschaft war, ist der Rechtsweg zu den chen Zusammenhang iSv. § 2 Abs. 1 Nr. 4 Buchst. a 
+Gerichten für Arbeitssachen nicht eröffnet. Der ArbGG zum Arbeitsverhältnis der Parteien genüg-
+Rechtsstreit fällt vielmehr in die Zuständigkeit der te weder die Teilnahme am Mitarbeiteraktienpro-
+ordentlichen Gerichtsbarkeit. Aus dem Umstand, gramm noch die Verknüpfung des Optionsrechts 
+dass ein Arbeitnehmer im Rahmen eines Mitarbei- der Arbeitgeberin auf Rückerwerb von Aktien mit 
+teraktienprogramms seiner Arbeitgeberin Aktien der Beendigung des Arbeitsverhältnisses.
+erworben hat, folgt nicht, dass alle mit dem Ak-
+44 Jahresbericht des Bundesarbeitsgerichts 2025
+2. Wiedereinsetzung: Anwaltliche Pflichten bei Fristprüfung
+Am 20. Februar 2025 hatte der Sechste Senat über prüfen. Er darf sich aber auf die Prüfung der Hand-
+einen Antrag auf Wiedereinsetzung in den vori- akte beschränken, sofern sich keine Zweifel an de-
+gen Stand wegen Versäumung der Revisionsbe- ren Richtigkeit aufdrängen. Dann ist nicht erfor-
+gründungsfrist zu entscheiden (- 6 AZR 155/23 -). derlich, zusätzlich zu überprüfen, ob das Fristende 
+Fraglich war, ob die Fristversäumung unverschuldet auch tatsächlich korrekt im Fristenkalender einge-
+war oder dem Kläger ein Organisationsverschulden tragen ist. Dem genügte die Prüfung im vorliegen-
+seines Anwalts zuzurechnen war. Der Senat ver- den Fall. Damit schloss sich der Senat ausdrück-
+neinte ein Verschulden. Ein Rechtsanwalt hat zwar lich der Rechtsprechung des Bundesgerichtshofs 
+den Ablauf von Rechtsmittelbegründungsfristen an, nachdem der Erste, Dritte, Achte und Neunte 
+immer dann eigenverantwortlich zu prüfen, wenn Senat des Bundesarbeitsgerichts auf Anfrage des 
+ihm die Akten im Zusammenhang mit einer frist- Sechsten Senats mitgeteilt hatten, dass auch sie 
+gebundenen Verfahrenshandlung, insbesondere zu sich dieser Rechtsauffassung anschließen bzw. an 
+deren Bearbeitung, vorgelegt werden. In diesem einer etwaig abweichenden Rechtsauffassung nicht 
+Fall muss er auch alle weiteren unerledigten Fris- festhalten.
+ten einschließlich ihrer Notierung in den Handakten 
+3. Zwangsvollstreckung
+a)  Beschäftigungsanspruch b)   Unterlassungstitel im Mitbestimmungs-
+verfahren
+Kann der Arbeitgeber im Zwangsvollstreckungs-
+verfahren nach § 888 ZPO gegen einen titulierten Der Achte Senat hat sich in einem Beschluss vom 
+Anspruch des Arbeitnehmers auf eine bestimmte 22. September 2025 (- 8 AZB 6/25 -) mit der 
+Beschäftigung einwenden, er habe den Beschäfti- Zwangsvollstreckung aus einem im Beschlussver-
+gungsanspruch des Arbeitnehmers durch Zuwei- fahren auf der Grundlage des allgemeinen Unter-
+sung einer anderen vertragsgemäßen Tätigkeit lassungsanspruchs aus § 87 Abs. 1 BetrVG er-
+erfüllt? Darüber musste der Achte Senat in seiner gangenen Unterlassungstitel beschäftigt. Danach 
+Entscheidung vom 26. Juni 2025 (- 8 AZB 17/25 -) ist die vom Arbeitgeber konkret zu unterlassende 
+befinden. Danach ist zu differenzieren: Wurde dem Handlung durch Auslegung des zu vollstreckenden 
+Arbeitgeber die titulierte Beschäftigung aufgrund Titels unter Heranziehung des Tenors und der Ent-
+von Umständen unmöglich, auf die er keinen Ein- scheidungsgründe zu bestimmen. Ergibt die Ausle-
+fluss hatte, und war der Einwand der Unmöglichkeit gung, dass dem Arbeitgeber aufgegeben wurde, die 
+nicht bereits Gegenstand des vorausgegangenen - nicht vom Betriebsrat mitbestimmte - Anordnung, 
+Erkenntnisverfahrens, kann er sich im Zwangsvoll- Vereinbarung oder Duldung von Arbeitsleistungen 
+streckungsverfahren hierauf berufen. Behauptet in Bezug auf den einzelnen Arbeitnehmer zu un-
+er dagegen, die titulierte Beschäftigung sei infol- terlassen, und bezieht sich die Unterlassungsver-
+ge einer von ihm selbst getroffenen unternehme- pflichtung nicht auf einen Dienstplan als Ganzes, 
+rischen Entscheidung unmöglich und ist dies um- kann für jede Verletzung dieser Verpflichtung und 
+stritten, kann die - oftmals komplexe - Beurteilung damit für jeden Arbeitseinsatz einzelner Arbeitneh-
+dieser Frage nicht im formalisierten Zwangsvoll- mer ein Ordnungsgeld iHv. bis zu 10.000,00 Euro 
+streckungsverfahren, sondern nur im Rahmen des festgesetzt werden. Bei Bestimmung der Höhe des 
+Erkenntnisverfahrens durch eine Vollstreckungsab- Ordnungsgeldes nach § 890 Abs. 1 ZPO iVm. § 85 
+wehrklage geklärt werden. Der Arbeitgeber kann Abs. 1 Satz 3 ArbGG ist dessen doppelter Zweck zu 
+sich daher im Zwangsvollstreckungsverfahren hie- berücksichtigen: Einerseits dient es dazu, künftige 
+rauf nicht berufen. Gleiches gilt, wenn der Arbeit- Zuwiderhandlungen zu verhindern. Andererseits 
+geber geltend macht, eine nach dem Erlass des stellt es eine strafähnliche Sanktion für die Ver-
+Beschäftigungstitels erfolgte Ausübung des Wei- letzung eines gerichtlichen Verbots dar. Entschei-
+sungsrechts habe dazu geführt, dass der Arbeit- dend sind insbesondere Art, Umfang und Dauer 
+nehmer nunmehr zu einer inhaltlich geänderten des Verstoßes, der Verschuldensgrad, der Vorteil 
+Arbeitsleistung verpflichtet sei, und die Rechtmä- des Verletzers aus der Verletzungshandlung und 
+ßigkeit dieser Weisung im Streit steht. die Gefährlichkeit der begangenen und möglicher 
+B. Rechtsprechungsübersicht  45
+künftiger Verletzungshandlungen für den Verletz- Zuwiderhandlung der Arbeitgeberin festgesetzt. 
+ten. Im konkreten Fall hat das Landesarbeitsge- Diese Höhe war nach Auffassung des Senats nicht 
+richt ein Ordnungsgeld iHv. 100,00 Euro für jede zu beanstanden.
+4. Prozesskostenhilfe: Mehrvergleich
+Kommt ein gerichtlicher Vergleich, der bisher solche Auslegung kommt nicht in Betracht, wenn 
+nicht rechtshängige Gegenstände erfasst, erst der Mehrvergleich erst nach Bewilligung von Pro-
+nach Bewilligung von Prozesskostenhilfe zustande, zesskostenhilfe geschlossen wird. Dann ist bereits 
+setzt die Erstreckung der Prozesskostenhilfebe- abschließend über den Antrag entschieden, die Be-
+willigung auf den Mehrvergleich einen neuen An- willigung erfasst nur die im Zeitpunkt der Bewil-
+trag voraus. Dies entschied der Vierte Senat am ligung rechtshängigen Streitgegenstände. Daher 
+11. Februar 2025 (- 4 AZB 26/24 -). Die Bewil- ist ein neuer Antrag auf Bewilligung von Prozess-
+ligung von Prozesskostenhilfe setzt gemäß § 114 kostenhilfe für den Mehrvergleich erforderlich, der 
+Abs. 1 Satz 1 ZPO einen Antrag voraus. Schließen auch konkludent erfolgen kann. Hierfür bedarf es 
+die Parteien vor Entscheidung über einen Prozess- besonderer Anhaltspunkte, die auf einen Antrags-
+kostenhilfeantrag einen gerichtlichen Vergleich, der willen schließen lassen. Das kann zB eine neue Er-
+bisher nicht rechtshängige Gegenstände erfasst, klärung über die persönlichen und wirtschaftlichen 
+ist der Antrag regelmäßig dahingehend auszule- Verhältnisse sein. Nicht ausreichend ist die bloße 
+gen, dass er auch auf Bewilligung von Prozesskos- Unterbreitung eines Vergleichsvorschlags oder die 
+tenhilfe für den Mehrvergleich gerichtet ist. Eine Zustimmung zu einem solchen.
+II. Nichtzulassungsbeschwerde
+1. Revisionsbeschwerde
+Ein im Beschlussverfahren ergangener Beschluss lassung eines dieser Rechtsmittel gerichtete Nicht-
+eines Landesarbeitsgerichts, der eine Beschwerde zulassungsbeschwerde unstatthaft. Dies ent-
+gegen einen Beschluss eines Arbeitsgerichts als schied der Erste Senat am 17. Dezember 2024 
+unzulässig verwirft, ist nach § 89 Abs. 3 Satz 2 (- 1 ABN 53/24 -). Die Entscheidung des Gesetz-
+Halbs. 2 ArbGG unanfechtbar. Da in einem sol- gebers, die Revisionsbeschwerde nach § 77 ArbGG 
+chen Fall weder eine Rechtsbeschwerde iSv. § 92 nur im Urteilsverfahren zuzulassen, beruht weder 
+ArbGG noch eine Revisionsbeschwerde iSv. § 77 auf einem Redaktionsversehen noch begegnet sie 
+ArbGG gesetzlich vorgesehen ist, ist eine auf Zu- verfassungsrechtlichen Bedenken.
+2. Absoluter Revisionsgrund: Telefonkonferenz
+Der Fünfte Senat hat sich im Rahmen eines Nicht- verkündet wurde. In seiner Entscheidung vom 
+zulassungsbeschwerdeverfahrens mit der Frage 9. September 2025 (- 5 AZN 142/25 -) stellte der 
+beschäftigt, ob eine Nachberatung über die Wie- Senat klar, dass es auch weiterhin zulässig ist, wenn 
+dereröffnung der mündlichen Verhandlung auch die Gerichte für Arbeitssachen in diesen Fällen eine 
+nach der Neufassung von § 193 Abs. 1 GVG und Nachberatung über einen nach Schluss der münd-
+dem Inkrafttreten von § 9 Abs. 2 Satz 2 Nr. 2 lichen Verhandlung eingereichten Schriftsatz im 
+ArbGG zum 19. Juli 2024 noch mit Einverständ- Wege einer Telefonkonferenz durchführen. Die ge-
+nis aller Richter im Wege einer Telefonkonferenz setzliche Neuregelung eröffnet lediglich die zusätz-
+stattfinden kann, wenn das Urteil bereits abschlie- liche Möglichkeit, eine solche Beratung auch per 
+ßend beraten und abgestimmt, aber noch nicht Videokonferenz vorzunehmen. Unabhängig davon 
+46 Jahresbericht des Bundesarbeitsgerichts 2025
+müssen an einer solchen Nachberatung allerdings 
+grundsätzlich auch diejenigen Richter teilnehmen, 
+die an der mündlichen Verhandlung teilgenommen 
+haben. Dies gilt nur dann nicht, wenn ein Richter 
+dauerhaft oder zumindest auf nicht absehbare Zeit 
+an der Durchführung der Nachberatung gehindert 
+ist.
+C. Über das Bundesarbeitsgericht 47
+48 Jahresbericht des Bundesarbeitsgerichts 2025
+C. Über das Bundesarbeitsgericht
+I. Bibliothek
+Die Bibliothek des Bundesarbeitsgerichts gehört Im Jahr 2025 nutzten 282 externe Besucher die 
+zu den größeren juristischen Fachbibliotheken mit Bibliothek des Bundesarbeitsgerichts. Der Bestand 
+dem Schwerpunkt Arbeitsrecht in der Bundesrepu- der Bibliothek umfasste Ende 2025 ca. 107.000 
+blik Deutschland. Ihre Aufgabe ist es, die Arbeit Medieneinheiten sowie mehr als 100.000 Tarifver-
+der Beschäftigten des Bundesarbeitsgerichts durch träge in einer hausinternen Sondersammlung. 
+die Bereitstellung von Fachliteratur und Daten- Neben dem Printbestand stehen den Angehörigen 
+bankinhalten zu unterstützen. des Hauses verschiedene juristische Datenbanken 
+zur Verfügung.
+Für die Angehörigen des Bundesarbeitsge-
+richts stehen mehr als 100.000 Druckwerke auf Der gesamte Medienbestand ist im OPAC recher-
+1.700 m² Fläche sowie 31 Leseplätze für die Nut- chierbar. Der Zeitschriftenbestand ist zusätzlich in 
+zung in Präsenz zur Verfügung. der Zeitschriftendatenbank (www.zdb.de) nachge-
+wiesen. 
+Externe Benutzer können die Medien und den Ser-
+vice der Bibliothek während der Dienstzeiten nut-
+zen, aber keine Bücher entleihen. 
+II. Dokumentation
+Die Dokumentationsstelle des Bundesarbeitsge- Die juris-Datenbank Rechtsprechung enthält mehr 
+richts wertet die für das Arbeitsrecht und die Ar- als 114.950 Entscheidungen der deutschen Ge-
+beitsgerichtsbarkeit bedeutsamen Entscheidungen richte für Arbeitssachen. Es handelt sich dabei 
+der nationalen und supranationalen Gerichte sowie um Entscheidungen des Bundesarbeitsgerichts 
+die arbeitsrechtliche Fachliteratur aus. Die doku- (rund 30.230) sowie Entscheidungen der Ins-
+mentarisch erschlossenen Daten werden sowohl tanzgerichte (Landesarbeitsgerichte etwa 69.820, 
+in einer internen Datenbank gespeichert als auch Arbeitsgerichte ca. 14.900). Ebenfalls von der 
+für das juristische Informationssystem „juris“ auf- Dokumentationsstelle des Bundesarbeitsgerichts 
+bereitet. Daneben führt die Dokumentationsstel- dokumentiert wurden bislang 410 Entscheidun-
+le eine gerichtsinterne chronologische Sammlung gen von Kirchengerichten und kirchengerichtlichen 
+der Entscheidungen des Bundesarbeitsgerichts. In Schlichtungsstellen sowie 985 arbeitsrechtlich be-
+einem internen, wöchentlich erscheinenden Infor- deutsame Entscheidungen des Gerichtshofs der 
+mationsdienst weist die Dokumentationsstelle auf Europäischen Union (EuGH), des Gerichts erster 
+aktuelle Beiträge, Rechtsentwicklungen und Ent- Instanz der Europäischen Union (EuG), des zum 
+scheidungen im nationalen und internationalen 1. September 2016 aufgelösten Gerichts für 
+Arbeitsrecht hin. Damit unterstützt sie die Rich- den öffentlichen Dienst der Europäischen Union 
+terinnen und Richter sowie die wissenschaftlichen (EuGöD) und des Europäischen Gerichtshofs für 
+Mitarbeiterinnen und Mitarbeiter bei ihrer Tätigkeit. Menschenrechte (EGMR). Hinzu kommen in kleine-
+rem Umfang Entscheidungen von Bühnenschieds-
+Dokumentiert werden insbesondere die Recht- gerichten, Gerichten der ehemaligen DDR und ein-
+sprechung des Bundesarbeitsgerichts, der Lan- zelner ausländischer Gerichte.
+desarbeitsgerichte, der Arbeitsgerichte, der Kir-
+chengerichte (seit 2007) sowie supranationaler Seit 1995 werden - unabhängig von ihrer Veröf-
+Gerichte in Arbeitsrechtsstreitigkeiten, das ein- fentlichung - sämtliche beim Bundesarbeitsgericht 
+schlägige Schrifttum aus Periodika (Fachzeitschrif- im Revisions- oder Rechtsbeschwerdeverfahren 
+ten, Jahrbüchern etc.), Festschriften, Dissertatio- anhängigen Instanzentscheidungen mit ihrem Ver-
+nen und anderen Sammelwerken. Darüber hinaus fahrensgang (Eingang, Terminierung, Erledigungs-
+werden Gesetze und Vorschriften erfasst, soweit datum, Erledigungsart) für die juris-Datenbank 
+ein Bezug zum Arbeitsrecht und zur Arbeitsge- Rechtsprechung dokumentiert, sofern nicht das 
+richtsbarkeit besteht.
+C. Über das Bundesarbeitsgericht 49
+Verfahren unmittelbar nach Eingang beim Bundes-
+arbeitsgericht beendet wird.
+Für die juris-Datenbanken Zeitschriften sowie Kom-
+mentare/Bücher wurden von der Dokumentations-
+stelle des Bundesarbeitsgerichts bislang 70.800 Li- .
+teraturnachweise mit Bezug zum Arbeitsrecht oder 
+zur Arbeitsgerichtsbarkeit ausgewertet.
+III. Presse- und Öffentlichkeitsarbeit
+Die Pressestelle des Bundesarbeitsgerichts infor- Oberste Bundesgerichte auf Mastodon
+miert in vierteljährlichen Terminvorschauen über 
+anstehende Verhandlungen in Fällen, die wegen Seit dem 1. März 2023 sind der Bundesgerichtshof, 
+ihres Gegenstands oder wegen der aufgewor- das Bundesverwaltungsgericht, der Bundesfinanz-
+fenen Rechtsfragen von besonderem Interesse hof, das Bundesarbeitsgericht und das Bundesso-
+sind. Sobald in rechtlich bedeutsamen und für die zialgericht auf dem Social-Media-Netzwerk Masto-
+Öffentlichkeit interessanten Fällen die Entschei- don aktiv. 
+dung ergangen ist, wird in einer Pressemitteilung 
+hierüber berichtet. Dabei werden allerdings von Die obersten Gerichtshöfe des Bundes veröffent-
+den in den Terminvorschauen enthaltenen Ver- lichen zusätzlich alle von ihnen herausgegebe-
+handlungen/Anhörungen nur solche Entscheidun- nen Pressemitteilungen auch auf ihren jeweiligen 
+gen berücksichtigt, deren tatsächliche Grundlagen Mastodon-Accounts. Diese Accounts werden unter 
+und rechtliche Erwägungen für eine derartige Kurz- der Mastodon-Instanz des Bundesbeauftragten 
+information geeignet sind. für den Datenschutz und die Informationsfrei-
+heit (BfDI) betrieben und sind unter folgenden 
+Im Jahr 2025 wurden die Terminvorschauen an Adressen abrufbar:
+1.153 Abonnenten und die insgesamt 44 Presse-
+mitteilungen an 1.311 Bezieher versandt. Bundesarbeitsgericht:   
+https://social.bund.de/@bundesarbeitsgericht
+Das Bundesarbeitsgericht stellt im Internet In-
+formationen zur Verfügung. Unter der Adresse Bundesgerichtshof:     
+www.bundesarbeitsgericht.de finden sich all- https://social.bund.de/@BGH_Bund
+gemeine Informationen über die Arbeitsgerichts-
+barkeit, die Aufgaben des Bundesarbeitsgerichts, Bundesverwaltungsgericht:  
+die Bibliothek und die Dokumentationsstelle sowie https://social.bund.de/@bverwg_de
+eine Vorschau auf anstehende Verhandlungen. Im 
+Übrigen kann die Sammlung der Pressemitteilun- Bundesfinanzhof:	 	 	  
+gen seit 2017 aufgerufen werden. https://social.bund.de/@bundesfinanzhof
+Die Entscheidungen des Bundesarbeitsgerichts Bundessozialgericht:    
+ab 2010 stehen ebenfalls im Internet zur Verfü- https://social.bund.de/@bundessozialgericht
+gung. Hier ist eine Suche nach Daten, Nummer der 
+Pressemitteilung oder Textstichworten möglich.
+In einem jährlichen Pressegespräch werden aus-
+führlich Geschäftsentwicklung, Schwerpunkte der 
+Rechtsprechung im abgelaufenen Geschäftsjahr 
+und zu erwartende arbeitsrechtliche Fragen er-
+örtert. 
+50 Jahresbericht des Bundesarbeitsgerichts 2025
+Instanzen im Dialog
+Das Bundesarbeitsgericht veranstaltete am AGB-Recht unter Berücksichtigung betriebsrenten-
+15. Mai 2025 die vierte arbeitsrechtliche Fach- rechtlicher Besonderheiten, Grundlagen des Tarif-
+tagung „Instanzen im Dialog“. Bei dieser Tagung rechts, Rücksichtsnahmepflichten bei Beendigung 
+soll der Diskurs zwischen Arbeitsrichterinnen und und Neugründung von Arbeitsverhältnissen und 
+Arbeitsrichtern aller Instanzen vertieft werden. Die Datenschutz diskutiert. 
+rund 100 angemeldeten Richterinnen und Richter 
+aus der Arbeitsgerichtsbarkeit diskutierten mit den Jeweils zwei bis drei Richterinnen und Richter aus 
+Richterinnen und Richtern des Bundesarbeitsge- dem Kollegium des Bundesarbeitsgerichts mode-
+richts Fragen des materiellen Arbeitsrechts und des rierten die Arbeitsgruppen und führten in die The-
+Verfahrensrechts. In den vier gebildeten Arbeits- men mit Impulsreferaten ein. Die nächste Tagung 
+gruppen wurden Rechtsfragen zu den Themen „Instanzen im Dialog“ wird im Frühjahr 2027 statt-
+finden.
+C. Über das Bundesarbeitsgericht 51
+Ehrenamtliche Richterinnen und Richter aus 
+den drei Instanzen der Arbeitsgerichtsbarkeit 
+zu Gast beim Bundesarbeitsgericht
+Am 4. September 2025 diskutierten ehrenamtliche Das Generalthema der Tagung war Arbeitsrecht in 
+Richterinnen und Richter aus den drei Instanzen Deutschland und Europa. Es ging um Einzelthe-
+der Arbeitsgerichtsbarkeit in einem Fachgespräch men, wie die Entgeltgleichheit von Männern und 
+im großen Sitzungssaal des Bundesarbeitsgerichts. Frauen, Nachtarbeitszuschläge, Überstundenzu-
+Die ehrenamtlichen Kolleginnen und Kollegen sind schläge bei Teilzeitarbeit, die Erfassung der Ar-
+an den Arbeitsgerichten Thüringens, dem Thürin- beitszeit, die Ausgestaltung der Gerichtsbarkeiten 
+ger Landesarbeitsgericht und dem Bundesarbeits- in Deutschland und Europa und die europäische 
+gericht tätig. Rechtsgemeinschaft.
+52 Jahresbericht des Bundesarbeitsgerichts 2025
+Bundesarbeitsgericht und Landesarbeitsge-
+richt München im fachlichen Dialog
+Am 24. und 25. September 2025 waren der Prä-
+sident, die Vizepräsidentin und acht Vorsitzende 
+Richterinnen und Richter des Landesarbeitsgerichts 
+München zu Gast beim Bundesarbeitsgericht.
+Zentraler Teil des Austauschs war ein Fachgespräch 
+der beiden richterlichen Kollegien ua. über Fragen 
+gleichheitswidriger tariflicher Regelungen, des be-
+trieblichen Eingliederungsmanagements und des 
+Annahmeverzugs. Der Besuch endete mit einer 
+Führung durch das Bundesarbeitsgericht.
+Besucherdienst
+ 
+Im Jahr 2025 haben wieder viele angemeldete Im Übrigen besteht nach wie vor großes Interesse 
+Besuchergruppen mit mehr als 2.000 Personen an der Architektur des Gerichtsgebäudes und den 
+- insbesondere Betriebs- und Personalräte sowie Arbeitsbedingungen des Bundesarbeitsgerichts.
+Führungskräfte, Referendare, Studierende und 
+Schüler - Verhandlungen des Gerichts besucht. Sie Im vergangenen Jahr besichtigten 40 Besucher-
+wurden durch wissenschaftliche Mitarbeiterinnen gruppen mit rund 600 Teilnehmern das Bundes-
+und Mitarbeiter über die zur Entscheidung anste- arbeitsgericht und wurden von fachkundigen Mit-
+henden  Sachverhalte sowie die Arbeitsgerichts- arbeiterinnen und Mitarbeitern durch das Haus 
+barkeit und die Aufgaben des Bundesarbeitsge- geführt.
+richts informiert.
+C. Über das Bundesarbeitsgericht 53
+IV. Personalien
+Der Vizepräsident des Bundesarbeitsgerichts Der Vorsitzende Richter am Bundesarbeitsge-
+Dr. Rüdiger Linck  ist mit Ablauf des 31. März richt Prof. Dr. Ulrich Koch ist mit Ablauf des 
+2025 in den Ruhestand getreten. 30. Juni 2025 in den Ruhestand getreten. 
+Im Mai 2001 wurde Herr Dr. Linck zum Richter am Herr Prof. Dr. Koch wurde am 1. Juni 2005 zum 
+Bundesarbeitsgericht berufen und war zunächst Richter am Bundesarbeitsgericht ernannt und zu-
+dem Fünften Senat zugeteilt. Ab Februar 2007 nächst dem Siebten Senat und ab September 2009 
+war er im Sechsten Senat tätig. Dort war er seit dem Ersten Senat zugeteilt, dessen stellvertreten-
+dem Jahr 2008 stellvertretender Vorsitzender. Seit der Vorsitzender er ab Mai 2014 war. Am 1. Februar 
+November 2009 gehörte er dem Ersten Senat als 2016 wurde er zum Vorsitzenden Richter am Bun-
+stellvertretender Vorsitzender an. desarbeitsgericht ernannt und leitete seitdem den 
+Zweiten Senat. 
+Mit seiner Ernennung zum Vorsitzenden Richter am 
+Bundesarbeitsgericht am 1. Mai 2014 wurde Herr 
+Dr. Linck zunächst der Vorsitz des Zehnten Senats 
+übertragen. Am 20. Juni 2017 wurde er zum Vi-
+zepräsidenten des Bundesarbeitsgerichts ernannt. 
+Im Oktober 2017 übernahm er den Vorsitz des 
+Fünften Senats, dem er bereits von 2001 bis 2007 
+angehörte. Nach dem Ausscheiden der Präsiden-
+tin des Bundesarbeitsgerichts a. D. Ingrid Schmidt 
+Ende September 2021 bis zur Ernennung der Prä-
+sidentin des Bundesarbeitsgerichts Inken Gallner 
+Ende Januar 2022 hat er das Bundesarbeitsgericht 
+geleitet.
+(Pressemitteilung Nr. 29/25)
+Am 8. Juli 2025 wurde der Richter am Bundesar-
+beitsgericht Oliver Klose zum Vorsitzenden Rich-
+ter am Bundesarbeitsgericht ernannt. Herr Klose, 
+der zuvor dem Siebten Senat angehörte, über-
+nahm den Vorsitz des Zweiten Senats.
+(Pressemitteilung Nr. 15/25) 
+(Pressemitteilung Nr. 31/25)
+54 Jahresbericht des Bundesarbeitsgerichts 2025
+Am 8. Juli 2025 wurde die Richterin am Bundes-
+arbeitsgericht Prof. Dr. Martina Ahrendt zur Am 8. Oktober 2025 hat der Bundespräsident den 
+Vorsitzenden Richterin am Bundesarbeitsgericht Vorsitzenden Richter am Bundesarbeitsgericht 
+ernannt. Frau Prof. Dr. Ahrendt, die zuvor dem Ers- Prof. Dr. Günter Spinner zum Richter des Bun-
+ten Senat angehörte, übernahm den Vorsitz des desverfassungsgerichts ernannt. 
+Fünften Senats. 
+Mit Wirkung vom 1. Juni 2011 wurde Herr 
+Prof. Dr. Spinner zum Richter am Bundesarbeits-
+gericht ernannt. Er gehörte seitdem - zuletzt als 
+stellvertretender Vorsitzender - dem Dritten Se-
+nat des Bundesarbeitsgerichts an. Mit seiner Er-
+nennung zum Vorsitzenden Richter am Bundes-
+arbeitsgericht am 1. September 2023 wurde Herrn 
+Prof. Dr. Spinner der Vorsitz des Achten Senats 
+übertragen.
+(Pressemitteilung Nr. 30/25)
+Richter am Bundesarbeitsgericht Dr. Josef Biebl 
+ist mit Ablauf des 31. August 2025 in den Ruhe-
+stand getreten. 
+Herr Dr. Biebl wurde zum 1. November 2009 zum 
+Richter am Bundesarbeitsgericht ernannt und dem 
+Fünften Senat zugeteilt. Seit Mai 2015 war er stell- (Pressemitteilung Nr. 37/25)
+vertretender Vorsitzender des Senats. 
+(Pressemitteilung Nr. 33/25)
+C. Über das Bundesarbeitsgericht 55
+56 Jahresbericht des Bundesarbeitsgerichts 2025
+Übersicht über die Pressemitteilungen 2025
+   
+Nr. Datum Stichwort
+1/25 15.01.2025 Erschütterung des Beweiswerts einer im Nicht-EU-Ausland  
+erstellten Arbeitsunfähigkeitsbescheinigung 
+- 5 AZR 284/24 -
+2/25 21.01.2025 30-jährige Verjährungsfrist für kapitalisierte Forderungen des 
+Pensions-Sicherungs-Vereins 
+- 3 AZR 45/24 -
+3/25 28.01.2025 Entgeltabrechnungen als elektronisches Dokument 
+- 9 AZR 48/24 -
+4/25 28.01.2025 Digitales Zugangsrecht einer Gewerkschaft zum Betrieb 
+- 1 AZR 33/24 -
+5/25 28.01.2025 Fälligkeit einer Sozialplanabfindung - Verzugszinsen 
+- 1 AZR 73/24 -
+6/25 12.02.2025 Freistellung während der Kündigungsfrist - böswilliges Unter-
+lassen anderweitigen Verdienstes 
+- 5 AZR 127/24 -
+7/25 19.02.2025 Schadensersatz bei verspäteter Zielvorgabe 
+- 10 AZR 57/24 -
+8/25 20.02.2025 Kontrollpflichten eines Rechtsanwalts bei Fristsachen -  
+Änderung der Rechtsprechung 
+- 6 AZR 155/23 -
+9/25 20.02.2025 Mitteilung zum Verfahren - 9 AZR 4/24 - (Beschäftigungsan-
+spruch einer Vertrauensperson der Schwerbehinderten  
+nach Beendigung ihrer Freistellung) 
+- 9 AZR 4/25 -
+10/25 11.03.2025 Arbeitgeberzuschuss zu Entgeltumwandlung - Tariföffnung 
+- 3 AZR 53/24 -
+11/25 12.03.2025 Jahrespressegespräch im Bundesarbeitsgericht
+12/25 19.03.2025 Verfall von virtuellen Optionsrechten nach Beendigung des 
+Arbeitsverhältnisses 
+- 10 AZR 67/24 -
+13/25 20.03.2025 Vergütung (freigestellter) Betriebsratsmitglieder -  
+Darlegungs- und Beweislast 
+- 7 AZR 46/24 -
+14/25 27.03.2025 Wettbewerbsverbot - Berechnung der Karenzentschädigung - 
+virtuelle Aktienoptionen 
+- 8 AZR 63/24 -
+15/25 01.04.2025 Vizepräsident des Bundesarbeitsgerichts 
+Dr. Rüdiger Linck im Ruhestand
+C. Über das Bundesarbeitsgericht 57
+16/25 03.04.2025 Sonderkündigungsschutz für schwangere Arbeitnehmerinnen 
+- nachträgliche Klagezulassung 
+17/25 16.04.2025 Provisionsanspruch - Kryptowährung 
+- 10 AZR 80/24 -
+18/25 30.04.2025 Vorsitzender Richter am Bundesarbeitsgericht a. D.  
+Prof. Dr. Waldemar Röhsler verstorben
+19/25 06.05.2025 Berücksichtigung von Elternzeiten bei der Wartezeit in der 
+Versorgungsanstalt der Deutschen Post 
+- 3 AZR 65/24 -
+20/25 08.05.2025 Schadensersatz nach Datenschutz-Grundverordnung (DSGVO) 
+- Betriebsvereinbarung - Workday 
+- 8 AZR 209/21 -
+21/25 15.05.2025 Instanzen im Dialog - 15. Mai 2025
+22/25 22.05.2025 Betriebsratswahl - aktives Wahlrecht von Führungskräften in 
+mehreren Betrieben bei einer unternehmensinternen Matrix-
+Struktur 
+- 7 ABR 28/24 -
+23/25 03.06.2025 Kein Urlaubsverzicht durch Prozessvergleich 
+- 9 AZR 104/24 -
+24/25 04.06.2025 Begegnung der wissenschaftlichen Mitarbeiterinnen und  
+Mitarbeiter des Bundesverfassungsgerichts, der obersten  
+Gerichtshöfe des Bundes und des Generalbundesanwalts im  
+Bundesarbeitsgericht
+25/25 05.06.2025 Verlängerung der Stufenlaufzeit durch § 4 Abs. 1  
+Buchst. b ETV-DP AG - Fortgang des Verfahrens 
+- 6 AZR 161/24 -
+26/25 18.06.2025 Befristetes Arbeitsverhältnis eines Betriebsratsmitglieds -  
+Benachteiligungsverbot 
+- 7 AZR 50/24 -
+27/25 24.06.2025 Mitteilung zu den Verfahren - 8 AZR 308/24 - und  
+- 8 AZR 4/25 - (Immaterieller Schadensersatz wegen  
+Verletzung der Auskunftspflicht nach Art. 15 DSGVO)
+28/25 30.06.2025 Vizepräsident des Bundesarbeitsgerichts a. D.  
+Dr. Karl Heinz Peifer verstorben
+29/25 01.07.2025 Vorsitzender Richter am Bundesarbeitsgericht  
+Prof. Dr. Ulrich Koch im Ruhestand
+30/25 08.07.2025 Frau Prof. Dr. Martina Ahrendt neue Vorsitzende Richterin am 
+Bundesarbeitsgericht
+31/25 08.07.2025 Herr Oliver Klose neuer Vorsitzender Richter am  
+Bundesarbeitsgericht
+32/25 31.07.2025 Keine Entscheidung zur Tariffähigkeit des Arbeitgeberver-
+bands Diakonischer Dienstgeberverband Niedersachsen e. V. 
+(DDN) 
+- 6 AZR 172/24 -
+58 Jahresbericht des Bundesarbeitsgerichts 2025
+33/25 01.09.2025 Richter am Bundesarbeitsgericht Dr. Josef Biebl im Ruhestand
+34/25 02.09.2025 Mitteilung zum Verfahren 1 ABR 30/24 (Mitbestimmungsrecht 
+des Betriebsrats hinsichtlich tariflichen Zusatzurlaubs für 
+langjährig Beschäftigte) 
+- 1 ABR 30/24 -
+35/25 08.09.2025 Ehrenamtliche Richterinnen und Richter aus drei Instanzen 
+der Arbeitsgerichtsbarkeit zu Gast beim Bundesarbeitsgericht
+36/25 25.09.2025 Bundesarbeitsgericht und Landesarbeitsgericht München in 
+fachlichem Dialog
+37/25 08.10.2025 Herr Prof. Dr. Günter Spinner zum Richter des Bundesverfas-
+sungsgerichts ernannt
+38/25 23.10.2025 Anspruch auf Entgeltdifferenz wegen Geschlechtsdiskriminie-
+rung - Paarvergleich 
+- 8 AZR 300/24 -
+39/25 28.10.2025 Betriebsrentenanpassung - wirtschaftliche Lage - Prognose 
+- 3 AZR 24/25 -
+40/25 30.10.2025 Probezeitkündigung im befristeten Arbeitsverhältnis 
+- 2 AZR 160/24 -
+41/25 13.11.2025 Keine primäre Korrekturkompetenz der Tarifvertragsparteien 
+im Anwendungsbereich unionsrechtlich überformter Diskrimi-
+nierungsverbote 
+- 6 AZR 131/25 -
+42/25 26.11.2025 Tarifvertragliche Mehrarbeitszuschläge - Diskriminierung  
+wegen Teilzeitbeschäftigung 
+- 5 AZR 118/23 -
+43/25 10.12.2025 Theaterintendant - Arbeitsgerichte zuständig für  
+Kündigungsstreit 
+- 9 AZB 3/25 -
+44/25 10.12.2025 Schiedsrichter-Assistent in der 3. Fußball-Liga -  
+Arbeitsgerichte unzuständig für Entschädigungsklage 
+- 9 AZB 18/25 -
+D. Tabellarischer Anhang 59
+60 Jahresbericht des Bundesarbeitsgerichts 2025
+D. Tabellarischer Anhang
+Tätigkeit des Bundesarbeitsgerichts
+- Geschäftsjahr 2025 -
+Zeilen Nr. Anhängige Verfahren Verfahren
+Insgesamt Veränderungen 
+gegenüber 
+Vorjahr
+1 Revisionen
+11 unerledigte Revisionen am Jahresanfang 312 - 168
+12 Eingelegte Revisionen 221 - 88
+davon aus
+1201 Baden-Württemberg 24 + 7
+1202 Bayern 7 -15
+1203 Berlin-Brandenburg 12 - 12
+1204 Bremen 0 - 1
+1205 Hamburg 15 + 7
+1206 Hessen 32 - 13
+1207 Mecklenburg-Vorpommern 2 - 1
+1208 Niedersachsen 46 + 16
+1209 Nordrhein-Westfalen 50 - 82
+1210 Rheinland-Pfalz 3 0
+1211 Saarland 0 - 1
+1212 Sachsen 5 - 4
+1213 Sachsen-Anhalt 6 + 4
+1214 Schleswig-Holstein 4 - 1
+1215 Thüringen 15 + 8
+13 Revisionen insgesamt 533 - 256
+14 erledigte Revisionen 325 - 152
+141 nach der Art der Erledigung
+1411 streitiges Urteil 179 - 122
+1412 sonstiges Urteil 1 + 1
+1413 Beschluss nach § 91a ZPO 3 0
+1414 sonstiger Beschluss 5 0
+1415 Vergleich 31 - 73
+1416 Rücknahme 98 + 44
+1417 auf sonstige Art 8 - 2
+D. Tabellarischer Anhang 61
+142 durch streitiges Urteil erledigte Revisionen 
+(Zeile 1411) nach der Dauer des Verfahrens
+1421 bis zu 6 Monate 7 + 2
+1422 über 6 Monate bis zu 1 Jahr 108 - 15
+1423 über 1 Jahr bis zu 2 Jahre 61 + 7
+1424 über 2 Jahre 3 - 116
+15 unerledigte Revisionen am Jahresende 208 - 104
+2 Rechtsbeschwerden
+21 unerledigte Rechtsbeschwerden am 
+Jahresanfang 45 + 8
+22 eingereichte Rechtsbeschwerden 47 + 4
+davon aus
+2201 Baden-Württemberg 1 - 1
+2202 Bayern 4 - 2
+2203 Berlin-Brandenburg 3 + 1
+2204 Bremen 0 - 1
+2205 Hamburg 1 - 2
+2206 Hessen 8 + 4
+2207 Mecklenburg-Vorpommern 1 0
+2208 Niedersachsen 13 + 2
+2209 Nordrhein-Westfalen 12 + 4
+2210 Rheinland-Pfalz 1 0
+2211 Saarland 0 0
+2212 Sachsen 1 0
+2213 Sachsen-Anhalt 0 0
+2214 Schleswig-Holstein 2 0
+2215 Thüringen 0 - 1
+23 Rechtsbeschwerden insgesamt 92 + 12
+24 erledigte Rechtsbeschwerden 46 + 11
+davon
+241 durch mündliche Verhandlung 24 - 1
+242 ohne mündliche Verhandlung 1 + 1
+243 durch Einstellung des Verfahrens gemäß 
+§ 94 Nr. 3 ArbGG oder auf sonstige Art 21 + 11
+25 durch Beschluss erledigte Rechts-
+beschwerden (Zeilen 241 - 242) nach 
+der Dauer des Verfahrens 
+251 bis zu 6 Monate 0 0
+252 über 6 Monate bis zu 1 Jahr 12 - 4
+253 über 1 Jahr bis zu 2 Jahre 13 + 5
+254 über 2 Jahre 0 - 1
+62 Jahresbericht des Bundesarbeitsgerichts 2025
+26 unerledigte Rechtsbeschwerden am 
+Jahresende 46 + 1
+3 Nichtzulassungsbeschwerden
+31 Verfahren gemäß § 72a ArbGG
+311 unerledigte Verfahren am Jahresanfang 130 - 127
+312 beantragte Verfahren 623 - 179
+313 Verfahren insgesamt 753 - 306
+314 erledigte Verfahren 636 - 293
+davon durch
+3141 stattgebenden Beschluss 6 - 12
+3142 Zurückweisung 66 + 12
+3143 Zurückverweisung 9 - 25
+3144 Verwerfung 449 - 156
+3145 Rücknahme 89 - 113
+3146 auf sonstige Art 17 + 1
+315 unerledigte Verfahren am Jahresende 117 - 13
+32 Verfahren gemäß § 92a ArbGG
+321 unerledigte Verfahren am Jahresanfang 11 - 6
+322 beantragte Verfahren 80 + 8
+323 Verfahren insgesamt 91 + 2
+324 erledigte Verfahren 78 0
+davon durch
+3241 stattgebenden Beschluss 5 + 3
+3242 Zurückweisung 6 - 4
+3243 Zurückverweisung 0 0
+3244 Verwerfung 54 + 13
+3245 Rücknahme 11 - 4
+3246 auf sonstige Art 2 - 8
+325 unerledigte Verfahren am Jahresende 13 + 2
+33 Verfahren gemäß § 77 ArbGG
+331 unerledigte Verfahren am Jahresanfang 12 + 6
+332 beantragte Verfahren 54 + 7
+333 Verfahren insgesamt 66 + 13
+334 erledigte Verfahren 56 + 15
+davon durch
+3341 stattgebenden Beschluss 0 0
+3342 Zurückweisung 5 - 2
+3343 Zurückverweisung 1 + 1
+3344 Verwerfung 31 + 3
+3345 Rücknahme 10 + 8
+3346 auf sonstige Art 9 + 5
+335 unerledigte Verfahren am Jahresende 10 - 2
+D. Tabellarischer Anhang 63
+4 Revisionsbeschwerden
+41 Verfahren gemäß § 72b ArbGG
+411 unerledigte Verfahren am Jahresanfang 0 - 1
+412 beantragte Verfahren 0 - 5
+413 Verfahren insgesamt 0 - 6
+414 erledigte Verfahren 0 - 6
+davon durch
+4141 stattgebenden Beschluss (Zurückverweisung) 0 0
+4142 Zurückweisung 0 - 2
+4143 Verwerfung 0 - 1
+4144 Rücknahme 0 - 2
+4145 auf sonstige Art 0 - 1
+415 unerledigte Verfahren am Jahresende 0 0
+42 Verfahren gemäß § 77 ArbGG
+421 unerledigte Verfahren am Jahresanfang 1 + 1
+422 beantragte Verfahren 2 - 1
+423 Verfahren insgesamt 3 0
+424 erledigte Verfahren 2 0
+davon durch
+4241 stattgebenden Beschluss 0 0
+4242 Zurückweisung 0 0
+4243 Verwerfung 2 0
+4244 Rücknahme 0 0
+4245 auf sonstige Art 0 0
+425 unerledigte Verfahren am Jahresende 1 0
+43 Verfahren gemäß § 78 ArbGG
+431 unerledigte Verfahren am Jahresanfang 12 + 5
+432 beantragte Verfahren 27 + 2
+433 Verfahren insgesamt 39 + 7
+434 erledigte Verfahren 35 + 15
+davon durch
+4341 stattgebenden Beschluss 10 + 7
+4342 Zurückweisung 10 + 1
+4343 Verwerfung 11 + 5
+4344 Rücknahme 2 0
+4345 auf sonstige Art 2 + 2
+435 unerledigte Verfahren am Jahresende 4 - 8
+44 Verfahren gemäß § 92b ArbGG
+44 unerledigte Verfahren am Jahresanfang 0 0
+442 beantragte Verfahren 3 + 3
+443 Verfahren insgesamt 3 + 3
+444 erledigte Verfahren 2 + 2
+64 Jahresbericht des Bundesarbeitsgerichts 2025
+davon durch
+4441 stattgebenden Beschluss 0 0
+4442 Zurückweisung 0 0
+4443 Zurückverweisung 0 0
+4444 Verwerfung 0 0
+4445 Rücknahme 2 + 2
+4446 auf sonstige Art 0 0
+445 unerledigte Verfahren am Jahresende 1 + 1
+5 Bestimmungen des zuständigen Gerichts
+51 unerledigte Anträge am Jahresanfang 3 + 1
+52 eingereichte Anträge 10 + 5
+53 Anträge insgesamt 13 + 6
+54 erledigte Anträge 12 + 6
+55 unerledigte Anträge am Jahresende 1 0
+6 Entschädigungsklagen bei überlangen 
+Gerichtsverfahren
+61 unerledigte Klagen am Jahresanfang 0 - 1
+62 erhobene Klagen 0 - 1
+63 Klagen insgesamt 0 - 2
+64 erledigte Klagen 0 - 2
+65 unerledigte Klagen am Jahresende 0 0
+7 Anträge auf Bewilligung von Prozess-
+kostenhilfe
+71 Anträge außerhalb einer anhängigen 
+Revision
+711 unerledigte Anträge am Jahresanfang 1 0
+712 eingereichte Anträge 0 - 1
+713 Anträge insgesamt 1 - 1
+714 erledigte Anträge 1 0
+715 unerledigte Anträge am Jahresende 0 - 1
+72 ergangene Entscheidungen bei anhängigen 
+Revisionsverfahren (Zahl der Beschlüsse) 4 - 2
+8 Entscheidung über Anträge auf Einstellung der 
+Zwangsvollstreckung 2 - 1
+9 in das allgemeine Register eingetragene 
+Anträge und Anfragen 179 - 33
+10 Großer Senat (Anrufungen)
+101 unerledigte Vorlagen am Jahresanfang 0 0
+102 eingereichte Vorlagen 0 0
+103 Vorlagen insgesamt 0 0
+104 entschiedene Vorlagen 0 0
+105 unerledigte Vorlagen am Jahresende 0 0
+D. Tabellarischer Anhang 65
+Revisionen (AZR) nach der Art der Erledigung
+- Geschäftsjahr 2025 -
+Zulassung Summe Entschieden
+zugunsten
+Art der Erledigungen
+durch durch Spalten Arbeit- Arbeit-
+LAG BAG 2a-2b geber nehmer
+1 2a 2b 3 3a 3b
+I. durch streitiges Urteil
+1. als unzulässig verworfen
+a) aufgrund mündlicher Verhandlung 2 0 2 2 0
+b) im schriftlichen Verfahren 0 0 0 0 0
+2. als unbegründet zurückgewiesen
+a) aufgrund mündlicher Verhandlung 56 3 59 35 22
+b) im schriftlichen Verfahren 7 1 8 4 4
+3. unter Aufhebung des vorinstanzlichen  
+Urteils zurückverwiesen
+a) aufgrund mündlicher Verhandlung 26 5 31 6 18
+b) im schriftlichen Verfahren 30 0 30 1 27
+4. der Revision ganz oder teilweise 
+stattgegeben
+a) aufgrund mündlicher Verhandlung 42 4 46 31 12
+b) im schriftlichen Verfahren 3 0 3 2 1
+II. durch sonstiges Urteil 1 0 1 0 1
+III. durch Beschluss
+1.     als unzulässig verworfen 5 0 5 3 0
+2.     Kostenbeschluss § 91a ZPO 2 1 3 0 2
+IV. durch Vergleich
+1. gerichtlichen Vergleich 18 0 18 0 0
+2. außergerichtlichen Vergleich 12 1 13 0 0
+V. durch Rücknahme 98 0 98 0 0
+VI. auf sonstige Art 8 0 8 0 0
+Summe 310 15 325 84 87
+66 Jahresbericht des Bundesarbeitsgerichts 2025
+Rechtsbeschwerden (ABR) nach Art der Erledigung
+- Geschäftsjahr 2025 -
+Zulassung Summe
+Zulassung
+durch LAG durch BAG Spalte 2a-2b
+1 2a 2b 3
+1. als unzulässig verworfen
+a) aufgrund mündlicher Anhörung 1 0 1
+b) ohne mündliche Anhörung 0 0 0
+2. als unbegründet zurückgewiesen
+a) aufgrund mündlicher Anhörung 11 0 11
+b) ohne mündliche Anhörung 1 0 1
+3. aufgehoben und zurückverwiesen
+a) aufgrund mündlicher Anhörung 6 0 6
+b) ohne mündliche Anhörung 0 0 0
+4. ganz oder teilweise stattgegeben
+a) aufgrund mündlicher Anhörung 5 1 6
+b) ohne mündliche Anhörung 0 0 0
+5.       Einstellung gemäß § 94 Abs. 3 ArbGG 7 0 7
+6.       auf sonstige Art 13 1 14
+Summe 44 2 46
+E. Geschäftsverteilung 67
+68 Jahresbericht des Bundesarbeitsgerichts 2024
+E. Geschäftsverteilung
+Im Rahmen der Geschäftsverteilung werden den Senaten des Bundesarbeitsgerichts die Rechtsgebiete zu-
+geordnet sowie die Richterinnen und Richter den Senaten zugewiesen. Beim Bundesarbeitsgericht bestehen 
+derzeit zehn Senate. Die Zuteilung der Berufsrichter, der ehrenamtlichen Richter an die Senate sowie der 
+Rechtsgebiete erfolgt durch den jährlich neu aufzustellenden Geschäftsverteilungsplan. Diesen beschließt 
+das Präsidium des Bundesarbeitsgerichts gemäß § 21e Gerichtsverfassungsgesetz (GVG) jeweils für ein 
+Geschäftsjahr (Stand 1. Januar 2025).
+Erster Senat
+• Materielles Betriebsverfassungs-, Personalvertretungs- und Sprecherausschussrecht
+• Vereinigungsfreiheit
+• Tariffähigkeit und Tarifzuständigkeit
+• Arbeitskampfrecht
+Senatsmitglieder
+Vorsitzende:  Präsidentin des Bundesarbeitsgerichts Gallner 
+1. Beisitzerin: Richterin am Bundesarbeitsgericht Prof. Dr. Ahrendt
+2. Beisitzerin: Richterin am Bundesarbeitsgericht Dr. Rinck
+Zweiter Senat
+• Beendigung oder Änderung des Arbeits- und Berufsausbildungsverhältnisses durch Kündigung sowie 
+daran anschließende Weiterbeschäftigungs- und Abfindungsansprüche
+• Ersetzung der Zustimmung des Betriebsrats zur Kündigung
+• Betriebsübergang
+Senatsmitglieder
+Vorsitzender:  Vorsitzender Richter am Bundesarbeitsgericht Prof. Dr. Koch 
+1. Beisitzer: Richter am Bundesarbeitsgericht Dr. Niemann
+2. Beisitzer: Richter am Bundesarbeitsgericht Dr. Schlünder
+Dritter Senat
+• Betriebliche Altersversorgung einschließlich Versorgungsschäden
+Senatsmitglieder
+Vorsitzende:  Vorsitzende Richterin am Bundesarbeitsgericht Rachor 
+1. Beisitzer: Richter am Bundesarbeitsgericht Waskow
+2. Beisitzer: Richter am Bundesarbeitsgericht Prof. Dr. Roloff
+  69
+Vierter Senat
+• Tarifvertragsrecht
+• Anwendbarkeit eines Tarifvertrags in seiner Gesamtheit auf ein Arbeitsverhältnis
+• Ein-, Höher-, Um- und Rückgruppierungen
+Senatsmitglieder
+Vorsitzender:  Vorsitzender Richter am Bundesarbeitsgericht Prof. Dr. Treber 
+1. Beisitzerin: Richterin am Bundesarbeitsgericht Dr. Rennpferdt
+2. Beisitzerin: Richterin am Bundesarbeitsgericht Klug
+3. Beisitzer: Richter am Bundesarbeitsgericht Dr. Betz
+Fünfter Senat
+• Arbeitsentgeltansprüche einschließlich Zuschläge für Mehrarbeit, Naturalvergütungen und Arbeitszeit-
+konten
+• Entgeltfortzahlung
+• Mindestentgelte, Arbeitspflicht, Beschäftigungspflicht
+Senatsmitglieder
+Vorsitzender:  Vizepräsident des Bundesarbeitsgerichts Dr. Linck 
+1. Beisitzer: Richter am Bundesarbeitsgericht Dr. Biebl
+2. Beisitzerin: Richterin am Bundesarbeitsgericht Dr. Bubach
+3. Beisitzer: Richter am Bundesarbeitsgericht Neumann
+Sechster Senat
+• Auslegung von Tarifverträgen und Dienstordnungen des öffentlichen Dienstes, von Tarifverträgen bei 
+den Alliierten Streitkräften sowie von Tarifverträgen, an die in einer Rechtsform des bürgerlichen Rechts 
+betriebene Unternehmen gebunden sind, an denen überwiegend juristische Personen des öffentlichen 
+Rechts Anteile halten
+• Tarifverträge und Arbeitsrechtsregelungen der Religionsgemeinschaften
+• Kirchliches Mitarbeitervertretungsrecht
+• Insolvenzrecht
+• Kündigung des Arbeitsverhältnisses nach einem Antrag auf Eröffnung des Insolvenzverfahrens
+• Beendigung des Arbeitsverhältnisses in anderer Weise als durch Kündigung
+• alle nicht in die Zuständigkeit eines anderen Senats fallende Streitigkeiten und Verfahren
+Senatsmitglieder
+Vorsitzende:  Vorsitzende Richterin am Bundesarbeitsgericht Spelge 
+1. Beisitzerin: Richterin am Bundesarbeitsgericht Dr. Volk
+2. Beisitzerin: Richterin am Bundesarbeitsgericht Wemheuer
+3. Beisitzer: Richter am Bundesarbeitsgericht Dr. Heinkel
+70 Jahresbericht des Bundesarbeitsgerichts 2024
+Siebter Senat
+• Beendigung oder Änderung des Arbeitsverhältnisses aufgrund einer Befristung, Bedingung oder auf-
+grund des AÜG sowie jeweils daran anschließende Ansprüche auf Weiterbeschäftigung
+• Formelles Betriebsverfassungs-, Personalvertretungs- und Sprecherausschussrecht
+• Beschlussverfahren einer nach dem SGB IX gebildeten Arbeitnehmervertretung
+Senatsmitglieder
+Vorsitzende:  Vorsitzende Richterin am Bundesarbeitsgericht Schmidt 
+1. Beisitzer: Richter am Bundesarbeitsgericht Klose
+2. Beisitzer: Richter am Bundesarbeitsgericht Dr. Hamacher
+3. Beisitzerin: Richterin am Bundesarbeitsgericht Dr. Wullenkord
+Achter Senat
+• Schadensersatz, Entschädigung, Vertragsstrafen
+• Wettbewerbsrecht
+• Handelsvertreterrecht
+• Zwangsvollstreckungsrecht
+• Konkurrentenklage (Art. 33 Abs. 2 GG)
+• Datenschutzrechtliche Ansprüche
+Senatsmitglieder
+Vorsitzender:  Vorsitzender Richter am Bundesarbeitsgericht Prof. Dr. Spinner 
+1. Beisitzer: Richter am Bundesarbeitsgericht Krumbiegel
+2. Beisitzerin: Richterin am Bundesarbeitsgericht Berger
+3. Beisitzer: Richter am Bundesarbeitsgericht Dr. Pulz
+Neunter Senat
+• Erholungs-, Bildungs-, Sonder- und Erziehungsurlaub/Elternzeit, akzessorisches Urlaubsgeld
+• Altersteilzeit und andere Formen des Vorruhestands
+• Zeugnis, Arbeitspapiere, Personalakten
+• Änderung oder Begründung eines Arbeitsverhältnisses
+• Arbeitnehmerstatus
+• Berufsbildung
+• Teilhabe am Arbeitsleben nach dem SGB IX
+Senatsmitglieder
+Vorsitzender:  Vorsitzender Richter am Bundesarbeitsgericht Prof. Dr. Kiel 
+1. Beisitzer: Richter am Bundesarbeitsgericht Zimmermann
+2. Beisitzer: Richter am Bundesarbeitsgericht Dr. Suckow
+3. Beisitzerin: Richterin am Bundesarbeitsgericht Dr. Darsow-Faller
+  71
+Zehnter Senat
+• Sondervergütungen aller Art
+• Zulagen, Zuschläge und Ausgleich für unter besonderen Umständen geleistete Arbeit
+• Rechtsstreite, die das Verhältnis zu einer gemeinsamen Einrichtung der Tarifvertragsparteien betreffen
+Senatsmitglieder
+Vorsitzender:  Vorsitzender Richter am Bundesarbeitsgericht Reinfelder 
+1. Beisitzerin: Richterin am Bundesarbeitsgericht Dr. Günther-Gräff
+2. Beisitzer: Richter am Bundesarbeitsgericht Pessinger
+3. Beisitzerin: Richterin am Bundesarbeitsgericht Weber
+4. Beisitzerin: Richterin am Bundesarbeitsgericht Nowak
+Kollegium der Richterinnen und Richter am Bundesarbeitsgericht (Stand 2023)
+Der Jahresbericht gibt einen Überblick über die Tätigkeit  
+des Bundesarbeitsgerichts im Geschäftsjahr 2025
+Im Teil A wird die Geschäftsentwicklung anhand von statistischem  Zahlen- 
+material dargestellt. Teil B enthält eine Auswahl von Entscheidungen, 
+die nach Auffassung der zehn Senate des Bundesarbeitsgerichts für die  
+arbeitsrechtliche Praxis bedeutsam sind. Im Teil C wird über die Bibliothek, 
+über die Dokumentationsstelle und über die Presse- und Öffentlichkeitsarbeit
+und die Personalien informiert. Tabellarische Angaben sind in Teil D des 
+Berichts zusammengefasst.
