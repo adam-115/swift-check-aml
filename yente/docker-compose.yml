@@ -32,7 +32,9 @@ services:
 
   # Service de l'API de sanctions Yente (FastAPI + FollowTheMoney)
   yente:
-    image: ghcr.io/opensanctions/yente:latest
+    # Version figée : le monitoring de SwiftCheck dépend des index et du journal de cette version.
+    # Ne monter de version qu'après avoir vérifié le monitoring.
+    image: ghcr.io/opensanctions/yente:5.5.0
     container_name: yente-sanctions-api
     command: ["uvicorn", "--host", "0.0.0.0", "--port", "8000", "--workers", "8", "--proxy-headers", "yente.asgi:app"]
     environment:
@@ -43,9 +45,9 @@ services:
       - YENTE_STREAM_LOAD=true
       - YENTE_MATCH_CANDIDATES=100
       - YENTE_MAX_MATCH_CANDIDATES=300
-      - YENTE_AUTO_REINDEX=false
-      # Relit manifest.yml chaque minute (sans réindexer) : un dataset ajouté par le core est vu sans redémarrer Yente
-      - YENTE_CRONTAB=* * * * *
+      - YENTE_AUTO_REINDEX=true
+      # Toutes les 2 minutes : relit manifest.yml et réindexe seulement les datasets dont le fichier a changé
+      - YENTE_CRONTAB=*/2 * * * *
     deploy:
       resources:
         limits:
