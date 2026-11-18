@@ -7,13 +7,17 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.AccessDeniedException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.attribute.FileTime;
 import java.time.Duration;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Pattern;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -48,6 +52,8 @@ public class YenteManifestService {
 
     private static final Logger log = LoggerFactory.getLogger(YenteManifestService.class);
     private static final String DEFAULT_COLLECTION = "default";
+    private static final Pattern VALID_DATASET_NAME = Pattern.compile("^[a-z0-9_\\-]+$");
+    private static final int TOUCH_ATTEMPTS = 5;
 
     private final ObjectMapper yaml = new ObjectMapper(
             new YAMLFactory().disable(YAMLGenerator.Feature.WRITE_DOC_START_MARKER));
@@ -93,6 +99,58 @@ public class YenteManifestService {
         defaultChildren(datasets).remove(datasetName);
         if (removed) {
             write(manifest, config);
+        }
+    }
+
+    /**
+     * « Réindexer ce dataset » : met la date de modification du fichier publié à maintenant. Yente y voit une
+     * nouvelle version et ne reconstruit que cet index à son prochain passage ({@code YENTE_CRONTAB}).
+     * Le contenu du fichier n'est pas modifié.
+     *
+     * @throws IllegalStateException nom invalide, aucun fichier publié, ou dataset absent du manifest
+     *                               (message affiché tel quel)
+     */
+    public synchronized void reindexDataset(String datasetName, ApplicationConfigEntity config) {
+        // Le nom vient de l'URL : il ne doit désigner aucun autre fichier que <dossier>/<nom>/<nom>.ndjson
+        if (datasetName == null || !VALID_DATASET_NAME.matcher(datasetName).matches()) {
+            throw new IllegalStateException("Nom de dataset invalide : « " + datasetName + " ».");
+        }
+        Path file = Path.of(config.getYenteDataFolder(), datasetName, datasetName + ".ndjson");
+        if (!Files.isRegularFile(file)) {
+            throw new IllegalStateException("Aucun fichier publié pour " + datasetName + " : lancez d'abord le parser.");
+        }
+        try {
+            boolean inManifest = datasets(read(config)).stream().anyMatch(d -> datasetName.equals(d.get("name")));
+            if (!inManifest) {
+                throw new IllegalStateException(datasetName + " n'est pas dans le manifest de Yente (parser désactivé ?).");
+            }
+            touch(file);
+        } catch (IOException e) {
+            throw new IllegalStateException("Réindexation de " + datasetName + " impossible : " + e.getMessage());
+        }
+        log.info("Réindexation de {} demandée : Yente la fera à son prochain passage", datasetName);
+    }
+
+    /**
+     * Sous Windows, un fichier ouvert par un autre programme (Yente qui le lit, antivirus) peut refuser le
+     * changement de date quelques secondes : quelques nouvelles tentatives, comme {@code DatasetPublisher}.
+     */
+    private static void touch(Path file) throws IOException {
+        for (int attempt = 1; ; attempt++) {
+            try {
+                Files.setLastModifiedTime(file, FileTime.from(Instant.now()));
+                return;
+            } catch (AccessDeniedException e) {
+                if (attempt >= TOUCH_ATTEMPTS) {
+                    throw e;
+                }
+                try {
+                    Thread.sleep(2000L * attempt);
+                } catch (InterruptedException interrupted) {
+                    Thread.currentThread().interrupt();
+                    throw e;
+                }
+            }
         }
     }
 
