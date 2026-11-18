@@ -7,8 +7,13 @@ import { Observable } from 'rxjs';
 export class YenteService {
   constructor(private http: HttpClient) {}
 
-  /** Yente relit le manifest et réindexe les listes, en tâche de fond. */
+  /** « Tout reconstruire » : Yente reconstruit tous les index (forcé, long), en tâche de fond. Administrateur. */
   reindex(): Observable<{ message: string }> {
     return this.http.post<{ message: string }>('/api/yente/reindex', null);
+  }
+
+  /** Yente réindexe seulement ce dataset, à son prochain passage (2 minutes au plus). */
+  reindexDataset(name: string): Observable<{ message: string }> {
+    return this.http.post<{ message: string }>(`/api/yente/datasets/${encodeURIComponent(name)}/reindex`, null);
   }
 }

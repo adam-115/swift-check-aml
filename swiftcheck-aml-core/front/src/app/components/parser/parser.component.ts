@@ -12,6 +12,7 @@ import { ParserService } from '../../services/parser.service';
 import { PepReferenceService } from '../../services/pep-reference.service';
 import { PluginService } from '../../services/plugin.service';
 import { YenteService } from '../../services/yente.service';
+import { KeycloakService } from '../../services/keycloak.service';
 import { apiError } from '../../services/api-error';
 import { StatusBadgeComponent } from '../shared/status-badge.component';
 import { TestRunDialogComponent } from './test-run-dialog.component';
@@ -249,9 +250,10 @@ export class ParserComponent implements OnInit {
   pluginCheck?: PluginCheck;
   pluginCheckError = '';
 
-  // Réindexation Yente
+  // Yente : « Tout reconstruire » (administrateur) et « Réindexer dans Yente » par parser
   isReindexing = false;
   reindexMessage = '';
+  readonly isAdmin: boolean;
 
   // Plugins PF4J
   plugins: PluginInfo[] = [];
@@ -267,7 +269,9 @@ export class ParserComponent implements OnInit {
     private referenceService: PepReferenceService,
     private route: ActivatedRoute,
     private router: Router,
+    keycloak: KeycloakService,
   ) {
+    this.isAdmin = keycloak.isAdmin();
     this.form = this.fb.group({
       id: [null],
       name: ['', Validators.required],
@@ -1104,9 +1108,10 @@ export class ParserComponent implements OnInit {
     }
   }
 
-  /** Bouton « Réindexer Yente » : Yente relit le manifest et réindexe, en tâche de fond. */
-  reindexYente(): void {
-    if (!confirm('Demander à Yente de réindexer les listes ? Le criblage reste disponible pendant la réindexation.')) {
+  /** Bouton « Tout reconstruire » (administrateur) : Yente reconstruit tous les index, en tâche de fond. */
+  rebuildYente(): void {
+    if (!confirm('Reconstruire tous les index de Yente ? Tous les datasets sont réindexés, ce qui peut prendre longtemps.'
+      + ' À réserver à une réparation : une publication est indexée automatiquement.')) {
       return;
     }
     this.isReindexing = true;
@@ -1121,6 +1126,19 @@ export class ParserComponent implements OnInit {
         this.isReindexing = false;
         this.errorMessage = apiError(err);   // ex. Yente injoignable, jeton refusé
       },
+    });
+  }
+
+  /** Menu « ⋯ » : Yente réindexe seulement ce dataset, à son prochain passage (2 minutes au plus). */
+  reindexDataset(parser: ParserDTO): void {
+    if (!parser.datasetName) {
+      return;
+    }
+    this.reindexMessage = '';
+    this.errorMessage = '';
+    this.yenteService.reindexDataset(parser.datasetName).subscribe({
+      next: res => (this.reindexMessage = res.message),
+      error: err => (this.errorMessage = apiError(err)),   // ex. aucun fichier publié
     });
   }
 
