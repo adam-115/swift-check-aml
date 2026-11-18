@@ -2,15 +2,14 @@ package com.swiftcheck.aml.service;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.net.InetSocketAddress;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.time.Duration;
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.function.BooleanSupplier;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
@@ -57,11 +56,11 @@ class YenteReindexTest {
     }
 
     /**
-     * Nouveau dataset : Yente doit d'abord relire manifest.yml (YENTE_CRONTAB), la réindexation est donc différée.
-     * Dataset déjà présent avec la même entrée : seule la liste a changé, la réindexation est immédiate.
+     * Ajout, mise à jour et retrait d'un dataset : le manifest change, mais Yente n'est jamais appelé
+     * (YENTE_AUTO_REINDEX le réindexe seul à son prochain passage).
      */
     @Test
-    void reindexationDiffereeSeulementQuandLeManifestChange(@TempDir Path dir) throws Exception {
+    void publierOuRetirerNAppellePasYente(@TempDir Path dir) throws Exception {
         HttpServer yente = HttpServer.create(new InetSocketAddress("127.0.0.1", 0), 0);
         AtomicInteger calls = new AtomicInteger();
         yente.createContext("/updatez", exchange -> {
@@ -71,7 +70,6 @@ class YenteReindexTest {
         });
         yente.start();
         YenteManifestService service = new YenteManifestService();
-        service.setManifestRefreshDelay(Duration.ofMillis(500));
         try {
             ApplicationConfigEntity config = new ApplicationConfigEntity();
             config.setYenteUrl("http://127.0.0.1:" + yente.getAddress().getPort());
@@ -80,23 +78,17 @@ class YenteReindexTest {
             config.setYenteContainerDataPath("/data");
 
             service.addDataset("lu_pep_chamber", "PEP Luxembourg – députés", config);
-            assertEquals(0, calls.get(), "nouveau dataset : pas d'appel immédiat");
-            waitUntil(() -> calls.get() == 1);
+            service.addDataset("lu_pep_chamber", "PEP Luxembourg – députés", config);
+            Thread.sleep(300);
+            assertEquals(0, calls.get(), "publication : Yente n'est pas appelé");
             assertTrue(Files.readString(dir.resolve("manifest.yml")).contains("lu_pep_chamber"));
 
-            service.addDataset("lu_pep_chamber", "PEP Luxembourg – députés", config);
-            assertEquals(2, calls.get(), "même entrée : appel immédiat");
+            service.removeDataset("lu_pep_chamber", config);
+            Thread.sleep(300);
+            assertEquals(0, calls.get(), "retrait : Yente n'est pas appelé");
+            assertFalse(Files.readString(dir.resolve("manifest.yml")).contains("lu_pep_chamber"));
         } finally {
-            service.stopDelayedReload();
             yente.stop(0);
-        }
-    }
-
-    private static void waitUntil(BooleanSupplier condition) throws InterruptedException {
-        long deadline = System.currentTimeMillis() + 5_000;
-        while (!condition.getAsBoolean()) {
-            assertTrue(System.currentTimeMillis() < deadline, "délai dépassé");
-            Thread.sleep(50);
         }
     }
 }

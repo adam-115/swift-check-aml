@@ -14,16 +14,10 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-
-import jakarta.annotation.PreDestroy;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -63,37 +57,16 @@ public class YenteManifestService {
             .build();
 
     /**
-     * Délai entre une modification du manifest et la demande de réindexation : il doit dépasser l'intervalle
-     * de relecture du manifest par Yente ({@code YENTE_CRONTAB}, chaque minute).
-     */
-    @Value("${swiftcheck.yente.manifest-refresh-delay:PT90S}")
-    private Duration manifestRefreshDelay = Duration.ofSeconds(90);
-
-    /** Un seul thread, en tâche de fond, pour les réindexations différées. */
-    private final ScheduledExecutorService delayedReload = Executors.newSingleThreadScheduledExecutor(runnable -> {
-        Thread thread = new Thread(runnable, "yente-delayed-reload");
-        thread.setDaemon(true);
-        return thread;
-    });
-
-    /**
-     * Ajoute ou met à jour un dataset dans le manifest, puis demande à Yente de réindexer.
-     *
-     * <p>Si l'entrée du manifest change (nouveau dataset, autre titre…), la réindexation est demandée
-     * après {@link #manifestRefreshDelay} : Yente ne relit {@code manifest.yml} qu'à son démarrage et au passage
-     * de sa tâche planifiée ({@code YENTE_CRONTAB}, chaque minute dans notre docker-compose). Un appel immédiat
-     * réindexerait avec l'ancien manifest, sans le nouveau dataset. Si seule la liste publiée a changé,
-     * l'entrée est identique et la réindexation est demandée tout de suite.
+     * Ajoute ou met à jour un dataset dans le manifest. Yente n'est pas appelé : avec
+     * {@code YENTE_AUTO_REINDEX=true}, sa tâche planifiée ({@code YENTE_CRONTAB}, toutes les 2 minutes) relit
+     * {@code manifest.yml} et réindexe seulement les datasets dont le fichier a changé (version = date de
+     * modification du {@code .ndjson}).
      */
     public synchronized void addDataset(String datasetName, String title, ApplicationConfigEntity config)
             throws IOException {
         Map<String, Object> manifest = read(config);
         List<Map<String, Object>> datasets = datasets(manifest);
 
-        Map<String, Object> previous = datasets.stream()
-                .filter(d -> datasetName.equals(d.get("name")))
-                .findFirst()
-                .orElse(null);
         datasets.removeIf(d -> datasetName.equals(d.get("name")));
         Map<String, Object> entry = new LinkedHashMap<>();
         entry.put("name", datasetName);
@@ -107,15 +80,12 @@ public class YenteManifestService {
             children.add(datasetName);
         }
         write(manifest, config);
-
-        if (newChild || !entry.equals(previous)) {
-            reloadYenteAfterManifestRefresh(config);
-        } else {
-            reloadYente(config);
-        }
     }
 
-    /** Retire un dataset du manifest (le fichier publié reste sur le disque), puis réindexe Yente. */
+    /**
+     * Retire un dataset du manifest (le fichier publié reste sur le disque). Au passage suivant de sa tâche
+     * planifiée, Yente ne le sert plus et supprime son index.
+     */
     public synchronized void removeDataset(String datasetName, ApplicationConfigEntity config) throws IOException {
         Map<String, Object> manifest = read(config);
         List<Map<String, Object>> datasets = datasets(manifest);
@@ -123,52 +93,13 @@ public class YenteManifestService {
         defaultChildren(datasets).remove(datasetName);
         if (removed) {
             write(manifest, config);
-            reloadYenteAfterManifestRefresh(config);   // le manifest a changé : même raison que dans addDataset
         }
     }
 
     /**
-     * Demande la réindexation une fois que Yente a eu le temps de relire le manifest. L'appel se fait en
-     * tâche de fond : la publication n'attend pas.
-     */
-    private void reloadYenteAfterManifestRefresh(ApplicationConfigEntity config) {
-        log.info("Manifest modifié : réindexation de Yente demandée dans {} s, le temps qu'il relise manifest.yml",
-                manifestRefreshDelay.toSeconds());
-        delayedReload.schedule(() -> reloadYente(config), manifestRefreshDelay.toMillis(), TimeUnit.MILLISECONDS);
-    }
-
-    /** Pour les tests : délai plus court que le délai de production. */
-    void setManifestRefreshDelay(Duration delay) {
-        this.manifestRefreshDelay = delay;
-    }
-
-    @PreDestroy
-    void stopDelayedReload() {
-        delayedReload.shutdownNow();
-    }
-
-    /**
-     * Demande à Yente de réindexer ({@code POST /updatez?token=...}).
-     * Un échec est seulement journalisé : le fichier est publié, et Yente le prendra en compte
-     * à son prochain rechargement.
-     */
-    public void reloadYente(ApplicationConfigEntity config) {
-        try {
-            HttpResponse<String> response = callUpdatez(config);
-            if (response.statusCode() >= 300) {
-                log.warn("Yente a refusé le rechargement (HTTP {}) : {}", response.statusCode(), response.body());
-            }
-        } catch (Exception e) {
-            if (e instanceof InterruptedException) {
-                Thread.currentThread().interrupt();
-            }
-            log.warn("Rechargement de Yente impossible ({}) : {}", config.getYenteUrl(), e.getMessage());
-        }
-    }
-
-    /**
-     * Bouton « Réindexer Yente » : même appel que {@link #reloadYente}, mais une erreur est renvoyée à
-     * l'utilisateur au lieu d'être seulement journalisée. Yente répond tout de suite et réindexe en tâche de fond.
+     * Bouton « Tout reconstruire » : {@code POST /updatez}, qui force la reconstruction de <b>tous</b> les index
+     * (même inchangés). Long : à réserver à une réparation. Yente répond tout de suite et reconstruit en tâche
+     * de fond.
      *
      * @throws IllegalStateException si Yente est injoignable ou refuse (message affiché tel quel)
      */
