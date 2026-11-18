@@ -30,7 +30,17 @@ import java.util.zip.GZIPInputStream;
  */
 public final class StealthBrowserFetcher {
 
-    private static final String SIDECAR_URL = "http://127.0.0.1:8099";
+    /**
+     * Adresse du sidecar (service navigateur). Sur le poste : {@code http://127.0.0.1:8099}. Dans Docker, le back et le
+     * sidecar sont deux conteneurs : {@code STEALTH_SIDECAR_URL=http://crawler-stealth:8099}.
+     */
+    private static final String SIDECAR_URL = sidecarUrl();
+
+    private static String sidecarUrl() {
+        String env = System.getenv("STEALTH_SIDECAR_URL");
+        String url = env == null || env.isBlank() ? System.getProperty("swiftcheck.stealth.sidecar-url", "http://127.0.0.1:8099") : env;
+        return url.trim().replaceAll("/+$", "");
+    }
     private static final String BROWSER_UA =
             "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36";
 
@@ -91,6 +101,40 @@ public final class StealthBrowserFetcher {
         return new String(fetchBytes(url), StandardCharsets.UTF_8);
     }
 
+    /**
+     * Télécharge un fichier binaire (PDF, zip, XML…) derrière un défi anti-robot, par le service navigateur
+     * ({@code GET /download?url=…}) : il ouvre le site, passe le défi, puis télécharge le fichier avec ses cookies.
+     * Deux essais. Contrairement à {@link #fetchBytes}, pas de repli HTTP : l'appelant a déjà essayé en direct.
+     *
+     * @throws IOException si le service est injoignable ou n'a pas pu passer le défi (message du service inclus)
+     */
+    public static byte[] downloadBytes(String url) throws IOException, InterruptedException {
+        HttpClient client = HttpClient.newBuilder().connectTimeout(Duration.ofSeconds(5)).build();
+        URI uri = URI.create(SIDECAR_URL + "/download?url=" + URLEncoder.encode(url, StandardCharsets.UTF_8));
+        String last = "";
+        for (int attempt = 1; attempt <= 2; attempt++) {
+            HttpResponse<byte[]> resp;
+            try {
+                resp = client.send(HttpRequest.newBuilder(uri).timeout(Duration.ofSeconds(150)).GET().build(),
+                        HttpResponse.BodyHandlers.ofByteArray());
+            } catch (IOException e) {
+                throw new IOException("service navigateur injoignable (" + SIDECAR_URL + ") : " + e.getMessage(), e);
+            }
+            if (resp.statusCode() == 200 && resp.body().length > 0) {
+                return resp.body();
+            }
+            last = "HTTP " + resp.statusCode() + " " + new String(resp.body(), StandardCharsets.UTF_8);
+        }
+        throw new IOException("service navigateur : " + (last.length() > 300 ? last.substring(0, 300) : last));
+    }
+
+    /** Vrai si la réponse est une redirection vers un défi anti-robot ({@code /.enodia/challenge}, sites fédéraux allemands). */
+    public static boolean isChallenge(HttpResponse<?> response) {
+        return response.uri().getPath().contains("/.enodia/")
+                || response.headers().firstValue("location").map(l -> l.contains("/.enodia/")).orElse(false)
+                || response.headers().firstValue("cf-mitigated").isPresent();
+    }
+
     private static boolean tryFetchSidecar(String url, Path targetFile) {
         try {
             HttpClient client = HttpClient.newBuilder()
@@ -108,8 +152,9 @@ public final class StealthBrowserFetcher {
             }
 
             String encoded = URLEncoder.encode(url, StandardCharsets.UTF_8);
+            // chargement (35 s au plus) + résolution d'un défi Cloudflare (25 s au plus)
             HttpRequest fetchReq = HttpRequest.newBuilder(URI.create(SIDECAR_URL + "/fetch?url=" + encoded))
-                    .timeout(Duration.ofSeconds(45))
+                    .timeout(Duration.ofSeconds(90))
                     .GET()
                     .build();
 

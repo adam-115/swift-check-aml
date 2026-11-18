@@ -5,6 +5,8 @@
     xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
 
     <changeSet id="baseline-parsers-fr" author="swiftcheck-baseline">
+        <!-- Valeurs qui dépendent du serveur (chemins, URL de yente) : elles entrent dans la somme de contrôle. ANY évite qu'un changement de .env bloque le démarrage ; la valeur déjà en base ne change pas (la modifier dans application_config / parser.parameters). -->
+        <validCheckSum>ANY</validCheckSum>
         <preConditions onFail="MARK_RAN">
             <sqlCheck expectedResult="0">SELECT COUNT(*) FROM parser WHERE dataset_name IN ('fr_pep_president', 'fr_pep_government', 'fr_pep_national_assembly', 'fr_pep_senate', 'fr_pep_europarl', 'fr_pep_eu_commission', 'fr_pep_constitutional_council', 'fr_pep_banque_de_france', 'fr_pep_army', 'fr_pep_local_executives', 'fr_pep_rca', 'fr_pep_associated_entities', 'fr_pep_political_parties', 'fr_pep_jorf', 'fr_pep_diplomats', 'fr_pep_international_orgs', 'fr_pep_eu_institutions', 'fr_pep_wikidata_positions', 'fr_pep_state_enterprises', 'fr_pep_local_enterprises', 'fr_pep_local_executives_all', 'fr_pep_rne_elected', 'fr_pep_hatvp')</sqlCheck>
         </preConditions>

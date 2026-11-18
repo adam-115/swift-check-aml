@@ -338,11 +338,21 @@ public class DePepDiplomatsParser implements Iparser {
                     .GET()
                     .build();
             HttpResponse<byte[]> resp = client.send(request, HttpResponse.BodyHandlers.ofByteArray());
-            if (resp.statusCode() == 200) {
+            if (resp.statusCode() == 200 && !com.swiftcheck.aml.sdk.StealthBrowserFetcher.isChallenge(resp)) {
                 return resp.body();
             }
+            log.warn("HTTP {} pour {} ({}) : essai par le service navigateur", resp.statusCode(), url, resp.uri());
         } catch (Exception e) {
-            log.warn("Échec du téléchargement de {} : {}", url, e.getMessage());
+            log.warn("Échec du téléchargement de {} : {} ; essai par le service navigateur", url, e.getMessage());
+        }
+        // Depuis un serveur de centre de données, l'Auswärtiges Amt renvoie vers un défi anti-robot
+        // (/.enodia/challenge) : le service navigateur le passe et télécharge le PDF.
+        try {
+            return com.swiftcheck.aml.sdk.StealthBrowserFetcher.downloadBytes(url);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        } catch (Exception e) {
+            log.warn("Échec par le service navigateur pour {} : {}", url, e.getMessage());
         }
         return null;
     }

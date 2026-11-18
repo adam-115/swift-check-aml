@@ -67,6 +67,7 @@ public class FrPepWikidataPositionsParser implements Iparser {
     private static final Pattern QID = Pattern.compile("Q\\d+");
     private static final String PREFERRED_RANK = "http://wikiba.se/ontology#PreferredRank";
     private static final String USER_AGENT = "SwiftCheck-AML/1.0 (liste PEP France - fonctions Wikidata)";
+    private static final int MAX_ATTEMPTS = 4;
 
     private final ObjectMapper json = new ObjectMapper();
 
@@ -277,11 +278,35 @@ public class FrPepWikidataPositionsParser implements Iparser {
                 .header("User-Agent", USER_AGENT)
                 .POST(HttpRequest.BodyPublishers.ofString("query=" + URLEncoder.encode(query, StandardCharsets.UTF_8)))
                 .build();
-        HttpResponse<String> response = http.send(request, HttpResponse.BodyHandlers.ofString(StandardCharsets.UTF_8));
-        if (response.statusCode() != 200) {
-            throw new IOException("Wikidata a répondu HTTP " + response.statusCode() + " (" + endpoint + ")");
+        // Wikidata limite le temps de requête par adresse : 429 (avec Retry-After) ou 5xx sont passagers, on réessaie.
+        IOException last = null;
+        for (int attempt = 1; attempt <= MAX_ATTEMPTS; attempt++) {
+            HttpResponse<String> response = http.send(request, HttpResponse.BodyHandlers.ofString(StandardCharsets.UTF_8));
+            if (response.statusCode() == 200) {
+                return response.body();
+            }
+            last = new IOException("Wikidata a répondu HTTP " + response.statusCode() + " (" + endpoint + ")");
+            if ((response.statusCode() != 429 && response.statusCode() < 500) || attempt == MAX_ATTEMPTS) {
+                break;
+            }
+            long waitMs = retryAfterMs(response.headers().firstValue("Retry-After").orElse(null), 10_000L * attempt);
+            log.warn("Wikidata : tentative {}/{} échouée (HTTP {}), nouvel essai dans {} s", attempt, MAX_ATTEMPTS,
+                    response.statusCode(), waitMs / 1000);
+            Thread.sleep(waitMs);
         }
-        return response.body();
+        throw last;
+    }
+
+    /** Délai demandé par l'en-tête Retry-After (en secondes), borné à 2 minutes ; sinon le délai par défaut. */
+    static long retryAfterMs(String header, long fallbackMs) {
+        if (header != null) {
+            try {
+                return Math.min(Math.max(Long.parseLong(header.trim()), 1L), 120L) * 1000L;
+            } catch (NumberFormatException ignored) {
+                // date HTTP ou valeur illisible : délai par défaut
+            }
+        }
+        return fallbackMs;
     }
 
     static List<String> qids(String value) {

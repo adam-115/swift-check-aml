@@ -118,6 +118,7 @@ public class DePepBafinParser implements Iparser {
     }
 
     CrawlResult crawl(ParserContext ctx, Map<String, String> parameters) {
+        this.rawDir = ctx.rawDir();
         Map<String, Member> membersByName = new LinkedHashMap<>();
         List<String> brokenSources = new ArrayList<>();
         List<String> structureWarnings = new ArrayList<>();
@@ -231,6 +232,9 @@ public class DePepBafinParser implements Iparser {
         return list;
     }
 
+    /** Dossier des réponses brutes de l'exécution en cours : le core les signe et les archive (preuve des données). */
+    private java.nio.file.Path rawDir;
+
     private String fetchSafe(HttpClient client, String rawUrl) throws IOException, InterruptedException {
         URI uri;
         try {
@@ -246,11 +250,34 @@ public class DePepBafinParser implements Iparser {
                 .GET().build();
 
         HttpResponse<String> resp = client.send(req, HttpResponse.BodyHandlers.ofString(StandardCharsets.UTF_8));
-        if (resp.statusCode() >= 400) {
-            log.warn("HTTP {} pour {} (SOURCE_BROKEN)", resp.statusCode(), rawUrl);
-            return null;
+        String body = resp.body();
+        if (resp.statusCode() >= 400 || com.swiftcheck.aml.sdk.StealthBrowserFetcher.isChallenge(resp)) {
+            // Depuis un serveur de centre de données (VPS), les sites fédéraux renvoient vers un défi anti-robot
+            // (/.enodia/challenge) : le service navigateur (crawler-stealth) le passe et rapporte la page.
+            log.warn("HTTP {} pour {} ({}) : essai par le service navigateur", resp.statusCode(), rawUrl, resp.uri());
+            try {
+                body = new String(com.swiftcheck.aml.sdk.StealthBrowserFetcher.downloadBytes(rawUrl), StandardCharsets.UTF_8);
+            } catch (IOException e) {
+                log.warn("SOURCE_BROKEN {} : {}", rawUrl, e.getMessage());
+                return null;
+            }
         }
-        return resp.body();
+        // Chaque page reçue est déposée dans rawDir ; sans fichier dans rawDir, l'exécution est bloquée.
+        if (rawDir != null) {
+            Files.createDirectories(rawDir);
+            Files.writeString(rawDir.resolve(rawFileName(uri)), body, StandardCharsets.UTF_8);
+        }
+        return body;
+    }
+
+    /** Nom du fichier brut d'une page : chemin et requête de l'URL (150 caractères au plus). */
+    static String rawFileName(URI uri) {
+        String path = (uri.getPath() == null ? "" : uri.getPath()) + (uri.getQuery() == null ? "" : "-" + uri.getQuery());
+        String name = path.replaceAll("\\.html$", "").replaceAll("[^A-Za-z0-9]+", "-").replaceAll("^-|-$", "");
+        if (name.length() > 150) {
+            name = name.substring(0, 140) + "-" + Integer.toHexString(path.hashCode());
+        }
+        return (name.isEmpty() ? "page" : name) + ".html";
     }
 
     static List<Member> members(String html) {

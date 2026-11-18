@@ -149,14 +149,33 @@ public class DePepBundestagParser implements Iparser {
     }
 
     private static String httpGet(String url) throws IOException, InterruptedException {
-        HttpClient client = HttpClient.newBuilder().followRedirects(HttpClient.Redirect.NORMAL)
-                .connectTimeout(Duration.ofSeconds(30)).build();
-        HttpResponse<String> resp = client.send(HttpRequest.newBuilder(URI.create(url)).timeout(Duration.ofMinutes(2))
-                .header("User-Agent", USER_AGENT).GET().build(), HttpResponse.BodyHandlers.ofString(StandardCharsets.UTF_8));
-        if (resp.statusCode() != 200) {
-            throw new IOException("HTTP " + resp.statusCode() + " pour " + url);
+        return new String(getBytes(url), StandardCharsets.UTF_8);
+    }
+
+    /**
+     * Télécharge en direct ; si bundestag.de renvoie vers son défi anti-robot ({@code /.enodia/challenge}, depuis un
+     * serveur de centre de données) ou répond autre chose que 200, passe par le service navigateur.
+     */
+    static byte[] getBytes(String url) throws IOException, InterruptedException {
+        String direct;
+        try {
+            HttpClient client = HttpClient.newBuilder().followRedirects(HttpClient.Redirect.NORMAL)
+                    .connectTimeout(Duration.ofSeconds(30)).build();
+            HttpResponse<byte[]> resp = client.send(HttpRequest.newBuilder(URI.create(url)).timeout(Duration.ofMinutes(5))
+                    .header("User-Agent", USER_AGENT).GET().build(), HttpResponse.BodyHandlers.ofByteArray());
+            if (resp.statusCode() == 200 && !com.swiftcheck.aml.sdk.StealthBrowserFetcher.isChallenge(resp)) {
+                return resp.body();
+            }
+            direct = "HTTP " + resp.statusCode() + " (" + resp.uri() + ")";
+        } catch (IOException e) {
+            direct = e.getMessage();
         }
-        return resp.body();
+        log.warn("{} : {} ; essai par le service navigateur", url, direct);
+        try {
+            return com.swiftcheck.aml.sdk.StealthBrowserFetcher.downloadBytes(url);
+        } catch (IOException e) {
+            throw new IOException("Téléchargement impossible de " + url + " : direct " + direct + " ; " + e.getMessage(), e);
+        }
     }
 
     @Override
@@ -373,19 +392,7 @@ public class DePepBundestagParser implements Iparser {
             }
         }
         log.info("Téléchargement de {} vers {}", url, localZip);
-        HttpClient client = HttpClient.newBuilder()
-                .followRedirects(HttpClient.Redirect.NORMAL)
-                .connectTimeout(Duration.ofSeconds(30))
-                .build();
-        HttpRequest request = HttpRequest.newBuilder(URI.create(url))
-                .timeout(Duration.ofMinutes(5))
-                .header("User-Agent", USER_AGENT)
-                .GET()
-                .build();
-        HttpResponse<Path> resp = client.send(request, HttpResponse.BodyHandlers.ofFile(localZip));
-        if (resp.statusCode() != 200) {
-            throw new IOException("HTTP " + resp.statusCode() + " lors du téléchargement de " + url);
-        }
+        Files.write(localZip, getBytes(url));
         return localZip;
     }
 

@@ -206,7 +206,7 @@ public class DePepBundesratParser implements Iparser {
 
                     String html;
                     try {
-                        html = fetchSafe(client, cleanUrl);
+                        html = fetchSafe(client, cleanUrl, ctx.rawDir());
                         if (html == null) {
                             brokenSources.add(cleanUrl);
                             continue;
@@ -259,7 +259,7 @@ public class DePepBundesratParser implements Iparser {
                     Member m = entry.getValue();
                     if (m.cvSummary() == null && m.pageUrl() != null && m.pageUrl().startsWith("http")) {
                         try {
-                            String detailHtml = fetchSafe(client, m.pageUrl());
+                            String detailHtml = fetchSafe(client, m.pageUrl(), ctx.rawDir());
                             if (detailHtml != null) {
                                 Member detail = parseDetailPage(m.pageUrl(), detailHtml);
                                 if (detail != null) {
@@ -331,7 +331,8 @@ public class DePepBundesratParser implements Iparser {
                 return list;
             }
 
-            private String fetchSafe(HttpClient client, String rawUrl) throws IOException, InterruptedException {
+            private String fetchSafe(HttpClient client, String rawUrl, java.nio.file.Path rawDir)
+                    throws IOException, InterruptedException {
                 URI uri;
                 try {
                     uri = URI.create(rawUrl);
@@ -351,8 +352,26 @@ public class DePepBundesratParser implements Iparser {
                     log.warn("HTTP {} pour {} (SOURCE_BROKEN)", resp.statusCode(), rawUrl);
                     return null;
                 }
+                // Chaque page reçue est déposée dans rawDir : le core la signe et l'archive (preuve des données
+                // utilisées). Sans fichier dans rawDir, l'exécution est bloquée.
+                if (rawDir != null) {
+                    Files.createDirectories(rawDir);
+                    Files.writeString(rawDir.resolve(rawFileName(uri)), resp.body(), StandardCharsets.UTF_8);
+                }
                 return resp.body();
             }
+
+            /** Nom du fichier brut d'une page : chemin et requête de l'URL, ex. DE-bundesrat-mitglieder-mitglieder-node-html-param3-Alle.html. */
+            static String rawFileName(URI uri) {
+                String path = (uri.getPath() == null ? "" : uri.getPath())
+                        + (uri.getQuery() == null ? "" : "-" + uri.getQuery());
+                String name = path.replaceAll("\\.html$", "").replaceAll("[^A-Za-z0-9]+", "-").replaceAll("^-|-$", "");
+                if (name.length() > 150) {
+                    name = name.substring(0, 150);
+                }
+                return (name.isEmpty() ? "page" : name) + ".html";
+            }
+
 
             static List<Member> extractMembers(String html) {
                 List<Member> list = new ArrayList<>();

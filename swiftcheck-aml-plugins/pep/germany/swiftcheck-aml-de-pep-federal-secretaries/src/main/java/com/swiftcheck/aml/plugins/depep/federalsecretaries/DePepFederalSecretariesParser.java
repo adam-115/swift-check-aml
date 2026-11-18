@@ -136,8 +136,17 @@ public class DePepFederalSecretariesParser implements Iparser {
                 .connectTimeout(Duration.ofSeconds(20)).build();
         HttpResponse<byte[]> resp = client.send(HttpRequest.newBuilder(URI.create(url)).timeout(Duration.ofMinutes(2))
                 .header("User-Agent", USER_AGENT).GET().build(), HttpResponse.BodyHandlers.ofByteArray());
-        if (resp.statusCode() != 200) {
-            throw new IOException("HTTP " + resp.statusCode() + " pour " + url);
+        if (resp.statusCode() != 200 || com.swiftcheck.aml.sdk.StealthBrowserFetcher.isChallenge(resp)) {
+            // Depuis un serveur de centre de données (VPS), bundestag.de renvoie vers un défi anti-robot
+            // (/.enodia/challenge) : le service navigateur (crawler-stealth) le passe et rapporte le fichier.
+            log.warn("HTTP {} pour {} ({}) : essai par le service navigateur", resp.statusCode(), url, resp.uri());
+            try {
+                byte[] body = com.swiftcheck.aml.sdk.StealthBrowserFetcher.downloadBytes(url);
+                log.info("Téléchargé par le service navigateur {} ({} octets)", url, body.length);
+                return body;
+            } catch (IOException e) {
+                throw new IOException("HTTP " + resp.statusCode() + " pour " + url + " ; " + e.getMessage(), e);
+            }
         }
         log.info("Téléchargé {} ({} octets)", url, resp.body().length);
         return resp.body();
