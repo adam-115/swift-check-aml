@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<data-set>
+	<record>
+		<Country-Pays>Belarus / Bélarus</Country-Pays>
+		<LastName-NomDeFamille>Barsukov</LastName-NomDeFamille>
+		<GivenName-Prenom>Aleksandr Petrovich</GivenName-Prenom>
+		<DateOfBirthOrShipBuildDate-DateDeNaissanceOuDateDeConstructionDuNavire>1965-04-29</DateOfBirthOrShipBuildDate-DateDeNaissanceOuDateDeConstructionDuNavire>
+		<Schedule-Annexe>1, Part 1</Schedule-Annexe>
+		<Item-NumeroDarticle>3</Item-NumeroDarticle>
+		<DateOfListing-DateDinscription>2020-09-28</DateOfListing-DateDinscription>
+	</record>
+
+	<record>
+		<Country-Pays>Belarus / Bélarus</Country-Pays>
+		<LastName-NomDeFamille>MASHADZIYEU</LastName-NomDeFamille>
+		<GivenName-Prenom>Ruslan Khikmetavich </GivenName-Prenom>
+		<Aliases-Alias>Ruslan Khikmetavich MASHADZEOU, Ruslan Chikmetovič MAŠADZEV,  Mashadiyev Ruslan Khikmetovich, Ruslan Khikmetovich MASHADIYEV,  Belarusian: Руслан Хiкметовiч МАШАДЗЕЎ, Russian: Руслан Хикметович МАШАДИЕВ</Aliases-Alias>
+		<Schedule-Annexe>1, Part 1</Schedule-Annexe>
+		<Item-NumeroDarticle>99</Item-NumeroDarticle>
+		<DateOfListing-DateDinscription>2024-04-12</DateOfListing-DateDinscription>
+	</record>
+
+	<record>
+		<Country-Pays>Iran</Country-Pays>
+		<EntityOrShip-EntiteOuNavire>Aerospace Industries Organization (AIO)/Organisation iranienne des industries aérospatiales</EntityOrShip-EntiteOuNavire>
+		<Schedule-Annexe>1, Part 1</Schedule-Annexe>
+		<Item-NumeroDarticle>1</Item-NumeroDarticle>
+		<DateOfListing-DateDinscription>2016-02-05</DateOfListing-DateDinscription>
+	</record>
+
+	<record>
+		<Country-Pays>Russia / Russie</Country-Pays>
+		<EntityOrShip-EntiteOuNavire>Balitiyskiy III</EntityOrShip-EntiteOuNavire>
+		<TitleOrShipType-TitreOuTypeDeNavire>General Cargo/Multi Purpose | Cargo classique/navire polyvalent</TitleOrShipType-TitreOuTypeDeNavire>
+		<ShipIMONumber-NumeroOMIDuNavire>7612448</ShipIMONumber-NumeroOMIDuNavire>
+		<DateOfBirthOrShipBuildDate-DateDeNaissanceOuDateDeConstructionDuNavire>1980</DateOfBirthOrShipBuildDate-DateDeNaissanceOuDateDeConstructionDuNavire>
+		<Schedule-Annexe>1.1</Schedule-Annexe>
+		<Item-NumeroDarticle>1</Item-NumeroDarticle>
+		<DateOfListing-DateDinscription>2025-02-21</DateOfListing-DateDinscription>
+	</record>
+</data-set>

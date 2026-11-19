@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Plugin PF4J : UK Sanctions List (FCDO) du Royaume-Uni
+    Construire :  mvn -pl swiftcheck-aml-plugins/sanction/uk/swiftcheck-aml-uk-fcdo-sanctions -am package
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.swiftcheck.aml</groupId>
+        <artifactId>swiftcheck-aml-sanction-parent</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
+        <relativePath>../../pom.xml</relativePath>
+    </parent>
+
+    <artifactId>swiftcheck-aml-uk-fcdo-sanctions</artifactId>
+    <packaging>jar</packaging>
+
+    <properties>
+        <!-- Plugin-Id : valeur du champ « plugin » du parser -->
+        <plugin.id>uk-fcdo-sanctions</plugin.id>
+    </properties>
+</project>

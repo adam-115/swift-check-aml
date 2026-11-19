@@ -164,9 +164,37 @@ public class HttpDownloader {
             }
             log.warn("Téléchargement {} : tentative {}/{} échouée ({})", url, attempt, MAX_ATTEMPTS, lastError.getMessage());
             if (attempt < MAX_ATTEMPTS) {
-                Thread.sleep(2000L * attempt);
+                // Pauses longues : une coupure passagère (réseau saturé par plusieurs gros téléchargements lancés
+                // en même temps, site momentanément lent) dure souvent plus que quelques secondes.
+                Thread.sleep(RETRY_PAUSE_MS * attempt);
+            }
+        }
+        if (isTlsRefusal(lastError)) {
+            // Certains sites (ex. international.gc.ca) coupent la poignée de main TLS des clients qui ne sont pas des
+            // navigateurs : le service navigateur, lui, obtient le fichier.
+            log.info("Connexion TLS refusée pour {}, essai avec le service navigateur", url);
+            try {
+                byte[] bytes = com.swiftcheck.aml.sdk.StealthBrowserFetcher.downloadBytes(url);
+                Files.write(target, bytes);
+                return;
+            } catch (IOException ex) {
+                log.warn("Service navigateur en échec pour {} : {}", url, ex.getMessage());
+                lastError.addSuppressed(ex);
             }
         }
         throw lastError;
+    }
+
+    /** Pause de base entre deux tentatives (multipliée par le numéro de la tentative). */
+    static long RETRY_PAUSE_MS = 15_000L;
+
+    /** Vrai si le serveur a coupé la connexion pendant la poignée de main TLS (filtrage des clients non-navigateurs). */
+    static boolean isTlsRefusal(Throwable error) {
+        for (Throwable t = error; t != null; t = t.getCause()) {
+            if (t instanceof javax.net.ssl.SSLHandshakeException) {
+                return true;
+            }
+        }
+        return false;
     }
 }

@@ -1,0 +1,354 @@
+<?xml version="1.0" standalone="yes"?>
+<sdnList xmlns="https://sanctionslistservice.ofac.treas.gov/api/PublicationPreview/exports/XML">
+  <sdnEntry>
+    <uid>306</uid>
+    <lastName>BANCO NACIONAL DE CUBA</lastName>
+    <sdnType>Entity</sdnType>
+    <programList>
+      <program>CUBA</program>
+    </programList>
+    <akaList>
+      <aka>
+        <uid>219</uid>
+        <type>a.k.a.</type>
+        <category>weak</category>
+        <lastName>BNC</lastName>
+      </aka>
+      <aka>
+        <uid>220</uid>
+        <type>a.k.a.</type>
+        <category>strong</category>
+        <lastName>NATIONAL BANK OF CUBA</lastName>
+      </aka>
+    </akaList>
+    <addressList>
+      <address>
+        <uid>199</uid>
+        <address1>Zweierstrasse 35</address1>
+        <city>Zurich</city>
+        <postalCode>CH-8022</postalCode>
+        <country>Switzerland</country>
+      </address>
+      <address>
+        <uid>200</uid>
+        <address1>Avenida de Concha Espina 8</address1>
+        <city>Madrid</city>
+        <postalCode>E-28036</postalCode>
+        <country>Spain</country>
+      </address>
+      <address>
+        <uid>201</uid>
+        <address1>Dai-Ichi Bldg. 6th Floor, 10-2 Nihombashi, 2-chome, Chuo-ku</address1>
+        <city>Tokyo</city>
+        <postalCode>103</postalCode>
+        <country>Japan</country>
+      </address>
+      <address>
+        <uid>202</uid>
+        <address1>Federico Boyd Avenue &amp; 51 Street</address1>
+        <city>Panama City</city>
+        <country>Panama</country>
+      </address>
+    </addressList>
+  </sdnEntry>
+  <sdnEntry>
+    <uid>6905</uid>
+    <firstName>Zayn al-Abidin Muhammad</firstName>
+    <lastName>HUSAYN</lastName>
+    <sdnType>Individual</sdnType>
+    <programList>
+      <program>SDGT</program>
+    </programList>
+    <idList>
+      <id>
+        <uid>4901</uid>
+        <idType>Passport</idType>
+        <idNumber>484824</idNumber>
+        <idCountry>Egypt</idCountry>
+        <issueDate>18 Jan 1984</issueDate>
+      </id>
+      <id>
+        <uid>185862</uid>
+        <idType>Secondary sanctions risk:</idType>
+        <idNumber>section 1(b) of Executive Order 13224, as amended by Executive Order 13886</idNumber>
+      </id>
+      <id>
+        <uid>143340</uid>
+        <idType>Gender</idType>
+        <idNumber>Male</idNumber>
+      </id>
+    </idList>
+    <akaList>
+      <aka>
+        <uid>4784</uid>
+        <type>a.k.a.</type>
+        <category>strong</category>
+        <lastName>HUSAIN</lastName>
+        <firstName>Zain Al-Abidin Muhammad</firstName>
+      </aka>
+      <aka>
+        <uid>4785</uid>
+        <type>a.k.a.</type>
+        <category>weak</category>
+        <lastName>ABU ZUBAIDA</lastName>
+      </aka>
+      <aka>
+        <uid>10004</uid>
+        <type>a.k.a.</type>
+        <category>strong</category>
+        <lastName>HUSSEIN</lastName>
+        <firstName>Zayn al-Abidin Muhammad</firstName>
+      </aka>
+      <aka>
+        <uid>10005</uid>
+        <type>a.k.a.</type>
+        <category>strong</category>
+        <lastName>ABU ZUBEIDAH</lastName>
+        <firstName>Zeinulabideen Muhammed Husein</firstName>
+      </aka>
+      <aka>
+        <uid>52469</uid>
+        <type>a.k.a.</type>
+        <category>weak</category>
+        <lastName>ABU ZUBAYDAH</lastName>
+      </aka>
+    </akaList>
+    <addressList>
+      <address>
+        <uid>50102</uid>
+        <address1>Guantanamo Bay detention center</address1>
+        <country>Cuba</country>
+      </address>
+    </addressList>
+    <nationalityList>
+      <nationality>
+        <uid>5416</uid>
+        <country>Palestinian</country>
+        <mainEntry>true</mainEntry>
+      </nationality>
+    </nationalityList>
+    <dateOfBirthList>
+      <dateOfBirthItem>
+        <uid>1211</uid>
+        <dateOfBirth>12 Mar 1971</dateOfBirth>
+        <mainEntry>true</mainEntry>
+      </dateOfBirthItem>
+    </dateOfBirthList>
+    <placeOfBirthList>
+      <placeOfBirthItem>
+        <uid>1212</uid>
+        <placeOfBirth>Riyadh, Saudi Arabia</placeOfBirth>
+        <mainEntry>true</mainEntry>
+      </placeOfBirthItem>
+    </placeOfBirthList>
+  </sdnEntry>
+  <sdnEntry>
+    <uid>15036</uid>
+    <lastName>ARTAVIL</lastName>
+    <sdnType>Vessel</sdnType>
+    <remarks>(Linked To: NATIONAL IRANIAN TANKER COMPANY)</remarks>
+    <programList>
+      <program>IRAN</program>
+    </programList>
+    <idList>
+      <id>
+        <uid>8045</uid>
+        <idType>Vessel Registration Identification</idType>
+        <idNumber>IMO 9187629</idNumber>
+      </id>
+      <id>
+        <uid>8114</uid>
+        <idType>MMSI</idType>
+        <idNumber>572469210</idNumber>
+      </id>
+      <id>
+        <uid>111445</uid>
+        <idType>Former Vessel Flag</idType>
+        <idNumber>Malta</idNumber>
+      </id>
+      <id>
+        <uid>112992</uid>
+        <idType>Former Vessel Flag</idType>
+        <idNumber>Tuvalu</idNumber>
+      </id>
+      <id>
+        <uid>113470</uid>
+        <idType>Former Vessel Flag</idType>
+        <idNumber>None Identified</idNumber>
+      </id>
+      <id>
+        <uid>129996</uid>
+        <idType>Former Vessel Flag</idType>
+        <idNumber>Tanzania</idNumber>
+      </id>
+      <id>
+        <uid>119227</uid>
+        <idType>Additional Sanctions Information -</idType>
+        <idNumber>Subject to Secondary Sanctions</idNumber>
+      </id>
+    </idList>
+    <akaList>
+      <aka>
+        <uid>22153</uid>
+        <type>f.k.a.</type>
+        <category>strong</category>
+        <lastName>ABADAN</lastName>
+      </aka>
+      <aka>
+        <uid>23827</uid>
+        <type>f.k.a.</type>
+        <category>weak</category>
+        <lastName>ALPHA</lastName>
+      </aka>
+      <aka>
+        <uid>40680</uid>
+        <type>f.k.a.</type>
+        <category>strong</category>
+        <lastName>SHONA</lastName>
+      </aka>
+    </akaList>
+    <vesselInfo>
+      <callSign>T2EU4</callSign>
+      <vesselType>Crude/Oil Products Tanker</vesselType>
+      <vesselFlag>Iran</vesselFlag>
+      <tonnage>99144</tonnage>
+      <grossRegisteredTonnage>56068</grossRegisteredTonnage>
+    </vesselInfo>
+  </sdnEntry>
+  <sdnEntry>
+    <uid>15432</uid>
+    <lastName>EP-GOL</lastName>
+    <sdnType>Aircraft</sdnType>
+    <remarks>(Linked To: POUYA AIR)</remarks>
+    <programList>
+      <program>SDGT</program>
+    </programList>
+    <idList>
+      <id>
+        <uid>186119</uid>
+        <idType>Secondary sanctions risk:</idType>
+        <idNumber>section 1(b) of Executive Order 13224, as amended by Executive Order 13886</idNumber>
+      </id>
+      <id>
+        <uid>112288</uid>
+        <idType>Aircraft Construction Number (also called L/N or S/N or F/N)</idType>
+        <idNumber>8305</idNumber>
+      </id>
+      <id>
+        <uid>112290</uid>
+        <idType>Aircraft Manufacture Date</idType>
+        <idNumber>1991</idNumber>
+      </id>
+      <id>
+        <uid>112291</uid>
+        <idType>Aircraft Model</idType>
+        <idNumber>IL-76TD</idNumber>
+      </id>
+      <id>
+        <uid>112292</uid>
+        <idType>Aircraft Operator</idType>
+        <idNumber>YAS AIR</idNumber>
+      </id>
+      <id>
+        <uid>112289</uid>
+        <idType>Aircraft Manufacturer's Serial Number (MSN)</idType>
+        <idNumber>1013409297</idNumber>
+      </id>
+    </idList>
+  </sdnEntry>
+  <sdnEntry>
+    <uid>4632</uid>
+    <lastName>BANK MARKAZI JOMHOURI ISLAMI IRAN</lastName>
+    <sdnType>Entity</sdnType>
+    <remarks>(Linked To: ISLAMIC REVOLUTIONARY GUARD CORPS (IRGC)-QODS FORCE; Linked To: HIZBALLAH)</remarks>
+    <programList>
+      <program>IRAN</program>
+      <program>IFSR</program>
+      <program>IRGC</program>
+      <program>SDGT</program>
+    </programList>
+    <idList>
+      <id>
+        <uid>185825</uid>
+        <idType>Secondary sanctions risk:</idType>
+        <idNumber>section 1(b) of Executive Order 13224, as amended by Executive Order 13886</idNumber>
+      </id>
+      <id>
+        <uid>130012</uid>
+        <idType>Additional Sanctions Information -</idType>
+        <idNumber>Subject to Secondary Sanctions</idNumber>
+      </id>
+      <id>
+        <uid>197667</uid>
+        <idType>Digital Currency Address - TRX</idType>
+        <idNumber>TNiq9AXBp9EjUqhDhrwrfvAA8U3GUQZH81</idNumber>
+      </id>
+      <id>
+        <uid>197668</uid>
+        <idType>Digital Currency Address - TRX</idType>
+        <idNumber>TTiDLWE6fZK8okMJv6ijg42yrH6W2pjSr9</idNumber>
+      </id>
+      <id>
+        <uid>199670</uid>
+        <idType>Digital Currency Address - TRX</idType>
+        <idNumber>TAhwhFv3JpK39Nc2m8W5LPCcoTisutiRfp</idNumber>
+      </id>
+      <id>
+        <uid>199671</uid>
+        <idType>Digital Currency Address - TRX</idType>
+        <idNumber>TJdgB1k6ot3f2nLuZug6D8eD3HavTmzmSK</idNumber>
+      </id>
+      <id>
+        <uid>199672</uid>
+        <idType>Digital Currency Address - TRX</idType>
+        <idNumber>TXGHxdYbGy574z5hBu4LNzq9NzjZQ9bhUf</idNumber>
+      </id>
+      <id>
+        <uid>199673</uid>
+        <idType>Digital Currency Address - TRX</idType>
+        <idNumber>TFQbqaNbmq2xsVor2NbufLkYZvxFC9wC7k</idNumber>
+      </id>
+    </idList>
+    <akaList>
+      <aka>
+        <uid>3553</uid>
+        <type>a.k.a.</type>
+        <category>strong</category>
+        <lastName>CENTRAL BANK OF THE ISLAMIC REPUBLIC OF IRAN</lastName>
+      </aka>
+      <aka>
+        <uid>12046</uid>
+        <type>a.k.a.</type>
+        <category>strong</category>
+        <lastName>BANK MARKAZI IRAN</lastName>
+      </aka>
+      <aka>
+        <uid>12103</uid>
+        <type>a.k.a.</type>
+        <category>strong</category>
+        <lastName>CENTRAL BANK OF IRAN</lastName>
+      </aka>
+    </akaList>
+    <addressList>
+      <address>
+        <uid>2898</uid>
+        <address1>PO Box 15875/7177, 144 Mirdamad Blvd</address1>
+        <city>Tehran</city>
+        <country>Iran</country>
+      </address>
+      <address>
+        <uid>16811</uid>
+        <address1>213 Ferdowsi Avenue</address1>
+        <city>Tehran</city>
+        <postalCode>11365</postalCode>
+        <country>Iran</country>
+      </address>
+      <address>
+        <uid>41726</uid>
+        <address1>Mirdamad Blvd, 144 - P.O. Box 15875/7/77</address1>
+        <city>Tehran</city>
+        <country>Iran</country>
+      </address>
+    </addressList>
+  </sdnEntry>
+</sdnList>

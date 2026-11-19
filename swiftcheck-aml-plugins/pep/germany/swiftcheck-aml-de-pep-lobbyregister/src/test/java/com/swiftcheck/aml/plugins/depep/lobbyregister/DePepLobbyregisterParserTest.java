@@ -62,6 +62,25 @@ class DePepLobbyregisterParserTest {
         assertTrue(foundEmployee, "L'employe de lobbying Daniel Müller doit etre present");
     }
 
+    /**
+     * Fichier complet du registre (plusieurs centaines de Mo) : exécuté seulement si LOBBYREGISTER_SAMPLE désigne
+     * une réponse brute de l'API (par exemple le fichier archivé par le back). Aucun conflit d'ID n'est accepté :
+     * la publication serait bloquée.
+     */
+    @Test
+    void fullRegisterHasNoIdConflict(@TempDir Path tempDir) throws Exception {
+        String sample = System.getenv("LOBBYREGISTER_SAMPLE");
+        org.junit.jupiter.api.Assumptions.assumeTrue(sample != null && Files.exists(Path.of(sample)));
+        DePepLobbyregisterParser parser = new DePepLobbyregisterParser();
+        LobbyregisterModels.DetailedSearchResults data = new LobbyregisterApiClient().parseRawFile(Path.of(sample));
+        com.swiftcheck.aml.sdk.FtmDatasetBuilder dataset =
+                new com.swiftcheck.aml.sdk.FtmDatasetBuilder(DePepLobbyregisterParser.ID_PREFIX);
+        parser.convert(data, dataset, null);
+        var report = dataset.qualityReport();
+        System.out.println(report + " " + report.getRejectedSamples());
+        assertEquals(0, report.getIdConflictCount(), String.valueOf(report.getRejectedSamples()));
+    }
+
     @Test
     void testReadSourceRecords(@TempDir Path tempDir) throws Exception {
         Path sampleJson = Path.of("src/test/resources/test-lobbyregister-sample.json");

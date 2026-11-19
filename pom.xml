@@ -333,6 +333,7 @@
         <module>swiftcheck-aml-plugins/pep/spain/swiftcheck-aml-es-pep-army</module>
         <module>swiftcheck-aml-plugins/pep/spain/swiftcheck-aml-es-pep-political-parties</module>
         <module>swiftcheck-aml-plugins/pep/spain/swiftcheck-aml-es-pep-unions</module>
+        <module>swiftcheck-aml-plugins/sanction</module>
     </modules>
 
     <dependencyManagement>

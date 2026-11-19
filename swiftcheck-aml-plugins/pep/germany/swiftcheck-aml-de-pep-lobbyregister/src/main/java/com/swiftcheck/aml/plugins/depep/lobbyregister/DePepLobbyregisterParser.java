@@ -74,13 +74,11 @@ public class DePepLobbyregisterParser implements Iparser {
         // Mode offline / test si le fichier raw existe deja ou est fourni
         if (ctx.inputFile() != null && Files.exists(ctx.inputFile())) {
             log.info("Chargement offline du fichier Lobbyregister : {}", ctx.inputFile());
-            byte[] bytes = Files.readAllBytes(ctx.inputFile());
-            sha256 = LobbyregisterApiClient.computeSha256Hex(bytes);
+            sha256 = LobbyregisterApiClient.computeSha256Hex(ctx.inputFile());
             data = apiClient.parseRawFile(ctx.inputFile());
         } else if (rawFile != null && Files.exists(rawFile)) {
             log.info("Chargement depuis cache raw : {}", rawFile);
-            byte[] bytes = Files.readAllBytes(rawFile);
-            sha256 = LobbyregisterApiClient.computeSha256Hex(bytes);
+            sha256 = LobbyregisterApiClient.computeSha256Hex(rawFile);
             data = apiClient.parseRawFile(rawFile);
         } else {
             IngestionResult res = apiClient.fetchAndSave(url, apiKey, ctx.rawDir());
@@ -310,7 +308,9 @@ public class DePepLobbyregisterParser implements Iparser {
                 }
                 dataset.addEntity(empPerson);
 
-                FtmEntity employment = dataset.newEntity("Employment", orgId, empId);
+                // « employment » dans la clé : un représentant légal est souvent aussi déclaré comme salarié de la
+                // même entité, et sans ce mot son Employment aurait l'ID de son Directorship (conflit de schéma).
+                FtmEntity employment = dataset.newEntity("Employment", orgId, empId, "employment");
                 employment.addValue("employee", empPerson.getId());
                 employment.addValue("employer", orgEntity.getId());
                 employment.addValue("role", "Benannte Beschäftigte (Lobbying)");

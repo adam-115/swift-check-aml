@@ -27,9 +27,14 @@ public class LobbyregisterApiClient {
     private final ObjectMapper objectMapper = new ObjectMapper();
     private final HttpClient httpClient;
 
+    private static final int MAX_ATTEMPTS = 3;
+
     public LobbyregisterApiClient() {
+        // HTTP/1.1 : en HTTP/2, le serveur annule parfois le flux d'une réponse aussi longue
+        // (« Received RST_STREAM: Stream cancelled »).
         this.httpClient = HttpClient.newBuilder()
-                .connectTimeout(Duration.ofSeconds(15))
+                .version(HttpClient.Version.HTTP_1_1)
+                .connectTimeout(Duration.ofSeconds(30))
                 .followRedirects(HttpClient.Redirect.NORMAL)
                 .build();
     }
@@ -45,43 +50,87 @@ public class LobbyregisterApiClient {
         Files.createDirectories(rawDir);
         String key = resolveApiKey(apiKey);
 
+        // Le registre complet pèse plusieurs centaines de Mo et met plusieurs minutes à arriver : la réponse est
+        // écrite directement sur le disque (pas de tableau d'octets en mémoire), avec un délai large.
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create(apiUrl))
                 .header("Accept", "application/json")
                 .header("apiKey", key)
                 .header("User-Agent", DEFAULT_USER_AGENT)
-                .timeout(Duration.ofSeconds(60))
+                .timeout(Duration.ofMinutes(30))
                 .GET()
                 .build();
 
+        Path targetFile = rawDir.resolve("lobbyregister.json");
+        Path partFile = rawDir.resolve("lobbyregister.json.part");
         log.info("Appel de l'API Lobbyregister : {} (cle : {}...)", apiUrl, key.substring(0, Math.min(6, key.length())));
-        HttpResponse<byte[]> response = httpClient.send(request, HttpResponse.BodyHandlers.ofByteArray());
-
-        int statusCode = response.statusCode();
-        if (statusCode >= 400) {
-            log.error("Erreur HTTP de l'API Lobbyregister : status {}", statusCode);
-            throw new IOException("L'API Lobbyregister a renvoye une erreur HTTP " + statusCode + " sur " + apiUrl);
+        int statusCode = 0;
+        for (int attempt = 1; ; attempt++) {
+            try {
+                HttpResponse<Path> response = httpClient.send(request, HttpResponse.BodyHandlers.ofFile(partFile));
+                statusCode = response.statusCode();
+                if (statusCode >= 400 && statusCode < 500) {
+                    Files.deleteIfExists(partFile);
+                    throw new IOException("L'API Lobbyregister a renvoye une erreur HTTP " + statusCode + " sur " + apiUrl);
+                }
+                if (statusCode < 400) {
+                    break;
+                }
+                if (attempt >= MAX_ATTEMPTS) {
+                    Files.deleteIfExists(partFile);
+                    throw new IOException("L'API Lobbyregister a renvoye une erreur HTTP " + statusCode + " sur " + apiUrl);
+                }
+                log.warn("API Lobbyregister : HTTP {} (essai {}/{})", statusCode, attempt, MAX_ATTEMPTS);
+            } catch (IOException e) {
+                if (e.getMessage() != null && e.getMessage().startsWith("L'API Lobbyregister a renvoye")) {
+                    throw e;
+                }
+                Files.deleteIfExists(partFile);
+                if (attempt >= MAX_ATTEMPTS) {
+                    throw e;
+                }
+                log.warn("API Lobbyregister : téléchargement interrompu ({}), essai {}/{}", e.getMessage(), attempt, MAX_ATTEMPTS);
+            }
+            Thread.sleep(30_000L * attempt);
         }
 
-        byte[] body = response.body();
-        if (body == null || body.length == 0) {
+        if (!Files.exists(partFile) || Files.size(partFile) == 0) {
+            Files.deleteIfExists(partFile);
             log.error("Reponse vide recue de l'API Lobbyregister : {}", apiUrl);
             throw new IOException("Payload vide recu depuis l'API Lobbyregister : " + apiUrl);
         }
+        Files.move(partFile, targetFile, java.nio.file.StandardCopyOption.REPLACE_EXISTING);
 
-        String sha256 = computeSha256Hex(body);
-        Path targetFile = rawDir.resolve("lobbyregister.json");
-        Files.write(targetFile, body);
-
-        DetailedSearchResults results = objectMapper.readValue(body, DetailedSearchResults.class);
+        String sha256 = computeSha256Hex(targetFile);
+        DetailedSearchResults results = parseRawFile(targetFile);
         log.info("Lobbyregister ingere avec succes : {} entites, SHA-256 = {}", results.resultCount, sha256);
 
         return new IngestionResult(results, sha256, statusCode, targetFile);
     }
 
     public DetailedSearchResults parseRawFile(Path rawFile) throws IOException {
-        byte[] bytes = Files.readAllBytes(rawFile);
-        return objectMapper.readValue(bytes, DetailedSearchResults.class);
+        return objectMapper.readValue(rawFile.toFile(), DetailedSearchResults.class);
+    }
+
+    /** Empreinte SHA-256 d'un fichier, lue par blocs (le registre complet ne tient pas confortablement en mémoire). */
+    public static String computeSha256Hex(Path file) throws IOException {
+        try {
+            MessageDigest digest = MessageDigest.getInstance("SHA-256");
+            try (java.io.InputStream in = Files.newInputStream(file)) {
+                byte[] buffer = new byte[1 << 16];
+                int n;
+                while ((n = in.read(buffer)) > 0) {
+                    digest.update(buffer, 0, n);
+                }
+            }
+            StringBuilder sb = new StringBuilder();
+            for (byte b : digest.digest()) {
+                sb.append(String.format("%02x", b));
+            }
+            return sb.toString();
+        } catch (NoSuchAlgorithmException e) {
+            throw new IllegalStateException("Algorithme SHA-256 indisponible", e);
+        }
     }
 
     public static String computeSha256Hex(byte[] data) {

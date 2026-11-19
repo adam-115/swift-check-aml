@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Plugin PF4J : Liste nationale belge des personnes et entités dont les avoirs sont gelés (terrorisme, AR du 28 décembre 2006)
+    Construire :  mvn -pl swiftcheck-aml-plugins/sanction/be/swiftcheck-aml-be-national-sanctions -am package
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.swiftcheck.aml</groupId>
+        <artifactId>swiftcheck-aml-sanction-parent</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
+        <relativePath>../../pom.xml</relativePath>
+    </parent>
+
+    <artifactId>swiftcheck-aml-be-national-sanctions</artifactId>
+    <packaging>jar</packaging>
+
+    <properties>
+        <!-- Plugin-Id : valeur du champ « plugin » du parser -->
+        <plugin.id>be-national-sanctions</plugin.id>
+    </properties>
+</project>

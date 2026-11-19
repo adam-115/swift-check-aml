@@ -71,4 +71,12 @@ class HttpDownloaderTest {
         assertFalse(HttpDownloader.isHtmlPage("https://data.public.lu/fr/datasets/r/a5b6e7f9-b488-41a6-9bd1-be913a5c35b5"));
         assertFalse(HttpDownloader.isHtmlPage("https://example.org/html/liste.csv"));
     }
+
+    @Test
+    void recognisesATlsRefusalWrappedInAnIoException() {
+        IOException wrapped = new IOException("échec", new javax.net.ssl.SSLHandshakeException("Remote host terminated the handshake"));
+        assertTrue(HttpDownloader.isTlsRefusal(wrapped));
+        assertTrue(HttpDownloader.isTlsRefusal(new javax.net.ssl.SSLHandshakeException("x")));
+        assertFalse(HttpDownloader.isTlsRefusal(new java.net.ConnectException()));
+    }
 }

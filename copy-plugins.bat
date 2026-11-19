@@ -29,7 +29,7 @@ for /r "%ROOT%swiftcheck-aml-plugins" %%F in (*-SNAPSHOT.jar) do (
     set "P=%%~dpF"
     if not "!P:\target\=!"=="!P!" (
         set "N=%%~nxF"
-        if /i not "!N:~0,9!"=="original-" (
+        if /i not "!N:~0,9!"=="original-" if "!N:sanction-common=!"=="!N!" (
             copy /y "%%F" "%DEST%\" >nul && set /a COUNT+=1
         )
     )

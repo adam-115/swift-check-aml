@@ -1,0 +1,293 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <!--
+      Plugins de listes de sanctions (swiftcheck-aml-plugins/sanction/<fournisseur>) : une liste = un parser.
+      Ils remplacent a terme les fichiers poses a la main dans yente/data (onu_sanctions, ofac_sanctions, uksl, seco,
+      dfat, canada-sanctions, dgtresor, us-bis) : retirer ces anciens datasets du manifest Yente une fois les nouveaux
+      publies, sinon chaque personne apparait deux fois.
+      Retention 0 : une radiation s'applique tout de suite. Les dataset_name finissent par _sanctions (classement
+      « sanction » dans AmlVerificationService).
+    -->
+    <changeSet id="158-register-sanction-plugins" author="swiftcheck" dbms="mysql">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM parser WHERE dataset_name IN ('un_sc_sanctions','us_ofac_sdn_sanctions','us_ofac_consolidated_sanctions','us_csl_sanctions','uk_fcdo_sanctions','ca_sema_sanctions','ca_terrorist_sanctions','ch_seco_sanctions','fr_dgtresor_sanctions','au_dfat_sanctions','jp_mof_sanctions','nz_mfat_sanctions','nl_terror_sanctions','pl_mswia_sanctions','be_national_sanctions')</sqlCheck>
+        </preConditions>
+        <insert tableName="parser">
+            <column name="name" value="Sanctions ONU - Conseil de securite"/>
+            <column name="description" value="Liste recapitulative des sanctions du Conseil de securite des Nations unies (personnes et entites)"/>
+            <column name="dataset_name" value="un_sc_sanctions"/>
+            <column name="list_type" value="AML"/>
+            <column name="website_url" value="https://main.un.org/securitycouncil/en/content/un-sc-consolidated-list"/>
+            <column name="plugin_id" value="un-sc-sanctions"/>
+            <column name="data_source_type" value="HTTP_FILE"/>
+            <column name="parser_kind" value="OPEN_DATA_FILE"/>
+            <column name="source_location" value="https://scsanctions.un.org/resources/xml/en/consolidated.xml"/>
+            <column name="refresh_hours" valueNumeric="6"/>
+            <column name="retention_months" valueNumeric="0"/>
+            <column name="licence" value="Domaine public (Nations unies)"/>
+            <column name="attribution" value="Conseil de securite des Nations unies"/>
+            <column name="notes" value="Fichier XML consolide ; ID = DATAID de l'ONU."/>
+            <column name="enabled" valueBoolean="true"/>
+            <column name="created_at" valueComputed="NOW()"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="name" value="Sanctions OFAC - SDN"/>
+            <column name="description" value="Specially Designated Nationals and Blocked Persons List du Tresor americain (personnes, entites, navires, avions)"/>
+            <column name="dataset_name" value="us_ofac_sdn_sanctions"/>
+            <column name="list_type" value="AML"/>
+            <column name="website_url" value="https://ofac.treasury.gov/specially-designated-nationals-and-blocked-persons-list-sdn-human-readable-lists"/>
+            <column name="plugin_id" value="us-ofac-sanctions"/>
+            <column name="data_source_type" value="HTTP_FILE"/>
+            <column name="parser_kind" value="OPEN_DATA_FILE"/>
+            <column name="source_location" value="https://sanctionslistservice.ofac.treas.gov/api/PublicationPreview/exports/SDN.XML"/>
+            <column name="parameters"><![CDATA[{"idPrefix":"us-ofac-sdn"}]]></column>
+            <column name="refresh_hours" valueNumeric="6"/>
+            <column name="retention_months" valueNumeric="0"/>
+            <column name="licence" value="Domaine public (gouvernement des Etats-Unis)"/>
+            <column name="attribution" value="Office of Foreign Assets Control, US Department of the Treasury"/>
+            <column name="notes" value="Adresses de cryptomonnaies gardees en note de la fiche."/>
+            <column name="enabled" valueBoolean="true"/>
+            <column name="created_at" valueComputed="NOW()"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="name" value="Sanctions OFAC - liste consolidee non-SDN"/>
+            <column name="description" value="Listes non-SDN de l'OFAC : SSI, NS-MBS, CMIC, FSE, PLC, HKAA"/>
+            <column name="dataset_name" value="us_ofac_consolidated_sanctions"/>
+            <column name="list_type" value="AML"/>
+            <column name="website_url" value="https://ofac.treasury.gov/other-ofac-sanctions-lists"/>
+            <column name="plugin_id" value="us-ofac-sanctions"/>
+            <column name="data_source_type" value="HTTP_FILE"/>
+            <column name="parser_kind" value="OPEN_DATA_FILE"/>
+            <column name="source_location" value="https://sanctionslistservice.ofac.treas.gov/api/PublicationPreview/exports/CONSOLIDATED.XML"/>
+            <column name="parameters"><![CDATA[{"idPrefix":"us-ofac-cons"}]]></column>
+            <column name="refresh_hours" valueNumeric="6"/>
+            <column name="retention_months" valueNumeric="0"/>
+            <column name="licence" value="Domaine public (gouvernement des Etats-Unis)"/>
+            <column name="attribution" value="Office of Foreign Assets Control, US Department of the Treasury"/>
+            <column name="notes" value="Meme plugin que la SDN, prefixe d'ID different."/>
+            <column name="enabled" valueBoolean="true"/>
+            <column name="created_at" valueComputed="NOW()"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="name" value="Etats-Unis - Consolidated Screening List"/>
+            <column name="description" value="Listes americaines de controle des exportations et de non-proliferation : Entity List, Denied Persons, Unverified, Military End User (BIS), ITAR Debarred et Nonproliferation Sanctions (State)"/>
+            <column name="dataset_name" value="us_csl_sanctions"/>
+            <column name="list_type" value="AML"/>
+            <column name="website_url" value="https://www.trade.gov/consolidated-screening-list"/>
+            <column name="plugin_id" value="us-csl-sanctions"/>
+            <column name="data_source_type" value="HTTP_FILE"/>
+            <column name="parser_kind" value="OPEN_DATA_FILE"/>
+            <column name="source_location" value="https://data.trade.gov/downloadable_consolidated_screening_list/v1/consolidated.csv"/>
+            <column name="parameters"><![CDATA[{"excludeSources":"Treasury Department"}]]></column>
+            <column name="refresh_hours" valueNumeric="12"/>
+            <column name="retention_months" valueNumeric="0"/>
+            <column name="licence" value="Domaine public (gouvernement des Etats-Unis)"/>
+            <column name="attribution" value="International Trade Administration, US Department of Commerce"/>
+            <column name="notes" value="Listes du Tresor exclues (deja lues par us_ofac_*) ; vider excludeSources pour tout garder. Remplace a terme le fichier us-bis de yente/data."/>
+            <column name="enabled" valueBoolean="true"/>
+            <column name="created_at" valueComputed="NOW()"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="name" value="Sanctions Royaume-Uni - UK Sanctions List"/>
+            <column name="description" value="UK Sanctions List du FCDO (seule liste officielle depuis la fermeture de la liste OFSI le 28/01/2026)"/>
+            <column name="dataset_name" value="uk_fcdo_sanctions"/>
+            <column name="list_type" value="AML"/>
+            <column name="website_url" value="https://www.gov.uk/government/publications/the-uk-sanctions-list"/>
+            <column name="plugin_id" value="uk-fcdo-sanctions"/>
+            <column name="data_source_type" value="HTTP_FILE"/>
+            <column name="parser_kind" value="OPEN_DATA_FILE"/>
+            <column name="source_location" value="https://sanctionslist.fcdo.gov.uk/docs/UK-Sanctions-List.xml"/>
+            <column name="refresh_hours" valueNumeric="6"/>
+            <column name="retention_months" valueNumeric="0"/>
+            <column name="licence" value="Open Government Licence v3.0"/>
+            <column name="attribution" value="Contains public sector information licensed under the Open Government Licence v3.0 (FCDO)"/>
+            <column name="notes" value="ID = UniqueID britannique."/>
+            <column name="enabled" valueBoolean="true"/>
+            <column name="created_at" valueComputed="NOW()"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="name" value="Sanctions Canada - LMES et JVCFOA"/>
+            <column name="description" value="Liste consolidee des sanctions autonomes du Canada (Loi sur les mesures economiques speciales et loi Magnitski)"/>
+            <column name="dataset_name" value="ca_sema_sanctions"/>
+            <column name="list_type" value="AML"/>
+            <column name="website_url" value="https://www.international.gc.ca/world-monde/international_relations-relations_internationales/sanctions/consolidated-consolide.aspx"/>
+            <column name="plugin_id" value="ca-sema-sanctions"/>
+            <column name="data_source_type" value="HTTP_FILE"/>
+            <column name="parser_kind" value="OPEN_DATA_FILE"/>
+            <column name="source_location" value="https://www.international.gc.ca/world-monde/assets/office_docs/international_relations-relations_internationales/sanctions/sema-lmes.xml"/>
+            <column name="refresh_hours" valueNumeric="12"/>
+            <column name="retention_months" valueNumeric="0"/>
+            <column name="licence" value="Licence du gouvernement ouvert - Canada"/>
+            <column name="attribution" value="Affaires mondiales Canada"/>
+            <column name="notes" value="ID = regime + annexe + article."/>
+            <column name="enabled" valueBoolean="true"/>
+            <column name="created_at" valueComputed="NOW()"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="name" value="Canada - entites terroristes inscrites"/>
+            <column name="description" value="Entites inscrites en vertu de l'article 83.05 du Code criminel (biens geles de plein droit)"/>
+            <column name="dataset_name" value="ca_terrorist_sanctions"/>
+            <column name="list_type" value="AML"/>
+            <column name="website_url" value="https://www.publicsafety.gc.ca/cnt/ntnl-scrt/cntr-trrrsm/lstd-ntts/index-en.aspx"/>
+            <column name="plugin_id" value="ca-terrorist-sanctions"/>
+            <column name="data_source_type" value="HTTP_FILE"/>
+            <column name="parser_kind" value="WEB_PAGE"/>
+            <column name="source_location" value="https://www.publicsafety.gc.ca/cnt/ntnl-scrt/cntr-trrrsm/lstd-ntts/crrnt-lstd-ntts-en.aspx"/>
+            <column name="refresh_hours" valueNumeric="24"/>
+            <column name="retention_months" valueNumeric="0"/>
+            <column name="licence" value="Licence du gouvernement ouvert - Canada"/>
+            <column name="attribution" value="Securite publique Canada"/>
+            <column name="notes" value="Page HTML ; schema LegalEntity (organisations et quelques personnes)."/>
+            <column name="enabled" valueBoolean="true"/>
+            <column name="created_at" valueComputed="NOW()"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="name" value="Sanctions Suisse - SECO"/>
+            <column name="description" value="Liste des personnes, entreprises et organisations visees par les sanctions de la Suisse (SECO)"/>
+            <column name="dataset_name" value="ch_seco_sanctions"/>
+            <column name="list_type" value="AML"/>
+            <column name="website_url" value="https://www.seco.admin.ch/seco/fr/home/Aussenwirtschaftspolitik_Wirtschaftliche_Zusammenarbeit/Wirtschaftsbeziehungen/exportkontrollen-und-sanktionen/sanktionen-embargos.html"/>
+            <column name="plugin_id" value="ch-seco-sanctions"/>
+            <column name="data_source_type" value="HTTP_FILE"/>
+            <column name="parser_kind" value="OPEN_DATA_FILE"/>
+            <column name="source_location" value="https://www.sesam.search.admin.ch/sesam-search-web/pages/downloadXmlGesamtliste.xhtml?lang=en&amp;action=downloadXmlGesamtlisteAction"/>
+            <column name="refresh_hours" valueNumeric="6"/>
+            <column name="retention_months" valueNumeric="0"/>
+            <column name="licence" value="Donnees publiques de la Confederation"/>
+            <column name="attribution" value="Secretariat d'Etat a l'economie (SECO)"/>
+            <column name="notes" value="Fichier historique complet : les cibles radiees (derniere modification de-listed) sont ignorees."/>
+            <column name="enabled" valueBoolean="true"/>
+            <column name="created_at" valueComputed="NOW()"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="name" value="Gel des avoirs France - DG Tresor"/>
+            <column name="description" value="Registre national des gels des avoirs (mesures ONU, UE et nationales applicables en France)"/>
+            <column name="dataset_name" value="fr_dgtresor_sanctions"/>
+            <column name="list_type" value="AML"/>
+            <column name="website_url" value="https://gels-avoirs.dgtresor.gouv.fr/"/>
+            <column name="plugin_id" value="fr-dgtresor-sanctions"/>
+            <column name="data_source_type" value="HTTP_FILE"/>
+            <column name="parser_kind" value="API"/>
+            <column name="source_location" value="https://gels-avoirs.dgtresor.gouv.fr/ApiPublic/api/v1/publication/derniere-publication-fichier-json"/>
+            <column name="refresh_hours" valueNumeric="6"/>
+            <column name="retention_months" valueNumeric="0"/>
+            <column name="licence" value="Licence Ouverte / Etalab"/>
+            <column name="attribution" value="Direction generale du Tresor"/>
+            <column name="notes" value="ID = IdRegistre."/>
+            <column name="enabled" valueBoolean="true"/>
+            <column name="created_at" valueComputed="NOW()"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="name" value="Sanctions Australie - DFAT"/>
+            <column name="description" value="Liste consolidee des sanctions australiennes (personnes, entites, navires)"/>
+            <column name="dataset_name" value="au_dfat_sanctions"/>
+            <column name="list_type" value="AML"/>
+            <column name="website_url" value="https://www.dfat.gov.au/international-relations/security/sanctions/consolidated-list"/>
+            <column name="plugin_id" value="au-dfat-sanctions"/>
+            <column name="data_source_type" value="HTTP_FILE"/>
+            <column name="parser_kind" value="OPEN_DATA_FILE"/>
+            <column name="source_location" value="https://www.dfat.gov.au/sites/default/files/Australian_Sanctions_Consolidated_List.xlsx"/>
+            <column name="refresh_hours" valueNumeric="12"/>
+            <column name="retention_months" valueNumeric="0"/>
+            <column name="licence" value="Creative Commons BY 4.0"/>
+            <column name="attribution" value="Australian Sanctions Office, Department of Foreign Affairs and Trade"/>
+            <column name="notes" value="Site injoignable depuis le poste de developpement : verifier la premiere execution depuis le serveur."/>
+            <column name="enabled" valueBoolean="true"/>
+            <column name="created_at" valueComputed="NOW()"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="name" value="Sanctions Japon - gel des avoirs (MOF)"/>
+            <column name="description" value="Liste consolidee des personnes et entites visees par le gel des avoirs au Japon (ministere des Finances)"/>
+            <column name="dataset_name" value="jp_mof_sanctions"/>
+            <column name="list_type" value="AML"/>
+            <column name="website_url" value="https://www.mof.go.jp/policy/international_policy/gaitame_kawase/gaitame/economic_sanctions/list.html"/>
+            <column name="plugin_id" value="jp-mof-sanctions"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="WEB_PAGE"/>
+            <column name="parameters"><![CDATA[{"pageUrl":"https://www.mof.go.jp/policy/international_policy/gaitame_kawase/gaitame/economic_sanctions/list.html"}]]></column>
+            <column name="refresh_hours" valueNumeric="24"/>
+            <column name="retention_months" valueNumeric="0"/>
+            <column name="licence" value="Conditions d'utilisation du site du ministere des Finances du Japon"/>
+            <column name="attribution" value="Ministry of Finance, Japan"/>
+            <column name="notes" value="Le nom du CSV change a chaque mise a jour : le plugin le trouve sur la page."/>
+            <column name="enabled" valueBoolean="true"/>
+            <column name="created_at" valueComputed="NOW()"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="name" value="Sanctions Nouvelle-Zelande - Russie"/>
+            <column name="description" value="Russia Sanctions Register (Russia Sanctions Act 2022) : personnes, entites, avoirs et navires"/>
+            <column name="dataset_name" value="nz_mfat_sanctions"/>
+            <column name="list_type" value="AML"/>
+            <column name="website_url" value="https://www.mfat.govt.nz/en/countries-and-regions/europe/ukraine/russian-invasion-of-ukraine/sanctions/russia-sanctions-register"/>
+            <column name="plugin_id" value="nz-mfat-sanctions"/>
+            <column name="data_source_type" value="HTTP_FILE"/>
+            <column name="parser_kind" value="OPEN_DATA_FILE"/>
+            <column name="source_location" value="https://www.mfat.govt.nz/assets/Countries-and-Regions/Europe/Ukraine/Russia-Sanctions-Register.xlsx"/>
+            <column name="refresh_hours" valueNumeric="24"/>
+            <column name="retention_months" valueNumeric="0"/>
+            <column name="licence" value="Creative Commons BY 4.0 (gouvernement neo-zelandais)"/>
+            <column name="attribution" value="Ministry of Foreign Affairs and Trade, New Zealand"/>
+            <column name="notes" value="Classeur de 21 Mo ; seules les feuilles Register et Ships sont lues."/>
+            <column name="enabled" valueBoolean="true"/>
+            <column name="created_at" valueComputed="NOW()"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="name" value="Pays-Bas - liste nationale terrorisme"/>
+            <column name="description" value="Personnes et organisations dont les avoirs sont geles au titre de la Sanctieregeling terrorisme 2007-II"/>
+            <column name="dataset_name" value="nl_terror_sanctions"/>
+            <column name="list_type" value="AML"/>
+            <column name="website_url" value="https://www.rijksoverheid.nl/documenten/rapporten/2015/08/27/nationale-terrorismelijst"/>
+            <column name="plugin_id" value="nl-terror-sanctions"/>
+            <column name="data_source_type" value="HTTP_FILE"/>
+            <column name="parser_kind" value="OPEN_DATA_FILE"/>
+            <column name="source_location" value="https://www.rijksoverheid.nl/site/binaries/site-content/collections/documents/2015/08/27/nationale-terrorismelijst/ned-terrorismelijst.ods"/>
+            <column name="refresh_hours" valueNumeric="24"/>
+            <column name="retention_months" valueNumeric="0"/>
+            <column name="licence" value="Donnees publiques (Rijksoverheid)"/>
+            <column name="attribution" value="Ministerie van Buitenlandse Zaken"/>
+            <column name="notes" value="Pas de numero de fiche : ID = nom + prenoms + date de naissance."/>
+            <column name="enabled" valueBoolean="true"/>
+            <column name="created_at" valueComputed="NOW()"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="name" value="Pologne - liste de sanctions MSWiA"/>
+            <column name="description" value="Personnes et entites inscrites par le ministre de l'Interieur (loi du 13 avril 2022, agression contre l'Ukraine)"/>
+            <column name="dataset_name" value="pl_mswia_sanctions"/>
+            <column name="list_type" value="AML"/>
+            <column name="website_url" value="https://www.gov.pl/web/mswia/lista-osob-i-podmiotow-objetych-sankcjami"/>
+            <column name="plugin_id" value="pl-mswia-sanctions"/>
+            <column name="data_source_type" value="HTTP_FILE"/>
+            <column name="parser_kind" value="WEB_PAGE"/>
+            <column name="source_location" value="https://www.gov.pl/web/mswia/lista-osob-i-podmiotow-objetych-sankcjami"/>
+            <column name="refresh_hours" valueNumeric="24"/>
+            <column name="retention_months" valueNumeric="0"/>
+            <column name="licence" value="Donnees publiques (gov.pl)"/>
+            <column name="attribution" value="Ministerstwo Spraw Wewnetrznych i Administracji"/>
+            <column name="notes" value="Page HTML ; les lignes avec une date de radiation sont ignorees."/>
+            <column name="enabled" valueBoolean="true"/>
+            <column name="created_at" valueComputed="NOW()"/>
+        </insert>
+        <insert tableName="parser">
+            <column name="name" value="Belgique - liste nationale terrorisme"/>
+            <column name="description" value="Personnes soupconnees de terrorisme dont les avoirs sont geles (arrete royal du 28 decembre 2006, Conseil national de securite)"/>
+            <column name="dataset_name" value="be_national_sanctions"/>
+            <column name="list_type" value="AML"/>
+            <column name="website_url" value="https://finances.belgium.be/fr/tresorerie/sanctions-financieres/sanctions-financi%C3%A8res-nationales"/>
+            <column name="plugin_id" value="be-national-sanctions"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="OPEN_DATA_FILE"/>
+            <column name="parameters"><![CDATA[{"pageUrl":"https://finances.belgium.be/fr/tresorerie/sanctions-financieres/sanctions-financi%C3%A8res-nationales"}]]></column>
+            <column name="refresh_hours" valueNumeric="24"/>
+            <column name="retention_months" valueNumeric="0"/>
+            <column name="licence" value="Donnees publiques (SPF Finances)"/>
+            <column name="attribution" value="SPF Finances - Tresorerie"/>
+            <column name="notes" value="Nom du fichier variable (trouve sur la page) ; site protege par un defi anti-robot : repli par le service navigateur (StealthBrowserFetcher)."/>
+            <column name="enabled" valueBoolean="true"/>
+            <column name="created_at" valueComputed="NOW()"/>
+        </insert>
+    </changeSet>
+</databaseChangeLog>
