@@ -1,0 +1,18 @@
+[
+ {
+  "index": "yente-entities-nl_pep_parliament_history-016a040902-20261105231937",
+  "docs.count": "2110"
+ },
+ {
+  "index": "yente-entities-nl_pep_parliament-016a040902-20261105233755",
+  "docs.count": "658"
+ },
+ {
+  "index": "yente-entities-fr_pep_senate-016a040902-20261118134343",
+  "docs.count": "2675"
+ },
+ {
+  "index": "yente-entities-fr_pep_senate-016a040902-20261119000000",
+  "docs.count": "1200"
+ }
+]

@@ -1,0 +1,220 @@
+<div class="max-w-7xl mx-auto space-y-6">
+  <div class="bg-white rounded-2xl shadow-xs border border-slate-200 overflow-hidden">
+
+    <div class="bg-slate-900 px-4 sm:px-8 py-5 sm:py-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+      <div>
+        <h2 class="text-xl sm:text-2xl font-bold text-white tracking-tight">Yente</h2>
+        <p class="mt-1 text-xs sm:text-sm text-slate-300">
+          Chaque liste publiée est-elle chargée et indexée dans la bonne version ?
+          <span *ngIf="status" class="text-slate-400">— vérifié à {{ status.checkedAt | date:'HH:mm:ss' }}</span>
+        </p>
+      </div>
+      <div class="flex flex-wrap items-center gap-2">
+        <button type="button" (click)="refresh()"
+                class="inline-flex items-center justify-center rounded-xl bg-white/10 px-3.5 py-2 text-sm font-semibold text-white hover:bg-white/20">
+          Rafraîchir
+        </button>
+        <button *ngIf="isAdmin" type="button" (click)="rebuild()" [disabled]="isRebuilding"
+                title="Reconstruit tous les index de Yente (réparation). Les publications sont indexées automatiquement."
+                class="inline-flex items-center justify-center rounded-xl bg-sky-500/20 px-3.5 py-2 text-sm font-semibold text-white hover:bg-sky-500/30 disabled:opacity-50">
+          {{ isRebuilding ? 'Reconstruction…' : 'Tout reconstruire' }}
+        </button>
+      </div>
+    </div>
+
+    <div class="p-4 sm:p-6 bg-slate-50 min-h-[400px] space-y-4">
+      <div *ngIf="errorMessage" class="bg-rose-50 border border-rose-200 text-rose-800 p-3 rounded-xl text-sm">{{ errorMessage }}</div>
+      <div *ngIf="message" class="bg-sky-50 border border-sky-200 text-sky-900 p-3 rounded-xl text-sm flex items-start gap-3" role="status">
+        <span class="flex-1">{{ message }}</span>
+        <button type="button" (click)="message = ''" class="text-sky-500 hover:text-sky-700" aria-label="Fermer">✕</button>
+      </div>
+      <div *ngIf="isLoading" class="text-center py-16 text-slate-500 text-sm">Chargement…</div>
+
+      <ng-container *ngIf="status as s">
+        <div *ngIf="s.manifestError" class="bg-rose-50 border border-rose-200 text-rose-800 p-3 rounded-xl text-sm">
+          {{ s.manifestError }} — les états « Absent du manifest » ci-dessous peuvent venir de cette erreur.
+        </div>
+
+        <!-- Cartes d'état -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+          <div class="bg-white rounded-xl border border-slate-200 p-4">
+            <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Yente</p>
+            <p class="mt-1 flex items-center gap-2 font-semibold"
+               [ngClass]="s.yenteReady ? 'text-emerald-700' : (s.yenteAlive ? 'text-amber-700' : 'text-rose-700')">
+              <span class="w-2 h-2 rounded-full bg-current"></span>
+              {{ s.yenteReady ? 'Prêt' : (s.yenteAlive ? 'Pas prêt' : 'Injoignable') }}
+            </p>
+            <p class="text-xs text-slate-500 mt-0.5">{{ s.yenteResponseMs }} ms</p>
+            <p *ngIf="s.yenteError" class="text-xs text-rose-700 mt-1 break-words">{{ s.yenteError }}</p>
+          </div>
+          <div class="bg-white rounded-xl border border-slate-200 p-4">
+            <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Elasticsearch</p>
+            <p class="mt-1 flex items-center gap-2 font-semibold"
+               [ngClass]="s.indexError || s.clusterHealth === 'red' ? 'text-rose-700' : (s.clusterHealth === 'yellow' ? 'text-amber-700' : 'text-emerald-700')">
+              <span class="w-2 h-2 rounded-full bg-current"></span>
+              {{ s.indexError ? 'Indisponible' : (s.clusterHealth === 'green' ? 'Vert' : s.clusterHealth === 'yellow' ? 'Jaune' : s.clusterHealth === 'red' ? 'Rouge' : '—') }}
+            </p>
+            <p *ngIf="s.clusterHealth === 'yellow'" class="text-xs text-slate-500 mt-0.5">Normal sur un seul nœud (pas de réplique).</p>
+            <p *ngIf="s.indexError" class="text-xs text-rose-700 mt-1 break-words">{{ s.indexError }}</p>
+          </div>
+          <div class="bg-white rounded-xl border border-slate-200 p-4">
+            <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Disque</p>
+            <p class="mt-1 font-semibold text-slate-800">{{ s.diskAvailableBytes != null ? fileSize(s.diskAvailableBytes) + ' libres' : '—' }}</p>
+            <p *ngIf="s.diskUsedPercent != null" class="text-xs text-slate-500 mt-0.5">{{ s.diskUsedPercent }} % utilisé</p>
+          </div>
+          <div class="bg-white rounded-xl border border-slate-200 p-4">
+            <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Indexation</p>
+            <p class="mt-1 flex items-center gap-2 font-semibold" [ngClass]="s.indexing ? 'text-blue-700' : 'text-slate-800'">
+              <span *ngIf="s.indexing" class="w-2 h-2 rounded-full bg-current animate-pulse"></span>
+              <ng-container *ngIf="s.indexing; else idle">
+                En cours<ng-container *ngIf="s.lockSince"> depuis {{ s.lockSince | date:'HH:mm' }}</ng-container>
+              </ng-container>
+              <ng-template #idle>Au repos</ng-template>
+            </p>
+            <p *ngIf="s.lastCompletedAt" class="text-xs text-slate-500 mt-0.5">Dernière fin : {{ s.lastCompletedAt | date:'dd/MM HH:mm' }}</p>
+          </div>
+        </div>
+
+        <!-- Avancement global -->
+        <div class="bg-white rounded-xl border border-slate-200 p-4">
+          <div class="flex flex-wrap items-baseline justify-between gap-2">
+            <p class="text-sm font-semibold text-slate-800">
+              {{ s.okCount }} / {{ s.expectedCount }} datasets à jour
+              <span *ngIf="s.percent != null" class="text-slate-500 font-normal">— {{ s.percent }} %</span>
+            </p>
+            <p class="text-xs text-slate-500">Hors « jamais publiés » et « orphelins »</p>
+          </div>
+          <div class="mt-2 h-2.5 rounded-full bg-slate-100 overflow-hidden">
+            <div class="h-full rounded-full transition-all" [style.width.%]="s.percent ?? 0"
+                 [ngClass]="s.percent === 100 ? 'bg-emerald-500' : 'bg-blue-500'"></div>
+          </div>
+        </div>
+
+        <!-- Filtres -->
+        <div class="flex flex-col lg:flex-row lg:items-center gap-3">
+          <div class="flex flex-wrap gap-2">
+            <button *ngFor="let f of filters" type="button" (click)="filter = f.key"
+                    class="rounded-lg px-3 py-1.5 text-sm font-medium border"
+                    [ngClass]="filter === f.key ? 'bg-slate-900 text-white border-slate-900' : 'bg-white text-slate-700 border-slate-300 hover:bg-slate-50'">
+              {{ f.label }} <span class="ml-1 opacity-70">{{ count(f.key) }}</span>
+            </button>
+          </div>
+          <input type="search" [(ngModel)]="search" placeholder="Dataset ou parser…" aria-label="Rechercher un dataset"
+                 class="lg:ml-auto w-full lg:w-64 rounded-lg border border-slate-300 px-3 py-1.5 text-sm" />
+        </div>
+
+        <!-- Tableau -->
+        <div *ngIf="rows.length === 0" class="text-center py-12 bg-white rounded-xl border border-dashed border-slate-300 text-sm text-slate-500">
+          Aucun dataset dans ce filtre.
+        </div>
+        <div *ngIf="rows.length > 0" class="bg-white rounded-xl border border-slate-200 overflow-x-auto">
+          <table class="min-w-full divide-y divide-slate-200 text-sm">
+            <thead class="bg-slate-50">
+              <tr class="text-left text-xs font-semibold text-slate-500 uppercase tracking-wider">
+                <th class="px-4 py-3">Dataset</th>
+                <th class="px-4 py-3">Parser</th>
+                <th class="px-4 py-3">État</th>
+                <th class="px-4 py-3">Avancement</th>
+                <th class="px-4 py-3">Dernier événement</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-100">
+              <tr *ngFor="let d of rows" (click)="open(d)" class="cursor-pointer hover:bg-slate-50"
+                  [ngClass]="selected?.dataset === d.dataset ? 'bg-emerald-50/50' : ''">
+                <td class="px-4 py-3 font-mono text-xs text-slate-800 whitespace-nowrap">{{ d.dataset }}</td>
+                <td class="px-4 py-3">
+                  <a *ngIf="d.parserId; else noParser" [routerLink]="['/parsers', d.parserId, 'executions']" (click)="$event.stopPropagation()"
+                     class="font-medium text-emerald-700 hover:underline">{{ d.parserName }}</a>
+                  <ng-template #noParser><span class="text-xs text-slate-400 italic">—</span></ng-template>
+                </td>
+                <td class="px-4 py-3">
+                  <span class="whitespace-nowrap rounded-lg px-2 py-0.5 text-xs font-semibold ring-1 ring-inset"
+                        [ngClass]="states[d.state].css" [title]="states[d.state].help">{{ states[d.state].label }}</span>
+                </td>
+                <td class="px-4 py-3 whitespace-nowrap">
+                  <ng-container *ngIf="d.state === 'INDEXING'; else counts">
+                    <div *ngIf="d.progressPercent != null; else noPercent" class="flex items-center gap-2">
+                      <div class="w-24 h-2 rounded-full bg-slate-100 overflow-hidden">
+                        <div class="h-full bg-blue-500 rounded-full" [style.width.%]="d.progressPercent"></div>
+                      </div>
+                      <span class="text-xs text-slate-600">{{ d.progressPercent }} %</span>
+                    </div>
+                    <ng-template #noPercent>
+                      <span class="text-xs text-blue-700">
+                        <ng-container *ngIf="d.buildingEntities != null; else running">{{ d.buildingEntities | number:'1.0-0' }} écrits…</ng-container>
+                        <ng-template #running>en cours…</ng-template>
+                      </span>
+                    </ng-template>
+                  </ng-container>
+                  <ng-template #counts>
+                    <span *ngIf="d.indexedEntities != null" class="text-xs text-slate-600">
+                      {{ d.indexedEntities | number:'1.0-0' }}
+                      <ng-container *ngIf="d.countVerified; else unverified"> / {{ d.expectedEntities | number:'1.0-0' }}</ng-container>
+                      <ng-template #unverified><span class="text-slate-400">(non vérifié)</span></ng-template>
+                    </span>
+                  </ng-template>
+                </td>
+                <td class="px-4 py-3 whitespace-nowrap text-xs text-slate-600">
+                  {{ eventLabel(d.lastEventType) }}
+                  <span *ngIf="d.lastEventAt" class="text-slate-400">— {{ d.lastEventAt | date:'dd/MM HH:mm' }}</span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+</div>
+
+<!-- Panneau de détail d'un dataset -->
+<div *ngIf="selected as d" class="fixed inset-0 z-40 flex justify-end" role="dialog" aria-modal="true" [attr.aria-label]="'Détail de ' + d.dataset">
+  <div class="absolute inset-0 bg-slate-900/30" (click)="close()"></div>
+  <div class="relative w-full max-w-md h-full bg-white shadow-xl overflow-y-auto">
+    <div class="sticky top-0 bg-white border-b border-slate-200 px-5 py-4 flex items-start gap-3">
+      <div class="flex-1 min-w-0">
+        <p class="font-mono text-sm font-semibold text-slate-900 break-all">{{ d.dataset }}</p>
+        <p *ngIf="d.parserName" class="text-xs text-slate-500">{{ d.parserName }}</p>
+      </div>
+      <button type="button" (click)="close()" class="text-slate-400 hover:text-slate-700" aria-label="Fermer">✕</button>
+    </div>
+
+    <div class="p-5 space-y-5 text-sm">
+      <div>
+        <span class="rounded-lg px-2 py-0.5 text-xs font-semibold ring-1 ring-inset" [ngClass]="states[d.state].css">{{ states[d.state].label }}</span>
+        <p class="mt-2 text-slate-600">{{ states[d.state].help }}</p>
+      </div>
+
+      <dl class="grid grid-cols-2 gap-x-4 gap-y-2">
+        <dt class="text-slate-500">Version du fichier</dt><dd class="font-mono text-xs text-slate-800">{{ d.fileVersion ?? '—' }}</dd>
+        <dt class="text-slate-500">Version servie</dt><dd class="font-mono text-xs text-slate-800">{{ d.servedVersion ?? '—' }}</dd>
+        <dt class="text-slate-500">Entités attendues</dt>
+        <dd class="text-slate-800">{{ d.countVerified ? (d.expectedEntities | number:'1.0-0') : 'non vérifié' }}</dd>
+        <dt class="text-slate-500">Entités indexées</dt><dd class="text-slate-800">{{ d.indexedEntities != null ? (d.indexedEntities | number:'1.0-0') : '—' }}</dd>
+      </dl>
+
+      <p *ngIf="d.lastEventMessage" class="text-xs text-slate-600 bg-slate-50 border border-slate-200 rounded-lg p-3 break-words">{{ d.lastEventMessage }}</p>
+
+      <button *ngIf="d.parserId" type="button" (click)="reindexDataset(d)"
+              class="w-full rounded-xl border border-sky-300 bg-sky-50 px-3.5 py-2.5 text-sm font-semibold text-sky-800 hover:bg-sky-100">
+        Réindexer ce dataset
+      </button>
+
+      <div>
+        <h3 class="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Historique d'indexation</h3>
+        <p *ngIf="eventsLoading" class="text-slate-500 text-xs">Chargement…</p>
+        <p *ngIf="eventsError" class="text-rose-700 text-xs">{{ eventsError }}</p>
+        <p *ngIf="!eventsLoading && !eventsError && events.length === 0" class="text-slate-500 text-xs">Aucun événement.</p>
+        <ol class="space-y-2">
+          <li *ngFor="let e of events" class="border-l-2 pl-3"
+              [ngClass]="e.type === 'reindex_failed' ? 'border-rose-400' : (e.type === 'index_alias_rollover_complete' ? 'border-emerald-400' : 'border-slate-200')">
+            <p class="text-xs font-semibold text-slate-800">{{ eventLabel(e.type) }}
+              <span class="font-normal text-slate-400">— {{ e.at | date:'dd/MM/yyyy HH:mm:ss' }}</span></p>
+            <p class="font-mono text-[11px] text-slate-500">{{ e.version }}</p>
+            <p *ngIf="e.type === 'reindex_failed' && e.message" class="text-xs text-rose-700 break-words">{{ e.message }}</p>
+          </li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</div>

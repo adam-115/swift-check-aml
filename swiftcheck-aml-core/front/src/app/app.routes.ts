@@ -12,6 +12,7 @@ import { AmlAdvancedVerificationComponent } from './components/aml-advanced-veri
 import { PepCoverageComponent } from './components/pep-coverage/pep-coverage.component';
 import { PepCategoriesComponent } from './components/pep-categories/pep-categories.component';
 import { ParserAlertsComponent } from './components/parser-alerts/parser-alerts.component';
+import { YenteMonitorComponent } from './components/yente-monitor/yente-monitor.component';
 import { authGuard } from './guards/auth.guard';
 
 export const routes: Routes = [
@@ -28,6 +29,7 @@ export const routes: Routes = [
   { path: 'coverage', component: PepCoverageComponent, canActivate: [authGuard], data: { roles: ['admin', 'tester'] } },
   { path: 'pep-categories', component: PepCategoriesComponent, canActivate: [authGuard], data: { roles: ['admin'] } },
   { path: 'alerts', component: ParserAlertsComponent, canActivate: [authGuard], data: { roles: ['admin', 'tester'] } },
+  { path: 'yente', component: YenteMonitorComponent, canActivate: [authGuard], data: { roles: ['admin', 'tester'] } },
   // Configuration système réservée exclusivement au rôle ADMIN
   { path: 'config', component: AppConfigComponent, canActivate: [authGuard], data: { roles: ['admin'] } },
   { path: '', redirectTo: 'wiki', pathMatch: 'full' }

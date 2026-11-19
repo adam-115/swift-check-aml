@@ -23,5 +23,6 @@
     <include file="db/changelog/baseline/baseline.xml"/>
 
     <include file="db/changelog/changes/156-register-de-pep-eu-institutions-defence-attaches.xml"/>
+    <include file="db/changelog/changes/157-yente-monitoring-config.xml"/>
 
 </databaseChangeLog>

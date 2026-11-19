@@ -127,7 +127,7 @@ section Yente :
 | Champ | Défaut (variable d'env.) | Rôle |
 |---|---|---|
 | `yenteIndexUrl` | `YENTE_INDEX_URL`, `http://localhost:9200` | Elasticsearch de Yente |
-| `yenteIndexPrefix` | `yente-entities` | Préfixe des index et nom de l'alias |
+| `yenteIndexName` | `YENTE_INDEX_NAME`, `yente` | Nom de base de Yente (`YENTE_INDEX_NAME`) : alias `<nom>-entities`, journal `<nom>-audit-log-1`, verrou `<nom>-locks` (noms construits ainsi dans le code de Yente 5.5.0) |
 | `dockerProxyUrl` | `YENTE_DOCKER_PROXY_URL`, vide | Proxy Docker ; vide = logs et redémarrage désactivés (boutons masqués) |
 | `yenteContainerName` | `yente-sanctions-api` | Conteneur Yente |
 | `indexContainerName` | `yente-elasticsearch` | Conteneur Elasticsearch |

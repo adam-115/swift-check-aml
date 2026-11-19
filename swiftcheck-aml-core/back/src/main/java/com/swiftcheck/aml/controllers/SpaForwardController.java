@@ -26,6 +26,7 @@ public class SpaForwardController {
         "/coverage", "/coverage/**",
         "/pep-categories", "/pep-categories/**",
         "/alerts", "/alerts/**",
+        "/yente", "/yente/**",
         "/config", "/config/**",
     };
 
@@ -38,6 +39,7 @@ public class SpaForwardController {
         "/coverage", "/coverage/**",
         "/pep-categories", "/pep-categories/**",
         "/alerts", "/alerts/**",
+        "/yente", "/yente/**",
         "/config", "/config/**",
     })
     public String forwardSpaRoutes() {

@@ -20,8 +20,62 @@ export interface ApplicationConfigDTO {
     yenteDataFolder?: string;
     yenteContainerDataPath?: string;
     yenteManifestPath?: string;
+    yenteIndexUrl?: string;
+    yenteIndexName?: string;
     archiveFolder?: string;
     workFolder?: string;
+}
+
+// ---------------------------------------------------------------------------
+// Écran Yente (GET /api/yente/status, /api/yente/datasets/{name}/events)
+// ---------------------------------------------------------------------------
+
+/** État d'un dataset dans Yente (voir DatasetState côté Java). */
+export type YenteDatasetState = 'NOT_PUBLISHED' | 'NOT_IN_MANIFEST' | 'NOT_LOADED' | 'FAILED' | 'NOT_SERVED'
+    | 'INDEXING' | 'OUTDATED' | 'COUNT_MISMATCH' | 'OK' | 'ORPHAN';
+
+export interface YenteDatasetStatusDTO {
+    dataset: string;
+    parserId: number | null;
+    parserName: string | null;
+    state: YenteDatasetState;
+    countVerified: boolean;
+    expectedEntities: number | null;
+    indexedEntities: number | null;
+    buildingEntities: number | null;
+    fileVersion: string | null;
+    servedVersion: string | null;
+    progressPercent: number | null;
+    lastEventType: string | null;
+    lastEventAt: string | null;
+    lastEventMessage: string | null;
+}
+
+export interface YenteStatusDTO {
+    checkedAt: string;
+    yenteAlive: boolean;
+    yenteReady: boolean;
+    yenteResponseMs: number;
+    yenteError: string | null;
+    clusterHealth: string | null;
+    diskAvailableBytes: number | null;
+    diskUsedPercent: number | null;
+    indexError: string | null;
+    manifestError: string | null;
+    indexing: boolean;
+    lockSince: string | null;
+    lastCompletedAt: string | null;
+    okCount: number;
+    expectedCount: number;
+    percent: number | null;
+    datasets: YenteDatasetStatusDTO[];
+}
+
+export interface YenteEventDTO {
+    type: string;
+    version: string | null;
+    at: string | null;
+    message: string | null;
 }
 
 /** Nature d'une liste : PEP, sanctions (AML), médias, criminelle. */

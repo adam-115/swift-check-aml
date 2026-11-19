@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <!--
+      Écran Yente (monitoring) : le core lit directement l'Elasticsearch de Yente (index, alias, journal
+      d'indexation, verrou, disque).
+      - yente_index_url  : adresse d'Elasticsearch, paramètre ${yenteIndexUrl} (variable YENTE_INDEX_URL) ;
+      - yente_index_name : valeur de YENTE_INDEX_NAME côté Yente ("yente" par défaut), dont Yente dérive
+                           l'alias <nom>-entities, le journal <nom>-audit-log-1 et le verrou <nom>-locks.
+      Modifiables ensuite depuis l'écran Configuration. Le paramètre entre dans la somme de contrôle : validCheckSum ANY.
+    -->
+    <changeSet id="157-yente-monitoring-config" author="swiftcheck" dbms="mysql">
+        <validCheckSum>ANY</validCheckSum>
+        <preConditions onFail="MARK_RAN">
+            <not><columnExists tableName="application_config" columnName="yente_index_url"/></not>
+        </preConditions>
+        <addColumn tableName="application_config">
+            <column name="yente_index_url" type="varchar(500)"/>
+            <column name="yente_index_name" type="varchar(100)"/>
+        </addColumn>
+        <update tableName="application_config">
+            <column name="yente_index_url" value="${yenteIndexUrl}"/>
+            <column name="yente_index_name" value="yente"/>
+        </update>
+    </changeSet>
+
+</databaseChangeLog>

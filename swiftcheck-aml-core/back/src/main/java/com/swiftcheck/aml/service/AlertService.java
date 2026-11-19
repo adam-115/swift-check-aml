@@ -39,7 +39,7 @@ public class AlertService {
     private static final Logger log = LoggerFactory.getLogger(AlertService.class);
 
     /** Statuts qui signifient « la liste publiée est à jour ». */
-    static final List<ParserExecutionStatus> PUBLISHED = List.of(ParserExecutionStatus.SUCCESS,
+    public static final List<ParserExecutionStatus> PUBLISHED = List.of(ParserExecutionStatus.SUCCESS,
             ParserExecutionStatus.UNCHANGED);
 
     private final ParserAlertRepository alerts;

@@ -43,6 +43,15 @@ public class ApplicationConfigEntity {
     /** Chemin du fichier manifest.yml de Yente, ex. {@code D:/yente/data/manifest.yml}. */
     private String yenteManifestPath;
 
+    /** Elasticsearch de Yente, ex. {@code http://index:9200} : lu par l'écran Yente (état et avancement de l'indexation). */
+    private String yenteIndexUrl;
+
+    /**
+     * Valeur de {@code YENTE_INDEX_NAME} ({@code yente} par défaut). Yente en dérive l'alias {@code <nom>-entities},
+     * le journal {@code <nom>-audit-log-1} et le verrou {@code <nom>-locks}.
+     */
+    private String yenteIndexName;
+
     /** Dossier d'archive des fichiers sources signés (preuve des données utilisées à chaque exécution). */
     private String archiveFolder;
 

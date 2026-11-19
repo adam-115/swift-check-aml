@@ -15,6 +15,12 @@ import com.swiftcheck.aml.entities.ParserExecutionStatus;
 @Repository
 public interface ParserExecutionRepository extends JpaRepository<ParserExecution, Long> {
 
+    /** Parsers ayant au moins une exécution dans l'un de ces statuts (écran Yente : « déjà publié »), en une requête. */
+    @org.springframework.data.jpa.repository.Query(
+            "select distinct e.parser.id from ParserExecution e where e.status in :statuses")
+    java.util.Set<Long> findParserIdsWithStatusIn(
+            @org.springframework.data.repository.query.Param("statuses") Collection<ParserExecutionStatus> statuses);
+
     /** Historique d'un parser, du plus récent au plus ancien. */
     Page<ParserExecution> findByParserIdOrderByStartedAtDesc(long parserId, Pageable pageable);
 

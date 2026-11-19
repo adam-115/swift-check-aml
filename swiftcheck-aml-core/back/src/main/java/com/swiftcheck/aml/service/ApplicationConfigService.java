@@ -36,6 +36,8 @@ public class ApplicationConfigService {
         config.setYenteDataFolder(changes.getYenteDataFolder());
         config.setYenteContainerDataPath(changes.getYenteContainerDataPath());
         config.setYenteManifestPath(changes.getYenteManifestPath());
+        config.setYenteIndexUrl(changes.getYenteIndexUrl());
+        config.setYenteIndexName(changes.getYenteIndexName());
         config.setArchiveFolder(changes.getArchiveFolder());
         config.setWorkFolder(changes.getWorkFolder());
         return repository.save(config);

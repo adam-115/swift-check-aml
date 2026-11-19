@@ -1,0 +1,158 @@
+{
+ "took": 808,
+ "timed_out": false,
+ "_shards": {
+  "total": 1,
+  "successful": 1,
+  "skipped": 0,
+  "failed": 0
+ },
+ "hits": {
+  "total": {
+   "value": 10000,
+   "relation": "gte"
+  },
+  "max_score": null,
+  "hits": []
+ },
+ "aggregations": {
+  "d": {
+   "doc_count_error_upper_bound": 0,
+   "sum_other_doc_count": 0,
+   "buckets": [
+    {
+     "key": "fr_pep_senate",
+     "doc_count": 828,
+     "last": {
+      "hits": {
+       "total": {
+        "value": 828,
+        "relation": "eq"
+       },
+       "max_score": null,
+       "hits": [
+        {
+         "_index": "yente-audit-log-1",
+         "_id": "yente-entities-fr_pep_senate-016a040902-20261118134343-index_alias_rollover_complete-1795010047255",
+         "_score": null,
+         "_source": {
+          "alias_index": "yente-entities",
+          "index": "yente-entities-fr_pep_senate-016a040902-20261118134343",
+          "dataset": "fr_pep_senate",
+          "dataset_version": "20261118134343",
+          "yente_version": "5.5.0",
+          "event_type": "index_alias_rollover_complete",
+          "message": "Alias yente-entities prefixed yente-entities-fr_pep_senate now points to yente-entities-fr_pep_senate-016a040902-20261118134343",
+          "timestamp": 1795010047255
+         },
+         "sort": [
+          1795010047255
+         ]
+        }
+       ]
+      }
+     }
+    },
+    {
+     "key": "nl_pep_parliament_history",
+     "doc_count": 225,
+     "last": {
+      "hits": {
+       "total": {
+        "value": 225,
+        "relation": "eq"
+       },
+       "max_score": null,
+       "hits": [
+        {
+         "_index": "yente-audit-log-1",
+         "_id": "yente-entities-nl_pep_parliament_history-016a040902-20261105231937-index_alias_rollover_complete-1795000591565",
+         "_score": null,
+         "_source": {
+          "alias_index": "yente-entities",
+          "index": "yente-entities-nl_pep_parliament_history-016a040902-20261105231937",
+          "dataset": "nl_pep_parliament_history",
+          "dataset_version": "20261105231937",
+          "yente_version": "5.5.0",
+          "event_type": "index_alias_rollover_complete",
+          "message": "Alias yente-entities prefixed yente-entities-nl_pep_parliament_history now points to yente-entities-nl_pep_parliament_history-016a040902-20261105231937",
+          "timestamp": 1795000591565
+         },
+         "sort": [
+          1795000591565
+         ]
+        }
+       ]
+      }
+     }
+    },
+    {
+     "key": "nl_pep_parliament",
+     "doc_count": 219,
+     "last": {
+      "hits": {
+       "total": {
+        "value": 219,
+        "relation": "eq"
+       },
+       "max_score": null,
+       "hits": [
+        {
+         "_index": "yente-audit-log-1",
+         "_id": "yente-entities-nl_pep_parliament-016a040902-20261105233755-index_alias_rollover_complete-1795000589978",
+         "_score": null,
+         "_source": {
+          "alias_index": "yente-entities",
+          "index": "yente-entities-nl_pep_parliament-016a040902-20261105233755",
+          "dataset": "nl_pep_parliament",
+          "dataset_version": "20261105233755",
+          "yente_version": "5.5.0",
+          "event_type": "index_alias_rollover_complete",
+          "message": "Alias yente-entities prefixed yente-entities-nl_pep_parliament now points to yente-entities-nl_pep_parliament-016a040902-20261105233755",
+          "timestamp": 1795000589978
+         },
+         "sort": [
+          1795000589978
+         ]
+        }
+       ]
+      }
+     }
+    },
+    {
+     "key": "lu_chamber",
+     "doc_count": 58,
+     "last": {
+      "hits": {
+       "total": {
+        "value": 58,
+        "relation": "eq"
+       },
+       "max_score": null,
+       "hits": [
+        {
+         "_index": "yente-audit-log-1",
+         "_id": "yente-entities-lu_chamber-016a040902-20261017115647-reindex_failed-1792347331270",
+         "_score": null,
+         "_source": {
+          "alias_index": "yente-entities",
+          "index": "yente-entities-lu_chamber-016a040902-20261017115647",
+          "dataset": "lu_chamber",
+          "dataset_version": "20261017115647",
+          "yente_version": "5.5.0",
+          "event_type": "reindex_failed",
+          "message": "Failed to index entities to yente-entities-lu_chamber-016a040902-20261017115647: File not found: /data/lu_chamber/lu_chamber.ndjson",
+          "timestamp": 1792347331270
+         },
+         "sort": [
+          1792347331270
+         ]
+        }
+       ]
+      }
+     }
+    }
+   ]
+  }
+ }
+}

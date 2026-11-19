@@ -9,12 +9,6 @@
         </p>
       </div>
       <div class="flex flex-wrap items-center gap-3">
-        <button type="button" (click)="reindexYente()" [disabled]="isReindexing"
-                title="Yente relit le manifest et réindexe les listes ; attendez la fin avant de tester"
-                class="inline-flex items-center gap-2 rounded-xl bg-sky-500/20 px-3.5 py-2 text-sm font-semibold text-white hover:bg-sky-500/30 disabled:opacity-50">
-          <svg class="w-4 h-4" [class.animate-spin]="isReindexing" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" /></svg>
-          {{ isReindexing ? 'Réindexation…' : 'Réindexer Yente' }}
-        </button>
         <a routerLink="/parsers" class="inline-flex items-center justify-center rounded-xl bg-white/10 px-3.5 py-2 text-sm font-semibold text-white hover:bg-white/20">
           ← Parsers (bouton « Tester »)
         </a>
@@ -22,10 +16,6 @@
     </div>
 
     <div class="p-4 sm:p-6 bg-slate-50 min-h-[400px]">
-      <div *ngIf="reindexMessage" class="bg-sky-50 border border-sky-200 text-sky-900 p-3 rounded-xl text-sm mb-4 flex items-start gap-3">
-        <span class="flex-1">{{ reindexMessage }}</span>
-        <button type="button" (click)="reindexMessage = ''" class="text-sky-500 hover:text-sky-700" title="Fermer">✕</button>
-      </div>
       <div *ngIf="errorMessage" class="bg-rose-50 border border-rose-200 text-rose-800 p-3 rounded-xl text-sm mb-4">{{ errorMessage }}</div>
       <div *ngIf="isLoading" class="text-center py-16 text-slate-500 text-sm">Chargement…</div>
 

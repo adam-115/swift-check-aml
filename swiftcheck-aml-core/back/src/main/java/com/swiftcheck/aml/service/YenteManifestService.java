@@ -14,9 +14,12 @@ import java.nio.file.attribute.FileTime;
 import java.time.Duration;
 import java.time.Instant;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.regex.Pattern;
 
 import org.slf4j.Logger;
@@ -102,6 +105,29 @@ public class YenteManifestService {
         }
     }
 
+    /** Nom de dataset acceptable dans une URL : minuscules, chiffres, « _ » et « - » seulement. */
+    public static boolean isValidDatasetName(String datasetName) {
+        return datasetName != null && VALID_DATASET_NAME.matcher(datasetName).matches();
+    }
+
+    /**
+     * Datasets déclarés dans le manifest, sans les collections. {@code synchronized} : jamais lu pendant une écriture.
+     *
+     * @throws IOException manifest introuvable ou illisible (l'écran Yente l'affiche au lieu de tout marquer absent)
+     */
+    public synchronized Set<String> datasetNames(ApplicationConfigEntity config) throws IOException {
+        if (config.getYenteManifestPath() == null || !Files.isRegularFile(Path.of(config.getYenteManifestPath()))) {
+            throw new IOException("Manifest introuvable : " + config.getYenteManifestPath());
+        }
+        Set<String> names = new LinkedHashSet<>();
+        for (Map<String, Object> dataset : datasets(read(config))) {
+            if (dataset.get("children") == null && dataset.get("name") != null) {
+                names.add(String.valueOf(dataset.get("name")));
+            }
+        }
+        return names;
+    }
+
     /**
      * « Réindexer ce dataset » : met la date de modification du fichier publié à maintenant. Yente y voit une
      * nouvelle version et ne reconstruit que cet index à son prochain passage ({@code YENTE_CRONTAB}).
@@ -112,7 +138,7 @@ public class YenteManifestService {
      */
     public synchronized void reindexDataset(String datasetName, ApplicationConfigEntity config) {
         // Le nom vient de l'URL : il ne doit désigner aucun autre fichier que <dossier>/<nom>/<nom>.ndjson
-        if (datasetName == null || !VALID_DATASET_NAME.matcher(datasetName).matches()) {
+        if (!isValidDatasetName(datasetName)) {
             throw new IllegalStateException("Nom de dataset invalide : « " + datasetName + " ».");
         }
         Path file = Path.of(config.getYenteDataFolder(), datasetName, datasetName + ".ndjson");
@@ -120,9 +146,14 @@ public class YenteManifestService {
             throw new IllegalStateException("Aucun fichier publié pour " + datasetName + " : lancez d'abord le parser.");
         }
         try {
-            boolean inManifest = datasets(read(config)).stream().anyMatch(d -> datasetName.equals(d.get("name")));
+            Map<String, Object> manifest = read(config);
+            List<Map<String, Object>> datasets = datasets(manifest);
+            boolean inManifest = datasets.stream().anyMatch(d -> datasetName.equals(d.get("name")));
             if (!inManifest) {
                 throw new IllegalStateException(datasetName + " n'est pas dans le manifest de Yente (parser désactivé ?).");
+            }
+            if (sortDatasets(datasets)) {
+                write(manifest, config);   // manifest écrit avant ce correctif : remis en ordre (voir sortDatasets)
             }
             touch(file);
         } catch (IOException e) {
@@ -211,12 +242,38 @@ public class YenteManifestService {
         return manifest == null ? new LinkedHashMap<>() : manifest;
     }
 
+    /** Écrit le manifest, datasets remis en ordre ({@link #sortDatasets}). */
     private void write(Map<String, Object> manifest, ApplicationConfigEntity config) throws IOException {
+        sortDatasets(datasets(manifest));
         Path file = Path.of(config.getYenteManifestPath());
         if (file.getParent() != null) {
             Files.createDirectories(file.getParent());
         }
         yaml.writeValue(file.toFile(), manifest);
+    }
+
+    /**
+     * Collections (entrées avec {@code children}) en tête, dans leur ordre, puis datasets par ordre alphabétique.
+     * Ce n'est pas cosmétique : Yente 5.5 réindexe dans l'ordre du manifest et, pour chaque dataset réindexé, retire
+     * de l'alias tous les index {@code yente-entities-<dataset>*} (sans tiret avant l'étoile). Réindexer
+     * {@code nl_pep_parliament} retire donc aussi {@code nl_pep_parliament_history} : s'il a été traité avant, il
+     * reste hors de l'alias et Yente le supprime comme orphelin en fin de passage. En ordre alphabétique, un nom
+     * passe avant ses prolongements, qui sont alors réindexés dans le même passage.
+     *
+     * @return vrai si l'ordre a changé
+     */
+    private static boolean sortDatasets(List<Map<String, Object>> datasets) {
+        List<Map<String, Object>> sorted = new ArrayList<>(datasets.stream().filter(d -> d.get("children") != null).toList());
+        datasets.stream()
+                .filter(d -> d.get("children") == null)
+                .sorted(Comparator.comparing(d -> String.valueOf(d.get("name"))))
+                .forEach(sorted::add);
+        if (sorted.equals(datasets)) {
+            return false;
+        }
+        datasets.clear();
+        datasets.addAll(sorted);
+        return true;
     }
 
     /** Liste {@code datasets} du manifest, créée si absente. */

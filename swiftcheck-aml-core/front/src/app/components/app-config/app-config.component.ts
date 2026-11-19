@@ -31,6 +31,8 @@ export class AppConfigComponent implements OnInit {
     { name: 'yenteDataFolder', label: 'Dossier de données de Yente (sur ce serveur)', help: 'Les listes publiées y sont écrites : <dossier>/<dataset>/<dataset>.ndjson.', placeholder: 'D:/projects/swiftcheck-aml/yente/data', required: true },
     { name: 'yenteContainerDataPath', label: 'Même dossier vu depuis le conteneur Yente', help: 'Utilisé pour écrire les chemins dans le manifest (volume ./data:/data).', placeholder: '/data', required: true },
     { name: 'yenteManifestPath', label: 'Fichier manifest.yml', help: 'Liste des datasets indexés par Yente ; mis à jour à chaque publication.', placeholder: 'D:/projects/swiftcheck-aml/yente/manifest.yml', required: true },
+    { name: 'yenteIndexUrl', label: 'URL d\'Elasticsearch (Yente)', help: 'Index de Yente, lu par l\'écran Yente (état et avancement de l\'indexation).', placeholder: 'http://localhost:9200', required: true },
+    { name: 'yenteIndexName', label: 'Nom d\'index de Yente', help: 'Valeur de YENTE_INDEX_NAME (yente par défaut).', placeholder: 'yente', required: true },
   ];
 
   readonly folderFields: ConfigField[] = [

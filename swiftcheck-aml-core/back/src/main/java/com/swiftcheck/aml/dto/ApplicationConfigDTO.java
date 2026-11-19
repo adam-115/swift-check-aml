@@ -12,6 +12,8 @@ public class ApplicationConfigDTO {
     private String yenteDataFolder;
     private String yenteContainerDataPath;
     private String yenteManifestPath;
+    private String yenteIndexUrl;
+    private String yenteIndexName;
     private String archiveFolder;
     private String workFolder;
 
@@ -22,6 +24,8 @@ public class ApplicationConfigDTO {
         dto.setYenteDataFolder(e.getYenteDataFolder());
         dto.setYenteContainerDataPath(e.getYenteContainerDataPath());
         dto.setYenteManifestPath(e.getYenteManifestPath());
+        dto.setYenteIndexUrl(e.getYenteIndexUrl());
+        dto.setYenteIndexName(e.getYenteIndexName());
         dto.setArchiveFolder(e.getArchiveFolder());
         dto.setWorkFolder(e.getWorkFolder());
         return dto;
@@ -34,6 +38,8 @@ public class ApplicationConfigDTO {
         e.setYenteDataFolder(yenteDataFolder);
         e.setYenteContainerDataPath(yenteContainerDataPath);
         e.setYenteManifestPath(yenteManifestPath);
+        e.setYenteIndexUrl(yenteIndexUrl);
+        e.setYenteIndexName(yenteIndexName);
         e.setArchiveFolder(archiveFolder);
         e.setWorkFolder(workFolder);
         return e;
