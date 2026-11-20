@@ -25,5 +25,9 @@
     <include file="db/changelog/changes/156-register-de-pep-eu-institutions-defence-attaches.xml"/>
     <include file="db/changelog/changes/157-yente-monitoring-config.xml"/>
     <include file="db/changelog/changes/158-register-sanction-plugins.xml"/>
+    <include file="db/changelog/changes/159-register-de-pep-dip.xml"/>
+    <include file="db/changelog/changes/160-de-pep-bundesbank-hubs.xml"/>
+    <include file="db/changelog/changes/161-de-pep-defence-vita-urls.xml"/>
+    <include file="db/changelog/changes/162-de-pep-lobbyregister-pep-correlation.xml"/>
 
 </databaseChangeLog>

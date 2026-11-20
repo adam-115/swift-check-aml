@@ -14,6 +14,11 @@ import java.security.MessageDigest;
 import java.text.Normalizer;
 import java.time.Duration;
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
+import java.util.Set;
+
+import com.swiftcheck.aml.plugins.depep.vita.VitaDocuments.Vita;
+import com.swiftcheck.aml.plugins.depep.vita.VitaSupport;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
@@ -239,6 +244,10 @@ public class DePepDefenceSupportParser implements Iparser {
             }
         }
 
+        // Pages « Vita » (HTML ou PDF) liées depuis une page d'unité : lues avec les CV donnés en paramètre. Une page
+        // qui présente son commandant par un lien « Vita … » au lieu d'un bloc d'adresse (Führungsakademie) est ainsi
+        // couverte, et un changement de commandant est suivi sans modifier les paramètres.
+        Set<String> discoveredVitas = new LinkedHashSet<>();
         // Traitement par lots avec politesse HTTP
         int batchSize = 10;
         int fileIndex = 0;
@@ -269,13 +278,15 @@ public class DePepDefenceSupportParser implements Iparser {
                     }
 
                     List<CommanderProfile> list = parseCommandersFromHtml(html, url, null);
-                    if (list.isEmpty()) {
+                    List<String> vitaLinks = vitaLinks(html, url);
+                    discoveredVitas.addAll(vitaLinks);
+                    if (list.isEmpty() && vitaLinks.isEmpty()) {
                         log.debug("Aucun bloc de commandement détecté sur {}", url);
                         warnings.add("Aucun profil de commandement détecté sur: " + url);
                     }
                     // Enrich profiles with PDF SHA-256
                     for (CommanderProfile p : list) {
-                        CommanderProfile enriched = enrichPdfSha256(client, p);
+                        CommanderProfile enriched = enrichPdfSha256(client, p, ctx.rawDir(), brokenSources, warnings);
                         profiles.add(enriched);
                     }
                 } catch (Exception e) {
@@ -285,47 +296,103 @@ public class DePepDefenceSupportParser implements Iparser {
             }
         }
 
+        // CV PDF donnés en paramètre (Story 3) : personnes qu'aucune page HTML ne présente. Officiers généraux,
+        // amiraux et chefs civils d'un Bundesamt publiés ; officiers supérieurs comptés seulement (includeSeniorOfficers).
+        List<String> vitaUrls = new ArrayList<>(VitaSupport.parseList(params.get("vitaUrls")));
+        for (String d : discoveredVitas) if (!vitaUrls.contains(d)) vitaUrls.add(d);
+        if (!vitaUrls.isEmpty()) {
+            Set<String> knownUrls = new LinkedHashSet<>();
+            Set<String> knownNames = new LinkedHashSet<>();
+            for (CommanderProfile cp : profiles) {
+                if (cp.pdfUrl() != null) knownUrls.add(cp.pdfUrl());
+                knownNames.add(VitaSupport.key(cp.name()));
+            }
+            VitaSupport.Outcome out = VitaSupport.readList(client, vitaUrls, knownUrls, knownNames, USER_AGENT,
+                    ctx.rawDir(), "true".equalsIgnoreCase(params.get("includeSeniorOfficers")));
+            for (Vita v : out.people()) {
+                profiles.add(fromVita(v));
+            }
+            route(out.warnings(), brokenSources, warnings);
+            log.info("CV PDF (vitaUrls) : {} fiches ajoutées, {} officiers supérieurs non publiés, {} documents sans personne",
+                    out.people().size(), out.seniorOfficersSkipped(), out.withoutPerson());
+        }
+
         return new CrawlResult(profiles, brokenSources, warnings);
     }
 
-    private static CommanderProfile enrichPdfSha256(HttpClient client, CommanderProfile profile) {
-        if (profile.pdfUrl() == null || profile.pdfSha256() != null) {
-            return profile;
+    /** Liens « Vita » d'une page : pages HTML {@code …/vita-…} et CV PDF {@code …vita…-data.pdf}, en adresse absolue. */
+    static List<String> vitaLinks(String html, String pageUrl) {
+        List<String> links = new ArrayList<>();
+        Matcher m = VITA_LINK.matcher(html);
+        while (m.find()) {
+            String href = m.group(1).replace("&amp;", "&");
+            String abs = href.startsWith("http") ? href : "https://www.bundeswehr.de" + (href.startsWith("/") ? "" : "/") + href;
+            if (!links.contains(abs)) links.add(abs);
         }
-        try {
-            HttpRequest req = HttpRequest.newBuilder()
-                    .uri(URI.create(profile.pdfUrl()))
-                    .header("User-Agent", USER_AGENT)
-                    .header("Accept", "application/pdf,*/*")
-                    .timeout(Duration.ofSeconds(15))
-                    .GET()
-                    .build();
+        return links;
+    }
 
-            HttpResponse<byte[]> res = client.send(req, HttpResponse.BodyHandlers.ofByteArray());
-            if (res.statusCode() == 200 && res.body() != null && res.body().length > 0) {
-                String sha256 = computeSha256(res.body());
-                String notes = profile.notes() + "\nEmpreinte SHA-256 CV: " + sha256;
-                return new CommanderProfile(
-                        profile.slug(),
-                        profile.name(),
-                        profile.rank(),
-                        profile.title(),
-                        profile.firstName(),
-                        profile.lastName(),
-                        profile.positionName(),
-                        profile.startDate(),
-                        profile.status(),
-                        profile.sourceUrl(),
-                        profile.photoUrl(),
-                        profile.pdfUrl(),
-                        sha256,
-                        notes
-                );
-            }
-        } catch (Exception e) {
-            log.debug("Impossible de télécharger le PDF pour calculer le SHA-256 : {}", profile.pdfUrl());
+    private static final Pattern VITA_LINK = Pattern.compile(
+            "href=\"((?:https://www\\.bundeswehr\\.de)?/[^\"#?]*/(?:vita|lebenslauf)-[^\"#?/]*?(?:-\\d{5,}|-data\\.pdf))\"",
+            Pattern.CASE_INSENSITIVE);
+
+    /**
+     * CV PDF (Story 3, règle UAT « Alfons Mais ») : le contenu du document fait foi pour le nom et le grade, pas le
+     * nom du fichier ; la fiche reçoit la preuve (URL, page, extrait, SHA-256 du PDF). Le PDF est archivé dans rawDir.
+     */
+    private static CommanderProfile enrichPdfSha256(HttpClient client, CommanderProfile p, Path rawDir,
+                                                    List<String> brokenSources, List<String> warnings) {
+        if (p.pdfUrl() == null || p.pdfSha256() != null) {
+            return p;
         }
-        return profile;
+        List<String> notes = new ArrayList<>();
+        Vita v = VitaSupport.fetch(client, p.pdfUrl(), USER_AGENT, rawDir, notes);
+        route(notes, brokenSources, warnings);
+        return withVita(p, v);
+    }
+
+    /** Fusionne une fiche lue sur la page HTML et le CV PDF lu. */
+    static CommanderProfile withVita(CommanderProfile p, Vita v) {
+        if (v.sha256() == null) {
+            return p;
+        }
+        String notes = (p.notes() == null ? "" : p.notes() + "\n") + VitaSupport.evidence(v);
+        if (!v.hasPerson()) {
+            notes += "\nCV sans nom lisible (" + v.kind() + ")";
+            return new CommanderProfile(p.slug(), p.name(), p.rank(), p.title(), p.firstName(), p.lastName(),
+                    p.positionName(), p.startDate(), p.status(), p.sourceUrl(), p.photoUrl(), p.pdfUrl(), v.sha256(), notes);
+        }
+        boolean sameName = VitaSupport.key(v.name()).equals(VitaSupport.key(p.name()));
+        if (!sameName) {
+            notes += "\nNom lu dans le CV ; la page indiquait : " + p.name();
+        }
+        String[] fl = VitaSupport.firstLast(v.name());
+        String rank = v.rank() != null && !VitaSupport.isCivilHead(v.rank()) ? v.rank() : p.rank();
+        String title = v.title() == null ? p.title() : (rank == null ? v.title() : rank + ", " + v.title());
+        return new CommanderProfile(sameName ? p.slug() : slugify(v.name()), v.name(), rank, title, fl[0], fl[1],
+                p.positionName() != null ? p.positionName() : v.function(), p.startDate(), p.status(), p.sourceUrl(),
+                p.photoUrl(), p.pdfUrl(), v.sha256(), notes);
+    }
+
+    /** Fiche créée à partir d'un CV seul (paramètre vitaUrls). */
+    static CommanderProfile fromVita(Vita v) {
+        String[] fl = VitaSupport.firstLast(v.name());
+        String rank = v.rank();
+        String position = v.function() != null ? v.function() : (rank != null ? rank : "Leitung") + " (Unterstützungsbereich)";
+        String title = v.title() == null ? rank : (rank == null ? v.title() : rank + ", " + v.title());
+        String notes = "Position: " + position + " (GwG § 1 Abs. 12 S. 2 Nr. 1 - Class F.1 - Unterstützungsbereich)"
+                + (rank == null ? "" : "\nGrade: " + rank)
+                + (v.birthDate() == null ? "" : "\nGeburtsdatum: " + v.birthDate())
+                + "\nCV-PDF: " + v.url() + "\n" + VitaSupport.evidence(v);
+        return new CommanderProfile(slugify(v.name()), v.name(), rank, title, fl[0], fl[1], position, null, "current",
+                v.url(), null, v.url(), v.sha256(), notes);
+    }
+
+    /** Range les alertes du lecteur de CV : SOURCE_BROKEN avec les sources, le reste avec les avertissements. */
+    private static void route(List<String> notes, List<String> brokenSources, List<String> warnings) {
+        for (String n : notes) {
+            if (n.startsWith("SOURCE_BROKEN")) brokenSources.add(n); else warnings.add(n);
+        }
     }
 
     public static List<CommanderProfile> parseCommandersFromHtml(String html, String pageUrl, Path samplePdfForTest) {

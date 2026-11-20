@@ -181,6 +181,43 @@ class AbgeordnetenwatchLiveTest {
                 .isInstanceOf(IllegalStateException.class).hasMessageContaining("Aucun mandat");
     }
 
+    /** Story 1 (AC3) : chaque profil issu d'abgeordnetenwatch.de porte source_type = unofficial_aggregator. */
+    @Test
+    void marksEveryProfileAsComingFromAnUnofficialAggregator(@TempDir Path raw) throws Exception {
+        DePepLandtageParser.LiveReport report = DePepLandtageParser.live(
+                Map.of("birthYears", "true", "maxPoliticianCalls", "3"), raw, fake(), TODAY, 12);
+        FtmDatasetBuilder dataset = new FtmDatasetBuilder(DePepLandtageParser.ID_PREFIX, DePepLandtageParser.TOPIC);
+        DePepLandtageParser.convertMandates(report.mandates(), report.lands(), report.birthYears(), TODAY, 12, dataset);
+
+        List<FtmEntity> persons = dataset.entities().stream().filter(e -> "Person".equals(e.getSchema())).toList();
+        assertThat(persons).isNotEmpty();
+        assertThat(persons).allSatisfy(p -> {
+            assertThat(p.getValues("notes")).anyMatch(n -> n.startsWith("source_type: unofficial_aggregator"));
+            assertThat(p.getValues("publisher")).containsExactly("abgeordnetenwatch.de");
+        });
+        assertThat(dataset.toConversionResult().rejectedCount()).isZero();
+        assertThat(dataset.toConversionResult().conflictCount()).isZero();
+    }
+
+    /**
+     * Contrôle sur l'API complète (16 Landtage, sans les années de naissance), lancé à la main :
+     * {@code mvn test -Daw.live=<dossier vide pour les réponses>}.
+     */
+    @Test
+    @org.junit.jupiter.api.condition.EnabledIfSystemProperty(named = "aw.live", matches = ".+")
+    void fullApiHasNoRejectedValueAndNoConflict() throws Exception {
+        Path raw = Files.createDirectories(Path.of(System.getProperty("aw.live")));
+        LocalDate today = LocalDate.now();
+        DePepLandtageParser.LiveReport report = DePepLandtageParser.live(Map.of("birthYears", "false",
+                "retryPauseMs", "60000"), raw, AbgeordnetenwatchApi.http(DePepLandtageParser.USER_AGENT, 1000, 5000), today, 12);
+        FtmDatasetBuilder dataset = new FtmDatasetBuilder(DePepLandtageParser.ID_PREFIX, DePepLandtageParser.TOPIC);
+        DePepLandtageParser.convertMandates(report.mandates(), report.lands(), report.birthYears(), today, 12, dataset);
+        System.out.println(report.message());
+        System.out.println(dataset.toConversionResult().message());
+        assertThat(dataset.toConversionResult().rejectedCount()).isZero();
+        assertThat(dataset.toConversionResult().conflictCount()).isZero();
+    }
+
     @Test
     void appliesTheRetentionWindowAndWritesDatesAndBirthYear() throws Exception {
         LocalDate periodEnd = LocalDate.of(2026, 5, 18);

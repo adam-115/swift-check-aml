@@ -104,39 +104,8 @@
         <module>swiftcheck-aml-plugins/pep/belgium/swiftcheck-aml-be-pep-political-parties</module>
         <module>swiftcheck-aml-plugins/pep/belgium/swiftcheck-aml-be-pep-local-executives</module>
         <module>swiftcheck-aml-plugins/pep/belgium/swiftcheck-aml-be-pep-associated-entities</module>
-        <!-- PEP Allemagne - Lot 1 : open data et reprises -->
-        <module>swiftcheck-aml-plugins/pep/germany/swiftcheck-aml-de-pep-bundestag</module>
-        <module>swiftcheck-aml-plugins/pep/germany/swiftcheck-aml-de-pep-bundesrat</module>
-        <module>swiftcheck-aml-plugins/pep/germany/swiftcheck-aml-de-pep-land-governments</module>
-        <module>swiftcheck-aml-plugins/pep/germany/swiftcheck-aml-de-pep-federal-government</module>
-        <module>swiftcheck-aml-plugins/pep/germany/swiftcheck-aml-de-pep-europarl</module>
-        <module>swiftcheck-aml-plugins/pep/germany/swiftcheck-aml-de-pep-eu-commission</module>
-        <module>swiftcheck-aml-plugins/pep/germany/swiftcheck-aml-de-pep-rca</module>
-        <module>swiftcheck-aml-plugins/pep/germany/swiftcheck-aml-de-pep-president</module>
-        <!-- PEP Allemagne - Lot 2 : institutions -->
-        <module>swiftcheck-aml-plugins/pep/germany/swiftcheck-aml-de-pep-bundesbank</module>
-        <module>swiftcheck-aml-plugins/pep/germany/swiftcheck-aml-de-pep-bafin</module>
-        <module>swiftcheck-aml-plugins/pep/germany/swiftcheck-aml-de-pep-federal-secretaries</module>
-        <module>swiftcheck-aml-plugins/pep/germany/swiftcheck-aml-de-pep-audit-courts</module>
-        <module>swiftcheck-aml-plugins/pep/germany/swiftcheck-aml-de-pep-federal-courts</module>
-        <module>swiftcheck-aml-plugins/pep/germany/swiftcheck-aml-de-pep-land-constitutional-courts</module>
-        <module>swiftcheck-aml-plugins/pep/germany/swiftcheck-aml-de-pep-parties</module>
-        <module>swiftcheck-aml-plugins/pep/germany/swiftcheck-aml-de-pep-diplomats</module>
-        <module>swiftcheck-aml-plugins/pep/germany/swiftcheck-aml-de-pep-international-orgs</module>
-        <!-- PEP Allemagne - Lot 3 : volumineux et validation -->
-        <module>swiftcheck-aml-plugins/pep/germany/swiftcheck-aml-de-pep-state-enterprises</module>
-        <module>swiftcheck-aml-plugins/pep/germany/swiftcheck-aml-de-pep-landtage</module>
-        <module>swiftcheck-aml-plugins/pep/germany/swiftcheck-aml-de-pep-local-executives</module>
-        <module>swiftcheck-aml-plugins/pep/germany/swiftcheck-aml-de-pep-lobbyregister</module>
-        <module>swiftcheck-aml-plugins/pep/germany/swiftcheck-aml-de-pep-defence</module>
-        <module>swiftcheck-aml-plugins/pep/germany/swiftcheck-aml-de-pep-defence-secretaries</module>
-        <module>swiftcheck-aml-plugins/pep/germany/swiftcheck-aml-de-pep-defence-heer</module>
-        <module>swiftcheck-aml-plugins/pep/germany/swiftcheck-aml-de-pep-defence-luftwaffe</module>
-        <module>swiftcheck-aml-plugins/pep/germany/swiftcheck-aml-de-pep-defence-marine</module>
-        <module>swiftcheck-aml-plugins/pep/germany/swiftcheck-aml-de-pep-defence-cir</module>
-        <module>swiftcheck-aml-plugins/pep/germany/swiftcheck-aml-de-pep-defence-support</module>
-        <module>swiftcheck-aml-plugins/pep/germany/swiftcheck-aml-de-pep-eu-institutions</module>
-        <module>swiftcheck-aml-plugins/pep/germany/swiftcheck-aml-de-pep-defence-attaches</module>
+        <!-- PEP Allemagne : tous les plugins du dossier (agrégateur pep/germany/pom.xml) -->
+        <module>swiftcheck-aml-plugins/pep/germany</module>
         <module>swiftcheck-aml-plugins/pep/portugal/swiftcheck-aml-pt-pep-europarl</module>
         <module>swiftcheck-aml-plugins/pep/portugal/swiftcheck-aml-pt-pep-parliament</module>
         <module>swiftcheck-aml-plugins/pep/portugal/swiftcheck-aml-pt-pep-government</module>

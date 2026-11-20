@@ -107,6 +107,112 @@ class DePepBundesratParserTest {
         assertEquals("2026-09-30", departures.get("Eric Beißwenger"));
     }
 
+    /** Extrait de praesidium/aktuell/aktuell.html (structure du site au 19/11/2026). */
+    private static final String PRAESIDIUM = """
+            <h2>Bundesratspräsident</h2> <ul class="members-list"> <li class=""> <div class="row vcard">
+            <div class="members-details"> <a href="https://www.bundesrat.de/SharedDocs/personen/DE/laender/nw/wuest-hendrik.html"><img src="https://www.bundesrat.de/x/wuest.jpg" title="Foto: Ministerpräsident Hendrik Wüst © Land NRW" class="photo"/></a>
+            <h2> <a href="https://www.bundesrat.de/SharedDocs/personen/DE/laender/nw/wuest-hendrik.html">Hendrik Wüst&nbsp;&#x007C;&nbsp;<span class="organization-name">CDU</span> </a> </h2> <p class="state">Nordrhein-Westfalen</p></div>
+            <div class="members-text"> <h3>Ministerpräsident des Landes Nordrhein-Westfalen</h3> <h3>Präsident des Bundesrates</h3></div> </div> </li> </ul>
+            <h2>1. Vizepräsident</h2> <ul class="members-list"> <li class=""> <div class="row vcard">
+            <div class="members-details"> <h2> <a href="https://www.bundesrat.de/SharedDocs/personen/DE/laender/hb/bovenschulte-andreas.html">Dr. Andreas Bovenschulte&nbsp;&#x007C;&nbsp;<span class="organization-name">SPD</span> </a> </h2> <p class="state">Freie Hansestadt Bremen</p></div>
+            <div class="members-text"> <h3>Präsident des Senats der Freien Hansestadt Bremen</h3> <h3>Bürgermeister</h3> <h3>Erster Vizepräsident des Bundesrates</h3></div> </div> </li> </ul>
+            """;
+
+    /** Extrait de staendiger-beirat.html. */
+    private static final String BEIRAT = """
+            <div class="rack-teaser"> <h2> </h2> <a href="https://www.bundesrat.de/SharedDocs/personen/DE/laender/by/gernbauer-karolina.html">
+            <span class="picture-element"><img src="x.jpg" title="Foto: Staatsrätin Karolina Gernbauer"/></span> <h3>Karolina  Gernbauer</h3> <p class="bundesland">Freistaat Bayern</p> </a> </div>
+            <div class="rack-teaser"> <h2> </h2> <a href="https://www.bundesrat.de/SharedDocs/personen/DE/laender/nw/ro%C3%9Fbach-matthias.html">
+            <h3>Dr. Matthias Roßbach</h3> <p class="bundesland">Nordrhein-Westfalen</p> </a> </div>
+            """;
+
+    @Test
+    void praesidiumKeepsAllFunctionsAndSeparatesTitles() {
+        List<Member> list = DePepBundesratParser.extractMembers(PRAESIDIUM);
+        assertEquals(2, list.size());
+        assertEquals(List.of("Ministerpräsident des Landes Nordrhein-Westfalen", "Präsident des Bundesrates"),
+                list.get(0).functions());
+        Member bovenschulte = list.get(1);
+        assertEquals("Andreas Bovenschulte", bovenschulte.name());
+        assertEquals("Dr.", bovenschulte.title());
+        assertTrue(DePepBundesratParser.isMinisterPresident(bovenschulte.functions()));
+    }
+
+    @Test
+    void beiratMembersAreNotBundesratMembers() {
+        List<Member> list = DePepBundesratParser.extractBeirat(BEIRAT, "https://www.bundesrat.de/DE/bundesrat/staendiger-beirat/staendiger-beirat.html");
+        assertEquals(2, list.size());
+        assertEquals("Karolina Gernbauer", list.get(0).name());
+        assertEquals("by", list.get(0).landCode());
+        assertEquals("Freistaat Bayern", list.get(0).state());
+        assertTrue(list.get(0).roles().contains(DePepBundesratParser.Role.BEIRAT));
+        assertTrue(!list.get(0).roles().contains(DePepBundesratParser.Role.MEMBER));
+        assertEquals("Matthias Roßbach", list.get(1).name());
+        assertEquals("Dr.", list.get(1).title());
+    }
+
+    @Test
+    void detailHeaderWithoutPartyAndSeveralFunctions() {
+        String html = """
+                <nav><h2>Suche</h2></nav>
+                <div class="text-box"> <h1>Karolina Gernbauer</h1> <h2>Staatsrätin</h2> <h2>Bevollmächtigte des Freistaates Bayern beim Bund</h2> </div>
+                """;
+        Member m = DePepBundesratParser.parseDetailPage(
+                "https://www.bundesrat.de/SharedDocs/personen/DE/laender/by/gernbauer-karolina.html", html);
+        assertNotNull(m);
+        assertEquals("Karolina Gernbauer", m.name());
+        assertEquals(List.of("Staatsrätin", "Bevollmächtigte des Freistaates Bayern beim Bund"), m.functions());
+        assertEquals(null, m.party());
+    }
+
+    @Test
+    void titlesAndRetiredMentionNeverStayInNames() {
+        assertEquals("Prof. Dr.", DePepBundesratParser.splitTitle("Prof. Dr. Kristina Sinemus")[0]);
+        assertEquals("Kristina Sinemus", DePepBundesratParser.splitTitle("Prof. Dr. Kristina Sinemus")[1]);
+        assertEquals("Rainer Robra", DePepBundesratParser.splitTitle("Rainer Robra a. D.")[1]);
+        assertEquals("Karolina Gernbauer", DePepBundesratParser.nameFromSlug("gernbauer-karolina"));
+    }
+
+    @Test
+    void outputUsesGermanLabelsAndMarkers(@TempDir Path tempDir) throws Exception {
+        Path htmlFile = tempDir.resolve("praesidium.html");
+        Files.writeString(htmlFile, PRAESIDIUM, StandardCharsets.UTF_8);
+        Path out = tempDir.resolve("out.ndjson");
+        ParserContext ctx = new ParserContext("de_pep_bundesrat", htmlFile, tempDir, out, Map.of());
+        new DePepBundesratParser().parse(ctx);
+        List<String> lines = Files.readAllLines(out);
+        // Le fichier d'entrée est lu comme une liste de membres : les fonctions décident du Präsidium.
+        assertTrue(lines.stream().noneMatch(l -> l.contains("Membre du Bundesrat")));
+        assertTrue(lines.stream().anyMatch(l -> l.contains("\"name\":[\"Andreas Bovenschulte\"]")
+                && l.contains("\"title\":[\"Dr.\"]") && l.contains("level: FEDERAL") && l.contains("level: LAENDER")
+                && l.contains("pep_class: B2 (Mitglied des Bundesrates)") && l.contains("sha256: ")));
+        assertTrue(lines.stream().anyMatch(l -> l.contains("\"schema\":\"Position\"") && l.contains("Präsident des Bundesrates")));
+        assertTrue(lines.stream().anyMatch(l -> l.contains("pep_class: A1 (Präsident des Bundesrates)")));
+    }
+
+    /** Exécution réelle sur bundesrat.de : {@code mvn test -Dlive=true -Dtest=DePepBundesratParserTest#liveRun}. */
+    @Test
+    @org.junit.jupiter.api.condition.EnabledIfSystemProperty(named = "live", matches = "true")
+    void liveRun(@TempDir Path tempDir) throws Exception {
+        String base = "https://www.bundesrat.de/DE/bundesrat/";
+        StringBuilder urls = new StringBuilder("[\"" + base + "mitglieder/mitglieder-node.html?param3=Alle&param2=member&param1=state-1\","
+                + "\"" + base + "mitglieder/aenderungen/aenderungen-node.html\","
+                + "\"" + base + "praesidium/praesidium-node.html\","
+                + "\"" + base + "staendiger-beirat/staendiger-beirat.html\"");
+        for (String land : List.of("bw", "by", "be", "bb", "hb", "hh", "he", "mv", "ni", "nw", "rp", "sl", "sn", "st", "sh", "th")) {
+            urls.append(",\"").append(base).append("laender/").append(land).append('/').append(land).append("-node.html\"");
+        }
+        urls.append(']');
+        Path out = tempDir.resolve("out.ndjson");
+        ParserContext ctx = new ParserContext("de_pep_bundesrat", null, tempDir, out, Map.of("urls", urls.toString()));
+        ParserResult result = new DePepBundesratParser().parse(ctx);
+        System.out.println("RESULT " + result.message());
+        Files.readAllLines(out).stream().filter(l -> l.contains("\"schema\":\"Person\"")).forEach(l -> System.out.println("PERSON " + l));
+        // bundesrat.de est parfois lent : une page en échec est tolérée (AC4), pas une liste incomplète.
+        assertTrue(result.message().matches("(?s)^1[5-9]\\d membres du Bundesrat.*dont 16 chefs de gouvernement.*Ständiger Beirat : 16\\..*"),
+                result.message());
+    }
+
     @Test
     void testBrokenSourceAlertDoesNotCrash(@TempDir Path tempDir) throws Exception {
         String brokenUrl = "https://www.bundesrat.de/SharedDocs/personen/DE/laender/bw/page-inexistante-404.html";

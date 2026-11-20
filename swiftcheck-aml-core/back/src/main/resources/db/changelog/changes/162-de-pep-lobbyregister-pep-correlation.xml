@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <!--
+      Story 5, étape 1 (Lobbyregister ↔ base PEP) : pepCorrelation = true sur de_pep_lobbyregister.
+      À chaque exécution, le core écrit dans le dossier des réponses brutes l'index des PEP publiées par les autres
+      parsers PEP actifs (swiftcheck-pep-index.ndjson, archivé avec les réponses : preuve de la base utilisée) et en
+      donne le chemin au plugin. Le plugin reconnaît comme PEP une personne du registre au nom identique (ou
+      Jaro-Winkler ≥ 0,93) quand le contexte le confirme, puis applique les règles RCA 1 à 3 depuis cette PEP.
+    -->
+    <changeSet id="162-de-pep-lobbyregister-pep-correlation" author="swiftcheck" dbms="mysql">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="1">SELECT COUNT(*) FROM parser WHERE dataset_name = 'de_pep_lobbyregister'</sqlCheck>
+        </preConditions>
+        <sql><![CDATA[
+            UPDATE parser
+               SET parameters = JSON_SET(COALESCE(NULLIF(parameters, ''), '{}'), '$.pepCorrelation', 'true'),
+                   updated_at = NOW()
+             WHERE dataset_name = 'de_pep_lobbyregister';
+        ]]></sql>
+    </changeSet>
+</databaseChangeLog>

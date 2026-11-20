@@ -190,7 +190,8 @@ class IngestionServiceTest {
                 new DatasetPublisher(new YenteManifestService()),
                 new RetentionService(retained),
                 new AlertService(alerts, parsers, executions),
-                mock(PepMediaService.class));
+                mock(PepMediaService.class),
+                mock(PepIndexService.class));
     }
 
     @Test

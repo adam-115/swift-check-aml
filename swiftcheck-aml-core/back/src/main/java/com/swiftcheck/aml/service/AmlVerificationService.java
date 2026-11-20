@@ -31,6 +31,14 @@ public class AmlVerificationService {
     
     @Value("${YENTE_URL:http://localhost:8000}")
     private String YENTE_URL;
+
+    /**
+     * Score minimal d'un résultat Yente : en dessous, il n'est ni renvoyé ({@code cutoff}) ni marqué « match »
+     * ({@code threshold}). À 0,5, un seul mot commun du nom suffisait (« Malu Dreyer » → « Thérèse MALU » à 57 %,
+     * test TC-GER-023). À 0,7, une faute de frappe (0,94) ou le nom de famille seul (0,87) restent trouvés.
+     */
+    @Value("${SCREENING_MIN_SCORE:0.7}")
+    private double minScore = 0.7;
     
     private final AmlSearchHistoryService historyService;
 
@@ -96,7 +104,8 @@ public class AmlVerificationService {
             
             String datasetInput = requestDto.getDataset();
             String yentePath = "/match/default";
-            StringBuilder queryParams = new StringBuilder("?threshold=0.5&limit=10");
+            String score = String.valueOf(minScore);
+            StringBuilder queryParams = new StringBuilder("?threshold=" + score + "&cutoff=" + score + "&limit=10");
             
             if (datasetInput != null && !datasetInput.trim().isEmpty() && !datasetInput.equals("default")) {
                 String[] datasets = datasetInput.split(",");
@@ -248,7 +257,12 @@ public class AmlVerificationService {
                 || allNotesStr.contains("fatf")
                 || allNotesStr.contains("financial action task force");
         boolean isSanction = datasets.stream().anyMatch(d -> d.contains("sanctions") || d.contains("ofac") || d.contains("eu_") || d.contains("onu") || d.contains("uksl") || d.contains("dgtresor") || d.contains("seco") || d.contains("dfat") || d.contains("worldbank") || d.contains("afdb") || d.contains("idb") || d.contains("canada") || d.contains("amf") || d.contains("acpr") || d.contains("fca") || (d.contains("sec") && !d.contains("seco")) || d.contains("bis") || d.contains("disqualified") || d.contains("coh") || d.contains("bodacc") || d.contains("fnig") || d.contains("fatf")) || isWorldBank || isAfdb || isIdb || isCanada || isAmf || isAcpr || isFca || isSec || isBis || isDisqualified || isFatf;
-        boolean isRca = topics.contains("role.rca") || allNotesStr.contains("rca") || allNotesStr.contains("famille") || allNotesStr.contains("conjoint") || allNotesStr.contains("epouse") || allNotesStr.contains("epoux") || allNotesStr.contains("enfant de");
+        // Une PEP primaire (topic role.pep) n'est jamais classée RCA, même si ses notes parlent de famille ou de
+        // proches (correctif UAT, Story 5 AC4). Sinon, « rca » doit être un mot entier (pas « Marcarelli »).
+        boolean isRca = !topics.contains("role.pep")
+                && (topics.contains("role.rca") || allNotesStr.matches("(?s).*\\brca(?:\\.[12])?\\b.*")
+                        || allNotesStr.contains("famille") || allNotesStr.contains("conjoint") || allNotesStr.contains("epouse")
+                        || allNotesStr.contains("epoux") || allNotesStr.contains("enfant de"));
         boolean isSoe = topics.contains("role.soe") || allNotesStr.contains("soe") || allNotesStr.contains("entreprise publique");
         boolean isPep = topics.contains("role.pep") || datasets.contains("wikidata_pep") || datasets.contains("datagouv_pep") || isSoe;
         

@@ -1,7 +1,7 @@
 {
   "source": "Deutscher Bundestag, Lobbyregister",
   "sourceUrl": "https://www.lobbyregister.bundestag.de",
-  "resultCount": 2,
+  "resultCount": 3,
   "results": [
     {
       "registerNumber": "R001875",
@@ -18,10 +18,7 @@
       "lobbyistIdentity": {
         "identity": "ORGANIZATION",
         "name": "Siemens AG",
-        "legalForm": {
-          "code": "LF_AG",
-          "de": "Aktiengesellschaft (AG)"
-        },
+        "legalForm": { "code": "LF_AG", "de": "Aktiengesellschaft (AG)" },
         "legalRepresentatives": [
           {
             "academicDegreeBefore": "Dr.",
@@ -38,31 +35,32 @@
             "recentGovernmentFunction": {
               "ended": true,
               "endDate": "2021-12",
+              "type": { "code": "FEDERAL_ADMINISTRATION", "de": "Bundesverwaltung" },
               "federalAdministration": {
                 "supremeFederalAuthority": "Bundesministerium der Finanzen (BMF)",
                 "supremeFederalAuthorityShort": "BMF",
                 "function": "Referent"
               }
             }
+          },
+          {
+            "firstName": "Martin",
+            "lastName": "Schulz",
+            "function": "Mitglied des Vorstands",
+            "recentGovernmentFunctionPresent": true,
+            "recentGovernmentFunction": {
+              "ended": false,
+              "type": { "code": "HOUSE_OF_REPRESENTATIVES", "de": "Bundestag" },
+              "houseOfRepresentatives": {
+                "function": { "code": "MEMBER", "de": "Mitglied des Deutschen Bundestages" }
+              }
+            }
           }
         ],
         "entrustedPersons": [
-          {
-            "firstName": "Daniel",
-            "lastName": "Müller",
-            "recentGovernmentFunctionPresent": false
-          }
+          { "firstName": "Daniel", "lastName": "Müller", "recentGovernmentFunctionPresent": false }
         ]
-      },
-      "clientOrganizations": [
-        {
-          "name": "Energieallianz Deutschland GmbH",
-          "legalForm": {
-            "code": "LF_GMBH",
-            "de": "Gesellschaft mit beschränkter Haftung (GmbH)"
-          }
-        }
-      ]
+      }
     },
     {
       "registerNumber": "R009999",
@@ -71,25 +69,70 @@
         "detailsPageUrl": "https://www.lobbyregister.bundestag.de/suche/R009999/99999"
       },
       "accountDetails": {
-        "activeLobbyist": false
+        "activeLobbyist": false,
+        "inactiveLobbyistStartDate": "2026-11-06T09:27:16.192+01:00"
       },
       "lobbyistIdentity": {
         "identity": "ORGANIZATION",
         "name": "Ehemalige Lobbyagentur Berlin",
-        "legalForm": {
-          "code": "LF_GMBH",
-          "de": "GmbH"
-        },
+        "legalForm": { "code": "LF_GMBH", "de": "GmbH" },
         "legalRepresentatives": [
+          { "firstName": "Hans", "lastName": "Schmidt", "function": "Geschäftsführer", "recentGovernmentFunctionPresent": false }
+        ]
+      },
+      "contracts": {
+        "contractsPresent": true,
+        "contractsCount": 1,
+        "contracts": [
           {
-            "firstName": "Hans",
-            "lastName": "Schmidt",
-            "function": "Geschäftsführer",
-            "recentGovernmentFunctionPresent": false
+            "description": "Gespräche mit Abgeordneten zur Energiepolitik.",
+            "clients": {
+              "clientOrganizations": [
+                {
+                  "referenceName": "Siemens AG",
+                  "referenceRegisterNumber": "R001875",
+                  "referenceDetailsPageUrl": "https://www.lobbyregister.bundestag.de/suche/R001875"
+                }
+              ],
+              "clientPersons": []
+            },
+            "contractors": {
+              "entrustedPersons": [
+                { "firstName": "Eva", "lastName": "Klein", "recentGovernmentFunctionPresent": false }
+              ],
+              "contractorOrganizations": [],
+              "contractorPersons": []
+            }
           }
+        ]
+      }
+    },
+    {
+      "registerNumber": "R005555",
+      "registerEntryDetails": {
+        "registerEntryId": 55555,
+        "detailsPageUrl": "https://www.lobbyregister.bundestag.de/suche/R005555/55555"
+      },
+      "accountDetails": { "activeLobbyist": true },
+      "lobbyistIdentity": {
+        "identity": "NATURAL",
+        "firstName": "Florian",
+        "lastName": "Pronold",
+        "companyName": "Rechtsanwalt",
+        "recentGovernmentFunctionPresent": true,
+        "recentGovernmentFunction": {
+          "ended": true,
+          "endDate": "2021-12",
+          "type": { "code": "FEDERAL_GOVERNMENT", "de": "Bundesregierung" },
+          "federalGovernment": {
+            "function": { "code": "PARLIAMENTARY_STATE_SECRETARY", "de": "Parlamentarische/-r Staatssekretär/-in" },
+            "department": { "title": "Bundesministerium für Umwelt", "shortTitle": "BMUV" }
+          }
+        },
+        "entrustedPersons": [
+          { "firstName": "Lena", "lastName": "Vogt", "recentGovernmentFunctionPresent": false }
         ]
       }
     }
   ]
 }
-

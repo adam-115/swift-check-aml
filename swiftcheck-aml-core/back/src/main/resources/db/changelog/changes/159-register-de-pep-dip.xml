@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <!--
+      de_pep_dip (Story 1 « APIs structurees et Open Data », liens 1-2) : personnes de l'API DIP du Bundestag pour la
+      legislature en cours, hors simples deputes (laisses a de_pep_bundestag) : gouvernement federal (Bundeskanzler,
+      Bundesminister, Staatsminister, Staatssekretaere, Beauftragte), membres et suppleants du Bundesrat (ministres des
+      Laender), presidence du Bundestag, Wehrbeauftragter. Source officielle, cle API publique du DIP (valable jusqu'a fin
+      mai 2027, a renouveler dans le parametre apiKey). Le DIP ne date pas les fonctions : la date de derniere activite
+      fixe le statut (activeMonths, monthsAfterEnd) et le titre de la derniere activite corrige une fonction perimee.
+    -->
+    <changeSet id="159-register-de-pep-dip" author="swiftcheck" dbms="mysql">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM parser WHERE dataset_name = 'de_pep_dip'</sqlCheck>
+        </preConditions>
+        <insert tableName="parser">
+            <column name="name" value="PEP Allemagne - DIP du Bundestag (gouvernement federal, Bundesrat)"/>
+            <column name="description" value="Membres du gouvernement federal, membres et suppleants du Bundesrat, presidence du Bundestag et Wehrbeauftragter, d'apres l'API officielle DIP du Bundestag (legislature en cours)"/>
+            <column name="dataset_name" value="de_pep_dip"/>
+            <column name="list_type" value="PEP"/>
+            <column name="website_url" value="https://dip.bundestag.de/%C3%BCber-dip/hilfe/api"/>
+            <column name="plugin_id" value="de-pep-dip"/>
+            <column name="data_source_type" value="PLUGIN_MANAGED"/>
+            <column name="parser_kind" value="API"/>
+            <column name="parameters"><![CDATA[{"endpoint":"https://search.dip.bundestag.de/api/v1","apiKey":"R2BZaee.DjdCyihKZMf8AOjtScubP2EVydegzjmBIQ","wahlperiode":"21","excludeFunctions":"MdB","activeMonths":"6","monthsAfterEnd":"12","checkActivity":"true","delayMs":"500"}]]></column>
+            <column name="refresh_hours" valueNumeric="24"/>
+            <column name="retention_months" valueNumeric="12"/>
+            <column name="licence" value="Nutzungsbedingungen DIP (Deutscher Bundestag) : reutilisation avec citation de la source"/>
+            <column name="attribution" value="Deutscher Bundestag, DIP - Dokumentations- und Informationssystem fuer Parlamentsmaterialien"/>
+            <column name="notes" value="Complement officiel de de_pep_federal_government, de_pep_federal_secretaries et de_pep_bundesrat. Statut : derniere activite DIP de moins de 6 mois = en cours ; entre 6 et 12 mois = non confirme (status unknown) ; plus de 12 mois = non repris. Cle API publique valable jusqu'a fin mai 2027 : une cle refusee arrete l'execution (publication precedente conservee)."/>
+            <column name="enabled" valueBoolean="true"/>
+            <column name="created_at" valueComputed="NOW()"/>
+        </insert>
+        <sql><![CDATA[
+            INSERT INTO pep_function_parser (function_id, parser_id, completeness, includes_former, covered_scope, gaps)
+            SELECT f.id, p.id, 'PARTIAL', FALSE,
+                   'Titulaires lus dans l''API DIP du Bundestag (legislature en cours), fonction en allemand telle que le DIP la donne.',
+                   'Complement officiel : la fonction est couverte d''abord par le parser dedie. Le DIP ne date pas les fonctions : statut deduit de la derniere activite documentee (fonction non confirmee entre 6 et 12 mois sans activite).'
+            FROM pep_function f
+            JOIN pep_category c ON c.id = f.category_id
+            JOIN parser p ON p.dataset_name = 'de_pep_dip'
+            WHERE c.country_iso = 'DE'
+              AND f.label IN ('Chancelier fédéral (Bundeskanzler)',
+                              'Ministre fédéral ou ministre d''État (Bundesminister, Staatsminister)',
+                              'Secrétaire d''État parlementaire ou secrétaire d''État (Parlamentarischer Staatssekretär, Staatssekretär)',
+                              'Ministre-président d''un Land (Ministerpräsident, Regierender Bürgermeister)',
+                              'Ministre ou sénateur d''un gouvernement de Land (Landesminister, Senator)',
+                              'Membre du Bundesrat (Mitglied des Bundesrates)',
+                              'Membre suppléant du Bundesrat (Stellvertretendes Mitglied des Bundesrates)');
+        ]]></sql>
+    </changeSet>
+</databaseChangeLog>

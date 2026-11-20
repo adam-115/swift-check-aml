@@ -37,13 +37,25 @@ public class DePepPresidentParser implements Iparser {
 
     static final String ID_PREFIX = "de-pep-president";
     static final String TOPIC = "role.pep";
-    static final String DEFAULT_URL = "https://www.bundespraesident.de/DE/Bundespraesident-Frank-Walter-Steinmeier/bundespraesident-frank-walter-steinmeier_node.html";
-    private static final String POSITION = "Président fédéral (Bundespräsident)";
+    /**
+     * Page biographie, adresse stable d'un mandat à l'autre. L'ancienne adresse nominative
+     * (…/Bundespraesident-Frank-Walter-Steinmeier/…_node.html) renvoie depuis novembre 2026 vers un formulaire en 403.
+     */
+    static final String DEFAULT_URL = "https://www.bundespraesident.de/DE/bundespraesident/biographie/biographie_node.html";
+    /** Libellé d'origine de la fonction (Story 2 : pas de traduction). */
+    private static final String POSITION = "Bundespräsident";
 
     private static final Pattern OG_TITLE = Pattern.compile("(?i)<meta[^>]+property=[\"']og:title[\"'][^>]+content=[\"']([^\"']*)[\"']");
     private static final Pattern OG_URL = Pattern.compile("(?i)<meta[^>]+property=[\"']og:url[\"'][^>]+content=[\"']([^\"']*)[\"']");
-    private static final Pattern H1 = Pattern.compile("(?si)<h1[^>]*class=\"[^\"]*c-intro-president__headline[^\"]*\"[^>]*>(.*?)</h1>");
-    private static final Pattern PHOTO = Pattern.compile("(?si)<div[^>]*class=\"[^\"]*c-intro-president__media[^\"]*\"[^>]*>.*?<img[^>]+src=[\"']([^\"']+)[\"']");
+    /** Titre de la page : ancien gabarit (c-intro-president) ou gabarit biographie (c-article). */
+    private static final Pattern H1 = Pattern.compile(
+            "(?si)<h1[^>]*class=\"[^\"]*(?:c-intro-president__headline|c-article__headline)[^\"]*\"[^>]*>(.*?)</h1>");
+    private static final Pattern PHOTO = Pattern.compile(
+            "(?si)<div[^>]*class=\"[^\"]*(?:c-intro-president__media|c-article__media)[^\"]*\"[^>]*>.*?<img[^>]+src=[\"']([^\"']+)[\"']");
+    /** « Bundespräsident Frank-Walter Steinmeier » : la fonction devant le nom est retirée. */
+    private static final Pattern FUNCTION_PREFIX = Pattern.compile("^(?:Bundespräsident(?:in)?|Der Bundespräsident|Die Bundespräsidentin)\\s+");
+    /** Nom plausible : deux à quatre mots à majuscule (prénoms composés admis). */
+    private static final Pattern PERSON_NAME = Pattern.compile("^[A-ZÄÖÜ][\\p{L}'-]+(?:\\s+(?:von|van|de|zu|[A-ZÄÖÜ][\\p{L}'-]+)){1,3}$");
     static final String PHOTO_LICENCE = "© Bundespräsidialamt";
 
     private static final Pattern BIRTH = Pattern.compile("(?u)geboren\\s+(?:am\\s+\\d{1,2}\\.\\s+\\p{L}+\\s+)?(\\d{4})\\s+in\\s+([\\p{L}' -]+?)(?=[,.;]| im Kreis)");
@@ -56,9 +68,28 @@ public class DePepPresidentParser implements Iparser {
     @Override
     public ParserResult parse(ParserContext ctx) throws Exception {
         FtmDatasetBuilder dataset = new FtmDatasetBuilder(ID_PREFIX, TOPIC);
-        convert(read(loadHtml(ctx)), dataset);
+        String html = loadHtml(ctx);
+        President p = read(html);
+        convert(p, dataset);
+        // Preuve (Stories 2 et 4) : URL, date d'extraction et SHA-256 de la page lue.
+        String sha = sha256(html.getBytes(StandardCharsets.UTF_8));
+        dataset.entities().stream().filter(e -> "Person".equals(e.getSchema())).forEach(e -> {
+            e.addValue("notes", "pep_class: A1 (Bundespräsident)");
+            e.addValue("notes", "level: FEDERAL");
+            e.addValue("notes", "source: " + p.pageUrl() + " ; extracted_at: "
+                    + java.time.LocalDate.now(java.time.ZoneOffset.UTC) + " ; sha256: " + sha);
+        });
         dataset.writeNdjsonFile(ctx.outputFile());
-        return dataset.toConversionResult();
+        return dataset.toConversionResult().withMessage("Bundespräsident : " + p.name()
+                + (p.startYear() != null ? " (gewählt " + p.startYear() + ")" : "") + ".");
+    }
+
+    static String sha256(byte[] bytes) {
+        try {
+            return java.util.HexFormat.of().formatHex(java.security.MessageDigest.getInstance("SHA-256").digest(bytes));
+        } catch (java.security.NoSuchAlgorithmException e) {
+            throw new IllegalStateException(e);
+        }
     }
 
     @Override
@@ -91,7 +122,7 @@ public class DePepPresidentParser implements Iparser {
         FtmEntity position = dataset.newEntity("Position", "president");
         position.addValue("name", POSITION);
         position.addValue("country", "de");
-        position.addValue("organization", "Présidence fédérale");
+        position.addValue("organization", "Bundespräsidialamt");
         position.addValue("topics", "gov.national");
         position.addValue("topics", "gov.headofstate");
         dataset.addEntity(position);
@@ -108,11 +139,12 @@ public class DePepPresidentParser implements Iparser {
     }
 
     static President read(String html) {
-        String name = first(H1, html);
-        if (name == null || name.isBlank()) {
-            name = first(OG_TITLE, html);
+        String name = cleanName(first(H1, html));
+        if (name == null) {
+            // og:title vaut « Biographie » sur la page biographie : il n'est pris que s'il ressemble à un nom.
+            name = cleanName(first(OG_TITLE, html));
         }
-        if (name == null || name.isBlank()) {
+        if (name == null) {
             throw new IllegalStateException("Nom du Président introuvable dans la page : format inattendu.");
         }
         String[] parts = name.split("\\s+", 2);
@@ -146,6 +178,13 @@ public class DePepPresidentParser implements Iparser {
         return new President(name, firstName, lastName, birthDate, birthPlace, startYear, pageUrl, photo);
     }
 
+    /** Retire la fonction placée devant le nom ; null si ce qui reste n'est pas un nom de personne. */
+    static String cleanName(String raw) {
+        if (raw == null) return null;
+        String n = FUNCTION_PREFIX.matcher(raw.replaceAll("\\s+", " ").trim()).replaceFirst("").trim();
+        return PERSON_NAME.matcher(n).matches() ? n : null;
+    }
+
     private static String first(Pattern pattern, String html) {
         Matcher m = pattern.matcher(html);
         return m.find() ? Html.text(m.group(1)) : null;
@@ -168,7 +207,9 @@ public class DePepPresidentParser implements Iparser {
                     .header("User-Agent", "SwiftCheck-AML/1.0 (liste PEP Allemagne - Président fédéral)")
                     .GET().build();
             HttpResponse<String> resp = client.send(req, HttpResponse.BodyHandlers.ofString(StandardCharsets.UTF_8));
-            if (resp.statusCode() == 200) {
+            if (resp.statusCode() != 200) {
+                log.warn("SOURCE_BROKEN : HTTP {} pour {} ({})", resp.statusCode(), url, resp.uri());
+            } else {
                 if (ctx.rawDir() != null) {
                     Files.createDirectories(ctx.rawDir());
                     Files.writeString(ctx.rawDir().resolve("president.html"), resp.body(), StandardCharsets.UTF_8);

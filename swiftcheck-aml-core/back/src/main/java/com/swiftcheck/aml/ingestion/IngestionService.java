@@ -6,6 +6,7 @@ import java.nio.file.Path;
 import java.time.Instant;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.CancellationException;
 import java.util.concurrent.ConcurrentHashMap;
@@ -79,6 +80,7 @@ public class IngestionService {
     private final DatasetPublisher publisher; // étape 6 : publication dans Yente
     private final AlertService alertService; // alertes ouvertes ou résolues à la fin
     private final PepMediaService mediaService; // photos des PEP déclarées par le plugin
+    private final PepIndexService pepIndexService; // index de la base PEP pour un plugin de corrélation
 
     /** Message d'une exécution arrêtée depuis l'écran Parsers. */
     static final String STOPPED_MESSAGE = "Exécution arrêtée par l'utilisateur : rien n'a été publié.";
@@ -111,7 +113,8 @@ public class IngestionService {
             ApplicationConfigService configService, PluginManagementService plugins,
             SourceFileService sourceFiles, QualityGate qualityGate,
             DatasetDiffService diffService, DatasetPublisher publisher, RetentionService retentionService,
-            AlertService alertService, PepMediaService mediaService) {
+            AlertService alertService, PepMediaService mediaService, PepIndexService pepIndexService) {
+        this.pepIndexService = pepIndexService;
         this.parsersRepository = parsers;
         this.executionsRepository = executions;
         this.configService = configService;
@@ -321,8 +324,24 @@ public class IngestionService {
         // n'a accès
         // ni à la base, ni au dossier de Yente. Les paramètres JSON du parser sont
         // convertis en table nom → valeur.
+        Map<String, String> parameters = ParserParameters.parse(parser.getParameters());
+
+        // Plugin de corrélation (paramètre pepCorrelation=true, ex. Lobbyregister) : le core lui remet l'index
+        // des PEP publiées par les autres parsers (dossier de travail). Son reçu (empreinte, PEP par jeu) va dans
+        // rawDir : archivé avec les réponses brutes, il prouve la base utilisée et change l'empreinte de
+        // l'exécution quand la base PEP change.
+        String correlationNote = "";
+        if (PepIndexService.enabled(parameters)) {
+            PepIndexService.Result index = pepIndexService.build(parser, config,
+                    workDir.resolve(PepIndexService.FILE_NAME), java.time.LocalDate.now(java.time.ZoneOffset.UTC));
+            PepIndexService.writeReceipt(index, rawDir);
+            parameters.put(PepIndexService.PARAM_FILE, index.file().toString());
+            correlationNote = String.format(" Base PEP croisée : %d PEP de %d jeux.", index.pepCount(),
+                    index.datasetCount());
+        }
+
         ParserContext context = new ParserContext(parser.getDatasetName(), inputFile, rawDir, outputFile,
-                ParserParameters.parse(parser.getParameters()));
+                parameters);
 
         // Appel du plugin : il lit la source et écrit outputFile. Une exception du
         // plugin remonte
@@ -452,9 +471,9 @@ public class IngestionService {
                 : String.format(" Disparues de la source : %d gardées, %d oubliées (rétention %d mois).",
                         retention.retainedCount(), retention.expiredCount(), parser.getRetentionMonths());
         finish(execution, ParserExecutionStatus.SUCCESS, String.format(
-                "%d entités publiées (+%d / -%d / ~%d), %d valeurs rejetées.%s%s %s",
+                "%d entités publiées (+%d / -%d / ~%d), %d valeurs rejetées.%s%s%s %s",
                 toPublish.size(), diff.added(), diff.removed(), diff.changed(), result.rejectedCount(),
-                retentionNote, mediaNote, result.message() == null ? "" : result.message()).trim());
+                retentionNote, mediaNote, correlationNote, result.message() == null ? "" : result.message()).trim());
     }
 
     /**

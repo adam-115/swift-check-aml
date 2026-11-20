@@ -45,6 +45,9 @@ public class DePepLandtageParser implements Iparser {
     /** Pause avant de relire les parlements refusés par l'API à la première passe. */
     static final long DEFAULT_RETRY_PAUSE_MS = 60_000;
     static final String USER_AGENT ="SwiftCheck-AML/1.0 (liste PEP Allemagne - Parlements des Länder)";
+    /** Gouvernance des sources (Story 1) : abgeordnetenwatch.de est un agrégateur non officiel. */
+    static final String SOURCE_TYPE_NOTE = "source_type: unofficial_aggregator (abgeordnetenwatch.de, CC0) ; "
+            + "aucune liste officielle consolidée des 16 parlements des Länder n'est publiée en open data";
 
     private static final Pattern ACADEMIC_TITLE = Pattern.compile(
             "^(?:(?:Prof\\.?\\s+Dr\\.?|Prof\\.?|Dr\\.?|h\\.c\\.)\\s+)+");
@@ -273,6 +276,9 @@ public class DePepLandtageParser implements Iparser {
                     person.addValue("birthDate", String.valueOf(year));
                 }
                 person.addValue("sourceUrl", m.profileUrl());
+                // Story 1 (AC3) : toute fiche issue d'abgeordnetenwatch.de porte ce marqueur, visible sur le profil.
+                person.addValue("publisher", "abgeordnetenwatch.de");
+                person.addValue("notes", SOURCE_TYPE_NOTE);
                 if (m.party() != null && !m.party().isBlank()) {
                     person.addValue("political", m.party());
                 }

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <!--
+      de_pep_bundesbank (Story 2 « Scraping HTML », liens 104-139) : les hubs font foi.
+      L'ancienne liste figee de 35 URLs ne marche plus : les Hauptverwaltungen sont passees de
+      /organisation/hauptverwaltungen/in-.../...-6042xx a /hauptverwaltungen-filialen/<code>/praesident|beirat, et la
+      liste COO/Bereiche a change (22 personnes au 19/11/2026). Le parser lit desormais /organisation/vorstand et
+      /organisation/coo-und-bereiche, puis decouvre les 9 Hauptverwaltungen (presidents et Beiraete) dans la navigation du
+      site. Les codes de region viennent du site (bbb, h, sth) : les URLs bb, he et st de la spec repondent 404.
+      Classification : Vorstand = D1 actif ; COO, chefs de Zentralbereich, presidents de Hauptverwaltung et Beiraete =
+      pep_candidate (marqueur dans notes).
+    -->
+    <changeSet id="160-de-pep-bundesbank-hubs" author="swiftcheck" dbms="mysql">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="1">SELECT COUNT(*) FROM parser WHERE dataset_name = 'de_pep_bundesbank'</sqlCheck>
+        </preConditions>
+        <update tableName="parser">
+            <column name="parameters"><![CDATA[{"hubs":"https://www.bundesbank.de/de/bundesbank/organisation/vorstand,https://www.bundesbank.de/de/bundesbank/organisation/coo-und-bereiche","hauptverwaltungen":"true","delayMs":"150"}]]></column>
+            <column name="description" value="Vorstand, COO et chefs de Zentralbereich, presidents et Beiraete des 9 Hauptverwaltungen de la Deutsche Bundesbank (classe D1 ; hors Vorstand : pep_candidate)"/>
+            <column name="notes" value="Hubs officiels /organisation/vorstand et /organisation/coo-und-bereiche ; Hauptverwaltungen decouvertes dans la navigation du site. Vorstand = PEP D1 actif ; COO, Bereiche, presidents de Hauptverwaltung et membres des Beiraete portent pep_candidate: true dans notes. Chaque fiche porte l'URL source, la date d'extraction et le SHA-256 de la page."/>
+            <column name="updated_at" valueComputed="NOW()"/>
+            <where>dataset_name = 'de_pep_bundesbank'</where>
+        </update>
+    </changeSet>
+</databaseChangeLog>

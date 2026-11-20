@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Agrégateur des plugins PEP Allemagne : parent commun des modules de ce dossier.
+    Construire tous les plugins allemands :  mvn -pl swiftcheck-aml-plugins/pep/germany -amd install
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.swiftcheck.aml</groupId>
+        <artifactId>swiftcheck-aml</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
+        <relativePath>../../../pom.xml</relativePath>
+    </parent>
+
+    <artifactId>swiftcheck-aml-de-pep</artifactId>
+    <packaging>pom</packaging>
+    <name>SwiftCheck AML - PEP Allemagne</name>
+
+    <modules>
+        <module>swiftcheck-aml-de-pep-bundestag</module>
+        <module>swiftcheck-aml-de-pep-bundesrat</module>
+        <module>swiftcheck-aml-de-pep-land-governments</module>
+        <module>swiftcheck-aml-de-pep-federal-government</module>
+        <module>swiftcheck-aml-de-pep-europarl</module>
+        <module>swiftcheck-aml-de-pep-eu-commission</module>
+        <module>swiftcheck-aml-de-pep-rca</module>
+        <module>swiftcheck-aml-de-pep-president</module>
+        <module>swiftcheck-aml-de-pep-bundesbank</module>
+        <module>swiftcheck-aml-de-pep-bafin</module>
+        <module>swiftcheck-aml-de-pep-federal-secretaries</module>
+        <module>swiftcheck-aml-de-pep-audit-courts</module>
+        <module>swiftcheck-aml-de-pep-federal-courts</module>
+        <module>swiftcheck-aml-de-pep-land-constitutional-courts</module>
+        <module>swiftcheck-aml-de-pep-parties</module>
+        <module>swiftcheck-aml-de-pep-diplomats</module>
+        <module>swiftcheck-aml-de-pep-international-orgs</module>
+        <module>swiftcheck-aml-de-pep-state-enterprises</module>
+        <module>swiftcheck-aml-de-pep-landtage</module>
+        <module>swiftcheck-aml-de-pep-local-executives</module>
+        <module>swiftcheck-aml-de-pep-lobbyregister</module>
+        <module>swiftcheck-aml-de-pep-vita</module>
+        <module>swiftcheck-aml-de-pep-defence</module>
+        <module>swiftcheck-aml-de-pep-defence-secretaries</module>
+        <module>swiftcheck-aml-de-pep-defence-heer</module>
+        <module>swiftcheck-aml-de-pep-defence-luftwaffe</module>
+        <module>swiftcheck-aml-de-pep-defence-marine</module>
+        <module>swiftcheck-aml-de-pep-defence-cir</module>
+        <module>swiftcheck-aml-de-pep-defence-support</module>
+        <module>swiftcheck-aml-de-pep-eu-institutions</module>
+        <module>swiftcheck-aml-de-pep-defence-attaches</module>
+        <module>swiftcheck-aml-de-pep-dip</module>
+    </modules>
+</project>

@@ -10,9 +10,9 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>com.swiftcheck.aml</groupId>
-        <artifactId>swiftcheck-aml</artifactId>
+        <artifactId>swiftcheck-aml-de-pep</artifactId>
         <version>0.0.1-SNAPSHOT</version>
-        <relativePath>../../../../pom.xml</relativePath>
+        <relativePath>../pom.xml</relativePath>
     </parent>
 
     <artifactId>swiftcheck-aml-de-pep-defence-heer</artifactId>
@@ -46,6 +46,12 @@
             <artifactId>junit-jupiter-api</artifactId>
             <scope>test</scope>
         </dependency>
+        <!-- Lecture des CV PDF (Story 3) : bibliothèque partagée et PDFBox, embarquées par maven-shade -->
+        <dependency>
+            <groupId>com.swiftcheck.aml</groupId>
+            <artifactId>swiftcheck-aml-de-pep-vita</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -62,6 +68,39 @@
                         </manifestEntries>
                     </archive>
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>3.5.3</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                        <configuration>
+                            <createDependencyReducedPom>false</createDependencyReducedPom>
+                            <artifactSet>
+                                <includes>
+                                    <include>com.swiftcheck.aml:swiftcheck-aml-de-pep-vita</include>
+                                    <include>org.apache.pdfbox:*</include>
+                                    <include>commons-logging:commons-logging</include>
+                                </includes>
+                            </artifactSet>
+                            <filters>
+                                <filter>
+                                    <artifact>*:*</artifact>
+                                    <excludes>
+                                        <exclude>META-INF/*.SF</exclude>
+                                        <exclude>META-INF/*.DSA</exclude>
+                                        <exclude>META-INF/*.RSA</exclude>
+                                    </excludes>
+                                </filter>
+                            </filters>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
