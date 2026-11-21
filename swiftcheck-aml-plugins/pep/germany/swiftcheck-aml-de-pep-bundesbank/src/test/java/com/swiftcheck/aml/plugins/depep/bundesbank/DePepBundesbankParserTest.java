@@ -83,6 +83,29 @@ class DePepBundesbankParserTest {
         assertThat(coo).allMatch(e -> e.group() == Group.BEREICH);
     }
 
+    /** Extrait de la fiche de Joachim Nagel (structure du site au 21/11/2026) : l'image est chargée à la demande. */
+    private static final String NAGEL_PROFILE = """
+            <html><body><main class="main"> <h1 class="main__headline mb-4"> Prof. Dr. Joachim Nagel <small class="d-block">Präsident der Deutschen Bundesbank</small> </h1>
+            <img alt="Ein Wald mit Birkenbäumen ©smallredgirl / Fotolia" class="picture__img" data-cm-responsive-image="[{&quot;name&quot;:&quot;ratio16x9&quot;,&quot;linksForWidth&quot;:{&quot;200&quot;:&quot;/resource/image/805446/baum-gruen.jpg&quot;}}]" src="data:image/png;base64,AAAA" >
+            <img alt="Joachim Nagel ©Oliver Rüther" class="picture__img mw-100" data-cm-responsive-image="[{&quot;name&quot;:&quot;ratio16x9&quot;,&quot;ratioWidth&quot;:16,&quot;ratioHeight&quot;:9,&quot;linksForWidth&quot;:{&quot;200&quot;:&quot;/resource/image/991626/ratio16x9/200/112/a/b/c/nagel-joachim-portrait-669.jpg&quot;,&quot;1276&quot;:&quot;/resource/image/991626/ratio16x9/1276/718/a/d/c/nagel-joachim-portrait-669.jpg&quot;,&quot;630&quot;:&quot;/resource/image/991626/ratio16x9/630/354/a/e/c/nagel-joachim-portrait-669.jpg&quot;}}]" src="data:image/png;base64,AAAA" >
+            <div class="richtext"><p><strong>seit 1. November 2021</strong>Präsident der Deutschen Bundesbank</p></div></main></body></html>
+            """;
+
+    @Test
+    void profileReadsOfficialPortraitWithLargestVariantAndCredit() {
+        Profile p = DePepBundesbankParser.parseProfile(NAGEL_PROFILE);
+        assertThat(p).isNotNull();
+        assertThat(p.portrait()).isNotNull();
+        assertThat(p.portrait().imageUrl()).isEqualTo(
+                "https://www.bundesbank.de/resource/image/991626/ratio16x9/1276/718/a/d/c/nagel-joachim-portrait-669.jpg");
+        assertThat(p.portrait().credit()).isEqualTo("Oliver Rüther");
+    }
+
+    @Test
+    void profileWithoutPortraitOfThePersonHasNone() {
+        assertThat(DePepBundesbankParser.parseProfile(HV_PRESIDENT).portrait()).isNull();
+    }
+
     @Test
     void profileReadsHeadlineSmallRoleDateAndBirth() {
         Profile p = DePepBundesbankParser.parseProfile(HV_PRESIDENT);
@@ -159,6 +182,11 @@ class DePepBundesbankParserTest {
         System.out.println(result.message());
         List<String> lines = Files.readAllLines(out);
         lines.stream().filter(l -> l.contains("\"schema\":\"Person\"")).forEach(System.out::println);
+        Path media = com.swiftcheck.aml.sdk.FtmDatasetBuilder.mediaFile(out);
+        List<String> photos = Files.exists(media) ? Files.readAllLines(media) : List.of();
+        System.out.println("Photos : " + photos.size());
+        photos.forEach(System.out::println);
         assertThat(result.message()).doesNotContain("SOURCE_BROKEN");
+        assertThat(photos).anyMatch(l -> l.contains("Joachim-Nagel") && l.contains("nagel-joachim-portrait"));
     }
 }

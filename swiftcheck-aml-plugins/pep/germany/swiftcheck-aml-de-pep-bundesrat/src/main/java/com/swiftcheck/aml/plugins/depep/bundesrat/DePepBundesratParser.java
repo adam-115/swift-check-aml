@@ -300,7 +300,9 @@ public class DePepBundesratParser implements Iparser {
             }
             if (!found && !depDate.isBefore(cutoff)) {
                 String slug = depName.toLowerCase(Locale.ROOT).replaceAll("[^a-z0-9]+", "-");
-                String src = queue.stream().filter(u -> u.contains("aenderungen")).findFirst().orElse(null);
+                // La page des changements atteste la sortie : c'est la source de la fiche, toujours renseignée.
+                String src = queue.stream().filter(u -> u.contains("aenderungen")).findFirst()
+                        .orElse("https://www.bundesrat.de/DE/bundesrat/mitglieder/aenderungen/aenderungen-node.html");
                 bySlug.put(slug, new Member(slug, null, splitTitle(dep.getKey())[0], depName, null, null,
                         List.of("Ehemaliges Mitglied des Bundesrates"), EnumSet.of(Role.MEMBER), src, null, null,
                         null, dep.getValue(), "cooling_off", "Aus dem Bundesrat ausgeschieden am " + dep.getValue(),

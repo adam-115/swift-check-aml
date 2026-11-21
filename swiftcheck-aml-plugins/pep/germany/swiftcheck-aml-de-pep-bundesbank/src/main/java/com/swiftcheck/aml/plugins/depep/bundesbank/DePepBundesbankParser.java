@@ -89,7 +89,17 @@ public class DePepBundesbankParser implements Iparser {
         String birthYear;
         String birthPlace;
         String cvSummary;
+        /** Portrait officiel et la fiche qui le publie (preuve de son rattachement à la personne). */
+        Portrait portrait;
+        String portraitPage;
         final List<Holding> holdings = new ArrayList<>();
+
+        void setPortrait(Portrait p, String page) {
+            if (portrait == null && p != null) {
+                portrait = p;
+                portraitPage = page;
+            }
+        }
 
         Member(String fullName) {
             this.fullName = fullName;
@@ -259,6 +269,7 @@ public class DePepBundesbankParser implements Iparser {
             m.birthYear = profile.birthYear();
             m.birthPlace = profile.birthPlace();
             m.cvSummary = profile.cvSummary();
+            m.setPortrait(profile.portrait(), url);
         }
 
         // 3. Hauptverwaltungen : présidents puis Beiräte.
@@ -297,6 +308,7 @@ public class DePepBundesbankParser implements Iparser {
                     Member m = add(members, profile.fullName(), new Holding(Group.HV_PRESIDENT, region, profile.role(),
                             profile.role(), null, url, page.sha256(), profile.startDate()));
                     if (m.cvSummary == null) m.cvSummary = profile.cvSummary();
+                    m.setPortrait(profile.portrait(), url);
                 }
             }
         }
@@ -310,8 +322,9 @@ public class DePepBundesbankParser implements Iparser {
                 continue;
             }
             Group group = url.contains("/vorstand/") ? Group.VORSTAND : Group.BEREICH;
-            add(members, profile.fullName(), new Holding(group, null, null, profile.role(), null, url, page.sha256(),
-                    profile.startDate()));
+            Member m = add(members, profile.fullName(), new Holding(group, null, null, profile.role(), null, url,
+                    page.sha256(), profile.startDate()));
+            m.setPortrait(profile.portrait(), url);
         }
 
         return new CrawlResult(members, broken, warnings);
@@ -360,7 +373,72 @@ public class DePepBundesbankParser implements Iparser {
 
     /** Ce qu'une fiche individuelle apprend sur la personne. */
     record Profile(String fullName, String role, String startDate, String birthYear, String birthPlace,
-                   String cvSummary) {
+                   String cvSummary, Portrait portrait) {
+    }
+
+    /** Portrait officiel publié sur la fiche : adresse absolue de l'image et crédit photo (« Oliver Rüther »). */
+    record Portrait(String imageUrl, String credit) {
+    }
+
+    private static final Pattern IMG_TAG = Pattern.compile("(?si)<img\\b[^>]*>");
+    private static final Pattern IMG_ALT = Pattern.compile("(?si)\\balt=\"([^\"]*)\"");
+    private static final Pattern IMG_SRC = Pattern.compile("(?si)\\bsrc=\"([^\"]*)\"");
+    private static final Pattern IMG_RESPONSIVE = Pattern.compile("(?si)\\bdata-cm-responsive-image=\"([^\"]*)\"");
+    /** Une variante de l'image dans data-cm-responsive-image : « "1276":"/resource/image/…jpg" ». */
+    private static final Pattern RESPONSIVE_LINK = Pattern.compile("\"(\\d+)\"\\s*:\\s*\"(/resource/[^\"]+)\"");
+
+    /**
+     * Portrait de la personne sur sa fiche : l'image dont le texte alternatif commence par son nom (« Joachim Nagel
+     * ©Oliver Rüther »). La page charge l'image à la demande : l'adresse est dans data-cm-responsive-image, dont on
+     * garde la plus grande variante.
+     */
+    static Portrait parsePortrait(String main, String cleanName) {
+        String wanted = normalizeName(cleanName);
+        if (wanted.isEmpty()) return null;
+        Matcher tag = IMG_TAG.matcher(main);
+        while (tag.find()) {
+            String img = tag.group();
+            Matcher alt = IMG_ALT.matcher(img);
+            if (!alt.find()) continue;
+            String altText = unescapeHtml(alt.group(1));
+            int copy = altText.indexOf('©');
+            String altName = copy >= 0 ? altText.substring(0, copy) : altText;
+            if (!normalizeName(altName).startsWith(wanted)) continue;
+
+            String best = null;
+            int bestWidth = -1;
+            Matcher resp = IMG_RESPONSIVE.matcher(img);
+            if (resp.find()) {
+                Matcher link = RESPONSIVE_LINK.matcher(unescapeHtml(resp.group(1)));
+                while (link.find()) {
+                    int w = Integer.parseInt(link.group(1));
+                    if (w > bestWidth) {
+                        bestWidth = w;
+                        best = link.group(2);
+                    }
+                }
+            }
+            if (best == null) {
+                Matcher src = IMG_SRC.matcher(img);
+                if (src.find() && !src.group(1).startsWith("data:")) best = unescapeHtml(src.group(1));
+            }
+            if (best == null) continue;
+            String url = best.startsWith("http") ? best : SITE + (best.startsWith("/") ? "" : "/") + best;
+            String credit = copy >= 0 ? altText.substring(copy + 1).trim() : null;
+            return new Portrait(url, credit == null || credit.isEmpty() ? null : credit);
+        }
+        return null;
+    }
+
+    private static String normalizeName(String s) {
+        if (s == null) return "";
+        String n = java.text.Normalizer.normalize(s, java.text.Normalizer.Form.NFD).replaceAll("\\p{M}", "");
+        return n.toLowerCase(Locale.ROOT).replaceAll("[^a-z0-9]+", " ").trim();
+    }
+
+    private static String unescapeHtml(String s) {
+        return s.replace("&quot;", "\"").replace("&#34;", "\"").replace("&apos;", "'").replace("&#39;", "'")
+                .replace("&lt;", "<").replace("&gt;", ">").replace("&amp;", "&");
     }
 
     static Profile parseProfile(String html) {
@@ -386,7 +464,8 @@ public class DePepBundesbankParser implements Iparser {
         String cv = null;
         Matcher desc = META_DESCRIPTION.matcher(html);
         if (desc.find()) cv = text(desc.group(1));
-        return new Profile(fullName, role, startDate, birthYear, birthPlace, cv);
+        Portrait portrait = parsePortrait(main, splitTitle(fullName)[1]);
+        return new Profile(fullName, role, startDate, birthYear, birthPlace, cv, portrait);
     }
 
     /** Un membre de Beirat : son nom et ses fonctions professionnelles, dans leur libellé d'origine. */
@@ -462,6 +541,11 @@ public class DePepBundesbankParser implements Iparser {
                 if (h.detail() != null) person.addValue("notes", h.positionName() + " — " + h.detail());
             }
             dataset.addEntity(person);
+            if (m.portrait != null) {
+                dataset.addMedia(person.getId(), m.portrait.imageUrl(), m.portraitPage,
+                        "Offizielles Porträt (bundesbank.de)"
+                                + (m.portrait.credit() == null ? "" : " — © " + m.portrait.credit()));
+            }
 
             for (Holding h : m.holdings) {
                 FtmEntity post = positions.computeIfAbsent(positionKey(h), k -> {

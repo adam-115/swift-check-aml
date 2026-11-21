@@ -1,0 +1,454 @@
+<div class="max-w-7xl mx-auto space-y-5">
+
+  <!-- En-tête -->
+  <div class="bg-white p-4 sm:p-5 rounded-2xl border border-slate-200/80 shadow-xs flex flex-col md:flex-row md:items-center md:justify-between gap-3.5">
+    <div class="flex items-center gap-3">
+      <div class="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-blue-600 text-white flex items-center justify-center shadow-md shadow-blue-500/20 shrink-0">
+        <i class="fas fa-file-csv text-lg sm:text-xl"></i>
+      </div>
+      <div>
+        <h1 class="text-xl sm:text-2xl font-bold text-slate-800 tracking-tight">Vérification par lot</h1>
+        <p class="text-slate-500 text-xs mt-0.5">
+          Chargez un fichier CSV (une entité par ligne) : toutes les entités sont criblées contre les listes de sanctions et PEP.
+        </p>
+      </div>
+    </div>
+    <button type="button" (click)="downloadTemplate()"
+      class="self-start md:self-center inline-flex items-center gap-2 rounded-xl border border-slate-300 bg-white px-3.5 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-50">
+      <i class="fas fa-download text-slate-500"></i> Modèle CSV
+    </button>
+  </div>
+
+  <div class="grid grid-cols-1 lg:grid-cols-12 gap-5">
+
+    <!-- Colonne gauche : fichier et bases -->
+    <div class="lg:col-span-4 space-y-5">
+
+      <!-- Dépôt du fichier -->
+      <div class="bg-white rounded-2xl shadow-xs border border-slate-200 overflow-hidden">
+        <div class="px-4 sm:px-5 py-3.5 border-b border-slate-100 bg-slate-50/70">
+          <h2 class="text-xs sm:text-sm font-bold text-slate-800 uppercase tracking-wider flex items-center gap-2">
+            <i class="fas fa-upload text-blue-600"></i> 1. Fichier CSV
+          </h2>
+        </div>
+        <div class="p-4 sm:p-5 space-y-3">
+          <label (dragover)="onDragOver($event)" (dragleave)="onDragLeave($event)" (drop)="onDrop($event)"
+            class="flex flex-col items-center justify-center gap-2 rounded-xl border-2 border-dashed px-4 py-8 text-center cursor-pointer transition-colors"
+            [ngClass]="dragOver ? 'border-blue-500 bg-blue-50' : 'border-slate-300 hover:border-blue-400 hover:bg-slate-50'">
+            <input type="file" accept=".csv,.txt,text/csv" class="hidden" (change)="onFileInput($event)" [disabled]="parsing || verifying">
+            <i class="fas text-3xl" [ngClass]="parsing ? 'fa-spinner fa-spin text-blue-500' : 'fa-cloud-upload-alt text-slate-400'"></i>
+            <span *ngIf="!file" class="text-sm font-semibold text-slate-700">Glissez le fichier ici ou cliquez pour le choisir</span>
+            <span *ngIf="file" class="text-sm font-semibold text-slate-800 break-all">{{ file.name }}</span>
+            <span class="text-xs text-slate-500">.csv, séparateur « ; » ou « , » — 5 Mo, 1000 lignes au maximum</span>
+          </label>
+
+          <div class="rounded-xl bg-slate-50 border border-slate-200 p-3 text-xs text-slate-600 space-y-1">
+            <p class="font-semibold text-slate-700">Colonnes reconnues (en-tête obligatoire) :</p>
+            <p><code>nom</code>, <code>prenom</code> (ou <code>nom_complet</code>), <code>nationalite</code>, <code>date_naissance</code>,
+              <code>lieu_naissance</code>, <code>pays</code>, <code>type</code> (personne / société), <code>reference</code>.</p>
+            <p>Dates acceptées : jj/mm/aaaa, aaaa-mm-jj ou l'année seule. Nationalité : code ISO (FR) ou nom du pays.</p>
+          </div>
+
+          <button *ngIf="file" type="button" (click)="reset()" [disabled]="verifying"
+            class="w-full rounded-xl border border-slate-300 bg-white px-3 py-2 text-sm font-semibold text-slate-600 hover:bg-slate-50 disabled:opacity-50">
+            <i class="fas fa-times mr-1"></i> Retirer le fichier
+          </button>
+        </div>
+      </div>
+
+      <!-- Bases interrogées -->
+      <div class="bg-white rounded-2xl shadow-xs border border-slate-200 overflow-hidden">
+        <div class="px-4 sm:px-5 py-3.5 border-b border-slate-100 bg-slate-50/70 flex items-center justify-between">
+          <h2 class="text-xs sm:text-sm font-bold text-slate-800 uppercase tracking-wider flex items-center gap-2">
+            <i class="fas fa-database text-blue-600"></i> 2. Bases interrogées
+          </h2>
+          <button *ngIf="selectedDatasets.length" type="button" (click)="selectedDatasets = []"
+            class="text-xs font-semibold text-blue-600 hover:underline">Toutes</button>
+        </div>
+        <div class="p-4 sm:p-5 space-y-3">
+          <p class="text-xs text-slate-600">
+            <ng-container *ngIf="!selectedDatasets.length">Toutes les bases (consolidé). Cochez des bases pour restreindre la recherche.</ng-container>
+            <ng-container *ngIf="selectedDatasets.length">{{ selectedDatasets.length }} base(s) sélectionnée(s).</ng-container>
+          </p>
+          <input type="text" [(ngModel)]="datasetSearch" placeholder="Filtrer les bases..."
+            class="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none">
+          <div class="max-h-56 overflow-y-auto space-y-1 pr-1">
+            <label *ngFor="let d of filteredDatasets" class="flex items-center gap-2 rounded-lg px-2 py-1.5 hover:bg-slate-50 cursor-pointer text-sm">
+              <input type="checkbox" [checked]="selectedDatasets.includes(d.id)" (change)="toggleDataset(d.id)" class="rounded text-blue-600">
+              <span class="truncate text-slate-700" [title]="d.id">{{ d.name }}</span>
+            </label>
+            <p *ngIf="!filteredDatasets.length" class="text-xs text-slate-400 px-2">Aucune base.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Colonne droite : aperçu puis rapport -->
+    <div class="lg:col-span-8 space-y-5">
+
+      <!-- État vide -->
+      <div *ngIf="!parsed && !parsing" class="bg-white rounded-2xl border border-slate-200 shadow-xs p-10 text-center text-slate-500">
+        <i class="fas fa-table text-4xl text-slate-300 mb-3"></i>
+        <p class="text-sm">Chargez un fichier pour voir l'aperçu des entités à vérifier.</p>
+      </div>
+
+      <!-- Aperçu du fichier -->
+      <div *ngIf="parsed && !result" class="bg-white rounded-2xl shadow-xs border border-slate-200 overflow-hidden">
+        <div class="px-4 sm:px-5 py-3.5 border-b border-slate-100 bg-slate-50/70 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+          <div>
+            <h2 class="text-xs sm:text-sm font-bold text-slate-800 uppercase tracking-wider">3. Aperçu — {{ parsed.entities.length }} ligne(s)</h2>
+            <p class="text-xs text-slate-500 mt-0.5">
+              {{ parsed.validCount }} vérifiable(s)<span *ngIf="parsed.invalidCount">, {{ parsed.invalidCount }} sans nom</span>
+              · séparateur « {{ parsed.separator }} »
+            </p>
+          </div>
+          <button type="button" (click)="verify()" [disabled]="verifying || parsed.validCount === 0"
+            class="inline-flex items-center justify-center gap-2 rounded-xl bg-blue-600 px-5 py-2.5 text-sm font-bold text-white shadow-md shadow-blue-500/20 hover:bg-blue-700 disabled:opacity-60">
+            <i class="fas" [ngClass]="verifying ? 'fa-spinner fa-spin' : 'fa-shield-alt'"></i>
+            <span *ngIf="!verifying">Vérifier {{ parsed.validCount }} entité(s)</span>
+            <span *ngIf="verifying">Vérification en cours… {{ elapsedSeconds }} s</span>
+          </button>
+        </div>
+
+        <div class="px-4 sm:px-5 py-3 space-y-2 border-b border-slate-100 text-xs" *ngIf="parsed.recognizedColumns.length || parsed.ignoredColumns.length || parsed.warnings.length">
+          <div class="flex flex-wrap gap-1.5 items-center">
+            <span class="font-semibold text-slate-600">Colonnes :</span>
+            <span *ngFor="let c of parsed.recognizedColumns" class="rounded-full bg-emerald-50 border border-emerald-200 px-2 py-0.5 text-emerald-700">{{ c }}</span>
+            <span *ngFor="let c of parsed.ignoredColumns" class="rounded-full bg-slate-100 border border-slate-200 px-2 py-0.5 text-slate-500 line-through" title="Colonne ignorée">{{ c }}</span>
+          </div>
+          <p *ngFor="let w of parsed.warnings" class="text-amber-700"><i class="fas fa-exclamation-triangle mr-1"></i>{{ w }}</p>
+        </div>
+
+        <div class="overflow-x-auto max-h-[560px]">
+          <table class="min-w-full text-sm">
+            <thead class="bg-slate-50 text-xs uppercase text-slate-500 sticky top-0">
+              <tr>
+                <th class="px-3 py-2 text-left font-semibold">Ligne</th>
+                <th class="px-3 py-2 text-left font-semibold">Réf.</th>
+                <th class="px-3 py-2 text-left font-semibold">Nom</th>
+                <th class="px-3 py-2 text-left font-semibold">Type</th>
+                <th class="px-3 py-2 text-left font-semibold">Nationalité</th>
+                <th class="px-3 py-2 text-left font-semibold">Naissance</th>
+                <th class="px-3 py-2 text-left font-semibold">Remarques</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-100">
+              <tr *ngFor="let e of parsed.entities" [ngClass]="e.valid ? '' : 'bg-slate-50 text-slate-400'">
+                <td class="px-3 py-2 text-slate-500">{{ e.lineNumber }}</td>
+                <td class="px-3 py-2">{{ e.reference }}</td>
+                <td class="px-3 py-2 font-semibold text-slate-800">{{ e.name || '—' }}</td>
+                <td class="px-3 py-2">{{ e.schema }}</td>
+                <td class="px-3 py-2 uppercase">{{ e.nationality }}</td>
+                <td class="px-3 py-2">{{ formatDate(e.birthDate) }}</td>
+                <td class="px-3 py-2 text-xs text-amber-700">{{ e.warnings.join(' ') }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Rapport -->
+      <ng-container *ngIf="result">
+        <div class="bg-white rounded-2xl shadow-xs border border-slate-200 p-4 sm:p-5 space-y-4">
+          <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+            <div>
+              <h2 class="text-base font-bold text-slate-800">Rapport de vérification</h2>
+              <p class="text-xs text-slate-500">{{ result.fileName }} · {{ result.total }} entité(s) en {{ formatDuration(result.durationMs) }}
+                · {{ result.dataset === 'default' ? 'toutes les bases' : result.dataset }}</p>
+            </div>
+            <div class="flex gap-2">
+              <button type="button" (click)="result = null"
+                class="rounded-xl border border-slate-300 bg-white px-3.5 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-50">
+                <i class="fas fa-arrow-left mr-1"></i> Aperçu
+              </button>
+              <button type="button" (click)="downloadPdf()" [disabled]="downloading"
+                class="inline-flex items-center gap-2 rounded-xl bg-slate-800 px-4 py-2 text-sm font-bold text-white hover:bg-slate-900 disabled:opacity-60">
+                <i class="fas" [ngClass]="downloading ? 'fa-spinner fa-spin' : 'fa-file-pdf'"></i> Télécharger le PDF
+              </button>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-2 sm:grid-cols-5 gap-3">
+            <button type="button" (click)="statusFilter = 'ALL'" class="rounded-xl border p-3 text-left"
+              [ngClass]="statusFilter === 'ALL' ? 'border-slate-800 ring-1 ring-slate-800' : 'border-slate-200'">
+              <div class="text-2xl font-bold text-slate-800">{{ result.total }}</div>
+              <div class="text-[11px] font-semibold uppercase text-slate-500">Entités</div>
+            </button>
+            <button type="button" (click)="statusFilter = 'HIT'" class="rounded-xl border p-3 text-left bg-red-50"
+              [ngClass]="statusFilter === 'HIT' ? 'border-red-600 ring-1 ring-red-600' : 'border-red-100'">
+              <div class="text-2xl font-bold text-red-600">{{ result.hits }}</div>
+              <div class="text-[11px] font-semibold uppercase text-red-700">Correspondances</div>
+            </button>
+            <button type="button" (click)="statusFilter = 'COUNTRY_ALERT'" class="rounded-xl border p-3 text-left bg-amber-50"
+              [ngClass]="statusFilter === 'COUNTRY_ALERT' ? 'border-amber-600 ring-1 ring-amber-600' : 'border-amber-100'">
+              <div class="text-2xl font-bold text-amber-600">{{ result.countryAlerts }}</div>
+              <div class="text-[11px] font-semibold uppercase text-amber-700">Alertes pays</div>
+            </button>
+            <button type="button" (click)="statusFilter = 'CLEAN'" class="rounded-xl border p-3 text-left bg-emerald-50"
+              [ngClass]="statusFilter === 'CLEAN' ? 'border-emerald-600 ring-1 ring-emerald-600' : 'border-emerald-100'">
+              <div class="text-2xl font-bold text-emerald-600">{{ result.clean }}</div>
+              <div class="text-[11px] font-semibold uppercase text-emerald-700">Aucun résultat</div>
+            </button>
+            <button type="button" (click)="statusFilter = 'ERROR'" class="rounded-xl border p-3 text-left bg-violet-50"
+              [ngClass]="statusFilter === 'ERROR' ? 'border-violet-600 ring-1 ring-violet-600' : 'border-violet-100'">
+              <div class="text-2xl font-bold text-violet-600">{{ result.errors + result.invalid }}</div>
+              <div class="text-[11px] font-semibold uppercase text-violet-700">Erreurs / non vérifiées</div>
+            </button>
+          </div>
+        </div>
+
+        <div class="bg-white rounded-2xl shadow-xs border border-slate-200 overflow-hidden">
+          <div class="px-4 sm:px-5 py-3 border-b border-slate-100 flex flex-col sm:flex-row sm:items-center gap-3">
+            <input type="text" [(ngModel)]="search" placeholder="Rechercher un nom ou une référence..."
+              class="flex-1 rounded-lg border border-slate-300 px-3 py-2 text-sm focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none">
+            <select [(ngModel)]="statusFilter" class="rounded-lg border border-slate-300 px-3 py-2 text-sm">
+              <option value="ALL">Tous les résultats ({{ countFor('ALL') }})</option>
+              <option value="HIT">Correspondances ({{ countFor('HIT') }})</option>
+              <option value="COUNTRY_ALERT">Alertes pays ({{ countFor('COUNTRY_ALERT') }})</option>
+              <option value="CLEAN">Aucun résultat ({{ countFor('CLEAN') }})</option>
+              <option value="ERROR">Erreurs ({{ countFor('ERROR') }})</option>
+              <option value="INVALID">Non vérifiées ({{ countFor('INVALID') }})</option>
+            </select>
+          </div>
+
+          <div class="overflow-x-auto">
+            <table class="min-w-full text-sm">
+              <thead class="bg-slate-50 text-xs uppercase text-slate-500">
+                <tr>
+                  <th class="px-3 py-2 text-left font-semibold">Ligne</th>
+                  <th class="px-3 py-2 text-left font-semibold">Entité</th>
+                  <th class="px-3 py-2 text-left font-semibold">Résultat</th>
+                  <th class="px-3 py-2 text-left font-semibold">Meilleure correspondance</th>
+                  <th class="px-3 py-2 text-right font-semibold">Score</th>
+                  <th class="px-3 py-2"></th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-slate-100">
+                <ng-container *ngFor="let r of filteredRows">
+                  <tr (click)="toggleRow(r)" [ngClass]="r.matches.length ? 'cursor-pointer hover:bg-slate-50' : ''">
+                    <td class="px-3 py-2.5 text-slate-500 align-top">{{ r.entity.lineNumber }}</td>
+                    <td class="px-3 py-2.5 align-top">
+                      <div class="font-semibold text-slate-800">{{ r.entity.name || '—' }}</div>
+                      <div class="text-xs text-slate-500">
+                        <span *ngIf="r.entity.reference">Réf. {{ r.entity.reference }} · </span>
+                        <span *ngIf="r.entity.birthDate">{{ formatDate(r.entity.birthDate) }} · </span>
+                        <span *ngIf="r.entity.nationality" class="uppercase">{{ r.entity.nationality }}</span>
+                      </div>
+                    </td>
+                    <td class="px-3 py-2.5 align-top">
+                      <span class="inline-block rounded-full border px-2.5 py-0.5 text-xs font-semibold" [ngClass]="statusClasses[r.status]">
+                        {{ statusLabels[r.status] }}
+                      </span>
+                      <span *ngIf="r.highestRisk" class="ml-1 inline-block rounded px-1.5 py-0.5 text-[10px] font-bold" [ngClass]="riskClass(r.highestRisk)">{{ r.highestRisk }}</span>
+                    </td>
+                    <td class="px-3 py-2.5 align-top text-slate-700">
+                      <ng-container *ngIf="r.status === 'ERROR' || r.status === 'INVALID'"><span class="text-xs text-slate-500">{{ r.errorMessage }}</span></ng-container>
+                      <ng-container *ngIf="r.status === 'HIT'">{{ r.topMatchCaption }}
+                        <span *ngIf="r.matchesCount > 1" class="text-xs text-slate-500">(+{{ r.matchesCount - 1 }})</span></ng-container>
+                      <ng-container *ngIf="r.status === 'COUNTRY_ALERT'"><span class="text-xs">{{ r.matches[0]?.caption }}</span></ng-container>
+                    </td>
+                    <td class="px-3 py-2.5 align-top text-right font-bold" [ngClass]="(r.topScore || 0) >= 0.9 ? 'text-red-600' : 'text-orange-600'">{{ scorePercent(r.topScore) }}</td>
+                    <td class="px-3 py-2.5 align-top text-slate-400">
+                      <i *ngIf="r.matches.length" class="fas" [ngClass]="expandedLine === r.entity.lineNumber ? 'fa-chevron-up' : 'fa-chevron-down'"></i>
+                    </td>
+                  </tr>
+                  <tr *ngIf="expandedLine === r.entity.lineNumber">
+                    <td colspan="6" class="bg-slate-50 px-4 py-3">
+                      <div class="space-y-2">
+                        <button type="button" *ngFor="let m of r.matches" (click)="openDetail(r, m)"
+                          class="w-full text-left rounded-lg border border-slate-200 bg-white p-3 hover:border-blue-400 hover:shadow-sm transition">
+                          <div class="flex flex-wrap items-center gap-2">
+                            <span class="font-semibold text-slate-800">{{ m.caption }}</span>
+                            <span class="text-xs font-bold" [ngClass]="(m.score || 0) >= 0.9 ? 'text-red-600' : 'text-orange-600'">{{ scorePercent(m.score) }}</span>
+                            <span *ngIf="m.pepStatusLabel" class="rounded-full bg-blue-50 border border-blue-200 px-2 py-0.5 text-xs text-blue-700">{{ m.pepStatusLabel }}</span>
+                            <span *ngIf="m.riskCategory" class="rounded px-1.5 py-0.5 text-[10px] font-bold" [ngClass]="riskClass(m.riskCategory)">{{ m.riskCategory }}</span>
+                            <span class="ml-auto text-xs font-semibold text-blue-600">Voir le détail <i class="fas fa-chevron-right text-[9px]"></i></span>
+                          </div>
+                          <div class="mt-1 text-xs text-slate-500">
+                            <span *ngIf="m.datasets?.length">Listes : {{ m.datasets.join(', ') }}</span>
+                            <span *ngIf="m.properties?.birthDate"> · Né(e) : {{ m.properties.birthDate.join(', ') }}</span>
+                            <span *ngIf="m.properties?.nationality"> · Nat. : {{ m.properties.nationality.join(', ') }}</span>
+                            <span *ngIf="m.properties?.position"> · {{ m.properties.position[0] }}</span>
+                          </div>
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                </ng-container>
+                <tr *ngIf="!filteredRows.length">
+                  <td colspan="6" class="px-3 py-8 text-center text-sm text-slate-400">Aucune ligne pour ce filtre.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+</div>
+
+<!-- Détail d'une correspondance (dialogue) -->
+<div *ngIf="detail as d" class="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6" role="dialog" aria-modal="true">
+  <div class="absolute inset-0 bg-slate-900/60" (click)="closeDetail()"></div>
+  <div class="relative w-full max-w-5xl max-h-[92vh] bg-white rounded-2xl shadow-2xl flex flex-col overflow-hidden">
+
+    <!-- En-tête -->
+    <div class="px-5 py-4 border-b border-slate-200 bg-slate-50 flex items-start gap-3">
+      <div class="flex-1 min-w-0">
+        <p class="text-[11px] font-semibold uppercase tracking-wider text-slate-500">
+          Ligne {{ d.row.entity.lineNumber }}<span *ngIf="d.row.entity.reference"> · {{ d.row.entity.reference }}</span>
+          · correspondance {{ d.index + 1 }} / {{ d.row.matches.length }}
+        </p>
+        <h3 class="text-lg sm:text-xl font-bold text-slate-900 break-words">{{ d.match.caption || d.match.id }}</h3>
+        <div class="mt-1.5 flex flex-wrap items-center gap-1.5">
+          <span class="rounded-full bg-slate-200 px-2 py-0.5 text-[11px] font-semibold text-slate-700">{{ d.match.schema }}</span>
+          <span *ngIf="d.match.pepStatusLabel" class="rounded-full bg-blue-50 border border-blue-200 px-2 py-0.5 text-[11px] font-semibold text-blue-700">{{ d.match.pepStatusLabel }}</span>
+          <span *ngIf="d.match.riskCategory" class="rounded px-1.5 py-0.5 text-[10px] font-bold" [ngClass]="riskClass(d.match.riskCategory)">{{ d.match.riskCategory }}</span>
+        </div>
+      </div>
+      <div class="shrink-0 rounded-xl border px-3 py-1.5 text-center"
+        [ngClass]="(d.match.score || 0) >= 0.9 ? 'border-red-200 bg-red-50 text-red-700' : 'border-orange-200 bg-orange-50 text-orange-700'">
+        <span class="block text-[9px] font-semibold uppercase tracking-wider">Score</span>
+        <span class="text-lg font-black leading-none">{{ scorePercent(d.match.score) }}</span>
+      </div>
+      <button type="button" (click)="closeDetail()" class="shrink-0 rounded-lg p-2 text-slate-500 hover:bg-slate-200" title="Fermer (Échap)">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+
+    <div class="flex-1 overflow-y-auto">
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-5 p-5">
+
+        <!-- Colonne photo + sources -->
+        <div class="md:col-span-4 space-y-4">
+          <div class="rounded-xl border border-slate-200 bg-slate-50 p-3">
+            <div class="aspect-[3/4] w-full rounded-lg bg-slate-200 overflow-hidden flex items-center justify-center">
+              <i *ngIf="photo.state === 'loading'" class="fas fa-spinner fa-spin text-2xl text-slate-400"></i>
+              <img *ngIf="photo.state === 'found' && photo.current?.objectUrl" [src]="photo.current!.objectUrl"
+                [alt]="'Photo de ' + (d.match.caption || d.match.id)" class="h-full w-full object-cover">
+              <div *ngIf="photo.state === 'none' || photo.state === 'error'" class="text-center text-slate-400 px-3">
+                <i class="fas text-5xl" [ngClass]="d.match.schema === 'Person' ? 'fa-user' : 'fa-building'"></i>
+                <p class="mt-2 text-xs">{{ photo.state === 'none' ? 'Aucune photo enregistrée' : 'Photo indisponible' }}</p>
+              </div>
+            </div>
+            <div *ngIf="photo.state === 'found' && photo.current" class="mt-2 text-[11px] text-slate-500 space-y-0.5">
+              <span class="inline-block rounded bg-white border border-slate-200 px-1.5 py-0.5 font-semibold"
+                [ngClass]="photo.current.photo.origin === 'OFFICIAL' ? 'text-emerald-700' : 'text-amber-700'">
+                {{ photo.current.photo.origin === 'OFFICIAL' ? 'Photo officielle' : 'Photo web validée' }}
+              </span>
+              <p *ngIf="photo.current.photo.licence">© {{ photo.current.photo.licence }}</p>
+              <a *ngIf="photo.current.photo.pageUrl" [href]="photo.current.photo.pageUrl" target="_blank" rel="noopener noreferrer"
+                class="block text-blue-600 hover:underline break-all">
+                <i class="fas fa-external-link-alt mr-1 text-[9px]"></i>Source de la photo
+              </a>
+            </div>
+            <div *ngIf="photo.all.length > 1" class="mt-2 flex flex-wrap gap-1.5">
+              <button type="button" *ngFor="let p of photo.all" (click)="photo.current = p"
+                class="h-12 w-10 rounded overflow-hidden border-2 bg-slate-200"
+                [ngClass]="photo.current === p ? 'border-blue-500' : 'border-transparent hover:border-slate-400'">
+                <img *ngIf="p.objectUrl" [src]="p.objectUrl" alt="" class="h-full w-full object-cover">
+              </button>
+            </div>
+          </div>
+
+          <!-- Sources -->
+          <div class="rounded-xl border border-slate-200 p-3">
+            <h4 class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">Source de données</h4>
+            <div class="space-y-2 mb-3">
+              <div *ngFor="let ds of d.datasetSources" class="rounded-lg border border-slate-200 bg-slate-50 px-2.5 py-2 text-xs">
+                <p class="font-semibold text-slate-800">{{ ds.name }}</p>
+                <p class="font-mono text-[10px] text-slate-400">{{ ds.id }}</p>
+                <a *ngIf="ds.sourceLocation || ds.websiteUrl" [href]="ds.sourceLocation || ds.websiteUrl" target="_blank" rel="noopener noreferrer"
+                  class="mt-1 inline-flex items-center gap-1 font-semibold text-blue-700 hover:underline break-all">
+                  <i class="fas fa-external-link-alt text-[9px]"></i>{{ hostOf((ds.sourceLocation || ds.websiteUrl)!) }}
+                </a>
+                <p *ngIf="ds.licence" class="mt-0.5 text-[10px] text-slate-500">Licence : {{ ds.licence }}</p>
+              </div>
+            </div>
+
+            <h4 class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">Pages sources de la fiche</h4>
+            <div *ngIf="d.sources.length" class="space-y-1.5">
+              <a *ngFor="let s of d.sources" [href]="s" target="_blank" rel="noopener noreferrer"
+                class="flex items-start gap-2 rounded-lg border border-blue-100 bg-blue-50 px-2.5 py-2 text-xs font-semibold text-blue-700 hover:bg-blue-100">
+                <i class="fas fa-external-link-alt mt-0.5 text-[10px]"></i>
+                <span class="min-w-0">
+                  <span class="block">{{ hostOf(s) }}</span>
+                  <span class="block font-normal text-blue-600/80 break-all">{{ s }}</span>
+                </span>
+              </a>
+            </div>
+            <p *ngIf="!d.sources.length" class="text-xs text-slate-400">La fiche ne cite pas de page précise : voir la source de données ci-dessus.</p>
+            <p class="mt-2 text-[10px] font-mono text-slate-400 break-all">ID : {{ d.match.id }}</p>
+          </div>
+        </div>
+
+        <!-- Colonne informations -->
+        <div class="md:col-span-8 space-y-5">
+
+          <section *ngIf="d.match.pepStatusLabel || d.match.pepTierLabel || d.match.coolingOffEndDate" class="rounded-xl border border-blue-100 bg-blue-50/50 p-3.5 space-y-1 text-sm">
+            <h4 class="text-xs font-bold uppercase tracking-wider text-blue-800 mb-1">Statut AML / LCB-FT</h4>
+            <p *ngIf="d.match.pepStatusLabel"><span class="text-slate-500">Statut :</span> <b class="text-slate-800">{{ d.match.pepStatusLabel }}</b></p>
+            <p *ngIf="d.match.pepTierLabel"><span class="text-slate-500">Niveau :</span> <b class="text-slate-800">{{ d.match.pepTierLabel }}</b></p>
+            <p *ngIf="d.match.coolingOffEndDate"><span class="text-slate-500">Fin du refroidissement :</span> <b class="text-amber-700">{{ formatDate(d.match.coolingOffEndDate) }}</b></p>
+          </section>
+
+          <section>
+            <h4 class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">Comparaison saisie / fiche trouvée</h4>
+            <div class="overflow-hidden rounded-xl border border-slate-200">
+              <table class="w-full text-sm">
+                <thead class="bg-slate-50 text-[11px] uppercase text-slate-500">
+                  <tr>
+                    <th class="px-3 py-2 text-left font-semibold w-1/4"></th>
+                    <th class="px-3 py-2 text-left font-semibold">Fichier CSV</th>
+                    <th class="px-3 py-2 text-left font-semibold">Fiche trouvée</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-100">
+                  <tr *ngFor="let c of d.comparison">
+                    <td class="px-3 py-2 text-slate-500 font-medium align-top">{{ c.label }}</td>
+                    <td class="px-3 py-2 text-slate-800 align-top break-words">{{ c.input || '—' }}</td>
+                    <td class="px-3 py-2 align-top break-words" [ngClass]="c.agrees === false ? 'text-red-700 font-semibold' : c.agrees ? 'text-emerald-700 font-semibold' : 'text-slate-800'">
+                      {{ c.found || '—' }}
+                      <i *ngIf="c.agrees === true" class="fas fa-check ml-1 text-emerald-600" title="Concordant"></i>
+                      <i *ngIf="c.agrees === false" class="fas fa-exclamation-triangle ml-1 text-red-600" title="Divergent"></i>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          <section>
+            <h4 class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">Toutes les informations de la fiche</h4>
+            <div class="rounded-xl border border-slate-200 divide-y divide-slate-100">
+              <div *ngFor="let p of d.properties" class="grid grid-cols-3 gap-3 px-3 py-2 text-sm">
+                <div class="text-slate-500 font-medium" [title]="p.key">{{ p.label }}</div>
+                <div class="col-span-2 space-y-0.5 min-w-0">
+                  <ng-container *ngFor="let v of p.values">
+                    <a *ngIf="toHref(v) as href; else plain" [href]="href" target="_blank" rel="noopener noreferrer"
+                      class="block text-blue-600 hover:underline break-all"><i class="fas fa-external-link-alt mr-1 text-[9px]"></i>{{ v }}</a>
+                    <ng-template #plain><p class="text-slate-800 break-words whitespace-pre-line">{{ v }}</p></ng-template>
+                  </ng-container>
+                </div>
+              </div>
+              <p *ngIf="!d.properties.length" class="px-3 py-3 text-sm text-slate-400">Aucune propriété.</p>
+            </div>
+          </section>
+        </div>
+      </div>
+    </div>
+
+    <!-- Navigation entre correspondances -->
+    <div class="px-5 py-3 border-t border-slate-200 bg-slate-50 flex items-center justify-between">
+      <button type="button" (click)="stepDetail(-1)" [disabled]="d.index === 0"
+        class="rounded-lg border border-slate-300 bg-white px-3 py-1.5 text-sm font-semibold text-slate-700 hover:bg-slate-100 disabled:opacity-40">
+        <i class="fas fa-chevron-left mr-1"></i> Précédente
+      </button>
+      <button type="button" (click)="closeDetail()" class="rounded-lg bg-slate-800 px-4 py-1.5 text-sm font-semibold text-white hover:bg-slate-900">Fermer</button>
+      <button type="button" (click)="stepDetail(1)" [disabled]="d.index >= d.row.matches.length - 1"
+        class="rounded-lg border border-slate-300 bg-white px-3 py-1.5 text-sm font-semibold text-slate-700 hover:bg-slate-100 disabled:opacity-40">
+        Suivante <i class="fas fa-chevron-right ml-1"></i>
+      </button>
+    </div>
+  </div>
+</div>

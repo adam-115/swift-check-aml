@@ -1,0 +1,21 @@
+reference;type;nom_complet;nationalite;categorie_test;cible_attendue;score_attendu;statut_attendu
+TC-GER-021;personne;Rainer Robra;;Passif - Cooling-off;Rainer Robra (Ex-Membre Bundesrat sorti le 05/10/2026);100%;COOLING (viduité en cours) - Tier 2
+TC-GER-022;personne;Bettina Stark-Watzinger;;Passif - Expiré;Bettina Stark-Watzinger (Ex-Ministre);100%;EXPIRED ou COOLING
+TC-GER-023;personne;Malu Dreyer;;Passif - Diminutif;Marie-Luise 'Malu' Dreyer (Ex-Ministre-Présidente);> 85%;EXPIRED
+TC-GER-024;personne;Angela Merkel;;Passif - Expiré;Angela Merkel (Ex-Chancelière);100%;EXPIRED
+TC-GER-025;personne;Christine Lambrecht;;Passif - Expiré;Christine Lambrecht (Ex-Ministre);100%;EXPIRED
+TC-GER-026;personne;Hendrik Wüst;;Cumul de mandats;Hendrik Wüst (Ministre-Président NRW & Bundesrat);100%;Master Record consolidé
+TC-GER-027;personne;Katarina Barley;;Parlement Européen;Katarina Barley (Vice-Présidente Europarl);100%;Tier 2 (PE) / Tier 2 (Bundestag)
+TC-GER-028;personne;Volker Wissing;;Maintien gouvernement;Volker Wissing (Ministre Actif);100%;Tier 2 (Gouvernement)
+TC-GER-029;personne;Aydan Özouz;;Caractère spécial 'ğ';Aydan Özoğuz (Vice-PDT Bundestag);100%;Tier 2
+TC-GER-030;personne;Dr. h. c. Joachim Gauck;;Expiré / Titre complexe;Joachim Gauck (Ex-Président);-;-
+TC-GER-031;personne;Prof. Dr. Stephan Harbarth;;Cour Suprême / Titres;Stephan Harbarth (Président BVerfG);> 80%;Tier 1/2 (Juge suprême)
+TC-GER-032;personne;Sabine Leutheusser-Schnarrenberger;;Expiré / Nom très long;Sabine Leutheusser-Schnarrenberger;100%;EXPIRED
+TC-GER-033;personne;Cem Özdemir;;Umlauts multiples;Cem Özdemir (Ministre);100%;Tier 2 (Ministre)
+TC-GER-034;personne;Generalmajor Jürgen-Joachim von Sandrart;;Militaire / Particule;Jürgen-Joachim von Sandrart (Militaire);> 90%;Tier 2
+TC-GER-035;personne;Flottillenadmiral Sascha Helge Rackwitz;;Militaire Marine;Sascha Helge Rackwitz (Marine);> 90%;Tier 2
+TC-GER-036;personne;Generalleutnant Andreas Marlow;;Militaire Binational;Andreas Marlow (Heer);> 90%;Tier 2
+TC-GER-037;personne;Johann Wadephul;;Troncature prénom;Johann David Wadephul;> 90%;Tier 2 (Ministre)
+TC-GER-038;personne;Steffi Lemke;;Diminutif;Steffi Lemke (Ministre);100%;Tier 2
+TC-GER-039;personne;Jörg Kukies;;Nomination récente;Jörg Kukies (Ministre Finances);> 90%;Tier 2
+TC-GER-040;personne;Prof. Dr. Joachim Nagel;;Banque Centrale;Joachim Nagel (Président Bundesbank);> 90%;Tier 2

@@ -25,6 +25,8 @@ export const routes: Routes = [
   { path: 'tests/:id', component: ParserTestDetailComponent, canActivate: [authGuard], data: { roles: ['admin', 'tester'] } },
   { path: 'verification', component: AmlVerificationComponent, canActivate: [authGuard], data: { roles: ['admin', 'tester'] } },
   { path: 'verification/advanced', component: AmlAdvancedVerificationComponent, canActivate: [authGuard], data: { roles: ['admin', 'tester'] } },
+  // Chargée à la demande : hors du bundle initial (budget de 1 Mo).
+  { path: 'verification/batch', loadComponent: () => import('./components/aml-batch-verification/aml-batch-verification.component').then(m => m.AmlBatchVerificationComponent), canActivate: [authGuard], data: { roles: ['admin', 'tester'] } },
   { path: 'verification/history', component: AmlSearchHistoryComponent, canActivate: [authGuard], data: { roles: ['admin', 'tester'] } },
   { path: 'coverage', component: PepCoverageComponent, canActivate: [authGuard], data: { roles: ['admin', 'tester'] } },
   { path: 'pep-categories', component: PepCategoriesComponent, canActivate: [authGuard], data: { roles: ['admin'] } },

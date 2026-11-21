@@ -1,0 +1,251 @@
+<?xml version="1.0" ?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="batch_report_design" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="30" rightMargin="30" topMargin="30" bottomMargin="30">
+    <style name="Base" isDefault="true" fontName="SansSerif" fontSize="9"/>
+    <style name="TableHeader" mode="Opaque" backcolor="#F1F5F9" fontName="SansSerif" fontSize="9" isBold="true" forecolor="#334155">
+        <box>
+            <bottomPen lineWidth="1.0" lineColor="#CBD5E1"/>
+        </box>
+    </style>
+    <parameter name="fileName" class="java.lang.String"/>
+    <parameter name="dataset" class="java.lang.String"/>
+    <parameter name="startedAt" class="java.lang.String"/>
+    <parameter name="duration" class="java.lang.String"/>
+    <parameter name="total" class="java.lang.Integer"/>
+    <parameter name="hits" class="java.lang.Integer"/>
+    <parameter name="countryAlerts" class="java.lang.Integer"/>
+    <parameter name="clean" class="java.lang.Integer"/>
+    <parameter name="invalid" class="java.lang.Integer"/>
+    <parameter name="errors" class="java.lang.Integer"/>
+    <parameter name="logoPath" class="java.io.InputStream"/>
+    <field name="lineLabel" class="java.lang.String"/>
+    <field name="entityLabel" class="java.lang.String"/>
+    <field name="entityDetails" class="java.lang.String"/>
+    <field name="statusLabel" class="java.lang.String"/>
+    <field name="statusColor" class="java.lang.String"/>
+    <field name="matchesHtml" class="java.lang.String"/>
+    <title>
+        <band height="215">
+            <rectangle>
+                <reportElement x="-30" y="-30" width="595" height="100" backcolor="#1E293B"/>
+                <graphicElement>
+                    <pen lineWidth="0"/>
+                </graphicElement>
+            </rectangle>
+            <image scaleImage="RetainShape" hAlign="Left" vAlign="Middle" isUsingCache="true" onErrorType="Blank">
+                <reportElement x="0" y="-20" width="180" height="60"/>
+                <imageExpression><![CDATA[$P{logoPath}]]></imageExpression>
+            </image>
+            <staticText>
+                <reportElement x="185" y="-10" width="350" height="30" forecolor="#FFFFFF"/>
+                <textElement textAlignment="Right" verticalAlignment="Middle">
+                    <font size="18" isBold="true"/>
+                </textElement>
+                <text><![CDATA[Rapport de Vérification par Lot]]></text>
+            </staticText>
+            <textField pattern="dd/MM/yyyy HH:mm">
+                <reportElement x="335" y="20" width="200" height="20" forecolor="#94A3B8"/>
+                <textElement textAlignment="Right" verticalAlignment="Middle">
+                    <font size="10"/>
+                </textElement>
+                <textFieldExpression><![CDATA["Édité le " + new java.text.SimpleDateFormat("dd/MM/yyyy HH:mm").format(new java.util.Date())]]></textFieldExpression>
+            </textField>
+
+            <!-- Contexte -->
+            <rectangle>
+                <reportElement x="0" y="82" width="535" height="44" backcolor="#F8FAFC"/>
+                <graphicElement>
+                    <pen lineWidth="1" lineColor="#E2E8F0"/>
+                </graphicElement>
+            </rectangle>
+            <textField>
+                <reportElement x="10" y="88" width="320" height="15" forecolor="#0F172A"/>
+                <textElement markup="html"/>
+                <textFieldExpression><![CDATA["<font color='#64748B'><b>Fichier :</b></font> " + $P{fileName}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="335" y="88" width="190" height="15" forecolor="#0F172A"/>
+                <textElement markup="html"/>
+                <textFieldExpression><![CDATA["<font color='#64748B'><b>Vérifié le :</b></font> " + $P{startedAt}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="10" y="105" width="320" height="15" forecolor="#0F172A"/>
+                <textElement markup="html"/>
+                <textFieldExpression><![CDATA["<font color='#64748B'><b>Bases interrogées :</b></font> " + ("default".equals($P{dataset}) ? "toutes (consolidé)" : $P{dataset})]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="335" y="105" width="190" height="15" forecolor="#0F172A"/>
+                <textElement markup="html"/>
+                <textFieldExpression><![CDATA["<font color='#64748B'><b>Durée :</b></font> " + $P{duration}]]></textFieldExpression>
+            </textField>
+
+            <!-- Synthèse -->
+            <staticText>
+                <reportElement x="0" y="136" width="535" height="18" forecolor="#0F172A"/>
+                <textElement verticalAlignment="Middle">
+                    <font size="12" isBold="true"/>
+                </textElement>
+                <text><![CDATA[Synthèse]]></text>
+            </staticText>
+
+            <rectangle radius="4">
+                <reportElement x="0" y="158" width="101" height="44" backcolor="#F1F5F9"/>
+                <graphicElement><pen lineWidth="0"/></graphicElement>
+            </rectangle>
+            <textField>
+                <reportElement x="0" y="160" width="101" height="22" forecolor="#0F172A"/>
+                <textElement textAlignment="Center" verticalAlignment="Middle"><font size="16" isBold="true"/></textElement>
+                <textFieldExpression><![CDATA[$P{total}]]></textFieldExpression>
+            </textField>
+            <staticText>
+                <reportElement x="0" y="182" width="101" height="16" forecolor="#475569"/>
+                <textElement textAlignment="Center" verticalAlignment="Middle"><font size="8" isBold="true"/></textElement>
+                <text><![CDATA[ENTITÉS]]></text>
+            </staticText>
+
+            <rectangle radius="4">
+                <reportElement x="108" y="158" width="101" height="44" backcolor="#FEE2E2"/>
+                <graphicElement><pen lineWidth="0"/></graphicElement>
+            </rectangle>
+            <textField>
+                <reportElement x="108" y="160" width="101" height="22" forecolor="#DC2626"/>
+                <textElement textAlignment="Center" verticalAlignment="Middle"><font size="16" isBold="true"/></textElement>
+                <textFieldExpression><![CDATA[$P{hits}]]></textFieldExpression>
+            </textField>
+            <staticText>
+                <reportElement x="108" y="182" width="101" height="16" forecolor="#B91C1C"/>
+                <textElement textAlignment="Center" verticalAlignment="Middle"><font size="8" isBold="true"/></textElement>
+                <text><![CDATA[CORRESPONDANCES]]></text>
+            </staticText>
+
+            <rectangle radius="4">
+                <reportElement x="216" y="158" width="101" height="44" backcolor="#FEF3C7"/>
+                <graphicElement><pen lineWidth="0"/></graphicElement>
+            </rectangle>
+            <textField>
+                <reportElement x="216" y="160" width="101" height="22" forecolor="#D97706"/>
+                <textElement textAlignment="Center" verticalAlignment="Middle"><font size="16" isBold="true"/></textElement>
+                <textFieldExpression><![CDATA[$P{countryAlerts}]]></textFieldExpression>
+            </textField>
+            <staticText>
+                <reportElement x="216" y="182" width="101" height="16" forecolor="#B45309"/>
+                <textElement textAlignment="Center" verticalAlignment="Middle"><font size="8" isBold="true"/></textElement>
+                <text><![CDATA[ALERTES PAYS (GAFI)]]></text>
+            </staticText>
+
+            <rectangle radius="4">
+                <reportElement x="324" y="158" width="101" height="44" backcolor="#D1FAE5"/>
+                <graphicElement><pen lineWidth="0"/></graphicElement>
+            </rectangle>
+            <textField>
+                <reportElement x="324" y="160" width="101" height="22" forecolor="#059669"/>
+                <textElement textAlignment="Center" verticalAlignment="Middle"><font size="16" isBold="true"/></textElement>
+                <textFieldExpression><![CDATA[$P{clean}]]></textFieldExpression>
+            </textField>
+            <staticText>
+                <reportElement x="324" y="182" width="101" height="16" forecolor="#047857"/>
+                <textElement textAlignment="Center" verticalAlignment="Middle"><font size="8" isBold="true"/></textElement>
+                <text><![CDATA[AUCUN RÉSULTAT]]></text>
+            </staticText>
+
+            <rectangle radius="4">
+                <reportElement x="432" y="158" width="103" height="44" backcolor="#EDE9FE"/>
+                <graphicElement><pen lineWidth="0"/></graphicElement>
+            </rectangle>
+            <textField>
+                <reportElement x="432" y="160" width="103" height="22" forecolor="#6D28D9"/>
+                <textElement textAlignment="Center" verticalAlignment="Middle"><font size="16" isBold="true"/></textElement>
+                <textFieldExpression><![CDATA[$P{errors} + $P{invalid}]]></textFieldExpression>
+            </textField>
+            <staticText>
+                <reportElement x="432" y="182" width="103" height="16" forecolor="#5B21B6"/>
+                <textElement textAlignment="Center" verticalAlignment="Middle"><font size="8" isBold="true"/></textElement>
+                <text><![CDATA[NON VÉRIFIÉES]]></text>
+            </staticText>
+        </band>
+    </title>
+    <columnHeader>
+        <band height="24">
+            <staticText>
+                <reportElement style="TableHeader" x="0" y="0" width="35" height="24"/>
+                <textElement textAlignment="Center" verticalAlignment="Middle"/>
+                <text><![CDATA[Ligne]]></text>
+            </staticText>
+            <staticText>
+                <reportElement style="TableHeader" x="35" y="0" width="170" height="24"/>
+                <textElement verticalAlignment="Middle"><paragraph leftIndent="5"/></textElement>
+                <text><![CDATA[Entité vérifiée]]></text>
+            </staticText>
+            <staticText>
+                <reportElement style="TableHeader" x="205" y="0" width="90" height="24"/>
+                <textElement verticalAlignment="Middle"><paragraph leftIndent="5"/></textElement>
+                <text><![CDATA[Résultat]]></text>
+            </staticText>
+            <staticText>
+                <reportElement style="TableHeader" x="295" y="0" width="240" height="24"/>
+                <textElement verticalAlignment="Middle"><paragraph leftIndent="5"/></textElement>
+                <text><![CDATA[Correspondances / remarques]]></text>
+            </staticText>
+        </band>
+    </columnHeader>
+    <detail>
+        <band height="34">
+            <rectangle>
+                <reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="535" height="34" backcolor="#F8FAFC">
+                    <printWhenExpression><![CDATA[$V{REPORT_COUNT} % 2 == 0]]></printWhenExpression>
+                </reportElement>
+                <graphicElement><pen lineWidth="0"/></graphicElement>
+            </rectangle>
+            <textField isBlankWhenNull="true">
+                <reportElement x="0" y="5" width="35" height="14" forecolor="#64748B"/>
+                <textElement textAlignment="Center"/>
+                <textFieldExpression><![CDATA[$F{lineLabel}]]></textFieldExpression>
+            </textField>
+            <textField textAdjust="StretchHeight" isBlankWhenNull="true">
+                <reportElement x="35" y="5" width="170" height="14" forecolor="#0F172A"/>
+                <textElement><font isBold="true"/><paragraph leftIndent="5"/></textElement>
+                <textFieldExpression><![CDATA[$F{entityLabel}]]></textFieldExpression>
+            </textField>
+            <textField textAdjust="StretchHeight" isBlankWhenNull="true">
+                <reportElement positionType="Float" x="35" y="19" width="170" height="11" forecolor="#64748B"/>
+                <textElement markup="html"><font size="7"/><paragraph leftIndent="5"/></textElement>
+                <textFieldExpression><![CDATA[$F{entityDetails}]]></textFieldExpression>
+            </textField>
+            <textField isBlankWhenNull="true">
+                <reportElement x="205" y="5" width="90" height="14"/>
+                <textElement markup="html"><font size="8"/><paragraph leftIndent="5"/></textElement>
+                <textFieldExpression><![CDATA["<font color='" + $F{statusColor} + "'><b>" + $F{statusLabel} + "</b></font>"]]></textFieldExpression>
+            </textField>
+            <textField textAdjust="StretchHeight" isBlankWhenNull="true">
+                <reportElement x="295" y="5" width="240" height="25" forecolor="#334155"/>
+                <box bottomPadding="3" rightPadding="4"/>
+                <textElement markup="html"><font size="8"/><paragraph leftIndent="5"/></textElement>
+                <textFieldExpression><![CDATA[$F{matchesHtml}]]></textFieldExpression>
+            </textField>
+            <line>
+                <reportElement positionType="FixRelativeToBottom" x="0" y="33" width="535" height="1" forecolor="#E2E8F0"/>
+            </line>
+        </band>
+    </detail>
+    <pageFooter>
+        <band height="40">
+            <line>
+                <reportElement x="0" y="5" width="535" height="1" forecolor="#CBD5E1"/>
+            </line>
+            <staticText>
+                <reportElement x="0" y="10" width="330" height="20" forecolor="#94A3B8"/>
+                <textElement verticalAlignment="Middle"><font size="8"/></textElement>
+                <text><![CDATA[Ce rapport est généré automatiquement par SwiftCheck AML. Confidentiel.]]></text>
+            </staticText>
+            <textField>
+                <reportElement x="335" y="10" width="100" height="20" forecolor="#94A3B8"/>
+                <textElement textAlignment="Right" verticalAlignment="Middle"><font size="9"/></textElement>
+                <textFieldExpression><![CDATA["Page " + $V{PAGE_NUMBER}]]></textFieldExpression>
+            </textField>
+            <textField evaluationTime="Report">
+                <reportElement x="435" y="10" width="100" height="20" forecolor="#94A3B8"/>
+                <textElement textAlignment="Left" verticalAlignment="Middle"><font size="9"/></textElement>
+                <textFieldExpression><![CDATA[" / " + $V{PAGE_NUMBER}]]></textFieldExpression>
+            </textField>
+        </band>
+    </pageFooter>
+</jasperReport>

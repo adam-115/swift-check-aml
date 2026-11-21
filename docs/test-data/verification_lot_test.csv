@@ -1,0 +1,26 @@
+reference;type;nom;prenom;nationalite;date_naissance;lieu_naissance;pays;commentaire
+T-001;personne;Poutine;Vladimir;RU;07/10/1952;Leningrad;RU;Sanction attendue
+T-002;personne;Lavrov;Sergueï;Russie;21/03/1950;Moscou;RU;Sanction attendue (nationalité en toutes lettres)
+T-003;personne;Kadyrov;Ramzan;RU;05/10/1976;Tsentoroï;RU;Sanction attendue
+T-004;personne;Loukachenko;Alexandre;BY;30/08/1954;Kopys;BY;Sanction attendue
+T-005;personne;al-Assad;Bachar;SY;11/09/1965;Damas;SY;Sanction attendue
+T-006;personne;Khamenei;Ali;IR;1939;Machhad;IR;Sanction + alerte pays GAFI
+T-007;personne;Kim;Jong Un;KP;1984;;KP;Sanction + alerte pays GAFI (année seule)
+T-008;personne;Macron;Emmanuel;Française;21/12/1977;Amiens;FR;PEP France attendu (gentilé)
+T-009;personne;Bettel;Xavier;LU;03/03/1973;Luxembourg;LU;PEP Luxembourg attendu
+T-010;personne;Frieden;Luc;luxembourgeois;16/09/1963;Esch-sur-Alzette;LU;PEP Luxembourg attendu
+T-011;personne;Scholz;Olaf;DE;14/06/1958;Osnabrück;DE;PEP Allemagne attendu
+T-012;personne;Poutin;Vladimir;RU;1952-10-07;;RU;Faute de frappe + date ISO
+T-013;personne;Martin;Sophie;FR;12/04/1988;Lyon;FR;Aucun résultat attendu
+T-014;personne;Weber;Lukas;DE;03/11/1991;Trèves;DE;Aucun résultat attendu
+T-015;personne;Ferreira;Ana;PT;27/07/1979;Porto;LU;Aucun résultat attendu
+T-016;personne;Rahimi;Karim;Iran;15/05/1985;Téhéran;FR;Alerte pays seule (GAFI) attendue
+T-017;personne;Benali;Yasmine;DZ;09/09/1993;Oran;FR;Alerte pays seule (liste grise) attendue
+T-018;personne;"Dupont; dit ""Jo""";Jean;FR;01/01/1970;Paris;FR;Champ entre guillemets avec point-virgule
+T-019;personne;Leroy;Paul;FR;31/02/1990;Nantes;FR;Date impossible : avertissement attendu
+T-020;personne;;;FR;01/01/1980;;FR;Nom absent : ligne non vérifiée
+T-021;personne;Schmit;Claire;Atlantide;22/06/1982;;LU;Pays inconnu : avertissement attendu
+T-022;societe;Rosneft;;;;;RU;Société sanctionnée attendue
+T-023;societe;Gazprombank;;;;;RU;Société sanctionnée attendue
+T-024;organisation;Groupe Wagner;;;;;RU;Organisation sanctionnée attendue
+T-025;societe;Boulangerie Les Trois Épis;;;;;FR;Aucun résultat attendu
